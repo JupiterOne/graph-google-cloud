@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createCloudFunctionEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Function",
+  ],
+  "_key": "google_cloud_function_projects/j1-gc-integration-dev/locations/us-central1/functions/j1-gc-integration-devtestfunction",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "availableMemoryMb": 128,
+        "description": "Test function",
+        "entryPoint": "handler",
+        "environmentVariables": Object {
+          "TEST_ENV_VAR": "test-env-var-val",
+        },
+        "httpsTrigger": Object {
+          "url": "https://us-central1-j1-gc-integration-dev.cloudfunctions.net/j1-gc-integration-devtestfunction",
+        },
+        "ingressSettings": "ALLOW_ALL",
+        "name": "projects/j1-gc-integration-dev/locations/us-central1/functions/j1-gc-integration-devtestfunction",
+        "runtime": "nodejs10",
+        "serviceAccountEmail": "j1-gc-integration-dev@appspot.gserviceaccount.com",
+        "sourceArchiveUrl": "gs://j1-gc-integration-devcloudfunctions/http_trigger.zip",
+        "status": "ACTIVE",
+        "timeout": "60s",
+        "updateTime": "2020-07-28T18:35:52.821Z",
+        "versionId": "1",
+      },
+    },
+  ],
+  "_type": "google_cloud_function",
+  "active": false,
+  "availableMemoryMb": 128,
+  "createdOn": undefined,
+  "description": "Test function",
+  "displayName": "projects/j1-gc-integration-dev/locations/us-central1/functions/j1-gc-integration-devtestfunction",
+  "handler": "handler",
+  "ingressSettings": "ALLOW_ALL",
+  "maxInstances": undefined,
+  "name": "projects/j1-gc-integration-dev/locations/us-central1/functions/j1-gc-integration-devtestfunction",
+  "runtime": "nodejs10",
+  "status": "ACTIVE",
+  "timeout": "60s",
+  "updatedOn": 1595961352821,
+  "version": "1",
+}
+`;

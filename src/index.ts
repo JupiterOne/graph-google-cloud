@@ -1,13 +1,24 @@
 import { IntegrationInvocationConfig } from '@jupiterone/integration-sdk-core';
-
-import instanceConfigFields from './instanceConfigFields';
-import fetchAccounts from './steps/fetchAccounts';
-import fetchSomething from './steps/fetchSomething';
 import { IntegrationConfig } from './types';
-import validateInvocation from './validateInvocation';
+import getStepStartStates from './getStepStartStates';
+import { functionsSteps } from './steps/functions';
+import { storageSteps } from './steps/storage';
 
 export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> = {
-  instanceConfigFields,
-  validateInvocation,
-  integrationSteps: [fetchAccounts, fetchSomething],
+  instanceConfigFields: {
+    privateKey: {
+      type: 'string',
+      mask: true,
+    },
+    clientEmail: {
+      type: 'string',
+      mask: true,
+    },
+    projectId: {
+      type: 'string',
+      mask: false,
+    },
+  },
+  getStepStartStates,
+  integrationSteps: [...functionsSteps, ...storageSteps],
 };
