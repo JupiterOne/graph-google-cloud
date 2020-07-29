@@ -32,7 +32,7 @@ Object {
     },
   ],
   "_type": "google_cloud_function",
-  "active": false,
+  "active": true,
   "availableMemoryMb": 128,
   "createdOn": undefined,
   "description": "Test function",
