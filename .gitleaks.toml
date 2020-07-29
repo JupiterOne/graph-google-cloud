@@ -104,4 +104,8 @@ title = "gitleaks config"
 	tags = ["key", "twilio"]
 [allowlist]
 	description = "Allowlist files"
-	files = '''(^\.?gitleaks.toml$|^yarn.lock$|^fake-private-test-key.key$|(.*?)(jpg|gif|doc|pdf|bin)$)'''
+	files = [
+		'''(.*)?gitleaks.toml$''',
+		'''(.*)?yarn.lock$''',
+		'''(.*?)(jpg|gif|doc|pdf|bin)$)'''
+	]
