@@ -1,4 +1,4 @@
-# JupiterOne Integration
+# graph-google-cloud
 
 ## Development Environment
 

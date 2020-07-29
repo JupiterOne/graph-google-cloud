@@ -4,3 +4,4 @@ dist/
 .env
 .eslintcache
 tsconfig.tsbuildinfo
+coverage/
