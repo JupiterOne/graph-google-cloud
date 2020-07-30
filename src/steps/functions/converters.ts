@@ -41,6 +41,7 @@ export function createCloudFunctionEntity(
         ingressSettings: cloudFunction.ingressSettings,
         maxInstances: cloudFunction.maxInstances,
         status: cloudFunction.status,
+        active: cloudFunction.status === 'ACTIVE',
       },
     },
   });
