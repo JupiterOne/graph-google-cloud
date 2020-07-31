@@ -1,7 +1,7 @@
 module.exports = {
   ...require('@jupiterone/integration-sdk-dev-tools/config/jest'),
   collectCoverage: true,
-  collectCoverageFrom: ['src/**/*.ts'],
+  collectCoverageFrom: ['src/**/*.ts', 'test/jest.ts'],
   coverageThreshold: {
     global: {
       statements: 100,

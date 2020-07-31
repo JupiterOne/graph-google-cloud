@@ -1,0 +1,935 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchApiServices should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Service",
+      ],
+      "_key": "google_cloud_api_service_projects/545240943112/services/appengine.googleapis.com",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "config": Object {
+              "authentication": Object {},
+              "documentation": Object {
+                "summary": "Provisions and manages developers' App Engine applications.",
+              },
+              "name": "appengine.googleapis.com",
+              "quota": Object {},
+              "title": "App Engine Admin API",
+              "usage": Object {
+                "requirements": Array [
+                  "serviceusage.googleapis.com/tos/cloud",
+                ],
+              },
+            },
+            "name": "projects/545240943112/services/appengine.googleapis.com",
+            "parent": "projects/545240943112",
+            "state": "ENABLED",
+          },
+        },
+      ],
+      "_type": "google_cloud_api_service",
+      "category": Array [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "description": "Provisions and manages developers' App Engine applications.",
+      "displayName": "App Engine Admin API",
+      "enabled": true,
+      "name": "appengine.googleapis.com",
+      "state": "ENABLED",
+      "usageRequirements": Array [
+        "serviceusage.googleapis.com/tos/cloud",
+      ],
+    },
+    Object {
+      "_class": Array [
+        "Service",
+      ],
+      "_key": "google_cloud_api_service_projects/545240943112/services/bigquery.googleapis.com",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "config": Object {
+              "authentication": Object {},
+              "documentation": Object {
+                "summary": "A data platform for customers to create, manage, share and query data.",
+              },
+              "name": "bigquery.googleapis.com",
+              "quota": Object {},
+              "title": "BigQuery API",
+              "usage": Object {
+                "requirements": Array [
+                  "serviceusage.googleapis.com/tos/cloud",
+                ],
+              },
+            },
+            "name": "projects/545240943112/services/bigquery.googleapis.com",
+            "parent": "projects/545240943112",
+            "state": "ENABLED",
+          },
+        },
+      ],
+      "_type": "google_cloud_api_service",
+      "category": Array [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "description": "A data platform for customers to create, manage, share and query data.",
+      "displayName": "BigQuery API",
+      "enabled": true,
+      "name": "bigquery.googleapis.com",
+      "state": "ENABLED",
+      "usageRequirements": Array [
+        "serviceusage.googleapis.com/tos/cloud",
+      ],
+    },
+    Object {
+      "_class": Array [
+        "Service",
+      ],
+      "_key": "google_cloud_api_service_projects/545240943112/services/bigquerystorage.googleapis.com",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "config": Object {
+              "authentication": Object {},
+              "documentation": Object {},
+              "name": "bigquerystorage.googleapis.com",
+              "quota": Object {},
+              "title": "BigQuery Storage API",
+              "usage": Object {
+                "requirements": Array [
+                  "serviceusage.googleapis.com/tos/cloud",
+                ],
+              },
+            },
+            "name": "projects/545240943112/services/bigquerystorage.googleapis.com",
+            "parent": "projects/545240943112",
+            "state": "ENABLED",
+          },
+        },
+      ],
+      "_type": "google_cloud_api_service",
+      "category": Array [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "description": undefined,
+      "displayName": "BigQuery Storage API",
+      "enabled": true,
+      "name": "bigquerystorage.googleapis.com",
+      "state": "ENABLED",
+      "usageRequirements": Array [
+        "serviceusage.googleapis.com/tos/cloud",
+      ],
+    },
+    Object {
+      "_class": Array [
+        "Service",
+      ],
+      "_key": "google_cloud_api_service_projects/545240943112/services/cloudapis.googleapis.com",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "config": Object {
+              "authentication": Object {},
+              "documentation": Object {
+                "summary": "This is a meta service for Google Cloud APIs for convenience. Enabling this service enables all commonly used Google Cloud APIs for the project. By default, it is enabled for all projects created through Google Cloud Console and Google Cloud SDK, and should be manually enabled for all other projects that intend to use Google Cloud APIs. Note: disabling this service has no effect on other services.
+",
+              },
+              "name": "cloudapis.googleapis.com",
+              "quota": Object {},
+              "title": "Google Cloud APIs",
+              "usage": Object {
+                "requirements": Array [
+                  "serviceusage.googleapis.com/tos/cloud",
+                ],
+              },
+            },
+            "name": "projects/545240943112/services/cloudapis.googleapis.com",
+            "parent": "projects/545240943112",
+            "state": "ENABLED",
+          },
+        },
+      ],
+      "_type": "google_cloud_api_service",
+      "category": Array [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "description": "This is a meta service for Google Cloud APIs for convenience. Enabling this service enables all commonly used Google Cloud APIs for the project. By default, it is enabled for all projects created through Google Cloud Console and Google Cloud SDK, and should be manually enabled for all other projects that intend to use Google Cloud APIs. Note: disabling this service has no effect on other services.
+",
+      "displayName": "Google Cloud APIs",
+      "enabled": true,
+      "name": "cloudapis.googleapis.com",
+      "state": "ENABLED",
+      "usageRequirements": Array [
+        "serviceusage.googleapis.com/tos/cloud",
+      ],
+    },
+    Object {
+      "_class": Array [
+        "Service",
+      ],
+      "_key": "google_cloud_api_service_projects/545240943112/services/clouddebugger.googleapis.com",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "config": Object {
+              "authentication": Object {},
+              "documentation": Object {
+                "summary": "Examines the call stack and variables of a running application without stopping or slowing it down.
+",
+              },
+              "name": "clouddebugger.googleapis.com",
+              "quota": Object {},
+              "title": "Cloud Debugger API",
+              "usage": Object {
+                "requirements": Array [
+                  "serviceusage.googleapis.com/tos/cloud",
+                ],
+              },
+            },
+            "name": "projects/545240943112/services/clouddebugger.googleapis.com",
+            "parent": "projects/545240943112",
+            "state": "ENABLED",
+          },
+        },
+      ],
+      "_type": "google_cloud_api_service",
+      "category": Array [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "description": "Examines the call stack and variables of a running application without stopping or slowing it down.
+",
+      "displayName": "Cloud Debugger API",
+      "enabled": true,
+      "name": "clouddebugger.googleapis.com",
+      "state": "ENABLED",
+      "usageRequirements": Array [
+        "serviceusage.googleapis.com/tos/cloud",
+      ],
+    },
+    Object {
+      "_class": Array [
+        "Service",
+      ],
+      "_key": "google_cloud_api_service_projects/545240943112/services/cloudfunctions.googleapis.com",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "config": Object {
+              "authentication": Object {},
+              "documentation": Object {
+                "summary": "Manages lightweight user-provided functions executed in response to events.",
+              },
+              "name": "cloudfunctions.googleapis.com",
+              "quota": Object {},
+              "title": "Cloud Functions API",
+              "usage": Object {
+                "requirements": Array [
+                  "serviceusage.googleapis.com/tos/cloud",
+                ],
+              },
+            },
+            "name": "projects/545240943112/services/cloudfunctions.googleapis.com",
+            "parent": "projects/545240943112",
+            "state": "ENABLED",
+          },
+        },
+      ],
+      "_type": "google_cloud_api_service",
+      "category": Array [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "description": "Manages lightweight user-provided functions executed in response to events.",
+      "displayName": "Cloud Functions API",
+      "enabled": true,
+      "name": "cloudfunctions.googleapis.com",
+      "state": "ENABLED",
+      "usageRequirements": Array [
+        "serviceusage.googleapis.com/tos/cloud",
+      ],
+    },
+    Object {
+      "_class": Array [
+        "Service",
+      ],
+      "_key": "google_cloud_api_service_projects/545240943112/services/cloudkms.googleapis.com",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "config": Object {
+              "authentication": Object {},
+              "documentation": Object {
+                "summary": "Manages keys and performs cryptographic operations in a central cloud service, for direct use by other cloud resources and applications.
+",
+              },
+              "name": "cloudkms.googleapis.com",
+              "quota": Object {},
+              "title": "Cloud Key Management Service (KMS) API",
+              "usage": Object {
+                "requirements": Array [
+                  "serviceusage.googleapis.com/tos/cloud",
+                ],
+              },
+            },
+            "name": "projects/545240943112/services/cloudkms.googleapis.com",
+            "parent": "projects/545240943112",
+            "state": "ENABLED",
+          },
+        },
+      ],
+      "_type": "google_cloud_api_service",
+      "category": Array [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "description": "Manages keys and performs cryptographic operations in a central cloud service, for direct use by other cloud resources and applications.
+",
+      "displayName": "Cloud Key Management Service (KMS) API",
+      "enabled": true,
+      "name": "cloudkms.googleapis.com",
+      "state": "ENABLED",
+      "usageRequirements": Array [
+        "serviceusage.googleapis.com/tos/cloud",
+      ],
+    },
+    Object {
+      "_class": Array [
+        "Service",
+      ],
+      "_key": "google_cloud_api_service_projects/545240943112/services/cloudresourcemanager.googleapis.com",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "config": Object {
+              "authentication": Object {},
+              "documentation": Object {
+                "summary": "Creates, reads, and updates metadata for Google Cloud Platform resource containers.",
+              },
+              "name": "cloudresourcemanager.googleapis.com",
+              "quota": Object {},
+              "title": "Cloud Resource Manager API",
+              "usage": Object {
+                "requirements": Array [
+                  "serviceusage.googleapis.com/tos/cloud",
+                ],
+              },
+            },
+            "name": "projects/545240943112/services/cloudresourcemanager.googleapis.com",
+            "parent": "projects/545240943112",
+            "state": "ENABLED",
+          },
+        },
+      ],
+      "_type": "google_cloud_api_service",
+      "category": Array [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "description": "Creates, reads, and updates metadata for Google Cloud Platform resource containers.",
+      "displayName": "Cloud Resource Manager API",
+      "enabled": true,
+      "name": "cloudresourcemanager.googleapis.com",
+      "state": "ENABLED",
+      "usageRequirements": Array [
+        "serviceusage.googleapis.com/tos/cloud",
+      ],
+    },
+    Object {
+      "_class": Array [
+        "Service",
+      ],
+      "_key": "google_cloud_api_service_projects/545240943112/services/cloudtrace.googleapis.com",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "config": Object {
+              "authentication": Object {},
+              "documentation": Object {
+                "summary": "Sends application trace data to Cloud Trace for viewing. Trace data is collected for all App Engine applications by default. Trace data from other applications can be provided using this API. This library is used to interact with the Cloud Trace API directly. If you are looking to instrument your application for Cloud Trace, we recommend using OpenCensus.
+",
+              },
+              "name": "cloudtrace.googleapis.com",
+              "quota": Object {},
+              "title": "Cloud Trace API",
+              "usage": Object {
+                "requirements": Array [
+                  "serviceusage.googleapis.com/tos/cloud",
+                ],
+              },
+            },
+            "name": "projects/545240943112/services/cloudtrace.googleapis.com",
+            "parent": "projects/545240943112",
+            "state": "ENABLED",
+          },
+        },
+      ],
+      "_type": "google_cloud_api_service",
+      "category": Array [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "description": "Sends application trace data to Cloud Trace for viewing. Trace data is collected for all App Engine applications by default. Trace data from other applications can be provided using this API. This library is used to interact with the Cloud Trace API directly. If you are looking to instrument your application for Cloud Trace, we recommend using OpenCensus.
+",
+      "displayName": "Cloud Trace API",
+      "enabled": true,
+      "name": "cloudtrace.googleapis.com",
+      "state": "ENABLED",
+      "usageRequirements": Array [
+        "serviceusage.googleapis.com/tos/cloud",
+      ],
+    },
+    Object {
+      "_class": Array [
+        "Service",
+      ],
+      "_key": "google_cloud_api_service_projects/545240943112/services/datastore.googleapis.com",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "config": Object {
+              "authentication": Object {},
+              "documentation": Object {
+                "summary": "Accesses the schemaless NoSQL database to provide fully managed, robust, scalable storage for your application.
+",
+              },
+              "name": "datastore.googleapis.com",
+              "quota": Object {},
+              "title": "Cloud Datastore API",
+              "usage": Object {
+                "requirements": Array [
+                  "serviceusage.googleapis.com/tos/cloud",
+                ],
+              },
+            },
+            "name": "projects/545240943112/services/datastore.googleapis.com",
+            "parent": "projects/545240943112",
+            "state": "ENABLED",
+          },
+        },
+      ],
+      "_type": "google_cloud_api_service",
+      "category": Array [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "description": "Accesses the schemaless NoSQL database to provide fully managed, robust, scalable storage for your application.
+",
+      "displayName": "Cloud Datastore API",
+      "enabled": true,
+      "name": "datastore.googleapis.com",
+      "state": "ENABLED",
+      "usageRequirements": Array [
+        "serviceusage.googleapis.com/tos/cloud",
+      ],
+    },
+    Object {
+      "_class": Array [
+        "Service",
+      ],
+      "_key": "google_cloud_api_service_projects/545240943112/services/logging.googleapis.com",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "config": Object {
+              "authentication": Object {},
+              "documentation": Object {
+                "summary": "Writes log entries and manages your Cloud Logging configuration.
+The table entries below are presented in alphabetical order, not in order of common use. For explanations of the concepts found in the table entries, read the documentation at https://cloud.google.com/logging/docs.",
+              },
+              "name": "logging.googleapis.com",
+              "quota": Object {},
+              "title": "Cloud Logging API",
+              "usage": Object {
+                "requirements": Array [
+                  "serviceusage.googleapis.com/tos/cloud",
+                ],
+              },
+            },
+            "name": "projects/545240943112/services/logging.googleapis.com",
+            "parent": "projects/545240943112",
+            "state": "ENABLED",
+          },
+        },
+      ],
+      "_type": "google_cloud_api_service",
+      "category": Array [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "description": "Writes log entries and manages your Cloud Logging configuration.
+The table entries below are presented in alphabetical order, not in order of common use. For explanations of the concepts found in the table entries, read the documentation at https://cloud.google.com/logging/docs.",
+      "displayName": "Cloud Logging API",
+      "enabled": true,
+      "name": "logging.googleapis.com",
+      "state": "ENABLED",
+      "usageRequirements": Array [
+        "serviceusage.googleapis.com/tos/cloud",
+      ],
+    },
+    Object {
+      "_class": Array [
+        "Service",
+      ],
+      "_key": "google_cloud_api_service_projects/545240943112/services/monitoring.googleapis.com",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "config": Object {
+              "authentication": Object {},
+              "documentation": Object {
+                "summary": "Manages your Cloud Monitoring data and configurations. Most projects must be associated with a Workspace, with a few exceptions as noted on the individual method pages.
+The table entries below are presented in alphabetical order, not in order of common use. For explanations of the concepts found in the table entries, read the [Cloud Monitoring documentation](/monitoring/docs).
+",
+              },
+              "name": "monitoring.googleapis.com",
+              "quota": Object {},
+              "title": "Cloud Monitoring API",
+              "usage": Object {
+                "requirements": Array [
+                  "serviceusage.googleapis.com/tos/cloud",
+                ],
+              },
+            },
+            "name": "projects/545240943112/services/monitoring.googleapis.com",
+            "parent": "projects/545240943112",
+            "state": "ENABLED",
+          },
+        },
+      ],
+      "_type": "google_cloud_api_service",
+      "category": Array [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "description": "Manages your Cloud Monitoring data and configurations. Most projects must be associated with a Workspace, with a few exceptions as noted on the individual method pages.
+The table entries below are presented in alphabetical order, not in order of common use. For explanations of the concepts found in the table entries, read the [Cloud Monitoring documentation](/monitoring/docs).
+",
+      "displayName": "Cloud Monitoring API",
+      "enabled": true,
+      "name": "monitoring.googleapis.com",
+      "state": "ENABLED",
+      "usageRequirements": Array [
+        "serviceusage.googleapis.com/tos/cloud",
+      ],
+    },
+    Object {
+      "_class": Array [
+        "Service",
+      ],
+      "_key": "google_cloud_api_service_projects/545240943112/services/pubsub.googleapis.com",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "config": Object {
+              "authentication": Object {},
+              "documentation": Object {
+                "summary": "Provides reliable, many-to-many, asynchronous messaging between applications.
+",
+              },
+              "name": "pubsub.googleapis.com",
+              "quota": Object {},
+              "title": "Cloud Pub/Sub API",
+              "usage": Object {
+                "requirements": Array [
+                  "serviceusage.googleapis.com/tos/cloud",
+                ],
+              },
+            },
+            "name": "projects/545240943112/services/pubsub.googleapis.com",
+            "parent": "projects/545240943112",
+            "state": "ENABLED",
+          },
+        },
+      ],
+      "_type": "google_cloud_api_service",
+      "category": Array [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "description": "Provides reliable, many-to-many, asynchronous messaging between applications.
+",
+      "displayName": "Cloud Pub/Sub API",
+      "enabled": true,
+      "name": "pubsub.googleapis.com",
+      "state": "ENABLED",
+      "usageRequirements": Array [
+        "serviceusage.googleapis.com/tos/cloud",
+      ],
+    },
+    Object {
+      "_class": Array [
+        "Service",
+      ],
+      "_key": "google_cloud_api_service_projects/545240943112/services/servicemanagement.googleapis.com",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "config": Object {
+              "authentication": Object {},
+              "documentation": Object {
+                "summary": "Google Service Management allows service producers to publish their services on Google Cloud Platform so that they can be discovered and used by service consumers.",
+              },
+              "name": "servicemanagement.googleapis.com",
+              "quota": Object {},
+              "title": "Service Management API",
+              "usage": Object {
+                "requirements": Array [
+                  "serviceusage.googleapis.com/tos/cloud",
+                ],
+              },
+            },
+            "name": "projects/545240943112/services/servicemanagement.googleapis.com",
+            "parent": "projects/545240943112",
+            "state": "ENABLED",
+          },
+        },
+      ],
+      "_type": "google_cloud_api_service",
+      "category": Array [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "description": "Google Service Management allows service producers to publish their services on Google Cloud Platform so that they can be discovered and used by service consumers.",
+      "displayName": "Service Management API",
+      "enabled": true,
+      "name": "servicemanagement.googleapis.com",
+      "state": "ENABLED",
+      "usageRequirements": Array [
+        "serviceusage.googleapis.com/tos/cloud",
+      ],
+    },
+    Object {
+      "_class": Array [
+        "Service",
+      ],
+      "_key": "google_cloud_api_service_projects/545240943112/services/serviceusage.googleapis.com",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "config": Object {
+              "authentication": Object {},
+              "documentation": Object {
+                "summary": "Enables services that service consumers want to use on Google Cloud Platform, lists the available or enabled services, or disables services that service consumers no longer use.",
+              },
+              "name": "serviceusage.googleapis.com",
+              "quota": Object {},
+              "title": "Service Usage API",
+              "usage": Object {
+                "requirements": Array [
+                  "serviceusage.googleapis.com/tos/cloud",
+                ],
+              },
+            },
+            "name": "projects/545240943112/services/serviceusage.googleapis.com",
+            "parent": "projects/545240943112",
+            "state": "ENABLED",
+          },
+        },
+      ],
+      "_type": "google_cloud_api_service",
+      "category": Array [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "description": "Enables services that service consumers want to use on Google Cloud Platform, lists the available or enabled services, or disables services that service consumers no longer use.",
+      "displayName": "Service Usage API",
+      "enabled": true,
+      "name": "serviceusage.googleapis.com",
+      "state": "ENABLED",
+      "usageRequirements": Array [
+        "serviceusage.googleapis.com/tos/cloud",
+      ],
+    },
+    Object {
+      "_class": Array [
+        "Service",
+      ],
+      "_key": "google_cloud_api_service_projects/545240943112/services/source.googleapis.com",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "config": Object {
+              "authentication": Object {},
+              "documentation": Object {
+                "summary": "Access source code repositories hosted by Google.",
+              },
+              "name": "source.googleapis.com",
+              "quota": Object {},
+              "title": "Legacy Cloud Source Repositories API",
+              "usage": Object {
+                "requirements": Array [
+                  "serviceusage.googleapis.com/tos/cloud",
+                ],
+              },
+            },
+            "name": "projects/545240943112/services/source.googleapis.com",
+            "parent": "projects/545240943112",
+            "state": "ENABLED",
+          },
+        },
+      ],
+      "_type": "google_cloud_api_service",
+      "category": Array [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "description": "Access source code repositories hosted by Google.",
+      "displayName": "Legacy Cloud Source Repositories API",
+      "enabled": true,
+      "name": "source.googleapis.com",
+      "state": "ENABLED",
+      "usageRequirements": Array [
+        "serviceusage.googleapis.com/tos/cloud",
+      ],
+    },
+    Object {
+      "_class": Array [
+        "Service",
+      ],
+      "_key": "google_cloud_api_service_projects/545240943112/services/sql-component.googleapis.com",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "config": Object {
+              "authentication": Object {},
+              "documentation": Object {
+                "summary": "Google Cloud SQL is a hosted and fully managed relational database service
+    on Google's infrastructure.",
+              },
+              "name": "sql-component.googleapis.com",
+              "quota": Object {},
+              "title": "Cloud SQL",
+              "usage": Object {
+                "requirements": Array [
+                  "serviceusage.googleapis.com/tos/cloud",
+                ],
+              },
+            },
+            "name": "projects/545240943112/services/sql-component.googleapis.com",
+            "parent": "projects/545240943112",
+            "state": "ENABLED",
+          },
+        },
+      ],
+      "_type": "google_cloud_api_service",
+      "category": Array [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "description": "Google Cloud SQL is a hosted and fully managed relational database service
+    on Google's infrastructure.",
+      "displayName": "Cloud SQL",
+      "enabled": true,
+      "name": "sql-component.googleapis.com",
+      "state": "ENABLED",
+      "usageRequirements": Array [
+        "serviceusage.googleapis.com/tos/cloud",
+      ],
+    },
+    Object {
+      "_class": Array [
+        "Service",
+      ],
+      "_key": "google_cloud_api_service_projects/545240943112/services/storage-api.googleapis.com",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "config": Object {
+              "authentication": Object {},
+              "documentation": Object {
+                "summary": "Lets you store and retrieve potentially-large, immutable data objects.",
+              },
+              "name": "storage-api.googleapis.com",
+              "quota": Object {},
+              "title": "Google Cloud Storage JSON API",
+              "usage": Object {
+                "requirements": Array [
+                  "serviceusage.googleapis.com/tos/cloud",
+                ],
+              },
+            },
+            "name": "projects/545240943112/services/storage-api.googleapis.com",
+            "parent": "projects/545240943112",
+            "state": "ENABLED",
+          },
+        },
+      ],
+      "_type": "google_cloud_api_service",
+      "category": Array [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "description": "Lets you store and retrieve potentially-large, immutable data objects.",
+      "displayName": "Google Cloud Storage JSON API",
+      "enabled": true,
+      "name": "storage-api.googleapis.com",
+      "state": "ENABLED",
+      "usageRequirements": Array [
+        "serviceusage.googleapis.com/tos/cloud",
+      ],
+    },
+    Object {
+      "_class": Array [
+        "Service",
+      ],
+      "_key": "google_cloud_api_service_projects/545240943112/services/storage-component.googleapis.com",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "config": Object {
+              "authentication": Object {},
+              "documentation": Object {
+                "summary": "Google Cloud Storage is a RESTful service for storing and accessing your data on Google's
+    infrastructure.",
+              },
+              "name": "storage-component.googleapis.com",
+              "quota": Object {},
+              "title": "Cloud Storage",
+              "usage": Object {
+                "requirements": Array [
+                  "serviceusage.googleapis.com/tos/cloud",
+                ],
+              },
+            },
+            "name": "projects/545240943112/services/storage-component.googleapis.com",
+            "parent": "projects/545240943112",
+            "state": "ENABLED",
+          },
+        },
+      ],
+      "_type": "google_cloud_api_service",
+      "category": Array [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "description": "Google Cloud Storage is a RESTful service for storing and accessing your data on Google's
+    infrastructure.",
+      "displayName": "Cloud Storage",
+      "enabled": true,
+      "name": "storage-component.googleapis.com",
+      "state": "ENABLED",
+      "usageRequirements": Array [
+        "serviceusage.googleapis.com/tos/cloud",
+      ],
+    },
+    Object {
+      "_class": Array [
+        "Service",
+      ],
+      "_key": "google_cloud_api_service_projects/545240943112/services/storage.googleapis.com",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "config": Object {
+              "authentication": Object {},
+              "documentation": Object {
+                "summary": "Lets you store and retrieve potentially-large, immutable data objects.",
+              },
+              "name": "storage.googleapis.com",
+              "quota": Object {},
+              "title": "Cloud Storage API",
+              "usage": Object {
+                "requirements": Array [
+                  "serviceusage.googleapis.com/tos/cloud",
+                ],
+              },
+            },
+            "name": "projects/545240943112/services/storage.googleapis.com",
+            "parent": "projects/545240943112",
+            "state": "ENABLED",
+          },
+        },
+      ],
+      "_type": "google_cloud_api_service",
+      "category": Array [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "description": "Lets you store and retrieve potentially-large, immutable data objects.",
+      "displayName": "Cloud Storage API",
+      "enabled": true,
+      "name": "storage.googleapis.com",
+      "state": "ENABLED",
+      "usageRequirements": Array [
+        "serviceusage.googleapis.com/tos/cloud",
+      ],
+    },
+    Object {
+      "_class": Array [
+        "Service",
+      ],
+      "_key": "google_cloud_api_service_projects/545240943112/services/vision.googleapis.com",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "config": Object {
+              "authentication": Object {},
+              "documentation": Object {
+                "summary": "Integrates Google Vision features, including image labeling, face, logo, and landmark detection, optical character recognition (OCR), and detection of explicit content, into applications.",
+              },
+              "name": "vision.googleapis.com",
+              "quota": Object {},
+              "title": "Cloud Vision API",
+              "usage": Object {
+                "requirements": Array [
+                  "serviceusage.googleapis.com/tos/cloud",
+                ],
+              },
+            },
+            "name": "projects/545240943112/services/vision.googleapis.com",
+            "parent": "projects/545240943112",
+            "state": "ENABLED",
+          },
+        },
+      ],
+      "_type": "google_cloud_api_service",
+      "category": Array [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "description": "Integrates Google Vision features, including image labeling, face, logo, and landmark detection, optical character recognition (OCR), and detection of explicit content, into applications.",
+      "displayName": "Cloud Vision API",
+      "enabled": true,
+      "name": "vision.googleapis.com",
+      "state": "ENABLED",
+      "usageRequirements": Array [
+        "serviceusage.googleapis.com/tos/cloud",
+      ],
+    },
+  ],
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
+    "google_cloud_api_service",
+  ],
+}
+`;

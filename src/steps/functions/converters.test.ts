@@ -26,6 +26,7 @@ function getMockCloudFunction(
     },
     runtime: 'nodejs10',
     ingressSettings: 'ALLOW_ALL',
+    ...partial,
   };
 }
 
