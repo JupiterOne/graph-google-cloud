@@ -26,13 +26,13 @@
     "tf": "cd terraform && env `grep -v '^#' .env` terraform $1"
   },
   "peerDependencies": {
-    "@jupiterone/integration-sdk-core": "^2.3.0"
+    "@jupiterone/integration-sdk-core": "^2.7.0"
   },
   "devDependencies": {
     "@jupiterone/data-model": "^0.7.1",
-    "@jupiterone/integration-sdk-core": "^2.5.0",
-    "@jupiterone/integration-sdk-dev-tools": "^2.5.0",
-    "@jupiterone/integration-sdk-testing": "^2.5.0",
+    "@jupiterone/integration-sdk-core": "^2.7.0",
+    "@jupiterone/integration-sdk-dev-tools": "^2.7.0",
+    "@jupiterone/integration-sdk-testing": "^2.7.0",
     "deepmerge": "^4.2.2",
     "dotenv": "^8.2.0"
   },
