@@ -3,6 +3,7 @@ import { IntegrationConfig } from './types';
 import getStepStartStates from './getStepStartStates';
 import { functionsSteps } from './steps/functions';
 import { storageSteps } from './steps/storage';
+import { serviceUsageSteps } from './steps/service-usage';
 
 export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> = {
   instanceConfigFields: {
@@ -20,5 +21,5 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> = 
     },
   },
   getStepStartStates,
-  integrationSteps: [...functionsSteps, ...storageSteps],
+  integrationSteps: [...functionsSteps, ...storageSteps, ...serviceUsageSteps],
 };

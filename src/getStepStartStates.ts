@@ -8,6 +8,7 @@ import { ServiceUsageClient } from './steps/service-usage/client';
 import { ServiceUsageName } from './google-cloud/types';
 import { STEP_CLOUD_FUNCTIONS } from './steps/functions';
 import { STEP_CLOUD_STORAGE_BUCKETS } from './steps/storage';
+import { STEP_API_SERVICES } from './steps/service-usage';
 
 async function getEnabledServiceNames(
   config: IntegrationConfig,
@@ -52,6 +53,10 @@ export default async function getStepStartStates(
   }
 
   return {
+    [STEP_API_SERVICES]: {
+      // This API will be enabled otherwise fetching services names above would fail
+      disabled: false,
+    },
     [STEP_CLOUD_FUNCTIONS]: {
       disabled: enabledServiceNames.includes(ServiceUsageName.CLOUD_FUNCTIONS),
     },

@@ -16,6 +16,7 @@ import { integrationConfig } from '../test/config';
 import getStepStartStates from './getStepStartStates';
 import { STEP_CLOUD_FUNCTIONS } from './steps/functions';
 import { STEP_CLOUD_STORAGE_BUCKETS } from './steps/storage';
+import { STEP_API_SERVICES } from './steps/service-usage';
 
 async function validateInvocationInvalidConfigTest(
   instanceConfig?: Partial<IntegrationConfig>,
@@ -70,6 +71,9 @@ describe('#getStepStartStates success', () => {
 
     const stepStartStates = await getStepStartStates(context);
     const expectedStepStartStates: StepStartStates = {
+      [STEP_API_SERVICES]: {
+        disabled: false,
+      },
       [STEP_CLOUD_FUNCTIONS]: {
         disabled: false,
       },
