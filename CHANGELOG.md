@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.1.0 - 2020-08-04
+
 ### Added
 
 - Generate `.env` file using the `create-env-file` script
