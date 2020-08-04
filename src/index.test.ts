@@ -12,15 +12,25 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { getMockIntegrationConfig } from '../test/config';
 import { setupGoogleCloudRecording } from '../test/recording';
-import { integrationConfig } from '../test/config';
+import {
+  integrationConfig,
+  DEFAULT_INTEGRATION_CONFIG_SERVICE_ACCOUNT_KEY_FILE,
+} from '../test/config';
 import getStepStartStates from './getStepStartStates';
 import { STEP_CLOUD_FUNCTIONS } from './steps/functions';
 import { STEP_CLOUD_STORAGE_BUCKETS } from './steps/storage';
 import { STEP_API_SERVICES } from './steps/service-usage';
+import { parseServiceAccountKeyFile } from './utils/parseServiceAccountKeyFile';
 
-async function validateInvocationInvalidConfigTest(
-  instanceConfig?: Partial<IntegrationConfig>,
-) {
+interface ValidateInvocationInvalidConfigTestParams {
+  instanceConfig?: Partial<IntegrationConfig>;
+  expectedErrorMessage?: string;
+}
+
+async function validateInvocationInvalidConfigTest({
+  instanceConfig,
+  expectedErrorMessage,
+}: ValidateInvocationInvalidConfigTestParams = {}) {
   const context = createMockExecutionContext<IntegrationConfig>(
     instanceConfig
       ? {
@@ -42,7 +52,8 @@ async function validateInvocationInvalidConfigTest(
   } catch (err) {
     expect(err instanceof IntegrationValidationError).toBe(true);
     expect(err.message).toEqual(
-      'Missing a required integration config value {clientEmail, privateKey, projectId}',
+      expectedErrorMessage ||
+        'Missing a required integration config value {serviceAccountKeyFile}',
     );
     failed = true;
   }
@@ -140,10 +151,14 @@ describe('#getStepStartStates failures', () => {
 
     expect(failed).toEqual(true);
 
+    const parsedServiceAccountKey = parseServiceAccountKeyFile(
+      context.instance.config.serviceAccountKeyFile,
+    );
+
     const expectedGoogleAuthCallOptions: GoogleAuthOptions = {
       credentials: {
-        client_email: context.instance.config.clientEmail,
-        private_key: context.instance.config.privateKey,
+        client_email: parsedServiceAccountKey.client_email,
+        private_key: parsedServiceAccountKey.private_key,
       },
       scopes: ['https://www.googleapis.com/auth/cloud-platform'],
     };
@@ -198,10 +213,14 @@ describe('#getStepStartStates failures', () => {
 
     expect(failed).toEqual(true);
 
+    const parsedServiceAccountKey = parseServiceAccountKeyFile(
+      context.instance.config.serviceAccountKeyFile,
+    );
+
     const expectedGoogleAuthCallOptions: GoogleAuthOptions = {
       credentials: {
-        client_email: context.instance.config.clientEmail,
-        private_key: context.instance.config.privateKey,
+        client_email: parsedServiceAccountKey.client_email,
+        private_key: parsedServiceAccountKey.private_key,
       },
       scopes: ['https://www.googleapis.com/auth/cloud-platform'],
     };
@@ -216,23 +235,35 @@ describe('#getStepStartStates failures', () => {
     expect(mockGetAccessToken).toHaveBeenCalledWith();
   });
 
-  test('should throw if missing clientEmail property', async () => {
+  test('should throw if missing serviceAccountKeyFile property in config', async () => {
     await validateInvocationInvalidConfigTest();
     expect(googleAuthSpy.mock.calls.length).toEqual(0);
   });
 
-  test('should throw if missing privateKey property', async () => {
-    await validateInvocationInvalidConfigTest({
-      clientEmail: 'google-cloud-client-email',
-    });
-    expect(googleAuthSpy.mock.calls.length).toEqual(0);
-  });
+  [
+    'type',
+    'project_id',
+    'private_key_id',
+    'private_key',
+    'client_email',
+    'client_id',
+    'auth_uri',
+    'token_uri',
+    'auth_provider_x509_cert_url',
+    'client_x509_cert_url',
+  ].forEach((k) => {
+    test(`should throw if missing "${k}" from serviceAccountKeyFile`, async () => {
+      await validateInvocationInvalidConfigTest({
+        instanceConfig: {
+          serviceAccountKeyFile: JSON.stringify({
+            ...DEFAULT_INTEGRATION_CONFIG_SERVICE_ACCOUNT_KEY_FILE,
+            [k]: undefined,
+          }),
+        },
+        expectedErrorMessage: `Invalid contents of "serviceAccountKeyFile" passed to integration (invalidFileKeys=${k})`,
+      });
 
-  test('should throw if missing projectId property', async () => {
-    await validateInvocationInvalidConfigTest({
-      clientEmail: 'google-cloud-client-email',
-      privateKey: 'google-cloud-private-key',
+      expect(googleAuthSpy.mock.calls.length).toEqual(0);
     });
-    expect(googleAuthSpy.mock.calls.length).toEqual(0);
   });
 });

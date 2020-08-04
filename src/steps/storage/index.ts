@@ -20,7 +20,10 @@ export async function fetchStorageBuckets(
   await client.iterateCloudStorageBuckets(
     async (bucket) =>
       await jobState.addEntity(
-        createCloudStorageBucketEntity(bucket, config.projectId),
+        createCloudStorageBucketEntity(
+          bucket,
+          config.serviceAccountKeyConfig.project_id,
+        ),
       ),
   );
 }

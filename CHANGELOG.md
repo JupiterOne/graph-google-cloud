@@ -8,7 +8,26 @@ and this project adheres to
 
 ## [Unreleased]
 
-### 0.0.1 - 2020-08-03
+## 0.1.0 - 2020-08-04
+
+### Added
+
+- Generate `.env` file using the `create-env-file` script
+
+Example:
+
+```bash
+yarn create-env-file ~/SERVICE_ACCOUNT_FILE_PATH_HERE.json
+```
+
+### Updated
+
+- Update Google Cloud integration config to store entire service account key
+  file contents instead of subset of properties
+
+## 0.0.1 - 2020-08-03
+
+### Added
 
 - Initial `@jupiterone/graph-google-cloud` release.
 - Ingestion of `google_cloud_function`

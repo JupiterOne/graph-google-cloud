@@ -197,13 +197,13 @@ should look like this:
 }
 ```
 
-Copy the values of `project_id`, `private_key`, and `client_email` into the
-`.env` file in the following format:
+A `SERVICE_ACCOUNT_KEY_FILE` property should be added to the `.env` file with
+the value being the JSON stringified contents of the service account key file. A
+helper script can be run that will automatically generate the `.env` file in the
+correct format:
 
-```
-PROJECT_ID="..."
-PRIVATE_KEY="..."
-CLIENT_EMAIL="..."
+```bash
+yarn create-env-file ~/SERVICE_ACCOUNT_FILE_PATH_HERE.json
 ```
 
 ### Run tests against Google Cloud project

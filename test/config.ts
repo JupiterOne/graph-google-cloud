@@ -1,7 +1,9 @@
-import { IntegrationConfig } from '../src/types';
+import { IntegrationConfig, SerializedIntegrationConfig } from '../src/types';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 import * as fs from 'fs';
+import { ParsedServiceAccountKeyFile } from '../src/utils/parseServiceAccountKeyFile';
+import { deserializeIntegrationConfig } from '../src/utils/integrationConfig';
 
 if (process.env.LOAD_ENV) {
   dotenv.config({
@@ -23,16 +25,37 @@ export const DEFAULT_INTEGRATION_PRIVATE_KEY = fs.readFileSync(
 export const DEFAULT_INTEGRATION_CLIENT_EMAIL =
   'j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com';
 
-export const integrationConfig: IntegrationConfig = {
-  projectId: process.env.PROJECT_ID || DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
-  privateKey: process.env.PRIVATE_KEY || DEFAULT_INTEGRATION_PRIVATE_KEY,
-  clientEmail: process.env.CLIENT_EMAIL || DEFAULT_INTEGRATION_CLIENT_EMAIL,
+export const DEFAULT_INTEGRATION_CONFIG_SERVICE_ACCOUNT_KEY_FILE: ParsedServiceAccountKeyFile = {
+  type: 'service_account',
+  project_id: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
+  private_key_id: 'abcdef123456abcdef123456abcdef123456abc',
+  private_key: DEFAULT_INTEGRATION_PRIVATE_KEY,
+  client_email: DEFAULT_INTEGRATION_CLIENT_EMAIL,
+  client_id: '12345678901234567890',
+  auth_uri: 'https://accounts.google.com/o/oauth2/auth',
+  token_uri: 'https://oauth2.googleapis.com/token',
+  auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
+  client_x509_cert_url: 'https://www.googleapis.com/abc',
 };
 
-export function getMockIntegrationConfig(): IntegrationConfig {
+export const serializedIntegrationConfig: SerializedIntegrationConfig = {
+  serviceAccountKeyFile:
+    process.env.SERVICE_ACCOUNT_KEY_FILE ||
+    JSON.stringify(DEFAULT_INTEGRATION_CONFIG_SERVICE_ACCOUNT_KEY_FILE),
+};
+
+export const integrationConfig: IntegrationConfig = deserializeIntegrationConfig(
+  serializedIntegrationConfig,
+);
+
+export function getMockSerializedIntegrationConfig(): SerializedIntegrationConfig {
   return {
-    projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
-    privateKey: DEFAULT_INTEGRATION_PRIVATE_KEY,
-    clientEmail: DEFAULT_INTEGRATION_CLIENT_EMAIL,
+    serviceAccountKeyFile: JSON.stringify(
+      DEFAULT_INTEGRATION_CONFIG_SERVICE_ACCOUNT_KEY_FILE,
+    ),
   };
+}
+
+export function getMockIntegrationConfig(): IntegrationConfig {
+  return deserializeIntegrationConfig(getMockSerializedIntegrationConfig());
 }
