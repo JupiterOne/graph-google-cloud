@@ -4,6 +4,7 @@ import { cloudfunctions_v1 } from 'googleapis';
 import * as url from 'url';
 import * as querystring from 'querystring';
 import { integrationConfig } from './config';
+import { parseServiceAccountKeyFile } from '../src/utils/parseServiceAccountKeyFile';
 
 export { Recording } from '@jupiterone/integration-sdk-testing';
 
@@ -14,7 +15,10 @@ enum GoogleHeaders {
 }
 
 function isListFunctionsUrl(url: string) {
-  return `https://cloudfunctions.googleapis.com/v1/projects/${integrationConfig.projectId}/locations/-/functions`;
+  const parsed = parseServiceAccountKeyFile(
+    integrationConfig.serviceAccountKeyFile,
+  );
+  return `https://cloudfunctions.googleapis.com/v1/projects/${parsed.project_id}/locations/-/functions`;
 }
 
 function sanitizeGoogleCloudFunctionSourceUploadUrl(sourceUploadUrl: string) {

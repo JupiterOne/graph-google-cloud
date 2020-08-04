@@ -3,12 +3,13 @@ import {
   StepStartStates,
   IntegrationValidationError,
 } from '@jupiterone/integration-sdk-core';
-import { IntegrationConfig } from './types';
+import { SerializedIntegrationConfig, IntegrationConfig } from './types';
 import { ServiceUsageClient } from './steps/service-usage/client';
 import { ServiceUsageName } from './google-cloud/types';
 import { STEP_CLOUD_FUNCTIONS } from './steps/functions';
 import { STEP_CLOUD_STORAGE_BUCKETS } from './steps/storage';
 import { STEP_API_SERVICES } from './steps/service-usage';
+import { deserializeIntegrationConfig } from './utils/integrationConfig';
 
 async function getEnabledServiceNames(
   config: IntegrationConfig,
@@ -19,25 +20,32 @@ async function getEnabledServiceNames(
 }
 
 function validateInvocationConfig(
-  context: IntegrationExecutionContext<IntegrationConfig>,
+  context: IntegrationExecutionContext<SerializedIntegrationConfig>,
 ) {
   const { instance } = context;
   const { config } = instance;
 
-  if (!config.clientEmail || !config.privateKey || !config.projectId) {
+  if (!config.serviceAccountKeyFile) {
     throw new IntegrationValidationError(
-      'Missing a required integration config value {clientEmail, privateKey, projectId}',
+      'Missing a required integration config value {serviceAccountKeyFile}',
     );
   }
 }
 
 export default async function getStepStartStates(
-  context: IntegrationExecutionContext<IntegrationConfig>,
+  context: IntegrationExecutionContext<SerializedIntegrationConfig>,
 ): Promise<StepStartStates> {
   const { instance, logger } = context;
-  const { config } = instance;
+  const { config: serializedIntegrationConfig } = instance;
 
   validateInvocationConfig(context);
+
+  // Override the incoming config with the new config that has parsed service
+  // account data
+  const config = (context.instance.config = deserializeIntegrationConfig(
+    serializedIntegrationConfig,
+  ));
+
   let enabledServiceNames: string[];
 
   try {

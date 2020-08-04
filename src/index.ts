@@ -7,17 +7,9 @@ import { serviceUsageSteps } from './steps/service-usage';
 
 export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> = {
   instanceConfigFields: {
-    privateKey: {
+    serviceAccountKeyFile: {
       type: 'string',
       mask: true,
-    },
-    clientEmail: {
-      type: 'string',
-      mask: true,
-    },
-    projectId: {
-      type: 'string',
-      mask: false,
     },
   },
   getStepStartStates,

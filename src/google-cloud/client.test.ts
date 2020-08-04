@@ -2,6 +2,7 @@ import { google } from 'googleapis';
 import { GoogleAuth, GoogleAuthOptions } from 'google-auth-library';
 import { getMockIntegrationConfig } from '../../test/config';
 import { Client } from './client';
+import { parseServiceAccountKeyFile } from '../utils/parseServiceAccountKeyFile';
 
 describe('#getAuthenticatedServiceClient', () => {
   let googleAuthSpy: jest.SpyInstance<
@@ -43,10 +44,14 @@ describe('#getAuthenticatedServiceClient', () => {
 
     expect(auth).toBe(auth2);
 
+    const parsedServiceAccountKey = parseServiceAccountKeyFile(
+      instanceConfig.serviceAccountKeyFile,
+    );
+
     const expectedGoogleAuthCallOptions: GoogleAuthOptions = {
       credentials: {
-        client_email: instanceConfig.clientEmail,
-        private_key: instanceConfig.privateKey,
+        client_email: parsedServiceAccountKey.client_email,
+        private_key: parsedServiceAccountKey.private_key,
       },
       scopes: ['https://www.googleapis.com/auth/cloud-platform'],
     };

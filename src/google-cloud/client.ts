@@ -31,11 +31,10 @@ export class Client {
   private auth: GoogleClientAuth;
 
   constructor({ config }: ClientOptions) {
-    this.projectId = config.projectId;
-
+    this.projectId = config.serviceAccountKeyConfig.project_id;
     this.credentials = {
-      client_email: config.clientEmail,
-      private_key: config.privateKey,
+      client_email: config.serviceAccountKeyConfig.client_email,
+      private_key: config.serviceAccountKeyConfig.private_key,
     };
   }
 

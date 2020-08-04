@@ -23,7 +23,8 @@
     "build": "tsc -p tsconfig.dist.json --declaration",
     "prepush": "yarn lint && yarn type-check && jest --changedSince master",
     "prepack": "yarn build",
-    "tf": "cd terraform && env `grep -v '^#' .env` terraform $1"
+    "tf": "cd terraform && env `grep -v '^#' .env` terraform $1",
+    "create-env-file": "yarn ts-node ./scripts/createEnvFile $1"
   },
   "peerDependencies": {
     "@jupiterone/integration-sdk-core": "^2.8.0"
@@ -34,7 +35,8 @@
     "@jupiterone/integration-sdk-dev-tools": "^2.8.0",
     "@jupiterone/integration-sdk-testing": "^2.8.0",
     "deepmerge": "^4.2.2",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "ts-node": "^8.10.2"
   },
   "dependencies": {
     "gaxios": "^3.0.4",
