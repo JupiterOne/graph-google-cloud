@@ -46,4 +46,19 @@ export class IamClient extends Client {
       },
     );
   }
+
+  async iterateServiceAccountKeys(
+    serviceAccountName: string,
+    callback: (data: iam_v1.Schema$ServiceAccountKey) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+    const response = await this.client.projects.serviceAccounts.keys.list({
+      auth,
+      name: serviceAccountName,
+    });
+
+    for (const k of response.data.keys || []) {
+      await callback(k);
+    }
+  }
 }

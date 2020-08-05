@@ -1,10 +1,18 @@
 import { iam_v1 } from 'googleapis';
-import { createIntegrationEntity } from '@jupiterone/integration-sdk-core';
+import {
+  createIntegrationEntity,
+  getTime,
+  Relationship,
+  Entity,
+  createDirectRelationship,
+} from '@jupiterone/integration-sdk-core';
 import {
   IAM_ROLE_ENTITY_CLASS,
   IAM_ROLE_ENTITY_TYPE,
   IAM_SERVICE_ACCOUNT_ENTITY_CLASS,
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
+  IAM_SERVICE_ACCOUNT_KEY_ENTITY_CLASS,
+  IAM_SERVICE_ACCOUNT_KEY_ENTITY_TYPE,
 } from './constants';
 import { generateEntityKey } from '../../utils/generateKeys';
 
@@ -44,7 +52,22 @@ export function createIamRoleEntity(
   });
 }
 
-export function createIamServiceAccount(data: iam_v1.Schema$ServiceAccount) {
+function getServiceAccountWebLink({
+  projectId,
+  serviceAccountId,
+}: {
+  projectId: string;
+  serviceAccountId: string;
+}) {
+  return `https://console.cloud.google.com/iam-admin/serviceaccounts/details/${serviceAccountId}?orgonly=true&project=${projectId}&supportedpurview=organizationId`;
+}
+
+export function createIamServiceAccountEntity(
+  data: iam_v1.Schema$ServiceAccount,
+) {
+  const serviceAccountId = data.uniqueId as string;
+  const projectId = data.projectId as string;
+
   return createIntegrationEntity({
     entityData: {
       source: data,
@@ -53,19 +76,73 @@ export function createIamServiceAccount(data: iam_v1.Schema$ServiceAccount) {
         _type: IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
         _key: generateEntityKey({
           type: IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
-          id: data.name as string,
+          id: serviceAccountId,
         }),
         name: data.name,
         displayName: (data.displayName || data.name) as string,
-        id: data.uniqueId as string,
-        projectId: data.projectId,
+        id: serviceAccountId,
+        projectId,
         oauth2ClientId: data.oauth2ClientId,
         username: data.email,
         email: data.email,
         enabled: data.disabled !== true,
         description: data.description,
         etag: data.etag,
+        webLink: getServiceAccountWebLink({
+          serviceAccountId,
+          projectId,
+        }),
       },
+    },
+  });
+}
+
+export function createIamServiceAccountKeyEntity(
+  data: iam_v1.Schema$ServiceAccountKey,
+  {
+    serviceAccountId,
+    projectId,
+  }: {
+    serviceAccountId: string;
+    projectId: string;
+  },
+) {
+  return createIntegrationEntity({
+    entityData: {
+      source: data,
+      assign: {
+        _class: IAM_SERVICE_ACCOUNT_KEY_ENTITY_CLASS,
+        _type: IAM_SERVICE_ACCOUNT_KEY_ENTITY_TYPE,
+        _key: generateEntityKey({
+          type: IAM_SERVICE_ACCOUNT_KEY_ENTITY_TYPE,
+          id: data.name as string,
+        }),
+        name: data.name,
+        displayName: data.name as string,
+        origin: data.keyOrigin,
+        type: data.keyType,
+        algorithm: data.keyAlgorithm,
+        createdOn: getTime(data.validAfterTime),
+        expiresOn: getTime(data.validBeforeTime),
+        webLink: getServiceAccountWebLink({
+          serviceAccountId,
+          projectId,
+        }),
+      },
+    },
+  });
+}
+
+export function createIamServiceAccountHasKeyRelationship(params: {
+  serviceAccountEntity: Entity;
+  serviceAccountKeyEntity: Entity;
+}): Relationship {
+  return createDirectRelationship({
+    _class: 'HAS',
+    from: params.serviceAccountEntity,
+    to: params.serviceAccountKeyEntity,
+    properties: {
+      webLink: params.serviceAccountEntity.webLink,
     },
   });
 }

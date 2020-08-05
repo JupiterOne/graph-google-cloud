@@ -1,7 +1,12 @@
 import { IntegrationStep } from '@jupiterone/integration-sdk-core';
 import { IamClient } from './client';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
-import { createIamRoleEntity, createIamServiceAccount } from './converters';
+import {
+  createIamRoleEntity,
+  createIamServiceAccountEntity,
+  createIamServiceAccountKeyEntity,
+  createIamServiceAccountHasKeyRelationship,
+} from './converters';
 import {
   STEP_IAM_ROLES,
   IAM_ROLE_ENTITY_TYPE,
@@ -30,7 +35,32 @@ export async function fetchIamServiceAccounts(
   const client = new IamClient({ config: instance.config });
 
   await client.iterateServiceAccounts(async (serviceAccount) => {
-    await jobState.addEntity(createIamServiceAccount(serviceAccount));
+    const serviceAccountId = serviceAccount.uniqueId as string;
+    const serviceAccountName = serviceAccount.name as string;
+
+    const serviceAccountEntity = createIamServiceAccountEntity(serviceAccount);
+
+    await jobState.addEntity(serviceAccountEntity);
+    await client.iterateServiceAccountKeys(
+      serviceAccountName,
+      async (serviceAccountKey) => {
+        const serviceAccountKeyEntity = createIamServiceAccountKeyEntity(
+          serviceAccountKey,
+          {
+            serviceAccountId,
+            projectId: client.projectId,
+          },
+        );
+
+        await jobState.addEntity(serviceAccountKeyEntity);
+        await jobState.addRelationship(
+          createIamServiceAccountHasKeyRelationship({
+            serviceAccountEntity,
+            serviceAccountKeyEntity,
+          }),
+        );
+      },
+    );
   });
 }
 
