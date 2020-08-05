@@ -11,7 +11,7 @@ import { STEP_CLOUD_FUNCTIONS } from './steps/functions';
 import { STEP_CLOUD_STORAGE_BUCKETS } from './steps/storage';
 import { STEP_API_SERVICES } from './steps/service-usage';
 import { deserializeIntegrationConfig } from './utils/integrationConfig';
-import { STEP_IAM_ROLES } from './steps/iam';
+import { STEP_IAM_ROLES, STEP_IAM_SERVICE_ACCOUNTS } from './steps/iam';
 
 async function getEnabledServiceNames(
   config: IntegrationConfig,
@@ -84,5 +84,6 @@ export default async function getStepStartStates(
       ServiceUsageName.STORAGE,
     ),
     [STEP_IAM_ROLES]: createStepStartState(ServiceUsageName.IAM),
+    [STEP_IAM_SERVICE_ACCOUNTS]: createStepStartState(ServiceUsageName.IAM),
   };
 }
