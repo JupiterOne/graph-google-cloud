@@ -12,7 +12,7 @@ resource "google_kms_crypto_key" "bucket_key" {
 
 resource "google_project_iam_member" "grant_google_storage_service_encrypt_decrypt" {
   role = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
-  member = "serviceAccount:service-${project_id_number}@gs-project-accounts.iam.gserviceaccount.com"
+  member = "serviceAccount:service-${var.project_id_number}@gs-project-accounts.iam.gserviceaccount.com"
 }
 
 resource "google_storage_bucket" "with_customer_encryption_key" {

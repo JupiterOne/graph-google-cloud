@@ -2,6 +2,7 @@ import {
   IntegrationExecutionContext,
   StepStartStates,
   IntegrationValidationError,
+  StepStartState,
 } from '@jupiterone/integration-sdk-core';
 import { SerializedIntegrationConfig, IntegrationConfig } from './types';
 import { ServiceUsageClient } from './steps/service-usage/client';
@@ -10,13 +11,18 @@ import { STEP_CLOUD_FUNCTIONS } from './steps/functions';
 import { STEP_CLOUD_STORAGE_BUCKETS } from './steps/storage';
 import { STEP_API_SERVICES } from './steps/service-usage';
 import { deserializeIntegrationConfig } from './utils/integrationConfig';
+import { STEP_IAM_ROLES } from './steps/iam';
 
 async function getEnabledServiceNames(
   config: IntegrationConfig,
 ): Promise<string[]> {
   const client = new ServiceUsageClient({ config });
   const enabledServices = await client.collectEnabledServices();
-  return enabledServices.map((v) => v.name as string);
+  return enabledServices.map((v) => {
+    // Each value looks like this: `projects/PROJ_ID_NUM/services/appengine.googleapis.com`
+    const serviceParts = (v.name as string).split('/');
+    return serviceParts[serviceParts.length - 1];
+  });
 }
 
 function validateInvocationConfig(
@@ -60,16 +66,23 @@ export default async function getStepStartStates(
     );
   }
 
+  const createStepStartState = (
+    serviceName: ServiceUsageName,
+  ): StepStartState => {
+    return {
+      disabled: !enabledServiceNames.includes(serviceName),
+    };
+  };
+
   return {
-    [STEP_API_SERVICES]: {
-      // This API will be enabled otherwise fetching services names above would fail
-      disabled: false,
-    },
-    [STEP_CLOUD_FUNCTIONS]: {
-      disabled: enabledServiceNames.includes(ServiceUsageName.CLOUD_FUNCTIONS),
-    },
-    [STEP_CLOUD_STORAGE_BUCKETS]: {
-      disabled: enabledServiceNames.includes(ServiceUsageName.STORAGE),
-    },
+    // This API will be enabled otherwise fetching services names above would fail
+    [STEP_API_SERVICES]: { disabled: false },
+    [STEP_CLOUD_FUNCTIONS]: createStepStartState(
+      ServiceUsageName.CLOUD_FUNCTIONS,
+    ),
+    [STEP_CLOUD_STORAGE_BUCKETS]: createStepStartState(
+      ServiceUsageName.STORAGE,
+    ),
+    [STEP_IAM_ROLES]: createStepStartState(ServiceUsageName.IAM),
   };
 }

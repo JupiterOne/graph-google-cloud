@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createCloudFunctionEntity should convert custom role to entity 1`] = `
+Object {
+  "_class": Array [
+    "AccessRole",
+  ],
+  "_key": "google_cloud_iam_role_projects/j1-gc-integration-dev/roles/myrole",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "description": "Description",
+        "etag": "abc123",
+        "includedPermissions": Array [
+          "cloudfunctions.functions.get",
+          "cloudfunctions.functions.getIamPolicy",
+        ],
+        "name": "projects/j1-gc-integration-dev/roles/myrole",
+        "stage": "GA",
+        "title": "Role",
+      },
+    },
+  ],
+  "_type": "google_cloud_iam_role",
+  "createdOn": undefined,
+  "custom": true,
+  "deleted": false,
+  "description": "Description",
+  "displayName": "Role",
+  "etag": "abc123",
+  "name": "projects/j1-gc-integration-dev/roles/myrole",
+  "permissions": Array [
+    "cloudfunctions.functions.get",
+    "cloudfunctions.functions.getIamPolicy",
+  ],
+  "stage": "GA",
+}
+`;
+
+exports[`#createCloudFunctionEntity should convert noncustom role to entity 1`] = `
+Object {
+  "_class": Array [
+    "AccessRole",
+  ],
+  "_key": "google_cloud_iam_role_projects/j1-gc-integration-dev/roles/myrole",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "description": "Description",
+        "etag": "abc123",
+        "includedPermissions": Array [
+          "cloudfunctions.functions.get",
+          "cloudfunctions.functions.getIamPolicy",
+        ],
+        "name": "projects/j1-gc-integration-dev/roles/myrole",
+        "stage": "GA",
+        "title": "Role",
+      },
+    },
+  ],
+  "_type": "google_cloud_iam_role",
+  "createdOn": undefined,
+  "custom": false,
+  "deleted": false,
+  "description": "Description",
+  "displayName": "Role",
+  "etag": "abc123",
+  "name": "projects/j1-gc-integration-dev/roles/myrole",
+  "permissions": Array [
+    "cloudfunctions.functions.get",
+    "cloudfunctions.functions.getIamPolicy",
+  ],
+  "stage": "GA",
+}
+`;

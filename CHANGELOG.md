@@ -8,6 +8,10 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- Ingest IAM roles as `google_cloud_iam_role`
+
 ## 0.1.0 - 2020-08-04
 
 ### Added

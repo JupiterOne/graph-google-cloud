@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchIamRoles should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "AccessRole",
+      ],
+      "_key": "google_cloud_iam_role_projects/j1-gc-integration-dev/roles/545240943112customrole",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "description": "My description",
+            "etag": "BwWsEa2N+wo=",
+            "includedPermissions": Array [
+              "cloudfunctions.functions.get",
+              "cloudfunctions.functions.getIamPolicy",
+            ],
+            "name": "projects/j1-gc-integration-dev/roles/545240943112customrole",
+            "stage": "GA",
+            "title": "GA custom role",
+          },
+        },
+      ],
+      "_type": "google_cloud_iam_role",
+      "createdOn": undefined,
+      "custom": true,
+      "deleted": false,
+      "description": "My description",
+      "displayName": "GA custom role",
+      "etag": "BwWsEa2N+wo=",
+      "name": "projects/j1-gc-integration-dev/roles/545240943112customrole",
+      "permissions": Array [
+        "cloudfunctions.functions.get",
+        "cloudfunctions.functions.getIamPolicy",
+      ],
+      "stage": "GA",
+    },
+  ],
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
+    "google_cloud_iam_role",
+  ],
+  "numCollectedEntities": 1,
+  "numCollectedRelationships": 0,
+}
+`;
