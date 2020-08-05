@@ -11,6 +11,7 @@ and this project adheres to
 ### Added
 
 - Ingest IAM roles as `google_cloud_iam_role`
+- Ingest IAM service accounts as `google_cloud_iam_service_account`
 
 ## 0.1.0 - 2020-08-04
 

@@ -47,3 +47,112 @@ Object {
   "numCollectedRelationships": 0,
 }
 `;
+
+exports[`#fetchIamServiceAccounts should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "User",
+      ],
+      "_key": "google_cloud_iam_service_account_projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "description": "J1 Google Cloud integration execution",
+            "email": "j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+            "etag": "MDEwMjE5MjA=",
+            "name": "projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+            "oauth2ClientId": "116742477893551302665",
+            "projectId": "j1-gc-integration-dev",
+            "uniqueId": "116742477893551302665",
+          },
+        },
+      ],
+      "_type": "google_cloud_iam_service_account",
+      "createdOn": undefined,
+      "description": "J1 Google Cloud integration execution",
+      "displayName": "projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+      "email": "j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+      "enabled": true,
+      "etag": "MDEwMjE5MjA=",
+      "id": "116742477893551302665",
+      "name": "projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+      "oauth2ClientId": "116742477893551302665",
+      "projectId": "j1-gc-integration-dev",
+      "username": "j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+    },
+    Object {
+      "_class": Array [
+        "User",
+      ],
+      "_key": "google_cloud_iam_service_account_projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev@appspot.gserviceaccount.com",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "App Engine default service account",
+            "email": "j1-gc-integration-dev@appspot.gserviceaccount.com",
+            "etag": "MDEwMjE5MjA=",
+            "name": "projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev@appspot.gserviceaccount.com",
+            "oauth2ClientId": "117962362686380350362",
+            "projectId": "j1-gc-integration-dev",
+            "uniqueId": "117962362686380350362",
+          },
+        },
+      ],
+      "_type": "google_cloud_iam_service_account",
+      "createdOn": undefined,
+      "description": undefined,
+      "displayName": "App Engine default service account",
+      "email": "j1-gc-integration-dev@appspot.gserviceaccount.com",
+      "enabled": true,
+      "etag": "MDEwMjE5MjA=",
+      "id": "117962362686380350362",
+      "name": "projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev@appspot.gserviceaccount.com",
+      "oauth2ClientId": "117962362686380350362",
+      "projectId": "j1-gc-integration-dev",
+      "username": "j1-gc-integration-dev@appspot.gserviceaccount.com",
+    },
+    Object {
+      "_class": Array [
+        "User",
+      ],
+      "_key": "google_cloud_iam_service_account_projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "description": "J1 Google Cloud integration Terraform setup",
+            "email": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com",
+            "etag": "MDEwMjE5MjA=",
+            "name": "projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com",
+            "oauth2ClientId": "116674556692942636222",
+            "projectId": "j1-gc-integration-dev",
+            "uniqueId": "116674556692942636222",
+          },
+        },
+      ],
+      "_type": "google_cloud_iam_service_account",
+      "createdOn": undefined,
+      "description": "J1 Google Cloud integration Terraform setup",
+      "displayName": "projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com",
+      "email": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com",
+      "enabled": true,
+      "etag": "MDEwMjE5MjA=",
+      "id": "116674556692942636222",
+      "name": "projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com",
+      "oauth2ClientId": "116674556692942636222",
+      "projectId": "j1-gc-integration-dev",
+      "username": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com",
+    },
+  ],
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
+    "google_cloud_iam_service_account",
+  ],
+  "numCollectedEntities": 3,
+  "numCollectedRelationships": 0,
+}
+`;

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`#createCloudFunctionEntity should convert custom role to entity 1`] = `
+exports[`#createIamRoleEntity should convert custom role to entity 1`] = `
 Object {
   "_class": Array [
     "AccessRole",
@@ -38,7 +38,7 @@ Object {
 }
 `;
 
-exports[`#createCloudFunctionEntity should convert noncustom role to entity 1`] = `
+exports[`#createIamRoleEntity should convert noncustom role to entity 1`] = `
 Object {
   "_class": Array [
     "AccessRole",
@@ -73,5 +73,76 @@ Object {
     "cloudfunctions.functions.getIamPolicy",
   ],
   "stage": "GA",
+}
+`;
+
+exports[`#createIamServiceAccount should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "User",
+  ],
+  "_key": "google_cloud_iam_service_account_projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "description": "J1 Google Cloud integration execution",
+        "email": "j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+        "etag": "abc=",
+        "name": "projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+        "oauth2ClientId": "1234567890",
+        "projectId": "j1-gc-integration-dev",
+        "uniqueId": "1234567890",
+      },
+    },
+  ],
+  "_type": "google_cloud_iam_service_account",
+  "createdOn": undefined,
+  "description": "J1 Google Cloud integration execution",
+  "displayName": "projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+  "email": "j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+  "enabled": true,
+  "etag": "abc=",
+  "id": "1234567890",
+  "name": "projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+  "oauth2ClientId": "1234567890",
+  "projectId": "j1-gc-integration-dev",
+  "username": "j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+}
+`;
+
+exports[`#createIamServiceAccount should convert to entity with "enabled" set to "false" if "disabled" is "true" 1`] = `
+Object {
+  "_class": Array [
+    "User",
+  ],
+  "_key": "google_cloud_iam_service_account_projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "description": "J1 Google Cloud integration execution",
+        "disabled": true,
+        "email": "j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+        "etag": "abc=",
+        "name": "projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+        "oauth2ClientId": "1234567890",
+        "projectId": "j1-gc-integration-dev",
+        "uniqueId": "1234567890",
+      },
+    },
+  ],
+  "_type": "google_cloud_iam_service_account",
+  "createdOn": undefined,
+  "description": "J1 Google Cloud integration execution",
+  "displayName": "projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+  "email": "j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+  "enabled": false,
+  "etag": "abc=",
+  "id": "1234567890",
+  "name": "projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+  "oauth2ClientId": "1234567890",
+  "projectId": "j1-gc-integration-dev",
+  "username": "j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
 }
 `;
