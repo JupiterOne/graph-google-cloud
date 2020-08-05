@@ -11,6 +11,10 @@ and this project adheres to
 ### Added
 
 - Ingest IAM roles as `google_cloud_iam_role`
+- Ingest IAM service accounts as `google_cloud_iam_service_account`
+- Ingest IAM service account keys as `google_cloud_iam_service_account_key` and
+  build `HAS` relationship between `google_cloud_iam_service_account` and
+  `google_cloud_iam_service_account_key`.
 
 ## 0.1.0 - 2020-08-04
 

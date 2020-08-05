@@ -21,7 +21,7 @@ import { STEP_CLOUD_FUNCTIONS } from './steps/functions';
 import { STEP_CLOUD_STORAGE_BUCKETS } from './steps/storage';
 import { STEP_API_SERVICES } from './steps/service-usage';
 import { parseServiceAccountKeyFile } from './utils/parseServiceAccountKeyFile';
-import { STEP_IAM_ROLES } from './steps/iam';
+import { STEP_IAM_ROLES, STEP_IAM_SERVICE_ACCOUNTS } from './steps/iam';
 
 interface ValidateInvocationInvalidConfigTestParams {
   instanceConfig?: Partial<IntegrationConfig>;
@@ -93,6 +93,9 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_IAM_ROLES]: {
+        disabled: false,
+      },
+      [STEP_IAM_SERVICE_ACCOUNTS]: {
         disabled: false,
       },
     };

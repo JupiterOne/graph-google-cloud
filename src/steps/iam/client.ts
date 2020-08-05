@@ -25,4 +25,40 @@ export class IamClient extends Client {
       },
     );
   }
+
+  async iterateServiceAccounts(
+    callback: (data: iam_v1.Schema$ServiceAccount) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.projects.serviceAccounts.list({
+          auth,
+          name: `projects/${this.projectId}`,
+          pageToken: nextPageToken,
+        });
+      },
+      async (data: iam_v1.Schema$ListServiceAccountsResponse) => {
+        for (const account of data.accounts || []) {
+          await callback(account);
+        }
+      },
+    );
+  }
+
+  async iterateServiceAccountKeys(
+    serviceAccountName: string,
+    callback: (data: iam_v1.Schema$ServiceAccountKey) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+    const response = await this.client.projects.serviceAccounts.keys.list({
+      auth,
+      name: serviceAccountName,
+    });
+
+    for (const k of response.data.keys || []) {
+      await callback(k);
+    }
+  }
 }
