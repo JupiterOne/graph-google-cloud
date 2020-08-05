@@ -1,5 +1,10 @@
 import { iam_v1 } from 'googleapis';
-import { createIamRoleEntity, createIamServiceAccount } from './converters';
+import {
+  createIamRoleEntity,
+  createIamServiceAccountEntity,
+  createIamServiceAccountKeyEntity,
+  createIamServiceAccountHasKeyRelationship,
+} from './converters';
 
 function getMockIamRole(
   partial?: Partial<iam_v1.Schema$Role>,
@@ -35,6 +40,21 @@ function getMockServiceAccount(
   };
 }
 
+function getMockServiceAccountKey(
+  partial?: Partial<iam_v1.Schema$ServiceAccountKey>,
+): iam_v1.Schema$ServiceAccountKey {
+  return {
+    name:
+      'projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com/keys/12345',
+    validAfterTime: '2020-08-05T18:05:19Z',
+    validBeforeTime: '2020-08-21T18:05:19Z',
+    keyAlgorithm: 'KEY_ALG_RSA_2048',
+    keyOrigin: 'GOOGLE_PROVIDED',
+    keyType: 'SYSTEM_MANAGED',
+    ...partial,
+  };
+}
+
 describe('#createIamRoleEntity', () => {
   test('should convert custom role to entity', () => {
     expect(
@@ -55,16 +75,52 @@ describe('#createIamRoleEntity', () => {
 
 describe('#createIamServiceAccount', () => {
   test('should convert to entity', () => {
-    expect(createIamServiceAccount(getMockServiceAccount())).toMatchSnapshot();
+    expect(
+      createIamServiceAccountEntity(getMockServiceAccount()),
+    ).toMatchSnapshot();
   });
 
   test('should convert to entity with "enabled" set to "false" if "disabled" is "true"', () => {
     expect(
-      createIamServiceAccount(
+      createIamServiceAccountEntity(
         getMockServiceAccount({
           disabled: true,
         }),
       ),
+    ).toMatchSnapshot();
+  });
+});
+
+describe('#createIamServiceAccountKeyEntity', () => {
+  test('should convert to entity', () => {
+    expect(
+      createIamServiceAccountKeyEntity(getMockServiceAccountKey(), {
+        projectId: 'j1-gc-integration-dev',
+        serviceAccountId: 'abc123',
+      }),
+    ).toMatchSnapshot();
+  });
+});
+
+describe('#createIamServiceAccountHasKeyRelationship', () => {
+  test('should convert to relationship', () => {
+    const serviceAccountEntity = createIamServiceAccountEntity(
+      getMockServiceAccount(),
+    );
+
+    const serviceAccountKeyEntity = createIamServiceAccountKeyEntity(
+      getMockServiceAccountKey(),
+      {
+        projectId: 'j1-gc-integration-dev',
+        serviceAccountId: 'abc123',
+      },
+    );
+
+    expect(
+      createIamServiceAccountHasKeyRelationship({
+        serviceAccountEntity,
+        serviceAccountKeyEntity,
+      }),
     ).toMatchSnapshot();
   });
 });

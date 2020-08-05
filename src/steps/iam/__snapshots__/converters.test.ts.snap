@@ -81,7 +81,7 @@ Object {
   "_class": Array [
     "User",
   ],
-  "_key": "google_cloud_iam_service_account_projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+  "_key": "google_cloud_iam_service_account_1234567890",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -108,6 +108,7 @@ Object {
   "oauth2ClientId": "1234567890",
   "projectId": "j1-gc-integration-dev",
   "username": "j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+  "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/1234567890?orgonly=true&project=j1-gc-integration-dev&supportedpurview=organizationId",
 }
 `;
 
@@ -116,7 +117,7 @@ Object {
   "_class": Array [
     "User",
   ],
-  "_key": "google_cloud_iam_service_account_projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+  "_key": "google_cloud_iam_service_account_1234567890",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -144,5 +145,49 @@ Object {
   "oauth2ClientId": "1234567890",
   "projectId": "j1-gc-integration-dev",
   "username": "j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+  "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/1234567890?orgonly=true&project=j1-gc-integration-dev&supportedpurview=organizationId",
+}
+`;
+
+exports[`#createIamServiceAccountHasKeyRelationship should convert to relationship 1`] = `
+Object {
+  "_class": "HAS",
+  "_fromEntityKey": "google_cloud_iam_service_account_1234567890",
+  "_key": "google_cloud_iam_service_account_1234567890|has|google_cloud_iam_service_account_key_projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com/keys/12345",
+  "_toEntityKey": "google_cloud_iam_service_account_key_projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com/keys/12345",
+  "_type": "google_cloud_iam_service_account_has_key",
+  "displayName": "HAS",
+  "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/1234567890?orgonly=true&project=j1-gc-integration-dev&supportedpurview=organizationId",
+}
+`;
+
+exports[`#createIamServiceAccountKeyEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "AccessKey",
+  ],
+  "_key": "google_cloud_iam_service_account_key_projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com/keys/12345",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "keyAlgorithm": "KEY_ALG_RSA_2048",
+        "keyOrigin": "GOOGLE_PROVIDED",
+        "keyType": "SYSTEM_MANAGED",
+        "name": "projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com/keys/12345",
+        "validAfterTime": "2020-08-05T18:05:19Z",
+        "validBeforeTime": "2020-08-21T18:05:19Z",
+      },
+    },
+  ],
+  "_type": "google_cloud_iam_service_account_key",
+  "algorithm": "KEY_ALG_RSA_2048",
+  "createdOn": 1596650719000,
+  "displayName": "projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com/keys/12345",
+  "expiresOn": 1598033119000,
+  "name": "projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com/keys/12345",
+  "origin": "GOOGLE_PROVIDED",
+  "type": "SYSTEM_MANAGED",
+  "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/abc123?orgonly=true&project=j1-gc-integration-dev&supportedpurview=organizationId",
 }
 `;

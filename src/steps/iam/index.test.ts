@@ -90,7 +90,11 @@ describe('#fetchIamServiceAccounts', () => {
       encounteredTypes: context.jobState.encounteredTypes,
     }).toMatchSnapshot();
 
-    expect(context.jobState.collectedEntities).toMatchGraphObjectSchema({
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === 'google_cloud_iam_service_account',
+      ),
+    ).toMatchGraphObjectSchema({
       _class: ['User'],
       schema: {
         additionalProperties: false,
@@ -108,5 +112,35 @@ describe('#fetchIamServiceAccounts', () => {
         },
       },
     });
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === 'google_cloud_iam_service_account_key',
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: ['AccessKey'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_cloud_iam_service_account_key' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          origin: { type: 'string' },
+          type: { type: 'string' },
+          algorithm: { type: 'string' },
+        },
+      },
+    });
+
+    expect(context.jobState.collectedRelationships).toEqual(
+      context.jobState.collectedRelationships.map((r) =>
+        expect.objectContaining({
+          _class: 'HAS',
+          webLink: expect.any(String),
+        }),
+      ),
+    );
   });
 });
