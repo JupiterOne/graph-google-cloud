@@ -17,11 +17,14 @@ generated.
 | IAM Role             | `google_cloud_iam_role`                | `AccessRole`          |
 | IAM Service Account  | `google_cloud_iam_service_account`     | `User`                |
 | IAM Service Account  | `google_cloud_iam_service_account_key` | `AccessKey`           |
+| IAM User             | `google_cloud_iam_user`                | `User`                |
 
 ### Relationships
 
 The following relationships are created/mapped:
 
-| From                               | Edge    | To                                     |
-| ---------------------------------- | ------- | -------------------------------------- |
-| `google_cloud_iam_service_account` | **HAS** | `google_cloud_iam_service_account_key` |
+| From                               | Edge           | To                                     |
+| ---------------------------------- | -------------- | -------------------------------------- |
+| `google_cloud_iam_service_account` | **HAS**        | `google_cloud_iam_service_account_key` |
+| `google_cloud_iam_service_account` | **IMPLEMENTS** | `google_cloud_iam_role`                |
+| `google_cloud_iam_user`            | **IMPLEMENTS** | `google_cloud_iam_role`                |

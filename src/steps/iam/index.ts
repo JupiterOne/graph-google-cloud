@@ -12,6 +12,8 @@ import {
   IAM_ROLE_ENTITY_TYPE,
   STEP_IAM_SERVICE_ACCOUNTS,
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
+  IAM_SERVICE_ACCOUNT_KEY_ENTITY_TYPE,
+  IAM_SERVICE_ACCOUNT_HAS_KEY_RELATIONSHIP_TYPE,
 } from './constants';
 
 export * from './constants';
@@ -22,10 +24,14 @@ export async function fetchIamRoles(
   const { jobState, instance } = context;
   const client = new IamClient({ config: instance.config });
 
-  await client.iterateCustomRoles(
-    async (role) =>
-      await jobState.addEntity(createIamRoleEntity(role, { custom: true })),
-  );
+  await client.iterateCustomRoles(async (role) => {
+    await jobState.addEntity(
+      createIamRoleEntity(role, {
+        projectId: client.projectId,
+        custom: true,
+      }),
+    );
+  });
 }
 
 export async function fetchIamServiceAccounts(
@@ -74,7 +80,11 @@ export const iamSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_IAM_SERVICE_ACCOUNTS,
     name: 'Identity and Access Management (IAM) Service Accounts',
-    types: [IAM_SERVICE_ACCOUNT_ENTITY_TYPE],
+    types: [
+      IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
+      IAM_SERVICE_ACCOUNT_KEY_ENTITY_TYPE,
+      IAM_SERVICE_ACCOUNT_HAS_KEY_RELATIONSHIP_TYPE,
+    ],
     executionHandler: fetchIamServiceAccounts,
   },
 ];

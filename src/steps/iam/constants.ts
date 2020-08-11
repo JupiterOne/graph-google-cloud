@@ -9,3 +9,7 @@ export const IAM_SERVICE_ACCOUNT_ENTITY_TYPE =
 export const IAM_SERVICE_ACCOUNT_KEY_ENTITY_CLASS = 'AccessKey';
 export const IAM_SERVICE_ACCOUNT_KEY_ENTITY_TYPE =
   'google_cloud_iam_service_account_key';
+export const IAM_SERVICE_ACCOUNT_HAS_KEY_RELATIONSHIP_TYPE =
+  'google_cloud_iam_service_account_has_key';
+export const IAM_USER_ENTITY_CLASS = 'User';
+export const IAM_USER_ENTITY_TYPE = 'google_cloud_iam_user';

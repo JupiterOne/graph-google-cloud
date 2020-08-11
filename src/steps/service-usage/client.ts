@@ -50,6 +50,7 @@ export class ServiceUsageClient extends Client {
 
     await this.iterateEnabledServices(async (data) => {
       enabledServices.push(data);
+      return Promise.resolve();
     });
 
     return enabledServices;

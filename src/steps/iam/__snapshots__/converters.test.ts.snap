@@ -5,7 +5,7 @@ Object {
   "_class": Array [
     "AccessRole",
   ],
-  "_key": "google_cloud_iam_role_projects/j1-gc-integration-dev/roles/myrole",
+  "_key": "project:abc123-role:projects/j1-gc-integration-dev/roles/myrole",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -43,7 +43,7 @@ Object {
   "_class": Array [
     "AccessRole",
   ],
-  "_key": "google_cloud_iam_role_projects/j1-gc-integration-dev/roles/myrole",
+  "_key": "project:abc123-role:projects/j1-gc-integration-dev/roles/myrole",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -81,7 +81,7 @@ Object {
   "_class": Array [
     "User",
   ],
-  "_key": "google_cloud_iam_service_account_1234567890",
+  "_key": "project:j1-gc-integration-dev-user:j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -117,7 +117,7 @@ Object {
   "_class": Array [
     "User",
   ],
-  "_key": "google_cloud_iam_service_account_1234567890",
+  "_key": "project:j1-gc-integration-dev-user:j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -152,8 +152,8 @@ Object {
 exports[`#createIamServiceAccountHasKeyRelationship should convert to relationship 1`] = `
 Object {
   "_class": "HAS",
-  "_fromEntityKey": "google_cloud_iam_service_account_1234567890",
-  "_key": "google_cloud_iam_service_account_1234567890|has|google_cloud_iam_service_account_key_projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com/keys/12345",
+  "_fromEntityKey": "project:j1-gc-integration-dev-user:j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+  "_key": "project:j1-gc-integration-dev-user:j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com|has|google_cloud_iam_service_account_key_projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com/keys/12345",
   "_toEntityKey": "google_cloud_iam_service_account_key_projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com/keys/12345",
   "_type": "google_cloud_iam_service_account_has_key",
   "displayName": "HAS",
@@ -189,5 +189,34 @@ Object {
   "origin": "GOOGLE_PROVIDED",
   "type": "SYSTEM_MANAGED",
   "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/abc123?orgonly=true&project=j1-gc-integration-dev&supportedpurview=organizationId",
+}
+`;
+
+exports[`#createIamUserEntity should convert custom role to entity 1`] = `
+Object {
+  "_class": Array [
+    "User",
+  ],
+  "_key": "project:abc123-user:test.user@example.com",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "deleted": false,
+        "identifier": "test.user@example.com",
+        "projectId": "abc123",
+        "type": "user",
+        "uniqueid": undefined,
+      },
+    },
+  ],
+  "_type": "google_cloud_iam_user",
+  "createdOn": undefined,
+  "deleted": false,
+  "displayName": "test.user@example.com",
+  "name": "test.user@example.com",
+  "type": "user",
+  "uniqueid": undefined,
+  "username": "test.user@example.com",
 }
 `;
