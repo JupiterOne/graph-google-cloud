@@ -7,7 +7,7 @@ Object {
       "_class": Array [
         "AccessRole",
       ],
-      "_key": "project:j1-gc-integration-dev-role:projects/j1-gc-integration-dev/roles/545240943112customrole",
+      "_key": "projects/j1-gc-integration-dev/roles/545240943112customrole",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -42,7 +42,7 @@ Object {
       "_class": Array [
         "AccessRole",
       ],
-      "_key": "project:j1-gc-integration-dev-role:projects/j1-gc-integration-dev/roles/545240943112customroleconditions",
+      "_key": "projects/j1-gc-integration-dev/roles/545240943112customroleconditions",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -487,7 +487,7 @@ Object {
       "_class": Array [
         "AccessRole",
       ],
-      "_key": "project:j1-gc-integration-dev-role:roles/editor",
+      "_key": "roles/editor",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -512,7 +512,7 @@ Object {
       "_class": Array [
         "AccessRole",
       ],
-      "_key": "project:j1-gc-integration-dev-role:roles/iam.securityReviewer",
+      "_key": "roles/iam.securityReviewer",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -537,7 +537,7 @@ Object {
       "_class": Array [
         "AccessRole",
       ],
-      "_key": "project:j1-gc-integration-dev-role:roles/iam.serviceAccountUser",
+      "_key": "roles/iam.serviceAccountUser",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -562,7 +562,7 @@ Object {
       "_class": Array [
         "AccessRole",
       ],
-      "_key": "project:j1-gc-integration-dev-role:roles/owner",
+      "_key": "roles/owner",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -613,7 +613,7 @@ Object {
       "_class": Array [
         "AccessRole",
       ],
-      "_key": "project:j1-gc-integration-dev-role:roles/resourcemanager.organizationAdmin",
+      "_key": "roles/resourcemanager.organizationAdmin",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -727,80 +727,80 @@ Object {
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/103981644983849019949?orgonly=true&project=j1-gc-integration-dev&supportedpurview=organizationId",
     },
     Object {
-      "_class": "IMPLEMENTS",
+      "_class": "ASSIGNED",
       "_fromEntityKey": "project:j1-gc-integration-dev-user:j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com",
-      "_key": "project:j1-gc-integration-dev-user:j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com|implements|project:j1-gc-integration-dev-role:projects/j1-gc-integration-dev/roles/545240943112customrole",
-      "_toEntityKey": "project:j1-gc-integration-dev-role:projects/j1-gc-integration-dev/roles/545240943112customrole",
-      "_type": "google_cloud_iam_service_account_implements_role",
-      "displayName": "IMPLEMENTS",
+      "_key": "project:j1-gc-integration-dev-user:j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com|assigned|projects/j1-gc-integration-dev/roles/545240943112customrole",
+      "_toEntityKey": "projects/j1-gc-integration-dev/roles/545240943112customrole",
+      "_type": "google_cloud_iam_service_account_assigned_role",
+      "displayName": "ASSIGNED",
     },
     Object {
-      "_class": "IMPLEMENTS",
+      "_class": "ASSIGNED",
       "_fromEntityKey": "project:j1-gc-integration-dev-user:j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com",
-      "_key": "project:j1-gc-integration-dev-user:j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com|implements|project:j1-gc-integration-dev-role:projects/j1-gc-integration-dev/roles/545240943112customroleconditions",
-      "_toEntityKey": "project:j1-gc-integration-dev-role:projects/j1-gc-integration-dev/roles/545240943112customroleconditions",
-      "_type": "google_cloud_iam_service_account_implements_role",
+      "_key": "project:j1-gc-integration-dev-user:j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com|assigned|projects/j1-gc-integration-dev/roles/545240943112customroleconditions",
+      "_toEntityKey": "projects/j1-gc-integration-dev/roles/545240943112customroleconditions",
+      "_type": "google_cloud_iam_service_account_assigned_role",
       "conditionDescription": "Test condition description",
       "conditionExpression": "resource.name != \\"bogusunknownresourcename\\"",
       "conditionLocation": undefined,
       "conditionTitle": "Test condition title",
-      "displayName": "IMPLEMENTS",
+      "displayName": "ASSIGNED",
     },
     Object {
-      "_class": "IMPLEMENTS",
+      "_class": "ASSIGNED",
       "_fromEntityKey": "project:j1-gc-integration-dev-user:545240943112-compute@developer.gserviceaccount.com",
-      "_key": "project:j1-gc-integration-dev-user:545240943112-compute@developer.gserviceaccount.com|implements|project:j1-gc-integration-dev-role:roles/editor",
-      "_toEntityKey": "project:j1-gc-integration-dev-role:roles/editor",
-      "_type": "google_cloud_iam_service_account_implements_role",
-      "displayName": "IMPLEMENTS",
+      "_key": "project:j1-gc-integration-dev-user:545240943112-compute@developer.gserviceaccount.com|assigned|roles/editor",
+      "_toEntityKey": "roles/editor",
+      "_type": "google_cloud_iam_service_account_assigned_role",
+      "displayName": "ASSIGNED",
     },
     Object {
-      "_class": "IMPLEMENTS",
+      "_class": "ASSIGNED",
       "_fromEntityKey": "project:j1-gc-integration-dev-user:j1-gc-integration-dev@appspot.gserviceaccount.com",
-      "_key": "project:j1-gc-integration-dev-user:j1-gc-integration-dev@appspot.gserviceaccount.com|implements|project:j1-gc-integration-dev-role:roles/editor",
-      "_toEntityKey": "project:j1-gc-integration-dev-role:roles/editor",
-      "_type": "google_cloud_iam_service_account_implements_role",
-      "displayName": "IMPLEMENTS",
+      "_key": "project:j1-gc-integration-dev-user:j1-gc-integration-dev@appspot.gserviceaccount.com|assigned|roles/editor",
+      "_toEntityKey": "roles/editor",
+      "_type": "google_cloud_iam_service_account_assigned_role",
+      "displayName": "ASSIGNED",
     },
     Object {
-      "_class": "IMPLEMENTS",
+      "_class": "ASSIGNED",
       "_fromEntityKey": "project:j1-gc-integration-dev-user:j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
-      "_key": "project:j1-gc-integration-dev-user:j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com|implements|project:j1-gc-integration-dev-role:roles/iam.securityReviewer",
-      "_toEntityKey": "project:j1-gc-integration-dev-role:roles/iam.securityReviewer",
-      "_type": "google_cloud_iam_service_account_implements_role",
-      "displayName": "IMPLEMENTS",
+      "_key": "project:j1-gc-integration-dev-user:j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com|assigned|roles/iam.securityReviewer",
+      "_toEntityKey": "roles/iam.securityReviewer",
+      "_type": "google_cloud_iam_service_account_assigned_role",
+      "displayName": "ASSIGNED",
     },
     Object {
-      "_class": "IMPLEMENTS",
+      "_class": "ASSIGNED",
       "_fromEntityKey": "project:j1-gc-integration-dev-user:j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
-      "_key": "project:j1-gc-integration-dev-user:j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com|implements|project:j1-gc-integration-dev-role:roles/iam.serviceAccountUser",
-      "_toEntityKey": "project:j1-gc-integration-dev-role:roles/iam.serviceAccountUser",
-      "_type": "google_cloud_iam_service_account_implements_role",
-      "displayName": "IMPLEMENTS",
+      "_key": "project:j1-gc-integration-dev-user:j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com|assigned|roles/iam.serviceAccountUser",
+      "_toEntityKey": "roles/iam.serviceAccountUser",
+      "_type": "google_cloud_iam_service_account_assigned_role",
+      "displayName": "ASSIGNED",
     },
     Object {
-      "_class": "IMPLEMENTS",
+      "_class": "ASSIGNED",
       "_fromEntityKey": "project:j1-gc-integration-dev-user:j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com",
-      "_key": "project:j1-gc-integration-dev-user:j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com|implements|project:j1-gc-integration-dev-role:roles/owner",
-      "_toEntityKey": "project:j1-gc-integration-dev-role:roles/owner",
-      "_type": "google_cloud_iam_service_account_implements_role",
-      "displayName": "IMPLEMENTS",
+      "_key": "project:j1-gc-integration-dev-user:j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com|assigned|roles/owner",
+      "_toEntityKey": "roles/owner",
+      "_type": "google_cloud_iam_service_account_assigned_role",
+      "displayName": "ASSIGNED",
     },
     Object {
-      "_class": "IMPLEMENTS",
+      "_class": "ASSIGNED",
       "_fromEntityKey": "project:j1-gc-integration-dev-user:austin.kelleher@jupiterone.io",
-      "_key": "project:j1-gc-integration-dev-user:austin.kelleher@jupiterone.io|implements|project:j1-gc-integration-dev-role:roles/owner",
-      "_toEntityKey": "project:j1-gc-integration-dev-role:roles/owner",
-      "_type": "google_cloud_iam_user_implements_role",
-      "displayName": "IMPLEMENTS",
+      "_key": "project:j1-gc-integration-dev-user:austin.kelleher@jupiterone.io|assigned|roles/owner",
+      "_toEntityKey": "roles/owner",
+      "_type": "google_cloud_iam_user_assigned_role",
+      "displayName": "ASSIGNED",
     },
     Object {
-      "_class": "IMPLEMENTS",
+      "_class": "ASSIGNED",
       "_fromEntityKey": "project:j1-gc-integration-dev-user:j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
-      "_key": "project:j1-gc-integration-dev-user:j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com|implements|project:j1-gc-integration-dev-role:roles/resourcemanager.organizationAdmin",
-      "_toEntityKey": "project:j1-gc-integration-dev-role:roles/resourcemanager.organizationAdmin",
-      "_type": "google_cloud_iam_service_account_implements_role",
-      "displayName": "IMPLEMENTS",
+      "_key": "project:j1-gc-integration-dev-user:j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com|assigned|roles/resourcemanager.organizationAdmin",
+      "_toEntityKey": "roles/resourcemanager.organizationAdmin",
+      "_type": "google_cloud_iam_service_account_assigned_role",
+      "displayName": "ASSIGNED",
     },
   ],
   "encounteredTypes": Array [
@@ -808,9 +808,9 @@ Object {
     "google_cloud_iam_service_account",
     "google_cloud_iam_service_account_key",
     "google_cloud_iam_service_account_has_key",
-    "google_cloud_iam_service_account_implements_role",
+    "google_cloud_iam_service_account_assigned_role",
     "google_cloud_iam_user",
-    "google_cloud_iam_user_implements_role",
+    "google_cloud_iam_user_assigned_role",
   ],
   "numCollectedEntities": 22,
   "numCollectedRelationships": 19,

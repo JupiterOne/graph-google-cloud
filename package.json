@@ -27,7 +27,7 @@
     "create-env-file": "yarn ts-node ./scripts/createEnvFile $1"
   },
   "peerDependencies": {
-    "@jupiterone/integration-sdk-core": "^2.9.0"
+    "@jupiterone/integration-sdk-core": "^2.10.0"
   },
   "devDependencies": {
     "@jupiterone/integration-sdk-core": "^2.10.0",

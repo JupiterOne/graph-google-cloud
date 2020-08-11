@@ -1,38 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`#createIamUserImplementsIamRoleRelationship should convert to relationship using service account 1`] = `
+exports[`#createIamUserAssignedIamRoleRelationship should convert to relationship using service account 1`] = `
 Object {
-  "_class": "IMPLEMENTS",
+  "_class": "ASSIGNED",
   "_fromEntityKey": "project:abc123-user:j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
-  "_key": "project:abc123-user:j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com|implements|project:abc123-role:projects/j1-gc-integration-dev/roles/myrole",
-  "_toEntityKey": "project:abc123-role:projects/j1-gc-integration-dev/roles/myrole",
-  "_type": "google_cloud_iam_service_account_implements_role",
-  "displayName": "IMPLEMENTS",
+  "_key": "project:abc123-user:j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com|assigned|projects/j1-gc-integration-dev/roles/myrole",
+  "_toEntityKey": "projects/j1-gc-integration-dev/roles/myrole",
+  "_type": "google_cloud_iam_service_account_assigned_role",
+  "displayName": "ASSIGNED",
 }
 `;
 
-exports[`#createIamUserImplementsIamRoleRelationship should convert to relationship using user 1`] = `
+exports[`#createIamUserAssignedIamRoleRelationship should convert to relationship using user 1`] = `
 Object {
-  "_class": "IMPLEMENTS",
+  "_class": "ASSIGNED",
   "_fromEntityKey": "project:abc123-user:test.user@example.com",
-  "_key": "project:abc123-user:test.user@example.com|implements|project:abc123-role:projects/j1-gc-integration-dev/roles/myrole",
-  "_toEntityKey": "project:abc123-role:projects/j1-gc-integration-dev/roles/myrole",
-  "_type": "google_cloud_iam_user_implements_role",
-  "displayName": "IMPLEMENTS",
+  "_key": "project:abc123-user:test.user@example.com|assigned|projects/j1-gc-integration-dev/roles/myrole",
+  "_toEntityKey": "projects/j1-gc-integration-dev/roles/myrole",
+  "_type": "google_cloud_iam_user_assigned_role",
+  "displayName": "ASSIGNED",
 }
 `;
 
-exports[`#createIamUserImplementsIamRoleRelationship should convert to relationship with conditions in role 1`] = `
+exports[`#createIamUserAssignedIamRoleRelationship should convert to relationship with conditions in role 1`] = `
 Object {
-  "_class": "IMPLEMENTS",
+  "_class": "ASSIGNED",
   "_fromEntityKey": "project:abc123-user:j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
-  "_key": "project:abc123-user:j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com|implements|project:abc123-role:projects/j1-gc-integration-dev/roles/myrole",
-  "_toEntityKey": "project:abc123-role:projects/j1-gc-integration-dev/roles/myrole",
-  "_type": "google_cloud_iam_service_account_implements_role",
+  "_key": "project:abc123-user:j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com|assigned|projects/j1-gc-integration-dev/roles/myrole",
+  "_toEntityKey": "projects/j1-gc-integration-dev/roles/myrole",
+  "_type": "google_cloud_iam_service_account_assigned_role",
   "conditionDescription": "Test description",
   "conditionExpression": "resource.name != \\"bogusunknownresourcename\\"",
   "conditionLocation": undefined,
   "conditionTitle": "Test title",
-  "displayName": "IMPLEMENTS",
+  "displayName": "ASSIGNED",
 }
 `;

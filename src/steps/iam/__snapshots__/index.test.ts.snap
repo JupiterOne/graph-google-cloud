@@ -7,7 +7,7 @@ Object {
       "_class": Array [
         "AccessRole",
       ],
-      "_key": "project:j1-gc-integration-dev-role:projects/j1-gc-integration-dev/roles/545240943112customrole",
+      "_key": "projects/j1-gc-integration-dev/roles/545240943112customrole",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -42,7 +42,7 @@ Object {
       "_class": Array [
         "AccessRole",
       ],
-      "_key": "project:j1-gc-integration-dev-role:projects/j1-gc-integration-dev/roles/545240943112customroleconditions",
+      "_key": "projects/j1-gc-integration-dev/roles/545240943112customroleconditions",
       "_rawData": Array [
         Object {
           "name": "default",

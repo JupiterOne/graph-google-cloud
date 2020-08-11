@@ -5,11 +5,11 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { ResourceManagerClient, PolicyMemberBinding } from './client';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
-import { createIamUserImplementsIamRoleRelationship } from './converters';
+import { createIamUserAssignedIamRoleRelationship } from './converters';
 import {
   STEP_RESOURCE_MANAGER_IAM_POLICY,
-  IAM_SERVICE_ACCOUNT_IMPLEMENTS_ROLE_RELATIONSHIP_TYPE,
-  IAM_USER_IMPLEMENTS_ROLE_RELATIONSHIP_TYPE,
+  IAM_SERVICE_ACCOUNT_ASSIGNED_ROLE_RELATIONSHIP_TYPE,
+  IAM_USER_ASSIGNED_ROLE_RELATIONSHIP_TYPE,
 } from './constants';
 import {
   iamSteps,
@@ -23,12 +23,11 @@ import {
   createIamUserEntity,
   toIamUserEntityKey,
   createIamRoleEntity,
-  toIamRoleEntityKey,
 } from '../iam/converters';
 
 export * from './constants';
 
-async function findOrCreateIamUserEntity({
+async function maybeFindOrCreateIamUserEntity({
   jobState,
   projectId,
   member,
@@ -36,7 +35,7 @@ async function findOrCreateIamUserEntity({
   jobState: JobState;
   projectId: string;
   member: string;
-}) {
+}): Promise<Entity | null> {
   const parsedMember = parseIamMember(member);
   const { identifier: parsedIdentifier, type: parsedMemberType } = parsedMember;
 
@@ -58,7 +57,7 @@ async function findOrCreateIamUserEntity({
         _type: IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
         _key: toIamUserEntityKey({
           projectId,
-          member: parsedIdentifier,
+          memberIdentifier: parsedIdentifier,
         }),
       });
     } catch (err) {
@@ -93,10 +92,7 @@ async function findOrCreateIamRoleEntity({
   try {
     roleEntity = await jobState.getEntity({
       _type: IAM_ROLE_ENTITY_TYPE,
-      _key: toIamRoleEntityKey({
-        projectId,
-        roleName,
-      }),
+      _key: roleName,
     });
   } catch (err) {
     roleEntity = await jobState.addEntity(
@@ -106,7 +102,6 @@ async function findOrCreateIamRoleEntity({
           title: roleName,
         },
         {
-          projectId,
           custom: false,
         },
       ),
@@ -126,7 +121,7 @@ async function buildIamUserRoleRelationship({
   data: PolicyMemberBinding;
 }) {
   const roleName = data.binding.role as string;
-  const iamUserEntity = await findOrCreateIamUserEntity({
+  const iamUserEntity = await maybeFindOrCreateIamUserEntity({
     jobState,
     projectId,
     member: data.member,
@@ -144,7 +139,7 @@ async function buildIamUserRoleRelationship({
   });
 
   await jobState.addRelationship(
-    createIamUserImplementsIamRoleRelationship({
+    createIamUserAssignedIamRoleRelationship({
       iamUserEntity,
       iamRoleEntity,
       condition: data.binding.condition as cloudresourcemanager_v1.Schema$Expr,
@@ -177,8 +172,8 @@ export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
     types: [
       IAM_ROLE_ENTITY_TYPE,
       IAM_USER_ENTITY_TYPE,
-      IAM_SERVICE_ACCOUNT_IMPLEMENTS_ROLE_RELATIONSHIP_TYPE,
-      IAM_USER_IMPLEMENTS_ROLE_RELATIONSHIP_TYPE,
+      IAM_SERVICE_ACCOUNT_ASSIGNED_ROLE_RELATIONSHIP_TYPE,
+      IAM_USER_ASSIGNED_ROLE_RELATIONSHIP_TYPE,
     ],
     dependsOn: [...iamSteps.map((step) => step.id)],
     executionHandler: fetchResourceManagerIamPolicy,

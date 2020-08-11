@@ -5,7 +5,7 @@ Object {
   "_class": Array [
     "AccessRole",
   ],
-  "_key": "project:abc123-role:projects/j1-gc-integration-dev/roles/myrole",
+  "_key": "projects/j1-gc-integration-dev/roles/myrole",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -43,7 +43,7 @@ Object {
   "_class": Array [
     "AccessRole",
   ],
-  "_key": "project:abc123-role:projects/j1-gc-integration-dev/roles/myrole",
+  "_key": "projects/j1-gc-integration-dev/roles/myrole",
   "_rawData": Array [
     Object {
       "name": "default",

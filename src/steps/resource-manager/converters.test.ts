@@ -1,4 +1,4 @@
-import { createIamUserImplementsIamRoleRelationship } from './converters';
+import { createIamUserAssignedIamRoleRelationship } from './converters';
 import { getMockIamRole, getMockServiceAccount } from '../../../test/mocks';
 import {
   createIamRoleEntity,
@@ -6,7 +6,7 @@ import {
   createIamUserEntity,
 } from '../iam/converters';
 
-describe('#createIamUserImplementsIamRoleRelationship', () => {
+describe('#createIamUserAssignedIamRoleRelationship', () => {
   test('should convert to relationship using service account', () => {
     const projectId = 'abc123';
     const serviceAccountEntity = createIamServiceAccountEntity(
@@ -17,11 +17,10 @@ describe('#createIamUserImplementsIamRoleRelationship', () => {
 
     const roleEntity = createIamRoleEntity(getMockIamRole(), {
       custom: true,
-      projectId,
     });
 
     expect(
-      createIamUserImplementsIamRoleRelationship({
+      createIamUserAssignedIamRoleRelationship({
         iamUserEntity: serviceAccountEntity,
         iamRoleEntity: roleEntity,
       }),
@@ -29,7 +28,6 @@ describe('#createIamUserImplementsIamRoleRelationship', () => {
   });
 
   test('should convert to relationship using user', () => {
-    const projectId = 'abc123';
     const userEntity = createIamUserEntity({
       projectId: 'abc123',
       type: 'user',
@@ -40,11 +38,10 @@ describe('#createIamUserImplementsIamRoleRelationship', () => {
 
     const roleEntity = createIamRoleEntity(getMockIamRole(), {
       custom: true,
-      projectId,
     });
 
     expect(
-      createIamUserImplementsIamRoleRelationship({
+      createIamUserAssignedIamRoleRelationship({
         iamUserEntity: userEntity,
         iamRoleEntity: roleEntity,
       }),
@@ -61,11 +58,10 @@ describe('#createIamUserImplementsIamRoleRelationship', () => {
 
     const roleEntity = createIamRoleEntity(getMockIamRole(), {
       custom: true,
-      projectId,
     });
 
     expect(
-      createIamUserImplementsIamRoleRelationship({
+      createIamUserAssignedIamRoleRelationship({
         iamUserEntity: serviceAccountEntity,
         iamRoleEntity: roleEntity,
         condition: {

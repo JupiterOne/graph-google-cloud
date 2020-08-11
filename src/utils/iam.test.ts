@@ -127,7 +127,7 @@ describe('#parseIamMember', () => {
       expect(err.message).toEqual(
         'getIamMemberDataFromIamMember cannot process this member format.',
       );
-      expect(err.code).toEqual('UNPROCESSABLE_IAM_MEMBER_FORMAT');
+      expect(err.code).toEqual('UNKNOWN_IAM_MEMBER_FORMAT');
     }
   });
 });

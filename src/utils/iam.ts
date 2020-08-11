@@ -121,7 +121,7 @@ export function parseIamMember(member: string): ParsedIamMember {
     throw new IntegrationError({
       message:
         'getIamMemberDataFromIamMember cannot process this member format.',
-      code: 'UNPROCESSABLE_IAM_MEMBER_FORMAT',
+      code: 'UNKNOWN_IAM_MEMBER_FORMAT',
     });
   }
 

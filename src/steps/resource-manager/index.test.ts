@@ -56,8 +56,8 @@ describe('#fetchResourceManagerIamPolicy', () => {
     const iamServiceAccountKeyEntities = context.jobState.collectedEntities.filter(
       (e) => e._type === 'google_cloud_iam_service_account_key',
     );
-    const iamServiceAccountImplementsRoleRelationships = context.jobState.collectedRelationships.filter(
-      (r) => r._type === 'google_cloud_iam_service_account_implements_role',
+    const iamServiceAccountAssignedRoleRelationships = context.jobState.collectedRelationships.filter(
+      (r) => r._type === 'google_cloud_iam_service_account_assigned_role',
     );
     const iamServiceAccountHasKeyRelationships = context.jobState.collectedRelationships.filter(
       (r) => r._type === 'google_cloud_iam_service_account_has_key',
@@ -67,7 +67,7 @@ describe('#fetchResourceManagerIamPolicy', () => {
     expect(iamServiceAccountEntities.length).toBeGreaterThanOrEqual(1);
     expect(iamServiceAccountKeyEntities.length).toBeGreaterThanOrEqual(1);
     expect(
-      iamServiceAccountImplementsRoleRelationships.length,
+      iamServiceAccountAssignedRoleRelationships.length,
     ).toBeGreaterThanOrEqual(1);
     expect(iamServiceAccountHasKeyRelationships.length).toBeGreaterThanOrEqual(
       1,
@@ -126,10 +126,10 @@ describe('#fetchResourceManagerIamPolicy', () => {
       },
     });
 
-    expect(iamServiceAccountImplementsRoleRelationships).toEqual(
-      iamServiceAccountImplementsRoleRelationships.map((r) =>
+    expect(iamServiceAccountAssignedRoleRelationships).toEqual(
+      iamServiceAccountAssignedRoleRelationships.map((r) =>
         expect.objectContaining({
-          _class: 'IMPLEMENTS',
+          _class: 'ASSIGNED',
         }),
       ),
     );

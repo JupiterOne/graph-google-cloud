@@ -16,13 +16,13 @@ function getConditionRelationshipProperties(
   };
 }
 
-export function createIamUserImplementsIamRoleRelationship(params: {
+export function createIamUserAssignedIamRoleRelationship(params: {
   iamUserEntity: Entity;
   iamRoleEntity: Entity;
   condition?: cloudresourcemanager_v1.Schema$Expr;
 }): Relationship {
   return createDirectRelationship({
-    _class: 'IMPLEMENTS',
+    _class: 'ASSIGNED',
     from: params.iamUserEntity,
     to: params.iamRoleEntity,
     properties: {

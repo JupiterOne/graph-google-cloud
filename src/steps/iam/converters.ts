@@ -19,22 +19,11 @@ import {
 import { generateEntityKey } from '../../utils/generateKeys';
 import { ParsedIamMemberType } from '../../utils/iam';
 
-export function toIamRoleEntityKey(params: {
-  projectId: string;
-  roleName: string;
-}): string {
-  // Managed roles do not contain the project ID. We just prefix all role
-  // entities with the project ID for safety.
-  return `project:${params.projectId}-role:${params.roleName}`;
-}
-
 export function createIamRoleEntity(
   data: iam_v1.Schema$Role,
   {
-    projectId,
     custom,
   }: {
-    projectId: string;
     /**
      * Google Cloud has managed roles and custom roles. There is no metadata
      * on the role itself that marks whether it's a custom role or managed role.
@@ -51,10 +40,7 @@ export function createIamRoleEntity(
       assign: {
         _class: IAM_ROLE_ENTITY_CLASS,
         _type: IAM_ROLE_ENTITY_TYPE,
-        _key: toIamRoleEntityKey({
-          projectId,
-          roleName,
-        }),
+        _key: roleName,
         name: roleName,
         displayName: data.title as string,
         description: data.description,
@@ -80,11 +66,9 @@ function getServiceAccountWebLink({
 
 export function toIamUserEntityKey(params: {
   projectId: string;
-  member: string;
+  memberIdentifier: string;
 }): string {
-  // Managed roles do not contain the project ID. We just prefix all role
-  // entities with the project ID for safety.
-  return `project:${params.projectId}-user:${params.member}`;
+  return `project:${params.projectId}-user:${params.memberIdentifier}`;
 }
 
 export function createIamUserEntity(data: {
@@ -102,7 +86,7 @@ export function createIamUserEntity(data: {
         _type: IAM_USER_ENTITY_TYPE,
         _key: toIamUserEntityKey({
           projectId: data.projectId,
-          member: data.identifier as string,
+          memberIdentifier: data.identifier as string,
         }),
         displayName: data.identifier,
         name: data.identifier,
@@ -129,7 +113,7 @@ export function createIamServiceAccountEntity(
         _type: IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
         _key: toIamUserEntityKey({
           projectId,
-          member: data.email as string,
+          memberIdentifier: data.email as string,
         }),
         name: data.name,
         displayName: (data.displayName || data.name) as string,

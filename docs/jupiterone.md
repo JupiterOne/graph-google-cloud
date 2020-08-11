@@ -23,8 +23,8 @@ generated.
 
 The following relationships are created/mapped:
 
-| From                               | Edge           | To                                     |
-| ---------------------------------- | -------------- | -------------------------------------- |
-| `google_cloud_iam_service_account` | **HAS**        | `google_cloud_iam_service_account_key` |
-| `google_cloud_iam_service_account` | **IMPLEMENTS** | `google_cloud_iam_role`                |
-| `google_cloud_iam_user`            | **IMPLEMENTS** | `google_cloud_iam_role`                |
+| From                               | Edge         | To                                     |
+| ---------------------------------- | ------------ | -------------------------------------- |
+| `google_cloud_iam_service_account` | **HAS**      | `google_cloud_iam_service_account_key` |
+| `google_cloud_iam_service_account` | **ASSIGNED** | `google_cloud_iam_role`                |
+| `google_cloud_iam_user`            | **ASSIGNED** | `google_cloud_iam_role`                |
