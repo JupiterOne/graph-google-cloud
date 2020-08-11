@@ -6,7 +6,7 @@ Object {
   "_fromEntityKey": "j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
   "_key": "j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com|assigned|projects/j1-gc-integration-dev/roles/myrole",
   "_toEntityKey": "projects/j1-gc-integration-dev/roles/myrole",
-  "_type": "google_cloud_iam_service_account_assigned_role",
+  "_type": "google_iam_service_account_assigned_role",
   "displayName": "ASSIGNED",
   "projectId": "abc123",
 }
@@ -18,7 +18,7 @@ Object {
   "_fromEntityKey": "test.user@example.com",
   "_key": "test.user@example.com|assigned|projects/j1-gc-integration-dev/roles/myrole",
   "_toEntityKey": "projects/j1-gc-integration-dev/roles/myrole",
-  "_type": "google_cloud_iam_user_assigned_role",
+  "_type": "google_user_assigned_iam_role",
   "displayName": "ASSIGNED",
   "projectId": "abc123",
 }
@@ -30,7 +30,7 @@ Object {
   "_fromEntityKey": "j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
   "_key": "j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com|assigned|projects/j1-gc-integration-dev/roles/myrole",
   "_toEntityKey": "projects/j1-gc-integration-dev/roles/myrole",
-  "_type": "google_cloud_iam_service_account_assigned_role",
+  "_type": "google_iam_service_account_assigned_role",
   "conditionDescription": "Test description",
   "conditionExpression": "resource.name != \\"bogusunknownresourcename\\"",
   "conditionLocation": undefined,

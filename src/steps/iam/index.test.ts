@@ -41,7 +41,7 @@ describe('#fetchIamRoles', () => {
       schema: {
         additionalProperties: false,
         properties: {
-          _type: { const: 'google_cloud_iam_role' },
+          _type: { const: 'google_iam_role' },
           _rawData: {
             type: 'array',
             items: { type: 'object' },
@@ -92,14 +92,14 @@ describe('#fetchIamServiceAccounts', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e._type === 'google_cloud_iam_service_account',
+        (e) => e._type === 'google_iam_service_account',
       ),
     ).toMatchGraphObjectSchema({
       _class: ['User'],
       schema: {
         additionalProperties: false,
         properties: {
-          _type: { const: 'google_cloud_iam_service_account' },
+          _type: { const: 'google_iam_service_account' },
           _rawData: {
             type: 'array',
             items: { type: 'object' },
@@ -115,14 +115,14 @@ describe('#fetchIamServiceAccounts', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e._type === 'google_cloud_iam_service_account_key',
+        (e) => e._type === 'google_iam_service_account_key',
       ),
     ).toMatchGraphObjectSchema({
       _class: ['AccessKey'],
       schema: {
         additionalProperties: false,
         properties: {
-          _type: { const: 'google_cloud_iam_service_account_key' },
+          _type: { const: 'google_iam_service_account_key' },
           _rawData: {
             type: 'array',
             items: { type: 'object' },
