@@ -10,17 +10,18 @@ and this project adheres to
 
 ### Added
 
-- Ingest IAM roles as `google_cloud_iam_role`
-- Ingest IAM service accounts as `google_cloud_iam_service_account`
-- Ingest IAM service account keys as `google_cloud_iam_service_account_key` and
-  build `HAS` relationship between `google_cloud_iam_service_account` and
-  `google_cloud_iam_service_account_key`.
-- Ingest `google_cloud_user`
-- Build `ASSIGNED` relationship between `google_cloud_iam_user` and
-  `google_cloud_iam_role`
-- Fixes #10 - Build `ASSIGNED` relationship between
-  `google_cloud_iam_service_account` and `google_cloud_iam_role`
+- Ingest IAM roles as `google_iam_role`
+- Ingest IAM service accounts as `google_iam_service_account`
+- Ingest IAM service account keys as `google_iam_service_account_key` and build
+  `HAS` relationship between `google_iam_service_account` and
+  `google_iam_service_account_key`.
+- Ingest `google_user`
+- Build `ASSIGNED` relationship between `google_user` and `google_iam_role`
+- Fixes #10 - Build `ASSIGNED` relationship between `google_iam_service_account`
+  and `google_iam_role`
 - Fixes #11 - Update all existing entity keys to not include the `_type` prefix
+- Fixes #31 - Make `_type` naming convention consistent with G Suite integration
+  for `google_user` and the rest with Google Cloud Terraform provider.
 
 ## 0.1.0 - 2020-08-04
 
@@ -45,6 +46,6 @@ yarn create-env-file ~/SERVICE_ACCOUNT_FILE_PATH_HERE.json
 
 - Initial `@jupiterone/graph-google-cloud` release.
 - Ingestion of `google_cloud_function`
-- Ingestion of `google_cloud_storage_bucket`
+- Ingestion of `google_storage_bucket`
 - Ingestion of `google_cloud_api_service`
 - Integration setup documentation
