@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`#fetchIamRoles should collect data 1`] = `
+exports[`#fetchResourceManagerIamPolicy should collect data 1`] = `
 Object {
   "collectedEntities": Array [
     Object {
@@ -71,19 +71,6 @@ Object {
       ],
       "stage": "GA",
     },
-  ],
-  "collectedRelationships": Array [],
-  "encounteredTypes": Array [
-    "google_cloud_iam_role",
-  ],
-  "numCollectedEntities": 2,
-  "numCollectedRelationships": 0,
-}
-`;
-
-exports[`#fetchIamServiceAccounts should collect data 1`] = `
-Object {
-  "collectedEntities": Array [
     Object {
       "_class": Array [
         "User",
@@ -496,6 +483,156 @@ Object {
       "type": "SYSTEM_MANAGED",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/103981644983849019949?orgonly=true&project=j1-gc-integration-dev&supportedpurview=organizationId",
     },
+    Object {
+      "_class": Array [
+        "AccessRole",
+      ],
+      "_key": "roles/editor",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "name": "roles/editor",
+            "title": "roles/editor",
+          },
+        },
+      ],
+      "_type": "google_cloud_iam_role",
+      "createdOn": undefined,
+      "custom": false,
+      "deleted": false,
+      "description": undefined,
+      "displayName": "roles/editor",
+      "etag": undefined,
+      "name": "roles/editor",
+      "permissions": undefined,
+      "stage": undefined,
+    },
+    Object {
+      "_class": Array [
+        "AccessRole",
+      ],
+      "_key": "roles/iam.securityReviewer",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "name": "roles/iam.securityReviewer",
+            "title": "roles/iam.securityReviewer",
+          },
+        },
+      ],
+      "_type": "google_cloud_iam_role",
+      "createdOn": undefined,
+      "custom": false,
+      "deleted": false,
+      "description": undefined,
+      "displayName": "roles/iam.securityReviewer",
+      "etag": undefined,
+      "name": "roles/iam.securityReviewer",
+      "permissions": undefined,
+      "stage": undefined,
+    },
+    Object {
+      "_class": Array [
+        "AccessRole",
+      ],
+      "_key": "roles/iam.serviceAccountUser",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "name": "roles/iam.serviceAccountUser",
+            "title": "roles/iam.serviceAccountUser",
+          },
+        },
+      ],
+      "_type": "google_cloud_iam_role",
+      "createdOn": undefined,
+      "custom": false,
+      "deleted": false,
+      "description": undefined,
+      "displayName": "roles/iam.serviceAccountUser",
+      "etag": undefined,
+      "name": "roles/iam.serviceAccountUser",
+      "permissions": undefined,
+      "stage": undefined,
+    },
+    Object {
+      "_class": Array [
+        "AccessRole",
+      ],
+      "_key": "roles/owner",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "name": "roles/owner",
+            "title": "roles/owner",
+          },
+        },
+      ],
+      "_type": "google_cloud_iam_role",
+      "createdOn": undefined,
+      "custom": false,
+      "deleted": false,
+      "description": undefined,
+      "displayName": "roles/owner",
+      "etag": undefined,
+      "name": "roles/owner",
+      "permissions": undefined,
+      "stage": undefined,
+    },
+    Object {
+      "_class": Array [
+        "User",
+      ],
+      "_key": "austin.kelleher@jupiterone.io",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "deleted": false,
+            "identifier": "austin.kelleher@jupiterone.io",
+            "type": "user",
+            "uniqueid": undefined,
+          },
+        },
+      ],
+      "_type": "google_cloud_iam_user",
+      "createdOn": undefined,
+      "deleted": false,
+      "displayName": "austin.kelleher@jupiterone.io",
+      "name": "austin.kelleher@jupiterone.io",
+      "type": "user",
+      "uniqueid": undefined,
+      "username": "austin.kelleher@jupiterone.io",
+    },
+    Object {
+      "_class": Array [
+        "AccessRole",
+      ],
+      "_key": "roles/resourcemanager.organizationAdmin",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "name": "roles/resourcemanager.organizationAdmin",
+            "title": "roles/resourcemanager.organizationAdmin",
+          },
+        },
+      ],
+      "_type": "google_cloud_iam_role",
+      "createdOn": undefined,
+      "custom": false,
+      "deleted": false,
+      "description": undefined,
+      "displayName": "roles/resourcemanager.organizationAdmin",
+      "etag": undefined,
+      "name": "roles/resourcemanager.organizationAdmin",
+      "permissions": undefined,
+      "stage": undefined,
+    },
   ],
   "collectedRelationships": Array [
     Object {
@@ -588,13 +725,102 @@ Object {
       "displayName": "HAS",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/103981644983849019949?orgonly=true&project=j1-gc-integration-dev&supportedpurview=organizationId",
     },
+    Object {
+      "_class": "ASSIGNED",
+      "_fromEntityKey": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com",
+      "_key": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com|assigned|projects/j1-gc-integration-dev/roles/545240943112customrole",
+      "_toEntityKey": "projects/j1-gc-integration-dev/roles/545240943112customrole",
+      "_type": "google_cloud_iam_service_account_assigned_role",
+      "displayName": "ASSIGNED",
+      "projectId": "j1-gc-integration-dev",
+    },
+    Object {
+      "_class": "ASSIGNED",
+      "_fromEntityKey": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com",
+      "_key": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com|assigned|projects/j1-gc-integration-dev/roles/545240943112customroleconditions",
+      "_toEntityKey": "projects/j1-gc-integration-dev/roles/545240943112customroleconditions",
+      "_type": "google_cloud_iam_service_account_assigned_role",
+      "conditionDescription": "Test condition description",
+      "conditionExpression": "resource.name != \\"bogusunknownresourcename\\"",
+      "conditionLocation": undefined,
+      "conditionTitle": "Test condition title",
+      "displayName": "ASSIGNED",
+      "projectId": "j1-gc-integration-dev",
+    },
+    Object {
+      "_class": "ASSIGNED",
+      "_fromEntityKey": "545240943112-compute@developer.gserviceaccount.com",
+      "_key": "545240943112-compute@developer.gserviceaccount.com|assigned|roles/editor",
+      "_toEntityKey": "roles/editor",
+      "_type": "google_cloud_iam_service_account_assigned_role",
+      "displayName": "ASSIGNED",
+      "projectId": "j1-gc-integration-dev",
+    },
+    Object {
+      "_class": "ASSIGNED",
+      "_fromEntityKey": "j1-gc-integration-dev@appspot.gserviceaccount.com",
+      "_key": "j1-gc-integration-dev@appspot.gserviceaccount.com|assigned|roles/editor",
+      "_toEntityKey": "roles/editor",
+      "_type": "google_cloud_iam_service_account_assigned_role",
+      "displayName": "ASSIGNED",
+      "projectId": "j1-gc-integration-dev",
+    },
+    Object {
+      "_class": "ASSIGNED",
+      "_fromEntityKey": "j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+      "_key": "j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com|assigned|roles/iam.securityReviewer",
+      "_toEntityKey": "roles/iam.securityReviewer",
+      "_type": "google_cloud_iam_service_account_assigned_role",
+      "displayName": "ASSIGNED",
+      "projectId": "j1-gc-integration-dev",
+    },
+    Object {
+      "_class": "ASSIGNED",
+      "_fromEntityKey": "j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+      "_key": "j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com|assigned|roles/iam.serviceAccountUser",
+      "_toEntityKey": "roles/iam.serviceAccountUser",
+      "_type": "google_cloud_iam_service_account_assigned_role",
+      "displayName": "ASSIGNED",
+      "projectId": "j1-gc-integration-dev",
+    },
+    Object {
+      "_class": "ASSIGNED",
+      "_fromEntityKey": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com",
+      "_key": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com|assigned|roles/owner",
+      "_toEntityKey": "roles/owner",
+      "_type": "google_cloud_iam_service_account_assigned_role",
+      "displayName": "ASSIGNED",
+      "projectId": "j1-gc-integration-dev",
+    },
+    Object {
+      "_class": "ASSIGNED",
+      "_fromEntityKey": "austin.kelleher@jupiterone.io",
+      "_key": "austin.kelleher@jupiterone.io|assigned|roles/owner",
+      "_toEntityKey": "roles/owner",
+      "_type": "google_cloud_iam_user_assigned_role",
+      "displayName": "ASSIGNED",
+      "projectId": "j1-gc-integration-dev",
+    },
+    Object {
+      "_class": "ASSIGNED",
+      "_fromEntityKey": "j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+      "_key": "j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com|assigned|roles/resourcemanager.organizationAdmin",
+      "_toEntityKey": "roles/resourcemanager.organizationAdmin",
+      "_type": "google_cloud_iam_service_account_assigned_role",
+      "displayName": "ASSIGNED",
+      "projectId": "j1-gc-integration-dev",
+    },
   ],
   "encounteredTypes": Array [
+    "google_cloud_iam_role",
     "google_cloud_iam_service_account",
     "google_cloud_iam_service_account_key",
     "google_cloud_iam_service_account_has_key",
+    "google_cloud_iam_service_account_assigned_role",
+    "google_cloud_iam_user",
+    "google_cloud_iam_user_assigned_role",
   ],
-  "numCollectedEntities": 14,
-  "numCollectedRelationships": 10,
+  "numCollectedEntities": 22,
+  "numCollectedRelationships": 19,
 }
 `;

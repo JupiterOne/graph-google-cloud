@@ -11,10 +11,9 @@ export async function fetchCloudFunctions(
 ): Promise<void> {
   const { jobState } = context;
   const client = new CloudFunctionsClient({ config: context.instance.config });
-  await client.iterateCloudFunctions(
-    async (cloudFunction) =>
-      await jobState.addEntity(createCloudFunctionEntity(cloudFunction)),
-  );
+  await client.iterateCloudFunctions(async (cloudFunction) => {
+    await jobState.addEntity(createCloudFunctionEntity(cloudFunction));
+  });
 }
 
 export const functionsSteps: IntegrationStep<IntegrationConfig>[] = [

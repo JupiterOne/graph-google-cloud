@@ -32,8 +32,7 @@ describe('#createApiServiceEntity', () => {
       name: 'vision.googleapis.com',
       _class: ['Service'],
       _type: 'google_cloud_api_service',
-      _key:
-        'google_cloud_api_service_projects/545240943112/services/vision.googleapis.com',
+      _key: 'projects/545240943112/services/vision.googleapis.com',
       displayName: 'Cloud Vision API',
       category: ['infrastructure'],
       description:
@@ -74,8 +73,7 @@ describe('#createApiServiceEntity', () => {
       name: 'vision.googleapis.com',
       _class: ['Service'],
       _type: 'google_cloud_api_service',
-      _key:
-        'google_cloud_api_service_projects/545240943112/services/vision.googleapis.com',
+      _key: 'projects/545240943112/services/vision.googleapis.com',
       displayName: 'vision.googleapis.com',
       category: ['infrastructure'],
       description:
@@ -132,8 +130,7 @@ describe('#createApiServiceEntity', () => {
       name: 'vision.googleapis.com',
       _class: ['Service'],
       _type: 'google_cloud_api_service',
-      _key:
-        'google_cloud_api_service_projects/545240943112/services/vision.googleapis.com',
+      _key: 'projects/545240943112/services/vision.googleapis.com',
       displayName: 'vision.googleapis.com',
       category: ['infrastructure'],
       state: 'ENABLED',
@@ -180,8 +177,7 @@ describe('#createApiServiceEntity', () => {
       name: 'vision.googleapis.com',
       _class: ['Service'],
       _type: 'google_cloud_api_service',
-      _key:
-        'google_cloud_api_service_projects/545240943112/services/vision.googleapis.com',
+      _key: 'projects/545240943112/services/vision.googleapis.com',
       displayName: 'Cloud Vision API',
       category: ['infrastructure'],
       description:

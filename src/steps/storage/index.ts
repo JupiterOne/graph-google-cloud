@@ -17,15 +17,14 @@ export async function fetchStorageBuckets(
     instance: { config },
   } = context;
   const client = new CloudStorageClient({ config });
-  await client.iterateCloudStorageBuckets(
-    async (bucket) =>
-      await jobState.addEntity(
-        createCloudStorageBucketEntity(
-          bucket,
-          config.serviceAccountKeyConfig.project_id,
-        ),
+  await client.iterateCloudStorageBuckets(async (bucket) => {
+    await jobState.addEntity(
+      createCloudStorageBucketEntity(
+        bucket,
+        config.serviceAccountKeyConfig.project_id,
       ),
-  );
+    );
+  });
 }
 
 export const storageSteps: IntegrationStep<IntegrationConfig>[] = [

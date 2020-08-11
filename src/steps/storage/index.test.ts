@@ -10,9 +10,8 @@ import {
   CLOUD_STORAGE_BUCKET_ENTITY_CLASS,
   CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
 } from './constants';
-import { generateEntityKey } from '../../utils/generateKeys';
 
-describe('#fetchCloudFunctions', () => {
+describe('#fetchCloudStorageBuckets', () => {
   let recording: Recording;
 
   beforeEach(() => {
@@ -43,10 +42,7 @@ describe('#fetchCloudFunctions', () => {
           _rawData: expect.any(Array),
           _class: [CLOUD_STORAGE_BUCKET_ENTITY_CLASS],
           _type: CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
-          _key: generateEntityKey({
-            type: CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
-            id: e.name as string,
-          }),
+          _key: `bucket:${e.id}`,
           name: expect.any(String),
           displayName: e.name,
         }),

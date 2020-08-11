@@ -13,8 +13,10 @@ import {
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
   IAM_SERVICE_ACCOUNT_KEY_ENTITY_CLASS,
   IAM_SERVICE_ACCOUNT_KEY_ENTITY_TYPE,
+  IAM_USER_ENTITY_CLASS,
+  IAM_USER_ENTITY_TYPE,
 } from './constants';
-import { generateEntityKey } from '../../utils/generateKeys';
+import { ParsedIamMemberType } from '../../utils/iam';
 
 export function createIamRoleEntity(
   data: iam_v1.Schema$Role,
@@ -29,17 +31,16 @@ export function createIamRoleEntity(
     custom: boolean;
   },
 ) {
+  const roleName = data.name as string;
+
   return createIntegrationEntity({
     entityData: {
       source: data,
       assign: {
         _class: IAM_ROLE_ENTITY_CLASS,
         _type: IAM_ROLE_ENTITY_TYPE,
-        _key: generateEntityKey({
-          type: IAM_ROLE_ENTITY_TYPE,
-          id: data.name as string,
-        }),
-        name: data.name,
+        _key: roleName,
+        name: roleName,
         displayName: data.title as string,
         description: data.description,
         stage: data.stage,
@@ -62,6 +63,30 @@ function getServiceAccountWebLink({
   return `https://console.cloud.google.com/iam-admin/serviceaccounts/details/${serviceAccountId}?orgonly=true&project=${projectId}&supportedpurview=organizationId`;
 }
 
+export function createIamUserEntity(data: {
+  type: ParsedIamMemberType;
+  identifier: string;
+  uniqueid: string | undefined;
+  deleted: boolean;
+}) {
+  return createIntegrationEntity({
+    entityData: {
+      source: data,
+      assign: {
+        _class: IAM_USER_ENTITY_CLASS,
+        _type: IAM_USER_ENTITY_TYPE,
+        _key: data.identifier,
+        displayName: data.identifier,
+        name: data.identifier,
+        username: data.identifier,
+        type: data.type,
+        deleted: data.deleted,
+        uniqueid: data.uniqueid,
+      },
+    },
+  });
+}
+
 export function createIamServiceAccountEntity(
   data: iam_v1.Schema$ServiceAccount,
 ) {
@@ -74,10 +99,7 @@ export function createIamServiceAccountEntity(
       assign: {
         _class: IAM_SERVICE_ACCOUNT_ENTITY_CLASS,
         _type: IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
-        _key: generateEntityKey({
-          type: IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
-          id: serviceAccountId,
-        }),
+        _key: data.email as string,
         name: data.name,
         displayName: (data.displayName || data.name) as string,
         id: serviceAccountId,
@@ -113,10 +135,7 @@ export function createIamServiceAccountKeyEntity(
       assign: {
         _class: IAM_SERVICE_ACCOUNT_KEY_ENTITY_CLASS,
         _type: IAM_SERVICE_ACCOUNT_KEY_ENTITY_TYPE,
-        _key: generateEntityKey({
-          type: IAM_SERVICE_ACCOUNT_KEY_ENTITY_TYPE,
-          id: data.name as string,
-        }),
+        _key: data.name as string,
         name: data.name,
         displayName: data.name as string,
         origin: data.keyOrigin,

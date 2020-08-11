@@ -14,10 +14,9 @@ export async function fetchApiServices(
     instance: { config },
   } = context;
   const client = new ServiceUsageClient({ config });
-  await client.iterateServices(
-    async (service) =>
-      await jobState.addEntity(createApiServiceEntity(service)),
-  );
+  await client.iterateServices(async (service) => {
+    await jobState.addEntity(createApiServiceEntity(service));
+  });
 }
 
 export const serviceUsageSteps: IntegrationStep<IntegrationConfig>[] = [

@@ -16,6 +16,7 @@ export class IamClient extends Client {
           pageToken: nextPageToken,
           parent: `projects/${this.projectId}`,
           view: 'FULL',
+          showDeleted: true,
         });
       },
       async (data: iam_v1.Schema$ListRolesResponse) => {

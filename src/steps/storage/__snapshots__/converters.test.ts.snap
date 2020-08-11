@@ -5,7 +5,7 @@ Object {
   "_class": Array [
     "DataStore",
   ],
-  "_key": "google_cloud_storage_bucket_customer-managed-encryption-key-bucket-1234",
+  "_key": "bucket:customer-managed-encryption-key-bucket-1234",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -58,7 +58,7 @@ Object {
   "_class": Array [
     "DataStore",
   ],
-  "_key": "google_cloud_storage_bucket_customer-managed-encryption-key-bucket-1234",
+  "_key": "bucket:customer-managed-encryption-key-bucket-1234",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -111,7 +111,7 @@ Object {
   "_class": Array [
     "DataStore",
   ],
-  "_key": "google_cloud_storage_bucket_customer-managed-encryption-key-bucket-1234",
+  "_key": "bucket:customer-managed-encryption-key-bucket-1234",
   "_rawData": Array [
     Object {
       "name": "default",
