@@ -64,13 +64,6 @@ function getServiceAccountWebLink({
   return `https://console.cloud.google.com/iam-admin/serviceaccounts/details/${serviceAccountId}?orgonly=true&project=${projectId}&supportedpurview=organizationId`;
 }
 
-export function toIamUserEntityKey(params: {
-  projectId: string;
-  memberIdentifier: string;
-}): string {
-  return `project:${params.projectId}-user:${params.memberIdentifier}`;
-}
-
 export function createIamUserEntity(data: {
   projectId: string;
   type: ParsedIamMemberType;
@@ -84,10 +77,7 @@ export function createIamUserEntity(data: {
       assign: {
         _class: IAM_USER_ENTITY_CLASS,
         _type: IAM_USER_ENTITY_TYPE,
-        _key: toIamUserEntityKey({
-          projectId: data.projectId,
-          memberIdentifier: data.identifier as string,
-        }),
+        _key: data.identifier,
         displayName: data.identifier,
         name: data.identifier,
         username: data.identifier,
@@ -111,10 +101,7 @@ export function createIamServiceAccountEntity(
       assign: {
         _class: IAM_SERVICE_ACCOUNT_ENTITY_CLASS,
         _type: IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
-        _key: toIamUserEntityKey({
-          projectId,
-          memberIdentifier: data.email as string,
-        }),
+        _key: data.email as string,
         name: data.name,
         displayName: (data.displayName || data.name) as string,
         id: serviceAccountId,

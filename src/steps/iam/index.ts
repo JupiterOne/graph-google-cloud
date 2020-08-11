@@ -27,7 +27,6 @@ export async function fetchIamRoles(
   await client.iterateCustomRoles(async (role) => {
     await jobState.addEntity(
       createIamRoleEntity(role, {
-        projectId: client.projectId,
         custom: true,
       }),
     );

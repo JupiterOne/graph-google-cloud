@@ -3,8 +3,8 @@
 exports[`#createIamUserAssignedIamRoleRelationship should convert to relationship using service account 1`] = `
 Object {
   "_class": "ASSIGNED",
-  "_fromEntityKey": "project:abc123-user:j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
-  "_key": "project:abc123-user:j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com|assigned|projects/j1-gc-integration-dev/roles/myrole",
+  "_fromEntityKey": "j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+  "_key": "j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com|assigned|projects/j1-gc-integration-dev/roles/myrole",
   "_toEntityKey": "projects/j1-gc-integration-dev/roles/myrole",
   "_type": "google_cloud_iam_service_account_assigned_role",
   "displayName": "ASSIGNED",
@@ -14,8 +14,8 @@ Object {
 exports[`#createIamUserAssignedIamRoleRelationship should convert to relationship using user 1`] = `
 Object {
   "_class": "ASSIGNED",
-  "_fromEntityKey": "project:abc123-user:test.user@example.com",
-  "_key": "project:abc123-user:test.user@example.com|assigned|projects/j1-gc-integration-dev/roles/myrole",
+  "_fromEntityKey": "test.user@example.com",
+  "_key": "test.user@example.com|assigned|projects/j1-gc-integration-dev/roles/myrole",
   "_toEntityKey": "projects/j1-gc-integration-dev/roles/myrole",
   "_type": "google_cloud_iam_user_assigned_role",
   "displayName": "ASSIGNED",
@@ -25,8 +25,8 @@ Object {
 exports[`#createIamUserAssignedIamRoleRelationship should convert to relationship with conditions in role 1`] = `
 Object {
   "_class": "ASSIGNED",
-  "_fromEntityKey": "project:abc123-user:j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
-  "_key": "project:abc123-user:j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com|assigned|projects/j1-gc-integration-dev/roles/myrole",
+  "_fromEntityKey": "j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
+  "_key": "j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com|assigned|projects/j1-gc-integration-dev/roles/myrole",
   "_toEntityKey": "projects/j1-gc-integration-dev/roles/myrole",
   "_type": "google_cloud_iam_service_account_assigned_role",
   "conditionDescription": "Test description",

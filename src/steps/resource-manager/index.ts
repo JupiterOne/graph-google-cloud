@@ -19,11 +19,7 @@ import {
 } from '../iam';
 import { cloudresourcemanager_v1 } from 'googleapis';
 import { parseIamMember } from '../../utils/iam';
-import {
-  createIamUserEntity,
-  toIamUserEntityKey,
-  createIamRoleEntity,
-} from '../iam/converters';
+import { createIamUserEntity, createIamRoleEntity } from '../iam/converters';
 
 export * from './constants';
 
@@ -55,10 +51,7 @@ async function maybeFindOrCreateIamUserEntity({
     try {
       userEntity = await jobState.getEntity({
         _type: IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
-        _key: toIamUserEntityKey({
-          projectId,
-          memberIdentifier: parsedIdentifier,
-        }),
+        _key: parsedIdentifier,
       });
     } catch (err) {
       userEntity = null;
