@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.2.0 - 2020-08-11
+
 ### Added
 
 - Ingest IAM roles as `google_iam_role`
@@ -19,6 +21,9 @@ and this project adheres to
 - Build `ASSIGNED` relationship between `google_user` and `google_iam_role`
 - Fixes #10 - Build `ASSIGNED` relationship between `google_iam_service_account`
   and `google_iam_role`
+
+### Updated
+
 - Fixes #11 - Update all existing entity keys to not include the `_type` prefix
 - Fixes #31 - Make `_type` naming convention consistent with G Suite integration
   for `google_user` and the rest with Google Cloud Terraform provider.
