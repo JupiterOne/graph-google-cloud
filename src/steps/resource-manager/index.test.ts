@@ -51,16 +51,16 @@ describe('#fetchResourceManagerIamPolicy', () => {
       (e) => e._type === IAM_USER_ENTITY_TYPE,
     );
     const iamServiceAccountEntities = context.jobState.collectedEntities.filter(
-      (e) => e._type === 'google_cloud_iam_service_account',
+      (e) => e._type === 'google_iam_service_account',
     );
     const iamServiceAccountKeyEntities = context.jobState.collectedEntities.filter(
-      (e) => e._type === 'google_cloud_iam_service_account_key',
+      (e) => e._type === 'google_iam_service_account_key',
     );
     const iamServiceAccountAssignedRoleRelationships = context.jobState.collectedRelationships.filter(
-      (r) => r._type === 'google_cloud_iam_service_account_assigned_role',
+      (r) => r._type === 'google_iam_service_account_assigned_role',
     );
     const iamServiceAccountHasKeyRelationships = context.jobState.collectedRelationships.filter(
-      (r) => r._type === 'google_cloud_iam_service_account_has_key',
+      (r) => r._type === 'google_iam_service_account_has_key',
     );
 
     expect(userEntities.length).toBeGreaterThanOrEqual(1);
@@ -78,7 +78,7 @@ describe('#fetchResourceManagerIamPolicy', () => {
       schema: {
         additionalProperties: false,
         properties: {
-          _type: { const: 'google_cloud_iam_user' },
+          _type: { const: 'google_user' },
           type: { type: 'string' },
           deleted: { type: 'boolean' },
           uniqueid: { type: 'string' },
@@ -95,7 +95,7 @@ describe('#fetchResourceManagerIamPolicy', () => {
       schema: {
         additionalProperties: false,
         properties: {
-          _type: { const: 'google_cloud_iam_service_account' },
+          _type: { const: 'google_iam_service_account' },
           _rawData: {
             type: 'array',
             items: { type: 'object' },
@@ -114,7 +114,7 @@ describe('#fetchResourceManagerIamPolicy', () => {
       schema: {
         additionalProperties: false,
         properties: {
-          _type: { const: 'google_cloud_iam_service_account_key' },
+          _type: { const: 'google_iam_service_account_key' },
           _rawData: {
             type: 'array',
             items: { type: 'object' },
