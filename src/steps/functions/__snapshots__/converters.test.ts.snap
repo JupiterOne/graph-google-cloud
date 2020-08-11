@@ -5,7 +5,7 @@ Object {
   "_class": Array [
     "Function",
   ],
-  "_key": "google_cloud_function_projects/j1-gc-integration-dev/locations/us-central1/functions/j1-gc-integration-devtestfunction",
+  "_key": "projects/j1-gc-integration-dev/locations/us-central1/functions/j1-gc-integration-devtestfunction",
   "_rawData": Array [
     Object {
       "name": "default",

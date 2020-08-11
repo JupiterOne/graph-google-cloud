@@ -8,6 +8,7 @@ Object {
   "_toEntityKey": "projects/j1-gc-integration-dev/roles/myrole",
   "_type": "google_cloud_iam_service_account_assigned_role",
   "displayName": "ASSIGNED",
+  "projectId": "abc123",
 }
 `;
 
@@ -19,6 +20,7 @@ Object {
   "_toEntityKey": "projects/j1-gc-integration-dev/roles/myrole",
   "_type": "google_cloud_iam_user_assigned_role",
   "displayName": "ASSIGNED",
+  "projectId": "abc123",
 }
 `;
 
@@ -34,5 +36,6 @@ Object {
   "conditionLocation": undefined,
   "conditionTitle": "Test title",
   "displayName": "ASSIGNED",
+  "projectId": "abc123",
 }
 `;

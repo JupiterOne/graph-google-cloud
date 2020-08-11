@@ -23,13 +23,15 @@ describe('#createIamUserAssignedIamRoleRelationship', () => {
       createIamUserAssignedIamRoleRelationship({
         iamUserEntity: serviceAccountEntity,
         iamRoleEntity: roleEntity,
+        projectId,
       }),
     ).toMatchSnapshot();
   });
 
   test('should convert to relationship using user', () => {
+    const projectId = 'abc123';
+
     const userEntity = createIamUserEntity({
-      projectId: 'abc123',
       type: 'user',
       identifier: 'test.user@example.com',
       uniqueid: undefined,
@@ -44,6 +46,7 @@ describe('#createIamUserAssignedIamRoleRelationship', () => {
       createIamUserAssignedIamRoleRelationship({
         iamUserEntity: userEntity,
         iamRoleEntity: roleEntity,
+        projectId,
       }),
     ).toMatchSnapshot();
   });
@@ -64,6 +67,7 @@ describe('#createIamUserAssignedIamRoleRelationship', () => {
       createIamUserAssignedIamRoleRelationship({
         iamUserEntity: serviceAccountEntity,
         iamRoleEntity: roleEntity,
+        projectId,
         condition: {
           title: 'Test title',
           description: 'Test description',

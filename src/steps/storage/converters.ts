@@ -7,7 +7,6 @@ import {
   CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
   CLOUD_STORAGE_BUCKET_ENTITY_CLASS,
 } from './constants';
-import { generateEntityKey } from '../../utils/generateKeys';
 
 function getCloudStorageBucketWebLink(
   data: storage_v1.Schema$Bucket,
@@ -26,10 +25,7 @@ export function createCloudStorageBucketEntity(
       assign: {
         _class: CLOUD_STORAGE_BUCKET_ENTITY_CLASS,
         _type: CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
-        _key: generateEntityKey({
-          type: CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
-          id: data.name as string,
-        }),
+        _key: `bucket:${data.id}`,
         id: data.id as string,
         name: data.name,
         displayName: data.name as string,

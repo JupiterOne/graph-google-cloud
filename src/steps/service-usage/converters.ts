@@ -1,7 +1,6 @@
 import { serviceusage_v1 } from 'googleapis';
 import { createIntegrationEntity } from '@jupiterone/integration-sdk-core';
 import { API_SERVICE_ENTITY_CLASS, API_SERVICE_ENTITY_TYPE } from './constants';
-import { generateEntityKey } from '../../utils/generateKeys';
 
 export function createApiServiceEntity(
   data: serviceusage_v1.Schema$GoogleApiServiceusageV1Service,
@@ -18,10 +17,7 @@ export function createApiServiceEntity(
       assign: {
         _class: API_SERVICE_ENTITY_CLASS,
         _type: API_SERVICE_ENTITY_TYPE,
-        _key: generateEntityKey({
-          type: API_SERVICE_ENTITY_TYPE,
-          id: data.name as string,
-        }),
+        _key: data.name as string,
         name: config.name,
         displayName: config.title || undefined,
         category: ['infrastructure'],
