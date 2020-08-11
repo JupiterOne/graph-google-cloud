@@ -15,7 +15,6 @@ describe('#createIamRoleEntity', () => {
   test('should convert custom role to entity', () => {
     expect(
       createIamRoleEntity(getMockIamRole(), {
-        projectId: 'abc123',
         custom: true,
       }),
     ).toMatchSnapshot();
@@ -24,7 +23,6 @@ describe('#createIamRoleEntity', () => {
   test('should convert noncustom role to entity', () => {
     expect(
       createIamRoleEntity(getMockIamRole(), {
-        projectId: 'abc123',
         custom: false,
       }),
     ).toMatchSnapshot();
