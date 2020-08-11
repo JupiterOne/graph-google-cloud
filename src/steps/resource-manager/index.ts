@@ -59,7 +59,6 @@ async function maybeFindOrCreateIamUserEntity({
   } else {
     userEntity = await jobState.addEntity(
       createIamUserEntity({
-        projectId,
         type: parsedMemberType,
         identifier: parsedIdentifier,
         uniqueid: parsedMember.uniqueid,
@@ -135,6 +134,7 @@ async function buildIamUserRoleRelationship({
     createIamUserAssignedIamRoleRelationship({
       iamUserEntity,
       iamRoleEntity,
+      projectId,
       condition: data.binding.condition as cloudresourcemanager_v1.Schema$Expr,
     }),
   );

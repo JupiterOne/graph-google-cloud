@@ -10,7 +10,6 @@ import {
   CLOUD_FUNCTION_ENTITY_CLASS,
   CLOUD_FUNCTION_ENTITY_TYPE,
 } from './constants';
-import { generateEntityKey } from '../../utils/generateKeys';
 
 describe('#fetchCloudFunctions', () => {
   let recording: Recording;
@@ -43,10 +42,7 @@ describe('#fetchCloudFunctions', () => {
           _rawData: expect.any(Array),
           _class: [CLOUD_FUNCTION_ENTITY_CLASS],
           _type: CLOUD_FUNCTION_ENTITY_TYPE,
-          _key: generateEntityKey({
-            type: CLOUD_FUNCTION_ENTITY_TYPE,
-            id: e.name as string,
-          }),
+          _key: e.name as string,
           name: expect.any(String),
           displayName: e.name,
           runtime: expect.any(String),

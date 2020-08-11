@@ -19,6 +19,7 @@ function getConditionRelationshipProperties(
 export function createIamUserAssignedIamRoleRelationship(params: {
   iamUserEntity: Entity;
   iamRoleEntity: Entity;
+  projectId: string;
   condition?: cloudresourcemanager_v1.Schema$Expr;
 }): Relationship {
   return createDirectRelationship({
@@ -26,6 +27,7 @@ export function createIamUserAssignedIamRoleRelationship(params: {
     from: params.iamUserEntity,
     to: params.iamRoleEntity,
     properties: {
+      projectId: params.projectId,
       ...(params.condition &&
         getConditionRelationshipProperties(params.condition)),
     },

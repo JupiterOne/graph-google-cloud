@@ -7,7 +7,6 @@ import {
   CLOUD_FUNCTION_ENTITY_CLASS,
   CLOUD_FUNCTION_ENTITY_TYPE,
 } from './constants';
-import { generateEntityKey } from '../../utils/generateKeys';
 
 export function createCloudFunctionEntity(
   cloudFunction: cloudfunctions_v1.Schema$CloudFunction,
@@ -18,10 +17,7 @@ export function createCloudFunctionEntity(
       assign: {
         _class: CLOUD_FUNCTION_ENTITY_CLASS,
         _type: CLOUD_FUNCTION_ENTITY_TYPE,
-        _key: generateEntityKey({
-          type: CLOUD_FUNCTION_ENTITY_TYPE,
-          id: cloudFunction.name as string,
-        }),
+        _key: cloudFunction.name as string,
         name: cloudFunction.name,
         displayName: cloudFunction.name as string,
         // NOTE: The runtime versions are inconsistent between GC and AWS. For

@@ -85,7 +85,6 @@ describe('#createIamUserEntity', () => {
   test('should convert custom role to entity', () => {
     expect(
       createIamUserEntity({
-        projectId: 'abc123',
         type: 'user',
         identifier: 'test.user@example.com',
         uniqueid: undefined,
