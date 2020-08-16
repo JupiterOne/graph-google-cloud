@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- Ingest Google Compute disks as `google_compute_disk`
+- Ingest Google Compute instances as `google_compute_instance`
+- Create `google_compute_instance` `USES` `google_compute_disk` relationship
+
 ## 0.2.0 - 2020-08-11
 
 ### Added

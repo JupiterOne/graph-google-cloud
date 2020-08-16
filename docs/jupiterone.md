@@ -63,6 +63,8 @@ generated.
 | IAM Service Account  | `google_iam_service_account`     | `User`                |
 | IAM Service Account  | `google_iam_service_account_key` | `AccessKey`           |
 | IAM User             | `google_user`                    | `User`                |
+| Compute Disk         | `google_compute_disk`            | `DataStore`           |
+| Compute Instance     | `google_compute_instance`        | `Host`                |
 
 ### Relationships
 
@@ -73,3 +75,4 @@ The following relationships are created/mapped:
 | `google_iam_service_account` | **HAS**      | `google_iam_service_account_key` |
 | `google_iam_service_account` | **ASSIGNED** | `google_iam_role`                |
 | `google_user`                | **ASSIGNED** | `google_iam_role`                |
+| `google_compute_instance`    | **USES**     | `google_compute_disk`            |
