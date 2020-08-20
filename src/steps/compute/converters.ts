@@ -112,7 +112,6 @@ export function createComputeInstanceEntity(data: compute_v1.Schema$Instance) {
         deletionProtection: data.deletionProtection,
         fingerprint: data.fingerprint,
         kind: data.kind,
-        hostname: null,
       },
     },
   });
