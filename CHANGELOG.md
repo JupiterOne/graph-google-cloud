@@ -8,11 +8,14 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.3.0 - 2020-08-20
+
 ### Added
 
 - Ingest Google Compute disks as `google_compute_disk`
 - Ingest Google Compute instances as `google_compute_instance`
 - Create `google_compute_instance` `USES` `google_compute_disk` relationship
+- Upgrade JupiterOne SDK packages
 
 ## 0.2.0 - 2020-08-11
 
