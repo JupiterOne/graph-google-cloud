@@ -42,8 +42,13 @@ describe('#fetchComputeDisks', () => {
       encounteredTypes: context.jobState.encounteredTypes,
     }).toMatchSnapshot();
 
+    console.log(
+      'COLLECTED: ',
+      JSON.stringify(context.jobState.collectedEntities, null, 2),
+    );
+
     expect(context.jobState.collectedEntities).toMatchGraphObjectSchema({
-      _class: ['DataStore'],
+      _class: ['DataStore', 'Disk'],
       schema: {
         additionalProperties: false,
         properties: {
@@ -117,7 +122,7 @@ describe('#fetchComputeInstances', () => {
         (e) => e._type === ENTITY_TYPE_COMPUTE_DISK,
       ),
     ).toMatchGraphObjectSchema({
-      _class: ['DataStore'],
+      _class: ['DataStore', 'Disk'],
       schema: {
         additionalProperties: false,
         properties: {

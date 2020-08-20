@@ -4,6 +4,7 @@ exports[`#createComputeDiskEntity should convert to entity 1`] = `
 Object {
   "_class": Array [
     "DataStore",
+    "Disk",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/disks/testvm",
   "_rawData": Array [
@@ -77,6 +78,7 @@ exports[`#createComputeDiskEntity should set active to false when status is not 
 Object {
   "_class": Array [
     "DataStore",
+    "Disk",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/disks/testvm",
   "_rawData": Array [

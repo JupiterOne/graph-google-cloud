@@ -6,6 +6,7 @@ Object {
     Object {
       "_class": Array [
         "DataStore",
+        "Disk",
       ],
       "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/disks/testvm",
       "_rawData": Array [
@@ -89,6 +90,7 @@ Object {
     Object {
       "_class": Array [
         "DataStore",
+        "Disk",
       ],
       "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/disks/testvm",
       "_rawData": Array [
