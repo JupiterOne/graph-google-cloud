@@ -9,4 +9,5 @@ export enum ServiceUsageName {
   SERVICE_USAGE = 'serviceusage.googleapis.com',
   IAM = 'iam.googleapis.com',
   RESOURCE_MANAGER = 'cloudresourcemanager.googleapis.com',
+  COMPUTE = 'compute.googleapis.com',
 }
