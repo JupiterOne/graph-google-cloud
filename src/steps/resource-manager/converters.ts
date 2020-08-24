@@ -3,6 +3,7 @@ import {
   Entity,
   createDirectRelationship,
   Relationship,
+  RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
 
 function getConditionRelationshipProperties(
@@ -23,7 +24,7 @@ export function createIamUserAssignedIamRoleRelationship(params: {
   condition?: cloudresourcemanager_v1.Schema$Expr;
 }): Relationship {
   return createDirectRelationship({
-    _class: 'ASSIGNED',
+    _class: RelationshipClass.ASSIGNED,
     from: params.iamUserEntity,
     to: params.iamRoleEntity,
     properties: {

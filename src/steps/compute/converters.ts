@@ -4,6 +4,7 @@ import {
   getTime,
   createDirectRelationship,
   Entity,
+  RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
 import {
   ENTITY_CLASS_COMPUTE_DISK,
@@ -150,7 +151,7 @@ export function createComputeInstanceUsesComputeDiskRelationship(params: {
   interface?: string | null;
 }) {
   return createDirectRelationship({
-    _class: 'USES',
+    _class: RelationshipClass.USES,
     from: params.computeInstanceEntity,
     to: params.computeDiskEntity,
     properties: {

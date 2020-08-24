@@ -2,7 +2,11 @@ import { IntegrationStep } from '@jupiterone/integration-sdk-core';
 import { CloudFunctionsClient } from './client';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
 import { createCloudFunctionEntity } from './converters';
-import { CLOUD_FUNCTION_ENTITY_TYPE, STEP_CLOUD_FUNCTIONS } from './constants';
+import {
+  CLOUD_FUNCTION_ENTITY_TYPE,
+  STEP_CLOUD_FUNCTIONS,
+  CLOUD_FUNCTION_ENTITY_CLASS,
+} from './constants';
 
 export * from './constants';
 
@@ -20,7 +24,14 @@ export const functionsSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_CLOUD_FUNCTIONS,
     name: 'Cloud Functions',
-    types: [CLOUD_FUNCTION_ENTITY_TYPE],
+    entities: [
+      {
+        resourceName: 'Cloud Function',
+        _type: CLOUD_FUNCTION_ENTITY_TYPE,
+        _class: CLOUD_FUNCTION_ENTITY_CLASS,
+      },
+    ],
+    relationships: [],
     executionHandler: fetchCloudFunctions,
   },
 ];

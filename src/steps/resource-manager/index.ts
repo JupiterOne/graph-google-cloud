@@ -16,10 +16,13 @@ import {
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
   IAM_ROLE_ENTITY_TYPE,
   IAM_USER_ENTITY_TYPE,
+  IAM_ROLE_ENTITY_CLASS,
+  IAM_USER_ENTITY_CLASS,
 } from '../iam';
 import { cloudresourcemanager_v1 } from 'googleapis';
 import { parseIamMember } from '../../utils/iam';
 import { createIamUserEntity, createIamRoleEntity } from '../iam/converters';
+import { RelationshipClass } from '@jupiterone/data-model';
 
 export * from './constants';
 
@@ -48,14 +51,7 @@ async function maybeFindOrCreateIamUserEntity({
     // account does not exist, it's possible that it was created in between
     // steps. The caller handles the case that not entity is returned, so we
     // will just ignore it.
-    try {
-      userEntity = await jobState.getEntity({
-        _type: IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
-        _key: parsedIdentifier,
-      });
-    } catch (err) {
-      userEntity = null;
-    }
+    userEntity = await jobState.findEntity(parsedIdentifier);
   } else {
     userEntity = await jobState.addEntity(
       createIamUserEntity({
@@ -79,28 +75,23 @@ async function findOrCreateIamRoleEntity({
   projectId: string;
   roleName: string;
 }) {
-  let roleEntity: Entity;
+  const roleEntity = await jobState.findEntity(roleName);
 
-  try {
-    roleEntity = await jobState.getEntity({
-      _type: IAM_ROLE_ENTITY_TYPE,
-      _key: roleName,
-    });
-  } catch (err) {
-    roleEntity = await jobState.addEntity(
-      createIamRoleEntity(
-        {
-          name: roleName,
-          title: roleName,
-        },
-        {
-          custom: false,
-        },
-      ),
-    );
+  if (roleEntity) {
+    return roleEntity;
   }
 
-  return roleEntity;
+  return jobState.addEntity(
+    createIamRoleEntity(
+      {
+        name: roleName,
+        title: roleName,
+      },
+      {
+        custom: false,
+      },
+    ),
+  );
 }
 
 async function buildIamUserRoleRelationship({
@@ -162,11 +153,31 @@ export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_RESOURCE_MANAGER_IAM_POLICY,
     name: 'Resource Manager IAM Policy',
-    types: [
-      IAM_ROLE_ENTITY_TYPE,
-      IAM_USER_ENTITY_TYPE,
-      IAM_SERVICE_ACCOUNT_ASSIGNED_ROLE_RELATIONSHIP_TYPE,
-      IAM_USER_ASSIGNED_ROLE_RELATIONSHIP_TYPE,
+    entities: [
+      {
+        resourceName: 'IAM Role',
+        _type: IAM_ROLE_ENTITY_TYPE,
+        _class: IAM_ROLE_ENTITY_CLASS,
+      },
+      {
+        resourceName: 'IAM User',
+        _type: IAM_USER_ENTITY_TYPE,
+        _class: IAM_USER_ENTITY_CLASS,
+      },
+    ],
+    relationships: [
+      {
+        _class: RelationshipClass.ASSIGNED,
+        _type: IAM_SERVICE_ACCOUNT_ASSIGNED_ROLE_RELATIONSHIP_TYPE,
+        sourceType: IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
+        targetType: IAM_ROLE_ENTITY_TYPE,
+      },
+      {
+        _class: RelationshipClass.ASSIGNED,
+        _type: IAM_USER_ASSIGNED_ROLE_RELATIONSHIP_TYPE,
+        sourceType: IAM_USER_ENTITY_TYPE,
+        targetType: IAM_ROLE_ENTITY_TYPE,
+      },
     ],
     dependsOn: [...iamSteps.map((step) => step.id)],
     executionHandler: fetchResourceManagerIamPolicy,
