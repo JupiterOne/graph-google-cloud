@@ -5,6 +5,7 @@ import { createCloudStorageBucketEntity } from './converters';
 import {
   CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
   STEP_CLOUD_STORAGE_BUCKETS,
+  CLOUD_STORAGE_BUCKET_ENTITY_CLASS,
 } from './constants';
 
 export * from './constants';
@@ -31,7 +32,14 @@ export const storageSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_CLOUD_STORAGE_BUCKETS,
     name: 'Cloud Storage Buckets',
-    types: [CLOUD_STORAGE_BUCKET_ENTITY_TYPE],
+    entities: [
+      {
+        resourceName: 'Cloud Storage Bucket',
+        _type: CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
+        _class: CLOUD_STORAGE_BUCKET_ENTITY_CLASS,
+      },
+    ],
+    relationships: [],
     executionHandler: fetchStorageBuckets,
   },
 ];

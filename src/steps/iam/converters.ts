@@ -5,6 +5,7 @@ import {
   Relationship,
   Entity,
   createDirectRelationship,
+  RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
 import {
   IAM_ROLE_ENTITY_CLASS,
@@ -157,7 +158,7 @@ export function createIamServiceAccountHasKeyRelationship(params: {
   serviceAccountKeyEntity: Entity;
 }): Relationship {
   return createDirectRelationship({
-    _class: 'HAS',
+    _class: RelationshipClass.HAS,
     from: params.serviceAccountEntity,
     to: params.serviceAccountKeyEntity,
     properties: {

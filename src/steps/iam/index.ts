@@ -14,7 +14,11 @@ import {
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
   IAM_SERVICE_ACCOUNT_KEY_ENTITY_TYPE,
   IAM_SERVICE_ACCOUNT_HAS_KEY_RELATIONSHIP_TYPE,
+  IAM_ROLE_ENTITY_CLASS,
+  IAM_SERVICE_ACCOUNT_ENTITY_CLASS,
+  IAM_SERVICE_ACCOUNT_KEY_ENTITY_CLASS,
 } from './constants';
+import { RelationshipClass } from '@jupiterone/data-model';
 
 export * from './constants';
 
@@ -73,16 +77,38 @@ export const iamSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_IAM_ROLES,
     name: 'Identity and Access Management (IAM) Roles',
-    types: [IAM_ROLE_ENTITY_TYPE],
+    entities: [
+      {
+        resourceName: 'IAM Role',
+        _type: IAM_ROLE_ENTITY_TYPE,
+        _class: IAM_ROLE_ENTITY_CLASS,
+      },
+    ],
+    relationships: [],
     executionHandler: fetchIamRoles,
   },
   {
     id: STEP_IAM_SERVICE_ACCOUNTS,
     name: 'Identity and Access Management (IAM) Service Accounts',
-    types: [
-      IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
-      IAM_SERVICE_ACCOUNT_KEY_ENTITY_TYPE,
-      IAM_SERVICE_ACCOUNT_HAS_KEY_RELATIONSHIP_TYPE,
+    entities: [
+      {
+        resourceName: 'IAM Service Account',
+        _type: IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
+        _class: IAM_SERVICE_ACCOUNT_ENTITY_CLASS,
+      },
+      {
+        resourceName: 'IAM Service Account Key',
+        _type: IAM_SERVICE_ACCOUNT_KEY_ENTITY_TYPE,
+        _class: IAM_SERVICE_ACCOUNT_KEY_ENTITY_CLASS,
+      },
+    ],
+    relationships: [
+      {
+        _class: RelationshipClass.HAS,
+        _type: IAM_SERVICE_ACCOUNT_HAS_KEY_RELATIONSHIP_TYPE,
+        sourceType: IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
+        targetType: IAM_SERVICE_ACCOUNT_KEY_ENTITY_TYPE,
+      },
     ],
     executionHandler: fetchIamServiceAccounts,
   },

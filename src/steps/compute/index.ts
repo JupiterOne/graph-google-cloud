@@ -16,8 +16,11 @@ import {
   ENTITY_TYPE_COMPUTE_INSTANCE,
   STEP_COMPUTE_DISKS,
   RELATIONSHIP_TYPE_GOOGLE_COMPUTE_INSTANCE_USES_DISK,
+  ENTITY_CLASS_COMPUTE_INSTANCE,
+  ENTITY_CLASS_COMPUTE_DISK,
 } from './constants';
 import { compute_v1 } from 'googleapis';
+import { RelationshipClass } from '@jupiterone/data-model';
 
 export * from './constants';
 
@@ -36,15 +39,9 @@ async function iterateComputeInstanceDisks(params: {
       continue;
     }
 
-    let computeDiskEntity: Entity;
+    const computeDiskEntity = await jobState.findEntity(disk.source);
 
-    try {
-      computeDiskEntity = await jobState.getEntity({
-        _key: disk.source,
-        _type: ENTITY_TYPE_COMPUTE_DISK,
-      });
-    } catch (err) {
-      // Do nothing.
+    if (!computeDiskEntity) {
       continue;
     }
 
@@ -95,15 +92,33 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_COMPUTE_DISKS,
     name: 'Compute Disks',
-    types: [ENTITY_TYPE_COMPUTE_DISK],
+    entities: [
+      {
+        resourceName: 'Compute Disk',
+        _type: ENTITY_TYPE_COMPUTE_DISK,
+        _class: ENTITY_CLASS_COMPUTE_DISK,
+      },
+    ],
+    relationships: [],
     executionHandler: fetchComputeDisks,
   },
   {
     id: STEP_COMPUTE_INSTANCES,
     name: 'Compute Instances',
-    types: [
-      ENTITY_TYPE_COMPUTE_INSTANCE,
-      RELATIONSHIP_TYPE_GOOGLE_COMPUTE_INSTANCE_USES_DISK,
+    entities: [
+      {
+        resourceName: 'Compute Instance',
+        _type: ENTITY_TYPE_COMPUTE_INSTANCE,
+        _class: ENTITY_CLASS_COMPUTE_INSTANCE,
+      },
+    ],
+    relationships: [
+      {
+        _class: RelationshipClass.USES,
+        _type: RELATIONSHIP_TYPE_GOOGLE_COMPUTE_INSTANCE_USES_DISK,
+        sourceType: ENTITY_TYPE_COMPUTE_INSTANCE,
+        targetType: ENTITY_TYPE_COMPUTE_DISK,
+      },
     ],
     dependsOn: [STEP_COMPUTE_DISKS],
     executionHandler: fetchComputeInstances,

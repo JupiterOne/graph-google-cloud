@@ -8,6 +8,11 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Updated
+
+- Update to
+  [SDK v3.0.0](https://github.com/JupiterOne/sdk/blob/master/packages/integration-sdk/CHANGELOG.md#300---2020-08-24)
+
 ## 0.3.0 - 2020-08-20
 
 ### Added
