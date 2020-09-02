@@ -9,6 +9,7 @@ import {
   createComputeDiskEntity,
   createComputeInstanceEntity,
   createComputeInstanceUsesComputeDiskRelationship,
+  createComputeInstanceTrustsServiceAccountRelationship,
 } from './converters';
 import {
   STEP_COMPUTE_INSTANCES,
@@ -21,6 +22,7 @@ import {
 } from './constants';
 import { compute_v1 } from 'googleapis';
 import { RelationshipClass } from '@jupiterone/data-model';
+import { STEP_IAM_SERVICE_ACCOUNTS } from '../iam';
 
 export * from './constants';
 
@@ -58,6 +60,41 @@ async function iterateComputeInstanceDisks(params: {
   }
 }
 
+async function iterateComputeInstanceServiceAccounts(params: {
+  context: IntegrationStepContext;
+  computeInstanceEntity: Entity;
+  computeInstance: compute_v1.Schema$Instance;
+}) {
+  const {
+    context: { jobState, logger },
+    computeInstanceEntity,
+    computeInstance,
+  } = params;
+
+  for (const serviceAccount of computeInstance.serviceAccounts || []) {
+    const serviceAccountEntity = await jobState.findEntity(
+      serviceAccount.email as string,
+    );
+
+    if (!serviceAccountEntity) {
+      // This should never happen because this step dependsOn the fetch service
+      // account step.
+      logger.warn(
+        'Skipping building relationship between compute instance and service account. Service account entity does not exist.',
+      );
+      continue;
+    }
+
+    await jobState.addRelationship(
+      createComputeInstanceTrustsServiceAccountRelationship({
+        computeInstanceEntity,
+        serviceAccountEntity,
+        scopes: serviceAccount.scopes || [],
+      }),
+    );
+  }
+}
+
 export async function fetchComputeDisks(
   context: IntegrationStepContext,
 ): Promise<void> {
@@ -79,6 +116,12 @@ export async function fetchComputeInstances(
     const computeInstanceEntity = await jobState.addEntity(
       createComputeInstanceEntity(computeInstance),
     );
+
+    await iterateComputeInstanceServiceAccounts({
+      context,
+      computeInstance,
+      computeInstanceEntity,
+    });
 
     await iterateComputeInstanceDisks({
       jobState,
@@ -119,8 +162,14 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
         sourceType: ENTITY_TYPE_COMPUTE_INSTANCE,
         targetType: ENTITY_TYPE_COMPUTE_DISK,
       },
+      {
+        _class: RelationshipClass.USES,
+        _type: 'google_compute_instance_trusts_iam_service_account',
+        sourceType: ENTITY_TYPE_COMPUTE_INSTANCE,
+        targetType: ENTITY_TYPE_COMPUTE_DISK,
+      },
     ],
-    dependsOn: [STEP_COMPUTE_DISKS],
+    dependsOn: [STEP_COMPUTE_DISKS, STEP_IAM_SERVICE_ACCOUNTS],
     executionHandler: fetchComputeInstances,
   },
 ];

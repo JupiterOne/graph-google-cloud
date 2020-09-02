@@ -8,6 +8,11 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- Build relationship between `google_compute_disk` and
+  `google_iam_service_account`
+
 ### Updated
 
 - Update to

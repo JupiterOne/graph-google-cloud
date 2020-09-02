@@ -12,6 +12,8 @@ import {
   ENTITY_TYPE_COMPUTE_DISK,
   ENTITY_TYPE_COMPUTE_INSTANCE,
 } from './constants';
+import { RelationshipClass } from '@jupiterone/integration-sdk-core';
+import { fetchIamServiceAccounts } from '../iam';
 
 describe('#fetchComputeDisks', () => {
   let recording: Recording;
@@ -101,6 +103,7 @@ describe('#fetchComputeInstances', () => {
       instanceConfig: integrationConfig,
     });
 
+    await fetchIamServiceAccounts(context);
     await fetchComputeDisks(context);
     await fetchComputeInstances(context);
 
@@ -190,6 +193,18 @@ describe('#fetchComputeInstances', () => {
       computeInstanceUsesDiskRelationship.map((r) =>
         expect.objectContaining({
           _class: 'USES',
+        }),
+      ),
+    );
+
+    const computeInstanceTrustsServiceAccountRelationship = context.jobState.collectedRelationships.filter(
+      (r) => r._type === 'google_compute_instance_trusts_iam_service_account',
+    );
+
+    expect(computeInstanceTrustsServiceAccountRelationship).toEqual(
+      computeInstanceTrustsServiceAccountRelationship.map((r) =>
+        expect.objectContaining({
+          _class: RelationshipClass.TRUSTS,
         }),
       ),
     );
