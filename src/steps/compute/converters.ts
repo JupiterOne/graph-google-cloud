@@ -5,6 +5,7 @@ import {
   createDirectRelationship,
   Entity,
   RelationshipClass,
+  Relationship,
 } from '@jupiterone/integration-sdk-core';
 import {
   ENTITY_CLASS_COMPUTE_DISK,
@@ -159,6 +160,28 @@ export function createComputeInstanceUsesComputeDiskRelationship(params: {
       autoDelete: params.autoDelete,
       deviceName: params.deviceName,
       interface: params.interface,
+    },
+  });
+}
+
+/**
+ * Google Cloud Docs ref:
+ *
+ * Only one service account per VM instance is supported. Service accounts
+ * generate access tokens that can be accessed through the metadata server and
+ * used to authenticate applications on the instance.
+ */
+export function createComputeInstanceTrustsServiceAccountRelationship(params: {
+  computeInstanceEntity: Entity;
+  serviceAccountEntity: Entity;
+  scopes: string[];
+}): Relationship {
+  return createDirectRelationship({
+    _class: RelationshipClass.TRUSTS,
+    from: params.computeInstanceEntity,
+    to: params.serviceAccountEntity,
+    properties: {
+      scopes: params.scopes,
     },
   });
 }

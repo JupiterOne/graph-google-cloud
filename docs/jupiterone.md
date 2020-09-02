@@ -82,6 +82,7 @@ The following relationships are created/mapped:
 
 | Source Entity `_type`        | Relationship `_class` | Target Entity `_type`            |
 | ---------------------------- | --------------------- | -------------------------------- |
+| `google_compute_instance`    | **TRUSTS**            | `google_iam_service_account`     |
 | `google_compute_instance`    | **USES**              | `google_compute_disk`            |
 | `google_iam_service_account` | **ASSIGNED**          | `google_iam_role`                |
 | `google_iam_service_account` | **HAS**               | `google_iam_service_account_key` |
