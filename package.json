@@ -27,17 +27,17 @@
     "create-env-file": "yarn ts-node ./scripts/createEnvFile $1"
   },
   "peerDependencies": {
-    "@jupiterone/integration-sdk-core": "^3.0.0"
+    "@jupiterone/integration-sdk-core": "^3.2.0"
   },
   "devDependencies": {
-    "@jupiterone/integration-sdk-core": "^3.0.0",
-    "@jupiterone/integration-sdk-dev-tools": "^3.0.0",
-    "@jupiterone/integration-sdk-testing": "^3.0.0",
+    "@jupiterone/integration-sdk-core": "^3.2.0",
+    "@jupiterone/integration-sdk-dev-tools": "^3.2.0",
+    "@jupiterone/integration-sdk-testing": "^3.2.0",
     "dotenv": "^8.2.0",
     "ts-node": "^8.10.2"
   },
   "dependencies": {
     "gaxios": "^3.0.4",
-    "googleapis": "^55.0.0"
+    "googleapis": "^59.0.0"
   }
 }
