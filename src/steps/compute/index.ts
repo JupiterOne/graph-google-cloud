@@ -22,7 +22,10 @@ import {
 } from './constants';
 import { compute_v1 } from 'googleapis';
 import { RelationshipClass } from '@jupiterone/data-model';
-import { STEP_IAM_SERVICE_ACCOUNTS } from '../iam';
+import {
+  STEP_IAM_SERVICE_ACCOUNTS,
+  IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
+} from '../iam';
 
 export * from './constants';
 
@@ -163,10 +166,10 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
         targetType: ENTITY_TYPE_COMPUTE_DISK,
       },
       {
-        _class: RelationshipClass.USES,
+        _class: RelationshipClass.TRUSTS,
         _type: 'google_compute_instance_trusts_iam_service_account',
         sourceType: ENTITY_TYPE_COMPUTE_INSTANCE,
-        targetType: ENTITY_TYPE_COMPUTE_DISK,
+        targetType: IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
       },
     ],
     dependsOn: [STEP_COMPUTE_DISKS, STEP_IAM_SERVICE_ACCOUNTS],

@@ -10,7 +10,7 @@ and this project adheres to
 
 ### Added
 
-- Build relationship between `google_compute_disk` and
+- Build relationship between `google_compute_instance` and
   `google_iam_service_account`
 
 ### Updated
