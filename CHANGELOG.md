@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.4.0 - 2020-09-28
+
 ### Added
 
 - Build relationship between `google_compute_instance` and
