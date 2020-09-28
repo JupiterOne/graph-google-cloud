@@ -53,14 +53,21 @@ async function maybeFindOrCreateIamUserEntity({
     // will just ignore it.
     userEntity = await jobState.findEntity(parsedIdentifier);
   } else {
-    userEntity = await jobState.addEntity(
-      createIamUserEntity({
-        type: parsedMemberType,
-        identifier: parsedIdentifier,
-        uniqueid: parsedMember.uniqueid,
-        deleted: parsedMember.deleted,
-      }),
-    );
+    // We always want to find or create relationships to user entities. Since
+    // the same user can have multiple roles, there is a possibility that a
+    // user is created earlier in this step. In order to avoid duplicate entity
+    // keys, we need to look for the user before creating anything.
+    userEntity = await jobState.findEntity(parsedIdentifier);
+    if (!userEntity) {
+      userEntity = await jobState.addEntity(
+        createIamUserEntity({
+          type: parsedMemberType,
+          identifier: parsedIdentifier,
+          uniqueid: parsedMember.uniqueid,
+          deleted: parsedMember.deleted,
+        }),
+      );
+    }
   }
 
   return userEntity;
