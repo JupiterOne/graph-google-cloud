@@ -44,26 +44,29 @@ async function maybeFindOrCreateIamUserEntity({
     return null;
   }
 
-  let userEntity: Entity | null;
-
+  // We always want to find or create relationships to user entities. Since
+  // the same user can have multiple roles, there is a possibility that a
+  // user is created earlier in this step. In order to avoid duplicate entity
+  // keys, we need to look for the user before creating anything.
+  const userEntity = await jobState.findEntity(parsedIdentifier);
   if (parsedMember.type === 'serviceAccount') {
     // We already created service accounts in another step. If this service
     // account does not exist, it's possible that it was created in between
     // steps. The caller handles the case that not entity is returned, so we
     // will just ignore it.
-    userEntity = await jobState.findEntity(parsedIdentifier);
-  } else {
-    userEntity = await jobState.addEntity(
+    return userEntity;
+  }
+  return (
+    userEntity ||
+    (await jobState.addEntity(
       createIamUserEntity({
         type: parsedMemberType,
         identifier: parsedIdentifier,
         uniqueid: parsedMember.uniqueid,
         deleted: parsedMember.deleted,
       }),
-    );
-  }
-
-  return userEntity;
+    ))
+  );
 }
 
 async function findOrCreateIamRoleEntity({

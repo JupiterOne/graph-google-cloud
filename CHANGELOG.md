@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.4.0 - 2020-09-28
+
 ### Added
 
 - Build relationship between `google_compute_instance` and
@@ -17,6 +19,10 @@ and this project adheres to
 
 - Update to
   [SDK v3.0.0](https://github.com/JupiterOne/sdk/blob/master/packages/integration-sdk/CHANGELOG.md#300---2020-08-24)
+
+### Fixed
+
+- Fixed potential for DUPLICATE_KEY_ERROR in `fetchResourceManagerIamPolicy`
 
 ## 0.3.0 - 2020-08-20
 

@@ -7,7 +7,8 @@ import { setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
 import { fetchResourceManagerIamPolicy } from '.';
 import { integrationConfig } from '../../../test/config';
-import { iamSteps, IAM_USER_ENTITY_TYPE } from '../iam';
+import { iamSteps, IAM_USER_ENTITY_TYPE, IAM_ROLE_ENTITY_TYPE } from '../iam';
+import { ResourceManagerClient } from './client';
 
 async function executeIamSteps(
   context: MockIntegrationStepExecutionContext<IntegrationConfig>,
@@ -28,7 +29,46 @@ describe('#fetchResourceManagerIamPolicy', () => {
   });
 
   afterEach(async () => {
-    await recording.stop();
+    if (recording) {
+      await recording.stop();
+    }
+  });
+
+  test('should only create one user entity when returned multiple times from API', async () => {
+    jest
+      .spyOn(ResourceManagerClient.prototype, 'getServiceAccountPolicy')
+      .mockResolvedValueOnce({
+        bindings: [
+          {
+            role: 'roles/editor',
+            members: ['user:austin.kelleher@jupiterone.io'],
+          },
+          {
+            role: 'roles/owner',
+            members: ['user:austin.kelleher@jupiterone.io'],
+          },
+        ],
+      });
+
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: integrationConfig,
+    });
+
+    await fetchResourceManagerIamPolicy(context);
+    const iamUserEntities = context.jobState.collectedEntities.filter(
+      (e) => e._type === IAM_USER_ENTITY_TYPE,
+    );
+    expect(iamUserEntities.length).toBe(1);
+    expect(iamUserEntities[0]._key).toBe('austin.kelleher@jupiterone.io');
+
+    const iamRoleEntities = context.jobState.collectedEntities.filter(
+      (e) => e._type === IAM_ROLE_ENTITY_TYPE,
+    );
+    expect(iamRoleEntities.length).toBe(2);
+    expect(iamRoleEntities.map((e) => e._key)).toMatchObject([
+      'roles/editor',
+      'roles/owner',
+    ]);
   });
 
   test('should collect data', async () => {
