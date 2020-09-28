@@ -8,6 +8,11 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed `ComputeInstanceTrustsServiceAccount` relationship which allowed array
+  relationships.
+
 ## 0.4.0 - 2020-09-28
 
 ### Added

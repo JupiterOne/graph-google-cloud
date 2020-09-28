@@ -829,11 +829,7 @@ Object {
       "_toEntityKey": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com",
       "_type": "google_compute_instance_trusts_iam_service_account",
       "displayName": "TRUSTS",
-      "scopes": Array [
-        "https://www.googleapis.com/auth/compute.readonly",
-        "https://www.googleapis.com/auth/devstorage.read_only",
-        "https://www.googleapis.com/auth/userinfo.email",
-      ],
+      "scopes": "[https://www.googleapis.com/auth/compute.readonly,https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/userinfo.email]",
     },
     Object {
       "_class": "USES",

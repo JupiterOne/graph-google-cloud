@@ -181,7 +181,7 @@ export function createComputeInstanceTrustsServiceAccountRelationship(params: {
     from: params.computeInstanceEntity,
     to: params.serviceAccountEntity,
     properties: {
-      scopes: params.scopes,
+      scopes: `[${params.scopes.join(',')}]`,
     },
   });
 }
