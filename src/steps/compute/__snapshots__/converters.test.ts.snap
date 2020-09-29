@@ -148,6 +148,79 @@ Object {
 }
 `;
 
+exports[`#createComputeFirewallEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Firewall",
+  ],
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/public-compute-app-fw-allow-https",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "allowed": Array [
+          Object {
+            "IPProtocol": "tcp",
+            "ports": Array [
+              "443",
+            ],
+          },
+        ],
+        "creationTimestamp": "2020-09-23T07:47:24.809-07:00",
+        "description": "",
+        "direction": "INGRESS",
+        "disabled": false,
+        "id": "1234567890",
+        "kind": "compute#firewall",
+        "logConfig": Object {
+          "enable": false,
+        },
+        "name": "public-compute-app-fw-allow-https",
+        "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/networks/public-compute-app-vpc",
+        "priority": 1000,
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/public-compute-app-fw-allow-https",
+        "sourceRanges": Array [
+          "0.0.0.0/0",
+        ],
+        "targetTags": Array [
+          "https",
+        ],
+      },
+    },
+  ],
+  "_type": "google_compute_firewall",
+  "allowed": "[{\\"IPProtocol\\":\\"tcp\\",\\"ports\\":[\\"443\\"]}]",
+  "category": Array [
+    "network",
+  ],
+  "createdOn": 1600872444809,
+  "denied": undefined,
+  "description": "",
+  "destinationRanges": undefined,
+  "disabled": false,
+  "displayName": "public-compute-app-fw-allow-https",
+  "egress": false,
+  "id": "1234567890",
+  "ingress": true,
+  "internal": true,
+  "logConfigEnabled": false,
+  "logConfigMetadata": undefined,
+  "name": "public-compute-app-fw-allow-https",
+  "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/networks/public-compute-app-vpc",
+  "priority": 1000,
+  "public": false,
+  "sourceRanges": Array [
+    "0.0.0.0/0",
+  ],
+  "sourceServiceAccounts": undefined,
+  "sourceTags": undefined,
+  "targetServiceAccounts": undefined,
+  "targetTags": Array [
+    "https",
+  ],
+}
+`;
+
 exports[`#createComputeInstanceEntity should convert to entity 1`] = `
 Object {
   "_class": Array [
@@ -412,5 +485,127 @@ Object {
   "displayName": "USES",
   "interface": "SCSI",
   "mode": "READ_WRITE",
+}
+`;
+
+exports[`#createComputeNetworkEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Network",
+  ],
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/networks/public-compute-app-vpc",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "autoCreateSubnetworks": false,
+        "creationTimestamp": "2020-09-23T07:47:13.320-07:00",
+        "id": "4319333979087364382",
+        "kind": "compute#network",
+        "name": "public-compute-app-vpc",
+        "routingConfig": Object {
+          "routingMode": "GLOBAL",
+        },
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/networks/public-compute-app-vpc",
+        "subnetworks": Array [
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/us-central1/subnetworks/public-compute-app-public-subnet-1",
+        ],
+      },
+    },
+  ],
+  "_type": "google_compute_network",
+  "autoCreateSubnetworks": false,
+  "createdOn": 1600872433320,
+  "description": undefined,
+  "displayName": "public-compute-app-vpc",
+  "gatewayIPv4": undefined,
+  "id": "4319333979087364382",
+  "internal": true,
+  "name": "public-compute-app-vpc",
+  "public": false,
+  "routingMode": "GLOBAL",
+  "subnetworks": Array [
+    "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/us-central1/subnetworks/public-compute-app-public-subnet-1",
+  ],
+  "webLink": "https://console.cloud.google.com/networking/networks/details/public-compute-app-vpc?project=j1-gc-integration-dev",
+}
+`;
+
+exports[`#createComputeSubnetEntity should convert to entity 1`] = `
+Object {
+  "CIDR": "10.164.0.0/20",
+  "_class": Array [
+    "Network",
+  ],
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/europe-west4/subnetworks/default",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "creationTimestamp": "2020-08-07T10:20:16.033-07:00",
+        "fingerprint": "whfZBEBCda4=",
+        "gatewayAddress": "10.164.0.1",
+        "id": "1234567890",
+        "ipCidrRange": "10.164.0.0/20",
+        "kind": "compute#subnetwork",
+        "name": "default",
+        "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/networks/default",
+        "privateIpGoogleAccess": false,
+        "privateIpv6GoogleAccess": "DISABLE_GOOGLE_ACCESS",
+        "purpose": "PRIVATE",
+        "region": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/europe-west4",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/europe-west4/subnetworks/default",
+      },
+    },
+  ],
+  "_type": "google_compute_subnetwork",
+  "createdOn": 1596820816033,
+  "description": undefined,
+  "displayName": "default",
+  "gatewayAddress": "10.164.0.1",
+  "id": "1234567890",
+  "internal": true,
+  "name": "default",
+  "privateIpGoogleAccess": false,
+  "public": false,
+  "purpose": "PRIVATE",
+  "webLink": "https://console.cloud.google.com/networking/subnetworks/details/europe-west4/default?project=j1-gc-integration-dev",
+}
+`;
+
+exports[`#createFirewallRuleMappedRelationship should convert to mapped relationship 1`] = `
+Object {
+  "_class": "ALLOWS",
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/public-compute-app-fw-allow-https:0.0.0.0/0:443",
+  "_mapping": Object {
+    "relationshipDirection": "REVERSE",
+    "skipTargetCreation": true,
+    "sourceEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/public-compute-app-fw-allow-https",
+    "targetEntity": Object {
+      "CIDR": "0.0.0.0/0",
+      "CIDRv6": "::/0",
+      "_class": Array [
+        "Internet",
+        "Network",
+      ],
+      "_key": "global:internet",
+      "_type": "internet",
+      "displayName": "Internet",
+      "public": true,
+    },
+    "targetFilterKeys": Array [
+      Array [
+        "_key",
+      ],
+    ],
+  },
+  "_type": "google_cloud_firewall_rule",
+  "displayName": "ALLOWS",
+  "fromPort": 443,
+  "ipProtocol": "tcp",
+  "ipRange": "0.0.0.0/0",
+  "portRange": "443",
+  "protocol": "tcp",
+  "toPort": 443,
 }
 `;

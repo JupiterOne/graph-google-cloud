@@ -121,3 +121,14 @@ export async function iterateRegionZones(
     }
   }
 }
+
+/**
+ * Example:
+ *
+ * Input: 'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/asia-southeast1'
+ * Output: 'asia-southeast1'
+ */
+export function parseRegionNameFromRegionUrl(regionUrl: string) {
+  const parts = regionUrl.split('/');
+  return parts[parts.length - 1];
+}

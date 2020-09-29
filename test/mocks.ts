@@ -191,3 +191,79 @@ export function getMockComputeInstance(
     ...partial,
   };
 }
+
+export function getMockComputeFirewall(
+  partial?: compute_v1.Schema$Firewall,
+): compute_v1.Schema$Firewall {
+  return {
+    id: '1234567890',
+    creationTimestamp: '2020-09-23T07:47:24.809-07:00',
+    name: 'public-compute-app-fw-allow-https',
+    description: '',
+    network:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/networks/public-compute-app-vpc',
+    priority: 1000,
+    sourceRanges: ['0.0.0.0/0'],
+    targetTags: ['https'],
+    allowed: [
+      {
+        IPProtocol: 'tcp',
+        ports: ['443'],
+      },
+    ],
+    direction: 'INGRESS',
+    logConfig: {
+      enable: false,
+    },
+    disabled: false,
+    selfLink:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/public-compute-app-fw-allow-https',
+    kind: 'compute#firewall',
+    ...partial,
+  };
+}
+
+export function getMockSubnet(
+  partial?: compute_v1.Schema$Subnetwork,
+): compute_v1.Schema$Subnetwork {
+  return {
+    id: '1234567890',
+    creationTimestamp: '2020-08-07T10:20:16.033-07:00',
+    name: 'default',
+    network:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/networks/default',
+    ipCidrRange: '10.164.0.0/20',
+    gatewayAddress: '10.164.0.1',
+    region:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/europe-west4',
+    selfLink:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/europe-west4/subnetworks/default',
+    privateIpGoogleAccess: false,
+    fingerprint: 'whfZBEBCda4=',
+    privateIpv6GoogleAccess: 'DISABLE_GOOGLE_ACCESS',
+    purpose: 'PRIVATE',
+    kind: 'compute#subnetwork',
+    ...partial,
+  };
+}
+
+export function getMockNetwork(
+  partial?: compute_v1.Schema$Network,
+): compute_v1.Schema$Network {
+  return {
+    id: '4319333979087364382',
+    creationTimestamp: '2020-09-23T07:47:13.320-07:00',
+    name: 'public-compute-app-vpc',
+    selfLink:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/networks/public-compute-app-vpc',
+    autoCreateSubnetworks: false,
+    subnetworks: [
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/us-central1/subnetworks/public-compute-app-public-subnet-1',
+    ],
+    routingConfig: {
+      routingMode: 'GLOBAL',
+    },
+    kind: 'compute#network',
+    ...partial,
+  };
+}

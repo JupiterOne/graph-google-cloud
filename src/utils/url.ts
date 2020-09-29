@@ -6,3 +6,7 @@ export function getLastUrlPart(url: string) {
   const parts = url.split('/');
   return parts[parts.length - 1];
 }
+
+export function getGoogleCloudConsoleWebLink(path: string) {
+  return `https://console.cloud.google.com${path}`;
+}

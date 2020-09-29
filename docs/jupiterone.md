@@ -70,7 +70,10 @@ The following entities are created:
 | Cloud Function          | `google_cloud_function`          | `Function`          |
 | Cloud Storage Bucket    | `google_storage_bucket`          | `DataStore`         |
 | Compute Disk            | `google_compute_disk`            | `DataStore`, `Disk` |
+| Compute Firewalls       | `google_compute_firewall`        | `Firewall`          |
 | Compute Instance        | `google_compute_instance`        | `Host`              |
+| Compute Networks        | `google_compute_network`         | `Network`           |
+| Compute Subnetwork      | `google_compute_subnetwork`      | `Network`           |
 | IAM Role                | `google_iam_role`                | `AccessRole`        |
 | IAM Service Account     | `google_iam_service_account`     | `User`              |
 | IAM Service Account Key | `google_iam_service_account_key` | `AccessKey`         |
@@ -82,8 +85,13 @@ The following relationships are created/mapped:
 
 | Source Entity `_type`        | Relationship `_class` | Target Entity `_type`            |
 | ---------------------------- | --------------------- | -------------------------------- |
+| `internet`                   | **ALLOWS**            | `google_compute_firewall`        |
+| `google_compute_firewall`    | **PROTECTS**          | `google_compute_network`         |
 | `google_compute_instance`    | **TRUSTS**            | `google_iam_service_account`     |
 | `google_compute_instance`    | **USES**              | `google_compute_disk`            |
+| `google_compute_network`     | **CONTAINS**          | `google_compute_subnetwork`      |
+| `google_compute_network`     | **HAS**               | `google_compute_firewall`        |
+| `google_compute_subnetwork`  | **HAS**               | `google_compute_instance`        |
 | `google_iam_service_account` | **ASSIGNED**          | `google_iam_role`                |
 | `google_iam_service_account` | **HAS**               | `google_iam_service_account_key` |
 | `google_user`                | **ASSIGNED**          | `google_iam_role`                |

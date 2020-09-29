@@ -23,7 +23,13 @@ import { STEP_API_SERVICES } from './steps/service-usage';
 import { parseServiceAccountKeyFile } from './utils/parseServiceAccountKeyFile';
 import { STEP_IAM_ROLES, STEP_IAM_SERVICE_ACCOUNTS } from './steps/iam';
 import { STEP_RESOURCE_MANAGER_IAM_POLICY } from './steps/resource-manager';
-import { STEP_COMPUTE_DISKS, STEP_COMPUTE_INSTANCES } from './steps/compute';
+import {
+  STEP_COMPUTE_DISKS,
+  STEP_COMPUTE_FIREWALLS,
+  STEP_COMPUTE_INSTANCES,
+  STEP_COMPUTE_NETWORKS,
+  STEP_COMPUTE_SUBNETWORKS,
+} from './steps/compute';
 
 interface ValidateInvocationInvalidConfigTestParams {
   instanceConfig?: Partial<IntegrationConfig>;
@@ -107,6 +113,15 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_COMPUTE_INSTANCES]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_NETWORKS]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_SUBNETWORKS]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_FIREWALLS]: {
         disabled: false,
       },
     };
