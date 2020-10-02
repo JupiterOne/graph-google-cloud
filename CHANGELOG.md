@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.4.2 - 2020-08-02
+
 ### Fixed
 
 - Duplicate `_key` detected error happened when the Google Cloud
