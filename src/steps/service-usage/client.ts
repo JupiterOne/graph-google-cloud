@@ -2,16 +2,6 @@ import { Client } from '../../google-cloud/client';
 import { ServiceUsageListFilter } from '../../google-cloud/types';
 import { google, serviceusage_v1 } from 'googleapis';
 
-export function createServiceMapper(
-  callback: (data: serviceusage_v1.Schema$Api) => Promise<void>,
-) {
-  return async (data: serviceusage_v1.Schema$ListServicesResponse) => {
-    for (const service of data.services || []) {
-      await callback(service);
-    }
-  };
-}
-
 export class ServiceUsageClient extends Client {
   private client = google.serviceusage('v1');
 
@@ -23,14 +13,32 @@ export class ServiceUsageClient extends Client {
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
 
-    await this.iterateApi(async (nextPageToken) => {
-      return this.client.services.list({
-        parent: `projects/${this.projectId}`,
-        auth,
-        pageToken: nextPageToken,
-        ...paramOverrides,
-      });
-    }, createServiceMapper(callback));
+    // Sometimes the service list API returns duplicate services...This set is
+    // used to prevent returning any duplicates to the caller.
+    const serviceSet = new Set<string>();
+
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.services.list({
+          parent: `projects/${this.projectId}`,
+          auth,
+          pageToken: nextPageToken,
+          ...paramOverrides,
+        });
+      },
+      async (data: serviceusage_v1.Schema$ListServicesResponse) => {
+        for (const service of data.services || []) {
+          const serviceName = service.name as string;
+
+          if (serviceSet.has(serviceName)) {
+            continue;
+          }
+
+          serviceSet.add(serviceName);
+          await callback(service);
+        }
+      },
+    );
   }
 
   async iterateEnabledServices(
