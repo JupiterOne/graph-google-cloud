@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Fixed
+
+- Duplicate `_key` detected error happened when the Google Cloud
+  `serviceusage.services.list` API returned a duplicate API service
+  intermittently.
+
 ## 0.4.1 - 2020-09-28
 
 ### Fixed
