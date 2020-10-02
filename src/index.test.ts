@@ -30,6 +30,7 @@ import {
   STEP_COMPUTE_NETWORKS,
   STEP_COMPUTE_SUBNETWORKS,
 } from './steps/compute';
+import { STEP_CLOUD_KMS_KEYS, STEP_CLOUD_KMS_KEY_RINGS } from './steps/kms';
 
 interface ValidateInvocationInvalidConfigTestParams {
   instanceConfig?: Partial<IntegrationConfig>;
@@ -122,6 +123,12 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_COMPUTE_FIREWALLS]: {
+        disabled: false,
+      },
+      [STEP_CLOUD_KMS_KEY_RINGS]: {
+        disabled: false,
+      },
+      [STEP_CLOUD_KMS_KEYS]: {
         disabled: false,
       },
     };

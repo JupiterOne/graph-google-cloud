@@ -1,0 +1,178 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchKmsCryptoKeys should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Vault",
+      ],
+      "_key": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "createTime": "2020-07-28T18:34:26.034565002Z",
+            "name": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring",
+          },
+        },
+      ],
+      "_type": "google_kms_key_ring",
+      "createdOn": 1595961266034,
+      "displayName": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring",
+      "location": "us",
+      "name": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring",
+      "projectId": "j1-gc-integration-dev",
+      "shortName": "j1-gc-integration-dev-bucket-ring",
+      "webLink": "https://console.cloud.google.com/security/kms/keyring/manage/us/j1-gc-integration-dev-bucket-ring/key?project=j1-gc-integration-dev",
+    },
+    Object {
+      "_class": Array [
+        "Vault",
+      ],
+      "_key": "projects/j1-gc-integration-dev/locations/us/keyRings/j1dev-bucket-ring",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "createTime": "2020-07-28T18:30:53.453045041Z",
+            "name": "projects/j1-gc-integration-dev/locations/us/keyRings/j1dev-bucket-ring",
+          },
+        },
+      ],
+      "_type": "google_kms_key_ring",
+      "createdOn": 1595961053453,
+      "displayName": "projects/j1-gc-integration-dev/locations/us/keyRings/j1dev-bucket-ring",
+      "location": "us",
+      "name": "projects/j1-gc-integration-dev/locations/us/keyRings/j1dev-bucket-ring",
+      "projectId": "j1-gc-integration-dev",
+      "shortName": "j1dev-bucket-ring",
+      "webLink": "https://console.cloud.google.com/security/kms/keyring/manage/us/j1dev-bucket-ring/key?project=j1-gc-integration-dev",
+    },
+    Object {
+      "_class": Array [
+        "Key",
+        "CryptoKey",
+      ],
+      "_key": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "createTime": "2020-07-28T18:59:59.513564921Z",
+            "name": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key",
+            "nextRotationTime": "2020-10-04T19:01:14.428484Z",
+            "primary": Object {
+              "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
+              "createTime": "2020-10-03T19:01:13.428484662Z",
+              "generateTime": "2020-10-03T19:01:13.428484662Z",
+              "name": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key/cryptoKeyVersions/68",
+              "protectionLevel": "SOFTWARE",
+              "state": "ENABLED",
+            },
+            "purpose": "ENCRYPT_DECRYPT",
+            "rotationPeriod": "86401s",
+            "versionTemplate": Object {
+              "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
+              "protectionLevel": "SOFTWARE",
+            },
+          },
+        },
+      ],
+      "_type": "google_kms_crypto_key",
+      "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
+      "createdOn": 1595962799513,
+      "displayName": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key",
+      "keyUsage": "ENCRYPT_DECRYPT",
+      "name": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key",
+      "nextRotationTime": 1601838074428,
+      "primaryAlgorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
+      "primaryCreateTime": 1601751673428,
+      "primaryGenerateTime": 1601751673428,
+      "primaryName": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key/cryptoKeyVersions/68",
+      "primaryProtectionLevel": "SOFTWARE",
+      "primaryState": "ENABLED",
+      "protectionLevel": "SOFTWARE",
+      "purpose": "ENCRYPT_DECRYPT",
+      "rotationPeriod": 86401,
+      "webLink": "https://console.cloud.google.com/security/kms/key/manage/us/j1-gc-integration-dev-bucket-ring/projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key?project=j1-gc-integration-dev",
+    },
+  ],
+  "collectedRelationships": Array [
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring",
+      "_key": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring|has|projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key",
+      "_toEntityKey": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key",
+      "_type": "google_kms_key_ring_has_crypto_key",
+      "displayName": "HAS",
+    },
+  ],
+  "encounteredTypes": Array [
+    "google_kms_key_ring",
+    "google_kms_crypto_key",
+    "google_kms_key_ring_has_crypto_key",
+  ],
+  "numCollectedEntities": 3,
+  "numCollectedRelationships": 1,
+}
+`;
+
+exports[`#fetchKmsKeyRings should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Vault",
+      ],
+      "_key": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "createTime": "2020-07-28T18:34:26.034565002Z",
+            "name": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring",
+          },
+        },
+      ],
+      "_type": "google_kms_key_ring",
+      "createdOn": 1595961266034,
+      "displayName": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring",
+      "location": "us",
+      "name": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring",
+      "projectId": "j1-gc-integration-dev",
+      "shortName": "j1-gc-integration-dev-bucket-ring",
+      "webLink": "https://console.cloud.google.com/security/kms/keyring/manage/us/j1-gc-integration-dev-bucket-ring/key?project=j1-gc-integration-dev",
+    },
+    Object {
+      "_class": Array [
+        "Vault",
+      ],
+      "_key": "projects/j1-gc-integration-dev/locations/us/keyRings/j1dev-bucket-ring",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "createTime": "2020-07-28T18:30:53.453045041Z",
+            "name": "projects/j1-gc-integration-dev/locations/us/keyRings/j1dev-bucket-ring",
+          },
+        },
+      ],
+      "_type": "google_kms_key_ring",
+      "createdOn": 1595961053453,
+      "displayName": "projects/j1-gc-integration-dev/locations/us/keyRings/j1dev-bucket-ring",
+      "location": "us",
+      "name": "projects/j1-gc-integration-dev/locations/us/keyRings/j1dev-bucket-ring",
+      "projectId": "j1-gc-integration-dev",
+      "shortName": "j1dev-bucket-ring",
+      "webLink": "https://console.cloud.google.com/security/kms/keyring/manage/us/j1dev-bucket-ring/key?project=j1-gc-integration-dev",
+    },
+  ],
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
+    "google_kms_key_ring",
+  ],
+  "numCollectedEntities": 2,
+  "numCollectedRelationships": 0,
+}
+`;
