@@ -253,7 +253,7 @@ export function createComputeFirewallEntity(data: compute_v1.Schema$Firewall) {
          * If source service accounts are specified, the firewall rules apply
          * only to traffic originating from an instance with a service account
          * in this list. Source service accounts cannot be used to control
-         * traffic to an instance&#39;s external IP address because service
+         * traffic to an instance's external IP address because service
          * accounts are associated with an instance, not an IP address.
          * sourceRanges can be set at the same time as sourceServiceAccounts.
          * If both are set, the firewall applies to traffic that has a source
