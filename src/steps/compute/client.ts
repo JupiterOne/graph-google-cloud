@@ -4,7 +4,10 @@ import {
   PageableGaxiosResponse,
   GoogleClientAuth,
 } from '../../google-cloud/client';
-import { iterateRegionZones } from '../../google-cloud/regions';
+import {
+  googleCloudRegions,
+  iterateRegionZones,
+} from '../../google-cloud/regions';
 
 export class ComputeClient extends Client {
   private client = google.compute('v1');
@@ -60,6 +63,72 @@ export class ComputeClient extends Client {
         });
       },
       async (data: compute_v1.Schema$InstanceList) => {
+        for (const item of data.items || []) {
+          await callback(item);
+        }
+      },
+    );
+  }
+
+  async iterateFirewalls(
+    callback: (data: compute_v1.Schema$Firewall) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.firewalls.list({
+          auth,
+          pageToken: nextPageToken,
+          project: this.projectId,
+        });
+      },
+      async (data: compute_v1.Schema$FirewallList) => {
+        for (const item of data.items || []) {
+          await callback(item);
+        }
+      },
+    );
+  }
+
+  async iterateSubnetworks(
+    callback: (data: compute_v1.Schema$Subnetwork) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    for (const region of googleCloudRegions) {
+      await this.iterateApi(
+        async (nextPageToken) => {
+          return this.client.subnetworks.list({
+            auth,
+            pageToken: nextPageToken,
+            project: this.projectId,
+            region: region.name,
+          });
+        },
+        async (data: compute_v1.Schema$NetworkList) => {
+          for (const item of data.items || []) {
+            await callback(item);
+          }
+        },
+      );
+    }
+  }
+
+  async iterateNetworks(
+    callback: (data: compute_v1.Schema$Network) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.networks.list({
+          auth,
+          pageToken: nextPageToken,
+          project: this.projectId,
+        });
+      },
+      async (data: compute_v1.Schema$NetworkList) => {
         for (const item of data.items || []) {
           await callback(item);
         }

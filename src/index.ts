@@ -7,6 +7,7 @@ import { serviceUsageSteps } from './steps/service-usage';
 import { iamSteps } from './steps/iam';
 import { resourceManagerSteps } from './steps/resource-manager';
 import { computeSteps } from './steps/compute';
+import { kmsSteps } from './steps/kms';
 
 export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> = {
   instanceConfigFields: {
@@ -23,5 +24,6 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> = 
     ...iamSteps,
     ...resourceManagerSteps,
     ...computeSteps,
+    ...kmsSteps,
   ],
 };
