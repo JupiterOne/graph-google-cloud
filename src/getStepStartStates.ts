@@ -20,6 +20,7 @@ import {
   STEP_COMPUTE_SUBNETWORKS,
   STEP_COMPUTE_FIREWALLS,
 } from './steps/compute';
+import { STEP_CLOUD_KMS_KEYS, STEP_CLOUD_KMS_KEY_RINGS } from './steps/kms';
 
 async function getEnabledServiceNames(
   config: IntegrationConfig,
@@ -101,5 +102,7 @@ export default async function getStepStartStates(
     [STEP_COMPUTE_FIREWALLS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_SUBNETWORKS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_INSTANCES]: createStepStartState(ServiceUsageName.COMPUTE),
+    [STEP_CLOUD_KMS_KEY_RINGS]: createStepStartState(ServiceUsageName.KMS),
+    [STEP_CLOUD_KMS_KEYS]: createStepStartState(ServiceUsageName.KMS),
   };
 }

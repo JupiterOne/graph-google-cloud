@@ -78,6 +78,8 @@ The following entities are created:
 | IAM Service Account     | `google_iam_service_account`     | `User`              |
 | IAM Service Account Key | `google_iam_service_account_key` | `AccessKey`         |
 | IAM User                | `google_user`                    | `User`              |
+| KMS Crypto Key          | `google_kms_crypto_key`          | `Key`, `CryptoKey`  |
+| KMS Key Ring            | `google_kms_key_ring`            | `Vault`             |
 
 ### Relationships
 
@@ -94,6 +96,7 @@ The following relationships are created/mapped:
 | `google_compute_subnetwork`  | **HAS**               | `google_compute_instance`        |
 | `google_iam_service_account` | **ASSIGNED**          | `google_iam_role`                |
 | `google_iam_service_account` | **HAS**               | `google_iam_service_account_key` |
+| `google_kms_key_ring`        | **HAS**               | `google_kms_crypto_key`          |
 | `google_user`                | **ASSIGNED**          | `google_iam_role`                |
 
 <!--
