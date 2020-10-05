@@ -76,7 +76,7 @@ resource "google_compute_firewall" "deny_ssh" {
     ports    = ["22"]
   }
 
-  target_tags = ["https"]
+  target_tags = ["ssh"]
 }
 
 # Create VPC

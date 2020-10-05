@@ -96,7 +96,33 @@ function buildComputeInstanceTags(data: compute_v1.Schema$Instance) {
   return data.tags && data.tags?.items?.map((item) => ({ [item]: true }));
 }
 
+export function getIpAddressesForComputeInstance(
+  data: compute_v1.Schema$Instance,
+) {
+  const publicIpAddresses: string[] = [];
+  const privateIpAddresses: string[] = [];
+
+  for (const networkInterface of data.networkInterfaces || []) {
+    if (networkInterface.networkIP) {
+      privateIpAddresses.push(networkInterface.networkIP);
+    }
+
+    for (const accessConfig of networkInterface.accessConfigs || []) {
+      if (accessConfig.natIP) {
+        publicIpAddresses.push(accessConfig.natIP);
+      }
+    }
+  }
+
+  return {
+    publicIpAddresses,
+    privateIpAddresses,
+  };
+}
+
 export function createComputeInstanceEntity(data: compute_v1.Schema$Instance) {
+  const ipAddresses = getIpAddressesForComputeInstance(data);
+
   return createIntegrationEntity({
     entityData: {
       source: {
@@ -127,6 +153,8 @@ export function createComputeInstanceEntity(data: compute_v1.Schema$Instance) {
         deletionProtection: data.deletionProtection,
         fingerprint: data.fingerprint,
         kind: data.kind,
+        publicIpAddress: ipAddresses.publicIpAddresses,
+        privateIpAddress: ipAddresses.privateIpAddresses,
       },
     },
   });
@@ -348,6 +376,7 @@ export function createComputeNetworkEntity(
         gatewayIPv4: data.gatewayIPv4,
         public: false,
         internal: true,
+        CIDR: null,
         webLink: getGoogleCloudConsoleWebLink(
           `/networking/networks/details/${data.name}?project=${projectId}`,
         ),
@@ -405,12 +434,14 @@ export function toFirewallRuleRelationshipKey({
   firewallEntity,
   portRange,
   ipRange,
+  protocol,
 }: {
   firewallEntity: Entity;
   portRange: string;
   ipRange: string;
+  protocol: string;
 }) {
-  return `${firewallEntity._key}:${ipRange}:${portRange}`;
+  return `${firewallEntity._key}:${protocol}:${ipRange}:${portRange}`;
 }
 
 export function createFirewallRuleMappedRelationship({
@@ -443,6 +474,7 @@ export function createFirewallRuleMappedRelationship({
         firewallEntity,
         ipRange: properties.ipRange,
         portRange: properties.portRange,
+        protocol: properties.ipProtocol,
       }),
       ...properties,
     },

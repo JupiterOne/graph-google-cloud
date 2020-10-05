@@ -123,14 +123,37 @@ export async function processFirewallRuleRelationshipTargets({
           properties: relationshipProperties,
         });
       } else if (isHost(ipRange)) {
-        // TODO
-        continue;
-      } else if (isPublicIp(ipRange)) {
-        // TODO
-        continue;
+        const ipAddress = ipRange.split('/')[0];
+
+        if (isPublicIp(ipRange)) {
+          await callback({
+            targetFilterKeys: [['_class', 'publicIpAddress']],
+            targetEntity: {
+              _class: 'Host',
+              publicIpAddress: ipAddress,
+            },
+            properties: relationshipProperties,
+          });
+        } else {
+          await callback({
+            targetFilterKeys: [['_class', 'privateIpAddress']],
+            targetEntity: {
+              _class: 'Host',
+              privateIpAddress: ipAddress,
+            },
+            properties: relationshipProperties,
+          });
+        }
       } else {
-        // TODO: private network
-        continue;
+        await callback({
+          targetFilterKeys: [['_class', 'CIDR']],
+          targetEntity: {
+            _class: 'Network',
+            CIDR: ipRange,
+            netmask: ipRange.split('/')[1],
+          },
+          properties: relationshipProperties,
+        });
       }
     }
   }

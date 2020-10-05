@@ -6,6 +6,7 @@ import {
   createComputeNetworkEntity,
   createComputeSubnetEntity,
   createFirewallRuleMappedRelationship,
+  getIpAddressesForComputeInstance,
 } from './converters';
 import {
   getMockComputeDisk,
@@ -121,5 +122,40 @@ describe('#createComputeNetworkEntity', () => {
         DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
       ),
     ).toMatchSnapshot();
+  });
+});
+
+describe('#getIpAddressesForComputeInstance', () => {
+  test('should get IP addresses given a compute instance with network interfaces and accessConfigs', () => {
+    expect(
+      getIpAddressesForComputeInstance(
+        getMockComputeInstance({
+          networkInterfaces: [
+            {
+              network:
+                'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/networks/public-compute-app-vpc',
+              subnetwork:
+                'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/us-central1/subnetworks/public-compute-app-public-subnet-1',
+              networkIP: '10.10.1.2',
+              name: 'nic0',
+              accessConfigs: [
+                {
+                  type: 'ONE_TO_ONE_NAT',
+                  name: 'external-nat',
+                  natIP: '34.71.33.132',
+                  networkTier: 'PREMIUM',
+                  kind: 'compute#accessConfig',
+                },
+              ],
+              fingerprint: 'ElJkype-dKI=',
+              kind: 'compute#networkInterface',
+            },
+          ],
+        }),
+      ),
+    ).toEqual({
+      publicIpAddresses: ['34.71.33.132'],
+      privateIpAddresses: ['10.10.1.2'],
+    });
   });
 });

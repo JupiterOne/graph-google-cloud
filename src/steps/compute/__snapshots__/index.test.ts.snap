@@ -88,6 +88,7 @@ exports[`#fetchComputeFirewalls should collect data 1`] = `
 Object {
   "collectedEntities": Array [
     Object {
+      "CIDR": null,
       "_class": Array [
         "Network",
       ],
@@ -175,6 +176,7 @@ Object {
       "webLink": "https://console.cloud.google.com/networking/networks/details/default?project=j1-gc-integration-dev",
     },
     Object {
+      "CIDR": null,
       "_class": Array [
         "Network",
       ],
@@ -215,6 +217,7 @@ Object {
       "webLink": "https://console.cloud.google.com/networking/networks/details/public-compute-app-vpc?project=j1-gc-integration-dev",
     },
     Object {
+      "CIDR": null,
       "_class": Array [
         "Network",
       ],
@@ -3090,7 +3093,7 @@ Object {
     },
     Object {
       "_class": "ALLOWS",
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/default-allow-icmp:0.0.0.0/0:*",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/default-allow-icmp:icmp:0.0.0.0/0:*",
       "_mapping": Object {
         "relationshipDirection": "REVERSE",
         "skipTargetCreation": true,
@@ -3139,6 +3142,90 @@ Object {
       "displayName": "HAS",
     },
     Object {
+      "_class": "ALLOWS",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/default-allow-internal:tcp:10.128.0.0/9:*",
+      "_mapping": Object {
+        "relationshipDirection": "REVERSE",
+        "skipTargetCreation": true,
+        "sourceEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/default-allow-internal",
+        "targetEntity": Object {
+          "CIDR": "10.128.0.0/9",
+          "_class": "Network",
+          "netmask": "9",
+        },
+        "targetFilterKeys": Array [
+          Array [
+            "_class",
+            "CIDR",
+          ],
+        ],
+      },
+      "_type": "google_cloud_firewall_rule",
+      "displayName": "ALLOWS",
+      "fromPort": 0,
+      "ipProtocol": "tcp",
+      "ipRange": "10.128.0.0/9",
+      "portRange": "*",
+      "protocol": "tcp",
+      "toPort": 65535,
+    },
+    Object {
+      "_class": "ALLOWS",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/default-allow-internal:udp:10.128.0.0/9:*",
+      "_mapping": Object {
+        "relationshipDirection": "REVERSE",
+        "skipTargetCreation": true,
+        "sourceEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/default-allow-internal",
+        "targetEntity": Object {
+          "CIDR": "10.128.0.0/9",
+          "_class": "Network",
+          "netmask": "9",
+        },
+        "targetFilterKeys": Array [
+          Array [
+            "_class",
+            "CIDR",
+          ],
+        ],
+      },
+      "_type": "google_cloud_firewall_rule",
+      "displayName": "ALLOWS",
+      "fromPort": 0,
+      "ipProtocol": "udp",
+      "ipRange": "10.128.0.0/9",
+      "portRange": "*",
+      "protocol": "udp",
+      "toPort": 65535,
+    },
+    Object {
+      "_class": "ALLOWS",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/default-allow-internal:icmp:10.128.0.0/9:*",
+      "_mapping": Object {
+        "relationshipDirection": "REVERSE",
+        "skipTargetCreation": true,
+        "sourceEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/default-allow-internal",
+        "targetEntity": Object {
+          "CIDR": "10.128.0.0/9",
+          "_class": "Network",
+          "netmask": "9",
+        },
+        "targetFilterKeys": Array [
+          Array [
+            "_class",
+            "CIDR",
+          ],
+        ],
+      },
+      "_type": "google_cloud_firewall_rule",
+      "displayName": "ALLOWS",
+      "fromPort": 0,
+      "ipProtocol": "icmp",
+      "ipRange": "10.128.0.0/9",
+      "portRange": "*",
+      "protocol": "icmp",
+      "toPort": 65535,
+    },
+    Object {
       "_class": "PROTECTS",
       "_fromEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/default-allow-rdp",
       "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/default-allow-rdp|protects|https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/networks/default",
@@ -3156,7 +3243,7 @@ Object {
     },
     Object {
       "_class": "ALLOWS",
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/default-allow-rdp:0.0.0.0/0:3389",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/default-allow-rdp:tcp:0.0.0.0/0:3389",
       "_mapping": Object {
         "relationshipDirection": "REVERSE",
         "skipTargetCreation": true,
@@ -3206,7 +3293,7 @@ Object {
     },
     Object {
       "_class": "ALLOWS",
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/default-allow-ssh:0.0.0.0/0:22",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/default-allow-ssh:tcp:0.0.0.0/0:22",
       "_mapping": Object {
         "relationshipDirection": "REVERSE",
         "skipTargetCreation": true,
@@ -3256,7 +3343,7 @@ Object {
     },
     Object {
       "_class": "ALLOWS",
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/public-compute-app-fw-allow-http:0.0.0.0/0:80",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/public-compute-app-fw-allow-http:tcp:0.0.0.0/0:80",
       "_mapping": Object {
         "relationshipDirection": "REVERSE",
         "skipTargetCreation": true,
@@ -3306,7 +3393,7 @@ Object {
     },
     Object {
       "_class": "ALLOWS",
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/public-compute-app-fw-allow-https:0.0.0.0/0:443",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/public-compute-app-fw-allow-https:tcp:0.0.0.0/0:443",
       "_mapping": Object {
         "relationshipDirection": "REVERSE",
         "skipTargetCreation": true,
@@ -3356,7 +3443,7 @@ Object {
     },
     Object {
       "_class": "DENIES",
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/public-compute-app-fw-deny-ssh:0.0.0.0/0:22",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/public-compute-app-fw-deny-ssh:tcp:0.0.0.0/0:22",
       "_mapping": Object {
         "relationshipDirection": "REVERSE",
         "skipTargetCreation": true,
@@ -3399,7 +3486,7 @@ Object {
     "google_cloud_firewall_rule",
   ],
   "numCollectedEntities": 59,
-  "numCollectedRelationships": 69,
+  "numCollectedRelationships": 72,
 }
 `;
 
@@ -4036,6 +4123,10 @@ Object {
       "labelFingerprint": "42WmSpB8rSM=",
       "machineType": "n1-standard-1",
       "name": "testvm",
+      "privateIpAddress": Array [
+        "10.128.0.2",
+      ],
+      "publicIpAddress": Array [],
       "startRestricted": false,
       "status": "RUNNING",
       "zone": "us-central1-a",
@@ -4181,6 +4272,7 @@ exports[`#fetchComputeNetworks should collect data 1`] = `
 Object {
   "collectedEntities": Array [
     Object {
+      "CIDR": null,
       "_class": Array [
         "Network",
       ],
@@ -4268,6 +4360,7 @@ Object {
       "webLink": "https://console.cloud.google.com/networking/networks/details/default?project=j1-gc-integration-dev",
     },
     Object {
+      "CIDR": null,
       "_class": Array [
         "Network",
       ],
@@ -4308,6 +4401,7 @@ Object {
       "webLink": "https://console.cloud.google.com/networking/networks/details/public-compute-app-vpc?project=j1-gc-integration-dev",
     },
     Object {
+      "CIDR": null,
       "_class": Array [
         "Network",
       ],
@@ -4408,6 +4502,7 @@ exports[`#fetchComputeSubnetworks should collect data 1`] = `
 Object {
   "collectedEntities": Array [
     Object {
+      "CIDR": null,
       "_class": Array [
         "Network",
       ],
@@ -4495,6 +4590,7 @@ Object {
       "webLink": "https://console.cloud.google.com/networking/networks/details/default?project=j1-gc-integration-dev",
     },
     Object {
+      "CIDR": null,
       "_class": Array [
         "Network",
       ],
@@ -4535,6 +4631,7 @@ Object {
       "webLink": "https://console.cloud.google.com/networking/networks/details/public-compute-app-vpc?project=j1-gc-integration-dev",
     },
     Object {
+      "CIDR": null,
       "_class": Array [
         "Network",
       ],
