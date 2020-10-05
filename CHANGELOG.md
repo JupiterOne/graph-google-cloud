@@ -8,7 +8,33 @@ and this project adheres to
 
 ## [Unreleased]
 
-## 0.4.2 - 2020-08-02
+## 0.5.0 - 2020-10-05
+
+### Added
+
+- [#30](https://github.com/JupiterOne/graph-google-cloud/pull/30) Ingestion of
+  new networking resources
+  - `google_compute_firewall`
+  - `google_compute_network`
+  - `google_compute_subnetwork`
+- [#31](https://github.com/JupiterOne/graph-google-cloud/pull/31) Ingestion of
+  new KMS resources
+  - `google_kms_key_ring`
+  - `google_kms_crypto_key`
+- New relationships
+  - `google_compute_firewall` **PROTECTS** `google_compute_network`
+  - `google_compute_network` **CONTAINS** `google_compute_subnetwork`
+  - `google_compute_network` **HAS** `google_compute_firewall`
+  - `google_compute_subnetwork` **HAS** `google_compute_instance`
+  - `Internet` **ALLOWS** `google_compute_firewall`
+  - `Internet` **DENIES** `google_compute_firewall`
+  - `Host` **ALLOWS** `google_compute_firewall`
+  - `Host` **DENIES** `google_compute_firewall`
+  - `Network` **ALLOWS** `google_compute_firewall`
+  - `Network` **DENIES** `google_compute_firewall`
+  - `google_kms_key_ring` **HAS** `google_kms_crypto_key`
+
+## 0.4.2 - 2020-10-02
 
 ### Fixed
 
