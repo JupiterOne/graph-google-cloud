@@ -23,26 +23,23 @@ service API is disabled, the JupiterOne integration will not ingest the data
 from that API. The following Google Cloud service APIs that must be enabled to
 ingest all of the supported data into JupiterOne:
 
-```
-serviceusage.googleapis.com
-cloudfunctions.googleapis.com
-storage.googleapis.com
-iam.googleapis.com
-cloudresourcemanager.googleapis.com
-compute.googleapis.com
-cloudkms.googleapis.com
-```
+| Service Name                                                                                                     | Service API                         |
+| ---------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| [Service Usage](https://console.developers.google.com/apis/library/serviceusage.googleapis.com)                  | serviceusage.googleapis.com         |
+| [Cloud Functions](https://console.developers.google.com/apis/library/cloudfunctions.googleapis.com)              | cloudfunctions.googleapis.com       |
+| [Cloud Storage](https://console.developers.google.com/apis/library/storage.googleapis.com)                       | storage.googleapis.com              |
+| [Identity and Access Management (IAM)](https://console.developers.google.com/apis/library/iam.googleapis.com)    | iam.googleapis.com                  |
+| [Cloud Resource Manager](https://console.developers.google.com/apis/library/cloudresourcemanager.googleapis.com) | cloudresourcemanager.googleapis.com |
+| [Cloud Engine](https://console.developers.google.com/apis/library/compute.googleapis.com)                        | compute.googleapis.com              |
+| [Cloud Key Management Service (KMS)](https://console.developers.google.com/apis/library/cloudkms.googleapis.com) | cloudkms.googleapis.com             |
 
 Google Cloud service APIs can be enabled using one of the following methods:
 
 ### Enabling Google Cloud Service API from Google Cloud Console
 
-1. Navigate to the
-   [Google Cloud API Library](https://console.developers.google.com/apis/library)
+1. Click on the service name link that you'd like to enable from the table above
 2. Select your Google Cloud project from the project dropdown menu
-3. Search for the service API you'd like to enable (e.g. "Service Usage")
-4. Click the relevant result
-5. Click the "Enable" button
+3. Click the "Enable" button
 
 ### Enabling Google Cloud Service API from `gcloud` CLI
 
