@@ -18,6 +18,53 @@ must be created in order to run the integration. The service account key is used
 to authenticate on behalf of the integration's Google Cloud project and ingest
 data into JupiterOne.
 
+Google Cloud has most API services disabled by default. When a Google Cloud
+service API is disabled, the JupiterOne integration will not ingest the data
+from that API. The following Google Cloud service APIs that must be enabled to
+ingest all of the supported data into JupiterOne:
+
+```
+serviceusage.googleapis.com
+cloudfunctions.googleapis.com
+storage.googleapis.com
+iam.googleapis.com
+cloudresourcemanager.googleapis.com
+compute.googleapis.com
+cloudkms.googleapis.com
+```
+
+Google Cloud service APIs can be enabled using one of the following methods:
+
+### Enabling Google Cloud Service API from Google Cloud Console
+
+1. Navigate to the
+   [Google Cloud API Library](https://console.developers.google.com/apis/library)
+2. Select your Google Cloud project from the project dropdown menu
+3. Search for the service API you'd like to enable (e.g. "Service Usage")
+4. Click the relevant result
+5. Click the "Enable" button
+
+### Enabling Google Cloud Service API from `gcloud` CLI
+
+Instructions on how to setup the
+[`gcloud` CLI](https://cloud.google.com/sdk/gcloud) can be found in the
+[JupiterOne Google Cloud integration developer documentation](https://github.com/JupiterOne/graph-google-cloud/blob/master/docs/development.md).
+
+After setting up the [`gcloud` CLI](https://cloud.google.com/sdk/gcloud), you
+can run the following command to enable all services that the JupiterOne
+integration supports:
+
+```
+gcloud services enable \
+  serviceusage.googleapis.com \
+  cloudfunctions.googleapis.com \
+  storage.googleapis.com \
+  iam.googleapis.com \
+  cloudresourcemanager.googleapis.com \
+  compute.googleapis.com \
+  cloudkms.googleapis.com
+```
+
 ### Creating Google Cloud project service account
 
 - See the
@@ -33,7 +80,7 @@ data into JupiterOne.
 NOTE: You may also create a service account using the
 [`gcloud` CLI](https://cloud.google.com/sdk/gcloud). There is documentation on
 how to leverage the CLI in the
-[Google Cloud integration developer documentation](https://github.com/JupiterOne/graph-google-cloud/blob/master/docs/development.md).
+[JupiterOne Google Cloud integration developer documentation](https://github.com/JupiterOne/graph-google-cloud/blob/master/docs/development.md).
 
 ### Generate a service account key
 
