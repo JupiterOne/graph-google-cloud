@@ -8,6 +8,19 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.6.0 - 2020-10-08
+
+### Added
+
+- Expose boolean `public` property on `google_storage_bucket` that determines
+  whether a storage bucket is public
+
+Example JupiterOne query:
+
+```
+find google_storage_bucket with public=true
+```
+
 ## 0.5.0 - 2020-10-05
 
 ### Added
