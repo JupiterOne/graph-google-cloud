@@ -1,0 +1,161 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchCloudStorageBuckets should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "DataStore",
+      ],
+      "_key": "bucket:customer-managed-encryption-key-bucket-545240943112",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "encryption": Object {
+              "defaultKmsKeyName": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key",
+            },
+            "etag": "CAE=",
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
+                "enabled": false,
+              },
+              "uniformBucketLevelAccess": Object {
+                "enabled": false,
+              },
+            },
+            "id": "customer-managed-encryption-key-bucket-545240943112",
+            "kind": "storage#bucket",
+            "location": "US",
+            "locationType": "multi-region",
+            "metageneration": "1",
+            "name": "customer-managed-encryption-key-bucket-545240943112",
+            "projectNumber": "545240943112",
+            "selfLink": "https://www.googleapis.com/storage/v1/b/customer-managed-encryption-key-bucket-545240943112",
+            "storageClass": "STANDARD",
+            "timeCreated": "2020-07-28T19:06:14.033Z",
+            "updated": "2020-07-28T19:06:14.033Z",
+          },
+        },
+      ],
+      "_type": "google_storage_bucket",
+      "classification": null,
+      "createdOn": 1595963174033,
+      "displayName": "customer-managed-encryption-key-bucket-545240943112",
+      "encrypted": true,
+      "encryptionKeyRef": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key",
+      "etag": "CAE=",
+      "id": "customer-managed-encryption-key-bucket-545240943112",
+      "location": "US",
+      "name": "customer-managed-encryption-key-bucket-545240943112",
+      "public": false,
+      "storageClass": "STANDARD",
+      "uniformBucketLevelAccess": false,
+      "updatedOn": 1595963174033,
+      "webLink": "https://console.cloud.google.com/storage/browser/customer-managed-encryption-key-bucket-545240943112;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev",
+    },
+    Object {
+      "_class": Array [
+        "DataStore",
+      ],
+      "_key": "bucket:j1-gc-integration-devcloudfunctions",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "etag": "CAE=",
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
+                "enabled": false,
+              },
+              "uniformBucketLevelAccess": Object {
+                "enabled": false,
+              },
+            },
+            "id": "j1-gc-integration-devcloudfunctions",
+            "kind": "storage#bucket",
+            "location": "US",
+            "locationType": "multi-region",
+            "metageneration": "1",
+            "name": "j1-gc-integration-devcloudfunctions",
+            "projectNumber": "545240943112",
+            "selfLink": "https://www.googleapis.com/storage/v1/b/j1-gc-integration-devcloudfunctions",
+            "storageClass": "STANDARD",
+            "timeCreated": "2020-07-28T18:34:48.723Z",
+            "updated": "2020-07-28T18:34:48.723Z",
+          },
+        },
+      ],
+      "_type": "google_storage_bucket",
+      "classification": null,
+      "createdOn": 1595961288723,
+      "displayName": "j1-gc-integration-devcloudfunctions",
+      "encrypted": true,
+      "encryptionKeyRef": undefined,
+      "etag": "CAE=",
+      "id": "j1-gc-integration-devcloudfunctions",
+      "location": "US",
+      "name": "j1-gc-integration-devcloudfunctions",
+      "public": false,
+      "storageClass": "STANDARD",
+      "uniformBucketLevelAccess": false,
+      "updatedOn": 1595961288723,
+      "webLink": "https://console.cloud.google.com/storage/browser/j1-gc-integration-devcloudfunctions;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev",
+    },
+    Object {
+      "_class": Array [
+        "DataStore",
+      ],
+      "_key": "bucket:test-public-storage-bucket-545240943112",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "etag": "CAI=",
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
+                "enabled": false,
+              },
+              "uniformBucketLevelAccess": Object {
+                "enabled": false,
+              },
+            },
+            "id": "test-public-storage-bucket-545240943112",
+            "kind": "storage#bucket",
+            "location": "US",
+            "locationType": "multi-region",
+            "metageneration": "2",
+            "name": "test-public-storage-bucket-545240943112",
+            "projectNumber": "545240943112",
+            "selfLink": "https://www.googleapis.com/storage/v1/b/test-public-storage-bucket-545240943112",
+            "storageClass": "STANDARD",
+            "timeCreated": "2020-10-08T18:54:42.000Z",
+            "updated": "2020-10-08T18:54:43.402Z",
+          },
+        },
+      ],
+      "_type": "google_storage_bucket",
+      "classification": null,
+      "createdOn": 1602183282000,
+      "displayName": "test-public-storage-bucket-545240943112",
+      "encrypted": true,
+      "encryptionKeyRef": undefined,
+      "etag": "CAI=",
+      "id": "test-public-storage-bucket-545240943112",
+      "location": "US",
+      "name": "test-public-storage-bucket-545240943112",
+      "public": true,
+      "storageClass": "STANDARD",
+      "uniformBucketLevelAccess": false,
+      "updatedOn": 1602183283402,
+      "webLink": "https://console.cloud.google.com/storage/browser/test-public-storage-bucket-545240943112;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev",
+    },
+  ],
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
+    "google_storage_bucket",
+  ],
+  "numCollectedEntities": 3,
+  "numCollectedRelationships": 0,
+}
+`;

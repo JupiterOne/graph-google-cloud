@@ -39,14 +39,27 @@ function getMockStorageBucket(
 describe('#createCloudStorageBucketEntity', () => {
   test('should convert to entity', () => {
     expect(
-      createCloudStorageBucketEntity(getMockStorageBucket(), projectId),
+      createCloudStorageBucketEntity({
+        data: getMockStorageBucket(),
+        projectId,
+      }),
+    ).toMatchSnapshot();
+  });
+
+  test('should convert to entity with isPublic param', () => {
+    expect(
+      createCloudStorageBucketEntity({
+        data: getMockStorageBucket(),
+        projectId,
+        isPublic: true,
+      }),
     ).toMatchSnapshot();
   });
 
   test('should convert to entity with uniformBucketAccess enabled', () => {
     expect(
-      createCloudStorageBucketEntity(
-        getMockStorageBucket({
+      createCloudStorageBucketEntity({
+        data: getMockStorageBucket({
           iamConfiguration: {
             bucketPolicyOnly: {
               enabled: false,
@@ -57,18 +70,18 @@ describe('#createCloudStorageBucketEntity', () => {
           },
         }),
         projectId,
-      ),
+      }),
     ).toMatchSnapshot();
   });
 
   test('should handle missing iamConfiguration', () => {
     expect(
-      createCloudStorageBucketEntity(
-        getMockStorageBucket({
+      createCloudStorageBucketEntity({
+        data: getMockStorageBucket({
           iamConfiguration: undefined,
         }),
         projectId,
-      ),
+      }),
     ).toMatchSnapshot();
   });
 });

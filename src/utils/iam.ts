@@ -148,3 +148,26 @@ export function parseIamMember(member: string): ParsedIamMember {
     deleted,
   };
 }
+
+/**
+ * Returns true if a member is public to all authenticated users or all users
+ * on the internet
+ *
+ * allAuthenticatedUsers
+ * The value allAuthenticatedUsers is a special identifier that represents all
+ * service accounts and all users on the internet who have authenticated with a
+ * Google Account. This identifier includes accounts that aren't connected to a
+ * Google Workspace or Cloud Identity domain, such as personal Gmail accounts.
+ * Users who aren't authenticated, such as anonymous visitors, aren't included.
+ *
+ * allUsers
+ * The value allUsers is a special identifier that represents anyone who is on
+ * the internet, including authenticated and unauthenticated users.
+ *
+ * See:
+ * - https://cloud.google.com/iam/docs/overview#allauthenticatedusers
+ * - https://cloud.google.com/iam/docs/overview#allusers
+ */
+export function isMemberPublic(member: string) {
+  return member === 'allUsers' || member === 'allAuthenticatedUsers';
+}

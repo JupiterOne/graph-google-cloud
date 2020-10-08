@@ -7,8 +7,24 @@ import {
   STEP_CLOUD_STORAGE_BUCKETS,
   CLOUD_STORAGE_BUCKET_ENTITY_CLASS,
 } from './constants';
+import { storage_v1 } from 'googleapis';
+import { isMemberPublic } from '../../utils/iam';
 
 export * from './constants';
+
+function isBucketPolicyPublicAccess(
+  bucketPolicy: storage_v1.Schema$Policy,
+): boolean {
+  for (const binding of bucketPolicy.bindings || []) {
+    for (const member of binding.members || []) {
+      if (isMemberPublic(member)) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
 
 export async function fetchStorageBuckets(
   context: IntegrationStepContext,
@@ -17,13 +33,19 @@ export async function fetchStorageBuckets(
     jobState,
     instance: { config },
   } = context;
+
   const client = new CloudStorageClient({ config });
+
   await client.iterateCloudStorageBuckets(async (bucket) => {
+    const bucketId = bucket.id as string;
+    const bucketPolicy = await client.getPolicy(bucketId);
+
     await jobState.addEntity(
-      createCloudStorageBucketEntity(
-        bucket,
-        config.serviceAccountKeyConfig.project_id,
-      ),
+      createCloudStorageBucketEntity({
+        data: bucket,
+        projectId: config.serviceAccountKeyConfig.project_id,
+        isPublic: isBucketPolicyPublicAccess(bucketPolicy),
+      }),
     );
   });
 }
