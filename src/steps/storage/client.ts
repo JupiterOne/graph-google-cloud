@@ -27,4 +27,15 @@ export class CloudStorageClient extends Client {
       });
     }, createStorageBucketClientMapper(callback));
   }
+
+  async getPolicy(bucket: string): Promise<storage_v1.Schema$Policy> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    const result = await this.client.buckets.getIamPolicy({
+      auth,
+      bucket,
+    });
+
+    return result.data;
+  }
 }

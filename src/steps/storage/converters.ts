@@ -1,7 +1,7 @@
 import { storage_v1 } from 'googleapis';
 import {
   createIntegrationEntity,
-  getTime,
+  parseTimePropertyValue,
 } from '@jupiterone/integration-sdk-core';
 import {
   CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
@@ -15,10 +15,15 @@ function getCloudStorageBucketWebLink(
   return `https://console.cloud.google.com/storage/browser/${data.name};tab=objects?forceOnBucketsSortingFiltering=false&project=${projectId}`;
 }
 
-export function createCloudStorageBucketEntity(
-  data: storage_v1.Schema$Bucket,
-  projectId: string,
-) {
+export function createCloudStorageBucketEntity({
+  data,
+  projectId,
+  isPublic,
+}: {
+  data: storage_v1.Schema$Bucket;
+  projectId: string;
+  isPublic: boolean;
+}) {
   return createIntegrationEntity({
     entityData: {
       source: data,
@@ -30,8 +35,8 @@ export function createCloudStorageBucketEntity(
         name: data.name,
         displayName: data.name as string,
         storageClass: data.storageClass,
-        createdOn: getTime(data.timeCreated),
-        updatedOn: getTime(data.updated),
+        createdOn: parseTimePropertyValue(data.timeCreated),
+        updatedOn: parseTimePropertyValue(data.updated),
         // Storage buckets are encrypted by default
         encrypted: true,
         // If not set, we are using the default Google Encryption key
@@ -39,6 +44,7 @@ export function createCloudStorageBucketEntity(
         // https://cloud.google.com/storage/docs/uniform-bucket-level-access
         uniformBucketLevelAccess:
           data.iamConfiguration?.uniformBucketLevelAccess?.enabled === true,
+        public: isPublic,
         // Rely on the value of the classification tag
         classification: null,
         etag: data.etag,
