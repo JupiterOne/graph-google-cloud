@@ -42,11 +42,12 @@ describe('#createCloudStorageBucketEntity', () => {
       createCloudStorageBucketEntity({
         data: getMockStorageBucket(),
         projectId,
+        isPublic: false,
       }),
     ).toMatchSnapshot();
   });
 
-  test('should convert to entity with isPublic param', () => {
+  test('should convert to entity with isPublic param set to true', () => {
     expect(
       createCloudStorageBucketEntity({
         data: getMockStorageBucket(),
@@ -70,6 +71,7 @@ describe('#createCloudStorageBucketEntity', () => {
           },
         }),
         projectId,
+        isPublic: false,
       }),
     ).toMatchSnapshot();
   });
@@ -81,6 +83,7 @@ describe('#createCloudStorageBucketEntity', () => {
           iamConfiguration: undefined,
         }),
         projectId,
+        isPublic: false,
       }),
     ).toMatchSnapshot();
   });
