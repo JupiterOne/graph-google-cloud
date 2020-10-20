@@ -22,7 +22,10 @@ import { STEP_CLOUD_STORAGE_BUCKETS } from './steps/storage';
 import { STEP_API_SERVICES } from './steps/service-usage';
 import { parseServiceAccountKeyFile } from './utils/parseServiceAccountKeyFile';
 import { STEP_IAM_ROLES, STEP_IAM_SERVICE_ACCOUNTS } from './steps/iam';
-import { STEP_RESOURCE_MANAGER_IAM_POLICY } from './steps/resource-manager';
+import {
+  STEP_RESOURCE_MANAGER_IAM_POLICY,
+  STEP_PROJECT,
+} from './steps/resource-manager';
 import {
   STEP_COMPUTE_DISKS,
   STEP_COMPUTE_FIREWALLS,
@@ -92,6 +95,9 @@ describe('#getStepStartStates success', () => {
 
     const stepStartStates = await getStepStartStates(context);
     const expectedStepStartStates: StepStartStates = {
+      [STEP_PROJECT]: {
+        disabled: false,
+      },
       [STEP_API_SERVICES]: {
         disabled: false,
       },

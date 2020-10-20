@@ -8,6 +8,13 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- Ingestion of new project resource
+  - `google_cloud_project`
+- New relationship
+  - `google_cloud_project` **HAS** `google_cloud_api_service`
+
 ## 0.6.0 - 2020-10-08
 
 ### Added

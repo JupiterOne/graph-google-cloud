@@ -5,7 +5,7 @@ import {
 } from '@jupiterone/integration-sdk-testing';
 import { setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
-import { fetchResourceManagerIamPolicy } from '.';
+import { fetchResourceManagerIamPolicy, fetchResourceManagerProject } from '.';
 import { integrationConfig } from '../../../test/config';
 import { iamSteps, IAM_USER_ENTITY_TYPE, IAM_ROLE_ENTITY_TYPE } from '../iam';
 import { ResourceManagerClient } from './client';
@@ -181,5 +181,60 @@ describe('#fetchResourceManagerIamPolicy', () => {
         }),
       ),
     );
+  });
+});
+
+describe('#fetchResourceManagerProject', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'fetchResourceManagerProject',
+      options: { recordFailedRequests: true },
+    });
+  });
+
+  afterEach(async () => {
+    if (recording) {
+      await recording.stop();
+    }
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: integrationConfig,
+    });
+
+    await fetchResourceManagerProject(context);
+    console.log(context.jobState.collectedEntities);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
+
+    expect(context.jobState.collectedEntities).toMatchGraphObjectSchema({
+      _class: ['Account'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_cloud_project' },
+          name: { type: 'string' },
+          projectNumber: { type: 'string' },
+          lifecycleState: { type: 'string' },
+          createdOn: { type: 'number' },
+          'parent.id': { type: 'string' },
+          'parent.type': { type: 'string' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+        },
+      },
+    });
   });
 });

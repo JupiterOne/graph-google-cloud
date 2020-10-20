@@ -124,6 +124,7 @@ The following entities are created:
 | IAM User                | `google_user`                    | `User`              |
 | KMS Crypto Key          | `google_kms_crypto_key`          | `Key`, `CryptoKey`  |
 | KMS Key Ring            | `google_kms_key_ring`            | `Vault`             |
+| Project                 | `google_cloud_project`           | `Account`           |
 
 ### Relationships
 
@@ -132,6 +133,7 @@ The following relationships are created/mapped:
 | Source Entity `_type`        | Relationship `_class` | Target Entity `_type`            |
 | ---------------------------- | --------------------- | -------------------------------- |
 | `internet`                   | **ALLOWS**            | `google_compute_firewall`        |
+| `google_cloud_project`       | **HAS**               | `google_cloud_api_service`       |
 | `google_compute_firewall`    | **PROTECTS**          | `google_compute_network`         |
 | `google_compute_instance`    | **TRUSTS**            | `google_iam_service_account`     |
 | `google_compute_instance`    | **USES**              | `google_compute_disk`            |

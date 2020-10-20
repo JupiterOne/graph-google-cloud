@@ -5,11 +5,16 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { ResourceManagerClient, PolicyMemberBinding } from './client';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
-import { createIamUserAssignedIamRoleRelationship } from './converters';
+import {
+  createIamUserAssignedIamRoleRelationship,
+  createProjectEntity,
+} from './converters';
 import {
   STEP_RESOURCE_MANAGER_IAM_POLICY,
+  STEP_PROJECT,
   IAM_SERVICE_ACCOUNT_ASSIGNED_ROLE_RELATIONSHIP_TYPE,
   IAM_USER_ASSIGNED_ROLE_RELATIONSHIP_TYPE,
+  PROJECT_ENTITY_TYPE,
 } from './constants';
 import {
   iamSteps,
@@ -134,6 +139,23 @@ async function buildIamUserRoleRelationship({
   );
 }
 
+export async function fetchResourceManagerProject(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const {
+    jobState,
+    instance: { config },
+  } = context;
+  const client = new ResourceManagerClient({ config });
+
+  const project = await client.getProject();
+
+  const projectEntity = createProjectEntity(project);
+
+  await jobState.setData(PROJECT_ENTITY_TYPE, projectEntity);
+  await jobState.addEntity(projectEntity);
+}
+
 export async function fetchResourceManagerIamPolicy(
   context: IntegrationStepContext,
 ): Promise<void> {
@@ -153,6 +175,20 @@ export async function fetchResourceManagerIamPolicy(
 }
 
 export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
+  {
+    id: STEP_PROJECT,
+    name: 'Resource Manager Project',
+    entities: [
+      {
+        resourceName: 'Project',
+        _type: 'google_cloud_project',
+        _class: 'Account',
+      },
+    ],
+    relationships: [],
+    dependsOn: [],
+    executionHandler: fetchResourceManagerProject,
+  },
   {
     id: STEP_RESOURCE_MANAGER_IAM_POLICY,
     name: 'Resource Manager IAM Policy',

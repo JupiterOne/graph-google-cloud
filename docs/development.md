@@ -105,8 +105,13 @@ services, you can run the following command:
 
 ```sh
 gcloud services enable \
-   serviceusage.googleapis.com \
-   cloudfunctions.googleapis.com
+  serviceusage.googleapis.com \
+  cloudfunctions.googleapis.com \
+  storage.googleapis.com \
+  iam.googleapis.com \
+  cloudresourcemanager.googleapis.com \
+  compute.googleapis.com \
+  cloudkms.googleapis.com
 ```
 
 ### Creating Google Cloud project service account
@@ -161,7 +166,7 @@ command:
 
 ```sh
 gcloud iam service-accounts keys create /PATH_TO_CREATE_KEY/service-account-key.json \
-   --iam-account j1-gc-integration-dev-sa@PROJECT_ID.gserviceaccount.com \
+   --iam-account j1-gc-integration-dev-sa@PROJECT_ID.iam.gserviceaccount.com \
    --key-file-type "json"
 ```
 
@@ -172,7 +177,7 @@ create the key on your desktop (on a UNIX environment):
 
 ```sh
 gcloud iam service-accounts keys create ~/Desktop/service-account-key.json \
-   --iam-account j1-gc-integration-dev-sa@my-proj-id-123.gserviceaccount.com \
+   --iam-account j1-gc-integration-dev-sa@my-proj-id-123.iam.gserviceaccount.com \
    --key-file-type "json"
 ```
 
