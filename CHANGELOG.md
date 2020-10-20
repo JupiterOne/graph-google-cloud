@@ -8,9 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.7.0 - 2020-10-20
+
 ### Added
 
-- Ingestion of new project resource
+- [#36](https://github.com/JupiterOne/graph-google-cloud/pull/36) Ingestion of
+  new project resource
   - `google_cloud_project`
 - New relationship
   - `google_cloud_project` **HAS** `google_cloud_api_service`
