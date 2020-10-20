@@ -824,3 +824,46 @@ Object {
   "numCollectedRelationships": 19,
 }
 `;
+
+exports[`#fetchResourceManagerProject should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Account",
+      ],
+      "_key": "j1-gc-integration-dev",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "createTime": "2020-07-28T14:38:24.744Z",
+            "lifecycleState": "ACTIVE",
+            "name": "j1-gc-integration-dev",
+            "parent": Object {
+              "id": "158838481165",
+              "type": "organization",
+            },
+            "projectId": "j1-gc-integration-dev",
+            "projectNumber": "545240943112",
+          },
+        },
+      ],
+      "_type": "google_cloud_project",
+      "createdOn": 1595947104744,
+      "displayName": "j1-gc-integration-dev",
+      "lifecycleState": "ACTIVE",
+      "name": "j1-gc-integration-dev",
+      "parent.id": "158838481165",
+      "parent.type": "organization",
+      "projectNumber": "545240943112",
+    },
+  ],
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
+    "google_cloud_project",
+  ],
+  "numCollectedEntities": 1,
+  "numCollectedRelationships": 0,
+}
+`;

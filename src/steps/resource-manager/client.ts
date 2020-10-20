@@ -9,6 +9,17 @@ export interface PolicyMemberBinding {
 export class ResourceManagerClient extends Client {
   private client = google.cloudresourcemanager('v1');
 
+  async getProject() {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    const result = await this.client.projects.get({
+      auth,
+      projectId: this.projectId,
+    });
+
+    return result.data;
+  }
+
   async getServiceAccountPolicy() {
     const auth = await this.getAuthenticatedServiceClient();
 

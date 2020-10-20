@@ -12,7 +12,10 @@ import { STEP_CLOUD_STORAGE_BUCKETS } from './steps/storage';
 import { STEP_API_SERVICES } from './steps/service-usage';
 import { deserializeIntegrationConfig } from './utils/integrationConfig';
 import { STEP_IAM_ROLES, STEP_IAM_SERVICE_ACCOUNTS } from './steps/iam';
-import { STEP_RESOURCE_MANAGER_IAM_POLICY } from './steps/resource-manager';
+import {
+  STEP_RESOURCE_MANAGER_IAM_POLICY,
+  STEP_PROJECT,
+} from './steps/resource-manager';
 import {
   STEP_COMPUTE_INSTANCES,
   STEP_COMPUTE_DISKS,
@@ -85,6 +88,7 @@ export default async function getStepStartStates(
 
   return {
     // This API will be enabled otherwise fetching services names above would fail
+    [STEP_PROJECT]: { disabled: false },
     [STEP_API_SERVICES]: { disabled: false },
     [STEP_CLOUD_FUNCTIONS]: createStepStartState(
       ServiceUsageName.CLOUD_FUNCTIONS,

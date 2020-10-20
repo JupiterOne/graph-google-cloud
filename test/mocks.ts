@@ -1,4 +1,4 @@
-import { iam_v1, compute_v1 } from 'googleapis';
+import { iam_v1, compute_v1, cloudresourcemanager_v1 } from 'googleapis';
 
 export function getMockIamRole(
   partial?: Partial<iam_v1.Schema$Role>,
@@ -264,6 +264,23 @@ export function getMockNetwork(
       routingMode: 'GLOBAL',
     },
     kind: 'compute#network',
+    ...partial,
+  };
+}
+
+export function getMockProject(
+  partial?: cloudresourcemanager_v1.Schema$Project,
+): cloudresourcemanager_v1.Schema$Project {
+  return {
+    projectNumber: '545240943112',
+    projectId: 'j1-gc-integration-dev',
+    lifecycleState: 'ACTIVE',
+    name: 'j1-gc-integration-dev',
+    createTime: '2020-07-28T14:38:24.744Z',
+    parent: {
+      type: 'organization',
+      id: '158838481165',
+    },
     ...partial,
   };
 }

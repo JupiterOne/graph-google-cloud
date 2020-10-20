@@ -6,6 +6,7 @@ import { setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
 import { fetchApiServices } from '.';
 import { integrationConfig } from '../../../test/config';
+import { PROJECT_ENTITY_TYPE, PROJECT_ENTITY_CLASS } from '../resource-manager';
 
 describe('#fetchApiServices', () => {
   let recording: Recording;
@@ -22,8 +23,17 @@ describe('#fetchApiServices', () => {
   });
 
   test('should collect data', async () => {
+    const projectEntity = {
+      _key: integrationConfig.serviceAccountKeyConfig.project_id,
+      _type: PROJECT_ENTITY_TYPE,
+      _class: PROJECT_ENTITY_CLASS,
+    };
+
     const context = createMockStepExecutionContext<IntegrationConfig>({
       instanceConfig: integrationConfig,
+      setData: {
+        [PROJECT_ENTITY_TYPE]: projectEntity,
+      },
     });
 
     await fetchApiServices(context);

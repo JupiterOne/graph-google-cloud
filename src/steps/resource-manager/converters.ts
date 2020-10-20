@@ -4,7 +4,11 @@ import {
   createDirectRelationship,
   Relationship,
   RelationshipClass,
+  createIntegrationEntity,
+  convertProperties,
+  parseTimePropertyValue,
 } from '@jupiterone/integration-sdk-core';
+import { PROJECT_ENTITY_TYPE, PROJECT_ENTITY_CLASS } from './constants';
 
 function getConditionRelationshipProperties(
   condition: cloudresourcemanager_v1.Schema$Expr,
@@ -31,6 +35,26 @@ export function createIamUserAssignedIamRoleRelationship(params: {
       projectId: params.projectId,
       ...(params.condition &&
         getConditionRelationshipProperties(params.condition)),
+    },
+  });
+}
+
+export function createProjectEntity(
+  project: cloudresourcemanager_v1.Schema$Project,
+) {
+  return createIntegrationEntity({
+    entityData: {
+      source: project,
+      assign: {
+        ...convertProperties(project.parent || {}, { prefix: 'parent' }),
+        _key: project.projectId!,
+        _type: PROJECT_ENTITY_TYPE,
+        _class: PROJECT_ENTITY_CLASS,
+        name: project.name,
+        projectNumber: project.projectNumber,
+        lifecycleState: project.lifecycleState,
+        createdOn: parseTimePropertyValue(project.createTime),
+      },
     },
   });
 }
