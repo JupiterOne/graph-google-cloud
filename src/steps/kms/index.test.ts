@@ -124,15 +124,16 @@ describe('#fetchKmsCryptoKeys', () => {
       },
     });
 
-    expect(
-      context.jobState.collectedRelationships.filter(
-        (e) => e._type === RELATIONSHIP_TYPE_KMS_KEY_RING_HAS_KMS_KEY,
-      ),
-    ).toMatchDirectRelationshipSchema({
+    const keyRingKeyRelationships = context.jobState.collectedRelationships.filter(
+      (e) => e._type === RELATIONSHIP_TYPE_KMS_KEY_RING_HAS_KMS_KEY,
+    );
+
+    expect(keyRingKeyRelationships.length).toBeGreaterThan(0);
+    expect(keyRingKeyRelationships).toMatchDirectRelationshipSchema({
       schema: {
         properties: {
           _class: { const: 'HAS' },
-          _type: { const: 'google_kms_key_ring_has_key' },
+          _type: { const: 'google_kms_key_ring_has_crypto_key' },
         },
       },
     });

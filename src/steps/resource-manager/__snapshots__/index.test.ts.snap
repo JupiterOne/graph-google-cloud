@@ -867,3 +867,29 @@ Object {
   "numCollectedRelationships": 0,
 }
 `;
+
+exports[`#fetchResourceManagerProject should log & return Account entity if client.getProject() fails 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Account",
+      ],
+      "_key": "j1-gc-integration-dev",
+      "_rawData": Array [],
+      "_type": "google_cloud_project",
+      "createdOn": undefined,
+      "displayName": "j1-gc-integration-dev",
+      "lifecycleState": undefined,
+      "name": "j1-gc-integration-dev",
+      "projectNumber": undefined,
+    },
+  ],
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
+    "google_cloud_project",
+  ],
+  "numCollectedEntities": 1,
+  "numCollectedRelationships": 0,
+}
+`;

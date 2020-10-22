@@ -114,6 +114,23 @@ describe('#createProjectEntity', () => {
       displayName: 'j1-gc-integration-dev',
     };
 
-    expect(createProjectEntity(getMockProject())).toEqual(expected);
+    const mockProject = getMockProject();
+    expect(
+      createProjectEntity(mockProject.projectId as string, mockProject),
+    ).toEqual(expected);
+  });
+
+  test('should convert entity with just projectId', () => {
+    const expected: Entity = {
+      name: 'j1-gc-integration-dev',
+      _key: 'j1-gc-integration-dev',
+      _type: 'google_cloud_project',
+      _class: ['Account'],
+      _rawData: [],
+      displayName: 'j1-gc-integration-dev',
+    };
+
+    const projectId = 'j1-gc-integration-dev';
+    expect(createProjectEntity(projectId, undefined)).toEqual(expected);
   });
 });
