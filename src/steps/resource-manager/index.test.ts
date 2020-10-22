@@ -187,14 +187,6 @@ describe('#fetchResourceManagerIamPolicy', () => {
 describe('#fetchResourceManagerProject', () => {
   let recording: Recording;
 
-  beforeEach(() => {
-    recording = setupGoogleCloudRecording({
-      directory: __dirname,
-      name: 'fetchResourceManagerProject',
-      options: { recordFailedRequests: true },
-    });
-  });
-
   afterEach(async () => {
     if (recording) {
       await recording.stop();
@@ -202,12 +194,15 @@ describe('#fetchResourceManagerProject', () => {
   });
 
   test('should collect data', async () => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'fetchResourceManagerProject',
+    });
     const context = createMockStepExecutionContext<IntegrationConfig>({
       instanceConfig: integrationConfig,
     });
 
     await fetchResourceManagerProject(context);
-    console.log(context.jobState.collectedEntities);
 
     expect({
       numCollectedEntities: context.jobState.collectedEntities.length,
@@ -217,6 +212,48 @@ describe('#fetchResourceManagerProject', () => {
       encounteredTypes: context.jobState.encounteredTypes,
     }).toMatchSnapshot();
 
+    expect(context.jobState.collectedEntities).toMatchGraphObjectSchema({
+      _class: ['Account'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_cloud_project' },
+          name: { type: 'string' },
+          projectNumber: { type: 'string' },
+          lifecycleState: { type: 'string' },
+          createdOn: { type: 'number' },
+          'parent.id': { type: 'string' },
+          'parent.type': { type: 'string' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+        },
+      },
+    });
+  });
+
+  test('should log & return Account entity if client.getProject() fails', async () => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'fetchResourceManagerProjectWithDisabledApi',
+      options: { recordFailedRequests: true },
+    });
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: integrationConfig,
+    });
+
+    await fetchResourceManagerProject(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
+
+    console.log(context.jobState.collectedEntities);
     expect(context.jobState.collectedEntities).toMatchGraphObjectSchema({
       _class: ['Account'],
       schema: {

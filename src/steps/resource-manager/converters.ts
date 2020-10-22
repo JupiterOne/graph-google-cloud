@@ -40,17 +40,18 @@ export function createIamUserAssignedIamRoleRelationship(params: {
 }
 
 export function createProjectEntity(
-  project: cloudresourcemanager_v1.Schema$Project,
+  projectId: string,
+  project: cloudresourcemanager_v1.Schema$Project | undefined = {},
 ) {
   return createIntegrationEntity({
     entityData: {
       source: project,
       assign: {
         ...convertProperties(project.parent || {}, { prefix: 'parent' }),
-        _key: project.projectId!,
+        _key: projectId,
         _type: PROJECT_ENTITY_TYPE,
         _class: PROJECT_ENTITY_CLASS,
-        name: project.name,
+        name: project.name || projectId,
         projectNumber: project.projectNumber,
         lifecycleState: project.lifecycleState,
         createdOn: parseTimePropertyValue(project.createTime),
