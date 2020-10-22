@@ -8,6 +8,11 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Fixed
+
+- Always create an `Account` entity, even if API to `/projects/<projectId>`
+  fails
+
 ## 0.7.0 - 2020-10-20
 
 ### Added

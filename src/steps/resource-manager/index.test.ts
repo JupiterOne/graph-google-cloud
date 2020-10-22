@@ -253,7 +253,6 @@ describe('#fetchResourceManagerProject', () => {
       encounteredTypes: context.jobState.encounteredTypes,
     }).toMatchSnapshot();
 
-    console.log(context.jobState.collectedEntities);
     expect(context.jobState.collectedEntities).toMatchGraphObjectSchema({
       _class: ['Account'],
       schema: {
