@@ -158,11 +158,11 @@ export async function fetchResourceManagerProject(
     const message =
       'Could not fetch project from Cloud Resource Manager API. Ensure the API is enabled (see https://github.com/JupiterOne/graph-google-cloud/blob/master/docs/development.md#enabling-google-cloud-services)';
     if (err.code === 403) {
-      logger.warn({ err }, message),
-        logger.publishEvent({
-          name: 'FETCH_PROJECT_ERROR',
-          description: err.message || `403: ${message}`,
-        });
+      logger.warn({ err }, message);
+      logger.publishEvent({
+        name: 'FETCH_PROJECT_ERROR',
+        description: err.message || `403: ${message}`,
+      });
     } else {
       logger.publishErrorEvent({
         name: 'FETCH_PROJECT_ERROR',
