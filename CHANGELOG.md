@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.8.0 - 2020-10-29
+
+### Changed
+
+- Upgrade SDK v4
+
 ## 0.7.1 - 2020-10-22
 
 ### Fixed

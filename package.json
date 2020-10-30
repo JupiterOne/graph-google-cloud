@@ -1,6 +1,6 @@
 {
   "name": "@jupiterone/graph-google-cloud",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "description": "A graph conversion tool for https://cloud.google.com/",
   "license": "MPL-2.0",
   "main": "dist/index.js",
@@ -27,12 +27,12 @@
     "create-env-file": "yarn ts-node ./scripts/createEnvFile $1"
   },
   "peerDependencies": {
-    "@jupiterone/integration-sdk-core": "^3.5.1"
+    "@jupiterone/integration-sdk-core": "^4.0.0"
   },
   "devDependencies": {
-    "@jupiterone/integration-sdk-core": "^3.5.1",
-    "@jupiterone/integration-sdk-dev-tools": "^3.5.1",
-    "@jupiterone/integration-sdk-testing": "^3.5.1",
+    "@jupiterone/integration-sdk-core": "^4.0.0",
+    "@jupiterone/integration-sdk-dev-tools": "^4.0.0",
+    "@jupiterone/integration-sdk-testing": "^4.0.0",
     "dotenv": "^8.2.0",
     "ts-node": "^8.10.2"
   },
