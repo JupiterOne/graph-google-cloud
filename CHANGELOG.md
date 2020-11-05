@@ -8,6 +8,17 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.9.0 - 2020-11-05
+
+### Added
+
+- Create script that allows JupiterOne integration instance creation for every
+  Google Cloud project in an organization
+
+### Fixed
+
+- Fixed IAM service account `ASSIGNED` role relationship duplicates
+
 ## 0.8.0 - 2020-10-29
 
 ### Changed

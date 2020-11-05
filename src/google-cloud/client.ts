@@ -24,8 +24,22 @@ export type PageableGaxiosResponse<T> = GaxiosResponse<
 
 export type GoogleClientAuth = JWT | Compute | UserRefreshClient;
 
+export async function iterateApi<T>(
+  fn: (nextPageToken?: string) => Promise<PageableGaxiosResponse<T>>,
+  callback: (data: T) => Promise<void>,
+) {
+  let nextPageToken: string | undefined;
+
+  do {
+    const result = await fn(nextPageToken);
+    nextPageToken = result.data.nextPageToken || undefined;
+    await callback(result.data);
+  } while (nextPageToken);
+}
+
 export class Client {
   readonly projectId: string;
+  readonly iterateApi = iterateApi;
 
   private credentials: CredentialBody;
   private auth: GoogleClientAuth;
@@ -55,18 +69,5 @@ export class Client {
     }
 
     return this.auth;
-  }
-
-  async iterateApi<T>(
-    fn: (nextPageToken?: string) => Promise<PageableGaxiosResponse<T>>,
-    callback: (data: T) => Promise<void>,
-  ) {
-    let nextPageToken: string | undefined;
-
-    do {
-      const result = await fn(nextPageToken);
-      nextPageToken = result.data.nextPageToken || undefined;
-      await callback(result.data);
-    } while (nextPageToken);
   }
 }
