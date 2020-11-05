@@ -125,8 +125,8 @@ For more info, run any command with the `--help` flag:
 Options:
   --jupiterone-account-id <jupiteroneAccountId>  (Required) JupiterOne Account ID
   --jupiterone-api-key <jupiteroneApiKey>        (Required) JupiterOne API Key
-  --google-access-token <googleAccessToken>      (Required) JupiterOne API Key
-  --project-id [projectId]                       (Optional) Array of project IDs to create integration instances with
+  --google-access-token <googleAccessToken>      (Required) Google Cloud Access Token
+  --project-id [projectId]                       (Optional) Project ID to create integration instances with. Passing multiple `--project-id` flags allows for ingestion of multiple projects.
   -h, --help                                     Display this message
 ```
 
