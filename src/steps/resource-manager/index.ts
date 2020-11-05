@@ -2,6 +2,7 @@ import {
   IntegrationStep,
   Entity,
   JobState,
+  Relationship,
 } from '@jupiterone/integration-sdk-core';
 import { ResourceManagerClient, PolicyMemberBinding } from './client';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
@@ -110,7 +111,7 @@ async function buildIamUserRoleRelationship({
   jobState: JobState;
   projectId: string;
   data: PolicyMemberBinding;
-}) {
+}): Promise<Relationship | undefined> {
   const roleName = data.binding.role as string;
   const iamUserEntity = await maybeFindOrCreateIamUserEntity({
     jobState,
@@ -129,14 +130,12 @@ async function buildIamUserRoleRelationship({
     roleName,
   });
 
-  await jobState.addRelationship(
-    createIamUserAssignedIamRoleRelationship({
-      iamUserEntity,
-      iamRoleEntity,
-      projectId,
-      condition: data.binding.condition as cloudresourcemanager_v1.Schema$Expr,
-    }),
-  );
+  return createIamUserAssignedIamRoleRelationship({
+    iamUserEntity,
+    iamRoleEntity,
+    projectId,
+    condition: data.binding.condition as cloudresourcemanager_v1.Schema$Expr,
+  });
 }
 
 export async function fetchResourceManagerProject(
@@ -189,13 +188,21 @@ export async function fetchResourceManagerIamPolicy(
     instance: { config },
   } = context;
   const client = new ResourceManagerClient({ config });
+  const relationships = new Set<string>();
 
   await client.iteratePolicyMemberBindings(async (data) => {
-    await buildIamUserRoleRelationship({
+    const relationship = await buildIamUserRoleRelationship({
       jobState,
       projectId: client.projectId,
       data,
     });
+
+    if (!relationship || relationships.has(relationship._key)) {
+      return;
+    }
+
+    await jobState.addRelationship(relationship);
+    relationships.add(relationship._key);
   });
 }
 
