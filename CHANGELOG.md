@@ -8,6 +8,11 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- Create script that allows JupiterOne integration instance creation for every
+  Google Cloud project in an organization
+
 ## 0.8.0 - 2020-10-29
 
 ### Changed

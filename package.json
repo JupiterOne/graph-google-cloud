@@ -24,7 +24,8 @@
     "prepush": "yarn lint && yarn type-check && jest --changedSince master",
     "prepack": "yarn build",
     "tf": "cd terraform && env `grep -v '^#' .env` terraform $1",
-    "create-env-file": "yarn ts-node ./scripts/createEnvFile $1"
+    "create-env-file": "yarn ts-node ./scripts/createEnvFile $1",
+    "jupiterone-organization-setup": "yarn ts-node ./scripts/organizationSetupCli.ts"
   },
   "peerDependencies": {
     "@jupiterone/integration-sdk-core": "^4.0.0"
@@ -33,7 +34,14 @@
     "@jupiterone/integration-sdk-core": "^4.0.0",
     "@jupiterone/integration-sdk-dev-tools": "^4.0.0",
     "@jupiterone/integration-sdk-testing": "^4.0.0",
+    "@types/bunyan": "^1.8.6",
+    "@types/bunyan-format": "^0.2.3",
+    "@types/node-fetch": "^2.5.7",
+    "bunyan": "^1.8.14",
+    "bunyan-format": "^0.2.1",
+    "cac": "^6.6.1",
     "dotenv": "^8.2.0",
+    "node-fetch": "^2.6.1",
     "ts-node": "^8.10.2"
   },
   "dependencies": {

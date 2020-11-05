@@ -1,6 +1,6 @@
 import { Recording, setupRecording } from '@jupiterone/integration-sdk-testing';
 import { gunzipSync } from 'zlib';
-import { cloudfunctions_v1 } from 'googleapis';
+import { cloudfunctions_v1, iam_v1 } from 'googleapis';
 import * as url from 'url';
 import * as querystring from 'querystring';
 import { integrationConfig } from './config';
@@ -57,6 +57,25 @@ function sanitizeGoogleCloudFunctionResponse(
             cloudFunction.sourceUploadUrl,
           ),
       })),
+  };
+}
+
+function isCreateServiceAccountKeyUrl(url: string) {
+  return new RegExp(
+    /https:\/\/iam.googleapis.com\/v1\/projects\/(.*?)\/serviceAccounts\/(.*?)\/keys/,
+  ).test(url);
+}
+
+/**
+ * The response from creating a service account key contains the private key
+ * data, which we need to redact.
+ */
+function sanitizeCreateServiceAccountKeyResponse(
+  response: iam_v1.Schema$ServiceAccountKey,
+): iam_v1.Schema$ServiceAccountKey {
+  return {
+    ...response,
+    privateKeyData: '[REDACTED]',
   };
 }
 
@@ -134,6 +153,12 @@ function redact(entry): void {
 
     if (requestUrl === isListFunctionsUrl(requestUrl)) {
       parsedResponseText = sanitizeGoogleCloudFunctionResponse(
+        parsedResponseText,
+      );
+    }
+
+    if (isCreateServiceAccountKeyUrl(requestUrl)) {
+      parsedResponseText = sanitizeCreateServiceAccountKeyResponse(
         parsedResponseText,
       );
     }

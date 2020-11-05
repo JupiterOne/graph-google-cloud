@@ -91,6 +91,84 @@ NOTE: You may also create a service account key using the
 how to leverage the CLI in the
 [Google Cloud integration developer documentation](https://github.com/JupiterOne/graph-google-cloud/blob/master/docs/development.md).
 
+### Create JupiterOne Integration Instances for all Google Cloud Projects
+
+A CLI is exposed from the
+[`graph-google-cloud` project on GitHub](https://github.com/JupiterOne/graph-google-cloud)
+that can be leveraged to create individual integration instances for every
+project that a user has access to in Google Cloud.
+
+#### Install Dependencies
+
+The following dependencies are needed in order to run the CLI:
+
+- [Node.js](https://nodejs.org/en/)
+- [Yarn package manager](https://yarnpkg.com/)
+- [gcloud CLI](https://cloud.google.com/sdk/gcloud)
+
+#### Running
+
+The following shows all of the options that are exposed by the CLI.
+
+```
+JupiterOne Google Cloud Organization Integration Setup
+
+Usage:
+  $ JupiterOne Google Cloud Organization Integration Setup []
+
+Commands:
+  []  Default command: Run the organization setup
+
+For more info, run any command with the `--help` flag:
+  $ JupiterOne Google Cloud Organization Integration Setup --help
+
+Options:
+  --jupiterone-account-id <jupiteroneAccountId>  (Required) JupiterOne Account ID
+  --jupiterone-api-key <jupiteroneApiKey>        (Required) JupiterOne API Key
+  --google-access-token <googleAccessToken>      (Required) JupiterOne API Key
+  --project-id [projectId]                       (Optional) Array of project IDs to create integration instances with
+  -h, --help                                     Display this message
+```
+
+Example usage to create integration instances for every project that the
+authenticated Google Cloud user has access to:
+
+```sh
+yarn jupiterone-organization-setup \
+  --google-access-token $(gcloud auth print-access-token) \
+  --jupiterone-account-id MY_JUPITERONE_ACCOUNT_ID_HERE \
+  --jupiterone-api-key MY_JUPITERONE_API_KEY_HERE
+```
+
+Example usage to create integration instances for a selection of projects that
+the authenticated Google Cloud user has access to:
+
+```sh
+yarn jupiterone-organization-setup \
+  --google-access-token $(gcloud auth print-access-token) \
+  --jupiterone-account-id MY_JUPITERONE_ACCOUNT_ID_HERE \
+  --jupiterone-api-key MY_JUPITERONE_API_KEY_HERE \
+  --project-id MY_GOOGLE_CLOUD_PROJECT_ID_HERE \
+  --project-id MY_GOOGLE_CLOUD_PROJECT_ID_HERE_2 \
+  --project-id MY_GOOGLE_CLOUD_PROJECT_ID_HERE_3
+```
+
+#### How it works
+
+The following is the overall flow of how the CLI creates an integration instance
+for each project:
+
+- For every project in a GCP org
+  - Enable relevant Google Cloud API services that the JupiterOne integration
+    will interact with
+  - Create a service account to be used by JupiterOne
+  - Create a service account key for the new service account
+  - Update the project’s IAM policy with the new service account as a member of
+    the recommended roles/iam.securityReviewer to allow JupiterOne read access
+    to relevant Google Cloud resources
+  - Create a JupiterOne integration instance using the newly generated service
+    account key file
+
 <!-- {J1_DOCUMENTATION_MARKER_START} -->
 <!--
 ********************************************************************************
