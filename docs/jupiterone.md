@@ -128,7 +128,8 @@ Options:
   --google-access-token <googleAccessToken>      (Required) JupiterOne API Key
   --organization-id [organizationId]             (Optional) Array of organization IDs to collect projects from
   --project-id [projectId]                       (Optional) Array of project IDs to create integration instances with
-  -h, --help                                     Display this message
+  --skip-system-projects [skipSystemProjects]    (Optional) Skips creation of any projects that have an ID that start with "sys-" (default: false)
+  -h, --help                                     Display this messagee
 ```
 
 Example usage to create integration instances for every project that is under a
