@@ -143,8 +143,8 @@ yarn jupiterone-organization-setup \
   --jupiterone-api-key MY_JUPITERONE_API_KEY_HERE
 ```
 
-Example usage to create integration instances for every project that are under a
-multiple Google Cloud organizations:
+Example usage to create integration instances for each project in multiple
+Google Cloud organizations:
 
 ```sh
 yarn jupiterone-organization-setup \

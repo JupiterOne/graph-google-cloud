@@ -392,7 +392,7 @@ async function createJupiterOneIntegrationInstance(
         },
       }),
       headers: {
-        'LifeOmic-Account': jupiteroneAccountId,
+        'JupiterOne-Account': jupiteroneAccountId,
         Authorization: `Bearer ${jupiteroneApiKey}`,
         'Content-Type': 'application/json',
       },
