@@ -8,6 +8,7 @@ interface CliArguments {
   jupiteroneAccountId: string;
   jupiteroneApiKey: string;
   googleAccessToken: string;
+  skipSystemProjects: boolean;
   organizationId?: string[] | (string | number)[];
   projectId?: string[] | (string | number)[];
   help?: boolean;
@@ -61,6 +62,13 @@ cli
     '--project-id [projectId]',
     '(Optional) Array of project IDs to create integration instances with',
   )
+  .option(
+    '--skip-system-projects [skipSystemProjects]',
+    '(Optional) Skips creation of any projects that have an ID that start with "sys-"',
+    {
+      default: false,
+    },
+  )
   .action((options: CliArguments) => {
     assertRequiredCliArg(
       '--jupiterone-account-id',
@@ -93,6 +101,7 @@ const parsed = cli.parse(process.argv, { run: true });
     organizationId,
     projectId,
     help,
+    skipSystemProjects,
   } = parsed.options as CliArguments;
 
   const projectIds = projectId && convertToArrayOfStrings(projectId);
@@ -106,6 +115,7 @@ const parsed = cli.parse(process.argv, { run: true });
       projectId,
       organizationIds,
       projectIds,
+      skipSystemProjects,
       jupiteroneApiKey: jupiteroneApiKey && redactCliSecret(jupiteroneApiKey),
       jupiteroneEnv,
       googleAccessToken:
@@ -124,6 +134,7 @@ const parsed = cli.parse(process.argv, { run: true });
     organizationIds,
     projectIds,
     jupiteroneEnv,
+    skipSystemProjects,
   });
 
   logger.info(

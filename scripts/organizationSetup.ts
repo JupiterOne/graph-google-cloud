@@ -39,6 +39,7 @@ export interface SetupOrganizationParams extends BaseSetupOrganizationParams {
   organizationIds?: string[];
   projectIds?: string[];
   jupiteroneEnv?: string;
+  skipSystemProjects: boolean;
 }
 
 export interface SetupOrganizationProjectParams
@@ -519,6 +520,7 @@ export async function setupOrganization(
     projectIds,
     logger: baseLogger,
     jupiteroneEnv = 'us',
+    skipSystemProjects,
   } = params;
 
   const result: SetupOrganizationResult = {
@@ -538,6 +540,12 @@ export async function setupOrganization(
 
     for (const projectId of projectIds) {
       const logger = baseLogger.child({ projectId });
+
+      if (skipSystemProjects && projectId.startsWith('sys-')) {
+        logger.info('Skipping system project');
+        result.skipped.push(projectId);
+        continue;
+      }
 
       let project: cloudresourcemanager_v1.Schema$Project;
 
@@ -578,6 +586,12 @@ export async function setupOrganization(
         async (project) => {
           const projectId = project.projectId as string;
           const logger = baseLogger.child({ projectId });
+
+          if (skipSystemProjects && projectId.startsWith('sys-')) {
+            logger.info('Skipping system project');
+            result.skipped.push(projectId);
+            return;
+          }
 
           logger.info('Setting up project');
 
