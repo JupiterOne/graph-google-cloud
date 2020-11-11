@@ -52,7 +52,7 @@ cli
   )
   .option(
     '--google-access-token <googleAccessToken>',
-    '(Required) JupiterOne API Key',
+    '(Required) Google Cloud Access Token',
   )
   .option(
     '--organization-id [organizationId]',
