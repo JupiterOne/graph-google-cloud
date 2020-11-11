@@ -1,10 +1,11 @@
 jest.setTimeout(60000);
 
 import Logger from 'bunyan';
-import { Recording, setupGoogleCloudRecording } from '../test/recording';
+import { setupGoogleCloudRecording } from '../test/recording';
 import {
   setupOrganization,
   SetupOrganizationParams,
+  SetupOrganizationResult,
 } from './organizationSetup';
 
 function getMockLogger() {
@@ -36,28 +37,77 @@ function getSetupOrganizationParams(
   };
 }
 
-describe('#setupOrganization', () => {
-  let recording: Recording;
+async function withRecording(recordingName: string, cb: () => Promise<void>) {
+  const recording = setupGoogleCloudRecording({
+    directory: __dirname,
+    name: recordingName,
+    options: {
+      recordFailedRequests: true,
+    },
+  });
 
-  beforeEach(() => {
-    recording = setupGoogleCloudRecording({
-      directory: __dirname,
-      name: 'setupOrganization',
-      options: {
-        recordFailedRequests: true,
-      },
+  try {
+    await cb();
+  } finally {
+    await recording.stop();
+  }
+}
+
+describe('#setupOrganization', () => {
+  test('should iterate only specific projects when projectIds supplied', async () => {
+    await withRecording('setupOrganization', async () => {
+      const result = await setupOrganization(
+        getSetupOrganizationParams({
+          projectIds: ['j1-gc-integration-dev'],
+        }),
+      );
+
+      console.log('RESULT', JSON.stringify(result, null, 2));
+
+      const expected: SetupOrganizationResult = {
+        created: ['j1-gc-integration-dev'],
+        failed: [],
+        skipped: [],
+        exists: [],
+      };
+
+      expect(result).toEqual(expected);
     });
   });
 
-  afterEach(async () => {
-    await recording.stop();
-  });
-
   test('should iterate only specific projects when projectIds supplied', async () => {
-    await setupOrganization(
-      getSetupOrganizationParams({
-        projectIds: ['j1-gc-integration-dev'],
-      }),
-    );
+    await withRecording('setupOrganizationWithOrgParam', async () => {
+      const result = await setupOrganization(
+        getSetupOrganizationParams({
+          organizationIds: ['158838481165'],
+        }),
+      );
+
+      console.log('RESULT', JSON.stringify(result, null, 2));
+
+      const expected: SetupOrganizationResult = {
+        created: [
+          'j1-gc-integration-dev',
+          'jupiterone',
+          'test-j1-gc-integration-project',
+          'test-proj-folder-proj',
+          'test-proj-folder-nested-proj',
+        ],
+        failed: [
+          'adams-project-290314',
+          'wp-login-285520',
+          'jupiterone-prod-us',
+          'jupiterone-dev-232400',
+        ],
+        skipped: [],
+        exists: [
+          'delta-heading-286117',
+          'absolute-nuance-284715',
+          'test-new-proj-no-apps',
+        ],
+      };
+
+      expect(result).toEqual(expected);
+    });
   });
 });

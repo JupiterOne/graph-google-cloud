@@ -1,10 +1,16 @@
 import { Headers } from 'gaxios';
-import { google, cloudresourcemanager_v1, iam_v1 } from 'googleapis';
+import {
+  google,
+  cloudresourcemanager_v1,
+  cloudresourcemanager_v2,
+  iam_v1,
+} from 'googleapis';
 import { iterateApi } from '../src/google-cloud/client';
 import fetch from 'node-fetch';
 import Logger from 'bunyan';
 
 const cloudresourcemanager = google.cloudresourcemanager('v1');
+const cloudresourcemanagerV2 = google.cloudresourcemanager('v2');
 const iam = google.iam('v1');
 const serviceusage = google.serviceusage('v1');
 
@@ -30,12 +36,15 @@ export interface BaseSetupOrganizationParams {
 }
 
 export interface SetupOrganizationParams extends BaseSetupOrganizationParams {
+  organizationIds?: string[];
   projectIds?: string[];
+  jupiteroneEnv?: string;
 }
 
 export interface SetupOrganizationProjectParams
   extends BaseSetupOrganizationParams {
   project: cloudresourcemanager_v1.Schema$Project;
+  jupiteroneEnv: string;
 }
 
 function getHeaders(googleAccessToken: string): Headers {
@@ -44,8 +53,46 @@ function getHeaders(googleAccessToken: string): Headers {
   };
 }
 
+function getProjectFilter(parentId: string) {
+  return `parent.id=${parentId} AND lifecycleState=ACTIVE`;
+}
+
+function getParentResourceName(parentType: string, parentId: string) {
+  return `${parentType}/${parentId}`;
+}
+
+function getResourceIdFromResourceName(resourceName: string) {
+  return resourceName.split('/')[1];
+}
+
+async function iterateFolders(
+  googleAccessToken: string,
+  parent: string,
+  callback: (data: cloudresourcemanager_v2.Schema$Folder) => Promise<void>,
+) {
+  await iterateApi(
+    async (nextPageToken) => {
+      return cloudresourcemanagerV2.folders.list(
+        {
+          pageToken: nextPageToken,
+          parent,
+        },
+        {
+          headers: getHeaders(googleAccessToken),
+        },
+      );
+    },
+    async (data: cloudresourcemanager_v2.Schema$ListFoldersResponse) => {
+      for (const item of data.folders || []) {
+        await callback(item);
+      }
+    },
+  );
+}
+
 async function iterateProjects(
   googleAccessToken: string,
+  filter: string,
   callback: (data: cloudresourcemanager_v1.Schema$Project) => Promise<void>,
 ) {
   await iterateApi(
@@ -53,6 +100,7 @@ async function iterateProjects(
       return cloudresourcemanager.projects.list(
         {
           pageToken: nextPageToken,
+          filter,
         },
         {
           headers: getHeaders(googleAccessToken),
@@ -64,6 +112,46 @@ async function iterateProjects(
         await callback(item);
       }
     },
+  );
+}
+
+async function iterateAllProjectFoldersInTree(
+  googleAccessToken: string,
+  parentResourceType: string,
+  parentResourceId: string,
+  callback: (data: cloudresourcemanager_v1.Schema$Project) => Promise<void>,
+) {
+  await iterateFolders(
+    googleAccessToken,
+    getParentResourceName(parentResourceType, parentResourceId),
+    async (folder) => {
+      await iterateAllProjectsInTree(
+        googleAccessToken,
+        'folders',
+        getResourceIdFromResourceName(folder.name as string),
+        callback,
+      );
+    },
+  );
+}
+
+async function iterateAllProjectsInTree(
+  googleAccessToken: string,
+  parentResourceType: string,
+  parentResourceId: string,
+  callback: (data: cloudresourcemanager_v1.Schema$Project) => Promise<void>,
+) {
+  await iterateProjects(
+    googleAccessToken,
+    getProjectFilter(parentResourceId),
+    callback,
+  );
+
+  await iterateAllProjectFoldersInTree(
+    googleAccessToken,
+    parentResourceType,
+    parentResourceId,
+    callback,
   );
 }
 
@@ -279,53 +367,60 @@ async function createJupiterOneIntegrationInstance(
   jupiteroneApiKey: string,
   projectId: string,
   serviceAccountKey: string,
+  jupiteroneEnv: string,
 ) {
-  const response = await fetch('https://api.us.jupiterone.io/graphql', {
-    method: 'post',
-    body: JSON.stringify({
-      operationName: 'CreateIntegrationInstance',
-      query: CREATE_JUPITERONE_INTEGRATION_INSTANCE_MUTATION,
-      variables: {
-        instance: {
-          name: projectId,
-          pollingInterval: 'ONE_DAY',
-          config: {
-            '@tag': {
-              AccountName: projectId,
+  const response = await fetch(
+    `https://api.${jupiteroneEnv}.jupiterone.io/graphql`,
+    {
+      method: 'post',
+      body: JSON.stringify({
+        operationName: 'CreateIntegrationInstance',
+        query: CREATE_JUPITERONE_INTEGRATION_INSTANCE_MUTATION,
+        variables: {
+          instance: {
+            name: projectId,
+            pollingInterval: 'ONE_DAY',
+            config: {
+              '@tag': {
+                AccountName: projectId,
+              },
+              serviceAccountKeyFile: serviceAccountKey,
             },
-            serviceAccountKeyFile: serviceAccountKey,
+            integrationDefinitionId: GOOGLE_CLOUD_INTEGRATION_DEFINITION_ID,
           },
-          integrationDefinitionId: GOOGLE_CLOUD_INTEGRATION_DEFINITION_ID,
         },
+      }),
+      headers: {
+        'LifeOmic-Account': jupiteroneAccountId,
+        Authorization: `Bearer ${jupiteroneApiKey}`,
+        'Content-Type': 'application/json',
       },
-    }),
-    headers: {
-      'LifeOmic-Account': jupiteroneAccountId,
-      Authorization: `Bearer ${jupiteroneApiKey}`,
-      'Content-Type': 'application/json',
     },
-  });
+  );
 
   return response.json();
 }
 
+enum SetupOrganizationProjectResult {
+  CREATED = 'CREATED',
+  FAILED = 'FAILED',
+  SKIPPED = 'SKIPPED',
+  EXISTS = 'EXISTS',
+}
+
 async function setupOrganizationProject(
   params: SetupOrganizationProjectParams,
-) {
+): Promise<SetupOrganizationProjectResult> {
   const {
     googleAccessToken,
     jupiteroneApiKey,
     jupiteroneAccountId,
     project,
     logger,
+    jupiteroneEnv,
   } = params;
 
   const projectId = project.projectId as string;
-
-  if (project.parent?.type === 'folder') {
-    logger.info('Skipping configuration for folder');
-    return;
-  }
 
   if (project.lifecycleState !== 'ACTIVE') {
     logger.info(
@@ -334,7 +429,7 @@ async function setupOrganizationProject(
       },
       'Skipping configuration for project with non-ACTIVE lifecycle state',
     );
-    return;
+    return SetupOrganizationProjectResult.SKIPPED;
   }
 
   try {
@@ -349,10 +444,10 @@ async function setupOrganizationProject(
     if (err.errors) {
       logger.error({ errors: err.errors }, 'Error enabling project services');
     } else {
-      logger.error('Error enabling project services', err);
+      logger.error({ err }, 'Error enabling project services');
     }
 
-    return;
+    return SetupOrganizationProjectResult.FAILED;
   }
 
   const existingServiceAccount = await getJupiterOneServiceAccountForProject(
@@ -362,7 +457,7 @@ async function setupOrganizationProject(
 
   if (existingServiceAccount) {
     logger.info('Project already has a JupiterOne service account configured');
-    return;
+    return SetupOrganizationProjectResult.EXISTS;
   }
 
   const projectPolicy = await getPolicyForProject(googleAccessToken, projectId);
@@ -392,6 +487,7 @@ async function setupOrganizationProject(
     jupiteroneApiKey,
     projectId,
     serviceAccountKey,
+    jupiteroneEnv,
   );
 
   logger.info(
@@ -401,16 +497,36 @@ async function setupOrganizationProject(
     },
     'Integration instance created for Google Cloud project',
   );
+
+  return SetupOrganizationProjectResult.CREATED;
 }
 
-export async function setupOrganization(params: SetupOrganizationParams) {
+export interface SetupOrganizationResult {
+  created: string[];
+  failed: string[];
+  skipped: string[];
+  exists: string[];
+}
+
+export async function setupOrganization(
+  params: SetupOrganizationParams,
+): Promise<SetupOrganizationResult> {
   const {
     googleAccessToken,
     jupiteroneApiKey,
     jupiteroneAccountId,
+    organizationIds,
     projectIds,
     logger: baseLogger,
+    jupiteroneEnv = 'us',
   } = params;
+
+  const result: SetupOrganizationResult = {
+    created: [],
+    failed: [],
+    skipped: [],
+    exists: [],
+  };
 
   if (projectIds) {
     baseLogger.info(
@@ -430,40 +546,63 @@ export async function setupOrganization(params: SetupOrganizationParams) {
       } catch (err) {
         logger.error({ err }, 'Error fetching project details');
         // Continue moving forward if a single project fails to be created!
+        result.failed.push(projectId);
         continue;
       }
 
       try {
-        await setupOrganizationProject({
+        const setupResult = await setupOrganizationProject({
           googleAccessToken,
           jupiteroneApiKey,
           jupiteroneAccountId,
           project,
           logger,
+          jupiteroneEnv,
         });
+
+        result[setupResult.toLowerCase()].push(projectId);
       } catch (err) {
         logger.error({ err }, 'Error running setup for project');
         // Continue moving forward if a single project fails to be created!
+        result.failed.push(projectId);
       }
     }
-  } else {
+  } else if (organizationIds) {
     baseLogger.info('Setting up all JupiterOne Google Cloud projects');
 
-    await iterateProjects(googleAccessToken, async (project) => {
-      const logger = baseLogger.child({ projectId: project.projectId });
+    for (const organizationId of organizationIds) {
+      await iterateAllProjectsInTree(
+        googleAccessToken,
+        'organizations',
+        organizationId,
+        async (project) => {
+          const projectId = project.projectId as string;
+          const logger = baseLogger.child({ projectId });
 
-      try {
-        await setupOrganizationProject({
-          googleAccessToken,
-          jupiteroneApiKey,
-          jupiteroneAccountId,
-          project,
-          logger,
-        });
-      } catch (err) {
-        logger.error({ err }, 'Error running setup for project');
-        // Continue moving forward if a single project fails to be created!
-      }
-    });
+          logger.info('Setting up project');
+
+          try {
+            const setupResult = await setupOrganizationProject({
+              googleAccessToken,
+              jupiteroneApiKey,
+              jupiteroneAccountId,
+              project,
+              logger,
+              jupiteroneEnv,
+            });
+
+            result[setupResult.toLowerCase()].push(projectId);
+          } catch (err) {
+            logger.error({ err }, 'Error running setup for project');
+            // Continue moving forward if a single project fails to be created!
+            result.failed.push(projectId);
+          }
+        },
+      );
+    }
+  } else {
+    throw new Error('"organizationIds" or "projectIds" required');
   }
+
+  return result;
 }
