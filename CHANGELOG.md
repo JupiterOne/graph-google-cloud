@@ -8,6 +8,21 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.10.0 - 2020-11-11
+
+- Improve JupiterOne Google Cloud organization script to walk all folders in an
+  organization.
+
+Example usage:
+
+```
+yarn jupiterone-organization-setup \
+  --google-access-token $(gcloud auth print-access-token) \
+  --organization-id 1111111111 \
+  --jupiterone-account-id MY_JUPITERONE_ACCOUNT_ID_HERE \
+  --jupiterone-api-key MY_JUPITERONE_API_KEY_HERE
+```
+
 ## 0.9.0 - 2020-11-05
 
 ### Added

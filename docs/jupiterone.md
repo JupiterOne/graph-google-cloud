@@ -91,12 +91,12 @@ NOTE: You may also create a service account key using the
 how to leverage the CLI in the
 [Google Cloud integration developer documentation](https://github.com/JupiterOne/graph-google-cloud/blob/master/docs/development.md).
 
-### Create JupiterOne Integration Instances for all Google Cloud Projects
+### JupiterOne + Google Cloud Organization
 
 A CLI is exposed from the
 [`graph-google-cloud` project on GitHub](https://github.com/JupiterOne/graph-google-cloud)
 that can be leveraged to create individual integration instances for every
-project that a user has access to in Google Cloud.
+project that is under a specific Google Cloud organization.
 
 #### Install Dependencies
 
@@ -126,16 +126,31 @@ Options:
   --jupiterone-account-id <jupiteroneAccountId>  (Required) JupiterOne Account ID
   --jupiterone-api-key <jupiteroneApiKey>        (Required) JupiterOne API Key
   --google-access-token <googleAccessToken>      (Required) Google Cloud Access Token
-  --project-id [projectId]                       (Optional) Project ID to create integration instances with. Passing multiple `--project-id` flags allows for ingestion of multiple projects.
+  --organization-id [organizationId]             (Optional) Array of organization IDs to collect projects from
+  --project-id [projectId]                       (Optional) Array of project IDs to create integration instances with
+  --skip-system-projects [skipSystemProjects]    (Optional) Skips creation of any projects that have an ID that start with "sys-" (default: false)
   -h, --help                                     Display this message
 ```
 
-Example usage to create integration instances for every project that the
-authenticated Google Cloud user has access to:
+Example usage to create integration instances for every project that is under a
+Google Cloud organization
 
 ```sh
 yarn jupiterone-organization-setup \
   --google-access-token $(gcloud auth print-access-token) \
+  --organization-id 1111111111 \
+  --jupiterone-account-id MY_JUPITERONE_ACCOUNT_ID_HERE \
+  --jupiterone-api-key MY_JUPITERONE_API_KEY_HERE
+```
+
+Example usage to create integration instances for each project in multiple
+Google Cloud organizations:
+
+```sh
+yarn jupiterone-organization-setup \
+  --google-access-token $(gcloud auth print-access-token) \
+  --organization-id 1111111111 \
+  --organization-id 2222222222 \
   --jupiterone-account-id MY_JUPITERONE_ACCOUNT_ID_HERE \
   --jupiterone-api-key MY_JUPITERONE_API_KEY_HERE
 ```
