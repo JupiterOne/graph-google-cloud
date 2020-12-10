@@ -162,12 +162,12 @@ export async function fetchResourceManagerProject(
     if (err.code === 403) {
       logger.warn({ err }, message);
       logger.publishEvent({
-        name: 'GET_PROJECT_FORBIDDEN_ERROR',
+        name: 'get_project_forbidden_error',
         description: message,
       });
     } else {
       logger.publishErrorEvent({
-        name: 'GET_PROJECT_ERROR',
+        name: 'get_project_error',
         message,
         err,
       });
