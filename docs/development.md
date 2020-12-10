@@ -132,9 +132,11 @@ gcloud iam service-accounts create j1-gc-integration-dev-sa \
 ### Bind IAM policy to integration service account
 
 We must assign the correct permissions to the newly created service account for
-the integration to be run. We recommend using the
-[`roles/iam.securityReviewer`](https://cloud.google.com/iam/docs/understanding-roles#iam.securityReviewer)
-role, which is managed by Google Cloud.
+the integration to be run. We recommend using the following roles managed by
+Google Cloud:
+
+- [`roles/iam.securityReviewer`](https://cloud.google.com/iam/docs/understanding-roles#iam.securityReviewer)
+- [`roles/iam.roleViewer`](https://cloud.google.com/iam/docs/understanding-roles#iam.roleViewer)
 
 To bind integration execution roles, run the
 [`gcloud iam add-iam-policy-binding`](https://cloud.google.com/sdk/gcloud/reference/iam/service-accounts/add-iam-policy-binding)
@@ -144,6 +146,10 @@ command:
 gcloud projects add-iam-policy-binding PROJECT_ID \
    --member serviceAccount:j1-gc-integration-dev-sa@PROJECT_ID.iam.gserviceaccount.com \
    --role "roles/iam.securityReviewer"
+
+gcloud projects add-iam-policy-binding PROJECT_ID \
+   --member serviceAccount:j1-gc-integration-dev-sa@PROJECT_ID.iam.gserviceaccount.com \
+   --role "roles/iam.roleViewer"
 ```
 
 NOTE: You must update the values above to match your service account details.
