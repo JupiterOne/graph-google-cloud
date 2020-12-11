@@ -161,17 +161,13 @@ export async function fetchResourceManagerProject(
       `${JSON.stringify({ code: err.code, message: err.message })}`;
     if (err.code === 403) {
       logger.warn({ err }, message);
-      logger.publishEvent({
-        name: 'get_project_forbidden_error',
-        description: message,
-      });
     } else {
-      logger.publishErrorEvent({
-        name: 'get_project_error',
-        message,
-        err,
-      });
+      logger.error({ err }, message);
     }
+    logger.publishEvent({
+      name: 'auth_error',
+      description: message,
+    });
   }
 
   const projectEntity = createProjectEntity(
