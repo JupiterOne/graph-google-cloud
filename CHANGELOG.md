@@ -8,15 +8,19 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.10.0 - 2020-12-11
+
+### Changed
+
 - Improve job log messaging when `/v1/projects/{projectId}` request responds
   with 403:FORBIDDEN. Previously, the job log simply stated "The caller does not
   have permission".
+
+### Added
+
 - Add `roles/iam.roleViewer` as a required role in developer documentation. This
   role includes the `resourcemanager.projects.get` permission, which is required
   to access the `/v1/projects/{projectId}` endpoint.
-
-## 0.10.0 - 2020-11-11
-
 - Improve JupiterOne Google Cloud organization script to walk all folders in an
   organization.
 
