@@ -28,21 +28,21 @@
     "jupiterone-organization-setup": "yarn ts-node ./scripts/organizationSetupCli.ts"
   },
   "peerDependencies": {
-    "@jupiterone/integration-sdk-core": "^4.0.0"
+    "@jupiterone/integration-sdk-core": "^5.1.0"
   },
   "devDependencies": {
-    "@jupiterone/integration-sdk-core": "^4.0.0",
-    "@jupiterone/integration-sdk-dev-tools": "^4.0.0",
-    "@jupiterone/integration-sdk-testing": "^4.0.0",
+    "@jupiterone/integration-sdk-core": "^5.1.0",
+    "@jupiterone/integration-sdk-dev-tools": "^5.1.0",
+    "@jupiterone/integration-sdk-testing": "^5.1.0",
     "@types/bunyan": "^1.8.6",
     "@types/bunyan-format": "^0.2.3",
     "@types/node-fetch": "^2.5.7",
     "bunyan": "^1.8.14",
     "bunyan-format": "^0.2.1",
-    "cac": "^6.6.1",
+    "cac": "^6.7.1",
     "dotenv": "^8.2.0",
     "node-fetch": "^2.6.1",
-    "ts-node": "^8.10.2"
+    "ts-node": "^9.1.1"
   },
   "dependencies": {
     "gaxios": "^3.0.4",
