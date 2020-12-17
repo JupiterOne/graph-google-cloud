@@ -8,6 +8,10 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.11.0 - 2020-12-17
+
+- Upgrade all project `dependencies` and `devDependencies`
+
 ## 0.10.0 - 2020-12-11
 
 ### Changed
