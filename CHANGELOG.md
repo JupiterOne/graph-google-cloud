@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+- Upgrade integration SDK `devDependencies`
+
 ## 0.11.0 - 2020-12-17
 
 - Upgrade all project `dependencies` and `devDependencies`
