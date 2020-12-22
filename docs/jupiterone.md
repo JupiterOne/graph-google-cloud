@@ -69,10 +69,12 @@ gcloud services enable \
   for more information on how to create a service account in the project that
   you would like to ingest data from.
 
-- We must assign the correct permissions to the newly created service account
-  for the integration to be run. We recommend using the
-  [`roles/iam.securityReviewer`](https://cloud.google.com/iam/docs/understanding-roles#iam.securityReviewer)
-  role, which is managed by Google Cloud.
+We must assign the correct permissions to the newly created service account for
+the integration to be run. We recommend using the following roles managed by
+Google Cloud:
+
+- [`roles/iam.securityReviewer`](https://cloud.google.com/iam/docs/understanding-roles#iam.securityReviewer)
+- [`roles/iam.roleViewer`](https://cloud.google.com/iam/docs/understanding-roles#iam.roleViewer)
 
 NOTE: You may also create a service account using the
 [`gcloud` CLI](https://cloud.google.com/sdk/gcloud). There is documentation on
