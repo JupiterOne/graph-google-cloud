@@ -7,6 +7,7 @@ import {
   STEP_CLOUD_FUNCTIONS,
   CLOUD_FUNCTION_ENTITY_CLASS,
 } from './constants';
+import { withErrorHandling } from '../../utils/withErrorHandling';
 
 export * from './constants';
 
@@ -32,6 +33,6 @@ export const functionsSteps: IntegrationStep<IntegrationConfig>[] = [
       },
     ],
     relationships: [],
-    executionHandler: fetchCloudFunctions,
+    executionHandler: withErrorHandling(fetchCloudFunctions),
   },
 ];

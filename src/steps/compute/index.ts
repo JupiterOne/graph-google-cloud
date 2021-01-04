@@ -52,6 +52,7 @@ import {
   getFirewallRelationshipDirection,
   processFirewallRuleRelationshipTargets,
 } from '../../utils/firewall';
+import { withErrorHandling } from '../../utils/withErrorHandling';
 
 export * from './constants';
 
@@ -336,7 +337,7 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
       },
     ],
     relationships: [],
-    executionHandler: fetchComputeNetworks,
+    executionHandler: withErrorHandling(fetchComputeNetworks),
   },
   {
     id: STEP_COMPUTE_FIREWALLS,
@@ -368,7 +369,7 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
         targetType: ENTITY_TYPE_COMPUTE_FIREWALL,
       },
     ],
-    executionHandler: fetchComputeFirewalls,
+    executionHandler: withErrorHandling(fetchComputeFirewalls),
     dependsOn: [STEP_COMPUTE_NETWORKS],
   },
   {
@@ -389,7 +390,7 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
         targetType: ENTITY_TYPE_COMPUTE_SUBNETWORK,
       },
     ],
-    executionHandler: fetchComputeSubnetworks,
+    executionHandler: withErrorHandling(fetchComputeSubnetworks),
     dependsOn: [STEP_COMPUTE_NETWORKS],
   },
   {
@@ -403,7 +404,7 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
       },
     ],
     relationships: [],
-    executionHandler: fetchComputeDisks,
+    executionHandler: withErrorHandling(fetchComputeDisks),
   },
   {
     id: STEP_COMPUTE_INSTANCES,
@@ -441,6 +442,6 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
       STEP_COMPUTE_NETWORKS,
       STEP_COMPUTE_SUBNETWORKS,
     ],
-    executionHandler: fetchComputeInstances,
+    executionHandler: withErrorHandling(fetchComputeInstances),
   },
 ];

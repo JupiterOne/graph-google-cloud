@@ -19,6 +19,7 @@ import {
   IAM_SERVICE_ACCOUNT_KEY_ENTITY_CLASS,
 } from './constants';
 import { RelationshipClass } from '@jupiterone/data-model';
+import { withErrorHandling } from '../../utils/withErrorHandling';
 
 export * from './constants';
 
@@ -85,7 +86,7 @@ export const iamSteps: IntegrationStep<IntegrationConfig>[] = [
       },
     ],
     relationships: [],
-    executionHandler: fetchIamRoles,
+    executionHandler: withErrorHandling(fetchIamRoles),
   },
   {
     id: STEP_IAM_SERVICE_ACCOUNTS,
@@ -110,6 +111,6 @@ export const iamSteps: IntegrationStep<IntegrationConfig>[] = [
         targetType: IAM_SERVICE_ACCOUNT_KEY_ENTITY_TYPE,
       },
     ],
-    executionHandler: fetchIamServiceAccounts,
+    executionHandler: withErrorHandling(fetchIamServiceAccounts),
   },
 ];

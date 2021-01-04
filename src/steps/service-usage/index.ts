@@ -14,6 +14,7 @@ import {
   PROJECT_API_SERVICE_RELATIONSHIP_TYPE,
 } from './constants';
 import { STEP_PROJECT, PROJECT_ENTITY_TYPE } from '../resource-manager';
+import { withErrorHandling } from '../../utils/withErrorHandling';
 
 export * from './constants';
 
@@ -62,6 +63,6 @@ export const serviceUsageSteps: IntegrationStep<IntegrationConfig>[] = [
       },
     ],
     dependsOn: [STEP_PROJECT],
-    executionHandler: fetchApiServices,
+    executionHandler: withErrorHandling(fetchApiServices),
   },
 ];

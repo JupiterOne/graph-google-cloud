@@ -29,6 +29,7 @@ import { cloudresourcemanager_v1 } from 'googleapis';
 import { parseIamMember } from '../../utils/iam';
 import { createIamUserEntity, createIamRoleEntity } from '../iam/converters';
 import { RelationshipClass } from '@jupiterone/data-model';
+import { withErrorHandling } from '../../utils/withErrorHandling';
 
 export * from './constants';
 
@@ -218,7 +219,7 @@ export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
     ],
     relationships: [],
     dependsOn: [],
-    executionHandler: fetchResourceManagerProject,
+    executionHandler: withErrorHandling(fetchResourceManagerProject),
   },
   {
     id: STEP_RESOURCE_MANAGER_IAM_POLICY,
@@ -250,6 +251,6 @@ export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
       },
     ],
     dependsOn: [...iamSteps.map((step) => step.id)],
-    executionHandler: fetchResourceManagerIamPolicy,
+    executionHandler: withErrorHandling(fetchResourceManagerIamPolicy),
   },
 ];

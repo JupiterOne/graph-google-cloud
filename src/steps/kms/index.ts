@@ -15,6 +15,7 @@ import {
   STEP_CLOUD_KMS_KEY_RINGS,
 } from './constants';
 import { createKmsKeyRingEntity, createKmsCryptoKeyEntity } from './converters';
+import { withErrorHandling } from '../../utils/withErrorHandling';
 
 export * from './constants';
 
@@ -83,7 +84,7 @@ export const kmsSteps: IntegrationStep<IntegrationConfig>[] = [
       },
     ],
     relationships: [],
-    executionHandler: fetchKmsKeyRings,
+    executionHandler: withErrorHandling(fetchKmsKeyRings),
   },
   {
     id: STEP_CLOUD_KMS_KEYS,
@@ -103,7 +104,7 @@ export const kmsSteps: IntegrationStep<IntegrationConfig>[] = [
         targetType: ENTITY_TYPE_KMS_KEY,
       },
     ],
-    executionHandler: fetchKmsCryptoKeys,
+    executionHandler: withErrorHandling(fetchKmsCryptoKeys),
     dependsOn: [STEP_CLOUD_KMS_KEY_RINGS],
   },
 ];
