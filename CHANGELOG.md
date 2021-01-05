@@ -8,6 +8,15 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.11.1 - 2021-01-05
+
+### Added
+
+- Error handling for all integration steps
+- Billing configuration errors will be shown in the job log
+
+### Changed
+
 - Upgrade integration SDK `devDependencies`
 
 ## 0.11.0 - 2020-12-17
