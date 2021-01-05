@@ -1,4 +1,4 @@
-import { IntegrationConfig, IntegrationStepContext } from '../types';
+import { IntegrationConfig } from '../types';
 import { google } from 'googleapis';
 import {
   JWT,
