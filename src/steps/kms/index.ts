@@ -15,7 +15,6 @@ import {
   STEP_CLOUD_KMS_KEY_RINGS,
 } from './constants';
 import { createKmsKeyRingEntity, createKmsCryptoKeyEntity } from './converters';
-import { withErrorHandling } from '../../utils/withErrorHandling';
 
 export * from './constants';
 

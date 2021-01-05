@@ -29,7 +29,6 @@ import { cloudresourcemanager_v1 } from 'googleapis';
 import { parseIamMember } from '../../utils/iam';
 import { createIamUserEntity, createIamRoleEntity } from '../iam/converters';
 import { RelationshipClass } from '@jupiterone/data-model';
-import { withErrorHandling } from '../../utils/withErrorHandling';
 
 export * from './constants';
 

@@ -9,7 +9,6 @@ import {
 } from './constants';
 import { storage_v1 } from 'googleapis';
 import { isMemberPublic } from '../../utils/iam';
-import { withErrorHandling } from '../../utils/withErrorHandling';
 
 export * from './constants';
 

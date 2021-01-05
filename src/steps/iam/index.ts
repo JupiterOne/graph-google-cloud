@@ -19,7 +19,6 @@ import {
   IAM_SERVICE_ACCOUNT_KEY_ENTITY_CLASS,
 } from './constants';
 import { RelationshipClass } from '@jupiterone/data-model';
-import { withErrorHandling } from '../../utils/withErrorHandling';
 
 export * from './constants';
 

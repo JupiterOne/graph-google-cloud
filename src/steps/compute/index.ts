@@ -52,7 +52,6 @@ import {
   getFirewallRelationshipDirection,
   processFirewallRuleRelationshipTargets,
 } from '../../utils/firewall';
-import { withErrorHandling } from '../../utils/withErrorHandling';
 
 export * from './constants';
 
