@@ -1,4 +1,4 @@
-import { IntegrationConfig } from '../types';
+import { IntegrationConfig, IntegrationStepContext } from '../types';
 import { google } from 'googleapis';
 import {
   JWT,
@@ -7,6 +7,10 @@ import {
   CredentialBody,
 } from 'google-auth-library';
 import { GaxiosResponse } from 'gaxios';
+import {
+  IntegrationProviderAuthorizationError,
+  IntegrationProviderAPIError,
+} from '@jupiterone/integration-sdk-core';
 
 export interface ClientOptions {
   config: IntegrationConfig;
@@ -24,6 +28,20 @@ export type PageableGaxiosResponse<T> = GaxiosResponse<
 
 export type GoogleClientAuth = JWT | Compute | UserRefreshClient;
 
+export function withErrorHandling<T extends (...params: any) => any>(fn: T) {
+  return async (...params: any) => {
+    try {
+      return await fn(...params);
+    } catch (error) {
+      if (error.message && error.message.match(/billing/i)) {
+        throw new IntegrationProviderAuthorizationError(error.message);
+      } else {
+        throw new IntegrationProviderAPIError(error.message);
+      }
+    }
+  };
+}
+
 export async function iterateApi<T>(
   fn: (nextPageToken?: string) => Promise<PageableGaxiosResponse<T>>,
   callback: (data: T) => Promise<void>,
@@ -31,7 +49,7 @@ export async function iterateApi<T>(
   let nextPageToken: string | undefined;
 
   do {
-    const result = await fn(nextPageToken);
+    const result = await withErrorHandling(fn)(nextPageToken);
     nextPageToken = result.data.nextPageToken || undefined;
     await callback(result.data);
   } while (nextPageToken);

@@ -84,7 +84,7 @@ export const kmsSteps: IntegrationStep<IntegrationConfig>[] = [
       },
     ],
     relationships: [],
-    executionHandler: withErrorHandling(fetchKmsKeyRings),
+    executionHandler: fetchKmsKeyRings,
   },
   {
     id: STEP_CLOUD_KMS_KEYS,
@@ -104,7 +104,7 @@ export const kmsSteps: IntegrationStep<IntegrationConfig>[] = [
         targetType: ENTITY_TYPE_KMS_KEY,
       },
     ],
-    executionHandler: withErrorHandling(fetchKmsCryptoKeys),
+    executionHandler: fetchKmsCryptoKeys,
     dependsOn: [STEP_CLOUD_KMS_KEY_RINGS],
   },
 ];

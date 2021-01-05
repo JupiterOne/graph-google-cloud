@@ -1,8 +1,12 @@
 import { google } from 'googleapis';
 import { GoogleAuth, GoogleAuthOptions } from 'google-auth-library';
 import { getMockIntegrationConfig } from '../../test/config';
-import { Client } from './client';
+import { Client, withErrorHandling } from './client';
 import { parseServiceAccountKeyFile } from '../utils/parseServiceAccountKeyFile';
+import {
+  IntegrationProviderAuthorizationError,
+  IntegrationProviderAPIError,
+} from '@jupiterone/integration-sdk-core';
 
 describe('#getAuthenticatedServiceClient', () => {
   let googleAuthSpy: jest.SpyInstance<
@@ -64,5 +68,60 @@ describe('#getAuthenticatedServiceClient', () => {
     expect(mockGetClient).toHaveBeenCalledWith();
     expect(mockGetAccessToken).toHaveBeenCalledTimes(1);
     expect(mockGetAccessToken).toHaveBeenCalledWith();
+  });
+});
+
+describe('withErrorHandling', () => {
+  test('should throw an IntegrationValidationError when a billing message is error is thrown', async () => {
+    const executionHandler = jest
+      .fn()
+      .mockRejectedValue(
+        new Error(
+          'This API method requires billing to be enabled. Please enable billing on project #545240943112 by visiting https://console.developers.google.com/billing/enable?project=545240943112 then retry. If you enabled billing for this project recently, wait a few minutes for the action to propagate to our systems and retry.',
+        ),
+      );
+    const handledFunction = withErrorHandling(executionHandler);
+    try {
+      await handledFunction();
+    } catch (error) {
+      expect(error).toBeInstanceOf(IntegrationProviderAuthorizationError);
+    }
+  });
+
+  test('should throw an IntegrationValidationError when another billing message is error is thrown', async () => {
+    const executionHandler = jest
+      .fn()
+      .mockRejectedValue(
+        new Error(
+          'Billing is disabled for project 545240943112. Enable it by visiting https://console.cloud.google.com/billing/projects and associating your project with a billing account.',
+        ),
+      );
+    const handledFunction = withErrorHandling(executionHandler);
+    try {
+      await handledFunction();
+    } catch (error) {
+      expect(error).toBeInstanceOf(IntegrationProviderAuthorizationError);
+    }
+  });
+
+  test('should throw an IntegrationError on all other unhandled errors', async () => {
+    const executionHandler = jest
+      .fn()
+      .mockRejectedValue(new Error('Something esploded'));
+    const handledFunction = withErrorHandling(executionHandler);
+    try {
+      await handledFunction();
+    } catch (error) {
+      expect(error).toBeInstanceOf(IntegrationProviderAPIError);
+    }
+  });
+
+  test('should pass parameters to the wrapped function return the result if no errors', async () => {
+    const executionHandler = jest
+      .fn()
+      .mockImplementation((...params) => Promise.resolve(params));
+    const handledFunction = withErrorHandling(executionHandler);
+    const result = await handledFunction('param1', 'param2');
+    expect(result).toEqual(['param1', 'param2']);
   });
 });

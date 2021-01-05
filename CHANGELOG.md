@@ -12,7 +12,7 @@ and this project adheres to
 
 ### Added
 
-- Error handling for all integration steps
+- Error handling for all api calls
 - Billing configuration errors will be shown in the job log
 
 ### Changed

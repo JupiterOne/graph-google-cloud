@@ -219,7 +219,7 @@ export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
     ],
     relationships: [],
     dependsOn: [],
-    executionHandler: withErrorHandling(fetchResourceManagerProject),
+    executionHandler: fetchResourceManagerProject,
   },
   {
     id: STEP_RESOURCE_MANAGER_IAM_POLICY,
@@ -251,6 +251,6 @@ export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
       },
     ],
     dependsOn: [...iamSteps.map((step) => step.id)],
-    executionHandler: withErrorHandling(fetchResourceManagerIamPolicy),
+    executionHandler: fetchResourceManagerIamPolicy,
   },
 ];

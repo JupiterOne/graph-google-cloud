@@ -86,7 +86,7 @@ export const iamSteps: IntegrationStep<IntegrationConfig>[] = [
       },
     ],
     relationships: [],
-    executionHandler: withErrorHandling(fetchIamRoles),
+    executionHandler: fetchIamRoles,
   },
   {
     id: STEP_IAM_SERVICE_ACCOUNTS,
@@ -111,6 +111,6 @@ export const iamSteps: IntegrationStep<IntegrationConfig>[] = [
         targetType: IAM_SERVICE_ACCOUNT_KEY_ENTITY_TYPE,
       },
     ],
-    executionHandler: withErrorHandling(fetchIamServiceAccounts),
+    executionHandler: fetchIamServiceAccounts,
   },
 ];

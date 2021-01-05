@@ -63,6 +63,6 @@ export const storageSteps: IntegrationStep<IntegrationConfig>[] = [
       },
     ],
     relationships: [],
-    executionHandler: withErrorHandling(fetchStorageBuckets),
+    executionHandler: fetchStorageBuckets,
   },
 ];

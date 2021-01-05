@@ -63,6 +63,6 @@ export const serviceUsageSteps: IntegrationStep<IntegrationConfig>[] = [
       },
     ],
     dependsOn: [STEP_PROJECT],
-    executionHandler: withErrorHandling(fetchApiServices),
+    executionHandler: fetchApiServices,
   },
 ];

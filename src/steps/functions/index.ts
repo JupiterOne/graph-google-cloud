@@ -33,6 +33,6 @@ export const functionsSteps: IntegrationStep<IntegrationConfig>[] = [
       },
     ],
     relationships: [],
-    executionHandler: withErrorHandling(fetchCloudFunctions),
+    executionHandler: fetchCloudFunctions,
   },
 ];
