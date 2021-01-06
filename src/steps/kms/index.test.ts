@@ -4,7 +4,10 @@ import {
   Recording,
   createMockStepExecutionContext,
 } from '@jupiterone/integration-sdk-testing';
-import { setupGoogleCloudRecording } from '../../../test/recording';
+import {
+  setupGoogleCloudRecording,
+  withRecording,
+} from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
 import { fetchKmsKeyRings, fetchKmsCryptoKeys } from '.';
 import { integrationConfig } from '../../../test/config';
@@ -12,6 +15,8 @@ import {
   ENTITY_TYPE_KMS_KEY,
   RELATIONSHIP_TYPE_KMS_KEY_RING_HAS_KMS_KEY,
 } from './constants';
+import { IntegrationProviderAuthorizationError } from '@jupiterone/integration-sdk-core';
+import { getGoogleCloudConsoleWebLink } from '../../utils/url';
 
 describe('#fetchKmsKeyRings', () => {
   let recording: Recording;
@@ -136,6 +141,26 @@ describe('#fetchKmsCryptoKeys', () => {
           _type: { const: 'google_kms_key_ring_has_crypto_key' },
         },
       },
+    });
+  });
+});
+
+describe('#errorHandling', () => {
+  [fetchKmsKeyRings].forEach((method) => {
+    it('should handle billing errors correctly', async () => {
+      const context = createMockStepExecutionContext<IntegrationConfig>({
+        instanceConfig: integrationConfig,
+      });
+      try {
+        await withRecording(
+          `${method.name}BillingError`,
+          async () => await method(context),
+        );
+        fail(`${method.name} was successful when it should have failed`);
+      } catch (error) {
+        expect(error).toBeInstanceOf(IntegrationProviderAuthorizationError);
+        expect(error.message).toMatch(/billing/i);
+      }
     });
   });
 });

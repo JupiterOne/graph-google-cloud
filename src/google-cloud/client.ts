@@ -10,6 +10,7 @@ import { GaxiosResponse } from 'gaxios';
 import {
   IntegrationProviderAuthorizationError,
   IntegrationProviderAPIError,
+  IntegrationValidationError,
 } from '@jupiterone/integration-sdk-core';
 
 export interface ClientOptions {
@@ -33,11 +34,25 @@ export function withErrorHandling<T extends (...params: any) => any>(fn: T) {
     try {
       return await fn(...params);
     } catch (error) {
-      if (error.message && error.message.match(/billing/i)) {
-        throw new IntegrationProviderAuthorizationError(error.message);
-      } else {
-        throw new IntegrationProviderAPIError(error.message);
+      let ErrorConstructor = IntegrationProviderAPIError;
+      if (
+        // All "Unauthorized" errors
+        [403].includes(error.code) ||
+        // Billing errors seen in https://dev.azure.com/jupiterone/Platform/_workitems/edit/2089
+        ([400].includes(error.code) &&
+          error.message?.match &&
+          error.message.match(/billing/i))
+      ) {
+        ErrorConstructor = IntegrationProviderAuthorizationError;
       }
+      const err = new ErrorConstructor({
+        cause: error,
+        endpoint: error.response?.config?.url || 'UNKNOWN',
+        status: error.response?.status || 'UNKNOWN',
+        statusText: error.response?.statusText || 'UNKNOWN',
+      });
+      err.message = error.message;
+      throw err;
     }
   };
 }

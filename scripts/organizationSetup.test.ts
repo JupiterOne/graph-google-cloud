@@ -1,7 +1,7 @@
 jest.setTimeout(60000);
 
 import Logger from 'bunyan';
-import { setupGoogleCloudRecording } from '../test/recording';
+import { setupGoogleCloudRecording, withRecording } from '../test/recording';
 import {
   setupOrganization,
   SetupOrganizationParams,
@@ -36,22 +36,6 @@ function getSetupOrganizationParams(
     skipSystemProjects: false,
     ...params,
   };
-}
-
-async function withRecording(recordingName: string, cb: () => Promise<void>) {
-  const recording = setupGoogleCloudRecording({
-    directory: __dirname,
-    name: recordingName,
-    options: {
-      recordFailedRequests: true,
-    },
-  });
-
-  try {
-    await cb();
-  } finally {
-    await recording.stop();
-  }
 }
 
 describe('#setupOrganization', () => {

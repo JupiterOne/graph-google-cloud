@@ -72,39 +72,9 @@ describe('#getAuthenticatedServiceClient', () => {
 });
 
 describe('withErrorHandling', () => {
-  test('should throw an IntegrationValidationError when a billing message is error is thrown', async () => {
-    const executionHandler = jest
-      .fn()
-      .mockRejectedValue(
-        new Error(
-          'This API method requires billing to be enabled. Please enable billing on project #545240943112 by visiting https://console.developers.google.com/billing/enable?project=545240943112 then retry. If you enabled billing for this project recently, wait a few minutes for the action to propagate to our systems and retry.',
-        ),
-      );
-    const handledFunction = withErrorHandling(executionHandler);
-    try {
-      await handledFunction();
-    } catch (error) {
-      expect(error).toBeInstanceOf(IntegrationProviderAuthorizationError);
-    }
-  });
+  // Specific error handling for this method is tested in the index.test.ts files where the errors were seen. Ex: src/steps/compute/index.test.ts
 
-  test('should throw an IntegrationValidationError when another billing message is error is thrown', async () => {
-    const executionHandler = jest
-      .fn()
-      .mockRejectedValue(
-        new Error(
-          'Billing is disabled for project 545240943112. Enable it by visiting https://console.cloud.google.com/billing/projects and associating your project with a billing account.',
-        ),
-      );
-    const handledFunction = withErrorHandling(executionHandler);
-    try {
-      await handledFunction();
-    } catch (error) {
-      expect(error).toBeInstanceOf(IntegrationProviderAuthorizationError);
-    }
-  });
-
-  test('should throw an IntegrationError on all other unhandled errors', async () => {
+  test('should throw an IntegrationProviderAPIError on all unknown errors', async () => {
     const executionHandler = jest
       .fn()
       .mockRejectedValue(new Error('Something esploded'));

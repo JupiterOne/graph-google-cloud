@@ -166,3 +166,22 @@ function redact(entry): void {
     entry.response.content.text = JSON.stringify(parsedResponseText);
   }
 }
+
+export async function withRecording(
+  recordingName: string,
+  cb: () => Promise<void>,
+) {
+  const recording = setupGoogleCloudRecording({
+    directory: __dirname,
+    name: recordingName,
+    options: {
+      recordFailedRequests: true,
+    },
+  });
+
+  try {
+    await cb();
+  } finally {
+    await recording.stop();
+  }
+}
