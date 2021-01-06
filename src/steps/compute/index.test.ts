@@ -16,7 +16,10 @@ import {
   fetchComputeNetworks,
   fetchComputeSubnetworks,
 } from '.';
-import { integrationConfig } from '../../../test/config';
+import {
+  integrationConfig,
+  setupErrorIntegrationConfig,
+} from '../../../test/config';
 import {
   ENTITY_TYPE_COMPUTE_DISK,
   ENTITY_TYPE_COMPUTE_FIREWALL,
@@ -509,15 +512,12 @@ describe('#errorHandling', () => {
   ].forEach((method) => {
     it('should handle setup errors', async () => {
       const context = createMockStepExecutionContext<IntegrationConfig>({
-        instanceConfig: integrationConfig,
+        instanceConfig: setupErrorIntegrationConfig,
       });
       try {
         await withRecording(
           `${method.name}SetupError`,
           async () => await method(context),
-          // Our polly request matching system thinks we don't have this
-          // recording even though we do. Never try to recapture.
-          { recordIfMissing: false },
         );
         fail(`${method.name} was successful when it should have failed`);
       } catch (error) {
