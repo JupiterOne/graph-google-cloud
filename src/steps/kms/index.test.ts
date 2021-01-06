@@ -154,7 +154,6 @@ describe('#errorHandling', () => {
         await withRecording(
           `${method.name}BillingError`,
           async () => await method(context),
-          { mode: 'replay' }, // don't try to recapture
         );
         fail(`${method.name} was successful when it should have failed`);
       } catch (error) {

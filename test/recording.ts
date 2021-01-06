@@ -181,7 +181,7 @@ export async function withRecording(
     name: recordingName,
     options: {
       recordFailedRequests: true,
-      ...options,
+      ...(options || {}),
     },
   });
 

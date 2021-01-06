@@ -515,7 +515,9 @@ describe('#errorHandling', () => {
         await withRecording(
           `${method.name}SetupError`,
           async () => await method(context),
-          { mode: 'replay' }, // don't try to recapture
+          // Our polly request matching system thinks we don't have this
+          // recording even though we do. Never try to recapture.
+          { recordIfMissing: false },
         );
         fail(`${method.name} was successful when it should have failed`);
       } catch (error) {
@@ -531,7 +533,6 @@ describe('#errorHandling', () => {
         await withRecording(
           `${method.name}BillingError`,
           async () => await method(context),
-          { mode: 'replay' }, // don't try to recapture
         );
         fail(`${method.name} was successful when it should have failed`);
       } catch (error) {
