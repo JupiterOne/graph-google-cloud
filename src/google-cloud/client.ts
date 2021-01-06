@@ -10,7 +10,6 @@ import { GaxiosResponse } from 'gaxios';
 import {
   IntegrationProviderAuthorizationError,
   IntegrationProviderAPIError,
-  IntegrationValidationError,
 } from '@jupiterone/integration-sdk-core';
 
 export interface ClientOptions {

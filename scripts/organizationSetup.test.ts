@@ -1,7 +1,7 @@
 jest.setTimeout(60000);
 
 import Logger from 'bunyan';
-import { setupGoogleCloudRecording, withRecording } from '../test/recording';
+import { withRecording } from '../test/recording';
 import {
   setupOrganization,
   SetupOrganizationParams,

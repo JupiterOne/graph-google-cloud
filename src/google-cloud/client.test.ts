@@ -3,10 +3,7 @@ import { GoogleAuth, GoogleAuthOptions } from 'google-auth-library';
 import { getMockIntegrationConfig } from '../../test/config';
 import { Client, withErrorHandling } from './client';
 import { parseServiceAccountKeyFile } from '../utils/parseServiceAccountKeyFile';
-import {
-  IntegrationProviderAuthorizationError,
-  IntegrationProviderAPIError,
-} from '@jupiterone/integration-sdk-core';
+import { IntegrationProviderAPIError } from '@jupiterone/integration-sdk-core';
 
 describe('#getAuthenticatedServiceClient', () => {
   let googleAuthSpy: jest.SpyInstance<

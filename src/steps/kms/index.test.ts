@@ -16,7 +16,6 @@ import {
   RELATIONSHIP_TYPE_KMS_KEY_RING_HAS_KMS_KEY,
 } from './constants';
 import { IntegrationProviderAuthorizationError } from '@jupiterone/integration-sdk-core';
-import { getGoogleCloudConsoleWebLink } from '../../utils/url';
 
 describe('#fetchKmsKeyRings', () => {
   let recording: Recording;
