@@ -76,11 +76,9 @@ describe('withErrorHandling', () => {
       .fn()
       .mockRejectedValue(new Error('Something esploded'));
     const handledFunction = withErrorHandling(executionHandler);
-    try {
-      await handledFunction();
-    } catch (error) {
-      expect(error).toBeInstanceOf(IntegrationProviderAPIError);
-    }
+    await expect(handledFunction()).rejects.toThrow(
+      IntegrationProviderAPIError,
+    );
   });
 
   test('should pass parameters to the wrapped function return the result if no errors', async () => {
@@ -88,7 +86,9 @@ describe('withErrorHandling', () => {
       .fn()
       .mockImplementation((...params) => Promise.resolve(params));
     const handledFunction = withErrorHandling(executionHandler);
-    const result = await handledFunction('param1', 'param2');
-    expect(result).toEqual(['param1', 'param2']);
+    await expect(handledFunction('param1', 'param2')).resolves.toEqual([
+      'param1',
+      'param2',
+    ]);
   });
 });
