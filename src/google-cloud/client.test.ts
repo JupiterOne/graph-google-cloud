@@ -3,7 +3,10 @@ import { GoogleAuth, GoogleAuthOptions } from 'google-auth-library';
 import { getMockIntegrationConfig } from '../../test/config';
 import { Client, withErrorHandling } from './client';
 import { parseServiceAccountKeyFile } from '../utils/parseServiceAccountKeyFile';
-import { IntegrationProviderAPIError } from '@jupiterone/integration-sdk-core';
+import {
+  IntegrationProviderAPIError,
+  IntegrationProviderAuthorizationError,
+} from '@jupiterone/integration-sdk-core';
 
 describe('#getAuthenticatedServiceClient', () => {
   let googleAuthSpy: jest.SpyInstance<
@@ -70,6 +73,32 @@ describe('#getAuthenticatedServiceClient', () => {
 
 describe('withErrorHandling', () => {
   // Specific error handling for this method is tested in the index.test.ts files where the errors were seen. Ex: src/steps/compute/index.test.ts
+
+  [IntegrationProviderAuthorizationError, IntegrationProviderAPIError].forEach(
+    (J1Error) => {
+      test('should forward on errors that have already been handled', async () => {
+        const mockForbiddenError = new J1Error({
+          endpoint: 'test endpoint',
+          status: 999,
+          statusText: 'test',
+        }) as any;
+        const executionHandler = jest
+          .fn()
+          .mockRejectedValue(mockForbiddenError);
+        const handledFunction = withErrorHandling(executionHandler);
+        await expect(handledFunction()).rejects.toThrow(J1Error);
+      });
+    },
+  );
+
+  test('should handle errors of unknown format', async () => {
+    const mockUnknownError = new Error() as any;
+    const executionHandler = jest.fn().mockRejectedValue(mockUnknownError);
+    const handledFunction = withErrorHandling(executionHandler);
+    await expect(handledFunction()).rejects.toThrow(
+      IntegrationProviderAPIError,
+    );
+  });
 
   test('should throw an IntegrationProviderAPIError on all unknown errors', async () => {
     const executionHandler = jest

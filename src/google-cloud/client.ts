@@ -6,10 +6,11 @@ import {
   UserRefreshClient,
   CredentialBody,
 } from 'google-auth-library';
-import { GaxiosError, GaxiosResponse } from 'gaxios';
+import { GaxiosResponse } from 'gaxios';
 import {
   IntegrationProviderAuthorizationError,
   IntegrationProviderAPIError,
+  IntegrationError,
 } from '@jupiterone/integration-sdk-core';
 import { createErrorProps } from './utils/createErrorProps';
 
@@ -91,9 +92,14 @@ export function withErrorHandling<T extends (...params: any) => any>(fn: T) {
  * Codes unknown error into JupiterOne errors
  */
 function handleError(error: any): never {
+  // If the error was already handled, forward it on
+  if (error instanceof IntegrationError) {
+    throw error;
+  }
+
   let err;
   const errorProps = createErrorProps(error);
-  const code = error.response?.status || 'UNKNOWN';
+  const code = error.response?.status;
   if (code == 403) {
     err = new IntegrationProviderAuthorizationError(errorProps);
   } else if (
@@ -112,14 +118,14 @@ function handleError(error: any): never {
 }
 
 function shouldKeepErrorMessage(error: any) {
-  const chillMessageStrings = [
+  const errorMessagesToKeep = [
     'billing is disabled',
     'requires billing to be enabled',
     'it is disabled',
   ];
   return (
     error?.message?.match &&
-    error.message.match(createRegex(chillMessageStrings))
+    error.message.match(createRegex(errorMessagesToKeep))
   );
 }
 
