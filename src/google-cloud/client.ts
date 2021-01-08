@@ -6,7 +6,7 @@ import {
   UserRefreshClient,
   CredentialBody,
 } from 'google-auth-library';
-import { GaxiosError, GaxiosResponse } from 'gaxios';
+import { GaxiosResponse } from 'gaxios';
 import {
   IntegrationProviderAuthorizationError,
   IntegrationProviderAPIError,
