@@ -11,6 +11,7 @@ import {
   IntegrationProviderAuthorizationError,
   IntegrationProviderAPIError,
 } from '@jupiterone/integration-sdk-core';
+import { createErrorProps } from './utils/createErrorProps';
 
 export interface ClientOptions {
   config: IntegrationConfig;
@@ -38,25 +39,44 @@ export function withErrorHandling<T extends (...params: any) => any>(fn: T) {
   };
 }
 
-function handleError(error: GaxiosError): never {
-  let ErrorConstructor = IntegrationProviderAPIError;
+/**
+ * Codes unknown error into JupiterOne errors
+ */
+function handleError(error: any): never {
+  let err;
+  const errorProps = createErrorProps(error);
   const code = error.response?.status || 'UNKNOWN';
-  if (
-    // All "Unauthorized" errors
-    code == 403 ||
-    // Billing errors seen in https://dev.azure.com/jupiterone/Platform/_workitems/edit/2089
-    (code == 400 && error.message?.match && error.message.match(/billing/i))
+  if (code == 403) {
+    err = new IntegrationProviderAuthorizationError(errorProps);
+  } else if (
+    code == 400 &&
+    error.message?.match &&
+    error.message.match(/billing/i)
   ) {
-    ErrorConstructor = IntegrationProviderAuthorizationError;
+    err = new IntegrationProviderAuthorizationError(errorProps);
+  } else {
+    err = new IntegrationProviderAPIError(errorProps);
   }
-  const err = new ErrorConstructor({
-    cause: error,
-    endpoint: error.response?.config?.url || 'UNKNOWN',
-    status: code,
-    statusText: error.response?.statusText || 'UNKNOWN',
-  });
-  err.message = error.message;
+  if (shouldKeepErrorMessage(error)) {
+    err.message = error.message;
+  }
   throw err;
+}
+
+function shouldKeepErrorMessage(error: any) {
+  const chillMessageStrings = [
+    'billing is disabled',
+    'requires billing to be enabled',
+    'it is disabled',
+  ];
+  return (
+    error?.message?.match &&
+    error.message.match(createRegex(chillMessageStrings))
+  );
+}
+
+function createRegex(regexes: string[]) {
+  return new RegExp(regexes.map((regex) => '(' + regex + ')').join('|'), 'i');
 }
 
 export async function iterateApi<T>(
