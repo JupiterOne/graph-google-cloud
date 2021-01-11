@@ -48,6 +48,23 @@ export const integrationConfig: IntegrationConfig = deserializeIntegrationConfig
   serializedIntegrationConfig,
 );
 
+export const setupErrorIntegrationConfig: IntegrationConfig = {
+  ...serializedIntegrationConfig,
+  serviceAccountKeyConfig: {
+    type: 'service_account',
+    project_id: 'mknoedel-project-1',
+    private_key_id: 'abcdef123456abcdef123456abcdef123456abc',
+    private_key: DEFAULT_INTEGRATION_PRIVATE_KEY,
+    client_email:
+      'j1-gc-integration-dev-sa@mknoedel-project-1.iam.gserviceaccount.com',
+    client_id: '106311430307184243261',
+    auth_uri: 'https://accounts.google.com/o/oauth2/auth',
+    token_uri: 'https://oauth2.googleapis.com/token',
+    auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
+    client_x509_cert_url: 'https://www.googleapis.com/abc',
+  },
+};
+
 export function getMockSerializedIntegrationConfig(): SerializedIntegrationConfig {
   return {
     serviceAccountKeyFile: JSON.stringify(

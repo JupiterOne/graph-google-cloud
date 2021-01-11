@@ -7,6 +7,12 @@ import {
   CredentialBody,
 } from 'google-auth-library';
 import { GaxiosResponse } from 'gaxios';
+import {
+  IntegrationProviderAuthorizationError,
+  IntegrationProviderAPIError,
+  IntegrationError,
+} from '@jupiterone/integration-sdk-core';
+import { createErrorProps } from './utils/createErrorProps';
 
 export interface ClientOptions {
   config: IntegrationConfig;
@@ -31,7 +37,7 @@ export async function iterateApi<T>(
   let nextPageToken: string | undefined;
 
   do {
-    const result = await fn(nextPageToken);
+    const result = await withErrorHandling(fn)(nextPageToken);
     nextPageToken = result.data.nextPageToken || undefined;
     await callback(result.data);
   } while (nextPageToken);
@@ -70,4 +76,59 @@ export class Client {
 
     return this.auth;
   }
+}
+
+export function withErrorHandling<T extends (...params: any) => any>(fn: T) {
+  return async (...params: any) => {
+    try {
+      return await fn(...params);
+    } catch (error) {
+      handleError(error);
+    }
+  };
+}
+
+/**
+ * Codes unknown error into JupiterOne errors
+ */
+function handleError(error: any): never {
+  // If the error was already handled, forward it on
+  if (error instanceof IntegrationError) {
+    throw error;
+  }
+
+  let err;
+  const errorProps = createErrorProps(error);
+  const code = error.response?.status;
+  if (code == 403) {
+    err = new IntegrationProviderAuthorizationError(errorProps);
+  } else if (
+    code == 400 &&
+    error.message?.match &&
+    error.message.match(/billing/i)
+  ) {
+    err = new IntegrationProviderAuthorizationError(errorProps);
+  } else {
+    err = new IntegrationProviderAPIError(errorProps);
+  }
+  if (shouldKeepErrorMessage(error)) {
+    err.message = error.message;
+  }
+  throw err;
+}
+
+function shouldKeepErrorMessage(error: any) {
+  const errorMessagesToKeep = [
+    'billing is disabled',
+    'requires billing to be enabled',
+    'it is disabled',
+  ];
+  return (
+    error?.message?.match &&
+    error.message.match(createRegex(errorMessagesToKeep))
+  );
+}
+
+function createRegex(regexes: string[]) {
+  return new RegExp(regexes.map((regex) => '(' + regex + ')').join('|'), 'i');
 }
