@@ -153,6 +153,7 @@ describe('#errorHandling', () => {
       try {
         await withRecording(
           `${method.name}BillingError`,
+          __dirname,
           async () => await method(context),
         );
         fail(`${method.name} was successful when it should have failed`);

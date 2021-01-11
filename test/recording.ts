@@ -173,11 +173,12 @@ function redact(entry): void {
 
 export async function withRecording(
   recordingName: string,
+  directoryName: string,
   cb: () => Promise<void>,
   options?: SetupRecordingInput['options'],
 ) {
   const recording = setupGoogleCloudRecording({
-    directory: __dirname,
+    directory: directoryName,
     name: recordingName,
     options: {
       recordFailedRequests: true,
