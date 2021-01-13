@@ -3,10 +3,12 @@ jest.setTimeout(60000);
 import Logger from 'bunyan';
 import { withRecording } from '../test/recording';
 import {
+  buildPolicyWithServiceAccountSecurityRoleMember,
   setupOrganization,
   SetupOrganizationParams,
   SetupOrganizationResult,
 } from './organizationSetup';
+import { cloudresourcemanager_v1 } from 'googleapis';
 
 function getMockLogger() {
   const mockLogger = ({
@@ -160,5 +162,260 @@ describe('#setupOrganization', () => {
         expect(result).toEqual(expected);
       },
     );
+  });
+});
+
+describe('#buildPolicyWithServiceAccountSecurityRoleMember', () => {
+  test('should handle policy with "roles/iam.securityReviewer" binding with no members', () => {
+    const oldPolicy: cloudresourcemanager_v1.Schema$Policy = {
+      version: 1,
+      etag: 'abc',
+      bindings: [
+        {
+          role: 'roles/editor',
+          members: [],
+        },
+        {
+          role: 'roles/iam.securityReviewer',
+          members: [],
+        },
+      ],
+    };
+
+    const serviceAccountEmail = 'abc@j1-project.iam.gserviceaccount.com';
+    const expectedPolicy: cloudresourcemanager_v1.Schema$Policy = {
+      version: 1,
+      etag: 'abc',
+      bindings: [
+        {
+          role: 'roles/editor',
+          members: [],
+        },
+        {
+          role: 'roles/iam.securityReviewer',
+          members: ['serviceAccount:abc@j1-project.iam.gserviceaccount.com'],
+        },
+      ],
+    };
+
+    expect(
+      buildPolicyWithServiceAccountSecurityRoleMember(
+        oldPolicy,
+        serviceAccountEmail,
+      ),
+    ).toEqual(expectedPolicy);
+  });
+
+  test('should handle policy with "roles/iam.securityReviewer" binding with existing members', () => {
+    const oldPolicy: cloudresourcemanager_v1.Schema$Policy = {
+      version: 1,
+      etag: 'abc',
+      bindings: [
+        {
+          role: 'roles/editor',
+          members: [],
+        },
+        {
+          role: 'roles/iam.securityReviewer',
+          members: [
+            'serviceAccount:abc-old@j1-project.iam.gserviceaccount.com',
+          ],
+        },
+      ],
+    };
+
+    const serviceAccountEmail = 'abc@j1-project.iam.gserviceaccount.com';
+    const expectedPolicy: cloudresourcemanager_v1.Schema$Policy = {
+      version: 1,
+      etag: 'abc',
+      bindings: [
+        {
+          role: 'roles/editor',
+          members: [],
+        },
+        {
+          role: 'roles/iam.securityReviewer',
+          members: [
+            'serviceAccount:abc-old@j1-project.iam.gserviceaccount.com',
+            'serviceAccount:abc@j1-project.iam.gserviceaccount.com',
+          ],
+        },
+      ],
+    };
+
+    expect(
+      buildPolicyWithServiceAccountSecurityRoleMember(
+        oldPolicy,
+        serviceAccountEmail,
+      ),
+    ).toEqual(expectedPolicy);
+  });
+
+  test('should handle policy with "roles/iam.securityReviewer" binding with existing members', () => {
+    const oldPolicy: cloudresourcemanager_v1.Schema$Policy = {
+      version: 1,
+      etag: 'abc',
+      bindings: [
+        {
+          role: 'roles/editor',
+          members: [],
+        },
+        {
+          role: 'roles/iam.securityReviewer',
+          members: [
+            'serviceAccount:abc-old@j1-project.iam.gserviceaccount.com',
+          ],
+        },
+      ],
+    };
+
+    const serviceAccountEmail = 'abc@j1-project.iam.gserviceaccount.com';
+    const expectedPolicy: cloudresourcemanager_v1.Schema$Policy = {
+      version: 1,
+      etag: 'abc',
+      bindings: [
+        {
+          role: 'roles/editor',
+          members: [],
+        },
+        {
+          role: 'roles/iam.securityReviewer',
+          members: [
+            'serviceAccount:abc-old@j1-project.iam.gserviceaccount.com',
+            'serviceAccount:abc@j1-project.iam.gserviceaccount.com',
+          ],
+        },
+      ],
+    };
+
+    expect(
+      buildPolicyWithServiceAccountSecurityRoleMember(
+        oldPolicy,
+        serviceAccountEmail,
+      ),
+    ).toEqual(expectedPolicy);
+  });
+
+  test('should not add existing member again to "roles/iam.securityReviewer" role', () => {
+    const oldPolicy: cloudresourcemanager_v1.Schema$Policy = {
+      version: 1,
+      etag: 'abc',
+      bindings: [
+        {
+          role: 'roles/editor',
+          members: [],
+        },
+        {
+          role: 'roles/iam.securityReviewer',
+          members: ['serviceAccount:abc@j1-project.iam.gserviceaccount.com'],
+        },
+      ],
+    };
+
+    const serviceAccountEmail = 'abc@j1-project.iam.gserviceaccount.com';
+    const expectedPolicy: cloudresourcemanager_v1.Schema$Policy = {
+      version: 1,
+      etag: 'abc',
+      bindings: [
+        {
+          role: 'roles/editor',
+          members: [],
+        },
+        {
+          role: 'roles/iam.securityReviewer',
+          members: ['serviceAccount:abc@j1-project.iam.gserviceaccount.com'],
+        },
+      ],
+    };
+
+    expect(
+      buildPolicyWithServiceAccountSecurityRoleMember(
+        oldPolicy,
+        serviceAccountEmail,
+      ),
+    ).toEqual(expectedPolicy);
+  });
+
+  test('should add "roles/iam.securityReviewer" role with new member if none exists', () => {
+    const oldPolicy: cloudresourcemanager_v1.Schema$Policy = {
+      version: 1,
+      etag: 'abc',
+      bindings: [
+        {
+          role: 'roles/editor',
+          members: [],
+        },
+      ],
+    };
+
+    const serviceAccountEmail = 'abc@j1-project.iam.gserviceaccount.com';
+    const expectedPolicy: cloudresourcemanager_v1.Schema$Policy = {
+      version: 1,
+      etag: 'abc',
+      bindings: [
+        {
+          role: 'roles/editor',
+          members: [],
+        },
+        {
+          role: 'roles/iam.securityReviewer',
+          members: ['serviceAccount:abc@j1-project.iam.gserviceaccount.com'],
+        },
+      ],
+    };
+
+    expect(
+      buildPolicyWithServiceAccountSecurityRoleMember(
+        oldPolicy,
+        serviceAccountEmail,
+      ),
+    ).toEqual(expectedPolicy);
+  });
+
+  test('should handle a policy with "version" 3', () => {
+    const oldPolicy: cloudresourcemanager_v1.Schema$Policy = {
+      version: 3,
+      etag: 'abc',
+      bindings: [
+        {
+          role: 'roles/iam.securityReviewer',
+          members: [
+            'serviceAccount:abc-old@j1-project.iam.gserviceaccount.com',
+          ],
+          condition: {
+            expression: 'resource.name != "bogusunknownresourcename"',
+            title: 'Test condition title',
+            description: 'Test condition description',
+          },
+        },
+      ],
+    };
+
+    const expectedPolicy: cloudresourcemanager_v1.Schema$Policy = {
+      version: 3,
+      etag: 'abc',
+      bindings: [
+        {
+          role: 'roles/iam.securityReviewer',
+          members: [
+            'serviceAccount:abc-old@j1-project.iam.gserviceaccount.com',
+            'serviceAccount:abc@j1-project.iam.gserviceaccount.com',
+          ],
+          condition: {
+            expression: 'resource.name != "bogusunknownresourcename"',
+            title: 'Test condition title',
+            description: 'Test condition description',
+          },
+        },
+      ],
+    };
+
+    const serviceAccountEmail = 'abc@j1-project.iam.gserviceaccount.com';
+    expect(
+      buildPolicyWithServiceAccountSecurityRoleMember(
+        oldPolicy,
+        serviceAccountEmail,
+      ),
+    ).toEqual(expectedPolicy);
   });
 });
