@@ -38,6 +38,7 @@ export interface BaseSetupOrganizationParams {
 export interface SetupOrganizationParams extends BaseSetupOrganizationParams {
   organizationIds?: string[];
   projectIds?: string[];
+  skipProjectIds?: string[];
   jupiteroneEnv?: string;
   skipSystemProjects: boolean;
 }
@@ -518,6 +519,7 @@ export async function setupOrganization(
     jupiteroneAccountId,
     organizationIds,
     projectIds,
+    skipProjectIds,
     logger: baseLogger,
     jupiteroneEnv = 'us',
     skipSystemProjects,
@@ -543,6 +545,12 @@ export async function setupOrganization(
 
       if (skipSystemProjects && projectId.startsWith('sys-')) {
         logger.info('Skipping system project');
+        result.skipped.push(projectId);
+        continue;
+      }
+
+      if (skipProjectIds?.includes(projectId)) {
+        logger.info('Skipping project');
         result.skipped.push(projectId);
         continue;
       }
@@ -589,6 +597,12 @@ export async function setupOrganization(
 
           if (skipSystemProjects && projectId.startsWith('sys-')) {
             logger.info('Skipping system project');
+            result.skipped.push(projectId);
+            return;
+          }
+
+          if (skipProjectIds?.includes(projectId)) {
+            logger.info('Skipping project');
             result.skipped.push(projectId);
             return;
           }
