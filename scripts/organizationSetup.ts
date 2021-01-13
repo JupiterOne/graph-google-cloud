@@ -269,7 +269,7 @@ function serviceAccountEmailToServiceAccountMember(
   return `serviceAccount:${serviceAccountEmail}`;
 }
 
-function buildPolicyWithServiceAccountSecurityRoleMember(
+export function buildPolicyWithServiceAccountSecurityRoleMember(
   policy: cloudresourcemanager_v1.Schema$Policy,
   serviceAccountEmail: string,
 ) {
