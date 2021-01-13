@@ -58,6 +58,26 @@ describe('#setupOrganization', () => {
     });
   });
 
+  test('should iterate only specific projects when projectIds supplied and skip specific projects when skipProjectIds supplied', async () => {
+    await withRecording('setupOrganization', __dirname, async () => {
+      const result = await setupOrganization(
+        getSetupOrganizationParams({
+          projectIds: ['j1-gc-integration-dev'],
+          skipProjectIds: ['j1-gc-integration-dev'],
+        }),
+      );
+
+      const expected: SetupOrganizationResult = {
+        created: [],
+        failed: [],
+        skipped: ['j1-gc-integration-dev'],
+        exists: [],
+      };
+
+      expect(result).toEqual(expected);
+    });
+  });
+
   test('should walk all projects in organization and skip system projects when specified', async () => {
     await withRecording(
       'setupOrganizationWithOrgParam',
@@ -67,13 +87,13 @@ describe('#setupOrganization', () => {
           getSetupOrganizationParams({
             organizationIds: ['158838481165'],
             skipSystemProjects: true,
+            skipProjectIds: ['jupiterone'],
           }),
         );
 
         const expected: SetupOrganizationResult = {
           created: [
             'j1-gc-integration-dev',
-            'jupiterone',
             'test-j1-gc-integration-project',
             'test-proj-folder-proj',
             'test-proj-folder-nested-proj',
@@ -85,6 +105,7 @@ describe('#setupOrganization', () => {
             'jupiterone-dev-232400',
           ],
           skipped: [
+            'jupiterone',
             'sys-98599569169400400326209101',
             'sys-50680297627320816758109742',
             'sys-64826652132265949410571220',

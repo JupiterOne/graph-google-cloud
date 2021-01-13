@@ -11,6 +11,7 @@ interface CliArguments {
   skipSystemProjects: boolean;
   organizationId?: string[] | (string | number)[];
   projectId?: string[] | (string | number)[];
+  skipProjectId?: string[] | (string | number)[];
   help?: boolean;
 }
 
@@ -63,6 +64,10 @@ cli
     '(Optional) Array of project IDs to create integration instances with',
   )
   .option(
+    '--skip-project-id [projectId]',
+    '(Optional) Array of project IDs to skip creating integration instances for',
+  )
+  .option(
     '--skip-system-projects [skipSystemProjects]',
     '(Optional) Skips creation of any projects that have an ID that start with "sys-"',
     {
@@ -100,11 +105,14 @@ const parsed = cli.parse(process.argv, { run: true });
     googleAccessToken,
     organizationId,
     projectId,
+    skipProjectId,
     help,
     skipSystemProjects,
   } = parsed.options as CliArguments;
 
   const projectIds = projectId && convertToArrayOfStrings(projectId);
+  const skipProjectIds =
+    skipProjectId && convertToArrayOfStrings(skipProjectId);
   const organizationIds =
     organizationId && convertToArrayOfStrings(organizationId);
   const jupiteroneEnv = process.env.JUPITERONE_ENV;
@@ -133,6 +141,7 @@ const parsed = cli.parse(process.argv, { run: true });
     logger,
     organizationIds,
     projectIds,
+    skipProjectIds,
     jupiteroneEnv,
     skipSystemProjects,
   });
