@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchBigQueryDatasets should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Account",
+      ],
+      "_key": "j1-gc-integration-dev-300716",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "createTime": "2021-01-04T16:56:24.926Z",
+            "lifecycleState": "ACTIVE",
+            "name": "j1-gc-integration-dev",
+            "parent": Object {
+              "id": "590372371675",
+              "type": "organization",
+            },
+            "projectId": "j1-gc-integration-dev-300716",
+            "projectNumber": "165882964161",
+          },
+        },
+      ],
+      "_type": "google_cloud_project",
+      "createdOn": 1609779384926,
+      "displayName": "j1-gc-integration-dev",
+      "lifecycleState": "ACTIVE",
+      "name": "j1-gc-integration-dev",
+      "parent.id": "590372371675",
+      "parent.type": "organization",
+      "projectNumber": "165882964161",
+    },
+    Object {
+      "_class": Array [
+        "DataStore",
+      ],
+      "_key": "j1-gc-integration-dev-300716:test_big_query_dataset",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "access": Array [
+              Object {
+                "role": "WRITER",
+                "specialGroup": "allAuthenticatedUsers",
+              },
+              Object {
+                "role": "WRITER",
+                "specialGroup": "projectWriters",
+              },
+              Object {
+                "role": "OWNER",
+                "specialGroup": "projectOwners",
+              },
+              Object {
+                "role": "OWNER",
+                "userByEmail": "admin@creativice.com",
+              },
+              Object {
+                "iamMember": "allUsers",
+                "role": "READER",
+              },
+              Object {
+                "role": "READER",
+                "specialGroup": "projectReaders",
+              },
+            ],
+            "creationTime": "1610919167542",
+            "datasetReference": Object {
+              "datasetId": "test_big_query_dataset",
+              "projectId": "j1-gc-integration-dev-300716",
+            },
+            "etag": "Q1RJczpo1aoPRRoUJ1pElQ==",
+            "id": "j1-gc-integration-dev-300716:test_big_query_dataset",
+            "kind": "bigquery#dataset",
+            "lastModifiedTime": "1610919344642",
+            "location": "US",
+            "selfLink": "https://www.googleapis.com/bigquery/v2/projects/j1-gc-integration-dev-300716/datasets/test_big_query_dataset",
+          },
+        },
+      ],
+      "_type": "google_cloud_big_query_dataset",
+      "classification": null,
+      "createdOn": undefined,
+      "displayName": "test_big_query_dataset",
+      "encrypted": true,
+      "etag": "Q1RJczpo1aoPRRoUJ1pElQ==",
+      "id": "j1-gc-integration-dev-300716:test_big_query_dataset",
+      "location": "US",
+      "name": "test_big_query_dataset",
+      "public": true,
+      "webLink": "https://www.googleapis.com/bigquery/v2/projects/j1-gc-integration-dev-300716/datasets/test_big_query_dataset",
+    },
+  ],
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
+    "google_cloud_project",
+    "google_cloud_big_query_dataset",
+  ],
+  "numCollectedEntities": 2,
+  "numCollectedRelationships": 0,
+}
+`;
