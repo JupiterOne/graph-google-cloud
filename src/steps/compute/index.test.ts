@@ -4,7 +4,10 @@ import {
   Recording,
   createMockStepExecutionContext,
 } from '@jupiterone/integration-sdk-testing';
-import { setupGoogleCloudRecording } from '../../../test/recording';
+import {
+  setupGoogleCloudRecording,
+  withRecording,
+} from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
 import {
   fetchComputeDisks,
@@ -13,7 +16,10 @@ import {
   fetchComputeNetworks,
   fetchComputeSubnetworks,
 } from '.';
-import { integrationConfig } from '../../../test/config';
+import {
+  integrationConfig,
+  setupErrorIntegrationConfig,
+} from '../../../test/config';
 import {
   ENTITY_TYPE_COMPUTE_DISK,
   ENTITY_TYPE_COMPUTE_FIREWALL,
@@ -24,7 +30,10 @@ import {
   RELATIONSHIP_TYPE_GOOGLE_COMPUTE_NETWORK_CONTAINS_GOOGLE_COMPUTE_SUBNETWORK,
   RELATIONSHIP_TYPE_NETWORK_HAS_FIREWALL,
 } from './constants';
-import { RelationshipClass } from '@jupiterone/integration-sdk-core';
+import {
+  IntegrationProviderAuthorizationError,
+  RelationshipClass,
+} from '@jupiterone/integration-sdk-core';
 import { fetchIamServiceAccounts } from '../iam';
 
 describe('#fetchComputeDisks', () => {
@@ -356,14 +365,14 @@ describe('#fetchComputeSubnetworks', () => {
 describe('#fetchComputeFirewalls', () => {
   let recording: Recording;
 
-  beforeEach(() => {
+  beforeAll(() => {
     recording = setupGoogleCloudRecording({
       directory: __dirname,
       name: 'fetchComputeFirewalls',
     });
   });
 
-  afterEach(async () => {
+  afterAll(async () => {
     await recording.stop();
   });
 
@@ -491,6 +500,47 @@ describe('#fetchComputeFirewalls', () => {
           portRange: { type: 'string' },
         },
       },
+    });
+  });
+});
+
+describe('#errorHandling', () => {
+  [
+    fetchComputeNetworks,
+    fetchComputeSubnetworks,
+    fetchComputeFirewalls,
+  ].forEach((method) => {
+    it('should handle setup errors', async () => {
+      const context = createMockStepExecutionContext<IntegrationConfig>({
+        instanceConfig: setupErrorIntegrationConfig,
+      });
+      try {
+        await withRecording(
+          `${method.name}SetupError`,
+          __dirname,
+          async () => await method(context),
+        );
+        fail(`${method.name} was successful when it should have failed`);
+      } catch (error) {
+        expect(error).toBeInstanceOf(IntegrationProviderAuthorizationError);
+        expect(error.message).toMatch(/disable/i);
+      }
+    });
+    it('should handle billing errors', async () => {
+      const context = createMockStepExecutionContext<IntegrationConfig>({
+        instanceConfig: integrationConfig,
+      });
+      try {
+        await withRecording(
+          `${method.name}BillingError`,
+          __dirname,
+          async () => await method(context),
+        );
+        fail(`${method.name} was successful when it should have failed`);
+      } catch (error) {
+        expect(error).toBeInstanceOf(IntegrationProviderAuthorizationError);
+        expect(error.message).toMatch(/billing/i);
+      }
     });
   });
 });

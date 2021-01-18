@@ -1,4 +1,8 @@
-import { Recording, setupRecording } from '@jupiterone/integration-sdk-testing';
+import {
+  Recording,
+  setupRecording,
+  SetupRecordingInput,
+} from '@jupiterone/integration-sdk-testing';
 import { gunzipSync } from 'zlib';
 import { cloudfunctions_v1, iam_v1 } from 'googleapis';
 import * as url from 'url';
@@ -164,5 +168,27 @@ function redact(entry): void {
     }
 
     entry.response.content.text = JSON.stringify(parsedResponseText);
+  }
+}
+
+export async function withRecording(
+  recordingName: string,
+  directoryName: string,
+  cb: () => Promise<void>,
+  options?: SetupRecordingInput['options'],
+) {
+  const recording = setupGoogleCloudRecording({
+    directory: directoryName,
+    name: recordingName,
+    options: {
+      recordFailedRequests: true,
+      ...(options || {}),
+    },
+  });
+
+  try {
+    await cb();
+  } finally {
+    await recording.stop();
   }
 }
