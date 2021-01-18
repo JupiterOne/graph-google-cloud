@@ -20,12 +20,19 @@ export class SQLAdminClient extends Client {
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
 
-    await this.iterateApi(async (nextPageToken) => {
-      return this.client.instances.list({
-        project: projectId,
-        auth,
-        pageToken: nextPageToken,
-      });
-    }, createCloudSQLInstanceClientMapper(callback));
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.instances.list({
+          project: projectId,
+          auth,
+          pageToken: nextPageToken,
+        });
+      },
+      async (data: sqladmin_v1beta4.Schema$DatabasesListResponse) => {
+        for (const sqlInstance of data.items || []) {
+          await callback(sqlInstance);
+        }
+      },
+    );
   }
 }

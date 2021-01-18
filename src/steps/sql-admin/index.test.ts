@@ -26,8 +26,13 @@ describe('#fetchSQLInstances', () => {
   });
 
   test('should collect data', async () => {
-
-    const customConfig = { ...integrationConfig, serviceAccountKeyConfig: { ...integrationConfig.serviceAccountKeyConfig, project_id: 'j1-gc-integration-dev-300716' }}
+    const customConfig = {
+      ...integrationConfig,
+      serviceAccountKeyConfig: {
+        ...integrationConfig.serviceAccountKeyConfig,
+        project_id: 'j1-gc-integration-dev-300716',
+      },
+    };
     const context = createMockStepExecutionContext<IntegrationConfig>({
       instanceConfig: customConfig,
     });
@@ -58,7 +63,7 @@ describe('#fetchSQLInstances', () => {
             items: { type: 'object' },
           },
           name: { type: 'string' },
-          type: { type: 'string' },
+          encrypted: { type: 'boolean' },
           location: { type: 'string' },
           displayName: { type: 'string' },
           localInfile: { type: 'string' },
@@ -88,7 +93,7 @@ describe('#fetchSQLInstances', () => {
             items: { type: 'object' },
           },
           name: { type: 'string' },
-          type: { type: 'string' },
+          encrypted: { type: 'boolean' },
           location: { type: 'string' },
           displayName: { type: 'string' },
           logCheckpoints: { type: 'string' },
@@ -124,7 +129,7 @@ describe('#fetchSQLInstances', () => {
             items: { type: 'object' },
           },
           name: { type: 'string' },
-          type: { type: 'string' },
+          encrypted: { type: 'boolean' },
           location: { type: 'string' },
           displayName: { type: 'string' },
           crossDatabaseOwnershipChaining: { type: 'string' },

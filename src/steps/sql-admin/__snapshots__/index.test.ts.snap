@@ -37,59 +37,59 @@ Object {
       "_class": Array [
         "Database",
       ],
-      "_key": "j1-gc-integration-dev-300716:europe-west1:cloud-sql-mysql",
+      "_key": "j1-gc-integration-dev-300716:us-central1:cloud-sql-postgres-b150e56d8488b376",
       "_rawData": Array [
         Object {
           "name": "default",
           "rawData": Object {
             "backendType": "SECOND_GEN",
-            "connectionName": "j1-gc-integration-dev-300716:europe-west1:cloud-sql-mysql",
-            "databaseVersion": "MYSQL_5_7",
-            "etag": "5ecc9ed786182d05161592c2cd165c26e092405dc9b81396c4b055d43e862cd0",
-            "gceZone": "europe-west1-d",
+            "connectionName": "j1-gc-integration-dev-300716:us-central1:cloud-sql-postgres-b150e56d8488b376",
+            "databaseVersion": "POSTGRES_12",
+            "etag": "fec1e7299714066c6fa530a2d645741bbc535d38bd0eab7074051d4455fd1a4e",
+            "gceZone": "us-central1-f",
             "instanceType": "CLOUD_SQL_INSTANCE",
             "ipAddresses": Array [
               Object {
-                "ipAddress": "35.233.3.91",
+                "ipAddress": "35.238.236.140",
                 "type": "PRIMARY",
               },
             ],
             "kind": "sql#instance",
-            "name": "cloud-sql-mysql",
+            "name": "cloud-sql-postgres-b150e56d8488b376",
             "project": "j1-gc-integration-dev-300716",
-            "region": "europe-west1",
-            "selfLink": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-300716/instances/cloud-sql-mysql",
+            "region": "us-central1",
+            "selfLink": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-300716/instances/cloud-sql-postgres-b150e56d8488b376",
             "serverCaCert": Object {
               "cert": "-----BEGIN CERTIFICATE-----
-MIIDfzCCAmegAwIBAgIBADANBgkqhkiG9w0BAQsFADB3MS0wKwYDVQQuEyQ5NjBj
-OWQzNi1lZjk2LTRiNGMtYWUxNS02ZDk2MjM4OWNhMDgxIzAhBgNVBAMTGkdvb2ds
+MIIDfzCCAmegAwIBAgIBADANBgkqhkiG9w0BAQsFADB3MS0wKwYDVQQuEyQxYjIy
+ZmE0YS1iYWE4LTQ0NmUtYjdhMC0yMzM3Yzg2ZTE1YmExIzAhBgNVBAMTGkdvb2ds
 ZSBDbG91ZCBTUUwgU2VydmVyIENBMRQwEgYDVQQKEwtHb29nbGUsIEluYzELMAkG
-A1UEBhMCVVMwHhcNMjEwMTA4MTIyMjU4WhcNMzEwMTA2MTIyMzU4WjB3MS0wKwYD
-VQQuEyQ5NjBjOWQzNi1lZjk2LTRiNGMtYWUxNS02ZDk2MjM4OWNhMDgxIzAhBgNV
+A1UEBhMCVVMwHhcNMjEwMTE3MjIyMTE0WhcNMzEwMTE1MjIyMjE0WjB3MS0wKwYD
+VQQuEyQxYjIyZmE0YS1iYWE4LTQ0NmUtYjdhMC0yMzM3Yzg2ZTE1YmExIzAhBgNV
 BAMTGkdvb2dsZSBDbG91ZCBTUUwgU2VydmVyIENBMRQwEgYDVQQKEwtHb29nbGUs
 IEluYzELMAkGA1UEBhMCVVMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB
-AQCLijxr1roPJuEf8AbxB7AuYZMOzcNn6fajZpYxUUnVNO/acp8VN+m6GgCI/LI9
-WC3Yu8Cyc+6kjSHRHGYjwipC+9IrA5suGs8Drg6PM93qMKCGFfc8aobCgzlEjICZ
-CvHO4zSfOC/wzQ/kKAj6GqE1mYa5K7l+78JSvXy9XlZ2hvsQjuFZudegJdx5OA8k
-L5zeQ65hsMxCl7KbdkEDx0+Mt7zsoiUPtq/hSOFQT6qjCH06tTcB1uxVR5ny/R+1
-v1CY7Z/pqzSnFuuJlFgdPyg4MfJqgGS0dv2LCY2z4kOGRaxZLN6TA8cf2K7zXVMT
-v/mbEZKM7g2wG+jJa+/jKshrAgMBAAGjFjAUMBIGA1UdEwEB/wQIMAYBAf8CAQAw
-DQYJKoZIhvcNAQELBQADggEBAElDO4rF2M4vztblBPNc3nQVM2TzouzMhcu4vnvs
-kDbGEMTWXfvbf1LecbG+Nzh0B4/j+cnTxlegpaUjq3Kxe7Gg+QeEViix2dAnoveU
-kzQB7Zvhqmu6afklpJUKK7UTrNA4fXabXYgypdQIczwhdFmbKcWdk8W5/WsF0+wp
-U1Pu52lHYIwmhIGk47gfkNJCwCnvy+6n2RQ8mQahVJ0Xv217xal708LaiU+DTF+q
-e0m4V017VMcwpJMKaGoBkOvGcm+29/2R0itE2r/6Artp7/+ESNnaoqhC5UHiiD9Q
-LRjgTPwW7ZnDjQXpOKZw1XIVS60D91JCmhDGhsyLFKKEArU=
+AQCZd6VzhW5aLVuoZ1zc4RWT02Gg+6Px1fxsOYqzccZ5rYLr/BdjP1RoPAtLQwEA
+2dflZn9N1KAEraCorppXTa0od3xpFQrMIYi2zLuyXZ3s8pQ3EHdVPQoa2PVkbGOH
+bVozRlPGhnwO/O5/zbEaZasrOeO4m0qOzIVEcwO4MGYOtiI49o3qKbWoF/wf7JsG
+zWomAVvQQdkhBprTy+E2JgJxN8P/clQ/0aJQTs3FZMwvEL+BElzMQJPGiH02SqRT
+KiPx1Q++a9xGeV2BVzwU7BEIxCkRmLYd2ydCASvbt0lLB6zYCIqzy0nvf+NlPkpq
+fTt1h+Fp5AQMz9dvsD/jKzOBAgMBAAGjFjAUMBIGA1UdEwEB/wQIMAYBAf8CAQAw
+DQYJKoZIhvcNAQELBQADggEBABxTljxkWOXoKCc57cCsrmHtg2gK3DLkalJuyqnY
+/8p6bSHTqK31v6FysgzHLrCU5efOVW7NsRUBafuNAU6244b05RtjOF6a5xPJLVfx
+cyY0krciDi0IE5gOgCr/f+0R3Y19y/+PqYnogkMXshdOD7h9VwqyLCaGsuc+Mjcx
+COvJ6FC+TuGDBJz+KnxMPIZgrB3b1mpAjRFrvW0yJYi8iRwvxvShmhz6QxpEXY/0
+xt8kXLb2r/M5krTTh/mp28/0tgc85mJPbVLo6blLyHrwxBBnpWHKCBIr98YReu+I
+91KU/+mokZnf2hQWVMyUP+Fnt/9cuOPgDV3dgMjFwgO/pGM=
 -----END CERTIFICATE-----",
               "certSerialNumber": "0",
-              "commonName": "C=US,O=Google\\\\, Inc,CN=Google Cloud SQL Server CA,dnQualifier=960c9d36-ef96-4b4c-ae15-6d962389ca08",
-              "createTime": "2021-01-08T12:22:58.091Z",
-              "expirationTime": "2031-01-06T12:23:58.091Z",
-              "instance": "cloud-sql-mysql",
+              "commonName": "C=US,O=Google\\\\, Inc,CN=Google Cloud SQL Server CA,dnQualifier=1b22fa4a-baa8-446e-b7a0-2337c86e15ba",
+              "createTime": "2021-01-17T22:21:14.708Z",
+              "expirationTime": "2031-01-15T22:22:14.708Z",
+              "instance": "cloud-sql-postgres-b150e56d8488b376",
               "kind": "sql#sslCert",
-              "sha1Fingerprint": "73a9c0a81a5a79e855fc29bd13020b77c6319b2a",
+              "sha1Fingerprint": "fdf1f3e2e657dd41b0f184f40f31135de1783cf9",
             },
-            "serviceAccountEmailAddress": "p165882964161-zjrr9h@gcp-sa-cloud-sql.iam.gserviceaccount.com",
+            "serviceAccountEmailAddress": "p165882964161-zydq2b@gcp-sa-cloud-sql.iam.gserviceaccount.com",
             "settings": Object {
               "activationPolicy": "ALWAYS",
               "authorizedGaeApplications": Array [],
@@ -99,41 +99,30 @@ LRjgTPwW7ZnDjQXpOKZw1XIVS60D91JCmhDGhsyLFKKEArU=
                   "retainedBackups": 7,
                   "retentionUnit": "COUNT",
                 },
-                "binaryLogEnabled": true,
-                "enabled": true,
+                "enabled": false,
                 "kind": "sql#backupConfiguration",
-                "location": "eu",
-                "startTime": "23:00",
+                "location": "us",
+                "pointInTimeRecoveryEnabled": false,
+                "replicationLogArchivingEnabled": false,
+                "startTime": "14:00",
                 "transactionLogRetentionDays": 7,
               },
               "dataDiskSizeGb": "10",
               "dataDiskType": "PD_SSD",
               "databaseFlags": Array [
                 Object {
-                  "name": "local_infile",
-                  "value": "off",
+                  "name": "log_connections",
+                  "value": "on",
                 },
               ],
               "ipConfiguration": Object {
-                "authorizedNetworks": Array [
-                  Object {
-                    "kind": "sql#aclEntry",
-                    "name": "World",
-                    "value": "0.0.0.0/0",
-                  },
-                  Object {
-                    "kind": "sql#aclEntry",
-                    "name": "Test Network",
-                    "value": "200.27.123.0/24",
-                  },
-                ],
+                "authorizedNetworks": Array [],
                 "ipv4Enabled": true,
-                "requireSsl": true,
               },
               "kind": "sql#settings",
               "locationPreference": Object {
                 "kind": "sql#locationPreference",
-                "zone": "europe-west1-d",
+                "zone": "us-central1-f",
               },
               "maintenanceWindow": Object {
                 "day": 0,
@@ -141,10 +130,128 @@ LRjgTPwW7ZnDjQXpOKZw1XIVS60D91JCmhDGhsyLFKKEArU=
                 "kind": "sql#maintenanceWindow",
               },
               "pricingPlan": "PER_USE",
-              "settingsVersion": "15",
+              "replicationType": "SYNCHRONOUS",
+              "settingsVersion": "2",
               "storageAutoResize": true,
               "storageAutoResizeLimit": "0",
-              "tier": "db-n1-standard-1",
+              "tier": "db-f1-micro",
+            },
+            "state": "RUNNABLE",
+          },
+        },
+      ],
+      "_type": "google_cloud_sql_postgres_instance",
+      "authorizedNetworks": Array [],
+      "automatedBackupsEnabled": false,
+      "createdOn": undefined,
+      "displayName": "cloud-sql-postgres-b150e56d8488b376",
+      "encrypted": true,
+      "hasPublicIP": true,
+      "location": "j1-gc-integration-dev-300716:us-central1:cloud-sql-postgres-b150e56d8488b376",
+      "logCheckpoints": undefined,
+      "logConnections": "on",
+      "logDisconnections": undefined,
+      "logLockWaits": undefined,
+      "logMinDurationStatement": undefined,
+      "logMinErrorStatement": undefined,
+      "logTempFiles": undefined,
+      "name": "cloud-sql-postgres-b150e56d8488b376",
+      "requireSSL": undefined,
+    },
+    Object {
+      "_class": Array [
+        "Database",
+      ],
+      "_key": "j1-gc-integration-dev-300716:us-central1:cloud-sql-mysql-b150e56d8488b376",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "backendType": "SECOND_GEN",
+            "connectionName": "j1-gc-integration-dev-300716:us-central1:cloud-sql-mysql-b150e56d8488b376",
+            "databaseVersion": "MYSQL_5_7",
+            "etag": "5f0d52ebc3759f6d21b11e1253de9950f0da3f1f482f6384a61ffbd87683df65",
+            "gceZone": "us-central1-f",
+            "instanceType": "CLOUD_SQL_INSTANCE",
+            "ipAddresses": Array [
+              Object {
+                "ipAddress": "104.197.53.88",
+                "type": "PRIMARY",
+              },
+            ],
+            "kind": "sql#instance",
+            "name": "cloud-sql-mysql-b150e56d8488b376",
+            "project": "j1-gc-integration-dev-300716",
+            "region": "us-central1",
+            "selfLink": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-300716/instances/cloud-sql-mysql-b150e56d8488b376",
+            "serverCaCert": Object {
+              "cert": "-----BEGIN CERTIFICATE-----
+MIIDfzCCAmegAwIBAgIBADANBgkqhkiG9w0BAQsFADB3MS0wKwYDVQQuEyQ1NWVi
+MzRjNy1hZTYxLTQ3NmEtYjQ4Yi1hNjFmN2Y3OGNhYmYxIzAhBgNVBAMTGkdvb2ds
+ZSBDbG91ZCBTUUwgU2VydmVyIENBMRQwEgYDVQQKEwtHb29nbGUsIEluYzELMAkG
+A1UEBhMCVVMwHhcNMjEwMTE3MjMwOTU5WhcNMzEwMTE1MjMxMDU5WjB3MS0wKwYD
+VQQuEyQ1NWViMzRjNy1hZTYxLTQ3NmEtYjQ4Yi1hNjFmN2Y3OGNhYmYxIzAhBgNV
+BAMTGkdvb2dsZSBDbG91ZCBTUUwgU2VydmVyIENBMRQwEgYDVQQKEwtHb29nbGUs
+IEluYzELMAkGA1UEBhMCVVMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB
+AQC1i6x41zra53w9lMklwlrPBE2qpNUnyzuB5Qj1DlJIZwh7sFZpwXsbNTL/U/Kd
+YxTCLBAIZqmKx16+takurHuBSemGMROWiP7KBbUH+Mh6Xlg0gVaKtD00eG9zBUAu
+SYy8S5OVu/sylQ5ZyxFj5ZLXknarqcqhvIzmwdk6pSR6pGYoZRQ3F04SembrJaL2
+RdufAZ2kQ6Yi9HQ5nyTkyG5tBomOQK/GX2iWvxl7UkW1NZuyOf4StRgK6GrvJ5qr
+wvZoZ068QA3SywDl/ZCwSHobTNqezIj2qG8ZSjDAmqkPnjpaIUl5YRW0Mi/A4q+W
+Z1nKv+rTStpzHz0ySIy/aEePAgMBAAGjFjAUMBIGA1UdEwEB/wQIMAYBAf8CAQAw
+DQYJKoZIhvcNAQELBQADggEBAIb48C8tY6JbALYRNoJCkjzAujEWAGv9qN9f47IN
+ydN+NFbd5tYuxrDrMI0hMz+xQMswTBYmtwzLfQjDtmm99Ho0axktAEDqtuoHbQnF
+FY2deikKvCYZ3nInnJOctFY3mIhYWLKJxlWNjxv4up9PhTsEJehWlrcp8VJh0JQw
+Lwyd9MLA6stoLHUEaLpuFa0u75y8lmnaiN6GvdukbGUMtG5gEBa4biUCBhBqaQeK
+0eK25+lZD3n/dnoCEZlY33Meiz225uoCqPnk6jDPLKlm3T/fj1kFpna9gyOMTa/p
+1VxeU/xJre0p893x6ggoPJ0yCWH1Tx+5nP7JOuqxNaoZHdA=
+-----END CERTIFICATE-----",
+              "certSerialNumber": "0",
+              "commonName": "C=US,O=Google\\\\, Inc,CN=Google Cloud SQL Server CA,dnQualifier=55eb34c7-ae61-476a-b48b-a61f7f78cabf",
+              "createTime": "2021-01-17T23:09:59.121Z",
+              "expirationTime": "2031-01-15T23:10:59.121Z",
+              "instance": "cloud-sql-mysql-b150e56d8488b376",
+              "kind": "sql#sslCert",
+              "sha1Fingerprint": "1c070a5b398b53a6d871534acf8dbba58d732ab0",
+            },
+            "serviceAccountEmailAddress": "p165882964161-gqysvy@gcp-sa-cloud-sql.iam.gserviceaccount.com",
+            "settings": Object {
+              "activationPolicy": "ALWAYS",
+              "authorizedGaeApplications": Array [],
+              "availabilityType": "ZONAL",
+              "backupConfiguration": Object {
+                "backupRetentionSettings": Object {
+                  "retainedBackups": 7,
+                  "retentionUnit": "COUNT",
+                },
+                "enabled": false,
+                "kind": "sql#backupConfiguration",
+                "startTime": "02:00",
+                "transactionLogRetentionDays": 7,
+              },
+              "dataDiskSizeGb": "10",
+              "dataDiskType": "PD_SSD",
+              "ipConfiguration": Object {
+                "authorizedNetworks": Array [
+                  Object {
+                    "kind": "sql#aclEntry",
+                    "name": "0.0.0.0/0",
+                    "value": "0.0.0.0/0",
+                  },
+                ],
+                "ipv4Enabled": true,
+              },
+              "kind": "sql#settings",
+              "locationPreference": Object {
+                "kind": "sql#locationPreference",
+                "zone": "us-central1-f",
+              },
+              "pricingPlan": "PER_USE",
+              "replicationType": "SYNCHRONOUS",
+              "settingsVersion": "3",
+              "storageAutoResize": true,
+              "storageAutoResizeLimit": "0",
+              "tier": "db-f1-micro",
             },
             "state": "RUNNABLE",
           },
@@ -153,314 +260,25 @@ LRjgTPwW7ZnDjQXpOKZw1XIVS60D91JCmhDGhsyLFKKEArU=
       "_type": "google_cloud_sql_mysql_instance",
       "authorizedNetworks": Array [
         "0.0.0.0/0",
-        "200.27.123.0/24",
       ],
-      "automatedBackupsEnabled": true,
+      "automatedBackupsEnabled": false,
       "createdOn": undefined,
-      "displayName": "cloud-sql-mysql",
+      "displayName": "cloud-sql-mysql-b150e56d8488b376",
+      "encrypted": true,
       "hasPublicIP": true,
-      "localInfile": "off",
-      "location": "j1-gc-integration-dev-300716:europe-west1:cloud-sql-mysql",
-      "name": "cloud-sql-mysql",
-      "requireSSL": true,
-      "type": "MySQL",
-    },
-    Object {
-      "_class": Array [
-        "Database",
-      ],
-      "_key": "j1-gc-integration-dev-300716:europe-west3:cloud-sql-server",
-      "_rawData": Array [
-        Object {
-          "name": "default",
-          "rawData": Object {
-            "backendType": "SECOND_GEN",
-            "connectionName": "j1-gc-integration-dev-300716:europe-west3:cloud-sql-server",
-            "databaseVersion": "SQLSERVER_2017_STANDARD",
-            "etag": "833128797934d1cdba79a90e3e32781695bfb08938d9e0982161def02b195737",
-            "gceZone": "europe-west3-b",
-            "instanceType": "CLOUD_SQL_INSTANCE",
-            "ipAddresses": Array [
-              Object {
-                "ipAddress": "10.49.96.3",
-                "type": "PRIVATE",
-              },
-            ],
-            "kind": "sql#instance",
-            "name": "cloud-sql-server",
-            "project": "j1-gc-integration-dev-300716",
-            "region": "europe-west3",
-            "selfLink": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-300716/instances/cloud-sql-server",
-            "serverCaCert": Object {
-              "cert": "-----BEGIN CERTIFICATE-----
-MIIDfzCCAmegAwIBAgIBADANBgkqhkiG9w0BAQsFADB3MS0wKwYDVQQuEyRhZWY0
-YjhlMS1kZWRiLTRlOTQtYWNjMy0xZDJjMTUwMTdmNzMxIzAhBgNVBAMTGkdvb2ds
-ZSBDbG91ZCBTUUwgU2VydmVyIENBMRQwEgYDVQQKEwtHb29nbGUsIEluYzELMAkG
-A1UEBhMCVVMwHhcNMjEwMTEwMTgwOTAwWhcNMzEwMTA4MTgxMDAwWjB3MS0wKwYD
-VQQuEyRhZWY0YjhlMS1kZWRiLTRlOTQtYWNjMy0xZDJjMTUwMTdmNzMxIzAhBgNV
-BAMTGkdvb2dsZSBDbG91ZCBTUUwgU2VydmVyIENBMRQwEgYDVQQKEwtHb29nbGUs
-IEluYzELMAkGA1UEBhMCVVMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB
-AQDDJndJF9cJBuraATo+367sTMvobS8+49P43doYOwXXqajldBgRhf2ifIfb3koS
-PM1wPK3p+TIDqKPcMgkaDLPfSgtXnipBf/3CwPDiu6mB6DmR2eJ4NLG4H/q+bes7
-Zn39Rz+3SZQyQV3IP4sahwITGrah/Nm8319DWBDcF/CRbM5c1Z6Gn9ZsDYao4n5O
-e9KgmTRE+7FAnXRHPszioe5SnlFSvZtryYjbwDfcUeMHfioe/FBCwp/3tV85jJXq
-2LLXr5/kI6tajGpY21+ubNb82yI+KteKH9XnnRL9vjfjS7/LjCLY3qIinxmia+Dg
-8m7DFvS64BHRGZ5OsFDofywtAgMBAAGjFjAUMBIGA1UdEwEB/wQIMAYBAf8CAQAw
-DQYJKoZIhvcNAQELBQADggEBACifBFiKDlwOxW3UvrzXO0DGV4qmroE5IT3Gj5cm
-jCohJG4AxSuCptrWVBvKmhdNbVAS/JSN6XSNg572bNuxOmaErwOlwplCDUEqMb3H
-COGHRg2g2M1xcHZ5OmDPV2SvbnwOKaYElTAhUgebFO2rP1uy1SJgnEsKpnbTXZyC
-m0RzqNYZWPm91rBXBkD5fRBwDIi0DqrOsB+UX1HBbpHJGR27TCFrjxoHjm4lPGuv
-9YLalWSZdAkgBppl4WuDe6/oxwta1qtWZiUInhIS+UzvHXoERbBMVeyKoiUXs/Em
-mywche4TwTg1UioA1xukmCqnG96HrUEt31TeMQGLFIINnc4=
------END CERTIFICATE-----",
-              "certSerialNumber": "0",
-              "commonName": "C=US,O=Google\\\\, Inc,CN=Google Cloud SQL Server CA,dnQualifier=aef4b8e1-dedb-4e94-acc3-1d2c15017f73",
-              "createTime": "2021-01-10T18:09:00.580Z",
-              "expirationTime": "2031-01-08T18:10:00.580Z",
-              "instance": "cloud-sql-server",
-              "kind": "sql#sslCert",
-              "sha1Fingerprint": "f183b93281d9134786821e7a69a91e0bb1aa6351",
-            },
-            "serviceAccountEmailAddress": "p165882964161-bpli2f@gcp-sa-cloud-sql.iam.gserviceaccount.com",
-            "settings": Object {
-              "activationPolicy": "ALWAYS",
-              "authorizedGaeApplications": Array [],
-              "availabilityType": "ZONAL",
-              "backupConfiguration": Object {
-                "backupRetentionSettings": Object {
-                  "retainedBackups": 7,
-                  "retentionUnit": "COUNT",
-                },
-                "enabled": true,
-                "kind": "sql#backupConfiguration",
-                "location": "eu",
-                "startTime": "01:00",
-                "transactionLogRetentionDays": 7,
-              },
-              "collation": "SQL_Latin1_General_CP1_CI_AS",
-              "dataDiskSizeGb": "20",
-              "dataDiskType": "PD_SSD",
-              "databaseFlags": Array [
-                Object {
-                  "name": "cross db ownership chaining",
-                  "value": "on",
-                },
-                Object {
-                  "name": "contained database authentication",
-                  "value": "on",
-                },
-              ],
-              "ipConfiguration": Object {
-                "authorizedNetworks": Array [],
-                "ipv4Enabled": false,
-                "privateNetwork": "projects/j1-gc-integration-dev-300716/global/networks/default",
-                "requireSsl": true,
-              },
-              "kind": "sql#settings",
-              "locationPreference": Object {
-                "kind": "sql#locationPreference",
-                "zone": "europe-west3-b",
-              },
-              "maintenanceWindow": Object {
-                "day": 0,
-                "hour": 0,
-                "kind": "sql#maintenanceWindow",
-              },
-              "pricingPlan": "PER_USE",
-              "settingsVersion": "19",
-              "storageAutoResize": true,
-              "storageAutoResizeLimit": "0",
-              "tier": "db-custom-1-4096",
-            },
-            "state": "RUNNABLE",
-          },
-        },
-      ],
-      "_type": "google_cloud_sql_sql_server_instance",
-      "authorizedNetworks": Array [],
-      "automatedBackupsEnabled": true,
-      "containedDatabaseAuthentication": "on",
-      "createdOn": undefined,
-      "crossDatabaseOwnershipChaining": "on",
-      "displayName": "cloud-sql-server",
-      "hasPublicIP": false,
-      "location": "j1-gc-integration-dev-300716:europe-west3:cloud-sql-server",
-      "name": "cloud-sql-server",
-      "requireSSL": true,
-      "type": "SQLServer",
-    },
-    Object {
-      "_class": Array [
-        "Database",
-      ],
-      "_key": "j1-gc-integration-dev-300716:europe-west3:cloud-sql-postgres",
-      "_rawData": Array [
-        Object {
-          "name": "default",
-          "rawData": Object {
-            "backendType": "SECOND_GEN",
-            "connectionName": "j1-gc-integration-dev-300716:europe-west3:cloud-sql-postgres",
-            "databaseVersion": "POSTGRES_12",
-            "etag": "98de3deaeeca4420e21a891488c187b0b029235e2e0cb551fc00a388d1ac4f7d",
-            "gceZone": "europe-west3-b",
-            "instanceType": "CLOUD_SQL_INSTANCE",
-            "ipAddresses": Array [
-              Object {
-                "ipAddress": "35.246.131.23",
-                "type": "PRIMARY",
-              },
-            ],
-            "kind": "sql#instance",
-            "name": "cloud-sql-postgres",
-            "project": "j1-gc-integration-dev-300716",
-            "region": "europe-west3",
-            "selfLink": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-300716/instances/cloud-sql-postgres",
-            "serverCaCert": Object {
-              "cert": "-----BEGIN CERTIFICATE-----
-MIIDfzCCAmegAwIBAgIBADANBgkqhkiG9w0BAQsFADB3MS0wKwYDVQQuEyRkMzBh
-Njc0ZS04YjUyLTQ3MjQtYWNmZi0wM2FmM2EyNTk3MWExIzAhBgNVBAMTGkdvb2ds
-ZSBDbG91ZCBTUUwgU2VydmVyIENBMRQwEgYDVQQKEwtHb29nbGUsIEluYzELMAkG
-A1UEBhMCVVMwHhcNMjEwMTEwMTcwNTU5WhcNMzEwMTA4MTcwNjU5WjB3MS0wKwYD
-VQQuEyRkMzBhNjc0ZS04YjUyLTQ3MjQtYWNmZi0wM2FmM2EyNTk3MWExIzAhBgNV
-BAMTGkdvb2dsZSBDbG91ZCBTUUwgU2VydmVyIENBMRQwEgYDVQQKEwtHb29nbGUs
-IEluYzELMAkGA1UEBhMCVVMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB
-AQCd2ixD2k9Z5Rn83gu/EX/XSZWS8OOMQpgKySaZPja9Rqb57JzztBVRqXPR+nRA
-GeUDpZSGiMH6LncmZqufNhh7d5oYHKKYbXy5+5kDX2SihEUD9eDRrVehk8ZDcGNu
-TFEJQk9NOoW/veMUQ2AgkC2/++NfCnWmCRrkeY+j1MBAYOZ8580GFJU2jCf1oOVk
-VEUjf6i1JYYJJPZh/7VmnbPHjpitIiCkbiz0P2I3Jdm2dgXUf0F1QdCeuTkz47nJ
-MJILQsbY4fmrr0DalKVmqKT+Gtatfj7wwxbWx4zrcsyeftbkZt0OxIv6SfYhBFFP
-Wtv/uqVUJmo+kKwc/zEWMnHNAgMBAAGjFjAUMBIGA1UdEwEB/wQIMAYBAf8CAQAw
-DQYJKoZIhvcNAQELBQADggEBAIIYZ4DBW3E5luIW0Zn4f/2dv41OF5if8Tw1SJMy
-8IpeNwc5Er2Iy15Lj4/rlUenxadguN+1WJ0M/YhVLIcbEphnZ3WXbAGfKikPUyp4
-t/ZpSGr6KU2izbQdY/nVmXr6JhfwfVSegTPqoMVHHIDIS3qhidnW57//Q8XD4atw
-LYdQN0JV72/+TV3YtlSBYWxZWY4CxXCzj/YQHyJZnNd16XFvEcThHTKfI1Zvwlky
-Br6giUf78fNL9ofGlxndkew2+zpBx3erIDQAhDpDmfxsR5kPfBqrNoBVmJv2lAwP
-jZW8hqjU8cRhOa+/XCQQZvbc60evzU7OezOsT+9NJBeoj8g=
------END CERTIFICATE-----",
-              "certSerialNumber": "0",
-              "commonName": "C=US,O=Google\\\\, Inc,CN=Google Cloud SQL Server CA,dnQualifier=d30a674e-8b52-4724-acff-03af3a25971a",
-              "createTime": "2021-01-10T17:05:59.379Z",
-              "expirationTime": "2031-01-08T17:06:59.379Z",
-              "instance": "cloud-sql-postgres",
-              "kind": "sql#sslCert",
-              "sha1Fingerprint": "3ddc41864407396bd2451081c7e025d5507369c8",
-            },
-            "serviceAccountEmailAddress": "p165882964161-x5ifig@gcp-sa-cloud-sql.iam.gserviceaccount.com",
-            "settings": Object {
-              "activationPolicy": "ALWAYS",
-              "authorizedGaeApplications": Array [],
-              "availabilityType": "ZONAL",
-              "backupConfiguration": Object {
-                "backupRetentionSettings": Object {
-                  "retainedBackups": 7,
-                  "retentionUnit": "COUNT",
-                },
-                "enabled": true,
-                "kind": "sql#backupConfiguration",
-                "location": "eu",
-                "pointInTimeRecoveryEnabled": true,
-                "replicationLogArchivingEnabled": true,
-                "startTime": "06:00",
-                "transactionLogRetentionDays": 7,
-              },
-              "dataDiskSizeGb": "10",
-              "dataDiskType": "PD_SSD",
-              "databaseFlags": Array [
-                Object {
-                  "name": "log_checkpoints",
-                  "value": "on",
-                },
-                Object {
-                  "name": "log_connections",
-                  "value": "on",
-                },
-                Object {
-                  "name": "log_disconnections",
-                  "value": "on",
-                },
-                Object {
-                  "name": "log_lock_waits",
-                  "value": "on",
-                },
-                Object {
-                  "name": "log_min_error_statement",
-                  "value": "debug4",
-                },
-                Object {
-                  "name": "log_temp_files",
-                  "value": "-1",
-                },
-                Object {
-                  "name": "log_min_duration_statement",
-                  "value": "4",
-                },
-              ],
-              "ipConfiguration": Object {
-                "authorizedNetworks": Array [
-                  Object {
-                    "kind": "sql#aclEntry",
-                    "name": "World",
-                    "value": "0.0.0.0/0",
-                  },
-                  Object {
-                    "kind": "sql#aclEntry",
-                    "name": "Test Network",
-                    "value": "199.27.25.0/24",
-                  },
-                ],
-                "ipv4Enabled": true,
-                "requireSsl": false,
-              },
-              "kind": "sql#settings",
-              "locationPreference": Object {
-                "kind": "sql#locationPreference",
-                "zone": "europe-west3-b",
-              },
-              "maintenanceWindow": Object {
-                "day": 0,
-                "hour": 0,
-                "kind": "sql#maintenanceWindow",
-              },
-              "pricingPlan": "PER_USE",
-              "settingsVersion": "19",
-              "storageAutoResize": true,
-              "storageAutoResizeLimit": "0",
-              "tier": "db-custom-1-3840",
-            },
-            "state": "RUNNABLE",
-          },
-        },
-      ],
-      "_type": "google_cloud_sql_postgres_instance",
-      "authorizedNetworks": Array [
-        "0.0.0.0/0",
-        "199.27.25.0/24",
-      ],
-      "automatedBackupsEnabled": true,
-      "createdOn": undefined,
-      "displayName": "cloud-sql-postgres",
-      "hasPublicIP": true,
-      "location": "j1-gc-integration-dev-300716:europe-west3:cloud-sql-postgres",
-      "logCheckpoints": "on",
-      "logConnections": "on",
-      "logDisconnections": "on",
-      "logLockWaits": "on",
-      "logMinDurationStatement": "4",
-      "logMinErrorStatement": "debug4",
-      "logTempFiles": "-1",
-      "name": "cloud-sql-postgres",
-      "requireSSL": false,
-      "type": "Postgres",
+      "localInfile": undefined,
+      "location": "j1-gc-integration-dev-300716:us-central1:cloud-sql-mysql-b150e56d8488b376",
+      "name": "cloud-sql-mysql-b150e56d8488b376",
+      "requireSSL": undefined,
     },
   ],
   "collectedRelationships": Array [],
   "encounteredTypes": Array [
     "google_cloud_project",
-    "google_cloud_sql_mysql_instance",
-    "google_cloud_sql_sql_server_instance",
     "google_cloud_sql_postgres_instance",
+    "google_cloud_sql_mysql_instance",
   ],
-  "numCollectedEntities": 4,
+  "numCollectedEntities": 3,
   "numCollectedRelationships": 0,
 }
 `;

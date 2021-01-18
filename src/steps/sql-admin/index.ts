@@ -26,6 +26,7 @@ export async function fetchCloudSQLInstances(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
   const client = new SQLAdminClient({ config });
   await jobState.iterateEntities(
@@ -36,6 +37,13 @@ export async function fetchCloudSQLInstances(
       await client.iterateCloudSQLInstances(
         projectEntity._key as string,
         async (instance) => {
+          if (!instance?.databaseVersion) {
+            logger.info(
+              'Skipping cloud SQL instance resource where instance.databaseVersion is undefined',
+            );
+            return;
+          }
+
           if (
             instance.databaseVersion
               ?.toUpperCase()
