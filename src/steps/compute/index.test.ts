@@ -15,6 +15,7 @@ import {
   fetchComputeInstances,
   fetchComputeNetworks,
   fetchComputeSubnetworks,
+  fetchComputeProject,
 } from '.';
 import {
   integrationConfig,
@@ -25,11 +26,13 @@ import {
   ENTITY_TYPE_COMPUTE_FIREWALL,
   ENTITY_TYPE_COMPUTE_INSTANCE,
   ENTITY_CLASS_COMPUTE_NETWORK,
+  ENTITY_TYPE_COMPUTE_PROJECT,
   ENTITY_TYPE_COMPUTE_SUBNETWORK,
   MAPPED_RELATIONSHIP_FIREWALL_RULE_TYPE,
   RELATIONSHIP_TYPE_FIREWALL_PROTECTS_NETWORK,
   RELATIONSHIP_TYPE_GOOGLE_COMPUTE_NETWORK_CONTAINS_GOOGLE_COMPUTE_SUBNETWORK,
   RELATIONSHIP_TYPE_NETWORK_HAS_FIREWALL,
+  RELATIONSHIP_TYPE_PROJECT_HAS_INSTANCE,
 } from './constants';
 import {
   IntegrationProviderAuthorizationError,
@@ -207,6 +210,7 @@ describe('#fetchComputeInstances', () => {
           blockProjectSSHKeys: { type: 'boolean' },
           isSerialPortEnabled: { type: 'boolean' },
           isShieldedVM: { type: 'boolean' },
+          isOSLoginEnabled: { type: 'boolean' },
           labelFingerprint: { type: 'string' },
           startRestricted: { type: 'boolean' },
           deletionProtection: { type: 'boolean' },
@@ -247,6 +251,110 @@ describe('#fetchComputeInstances', () => {
         }),
       ),
     );
+  });
+});
+
+describe('#fetchComputeProject', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'fetchComputeProject',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const customConfig = {
+      ...integrationConfig,
+      serviceAccountKeyConfig: {
+        ...integrationConfig.serviceAccountKeyConfig,
+        project_id: 'j1-gc-integration-dev-300716',
+      },
+    };
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: customConfig,
+    });
+
+    await fetchComputeInstances(context);
+    await fetchComputeProject(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === ENTITY_TYPE_COMPUTE_INSTANCE,
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: ['Host'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_compute_instance' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          machineType: { type: 'string' },
+          status: { type: 'string' },
+          zone: { type: 'string' },
+          canIpForward: { type: 'boolean' },
+          cpuPlatform: { type: 'string' },
+          isOSLoginEnabled: { type: 'boolean' },
+          labelFingerprint: { type: 'string' },
+          startRestricted: { type: 'boolean' },
+          deletionProtection: { type: 'boolean' },
+          fingerprint: { type: 'string' },
+          kind: { type: 'string' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === ENTITY_TYPE_COMPUTE_PROJECT,
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: ['Project'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_compute_project' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          id: { type: 'string' },
+          displayName: { type: 'string' },
+          isOSLoginEnabled: { type: 'boolean' },
+          name: { type: 'string' },
+          kind: { type: 'string' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === RELATIONSHIP_TYPE_PROJECT_HAS_INSTANCE,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'HAS' },
+          _type: { const: 'google_compute_project_has_instance' },
+        },
+      },
+    });
   });
 });
 

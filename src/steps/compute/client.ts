@@ -50,6 +50,17 @@ export class ComputeClient extends Client {
     );
   }
 
+  async fetchComputeProject(): Promise<compute_v1.Schema$Project> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    const computeProjectResponse = await this.client.projects.get({
+      auth: auth,
+      project: this.projectId,
+    });
+
+    return computeProjectResponse.data;
+  }
+
   async iterateComputeInstances(
     callback: (data: compute_v1.Schema$Instance) => Promise<void>,
   ): Promise<void> {

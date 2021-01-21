@@ -199,6 +199,44 @@ export function getMockComputeInstance(
   };
 }
 
+export function getMockComputeProject(
+  partial?: Partial<compute_v1.Schema$Project>,
+): compute_v1.Schema$Project {
+  return {
+    id: '8075573275056338764',
+    kind: 'compute#project',
+    creationTimestamp: '2021-01-04T09:00:19.752-08:00',
+    name: 'j1-gc-integration-dev-300716',
+    commonInstanceMetadata: {
+      fingerprint: '3rFva159u8A=',
+      kind: 'compute#metadata',
+    },
+    quotas: [
+      {
+        metric: 'SNAPSHOTS',
+        limit: 1000,
+        usage: 0,
+      },
+      {
+        metric: 'NETWORKS',
+        limit: 5,
+        usage: 3,
+      },
+      {
+        metric: 'FIREWALLS',
+        limit: 100,
+        usage: 7,
+      },
+    ],
+    selfLink:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716',
+    defaultServiceAccount: '165882964161-compute@developer.gserviceaccount.com',
+    xpnProjectStatus: 'UNSPECIFIED_XPN_PROJECT_STATUS',
+    defaultNetworkTier: 'PREMIUM',
+    ...partial,
+  };
+}
+
 export function getMockComputeFirewall(
   partial?: compute_v1.Schema$Firewall,
 ): compute_v1.Schema$Firewall {

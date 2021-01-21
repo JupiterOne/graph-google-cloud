@@ -31,6 +31,7 @@ import {
   STEP_COMPUTE_FIREWALLS,
   STEP_COMPUTE_INSTANCES,
   STEP_COMPUTE_NETWORKS,
+  STEP_COMPUTE_PROJECT,
   STEP_COMPUTE_SUBNETWORKS,
 } from './steps/compute';
 import { STEP_CLOUD_KMS_KEYS, STEP_CLOUD_KMS_KEY_RINGS } from './steps/kms';
@@ -123,6 +124,9 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_COMPUTE_INSTANCES]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_PROJECT]: {
         disabled: false,
       },
       [STEP_COMPUTE_NETWORKS]: {
