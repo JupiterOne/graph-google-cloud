@@ -215,6 +215,7 @@ The following entities are created:
 | Compute Instance              | `google_compute_instance`        | `Host`              |
 | Compute Networks              | `google_compute_network`         | `Network`           |
 | Compute Subnetwork            | `google_compute_subnetwork`      | `Network`           |
+| DNS Managed Zone              | `google_dns_managed_zone`        | `DomainZone`        |
 | IAM Role                      | `google_iam_role`                | `AccessRole`        |
 | IAM Service Account           | `google_iam_service_account`     | `User`              |
 | IAM Service Account Key       | `google_iam_service_account_key` | `AccessKey`         |

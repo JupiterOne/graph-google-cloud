@@ -24,6 +24,7 @@ import {
   ENTITY_TYPE_COMPUTE_DISK,
   ENTITY_TYPE_COMPUTE_FIREWALL,
   ENTITY_TYPE_COMPUTE_INSTANCE,
+  ENTITY_CLASS_COMPUTE_NETWORK,
   ENTITY_TYPE_COMPUTE_SUBNETWORK,
   MAPPED_RELATIONSHIP_FIREWALL_RULE_TYPE,
   RELATIONSHIP_TYPE_FIREWALL_PROTECTS_NETWORK,
@@ -280,28 +281,35 @@ describe('#fetchComputeNetworks', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e._type === ENTITY_TYPE_COMPUTE_INSTANCE,
+        (e) => e._type === ENTITY_CLASS_COMPUTE_NETWORK,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['Network'],
       schema: {
         additionalProperties: false,
         properties: {
-          _type: { const: 'google_compute_instance' },
+          _type: { const: 'google_compute_network' },
           _rawData: {
             type: 'array',
             items: { type: 'object' },
           },
-          machineType: { type: 'string' },
-          status: { type: 'string' },
-          zone: { type: 'string' },
-          canIpForward: { type: 'boolean' },
-          cpuPlatform: { type: 'string' },
-          labelFingerprint: { type: 'string' },
-          startRestricted: { type: 'boolean' },
-          deletionProtection: { type: 'boolean' },
-          fingerprint: { type: 'string' },
-          kind: { type: 'string' },
+          id: { type: 'string' },
+          displayName: { type: 'string' },
+          description: { type: 'string' },
+          name: { type: 'string' },
+          createdOn: { type: 'number' },
+          routingMode: { type: 'string' },
+          autoCreateSubnetworks: { type: 'boolean' },
+          subnetworks: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          gatewayIPv4: { type: 'string' },
+          IPv4Range: { type: 'string' },
+          public: { type: 'boolean' },
+          internal: { type: 'boolean' },
+          CIDR: { const: null },
+          webLink: { type: 'string' },
         },
       },
     });
@@ -355,6 +363,7 @@ describe('#fetchComputeSubnetworks', () => {
           privateIpGoogleAccess: { type: 'boolean' },
           purpose: { type: 'string' },
           gatewayAddress: { type: 'string' },
+          isFlowLogsEnabled: { type: 'boolean' },
           CIDR: { type: 'string' },
           public: { type: 'boolean' },
           internal: { type: 'boolean' },

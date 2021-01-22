@@ -112,6 +112,19 @@ describe('#createComputeSubnetEntity', () => {
       ),
     ).toMatchSnapshot();
   });
+
+  test('should have isFlowLogsEnabled set to true if it is enabled for subnet', () => {
+    expect(
+      createComputeSubnetEntity(
+        getMockSubnet({
+          logConfig: {
+            enable: true,
+          },
+        }),
+        DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
+      ),
+    ).toMatchSnapshot();
+  });
 });
 
 describe('#createComputeNetworkEntity', () => {

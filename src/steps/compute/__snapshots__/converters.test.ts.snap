@@ -511,6 +511,7 @@ Object {
 exports[`#createComputeNetworkEntity should convert to entity 1`] = `
 Object {
   "CIDR": null,
+  "IPv4Range": undefined,
   "_class": Array [
     "Network",
   ],
@@ -586,6 +587,53 @@ Object {
   "gatewayAddress": "10.164.0.1",
   "id": "1234567890",
   "internal": true,
+  "isFlowLogsEnabled": false,
+  "name": "default",
+  "privateIpGoogleAccess": false,
+  "public": false,
+  "purpose": "PRIVATE",
+  "webLink": "https://console.cloud.google.com/networking/subnetworks/details/europe-west4/default?project=j1-gc-integration-dev",
+}
+`;
+
+exports[`#createComputeSubnetEntity should have isFlowLogsEnabled set to true if it is enabled for subnet 1`] = `
+Object {
+  "CIDR": "10.164.0.0/20",
+  "_class": Array [
+    "Network",
+  ],
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/europe-west4/subnetworks/default",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "creationTimestamp": "2020-08-07T10:20:16.033-07:00",
+        "fingerprint": "whfZBEBCda4=",
+        "gatewayAddress": "10.164.0.1",
+        "id": "1234567890",
+        "ipCidrRange": "10.164.0.0/20",
+        "kind": "compute#subnetwork",
+        "logConfig": Object {
+          "enable": true,
+        },
+        "name": "default",
+        "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/networks/default",
+        "privateIpGoogleAccess": false,
+        "privateIpv6GoogleAccess": "DISABLE_GOOGLE_ACCESS",
+        "purpose": "PRIVATE",
+        "region": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/europe-west4",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/europe-west4/subnetworks/default",
+      },
+    },
+  ],
+  "_type": "google_compute_subnetwork",
+  "createdOn": 1596820816033,
+  "description": undefined,
+  "displayName": "default",
+  "gatewayAddress": "10.164.0.1",
+  "id": "1234567890",
+  "internal": true,
+  "isFlowLogsEnabled": true,
   "name": "default",
   "privateIpGoogleAccess": false,
   "public": false,
