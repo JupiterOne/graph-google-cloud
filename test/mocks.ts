@@ -3,6 +3,7 @@ import {
   compute_v1,
   cloudresourcemanager_v1,
   bigquery_v2,
+  sqladmin_v1beta4,
 } from 'googleapis';
 
 export function getMockIamRole(
@@ -312,6 +313,68 @@ export function getMockBigQueryDataset(
     creationTime: '1610919167542',
     lastModifiedTime: '1610919344642',
     location: 'US',
+    ...partial,
+  };
+}
+
+export function getMockSQLInstance(
+  partial?: Partial<sqladmin_v1beta4.Schema$DatabaseInstance>,
+): sqladmin_v1beta4.Schema$DatabaseInstance {
+  return {
+    kind: 'sql#instance',
+    state: 'RUNNABLE',
+    settings: {
+      authorizedGaeApplications: [],
+      tier: 'db-custom-1-3840',
+      kind: 'sql#settings',
+      availabilityType: 'ZONAL',
+      pricingPlan: 'PER_USE',
+      activationPolicy: 'ALWAYS',
+      ipConfiguration: {
+        authorizedNetworks: [],
+        ipv4Enabled: true,
+      },
+      locationPreference: {
+        zone: 'europe-west3-b',
+        kind: 'sql#locationPreference',
+      },
+      dataDiskType: 'PD_SSD',
+      maintenanceWindow: {
+        kind: 'sql#maintenanceWindow',
+        hour: 0,
+        day: 0,
+      },
+      backupConfiguration: {
+        startTime: '06:00',
+        kind: 'sql#backupConfiguration',
+        location: 'eu',
+        backupRetentionSettings: {
+          retentionUnit: 'COUNT',
+          retainedBackups: 7,
+        },
+        enabled: true,
+        replicationLogArchivingEnabled: true,
+        pointInTimeRecoveryEnabled: true,
+        transactionLogRetentionDays: 7,
+      },
+      settingsVersion: '19',
+      storageAutoResizeLimit: '0',
+      storageAutoResize: true,
+      dataDiskSizeGb: '10',
+    },
+    etag: '98de3deaeeca4420e21a891488c187b0b029235e2e0cb551fc00a388d1ac4f7d',
+    ipAddresses: [],
+    instanceType: 'CLOUD_SQL_INSTANCE',
+    project: 'j1-gc-integration-dev-300716',
+    serviceAccountEmailAddress:
+      'p165882964161-x5ifig@gcp-sa-cloud-sql.iam.gserviceaccount.com',
+    selfLink:
+      'https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-300716/instances/cloud-sql-postgres',
+    connectionName:
+      'j1-gc-integration-dev-300716:europe-west3:cloud-sql-postgres',
+    name: 'cloud-sql-postgres',
+    region: 'europe-west3',
+    gceZone: 'europe-west3-b',
     ...partial,
   };
 }

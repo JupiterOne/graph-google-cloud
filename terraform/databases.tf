@@ -5,7 +5,7 @@ resource "random_id" "db_name_suffix" {
 }
 
 resource "google_sql_database_instance" "postgres_instance" {
-  name             = "cloud-sql-postgres-${random_id.db_name_suffix.hex}"
+  name             = "sql-postgres-${random_id.db_name_suffix.hex}"
   database_version = "POSTGRES_12"
   region           = "us-central1"
 
@@ -15,7 +15,7 @@ resource "google_sql_database_instance" "postgres_instance" {
 }
 
 resource "google_sql_database_instance" "mysql_instance" {
-  name             = "cloud-sql-mysql-${random_id.db_name_suffix.hex}"
+  name             = "sql-mysql-${random_id.db_name_suffix.hex}"
   database_version = "MYSQL_5_7"
   region           = "us-central1"
 

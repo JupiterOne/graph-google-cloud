@@ -1,14 +1,14 @@
 import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-testing';
-import { fetchCloudSQLInstances } from '.';
+import { fetchSQLAdminInstances } from '.';
 import { integrationConfig } from '../../../test/config';
 import { Recording, setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
 import { fetchResourceManagerProject } from '../resource-manager';
 
 import {
-  CLOUD_SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
-  CLOUD_SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
-  CLOUD_SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
+  SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
+  SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
+  SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
 } from './constants';
 
 describe('#fetchSQLInstances', () => {
@@ -38,7 +38,7 @@ describe('#fetchSQLInstances', () => {
     });
 
     await fetchResourceManagerProject(context);
-    await fetchCloudSQLInstances(context);
+    await fetchSQLAdminInstances(context);
 
     expect({
       numCollectedEntities: context.jobState.collectedEntities.length,
@@ -50,14 +50,14 @@ describe('#fetchSQLInstances', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e._type === CLOUD_SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
+        (e) => e._type === SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['Database'],
       schema: {
         additionalProperties: false,
         properties: {
-          _type: { const: 'google_cloud_sql_mysql_instance' },
+          _type: { const: 'google_sql_mysql_instance' },
           _rawData: {
             type: 'array',
             items: { type: 'object' },
@@ -80,14 +80,14 @@ describe('#fetchSQLInstances', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e._type === CLOUD_SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
+        (e) => e._type === SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['Database'],
       schema: {
         additionalProperties: false,
         properties: {
-          _type: { const: 'google_cloud_sql_postgres_instance' },
+          _type: { const: 'google_sql_postgres_instance' },
           _rawData: {
             type: 'array',
             items: { type: 'object' },
@@ -116,14 +116,14 @@ describe('#fetchSQLInstances', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e._type === CLOUD_SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
+        (e) => e._type === SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['Database'],
       schema: {
         additionalProperties: false,
         properties: {
-          _type: { const: 'google_cloud_sql_sql_server_instance' },
+          _type: { const: 'google_sql_sql_server_instance' },
           _rawData: {
             type: 'array',
             items: { type: 'object' },

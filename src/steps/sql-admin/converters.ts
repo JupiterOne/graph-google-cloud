@@ -1,12 +1,12 @@
 import { sqladmin_v1beta4 } from 'googleapis';
 import { createIntegrationEntity } from '@jupiterone/integration-sdk-core';
 import {
-  CLOUD_SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
-  CLOUD_SQL_ADMIN_MYSQL_INSTANCE_ENTITY_CLASS,
-  CLOUD_SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
-  CLOUD_SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_CLASS,
-  CLOUD_SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
-  CLOUD_SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_CLASS,
+  SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
+  SQL_ADMIN_MYSQL_INSTANCE_ENTITY_CLASS,
+  SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
+  SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_CLASS,
+  SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
+  SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_CLASS,
 } from './constants';
 
 function getFlagValue(
@@ -108,7 +108,7 @@ function getCommonBenchmarkProperties(
   };
 }
 
-export function createCloudMySQLInstanceEntity(
+export function createMySQLInstanceEntity(
   instance: sqladmin_v1beta4.Schema$DatabaseInstance,
 ) {
   return createIntegrationEntity({
@@ -116,8 +116,8 @@ export function createCloudMySQLInstanceEntity(
       source: instance,
       assign: {
         _key: instance.connectionName as string,
-        _type: CLOUD_SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
-        _class: CLOUD_SQL_ADMIN_MYSQL_INSTANCE_ENTITY_CLASS,
+        _type: SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
+        _class: SQL_ADMIN_MYSQL_INSTANCE_ENTITY_CLASS,
         name: instance.name,
         encrypted: true,
         location: instance.connectionName,
@@ -128,7 +128,7 @@ export function createCloudMySQLInstanceEntity(
   });
 }
 
-export function createCloudPostgresInstanceEntity(
+export function createPostgresInstanceEntity(
   instance: sqladmin_v1beta4.Schema$DatabaseInstance,
 ) {
   return createIntegrationEntity({
@@ -136,8 +136,8 @@ export function createCloudPostgresInstanceEntity(
       source: instance,
       assign: {
         _key: instance.connectionName as string,
-        _type: CLOUD_SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
-        _class: CLOUD_SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_CLASS,
+        _type: SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
+        _class: SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_CLASS,
         name: instance.name,
         encrypted: true,
         location: instance.connectionName,
@@ -148,7 +148,7 @@ export function createCloudPostgresInstanceEntity(
   });
 }
 
-export function createCloudSQLServerInstanceEntity(
+export function createSQLServerInstanceEntity(
   instance: sqladmin_v1beta4.Schema$DatabaseInstance,
 ) {
   return createIntegrationEntity({
@@ -156,8 +156,8 @@ export function createCloudSQLServerInstanceEntity(
       source: instance,
       assign: {
         _key: instance.connectionName as string,
-        _type: CLOUD_SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
-        _class: CLOUD_SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_CLASS,
+        _type: SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
+        _class: SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_CLASS,
         name: instance.name,
         encrypted: true,
         location: instance.connectionName,
