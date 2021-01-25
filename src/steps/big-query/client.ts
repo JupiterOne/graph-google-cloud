@@ -5,7 +5,6 @@ export class BigQueryClient extends Client {
   private client = google.bigquery('v2');
 
   async iterateBigQueryDatasets(
-    projectId: string,
     callback: (data: bigquery_v2.Schema$Dataset) => Promise<void>,
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
@@ -14,7 +13,7 @@ export class BigQueryClient extends Client {
       async (nextPageToken) => {
         return this.client.datasets.list({
           auth,
-          projectId,
+          projectId: this.projectId,
           pageToken: nextPageToken,
         });
       },
@@ -23,7 +22,7 @@ export class BigQueryClient extends Client {
           if (datasetRef?.datasetReference?.datasetId) {
             const dataset = await this.client.datasets.get({
               auth,
-              projectId,
+              projectId: this.projectId,
               datasetId: datasetRef.datasetReference?.datasetId,
             });
 

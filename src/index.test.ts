@@ -35,7 +35,7 @@ import {
 } from './steps/compute';
 import { STEP_CLOUD_KMS_KEYS, STEP_CLOUD_KMS_KEY_RINGS } from './steps/kms';
 import { STEP_CLOUD_SQL_ADMIN_INSTANCES } from './steps/sql-admin';
-import { STEP_CLOUD_BIG_QUERY_DATASETS } from './steps/big-query';
+import { STEP_BIG_QUERY_DATASETS } from './steps/big-query';
 
 interface ValidateInvocationInvalidConfigTestParams {
   instanceConfig?: Partial<IntegrationConfig>;
@@ -142,7 +142,7 @@ describe('#getStepStartStates success', () => {
       [STEP_CLOUD_SQL_ADMIN_INSTANCES]: {
         disabled: false,
       },
-      [STEP_CLOUD_BIG_QUERY_DATASETS]: {
+      [STEP_BIG_QUERY_DATASETS]: {
         disabled: false,
       },
     };

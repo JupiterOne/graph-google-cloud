@@ -1,8 +1,8 @@
 import { bigquery_v2 } from 'googleapis';
 import { createIntegrationEntity } from '@jupiterone/integration-sdk-core';
 import {
-  CLOUD_BIG_QUERY_DATASET_ENTITY_CLASS,
-  CLOUD_BIG_QUERY_DATASET_ENTITY_TYPE,
+  BIG_QUERY_DATASET_ENTITY_CLASS,
+  BIG_QUERY_DATASET_ENTITY_TYPE,
 } from './constants';
 import { isMemberPublic } from '../../utils/iam';
 
@@ -40,8 +40,8 @@ export function createBigQueryDatasetEntity(
       source: dataset,
       assign: {
         _key: dataset.id as string,
-        _type: CLOUD_BIG_QUERY_DATASET_ENTITY_TYPE,
-        _class: CLOUD_BIG_QUERY_DATASET_ENTITY_CLASS,
+        _type: BIG_QUERY_DATASET_ENTITY_TYPE,
+        _class: BIG_QUERY_DATASET_ENTITY_CLASS,
         name: dataset.datasetReference?.datasetId,
         public: isBigQueryDatasetPublicAccess(dataset.access || []),
         location: dataset.location,

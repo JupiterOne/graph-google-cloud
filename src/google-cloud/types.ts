@@ -12,4 +12,5 @@ export enum ServiceUsageName {
   COMPUTE = 'compute.googleapis.com',
   KMS = 'cloudkms.googleapis.com',
   SQL_ADMIN = 'sqladmin.googleapis.com',
+  BIG_QUERY = 'bigquery.googleapis.com',
 }

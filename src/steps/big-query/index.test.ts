@@ -5,7 +5,7 @@ import { Recording, setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
 import { fetchResourceManagerProject } from '../resource-manager';
 
-import { CLOUD_BIG_QUERY_DATASET_ENTITY_TYPE } from './constants';
+import { BIG_QUERY_DATASET_ENTITY_TYPE } from './constants';
 
 describe('#fetchBigQueryDatasets', () => {
   let recording: Recording;
@@ -46,14 +46,14 @@ describe('#fetchBigQueryDatasets', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e._type === CLOUD_BIG_QUERY_DATASET_ENTITY_TYPE,
+        (e) => e._type === BIG_QUERY_DATASET_ENTITY_TYPE,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['DataStore'],
       schema: {
         additionalProperties: false,
         properties: {
-          _type: { const: 'google_cloud_big_query_dataset' },
+          _type: { const: 'google_bigquery_dataset' },
           _rawData: {
             type: 'array',
             items: { type: 'object' },

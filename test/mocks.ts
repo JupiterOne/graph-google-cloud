@@ -1,4 +1,9 @@
-import { iam_v1, compute_v1, cloudresourcemanager_v1 } from 'googleapis';
+import {
+  iam_v1,
+  compute_v1,
+  cloudresourcemanager_v1,
+  bigquery_v2,
+} from 'googleapis';
 
 export function getMockIamRole(
   partial?: Partial<iam_v1.Schema$Role>,
@@ -281,6 +286,32 @@ export function getMockProject(
       type: 'organization',
       id: '158838481165',
     },
+    ...partial,
+  };
+}
+
+export function getMockBigQueryDataset(
+  partial?: Partial<bigquery_v2.Schema$Dataset>,
+): bigquery_v2.Schema$Dataset {
+  return {
+    kind: 'bigquery#dataset',
+    etag: 'Q1RJczpo1aoPRRoUJ1pElQ==',
+    id: 'j1-gc-integration-dev-300716:test_big_query_dataset',
+    selfLink:
+      'https://www.googleapis.com/bigquery/v2/projects/j1-gc-integration-dev-300716/datasets/test_big_query_dataset',
+    datasetReference: {
+      datasetId: 'test_big_query_dataset',
+      projectId: 'j1-gc-integration-dev-300716',
+    },
+    access: [
+      { role: 'WRITER', specialGroup: 'projectWriters' },
+      { role: 'OWNER', specialGroup: 'projectOwners' },
+      { role: 'OWNER', userByEmail: 'admin@creativice.com' },
+      { role: 'READER', specialGroup: 'projectReaders' },
+    ],
+    creationTime: '1610919167542',
+    lastModifiedTime: '1610919344642',
+    location: 'US',
     ...partial,
   };
 }
