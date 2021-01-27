@@ -462,27 +462,51 @@ async function setupOrganizationProject(
     return SetupOrganizationProjectResult.EXISTS;
   }
 
+  logger.info('Fetching policy for project...');
   const projectPolicy = await getPolicyForProject(googleAccessToken, projectId);
+  logger.info('Creating service account for project');
   const serviceAccount = await createServiceAccount(
     googleAccessToken,
     projectId,
   );
   const serviceAccountEmail = serviceAccount?.email as string;
 
+  logger.info(
+    {
+      serviceAccountEmail,
+    },
+    'Successfully created service account for project',
+  );
+
   const newPolicy = buildPolicyWithServiceAccountSecurityRoleMember(
     projectPolicy,
     serviceAccountEmail,
   );
 
+  logger.info('Attempting to update IAM policy for project...');
   await setIamPolicyForProject(googleAccessToken, projectId, newPolicy);
+  logger.info('Successfully updated IAM policy for project...');
+
+  logger.info('Attempting to create service account key for project...');
+
+  const serviceAccountKeyResponse = await createServiceAccountKey(
+    googleAccessToken,
+    projectId,
+    serviceAccountEmail,
+  );
 
   const serviceAccountKey = decodeServiceAccountKeyFile(
-    await createServiceAccountKey(
-      googleAccessToken,
-      projectId,
-      serviceAccountEmail,
-    ),
+    serviceAccountKeyResponse,
   );
+
+  logger.info(
+    {
+      serviceAccountKeyName: serviceAccountKeyResponse.name,
+    },
+    'Successfully created service account key for project.',
+  );
+
+  logger.info('Attemping to create J1 integration instance...');
 
   const result = await createJupiterOneIntegrationInstance(
     jupiteroneAccountId,
@@ -572,7 +596,14 @@ export async function setupOrganization(
       let project: cloudresourcemanager_v1.Schema$Project;
 
       try {
+        logger.info('Attempting to fetch project details...');
         project = await getProject(googleAccessToken, projectId);
+        logger.info(
+          {
+            projectNumber: project.projectNumber,
+          },
+          'Successfully fetched project details',
+        );
       } catch (err) {
         logger.error({ err }, 'Error fetching project details');
         // Continue moving forward if a single project fails to be created!
