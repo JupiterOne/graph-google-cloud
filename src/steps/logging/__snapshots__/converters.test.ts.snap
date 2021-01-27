@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createMetricEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Configuration",
+  ],
+  "_key": "my-example-metric",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "createTime": "2021-02-02T16:14:20.068899250Z",
+        "filter": "protoPayload.methodName=\\"SetIamPolicy\\" AND protoPayload.serviceData.policyDelta.auditConfigDeltas:*",
+        "labelExtractors": Object {
+          "occurences": "EXTRACT(textPayload)",
+        },
+        "metricDescriptor": Object {
+          "displayName": "My metric",
+          "labels": Array [
+            Object {
+              "key": "occurences",
+              "valueType": "INT64",
+            },
+          ],
+          "metricKind": "DELTA",
+          "name": "projects/j1-gc-integration-dev-300716/metricDescriptors/logging.googleapis.com/user/my-example-metric",
+          "type": "logging.googleapis.com/user/my-example-metric",
+          "unit": "1",
+          "valueType": "INT64",
+        },
+        "name": "my-example-metric",
+        "updateTime": "2021-02-02T16:14:20.068899250Z",
+      },
+    },
+  ],
+  "_type": "google_logging_metric",
+  "createdOn": 1612282460068,
+  "displayName": "my-example-metric",
+  "filter": "protoPayload.methodName=\\"SetIamPolicy\\" AND protoPayload.serviceData.policyDelta.auditConfigDeltas:*",
+  "name": "my-example-metric",
+  "updatedOn": 1612282460068,
+}
+`;
+
+exports[`#createProjectSinkEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Configuration",
+  ],
+  "_key": "google_logging_log_sink:example-sink",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "bigqueryOptions": Object {},
+        "createTime": "2021-01-27T18:44:26.303792531Z",
+        "destination": "bigquery.googleapis.com/projects/j1-gc-integration-dev-300716/datasets/test_big_query_dataset",
+        "name": "example-sink",
+        "updateTime": "2021-01-27T18:44:26.303792531Z",
+        "writerIdentity": "serviceAccount:p165882964161-737968@gcp-sa-logging.iam.gserviceaccount.com",
+      },
+    },
+  ],
+  "_type": "google_logging_project_sink",
+  "createdOn": 1611773066303,
+  "destination": "bigquery.googleapis.com/projects/j1-gc-integration-dev-300716/datasets/test_big_query_dataset",
+  "displayName": "example-sink",
+  "filter": undefined,
+  "name": "example-sink",
+  "updatedOn": 1611773066303,
+}
+`;

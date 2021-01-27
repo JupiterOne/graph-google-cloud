@@ -7,6 +7,9 @@ import {
   dns_v1,
   container_v1,
   cloudkms_v1,
+  logging_v2,
+  storage_v1,
+  monitoring_v3,
 } from 'googleapis';
 
 export function getMockIamRole(
@@ -565,6 +568,22 @@ export function getMockContainerCluster(
   };
 }
 
+export function getMockLoggingProjectSink(
+  partial?: Partial<logging_v2.Schema$LogSink>,
+): logging_v2.Schema$LogSink {
+  return {
+    name: 'example-sink',
+    destination:
+      'bigquery.googleapis.com/projects/j1-gc-integration-dev-300716/datasets/test_big_query_dataset',
+    writerIdentity:
+      'serviceAccount:p165882964161-737968@gcp-sa-logging.iam.gserviceaccount.com',
+    bigqueryOptions: {},
+    createTime: '2021-01-27T18:44:26.303792531Z',
+    updateTime: '2021-01-27T18:44:26.303792531Z',
+    ...partial,
+  };
+}
+
 export function getMockKmsKeyRing(
   partial?: cloudkms_v1.Schema$KeyRing,
 ): cloudkms_v1.Schema$KeyRing {
@@ -572,6 +591,39 @@ export function getMockKmsKeyRing(
     name:
       'projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring',
     createTime: '2020-07-28T18:34:26.034565002Z',
+    ...partial,
+  };
+}
+
+export function getMockStorageBucket(
+  partial?: Partial<storage_v1.Schema$Bucket>,
+): storage_v1.Schema$Bucket {
+  return {
+    kind: 'storage#bucket',
+    selfLink:
+      'https://www.googleapis.com/storage/v1/b/customer-managed-encryption-key-bucket-1234',
+    id: 'customer-managed-encryption-key-bucket-1234',
+    name: 'customer-managed-encryption-key-bucket-1234',
+    projectNumber: '1234',
+    metageneration: '1',
+    location: 'US',
+    storageClass: 'STANDARD',
+    etag: 'CAE=',
+    timeCreated: '2020-07-28T19:06:14.033Z',
+    updated: '2020-07-28T19:06:14.033Z',
+    encryption: {
+      defaultKmsKeyName:
+        'projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key',
+    },
+    iamConfiguration: {
+      bucketPolicyOnly: {
+        enabled: false,
+      },
+      uniformBucketLevelAccess: {
+        enabled: false,
+      },
+    },
+    locationType: 'multi-region',
     ...partial,
   };
 }
@@ -603,6 +655,29 @@ export function getMockKmsCryptoKey(
   };
 }
 
+export function getMockAlertPolicy(
+  partial?: Partial<monitoring_v3.Schema$AlertPolicy>,
+): monitoring_v3.Schema$AlertPolicy {
+  return {
+    name:
+      'projects/j1-gc-integration-dev-300716/alertPolicies/9246450381922925470',
+    displayName: 'Example Alert Policy',
+    combiner: 'OR',
+    creationRecord: {
+      mutateTime: '2021-02-02T16:18:23.127595226Z',
+      mutatedBy:
+        'j1-gc-integration-dev-sa@j1-gc-integration-dev-300716.iam.gserviceaccount.com',
+    },
+    mutationRecord: {
+      mutateTime: '2021-02-02T16:18:23.127595226Z',
+      mutatedBy:
+        'j1-gc-integration-dev-sa@j1-gc-integration-dev-300716.iam.gserviceaccount.com',
+    },
+    enabled: true,
+    ...partial,
+  };
+}
+
 export function getMockKmsCryptoKeyIamPolicy(
   partial?: cloudkms_v1.Schema$Policy,
 ): cloudkms_v1.Schema$Policy {
@@ -610,6 +685,37 @@ export function getMockKmsCryptoKeyIamPolicy(
     version: 1,
     etag: 'BwW6Cs8MqSM=',
     bindings: [],
+    ...partial,
+  };
+}
+
+export function getMockMetric(
+  partial?: Partial<logging_v2.Schema$LogMetric>,
+): logging_v2.Schema$LogMetric {
+  return {
+    name: 'my-example-metric',
+    filter:
+      'protoPayload.methodName="SetIamPolicy" AND protoPayload.serviceData.policyDelta.auditConfigDeltas:*',
+    metricDescriptor: {
+      name:
+        'projects/j1-gc-integration-dev-300716/metricDescriptors/logging.googleapis.com/user/my-example-metric',
+      labels: [
+        {
+          key: 'occurences',
+          valueType: 'INT64',
+        },
+      ],
+      metricKind: 'DELTA',
+      valueType: 'INT64',
+      unit: '1',
+      displayName: 'My metric',
+      type: 'logging.googleapis.com/user/my-example-metric',
+    },
+    labelExtractors: {
+      occurences: 'EXTRACT(textPayload)',
+    },
+    createTime: '2021-02-02T16:14:20.068899250Z',
+    updateTime: '2021-02-02T16:14:20.068899250Z',
     ...partial,
   };
 }

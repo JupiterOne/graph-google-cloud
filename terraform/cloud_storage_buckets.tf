@@ -63,3 +63,7 @@ resource "google_storage_bucket_iam_policy" "policy" {
 ################################################################################
 # End public bucket code
 ################################################################################
+
+resource "google_storage_bucket" "sink-log-bucket" {
+  name = "my-unique-sink-logging-bucket"
+}

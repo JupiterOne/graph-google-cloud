@@ -12,6 +12,8 @@ import { sqlAdminSteps } from './steps/sql-admin';
 import { bigQuerySteps } from './steps/big-query';
 import { dnsManagedZonesSteps } from './steps/dns';
 import { containerSteps } from './steps/containers';
+import { loggingSteps } from './steps/logging';
+import { monitoringSteps } from './steps/monitoring';
 
 export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> = {
   instanceConfigFields: {
@@ -33,5 +35,7 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> = 
     ...bigQuerySteps,
     ...dnsManagedZonesSteps,
     ...containerSteps,
+    ...loggingSteps,
+    ...monitoringSteps,
   ],
 };

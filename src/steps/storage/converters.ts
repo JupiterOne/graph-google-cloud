@@ -15,6 +15,10 @@ function getCloudStorageBucketWebLink(
   return `https://console.cloud.google.com/storage/browser/${data.name};tab=objects?forceOnBucketsSortingFiltering=false&project=${projectId}`;
 }
 
+export function getCloudStorageBucketId(id: string) {
+  return `bucket:${id}`;
+}
+
 export function createCloudStorageBucketEntity({
   data,
   projectId,
@@ -30,7 +34,7 @@ export function createCloudStorageBucketEntity({
       assign: {
         _class: CLOUD_STORAGE_BUCKET_ENTITY_CLASS,
         _type: CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
-        _key: `bucket:${data.id}`,
+        _key: getCloudStorageBucketId(data.id as string),
         id: data.id as string,
         name: data.name,
         displayName: data.name as string,
@@ -44,6 +48,10 @@ export function createCloudStorageBucketEntity({
         // https://cloud.google.com/storage/docs/uniform-bucket-level-access
         uniformBucketLevelAccess:
           data.iamConfiguration?.uniformBucketLevelAccess?.enabled === true,
+        // 2.3 Ensure that retention policies on log buckets are configured using Bucket Lock (Scored)
+        retentionPolicyEnabled: data.retentionPolicy?.isLocked,
+        retentionPeriod: data.retentionPolicy?.retentionPeriod,
+        retentionDate: data.retentionPolicy?.effectiveTime,
         public: isPublic,
         // Rely on the value of the classification tag
         classification: null,

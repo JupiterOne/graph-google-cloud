@@ -39,6 +39,11 @@ import { STEP_BIG_QUERY_DATASETS } from './steps/big-query';
 import { STEP_SQL_ADMIN_INSTANCES } from './steps/sql-admin';
 import { STEP_DNS_MANAGED_ZONES } from './steps/dns/constants';
 import { STEP_CONTAINER_CLUSTERS } from './steps/containers';
+import {
+  STEP_LOGGING_METRICS,
+  STEP_LOGGING_PROJECT_SINKS,
+} from './steps/logging/constants';
+import { STEP_MONITORING_ALERT_POLICIES } from './steps/monitoring/constants';
 
 interface ValidateInvocationInvalidConfigTestParams {
   instanceConfig?: Partial<IntegrationConfig>;
@@ -155,6 +160,15 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_BIG_QUERY_DATASETS]: {
+        disabled: false,
+      },
+      [STEP_LOGGING_METRICS]: {
+        disabled: false,
+      },
+      [STEP_LOGGING_PROJECT_SINKS]: {
+        disabled: false,
+      },
+      [STEP_MONITORING_ALERT_POLICIES]: {
         disabled: false,
       },
     };

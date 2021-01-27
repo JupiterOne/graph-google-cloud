@@ -1,0 +1,128 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchAlertPolicies should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Policy",
+      ],
+      "_key": "projects/j1-gc-integration-dev-300716/alertPolicies/17906798822773338482",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "combiner": "OR",
+            "conditions": Array [
+              Object {
+                "conditionThreshold": Object {
+                  "aggregations": Array [
+                    Object {
+                      "alignmentPeriod": "300s",
+                      "perSeriesAligner": "ALIGN_RATE",
+                    },
+                  ],
+                  "comparison": "COMPARISON_GT",
+                  "duration": "0s",
+                  "filter": "metric.type=\\"logging.googleapis.com/user/test-metric\\"",
+                  "trigger": Object {
+                    "count": 1,
+                  },
+                },
+                "displayName": "logging/user/test-metric [RATE]",
+                "name": "projects/j1-gc-integration-dev-300716/alertPolicies/17906798822773338482/conditions/17906798822773340137",
+              },
+            ],
+            "creationRecord": Object {
+              "mutateTime": "2021-01-27T20:26:35.549474766Z",
+              "mutatedBy": "admin@creativice.com",
+            },
+            "displayName": "test-alert-policy",
+            "enabled": true,
+            "mutationRecord": Object {
+              "mutateTime": "2021-01-27T20:26:35.549474766Z",
+              "mutatedBy": "admin@creativice.com",
+            },
+            "name": "projects/j1-gc-integration-dev-300716/alertPolicies/17906798822773338482",
+          },
+        },
+      ],
+      "_type": "google_monitoring_alert_policy",
+      "conditionFilters": Array [
+        "metric.type=\\"logging.googleapis.com/user/test-metric\\"",
+      ],
+      "content": "",
+      "createdOn": 1611779195549,
+      "displayName": "test-alert-policy",
+      "enabled": true,
+      "name": "test-alert-policy",
+      "summary": "Alert policy that is triggered based on some metric",
+      "title": "Alert policy",
+      "updatedOn": 1611779195549,
+    },
+    Object {
+      "_class": Array [
+        "Policy",
+      ],
+      "_key": "projects/j1-gc-integration-dev-300716/alertPolicies/9246450381922925470",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "combiner": "OR",
+            "conditions": Array [
+              Object {
+                "conditionThreshold": Object {
+                  "aggregations": Array [
+                    Object {
+                      "alignmentPeriod": "300s",
+                      "perSeriesAligner": "ALIGN_RATE",
+                    },
+                  ],
+                  "comparison": "COMPARISON_GT",
+                  "duration": "0s",
+                  "filter": "metric.type=\\"logging.googleapis.com/user/my-example-metric\\" AND resource.type=\\"metric\\"",
+                  "trigger": Object {
+                    "count": 1,
+                  },
+                },
+                "displayName": "test condition",
+                "name": "projects/j1-gc-integration-dev-300716/alertPolicies/9246450381922925470/conditions/9246450381922923601",
+              },
+            ],
+            "creationRecord": Object {
+              "mutateTime": "2021-02-02T16:18:23.127595226Z",
+              "mutatedBy": "j1-gc-integration-dev-sa@j1-gc-integration-dev-300716.iam.gserviceaccount.com",
+            },
+            "displayName": "Example Alert Policy",
+            "enabled": true,
+            "mutationRecord": Object {
+              "mutateTime": "2021-02-02T16:18:23.127595226Z",
+              "mutatedBy": "j1-gc-integration-dev-sa@j1-gc-integration-dev-300716.iam.gserviceaccount.com",
+            },
+            "name": "projects/j1-gc-integration-dev-300716/alertPolicies/9246450381922925470",
+          },
+        },
+      ],
+      "_type": "google_monitoring_alert_policy",
+      "conditionFilters": Array [
+        "metric.type=\\"logging.googleapis.com/user/my-example-metric\\" AND resource.type=\\"metric\\"",
+      ],
+      "content": "",
+      "createdOn": 1612282703127,
+      "displayName": "Example Alert Policy",
+      "enabled": true,
+      "name": "Example Alert Policy",
+      "summary": "Alert policy that is triggered based on some metric",
+      "title": "Alert policy",
+      "updatedOn": 1612282703127,
+    },
+  ],
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
+    "google_monitoring_alert_policy",
+  ],
+  "numCollectedEntities": 2,
+  "numCollectedRelationships": 0,
+}
+`;
