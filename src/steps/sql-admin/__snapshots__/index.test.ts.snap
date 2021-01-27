@@ -140,7 +140,7 @@ xt8kXLb2r/M5krTTh/mp28/0tgc85mJPbVLo6blLyHrwxBBnpWHKCBIr98YReu+I
           },
         },
       ],
-      "_type": "google_cloud_sql_postgres_instance",
+      "_type": "google_sql_postgres_instance",
       "authorizedNetworks": Array [],
       "automatedBackupsEnabled": false,
       "createdOn": undefined,
@@ -257,7 +257,7 @@ Lwyd9MLA6stoLHUEaLpuFa0u75y8lmnaiN6GvdukbGUMtG5gEBa4biUCBhBqaQeK
           },
         },
       ],
-      "_type": "google_cloud_sql_mysql_instance",
+      "_type": "google_sql_mysql_instance",
       "authorizedNetworks": Array [
         "0.0.0.0/0",
       ],
@@ -275,8 +275,8 @@ Lwyd9MLA6stoLHUEaLpuFa0u75y8lmnaiN6GvdukbGUMtG5gEBa4biUCBhBqaQeK
   "collectedRelationships": Array [],
   "encounteredTypes": Array [
     "google_cloud_project",
-    "google_cloud_sql_postgres_instance",
-    "google_cloud_sql_mysql_instance",
+    "google_sql_postgres_instance",
+    "google_sql_mysql_instance",
   ],
   "numCollectedEntities": 3,
   "numCollectedRelationships": 0,
