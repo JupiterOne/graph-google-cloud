@@ -484,7 +484,7 @@ async function setupOrganizationProject(
     ),
   );
 
-  const instance = await createJupiterOneIntegrationInstance(
+  const result = await createJupiterOneIntegrationInstance(
     jupiteroneAccountId,
     jupiteroneApiKey,
     projectId,
@@ -492,9 +492,23 @@ async function setupOrganizationProject(
     jupiteroneEnv,
   );
 
+  if (result.error) {
+    logger.error(
+      {
+        result,
+        jupiteroneAccountId,
+        projectId,
+        jupiteroneEnv,
+      },
+      'Could not create integration instance in account. Please check the provided J1 account ID and API key',
+    );
+    return SetupOrganizationProjectResult.FAILED;
+  }
+
   logger.info(
     {
-      integrationInstanceId: instance.id,
+      result,
+      integrationInstanceId: result.id,
       projectId,
     },
     'Integration instance created for Google Cloud project',
