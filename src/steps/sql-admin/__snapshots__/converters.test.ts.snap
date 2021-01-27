@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`#createCloudMySQLInstanceEntity should convert to entity 1`] = `
+exports[`#createMySQLInstanceEntity should convert to entity 1`] = `
 Object {
   "_class": Array [
     "Database",
@@ -66,7 +66,7 @@ Object {
       },
     },
   ],
-  "_type": "google_cloud_sql_mysql_instance",
+  "_type": "google_sql_mysql_instance",
   "authorizedNetworks": Array [],
   "automatedBackupsEnabled": true,
   "createdOn": undefined,
@@ -80,7 +80,7 @@ Object {
 }
 `;
 
-exports[`#createCloudMySQLInstanceEntity should convert to entity with localInfile param set to off 1`] = `
+exports[`#createMySQLInstanceEntity should convert to entity with localInfile param set to off 1`] = `
 Object {
   "_class": Array [
     "Database",
@@ -115,7 +115,7 @@ Object {
       },
     },
   ],
-  "_type": "google_cloud_sql_mysql_instance",
+  "_type": "google_sql_mysql_instance",
   "authorizedNetworks": Array [],
   "automatedBackupsEnabled": undefined,
   "createdOn": undefined,
@@ -129,7 +129,7 @@ Object {
 }
 `;
 
-exports[`#createCloudMySQLInstanceEntity should convert to entity with requireSSL param set to true 1`] = `
+exports[`#createMySQLInstanceEntity should convert to entity with requireSSL param set to true 1`] = `
 Object {
   "_class": Array [
     "Database",
@@ -161,7 +161,7 @@ Object {
       },
     },
   ],
-  "_type": "google_cloud_sql_mysql_instance",
+  "_type": "google_sql_mysql_instance",
   "authorizedNetworks": Array [],
   "automatedBackupsEnabled": undefined,
   "createdOn": undefined,
@@ -175,7 +175,7 @@ Object {
 }
 `;
 
-exports[`#createCloudPostgresInstanceEntity should convert to entity 1`] = `
+exports[`#createPostgresInstanceEntity should convert to entity 1`] = `
 Object {
   "_class": Array [
     "Database",
@@ -241,7 +241,7 @@ Object {
       },
     },
   ],
-  "_type": "google_cloud_sql_postgres_instance",
+  "_type": "google_sql_postgres_instance",
   "authorizedNetworks": Array [],
   "automatedBackupsEnabled": true,
   "createdOn": undefined,
@@ -261,7 +261,7 @@ Object {
 }
 `;
 
-exports[`#createCloudPostgresInstanceEntity should convert to entity with logCheckpoints param set to off 1`] = `
+exports[`#createPostgresInstanceEntity should convert to entity with logCheckpoints param set to off 1`] = `
 Object {
   "_class": Array [
     "Database",
@@ -296,7 +296,7 @@ Object {
       },
     },
   ],
-  "_type": "google_cloud_sql_postgres_instance",
+  "_type": "google_sql_postgres_instance",
   "authorizedNetworks": Array [],
   "automatedBackupsEnabled": undefined,
   "createdOn": undefined,
@@ -316,7 +316,7 @@ Object {
 }
 `;
 
-exports[`#createCloudSQLServerInstanceEntity should convert to entity 1`] = `
+exports[`#createSQLServerInstanceEntity should convert to entity 1`] = `
 Object {
   "_class": Array [
     "Database",
@@ -382,7 +382,7 @@ Object {
       },
     },
   ],
-  "_type": "google_cloud_sql_sql_server_instance",
+  "_type": "google_sql_sql_server_instance",
   "authorizedNetworks": Array [],
   "automatedBackupsEnabled": true,
   "containedDatabaseAuthentication": undefined,
@@ -397,7 +397,7 @@ Object {
 }
 `;
 
-exports[`#createCloudSQLServerInstanceEntity should convert to entity with crossDbOwnershipChaining param set to on 1`] = `
+exports[`#createSQLServerInstanceEntity should convert to entity with crossDbOwnershipChaining param set to on 1`] = `
 Object {
   "_class": Array [
     "Database",
@@ -432,7 +432,7 @@ Object {
       },
     },
   ],
-  "_type": "google_cloud_sql_sql_server_instance",
+  "_type": "google_sql_sql_server_instance",
   "authorizedNetworks": Array [],
   "automatedBackupsEnabled": undefined,
   "containedDatabaseAuthentication": undefined,

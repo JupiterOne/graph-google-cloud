@@ -204,27 +204,27 @@ https://github.com/JupiterOne/sdk/blob/master/docs/integrations/development.md
 
 The following entities are created:
 
-| Resources                           | Entity `_type`                         | Entity `_class`     |
-| ----------------------------------- | -------------------------------------- | ------------------- |
-| Big Query Dataset                   | `google_bigquery_dataset`              | `DataStore`         |
-| Cloud API Service                   | `google_cloud_api_service`             | `Service`           |
-| Cloud Function                      | `google_cloud_function`                | `Function`          |
-| Cloud SQL Admin MySQL Instance      | `google_cloud_sql_mysql_instance`      | `Database`          |
-| Cloud SQL Admin Postgres Instance   | `google_cloud_sql_postgres_instance`   | `Database`          |
-| Cloud SQL Admin SQL Server Instance | `google_cloud_sql_sql_server_instance` | `Database`          |
-| Cloud Storage Bucket                | `google_storage_bucket`                | `DataStore`         |
-| Compute Disk                        | `google_compute_disk`                  | `DataStore`, `Disk` |
-| Compute Firewalls                   | `google_compute_firewall`              | `Firewall`          |
-| Compute Instance                    | `google_compute_instance`              | `Host`              |
-| Compute Networks                    | `google_compute_network`               | `Network`           |
-| Compute Subnetwork                  | `google_compute_subnetwork`            | `Network`           |
-| IAM Role                            | `google_iam_role`                      | `AccessRole`        |
-| IAM Service Account                 | `google_iam_service_account`           | `User`              |
-| IAM Service Account Key             | `google_iam_service_account_key`       | `AccessKey`         |
-| IAM User                            | `google_user`                          | `User`              |
-| KMS Crypto Key                      | `google_kms_crypto_key`                | `Key`, `CryptoKey`  |
-| KMS Key Ring                        | `google_kms_key_ring`                  | `Vault`             |
-| Project                             | `google_cloud_project`                 | `Account`           |
+| Resources                     | Entity `_type`                   | Entity `_class`     |
+| ----------------------------- | -------------------------------- | ------------------- |
+| Big Query Dataset             | `google_bigquery_dataset`        | `DataStore`         |
+| Cloud API Service             | `google_cloud_api_service`       | `Service`           |
+| Cloud Function                | `google_cloud_function`          | `Function`          |
+| Cloud Storage Bucket          | `google_storage_bucket`          | `DataStore`         |
+| Compute Disk                  | `google_compute_disk`            | `DataStore`, `Disk` |
+| Compute Firewalls             | `google_compute_firewall`        | `Firewall`          |
+| Compute Instance              | `google_compute_instance`        | `Host`              |
+| Compute Networks              | `google_compute_network`         | `Network`           |
+| Compute Subnetwork            | `google_compute_subnetwork`      | `Network`           |
+| IAM Role                      | `google_iam_role`                | `AccessRole`        |
+| IAM Service Account           | `google_iam_service_account`     | `User`              |
+| IAM Service Account Key       | `google_iam_service_account_key` | `AccessKey`         |
+| IAM User                      | `google_user`                    | `User`              |
+| KMS Crypto Key                | `google_kms_crypto_key`          | `Key`, `CryptoKey`  |
+| KMS Key Ring                  | `google_kms_key_ring`            | `Vault`             |
+| Project                       | `google_cloud_project`           | `Account`           |
+| SQL Admin MySQL Instance      | `google_sql_mysql_instance`      | `Database`          |
+| SQL Admin Postgres Instance   | `google_sql_postgres_instance`   | `Database`          |
+| SQL Admin SQL Server Instance | `google_sql_sql_server_instance` | `Database`          |
 
 ### Relationships
 
