@@ -206,6 +206,7 @@ The following entities are created:
 
 | Resources                           | Entity `_type`                         | Entity `_class`     |
 | ----------------------------------- | -------------------------------------- | ------------------- |
+| Big Query Dataset                   | `google_bigquery_dataset`              | `DataStore`         |
 | Cloud API Service                   | `google_cloud_api_service`             | `Service`           |
 | Cloud Function                      | `google_cloud_function`                | `Function`          |
 | Cloud SQL Admin MySQL Instance      | `google_cloud_sql_mysql_instance`      | `Database`          |
