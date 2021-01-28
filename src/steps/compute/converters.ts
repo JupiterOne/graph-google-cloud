@@ -10,6 +10,7 @@ import {
   RelationshipDirection,
   TargetFilterKey,
   PrimitiveEntity,
+  parseTimePropertyValue,
 } from '@jupiterone/integration-sdk-core';
 import {
   ENTITY_CLASS_COMPUTE_DISK,
@@ -47,6 +48,9 @@ export function createComputeProjectEntity(data: compute_v1.Schema$Project) {
             ?.value?.toUpperCase() === 'TRUE',
         name: data.name,
         kind: data.kind,
+        defaultServiceAccount: data.defaultServiceAccount,
+        defaultNetworkTier: data.defaultNetworkTier,
+        createdOn: parseTimePropertyValue(data.creationTimestamp),
       },
     },
   });

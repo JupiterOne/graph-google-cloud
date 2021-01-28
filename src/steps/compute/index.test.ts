@@ -25,7 +25,7 @@ import {
   ENTITY_TYPE_COMPUTE_DISK,
   ENTITY_TYPE_COMPUTE_FIREWALL,
   ENTITY_TYPE_COMPUTE_INSTANCE,
-  ENTITY_CLASS_COMPUTE_NETWORK,
+  ENTITY_TYPE_COMPUTE_NETWORK,
   ENTITY_TYPE_COMPUTE_PROJECT,
   ENTITY_TYPE_COMPUTE_SUBNETWORK,
   MAPPED_RELATIONSHIP_FIREWALL_RULE_TYPE,
@@ -310,12 +310,25 @@ describe('#fetchComputeProject', () => {
           zone: { type: 'string' },
           canIpForward: { type: 'boolean' },
           cpuPlatform: { type: 'string' },
+          usesDefaultServiceAccount: { type: 'boolean' },
+          usesFullAccessDefaultServiceAccount: { type: 'boolean' },
+          blockProjectSSHKeys: { type: 'boolean' },
+          isSerialPortEnabled: { type: 'boolean' },
+          isShieldedVM: { type: 'boolean' },
           isOSLoginEnabled: { type: 'boolean' },
           labelFingerprint: { type: 'string' },
           startRestricted: { type: 'boolean' },
           deletionProtection: { type: 'boolean' },
           fingerprint: { type: 'string' },
           kind: { type: 'string' },
+          publicIpAddress: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          privateIpAddress: {
+            type: 'array',
+            items: { type: 'string' },
+          },
         },
       },
     });
@@ -339,6 +352,9 @@ describe('#fetchComputeProject', () => {
           isOSLoginEnabled: { type: 'boolean' },
           name: { type: 'string' },
           kind: { type: 'string' },
+          defaultServiceAccount: { type: 'string' },
+          defaultNetworkTier: { type: 'string' },
+          createdOn: { type: 'number' },
         },
       },
     });
@@ -389,7 +405,7 @@ describe('#fetchComputeNetworks', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e._type === ENTITY_CLASS_COMPUTE_NETWORK,
+        (e) => e._type === ENTITY_TYPE_COMPUTE_NETWORK,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['Network'],
