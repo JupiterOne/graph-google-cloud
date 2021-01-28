@@ -1,0 +1,196 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createDNSManagedZoneEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "DomainZone",
+  ],
+  "_key": "778386319953398157",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "creationTime": "2021-01-22T16:48:27.272Z",
+        "description": "",
+        "dnsName": "example.com.",
+        "id": "778386319953398157",
+        "kind": "dns#managedZone",
+        "name": "example-zone",
+        "nameServers": Array [
+          "ns-cloud-a1.googledomains.com.",
+          "ns-cloud-a2.googledomains.com.",
+          "ns-cloud-a3.googledomains.com.",
+          "ns-cloud-a4.googledomains.com.",
+        ],
+        "visibility": "public",
+      },
+    },
+  ],
+  "_type": "google_dns_managed_zone",
+  "createdOn": 1611334107272,
+  "description": "",
+  "displayName": "example-zone",
+  "dnssec": undefined,
+  "domainName": "example.com.",
+  "id": "778386319953398157",
+  "keySigningAlgorithm": undefined,
+  "kind": "dns#managedZone",
+  "name": "example-zone",
+  "visibility": "public",
+  "zoneSigningAlgorithm": undefined,
+}
+`;
+
+exports[`#createDNSManagedZoneEntity should set dnssec to "on" when dnssec is enabled 1`] = `
+Object {
+  "_class": Array [
+    "DomainZone",
+  ],
+  "_key": "778386319953398157",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "creationTime": "2021-01-22T16:48:27.272Z",
+        "description": "",
+        "dnsName": "example.com.",
+        "dnssecConfig": Object {
+          "kind": "dns#managedZoneDnsSecConfig",
+          "nonExistence": "nsec3",
+          "state": "on",
+        },
+        "id": "778386319953398157",
+        "kind": "dns#managedZone",
+        "name": "example-zone",
+        "nameServers": Array [
+          "ns-cloud-a1.googledomains.com.",
+          "ns-cloud-a2.googledomains.com.",
+          "ns-cloud-a3.googledomains.com.",
+          "ns-cloud-a4.googledomains.com.",
+        ],
+        "visibility": "public",
+      },
+    },
+  ],
+  "_type": "google_dns_managed_zone",
+  "createdOn": 1611334107272,
+  "description": "",
+  "displayName": "example-zone",
+  "dnssec": "on",
+  "domainName": "example.com.",
+  "id": "778386319953398157",
+  "keySigningAlgorithm": undefined,
+  "kind": "dns#managedZone",
+  "name": "example-zone",
+  "visibility": "public",
+  "zoneSigningAlgorithm": undefined,
+}
+`;
+
+exports[`#createDNSManagedZoneEntity should set value to keySigningAlgorithm when it is present 1`] = `
+Object {
+  "_class": Array [
+    "DomainZone",
+  ],
+  "_key": "778386319953398157",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "creationTime": "2021-01-22T16:48:27.272Z",
+        "description": "",
+        "dnsName": "example.com.",
+        "dnssecConfig": Object {
+          "defaultKeySpecs": Array [
+            Object {
+              "algorithm": "rsasha256",
+              "keyLength": 2048,
+              "keyType": "keySigning",
+              "kind": "dns#dnsKeySpec",
+            },
+          ],
+          "kind": "dns#managedZoneDnsSecConfig",
+          "nonExistence": "nsec3",
+          "state": "on",
+        },
+        "id": "778386319953398157",
+        "kind": "dns#managedZone",
+        "name": "example-zone",
+        "nameServers": Array [
+          "ns-cloud-a1.googledomains.com.",
+          "ns-cloud-a2.googledomains.com.",
+          "ns-cloud-a3.googledomains.com.",
+          "ns-cloud-a4.googledomains.com.",
+        ],
+        "visibility": "public",
+      },
+    },
+  ],
+  "_type": "google_dns_managed_zone",
+  "createdOn": 1611334107272,
+  "description": "",
+  "displayName": "example-zone",
+  "dnssec": "on",
+  "domainName": "example.com.",
+  "id": "778386319953398157",
+  "keySigningAlgorithm": "rsasha256",
+  "kind": "dns#managedZone",
+  "name": "example-zone",
+  "visibility": "public",
+  "zoneSigningAlgorithm": undefined,
+}
+`;
+
+exports[`#createDNSManagedZoneEntity should set value to zoneSigningAlgorithm when it is present 1`] = `
+Object {
+  "_class": Array [
+    "DomainZone",
+  ],
+  "_key": "778386319953398157",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "creationTime": "2021-01-22T16:48:27.272Z",
+        "description": "",
+        "dnsName": "example.com.",
+        "dnssecConfig": Object {
+          "defaultKeySpecs": Array [
+            Object {
+              "algorithm": "rsasha256",
+              "keyLength": 1024,
+              "keyType": "zoneSigning",
+              "kind": "dns#dnsKeySpec",
+            },
+          ],
+          "kind": "dns#managedZoneDnsSecConfig",
+          "nonExistence": "nsec3",
+          "state": "on",
+        },
+        "id": "778386319953398157",
+        "kind": "dns#managedZone",
+        "name": "example-zone",
+        "nameServers": Array [
+          "ns-cloud-a1.googledomains.com.",
+          "ns-cloud-a2.googledomains.com.",
+          "ns-cloud-a3.googledomains.com.",
+          "ns-cloud-a4.googledomains.com.",
+        ],
+        "visibility": "public",
+      },
+    },
+  ],
+  "_type": "google_dns_managed_zone",
+  "createdOn": 1611334107272,
+  "description": "",
+  "displayName": "example-zone",
+  "dnssec": "on",
+  "domainName": "example.com.",
+  "id": "778386319953398157",
+  "keySigningAlgorithm": undefined,
+  "kind": "dns#managedZone",
+  "name": "example-zone",
+  "visibility": "public",
+  "zoneSigningAlgorithm": "rsasha256",
+}
+`;

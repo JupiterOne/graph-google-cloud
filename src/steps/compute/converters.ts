@@ -473,6 +473,8 @@ export function createComputeSubnetEntity(
         // See: https://cloud.google.com/compute/docs/reference/rest/v1/subnetworks/get
         purpose: data.purpose,
         gatewayAddress: data.gatewayAddress,
+        // 3.8 Ensure that VPC Flow Logs is enabled for every subnet in a VPC Network (Scored)
+        flowLogsEnabled: data.logConfig?.enable === true,
         CIDR: data.ipCidrRange,
         public: false,
         internal: true,
@@ -503,7 +505,9 @@ export function createComputeNetworkEntity(
         routingMode: data.routingConfig?.routingMode,
         autoCreateSubnetworks: data.autoCreateSubnetworks,
         subnetworks: data.subnetworks,
+        // 3.2 Ensure legacy networks do not exist for a project (Scored)
         gatewayIPv4: data.gatewayIPv4,
+        IPv4Range: data.IPv4Range,
         public: false,
         internal: true,
         CIDR: null,

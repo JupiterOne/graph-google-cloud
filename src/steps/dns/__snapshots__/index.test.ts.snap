@@ -1,0 +1,150 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchDNSManagedZones should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "DomainZone",
+      ],
+      "_key": "6062040873480912950",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "creationTime": "2021-01-26T18:16:58.899Z",
+            "description": "Example DNS zone",
+            "dnsName": "example-4d484bdb.com.",
+            "id": "6062040873480912950",
+            "kind": "dns#managedZone",
+            "labels": Object {
+              "foo": "bar",
+            },
+            "name": "example-public-zone",
+            "nameServers": Array [
+              "ns-cloud-e1.googledomains.com.",
+              "ns-cloud-e2.googledomains.com.",
+              "ns-cloud-e3.googledomains.com.",
+              "ns-cloud-e4.googledomains.com.",
+            ],
+            "visibility": "public",
+          },
+        },
+      ],
+      "_type": "google_dns_managed_zone",
+      "createdOn": 1611685018899,
+      "description": "Example DNS zone",
+      "displayName": "example-public-zone",
+      "dnssec": undefined,
+      "domainName": "example-4d484bdb.com.",
+      "id": "6062040873480912950",
+      "keySigningAlgorithm": undefined,
+      "kind": "dns#managedZone",
+      "name": "example-public-zone",
+      "visibility": "public",
+      "zoneSigningAlgorithm": undefined,
+    },
+    Object {
+      "_class": Array [
+        "DomainZone",
+      ],
+      "_key": "6171194744693927401",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "creationTime": "2021-01-26T18:08:56.992Z",
+            "description": "",
+            "dnsName": "myzone.mydomain.com.",
+            "id": "6171194744693927401",
+            "kind": "dns#managedZone",
+            "name": "example-test-zone",
+            "nameServers": Array [
+              "ns-cloud-d1.googledomains.com.",
+              "ns-cloud-d2.googledomains.com.",
+              "ns-cloud-d3.googledomains.com.",
+              "ns-cloud-d4.googledomains.com.",
+            ],
+            "visibility": "public",
+          },
+        },
+      ],
+      "_type": "google_dns_managed_zone",
+      "createdOn": 1611684536992,
+      "description": "",
+      "displayName": "example-test-zone",
+      "dnssec": undefined,
+      "domainName": "myzone.mydomain.com.",
+      "id": "6171194744693927401",
+      "keySigningAlgorithm": undefined,
+      "kind": "dns#managedZone",
+      "name": "example-test-zone",
+      "visibility": "public",
+      "zoneSigningAlgorithm": undefined,
+    },
+    Object {
+      "_class": Array [
+        "DomainZone",
+      ],
+      "_key": "778386319953398157",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "creationTime": "2021-01-22T16:48:27.272Z",
+            "description": "",
+            "dnsName": "crawleroo.com.",
+            "dnssecConfig": Object {
+              "defaultKeySpecs": Array [
+                Object {
+                  "algorithm": "rsasha256",
+                  "keyLength": 2048,
+                  "keyType": "keySigning",
+                  "kind": "dns#dnsKeySpec",
+                },
+                Object {
+                  "algorithm": "rsasha256",
+                  "keyLength": 1024,
+                  "keyType": "zoneSigning",
+                  "kind": "dns#dnsKeySpec",
+                },
+              ],
+              "kind": "dns#managedZoneDnsSecConfig",
+              "nonExistence": "nsec3",
+              "state": "on",
+            },
+            "id": "778386319953398157",
+            "kind": "dns#managedZone",
+            "name": "example-zone",
+            "nameServers": Array [
+              "ns-cloud-a1.googledomains.com.",
+              "ns-cloud-a2.googledomains.com.",
+              "ns-cloud-a3.googledomains.com.",
+              "ns-cloud-a4.googledomains.com.",
+            ],
+            "visibility": "public",
+          },
+        },
+      ],
+      "_type": "google_dns_managed_zone",
+      "createdOn": 1611334107272,
+      "description": "",
+      "displayName": "example-zone",
+      "dnssec": "on",
+      "domainName": "crawleroo.com.",
+      "id": "778386319953398157",
+      "keySigningAlgorithm": "rsasha256",
+      "kind": "dns#managedZone",
+      "name": "example-zone",
+      "visibility": "public",
+      "zoneSigningAlgorithm": "rsasha256",
+    },
+  ],
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
+    "google_dns_managed_zone",
+  ],
+  "numCollectedEntities": 3,
+  "numCollectedRelationships": 0,
+}
+`;

@@ -4,6 +4,7 @@ import {
   cloudresourcemanager_v1,
   bigquery_v2,
   sqladmin_v1beta4,
+  dns_v1,
 } from 'googleapis';
 
 export function getMockIamRole(
@@ -375,6 +376,27 @@ export function getMockSQLInstance(
     name: 'cloud-sql-postgres',
     region: 'europe-west3',
     gceZone: 'europe-west3-b',
+    ...partial,
+  };
+}
+
+export function getMockDNSManagedZone(
+  partial?: dns_v1.Schema$ManagedZone,
+): dns_v1.Schema$ManagedZone {
+  return {
+    name: 'example-zone',
+    dnsName: 'example.com.',
+    description: '',
+    id: '778386319953398157',
+    nameServers: [
+      'ns-cloud-a1.googledomains.com.',
+      'ns-cloud-a2.googledomains.com.',
+      'ns-cloud-a3.googledomains.com.',
+      'ns-cloud-a4.googledomains.com.',
+    ],
+    creationTime: '2021-01-22T16:48:27.272Z',
+    visibility: 'public',
+    kind: 'dns#managedZone',
     ...partial,
   };
 }
