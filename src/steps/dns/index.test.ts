@@ -63,6 +63,7 @@ describe('#fetchDNSManagedZones', () => {
           dnssec: { type: 'string' },
           keySigningAlgorithm: { type: 'string' },
           zoneSigningAlgorithm: { type: 'string' },
+          createdOn: { type: 'number' },
         },
       },
     });

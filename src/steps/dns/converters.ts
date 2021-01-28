@@ -1,4 +1,7 @@
-import { createIntegrationEntity } from '@jupiterone/integration-sdk-core';
+import {
+  createIntegrationEntity,
+  parseTimePropertyValue,
+} from '@jupiterone/integration-sdk-core';
 import { dns_v1 } from 'googleapis';
 import {
   DNS_MANAGED_ZONE_ENTITY_CLASS,
@@ -28,6 +31,7 @@ export function createDNSManagedZoneEntity(data: dns_v1.Schema$ManagedZone) {
         zoneSigningAlgorithm: data.dnssecConfig?.defaultKeySpecs?.find(
           (spec) => spec.keyType === 'zoneSigning',
         )?.algorithm,
+        createdOn: parseTimePropertyValue(data.creationTime),
       },
     },
   });

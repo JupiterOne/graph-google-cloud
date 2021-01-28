@@ -113,7 +113,7 @@ describe('#createComputeSubnetEntity', () => {
     ).toMatchSnapshot();
   });
 
-  test('should have isFlowLogsEnabled set to true if it is enabled for subnet', () => {
+  test('should have flowLogsEnabled set to true if it is enabled for subnet', () => {
     expect(
       createComputeSubnetEntity(
         getMockSubnet({

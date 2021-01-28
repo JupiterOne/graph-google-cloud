@@ -584,10 +584,10 @@ Object {
   "createdOn": 1596820816033,
   "description": undefined,
   "displayName": "default",
+  "flowLogsEnabled": false,
   "gatewayAddress": "10.164.0.1",
   "id": "1234567890",
   "internal": true,
-  "isFlowLogsEnabled": false,
   "name": "default",
   "privateIpGoogleAccess": false,
   "public": false,
@@ -596,7 +596,7 @@ Object {
 }
 `;
 
-exports[`#createComputeSubnetEntity should have isFlowLogsEnabled set to true if it is enabled for subnet 1`] = `
+exports[`#createComputeSubnetEntity should have flowLogsEnabled set to true if it is enabled for subnet 1`] = `
 Object {
   "CIDR": "10.164.0.0/20",
   "_class": Array [
@@ -630,10 +630,10 @@ Object {
   "createdOn": 1596820816033,
   "description": undefined,
   "displayName": "default",
+  "flowLogsEnabled": true,
   "gatewayAddress": "10.164.0.1",
   "id": "1234567890",
   "internal": true,
-  "isFlowLogsEnabled": true,
   "name": "default",
   "privateIpGoogleAccess": false,
   "public": false,

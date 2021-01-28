@@ -474,7 +474,7 @@ export function createComputeSubnetEntity(
         purpose: data.purpose,
         gatewayAddress: data.gatewayAddress,
         // 3.8 Ensure that VPC Flow Logs is enabled for every subnet in a VPC Network (Scored)
-        isFlowLogsEnabled: data.logConfig?.enable === true,
+        flowLogsEnabled: data.logConfig?.enable === true,
         CIDR: data.ipCidrRange,
         public: false,
         internal: true,

@@ -363,7 +363,7 @@ describe('#fetchComputeSubnetworks', () => {
           privateIpGoogleAccess: { type: 'boolean' },
           purpose: { type: 'string' },
           gatewayAddress: { type: 'string' },
-          isFlowLogsEnabled: { type: 'boolean' },
+          flowLogsEnabled: { type: 'boolean' },
           CIDR: { type: 'string' },
           public: { type: 'boolean' },
           internal: { type: 'boolean' },
