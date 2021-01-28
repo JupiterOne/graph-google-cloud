@@ -68,6 +68,9 @@ export function createComputeDiskEntity(data: compute_v1.Schema$Disk) {
         labelFingerprint: data.labelFingerprint,
         licenseCodes: data.licenseCodes,
         physicalBlockSizeBytes: data.physicalBlockSizeBytes,
+        // 4.7 Ensure VM disks for critical VMs are encrypted with Customer-Supplied Encryption Keys (CSEK)
+        isCustomerSuppliedKeysEncrypted:
+          data.diskEncryptionKey?.sha256 !== undefined,
         kind: data.kind,
         // Compute disks are encrypted by default
         encrypted: true,
@@ -120,6 +123,123 @@ export function getIpAddressesForComputeInstance(
   };
 }
 
+// 4.1 Ensure that instances are not configured to use the default service account
+// 4.2 Ensure that instances are not configured to use the default service account with full access to all Cloud APIs
+function getDefaultServiceAccountUsage(
+  name: string,
+  serviceAccounts?: compute_v1.Schema$ServiceAccount[],
+) {
+  /*
+    Exception:
+    VMs created by GKE should be excluded. These VMs have names that start with gke- and are labeled goog-gke-node
+  */
+  if (name.startsWith('gke-') || !serviceAccounts) {
+    return {
+      usesDefaultServiceAccount: undefined,
+      usesFullAccessDefaultServiceAccount: undefined,
+    };
+  }
+
+  /* 
+    Another option is to get jobState.getData(PROJECT_ENTITY_TYPE) in ./index.ts and send exact projectNumber to
+    createComputeInstanceEntity() along with data: compute_v1.Schema$Instance
+  */
+  for (const serviceAccount of serviceAccounts) {
+    if (
+      serviceAccount.email &&
+      /^([0-9]{12}-compute@developer.gserviceaccount.com)$/.test(
+        serviceAccount.email,
+      )
+    ) {
+      if (
+        serviceAccount.scopes?.find(
+          (scope) => scope === 'https://www.googleapis.com/auth/cloud-platform',
+        )
+      ) {
+        return {
+          usesDefaultServiceAccount: true,
+          usesFullAccessDefaultServiceAccount: true,
+        };
+      }
+
+      return {
+        usesDefaultServiceAccount: true,
+        usesFullAccessDefaultServiceAccount: false,
+      };
+    }
+  }
+
+  return {
+    usesDefaultServiceAccount: false,
+    usesFullAccessDefaultServiceAccount: false,
+  };
+}
+
+// 4.3 Ensure "Block Project-wide SSH keys" is enabled for VM instances (Scored)
+function getBlockProjectSSHKeysValue(
+  name: string,
+  metadata?: compute_v1.Schema$Metadata,
+): boolean | undefined {
+  /*
+    Exception:
+    VMs created by GKE should be excluded. These VMs have names that start with gke- and are labeled goog-gke-node
+  */
+  if (name.startsWith('gke-') || !metadata) {
+    return undefined;
+  }
+
+  /* 
+    We usually don't want to map original values, however this one returns true/false as a string
+    It might be confusing if JupiterOne contained fields where true/false can be found in both string and boolean forms?
+   */
+  const value = metadata.items?.find(
+    (item) => item.key === 'block-project-ssh-keys',
+  )?.value;
+
+  return value ? value === 'true' : undefined;
+}
+
+// 4.5 Ensure 'Enable connecting to serial ports' is not enabled for VM Instance
+function isSerialPortEnabled(
+  metadata?: compute_v1.Schema$Metadata,
+): boolean | undefined {
+  if (!metadata) {
+    return undefined;
+  }
+  /* 
+    We usually don't want to map original values, however this one returns true/false or 0/1 as a string
+    It might be confusing if JupiterOne contained fields where true/false and 0/1 can be found in both string and boolean forms?
+   */
+  const value = metadata.items?.find(
+    (item) => item.key === 'serial-port-enable',
+  )?.value;
+
+  return value ? value === 'true' || value === '1' : undefined;
+}
+
+/* 4.8 Ensure Compute instances are launched with Shielded VM enabled (Scored)
+  Alternative to doing this is to simply expose:
+  "shieldedInstanceConfig": {
+    "enableVtpm": true,
+    "enableIntegrityMonitoring": true
+  },
+  As entity's properties.
+
+  All depends on what someone querying J1QL would prefer!
+*/
+function isShieldedVM(
+  shieldedInstanceConfig?: compute_v1.Schema$ShieldedInstanceConfig,
+) {
+  if (!shieldedInstanceConfig) {
+    return undefined;
+  }
+
+  return shieldedInstanceConfig.enableVtpm &&
+    shieldedInstanceConfig.enableIntegrityMonitoring
+    ? true
+    : false;
+}
+
 export function createComputeInstanceEntity(data: compute_v1.Schema$Instance) {
   const ipAddresses = getIpAddressesForComputeInstance(data);
 
@@ -148,6 +268,16 @@ export function createComputeInstanceEntity(data: compute_v1.Schema$Instance) {
         zone: data.zone && getLastUrlPart(data.zone),
         canIpForward: data.canIpForward,
         cpuPlatform: data.cpuPlatform,
+        ...getDefaultServiceAccountUsage(
+          data.name as string,
+          data.serviceAccounts,
+        ),
+        blockProjectSSHKeys: getBlockProjectSSHKeysValue(
+          data.name as string,
+          data.metadata,
+        ),
+        isSerialPortEnabled: isSerialPortEnabled(data.metadata),
+        isShieldedVM: isShieldedVM(data.shieldedInstanceConfig),
         labelFingerprint: data.labelFingerprint,
         startRestricted: data.startRestricted,
         deletionProtection: data.deletionProtection,
