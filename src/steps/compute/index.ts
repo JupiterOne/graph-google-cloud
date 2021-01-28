@@ -16,6 +16,7 @@ import {
   createComputeFirewallEntity,
   createSubnetHasComputeInstanceRelationship,
   createFirewallRuleMappedRelationship,
+  createComputeProjectEntity,
 } from './converters';
 import {
   STEP_COMPUTE_INSTANCES,
@@ -40,6 +41,10 @@ import {
   RELATIONSHIP_TYPE_FIREWALL_PROTECTS_NETWORK,
   RELATIONSHIP_TYPE_NETWORK_HAS_FIREWALL,
   MAPPED_RELATIONSHIP_FIREWALL_RULE_TYPE,
+  STEP_COMPUTE_PROJECT,
+  ENTITY_TYPE_COMPUTE_PROJECT,
+  ENTITY_CLASS_COMPUTE_PROJECT,
+  RELATIONSHIP_TYPE_PROJECT_HAS_INSTANCE,
 } from './constants';
 import { compute_v1 } from 'googleapis';
 import { INTERNET, RelationshipClass } from '@jupiterone/data-model';
@@ -146,6 +151,34 @@ async function iterateComputeInstanceNetworkInterfaces(params: {
         computeInstanceEntity,
         networkInterface,
       }),
+    );
+  }
+}
+
+export async function fetchComputeProject(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, instance } = context;
+  const client = new ComputeClient({ config: instance.config });
+
+  const computeProject = await client.fetchComputeProject();
+  if (computeProject) {
+    const computeProjectEntity = createComputeProjectEntity(computeProject);
+    await jobState.addEntity(computeProjectEntity);
+
+    await jobState.iterateEntities(
+      {
+        _type: ENTITY_TYPE_COMPUTE_INSTANCE,
+      },
+      async (computeInstanceEntity) => {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.HAS,
+            from: computeProjectEntity,
+            to: computeInstanceEntity,
+          }),
+        );
+      },
     );
   }
 }
@@ -442,5 +475,26 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
       STEP_COMPUTE_SUBNETWORKS,
     ],
     executionHandler: fetchComputeInstances,
+  },
+  {
+    id: STEP_COMPUTE_PROJECT,
+    name: 'Compute Project',
+    entities: [
+      {
+        resourceName: 'Compute Project',
+        _type: ENTITY_TYPE_COMPUTE_PROJECT,
+        _class: ENTITY_CLASS_COMPUTE_PROJECT,
+      },
+    ],
+    relationships: [
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_PROJECT_HAS_INSTANCE,
+        sourceType: ENTITY_TYPE_COMPUTE_PROJECT,
+        targetType: ENTITY_TYPE_COMPUTE_INSTANCE,
+      },
+    ],
+    dependsOn: [STEP_COMPUTE_INSTANCES],
+    executionHandler: fetchComputeProject,
   },
 ];

@@ -22,6 +22,7 @@ import {
   STEP_COMPUTE_NETWORKS,
   STEP_COMPUTE_SUBNETWORKS,
   STEP_COMPUTE_FIREWALLS,
+  STEP_COMPUTE_PROJECT,
 } from './steps/compute';
 import { STEP_CLOUD_KMS_KEYS, STEP_CLOUD_KMS_KEY_RINGS } from './steps/kms';
 import { STEP_BIG_QUERY_DATASETS } from './steps/big-query';
@@ -108,6 +109,7 @@ export default async function getStepStartStates(
     [STEP_COMPUTE_NETWORKS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_FIREWALLS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_SUBNETWORKS]: createStepStartState(ServiceUsageName.COMPUTE),
+    [STEP_COMPUTE_PROJECT]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_INSTANCES]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_CLOUD_KMS_KEY_RINGS]: createStepStartState(ServiceUsageName.KMS),
     [STEP_CLOUD_KMS_KEYS]: createStepStartState(ServiceUsageName.KMS),

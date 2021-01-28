@@ -214,6 +214,7 @@ The following entities are created:
 | Compute Firewalls             | `google_compute_firewall`        | `Firewall`          |
 | Compute Instance              | `google_compute_instance`        | `Host`              |
 | Compute Networks              | `google_compute_network`         | `Network`           |
+| Compute Project               | `google_compute_project`         | `Project`           |
 | Compute Subnetwork            | `google_compute_subnetwork`      | `Network`           |
 | DNS Managed Zone              | `google_dns_managed_zone`        | `DomainZone`        |
 | IAM Role                      | `google_iam_role`                | `AccessRole`        |
@@ -240,6 +241,7 @@ The following relationships are created/mapped:
 | `google_compute_instance`    | **USES**              | `google_compute_disk`            |
 | `google_compute_network`     | **CONTAINS**          | `google_compute_subnetwork`      |
 | `google_compute_network`     | **HAS**               | `google_compute_firewall`        |
+| `google_compute_project`     | **HAS**               | `google_compute_instance`        |
 | `google_compute_subnetwork`  | **HAS**               | `google_compute_instance`        |
 | `google_iam_service_account` | **ASSIGNED**          | `google_iam_role`                |
 | `google_iam_service_account` | **HAS**               | `google_iam_service_account_key` |

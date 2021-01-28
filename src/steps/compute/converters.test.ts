@@ -4,6 +4,7 @@ import {
   createComputeInstanceEntity,
   createComputeInstanceUsesComputeDiskRelationship,
   createComputeNetworkEntity,
+  createComputeProjectEntity,
   createComputeSubnetEntity,
   createFirewallRuleMappedRelationship,
   getIpAddressesForComputeInstance,
@@ -14,6 +15,7 @@ import {
   getMockComputeInstance,
   getMockNetwork,
   getMockSubnet,
+  getMockComputeProject,
 } from '../../../test/mocks';
 import { DEFAULT_INTEGRATION_CONFIG_PROJECT_ID } from '../../../test/config';
 import {
@@ -45,6 +47,50 @@ describe('#createComputeInstanceEntity', () => {
     expect(
       createComputeInstanceEntity(
         getMockComputeInstance({ status: 'SUSPENDED' }),
+      ),
+    ).toMatchSnapshot();
+  });
+
+  test('should set isOSLoginEnabled to true when enabled-oslogin metadata value is "TRUE"', () => {
+    expect(
+      createComputeInstanceEntity(
+        getMockComputeInstance({
+          metadata: {
+            items: [
+              {
+                key: 'enable-oslogin',
+                value: 'TRUE',
+              },
+            ],
+            kind: 'compute#metadata',
+          },
+        }),
+      ),
+    ).toMatchSnapshot();
+  });
+});
+
+describe('#createComputeProjectEntity', () => {
+  test('should convert to entity', () => {
+    expect(
+      createComputeProjectEntity(getMockComputeProject()),
+    ).toMatchSnapshot();
+  });
+
+  test('should set isOSLoginEnabled to true when enabled-oslogin metadata value is "TRUE"', () => {
+    expect(
+      createComputeProjectEntity(
+        getMockComputeProject({
+          commonInstanceMetadata: {
+            items: [
+              {
+                key: 'enable-oslogin',
+                value: 'TRUE',
+              },
+            ],
+            kind: 'compute#metadata',
+          },
+        }),
       ),
     ).toMatchSnapshot();
   });

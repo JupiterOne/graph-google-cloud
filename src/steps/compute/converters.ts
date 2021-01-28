@@ -10,6 +10,7 @@ import {
   RelationshipDirection,
   TargetFilterKey,
   PrimitiveEntity,
+  parseTimePropertyValue,
 } from '@jupiterone/integration-sdk-core';
 import {
   ENTITY_CLASS_COMPUTE_DISK,
@@ -23,10 +24,37 @@ import {
   ENTITY_CLASS_COMPUTE_FIREWALL,
   ENTITY_TYPE_COMPUTE_FIREWALL,
   MAPPED_RELATIONSHIP_FIREWALL_RULE_TYPE,
+  ENTITY_CLASS_COMPUTE_PROJECT,
+  ENTITY_TYPE_COMPUTE_PROJECT,
 } from './constants';
 import { getGoogleCloudConsoleWebLink, getLastUrlPart } from '../../utils/url';
 import { parseRegionNameFromRegionUrl } from '../../google-cloud/regions';
 import { FirewallRuleRelationshipTargetProperties } from '../../utils/firewall';
+
+export function createComputeProjectEntity(data: compute_v1.Schema$Project) {
+  return createIntegrationEntity({
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_COMPUTE_PROJECT,
+        _type: ENTITY_TYPE_COMPUTE_PROJECT,
+        _key: data.selfLink as string,
+        id: data.id as string,
+        displayName: data.name as string,
+        // 4.4 Ensure oslogin is enabled for a Project (Scored) - Project part
+        isOSLoginEnabled:
+          data.commonInstanceMetadata?.items
+            ?.find((item) => item.key === 'enable-oslogin')
+            ?.value?.toUpperCase() === 'TRUE',
+        name: data.name,
+        kind: data.kind,
+        defaultServiceAccount: data.defaultServiceAccount,
+        defaultNetworkTier: data.defaultNetworkTier,
+        createdOn: parseTimePropertyValue(data.creationTimestamp),
+      },
+    },
+  });
+}
 
 export function createComputeDiskEntity(data: compute_v1.Schema$Disk) {
   return createIntegrationEntity({
@@ -265,6 +293,11 @@ export function createComputeInstanceEntity(data: compute_v1.Schema$Instance) {
         // REPAIRING, and TERMINATED.
         active: data.status === 'RUNNING',
         status: data.status,
+        // 4.4 Ensure oslogin is enabled for a Project (Scored) - Instance part
+        isOSLoginEnabled:
+          data.metadata?.items
+            ?.find((item) => item.key === 'enable-oslogin')
+            ?.value?.toUpperCase() === 'TRUE',
         zone: data.zone && getLastUrlPart(data.zone),
         canIpForward: data.canIpForward,
         cpuPlatform: data.cpuPlatform,
