@@ -80,8 +80,15 @@ describe('#fetchKmsCryptoKeys', () => {
   });
 
   test('should collect data', async () => {
+    const customConfig = {
+      ...integrationConfig,
+      serviceAccountKeyConfig: {
+        ...integrationConfig.serviceAccountKeyConfig,
+        project_id: 'j1-gc-integration-dev-300716',
+      },
+    };
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: customConfig,
     });
 
     await fetchKmsKeyRings(context);
@@ -118,6 +125,7 @@ describe('#fetchKmsCryptoKeys', () => {
           rotationPeriod: { type: 'number' },
           protectionLevel: { type: 'string' },
           algorithm: { type: 'string' },
+          public: { type: 'boolean' },
           primaryName: { type: 'string' },
           primaryState: { type: 'string' },
           primaryCreateTime: { type: 'number' },

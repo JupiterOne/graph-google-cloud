@@ -45,6 +45,111 @@ Object {
   "primaryProtectionLevel": "SOFTWARE",
   "primaryState": "ENABLED",
   "protectionLevel": "SOFTWARE",
+  "public": false,
+  "purpose": "ENCRYPT_DECRYPT",
+  "rotationPeriod": 86401,
+  "webLink": "https://console.cloud.google.com/security/kms/key/manage/us/j1-gc-integration-dev-bucket-ring/projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key?project=j1-gc-integration-dev",
+}
+`;
+
+exports[`#createKmsCryptoKeyEntity should convert to entity with public=true if there is allAuthenticatedUsers bindings 1`] = `
+Object {
+  "_class": Array [
+    "Key",
+    "CryptoKey",
+  ],
+  "_key": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "createTime": "2020-07-28T18:59:59.513564921Z",
+        "name": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key",
+        "nextRotationTime": "2020-10-04T19:01:14.428484Z",
+        "primary": Object {
+          "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
+          "createTime": "2020-10-03T19:01:13.428484662Z",
+          "generateTime": "2020-10-03T19:01:13.428484662Z",
+          "name": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key/cryptoKeyVersions/68",
+          "protectionLevel": "SOFTWARE",
+          "state": "ENABLED",
+        },
+        "purpose": "ENCRYPT_DECRYPT",
+        "rotationPeriod": "86401s",
+        "versionTemplate": Object {
+          "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
+          "protectionLevel": "SOFTWARE",
+        },
+      },
+    },
+  ],
+  "_type": "google_kms_crypto_key",
+  "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
+  "createdOn": 1595962799513,
+  "displayName": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key",
+  "keyUsage": "ENCRYPT_DECRYPT",
+  "name": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key",
+  "nextRotationTime": 1601838074428,
+  "primaryAlgorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
+  "primaryCreateTime": 1601751673428,
+  "primaryGenerateTime": 1601751673428,
+  "primaryName": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key/cryptoKeyVersions/68",
+  "primaryProtectionLevel": "SOFTWARE",
+  "primaryState": "ENABLED",
+  "protectionLevel": "SOFTWARE",
+  "public": true,
+  "purpose": "ENCRYPT_DECRYPT",
+  "rotationPeriod": 86401,
+  "webLink": "https://console.cloud.google.com/security/kms/key/manage/us/j1-gc-integration-dev-bucket-ring/projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key?project=j1-gc-integration-dev",
+}
+`;
+
+exports[`#createKmsCryptoKeyEntity should convert to entity with public=true if there is allUsers bindings 1`] = `
+Object {
+  "_class": Array [
+    "Key",
+    "CryptoKey",
+  ],
+  "_key": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "createTime": "2020-07-28T18:59:59.513564921Z",
+        "name": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key",
+        "nextRotationTime": "2020-10-04T19:01:14.428484Z",
+        "primary": Object {
+          "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
+          "createTime": "2020-10-03T19:01:13.428484662Z",
+          "generateTime": "2020-10-03T19:01:13.428484662Z",
+          "name": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key/cryptoKeyVersions/68",
+          "protectionLevel": "SOFTWARE",
+          "state": "ENABLED",
+        },
+        "purpose": "ENCRYPT_DECRYPT",
+        "rotationPeriod": "86401s",
+        "versionTemplate": Object {
+          "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
+          "protectionLevel": "SOFTWARE",
+        },
+      },
+    },
+  ],
+  "_type": "google_kms_crypto_key",
+  "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
+  "createdOn": 1595962799513,
+  "displayName": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key",
+  "keyUsage": "ENCRYPT_DECRYPT",
+  "name": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key",
+  "nextRotationTime": 1601838074428,
+  "primaryAlgorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
+  "primaryCreateTime": 1601751673428,
+  "primaryGenerateTime": 1601751673428,
+  "primaryName": "projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key/cryptoKeyVersions/68",
+  "primaryProtectionLevel": "SOFTWARE",
+  "primaryState": "ENABLED",
+  "protectionLevel": "SOFTWARE",
+  "public": true,
   "purpose": "ENCRYPT_DECRYPT",
   "rotationPeriod": 86401,
   "webLink": "https://console.cloud.google.com/security/kms/key/manage/us/j1-gc-integration-dev-bucket-ring/projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key?project=j1-gc-integration-dev",
