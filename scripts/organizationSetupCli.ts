@@ -9,6 +9,7 @@ interface CliArguments {
   jupiteroneApiKey: string;
   googleAccessToken: string;
   skipSystemProjects: boolean;
+  rotateServiceAccountKeys: boolean;
   organizationId?: string[] | (string | number)[];
   projectId?: string[] | (string | number)[];
   skipProjectId?: string[] | (string | number)[];
@@ -74,6 +75,13 @@ cli
       default: false,
     },
   )
+  .option(
+    '--rotate-service-account-keys [rotateServiceAccountKeys]',
+    '(Optional) Creates a new service account key for the JupiterOne service account, deletes the old one, and updates the JupiterOne integration instance',
+    {
+      default: false,
+    },
+  )
   .action((options: CliArguments) => {
     assertRequiredCliArg(
       '--jupiterone-account-id',
@@ -108,6 +116,7 @@ const parsed = cli.parse(process.argv, { run: true });
     skipProjectId,
     help,
     skipSystemProjects,
+    rotateServiceAccountKeys,
   } = parsed.options as CliArguments;
 
   const projectIds = projectId && convertToArrayOfStrings(projectId);
@@ -128,6 +137,7 @@ const parsed = cli.parse(process.argv, { run: true });
       jupiteroneEnv,
       googleAccessToken:
         googleAccessToken && redactCliSecret(googleAccessToken),
+      rotateServiceAccountKeys,
     },
     'Running CLI with options...',
   );
@@ -144,6 +154,7 @@ const parsed = cli.parse(process.argv, { run: true });
     skipProjectIds,
     jupiteroneEnv,
     skipSystemProjects,
+    rotateServiceAccountKeys,
   });
 
   logger.info(
