@@ -8,6 +8,7 @@ import {
 import { iterateApi } from '../src/google-cloud/client';
 import fetch from 'node-fetch';
 import Logger from 'bunyan';
+import { retry } from '@lifeomic/attempt';
 
 const cloudresourcemanager = google.cloudresourcemanager('v1');
 const cloudresourcemanagerV2 = google.cloudresourcemanager('v2');
@@ -403,6 +404,69 @@ async function createJupiterOneIntegrationInstance(
   return response.json();
 }
 
+interface MutateOrgPolicyParams {
+  logger: Logger;
+  serviceAccountEmail: string;
+  googleAccessToken: string;
+  projectId: string;
+}
+
+/**
+ * The Google Cloud documentation suggests that to update a policy we must:
+ *
+ * 1. Read the existing policy
+ * 2. Modify the policy
+ * 3. Write the entire new policy
+ *
+ * This can cause concurrent policy change errors, so we retry the entire
+ * operation if we receive a 409 response status code.
+ *
+ * See: https://cloud.google.com/iam/docs/policies#etag
+ */
+async function updateOrgPolicy({
+  logger,
+  serviceAccountEmail,
+  googleAccessToken,
+  projectId,
+}: MutateOrgPolicyParams) {
+  await retry(
+    async () => {
+      logger.info('Fetching policy for project...');
+      const projectPolicy = await getPolicyForProject(
+        googleAccessToken,
+        projectId,
+      );
+
+      const newPolicy = buildPolicyWithServiceAccountSecurityRoleMember(
+        projectPolicy,
+        serviceAccountEmail,
+      );
+
+      logger.info('Attempting to update IAM policy for project...');
+      await setIamPolicyForProject(googleAccessToken, projectId, newPolicy);
+      logger.info('Successfully updated IAM policy for project...');
+    },
+    {
+      delay: 500,
+      maxAttempts: 5,
+      factor: 1.1,
+      handleError(err, attemptContext) {
+        if (
+          (err.code === 409 || err.code === 'ALREADY_EXISTS') &&
+          attemptContext.attemptsRemaining
+        ) {
+          logger.info(
+            { code: err.code },
+            'Concurrent policy changes while updating org policy (will retry)',
+          );
+        } else if (attemptContext.attemptsRemaining) {
+          logger.warn({ err }, 'Error updating org policy (will retry)');
+        }
+      },
+    },
+  );
+}
+
 enum SetupOrganizationProjectResult {
   CREATED = 'CREATED',
   FAILED = 'FAILED',
@@ -462,8 +526,6 @@ async function setupOrganizationProject(
     return SetupOrganizationProjectResult.EXISTS;
   }
 
-  logger.info('Fetching policy for project...');
-  const projectPolicy = await getPolicyForProject(googleAccessToken, projectId);
   logger.info('Creating service account for project');
   const serviceAccount = await createServiceAccount(
     googleAccessToken,
@@ -478,14 +540,14 @@ async function setupOrganizationProject(
     'Successfully created service account for project',
   );
 
-  const newPolicy = buildPolicyWithServiceAccountSecurityRoleMember(
-    projectPolicy,
-    serviceAccountEmail,
-  );
+  logger.info('Fetching policy for project...');
 
-  logger.info('Attempting to update IAM policy for project...');
-  await setIamPolicyForProject(googleAccessToken, projectId, newPolicy);
-  logger.info('Successfully updated IAM policy for project...');
+  await updateOrgPolicy({
+    logger,
+    serviceAccountEmail,
+    googleAccessToken,
+    projectId,
+  });
 
   logger.info('Attempting to create service account key for project...');
 
