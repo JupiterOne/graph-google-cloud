@@ -36,6 +36,7 @@ function getSetupOrganizationParams(
       process.env.JUPITERONE_API_KEY || 'mock-jupiterone-api-key',
     logger: getMockLogger(),
     skipSystemProjects: false,
+    rotateServiceAccountKeys: false,
     ...params,
   };
 }
