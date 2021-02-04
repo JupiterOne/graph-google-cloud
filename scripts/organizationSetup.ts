@@ -540,8 +540,6 @@ async function updateJupiterOneIntegrationInstance({
 
   const result = await response.json();
 
-  console.log('RESULT: ', JSON.stringify(result, null, 2));
-
   if (result.error) {
     logger.error(
       { err: result.error },
