@@ -3,12 +3,14 @@ import Logger from 'bunyan';
 import { ok as assert } from 'assert';
 import { setupOrganization } from './organizationSetup';
 import bunyanFormat from 'bunyan-format';
+import { ServiceUsageName } from '../src/google-cloud/types';
 
 interface CliArguments {
   jupiteroneAccountId: string;
   jupiteroneApiKey: string;
   googleAccessToken: string;
   skipSystemProjects: boolean;
+  rotateServiceAccountKeys: boolean;
   organizationId?: string[] | (string | number)[];
   projectId?: string[] | (string | number)[];
   skipProjectId?: string[] | (string | number)[];
@@ -71,6 +73,13 @@ cli
     '--skip-system-projects [skipSystemProjects]',
     '(Optional) Skips creation of any projects that have an ID that start with "sys-"',
     {
+      default: true,
+    },
+  )
+  .option(
+    '--rotate-service-account-keys [rotateServiceAccountKeys]',
+    '(Optional) Creates a new service account key for the JupiterOne service account and PUTs the JupiterOne integration instance',
+    {
       default: false,
     },
   )
@@ -108,6 +117,7 @@ const parsed = cli.parse(process.argv, { run: true });
     skipProjectId,
     help,
     skipSystemProjects,
+    rotateServiceAccountKeys,
   } = parsed.options as CliArguments;
 
   const projectIds = projectId && convertToArrayOfStrings(projectId);
@@ -128,6 +138,7 @@ const parsed = cli.parse(process.argv, { run: true });
       jupiteroneEnv,
       googleAccessToken:
         googleAccessToken && redactCliSecret(googleAccessToken),
+      rotateServiceAccountKeys,
     },
     'Running CLI with options...',
   );
@@ -144,6 +155,8 @@ const parsed = cli.parse(process.argv, { run: true });
     skipProjectIds,
     jupiteroneEnv,
     skipSystemProjects,
+    rotateServiceAccountKeys,
+    servicesToEnable: Object.values(ServiceUsageName),
   });
 
   logger.info(

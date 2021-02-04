@@ -19,21 +19,13 @@ const GOOGLE_CLOUD_INTEGRATION_DEFINITION_ID =
   '0c652a0a-1e86-4c35-b7f7-6b792731818b';
 const SECURITY_REVIEWER_ROLE = 'roles/iam.securityReviewer';
 
-const PROJECT_SERVICES_TO_ENABLE: string[] = [
-  'serviceusage.googleapis.com',
-  'cloudfunctions.googleapis.com',
-  'storage.googleapis.com',
-  'iam.googleapis.com',
-  'cloudresourcemanager.googleapis.com',
-  'compute.googleapis.com',
-  'cloudkms.googleapis.com',
-];
-
 export interface BaseSetupOrganizationParams {
   googleAccessToken: string;
   jupiteroneApiKey: string;
   jupiteroneAccountId: string;
   logger: Logger;
+  rotateServiceAccountKeys: boolean;
+  servicesToEnable: string[];
 }
 
 export interface SetupOrganizationParams extends BaseSetupOrganizationParams {
@@ -48,6 +40,31 @@ export interface SetupOrganizationProjectParams
   extends BaseSetupOrganizationParams {
   project: cloudresourcemanager_v1.Schema$Project;
   jupiteroneEnv: string;
+}
+
+interface PageInfo {
+  endCursor?: string;
+  hasNextPage: boolean;
+}
+
+enum IntegrationInstancePollingInterval {
+  DISABLED = 'DISABLED',
+  THIRTY_MINUTES = 'THIRTY_MINUTES',
+  ONE_HOUR = 'ONE_HOUR',
+  FOUR_HOURS = 'FOUR_HOURS',
+  EIGHT_HOURS = 'EIGHT_HOURS',
+  TWELVE_HOURS = 'TWELVE_HOURS',
+  ONE_DAY = 'ONE_DAY',
+  ONE_WEEK = 'ONE_WEEK',
+}
+
+interface IntegrationInstance {
+  id: string;
+  name: string;
+  description?: string;
+  integrationDefinitionId: string;
+  pollingInterval: IntegrationInstancePollingInterval;
+  config: Record<string, string>;
 }
 
 function getHeaders(googleAccessToken: string): Headers {
@@ -173,33 +190,30 @@ async function getJupiterOneServiceAccountForProject(
   googleAccessToken: string,
   projectId: string,
 ) {
-  let nextPageToken: string | undefined;
-
-  do {
-    const result = await iam.projects.serviceAccounts.list(
+  try {
+    const response = await iam.projects.serviceAccounts.get(
       {
-        name: `projects/${projectId}`,
-        pageToken: nextPageToken,
+        name: `projects/${projectId}/serviceAccounts/jupiterone-integration@${projectId}.iam.gserviceaccount.com`,
       },
       {
         headers: getHeaders(googleAccessToken),
       },
     );
 
-    nextPageToken = result.data.nextPageToken || undefined;
-
-    for (const account of result.data.accounts || []) {
-      if (account.email?.startsWith('jupiterone-integration')) {
-        return account;
-      }
+    return response.data;
+  } catch (err) {
+    if (err.code === 404) {
+      return null;
     }
-  } while (nextPageToken);
+
+    throw err;
+  }
 }
 
 async function createServiceAccount(
   googleAccessToken: string,
   projectId: string,
-) {
+): Promise<iam_v1.Schema$ServiceAccount> {
   const response = await iam.projects.serviceAccounts.create(
     {
       name: `projects/${projectId}`,
@@ -365,13 +379,59 @@ mutation CreateIntegrationInstance($instance: CreateIntegrationInstanceInput!) {
 }
 `;
 
-async function createJupiterOneIntegrationInstance(
-  jupiteroneAccountId: string,
-  jupiteroneApiKey: string,
-  projectId: string,
-  serviceAccountKey: string,
-  jupiteroneEnv: string,
+const INTEGRATION_INSTANCES_QUERY = `
+query IntegrationInstances($definitionId: String) {
+  integrationInstances(definitionId: $definitionId) {
+    instances {
+      id
+      name
+      accountId
+      pollingInterval
+      integrationDefinitionId
+      description
+      offsiteComplete
+    }
+
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+`;
+
+const UPDATE_INTEGRATION_INSTANCE_QUERY = `
+mutation UpdateIntegrationInstance(
+  $id: String!
+  $update: UpdateIntegrationInstanceInput!
 ) {
+  updateIntegrationInstance(id: $id, update: $update) {
+    name
+    pollingInterval
+    description
+    config
+    offsiteComplete
+  }
+}
+`;
+
+interface CreateJupiterOneIntegrationInstanceParams {
+  logger: Logger;
+  jupiteroneAccountId: string;
+  jupiteroneApiKey: string;
+  projectId: string;
+  serviceAccountKey: string;
+  jupiteroneEnv: string;
+}
+
+async function createJupiterOneIntegrationInstance({
+  logger,
+  jupiteroneAccountId,
+  jupiteroneApiKey,
+  projectId,
+  serviceAccountKey,
+  jupiteroneEnv,
+}: CreateJupiterOneIntegrationInstanceParams): Promise<IntegrationInstance> {
   const response = await fetch(
     `https://api.${jupiteroneEnv}.jupiterone.io/graphql`,
     {
@@ -383,6 +443,7 @@ async function createJupiterOneIntegrationInstance(
           instance: {
             name: projectId,
             pollingInterval: 'ONE_DAY',
+            description: 'Created from JupiterOne org script',
             config: {
               '@tag': {
                 AccountName: projectId,
@@ -401,7 +462,215 @@ async function createJupiterOneIntegrationInstance(
     },
   );
 
-  return response.json();
+  const result = await response.json();
+
+  if (result.error) {
+    logger.error(
+      { err: result.error },
+      'Could not create integration instance',
+    );
+    throw new Error(
+      `Failed to get create integration instance (name=${projectId})`,
+    );
+  }
+
+  const createIntegrationInstanceResult = result.data
+    .createIntegrationInstance as IntegrationInstance;
+  return createIntegrationInstanceResult;
+}
+
+interface IntegrationInstanceUpdateData {
+  name?: string;
+  description?: string;
+  pollingInterval?: IntegrationInstancePollingInterval;
+  config?: any;
+  offsiteComplete?: boolean;
+}
+
+interface UpdateJupiterOneIntegrationInstanceParams {
+  logger: Logger;
+  integrationInstanceId: string;
+  jupiteroneAccountId: string;
+  jupiteroneApiKey: string;
+  jupiteroneEnv: string;
+  integrationInstanceUpdate: IntegrationInstanceUpdateData;
+}
+
+async function updateJupiterOneIntegrationInstance({
+  logger,
+  integrationInstanceId,
+  jupiteroneAccountId,
+  jupiteroneApiKey,
+  jupiteroneEnv,
+  integrationInstanceUpdate,
+}: UpdateJupiterOneIntegrationInstanceParams): Promise<IntegrationInstance> {
+  const response = await fetch(
+    `https://api.${jupiteroneEnv}.jupiterone.io/graphql`,
+    {
+      method: 'post',
+      body: JSON.stringify({
+        operationName: 'UpdateIntegrationInstance',
+        query: UPDATE_INTEGRATION_INSTANCE_QUERY,
+        variables: {
+          id: integrationInstanceId,
+          update: integrationInstanceUpdate,
+        },
+      }),
+      headers: {
+        'JupiterOne-Account': jupiteroneAccountId,
+        Authorization: `Bearer ${jupiteroneApiKey}`,
+        'Content-Type': 'application/json',
+      },
+    },
+  );
+
+  const result = await response.json();
+
+  if (result.error) {
+    logger.error(
+      { err: result.error },
+      'Could not update integration instance',
+    );
+    throw new Error(
+      `Failed to get update integration instance (instanceId=${integrationInstanceId})`,
+    );
+  }
+
+  const updateIntegrationInstanceResult = result.data
+    .updateIntegrationInstance as IntegrationInstance;
+  return updateIntegrationInstanceResult;
+}
+
+interface IntegrationInstancesQueryApiResult {
+  instances: IntegrationInstance[];
+  pageInfo: PageInfo;
+}
+
+async function getIntegrationInstanceForAccountWithProjectTag(
+  logger: Logger,
+  jupiteroneAccountId: string,
+  jupiteroneApiKey: string,
+  projectId: string,
+  jupiteroneEnv: string,
+): Promise<IntegrationInstance | null> {
+  let cursor: string | undefined;
+
+  do {
+    const response = await fetch(
+      `https://api.${jupiteroneEnv}.jupiterone.io/graphql`,
+      {
+        method: 'post',
+        body: JSON.stringify({
+          operationName: 'IntegrationInstances',
+          query: INTEGRATION_INSTANCES_QUERY,
+          variables: {
+            definitionId: GOOGLE_CLOUD_INTEGRATION_DEFINITION_ID,
+          },
+        }),
+        headers: {
+          'JupiterOne-Account': jupiteroneAccountId,
+          Authorization: `Bearer ${jupiteroneApiKey}`,
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+
+    const result = await response.json();
+
+    if (result.error) {
+      logger.error(
+        { err: result.error },
+        'Could not list page of integration instances for project',
+      );
+      throw new Error('Failed to get existing pages of integration instances');
+    }
+
+    const integrationInstancesResult = result.data
+      .integrationInstances as IntegrationInstancesQueryApiResult;
+
+    for (const integrationInstance of integrationInstancesResult.instances) {
+      if (integrationInstance.name === projectId) {
+        return integrationInstance;
+      }
+    }
+
+    cursor = integrationInstancesResult.pageInfo.endCursor;
+  } while (cursor);
+
+  return null;
+}
+
+interface PutJupiterOneIntegrationInstanceParams {
+  logger: Logger;
+  jupiteroneAccountId: string;
+  jupiteroneApiKey: string;
+  projectId: string;
+  serviceAccountKey: string;
+  jupiteroneEnv: string;
+}
+
+async function putJupiterOneIntegrationInstance({
+  logger,
+  jupiteroneAccountId,
+  jupiteroneApiKey,
+  projectId,
+  serviceAccountKey,
+  jupiteroneEnv,
+}: PutJupiterOneIntegrationInstanceParams) {
+  logger.info(
+    'Attempting to put integration instance for Google Cloud project...',
+  );
+
+  const existingIntegrationInstance = await getIntegrationInstanceForAccountWithProjectTag(
+    logger,
+    jupiteroneAccountId,
+    jupiteroneApiKey,
+    projectId,
+    jupiteroneEnv,
+  );
+
+  let integrationInstance: IntegrationInstance;
+
+  if (existingIntegrationInstance) {
+    logger.info(
+      {
+        integrationInstanceId: existingIntegrationInstance.id,
+      },
+      'Found existing integation instance to update...',
+    );
+
+    integrationInstance = await updateJupiterOneIntegrationInstance({
+      logger,
+      jupiteroneAccountId,
+      jupiteroneApiKey,
+      jupiteroneEnv,
+      integrationInstanceId: existingIntegrationInstance.id,
+      integrationInstanceUpdate: {
+        name: projectId,
+        pollingInterval: existingIntegrationInstance.pollingInterval,
+        description: 'Created from JupiterOne org script',
+        config: {
+          '@tag': {
+            AccountName: projectId,
+          },
+          serviceAccountKeyFile: serviceAccountKey,
+        },
+      },
+    });
+  } else {
+    logger.info('Creating new integration instance...');
+
+    integrationInstance = await createJupiterOneIntegrationInstance({
+      logger,
+      jupiteroneAccountId,
+      jupiteroneApiKey,
+      projectId,
+      serviceAccountKey,
+      jupiteroneEnv,
+    });
+  }
+
+  return integrationInstance;
 }
 
 interface MutateOrgPolicyParams {
@@ -484,6 +753,8 @@ async function setupOrganizationProject(
     project,
     logger,
     jupiteroneEnv,
+    rotateServiceAccountKeys,
+    servicesToEnable,
   } = params;
 
   const projectId = project.projectId as string;
@@ -501,11 +772,7 @@ async function setupOrganizationProject(
   try {
     logger.info('Enabling API services in project...');
 
-    await enableProjectServices(
-      googleAccessToken,
-      projectId,
-      PROJECT_SERVICES_TO_ENABLE,
-    );
+    await enableProjectServices(googleAccessToken, projectId, servicesToEnable);
   } catch (err) {
     if (err.errors) {
       logger.error({ errors: err.errors }, 'Error enabling project services');
@@ -516,22 +783,35 @@ async function setupOrganizationProject(
     return SetupOrganizationProjectResult.FAILED;
   }
 
+  logger.info('Checking if existing service account exists');
   const existingServiceAccount = await getJupiterOneServiceAccountForProject(
     googleAccessToken,
     projectId,
   );
 
-  if (existingServiceAccount) {
+  // If we already have a service account and we are not rotating service account
+  // keys, then we can just exit early.
+  if (existingServiceAccount && !rotateServiceAccountKeys) {
     logger.info('Project already has a JupiterOne service account configured');
     return SetupOrganizationProjectResult.EXISTS;
   }
 
-  logger.info('Creating service account for project');
-  const serviceAccount = await createServiceAccount(
-    googleAccessToken,
-    projectId,
-  );
-  const serviceAccountEmail = serviceAccount?.email as string;
+  let serviceAccount: iam_v1.Schema$ServiceAccount | null = existingServiceAccount;
+  let serviceAccountEmail = serviceAccount?.email as string;
+
+  if (serviceAccount) {
+    logger.info(
+      {
+        serviceAccountEmail,
+      },
+      'Service account already exists. Key will be rotated...',
+    );
+  } else {
+    logger.info('Creating service account for project');
+    serviceAccount = await createServiceAccount(googleAccessToken, projectId);
+
+    serviceAccountEmail = serviceAccount.email as string;
+  }
 
   logger.info(
     {
@@ -539,8 +819,6 @@ async function setupOrganizationProject(
     },
     'Successfully created service account for project',
   );
-
-  logger.info('Fetching policy for project...');
 
   await updateOrgPolicy({
     logger,
@@ -568,20 +846,29 @@ async function setupOrganizationProject(
     'Successfully created service account key for project.',
   );
 
-  logger.info('Attemping to create J1 integration instance...');
+  try {
+    const result = await putJupiterOneIntegrationInstance({
+      logger,
+      jupiteroneAccountId,
+      jupiteroneApiKey,
+      projectId,
+      serviceAccountKey,
+      jupiteroneEnv,
+    });
 
-  const result = await createJupiterOneIntegrationInstance(
-    jupiteroneAccountId,
-    jupiteroneApiKey,
-    projectId,
-    serviceAccountKey,
-    jupiteroneEnv,
-  );
+    logger.info(
+      {
+        integrationInstanceId: result.id,
+        projectId,
+      },
+      'Successfully put JupiterOne integration instance for Google Cloud project',
+    );
 
-  if (result.error) {
+    return SetupOrganizationProjectResult.CREATED;
+  } catch (err) {
     logger.error(
       {
-        result,
+        err,
         jupiteroneAccountId,
         projectId,
         jupiteroneEnv,
@@ -590,17 +877,6 @@ async function setupOrganizationProject(
     );
     return SetupOrganizationProjectResult.FAILED;
   }
-
-  logger.info(
-    {
-      result,
-      integrationInstanceId: result.id,
-      projectId,
-    },
-    'Integration instance created for Google Cloud project',
-  );
-
-  return SetupOrganizationProjectResult.CREATED;
 }
 
 export interface SetupOrganizationResult {
@@ -623,6 +899,8 @@ export async function setupOrganization(
     logger: baseLogger,
     jupiteroneEnv = 'us',
     skipSystemProjects,
+    rotateServiceAccountKeys,
+    servicesToEnable,
   } = params;
 
   const result: SetupOrganizationResult = {
@@ -681,6 +959,8 @@ export async function setupOrganization(
           project,
           logger,
           jupiteroneEnv,
+          rotateServiceAccountKeys,
+          servicesToEnable,
         });
 
         result[setupResult.toLowerCase()].push(projectId);
@@ -724,6 +1004,8 @@ export async function setupOrganization(
               project,
               logger,
               jupiteroneEnv,
+              rotateServiceAccountKeys,
+              servicesToEnable,
             });
 
             result[setupResult.toLowerCase()].push(projectId);
