@@ -17,6 +17,15 @@ import {
   createSubnetHasComputeInstanceRelationship,
   createFirewallRuleMappedRelationship,
   createComputeProjectEntity,
+  createLoadBalancerEntity,
+  createBackendServiceEntity,
+  createBackendBucketEntity,
+  createTargetHttpsProxyEntity,
+  createTargetSslProxyEntity,
+  createTargetHttpProxyEntity,
+  createSslPolicyEntity,
+  createInstanceGroupEntity,
+  createHealthCheckEntity,
 } from './converters';
 import {
   STEP_COMPUTE_INSTANCES,
@@ -45,6 +54,44 @@ import {
   ENTITY_TYPE_COMPUTE_PROJECT,
   ENTITY_CLASS_COMPUTE_PROJECT,
   RELATIONSHIP_TYPE_PROJECT_HAS_INSTANCE,
+  STEP_COMPUTE_LOADBALANCERS,
+  STEP_COMPUTE_BACKEND_SERVICES,
+  STEP_COMPUTE_BACKEND_BUCKETS,
+  ENTITY_TYPE_COMPUTE_LOAD_BALANCER,
+  ENTITY_CLASS_COMPUTE_LOAD_BALANCER,
+  ENTITY_TYPE_COMPUTE_BACKEND_SERVICE,
+  ENTITY_CLASS_COMPUTE_BACKEND_SERVICE,
+  RELATIONSHIP_TYPE_LOAD_BALANCER_HAS_BACKEND_SERVICE,
+  ENTITY_TYPE_COMPUTE_BACKEND_BUCKET,
+  ENTITY_CLASS_COMPUTE_BACKEND_BUCKET,
+  RELATIONSHIP_TYPE_LOAD_BALANCER_HAS_BACKEND_BUCKET,
+  RELATIONSHIP_TYPE_BACKEND_BUCKET_HAS_STORAGE_BUCKET,
+  STEP_COMPUTE_TARGET_SSL_PROXIES,
+  STEP_COMPUTE_TARGET_HTTPS_PROXIES,
+  ENTITY_TYPE_COMPUTE_TARGET_SSL_PROXY,
+  ENTITY_CLASS_COMPUTE_TARGET_SSL_PROXY,
+  ENTITY_TYPE_COMPUTE_TARGET_HTTP_PROXY,
+  ENTITY_CLASS_COMPUTE_TARGET_HTTP_PROXY,
+  ENTITY_TYPE_COMPUTE_TARGET_HTTPS_PROXY,
+  ENTITY_CLASS_COMPUTE_TARGET_HTTPS_PROXY,
+  RELATIONSHIP_TYPE_LOAD_BALANCER_HAS_TARGET_HTTPS_PROXY,
+  RELATIONSHIP_TYPE_BACKEND_SERVICE_HAS_TARGET_SSL_PROXY,
+  STEP_COMPUTE_TARGET_HTTP_PROXIES,
+  RELATIONSHIP_TYPE_LOAD_BALANCER_HAS_TARGET_HTTP_PROXY,
+  ENTITY_TYPE_COMPUTE_SSL_POLICY,
+  ENTITY_CLASS_COMPUTE_SSL_POLICY,
+  STEP_COMPUTE_SSL_POLICIES,
+  RELATIONSHIP_TYPE_TARGET_HTTPS_PROXY_HAS_SSL_POLICY,
+  RELATIONSHIP_TYPE_TARGET_SSL_PROXY_HAS_SSL_POLICY,
+  STEP_COMPUTE_INSTANCE_GROUPS,
+  ENTITY_TYPE_COMPUTE_INSTANCE_GROUP,
+  ENTITY_CLASS_COMPUTE_INSTANCE_GROUP,
+  RELATIONSHIP_TYPE_BACKEND_SERVICE_HAS_INSTANCE_GROUP,
+  RELATIONSHIP_TYPE_INSTANCE_GROUP_HAS_COMPUTE_INSTANCE,
+  STEP_COMPUTE_HEALTH_CHECKS,
+  ENTITY_TYPE_COMPUTE_HEALTH_CHECK,
+  ENTITY_CLASS_COMPUTE_HEALTH_CHECK,
+  RELATIONSHIP_TYPE_BACKEND_SERVICE_HAS_HEALTH_CHECK,
 } from './constants';
 import { compute_v1 } from 'googleapis';
 import { INTERNET, RelationshipClass } from '@jupiterone/data-model';
@@ -57,6 +104,11 @@ import {
   getFirewallRelationshipDirection,
   processFirewallRuleRelationshipTargets,
 } from '../../utils/firewall';
+import {
+  CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
+  STEP_CLOUD_STORAGE_BUCKETS,
+} from '../storage';
+import { getCloudStorageBucketKey } from '../storage/converters';
 
 export * from './constants';
 
@@ -200,7 +252,7 @@ export async function fetchComputeInstances(
   const { jobState, instance } = context;
   const client = new ComputeClient({ config: instance.config });
 
-  await client.iterateComputeInstances(async (computeInstance) => {
+  await client.iterateComputeInstances(async (computeInstance, projectId) => {
     const computeInstanceEntity = await jobState.addEntity(
       createComputeInstanceEntity(computeInstance),
     );
@@ -222,6 +274,43 @@ export async function fetchComputeInstances(
       computeInstance,
       computeInstanceEntity,
     });
+
+    // If this instance is managed by instance-group, add relationship
+    const createdBy = computeInstance.metadata?.items?.find(
+      (item) => item.key === 'created-by',
+    )?.value;
+    if (
+      createdBy &&
+      createdBy.includes('instanceGroupManagers') &&
+      createdBy.split('/').length >= 5
+    ) {
+      /*
+        Some explanation (not a fan of doing this but):
+        Our instanceGroup entities use the selfLink for the _key which looks something like this:
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/zones/us-central1-a/instanceGroups/instance-group-1",
+
+        Here we want to find the correct instanceGroup based on compute instance data and formats sadly do not map 1-to-1.
+        Compute instance gives us the following form:
+        'projects/165882964161/zones/us-central1-a/instanceGroupManagers/instance-group-1'
+
+        So we're building the selfLink format below so that we can use jobState.findEntity(that value) instead of having to iterateEntities and check that way
+        Both would work. Perhaps there's a better way to do this and if so we'll refactor it, but for now this allows us to make the relationship
+      */
+      const zone = createdBy.split('/')[3];
+      const instanceGroupName = createdBy.split('/')[5];
+      const instanceGroupKey = `https://www.googleapis.com/compute/v1/projects/${projectId}/zones/${zone}/instanceGroups/${instanceGroupName}`;
+
+      const instanceGroupEntity = await jobState.findEntity(instanceGroupKey);
+      if (instanceGroupEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.HAS,
+            from: instanceGroupEntity,
+            to: computeInstanceEntity,
+          }),
+        );
+      }
+    }
   });
 }
 
@@ -357,6 +446,305 @@ export async function fetchComputeNetworks(
   });
 }
 
+export async function fetchHealthChecks(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, instance } = context;
+  const client = new ComputeClient({ config: instance.config });
+
+  await client.iterateHealthChecks(async (healthCheck) => {
+    const healthCheckEntity = createHealthCheckEntity(healthCheck);
+    await jobState.addEntity(healthCheckEntity);
+  });
+}
+
+export async function fetchComputeInstanceGroups(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, instance } = context;
+  const client = new ComputeClient({ config: instance.config });
+
+  await client.iterateInstanceGroups(async (instanceGroup) => {
+    const instanceGroupEntity = createInstanceGroupEntity(instanceGroup);
+    await jobState.addEntity(instanceGroupEntity);
+  });
+}
+
+function getBackendServices(
+  pathMatchers: compute_v1.Schema$PathMatcher[],
+  type: 'backendServices' | 'backendBuckets',
+) {
+  const services: string[] = [];
+
+  for (const pathMatcher of pathMatchers) {
+    if (
+      pathMatcher.defaultService?.includes(type) &&
+      !services.find((backend) => backend == pathMatcher.defaultService)
+    ) {
+      services.push(pathMatcher.defaultService);
+    }
+
+    // Sub-urls can have different services assigned to them
+    for (const pathRule of pathMatcher.pathRules || []) {
+      if (
+        pathRule.service?.includes(type) &&
+        !services.find((backend) => backend == pathRule.service)
+      ) {
+        services.push(pathRule.service);
+      }
+    }
+  }
+
+  return services;
+}
+
+export async function fetchLoadBalancers(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, instance } = context;
+  const client = new ComputeClient({ config: instance.config });
+
+  await client.iterateLoadBalancers(async (loadBalancer) => {
+    const loadBalancerEntity = createLoadBalancerEntity(loadBalancer);
+    await jobState.addEntity(loadBalancerEntity);
+
+    const backendServicesIds = getBackendServices(
+      loadBalancer.pathMatchers || [],
+      'backendServices',
+    );
+    const backendBucketsIds = getBackendServices(
+      loadBalancer.pathMatchers || [],
+      'backendBuckets',
+    );
+
+    // Add loadbalancer -> HAS -> backendService relationships
+    for (const backendServiceKey of backendServicesIds) {
+      const backendService = await jobState.findEntity(backendServiceKey);
+      if (backendService) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.HAS,
+            from: loadBalancerEntity,
+            to: backendService,
+          }),
+        );
+      }
+    }
+
+    // Add loadbalancer -> HAS -> backendBucket relationships
+    for (const backendBucketKey of backendBucketsIds) {
+      const backendBucket = await jobState.findEntity(backendBucketKey);
+      if (backendBucket) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.HAS,
+            from: loadBalancerEntity,
+            to: backendBucket,
+          }),
+        );
+      }
+    }
+  });
+}
+
+export async function fetchBackendServices(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, instance } = context;
+  const client = new ComputeClient({ config: instance.config });
+
+  await client.iterateBackendServices(async (backendService) => {
+    const backendServiceEntity = createBackendServiceEntity(backendService);
+    await jobState.addEntity(backendServiceEntity);
+
+    // Get all the instanceGroupKeys
+    for (const backend of backendService.backends || []) {
+      if (backend.group?.includes('instanceGroups')) {
+        const instanceGroupEntity = await jobState.findEntity(backend.group);
+        if (instanceGroupEntity) {
+          await jobState.addRelationship(
+            createDirectRelationship({
+              _class: RelationshipClass.HAS,
+              from: backendServiceEntity,
+              to: instanceGroupEntity,
+            }),
+          );
+        }
+      }
+    }
+
+    // Add relationships to health checks
+    for (const healthCheckKey of backendService.healthChecks || []) {
+      const healthCheckEntity = await jobState.findEntity(healthCheckKey);
+      if (healthCheckEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.HAS,
+            from: backendServiceEntity,
+            to: healthCheckEntity,
+          }),
+        );
+      }
+    }
+  });
+}
+
+export async function fetchBackendBuckets(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, instance } = context;
+  const client = new ComputeClient({ config: instance.config });
+
+  await client.iterateBackendBuckets(async (backendBucket) => {
+    const backendBucketEntity = createBackendBucketEntity(backendBucket);
+    await jobState.addEntity(backendBucketEntity);
+
+    const storageBucketEntity = await jobState.findEntity(
+      getCloudStorageBucketKey(backendBucket.bucketName as string),
+    );
+    if (storageBucketEntity) {
+      await jobState.addRelationship(
+        createDirectRelationship({
+          _class: RelationshipClass.HAS,
+          from: backendBucketEntity,
+          to: storageBucketEntity,
+        }),
+      );
+    }
+  });
+}
+
+export async function fetchTargetSslProxies(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, instance } = context;
+  const client = new ComputeClient({ config: instance.config });
+
+  await client.iterateTargetSslProxies(async (targetSslProxy) => {
+    const targetSslProxyEntity = createTargetSslProxyEntity(targetSslProxy);
+    await jobState.addEntity(targetSslProxyEntity);
+
+    // NOTE - SSL load balancer is slightly different
+    // targetSslProxy does not have urlMap field that points to its load balancer (like targetHttp and targetHttps do)
+    // but instead, SSL load balancer actually exists as a backendService and cannot be found with urlMap
+
+    const backendServiceEntity = await jobState.findEntity(
+      targetSslProxy.service as string,
+    );
+    if (backendServiceEntity) {
+      await jobState.addRelationship(
+        createDirectRelationship({
+          _class: RelationshipClass.HAS,
+          from: backendServiceEntity,
+          to: targetSslProxyEntity,
+        }),
+      );
+    }
+  });
+}
+
+export async function fetchTargetHttpsProxies(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, instance } = context;
+  const client = new ComputeClient({ config: instance.config });
+
+  await client.iterateTargetHttpsProxies(async (targetHttpsProxy) => {
+    const targetHttpsProxyEntity = createTargetHttpsProxyEntity(
+      targetHttpsProxy,
+    );
+    await jobState.addEntity(targetHttpsProxyEntity);
+
+    const loadBalancerEntity = await jobState.findEntity(
+      targetHttpsProxy.urlMap as string,
+    );
+    if (loadBalancerEntity) {
+      await jobState.addRelationship(
+        createDirectRelationship({
+          _class: RelationshipClass.HAS,
+          from: loadBalancerEntity,
+          to: targetHttpsProxyEntity,
+        }),
+      );
+    }
+  });
+}
+
+export async function fetchTargetHttpProxies(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, instance } = context;
+  const client = new ComputeClient({ config: instance.config });
+
+  await client.iterateTargetHttpProxies(async (targetHttpProxy) => {
+    const targetHttpProxyEntity = createTargetHttpProxyEntity(targetHttpProxy);
+    await jobState.addEntity(targetHttpProxyEntity);
+
+    const loadBalancerEntity = await jobState.findEntity(
+      targetHttpProxy.urlMap as string,
+    );
+    if (loadBalancerEntity) {
+      await jobState.addRelationship(
+        createDirectRelationship({
+          _class: RelationshipClass.HAS,
+          from: loadBalancerEntity,
+          to: targetHttpProxyEntity,
+        }),
+      );
+    }
+  });
+}
+
+export async function fetchSslPolicies(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, instance } = context;
+  const client = new ComputeClient({ config: instance.config });
+
+  await client.iterateSslPolicies(async (sslPolicy) => {
+    const sslPolicyEntity = createSslPolicyEntity(sslPolicy);
+    await jobState.addEntity(sslPolicyEntity);
+
+    // TARGET_HTTPS_PROXY -> HAS -> SSL_POLICY
+    await jobState.iterateEntities(
+      {
+        _type: ENTITY_TYPE_COMPUTE_TARGET_HTTPS_PROXY,
+      },
+      async (targetHttpsProxyEntity) => {
+        if (
+          (targetHttpsProxyEntity.sslPolicy as string) === sslPolicy.selfLink
+        ) {
+          await jobState.addRelationship(
+            createDirectRelationship({
+              _class: RelationshipClass.HAS,
+              from: targetHttpsProxyEntity,
+              to: sslPolicyEntity,
+            }),
+          );
+        }
+      },
+    );
+
+    // TARGET_SSL_PROXY -> HAS -> SSL_POLICY
+    await jobState.iterateEntities(
+      {
+        _type: ENTITY_TYPE_COMPUTE_TARGET_SSL_PROXY,
+      },
+      async (targetSslProxyEntity) => {
+        if ((targetSslProxyEntity.sslPolicy as string) === sslPolicy.selfLink) {
+          await jobState.addRelationship(
+            createDirectRelationship({
+              _class: RelationshipClass.HAS,
+              from: targetSslProxyEntity,
+              to: sslPolicyEntity,
+            }),
+          );
+        }
+      },
+    );
+  });
+}
+
 export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_COMPUTE_NETWORKS,
@@ -467,12 +855,19 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
         sourceType: ENTITY_TYPE_COMPUTE_SUBNETWORK,
         targetType: ENTITY_TYPE_COMPUTE_INSTANCE,
       },
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_INSTANCE_GROUP_HAS_COMPUTE_INSTANCE,
+        sourceType: ENTITY_TYPE_COMPUTE_INSTANCE_GROUP,
+        targetType: ENTITY_TYPE_COMPUTE_INSTANCE,
+      },
     ],
     dependsOn: [
       STEP_COMPUTE_DISKS,
       STEP_IAM_SERVICE_ACCOUNTS,
       STEP_COMPUTE_NETWORKS,
       STEP_COMPUTE_SUBNETWORKS,
+      STEP_COMPUTE_INSTANCE_GROUPS,
     ],
     executionHandler: fetchComputeInstances,
   },
@@ -496,5 +891,201 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
     ],
     dependsOn: [STEP_COMPUTE_INSTANCES],
     executionHandler: fetchComputeProject,
+  },
+  {
+    id: STEP_COMPUTE_HEALTH_CHECKS,
+    name: 'Compute Health Checks',
+    entities: [
+      {
+        resourceName: 'Compute Health Check',
+        _type: ENTITY_TYPE_COMPUTE_HEALTH_CHECK,
+        _class: ENTITY_CLASS_COMPUTE_HEALTH_CHECK,
+      },
+    ],
+    relationships: [],
+    dependsOn: [],
+    executionHandler: fetchHealthChecks,
+  },
+  {
+    id: STEP_COMPUTE_INSTANCE_GROUPS,
+    name: 'Compute Instance Groups',
+    entities: [
+      {
+        resourceName: 'Compute Instance Group',
+        _type: ENTITY_TYPE_COMPUTE_INSTANCE_GROUP,
+        _class: ENTITY_CLASS_COMPUTE_INSTANCE_GROUP,
+      },
+    ],
+    relationships: [],
+    dependsOn: [],
+    executionHandler: fetchComputeInstanceGroups,
+  },
+  {
+    id: STEP_COMPUTE_LOADBALANCERS,
+    name: 'Compute Load Balancers',
+    entities: [
+      {
+        resourceName: 'Compute Load Balancer',
+        _type: ENTITY_TYPE_COMPUTE_LOAD_BALANCER,
+        _class: ENTITY_CLASS_COMPUTE_LOAD_BALANCER,
+      },
+    ],
+    relationships: [
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_LOAD_BALANCER_HAS_BACKEND_SERVICE,
+        sourceType: ENTITY_TYPE_COMPUTE_LOAD_BALANCER,
+        targetType: ENTITY_TYPE_COMPUTE_BACKEND_SERVICE,
+      },
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_LOAD_BALANCER_HAS_BACKEND_BUCKET,
+        sourceType: ENTITY_TYPE_COMPUTE_LOAD_BALANCER,
+        targetType: ENTITY_TYPE_COMPUTE_BACKEND_BUCKET,
+      },
+    ],
+    dependsOn: [STEP_COMPUTE_BACKEND_SERVICES, STEP_COMPUTE_BACKEND_BUCKETS],
+    executionHandler: fetchLoadBalancers,
+  },
+  {
+    id: STEP_COMPUTE_BACKEND_SERVICES,
+    name: 'Compute Backend Services',
+    entities: [
+      {
+        resourceName: 'Compute Backend Service',
+        _type: ENTITY_TYPE_COMPUTE_BACKEND_SERVICE,
+        _class: ENTITY_CLASS_COMPUTE_BACKEND_SERVICE,
+      },
+    ],
+    relationships: [
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_BACKEND_SERVICE_HAS_INSTANCE_GROUP,
+        sourceType: ENTITY_TYPE_COMPUTE_BACKEND_SERVICE,
+        targetType: ENTITY_TYPE_COMPUTE_INSTANCE_GROUP,
+      },
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_BACKEND_SERVICE_HAS_HEALTH_CHECK,
+        sourceType: ENTITY_TYPE_COMPUTE_BACKEND_SERVICE,
+        targetType: ENTITY_TYPE_COMPUTE_HEALTH_CHECK,
+      },
+    ],
+    dependsOn: [STEP_COMPUTE_INSTANCE_GROUPS, STEP_COMPUTE_HEALTH_CHECKS],
+    executionHandler: fetchBackendServices,
+  },
+  {
+    id: STEP_COMPUTE_BACKEND_BUCKETS,
+    name: 'Compute Backend Buckets',
+    entities: [
+      {
+        resourceName: 'Compute Backend Bucket',
+        _type: ENTITY_TYPE_COMPUTE_BACKEND_BUCKET,
+        _class: ENTITY_CLASS_COMPUTE_BACKEND_BUCKET,
+      },
+    ],
+    relationships: [
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_BACKEND_BUCKET_HAS_STORAGE_BUCKET,
+        sourceType: ENTITY_TYPE_COMPUTE_BACKEND_BUCKET,
+        targetType: CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
+      },
+    ],
+    dependsOn: [STEP_CLOUD_STORAGE_BUCKETS],
+    executionHandler: fetchBackendBuckets,
+  },
+  {
+    id: STEP_COMPUTE_TARGET_SSL_PROXIES,
+    name: 'Compute Target SSL Proxies',
+    entities: [
+      {
+        resourceName: 'Compute Target SSL Proxy',
+        _type: ENTITY_TYPE_COMPUTE_TARGET_SSL_PROXY,
+        _class: ENTITY_CLASS_COMPUTE_TARGET_SSL_PROXY,
+      },
+    ],
+    relationships: [
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_BACKEND_SERVICE_HAS_TARGET_SSL_PROXY,
+        sourceType: ENTITY_TYPE_COMPUTE_BACKEND_SERVICE,
+        targetType: ENTITY_TYPE_COMPUTE_TARGET_SSL_PROXY,
+      },
+    ],
+    dependsOn: [STEP_COMPUTE_BACKEND_SERVICES],
+    executionHandler: fetchTargetSslProxies,
+  },
+  {
+    id: STEP_COMPUTE_TARGET_HTTPS_PROXIES,
+    name: 'Compute Target HTTPS Proxies',
+    entities: [
+      {
+        resourceName: 'Compute Target HTTPS Proxy',
+        _type: ENTITY_TYPE_COMPUTE_TARGET_HTTPS_PROXY,
+        _class: ENTITY_CLASS_COMPUTE_TARGET_HTTPS_PROXY,
+      },
+    ],
+    relationships: [
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_LOAD_BALANCER_HAS_TARGET_HTTPS_PROXY,
+        sourceType: ENTITY_TYPE_COMPUTE_LOAD_BALANCER,
+        targetType: ENTITY_TYPE_COMPUTE_TARGET_HTTPS_PROXY,
+      },
+    ],
+    dependsOn: [STEP_COMPUTE_LOADBALANCERS],
+    executionHandler: fetchTargetHttpsProxies,
+  },
+  {
+    id: STEP_COMPUTE_TARGET_HTTP_PROXIES,
+    name: 'Compute Target HTTP Proxies',
+    entities: [
+      {
+        resourceName: 'Compute Target HTTP Proxy',
+        _type: ENTITY_TYPE_COMPUTE_TARGET_HTTP_PROXY,
+        _class: ENTITY_CLASS_COMPUTE_TARGET_HTTP_PROXY,
+      },
+    ],
+    relationships: [
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_LOAD_BALANCER_HAS_TARGET_HTTP_PROXY,
+        sourceType: ENTITY_TYPE_COMPUTE_LOAD_BALANCER,
+        targetType: ENTITY_TYPE_COMPUTE_TARGET_HTTP_PROXY,
+      },
+    ],
+    dependsOn: [STEP_COMPUTE_LOADBALANCERS],
+    executionHandler: fetchTargetHttpProxies,
+  },
+  {
+    id: STEP_COMPUTE_SSL_POLICIES,
+    name: 'Compute SSL Policies',
+    entities: [
+      {
+        resourceName: 'Compute SSL Policy',
+        _type: ENTITY_TYPE_COMPUTE_SSL_POLICY,
+        _class: ENTITY_CLASS_COMPUTE_SSL_POLICY,
+      },
+    ],
+    relationships: [
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_TARGET_HTTPS_PROXY_HAS_SSL_POLICY,
+        sourceType: ENTITY_TYPE_COMPUTE_TARGET_HTTPS_PROXY,
+        targetType: ENTITY_TYPE_COMPUTE_SSL_POLICY,
+      },
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_TARGET_SSL_PROXY_HAS_SSL_POLICY,
+        sourceType: ENTITY_TYPE_COMPUTE_TARGET_SSL_PROXY,
+        targetType: ENTITY_TYPE_COMPUTE_SSL_POLICY,
+      },
+    ],
+    dependsOn: [
+      STEP_COMPUTE_TARGET_HTTPS_PROXIES,
+      STEP_COMPUTE_TARGET_SSL_PROXIES,
+    ],
+    executionHandler: fetchSslPolicies,
   },
 ];

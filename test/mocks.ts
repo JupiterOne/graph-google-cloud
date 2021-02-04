@@ -719,3 +719,236 @@ export function getMockMetric(
     ...partial,
   };
 }
+
+export function getMockBackendBucket(
+  partial?: compute_v1.Schema$BackendBucket,
+): compute_v1.Schema$BackendBucket {
+  return {
+    id: '6230681112154833150',
+    creationTimestamp: '2021-01-29T08:55:45.400-08:00',
+    name: 'example-backend-bucket',
+    description: '',
+    selfLink:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendBuckets/example-backend-bucket',
+    bucketName: 'log-example-bucket',
+    enableCdn: false,
+    kind: 'compute#backendBucket',
+    ...partial,
+  };
+}
+
+export function getMockBackendService(
+  partial?: compute_v1.Schema$BackendService,
+): compute_v1.Schema$BackendService {
+  return {
+    id: '3052966098403233127',
+    creationTimestamp: '2021-01-25T13:09:28.422-08:00',
+    name: 'example-backend-service',
+    description: '',
+    selfLink:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendServices/example-backend-service',
+    backends: [
+      {
+        group:
+          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/zones/us-central1-a/instanceGroups/instance-group-1',
+        balancingMode: 'UTILIZATION',
+        maxUtilization: 0.8,
+        capacityScaler: 1,
+      },
+    ],
+    healthChecks: [
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/healthChecks/health-check',
+    ],
+    timeoutSec: 30,
+    port: 80,
+    protocol: 'HTTPS',
+    fingerprint: 'OnffiLYpLO4=',
+    portName: 'https',
+    enableCDN: false,
+    sessionAffinity: 'NONE',
+    affinityCookieTtlSec: 0,
+    loadBalancingScheme: 'EXTERNAL',
+    connectionDraining: {
+      drainingTimeoutSec: 300,
+    },
+    logConfig: {
+      enable: true,
+      sampleRate: 1,
+    },
+    kind: 'compute#backendService',
+    ...partial,
+  };
+}
+
+export function getMockHealthCheck(
+  partial?: compute_v1.Schema$HealthCheck,
+): compute_v1.Schema$HealthCheck {
+  return {
+    id: '1905105216322309484',
+    creationTimestamp: '2021-01-25T13:09:23.908-08:00',
+    name: 'health-check',
+    description: '',
+    checkIntervalSec: 10,
+    timeoutSec: 5,
+    unhealthyThreshold: 3,
+    healthyThreshold: 2,
+    type: 'TCP',
+    tcpHealthCheck: {
+      port: 80,
+      proxyHeader: 'NONE',
+    },
+    selfLink:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/healthChecks/health-check',
+    kind: 'compute#healthCheck',
+    ...partial,
+  };
+}
+
+export function getMockInstanceGroup(
+  partial?: compute_v1.Schema$InstanceGroup,
+): compute_v1.Schema$InstanceGroup {
+  return {
+    id: '4682404015364017264',
+    creationTimestamp: '2021-01-25T13:05:35.348-08:00',
+    name: 'instance-group-1',
+    description:
+      "This instance group is controlled by Instance Group Manager 'instance-group-1'. To modify instances in this group, use the Instance Group Manager API: https://cloud.google.com/compute/docs/reference/latest/instanceGroupManagers",
+    namedPorts: [
+      {
+        name: 'https',
+        port: 5000,
+      },
+    ],
+    network:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/networks/default',
+    fingerprint: 'Mhi8gtwR57U=',
+    zone:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/zones/us-central1-a',
+    selfLink:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/zones/us-central1-a/instanceGroups/instance-group-1',
+    size: 1,
+    subnetwork:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/regions/us-central1/subnetworks/default',
+    kind: 'compute#instanceGroup',
+    ...partial,
+  };
+}
+
+export function getMockLoadBalancer(
+  partial?: compute_v1.Schema$UrlMap,
+): compute_v1.Schema$UrlMap {
+  return {
+    id: '7884251075960802659',
+    creationTimestamp: '2021-01-25T13:09:32.355-08:00',
+    name: 'example-http-load-balancer',
+    selfLink:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/urlMaps/example-http-load-balancer',
+    hostRules: [
+      {
+        hosts: ['web.test.com'],
+        pathMatcher: 'path-matcher-1',
+      },
+    ],
+    pathMatchers: [
+      {
+        name: 'path-matcher-1',
+        defaultService:
+          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendServices/example-backend-service',
+        pathRules: [
+          {
+            service:
+              'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendBuckets/example-backend-bucket',
+            paths: ['/images/*'],
+          },
+        ],
+      },
+    ],
+    defaultService:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendServices/example-backend-service',
+    fingerprint: '7VTPVZHiF8k=',
+    kind: 'compute#urlMap',
+    ...partial,
+  };
+}
+
+export function getMockTargetHttpProxy(
+  partial?: compute_v1.Schema$TargetHttpProxy,
+): compute_v1.Schema$TargetHttpProxy {
+  return {
+    id: '3284730591055048813',
+    creationTimestamp: '2021-02-04T11:44:02.365-08:00',
+    name: 'example-http-loadbalancer-target-proxy',
+    selfLink:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/targetHttpProxies/example-http-loadbalancer-target-proxy',
+    urlMap:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/urlMaps/example-http-loadbalancer',
+    fingerprint: 'XrJcBMxyGME=',
+    kind: 'compute#targetHttpProxy',
+    ...partial,
+  };
+}
+
+export function getMockTargetHttpsProxy(
+  partial?: compute_v1.Schema$TargetHttpsProxy,
+): compute_v1.Schema$TargetHttpsProxy {
+  return {
+    id: '4900822412538579656',
+    creationTimestamp: '2021-01-25T13:12:07.139-08:00',
+    name: 'example-http-load-balancer-target-proxy',
+    selfLink:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/targetHttpsProxies/example-http-load-balancer-target-proxy',
+    urlMap:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/urlMaps/example-http-load-balancer',
+    sslCertificates: [
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/sslCertificates/example-certificate',
+    ],
+    quicOverride: 'NONE',
+    sslPolicy:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/sslPolicies/example-tls-1-2-policy',
+    kind: 'compute#targetHttpsProxy',
+    ...partial,
+  };
+}
+
+export function getMockTargetSslProxy(
+  partial?: compute_v1.Schema$TargetSslProxy,
+): compute_v1.Schema$TargetSslProxy {
+  return {
+    id: '764465862189116138',
+    creationTimestamp: '2021-02-04T12:07:33.886-08:00',
+    name: 'example-ssl-2-loadbalancer-target-proxy',
+    selfLink:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/targetSslProxies/example-ssl-2-loadbalancer-target-proxy',
+    service:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendServices/example-ssl-2-loadbalancer',
+    sslCertificates: [
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/sslCertificates/example-certificate',
+    ],
+    proxyHeader: 'NONE',
+    kind: 'compute#targetSslProxy',
+    ...partial,
+  };
+}
+
+export function getMockSslPolicy(
+  partial?: compute_v1.Schema$SslPolicy,
+): compute_v1.Schema$SslPolicy {
+  return {
+    id: '1226213084601944618',
+    creationTimestamp: '2021-01-25T13:14:45.749-08:00',
+    selfLink:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/sslPolicies/example-tls-1-2-policy',
+    name: 'example-tls-1-2-policy',
+    profile: 'CUSTOM',
+    minTlsVersion: 'TLS_1_2',
+    customFeatures: [
+      'TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA',
+      'TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256',
+      'TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA',
+      'TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384',
+    ],
+    fingerprint: '5krWknNXjWo=',
+    kind: 'compute#sslPolicy',
+    ...partial,
+  };
+}

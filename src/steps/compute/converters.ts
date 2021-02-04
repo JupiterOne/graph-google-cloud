@@ -26,6 +26,24 @@ import {
   MAPPED_RELATIONSHIP_FIREWALL_RULE_TYPE,
   ENTITY_CLASS_COMPUTE_PROJECT,
   ENTITY_TYPE_COMPUTE_PROJECT,
+  ENTITY_CLASS_COMPUTE_LOAD_BALANCER,
+  ENTITY_TYPE_COMPUTE_LOAD_BALANCER,
+  ENTITY_CLASS_COMPUTE_BACKEND_SERVICE,
+  ENTITY_TYPE_COMPUTE_BACKEND_SERVICE,
+  ENTITY_CLASS_COMPUTE_BACKEND_BUCKET,
+  ENTITY_TYPE_COMPUTE_BACKEND_BUCKET,
+  ENTITY_CLASS_COMPUTE_TARGET_HTTPS_PROXY,
+  ENTITY_TYPE_COMPUTE_TARGET_HTTPS_PROXY,
+  ENTITY_CLASS_COMPUTE_TARGET_SSL_PROXY,
+  ENTITY_TYPE_COMPUTE_TARGET_SSL_PROXY,
+  ENTITY_CLASS_COMPUTE_TARGET_HTTP_PROXY,
+  ENTITY_TYPE_COMPUTE_TARGET_HTTP_PROXY,
+  ENTITY_CLASS_COMPUTE_SSL_POLICY,
+  ENTITY_TYPE_COMPUTE_SSL_POLICY,
+  ENTITY_CLASS_COMPUTE_INSTANCE_GROUP,
+  ENTITY_TYPE_COMPUTE_INSTANCE_GROUP,
+  ENTITY_CLASS_COMPUTE_HEALTH_CHECK,
+  ENTITY_TYPE_COMPUTE_HEALTH_CHECK,
 } from './constants';
 import { getGoogleCloudConsoleWebLink, getLastUrlPart } from '../../utils/url';
 import { parseRegionNameFromRegionUrl } from '../../google-cloud/regions';
@@ -644,6 +662,205 @@ export function createFirewallRuleMappedRelationship({
         protocol: properties.ipProtocol,
       }),
       ...properties,
+    },
+  });
+}
+
+export function createHealthCheckEntity(data: compute_v1.Schema$HealthCheck) {
+  return createIntegrationEntity({
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_COMPUTE_HEALTH_CHECK,
+        _type: ENTITY_TYPE_COMPUTE_HEALTH_CHECK,
+        _key: data.selfLink as string,
+        id: data.id as string,
+        name: data.name,
+        description: data.description,
+        checkIntervalSec: data.checkIntervalSec,
+        timeoutSec: data.timeoutSec,
+        unhealthyThreshold: data.unhealthyThreshold,
+        healthyThreshold: data.healthyThreshold,
+        type: data.type,
+        category: ['network'],
+        createdOn: parseTimePropertyValue(data.creationTimestamp),
+      },
+    },
+  });
+}
+
+export function createInstanceGroupEntity(
+  data: compute_v1.Schema$InstanceGroup,
+) {
+  return createIntegrationEntity({
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_COMPUTE_INSTANCE_GROUP,
+        _type: ENTITY_TYPE_COMPUTE_INSTANCE_GROUP,
+        _key: data.selfLink as string,
+        id: data.id as string,
+        name: data.name,
+        network: data.network,
+        zone: data.zone,
+        subnetwork: data.subnetwork,
+        createdOn: parseTimePropertyValue(data.creationTimestamp),
+      },
+    },
+  });
+}
+
+export function createLoadBalancerEntity(data: compute_v1.Schema$UrlMap) {
+  return createIntegrationEntity({
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_COMPUTE_LOAD_BALANCER,
+        _type: ENTITY_TYPE_COMPUTE_LOAD_BALANCER,
+        _key: data.selfLink as string,
+        id: data.id as string,
+        name: data.name,
+        displayName: data.name as string,
+        defaultService: data.defaultService,
+        category: ['network'],
+        function: ['load-balancing'],
+        public: true,
+        createdOn: parseTimePropertyValue(data.creationTimestamp),
+      },
+    },
+  });
+}
+
+export function createBackendServiceEntity(
+  data: compute_v1.Schema$BackendService,
+) {
+  return createIntegrationEntity({
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_COMPUTE_BACKEND_SERVICE,
+        _type: ENTITY_TYPE_COMPUTE_BACKEND_SERVICE,
+        _key: data.selfLink as string,
+        id: data.id as string,
+        name: data.name,
+        displayName: data.name as string,
+        timeoutSec: data.timeoutSec,
+        port: data.port,
+        protocol: data.protocol,
+        enableCDN: data.enableCDN,
+        category: ['network'],
+        createdOn: parseTimePropertyValue(data.creationTimestamp),
+      },
+    },
+  });
+}
+
+export function createBackendBucketEntity(
+  data: compute_v1.Schema$BackendBucket,
+) {
+  return createIntegrationEntity({
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_COMPUTE_BACKEND_BUCKET,
+        _type: ENTITY_TYPE_COMPUTE_BACKEND_BUCKET,
+        _key: data.selfLink as string,
+        id: data.id as string,
+        name: data.name,
+        bucketName: data.bucketName,
+        enableCdn: data.enableCdn,
+        classification: null,
+        encrypted: true,
+        createdOn: parseTimePropertyValue(data.creationTimestamp),
+      },
+    },
+  });
+}
+
+export function createTargetSslProxyEntity(
+  data: compute_v1.Schema$TargetSslProxy,
+) {
+  return createIntegrationEntity({
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_COMPUTE_TARGET_SSL_PROXY,
+        _type: ENTITY_TYPE_COMPUTE_TARGET_SSL_PROXY,
+        _key: data.selfLink as string,
+        id: data.id as string,
+        name: data.name,
+        sslPolicy: data.sslPolicy,
+        category: ['network'],
+        function: ['load-balancing'],
+        public: true,
+        createdOn: parseTimePropertyValue(data.creationTimestamp),
+      },
+    },
+  });
+}
+
+export function createTargetHttpsProxyEntity(
+  data: compute_v1.Schema$TargetHttpsProxy,
+) {
+  return createIntegrationEntity({
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_COMPUTE_TARGET_HTTPS_PROXY,
+        _type: ENTITY_TYPE_COMPUTE_TARGET_HTTPS_PROXY,
+        _key: data.selfLink as string,
+        id: data.id as string,
+        name: data.name,
+        sslPolicy: data.sslPolicy,
+        category: ['network'],
+        function: ['load-balancing'],
+        public: true,
+        createdOn: parseTimePropertyValue(data.creationTimestamp),
+      },
+    },
+  });
+}
+
+export function createTargetHttpProxyEntity(
+  data: compute_v1.Schema$TargetHttpProxy,
+) {
+  return createIntegrationEntity({
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_COMPUTE_TARGET_HTTP_PROXY,
+        _type: ENTITY_TYPE_COMPUTE_TARGET_HTTP_PROXY,
+        _key: data.selfLink as string,
+        id: data.id as string,
+        name: data.name,
+        category: ['network'],
+        function: ['load-balancing'],
+        public: true,
+        createdOn: parseTimePropertyValue(data.creationTimestamp),
+      },
+    },
+  });
+}
+
+export function createSslPolicyEntity(data: compute_v1.Schema$SslPolicy) {
+  return createIntegrationEntity({
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_COMPUTE_SSL_POLICY,
+        _type: ENTITY_TYPE_COMPUTE_SSL_POLICY,
+        _key: data.selfLink as string,
+        id: data.id as string,
+        name: data.name,
+        minTlsVersion: data.minTlsVersion,
+        profile: data.profile,
+        customFeatures: data.customFeatures,
+        title: 'SSL Policy',
+        summary:
+          'SSL policies give you the ability to control the features of SSL that your Google Cloud SSL proxy load balancer or external HTTP(S) load balancer negotiates with clients.',
+        content: '',
+        createdOn: parseTimePropertyValue(data.creationTimestamp),
+      },
     },
   });
 }

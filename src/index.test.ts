@@ -27,12 +27,21 @@ import {
   STEP_PROJECT,
 } from './steps/resource-manager';
 import {
+  STEP_COMPUTE_BACKEND_BUCKETS,
+  STEP_COMPUTE_BACKEND_SERVICES,
   STEP_COMPUTE_DISKS,
   STEP_COMPUTE_FIREWALLS,
+  STEP_COMPUTE_HEALTH_CHECKS,
   STEP_COMPUTE_INSTANCES,
+  STEP_COMPUTE_INSTANCE_GROUPS,
+  STEP_COMPUTE_LOADBALANCERS,
   STEP_COMPUTE_NETWORKS,
   STEP_COMPUTE_PROJECT,
+  STEP_COMPUTE_SSL_POLICIES,
   STEP_COMPUTE_SUBNETWORKS,
+  STEP_COMPUTE_TARGET_HTTPS_PROXIES,
+  STEP_COMPUTE_TARGET_HTTP_PROXIES,
+  STEP_COMPUTE_TARGET_SSL_PROXIES,
 } from './steps/compute';
 import { STEP_CLOUD_KMS_KEYS, STEP_CLOUD_KMS_KEY_RINGS } from './steps/kms';
 import { STEP_BIG_QUERY_DATASETS } from './steps/big-query';
@@ -129,19 +138,46 @@ describe('#getStepStartStates success', () => {
       [STEP_COMPUTE_DISKS]: {
         disabled: false,
       },
-      [STEP_COMPUTE_INSTANCES]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_PROJECT]: {
-        disabled: false,
-      },
       [STEP_COMPUTE_NETWORKS]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_FIREWALLS]: {
         disabled: false,
       },
       [STEP_COMPUTE_SUBNETWORKS]: {
         disabled: false,
       },
-      [STEP_COMPUTE_FIREWALLS]: {
+      [STEP_COMPUTE_PROJECT]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_HEALTH_CHECKS]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_INSTANCES]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_INSTANCE_GROUPS]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_LOADBALANCERS]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_BACKEND_SERVICES]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_BACKEND_BUCKETS]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_TARGET_SSL_PROXIES]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_TARGET_HTTPS_PROXIES]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_TARGET_HTTP_PROXIES]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_SSL_POLICIES]: {
         disabled: false,
       },
       [STEP_DNS_MANAGED_ZONES]: {

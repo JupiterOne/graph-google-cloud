@@ -15,7 +15,7 @@ function getCloudStorageBucketWebLink(
   return `https://console.cloud.google.com/storage/browser/${data.name};tab=objects?forceOnBucketsSortingFiltering=false&project=${projectId}`;
 }
 
-export function getCloudStorageBucketId(id: string) {
+export function getCloudStorageBucketKey(id: string) {
   return `bucket:${id}`;
 }
 
@@ -34,7 +34,7 @@ export function createCloudStorageBucketEntity({
       assign: {
         _class: CLOUD_STORAGE_BUCKET_ENTITY_CLASS,
         _type: CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
-        _key: getCloudStorageBucketId(data.id as string),
+        _key: getCloudStorageBucketKey(data.id as string),
         id: data.id as string,
         name: data.name,
         displayName: data.name as string,

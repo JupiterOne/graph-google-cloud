@@ -16,6 +16,15 @@ import {
   getMockNetwork,
   getMockSubnet,
   getMockComputeProject,
+  getMockBackendBucket,
+  getMockBackendService,
+  getMockHealthCheck,
+  getMockInstanceGroup,
+  getMockLoadBalancer,
+  getMockTargetHttpProxy,
+  getMockTargetHttpsProxy,
+  getMockTargetSslProxy,
+  getMockSslPolicy,
 } from '../../../test/mocks';
 import { DEFAULT_INTEGRATION_CONFIG_PROJECT_ID } from '../../../test/config';
 import {
@@ -216,5 +225,59 @@ describe('#getIpAddressesForComputeInstance', () => {
       publicIpAddresses: ['34.71.33.132'],
       privateIpAddresses: ['10.10.1.2'],
     });
+  });
+});
+
+describe('#createBackendBucketEntity', () => {
+  test('should convert to entity', () => {
+    expect(getMockBackendBucket()).toMatchSnapshot();
+  });
+});
+
+describe('#createBackendServiceEntity', () => {
+  test('should convert to entity', () => {
+    expect(getMockBackendService()).toMatchSnapshot();
+  });
+});
+
+describe('#createHealthCheckEntity', () => {
+  test('should convert to entity', () => {
+    expect(getMockHealthCheck()).toMatchSnapshot();
+  });
+});
+
+describe('#createInstanceGroupEntity', () => {
+  test('should convert to entity', () => {
+    expect(getMockInstanceGroup()).toMatchSnapshot();
+  });
+});
+
+describe('#createLoadBalancerEntity', () => {
+  test('should convert to entity', () => {
+    expect(getMockLoadBalancer()).toMatchSnapshot();
+  });
+});
+
+describe('#createTargetHttpProxyEntity', () => {
+  test('should convert to entity', () => {
+    expect(getMockTargetHttpProxy()).toMatchSnapshot();
+  });
+});
+
+describe('#createTargetHttpsProxyEntity', () => {
+  test('should convert to entity', () => {
+    expect(getMockTargetHttpsProxy()).toMatchSnapshot();
+  });
+});
+
+describe('#createTargetSslProxyEntity', () => {
+  test('should convert to entity', () => {
+    expect(getMockTargetSslProxy()).toMatchSnapshot();
+  });
+});
+
+describe('#createSslPolicyEntity', () => {
+  test('should convert to entity', () => {
+    expect(getMockSslPolicy()).toMatchSnapshot();
   });
 });

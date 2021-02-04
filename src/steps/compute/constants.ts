@@ -5,6 +5,18 @@ export const STEP_COMPUTE_NETWORKS = 'fetch-compute-networks';
 export const STEP_COMPUTE_SUBNETWORKS = 'fetch-compute-subnetworks';
 export const STEP_COMPUTE_FIREWALLS = 'fetch-compute-firewalls';
 export const STEP_COMPUTE_PROJECT = 'fetch-compute-project';
+export const STEP_COMPUTE_HEALTH_CHECKS = 'fetch-compute-health-checks';
+export const STEP_COMPUTE_INSTANCE_GROUPS = 'fetch-compute-instance-groups';
+export const STEP_COMPUTE_LOADBALANCERS = 'fetch-compute-loadbalancers';
+export const STEP_COMPUTE_BACKEND_SERVICES = 'fetch-compute-backend-services';
+export const STEP_COMPUTE_BACKEND_BUCKETS = 'fetch-compute-backend-buckets';
+export const STEP_COMPUTE_TARGET_SSL_PROXIES =
+  'fetch-compute-target-ssl-proxies';
+export const STEP_COMPUTE_TARGET_HTTPS_PROXIES =
+  'fetch-compute-target-https-proxies';
+export const STEP_COMPUTE_TARGET_HTTP_PROXIES =
+  'fetch-compute-target-http-proxies';
+export const STEP_COMPUTE_SSL_POLICIES = 'fetch-compute-ssl-policies';
 
 // Entities
 export const ENTITY_CLASS_COMPUTE_INSTANCE = 'Host';
@@ -22,8 +34,41 @@ export const ENTITY_CLASS_COMPUTE_SUBNETWORK = 'Network';
 export const ENTITY_TYPE_COMPUTE_FIREWALL = 'google_compute_firewall';
 export const ENTITY_CLASS_COMPUTE_FIREWALL = 'Firewall';
 
+export const ENTITY_TYPE_COMPUTE_HEALTH_CHECK = 'google_compute_health_check';
+export const ENTITY_CLASS_COMPUTE_HEALTH_CHECK = 'Service';
+
 export const ENTITY_TYPE_COMPUTE_PROJECT = 'google_compute_project';
 export const ENTITY_CLASS_COMPUTE_PROJECT = 'Project';
+
+export const ENTITY_TYPE_COMPUTE_INSTANCE_GROUP =
+  'google_compute_instance_group';
+export const ENTITY_CLASS_COMPUTE_INSTANCE_GROUP = 'Group';
+
+export const ENTITY_TYPE_COMPUTE_LOAD_BALANCER = 'google_compute_url_map';
+export const ENTITY_CLASS_COMPUTE_LOAD_BALANCER = 'Gateway';
+
+export const ENTITY_TYPE_COMPUTE_BACKEND_SERVICE =
+  'google_compute_backend_service';
+export const ENTITY_CLASS_COMPUTE_BACKEND_SERVICE = 'Service';
+
+export const ENTITY_TYPE_COMPUTE_BACKEND_BUCKET =
+  'google_compute_backend_bucket';
+export const ENTITY_CLASS_COMPUTE_BACKEND_BUCKET = 'DataStore';
+
+export const ENTITY_TYPE_COMPUTE_TARGET_SSL_PROXY =
+  'google_compute_target_ssl_proxy';
+export const ENTITY_CLASS_COMPUTE_TARGET_SSL_PROXY = 'Gateway';
+
+export const ENTITY_TYPE_COMPUTE_TARGET_HTTP_PROXY =
+  'google_compute_target_http_proxy';
+export const ENTITY_CLASS_COMPUTE_TARGET_HTTP_PROXY = 'Gateway';
+
+export const ENTITY_TYPE_COMPUTE_TARGET_HTTPS_PROXY =
+  'google_compute_target_https_proxy';
+export const ENTITY_CLASS_COMPUTE_TARGET_HTTPS_PROXY = 'Gateway';
+
+export const ENTITY_TYPE_COMPUTE_SSL_POLICY = 'google_compute_ssl_policy';
+export const ENTITY_CLASS_COMPUTE_SSL_POLICY = 'Policy';
 
 // Relationships
 export const RELATIONSHIP_TYPE_GOOGLE_COMPUTE_INSTANCE_TRUSTS_IAM_SERVICE_ACCOUNT =
@@ -40,6 +85,28 @@ export const RELATIONSHIP_TYPE_NETWORK_HAS_FIREWALL =
   'google_compute_network_has_firewall';
 export const RELATIONSHIP_TYPE_PROJECT_HAS_INSTANCE =
   'google_compute_project_has_instance';
+export const RELATIONSHIP_TYPE_INSTANCE_GROUP_HAS_COMPUTE_INSTANCE =
+  'google_compute_instance_group_has_instance';
+export const RELATIONSHIP_TYPE_BACKEND_SERVICE_HAS_INSTANCE_GROUP =
+  'google_compute_backend_service_has_instance_group';
+export const RELATIONSHIP_TYPE_BACKEND_SERVICE_HAS_HEALTH_CHECK =
+  'google_compute_backend_service_has_health_check';
+export const RELATIONSHIP_TYPE_LOAD_BALANCER_HAS_BACKEND_SERVICE =
+  'google_compute_url_map_has_backend_service';
+export const RELATIONSHIP_TYPE_LOAD_BALANCER_HAS_BACKEND_BUCKET =
+  'google_compute_url_map_has_backend_bucket';
+export const RELATIONSHIP_TYPE_BACKEND_BUCKET_HAS_STORAGE_BUCKET =
+  'google_compute_backend_bucket_has_storage_bucket';
+export const RELATIONSHIP_TYPE_LOAD_BALANCER_HAS_TARGET_HTTPS_PROXY =
+  'google_compute_url_map_has_target_https_proxy';
+export const RELATIONSHIP_TYPE_LOAD_BALANCER_HAS_TARGET_HTTP_PROXY =
+  'google_compute_url_map_has_target_http_proxy';
+export const RELATIONSHIP_TYPE_BACKEND_SERVICE_HAS_TARGET_SSL_PROXY =
+  'google_compute_backend_service_has_target_ssl_proxy';
+export const RELATIONSHIP_TYPE_TARGET_HTTPS_PROXY_HAS_SSL_POLICY =
+  'google_compute_target_https_proxy_has_ssl_policy';
+export const RELATIONSHIP_TYPE_TARGET_SSL_PROXY_HAS_SSL_POLICY =
+  'google_compute_target_ssl_proxy_has_ssl_policy';
 
 // Mapped relationships
 export const MAPPED_RELATIONSHIP_FIREWALL_RULE_TYPE =
