@@ -5,6 +5,7 @@ import {
   bigquery_v2,
   sqladmin_v1beta4,
   dns_v1,
+  cloudkms_v1,
 } from 'googleapis';
 
 export function getMockIamRole(
@@ -435,6 +436,55 @@ export function getMockDNSManagedZone(
     creationTime: '2021-01-22T16:48:27.272Z',
     visibility: 'public',
     kind: 'dns#managedZone',
+    ...partial,
+  };
+}
+
+export function getMockKmsKeyRing(
+  partial?: cloudkms_v1.Schema$KeyRing,
+): cloudkms_v1.Schema$KeyRing {
+  return {
+    name:
+      'projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring',
+    createTime: '2020-07-28T18:34:26.034565002Z',
+    ...partial,
+  };
+}
+
+export function getMockKmsCryptoKey(
+  partial?: cloudkms_v1.Schema$CryptoKey,
+): cloudkms_v1.Schema$CryptoKey {
+  return {
+    name:
+      'projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key',
+    primary: {
+      name:
+        'projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key/cryptoKeyVersions/68',
+      state: 'ENABLED',
+      createTime: '2020-10-03T19:01:13.428484662Z',
+      protectionLevel: 'SOFTWARE',
+      algorithm: 'GOOGLE_SYMMETRIC_ENCRYPTION',
+      generateTime: '2020-10-03T19:01:13.428484662Z',
+    },
+    purpose: 'ENCRYPT_DECRYPT',
+    createTime: '2020-07-28T18:59:59.513564921Z',
+    nextRotationTime: '2020-10-04T19:01:14.428484Z',
+    rotationPeriod: '86401s',
+    versionTemplate: {
+      protectionLevel: 'SOFTWARE',
+      algorithm: 'GOOGLE_SYMMETRIC_ENCRYPTION',
+    },
+    ...partial,
+  };
+}
+
+export function getMockKmsCryptoKeyIamPolicy(
+  partial?: cloudkms_v1.Schema$Policy,
+): cloudkms_v1.Schema$Policy {
+  return {
+    version: 1,
+    etag: 'BwW6Cs8MqSM=',
+    bindings: [],
     ...partial,
   };
 }

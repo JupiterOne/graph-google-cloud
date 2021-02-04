@@ -49,12 +49,18 @@ export async function fetchKmsCryptoKeys(
           location,
         },
         async (cryptoKey) => {
+          // Get cryptoKey's IAM policy
+          const iamPolicy = await client.fetchCryptoKeyPolicy(
+            cryptoKey.name as string,
+          );
+
           const cryptoKeyEntity = await jobState.addEntity(
             createKmsCryptoKeyEntity({
               cryptoKey,
               location,
               projectId: client.projectId,
               cryptoKeyRingShortName,
+              iamPolicy,
             }),
           );
 

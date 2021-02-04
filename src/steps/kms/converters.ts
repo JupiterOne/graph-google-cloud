@@ -11,6 +11,7 @@ import {
 } from './constants';
 import { getGoogleCloudConsoleWebLink } from '../../utils/url';
 import { googleCloudDurationSecondsToNumber } from '../../utils/time';
+import { isMemberPublic } from '../../utils/iam';
 
 export interface KmsKeyRingParts {
   projectId: string;
@@ -62,16 +63,30 @@ export function createKmsKeyRingEntity(data: cloudkms_v1.Schema$KeyRing) {
   });
 }
 
+function isKmsCryptoKeyPublic(iamPolicy: cloudkms_v1.Schema$Policy) {
+  for (const binding of iamPolicy.bindings || []) {
+    for (const member of binding.members || []) {
+      if (isMemberPublic(member)) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
 export function createKmsCryptoKeyEntity({
   cryptoKey,
   location,
   projectId,
   cryptoKeyRingShortName,
+  iamPolicy,
 }: {
   cryptoKey: cloudkms_v1.Schema$CryptoKey;
   location: string;
   projectId: string;
   cryptoKeyRingShortName: string;
+  iamPolicy: cloudkms_v1.Schema$Policy;
 }) {
   const name = cryptoKey.name as string;
 
@@ -93,6 +108,7 @@ export function createKmsCryptoKeyEntity({
         ),
         protectionLevel: cryptoKey.versionTemplate?.protectionLevel,
         algorithm: cryptoKey.versionTemplate?.algorithm,
+        public: isKmsCryptoKeyPublic(iamPolicy),
         primaryName: cryptoKey.primary?.name,
         primaryState: cryptoKey.primary?.state,
         primaryCreateTime: parseTimePropertyValue(
