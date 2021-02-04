@@ -3,6 +3,7 @@ import Logger from 'bunyan';
 import { ok as assert } from 'assert';
 import { setupOrganization } from './organizationSetup';
 import bunyanFormat from 'bunyan-format';
+import { ServiceUsageName } from '../src/google-cloud/types';
 
 interface CliArguments {
   jupiteroneAccountId: string;
@@ -155,6 +156,7 @@ const parsed = cli.parse(process.argv, { run: true });
     jupiteroneEnv,
     skipSystemProjects,
     rotateServiceAccountKeys,
+    servicesToEnable: Object.values(ServiceUsageName),
   });
 
   logger.info(

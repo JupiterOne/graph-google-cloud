@@ -19,27 +19,13 @@ const GOOGLE_CLOUD_INTEGRATION_DEFINITION_ID =
   '0c652a0a-1e86-4c35-b7f7-6b792731818b';
 const SECURITY_REVIEWER_ROLE = 'roles/iam.securityReviewer';
 
-const PROJECT_SERVICES_TO_ENABLE: string[] = [
-  'serviceusage.googleapis.com',
-  'cloudfunctions.googleapis.com',
-  'storage.googleapis.com',
-  'iam.googleapis.com',
-  'cloudresourcemanager.googleapis.com',
-  'compute.googleapis.com',
-  'cloudkms.googleapis.com',
-  'sqladmin.googleapis.com',
-  'bigquery.googleapis.com',
-  'dns.googleapis.com',
-  'logging.googleapis.com',
-  'monitoring.googleapis.com',
-];
-
 export interface BaseSetupOrganizationParams {
   googleAccessToken: string;
   jupiteroneApiKey: string;
   jupiteroneAccountId: string;
   logger: Logger;
   rotateServiceAccountKeys: boolean;
+  servicesToEnable: string[];
 }
 
 export interface SetupOrganizationParams extends BaseSetupOrganizationParams {
@@ -768,6 +754,7 @@ async function setupOrganizationProject(
     logger,
     jupiteroneEnv,
     rotateServiceAccountKeys,
+    servicesToEnable,
   } = params;
 
   const projectId = project.projectId as string;
@@ -785,11 +772,7 @@ async function setupOrganizationProject(
   try {
     logger.info('Enabling API services in project...');
 
-    await enableProjectServices(
-      googleAccessToken,
-      projectId,
-      PROJECT_SERVICES_TO_ENABLE,
-    );
+    await enableProjectServices(googleAccessToken, projectId, servicesToEnable);
   } catch (err) {
     if (err.errors) {
       logger.error({ errors: err.errors }, 'Error enabling project services');
@@ -917,6 +900,7 @@ export async function setupOrganization(
     jupiteroneEnv = 'us',
     skipSystemProjects,
     rotateServiceAccountKeys,
+    servicesToEnable,
   } = params;
 
   const result: SetupOrganizationResult = {
@@ -976,6 +960,7 @@ export async function setupOrganization(
           logger,
           jupiteroneEnv,
           rotateServiceAccountKeys,
+          servicesToEnable,
         });
 
         result[setupResult.toLowerCase()].push(projectId);
@@ -1020,6 +1005,7 @@ export async function setupOrganization(
               logger,
               jupiteroneEnv,
               rotateServiceAccountKeys,
+              servicesToEnable,
             });
 
             result[setupResult.toLowerCase()].push(projectId);
