@@ -540,6 +540,8 @@ async function updateJupiterOneIntegrationInstance({
 
   const result = await response.json();
 
+  console.log('RESULT: ', JSON.stringify(result, null, 2));
+
   if (result.error) {
     logger.error(
       { err: result.error },
@@ -660,17 +662,14 @@ async function putJupiterOneIntegrationInstance({
       jupiteroneEnv,
       integrationInstanceId: existingIntegrationInstance.id,
       integrationInstanceUpdate: {
-        name: existingIntegrationInstance.name,
-        description: existingIntegrationInstance.description,
+        name: projectId,
         pollingInterval: existingIntegrationInstance.pollingInterval,
+        description: 'Created from JupiterOne org script',
         config: {
-          config: {
-            '@tag': {
-              AccountName: projectId,
-            },
-            serviceAccountKeyFile: serviceAccountKey,
+          '@tag': {
+            AccountName: projectId,
           },
-          integrationDefinitionId: GOOGLE_CLOUD_INTEGRATION_DEFINITION_ID,
+          serviceAccountKeyFile: serviceAccountKey,
         },
       },
     });

@@ -72,12 +72,12 @@ cli
     '--skip-system-projects [skipSystemProjects]',
     '(Optional) Skips creation of any projects that have an ID that start with "sys-"',
     {
-      default: false,
+      default: true,
     },
   )
   .option(
     '--rotate-service-account-keys [rotateServiceAccountKeys]',
-    '(Optional) Creates a new service account key for the JupiterOne service account, deletes the old one, and updates the JupiterOne integration instance',
+    '(Optional) Creates a new service account key for the JupiterOne service account and PUTs the JupiterOne integration instance',
     {
       default: false,
     },
