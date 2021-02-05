@@ -8,6 +8,45 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.12.0 - 2020-02-05
+
+### Added
+
+- Support for ingesting the following **new** resources
+
+  - Cloud SQL
+    - `google_cloud_sql_mysql_instance`
+    - `google_cloud_sql_postgres_instance`
+    - `google_cloud_sql_sql_server_instance`
+  - BigQuery
+    - `google_cloud_big_query_dataset`
+  - Compute
+    - `google_compute_project`
+  - DNS
+    - `google_dns_managed_zone`
+
+- New properties added to various existing resources for CIS benchmarks:
+  - Compute
+    - `google_compute_disk`
+      - `isCustomerSuppliedKeysEncrypted`
+    - `google_compute_instance`
+      - `usesDefaultServiceAccount`
+      - `usesFullAccessDefaultServiceAccount`
+      - `blockProjectSSHKeys`
+      - `isSerialPortEnabled`
+      - `isShieldedVM`
+      - `publicIpAddress`
+      - `privateIpAddress`
+      - `isOSLoginEnabled`
+  - Networking
+    - `google_compute_subnetwork`
+      - `flowLogsEnabled`
+    - `google_compute_network`
+      - `IPv4Range`
+  - KMS
+    - `google_kms_crypto_key`
+      - `public`
+
 ## 0.11.1 - 2021-01-05
 
 ### Added
