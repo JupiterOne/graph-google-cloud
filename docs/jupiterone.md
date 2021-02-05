@@ -59,7 +59,10 @@ gcloud services enable \
   iam.googleapis.com \
   cloudresourcemanager.googleapis.com \
   compute.googleapis.com \
-  cloudkms.googleapis.com
+  cloudkms.googleapis.com \
+  sqladmin.googleapis.com \
+  bigquery.googleapis.com \
+  dns.googleapis.com
 ```
 
 ### Creating Google Cloud project service account
@@ -125,14 +128,15 @@ For more info, run any command with the `--help` flag:
   $ JupiterOne Google Cloud Organization Integration Setup --help
 
 Options:
-  --jupiterone-account-id <jupiteroneAccountId>  (Required) JupiterOne Account ID
-  --jupiterone-api-key <jupiteroneApiKey>        (Required) JupiterOne API Key
-  --google-access-token <googleAccessToken>      (Required) Google Cloud Access Token
-  --organization-id [organizationId]             (Optional) Array of organization IDs to collect projects from
-  --project-id [projectId]                       (Optional) Array of project IDs to create integration instances with
-  --skip-project-id [projectId]                  (Optional) Array of project IDs to skip creating integration instances for
-  --skip-system-projects [skipSystemProjects]    (Optional) Skips creation of any projects that have an ID that start with "sys-" (default: false)
-  -h, --help                                     Display this message
+  --jupiterone-account-id <jupiteroneAccountId>             (Required) JupiterOne Account ID
+  --jupiterone-api-key <jupiteroneApiKey>                   (Required) JupiterOne API Key
+  --google-access-token <googleAccessToken>                 (Required) Google Cloud Access Token
+  --organization-id [organizationId]                        (Optional) Array of organization IDs to collect projects from
+  --project-id [projectId]                                  (Optional) Array of project IDs to create integration instances with
+  --skip-project-id [projectId]                             (Optional) Array of project IDs to skip creating integration instances for
+  --skip-system-projects [skipSystemProjects]               (Optional) Skips creation of any projects that have an ID that start with "sys-" (default: true)
+  --rotate-service-account-keys [rotateServiceAccountKeys]  (Optional) Creates a new service account key for the JupiterOne service account and PUTs the JupiterOne integration instance (default: false)
+  -h, --help                                                Display this message
 ```
 
 Example usage to create integration instances for every project that is under a
