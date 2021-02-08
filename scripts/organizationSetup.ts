@@ -33,6 +33,7 @@ export interface SetupOrganizationParams extends BaseSetupOrganizationParams {
   projectIds?: string[];
   skipProjectIds?: string[];
   jupiteroneEnv?: string;
+  skipProjectIdRegex?: string;
   skipSystemProjects: boolean;
 }
 
@@ -901,6 +902,7 @@ export async function setupOrganization(
     skipSystemProjects,
     rotateServiceAccountKeys,
     servicesToEnable,
+    skipProjectIdRegex,
   } = params;
 
   const result: SetupOrganizationResult = {
@@ -929,6 +931,14 @@ export async function setupOrganization(
 
       if (skipProjectIds?.includes(projectId)) {
         logger.info('Skipping project');
+        result.skipped.push(projectId);
+        continue;
+      }
+
+      const matches = skipProjectIdRegex && new RegExp(skipProjectIdRegex);
+
+      if (matches && matches?.test(projectId)) {
+        logger.info('Skipping project from regex');
         result.skipped.push(projectId);
         continue;
       }
@@ -990,6 +1000,14 @@ export async function setupOrganization(
 
           if (skipProjectIds?.includes(projectId)) {
             logger.info('Skipping project');
+            result.skipped.push(projectId);
+            return;
+          }
+
+          const matches = skipProjectIdRegex && new RegExp(skipProjectIdRegex);
+
+          if (matches && matches?.test(projectId)) {
+            logger.info('Skipping project from regex');
             result.skipped.push(projectId);
             return;
           }

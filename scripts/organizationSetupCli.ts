@@ -14,6 +14,7 @@ interface CliArguments {
   organizationId?: string[] | (string | number)[];
   projectId?: string[] | (string | number)[];
   skipProjectId?: string[] | (string | number)[];
+  skipProjectIdRegex?: string;
   help?: boolean;
 }
 
@@ -83,6 +84,10 @@ cli
       default: false,
     },
   )
+  .option(
+    '--skip-project-id-regex [skipProjectIdRegex]',
+    '(Optional) Project IDs discovered that match this regex will be skipped',
+  )
   .action((options: CliArguments) => {
     assertRequiredCliArg(
       '--jupiterone-account-id',
@@ -118,6 +123,7 @@ const parsed = cli.parse(process.argv, { run: true });
     help,
     skipSystemProjects,
     rotateServiceAccountKeys,
+    skipProjectIdRegex,
   } = parsed.options as CliArguments;
 
   const projectIds = projectId && convertToArrayOfStrings(projectId);
@@ -139,6 +145,7 @@ const parsed = cli.parse(process.argv, { run: true });
       googleAccessToken:
         googleAccessToken && redactCliSecret(googleAccessToken),
       rotateServiceAccountKeys,
+      skipProjectIdRegex,
     },
     'Running CLI with options...',
   );
@@ -157,6 +164,7 @@ const parsed = cli.parse(process.argv, { run: true });
     skipSystemProjects,
     rotateServiceAccountKeys,
     servicesToEnable: Object.values(ServiceUsageName),
+    skipProjectIdRegex,
   });
 
   logger.info(
