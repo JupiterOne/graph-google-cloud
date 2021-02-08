@@ -28,6 +28,7 @@ import { STEP_CLOUD_KMS_KEYS, STEP_CLOUD_KMS_KEY_RINGS } from './steps/kms';
 import { STEP_BIG_QUERY_DATASETS } from './steps/big-query';
 import { STEP_SQL_ADMIN_INSTANCES } from './steps/sql-admin';
 import { STEP_DNS_MANAGED_ZONES } from './steps/dns/constants';
+import { STEP_CONTAINER_CLUSTERS } from './steps/containers';
 
 async function getEnabledServiceNames(
   config: IntegrationConfig,
@@ -118,5 +119,6 @@ export default async function getStepStartStates(
       ServiceUsageName.SQL_ADMIN,
     ),
     [STEP_DNS_MANAGED_ZONES]: createStepStartState(ServiceUsageName.DNS),
+    [STEP_CONTAINER_CLUSTERS]: createStepStartState(ServiceUsageName.CONTAINER),
   };
 }

@@ -5,6 +5,7 @@ import {
   bigquery_v2,
   sqladmin_v1beta4,
   dns_v1,
+  container_v1,
   cloudkms_v1,
 } from 'googleapis';
 
@@ -436,6 +437,130 @@ export function getMockDNSManagedZone(
     creationTime: '2021-01-22T16:48:27.272Z',
     visibility: 'public',
     kind: 'dns#managedZone',
+    ...partial,
+  };
+}
+
+export function getMockContainerCluster(
+  partial?: container_v1.Schema$Cluster,
+): container_v1.Schema$Cluster {
+  return {
+    name: 'j1-gc-integration-dev-gke-cluster',
+    initialNodeCount: 1,
+    nodeConfig: {
+      machineType: 'e2-micro',
+      diskSizeGb: 100,
+      oauthScopes: ['https://www.googleapis.com/auth/cloud-platform'],
+      metadata: {
+        'disable-legacy-endpoints': 'true',
+      },
+      imageType: 'COS',
+      serviceAccount:
+        'j1-gc-integration-dev-gke-sa@j1-gc-integration-dev.iam.gserviceaccount.com',
+      preemptible: true,
+      diskType: 'pd-standard',
+      shieldedInstanceConfig: {
+        enableIntegrityMonitoring: true,
+      },
+    },
+    masterAuth: {
+      clusterCaCertificate: 'abc123',
+    },
+    loggingService: 'logging.googleapis.com/kubernetes',
+    monitoringService: 'monitoring.googleapis.com/kubernetes',
+    network: 'default',
+    clusterIpv4Cidr: '10.16.0.0/14',
+    addonsConfig: {
+      kubernetesDashboard: {
+        disabled: true,
+      },
+      networkPolicyConfig: {
+        disabled: true,
+      },
+    },
+    subnetwork: 'default',
+    nodePools: [
+      {
+        name: 'j1-gc-integration-dev-gke-node-pool',
+        config: {
+          machineType: 'e2-micro',
+          diskSizeGb: 100,
+          oauthScopes: ['https://www.googleapis.com/auth/cloud-platform'],
+          metadata: {
+            'disable-legacy-endpoints': 'true',
+          },
+          imageType: 'COS',
+          serviceAccount:
+            'j1-gc-integration-dev-gke-sa@j1-gc-integration-dev.iam.gserviceaccount.com',
+          preemptible: true,
+          diskType: 'pd-standard',
+          shieldedInstanceConfig: {
+            enableIntegrityMonitoring: true,
+          },
+        },
+        initialNodeCount: 1,
+        management: {
+          autoUpgrade: true,
+          autoRepair: true,
+        },
+        podIpv4CidrSize: 24,
+        locations: ['us-central1-f', 'us-central1-c', 'us-central1-a'],
+        selfLink:
+          'https://container.googleapis.com/v1/projects/j1-gc-integration-dev/locations/us-central1/clusters/j1-gc-integration-dev-gke-cluster/nodePools/j1-gc-integration-dev-gke-node-pool',
+        version: '1.17.14-gke.1600',
+        instanceGroupUrls: [
+          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-f/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-d0942024-grp',
+          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-c/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-2a95071a-grp',
+          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-6817e506-grp',
+        ],
+        status: 'RUNNING',
+        upgradeSettings: {
+          maxSurge: 1,
+        },
+      },
+    ],
+    locations: ['us-central1-f', 'us-central1-c', 'us-central1-a'],
+    labelFingerprint: 'a9dc16a7',
+    legacyAbac: {},
+    ipAllocationPolicy: {
+      useRoutes: true,
+    },
+    masterAuthorizedNetworksConfig: {},
+    maintenancePolicy: {
+      resourceVersion: 'e3b0c442',
+    },
+    binaryAuthorization: {},
+    autoscaling: {},
+    networkConfig: {
+      network: 'projects/j1-gc-integration-dev/global/networks/default',
+      subnetwork:
+        'projects/j1-gc-integration-dev/regions/us-central1/subnetworks/default',
+    },
+    databaseEncryption: {
+      state: 'DECRYPTED',
+    },
+    shieldedNodes: {},
+    releaseChannel: {
+      channel: 'REGULAR',
+    },
+    selfLink:
+      'https://container.googleapis.com/v1/projects/j1-gc-integration-dev/locations/us-central1/clusters/j1-gc-integration-dev-gke-cluster',
+    zone: 'us-central1',
+    endpoint: '34.69.222.23',
+    initialClusterVersion: '1.17.14-gke.1600',
+    currentMasterVersion: '1.17.14-gke.1600',
+    currentNodeVersion: '1.17.14-gke.1600',
+    createTime: '2021-02-07T17:17:28+00:00',
+    status: 'RUNNING',
+    nodeIpv4CidrSize: 24,
+    servicesIpv4Cidr: '10.19.240.0/20',
+    instanceGroupUrls: [
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-f/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-d0942024-grp',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-c/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-2a95071a-grp',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-6817e506-grp',
+    ],
+    currentNodeCount: 3,
+    location: 'us-central1',
     ...partial,
   };
 }
