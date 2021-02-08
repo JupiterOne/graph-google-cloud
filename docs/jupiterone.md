@@ -137,6 +137,7 @@ Options:
   --skip-project-id [projectId]                             (Optional) Array of project IDs to skip creating integration instances for
   --skip-system-projects [skipSystemProjects]               (Optional) Skips creation of any projects that have an ID that start with "sys-" (default: true)
   --rotate-service-account-keys [rotateServiceAccountKeys]  (Optional) Creates a new service account key for the JupiterOne service account and PUTs the JupiterOne integration instance (default: false)
+  --skip-project-id-regex [skipProjectIdRegex]              (Optional) Project IDs discovered that match this regex will be skipped
   -h, --help                                                Display this message
 ```
 

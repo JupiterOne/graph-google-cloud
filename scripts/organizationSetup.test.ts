@@ -88,6 +88,24 @@ describe('#setupOrganization', () => {
     expect(result).toEqual(expected);
   });
 
+  test('should allow skipping projects using a regex string', async () => {
+    const result = await setupOrganization(
+      getSetupOrganizationParams({
+        projectIds: ['j1-gc-integration-dev'],
+        skipProjectIdRegex: 'gc-(.*)-d',
+      }),
+    );
+
+    const expected: SetupOrganizationResult = {
+      created: [],
+      failed: [],
+      skipped: ['j1-gc-integration-dev'],
+      exists: [],
+    };
+
+    expect(result).toEqual(expected);
+  });
+
   test('should walk all projects in organization and skip system projects when specified', async () => {
     await withRecording(
       'setupOrganizationWithOrgParam',
@@ -98,6 +116,7 @@ describe('#setupOrganization', () => {
             organizationIds: ['158838481165'],
             skipSystemProjects: true,
             skipProjectIds: ['jupiterone'],
+            skipProjectIdRegex: 'wp-lo(.*)gin-28',
           }),
         );
 
@@ -109,13 +128,13 @@ describe('#setupOrganization', () => {
             'responsive-amp-300923',
             'mknoedel-project-1',
             'adams-project-290314',
-            'wp-login-285520',
             'absolute-nuance-284715',
             'test-new-proj-no-apps',
             'jupiterone-prod-us',
             'jupiterone-dev-232400',
           ],
           skipped: [
+            'wp-login-285520',
             'jupiterone',
             'sys-99686866195189065260180571',
             'sys-19451335604181712081909834',
