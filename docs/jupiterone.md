@@ -62,6 +62,7 @@ gcloud services enable \
   cloudkms.googleapis.com \
   sqladmin.googleapis.com \
   bigquery.googleapis.com \
+  container.googleapis.com \
   dns.googleapis.com
 ```
 
