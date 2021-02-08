@@ -8,6 +8,11 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- Support for `--skip-project-id-regex` in the `jupiterone-organization-setup`
+  CLI
+
 ## 0.12.0 - 2020-02-05
 
 ### Added
@@ -26,6 +31,7 @@ and this project adheres to
     - `google_dns_managed_zone`
 
 - New properties added to various existing resources for CIS benchmarks:
+
   - Compute
     - `google_compute_disk`
       - `isCustomerSuppliedKeysEncrypted`
@@ -46,6 +52,15 @@ and this project adheres to
   - KMS
     - `google_kms_crypto_key`
       - `public`
+
+- Support for `--rotate-service-account-keys` in the
+  `jupiterone-organization-setup` CLI
+
+### Fixed
+
+- Retry concurrent policy modification error in `jupiterone-organization-setup`
+  CLI
+- Various fixes to make `jupiterone-organization-setup` more idempotent
 
 ## 0.11.1 - 2021-01-05
 
