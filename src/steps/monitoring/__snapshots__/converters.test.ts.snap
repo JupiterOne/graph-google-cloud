@@ -35,6 +35,7 @@ Object {
   "summary": "Alert policy that is triggered based on some metric",
   "title": "Alert policy",
   "updatedOn": 1612282703127,
+  "webLink": "https://console.cloud.google.com/monitoring/alerting/policies/9246450381922925470?project=j1-gc-integration-dev-300716",
 }
 `;
 
@@ -95,5 +96,6 @@ Object {
   "summary": "Alert policy that is triggered based on some metric",
   "title": "Alert policy",
   "updatedOn": 1612282703127,
+  "webLink": "https://console.cloud.google.com/monitoring/alerting/policies/9246450381922925470?project=j1-gc-integration-dev-300716",
 }
 `;

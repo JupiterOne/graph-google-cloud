@@ -231,7 +231,7 @@ The following entities are created:
 | KMS Crypto Key                | `google_kms_crypto_key`          | `Key`, `CryptoKey`  |
 | KMS Key Ring                  | `google_kms_key_ring`            | `Vault`             |
 | Logging Metric                | `google_logging_metric`          | `Configuration`     |
-| Logging Project Sink          | `google_logging_project_sink`    | `Configuration`     |
+| Logging Project Sink          | `google_logging_project_sink`    | `Logs`              |
 | Monitoring Alert Policy       | `google_monitoring_alert_policy` | `Policy`            |
 | Project                       | `google_cloud_project`           | `Account`           |
 | SQL Admin MySQL Instance      | `google_sql_mysql_instance`      | `Database`          |

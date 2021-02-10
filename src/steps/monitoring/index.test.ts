@@ -65,6 +65,7 @@ describe('#fetchAlertPolicies', () => {
             items: { type: 'string' },
           },
           enabled: { type: 'boolean' },
+          webLink: { type: 'string' },
           createdOn: { type: 'number' },
           updatedOn: { type: 'number' },
         },

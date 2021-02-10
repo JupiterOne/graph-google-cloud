@@ -3,6 +3,7 @@ import {
   parseTimePropertyValue,
 } from '@jupiterone/integration-sdk-core';
 import { monitoring_v3 } from 'googleapis';
+import { getGoogleCloudConsoleWebLink } from '../../utils/url';
 import {
   MONITORING_ALERT_POLICY_CLASS,
   MONITORING_ALERT_POLICY_TYPE,
@@ -10,6 +11,7 @@ import {
 
 export function createAlertPolicyEntity(
   data: monitoring_v3.Schema$AlertPolicy,
+  projectId: string,
 ) {
   return createIntegrationEntity({
     entityData: {
@@ -28,6 +30,11 @@ export function createAlertPolicyEntity(
         ),
         // 2.4 Ensure log metric filter and alerts exist for project ownership assignments/changes (Scored)
         enabled: data.enabled,
+        webLink: getGoogleCloudConsoleWebLink(
+          `/monitoring/alerting/policies/${
+            data.name?.split('/')[3]
+          }?project=${projectId}`,
+        ),
         createdOn: parseTimePropertyValue(data.creationRecord?.mutateTime),
         updatedOn: parseTimePropertyValue(data.mutationRecord?.mutateTime),
       },

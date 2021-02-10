@@ -40,7 +40,10 @@ export async function fetchSinks(
   const client = new LoggingClient({ config });
 
   await client.iterateProjectSinks(async (projectSink) => {
-    const projectSinkEntity = createLoggingProjectSinkEntity(projectSink);
+    const projectSinkEntity = createLoggingProjectSinkEntity(
+      projectSink,
+      client.projectId,
+    );
     await jobState.addEntity(projectSinkEntity);
 
     // If the logging sink is using bucket for destination we want to create relationship with it
@@ -74,7 +77,7 @@ export async function fetchMetrics(
   const client = new LoggingClient({ config });
 
   await client.iterateMetrics(async (metric) => {
-    const metricEntity = createMetricEntity(metric);
+    const metricEntity = createMetricEntity(metric, client.projectId);
     await jobState.addEntity(metricEntity);
 
     await jobState.iterateEntities(

@@ -59,6 +59,7 @@ Object {
       "summary": "Alert policy that is triggered based on some metric",
       "title": "Alert policy",
       "updatedOn": 1611779195549,
+      "webLink": "https://console.cloud.google.com/monitoring/alerting/policies/17906798822773338482?project=j1-gc-integration-dev-300716",
     },
     Object {
       "_class": Array [
@@ -116,6 +117,7 @@ Object {
       "summary": "Alert policy that is triggered based on some metric",
       "title": "Alert policy",
       "updatedOn": 1612282703127,
+      "webLink": "https://console.cloud.google.com/monitoring/alerting/policies/9246450381922925470?project=j1-gc-integration-dev-300716",
     },
     Object {
       "_class": Array [
@@ -156,6 +158,7 @@ Object {
       "filter": "protoPayload.methodName=\\"SetIamPolicy\\" AND protoPayload.serviceData.policyDelta.auditConfigDeltas:*",
       "name": "my-example-metric",
       "updatedOn": 1612282460068,
+      "webLink": "https://console.cloud.google.com/logs/metrics?project=j1-gc-integration-dev-300716",
     },
     Object {
       "_class": Array [
@@ -196,14 +199,10 @@ AND protoPayload.serviceData.policyDelta.bindingDeltas.role=\\"roles/owner\\")",
       "_type": "google_logging_metric",
       "createdOn": 1611778867708,
       "displayName": "test-metric",
-      "filter": "(protoPayload.serviceName=\\"cloudresourcemanager.googleapis.com\\")
-AND (ProjectOwnership OR projectOwnerInvitee)
-OR (protoPayload.serviceData.policyDelta.bindingDeltas.action=\\"REMOVE\\"
-AND protoPayload.serviceData.policyDelta.bindingDeltas.role=\\"roles/owner\\")
-OR (protoPayload.serviceData.policyDelta.bindingDeltas.action=\\"ADD\\"
-AND protoPayload.serviceData.policyDelta.bindingDeltas.role=\\"roles/owner\\")",
+      "filter": "(protoPayload.serviceName=\\"cloudresourcemanager.googleapis.com\\") AND (ProjectOwnership OR projectOwnerInvitee) OR (protoPayload.serviceData.policyDelta.bindingDeltas.action=\\"REMOVE\\" AND protoPayload.serviceData.policyDelta.bindingDeltas.role=\\"roles/owner\\") OR (protoPayload.serviceData.policyDelta.bindingDeltas.action=\\"ADD\\" AND protoPayload.serviceData.policyDelta.bindingDeltas.role=\\"roles/owner\\")",
       "name": "test-metric",
       "updatedOn": 1611778918698,
+      "webLink": "https://console.cloud.google.com/logs/metrics?project=j1-gc-integration-dev-300716",
     },
   ],
   "collectedRelationships": Array [
@@ -469,57 +468,6 @@ Object {
       "_class": Array [
         "DataStore",
       ],
-      "_key": "bucket:my-unique-sink-logging-bucket",
-      "_rawData": Array [
-        Object {
-          "name": "default",
-          "rawData": Object {
-            "etag": "CAE=",
-            "iamConfiguration": Object {
-              "bucketPolicyOnly": Object {
-                "enabled": false,
-              },
-              "uniformBucketLevelAccess": Object {
-                "enabled": false,
-              },
-            },
-            "id": "my-unique-sink-logging-bucket",
-            "kind": "storage#bucket",
-            "location": "US",
-            "locationType": "multi-region",
-            "metageneration": "1",
-            "name": "my-unique-sink-logging-bucket",
-            "projectNumber": "165882964161",
-            "selfLink": "https://www.googleapis.com/storage/v1/b/my-unique-sink-logging-bucket",
-            "storageClass": "STANDARD",
-            "timeCreated": "2021-02-02T15:35:32.648Z",
-            "updated": "2021-02-02T15:35:32.648Z",
-          },
-        },
-      ],
-      "_type": "google_storage_bucket",
-      "classification": null,
-      "createdOn": 1612280132648,
-      "displayName": "my-unique-sink-logging-bucket",
-      "encrypted": true,
-      "encryptionKeyRef": undefined,
-      "etag": "CAE=",
-      "id": "my-unique-sink-logging-bucket",
-      "location": "US",
-      "name": "my-unique-sink-logging-bucket",
-      "public": false,
-      "retentionDate": undefined,
-      "retentionPeriod": undefined,
-      "retentionPolicyEnabled": undefined,
-      "storageClass": "STANDARD",
-      "uniformBucketLevelAccess": false,
-      "updatedOn": 1612280132648,
-      "webLink": "https://console.cloud.google.com/storage/browser/my-unique-sink-logging-bucket;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-300716",
-    },
-    Object {
-      "_class": Array [
-        "DataStore",
-      ],
       "_key": "bucket:test-public-storage-bucket-165882964161",
       "_rawData": Array [
         Object {
@@ -620,7 +568,7 @@ Object {
     },
     Object {
       "_class": Array [
-        "Configuration",
+        "Logs",
       ],
       "_key": "google_logging_log_sink:example-bucket-sink",
       "_rawData": Array [
@@ -630,7 +578,7 @@ Object {
             "createTime": "2021-01-27T19:13:53.808070518Z",
             "destination": "storage.googleapis.com/log-example-bucket",
             "name": "example-bucket-sink",
-            "updateTime": "2021-01-27T19:13:53.808070518Z",
+            "updateTime": "2021-02-09T14:03:27.461124585Z",
             "writerIdentity": "serviceAccount:p165882964161-545047@gcp-sa-logging.iam.gserviceaccount.com",
           },
         },
@@ -641,11 +589,12 @@ Object {
       "displayName": "example-bucket-sink",
       "filter": undefined,
       "name": "example-bucket-sink",
-      "updatedOn": 1611774833808,
+      "updatedOn": 1612879407461,
+      "webLink": "https://console.cloud.google.com/logs/router?project=j1-gc-integration-dev-300716",
     },
     Object {
       "_class": Array [
-        "Configuration",
+        "Logs",
       ],
       "_key": "google_logging_log_sink:example-sink",
       "_rawData": Array [
@@ -668,35 +617,11 @@ Object {
       "filter": undefined,
       "name": "example-sink",
       "updatedOn": 1611773066303,
+      "webLink": "https://console.cloud.google.com/logs/router?project=j1-gc-integration-dev-300716",
     },
     Object {
       "_class": Array [
-        "Configuration",
-      ],
-      "_key": "google_logging_log_sink:my-instance-sink",
-      "_rawData": Array [
-        Object {
-          "name": "default",
-          "rawData": Object {
-            "createTime": "2021-02-02T15:36:20.477835561Z",
-            "destination": "storage.googleapis.com/my-unique-sink-logging-bucket",
-            "name": "my-instance-sink",
-            "updateTime": "2021-02-02T16:18:22.448048184Z",
-            "writerIdentity": "serviceAccount:cloud-logs@system.gserviceaccount.com",
-          },
-        },
-      ],
-      "_type": "google_logging_project_sink",
-      "createdOn": 1612280180477,
-      "destination": "storage.googleapis.com/my-unique-sink-logging-bucket",
-      "displayName": "my-instance-sink",
-      "filter": undefined,
-      "name": "my-instance-sink",
-      "updatedOn": 1612282702448,
-    },
-    Object {
-      "_class": Array [
-        "Configuration",
+        "Logs",
       ],
       "_key": "google_logging_log_sink:_Required",
       "_rawData": Array [
@@ -716,10 +641,11 @@ Object {
       "filter": "LOG_ID(\\"cloudaudit.googleapis.com/activity\\") OR LOG_ID(\\"externalaudit.googleapis.com/activity\\") OR LOG_ID(\\"cloudaudit.googleapis.com/system_event\\") OR LOG_ID(\\"externalaudit.googleapis.com/system_event\\") OR LOG_ID(\\"cloudaudit.googleapis.com/access_transparency\\") OR LOG_ID(\\"externalaudit.googleapis.com/access_transparency\\")",
       "name": "_Required",
       "updatedOn": undefined,
+      "webLink": "https://console.cloud.google.com/logs/router?project=j1-gc-integration-dev-300716",
     },
     Object {
       "_class": Array [
-        "Configuration",
+        "Logs",
       ],
       "_key": "google_logging_log_sink:_Default",
       "_rawData": Array [
@@ -739,6 +665,7 @@ Object {
       "filter": "NOT LOG_ID(\\"cloudaudit.googleapis.com/activity\\") AND NOT LOG_ID(\\"externalaudit.googleapis.com/activity\\") AND NOT LOG_ID(\\"cloudaudit.googleapis.com/system_event\\") AND NOT LOG_ID(\\"externalaudit.googleapis.com/system_event\\") AND NOT LOG_ID(\\"cloudaudit.googleapis.com/access_transparency\\") AND NOT LOG_ID(\\"externalaudit.googleapis.com/access_transparency\\")",
       "name": "_Default",
       "updatedOn": undefined,
+      "webLink": "https://console.cloud.google.com/logs/router?project=j1-gc-integration-dev-300716",
     },
   ],
   "collectedRelationships": Array [
@@ -750,21 +677,13 @@ Object {
       "_type": "google_logging_project_sink_uses_storage_bucket",
       "displayName": "USES",
     },
-    Object {
-      "_class": "USES",
-      "_fromEntityKey": "google_logging_log_sink:my-instance-sink",
-      "_key": "google_logging_log_sink:my-instance-sink|uses|bucket:my-unique-sink-logging-bucket",
-      "_toEntityKey": "bucket:my-unique-sink-logging-bucket",
-      "_type": "google_logging_project_sink_uses_storage_bucket",
-      "displayName": "USES",
-    },
   ],
   "encounteredTypes": Array [
     "google_storage_bucket",
     "google_logging_project_sink",
     "google_logging_project_sink_uses_storage_bucket",
   ],
-  "numCollectedEntities": 12,
-  "numCollectedRelationships": 2,
+  "numCollectedEntities": 10,
+  "numCollectedRelationships": 1,
 }
 `;

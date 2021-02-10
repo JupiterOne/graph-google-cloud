@@ -40,13 +40,14 @@ Object {
   "filter": "protoPayload.methodName=\\"SetIamPolicy\\" AND protoPayload.serviceData.policyDelta.auditConfigDeltas:*",
   "name": "my-example-metric",
   "updatedOn": 1612282460068,
+  "webLink": "https://console.cloud.google.com/logs/metrics?project=j1-gc-integration-dev-300716",
 }
 `;
 
 exports[`#createProjectSinkEntity should convert to entity 1`] = `
 Object {
   "_class": Array [
-    "Configuration",
+    "Logs",
   ],
   "_key": "google_logging_log_sink:example-sink",
   "_rawData": Array [
@@ -69,5 +70,6 @@ Object {
   "filter": undefined,
   "name": "example-sink",
   "updatedOn": 1611773066303,
+  "webLink": "https://console.cloud.google.com/logs/router?project=j1-gc-integration-dev-300716",
 }
 `;

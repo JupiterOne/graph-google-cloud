@@ -19,7 +19,9 @@ export async function fetchAlertPolicies(
   const client = new MonitoringClient({ config });
 
   await client.iterateAlertPolicies(async (alertPolicy) => {
-    await jobState.addEntity(createAlertPolicyEntity(alertPolicy));
+    await jobState.addEntity(
+      createAlertPolicyEntity(alertPolicy, client.projectId),
+    );
   });
 }
 
