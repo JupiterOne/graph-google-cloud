@@ -29,6 +29,11 @@ import { STEP_BIG_QUERY_DATASETS } from './steps/big-query';
 import { STEP_SQL_ADMIN_INSTANCES } from './steps/sql-admin';
 import { STEP_DNS_MANAGED_ZONES } from './steps/dns/constants';
 import { STEP_CONTAINER_CLUSTERS } from './steps/containers';
+import {
+  STEP_LOGGING_METRICS,
+  STEP_LOGGING_PROJECT_SINKS,
+} from './steps/logging/constants';
+import { STEP_MONITORING_ALERT_POLICIES } from './steps/monitoring/constants';
 
 async function getEnabledServiceNames(
   config: IntegrationConfig,
@@ -120,5 +125,12 @@ export default async function getStepStartStates(
     ),
     [STEP_DNS_MANAGED_ZONES]: createStepStartState(ServiceUsageName.DNS),
     [STEP_CONTAINER_CLUSTERS]: createStepStartState(ServiceUsageName.CONTAINER),
+    [STEP_LOGGING_PROJECT_SINKS]: createStepStartState(
+      ServiceUsageName.LOGGING,
+    ),
+    [STEP_LOGGING_METRICS]: createStepStartState(ServiceUsageName.LOGGING),
+    [STEP_MONITORING_ALERT_POLICIES]: createStepStartState(
+      ServiceUsageName.MONITORING,
+    ),
   };
 }

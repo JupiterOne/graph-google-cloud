@@ -1,0 +1,689 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchMetrics should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Policy",
+      ],
+      "_key": "projects/j1-gc-integration-dev-300716/alertPolicies/17906798822773338482",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "combiner": "OR",
+            "conditions": Array [
+              Object {
+                "conditionThreshold": Object {
+                  "aggregations": Array [
+                    Object {
+                      "alignmentPeriod": "300s",
+                      "perSeriesAligner": "ALIGN_RATE",
+                    },
+                  ],
+                  "comparison": "COMPARISON_GT",
+                  "duration": "0s",
+                  "filter": "metric.type=\\"logging.googleapis.com/user/test-metric\\"",
+                  "trigger": Object {
+                    "count": 1,
+                  },
+                },
+                "displayName": "logging/user/test-metric [RATE]",
+                "name": "projects/j1-gc-integration-dev-300716/alertPolicies/17906798822773338482/conditions/17906798822773340137",
+              },
+            ],
+            "creationRecord": Object {
+              "mutateTime": "2021-01-27T20:26:35.549474766Z",
+              "mutatedBy": "admin@creativice.com",
+            },
+            "displayName": "test-alert-policy",
+            "enabled": true,
+            "mutationRecord": Object {
+              "mutateTime": "2021-01-27T20:26:35.549474766Z",
+              "mutatedBy": "admin@creativice.com",
+            },
+            "name": "projects/j1-gc-integration-dev-300716/alertPolicies/17906798822773338482",
+          },
+        },
+      ],
+      "_type": "google_monitoring_alert_policy",
+      "conditionFilters": Array [
+        "metric.type=\\"logging.googleapis.com/user/test-metric\\"",
+      ],
+      "content": "",
+      "createdOn": 1611779195549,
+      "displayName": "test-alert-policy",
+      "enabled": true,
+      "name": "test-alert-policy",
+      "summary": "Alert policy that is triggered based on some metric",
+      "title": "Alert policy",
+      "updatedOn": 1611779195549,
+      "webLink": "https://console.cloud.google.com/monitoring/alerting/policies/17906798822773338482?project=j1-gc-integration-dev-300716",
+    },
+    Object {
+      "_class": Array [
+        "Policy",
+      ],
+      "_key": "projects/j1-gc-integration-dev-300716/alertPolicies/9246450381922925470",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "combiner": "OR",
+            "conditions": Array [
+              Object {
+                "conditionThreshold": Object {
+                  "aggregations": Array [
+                    Object {
+                      "alignmentPeriod": "300s",
+                      "perSeriesAligner": "ALIGN_RATE",
+                    },
+                  ],
+                  "comparison": "COMPARISON_GT",
+                  "duration": "0s",
+                  "filter": "metric.type=\\"logging.googleapis.com/user/my-example-metric\\" AND resource.type=\\"metric\\"",
+                  "trigger": Object {
+                    "count": 1,
+                  },
+                },
+                "displayName": "test condition",
+                "name": "projects/j1-gc-integration-dev-300716/alertPolicies/9246450381922925470/conditions/9246450381922923601",
+              },
+            ],
+            "creationRecord": Object {
+              "mutateTime": "2021-02-02T16:18:23.127595226Z",
+              "mutatedBy": "j1-gc-integration-dev-sa@j1-gc-integration-dev-300716.iam.gserviceaccount.com",
+            },
+            "displayName": "Example Alert Policy",
+            "enabled": true,
+            "mutationRecord": Object {
+              "mutateTime": "2021-02-02T16:18:23.127595226Z",
+              "mutatedBy": "j1-gc-integration-dev-sa@j1-gc-integration-dev-300716.iam.gserviceaccount.com",
+            },
+            "name": "projects/j1-gc-integration-dev-300716/alertPolicies/9246450381922925470",
+          },
+        },
+      ],
+      "_type": "google_monitoring_alert_policy",
+      "conditionFilters": Array [
+        "metric.type=\\"logging.googleapis.com/user/my-example-metric\\" AND resource.type=\\"metric\\"",
+      ],
+      "content": "",
+      "createdOn": 1612282703127,
+      "displayName": "Example Alert Policy",
+      "enabled": true,
+      "name": "Example Alert Policy",
+      "summary": "Alert policy that is triggered based on some metric",
+      "title": "Alert policy",
+      "updatedOn": 1612282703127,
+      "webLink": "https://console.cloud.google.com/monitoring/alerting/policies/9246450381922925470?project=j1-gc-integration-dev-300716",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "my-example-metric",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "createTime": "2021-02-02T16:14:20.068899250Z",
+            "filter": "protoPayload.methodName=\\"SetIamPolicy\\" AND protoPayload.serviceData.policyDelta.auditConfigDeltas:*",
+            "labelExtractors": Object {
+              "occurences": "EXTRACT(textPayload)",
+            },
+            "metricDescriptor": Object {
+              "displayName": "My metric",
+              "labels": Array [
+                Object {
+                  "key": "occurences",
+                  "valueType": "INT64",
+                },
+              ],
+              "metricKind": "DELTA",
+              "name": "projects/j1-gc-integration-dev-300716/metricDescriptors/logging.googleapis.com/user/my-example-metric",
+              "type": "logging.googleapis.com/user/my-example-metric",
+              "unit": "1",
+              "valueType": "INT64",
+            },
+            "name": "my-example-metric",
+            "updateTime": "2021-02-02T16:14:20.068899250Z",
+          },
+        },
+      ],
+      "_type": "google_logging_metric",
+      "createdOn": 1612282460068,
+      "displayName": "my-example-metric",
+      "filter": "protoPayload.methodName=\\"SetIamPolicy\\" AND protoPayload.serviceData.policyDelta.auditConfigDeltas:*",
+      "name": "my-example-metric",
+      "updatedOn": 1612282460068,
+      "webLink": "https://console.cloud.google.com/logs/metrics?project=j1-gc-integration-dev-300716",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "test-metric",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "createTime": "2021-01-27T20:21:07.708522388Z",
+            "filter": "(protoPayload.serviceName=\\"cloudresourcemanager.googleapis.com\\")
+AND (ProjectOwnership OR projectOwnerInvitee)
+OR (protoPayload.serviceData.policyDelta.bindingDeltas.action=\\"REMOVE\\"
+AND protoPayload.serviceData.policyDelta.bindingDeltas.role=\\"roles/owner\\")
+OR (protoPayload.serviceData.policyDelta.bindingDeltas.action=\\"ADD\\"
+AND protoPayload.serviceData.policyDelta.bindingDeltas.role=\\"roles/owner\\")",
+            "labelExtractors": Object {
+              "log2": "EXTRACT(textPayload)",
+            },
+            "metricDescriptor": Object {
+              "labels": Array [
+                Object {
+                  "key": "log2",
+                },
+              ],
+              "metricKind": "DELTA",
+              "name": "projects/j1-gc-integration-dev-300716/metricDescriptors/logging.googleapis.com/user/test-metric",
+              "type": "logging.googleapis.com/user/test-metric",
+              "unit": "1",
+              "valueType": "INT64",
+            },
+            "name": "test-metric",
+            "updateTime": "2021-01-27T20:21:58.698697481Z",
+          },
+        },
+      ],
+      "_type": "google_logging_metric",
+      "createdOn": 1611778867708,
+      "displayName": "test-metric",
+      "filter": "(protoPayload.serviceName=\\"cloudresourcemanager.googleapis.com\\") AND (ProjectOwnership OR projectOwnerInvitee) OR (protoPayload.serviceData.policyDelta.bindingDeltas.action=\\"REMOVE\\" AND protoPayload.serviceData.policyDelta.bindingDeltas.role=\\"roles/owner\\") OR (protoPayload.serviceData.policyDelta.bindingDeltas.action=\\"ADD\\" AND protoPayload.serviceData.policyDelta.bindingDeltas.role=\\"roles/owner\\")",
+      "name": "test-metric",
+      "updatedOn": 1611778918698,
+      "webLink": "https://console.cloud.google.com/logs/metrics?project=j1-gc-integration-dev-300716",
+    },
+  ],
+  "collectedRelationships": Array [
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "my-example-metric",
+      "_key": "my-example-metric|has|projects/j1-gc-integration-dev-300716/alertPolicies/9246450381922925470",
+      "_toEntityKey": "projects/j1-gc-integration-dev-300716/alertPolicies/9246450381922925470",
+      "_type": "google_logging_metric_has_monitoring_alert_policy",
+      "displayName": "HAS",
+    },
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "test-metric",
+      "_key": "test-metric|has|projects/j1-gc-integration-dev-300716/alertPolicies/17906798822773338482",
+      "_toEntityKey": "projects/j1-gc-integration-dev-300716/alertPolicies/17906798822773338482",
+      "_type": "google_logging_metric_has_monitoring_alert_policy",
+      "displayName": "HAS",
+    },
+  ],
+  "encounteredTypes": Array [
+    "google_monitoring_alert_policy",
+    "google_logging_metric",
+    "google_logging_metric_has_monitoring_alert_policy",
+  ],
+  "numCollectedEntities": 4,
+  "numCollectedRelationships": 2,
+}
+`;
+
+exports[`#fetchProjectSinks should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "DataStore",
+      ],
+      "_key": "bucket:customer-managed-encryption-key-bucket-165882964161",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "encryption": Object {
+              "defaultKmsKeyName": "projects/j1-gc-integration-dev-300716/locations/us/keyRings/j1-gc-integration-dev-300716-bucket-ring/cryptoKeys/j1-gc-integration-dev-300716-bucket-key",
+            },
+            "etag": "CAE=",
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
+                "enabled": false,
+              },
+              "uniformBucketLevelAccess": Object {
+                "enabled": false,
+              },
+            },
+            "id": "customer-managed-encryption-key-bucket-165882964161",
+            "kind": "storage#bucket",
+            "location": "US",
+            "locationType": "multi-region",
+            "metageneration": "1",
+            "name": "customer-managed-encryption-key-bucket-165882964161",
+            "projectNumber": "165882964161",
+            "selfLink": "https://www.googleapis.com/storage/v1/b/customer-managed-encryption-key-bucket-165882964161",
+            "storageClass": "STANDARD",
+            "timeCreated": "2021-01-13T15:13:47.860Z",
+            "updated": "2021-01-13T15:13:47.860Z",
+          },
+        },
+      ],
+      "_type": "google_storage_bucket",
+      "classification": null,
+      "createdOn": 1610550827860,
+      "displayName": "customer-managed-encryption-key-bucket-165882964161",
+      "encrypted": true,
+      "encryptionKeyRef": "projects/j1-gc-integration-dev-300716/locations/us/keyRings/j1-gc-integration-dev-300716-bucket-ring/cryptoKeys/j1-gc-integration-dev-300716-bucket-key",
+      "etag": "CAE=",
+      "id": "customer-managed-encryption-key-bucket-165882964161",
+      "location": "US",
+      "name": "customer-managed-encryption-key-bucket-165882964161",
+      "public": false,
+      "retentionDate": undefined,
+      "retentionPeriod": undefined,
+      "retentionPolicyEnabled": undefined,
+      "storageClass": "STANDARD",
+      "uniformBucketLevelAccess": false,
+      "updatedOn": 1610550827860,
+      "webLink": "https://console.cloud.google.com/storage/browser/customer-managed-encryption-key-bucket-165882964161;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-300716",
+    },
+    Object {
+      "_class": Array [
+        "DataStore",
+      ],
+      "_key": "bucket:gcf-sources-165882964161-us-central1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "cors": Array [
+              Object {
+                "method": Array [
+                  "GET",
+                ],
+                "origin": Array [
+                  "https://*.cloud.google.com",
+                  "https://*.corp.google.com",
+                  "https://*.corp.google.com:*",
+                ],
+              },
+            ],
+            "etag": "CAE=",
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
+                "enabled": true,
+                "lockedTime": "2021-04-13T15:04:51.947Z",
+              },
+              "uniformBucketLevelAccess": Object {
+                "enabled": true,
+                "lockedTime": "2021-04-13T15:04:51.947Z",
+              },
+            },
+            "id": "gcf-sources-165882964161-us-central1",
+            "kind": "storage#bucket",
+            "location": "US-CENTRAL1",
+            "locationType": "region",
+            "metageneration": "1",
+            "name": "gcf-sources-165882964161-us-central1",
+            "projectNumber": "165882964161",
+            "selfLink": "https://www.googleapis.com/storage/v1/b/gcf-sources-165882964161-us-central1",
+            "storageClass": "STANDARD",
+            "timeCreated": "2021-01-13T15:04:51.947Z",
+            "updated": "2021-01-13T15:04:51.947Z",
+          },
+        },
+      ],
+      "_type": "google_storage_bucket",
+      "classification": null,
+      "createdOn": 1610550291947,
+      "displayName": "gcf-sources-165882964161-us-central1",
+      "encrypted": true,
+      "encryptionKeyRef": undefined,
+      "etag": "CAE=",
+      "id": "gcf-sources-165882964161-us-central1",
+      "location": "US-CENTRAL1",
+      "name": "gcf-sources-165882964161-us-central1",
+      "public": false,
+      "retentionDate": undefined,
+      "retentionPeriod": undefined,
+      "retentionPolicyEnabled": undefined,
+      "storageClass": "STANDARD",
+      "uniformBucketLevelAccess": true,
+      "updatedOn": 1610550291947,
+      "webLink": "https://console.cloud.google.com/storage/browser/gcf-sources-165882964161-us-central1;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-300716",
+    },
+    Object {
+      "_class": Array [
+        "DataStore",
+      ],
+      "_key": "bucket:j1-gc-integration-dev-300716cloudfunctions",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "etag": "CAE=",
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
+                "enabled": false,
+              },
+              "uniformBucketLevelAccess": Object {
+                "enabled": false,
+              },
+            },
+            "id": "j1-gc-integration-dev-300716cloudfunctions",
+            "kind": "storage#bucket",
+            "location": "US",
+            "locationType": "multi-region",
+            "metageneration": "1",
+            "name": "j1-gc-integration-dev-300716cloudfunctions",
+            "projectNumber": "165882964161",
+            "selfLink": "https://www.googleapis.com/storage/v1/b/j1-gc-integration-dev-300716cloudfunctions",
+            "storageClass": "STANDARD",
+            "timeCreated": "2021-01-13T15:04:41.060Z",
+            "updated": "2021-01-13T15:04:41.060Z",
+          },
+        },
+      ],
+      "_type": "google_storage_bucket",
+      "classification": null,
+      "createdOn": 1610550281060,
+      "displayName": "j1-gc-integration-dev-300716cloudfunctions",
+      "encrypted": true,
+      "encryptionKeyRef": undefined,
+      "etag": "CAE=",
+      "id": "j1-gc-integration-dev-300716cloudfunctions",
+      "location": "US",
+      "name": "j1-gc-integration-dev-300716cloudfunctions",
+      "public": false,
+      "retentionDate": undefined,
+      "retentionPeriod": undefined,
+      "retentionPolicyEnabled": undefined,
+      "storageClass": "STANDARD",
+      "uniformBucketLevelAccess": false,
+      "updatedOn": 1610550281060,
+      "webLink": "https://console.cloud.google.com/storage/browser/j1-gc-integration-dev-300716cloudfunctions;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-300716",
+    },
+    Object {
+      "_class": Array [
+        "DataStore",
+      ],
+      "_key": "bucket:log-example-bucket",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "defaultEventBasedHold": false,
+            "etag": "CAQ=",
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
+                "enabled": false,
+              },
+              "uniformBucketLevelAccess": Object {
+                "enabled": false,
+              },
+            },
+            "id": "log-example-bucket",
+            "kind": "storage#bucket",
+            "location": "US-EAST1",
+            "locationType": "region",
+            "metageneration": "4",
+            "name": "log-example-bucket",
+            "projectNumber": "165882964161",
+            "retentionPolicy": Object {
+              "effectiveTime": "2021-01-27T20:10:45.870Z",
+              "isLocked": true,
+              "retentionPeriod": "600",
+            },
+            "satisfiesPZS": false,
+            "selfLink": "https://www.googleapis.com/storage/v1/b/log-example-bucket",
+            "storageClass": "STANDARD",
+            "timeCreated": "2021-01-27T19:11:35.012Z",
+            "updated": "2021-01-27T20:10:13.729Z",
+          },
+        },
+      ],
+      "_type": "google_storage_bucket",
+      "classification": null,
+      "createdOn": 1611774695012,
+      "displayName": "log-example-bucket",
+      "encrypted": true,
+      "encryptionKeyRef": undefined,
+      "etag": "CAQ=",
+      "id": "log-example-bucket",
+      "location": "US-EAST1",
+      "name": "log-example-bucket",
+      "public": false,
+      "retentionDate": "2021-01-27T20:10:45.870Z",
+      "retentionPeriod": "600",
+      "retentionPolicyEnabled": true,
+      "storageClass": "STANDARD",
+      "uniformBucketLevelAccess": false,
+      "updatedOn": 1611778213729,
+      "webLink": "https://console.cloud.google.com/storage/browser/log-example-bucket;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-300716",
+    },
+    Object {
+      "_class": Array [
+        "DataStore",
+      ],
+      "_key": "bucket:test-public-storage-bucket-165882964161",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "etag": "CAI=",
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
+                "enabled": false,
+              },
+              "uniformBucketLevelAccess": Object {
+                "enabled": false,
+              },
+            },
+            "id": "test-public-storage-bucket-165882964161",
+            "kind": "storage#bucket",
+            "location": "US",
+            "locationType": "multi-region",
+            "metageneration": "2",
+            "name": "test-public-storage-bucket-165882964161",
+            "projectNumber": "165882964161",
+            "selfLink": "https://www.googleapis.com/storage/v1/b/test-public-storage-bucket-165882964161",
+            "storageClass": "STANDARD",
+            "timeCreated": "2021-01-13T15:04:40.964Z",
+            "updated": "2021-01-13T15:04:42.252Z",
+          },
+        },
+      ],
+      "_type": "google_storage_bucket",
+      "classification": null,
+      "createdOn": 1610550280964,
+      "displayName": "test-public-storage-bucket-165882964161",
+      "encrypted": true,
+      "encryptionKeyRef": undefined,
+      "etag": "CAI=",
+      "id": "test-public-storage-bucket-165882964161",
+      "location": "US",
+      "name": "test-public-storage-bucket-165882964161",
+      "public": true,
+      "retentionDate": undefined,
+      "retentionPeriod": undefined,
+      "retentionPolicyEnabled": undefined,
+      "storageClass": "STANDARD",
+      "uniformBucketLevelAccess": false,
+      "updatedOn": 1610550282252,
+      "webLink": "https://console.cloud.google.com/storage/browser/test-public-storage-bucket-165882964161;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-300716",
+    },
+    Object {
+      "_class": Array [
+        "DataStore",
+      ],
+      "_key": "bucket:us.artifacts.j1-gc-integration-dev-300716.appspot.com",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "etag": "CAE=",
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
+                "enabled": false,
+              },
+              "uniformBucketLevelAccess": Object {
+                "enabled": false,
+              },
+            },
+            "id": "us.artifacts.j1-gc-integration-dev-300716.appspot.com",
+            "kind": "storage#bucket",
+            "location": "US",
+            "locationType": "multi-region",
+            "metageneration": "1",
+            "name": "us.artifacts.j1-gc-integration-dev-300716.appspot.com",
+            "projectNumber": "165882964161",
+            "selfLink": "https://www.googleapis.com/storage/v1/b/us.artifacts.j1-gc-integration-dev-300716.appspot.com",
+            "storageClass": "STANDARD",
+            "timeCreated": "2021-01-13T15:08:24.984Z",
+            "updated": "2021-01-13T15:08:24.984Z",
+          },
+        },
+      ],
+      "_type": "google_storage_bucket",
+      "classification": null,
+      "createdOn": 1610550504984,
+      "displayName": "us.artifacts.j1-gc-integration-dev-300716.appspot.com",
+      "encrypted": true,
+      "encryptionKeyRef": undefined,
+      "etag": "CAE=",
+      "id": "us.artifacts.j1-gc-integration-dev-300716.appspot.com",
+      "location": "US",
+      "name": "us.artifacts.j1-gc-integration-dev-300716.appspot.com",
+      "public": false,
+      "retentionDate": undefined,
+      "retentionPeriod": undefined,
+      "retentionPolicyEnabled": undefined,
+      "storageClass": "STANDARD",
+      "uniformBucketLevelAccess": false,
+      "updatedOn": 1610550504984,
+      "webLink": "https://console.cloud.google.com/storage/browser/us.artifacts.j1-gc-integration-dev-300716.appspot.com;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-300716",
+    },
+    Object {
+      "_class": Array [
+        "Logs",
+      ],
+      "_key": "google_logging_log_sink:example-bucket-sink",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "createTime": "2021-01-27T19:13:53.808070518Z",
+            "destination": "storage.googleapis.com/log-example-bucket",
+            "name": "example-bucket-sink",
+            "updateTime": "2021-02-09T14:03:27.461124585Z",
+            "writerIdentity": "serviceAccount:p165882964161-545047@gcp-sa-logging.iam.gserviceaccount.com",
+          },
+        },
+      ],
+      "_type": "google_logging_project_sink",
+      "createdOn": 1611774833808,
+      "destination": "storage.googleapis.com/log-example-bucket",
+      "displayName": "example-bucket-sink",
+      "filter": undefined,
+      "name": "example-bucket-sink",
+      "updatedOn": 1612879407461,
+      "webLink": "https://console.cloud.google.com/logs/router?project=j1-gc-integration-dev-300716",
+    },
+    Object {
+      "_class": Array [
+        "Logs",
+      ],
+      "_key": "google_logging_log_sink:example-sink",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "bigqueryOptions": Object {},
+            "createTime": "2021-01-27T18:44:26.303792531Z",
+            "destination": "bigquery.googleapis.com/projects/j1-gc-integration-dev-300716/datasets/test_big_query_dataset",
+            "name": "example-sink",
+            "updateTime": "2021-01-27T18:44:26.303792531Z",
+            "writerIdentity": "serviceAccount:p165882964161-737968@gcp-sa-logging.iam.gserviceaccount.com",
+          },
+        },
+      ],
+      "_type": "google_logging_project_sink",
+      "createdOn": 1611773066303,
+      "destination": "bigquery.googleapis.com/projects/j1-gc-integration-dev-300716/datasets/test_big_query_dataset",
+      "displayName": "example-sink",
+      "filter": undefined,
+      "name": "example-sink",
+      "updatedOn": 1611773066303,
+      "webLink": "https://console.cloud.google.com/logs/router?project=j1-gc-integration-dev-300716",
+    },
+    Object {
+      "_class": Array [
+        "Logs",
+      ],
+      "_key": "google_logging_log_sink:_Required",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "destination": "logging.googleapis.com/projects/j1-gc-integration-dev-300716/locations/global/buckets/_Required",
+            "filter": "LOG_ID(\\"cloudaudit.googleapis.com/activity\\") OR LOG_ID(\\"externalaudit.googleapis.com/activity\\") OR LOG_ID(\\"cloudaudit.googleapis.com/system_event\\") OR LOG_ID(\\"externalaudit.googleapis.com/system_event\\") OR LOG_ID(\\"cloudaudit.googleapis.com/access_transparency\\") OR LOG_ID(\\"externalaudit.googleapis.com/access_transparency\\")",
+            "name": "_Required",
+          },
+        },
+      ],
+      "_type": "google_logging_project_sink",
+      "createdOn": undefined,
+      "destination": "logging.googleapis.com/projects/j1-gc-integration-dev-300716/locations/global/buckets/_Required",
+      "displayName": "_Required",
+      "filter": "LOG_ID(\\"cloudaudit.googleapis.com/activity\\") OR LOG_ID(\\"externalaudit.googleapis.com/activity\\") OR LOG_ID(\\"cloudaudit.googleapis.com/system_event\\") OR LOG_ID(\\"externalaudit.googleapis.com/system_event\\") OR LOG_ID(\\"cloudaudit.googleapis.com/access_transparency\\") OR LOG_ID(\\"externalaudit.googleapis.com/access_transparency\\")",
+      "name": "_Required",
+      "updatedOn": undefined,
+      "webLink": "https://console.cloud.google.com/logs/router?project=j1-gc-integration-dev-300716",
+    },
+    Object {
+      "_class": Array [
+        "Logs",
+      ],
+      "_key": "google_logging_log_sink:_Default",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "destination": "logging.googleapis.com/projects/j1-gc-integration-dev-300716/locations/global/buckets/_Default",
+            "filter": "NOT LOG_ID(\\"cloudaudit.googleapis.com/activity\\") AND NOT LOG_ID(\\"externalaudit.googleapis.com/activity\\") AND NOT LOG_ID(\\"cloudaudit.googleapis.com/system_event\\") AND NOT LOG_ID(\\"externalaudit.googleapis.com/system_event\\") AND NOT LOG_ID(\\"cloudaudit.googleapis.com/access_transparency\\") AND NOT LOG_ID(\\"externalaudit.googleapis.com/access_transparency\\")",
+            "name": "_Default",
+          },
+        },
+      ],
+      "_type": "google_logging_project_sink",
+      "createdOn": undefined,
+      "destination": "logging.googleapis.com/projects/j1-gc-integration-dev-300716/locations/global/buckets/_Default",
+      "displayName": "_Default",
+      "filter": "NOT LOG_ID(\\"cloudaudit.googleapis.com/activity\\") AND NOT LOG_ID(\\"externalaudit.googleapis.com/activity\\") AND NOT LOG_ID(\\"cloudaudit.googleapis.com/system_event\\") AND NOT LOG_ID(\\"externalaudit.googleapis.com/system_event\\") AND NOT LOG_ID(\\"cloudaudit.googleapis.com/access_transparency\\") AND NOT LOG_ID(\\"externalaudit.googleapis.com/access_transparency\\")",
+      "name": "_Default",
+      "updatedOn": undefined,
+      "webLink": "https://console.cloud.google.com/logs/router?project=j1-gc-integration-dev-300716",
+    },
+  ],
+  "collectedRelationships": Array [
+    Object {
+      "_class": "USES",
+      "_fromEntityKey": "google_logging_log_sink:example-bucket-sink",
+      "_key": "google_logging_log_sink:example-bucket-sink|uses|bucket:log-example-bucket",
+      "_toEntityKey": "bucket:log-example-bucket",
+      "_type": "google_logging_project_sink_uses_storage_bucket",
+      "displayName": "USES",
+    },
+  ],
+  "encounteredTypes": Array [
+    "google_storage_bucket",
+    "google_logging_project_sink",
+    "google_logging_project_sink_uses_storage_bucket",
+  ],
+  "numCollectedEntities": 10,
+  "numCollectedRelationships": 1,
+}
+`;

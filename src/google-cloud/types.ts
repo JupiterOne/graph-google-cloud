@@ -15,4 +15,6 @@ export enum ServiceUsageName {
   BIG_QUERY = 'bigquery.googleapis.com',
   DNS = 'dns.googleapis.com',
   CONTAINER = 'container.googleapis.com',
+  LOGGING = 'logging.googleapis.com',
+  MONITORING = 'monitoring.googleapis.com',
 }

@@ -230,6 +230,9 @@ The following entities are created:
 | IAM User                      | `google_user`                    | `User`              |
 | KMS Crypto Key                | `google_kms_crypto_key`          | `Key`, `CryptoKey`  |
 | KMS Key Ring                  | `google_kms_key_ring`            | `Vault`             |
+| Logging Metric                | `google_logging_metric`          | `Configuration`     |
+| Logging Project Sink          | `google_logging_project_sink`    | `Logs`              |
+| Monitoring Alert Policy       | `google_monitoring_alert_policy` | `Policy`            |
 | Project                       | `google_cloud_project`           | `Account`           |
 | SQL Admin MySQL Instance      | `google_sql_mysql_instance`      | `Database`          |
 | SQL Admin Postgres Instance   | `google_sql_postgres_instance`   | `Database`          |
@@ -239,21 +242,23 @@ The following entities are created:
 
 The following relationships are created/mapped:
 
-| Source Entity `_type`        | Relationship `_class` | Target Entity `_type`            |
-| ---------------------------- | --------------------- | -------------------------------- |
-| `internet`                   | **ALLOWS**            | `google_compute_firewall`        |
-| `google_cloud_project`       | **HAS**               | `google_cloud_api_service`       |
-| `google_compute_firewall`    | **PROTECTS**          | `google_compute_network`         |
-| `google_compute_instance`    | **TRUSTS**            | `google_iam_service_account`     |
-| `google_compute_instance`    | **USES**              | `google_compute_disk`            |
-| `google_compute_network`     | **CONTAINS**          | `google_compute_subnetwork`      |
-| `google_compute_network`     | **HAS**               | `google_compute_firewall`        |
-| `google_compute_project`     | **HAS**               | `google_compute_instance`        |
-| `google_compute_subnetwork`  | **HAS**               | `google_compute_instance`        |
-| `google_iam_service_account` | **ASSIGNED**          | `google_iam_role`                |
-| `google_iam_service_account` | **HAS**               | `google_iam_service_account_key` |
-| `google_kms_key_ring`        | **HAS**               | `google_kms_crypto_key`          |
-| `google_user`                | **ASSIGNED**          | `google_iam_role`                |
+| Source Entity `_type`         | Relationship `_class` | Target Entity `_type`            |
+| ----------------------------- | --------------------- | -------------------------------- |
+| `internet`                    | **ALLOWS**            | `google_compute_firewall`        |
+| `google_cloud_project`        | **HAS**               | `google_cloud_api_service`       |
+| `google_compute_firewall`     | **PROTECTS**          | `google_compute_network`         |
+| `google_compute_instance`     | **TRUSTS**            | `google_iam_service_account`     |
+| `google_compute_instance`     | **USES**              | `google_compute_disk`            |
+| `google_compute_network`      | **CONTAINS**          | `google_compute_subnetwork`      |
+| `google_compute_network`      | **HAS**               | `google_compute_firewall`        |
+| `google_compute_project`      | **HAS**               | `google_compute_instance`        |
+| `google_compute_subnetwork`   | **HAS**               | `google_compute_instance`        |
+| `google_iam_service_account`  | **ASSIGNED**          | `google_iam_role`                |
+| `google_iam_service_account`  | **HAS**               | `google_iam_service_account_key` |
+| `google_kms_key_ring`         | **HAS**               | `google_kms_crypto_key`          |
+| `google_logging_metric`       | **HAS**               | `google_monitoring_alert_policy` |
+| `google_logging_project_sink` | **USES**              | `google_storage_bucket`          |
+| `google_user`                 | **ASSIGNED**          | `google_iam_role`                |
 
 <!--
 ********************************************************************************
