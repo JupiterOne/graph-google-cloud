@@ -15,6 +15,7 @@ interface CliArguments {
   projectId?: string[] | (string | number)[];
   skipProjectId?: string[] | (string | number)[];
   skipProjectIdRegex?: string;
+  integrationInstanceNamePattern?: string;
   help?: boolean;
 }
 
@@ -88,6 +89,10 @@ cli
     '--skip-project-id-regex [skipProjectIdRegex]',
     '(Optional) Project IDs discovered that match this regex will be skipped',
   )
+  .option(
+    '--integration-instance-name-pattern [integrationInstanceNamePattern]',
+    `(Optional) Naming pattern for how the integration instances that are created will be named. Example: 'gcp-{{projectId}}'`,
+  )
   .action((options: CliArguments) => {
     assertRequiredCliArg(
       '--jupiterone-account-id',
@@ -124,6 +129,7 @@ const parsed = cli.parse(process.argv, { run: true });
     skipSystemProjects,
     rotateServiceAccountKeys,
     skipProjectIdRegex,
+    integrationInstanceNamePattern,
   } = parsed.options as CliArguments;
 
   const projectIds = projectId && convertToArrayOfStrings(projectId);
@@ -146,6 +152,7 @@ const parsed = cli.parse(process.argv, { run: true });
         googleAccessToken && redactCliSecret(googleAccessToken),
       rotateServiceAccountKeys,
       skipProjectIdRegex,
+      integrationInstanceNamePattern,
     },
     'Running CLI with options...',
   );
@@ -165,6 +172,7 @@ const parsed = cli.parse(process.argv, { run: true });
     rotateServiceAccountKeys,
     servicesToEnable: Object.values(ServiceUsageName),
     skipProjectIdRegex,
+    integrationInstanceNamePattern,
   });
 
   logger.info(

@@ -9,6 +9,7 @@ import { iterateApi } from '../src/google-cloud/client';
 import fetch from 'node-fetch';
 import Logger from 'bunyan';
 import { retry } from '@lifeomic/attempt';
+import { renderTemplate } from 'mutton';
 
 const cloudresourcemanager = google.cloudresourcemanager('v1');
 const cloudresourcemanagerV2 = google.cloudresourcemanager('v2');
@@ -35,12 +36,14 @@ export interface SetupOrganizationParams extends BaseSetupOrganizationParams {
   jupiteroneEnv?: string;
   skipProjectIdRegex?: string;
   skipSystemProjects: boolean;
+  integrationInstanceNamePattern?: string;
 }
 
 export interface SetupOrganizationProjectParams
   extends BaseSetupOrganizationParams {
   project: cloudresourcemanager_v1.Schema$Project;
   jupiteroneEnv: string;
+  integrationInstanceName: string;
 }
 
 interface PageInfo {
@@ -421,6 +424,7 @@ interface CreateJupiterOneIntegrationInstanceParams {
   jupiteroneAccountId: string;
   jupiteroneApiKey: string;
   projectId: string;
+  integrationInstanceName: string;
   serviceAccountKey: string;
   jupiteroneEnv: string;
 }
@@ -430,6 +434,7 @@ async function createJupiterOneIntegrationInstance({
   jupiteroneAccountId,
   jupiteroneApiKey,
   projectId,
+  integrationInstanceName,
   serviceAccountKey,
   jupiteroneEnv,
 }: CreateJupiterOneIntegrationInstanceParams): Promise<IntegrationInstance> {
@@ -442,7 +447,7 @@ async function createJupiterOneIntegrationInstance({
         query: CREATE_JUPITERONE_INTEGRATION_INSTANCE_MUTATION,
         variables: {
           instance: {
-            name: projectId,
+            name: integrationInstanceName,
             pollingInterval: 'ONE_DAY',
             description: 'Created from JupiterOne org script',
             config: {
@@ -471,7 +476,7 @@ async function createJupiterOneIntegrationInstance({
       'Could not create integration instance',
     );
     throw new Error(
-      `Failed to get create integration instance (name=${projectId})`,
+      `Failed to get create integration instance (name=${integrationInstanceName}, projectId=${projectId})`,
     );
   }
 
@@ -547,13 +552,19 @@ interface IntegrationInstancesQueryApiResult {
   pageInfo: PageInfo;
 }
 
-async function getIntegrationInstanceForAccountWithProjectTag(
-  logger: Logger,
-  jupiteroneAccountId: string,
-  jupiteroneApiKey: string,
-  projectId: string,
-  jupiteroneEnv: string,
-): Promise<IntegrationInstance | null> {
+async function getIntegrationInstanceForAccountWithProjectTag({
+  logger,
+  jupiteroneAccountId,
+  jupiteroneApiKey,
+  integrationInstanceName,
+  jupiteroneEnv,
+}: {
+  logger: Logger;
+  jupiteroneAccountId: string;
+  jupiteroneApiKey: string;
+  integrationInstanceName: string;
+  jupiteroneEnv: string;
+}): Promise<IntegrationInstance | null> {
   let cursor: string | undefined;
 
   do {
@@ -590,7 +601,7 @@ async function getIntegrationInstanceForAccountWithProjectTag(
       .integrationInstances as IntegrationInstancesQueryApiResult;
 
     for (const integrationInstance of integrationInstancesResult.instances) {
-      if (integrationInstance.name === projectId) {
+      if (integrationInstance.name === integrationInstanceName) {
         return integrationInstance;
       }
     }
@@ -608,6 +619,7 @@ interface PutJupiterOneIntegrationInstanceParams {
   projectId: string;
   serviceAccountKey: string;
   jupiteroneEnv: string;
+  integrationInstanceName: string;
 }
 
 async function putJupiterOneIntegrationInstance({
@@ -617,17 +629,23 @@ async function putJupiterOneIntegrationInstance({
   projectId,
   serviceAccountKey,
   jupiteroneEnv,
+  integrationInstanceName,
 }: PutJupiterOneIntegrationInstanceParams) {
   logger.info(
+    {
+      integrationInstanceName,
+    },
     'Attempting to put integration instance for Google Cloud project...',
   );
 
   const existingIntegrationInstance = await getIntegrationInstanceForAccountWithProjectTag(
-    logger,
-    jupiteroneAccountId,
-    jupiteroneApiKey,
-    projectId,
-    jupiteroneEnv,
+    {
+      logger,
+      jupiteroneAccountId,
+      jupiteroneApiKey,
+      integrationInstanceName,
+      jupiteroneEnv,
+    },
   );
 
   let integrationInstance: IntegrationInstance;
@@ -647,9 +665,9 @@ async function putJupiterOneIntegrationInstance({
       jupiteroneEnv,
       integrationInstanceId: existingIntegrationInstance.id,
       integrationInstanceUpdate: {
-        name: projectId,
+        name: integrationInstanceName,
         pollingInterval: existingIntegrationInstance.pollingInterval,
-        description: 'Created from JupiterOne org script',
+        description: existingIntegrationInstance.description,
         config: {
           '@tag': {
             AccountName: projectId,
@@ -666,6 +684,7 @@ async function putJupiterOneIntegrationInstance({
       jupiteroneAccountId,
       jupiteroneApiKey,
       projectId,
+      integrationInstanceName,
       serviceAccountKey,
       jupiteroneEnv,
     });
@@ -756,6 +775,7 @@ async function setupOrganizationProject(
     jupiteroneEnv,
     rotateServiceAccountKeys,
     servicesToEnable,
+    integrationInstanceName,
   } = params;
 
   const projectId = project.projectId as string;
@@ -855,6 +875,7 @@ async function setupOrganizationProject(
       projectId,
       serviceAccountKey,
       jupiteroneEnv,
+      integrationInstanceName,
     });
 
     logger.info(
@@ -880,6 +901,23 @@ async function setupOrganizationProject(
   }
 }
 
+function renderIntegrationInstanceName({
+  projectId,
+  integrationInstanceNamePattern,
+}: {
+  projectId: string;
+  integrationInstanceNamePattern: string;
+}) {
+  return renderTemplate(integrationInstanceNamePattern, {
+    expressionEvaluator(expression: string) {
+      // The value in an expression can only be the `projectId` today. If we
+      // need to add more data later, we can introduce a true expression
+      // evaluator.
+      return projectId;
+    },
+  });
+}
+
 export interface SetupOrganizationResult {
   created: string[];
   failed: string[];
@@ -903,6 +941,7 @@ export async function setupOrganization(
     rotateServiceAccountKeys,
     servicesToEnable,
     skipProjectIdRegex,
+    integrationInstanceNamePattern,
   } = params;
 
   const result: SetupOrganizationResult = {
@@ -911,6 +950,41 @@ export async function setupOrganization(
     skipped: [],
     exists: [],
   };
+
+  // Integration instances that are created from this script must all have unique
+  // integration names since they're used for lookups. If we try to create a
+  // duplicate, then we will push a "failed" result into our results.
+  const integrationNameSet = new Set<string>();
+
+  function getIntegrationInstanceName(
+    logger: Logger,
+    projectId: string,
+  ): string {
+    let integrationInstanceName: string = projectId;
+
+    if (integrationInstanceNamePattern) {
+      integrationInstanceName = renderIntegrationInstanceName({
+        projectId,
+        integrationInstanceNamePattern,
+      });
+
+      logger.info(
+        {
+          integrationInstanceName,
+        },
+        'Integration name created from pattern',
+      );
+    }
+
+    if (integrationNameSet.has(integrationInstanceName)) {
+      throw new Error(
+        `Cannot create integration instances with duplicate names (integrationInstanceName=${integrationInstanceName}, integrationInstanceNamePattern=${integrationInstanceNamePattern})`,
+      );
+    }
+
+    integrationNameSet.add(integrationInstanceName);
+    return integrationInstanceName;
+  }
 
   if (projectIds) {
     baseLogger.info(
@@ -922,6 +996,10 @@ export async function setupOrganization(
 
     for (const projectId of projectIds) {
       const logger = baseLogger.child({ projectId });
+      const integrationInstanceName = getIntegrationInstanceName(
+        logger,
+        projectId,
+      );
 
       if (skipSystemProjects && projectId.startsWith('sys-')) {
         logger.info('Skipping system project');
@@ -971,6 +1049,7 @@ export async function setupOrganization(
           jupiteroneEnv,
           rotateServiceAccountKeys,
           servicesToEnable,
+          integrationInstanceName,
         });
 
         result[setupResult.toLowerCase()].push(projectId);
@@ -991,6 +1070,10 @@ export async function setupOrganization(
         async (project) => {
           const projectId = project.projectId as string;
           const logger = baseLogger.child({ projectId });
+          const integrationInstanceName = getIntegrationInstanceName(
+            logger,
+            projectId,
+          );
 
           if (skipSystemProjects && projectId.startsWith('sys-')) {
             logger.info('Skipping system project');
@@ -1024,6 +1107,7 @@ export async function setupOrganization(
               jupiteroneEnv,
               rotateServiceAccountKeys,
               servicesToEnable,
+              integrationInstanceName,
             });
 
             result[setupResult.toLowerCase()].push(projectId);

@@ -70,6 +70,30 @@ describe('#setupOrganization', () => {
     });
   });
 
+  test('should create integration instance names using a pattern when supplied', async () => {
+    await withRecording(
+      'setupOrganizationWithIntegrationNamePattern',
+      __dirname,
+      async () => {
+        const result = await setupOrganization(
+          getSetupOrganizationParams({
+            projectIds: ['j1-gc-integration-dev'],
+            integrationInstanceNamePattern: 'gcp-{{projectId}}',
+          }),
+        );
+
+        const expected: SetupOrganizationResult = {
+          created: ['j1-gc-integration-dev'],
+          failed: [],
+          skipped: [],
+          exists: [],
+        };
+
+        expect(result).toEqual(expected);
+      },
+    );
+  });
+
   test('should iterate only specific projects when projectIds supplied and skip specific projects when skipProjectIds supplied', async () => {
     const result = await setupOrganization(
       getSetupOrganizationParams({

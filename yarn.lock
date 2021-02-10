@@ -4000,6 +4000,11 @@ ms@^2.1.1:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
+mutton@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/mutton/-/mutton-0.5.1.tgz#f4bbfc538d2f579c84da61db473177fe2f0933b6"
+  integrity sha512-vw40R17Mgp10ev7JVLG8hzWtSijtIXCT2eKp4nQLDBvI7W7uau5cnADyht8F/jRlUFR4GkquRuGBBUCTkgaiqw==
+
 mv@~2:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/mv/-/mv-2.1.1.tgz#ae6ce0d6f6d5e0a4f7d893798d03c1ea9559b6a2"

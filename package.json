@@ -41,6 +41,7 @@
     "bunyan-format": "^0.2.1",
     "cac": "^6.7.1",
     "dotenv": "^8.2.0",
+    "mutton": "^0.5.1",
     "node-fetch": "^2.6.1",
     "ts-node": "^9.1.1"
   },
