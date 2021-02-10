@@ -116,33 +116,31 @@ The following dependencies are needed in order to run the CLI:
 
 The following shows all of the options that are exposed by the CLI.
 
+```
 JupiterOne Google Cloud Organization Integration Setup
 
-Usage: \$ JupiterOne Google Cloud Organization Integration Setup []
+Usage:
+  $ JupiterOne Google Cloud Organization Integration Setup []
 
-Commands: [] Default command: Run the organization setup
+Commands:
+  []  Default command: Run the organization setup
 
-For more info, run any command with the `--help` flag: \$ JupiterOne Google
-Cloud Organization Integration Setup --help
+For more info, run any command with the `--help` flag:
+  $ JupiterOne Google Cloud Organization Integration Setup --help
 
-Options: --jupiterone-account-id <jupiteroneAccountId> (Required) JupiterOne
-Account ID --jupiterone-api-key <jupiteroneApiKey> (Required) JupiterOne API Key
---google-access-token <googleAccessToken> (Required) Google Cloud Access Token
---organization-id [organizationId](Optional) Array of organization IDs to
-collect projects from --project-id [projectId](Optional) Array of project IDs to
-create integration instances with --skip-project-id [projectId](Optional) Array
-of project IDs to skip creating integration instances for --skip-system-projects
-[skipSystemProjects](Optional) Skips creation of any projects that have an ID
-that start with "sys-" (default: true) --rotate-service-account-keys
-[rotateServiceAccountKeys](Optional) Creates a new service account key for the
-JupiterOne service account and PUTs the JupiterOne integration instance
-(default: false) --skip-project-id-regex [skipProjectIdRegex](Optional) Project
-IDs discovered that match this regex will be skipped
---integration-instance-name-pattern [integrationInstanceNamePattern](Optional)
-Naming pattern for how the integration instances that are created will be named.
-Example: 'gcp-{{projectId}}' -h, --help Display this message
-
-````
+Options:
+  --jupiterone-account-id <jupiteroneAccountId>                         (Required) JupiterOne Account ID
+  --jupiterone-api-key <jupiteroneApiKey>                               (Required) JupiterOne API Key
+  --google-access-token <googleAccessToken>                             (Required) Google Cloud Access Token
+  --organization-id [organizationId]                                    (Optional) Array of organization IDs to collect projects from
+  --project-id [projectId]                                              (Optional) Array of project IDs to create integration instances with
+  --skip-project-id [projectId]                                         (Optional) Array of project IDs to skip creating integration instances for
+  --skip-system-projects [skipSystemProjects]                           (Optional) Skips creation of any projects that have an ID that start with "sys-" (default: true)
+  --rotate-service-account-keys [rotateServiceAccountKeys]              (Optional) Creates a new service account key for the JupiterOne service account and PUTs the JupiterOne integration instance (default: false)
+  --skip-project-id-regex [skipProjectIdRegex]                          (Optional) Project IDs discovered that match this regex will be skipped
+  --integration-instance-name-pattern [integrationInstanceNamePattern]  (Optional) Naming pattern for how the integration instances that are created will be named. Example: 'gcp-{{projectId}}'
+  -h, --help                                                            Display this message
+```
 
 Example usage to create integration instances for every project that is under a
 Google Cloud organization
@@ -153,7 +151,7 @@ yarn jupiterone-organization-setup \
   --organization-id 1111111111 \
   --jupiterone-account-id MY_JUPITERONE_ACCOUNT_ID_HERE \
   --jupiterone-api-key MY_JUPITERONE_API_KEY_HERE
-````
+```
 
 Example usage to create integration instances for each project in multiple
 Google Cloud organizations:
