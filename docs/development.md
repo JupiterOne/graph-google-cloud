@@ -111,7 +111,8 @@ gcloud services enable \
   iam.googleapis.com \
   cloudresourcemanager.googleapis.com \
   compute.googleapis.com \
-  cloudkms.googleapis.com
+  cloudkms.googleapis.com \
+  container.googleapis.com
 ```
 
 ### Creating Google Cloud project service account

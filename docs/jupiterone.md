@@ -62,6 +62,7 @@ gcloud services enable \
   cloudkms.googleapis.com \
   sqladmin.googleapis.com \
   bigquery.googleapis.com \
+  container.googleapis.com \
   dns.googleapis.com
 ```
 
@@ -221,6 +222,7 @@ The following entities are created:
 | Compute Networks              | `google_compute_network`         | `Network`           |
 | Compute Project               | `google_compute_project`         | `Project`           |
 | Compute Subnetwork            | `google_compute_subnetwork`      | `Network`           |
+| Container Cluster             | `google_container_cluster`       | `Cluster`           |
 | DNS Managed Zone              | `google_dns_managed_zone`        | `DomainZone`        |
 | IAM Role                      | `google_iam_role`                | `AccessRole`        |
 | IAM Service Account           | `google_iam_service_account`     | `User`              |
