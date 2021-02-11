@@ -14,6 +14,7 @@ import { dnsManagedZonesSteps } from './steps/dns';
 import { containerSteps } from './steps/containers';
 import { loggingSteps } from './steps/logging';
 import { monitoringSteps } from './steps/monitoring';
+import { binaryAuthorizationSteps } from './steps/binary-authorization';
 
 export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> = {
   instanceConfigFields: {
@@ -37,5 +38,6 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> = 
     ...containerSteps,
     ...loggingSteps,
     ...monitoringSteps,
+    ...binaryAuthorizationSteps,
   ],
 };

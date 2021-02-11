@@ -1,0 +1,122 @@
+import {
+  createMockStepExecutionContext,
+  Recording,
+} from '@jupiterone/integration-sdk-testing';
+import { integrationConfig } from '../../../test/config';
+import { setupGoogleCloudRecording } from '../../../test/recording';
+import { IntegrationConfig } from '../../types';
+import { fetchBinaryAuthorizationPolicy } from '.';
+import { fetchResourceManagerProject } from '../resource-manager/index';
+import {
+  BINARY_AUTHORIZATION_POLICY_ENTITY_TYPE,
+  RELATIONSHIP_TYPE_PROJECT_HAS_BINARY_AUTHORIZATION_POLICY,
+} from './constants';
+import { PROJECT_ENTITY_TYPE } from '../resource-manager/constants';
+
+describe('#fetchBinaryAuthorization', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'fetchBinaryAuthorization',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const customConfig = {
+      ...integrationConfig,
+      serviceAccountKeyConfig: {
+        ...integrationConfig.serviceAccountKeyConfig,
+        project_id: 'j1-gc-integration-dev-300716',
+      },
+    };
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: customConfig,
+    });
+
+    await fetchResourceManagerProject(context);
+    await fetchBinaryAuthorizationPolicy(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === PROJECT_ENTITY_TYPE,
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: ['Account'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_cloud_project' },
+          name: { type: 'string' },
+          projectNumber: { type: 'string' },
+          lifecycleState: { type: 'string' },
+          createdOn: { type: 'number' },
+          'parent.id': { type: 'string' },
+          'parent.type': { type: 'string' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === BINARY_AUTHORIZATION_POLICY_ENTITY_TYPE,
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: ['Policy'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_binary_authorization_policy' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          name: { type: 'string' },
+          admissionWhitelistPatterns: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          evaluationMode: { type: 'string' },
+          globalPolicyEvaluationMode: { type: 'string' },
+          title: { type: 'string' },
+          summary: { type: 'string' },
+          content: { type: 'string' },
+          webLink: { type: 'string' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) =>
+          e._type === RELATIONSHIP_TYPE_PROJECT_HAS_BINARY_AUTHORIZATION_POLICY,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'HAS' },
+          _type: {
+            const: 'google_cloud_project_has_binary_authorization_policy',
+          },
+        },
+      },
+    });
+  });
+});

@@ -53,6 +53,7 @@ import {
   STEP_LOGGING_PROJECT_SINKS,
 } from './steps/logging/constants';
 import { STEP_MONITORING_ALERT_POLICIES } from './steps/monitoring/constants';
+import { STEP_BINARY_AUTHORIZATION_POLICY } from './steps/binary-authorization/constants';
 
 interface ValidateInvocationInvalidConfigTestParams {
   instanceConfig?: Partial<IntegrationConfig>;
@@ -205,6 +206,9 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_MONITORING_ALERT_POLICIES]: {
+        disabled: false,
+      },
+      [STEP_BINARY_AUTHORIZATION_POLICY]: {
         disabled: false,
       },
     };

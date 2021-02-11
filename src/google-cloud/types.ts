@@ -17,4 +17,5 @@ export enum ServiceUsageName {
   CONTAINER = 'container.googleapis.com',
   LOGGING = 'logging.googleapis.com',
   MONITORING = 'monitoring.googleapis.com',
+  BINARY_AUTHORIZATION = 'binaryauthorization.googleapis.com',
 }

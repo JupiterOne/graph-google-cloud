@@ -10,6 +10,7 @@ import {
   logging_v2,
   storage_v1,
   monitoring_v3,
+  binaryauthorization_v1,
 } from 'googleapis';
 
 export function getMockIamRole(
@@ -584,6 +585,50 @@ export function getMockLoggingProjectSink(
   };
 }
 
+export function getMockContainerNodePool(
+  partial?: container_v1.Schema$NodePool,
+): container_v1.Schema$NodePool {
+  return {
+    name: 'j1-gc-integration-dev-gke-node-pool',
+    config: {
+      machineType: 'e2-micro',
+      diskSizeGb: 100,
+      oauthScopes: ['https://www.googleapis.com/auth/cloud-platform'],
+      metadata: {
+        'disable-legacy-endpoints': 'true',
+      },
+      imageType: 'COS',
+      serviceAccount:
+        'j1-gc-integration-dev-gke-sa@j1-gc-integration-dev.iam.gserviceaccount.com',
+      preemptible: true,
+      diskType: 'pd-standard',
+      shieldedInstanceConfig: {
+        enableIntegrityMonitoring: true,
+      },
+    },
+    initialNodeCount: 1,
+    management: {
+      autoUpgrade: true,
+      autoRepair: true,
+    },
+    podIpv4CidrSize: 24,
+    locations: ['us-central1-f', 'us-central1-c', 'us-central1-a'],
+    selfLink:
+      'https://container.googleapis.com/v1/projects/j1-gc-integration-dev/locations/us-central1/clusters/j1-gc-integration-dev-gke-cluster/nodePools/j1-gc-integration-dev-gke-node-pool',
+    version: '1.17.14-gke.1600',
+    instanceGroupUrls: [
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-f/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-d0942024-grp',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-c/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-2a95071a-grp',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-6817e506-grp',
+    ],
+    status: 'RUNNING',
+    upgradeSettings: {
+      maxSurge: 1,
+    },
+    ...partial,
+  };
+}
+
 export function getMockKmsKeyRing(
   partial?: cloudkms_v1.Schema$KeyRing,
 ): cloudkms_v1.Schema$KeyRing {
@@ -949,6 +994,37 @@ export function getMockSslPolicy(
     ],
     fingerprint: '5krWknNXjWo=',
     kind: 'compute#sslPolicy',
+    ...partial,
+  };
+}
+
+export function getMockBinaryAuthorizationPolicy(
+  partial?: binaryauthorization_v1.Schema$Policy,
+): binaryauthorization_v1.Schema$Policy {
+  return {
+    name: 'projects/j1-gc-integration-dev-300716/policy',
+    admissionWhitelistPatterns: [
+      {
+        namePattern: 'gcr.io/google_containers/*',
+      },
+      {
+        namePattern: 'gcr.io/google-containers/*',
+      },
+      {
+        namePattern: 'k8s.gcr.io/*',
+      },
+      {
+        namePattern: 'gke.gcr.io/*',
+      },
+      {
+        namePattern: 'gcr.io/stackdriver-agents/*',
+      },
+    ],
+    defaultAdmissionRule: {
+      evaluationMode: 'ALWAYS_ALLOW',
+      enforcementMode: 'ENFORCED_BLOCK_AND_AUDIT_LOG',
+    },
+    globalPolicyEvaluationMode: 'ENABLE',
     ...partial,
   };
 }
