@@ -788,6 +788,9 @@ describe('#fetchComputeBackendBuckets', () => {
           encrypted: { const: true },
           encryptionKeyRef: { type: 'string' },
           uniformBucketLevelAccess: { type: 'boolean' },
+          retentionPolicyEnabled: { type: 'boolean' },
+          retentionPeriod: { type: 'string' },
+          retentionDate: { type: 'string' },
           public: { type: 'boolean' },
           classification: { const: null },
           etag: { type: 'string' },
@@ -800,7 +803,7 @@ describe('#fetchComputeBackendBuckets', () => {
         (e) => e._type === ENTITY_TYPE_COMPUTE_BACKEND_BUCKET,
       ),
     ).toMatchGraphObjectSchema({
-      _class: ['DataStore'],
+      _class: ['Gateway'],
       schema: {
         additionalProperties: false,
         properties: {
@@ -813,8 +816,16 @@ describe('#fetchComputeBackendBuckets', () => {
           name: { type: 'string' },
           bucketName: { type: 'string' },
           enableCdn: { type: 'boolean' },
-          classification: { const: null },
           encrypted: { const: true },
+          category: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          function: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          public: { type: 'boolean' },
           createdOn: { type: 'number' },
         },
       },
@@ -1190,7 +1201,7 @@ describe('#fetchComputeLoadBalancers', () => {
         (e) => e._type === ENTITY_TYPE_COMPUTE_BACKEND_BUCKET,
       ),
     ).toMatchGraphObjectSchema({
-      _class: ['DataStore'],
+      _class: ['Gateway'],
       schema: {
         additionalProperties: false,
         properties: {
@@ -1203,8 +1214,16 @@ describe('#fetchComputeLoadBalancers', () => {
           name: { type: 'string' },
           bucketName: { type: 'string' },
           enableCdn: { type: 'boolean' },
-          classification: { const: null },
           encrypted: { const: true },
+          category: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          function: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          public: { type: 'boolean' },
           createdOn: { type: 'number' },
         },
       },

@@ -53,7 +53,7 @@ export const ENTITY_CLASS_COMPUTE_BACKEND_SERVICE = 'Service';
 
 export const ENTITY_TYPE_COMPUTE_BACKEND_BUCKET =
   'google_compute_backend_bucket';
-export const ENTITY_CLASS_COMPUTE_BACKEND_BUCKET = 'DataStore';
+export const ENTITY_CLASS_COMPUTE_BACKEND_BUCKET = 'Gateway';
 
 export const ENTITY_TYPE_COMPUTE_TARGET_SSL_PROXY =
   'google_compute_target_ssl_proxy';

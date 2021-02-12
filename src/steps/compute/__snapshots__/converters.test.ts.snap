@@ -2,51 +2,102 @@
 
 exports[`#createBackendBucketEntity should convert to entity 1`] = `
 Object {
+  "_class": Array [
+    "Gateway",
+  ],
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendBuckets/example-backend-bucket",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "bucketName": "log-example-bucket",
+        "creationTimestamp": "2021-01-29T08:55:45.400-08:00",
+        "description": "",
+        "enableCdn": false,
+        "id": "6230681112154833150",
+        "kind": "compute#backendBucket",
+        "name": "example-backend-bucket",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendBuckets/example-backend-bucket",
+      },
+    },
+  ],
+  "_type": "google_compute_backend_bucket",
   "bucketName": "log-example-bucket",
-  "creationTimestamp": "2021-01-29T08:55:45.400-08:00",
+  "category": Array [
+    "network",
+  ],
+  "createdOn": 1611939345400,
   "description": "",
+  "displayName": "example-backend-bucket",
   "enableCdn": false,
+  "encrypted": true,
+  "function": Array [
+    "load-balancing",
+  ],
   "id": "6230681112154833150",
-  "kind": "compute#backendBucket",
   "name": "example-backend-bucket",
-  "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendBuckets/example-backend-bucket",
+  "public": true,
 }
 `;
 
 exports[`#createBackendServiceEntity should convert to entity 1`] = `
 Object {
-  "affinityCookieTtlSec": 0,
-  "backends": Array [
+  "_class": Array [
+    "Service",
+  ],
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendServices/example-backend-service",
+  "_rawData": Array [
     Object {
-      "balancingMode": "UTILIZATION",
-      "capacityScaler": 1,
-      "group": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/zones/us-central1-a/instanceGroups/instance-group-1",
-      "maxUtilization": 0.8,
+      "name": "default",
+      "rawData": Object {
+        "affinityCookieTtlSec": 0,
+        "backends": Array [
+          Object {
+            "balancingMode": "UTILIZATION",
+            "capacityScaler": 1,
+            "group": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/zones/us-central1-a/instanceGroups/instance-group-1",
+            "maxUtilization": 0.8,
+          },
+        ],
+        "connectionDraining": Object {
+          "drainingTimeoutSec": 300,
+        },
+        "creationTimestamp": "2021-01-25T13:09:28.422-08:00",
+        "description": "",
+        "enableCDN": false,
+        "fingerprint": "OnffiLYpLO4=",
+        "healthChecks": Array [
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/healthChecks/health-check",
+        ],
+        "id": "3052966098403233127",
+        "kind": "compute#backendService",
+        "loadBalancingScheme": "EXTERNAL",
+        "logConfig": Object {
+          "enable": true,
+          "sampleRate": 1,
+        },
+        "name": "example-backend-service",
+        "port": 80,
+        "portName": "https",
+        "protocol": "HTTPS",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendServices/example-backend-service",
+        "sessionAffinity": "NONE",
+        "timeoutSec": 30,
+      },
     },
   ],
-  "connectionDraining": Object {
-    "drainingTimeoutSec": 300,
-  },
-  "creationTimestamp": "2021-01-25T13:09:28.422-08:00",
-  "description": "",
-  "enableCDN": false,
-  "fingerprint": "OnffiLYpLO4=",
-  "healthChecks": Array [
-    "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/healthChecks/health-check",
+  "_type": "google_compute_backend_service",
+  "category": Array [
+    "network",
   ],
+  "createdOn": 1611608968422,
+  "description": "",
+  "displayName": "example-backend-service",
+  "enableCDN": false,
   "id": "3052966098403233127",
-  "kind": "compute#backendService",
-  "loadBalancingScheme": "EXTERNAL",
-  "logConfig": Object {
-    "enable": true,
-    "sampleRate": 1,
-  },
   "name": "example-backend-service",
   "port": 80,
-  "portName": "https",
   "protocol": "HTTPS",
-  "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendServices/example-backend-service",
-  "sessionAffinity": "NONE",
   "timeoutSec": 30,
 }
 `;
@@ -978,18 +1029,43 @@ Object {
 
 exports[`#createHealthCheckEntity should convert to entity 1`] = `
 Object {
+  "_class": Array [
+    "Service",
+  ],
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/healthChecks/health-check",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "checkIntervalSec": 10,
+        "creationTimestamp": "2021-01-25T13:09:23.908-08:00",
+        "description": "",
+        "healthyThreshold": 2,
+        "id": "1905105216322309484",
+        "kind": "compute#healthCheck",
+        "name": "health-check",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/healthChecks/health-check",
+        "tcpHealthCheck": Object {
+          "port": 80,
+          "proxyHeader": "NONE",
+        },
+        "timeoutSec": 5,
+        "type": "TCP",
+        "unhealthyThreshold": 3,
+      },
+    },
+  ],
+  "_type": "google_compute_health_check",
+  "category": Array [
+    "network",
+  ],
   "checkIntervalSec": 10,
-  "creationTimestamp": "2021-01-25T13:09:23.908-08:00",
+  "createdOn": 1611608963908,
   "description": "",
+  "displayName": "health-check",
   "healthyThreshold": 2,
   "id": "1905105216322309484",
-  "kind": "compute#healthCheck",
   "name": "health-check",
-  "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/healthChecks/health-check",
-  "tcpHealthCheck": Object {
-    "port": 80,
-    "proxyHeader": "NONE",
-  },
   "timeoutSec": 5,
   "type": "TCP",
   "unhealthyThreshold": 3,
@@ -998,21 +1074,41 @@ Object {
 
 exports[`#createInstanceGroupEntity should convert to entity 1`] = `
 Object {
-  "creationTimestamp": "2021-01-25T13:05:35.348-08:00",
-  "description": "This instance group is controlled by Instance Group Manager 'instance-group-1'. To modify instances in this group, use the Instance Group Manager API: https://cloud.google.com/compute/docs/reference/latest/instanceGroupManagers",
-  "fingerprint": "Mhi8gtwR57U=",
-  "id": "4682404015364017264",
-  "kind": "compute#instanceGroup",
-  "name": "instance-group-1",
-  "namedPorts": Array [
+  "_class": Array [
+    "Group",
+  ],
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/zones/us-central1-a/instanceGroups/instance-group-1",
+  "_rawData": Array [
     Object {
-      "name": "https",
-      "port": 5000,
+      "name": "default",
+      "rawData": Object {
+        "creationTimestamp": "2021-01-25T13:05:35.348-08:00",
+        "description": "This instance group is controlled by Instance Group Manager 'instance-group-1'. To modify instances in this group, use the Instance Group Manager API: https://cloud.google.com/compute/docs/reference/latest/instanceGroupManagers",
+        "fingerprint": "Mhi8gtwR57U=",
+        "id": "4682404015364017264",
+        "kind": "compute#instanceGroup",
+        "name": "instance-group-1",
+        "namedPorts": Array [
+          Object {
+            "name": "https",
+            "port": 5000,
+          },
+        ],
+        "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/networks/default",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/zones/us-central1-a/instanceGroups/instance-group-1",
+        "size": 1,
+        "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/regions/us-central1/subnetworks/default",
+        "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/zones/us-central1-a",
+      },
     },
   ],
+  "_type": "google_compute_instance_group",
+  "createdOn": 1611608735348,
+  "description": "This instance group is controlled by Instance Group Manager 'instance-group-1'. To modify instances in this group, use the Instance Group Manager API: https://cloud.google.com/compute/docs/reference/latest/instanceGroupManagers",
+  "displayName": "instance-group-1",
+  "id": "4682404015364017264",
+  "name": "instance-group-1",
   "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/networks/default",
-  "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/zones/us-central1-a/instanceGroups/instance-group-1",
-  "size": 1,
   "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/regions/us-central1/subnetworks/default",
   "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/zones/us-central1-a",
 }
@@ -1020,96 +1116,218 @@ Object {
 
 exports[`#createLoadBalancerEntity should convert to entity 1`] = `
 Object {
-  "creationTimestamp": "2021-01-25T13:09:32.355-08:00",
-  "defaultService": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendServices/example-backend-service",
-  "fingerprint": "7VTPVZHiF8k=",
-  "hostRules": Array [
+  "_class": Array [
+    "Gateway",
+  ],
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/urlMaps/example-http-load-balancer",
+  "_rawData": Array [
     Object {
-      "hosts": Array [
-        "web.test.com",
-      ],
-      "pathMatcher": "path-matcher-1",
+      "name": "default",
+      "rawData": Object {
+        "creationTimestamp": "2021-01-25T13:09:32.355-08:00",
+        "defaultService": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendServices/example-backend-service",
+        "fingerprint": "7VTPVZHiF8k=",
+        "hostRules": Array [
+          Object {
+            "hosts": Array [
+              "web.test.com",
+            ],
+            "pathMatcher": "path-matcher-1",
+          },
+        ],
+        "id": "7884251075960802659",
+        "kind": "compute#urlMap",
+        "name": "example-http-load-balancer",
+        "pathMatchers": Array [
+          Object {
+            "defaultService": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendServices/example-backend-service",
+            "name": "path-matcher-1",
+            "pathRules": Array [
+              Object {
+                "paths": Array [
+                  "/images/*",
+                ],
+                "service": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendBuckets/example-backend-bucket",
+              },
+            ],
+          },
+        ],
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/urlMaps/example-http-load-balancer",
+      },
     },
+  ],
+  "_type": "google_compute_url_map",
+  "category": Array [
+    "network",
+  ],
+  "createdOn": 1611608972355,
+  "defaultService": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendServices/example-backend-service",
+  "displayName": "example-http-load-balancer",
+  "function": Array [
+    "load-balancing",
   ],
   "id": "7884251075960802659",
-  "kind": "compute#urlMap",
   "name": "example-http-load-balancer",
-  "pathMatchers": Array [
-    Object {
-      "defaultService": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendServices/example-backend-service",
-      "name": "path-matcher-1",
-      "pathRules": Array [
-        Object {
-          "paths": Array [
-            "/images/*",
-          ],
-          "service": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendBuckets/example-backend-bucket",
-        },
-      ],
-    },
-  ],
-  "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/urlMaps/example-http-load-balancer",
+  "public": true,
 }
 `;
 
 exports[`#createSslPolicyEntity should convert to entity 1`] = `
 Object {
-  "creationTimestamp": "2021-01-25T13:14:45.749-08:00",
+  "_class": Array [
+    "Policy",
+  ],
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/sslPolicies/example-tls-1-2-policy",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "creationTimestamp": "2021-01-25T13:14:45.749-08:00",
+        "customFeatures": Array [
+          "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA",
+          "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256",
+          "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA",
+          "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
+        ],
+        "fingerprint": "5krWknNXjWo=",
+        "id": "1226213084601944618",
+        "kind": "compute#sslPolicy",
+        "minTlsVersion": "TLS_1_2",
+        "name": "example-tls-1-2-policy",
+        "profile": "CUSTOM",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/sslPolicies/example-tls-1-2-policy",
+      },
+    },
+  ],
+  "_type": "google_compute_ssl_policy",
+  "content": "",
+  "createdOn": 1611609285749,
   "customFeatures": Array [
     "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA",
     "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256",
     "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA",
     "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
   ],
-  "fingerprint": "5krWknNXjWo=",
+  "displayName": "example-tls-1-2-policy",
   "id": "1226213084601944618",
-  "kind": "compute#sslPolicy",
   "minTlsVersion": "TLS_1_2",
   "name": "example-tls-1-2-policy",
   "profile": "CUSTOM",
-  "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/sslPolicies/example-tls-1-2-policy",
+  "summary": "SSL policies give you the ability to control the features of SSL that your Google Cloud SSL proxy load balancer or external HTTP(S) load balancer negotiates with clients.",
+  "title": "SSL Policy",
 }
 `;
 
 exports[`#createTargetHttpProxyEntity should convert to entity 1`] = `
 Object {
-  "creationTimestamp": "2021-02-04T11:44:02.365-08:00",
-  "fingerprint": "XrJcBMxyGME=",
+  "_class": Array [
+    "Gateway",
+  ],
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/targetHttpProxies/example-http-loadbalancer-target-proxy",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "creationTimestamp": "2021-02-04T11:44:02.365-08:00",
+        "fingerprint": "XrJcBMxyGME=",
+        "id": "3284730591055048813",
+        "kind": "compute#targetHttpProxy",
+        "name": "example-http-loadbalancer-target-proxy",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/targetHttpProxies/example-http-loadbalancer-target-proxy",
+        "urlMap": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/urlMaps/example-http-loadbalancer",
+      },
+    },
+  ],
+  "_type": "google_compute_target_http_proxy",
+  "category": Array [
+    "network",
+  ],
+  "createdOn": 1612467842365,
+  "displayName": "example-http-loadbalancer-target-proxy",
+  "function": Array [
+    "load-balancing",
+  ],
   "id": "3284730591055048813",
-  "kind": "compute#targetHttpProxy",
   "name": "example-http-loadbalancer-target-proxy",
-  "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/targetHttpProxies/example-http-loadbalancer-target-proxy",
-  "urlMap": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/urlMaps/example-http-loadbalancer",
+  "public": true,
 }
 `;
 
 exports[`#createTargetHttpsProxyEntity should convert to entity 1`] = `
 Object {
-  "creationTimestamp": "2021-01-25T13:12:07.139-08:00",
-  "id": "4900822412538579656",
-  "kind": "compute#targetHttpsProxy",
-  "name": "example-http-load-balancer-target-proxy",
-  "quicOverride": "NONE",
-  "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/targetHttpsProxies/example-http-load-balancer-target-proxy",
-  "sslCertificates": Array [
-    "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/sslCertificates/example-certificate",
+  "_class": Array [
+    "Gateway",
   ],
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/targetHttpsProxies/example-http-load-balancer-target-proxy",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "creationTimestamp": "2021-01-25T13:12:07.139-08:00",
+        "id": "4900822412538579656",
+        "kind": "compute#targetHttpsProxy",
+        "name": "example-http-load-balancer-target-proxy",
+        "quicOverride": "NONE",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/targetHttpsProxies/example-http-load-balancer-target-proxy",
+        "sslCertificates": Array [
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/sslCertificates/example-certificate",
+        ],
+        "sslPolicy": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/sslPolicies/example-tls-1-2-policy",
+        "urlMap": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/urlMaps/example-http-load-balancer",
+      },
+    },
+  ],
+  "_type": "google_compute_target_https_proxy",
+  "category": Array [
+    "network",
+  ],
+  "createdOn": 1611609127139,
+  "displayName": "example-http-load-balancer-target-proxy",
+  "function": Array [
+    "load-balancing",
+  ],
+  "id": "4900822412538579656",
+  "name": "example-http-load-balancer-target-proxy",
+  "public": true,
   "sslPolicy": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/sslPolicies/example-tls-1-2-policy",
-  "urlMap": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/urlMaps/example-http-load-balancer",
 }
 `;
 
 exports[`#createTargetSslProxyEntity should convert to entity 1`] = `
 Object {
-  "creationTimestamp": "2021-02-04T12:07:33.886-08:00",
-  "id": "764465862189116138",
-  "kind": "compute#targetSslProxy",
-  "name": "example-ssl-2-loadbalancer-target-proxy",
-  "proxyHeader": "NONE",
-  "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/targetSslProxies/example-ssl-2-loadbalancer-target-proxy",
-  "service": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendServices/example-ssl-2-loadbalancer",
-  "sslCertificates": Array [
-    "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/sslCertificates/example-certificate",
+  "_class": Array [
+    "Gateway",
   ],
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/targetSslProxies/example-ssl-2-loadbalancer-target-proxy",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "creationTimestamp": "2021-02-04T12:07:33.886-08:00",
+        "id": "764465862189116138",
+        "kind": "compute#targetSslProxy",
+        "name": "example-ssl-2-loadbalancer-target-proxy",
+        "proxyHeader": "NONE",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/targetSslProxies/example-ssl-2-loadbalancer-target-proxy",
+        "service": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendServices/example-ssl-2-loadbalancer",
+        "sslCertificates": Array [
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/sslCertificates/example-certificate",
+        ],
+      },
+    },
+  ],
+  "_type": "google_compute_target_ssl_proxy",
+  "category": Array [
+    "network",
+  ],
+  "createdOn": 1612469253886,
+  "displayName": "example-ssl-2-loadbalancer-target-proxy",
+  "function": Array [
+    "load-balancing",
+  ],
+  "id": "764465862189116138",
+  "name": "example-ssl-2-loadbalancer-target-proxy",
+  "public": true,
+  "sslPolicy": undefined,
 }
 `;
