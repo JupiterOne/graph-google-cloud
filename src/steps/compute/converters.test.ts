@@ -1,4 +1,6 @@
 import {
+  createBackendBucketEntity,
+  createBackendServiceEntity,
   createComputeDiskEntity,
   createComputeFirewallEntity,
   createComputeInstanceEntity,
@@ -7,6 +9,13 @@ import {
   createComputeProjectEntity,
   createComputeSubnetEntity,
   createFirewallRuleMappedRelationship,
+  createHealthCheckEntity,
+  createInstanceGroupEntity,
+  createLoadBalancerEntity,
+  createSslPolicyEntity,
+  createTargetHttpProxyEntity,
+  createTargetHttpsProxyEntity,
+  createTargetSslProxyEntity,
   getIpAddressesForComputeInstance,
 } from './converters';
 import {
@@ -16,6 +25,15 @@ import {
   getMockNetwork,
   getMockSubnet,
   getMockComputeProject,
+  getMockBackendBucket,
+  getMockBackendService,
+  getMockHealthCheck,
+  getMockInstanceGroup,
+  getMockLoadBalancer,
+  getMockTargetHttpProxy,
+  getMockTargetHttpsProxy,
+  getMockTargetSslProxy,
+  getMockSslPolicy,
 } from '../../../test/mocks';
 import { DEFAULT_INTEGRATION_CONFIG_PROJECT_ID } from '../../../test/config';
 import {
@@ -216,5 +234,67 @@ describe('#getIpAddressesForComputeInstance', () => {
       publicIpAddresses: ['34.71.33.132'],
       privateIpAddresses: ['10.10.1.2'],
     });
+  });
+});
+
+describe('#createBackendBucketEntity', () => {
+  test('should convert to entity', () => {
+    expect(createBackendBucketEntity(getMockBackendBucket())).toMatchSnapshot();
+  });
+});
+
+describe('#createBackendServiceEntity', () => {
+  test('should convert to entity', () => {
+    expect(
+      createBackendServiceEntity(getMockBackendService()),
+    ).toMatchSnapshot();
+  });
+});
+
+describe('#createHealthCheckEntity', () => {
+  test('should convert to entity', () => {
+    expect(createHealthCheckEntity(getMockHealthCheck())).toMatchSnapshot();
+  });
+});
+
+describe('#createInstanceGroupEntity', () => {
+  test('should convert to entity', () => {
+    expect(createInstanceGroupEntity(getMockInstanceGroup())).toMatchSnapshot();
+  });
+});
+
+describe('#createLoadBalancerEntity', () => {
+  test('should convert to entity', () => {
+    expect(createLoadBalancerEntity(getMockLoadBalancer())).toMatchSnapshot();
+  });
+});
+
+describe('#createTargetHttpProxyEntity', () => {
+  test('should convert to entity', () => {
+    expect(
+      createTargetHttpProxyEntity(getMockTargetHttpProxy()),
+    ).toMatchSnapshot();
+  });
+});
+
+describe('#createTargetHttpsProxyEntity', () => {
+  test('should convert to entity', () => {
+    expect(
+      createTargetHttpsProxyEntity(getMockTargetHttpsProxy()),
+    ).toMatchSnapshot();
+  });
+});
+
+describe('#createTargetSslProxyEntity', () => {
+  test('should convert to entity', () => {
+    expect(
+      createTargetSslProxyEntity(getMockTargetSslProxy()),
+    ).toMatchSnapshot();
+  });
+});
+
+describe('#createSslPolicyEntity', () => {
+  test('should convert to entity', () => {
+    expect(createSslPolicyEntity(getMockSslPolicy())).toMatchSnapshot();
   });
 });

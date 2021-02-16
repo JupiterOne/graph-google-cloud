@@ -23,7 +23,7 @@ import {
   createLoggingProjectSinkEntity,
   createMetricEntity,
 } from './converters';
-import { getCloudStorageBucketId } from '../storage/converters';
+import { getCloudStorageBucketKey } from '../storage/converters';
 import {
   MONITORING_ALERT_POLICY_TYPE,
   STEP_MONITORING_ALERT_POLICIES,
@@ -50,7 +50,7 @@ export async function fetchSinks(
     if (projectSink.destination?.includes('storage.googleapis.com')) {
       const bucketName = projectSink.destination?.split('/')[1];
       const bucketEntity = await jobState.findEntity(
-        getCloudStorageBucketId(bucketName),
+        getCloudStorageBucketKey(bucketName),
       );
 
       if (bucketEntity) {

@@ -23,6 +23,15 @@ import {
   STEP_COMPUTE_SUBNETWORKS,
   STEP_COMPUTE_FIREWALLS,
   STEP_COMPUTE_PROJECT,
+  STEP_COMPUTE_LOADBALANCERS,
+  STEP_COMPUTE_BACKEND_SERVICES,
+  STEP_COMPUTE_BACKEND_BUCKETS,
+  STEP_COMPUTE_TARGET_SSL_PROXIES,
+  STEP_COMPUTE_TARGET_HTTPS_PROXIES,
+  STEP_COMPUTE_TARGET_HTTP_PROXIES,
+  STEP_COMPUTE_SSL_POLICIES,
+  STEP_COMPUTE_INSTANCE_GROUPS,
+  STEP_COMPUTE_HEALTH_CHECKS,
 } from './steps/compute';
 import { STEP_CLOUD_KMS_KEYS, STEP_CLOUD_KMS_KEY_RINGS } from './steps/kms';
 import { STEP_BIG_QUERY_DATASETS } from './steps/big-query';
@@ -116,7 +125,32 @@ export default async function getStepStartStates(
     [STEP_COMPUTE_FIREWALLS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_SUBNETWORKS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_PROJECT]: createStepStartState(ServiceUsageName.COMPUTE),
+    [STEP_COMPUTE_HEALTH_CHECKS]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
     [STEP_COMPUTE_INSTANCES]: createStepStartState(ServiceUsageName.COMPUTE),
+    [STEP_COMPUTE_INSTANCE_GROUPS]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
+    [STEP_COMPUTE_LOADBALANCERS]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
+    [STEP_COMPUTE_BACKEND_SERVICES]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
+    [STEP_COMPUTE_BACKEND_BUCKETS]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
+    [STEP_COMPUTE_TARGET_SSL_PROXIES]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
+    [STEP_COMPUTE_TARGET_HTTPS_PROXIES]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
+    [STEP_COMPUTE_TARGET_HTTP_PROXIES]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
+    [STEP_COMPUTE_SSL_POLICIES]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_CLOUD_KMS_KEY_RINGS]: createStepStartState(ServiceUsageName.KMS),
     [STEP_CLOUD_KMS_KEYS]: createStepStartState(ServiceUsageName.KMS),
     [STEP_BIG_QUERY_DATASETS]: createStepStartState(ServiceUsageName.BIG_QUERY),

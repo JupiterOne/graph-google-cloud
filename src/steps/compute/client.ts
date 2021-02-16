@@ -62,7 +62,10 @@ export class ComputeClient extends Client {
   }
 
   async iterateComputeInstances(
-    callback: (data: compute_v1.Schema$Instance) => Promise<void>,
+    callback: (
+      data: compute_v1.Schema$Instance,
+      projectId: string,
+    ) => Promise<void>,
   ): Promise<void> {
     await this.iterateComputeApi(
       async ({ auth, zone, nextPageToken }) => {
@@ -75,7 +78,7 @@ export class ComputeClient extends Client {
       },
       async (data: compute_v1.Schema$InstanceList) => {
         for (const item of data.items || []) {
-          await callback(item);
+          await callback(item, this.projectId);
         }
       },
     );
@@ -140,6 +143,194 @@ export class ComputeClient extends Client {
         });
       },
       async (data: compute_v1.Schema$NetworkList) => {
+        for (const item of data.items || []) {
+          await callback(item);
+        }
+      },
+    );
+  }
+
+  async iterateHealthChecks(
+    callback: (data: compute_v1.Schema$HealthCheck) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.healthChecks.list({
+          auth,
+          pageToken: nextPageToken,
+          project: this.projectId,
+        });
+      },
+      async (data: compute_v1.Schema$HealthCheckList) => {
+        for (const item of data.items || []) {
+          await callback(item);
+        }
+      },
+    );
+  }
+
+  async iterateInstanceGroups(
+    callback: (data: compute_v1.Schema$InstanceGroup) => Promise<void>,
+  ): Promise<void> {
+    await this.iterateComputeApi(
+      async ({ auth, zone, nextPageToken }) => {
+        return this.client.instanceGroups.list({
+          auth,
+          pageToken: nextPageToken,
+          project: this.projectId,
+          zone,
+        });
+      },
+      async (data: compute_v1.Schema$InstanceGroupList) => {
+        for (const item of data.items || []) {
+          await callback(item);
+        }
+      },
+    );
+  }
+
+  async iterateLoadBalancers(
+    callback: (data: compute_v1.Schema$UrlMap) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.urlMaps.list({
+          auth,
+          pageToken: nextPageToken,
+          project: this.projectId,
+        });
+      },
+      async (data: compute_v1.Schema$UrlMapList) => {
+        for (const item of data.items || []) {
+          await callback(item);
+        }
+      },
+    );
+  }
+
+  async iterateBackendServices(
+    callback: (data: compute_v1.Schema$BackendService) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.backendServices.list({
+          auth,
+          pageToken: nextPageToken,
+          project: this.projectId,
+        });
+      },
+      async (data: compute_v1.Schema$BackendServiceList) => {
+        for (const item of data.items || []) {
+          await callback(item);
+        }
+      },
+    );
+  }
+
+  async iterateBackendBuckets(
+    callback: (data: compute_v1.Schema$BackendBucket) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.backendBuckets.list({
+          auth,
+          pageToken: nextPageToken,
+          project: this.projectId,
+        });
+      },
+      async (data: compute_v1.Schema$BackendBucketList) => {
+        for (const item of data.items || []) {
+          await callback(item);
+        }
+      },
+    );
+  }
+
+  async iterateTargetSslProxies(
+    callback: (data: compute_v1.Schema$TargetSslProxy) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.targetSslProxies.list({
+          auth,
+          pageToken: nextPageToken,
+          project: this.projectId,
+        });
+      },
+      async (data: compute_v1.Schema$TargetSslProxyList) => {
+        for (const item of data.items || []) {
+          await callback(item);
+        }
+      },
+    );
+  }
+
+  async iterateTargetHttpsProxies(
+    callback: (data: compute_v1.Schema$TargetHttpsProxy) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.targetHttpsProxies.list({
+          auth,
+          pageToken: nextPageToken,
+          project: this.projectId,
+        });
+      },
+      async (data: compute_v1.Schema$TargetHttpsProxyList) => {
+        for (const item of data.items || []) {
+          await callback(item);
+        }
+      },
+    );
+  }
+
+  async iterateTargetHttpProxies(
+    callback: (data: compute_v1.Schema$TargetHttpProxy) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.targetHttpProxies.list({
+          auth,
+          pageToken: nextPageToken,
+          project: this.projectId,
+        });
+      },
+      async (data: compute_v1.Schema$TargetHttpProxyList) => {
+        for (const item of data.items || []) {
+          await callback(item);
+        }
+      },
+    );
+  }
+
+  async iterateSslPolicies(
+    callback: (data: compute_v1.Schema$SslPolicy) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.sslPolicies.list({
+          auth,
+          pageToken: nextPageToken,
+          project: this.projectId,
+        });
+      },
+      async (data: compute_v1.Schema$SslPoliciesList) => {
         for (const item of data.items || []) {
           await callback(item);
         }
