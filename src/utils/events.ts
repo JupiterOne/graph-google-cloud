@@ -13,6 +13,6 @@ export function publishMissingPermissionEvent({
 }: PublishMissingPermissionEventParams) {
   logger.publishEvent({
     name: 'missing_permission',
-    description: `"compute.projects.get" is not a required permission to run the Google Cloud integration, but is required for step "${stepId}"`,
+    description: `"${permission}" is not a required permission to run the Google Cloud integration, but is required for step "${stepId}"`,
   });
 }
