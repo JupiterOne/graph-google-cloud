@@ -12,7 +12,7 @@
     "access": "public"
   },
   "scripts": {
-    "start": "j1-integration collect",
+    "start": "LOG_LEVEL=trace j1-integration collect",
     "graph": "j1-integration visualize",
     "lint": "eslint . --cache --fix --ext .ts,.tsx",
     "format": "prettier --write '**/*.{ts,js,json,css,md,yml}'",

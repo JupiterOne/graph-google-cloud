@@ -220,6 +220,11 @@ export async function fetchComputeProject(
     computeProject = await client.fetchComputeProject();
   } catch (err) {
     if (err.code === 403) {
+      logger.trace(
+        { err },
+        'Could not fetch compute project. Requires additional permission',
+      );
+
       publishMissingPermissionEvent({
         logger,
         permission: 'compute.projects.get',
