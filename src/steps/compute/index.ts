@@ -109,6 +109,7 @@ import {
   STEP_CLOUD_STORAGE_BUCKETS,
 } from '../storage';
 import { getCloudStorageBucketKey } from '../storage/converters';
+import { publishMissingPermissionEvent } from '../../utils/events';
 
 export * from './constants';
 
@@ -210,10 +211,32 @@ async function iterateComputeInstanceNetworkInterfaces(params: {
 export async function fetchComputeProject(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, instance } = context;
+  const { jobState, instance, logger } = context;
   const client = new ComputeClient({ config: instance.config });
 
-  const computeProject = await client.fetchComputeProject();
+  let computeProject: compute_v1.Schema$Project;
+
+  try {
+    computeProject = await client.fetchComputeProject();
+  } catch (err) {
+    if (err.code === 403) {
+      logger.trace(
+        { err },
+        'Could not fetch compute project. Requires additional permission',
+      );
+
+      publishMissingPermissionEvent({
+        logger,
+        permission: 'compute.projects.get',
+        stepId: STEP_COMPUTE_PROJECT,
+      });
+
+      return;
+    }
+
+    throw err;
+  }
+
   if (computeProject) {
     const computeProjectEntity = createComputeProjectEntity(computeProject);
     await jobState.addEntity(computeProjectEntity);

@@ -13,6 +13,40 @@ and this project adheres to
 - Support for `--skip-project-id-regex` in the `jupiterone-organization-setup`
   CLI
 
+- Support for ingesting the following **new** resources
+
+  - Logging
+    - `google_logging_metric`
+    - `google_logging_project_sink`
+    - `google_monitoring_alert_policy`
+  - Networking
+    - `google_compute_health_check`
+    - `google_compute_instance_group`
+    - `google_compute_url_map`
+    - `google_compute_backend_service`
+    - `google_compute_backend_bucket`
+    - `google_compute_target_ssl_proxy`
+    - `google_compute_target_https_proxy`
+    - `google_compute_target_http_proxy`
+    - `google_compute_ssl_policy`
+  - GKE (Google Kubernetes Enginer):
+    - `google_container_cluster`
+
+- New properties added to various existing resources:
+  - Storage
+    - `google_storage_bucket`
+      - `retentionPolicyEnabled`
+      - `retentionPeriod`
+      - `retentionDate`
+  - `google_kms_crypto_key`
+    - `public`
+
+### Fixed
+
+- Log integration job event from the `fetch-compute-project` step when the
+  service account used to execute the integration does not have the
+  `compute.projects.get` permission.
+
 ## 0.12.0 - 2020-02-05
 
 ### Added
