@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.13.0 - 2020-02-17
+
 ### Added
 
 - Support for `--skip-project-id-regex` in the `jupiterone-organization-setup`
@@ -29,7 +31,7 @@ and this project adheres to
     - `google_compute_target_https_proxy`
     - `google_compute_target_http_proxy`
     - `google_compute_ssl_policy`
-  - GKE (Google Kubernetes Enginer):
+  - GKE (Google Kubernetes Engine):
     - `google_container_cluster`
 
 - New properties added to various existing resources:
