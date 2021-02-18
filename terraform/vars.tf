@@ -1,4 +1,4 @@
-variable "service_account_key_file_path" {
+variable "service_account_key" {
   type    = string
   default = ""
 }
@@ -26,4 +26,13 @@ variable "client_email" {
 variable "region" {
   type = string
   default = "us-central1"
+}
+
+###########################################
+# Toggle provisioning of resources below
+###########################################
+
+variable "enable_google_monitoring_alert_policy_example" {
+  type = bool
+  default = false
 }
