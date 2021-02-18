@@ -1,6 +1,8 @@
 resource "google_monitoring_alert_policy" "example_alert_policy" {
+  count = var.enable_google_monitoring_alert_policy_example ? 1 : 0
   display_name = "Example Alert Policy"
   combiner     = "OR"
+
   conditions {
     display_name = "test condition"
     condition_threshold {

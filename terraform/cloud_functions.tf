@@ -6,7 +6,7 @@ data "archive_file" "http_trigger" {
   type = "zip"
   output_path = "${path.module}/data/http_trigger.zip"
   source {
-    content = "${file("${path.module}/data/http_trigger.js")}"
+    content = file("${path.module}/data/http_trigger.js")
     filename = "index.js"
   }
 }

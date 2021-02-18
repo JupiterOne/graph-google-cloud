@@ -1,4 +1,6 @@
 terraform {
+  required_version = "~> 0.14"
+
   required_providers {
     google = {
       source  = "hashicorp/google"
@@ -18,7 +20,7 @@ terraform {
 }
 
 provider "google" {
-  credentials = file(abspath(var.service_account_key_file_path))
+  credentials = var.service_account_key
   project = var.project_id
   region = var.region
 }

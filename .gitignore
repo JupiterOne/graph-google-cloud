@@ -1,7 +1,8 @@
 node_modules/
 dist/
 .j1-integration/
-.env
+.env*
 .eslintcache
 tsconfig.tsbuildinfo
 coverage/
+main.remote.tf
