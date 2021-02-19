@@ -1,4 +1,7 @@
-import { createIntegrationEntity } from '@jupiterone/integration-sdk-core';
+import {
+  createIntegrationEntity,
+  parseTimePropertyValue,
+} from '@jupiterone/integration-sdk-core';
 import { binaryauthorization_v1 } from 'googleapis';
 import { getGoogleCloudConsoleWebLink } from '../../utils/url';
 import {
@@ -32,13 +35,10 @@ export function createBinaryAuthorizationPolicyEntity(
         admissionWhitelistPatterns: admissionWhitelistPatterns,
         evaluationMode: data.defaultAdmissionRule?.evaluationMode,
         globalPolicyEvaluationMode: data.globalPolicyEvaluationMode,
-        title: 'Binary Authorization Policy',
-        summary:
-          'Binary Authorization implements a policy model, where a policy is a set of rules that governs the deployment of container images to a GKE cluster. Rules in a policy provide specific criteria that an image must satisfy before it can be deployed.',
-        content: '',
         webLink: getGoogleCloudConsoleWebLink(
           `/security/binary-authorization/policy?project=${projectId}&folder=&organizationId=`,
         ),
+        updatedOn: parseTimePropertyValue(data.updateTime),
       },
     },
   });

@@ -39,5 +39,5 @@ variable "integration_runner_service_account_client_email" {
 
 variable "enable_google_monitoring_alert_policy_example" {
   type = bool
-  default = false
+  default = true
 }

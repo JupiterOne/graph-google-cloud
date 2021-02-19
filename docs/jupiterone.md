@@ -220,7 +220,7 @@ The following entities are created:
 | Resources                     | Entity `_type`                       | Entity `_class`     |
 | ----------------------------- | ------------------------------------ | ------------------- |
 | Big Query Dataset             | `google_bigquery_dataset`            | `DataStore`         |
-| Binary Authorization Policy   | `google_binary_authorization_policy` | `Policy`            |
+| Binary Authorization Policy   | `google_binary_authorization_policy` | `AccessPolicy`      |
 | Cloud API Service             | `google_cloud_api_service`           | `Service`           |
 | Cloud Function                | `google_cloud_function`              | `Function`          |
 | Cloud Storage Bucket          | `google_storage_bucket`              | `DataStore`         |
@@ -277,13 +277,13 @@ The following relationships are created/mapped:
 | `google_compute_network`            | **HAS**               | `google_compute_firewall`            |
 | `google_compute_project`            | **HAS**               | `google_compute_instance`            |
 | `google_compute_subnetwork`         | **HAS**               | `google_compute_instance`            |
-| `google_container_cluster`          | **HAS**               | `google_container_node_pool`         |
 | `google_compute_target_https_proxy` | **HAS**               | `google_compute_ssl_policy`          |
 | `google_compute_target_ssl_proxy`   | **HAS**               | `google_compute_ssl_policy`          |
 | `google_compute_url_map`            | **HAS**               | `google_compute_backend_bucket`      |
 | `google_compute_url_map`            | **HAS**               | `google_compute_backend_service`     |
 | `google_compute_url_map`            | **HAS**               | `google_compute_target_http_proxy`   |
 | `google_compute_url_map`            | **HAS**               | `google_compute_target_https_proxy`  |
+| `google_container_cluster`          | **HAS**               | `google_container_node_pool`         |
 | `google_iam_service_account`        | **ASSIGNED**          | `google_iam_role`                    |
 | `google_iam_service_account`        | **HAS**               | `google_iam_service_account_key`     |
 | `google_kms_key_ring`               | **HAS**               | `google_kms_crypto_key`              |

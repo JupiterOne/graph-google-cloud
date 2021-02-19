@@ -1002,7 +1002,7 @@ export function getMockBinaryAuthorizationPolicy(
   partial?: binaryauthorization_v1.Schema$Policy,
 ): binaryauthorization_v1.Schema$Policy {
   return {
-    name: 'projects/j1-gc-integration-dev-300716/policy',
+    name: 'projects/j1-gc-integration-dev-v2/policy',
     admissionWhitelistPatterns: [
       {
         namePattern: 'gcr.io/google_containers/*',

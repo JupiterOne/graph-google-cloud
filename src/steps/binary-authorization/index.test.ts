@@ -32,7 +32,7 @@ describe('#fetchBinaryAuthorization', () => {
       ...integrationConfig,
       serviceAccountKeyConfig: {
         ...integrationConfig.serviceAccountKeyConfig,
-        project_id: 'j1-gc-integration-dev-300716',
+        project_id: 'j1-gc-integration-dev-v2',
       },
     };
     const context = createMockStepExecutionContext<IntegrationConfig>({
@@ -79,7 +79,7 @@ describe('#fetchBinaryAuthorization', () => {
         (e) => e._type === BINARY_AUTHORIZATION_POLICY_ENTITY_TYPE,
       ),
     ).toMatchGraphObjectSchema({
-      _class: ['Policy'],
+      _class: ['AccessPolicy'],
       schema: {
         additionalProperties: false,
         properties: {
@@ -95,10 +95,8 @@ describe('#fetchBinaryAuthorization', () => {
           },
           evaluationMode: { type: 'string' },
           globalPolicyEvaluationMode: { type: 'string' },
-          title: { type: 'string' },
-          summary: { type: 'string' },
-          content: { type: 'string' },
           webLink: { type: 'string' },
+          updatedOn: { type: 'number' },
         },
       },
     });

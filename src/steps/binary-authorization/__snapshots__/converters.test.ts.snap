@@ -3,9 +3,9 @@
 exports[`#createBinaryAuthorizationPolicy should convert to entity 1`] = `
 Object {
   "_class": Array [
-    "Policy",
+    "AccessPolicy",
   ],
-  "_key": "projects/j1-gc-integration-dev-300716/policy",
+  "_key": "projects/j1-gc-integration-dev-v2/policy",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -32,7 +32,7 @@ Object {
           "evaluationMode": "ALWAYS_ALLOW",
         },
         "globalPolicyEvaluationMode": "ENABLE",
-        "name": "projects/j1-gc-integration-dev-300716/policy",
+        "name": "projects/j1-gc-integration-dev-v2/policy",
       },
     },
   ],
@@ -44,14 +44,12 @@ Object {
     "gke.gcr.io/*",
     "gcr.io/stackdriver-agents/*",
   ],
-  "content": "",
   "createdOn": undefined,
-  "displayName": "projects/j1-gc-integration-dev-300716/policy",
+  "displayName": "projects/j1-gc-integration-dev-v2/policy",
   "evaluationMode": "ALWAYS_ALLOW",
   "globalPolicyEvaluationMode": "ENABLE",
-  "name": "projects/j1-gc-integration-dev-300716/policy",
-  "summary": "Binary Authorization implements a policy model, where a policy is a set of rules that governs the deployment of container images to a GKE cluster. Rules in a policy provide specific criteria that an image must satisfy before it can be deployed.",
-  "title": "Binary Authorization Policy",
-  "webLink": "https://console.cloud.google.com/security/binary-authorization/policy?project=j1-gc-integration-dev-300716&folder=&organizationId=",
+  "name": "projects/j1-gc-integration-dev-v2/policy",
+  "updatedOn": undefined,
+  "webLink": "https://console.cloud.google.com/security/binary-authorization/policy?project=j1-gc-integration-dev-v2&folder=&organizationId=",
 }
 `;

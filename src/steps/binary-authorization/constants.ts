@@ -1,4 +1,4 @@
-export const BINARY_AUTHORIZATION_POLICY_ENTITY_CLASS = 'Policy';
+export const BINARY_AUTHORIZATION_POLICY_ENTITY_CLASS = 'AccessPolicy';
 export const BINARY_AUTHORIZATION_POLICY_ENTITY_TYPE =
   'google_binary_authorization_policy';
 
