@@ -11,13 +11,15 @@ import {
   storage_v1,
   monitoring_v3,
   binaryauthorization_v1,
+  cloudfunctions_v1,
+  serviceusage_v1,
 } from 'googleapis';
 
 export function getMockIamRole(
   partial?: Partial<iam_v1.Schema$Role>,
 ): iam_v1.Schema$Role {
   return {
-    name: 'projects/j1-gc-integration-dev/roles/myrole',
+    name: 'projects/j1-gc-integration-dev-v2/roles/myrole',
     title: 'Role',
     description: 'Description',
     includedPermissions: [
@@ -35,11 +37,11 @@ export function getMockServiceAccount(
 ): iam_v1.Schema$ServiceAccount {
   return {
     name:
-      'projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com',
-    projectId: 'j1-gc-integration-dev',
+      'projects/j1-gc-integration-dev-v2/serviceAccounts/j1-gc-integration-dev-v2-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com',
+    projectId: 'j1-gc-integration-dev-v2',
     uniqueId: '1234567890',
     email:
-      'j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com',
+      'j1-gc-integration-dev-v2-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com',
     etag: 'abc=',
     description: 'J1 Google Cloud integration execution',
     oauth2ClientId: '1234567890',
@@ -52,7 +54,7 @@ export function getMockServiceAccountKey(
 ): iam_v1.Schema$ServiceAccountKey {
   return {
     name:
-      'projects/j1-gc-integration-dev/serviceAccounts/j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com/keys/12345',
+      'projects/j1-gc-integration-dev-v2/serviceAccounts/j1-gc-integration-dev-v2-sa-tf@j1-gc-integration-dev-v2.iam.gserviceaccount.com/keys/12345',
     validAfterTime: '2020-08-05T18:05:19Z',
     validBeforeTime: '2020-08-21T18:05:19Z',
     keyAlgorithm: 'KEY_ALG_RSA_2048',
@@ -71,15 +73,15 @@ export function getMockComputeDisk(
     name: 'testvm',
     sizeGb: '10',
     zone:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a',
     status: 'READY',
     selfLink:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/disks/testvm',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/testvm',
     sourceImage:
       'https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-9-stretch-v20200805',
     sourceImageId: '6709658075886210235',
     type:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/diskTypes/pd-standard',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/diskTypes/pd-standard',
     licenses: [
       'https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-9-stretch',
     ],
@@ -90,7 +92,7 @@ export function getMockComputeDisk(
     ],
     lastAttachTimestamp: '2020-08-12T08:20:05.930-07:00',
     users: [
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/instances/testvm',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/testvm',
     ],
     labelFingerprint: '42WmSpB8rSM=',
     licenseCodes: ['1000205'],
@@ -112,17 +114,17 @@ export function getMockComputeInstance(
       fingerprint: 'f_TpKvEudUc=',
     },
     machineType:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/machineTypes/n1-standard-1',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/machineTypes/n1-standard-1',
     status: 'RUNNING',
     zone:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a',
     canIpForward: false,
     networkInterfaces: [
       {
         network:
-          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/networks/default',
+          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default',
         subnetwork:
-          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/us-central1/subnetworks/default',
+          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default',
         networkIP: '10.128.0.2',
         name: 'nic0',
         fingerprint: 'RpvQNHzHRp8=',
@@ -134,7 +136,7 @@ export function getMockComputeInstance(
         type: 'PERSISTENT',
         mode: 'READ_WRITE',
         source:
-          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/disks/testvm',
+          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/testvm',
         deviceName: 'persistent-disk-0',
         index: 0,
         boot: true,
@@ -180,7 +182,7 @@ export function getMockComputeInstance(
     serviceAccounts: [
       {
         email:
-          'j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com',
+          'j1-gc-integration-dev-v2-sa-tf@j1-gc-integration-dev-v2.iam.gserviceaccount.com',
         scopes: [
           'https://www.googleapis.com/auth/compute.readonly',
           'https://www.googleapis.com/auth/devstorage.read_only',
@@ -189,7 +191,7 @@ export function getMockComputeInstance(
       },
     ],
     selfLink:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/instances/testvm',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/testvm',
     scheduling: {
       onHostMaintenance: 'MIGRATE',
       automaticRestart: true,
@@ -212,7 +214,7 @@ export function getMockComputeProject(
     id: '8075573275056338764',
     kind: 'compute#project',
     creationTimestamp: '2021-01-04T09:00:19.752-08:00',
-    name: 'j1-gc-integration-dev-300716',
+    name: 'j1-gc-integration-dev-v2',
     commonInstanceMetadata: {
       fingerprint: '3rFva159u8A=',
       kind: 'compute#metadata',
@@ -235,7 +237,7 @@ export function getMockComputeProject(
       },
     ],
     selfLink:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2',
     defaultServiceAccount: '165882964161-compute@developer.gserviceaccount.com',
     xpnProjectStatus: 'UNSPECIFIED_XPN_PROJECT_STATUS',
     defaultNetworkTier: 'PREMIUM',
@@ -252,7 +254,7 @@ export function getMockComputeFirewall(
     name: 'public-compute-app-fw-allow-https',
     description: '',
     network:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/networks/public-compute-app-vpc',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/public-compute-app-vpc',
     priority: 1000,
     sourceRanges: ['0.0.0.0/0'],
     targetTags: ['https'],
@@ -268,7 +270,7 @@ export function getMockComputeFirewall(
     },
     disabled: false,
     selfLink:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/public-compute-app-fw-allow-https',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/firewalls/public-compute-app-fw-allow-https',
     kind: 'compute#firewall',
     ...partial,
   };
@@ -282,13 +284,13 @@ export function getMockSubnet(
     creationTimestamp: '2020-08-07T10:20:16.033-07:00',
     name: 'default',
     network:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/networks/default',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default',
     ipCidrRange: '10.164.0.0/20',
     gatewayAddress: '10.164.0.1',
     region:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/europe-west4',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/europe-west4',
     selfLink:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/europe-west4/subnetworks/default',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/europe-west4/subnetworks/default',
     privateIpGoogleAccess: false,
     fingerprint: 'whfZBEBCda4=',
     privateIpv6GoogleAccess: 'DISABLE_GOOGLE_ACCESS',
@@ -306,10 +308,10 @@ export function getMockNetwork(
     creationTimestamp: '2020-09-23T07:47:13.320-07:00',
     name: 'public-compute-app-vpc',
     selfLink:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/networks/public-compute-app-vpc',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/public-compute-app-vpc',
     autoCreateSubnetworks: false,
     subnetworks: [
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/us-central1/subnetworks/public-compute-app-public-subnet-1',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/public-compute-app-public-subnet-1',
     ],
     routingConfig: {
       routingMode: 'GLOBAL',
@@ -324,9 +326,9 @@ export function getMockProject(
 ): cloudresourcemanager_v1.Schema$Project {
   return {
     projectNumber: '545240943112',
-    projectId: 'j1-gc-integration-dev',
+    projectId: 'j1-gc-integration-dev-v2',
     lifecycleState: 'ACTIVE',
-    name: 'j1-gc-integration-dev',
+    name: 'j1-gc-integration-dev-v2',
     createTime: '2020-07-28T14:38:24.744Z',
     parent: {
       type: 'organization',
@@ -342,12 +344,12 @@ export function getMockBigQueryDataset(
   return {
     kind: 'bigquery#dataset',
     etag: 'Q1RJczpo1aoPRRoUJ1pElQ==',
-    id: 'j1-gc-integration-dev-300716:test_big_query_dataset',
+    id: 'j1-gc-integration-dev-v2:test_big_query_dataset',
     selfLink:
-      'https://www.googleapis.com/bigquery/v2/projects/j1-gc-integration-dev-300716/datasets/test_big_query_dataset',
+      'https://www.googleapis.com/bigquery/v2/projects/j1-gc-integration-dev-v2/datasets/test_big_query_dataset',
     datasetReference: {
       datasetId: 'test_big_query_dataset',
-      projectId: 'j1-gc-integration-dev-300716',
+      projectId: 'j1-gc-integration-dev-v2',
     },
     access: [
       { role: 'WRITER', specialGroup: 'projectWriters' },
@@ -410,13 +412,12 @@ export function getMockSQLInstance(
     etag: '98de3deaeeca4420e21a891488c187b0b029235e2e0cb551fc00a388d1ac4f7d',
     ipAddresses: [],
     instanceType: 'CLOUD_SQL_INSTANCE',
-    project: 'j1-gc-integration-dev-300716',
+    project: 'j1-gc-integration-dev-v2',
     serviceAccountEmailAddress:
       'p165882964161-x5ifig@gcp-sa-cloud-sql.iam.gserviceaccount.com',
     selfLink:
-      'https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-300716/instances/cloud-sql-postgres',
-    connectionName:
-      'j1-gc-integration-dev-300716:europe-west3:cloud-sql-postgres',
+      'https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v2/instances/cloud-sql-postgres',
+    connectionName: 'j1-gc-integration-dev-v2:europe-west3:cloud-sql-postgres',
     name: 'cloud-sql-postgres',
     region: 'europe-west3',
     gceZone: 'europe-west3-b',
@@ -449,7 +450,7 @@ export function getMockContainerCluster(
   partial?: container_v1.Schema$Cluster,
 ): container_v1.Schema$Cluster {
   return {
-    name: 'j1-gc-integration-dev-gke-cluster',
+    name: 'j1-gc-integration-dev-v2-gke-cluster',
     initialNodeCount: 1,
     nodeConfig: {
       machineType: 'e2-micro',
@@ -460,7 +461,7 @@ export function getMockContainerCluster(
       },
       imageType: 'COS',
       serviceAccount:
-        'j1-gc-integration-dev-gke-sa@j1-gc-integration-dev.iam.gserviceaccount.com',
+        'j1-gc-integration-dev-v2-gke-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com',
       preemptible: true,
       diskType: 'pd-standard',
       shieldedInstanceConfig: {
@@ -485,7 +486,7 @@ export function getMockContainerCluster(
     subnetwork: 'default',
     nodePools: [
       {
-        name: 'j1-gc-integration-dev-gke-node-pool',
+        name: 'j1-gc-integration-dev-v2-gke-node-pool',
         config: {
           machineType: 'e2-micro',
           diskSizeGb: 100,
@@ -495,7 +496,7 @@ export function getMockContainerCluster(
           },
           imageType: 'COS',
           serviceAccount:
-            'j1-gc-integration-dev-gke-sa@j1-gc-integration-dev.iam.gserviceaccount.com',
+            'j1-gc-integration-dev-v2-gke-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com',
           preemptible: true,
           diskType: 'pd-standard',
           shieldedInstanceConfig: {
@@ -510,12 +511,12 @@ export function getMockContainerCluster(
         podIpv4CidrSize: 24,
         locations: ['us-central1-f', 'us-central1-c', 'us-central1-a'],
         selfLink:
-          'https://container.googleapis.com/v1/projects/j1-gc-integration-dev/locations/us-central1/clusters/j1-gc-integration-dev-gke-cluster/nodePools/j1-gc-integration-dev-gke-node-pool',
+          'https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster/nodePools/j1-gc-integration-dev-v2-gke-node-pool',
         version: '1.17.14-gke.1600',
         instanceGroupUrls: [
-          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-f/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-d0942024-grp',
-          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-c/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-2a95071a-grp',
-          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-6817e506-grp',
+          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-f/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-d0942024-grp',
+          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-c/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-2a95071a-grp',
+          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-6817e506-grp',
         ],
         status: 'RUNNING',
         upgradeSettings: {
@@ -536,9 +537,9 @@ export function getMockContainerCluster(
     binaryAuthorization: {},
     autoscaling: {},
     networkConfig: {
-      network: 'projects/j1-gc-integration-dev/global/networks/default',
+      network: 'projects/j1-gc-integration-dev-v2/global/networks/default',
       subnetwork:
-        'projects/j1-gc-integration-dev/regions/us-central1/subnetworks/default',
+        'projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default',
     },
     databaseEncryption: {
       state: 'DECRYPTED',
@@ -548,7 +549,7 @@ export function getMockContainerCluster(
       channel: 'REGULAR',
     },
     selfLink:
-      'https://container.googleapis.com/v1/projects/j1-gc-integration-dev/locations/us-central1/clusters/j1-gc-integration-dev-gke-cluster',
+      'https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster',
     zone: 'us-central1',
     endpoint: '34.69.222.23',
     initialClusterVersion: '1.17.14-gke.1600',
@@ -559,9 +560,9 @@ export function getMockContainerCluster(
     nodeIpv4CidrSize: 24,
     servicesIpv4Cidr: '10.19.240.0/20',
     instanceGroupUrls: [
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-f/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-d0942024-grp',
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-c/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-2a95071a-grp',
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-6817e506-grp',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-f/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-d0942024-grp',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-c/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-2a95071a-grp',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-6817e506-grp',
     ],
     currentNodeCount: 3,
     location: 'us-central1',
@@ -575,7 +576,7 @@ export function getMockLoggingProjectSink(
   return {
     name: 'example-sink',
     destination:
-      'bigquery.googleapis.com/projects/j1-gc-integration-dev-300716/datasets/test_big_query_dataset',
+      'bigquery.googleapis.com/projects/j1-gc-integration-dev-v2/datasets/test_big_query_dataset',
     writerIdentity:
       'serviceAccount:p165882964161-737968@gcp-sa-logging.iam.gserviceaccount.com',
     bigqueryOptions: {},
@@ -634,7 +635,7 @@ export function getMockKmsKeyRing(
 ): cloudkms_v1.Schema$KeyRing {
   return {
     name:
-      'projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring',
+      'projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring',
     createTime: '2020-07-28T18:34:26.034565002Z',
     ...partial,
   };
@@ -658,7 +659,7 @@ export function getMockStorageBucket(
     updated: '2020-07-28T19:06:14.033Z',
     encryption: {
       defaultKmsKeyName:
-        'projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key',
+        'projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key',
     },
     iamConfiguration: {
       bucketPolicyOnly: {
@@ -678,10 +679,10 @@ export function getMockKmsCryptoKey(
 ): cloudkms_v1.Schema$CryptoKey {
   return {
     name:
-      'projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key',
+      'projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key',
     primary: {
       name:
-        'projects/j1-gc-integration-dev/locations/us/keyRings/j1-gc-integration-dev-bucket-ring/cryptoKeys/j1-gc-integration-dev-bucket-key/cryptoKeyVersions/68',
+        'projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key/cryptoKeyVersions/68',
       state: 'ENABLED',
       createTime: '2020-10-03T19:01:13.428484662Z',
       protectionLevel: 'SOFTWARE',
@@ -704,19 +705,18 @@ export function getMockAlertPolicy(
   partial?: Partial<monitoring_v3.Schema$AlertPolicy>,
 ): monitoring_v3.Schema$AlertPolicy {
   return {
-    name:
-      'projects/j1-gc-integration-dev-300716/alertPolicies/9246450381922925470',
+    name: 'projects/j1-gc-integration-dev-v2/alertPolicies/9246450381922925470',
     displayName: 'Example Alert Policy',
     combiner: 'OR',
     creationRecord: {
       mutateTime: '2021-02-02T16:18:23.127595226Z',
       mutatedBy:
-        'j1-gc-integration-dev-sa@j1-gc-integration-dev-300716.iam.gserviceaccount.com',
+        'j1-gc-integration-dev-v2-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com',
     },
     mutationRecord: {
       mutateTime: '2021-02-02T16:18:23.127595226Z',
       mutatedBy:
-        'j1-gc-integration-dev-sa@j1-gc-integration-dev-300716.iam.gserviceaccount.com',
+        'j1-gc-integration-dev-v2-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com',
     },
     enabled: true,
     ...partial,
@@ -743,7 +743,7 @@ export function getMockMetric(
       'protoPayload.methodName="SetIamPolicy" AND protoPayload.serviceData.policyDelta.auditConfigDeltas:*',
     metricDescriptor: {
       name:
-        'projects/j1-gc-integration-dev-300716/metricDescriptors/logging.googleapis.com/user/my-example-metric',
+        'projects/j1-gc-integration-dev-v2/metricDescriptors/logging.googleapis.com/user/my-example-metric',
       labels: [
         {
           key: 'occurences',
@@ -774,7 +774,7 @@ export function getMockBackendBucket(
     name: 'example-backend-bucket',
     description: '',
     selfLink:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendBuckets/example-backend-bucket',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/backendBuckets/example-backend-bucket',
     bucketName: 'log-example-bucket',
     enableCdn: false,
     kind: 'compute#backendBucket',
@@ -791,18 +791,18 @@ export function getMockBackendService(
     name: 'example-backend-service',
     description: '',
     selfLink:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendServices/example-backend-service',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/backendServices/example-backend-service',
     backends: [
       {
         group:
-          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/zones/us-central1-a/instanceGroups/instance-group-1',
+          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instanceGroups/instance-group-1',
         balancingMode: 'UTILIZATION',
         maxUtilization: 0.8,
         capacityScaler: 1,
       },
     ],
     healthChecks: [
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/healthChecks/health-check',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/healthChecks/health-check',
     ],
     timeoutSec: 30,
     port: 80,
@@ -843,7 +843,7 @@ export function getMockHealthCheck(
       proxyHeader: 'NONE',
     },
     selfLink:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/healthChecks/health-check',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/healthChecks/health-check',
     kind: 'compute#healthCheck',
     ...partial,
   };
@@ -865,15 +865,15 @@ export function getMockInstanceGroup(
       },
     ],
     network:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/networks/default',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default',
     fingerprint: 'Mhi8gtwR57U=',
     zone:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/zones/us-central1-a',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a',
     selfLink:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/zones/us-central1-a/instanceGroups/instance-group-1',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instanceGroups/instance-group-1',
     size: 1,
     subnetwork:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/regions/us-central1/subnetworks/default',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default',
     kind: 'compute#instanceGroup',
     ...partial,
   };
@@ -887,7 +887,7 @@ export function getMockLoadBalancer(
     creationTimestamp: '2021-01-25T13:09:32.355-08:00',
     name: 'example-http-load-balancer',
     selfLink:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/urlMaps/example-http-load-balancer',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/urlMaps/example-http-load-balancer',
     hostRules: [
       {
         hosts: ['web.test.com'],
@@ -898,18 +898,18 @@ export function getMockLoadBalancer(
       {
         name: 'path-matcher-1',
         defaultService:
-          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendServices/example-backend-service',
+          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/backendServices/example-backend-service',
         pathRules: [
           {
             service:
-              'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendBuckets/example-backend-bucket',
+              'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/backendBuckets/example-backend-bucket',
             paths: ['/images/*'],
           },
         ],
       },
     ],
     defaultService:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendServices/example-backend-service',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/backendServices/example-backend-service',
     fingerprint: '7VTPVZHiF8k=',
     kind: 'compute#urlMap',
     ...partial,
@@ -924,9 +924,9 @@ export function getMockTargetHttpProxy(
     creationTimestamp: '2021-02-04T11:44:02.365-08:00',
     name: 'example-http-loadbalancer-target-proxy',
     selfLink:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/targetHttpProxies/example-http-loadbalancer-target-proxy',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/targetHttpProxies/example-http-loadbalancer-target-proxy',
     urlMap:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/urlMaps/example-http-loadbalancer',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/urlMaps/example-http-loadbalancer',
     fingerprint: 'XrJcBMxyGME=',
     kind: 'compute#targetHttpProxy',
     ...partial,
@@ -941,15 +941,15 @@ export function getMockTargetHttpsProxy(
     creationTimestamp: '2021-01-25T13:12:07.139-08:00',
     name: 'example-http-load-balancer-target-proxy',
     selfLink:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/targetHttpsProxies/example-http-load-balancer-target-proxy',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/targetHttpsProxies/example-http-load-balancer-target-proxy',
     urlMap:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/urlMaps/example-http-load-balancer',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/urlMaps/example-http-load-balancer',
     sslCertificates: [
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/sslCertificates/example-certificate',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/sslCertificates/example-certificate',
     ],
     quicOverride: 'NONE',
     sslPolicy:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/sslPolicies/example-tls-1-2-policy',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/sslPolicies/example-tls-1-2-policy',
     kind: 'compute#targetHttpsProxy',
     ...partial,
   };
@@ -963,11 +963,11 @@ export function getMockTargetSslProxy(
     creationTimestamp: '2021-02-04T12:07:33.886-08:00',
     name: 'example-ssl-2-loadbalancer-target-proxy',
     selfLink:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/targetSslProxies/example-ssl-2-loadbalancer-target-proxy',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/targetSslProxies/example-ssl-2-loadbalancer-target-proxy',
     service:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendServices/example-ssl-2-loadbalancer',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/backendServices/example-ssl-2-loadbalancer',
     sslCertificates: [
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/sslCertificates/example-certificate',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/sslCertificates/example-certificate',
     ],
     proxyHeader: 'NONE',
     kind: 'compute#targetSslProxy',
@@ -982,7 +982,7 @@ export function getMockSslPolicy(
     id: '1226213084601944618',
     creationTimestamp: '2021-01-25T13:14:45.749-08:00',
     selfLink:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/sslPolicies/example-tls-1-2-policy',
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/sslPolicies/example-tls-1-2-policy',
     name: 'example-tls-1-2-policy',
     profile: 'CUSTOM',
     minTlsVersion: 'TLS_1_2',
@@ -1025,6 +1025,59 @@ export function getMockBinaryAuthorizationPolicy(
       enforcementMode: 'ENFORCED_BLOCK_AND_AUDIT_LOG',
     },
     globalPolicyEvaluationMode: 'ENABLE',
+    ...partial,
+  };
+}
+
+export function getMockCloudFunction(
+  partial?: Partial<cloudfunctions_v1.Schema$CloudFunction>,
+): cloudfunctions_v1.Schema$CloudFunction {
+  return {
+    name:
+      'projects/j1-gc-integration-dev-v2/locations/us-central1/functions/j1-gc-integration-dev-v2testfunction',
+    description: 'Test function',
+    sourceArchiveUrl:
+      'gs://j1-gc-integration-dev-v2cloudfunctions/http_trigger.zip',
+    httpsTrigger: {
+      url:
+        'https://us-central1-j1-gc-integration-dev-v2.cloudfunctions.net/j1-gc-integration-dev-v2testfunction',
+    },
+    status: 'ACTIVE',
+    entryPoint: 'handler',
+    timeout: '60s',
+    availableMemoryMb: 128,
+    serviceAccountEmail: 'j1-gc-integration-dev-v2@appspot.gserviceaccount.com',
+    updateTime: '2020-07-28T18:35:52.821Z',
+    versionId: '1',
+    environmentVariables: {
+      TEST_ENV_VAR: 'test-env-var-val',
+    },
+    runtime: 'nodejs10',
+    ingressSettings: 'ALLOW_ALL',
+    ...partial,
+  };
+}
+
+export function getMockServiceApi(
+  partial?: serviceusage_v1.Schema$GoogleApiServiceusageV1Service,
+): serviceusage_v1.Schema$GoogleApiServiceusageV1Service {
+  return {
+    name: 'projects/545240943112/services/vision.googleapis.com',
+    config: {
+      name: 'vision.googleapis.com',
+      title: 'Cloud Vision API',
+      documentation: {
+        summary:
+          'Integrates Google Vision features, including image labeling, face, logo, and landmark detection, optical character recognition (OCR), and detection of explicit content, into applications.',
+      },
+      quota: {},
+      authentication: {},
+      usage: {
+        requirements: ['serviceusage.googleapis.com/tos/cloud'],
+      },
+    },
+    state: 'ENABLED',
+    parent: 'projects/545240943112',
     ...partial,
   };
 }

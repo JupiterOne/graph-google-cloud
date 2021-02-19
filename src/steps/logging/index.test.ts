@@ -32,15 +32,8 @@ describe('#fetchProjectSinks', () => {
   });
 
   test('should collect data', async () => {
-    const customConfig = {
-      ...integrationConfig,
-      serviceAccountKeyConfig: {
-        ...integrationConfig.serviceAccountKeyConfig,
-        project_id: 'j1-gc-integration-dev-300716',
-      },
-    };
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: customConfig,
+      instanceConfig: integrationConfig,
     });
 
     await fetchStorageBuckets(context);
@@ -138,15 +131,8 @@ describe('#fetchMetrics', () => {
   });
 
   test('should collect data', async () => {
-    const customConfig = {
-      ...integrationConfig,
-      serviceAccountKeyConfig: {
-        ...integrationConfig.serviceAccountKeyConfig,
-        project_id: 'j1-gc-integration-dev-300716',
-      },
-    };
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: customConfig,
+      instanceConfig: integrationConfig,
     });
 
     await fetchAlertPolicies(context);

@@ -1,8 +1,6 @@
 import { getMockAlertPolicy } from '../../../test/mocks';
 import { createAlertPolicyEntity } from './converters';
-
-// Couldn't use the one from test/config since mine is different value
-const DEFAULT_INTEGRATION_CONFIG_PROJECT_ID = 'j1-gc-integration-dev-300716';
+import { DEFAULT_INTEGRATION_CONFIG_PROJECT_ID } from '../../../test/config';
 
 describe('#createAlertPolicyEntity', () => {
   test('should convert to entity', () => {
@@ -36,8 +34,7 @@ describe('#createAlertPolicyEntity', () => {
                 ],
               },
               displayName: 'test condition',
-              name:
-                'projects/j1-gc-integration-dev-300716/alertPolicies/9246450381922925470/conditions/9246450381922923601',
+              name: `projects/${DEFAULT_INTEGRATION_CONFIG_PROJECT_ID}/alertPolicies/9246450381922925470/conditions/9246450381922923601`,
             },
           ],
         }),

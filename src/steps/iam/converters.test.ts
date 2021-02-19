@@ -51,7 +51,7 @@ describe('#createIamServiceAccountKeyEntity', () => {
   test('should convert to entity', () => {
     expect(
       createIamServiceAccountKeyEntity(getMockServiceAccountKey(), {
-        projectId: 'j1-gc-integration-dev',
+        projectId: 'j1-gc-integration-dev-v2',
         serviceAccountId: 'abc123',
       }),
     ).toMatchSnapshot();
@@ -67,7 +67,7 @@ describe('#createIamServiceAccountHasKeyRelationship', () => {
     const serviceAccountKeyEntity = createIamServiceAccountKeyEntity(
       getMockServiceAccountKey(),
       {
-        projectId: 'j1-gc-integration-dev',
+        projectId: 'j1-gc-integration-dev-v2',
         serviceAccountId: 'abc123',
       },
     );

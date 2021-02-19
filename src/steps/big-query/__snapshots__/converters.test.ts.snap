@@ -5,7 +5,7 @@ Object {
   "_class": Array [
     "DataStore",
   ],
-  "_key": "j1-gc-integration-dev-300716:test_big_query_dataset",
+  "_key": "j1-gc-integration-dev-v2:test_big_query_dataset",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -31,14 +31,14 @@ Object {
         "creationTime": "1610919167542",
         "datasetReference": Object {
           "datasetId": "test_big_query_dataset",
-          "projectId": "j1-gc-integration-dev-300716",
+          "projectId": "j1-gc-integration-dev-v2",
         },
         "etag": "Q1RJczpo1aoPRRoUJ1pElQ==",
-        "id": "j1-gc-integration-dev-300716:test_big_query_dataset",
+        "id": "j1-gc-integration-dev-v2:test_big_query_dataset",
         "kind": "bigquery#dataset",
         "lastModifiedTime": "1610919344642",
         "location": "US",
-        "selfLink": "https://www.googleapis.com/bigquery/v2/projects/j1-gc-integration-dev-300716/datasets/test_big_query_dataset",
+        "selfLink": "https://www.googleapis.com/bigquery/v2/projects/j1-gc-integration-dev-v2/datasets/test_big_query_dataset",
       },
     },
   ],
@@ -48,11 +48,11 @@ Object {
   "displayName": "test_big_query_dataset",
   "encrypted": true,
   "etag": "Q1RJczpo1aoPRRoUJ1pElQ==",
-  "id": "j1-gc-integration-dev-300716:test_big_query_dataset",
+  "id": "j1-gc-integration-dev-v2:test_big_query_dataset",
   "location": "US",
   "name": "test_big_query_dataset",
   "public": false,
-  "webLink": "https://www.googleapis.com/bigquery/v2/projects/j1-gc-integration-dev-300716/datasets/test_big_query_dataset",
+  "webLink": "https://www.googleapis.com/bigquery/v2/projects/j1-gc-integration-dev-v2/datasets/test_big_query_dataset",
 }
 `;
 
@@ -61,7 +61,7 @@ Object {
   "_class": Array [
     "DataStore",
   ],
-  "_key": "j1-gc-integration-dev-300716:test_big_query_dataset",
+  "_key": "j1-gc-integration-dev-v2:test_big_query_dataset",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -95,14 +95,14 @@ Object {
         "creationTime": "1610919167542",
         "datasetReference": Object {
           "datasetId": "test_big_query_dataset",
-          "projectId": "j1-gc-integration-dev-300716",
+          "projectId": "j1-gc-integration-dev-v2",
         },
         "etag": "Q1RJczpo1aoPRRoUJ1pElQ==",
-        "id": "j1-gc-integration-dev-300716:test_big_query_dataset",
+        "id": "j1-gc-integration-dev-v2:test_big_query_dataset",
         "kind": "bigquery#dataset",
         "lastModifiedTime": "1610919344642",
         "location": "US",
-        "selfLink": "https://www.googleapis.com/bigquery/v2/projects/j1-gc-integration-dev-300716/datasets/test_big_query_dataset",
+        "selfLink": "https://www.googleapis.com/bigquery/v2/projects/j1-gc-integration-dev-v2/datasets/test_big_query_dataset",
       },
     },
   ],
@@ -112,10 +112,10 @@ Object {
   "displayName": "test_big_query_dataset",
   "encrypted": true,
   "etag": "Q1RJczpo1aoPRRoUJ1pElQ==",
-  "id": "j1-gc-integration-dev-300716:test_big_query_dataset",
+  "id": "j1-gc-integration-dev-v2:test_big_query_dataset",
   "location": "US",
   "name": "test_big_query_dataset",
   "public": true,
-  "webLink": "https://www.googleapis.com/bigquery/v2/projects/j1-gc-integration-dev-300716/datasets/test_big_query_dataset",
+  "webLink": "https://www.googleapis.com/bigquery/v2/projects/j1-gc-integration-dev-v2/datasets/test_big_query_dataset",
 }
 `;

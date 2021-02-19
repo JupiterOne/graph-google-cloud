@@ -80,15 +80,8 @@ describe('#fetchKmsCryptoKeys', () => {
   });
 
   test('should collect data', async () => {
-    const customConfig = {
-      ...integrationConfig,
-      serviceAccountKeyConfig: {
-        ...integrationConfig.serviceAccountKeyConfig,
-        project_id: 'j1-gc-integration-dev-300716',
-      },
-    };
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: customConfig,
+      instanceConfig: integrationConfig,
     });
 
     await fetchKmsKeyRings(context);
@@ -155,8 +148,15 @@ describe('#fetchKmsCryptoKeys', () => {
 describe('#errorHandling', () => {
   [fetchKmsKeyRings].forEach((method) => {
     it('should handle billing errors correctly', async () => {
+      const customConfig = {
+        ...integrationConfig,
+        serviceAccountKeyConfig: {
+          ...integrationConfig.serviceAccountKeyConfig,
+          project_id: 'j1-gc-integration-dev',
+        },
+      };
       const context = createMockStepExecutionContext<IntegrationConfig>({
-        instanceConfig: integrationConfig,
+        instanceConfig: customConfig,
       });
       try {
         await withRecording(

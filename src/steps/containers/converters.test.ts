@@ -6,8 +6,8 @@ import {
   getMockContainerCluster,
   getMockContainerNodePool,
 } from '../../../test/mocks';
+import { DEFAULT_INTEGRATION_CONFIG_PROJECT_ID } from '../../../test/config';
 
-const DEFAULT_INTEGRATION_CONFIG_PROJECT_ID = 'j1-gc-integration-dev-300716';
 const DEFAULT_CLUSTER_LOCATION = 'northamerica-northeast1-a';
 const DEFAULT_CLUSTER_NAME = 'my-first-cluster-1';
 
@@ -71,7 +71,7 @@ describe('#createContainerClusterEntity', () => {
         getMockContainerCluster({
           databaseEncryption: {
             keyName:
-              'projects/j1-gc-integration-dev-300716/locations/northamerica-northeast1/keyRings/gke-keyring/cryptoKeys/gke-key',
+              'projects/j1-gc-integration-dev-v2/locations/northamerica-northeast1/keyRings/gke-keyring/cryptoKeys/gke-key',
             state: 'ENCRYPTED',
           },
         }),

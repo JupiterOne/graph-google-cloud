@@ -24,7 +24,7 @@ Object {
             },
           ],
           "metricKind": "DELTA",
-          "name": "projects/j1-gc-integration-dev-300716/metricDescriptors/logging.googleapis.com/user/my-example-metric",
+          "name": "projects/j1-gc-integration-dev-v2/metricDescriptors/logging.googleapis.com/user/my-example-metric",
           "type": "logging.googleapis.com/user/my-example-metric",
           "unit": "1",
           "valueType": "INT64",
@@ -40,7 +40,7 @@ Object {
   "filter": "protoPayload.methodName=\\"SetIamPolicy\\" AND protoPayload.serviceData.policyDelta.auditConfigDeltas:*",
   "name": "my-example-metric",
   "updatedOn": 1612282460068,
-  "webLink": "https://console.cloud.google.com/logs/metrics?project=j1-gc-integration-dev-300716",
+  "webLink": "https://console.cloud.google.com/logs/metrics?project=j1-gc-integration-dev-v2",
 }
 `;
 
@@ -56,7 +56,7 @@ Object {
       "rawData": Object {
         "bigqueryOptions": Object {},
         "createTime": "2021-01-27T18:44:26.303792531Z",
-        "destination": "bigquery.googleapis.com/projects/j1-gc-integration-dev-300716/datasets/test_big_query_dataset",
+        "destination": "bigquery.googleapis.com/projects/j1-gc-integration-dev-v2/datasets/test_big_query_dataset",
         "name": "example-sink",
         "updateTime": "2021-01-27T18:44:26.303792531Z",
         "writerIdentity": "serviceAccount:p165882964161-737968@gcp-sa-logging.iam.gserviceaccount.com",
@@ -65,11 +65,11 @@ Object {
   ],
   "_type": "google_logging_project_sink",
   "createdOn": 1611773066303,
-  "destination": "bigquery.googleapis.com/projects/j1-gc-integration-dev-300716/datasets/test_big_query_dataset",
+  "destination": "bigquery.googleapis.com/projects/j1-gc-integration-dev-v2/datasets/test_big_query_dataset",
   "displayName": "example-sink",
   "filter": undefined,
   "name": "example-sink",
   "updatedOn": 1611773066303,
-  "webLink": "https://console.cloud.google.com/logs/router?project=j1-gc-integration-dev-300716",
+  "webLink": "https://console.cloud.google.com/logs/router?project=j1-gc-integration-dev-v2",
 }
 `;

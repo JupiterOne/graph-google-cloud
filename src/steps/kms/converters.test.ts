@@ -17,8 +17,8 @@ describe('#createKmsCryptoKeyEntity', () => {
       createKmsCryptoKeyEntity({
         cryptoKey: getMockKmsCryptoKey(),
         location: 'us',
-        projectId: 'j1-gc-integration-dev',
-        cryptoKeyRingShortName: 'j1-gc-integration-dev-bucket-ring',
+        projectId: 'j1-gc-integration-dev-v2',
+        cryptoKeyRingShortName: 'j1-gc-integration-dev-v2-bucket-ring',
         iamPolicy: getMockKmsCryptoKeyIamPolicy(),
       }),
     ).toMatchSnapshot();
@@ -29,8 +29,8 @@ describe('#createKmsCryptoKeyEntity', () => {
       createKmsCryptoKeyEntity({
         cryptoKey: getMockKmsCryptoKey(),
         location: 'us',
-        projectId: 'j1-gc-integration-dev',
-        cryptoKeyRingShortName: 'j1-gc-integration-dev-bucket-ring',
+        projectId: 'j1-gc-integration-dev-v2',
+        cryptoKeyRingShortName: 'j1-gc-integration-dev-v2-bucket-ring',
         iamPolicy: getMockKmsCryptoKeyIamPolicy({
           bindings: [
             {
@@ -48,8 +48,8 @@ describe('#createKmsCryptoKeyEntity', () => {
       createKmsCryptoKeyEntity({
         cryptoKey: getMockKmsCryptoKey(),
         location: 'us',
-        projectId: 'j1-gc-integration-dev',
-        cryptoKeyRingShortName: 'j1-gc-integration-dev-bucket-ring',
+        projectId: 'j1-gc-integration-dev-v2',
+        cryptoKeyRingShortName: 'j1-gc-integration-dev-v2-bucket-ring',
         iamPolicy: getMockKmsCryptoKeyIamPolicy({
           bindings: [
             {

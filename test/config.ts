@@ -11,7 +11,7 @@ if (process.env.LOAD_ENV) {
   });
 }
 
-export const DEFAULT_INTEGRATION_CONFIG_PROJECT_ID = 'j1-gc-integration-dev';
+export const DEFAULT_INTEGRATION_CONFIG_PROJECT_ID = 'j1-gc-integration-dev-v2';
 
 // NOTE: This is a bogus certificate for tests. The Google Cloud SDK asserts
 // that a certificate is valid.

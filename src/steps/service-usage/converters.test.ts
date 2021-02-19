@@ -1,30 +1,6 @@
-import { serviceusage_v1 } from 'googleapis';
 import { createApiServiceEntity } from './converters';
 import { Entity } from '@jupiterone/integration-sdk-core';
-
-function getMockServiceApi(
-  partial?: serviceusage_v1.Schema$GoogleApiServiceusageV1Service,
-): serviceusage_v1.Schema$GoogleApiServiceusageV1Service {
-  return {
-    name: 'projects/545240943112/services/vision.googleapis.com',
-    config: {
-      name: 'vision.googleapis.com',
-      title: 'Cloud Vision API',
-      documentation: {
-        summary:
-          'Integrates Google Vision features, including image labeling, face, logo, and landmark detection, optical character recognition (OCR), and detection of explicit content, into applications.',
-      },
-      quota: {},
-      authentication: {},
-      usage: {
-        requirements: ['serviceusage.googleapis.com/tos/cloud'],
-      },
-    },
-    state: 'ENABLED',
-    parent: 'projects/545240943112',
-    ...partial,
-  };
-}
+import { getMockServiceApi } from '../../../test/mocks';
 
 describe('#createApiServiceEntity', () => {
   test('should convert entity', () => {
