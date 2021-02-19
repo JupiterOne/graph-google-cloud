@@ -28,6 +28,11 @@ variable "region" {
   default = "us-central1"
 }
 
+variable "integration_runner_service_account_client_email" {
+  type    = string
+  default = ""
+}
+
 ###########################################
 # Toggle provisioning of resources below
 ###########################################
