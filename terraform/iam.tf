@@ -14,7 +14,8 @@ resource "google_project_iam_custom_role" "extended_role" {
   description = "A role that adds necessary permissions for the integration that aren't granted via Security Reviewer role"
   permissions = [
     "compute.projects.get",
-    "resourcemanager.projects.get"
+    "resourcemanager.projects.get",
+    "binaryauthorization.policy.get"
   ]
 }
 

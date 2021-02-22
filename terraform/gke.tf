@@ -32,3 +32,37 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
     ]
   }
 }
+
+resource "google_binary_authorization_policy" "policy" {
+  admission_whitelist_patterns {
+    name_pattern = "gcr.io/google_containers/*"
+  }
+
+  default_admission_rule {
+    evaluation_mode  = "ALWAYS_ALLOW"
+    enforcement_mode = "ENFORCED_BLOCK_AND_AUDIT_LOG"
+  }
+
+  cluster_admission_rules {
+    cluster                 = "${google_container_cluster.primary.location}.${google_container_cluster.primary.name}"
+    evaluation_mode         = "REQUIRE_ATTESTATION"
+    enforcement_mode        = "ENFORCED_BLOCK_AND_AUDIT_LOG"
+    require_attestations_by = [google_binary_authorization_attestor.attestor.name]
+  }
+}
+
+resource "google_container_analysis_note" "note" {
+  name = "test-attestor-note"
+  attestation_authority {
+    hint {
+      human_readable_name = "My attestor"
+    }
+  }
+}
+
+resource "google_binary_authorization_attestor" "attestor" {
+  name = "test-attestor"
+  attestation_authority_note {
+    note_reference = google_container_analysis_note.note.name
+  }
+}
