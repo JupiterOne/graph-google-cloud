@@ -4,6 +4,7 @@ import {
   IntegrationStep,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
+import { binaryauthorization_v1 } from 'googleapis';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
 import { PROJECT_ENTITY_TYPE, STEP_PROJECT } from '../resource-manager';
 import { BinaryAuthorizationClient } from './client';
@@ -14,6 +15,7 @@ import {
   RELATIONSHIP_TYPE_PROJECT_HAS_BINARY_AUTHORIZATION_POLICY,
 } from './constants';
 import { createBinaryAuthorizationPolicyEntity } from './converters';
+import { publishMissingPermissionEvent } from '../../utils/events';
 
 export async function fetchBinaryAuthorizationPolicy(
   context: IntegrationStepContext,
@@ -21,26 +23,50 @@ export async function fetchBinaryAuthorizationPolicy(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
 
   const client = new BinaryAuthorizationClient({ config });
 
-  const policy = await client.fetchPolicy();
-  const policyEntity = createBinaryAuthorizationPolicyEntity(
-    policy,
-    client.projectId,
-  );
+  let policy: binaryauthorization_v1.Schema$Policy;
+  try {
+    policy = await client.fetchPolicy();
+  } catch (err) {
+    if (err.code === 403) {
+      logger.trace(
+        { err },
+        'Could not fetch binary authorization policy. Requires additional permission',
+      );
 
-  await jobState.addEntity(policyEntity);
+      publishMissingPermissionEvent({
+        logger,
+        permission: 'binaryauthorization.policy.get',
+        stepId: STEP_BINARY_AUTHORIZATION_POLICY,
+      });
 
-  const projectEntity = await jobState.getData<Entity>(PROJECT_ENTITY_TYPE);
-  await jobState.addRelationship(
-    createDirectRelationship({
-      _class: RelationshipClass.HAS,
-      from: projectEntity,
-      to: policyEntity,
-    }),
-  );
+      return;
+    }
+
+    throw err;
+  }
+
+  if (policy) {
+    const policyEntity = createBinaryAuthorizationPolicyEntity(
+      policy,
+      client.projectId,
+    );
+
+    await jobState.addEntity(policyEntity);
+
+    const projectEntity = await jobState.getData<Entity>(PROJECT_ENTITY_TYPE);
+    await jobState.addRelationship(
+      createDirectRelationship({
+        _class: RelationshipClass.HAS,
+        from: projectEntity,
+        to: policyEntity,
+      }),
+    );
+  }
 }
 
 export const binaryAuthorizationSteps: IntegrationStep<IntegrationConfig>[] = [
