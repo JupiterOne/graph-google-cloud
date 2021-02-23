@@ -47,9 +47,6 @@ title = "gitleaks config"
 	description = "Asymmetric Private Key"
 	regex = '''-----BEGIN ((EC|PGP|DSA|RSA|OPENSSH) )?PRIVATE KEY( BLOCK)?-----'''
 	tags = ["key", "AsymmetricPrivateKey"]
-		[[rules.allowlist]]
-				description = "Ignore test private key"
-				file = '''(.*)?fake-private-test-key.key$'''
 [[rules]]
 	description = "Generic Credential"
 	regex = '''(?i)(api_key|apikey|secret)(.{0,20})?['|"][0-9a-zA-Z]{16,45}['|"]'''
@@ -107,5 +104,5 @@ title = "gitleaks config"
 	files = [
 		'''(.*)?gitleaks.toml$''',
 		'''(.*)?yarn.lock$''',
-		'''(.*?)(jpg|gif|doc|pdf|bin)$)'''
+		'''(.*)?fake-private-test-key.key$'''
 	]
