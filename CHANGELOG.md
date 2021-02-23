@@ -8,6 +8,15 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.14.0 - 2020-02-23
+
+### Added
+
+- Support for ingesting the following **new** resources
+  - GKE
+    - `google_container_node_pool`
+    - `google_binary_authorization_policy`
+
 ## 0.13.0 - 2020-02-17
 
 ### Added
