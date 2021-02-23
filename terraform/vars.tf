@@ -28,11 +28,16 @@ variable "region" {
   default = "us-central1"
 }
 
+variable "integration_runner_service_account_client_email" {
+  type    = string
+  default = ""
+}
+
 ###########################################
 # Toggle provisioning of resources below
 ###########################################
 
 variable "enable_google_monitoring_alert_policy_example" {
   type = bool
-  default = false
+  default = true
 }

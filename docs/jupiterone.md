@@ -217,75 +217,79 @@ https://github.com/JupiterOne/sdk/blob/master/docs/integrations/development.md
 
 The following entities are created:
 
-| Resources                     | Entity `_type`                      | Entity `_class`     |
-| ----------------------------- | ----------------------------------- | ------------------- |
-| Big Query Dataset             | `google_bigquery_dataset`           | `DataStore`         |
-| Cloud API Service             | `google_cloud_api_service`          | `Service`           |
-| Cloud Function                | `google_cloud_function`             | `Function`          |
-| Cloud Storage Bucket          | `google_storage_bucket`             | `DataStore`         |
-| Compute Backend Bucket        | `google_compute_backend_bucket`     | `Gateway`           |
-| Compute Backend Service       | `google_compute_backend_service`    | `Service`           |
-| Compute Disk                  | `google_compute_disk`               | `DataStore`, `Disk` |
-| Compute Firewalls             | `google_compute_firewall`           | `Firewall`          |
-| Compute Health Check          | `google_compute_health_check`       | `Service`           |
-| Compute Instance              | `google_compute_instance`           | `Host`              |
-| Compute Instance Group        | `google_compute_instance_group`     | `Group`             |
-| Compute Load Balancer         | `google_compute_url_map`            | `Gateway`           |
-| Compute Networks              | `google_compute_network`            | `Network`           |
-| Compute Project               | `google_compute_project`            | `Project`           |
-| Compute SSL Policy            | `google_compute_ssl_policy`         | `Policy`            |
-| Compute Subnetwork            | `google_compute_subnetwork`         | `Network`           |
-| Compute Target HTTP Proxy     | `google_compute_target_http_proxy`  | `Gateway`           |
-| Compute Target HTTPS Proxy    | `google_compute_target_https_proxy` | `Gateway`           |
-| Compute Target SSL Proxy      | `google_compute_target_ssl_proxy`   | `Gateway`           |
-| Container Cluster             | `google_container_cluster`          | `Cluster`           |
-| DNS Managed Zone              | `google_dns_managed_zone`           | `DomainZone`        |
-| IAM Role                      | `google_iam_role`                   | `AccessRole`        |
-| IAM Service Account           | `google_iam_service_account`        | `User`              |
-| IAM Service Account Key       | `google_iam_service_account_key`    | `AccessKey`         |
-| IAM User                      | `google_user`                       | `User`              |
-| KMS Crypto Key                | `google_kms_crypto_key`             | `Key`, `CryptoKey`  |
-| KMS Key Ring                  | `google_kms_key_ring`               | `Vault`             |
-| Logging Metric                | `google_logging_metric`             | `Configuration`     |
-| Logging Project Sink          | `google_logging_project_sink`       | `Logs`              |
-| Monitoring Alert Policy       | `google_monitoring_alert_policy`    | `Policy`            |
-| Project                       | `google_cloud_project`              | `Account`           |
-| SQL Admin MySQL Instance      | `google_sql_mysql_instance`         | `Database`          |
-| SQL Admin Postgres Instance   | `google_sql_postgres_instance`      | `Database`          |
-| SQL Admin SQL Server Instance | `google_sql_sql_server_instance`    | `Database`          |
+| Resources                     | Entity `_type`                       | Entity `_class`     |
+| ----------------------------- | ------------------------------------ | ------------------- |
+| Big Query Dataset             | `google_bigquery_dataset`            | `DataStore`         |
+| Binary Authorization Policy   | `google_binary_authorization_policy` | `AccessPolicy`      |
+| Cloud API Service             | `google_cloud_api_service`           | `Service`           |
+| Cloud Function                | `google_cloud_function`              | `Function`          |
+| Cloud Storage Bucket          | `google_storage_bucket`              | `DataStore`         |
+| Compute Backend Bucket        | `google_compute_backend_bucket`      | `Gateway`           |
+| Compute Backend Service       | `google_compute_backend_service`     | `Service`           |
+| Compute Disk                  | `google_compute_disk`                | `DataStore`, `Disk` |
+| Compute Firewalls             | `google_compute_firewall`            | `Firewall`          |
+| Compute Health Check          | `google_compute_health_check`        | `Service`           |
+| Compute Instance              | `google_compute_instance`            | `Host`              |
+| Compute Instance Group        | `google_compute_instance_group`      | `Group`             |
+| Compute Load Balancer         | `google_compute_url_map`             | `Gateway`           |
+| Compute Networks              | `google_compute_network`             | `Network`           |
+| Compute Project               | `google_compute_project`             | `Project`           |
+| Compute SSL Policy            | `google_compute_ssl_policy`          | `Policy`            |
+| Compute Subnetwork            | `google_compute_subnetwork`          | `Network`           |
+| Compute Target HTTP Proxy     | `google_compute_target_http_proxy`   | `Gateway`           |
+| Compute Target HTTPS Proxy    | `google_compute_target_https_proxy`  | `Gateway`           |
+| Compute Target SSL Proxy      | `google_compute_target_ssl_proxy`    | `Gateway`           |
+| Container Cluster             | `google_container_cluster`           | `Cluster`           |
+| Container Node Pool           | `google_container_node_pool`         | `Group`             |
+| DNS Managed Zone              | `google_dns_managed_zone`            | `DomainZone`        |
+| IAM Role                      | `google_iam_role`                    | `AccessRole`        |
+| IAM Service Account           | `google_iam_service_account`         | `User`              |
+| IAM Service Account Key       | `google_iam_service_account_key`     | `AccessKey`         |
+| IAM User                      | `google_user`                        | `User`              |
+| KMS Crypto Key                | `google_kms_crypto_key`              | `Key`, `CryptoKey`  |
+| KMS Key Ring                  | `google_kms_key_ring`                | `Vault`             |
+| Logging Metric                | `google_logging_metric`              | `Configuration`     |
+| Logging Project Sink          | `google_logging_project_sink`        | `Logs`              |
+| Monitoring Alert Policy       | `google_monitoring_alert_policy`     | `Policy`            |
+| Project                       | `google_cloud_project`               | `Account`           |
+| SQL Admin MySQL Instance      | `google_sql_mysql_instance`          | `Database`          |
+| SQL Admin Postgres Instance   | `google_sql_postgres_instance`       | `Database`          |
+| SQL Admin SQL Server Instance | `google_sql_sql_server_instance`     | `Database`          |
 
 ### Relationships
 
 The following relationships are created/mapped:
 
-| Source Entity `_type`               | Relationship `_class` | Target Entity `_type`               |
-| ----------------------------------- | --------------------- | ----------------------------------- |
-| `internet`                          | **ALLOWS**            | `google_compute_firewall`           |
-| `google_cloud_project`              | **HAS**               | `google_cloud_api_service`          |
-| `google_compute_backend_bucket`     | **HAS**               | `google_storage_bucket`             |
-| `google_compute_backend_service`    | **HAS**               | `google_compute_health_check`       |
-| `google_compute_backend_service`    | **HAS**               | `google_compute_instance_group`     |
-| `google_compute_backend_service`    | **HAS**               | `google_compute_target_ssl_proxy`   |
-| `google_compute_firewall`           | **PROTECTS**          | `google_compute_network`            |
-| `google_compute_instance_group`     | **HAS**               | `google_compute_instance`           |
-| `google_compute_instance`           | **TRUSTS**            | `google_iam_service_account`        |
-| `google_compute_instance`           | **USES**              | `google_compute_disk`               |
-| `google_compute_network`            | **CONTAINS**          | `google_compute_subnetwork`         |
-| `google_compute_network`            | **HAS**               | `google_compute_firewall`           |
-| `google_compute_project`            | **HAS**               | `google_compute_instance`           |
-| `google_compute_subnetwork`         | **HAS**               | `google_compute_instance`           |
-| `google_compute_target_https_proxy` | **HAS**               | `google_compute_ssl_policy`         |
-| `google_compute_target_ssl_proxy`   | **HAS**               | `google_compute_ssl_policy`         |
-| `google_compute_url_map`            | **HAS**               | `google_compute_backend_bucket`     |
-| `google_compute_url_map`            | **HAS**               | `google_compute_backend_service`    |
-| `google_compute_url_map`            | **HAS**               | `google_compute_target_http_proxy`  |
-| `google_compute_url_map`            | **HAS**               | `google_compute_target_https_proxy` |
-| `google_iam_service_account`        | **ASSIGNED**          | `google_iam_role`                   |
-| `google_iam_service_account`        | **HAS**               | `google_iam_service_account_key`    |
-| `google_kms_key_ring`               | **HAS**               | `google_kms_crypto_key`             |
-| `google_logging_metric`             | **HAS**               | `google_monitoring_alert_policy`    |
-| `google_logging_project_sink`       | **USES**              | `google_storage_bucket`             |
-| `google_user`                       | **ASSIGNED**          | `google_iam_role`                   |
+| Source Entity `_type`               | Relationship `_class` | Target Entity `_type`                |
+| ----------------------------------- | --------------------- | ------------------------------------ |
+| `internet`                          | **ALLOWS**            | `google_compute_firewall`            |
+| `google_cloud_project`              | **HAS**               | `google_cloud_api_service`           |
+| `google_cloud_project`              | **HAS**               | `google_binary_authorization_policy` |
+| `google_compute_backend_bucket`     | **HAS**               | `google_storage_bucket`              |
+| `google_compute_backend_service`    | **HAS**               | `google_compute_health_check`        |
+| `google_compute_backend_service`    | **HAS**               | `google_compute_instance_group`      |
+| `google_compute_backend_service`    | **HAS**               | `google_compute_target_ssl_proxy`    |
+| `google_compute_firewall`           | **PROTECTS**          | `google_compute_network`             |
+| `google_compute_instance_group`     | **HAS**               | `google_compute_instance`            |
+| `google_compute_instance`           | **TRUSTS**            | `google_iam_service_account`         |
+| `google_compute_instance`           | **USES**              | `google_compute_disk`                |
+| `google_compute_network`            | **CONTAINS**          | `google_compute_subnetwork`          |
+| `google_compute_network`            | **HAS**               | `google_compute_firewall`            |
+| `google_compute_project`            | **HAS**               | `google_compute_instance`            |
+| `google_compute_subnetwork`         | **HAS**               | `google_compute_instance`            |
+| `google_compute_target_https_proxy` | **HAS**               | `google_compute_ssl_policy`          |
+| `google_compute_target_ssl_proxy`   | **HAS**               | `google_compute_ssl_policy`          |
+| `google_compute_url_map`            | **HAS**               | `google_compute_backend_bucket`      |
+| `google_compute_url_map`            | **HAS**               | `google_compute_backend_service`     |
+| `google_compute_url_map`            | **HAS**               | `google_compute_target_http_proxy`   |
+| `google_compute_url_map`            | **HAS**               | `google_compute_target_https_proxy`  |
+| `google_container_cluster`          | **HAS**               | `google_container_node_pool`         |
+| `google_iam_service_account`        | **ASSIGNED**          | `google_iam_role`                    |
+| `google_iam_service_account`        | **HAS**               | `google_iam_service_account_key`     |
+| `google_kms_key_ring`               | **HAS**               | `google_kms_crypto_key`              |
+| `google_logging_metric`             | **HAS**               | `google_monitoring_alert_policy`     |
+| `google_logging_project_sink`       | **USES**              | `google_storage_bucket`              |
+| `google_user`                       | **ASSIGNED**          | `google_iam_role`                    |
 
 <!--
 ********************************************************************************

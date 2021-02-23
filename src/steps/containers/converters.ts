@@ -6,54 +6,154 @@ import {
 import {
   CONTAINER_CLUSTER_ENTITY_CLASS,
   CONTAINER_CLUSTER_ENTITY_TYPE,
+  CONTAINER_NODE_POOL_ENTITY_CLASS,
+  CONTAINER_NODE_POOL_ENTITY_TYPE,
 } from './constants';
+import { getGoogleCloudConsoleWebLink } from '../../utils/url';
 
 export function createContainerClusterEntity(
   data: container_v1.Schema$Cluster,
+  projectId: string,
+) {
+  const { nodePools, ...withoutPools } = data;
+
+  return createIntegrationEntity({
+    entityData: {
+      source: withoutPools,
+      assign: {
+        _key: withoutPools.selfLink as string,
+        _type: CONTAINER_CLUSTER_ENTITY_TYPE,
+        _class: CONTAINER_CLUSTER_ENTITY_CLASS,
+        createdOn: parseTimePropertyValue(withoutPools.createTime),
+        name: withoutPools.name,
+        description: withoutPools.description,
+        initialNodeCode: withoutPools.initialNodeCount,
+        nodeMachineType: withoutPools.nodeConfig?.machineType,
+        nodeDiskSizeGb: withoutPools.nodeConfig?.diskSizeGb,
+        nodeOAuthScopes: withoutPools.nodeConfig?.oauthScopes,
+        nodeImageType: withoutPools.nodeConfig?.imageType,
+        nodePreemptible: withoutPools.nodeConfig?.preemptible,
+        nodeDiskType: withoutPools.nodeConfig?.diskType,
+        nodeEnableIntegrityMonitoring:
+          withoutPools.nodeConfig?.shieldedInstanceConfig
+            ?.enableIntegrityMonitoring,
+        nodeEnableSecureBoot:
+          withoutPools.nodeConfig?.shieldedInstanceConfig?.enableSecureBoot,
+        network: withoutPools.networkConfig?.network,
+        // 6.6.1 Enable VPC Flow Logs and Intranode Visibility (Not Scored)
+        intraNodeVisibilityEnabled:
+          withoutPools.networkConfig?.enableIntraNodeVisibility === true,
+        // 6.6.3 Ensure Master Authorized Networks is Enabled (Scored)
+        masterAuthorizedNetworksEnabled:
+          withoutPools.masterAuthorizedNetworksConfig?.enabled === true,
+        clusterIpv4Cidr: withoutPools.clusterIpv4Cidr,
+        kubernetesDashboardEnabled:
+          withoutPools.addonsConfig?.kubernetesDashboard?.disabled !== true,
+        networkPolicyConfigEnabled:
+          withoutPools.addonsConfig?.networkPolicyConfig?.disabled !== true,
+        subnetwork: withoutPools.networkConfig?.subnetwork,
+        locations: withoutPools.locations,
+        useRoutes: withoutPools.ipAllocationPolicy?.useRoutes === true,
+        // 6.6.2 Ensure use of VPC-native clusters (Scored)
+        useIpAliases: withoutPools.ipAllocationPolicy?.useIpAliases === true,
+        // 6.3.1 Ensure Kubernetes Secrets are encrypted using keys managed in Cloud KMS (Scored)
+        databaseEncryptionState: withoutPools.databaseEncryption?.state,
+        databaseEncryptionKey: withoutPools.databaseEncryption?.keyName,
+        // 6.5.4 Automate GKE version management using Release Channels (Not Scored)
+        releaseChannel: withoutPools.releaseChannel?.channel,
+        // 6.5.5 Ensure Shielded GKE Nodes are Enabled (Not Scored)
+        shieldedNodesEnabled: withoutPools.shieldedNodes?.enabled === true,
+        endpoint: withoutPools.endpoint,
+        initialClusterVersion: withoutPools.initialClusterVersion,
+        currentMasterVersion: withoutPools.currentMasterVersion,
+        status: withoutPools.status,
+        nodeIpv4CidrSize: withoutPools.nodeIpv4CidrSize,
+        servicesIpv4Cidr: withoutPools.servicesIpv4Cidr,
+        instanceGroupUrls: withoutPools.instanceGroupUrls,
+        currentNodeCount: withoutPools.currentNodeCount,
+        location: withoutPools.location,
+        // 6.1.4 Minimize Container Registries to only those approved (Not Scored)
+        binaryAuthorizationEnabled:
+          withoutPools.binaryAuthorization?.enabled === true,
+        // 6.6.4 Ensure clusters are created with Private Endpoint Enabled and Public Access Disabled (Scored)
+        privateEndpointEnabled:
+          withoutPools.privateClusterConfig?.enablePrivateEndpoint === true,
+        // 6.6.5 Ensure clusters are created with Private Nodes (Scored)
+        privateNodesEnabled:
+          withoutPools.privateClusterConfig?.enablePrivateNodes === true,
+        // 6.6.7 Ensure Network Policy is Enabled and set as appropriate (Not Scored)
+        networkPolicyEnabled: withoutPools.networkPolicy?.enabled === true,
+        // 6.7.1 Ensure Stackdriver Kubernetes Logging and Monitoring is Enabled (Scored)
+        loggingService: withoutPools.loggingService,
+        monitoringService: withoutPools.monitoringService,
+        // 6.8.1 Ensure Basic Authentication using static passwords is Disabled (Scored)
+        basicAuthenticationEnabled:
+          withoutPools.masterAuth?.password && withoutPools.masterAuth?.username
+            ? true
+            : false,
+        // 6.8.2 Ensure authentication using Client Certificates is Disabled (Scored)
+        clientCertificatesEnabled: withoutPools.masterAuth?.clientKey
+          ? true
+          : false,
+        // 6.8.3 Manage Kubernetes RBAC users with Google Groups for GKE (Not Scored)
+        rbacEnabled: withoutPools.authenticatorGroupsConfig?.enabled === true,
+        // 6.8.4 Ensure Legacy Authorization (ABAC) is Disabled (Scored)
+        abacEnabled: withoutPools.legacyAbac?.enabled === true,
+        // 6.10.2 Ensure that Alpha clusters are not used for production workloads (Scored)
+        isAlphaCluster: withoutPools.enableKubernetesAlpha === true,
+        webLink: getGoogleCloudConsoleWebLink(
+          `/kubernetes/clusters/details/${withoutPools.location}/${withoutPools.name}/details?folder=&organizationId=&project=${projectId}`,
+        ),
+      },
+    },
+  });
+}
+
+export function createContainerNodePoolEntity(
+  data: container_v1.Schema$NodePool,
+  projectId: string,
+  location: string,
+  clusterName: string,
 ) {
   return createIntegrationEntity({
     entityData: {
       source: data,
       assign: {
         _key: data.selfLink as string,
-        _type: CONTAINER_CLUSTER_ENTITY_TYPE,
-        _class: CONTAINER_CLUSTER_ENTITY_CLASS,
-        createdOn: parseTimePropertyValue(data.createTime),
+        _type: CONTAINER_NODE_POOL_ENTITY_TYPE,
+        _class: CONTAINER_NODE_POOL_ENTITY_CLASS,
         name: data.name,
-        description: data.description,
-        initialNodeCode: data.initialNodeCount,
-        nodeMachineType: data.nodeConfig?.machineType,
-        nodeDiskSizeGb: data.nodeConfig?.diskSizeGb,
-        nodeOAuthScopes: data.nodeConfig?.oauthScopes,
-        nodeImageType: data.nodeConfig?.imageType,
-        nodePreemptible: data.nodeConfig?.preemptible,
-        nodeDiskType: data.nodeConfig?.diskType,
-        nodeEnableIntegrityMonitoring:
-          data.nodeConfig?.shieldedInstanceConfig?.enableIntegrityMonitoring,
-        nodeEnableSecureBoot:
-          data.nodeConfig?.shieldedInstanceConfig?.enableSecureBoot,
-        network: data.networkConfig?.network,
-        clusterIpv4Cidr: data.clusterIpv4Cidr,
-        kubernetesDashboardEnabled:
-          data.addonsConfig?.kubernetesDashboard?.disabled !== true,
-        networkPolicyConfigEnabled:
-          data.addonsConfig?.networkPolicyConfig?.disabled !== true,
-        subnetwork: data.networkConfig?.subnetwork,
-        locations: data.locations,
-        useRoutes: data.ipAllocationPolicy?.useRoutes === true,
-        useIpAliases: data.ipAllocationPolicy?.useIpAliases === true,
-        databaseEncryptionState: data.databaseEncryption?.state,
-        databaseEncryptionKey: data.databaseEncryption?.keyName,
-        releaseChannel: data.releaseChannel?.channel,
-        endpoint: data.endpoint,
-        initialClusterVersion: data.initialClusterVersion,
-        currentMasterVersion: data.currentMasterVersion,
+        initialNodeCount: data.initialNodeCount,
+        podIpv4CidrSize: data.podIpv4CidrSize,
+        // 6.4.1 Ensure legacy Compute Engine instance metadata APIs are Disabled (Scored)
+        legacyEndpointsDisabled: data.config?.metadata
+          ? data.config?.metadata['disable-legacy-endpoints'] === 'true'
+          : false,
+        // 6.4.2 Ensure the GKE Metadata Server is Enabled (Not Scored)
+        gkeMetadataServerEnabled:
+          data.config?.workloadMetadataConfig?.mode === 'GKE_METADATA',
+        // 6.5.1 Ensure Container-Optimized OS (COS) is used for GKE node images (Scored)
+        imageType: data.config?.imageType,
+        // 6.5.2 Ensure Node Auto-Repair is enabled for GKE nodes (Scored)
+        autoRepairEnabled: data.management?.autoRepair === true,
+        // 6.5.3 Ensure Node Auto-Upgrade is enabled for GKE nodes (Scored)
+        autoUpgradeEnabled: data.management?.autoUpgrade === true,
+        // 6.5.6 Ensure Integrity Monitoring for Shielded GKE Nodes is Enabled (Not Scored)
+        integrityMonitoringEnabled:
+          data.config?.shieldedInstanceConfig?.enableIntegrityMonitoring ===
+          true,
+        // 6.5.7 Ensure Secure Boot for Shielded GKE Nodes is Enabled (Not Scored)
+        secureBootEnabled:
+          data.config?.shieldedInstanceConfig?.enableSecureBoot === true,
         status: data.status,
-        nodeIpv4CidrSize: data.nodeIpv4CidrSize,
-        servicesIpv4Cidr: data.servicesIpv4Cidr,
-        instanceGroupUrls: data.instanceGroupUrls,
-        currentNodeCount: data.currentNodeCount,
-        location: data.location,
+        statusMessage: data.statusMessage,
+        version: data.version,
+        // 6.10.4 Consider GKE Sandbox for running untrusted workloads (Not Scored)
+        gkeSandboxEnabled:
+          data.config?.sandboxConfig?.type?.toLowerCase() === 'gvisor',
+        webLink: getGoogleCloudConsoleWebLink(
+          `/kubernetes/nodepool/${location}/${clusterName}/${data.name}?folder=&organizationId=&project=${projectId}`,
+        ),
       },
     },
   });

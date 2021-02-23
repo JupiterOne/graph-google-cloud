@@ -43,6 +43,7 @@ import {
   STEP_LOGGING_PROJECT_SINKS,
 } from './steps/logging/constants';
 import { STEP_MONITORING_ALERT_POLICIES } from './steps/monitoring/constants';
+import { STEP_BINARY_AUTHORIZATION_POLICY } from './steps/binary-authorization/constants';
 
 async function getEnabledServiceNames(
   config: IntegrationConfig,
@@ -165,6 +166,9 @@ export default async function getStepStartStates(
     [STEP_LOGGING_METRICS]: createStepStartState(ServiceUsageName.LOGGING),
     [STEP_MONITORING_ALERT_POLICIES]: createStepStartState(
       ServiceUsageName.MONITORING,
+    ),
+    [STEP_BINARY_AUTHORIZATION_POLICY]: createStepStartState(
+      ServiceUsageName.BINARY_AUTHORIZATION,
     ),
   };
 }
