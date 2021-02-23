@@ -26,7 +26,7 @@ Object {
             "createTime": "2021-02-18T00:04:26+00:00",
             "currentMasterVersion": "1.18.12-gke.1206",
             "currentNodeCount": 3,
-            "currentNodeVersion": "1.17.15-gke.800",
+            "currentNodeVersion": "1.18.12-gke.1206",
             "databaseEncryption": Object {
               "state": "DECRYPTED",
             },
@@ -91,6 +91,7 @@ Object {
             "shieldedNodes": Object {},
             "status": "RUNNING",
             "subnetwork": "default",
+            "workloadIdentityConfig": Object {},
             "zone": "us-central1",
           },
         },
@@ -155,6 +156,7 @@ Object {
       "useIpAliases": false,
       "useRoutes": true,
       "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+      "workloadIdentity": undefined,
     },
     Object {
       "_class": Array [
@@ -204,7 +206,7 @@ Object {
             "upgradeSettings": Object {
               "maxSurge": 1,
             },
-            "version": "1.17.15-gke.800",
+            "version": "1.18.12-gke.1206",
           },
         },
       ],
@@ -212,6 +214,7 @@ Object {
       "active": undefined,
       "autoRepairEnabled": true,
       "autoUpgradeEnabled": true,
+      "bootDiskKmsKey": undefined,
       "createdOn": undefined,
       "displayName": "j1-gc-integration-dev-gke-node-pool",
       "gkeMetadataServerEnabled": false,
@@ -223,9 +226,10 @@ Object {
       "name": "j1-gc-integration-dev-gke-node-pool",
       "podIpv4CidrSize": 24,
       "secureBootEnabled": false,
+      "serviceAccount": "j1-gc-integration-dev-gke-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
       "status": "RUNNING",
       "statusMessage": undefined,
-      "version": "1.17.15-gke.800",
+      "version": "1.18.12-gke.1206",
       "webLink": "https://console.cloud.google.com/kubernetes/nodepool/us-central1/j1-gc-integration-dev-gke-cluster/j1-gc-integration-dev-gke-node-pool?folder=&organizationId=&project=j1-gc-integration-dev-v2",
     },
   ],

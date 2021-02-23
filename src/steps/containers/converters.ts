@@ -101,6 +101,8 @@ export function createContainerClusterEntity(
         abacEnabled: withoutPools.legacyAbac?.enabled === true,
         // 6.10.2 Ensure that Alpha clusters are not used for production workloads (Scored)
         isAlphaCluster: withoutPools.enableKubernetesAlpha === true,
+        // 6.2.2 Prefer using dedicated GCP Service Accounts and Workload Identity (Not Scored)
+        workloadIdentity: withoutPools.workloadIdentityConfig?.workloadPool,
         webLink: getGoogleCloudConsoleWebLink(
           `/kubernetes/clusters/details/${withoutPools.location}/${withoutPools.name}/details?folder=&organizationId=&project=${projectId}`,
         ),
@@ -151,6 +153,10 @@ export function createContainerNodePoolEntity(
         // 6.10.4 Consider GKE Sandbox for running untrusted workloads (Not Scored)
         gkeSandboxEnabled:
           data.config?.sandboxConfig?.type?.toLowerCase() === 'gvisor',
+        // 6.2.1 Ensure GKE clusters are not running using the Compute Engine default service account (Scored)
+        serviceAccount: data.config?.serviceAccount,
+        // 6.9.1 Enable Customer-Managed Encryption Keys (CMEK) for GKE Persistent Disks (PD) (Not Scored)
+        bootDiskKmsKey: data.config?.bootDiskKmsKey,
         webLink: getGoogleCloudConsoleWebLink(
           `/kubernetes/nodepool/${location}/${clusterName}/${data.name}?folder=&organizationId=&project=${projectId}`,
         ),
