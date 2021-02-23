@@ -3,9 +3,7 @@ import {
   createMetricEntity,
 } from './converters';
 import { getMockLoggingProjectSink, getMockMetric } from '../../../test/mocks';
-
-// Couldn't use the one from test/config since mine is different value
-const DEFAULT_INTEGRATION_CONFIG_PROJECT_ID = 'j1-gc-integration-dev-300716';
+import { DEFAULT_INTEGRATION_CONFIG_PROJECT_ID } from '../../../test/config';
 
 describe('#createProjectSinkEntity', () => {
   test('should convert to entity', () => {

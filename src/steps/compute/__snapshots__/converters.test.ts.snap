@@ -5,7 +5,7 @@ Object {
   "_class": Array [
     "Gateway",
   ],
-  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendBuckets/example-backend-bucket",
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/backendBuckets/example-backend-bucket",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -17,7 +17,7 @@ Object {
         "id": "6230681112154833150",
         "kind": "compute#backendBucket",
         "name": "example-backend-bucket",
-        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendBuckets/example-backend-bucket",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/backendBuckets/example-backend-bucket",
       },
     },
   ],
@@ -45,7 +45,7 @@ Object {
   "_class": Array [
     "Service",
   ],
-  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendServices/example-backend-service",
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/backendServices/example-backend-service",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -55,7 +55,7 @@ Object {
           Object {
             "balancingMode": "UTILIZATION",
             "capacityScaler": 1,
-            "group": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/zones/us-central1-a/instanceGroups/instance-group-1",
+            "group": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instanceGroups/instance-group-1",
             "maxUtilization": 0.8,
           },
         ],
@@ -67,7 +67,7 @@ Object {
         "enableCDN": false,
         "fingerprint": "OnffiLYpLO4=",
         "healthChecks": Array [
-          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/healthChecks/health-check",
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/healthChecks/health-check",
         ],
         "id": "3052966098403233127",
         "kind": "compute#backendService",
@@ -80,7 +80,7 @@ Object {
         "port": 80,
         "portName": "https",
         "protocol": "HTTPS",
-        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendServices/example-backend-service",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/backendServices/example-backend-service",
         "sessionAffinity": "NONE",
         "timeoutSec": 30,
       },
@@ -108,7 +108,7 @@ Object {
     "DataStore",
     "Disk",
   ],
-  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/disks/testvm",
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/testvm",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -131,17 +131,17 @@ Object {
         ],
         "name": "testvm",
         "physicalBlockSizeBytes": "4096",
-        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/disks/testvm",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/testvm",
         "sizeGb": "10",
         "sourceImage": "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-9-stretch-v20200805",
         "sourceImageId": "6709658075886210235",
         "status": "READY",
         "tags": undefined,
-        "type": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/diskTypes/pd-standard",
+        "type": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/diskTypes/pd-standard",
         "users": Array [
-          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/instances/testvm",
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/testvm",
         ],
-        "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a",
+        "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a",
       },
     },
   ],
@@ -183,7 +183,7 @@ Object {
     "DataStore",
     "Disk",
   ],
-  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/disks/testvm",
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/testvm",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -206,17 +206,17 @@ Object {
         ],
         "name": "testvm",
         "physicalBlockSizeBytes": "4096",
-        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/disks/testvm",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/testvm",
         "sizeGb": "10",
         "sourceImage": "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-9-stretch-v20200805",
         "sourceImageId": "6709658075886210235",
         "status": "FAILED",
         "tags": undefined,
-        "type": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/diskTypes/pd-standard",
+        "type": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/diskTypes/pd-standard",
         "users": Array [
-          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/instances/testvm",
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/testvm",
         ],
-        "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a",
+        "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a",
       },
     },
   ],
@@ -257,7 +257,7 @@ Object {
   "_class": Array [
     "Firewall",
   ],
-  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/public-compute-app-fw-allow-https",
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/firewalls/public-compute-app-fw-allow-https",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -280,9 +280,9 @@ Object {
           "enable": false,
         },
         "name": "public-compute-app-fw-allow-https",
-        "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/networks/public-compute-app-vpc",
+        "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/public-compute-app-vpc",
         "priority": 1000,
-        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/public-compute-app-fw-allow-https",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/firewalls/public-compute-app-fw-allow-https",
         "sourceRanges": Array [
           "0.0.0.0/0",
         ],
@@ -310,7 +310,7 @@ Object {
   "logConfigEnabled": false,
   "logConfigMetadata": undefined,
   "name": "public-compute-app-fw-allow-https",
-  "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/networks/public-compute-app-vpc",
+  "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/public-compute-app-vpc",
   "priority": 1000,
   "public": false,
   "sourceRanges": Array [
@@ -330,7 +330,7 @@ Object {
   "_class": Array [
     "Host",
   ],
-  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/instances/testvm",
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/testvm",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -357,7 +357,7 @@ Object {
               "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-9-stretch",
             ],
             "mode": "READ_WRITE",
-            "source": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/disks/testvm",
+            "source": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/testvm",
             "type": "PERSISTENT",
           },
           Object {
@@ -376,7 +376,7 @@ Object {
         "id": "2248191918776890954",
         "kind": "compute#instance",
         "labelFingerprint": "42WmSpB8rSM=",
-        "machineType": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/machineTypes/n1-standard-1",
+        "machineType": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/machineTypes/n1-standard-1",
         "metadata": Object {
           "fingerprint": "9yLGkjCLBTs=",
           "items": Array [
@@ -397,9 +397,9 @@ Object {
             "fingerprint": "RpvQNHzHRp8=",
             "kind": "compute#networkInterface",
             "name": "nic0",
-            "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/networks/default",
+            "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
             "networkIP": "10.128.0.2",
-            "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/us-central1/subnetworks/default",
+            "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
           },
         ],
         "scheduling": Object {
@@ -407,10 +407,10 @@ Object {
           "onHostMaintenance": "MIGRATE",
           "preemptible": false,
         },
-        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/instances/testvm",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/testvm",
         "serviceAccounts": Array [
           Object {
-            "email": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com",
+            "email": "j1-gc-integration-dev-v2-sa-tf@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
             "scopes": Array [
               "https://www.googleapis.com/auth/compute.readonly",
               "https://www.googleapis.com/auth/devstorage.read_only",
@@ -428,7 +428,7 @@ Object {
             "testvmtag2": true,
           },
         ],
-        "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a",
+        "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a",
       },
     },
   ],
@@ -466,7 +466,7 @@ Object {
   "_class": Array [
     "Host",
   ],
-  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/instances/testvm",
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/testvm",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -493,7 +493,7 @@ Object {
               "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-9-stretch",
             ],
             "mode": "READ_WRITE",
-            "source": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/disks/testvm",
+            "source": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/testvm",
             "type": "PERSISTENT",
           },
           Object {
@@ -512,7 +512,7 @@ Object {
         "id": "2248191918776890954",
         "kind": "compute#instance",
         "labelFingerprint": "42WmSpB8rSM=",
-        "machineType": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/machineTypes/n1-standard-1",
+        "machineType": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/machineTypes/n1-standard-1",
         "metadata": Object {
           "fingerprint": "9yLGkjCLBTs=",
           "items": Array [
@@ -533,9 +533,9 @@ Object {
             "fingerprint": "RpvQNHzHRp8=",
             "kind": "compute#networkInterface",
             "name": "nic0",
-            "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/networks/default",
+            "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
             "networkIP": "10.128.0.2",
-            "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/us-central1/subnetworks/default",
+            "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
           },
         ],
         "scheduling": Object {
@@ -543,10 +543,10 @@ Object {
           "onHostMaintenance": "MIGRATE",
           "preemptible": false,
         },
-        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/instances/testvm",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/testvm",
         "serviceAccounts": Array [
           Object {
-            "email": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com",
+            "email": "j1-gc-integration-dev-v2-sa-tf@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
             "scopes": Array [
               "https://www.googleapis.com/auth/compute.readonly",
               "https://www.googleapis.com/auth/devstorage.read_only",
@@ -564,7 +564,7 @@ Object {
             "testvmtag2": true,
           },
         ],
-        "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a",
+        "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a",
       },
     },
   ],
@@ -602,7 +602,7 @@ Object {
   "_class": Array [
     "Host",
   ],
-  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/instances/testvm",
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/testvm",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -629,7 +629,7 @@ Object {
               "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-9-stretch",
             ],
             "mode": "READ_WRITE",
-            "source": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/disks/testvm",
+            "source": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/testvm",
             "type": "PERSISTENT",
           },
           Object {
@@ -648,7 +648,7 @@ Object {
         "id": "2248191918776890954",
         "kind": "compute#instance",
         "labelFingerprint": "42WmSpB8rSM=",
-        "machineType": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/machineTypes/n1-standard-1",
+        "machineType": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/machineTypes/n1-standard-1",
         "metadata": Object {
           "items": Array [
             Object {
@@ -664,9 +664,9 @@ Object {
             "fingerprint": "RpvQNHzHRp8=",
             "kind": "compute#networkInterface",
             "name": "nic0",
-            "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/networks/default",
+            "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
             "networkIP": "10.128.0.2",
-            "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/us-central1/subnetworks/default",
+            "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
           },
         ],
         "scheduling": Object {
@@ -674,10 +674,10 @@ Object {
           "onHostMaintenance": "MIGRATE",
           "preemptible": false,
         },
-        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/instances/testvm",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/testvm",
         "serviceAccounts": Array [
           Object {
-            "email": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev.iam.gserviceaccount.com",
+            "email": "j1-gc-integration-dev-v2-sa-tf@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
             "scopes": Array [
               "https://www.googleapis.com/auth/compute.readonly",
               "https://www.googleapis.com/auth/devstorage.read_only",
@@ -695,7 +695,7 @@ Object {
             "testvmtag2": true,
           },
         ],
-        "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a",
+        "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a",
       },
     },
   ],
@@ -731,9 +731,9 @@ Object {
 exports[`#createComputeInstanceUsesComputeDiskRelationship should convert to relationship 1`] = `
 Object {
   "_class": "USES",
-  "_fromEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/instances/testvm",
-  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/instances/testvm|uses|https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/disks/testvm",
-  "_toEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/disks/testvm",
+  "_fromEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/testvm",
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/testvm|uses|https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/testvm",
+  "_toEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/testvm",
   "_type": "google_compute_instance_uses_disk",
   "autoDelete": true,
   "deviceName": "persisten-disk-0",
@@ -750,7 +750,7 @@ Object {
   "_class": Array [
     "Network",
   ],
-  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/networks/public-compute-app-vpc",
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/public-compute-app-vpc",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -763,9 +763,9 @@ Object {
         "routingConfig": Object {
           "routingMode": "GLOBAL",
         },
-        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/networks/public-compute-app-vpc",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/public-compute-app-vpc",
         "subnetworks": Array [
-          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/us-central1/subnetworks/public-compute-app-public-subnet-1",
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/public-compute-app-public-subnet-1",
         ],
       },
     },
@@ -782,9 +782,9 @@ Object {
   "public": false,
   "routingMode": "GLOBAL",
   "subnetworks": Array [
-    "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/us-central1/subnetworks/public-compute-app-public-subnet-1",
+    "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/public-compute-app-public-subnet-1",
   ],
-  "webLink": "https://console.cloud.google.com/networking/networks/details/public-compute-app-vpc?project=j1-gc-integration-dev",
+  "webLink": "https://console.cloud.google.com/networking/networks/details/public-compute-app-vpc?project=j1-gc-integration-dev-v2",
 }
 `;
 
@@ -793,7 +793,7 @@ Object {
   "_class": Array [
     "Project",
   ],
-  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716",
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -807,7 +807,7 @@ Object {
         "defaultServiceAccount": "165882964161-compute@developer.gserviceaccount.com",
         "id": "8075573275056338764",
         "kind": "compute#project",
-        "name": "j1-gc-integration-dev-300716",
+        "name": "j1-gc-integration-dev-v2",
         "quotas": Array [
           Object {
             "limit": 1000,
@@ -825,7 +825,7 @@ Object {
             "usage": 7,
           },
         ],
-        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2",
         "xpnProjectStatus": "UNSPECIFIED_XPN_PROJECT_STATUS",
       },
     },
@@ -834,11 +834,11 @@ Object {
   "createdOn": 1609779619752,
   "defaultNetworkTier": "PREMIUM",
   "defaultServiceAccount": "165882964161-compute@developer.gserviceaccount.com",
-  "displayName": "j1-gc-integration-dev-300716",
+  "displayName": "j1-gc-integration-dev-v2",
   "id": "8075573275056338764",
   "isOSLoginEnabled": false,
   "kind": "compute#project",
-  "name": "j1-gc-integration-dev-300716",
+  "name": "j1-gc-integration-dev-v2",
 }
 `;
 
@@ -847,7 +847,7 @@ Object {
   "_class": Array [
     "Project",
   ],
-  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716",
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -866,7 +866,7 @@ Object {
         "defaultServiceAccount": "165882964161-compute@developer.gserviceaccount.com",
         "id": "8075573275056338764",
         "kind": "compute#project",
-        "name": "j1-gc-integration-dev-300716",
+        "name": "j1-gc-integration-dev-v2",
         "quotas": Array [
           Object {
             "limit": 1000,
@@ -884,7 +884,7 @@ Object {
             "usage": 7,
           },
         ],
-        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2",
         "xpnProjectStatus": "UNSPECIFIED_XPN_PROJECT_STATUS",
       },
     },
@@ -893,11 +893,11 @@ Object {
   "createdOn": 1609779619752,
   "defaultNetworkTier": "PREMIUM",
   "defaultServiceAccount": "165882964161-compute@developer.gserviceaccount.com",
-  "displayName": "j1-gc-integration-dev-300716",
+  "displayName": "j1-gc-integration-dev-v2",
   "id": "8075573275056338764",
   "isOSLoginEnabled": true,
   "kind": "compute#project",
-  "name": "j1-gc-integration-dev-300716",
+  "name": "j1-gc-integration-dev-v2",
 }
 `;
 
@@ -907,7 +907,7 @@ Object {
   "_class": Array [
     "Network",
   ],
-  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/europe-west4/subnetworks/default",
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/europe-west4/subnetworks/default",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -919,12 +919,12 @@ Object {
         "ipCidrRange": "10.164.0.0/20",
         "kind": "compute#subnetwork",
         "name": "default",
-        "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/networks/default",
+        "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
         "privateIpGoogleAccess": false,
         "privateIpv6GoogleAccess": "DISABLE_GOOGLE_ACCESS",
         "purpose": "PRIVATE",
-        "region": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/europe-west4",
-        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/europe-west4/subnetworks/default",
+        "region": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/europe-west4",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/europe-west4/subnetworks/default",
       },
     },
   ],
@@ -940,7 +940,7 @@ Object {
   "privateIpGoogleAccess": false,
   "public": false,
   "purpose": "PRIVATE",
-  "webLink": "https://console.cloud.google.com/networking/subnetworks/details/europe-west4/default?project=j1-gc-integration-dev",
+  "webLink": "https://console.cloud.google.com/networking/subnetworks/details/europe-west4/default?project=j1-gc-integration-dev-v2",
 }
 `;
 
@@ -950,7 +950,7 @@ Object {
   "_class": Array [
     "Network",
   ],
-  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/europe-west4/subnetworks/default",
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/europe-west4/subnetworks/default",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -965,12 +965,12 @@ Object {
           "enable": true,
         },
         "name": "default",
-        "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/networks/default",
+        "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
         "privateIpGoogleAccess": false,
         "privateIpv6GoogleAccess": "DISABLE_GOOGLE_ACCESS",
         "purpose": "PRIVATE",
-        "region": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/europe-west4",
-        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/europe-west4/subnetworks/default",
+        "region": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/europe-west4",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/europe-west4/subnetworks/default",
       },
     },
   ],
@@ -986,18 +986,18 @@ Object {
   "privateIpGoogleAccess": false,
   "public": false,
   "purpose": "PRIVATE",
-  "webLink": "https://console.cloud.google.com/networking/subnetworks/details/europe-west4/default?project=j1-gc-integration-dev",
+  "webLink": "https://console.cloud.google.com/networking/subnetworks/details/europe-west4/default?project=j1-gc-integration-dev-v2",
 }
 `;
 
 exports[`#createFirewallRuleMappedRelationship should convert to mapped relationship 1`] = `
 Object {
   "_class": "ALLOWS",
-  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/public-compute-app-fw-allow-https:tcp:0.0.0.0/0:443",
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/firewalls/public-compute-app-fw-allow-https:tcp:0.0.0.0/0:443",
   "_mapping": Object {
     "relationshipDirection": "REVERSE",
     "skipTargetCreation": true,
-    "sourceEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/firewalls/public-compute-app-fw-allow-https",
+    "sourceEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/firewalls/public-compute-app-fw-allow-https",
     "targetEntity": Object {
       "CIDR": "0.0.0.0/0",
       "CIDRv6": "::/0",
@@ -1032,7 +1032,7 @@ Object {
   "_class": Array [
     "Service",
   ],
-  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/healthChecks/health-check",
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/healthChecks/health-check",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -1044,7 +1044,7 @@ Object {
         "id": "1905105216322309484",
         "kind": "compute#healthCheck",
         "name": "health-check",
-        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/healthChecks/health-check",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/healthChecks/health-check",
         "tcpHealthCheck": Object {
           "port": 80,
           "proxyHeader": "NONE",
@@ -1077,7 +1077,7 @@ Object {
   "_class": Array [
     "Group",
   ],
-  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/zones/us-central1-a/instanceGroups/instance-group-1",
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instanceGroups/instance-group-1",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -1094,11 +1094,11 @@ Object {
             "port": 5000,
           },
         ],
-        "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/networks/default",
-        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/zones/us-central1-a/instanceGroups/instance-group-1",
+        "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instanceGroups/instance-group-1",
         "size": 1,
-        "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/regions/us-central1/subnetworks/default",
-        "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/zones/us-central1-a",
+        "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
+        "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a",
       },
     },
   ],
@@ -1108,9 +1108,9 @@ Object {
   "displayName": "instance-group-1",
   "id": "4682404015364017264",
   "name": "instance-group-1",
-  "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/networks/default",
-  "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/regions/us-central1/subnetworks/default",
-  "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/zones/us-central1-a",
+  "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
+  "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
+  "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a",
 }
 `;
 
@@ -1119,13 +1119,13 @@ Object {
   "_class": Array [
     "Gateway",
   ],
-  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/urlMaps/example-http-load-balancer",
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/urlMaps/example-http-load-balancer",
   "_rawData": Array [
     Object {
       "name": "default",
       "rawData": Object {
         "creationTimestamp": "2021-01-25T13:09:32.355-08:00",
-        "defaultService": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendServices/example-backend-service",
+        "defaultService": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/backendServices/example-backend-service",
         "fingerprint": "7VTPVZHiF8k=",
         "hostRules": Array [
           Object {
@@ -1140,19 +1140,19 @@ Object {
         "name": "example-http-load-balancer",
         "pathMatchers": Array [
           Object {
-            "defaultService": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendServices/example-backend-service",
+            "defaultService": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/backendServices/example-backend-service",
             "name": "path-matcher-1",
             "pathRules": Array [
               Object {
                 "paths": Array [
                   "/images/*",
                 ],
-                "service": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendBuckets/example-backend-bucket",
+                "service": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/backendBuckets/example-backend-bucket",
               },
             ],
           },
         ],
-        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/urlMaps/example-http-load-balancer",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/urlMaps/example-http-load-balancer",
       },
     },
   ],
@@ -1161,7 +1161,7 @@ Object {
     "network",
   ],
   "createdOn": 1611608972355,
-  "defaultService": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendServices/example-backend-service",
+  "defaultService": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/backendServices/example-backend-service",
   "displayName": "example-http-load-balancer",
   "function": Array [
     "load-balancing",
@@ -1177,7 +1177,7 @@ Object {
   "_class": Array [
     "Policy",
   ],
-  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/sslPolicies/example-tls-1-2-policy",
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/sslPolicies/example-tls-1-2-policy",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -1195,7 +1195,7 @@ Object {
         "minTlsVersion": "TLS_1_2",
         "name": "example-tls-1-2-policy",
         "profile": "CUSTOM",
-        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/sslPolicies/example-tls-1-2-policy",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/sslPolicies/example-tls-1-2-policy",
       },
     },
   ],
@@ -1223,7 +1223,7 @@ Object {
   "_class": Array [
     "Gateway",
   ],
-  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/targetHttpProxies/example-http-loadbalancer-target-proxy",
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/targetHttpProxies/example-http-loadbalancer-target-proxy",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -1233,8 +1233,8 @@ Object {
         "id": "3284730591055048813",
         "kind": "compute#targetHttpProxy",
         "name": "example-http-loadbalancer-target-proxy",
-        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/targetHttpProxies/example-http-loadbalancer-target-proxy",
-        "urlMap": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/urlMaps/example-http-loadbalancer",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/targetHttpProxies/example-http-loadbalancer-target-proxy",
+        "urlMap": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/urlMaps/example-http-loadbalancer",
       },
     },
   ],
@@ -1258,7 +1258,7 @@ Object {
   "_class": Array [
     "Gateway",
   ],
-  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/targetHttpsProxies/example-http-load-balancer-target-proxy",
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/targetHttpsProxies/example-http-load-balancer-target-proxy",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -1268,12 +1268,12 @@ Object {
         "kind": "compute#targetHttpsProxy",
         "name": "example-http-load-balancer-target-proxy",
         "quicOverride": "NONE",
-        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/targetHttpsProxies/example-http-load-balancer-target-proxy",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/targetHttpsProxies/example-http-load-balancer-target-proxy",
         "sslCertificates": Array [
-          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/sslCertificates/example-certificate",
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/sslCertificates/example-certificate",
         ],
-        "sslPolicy": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/sslPolicies/example-tls-1-2-policy",
-        "urlMap": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/urlMaps/example-http-load-balancer",
+        "sslPolicy": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/sslPolicies/example-tls-1-2-policy",
+        "urlMap": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/urlMaps/example-http-load-balancer",
       },
     },
   ],
@@ -1289,7 +1289,7 @@ Object {
   "id": "4900822412538579656",
   "name": "example-http-load-balancer-target-proxy",
   "public": true,
-  "sslPolicy": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/sslPolicies/example-tls-1-2-policy",
+  "sslPolicy": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/sslPolicies/example-tls-1-2-policy",
 }
 `;
 
@@ -1298,7 +1298,7 @@ Object {
   "_class": Array [
     "Gateway",
   ],
-  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/targetSslProxies/example-ssl-2-loadbalancer-target-proxy",
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/targetSslProxies/example-ssl-2-loadbalancer-target-proxy",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -1308,10 +1308,10 @@ Object {
         "kind": "compute#targetSslProxy",
         "name": "example-ssl-2-loadbalancer-target-proxy",
         "proxyHeader": "NONE",
-        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/targetSslProxies/example-ssl-2-loadbalancer-target-proxy",
-        "service": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/backendServices/example-ssl-2-loadbalancer",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/targetSslProxies/example-ssl-2-loadbalancer-target-proxy",
+        "service": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/backendServices/example-ssl-2-loadbalancer",
         "sslCertificates": Array [
-          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-300716/global/sslCertificates/example-certificate",
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/sslCertificates/example-certificate",
         ],
       },
     },

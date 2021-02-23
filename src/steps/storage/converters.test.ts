@@ -1,14 +1,13 @@
 import { getMockStorageBucket } from '../../../test/mocks';
 import { createCloudStorageBucketEntity } from './converters';
-
-const projectId = 'abc123';
+import { DEFAULT_INTEGRATION_CONFIG_PROJECT_ID } from '../../../test/config';
 
 describe('#createCloudStorageBucketEntity', () => {
   test('should convert to entity', () => {
     expect(
       createCloudStorageBucketEntity({
         data: getMockStorageBucket(),
-        projectId,
+        projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
         isPublic: false,
       }),
     ).toMatchSnapshot();
@@ -18,7 +17,7 @@ describe('#createCloudStorageBucketEntity', () => {
     expect(
       createCloudStorageBucketEntity({
         data: getMockStorageBucket(),
-        projectId,
+        projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
         isPublic: true,
       }),
     ).toMatchSnapshot();
@@ -37,7 +36,7 @@ describe('#createCloudStorageBucketEntity', () => {
             },
           },
         }),
-        projectId,
+        projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
         isPublic: false,
       }),
     ).toMatchSnapshot();
@@ -53,7 +52,7 @@ describe('#createCloudStorageBucketEntity', () => {
             isLocked: true,
           },
         }),
-        projectId,
+        projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
         isPublic: false,
       }),
     ).toMatchSnapshot();
@@ -65,7 +64,7 @@ describe('#createCloudStorageBucketEntity', () => {
         data: getMockStorageBucket({
           iamConfiguration: undefined,
         }),
-        projectId,
+        projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
         isPublic: false,
       }),
     ).toMatchSnapshot();

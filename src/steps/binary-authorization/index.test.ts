@@ -28,15 +28,8 @@ describe('#fetchBinaryAuthorization', () => {
   });
 
   test('should collect data', async () => {
-    const customConfig = {
-      ...integrationConfig,
-      serviceAccountKeyConfig: {
-        ...integrationConfig.serviceAccountKeyConfig,
-        project_id: 'j1-gc-integration-dev-v2',
-      },
-    };
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: customConfig,
+      instanceConfig: integrationConfig,
     });
 
     await fetchResourceManagerProject(context);

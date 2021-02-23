@@ -13,13 +13,13 @@ import {
   createIamUserEntity,
 } from '../iam/converters';
 import { Entity } from '@jupiterone/integration-sdk-core';
+import { DEFAULT_INTEGRATION_CONFIG_PROJECT_ID } from '../../../test/config';
 
 describe('#createIamUserAssignedIamRoleRelationship', () => {
   test('should convert to relationship using service account', () => {
-    const projectId = 'abc123';
     const serviceAccountEntity = createIamServiceAccountEntity(
       getMockServiceAccount({
-        projectId,
+        projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
       }),
     );
 
@@ -31,14 +31,12 @@ describe('#createIamUserAssignedIamRoleRelationship', () => {
       createIamUserAssignedIamRoleRelationship({
         iamUserEntity: serviceAccountEntity,
         iamRoleEntity: roleEntity,
-        projectId,
+        projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
       }),
     ).toMatchSnapshot();
   });
 
   test('should convert to relationship using user', () => {
-    const projectId = 'abc123';
-
     const userEntity = createIamUserEntity({
       type: 'user',
       identifier: 'test.user@example.com',
@@ -54,16 +52,15 @@ describe('#createIamUserAssignedIamRoleRelationship', () => {
       createIamUserAssignedIamRoleRelationship({
         iamUserEntity: userEntity,
         iamRoleEntity: roleEntity,
-        projectId,
+        projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
       }),
     ).toMatchSnapshot();
   });
 
   test('should convert to relationship with conditions in role', () => {
-    const projectId = 'abc123';
     const serviceAccountEntity = createIamServiceAccountEntity(
       getMockServiceAccount({
-        projectId,
+        projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
       }),
     );
 
@@ -75,7 +72,7 @@ describe('#createIamUserAssignedIamRoleRelationship', () => {
       createIamUserAssignedIamRoleRelationship({
         iamUserEntity: serviceAccountEntity,
         iamRoleEntity: roleEntity,
-        projectId,
+        projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
         condition: {
           title: 'Test title',
           description: 'Test description',
@@ -89,10 +86,10 @@ describe('#createIamUserAssignedIamRoleRelationship', () => {
 describe('#createProjectEntity', () => {
   test('should convert entity', () => {
     const expected: Entity = {
-      name: 'j1-gc-integration-dev',
+      name: 'j1-gc-integration-dev-v2',
       'parent.type': 'organization',
       'parent.id': '158838481165',
-      _key: 'j1-gc-integration-dev',
+      _key: 'j1-gc-integration-dev-v2',
       _type: 'google_cloud_project',
       _class: ['Account'],
       projectNumber: '545240943112',
@@ -103,15 +100,15 @@ describe('#createProjectEntity', () => {
           name: 'default',
           rawData: {
             projectNumber: '545240943112',
-            projectId: 'j1-gc-integration-dev',
+            projectId: 'j1-gc-integration-dev-v2',
             lifecycleState: 'ACTIVE',
-            name: 'j1-gc-integration-dev',
+            name: 'j1-gc-integration-dev-v2',
             createTime: '2020-07-28T14:38:24.744Z',
             parent: { type: 'organization', id: '158838481165' },
           },
         },
       ],
-      displayName: 'j1-gc-integration-dev',
+      displayName: 'j1-gc-integration-dev-v2',
     };
 
     const mockProject = getMockProject();
@@ -122,15 +119,15 @@ describe('#createProjectEntity', () => {
 
   test('should convert entity with just projectId', () => {
     const expected: Entity = {
-      name: 'j1-gc-integration-dev',
-      _key: 'j1-gc-integration-dev',
+      name: 'j1-gc-integration-dev-v2',
+      _key: 'j1-gc-integration-dev-v2',
       _type: 'google_cloud_project',
       _class: ['Account'],
       _rawData: [],
-      displayName: 'j1-gc-integration-dev',
+      displayName: 'j1-gc-integration-dev-v2',
     };
 
-    const projectId = 'j1-gc-integration-dev';
+    const projectId = 'j1-gc-integration-dev-v2';
     expect(createProjectEntity(projectId, undefined)).toEqual(expected);
   });
 });

@@ -210,9 +210,9 @@ describe('#getIpAddressesForComputeInstance', () => {
           networkInterfaces: [
             {
               network:
-                'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/global/networks/public-compute-app-vpc',
+                'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/public-compute-app-vpc',
               subnetwork:
-                'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/us-central1/subnetworks/public-compute-app-public-subnet-1',
+                'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/public-compute-app-public-subnet-1',
               networkIP: '10.10.1.2',
               name: 'nic0',
               accessConfigs: [
