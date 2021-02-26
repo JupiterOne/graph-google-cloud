@@ -152,6 +152,7 @@ Object {
   "useIpAliases": false,
   "useRoutes": true,
   "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-v2-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+  "workloadIdentity": undefined,
 }
 `;
 
@@ -307,6 +308,7 @@ Object {
   "useIpAliases": false,
   "useRoutes": true,
   "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-v2-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+  "workloadIdentity": undefined,
 }
 `;
 
@@ -464,6 +466,7 @@ Object {
   "useIpAliases": false,
   "useRoutes": true,
   "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-v2-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+  "workloadIdentity": undefined,
 }
 `;
 
@@ -619,6 +622,7 @@ Object {
   "useIpAliases": false,
   "useRoutes": true,
   "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-v2-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+  "workloadIdentity": undefined,
 }
 `;
 
@@ -774,6 +778,7 @@ Object {
   "useIpAliases": false,
   "useRoutes": true,
   "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-v2-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+  "workloadIdentity": undefined,
 }
 `;
 
@@ -930,6 +935,7 @@ Object {
   "useIpAliases": false,
   "useRoutes": true,
   "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-v2-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+  "workloadIdentity": undefined,
 }
 `;
 
@@ -1085,6 +1091,7 @@ Object {
   "useIpAliases": false,
   "useRoutes": true,
   "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-v2-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+  "workloadIdentity": undefined,
 }
 `;
 
@@ -1242,6 +1249,7 @@ Object {
   "useIpAliases": false,
   "useRoutes": true,
   "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-v2-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+  "workloadIdentity": undefined,
 }
 `;
 
@@ -1397,6 +1405,7 @@ Object {
   "useIpAliases": false,
   "useRoutes": true,
   "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-v2-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+  "workloadIdentity": undefined,
 }
 `;
 
@@ -1552,6 +1561,7 @@ Object {
   "useIpAliases": false,
   "useRoutes": true,
   "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-v2-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+  "workloadIdentity": undefined,
 }
 `;
 
@@ -1708,6 +1718,7 @@ Object {
   "useIpAliases": false,
   "useRoutes": true,
   "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-v2-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+  "workloadIdentity": undefined,
 }
 `;
 
@@ -1862,6 +1873,7 @@ Object {
   "useIpAliases": false,
   "useRoutes": true,
   "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-v2-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+  "workloadIdentity": undefined,
 }
 `;
 
@@ -2016,6 +2028,7 @@ Object {
   "useIpAliases": false,
   "useRoutes": true,
   "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-v2-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+  "workloadIdentity": undefined,
 }
 `;
 
@@ -2173,6 +2186,7 @@ Object {
   "useIpAliases": false,
   "useRoutes": true,
   "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-v2-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+  "workloadIdentity": undefined,
 }
 `;
 
@@ -2330,6 +2344,7 @@ Object {
   "useIpAliases": false,
   "useRoutes": true,
   "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-v2-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+  "workloadIdentity": undefined,
 }
 `;
 
@@ -2488,6 +2503,7 @@ Object {
   "useIpAliases": false,
   "useRoutes": true,
   "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-v2-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+  "workloadIdentity": undefined,
 }
 `;
 
@@ -2646,6 +2662,7 @@ Object {
   "useIpAliases": false,
   "useRoutes": true,
   "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-v2-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+  "workloadIdentity": undefined,
 }
 `;
 
@@ -2804,6 +2821,7 @@ Object {
   "useIpAliases": false,
   "useRoutes": true,
   "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-v2-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+  "workloadIdentity": undefined,
 }
 `;
 
@@ -2962,6 +2980,7 @@ Object {
   "useIpAliases": false,
   "useRoutes": true,
   "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-v2-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+  "workloadIdentity": undefined,
 }
 `;
 
@@ -3120,6 +3139,7 @@ Object {
   "useIpAliases": false,
   "useRoutes": true,
   "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-v2-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+  "workloadIdentity": undefined,
 }
 `;
 
@@ -3278,6 +3298,7 @@ Object {
   "useIpAliases": false,
   "useRoutes": true,
   "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-v2-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+  "workloadIdentity": undefined,
 }
 `;
 
@@ -3433,6 +3454,7 @@ Object {
   "useIpAliases": false,
   "useRoutes": true,
   "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-v2-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+  "workloadIdentity": undefined,
 }
 `;
 
@@ -3591,6 +3613,7 @@ Object {
   "useIpAliases": false,
   "useRoutes": true,
   "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-v2-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+  "workloadIdentity": undefined,
 }
 `;
 
@@ -3746,6 +3769,7 @@ Object {
   "useIpAliases": false,
   "useRoutes": true,
   "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-v2-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+  "workloadIdentity": undefined,
 }
 `;
 
@@ -3903,6 +3927,7 @@ Object {
   "useIpAliases": false,
   "useRoutes": true,
   "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-v2-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+  "workloadIdentity": undefined,
 }
 `;
 
@@ -4058,6 +4083,7 @@ Object {
   "useIpAliases": false,
   "useRoutes": false,
   "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-v2-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+  "workloadIdentity": undefined,
 }
 `;
 
@@ -4213,6 +4239,322 @@ Object {
   "useIpAliases": true,
   "useRoutes": false,
   "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-v2-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+  "workloadIdentity": undefined,
+}
+`;
+
+exports[`#createContainerClusterEntity should have workloadIdentity set to namespace if the Workload Identity is enabled 1`] = `
+Object {
+  "_class": Array [
+    "Cluster",
+  ],
+  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "addonsConfig": Object {
+          "kubernetesDashboard": Object {
+            "disabled": true,
+          },
+          "networkPolicyConfig": Object {
+            "disabled": true,
+          },
+        },
+        "autoscaling": Object {},
+        "binaryAuthorization": Object {},
+        "clusterIpv4Cidr": "10.16.0.0/14",
+        "createTime": "2021-02-07T17:17:28+00:00",
+        "currentMasterVersion": "1.17.14-gke.1600",
+        "currentNodeCount": 3,
+        "currentNodeVersion": "1.17.14-gke.1600",
+        "databaseEncryption": Object {
+          "state": "DECRYPTED",
+        },
+        "endpoint": "34.69.222.23",
+        "initialClusterVersion": "1.17.14-gke.1600",
+        "initialNodeCount": 1,
+        "instanceGroupUrls": Array [
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-f/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-d0942024-grp",
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-c/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-2a95071a-grp",
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-6817e506-grp",
+        ],
+        "ipAllocationPolicy": Object {
+          "useRoutes": true,
+        },
+        "labelFingerprint": "a9dc16a7",
+        "legacyAbac": Object {},
+        "location": "us-central1",
+        "locations": Array [
+          "us-central1-f",
+          "us-central1-c",
+          "us-central1-a",
+        ],
+        "loggingService": "logging.googleapis.com/kubernetes",
+        "maintenancePolicy": Object {
+          "resourceVersion": "e3b0c442",
+        },
+        "masterAuth": Object {
+          "clusterCaCertificate": "abc123",
+        },
+        "masterAuthorizedNetworksConfig": Object {},
+        "monitoringService": "monitoring.googleapis.com/kubernetes",
+        "name": "j1-gc-integration-dev-v2-gke-cluster",
+        "network": "default",
+        "networkConfig": Object {
+          "network": "projects/j1-gc-integration-dev-v2/global/networks/default",
+          "subnetwork": "projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
+        },
+        "nodeConfig": Object {
+          "diskSizeGb": 100,
+          "diskType": "pd-standard",
+          "imageType": "COS",
+          "machineType": "e2-micro",
+          "metadata": Object {
+            "disable-legacy-endpoints": "true",
+          },
+          "oauthScopes": Array [
+            "https://www.googleapis.com/auth/cloud-platform",
+          ],
+          "preemptible": true,
+          "serviceAccount": "j1-gc-integration-dev-v2-gke-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
+          "shieldedInstanceConfig": Object {
+            "enableIntegrityMonitoring": true,
+          },
+        },
+        "nodeIpv4CidrSize": 24,
+        "releaseChannel": Object {
+          "channel": "REGULAR",
+        },
+        "selfLink": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+        "servicesIpv4Cidr": "10.19.240.0/20",
+        "shieldedNodes": Object {},
+        "status": "RUNNING",
+        "subnetwork": "default",
+        "workloadIdentityConfig": Object {
+          "workloadPool": "j1-gc-integration-dev-v2.svc.id.goog",
+        },
+        "zone": "us-central1",
+      },
+    },
+  ],
+  "_type": "google_container_cluster",
+  "abacEnabled": false,
+  "active": undefined,
+  "basicAuthenticationEnabled": false,
+  "binaryAuthorizationEnabled": false,
+  "clientCertificatesEnabled": false,
+  "clusterIpv4Cidr": "10.16.0.0/14",
+  "createdOn": 1612718248000,
+  "currentMasterVersion": "1.17.14-gke.1600",
+  "currentNodeCount": 3,
+  "databaseEncryptionKey": undefined,
+  "databaseEncryptionState": "DECRYPTED",
+  "description": undefined,
+  "displayName": "j1-gc-integration-dev-v2-gke-cluster",
+  "endpoint": "34.69.222.23",
+  "initialClusterVersion": "1.17.14-gke.1600",
+  "initialNodeCode": 1,
+  "instanceGroupUrls": Array [
+    "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-f/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-d0942024-grp",
+    "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-c/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-2a95071a-grp",
+    "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-6817e506-grp",
+  ],
+  "intraNodeVisibilityEnabled": false,
+  "isAlphaCluster": false,
+  "kubernetesDashboardEnabled": false,
+  "location": "us-central1",
+  "locations": Array [
+    "us-central1-f",
+    "us-central1-c",
+    "us-central1-a",
+  ],
+  "loggingService": "logging.googleapis.com/kubernetes",
+  "masterAuthorizedNetworksEnabled": false,
+  "monitoringService": "monitoring.googleapis.com/kubernetes",
+  "name": "j1-gc-integration-dev-v2-gke-cluster",
+  "network": "projects/j1-gc-integration-dev-v2/global/networks/default",
+  "networkPolicyConfigEnabled": false,
+  "networkPolicyEnabled": false,
+  "nodeDiskSizeGb": 100,
+  "nodeDiskType": "pd-standard",
+  "nodeEnableIntegrityMonitoring": true,
+  "nodeEnableSecureBoot": undefined,
+  "nodeImageType": "COS",
+  "nodeIpv4CidrSize": 24,
+  "nodeMachineType": "e2-micro",
+  "nodeOAuthScopes": Array [
+    "https://www.googleapis.com/auth/cloud-platform",
+  ],
+  "nodePreemptible": true,
+  "privateEndpointEnabled": false,
+  "privateNodesEnabled": false,
+  "rbacEnabled": false,
+  "releaseChannel": "REGULAR",
+  "servicesIpv4Cidr": "10.19.240.0/20",
+  "shieldedNodesEnabled": false,
+  "status": "RUNNING",
+  "subnetwork": "projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
+  "useIpAliases": false,
+  "useRoutes": true,
+  "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-v2-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+  "workloadIdentity": "j1-gc-integration-dev-v2.svc.id.goog",
+}
+`;
+
+exports[`#createContainerClusterEntity should have workloadIdentity set to undefined if the Workload Identity is disabled 1`] = `
+Object {
+  "_class": Array [
+    "Cluster",
+  ],
+  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "addonsConfig": Object {
+          "kubernetesDashboard": Object {
+            "disabled": true,
+          },
+          "networkPolicyConfig": Object {
+            "disabled": true,
+          },
+        },
+        "autoscaling": Object {},
+        "binaryAuthorization": Object {},
+        "clusterIpv4Cidr": "10.16.0.0/14",
+        "createTime": "2021-02-07T17:17:28+00:00",
+        "currentMasterVersion": "1.17.14-gke.1600",
+        "currentNodeCount": 3,
+        "currentNodeVersion": "1.17.14-gke.1600",
+        "databaseEncryption": Object {
+          "state": "DECRYPTED",
+        },
+        "endpoint": "34.69.222.23",
+        "initialClusterVersion": "1.17.14-gke.1600",
+        "initialNodeCount": 1,
+        "instanceGroupUrls": Array [
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-f/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-d0942024-grp",
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-c/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-2a95071a-grp",
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-6817e506-grp",
+        ],
+        "ipAllocationPolicy": Object {
+          "useRoutes": true,
+        },
+        "labelFingerprint": "a9dc16a7",
+        "legacyAbac": Object {},
+        "location": "us-central1",
+        "locations": Array [
+          "us-central1-f",
+          "us-central1-c",
+          "us-central1-a",
+        ],
+        "loggingService": "logging.googleapis.com/kubernetes",
+        "maintenancePolicy": Object {
+          "resourceVersion": "e3b0c442",
+        },
+        "masterAuth": Object {
+          "clusterCaCertificate": "abc123",
+        },
+        "masterAuthorizedNetworksConfig": Object {},
+        "monitoringService": "monitoring.googleapis.com/kubernetes",
+        "name": "j1-gc-integration-dev-v2-gke-cluster",
+        "network": "default",
+        "networkConfig": Object {
+          "network": "projects/j1-gc-integration-dev-v2/global/networks/default",
+          "subnetwork": "projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
+        },
+        "nodeConfig": Object {
+          "diskSizeGb": 100,
+          "diskType": "pd-standard",
+          "imageType": "COS",
+          "machineType": "e2-micro",
+          "metadata": Object {
+            "disable-legacy-endpoints": "true",
+          },
+          "oauthScopes": Array [
+            "https://www.googleapis.com/auth/cloud-platform",
+          ],
+          "preemptible": true,
+          "serviceAccount": "j1-gc-integration-dev-v2-gke-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
+          "shieldedInstanceConfig": Object {
+            "enableIntegrityMonitoring": true,
+          },
+        },
+        "nodeIpv4CidrSize": 24,
+        "releaseChannel": Object {
+          "channel": "REGULAR",
+        },
+        "selfLink": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+        "servicesIpv4Cidr": "10.19.240.0/20",
+        "shieldedNodes": Object {},
+        "status": "RUNNING",
+        "subnetwork": "default",
+        "zone": "us-central1",
+      },
+    },
+  ],
+  "_type": "google_container_cluster",
+  "abacEnabled": false,
+  "active": undefined,
+  "basicAuthenticationEnabled": false,
+  "binaryAuthorizationEnabled": false,
+  "clientCertificatesEnabled": false,
+  "clusterIpv4Cidr": "10.16.0.0/14",
+  "createdOn": 1612718248000,
+  "currentMasterVersion": "1.17.14-gke.1600",
+  "currentNodeCount": 3,
+  "databaseEncryptionKey": undefined,
+  "databaseEncryptionState": "DECRYPTED",
+  "description": undefined,
+  "displayName": "j1-gc-integration-dev-v2-gke-cluster",
+  "endpoint": "34.69.222.23",
+  "initialClusterVersion": "1.17.14-gke.1600",
+  "initialNodeCode": 1,
+  "instanceGroupUrls": Array [
+    "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-f/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-d0942024-grp",
+    "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-c/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-2a95071a-grp",
+    "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-6817e506-grp",
+  ],
+  "intraNodeVisibilityEnabled": false,
+  "isAlphaCluster": false,
+  "kubernetesDashboardEnabled": false,
+  "location": "us-central1",
+  "locations": Array [
+    "us-central1-f",
+    "us-central1-c",
+    "us-central1-a",
+  ],
+  "loggingService": "logging.googleapis.com/kubernetes",
+  "masterAuthorizedNetworksEnabled": false,
+  "monitoringService": "monitoring.googleapis.com/kubernetes",
+  "name": "j1-gc-integration-dev-v2-gke-cluster",
+  "network": "projects/j1-gc-integration-dev-v2/global/networks/default",
+  "networkPolicyConfigEnabled": false,
+  "networkPolicyEnabled": false,
+  "nodeDiskSizeGb": 100,
+  "nodeDiskType": "pd-standard",
+  "nodeEnableIntegrityMonitoring": true,
+  "nodeEnableSecureBoot": undefined,
+  "nodeImageType": "COS",
+  "nodeIpv4CidrSize": 24,
+  "nodeMachineType": "e2-micro",
+  "nodeOAuthScopes": Array [
+    "https://www.googleapis.com/auth/cloud-platform",
+  ],
+  "nodePreemptible": true,
+  "privateEndpointEnabled": false,
+  "privateNodesEnabled": false,
+  "rbacEnabled": false,
+  "releaseChannel": "REGULAR",
+  "servicesIpv4Cidr": "10.19.240.0/20",
+  "shieldedNodesEnabled": false,
+  "status": "RUNNING",
+  "subnetwork": "projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
+  "useIpAliases": false,
+  "useRoutes": true,
+  "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1/j1-gc-integration-dev-v2-gke-cluster/details?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+  "workloadIdentity": undefined,
 }
 `;
 
@@ -4238,7 +4580,6 @@ Object {
             "https://www.googleapis.com/auth/cloud-platform",
           ],
           "preemptible": true,
-          "serviceAccount": "j1-gc-integration-dev-gke-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
           "shieldedInstanceConfig": Object {
             "enableIntegrityMonitoring": true,
           },
@@ -4273,6 +4614,7 @@ Object {
   "active": undefined,
   "autoRepairEnabled": true,
   "autoUpgradeEnabled": true,
+  "bootDiskKmsKey": undefined,
   "createdOn": undefined,
   "displayName": "j1-gc-integration-dev-gke-node-pool",
   "gkeMetadataServerEnabled": false,
@@ -4284,6 +4626,7 @@ Object {
   "name": "j1-gc-integration-dev-gke-node-pool",
   "podIpv4CidrSize": 24,
   "secureBootEnabled": false,
+  "serviceAccount": undefined,
   "status": "RUNNING",
   "statusMessage": undefined,
   "version": "1.17.14-gke.1600",
@@ -4313,7 +4656,6 @@ Object {
             "https://www.googleapis.com/auth/cloud-platform",
           ],
           "preemptible": true,
-          "serviceAccount": "j1-gc-integration-dev-gke-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
           "shieldedInstanceConfig": Object {
             "enableIntegrityMonitoring": true,
           },
@@ -4347,6 +4689,7 @@ Object {
   "active": undefined,
   "autoRepairEnabled": false,
   "autoUpgradeEnabled": false,
+  "bootDiskKmsKey": undefined,
   "createdOn": undefined,
   "displayName": "j1-gc-integration-dev-gke-node-pool",
   "gkeMetadataServerEnabled": false,
@@ -4358,6 +4701,7 @@ Object {
   "name": "j1-gc-integration-dev-gke-node-pool",
   "podIpv4CidrSize": 24,
   "secureBootEnabled": false,
+  "serviceAccount": undefined,
   "status": "RUNNING",
   "statusMessage": undefined,
   "version": "1.17.14-gke.1600",
@@ -4387,7 +4731,6 @@ Object {
             "https://www.googleapis.com/auth/cloud-platform",
           ],
           "preemptible": true,
-          "serviceAccount": "j1-gc-integration-dev-gke-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
           "shieldedInstanceConfig": Object {
             "enableIntegrityMonitoring": true,
           },
@@ -4421,6 +4764,7 @@ Object {
   "active": undefined,
   "autoRepairEnabled": true,
   "autoUpgradeEnabled": false,
+  "bootDiskKmsKey": undefined,
   "createdOn": undefined,
   "displayName": "j1-gc-integration-dev-gke-node-pool",
   "gkeMetadataServerEnabled": false,
@@ -4432,6 +4776,7 @@ Object {
   "name": "j1-gc-integration-dev-gke-node-pool",
   "podIpv4CidrSize": 24,
   "secureBootEnabled": false,
+  "serviceAccount": undefined,
   "status": "RUNNING",
   "statusMessage": undefined,
   "version": "1.17.14-gke.1600",
@@ -4461,7 +4806,6 @@ Object {
             "https://www.googleapis.com/auth/cloud-platform",
           ],
           "preemptible": true,
-          "serviceAccount": "j1-gc-integration-dev-gke-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
           "shieldedInstanceConfig": Object {
             "enableIntegrityMonitoring": true,
           },
@@ -4495,6 +4839,7 @@ Object {
   "active": undefined,
   "autoRepairEnabled": false,
   "autoUpgradeEnabled": false,
+  "bootDiskKmsKey": undefined,
   "createdOn": undefined,
   "displayName": "j1-gc-integration-dev-gke-node-pool",
   "gkeMetadataServerEnabled": false,
@@ -4506,6 +4851,7 @@ Object {
   "name": "j1-gc-integration-dev-gke-node-pool",
   "podIpv4CidrSize": 24,
   "secureBootEnabled": false,
+  "serviceAccount": undefined,
   "status": "RUNNING",
   "statusMessage": undefined,
   "version": "1.17.14-gke.1600",
@@ -4535,7 +4881,6 @@ Object {
             "https://www.googleapis.com/auth/cloud-platform",
           ],
           "preemptible": true,
-          "serviceAccount": "j1-gc-integration-dev-gke-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
           "shieldedInstanceConfig": Object {
             "enableIntegrityMonitoring": true,
           },
@@ -4569,6 +4914,7 @@ Object {
   "active": undefined,
   "autoRepairEnabled": false,
   "autoUpgradeEnabled": true,
+  "bootDiskKmsKey": undefined,
   "createdOn": undefined,
   "displayName": "j1-gc-integration-dev-gke-node-pool",
   "gkeMetadataServerEnabled": false,
@@ -4580,6 +4926,7 @@ Object {
   "name": "j1-gc-integration-dev-gke-node-pool",
   "podIpv4CidrSize": 24,
   "secureBootEnabled": false,
+  "serviceAccount": undefined,
   "status": "RUNNING",
   "statusMessage": undefined,
   "version": "1.17.14-gke.1600",
@@ -4587,7 +4934,70 @@ Object {
 }
 `;
 
-exports[`#createContainerNodePoolEntity should have gkeMetadataServerEnabled set to false if it is disabled 1`] = `
+exports[`#createContainerNodePoolEntity should have bootDiskKmsKey set to a value if boot disk encryption type is set to customer managed 1`] = `
+Object {
+  "_class": Array [
+    "Group",
+  ],
+  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev/locations/us-central1/clusters/j1-gc-integration-dev-gke-cluster/nodePools/j1-gc-integration-dev-gke-node-pool",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "config": Object {
+          "bootDiskKmsKey": "example-key",
+        },
+        "initialNodeCount": 1,
+        "instanceGroupUrls": Array [
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-f/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-d0942024-grp",
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-c/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-2a95071a-grp",
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-6817e506-grp",
+        ],
+        "locations": Array [
+          "us-central1-f",
+          "us-central1-c",
+          "us-central1-a",
+        ],
+        "management": Object {
+          "autoRepair": true,
+          "autoUpgrade": true,
+        },
+        "name": "j1-gc-integration-dev-gke-node-pool",
+        "podIpv4CidrSize": 24,
+        "selfLink": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev/locations/us-central1/clusters/j1-gc-integration-dev-gke-cluster/nodePools/j1-gc-integration-dev-gke-node-pool",
+        "status": "RUNNING",
+        "upgradeSettings": Object {
+          "maxSurge": 1,
+        },
+        "version": "1.17.14-gke.1600",
+      },
+    },
+  ],
+  "_type": "google_container_node_pool",
+  "active": undefined,
+  "autoRepairEnabled": true,
+  "autoUpgradeEnabled": true,
+  "bootDiskKmsKey": "example-key",
+  "createdOn": undefined,
+  "displayName": "j1-gc-integration-dev-gke-node-pool",
+  "gkeMetadataServerEnabled": false,
+  "gkeSandboxEnabled": false,
+  "imageType": undefined,
+  "initialNodeCount": 1,
+  "integrityMonitoringEnabled": false,
+  "legacyEndpointsDisabled": false,
+  "name": "j1-gc-integration-dev-gke-node-pool",
+  "podIpv4CidrSize": 24,
+  "secureBootEnabled": false,
+  "serviceAccount": undefined,
+  "status": "RUNNING",
+  "statusMessage": undefined,
+  "version": "1.17.14-gke.1600",
+  "webLink": "https://console.cloud.google.com/kubernetes/nodepool/northamerica-northeast1-a/my-first-cluster-1/j1-gc-integration-dev-gke-node-pool?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+}
+`;
+
+exports[`#createContainerNodePoolEntity should have bootDiskKmsKey set to undefined if boot disk encryption type is not set to customer managed 1`] = `
 Object {
   "_class": Array [
     "Group",
@@ -4609,7 +5019,6 @@ Object {
             "https://www.googleapis.com/auth/cloud-platform",
           ],
           "preemptible": true,
-          "serviceAccount": "j1-gc-integration-dev-gke-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
           "shieldedInstanceConfig": Object {
             "enableIntegrityMonitoring": true,
           },
@@ -4644,6 +5053,7 @@ Object {
   "active": undefined,
   "autoRepairEnabled": true,
   "autoUpgradeEnabled": true,
+  "bootDiskKmsKey": undefined,
   "createdOn": undefined,
   "displayName": "j1-gc-integration-dev-gke-node-pool",
   "gkeMetadataServerEnabled": false,
@@ -4655,6 +5065,83 @@ Object {
   "name": "j1-gc-integration-dev-gke-node-pool",
   "podIpv4CidrSize": 24,
   "secureBootEnabled": false,
+  "serviceAccount": undefined,
+  "status": "RUNNING",
+  "statusMessage": undefined,
+  "version": "1.17.14-gke.1600",
+  "webLink": "https://console.cloud.google.com/kubernetes/nodepool/northamerica-northeast1-a/my-first-cluster-1/j1-gc-integration-dev-gke-node-pool?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+}
+`;
+
+exports[`#createContainerNodePoolEntity should have gkeMetadataServerEnabled set to false if it is disabled 1`] = `
+Object {
+  "_class": Array [
+    "Group",
+  ],
+  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev/locations/us-central1/clusters/j1-gc-integration-dev-gke-cluster/nodePools/j1-gc-integration-dev-gke-node-pool",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "config": Object {
+          "diskSizeGb": 100,
+          "diskType": "pd-standard",
+          "imageType": "COS",
+          "machineType": "e2-micro",
+          "metadata": Object {
+            "disable-legacy-endpoints": "true",
+          },
+          "oauthScopes": Array [
+            "https://www.googleapis.com/auth/cloud-platform",
+          ],
+          "preemptible": true,
+          "shieldedInstanceConfig": Object {
+            "enableIntegrityMonitoring": true,
+          },
+        },
+        "initialNodeCount": 1,
+        "instanceGroupUrls": Array [
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-f/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-d0942024-grp",
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-c/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-2a95071a-grp",
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-6817e506-grp",
+        ],
+        "locations": Array [
+          "us-central1-f",
+          "us-central1-c",
+          "us-central1-a",
+        ],
+        "management": Object {
+          "autoRepair": true,
+          "autoUpgrade": true,
+        },
+        "name": "j1-gc-integration-dev-gke-node-pool",
+        "podIpv4CidrSize": 24,
+        "selfLink": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev/locations/us-central1/clusters/j1-gc-integration-dev-gke-cluster/nodePools/j1-gc-integration-dev-gke-node-pool",
+        "status": "RUNNING",
+        "upgradeSettings": Object {
+          "maxSurge": 1,
+        },
+        "version": "1.17.14-gke.1600",
+      },
+    },
+  ],
+  "_type": "google_container_node_pool",
+  "active": undefined,
+  "autoRepairEnabled": true,
+  "autoUpgradeEnabled": true,
+  "bootDiskKmsKey": undefined,
+  "createdOn": undefined,
+  "displayName": "j1-gc-integration-dev-gke-node-pool",
+  "gkeMetadataServerEnabled": false,
+  "gkeSandboxEnabled": false,
+  "imageType": "COS",
+  "initialNodeCount": 1,
+  "integrityMonitoringEnabled": true,
+  "legacyEndpointsDisabled": true,
+  "name": "j1-gc-integration-dev-gke-node-pool",
+  "podIpv4CidrSize": 24,
+  "secureBootEnabled": false,
+  "serviceAccount": undefined,
   "status": "RUNNING",
   "statusMessage": undefined,
   "version": "1.17.14-gke.1600",
@@ -4707,6 +5194,7 @@ Object {
   "active": undefined,
   "autoRepairEnabled": true,
   "autoUpgradeEnabled": true,
+  "bootDiskKmsKey": undefined,
   "createdOn": undefined,
   "displayName": "j1-gc-integration-dev-gke-node-pool",
   "gkeMetadataServerEnabled": true,
@@ -4718,6 +5206,7 @@ Object {
   "name": "j1-gc-integration-dev-gke-node-pool",
   "podIpv4CidrSize": 24,
   "secureBootEnabled": false,
+  "serviceAccount": undefined,
   "status": "RUNNING",
   "statusMessage": undefined,
   "version": "1.17.14-gke.1600",
@@ -4747,7 +5236,6 @@ Object {
             "https://www.googleapis.com/auth/cloud-platform",
           ],
           "preemptible": true,
-          "serviceAccount": "j1-gc-integration-dev-gke-sa@j1-gc-integration-dev.iam.gserviceaccount.com",
           "shieldedInstanceConfig": Object {
             "enableIntegrityMonitoring": true,
           },
@@ -4782,6 +5270,7 @@ Object {
   "active": undefined,
   "autoRepairEnabled": true,
   "autoUpgradeEnabled": true,
+  "bootDiskKmsKey": undefined,
   "createdOn": undefined,
   "displayName": "j1-gc-integration-dev-gke-node-pool",
   "gkeMetadataServerEnabled": false,
@@ -4793,6 +5282,7 @@ Object {
   "name": "j1-gc-integration-dev-gke-node-pool",
   "podIpv4CidrSize": 24,
   "secureBootEnabled": false,
+  "serviceAccount": undefined,
   "status": "RUNNING",
   "statusMessage": undefined,
   "version": "1.17.14-gke.1600",
@@ -4845,6 +5335,7 @@ Object {
   "active": undefined,
   "autoRepairEnabled": true,
   "autoUpgradeEnabled": true,
+  "bootDiskKmsKey": undefined,
   "createdOn": undefined,
   "displayName": "j1-gc-integration-dev-gke-node-pool",
   "gkeMetadataServerEnabled": false,
@@ -4856,6 +5347,7 @@ Object {
   "name": "j1-gc-integration-dev-gke-node-pool",
   "podIpv4CidrSize": 24,
   "secureBootEnabled": false,
+  "serviceAccount": undefined,
   "status": "RUNNING",
   "statusMessage": undefined,
   "version": "1.17.14-gke.1600",
@@ -4908,6 +5400,7 @@ Object {
   "active": undefined,
   "autoRepairEnabled": true,
   "autoUpgradeEnabled": true,
+  "bootDiskKmsKey": undefined,
   "createdOn": undefined,
   "displayName": "j1-gc-integration-dev-gke-node-pool",
   "gkeMetadataServerEnabled": false,
@@ -4919,6 +5412,7 @@ Object {
   "name": "j1-gc-integration-dev-gke-node-pool",
   "podIpv4CidrSize": 24,
   "secureBootEnabled": false,
+  "serviceAccount": undefined,
   "status": "RUNNING",
   "statusMessage": undefined,
   "version": "1.17.14-gke.1600",
@@ -4971,6 +5465,7 @@ Object {
   "active": undefined,
   "autoRepairEnabled": true,
   "autoUpgradeEnabled": true,
+  "bootDiskKmsKey": undefined,
   "createdOn": undefined,
   "displayName": "j1-gc-integration-dev-gke-node-pool",
   "gkeMetadataServerEnabled": false,
@@ -4982,6 +5477,7 @@ Object {
   "name": "j1-gc-integration-dev-gke-node-pool",
   "podIpv4CidrSize": 24,
   "secureBootEnabled": false,
+  "serviceAccount": undefined,
   "status": "RUNNING",
   "statusMessage": undefined,
   "version": "1.17.14-gke.1600",
@@ -5034,6 +5530,7 @@ Object {
   "active": undefined,
   "autoRepairEnabled": true,
   "autoUpgradeEnabled": true,
+  "bootDiskKmsKey": undefined,
   "createdOn": undefined,
   "displayName": "j1-gc-integration-dev-gke-node-pool",
   "gkeMetadataServerEnabled": false,
@@ -5045,6 +5542,7 @@ Object {
   "name": "j1-gc-integration-dev-gke-node-pool",
   "podIpv4CidrSize": 24,
   "secureBootEnabled": false,
+  "serviceAccount": undefined,
   "status": "RUNNING",
   "statusMessage": undefined,
   "version": "1.17.14-gke.1600",
@@ -5097,6 +5595,7 @@ Object {
   "active": undefined,
   "autoRepairEnabled": true,
   "autoUpgradeEnabled": true,
+  "bootDiskKmsKey": undefined,
   "createdOn": undefined,
   "displayName": "j1-gc-integration-dev-gke-node-pool",
   "gkeMetadataServerEnabled": false,
@@ -5108,6 +5607,7 @@ Object {
   "name": "j1-gc-integration-dev-gke-node-pool",
   "podIpv4CidrSize": 24,
   "secureBootEnabled": false,
+  "serviceAccount": undefined,
   "status": "RUNNING",
   "statusMessage": undefined,
   "version": "1.17.14-gke.1600",
@@ -5160,6 +5660,7 @@ Object {
   "active": undefined,
   "autoRepairEnabled": true,
   "autoUpgradeEnabled": true,
+  "bootDiskKmsKey": undefined,
   "createdOn": undefined,
   "displayName": "j1-gc-integration-dev-gke-node-pool",
   "gkeMetadataServerEnabled": false,
@@ -5171,6 +5672,7 @@ Object {
   "name": "j1-gc-integration-dev-gke-node-pool",
   "podIpv4CidrSize": 24,
   "secureBootEnabled": false,
+  "serviceAccount": undefined,
   "status": "RUNNING",
   "statusMessage": undefined,
   "version": "1.17.14-gke.1600",
@@ -5223,6 +5725,7 @@ Object {
   "active": undefined,
   "autoRepairEnabled": true,
   "autoUpgradeEnabled": true,
+  "bootDiskKmsKey": undefined,
   "createdOn": undefined,
   "displayName": "j1-gc-integration-dev-gke-node-pool",
   "gkeMetadataServerEnabled": false,
@@ -5234,6 +5737,146 @@ Object {
   "name": "j1-gc-integration-dev-gke-node-pool",
   "podIpv4CidrSize": 24,
   "secureBootEnabled": true,
+  "serviceAccount": undefined,
+  "status": "RUNNING",
+  "statusMessage": undefined,
+  "version": "1.17.14-gke.1600",
+  "webLink": "https://console.cloud.google.com/kubernetes/nodepool/northamerica-northeast1-a/my-first-cluster-1/j1-gc-integration-dev-gke-node-pool?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+}
+`;
+
+exports[`#createContainerNodePoolEntity should have serviceAccount set to some value if it is not using the default one 1`] = `
+Object {
+  "_class": Array [
+    "Group",
+  ],
+  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev/locations/us-central1/clusters/j1-gc-integration-dev-gke-cluster/nodePools/j1-gc-integration-dev-gke-node-pool",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "config": Object {
+          "serviceAccount": "example-service-account@project-id.gserviceaccount.com",
+        },
+        "initialNodeCount": 1,
+        "instanceGroupUrls": Array [
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-f/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-d0942024-grp",
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-c/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-2a95071a-grp",
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-6817e506-grp",
+        ],
+        "locations": Array [
+          "us-central1-f",
+          "us-central1-c",
+          "us-central1-a",
+        ],
+        "management": Object {
+          "autoRepair": true,
+          "autoUpgrade": true,
+        },
+        "name": "j1-gc-integration-dev-gke-node-pool",
+        "podIpv4CidrSize": 24,
+        "selfLink": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev/locations/us-central1/clusters/j1-gc-integration-dev-gke-cluster/nodePools/j1-gc-integration-dev-gke-node-pool",
+        "status": "RUNNING",
+        "upgradeSettings": Object {
+          "maxSurge": 1,
+        },
+        "version": "1.17.14-gke.1600",
+      },
+    },
+  ],
+  "_type": "google_container_node_pool",
+  "active": undefined,
+  "autoRepairEnabled": true,
+  "autoUpgradeEnabled": true,
+  "bootDiskKmsKey": undefined,
+  "createdOn": undefined,
+  "displayName": "j1-gc-integration-dev-gke-node-pool",
+  "gkeMetadataServerEnabled": false,
+  "gkeSandboxEnabled": false,
+  "imageType": undefined,
+  "initialNodeCount": 1,
+  "integrityMonitoringEnabled": false,
+  "legacyEndpointsDisabled": false,
+  "name": "j1-gc-integration-dev-gke-node-pool",
+  "podIpv4CidrSize": 24,
+  "secureBootEnabled": false,
+  "serviceAccount": "example-service-account@project-id.gserviceaccount.com",
+  "status": "RUNNING",
+  "statusMessage": undefined,
+  "version": "1.17.14-gke.1600",
+  "webLink": "https://console.cloud.google.com/kubernetes/nodepool/northamerica-northeast1-a/my-first-cluster-1/j1-gc-integration-dev-gke-node-pool?folder=&organizationId=&project=j1-gc-integration-dev-v2",
+}
+`;
+
+exports[`#createContainerNodePoolEntity should have serviceAccount set to undefined if it is using the default service account 1`] = `
+Object {
+  "_class": Array [
+    "Group",
+  ],
+  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev/locations/us-central1/clusters/j1-gc-integration-dev-gke-cluster/nodePools/j1-gc-integration-dev-gke-node-pool",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "config": Object {
+          "diskSizeGb": 100,
+          "diskType": "pd-standard",
+          "imageType": "COS",
+          "machineType": "e2-micro",
+          "metadata": Object {
+            "disable-legacy-endpoints": "true",
+          },
+          "oauthScopes": Array [
+            "https://www.googleapis.com/auth/cloud-platform",
+          ],
+          "preemptible": true,
+          "shieldedInstanceConfig": Object {
+            "enableIntegrityMonitoring": true,
+          },
+        },
+        "initialNodeCount": 1,
+        "instanceGroupUrls": Array [
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-f/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-d0942024-grp",
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-c/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-2a95071a-grp",
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/zones/us-central1-a/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-6817e506-grp",
+        ],
+        "locations": Array [
+          "us-central1-f",
+          "us-central1-c",
+          "us-central1-a",
+        ],
+        "management": Object {
+          "autoRepair": true,
+          "autoUpgrade": true,
+        },
+        "name": "j1-gc-integration-dev-gke-node-pool",
+        "podIpv4CidrSize": 24,
+        "selfLink": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev/locations/us-central1/clusters/j1-gc-integration-dev-gke-cluster/nodePools/j1-gc-integration-dev-gke-node-pool",
+        "status": "RUNNING",
+        "upgradeSettings": Object {
+          "maxSurge": 1,
+        },
+        "version": "1.17.14-gke.1600",
+      },
+    },
+  ],
+  "_type": "google_container_node_pool",
+  "active": undefined,
+  "autoRepairEnabled": true,
+  "autoUpgradeEnabled": true,
+  "bootDiskKmsKey": undefined,
+  "createdOn": undefined,
+  "displayName": "j1-gc-integration-dev-gke-node-pool",
+  "gkeMetadataServerEnabled": false,
+  "gkeSandboxEnabled": false,
+  "imageType": "COS",
+  "initialNodeCount": 1,
+  "integrityMonitoringEnabled": true,
+  "legacyEndpointsDisabled": true,
+  "name": "j1-gc-integration-dev-gke-node-pool",
+  "podIpv4CidrSize": 24,
+  "secureBootEnabled": false,
+  "serviceAccount": undefined,
   "status": "RUNNING",
   "statusMessage": undefined,
   "version": "1.17.14-gke.1600",

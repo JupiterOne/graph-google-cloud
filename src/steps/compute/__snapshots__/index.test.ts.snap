@@ -15010,30 +15010,6 @@ gke-8bbab0112cb94cb19340:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC+JEVg4vUEVNC+cCr
       "_type": "google_compute_project_has_instance",
       "displayName": "HAS",
     },
-    Object {
-      "_class": "HAS",
-      "_fromEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2",
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2|has|https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-b/instances/gke-j1-gc-integratio-j1-gc-integratio-d1ab6bb2-ksb2",
-      "_toEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-b/instances/gke-j1-gc-integratio-j1-gc-integratio-d1ab6bb2-ksb2",
-      "_type": "google_compute_project_has_instance",
-      "displayName": "HAS",
-    },
-    Object {
-      "_class": "HAS",
-      "_fromEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2",
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2|has|https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-c/instances/gke-j1-gc-integratio-j1-gc-integratio-e1c64cb5-vbbt",
-      "_toEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-c/instances/gke-j1-gc-integratio-j1-gc-integratio-e1c64cb5-vbbt",
-      "_type": "google_compute_project_has_instance",
-      "displayName": "HAS",
-    },
-    Object {
-      "_class": "HAS",
-      "_fromEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2",
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2|has|https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-f/instances/gke-j1-gc-integratio-j1-gc-integratio-da1fd85f-btg5",
-      "_toEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-f/instances/gke-j1-gc-integratio-j1-gc-integratio-da1fd85f-btg5",
-      "_type": "google_compute_project_has_instance",
-      "displayName": "HAS",
-    },
   ],
   "encounteredTypes": Array [
     "google_compute_instance_group",
@@ -15043,7 +15019,7 @@ gke-8bbab0112cb94cb19340:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC+JEVg4vUEVNC+cCr
     "google_compute_project_has_instance",
   ],
   "numCollectedEntities": 11,
-  "numCollectedRelationships": 9,
+  "numCollectedRelationships": 6,
 }
 `;
 

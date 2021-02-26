@@ -599,8 +599,6 @@ export function getMockContainerNodePool(
         'disable-legacy-endpoints': 'true',
       },
       imageType: 'COS',
-      serviceAccount:
-        'j1-gc-integration-dev-gke-sa@j1-gc-integration-dev.iam.gserviceaccount.com',
       preemptible: true,
       diskType: 'pd-standard',
       shieldedInstanceConfig: {

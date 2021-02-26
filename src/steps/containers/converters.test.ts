@@ -337,6 +337,28 @@ describe('#createContainerClusterEntity', () => {
       ),
     ).toMatchSnapshot();
   });
+
+  test('should have workloadIdentity set to namespace if the Workload Identity is enabled', () => {
+    expect(
+      createContainerClusterEntity(
+        getMockContainerCluster({
+          workloadIdentityConfig: {
+            workloadPool: 'j1-gc-integration-dev-v2.svc.id.goog',
+          },
+        }),
+        DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
+      ),
+    ).toMatchSnapshot();
+  });
+
+  test('should have workloadIdentity set to undefined if the Workload Identity is disabled', () => {
+    expect(
+      createContainerClusterEntity(
+        getMockContainerCluster(),
+        DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
+      ),
+    ).toMatchSnapshot();
+  });
 });
 
 describe('#createContainerNodePoolEntity', () => {
@@ -562,6 +584,59 @@ describe('#createContainerNodePoolEntity', () => {
             },
           },
         }),
+        DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
+        DEFAULT_CLUSTER_LOCATION,
+        DEFAULT_CLUSTER_NAME,
+      ),
+    ).toMatchSnapshot();
+  });
+
+  test('should have serviceAccount set to some value if it is not using the default one', () => {
+    expect(
+      createContainerNodePoolEntity(
+        getMockContainerNodePool({
+          config: {
+            serviceAccount:
+              'example-service-account@project-id.gserviceaccount.com',
+          },
+        }),
+        DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
+        DEFAULT_CLUSTER_LOCATION,
+        DEFAULT_CLUSTER_NAME,
+      ),
+    ).toMatchSnapshot();
+  });
+
+  test('should have serviceAccount set to undefined if it is using the default service account', () => {
+    expect(
+      createContainerNodePoolEntity(
+        getMockContainerNodePool(),
+        DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
+        DEFAULT_CLUSTER_LOCATION,
+        DEFAULT_CLUSTER_NAME,
+      ),
+    ).toMatchSnapshot();
+  });
+
+  test('should have bootDiskKmsKey set to a value if boot disk encryption type is set to customer managed', () => {
+    expect(
+      createContainerNodePoolEntity(
+        getMockContainerNodePool({
+          config: {
+            bootDiskKmsKey: 'example-key',
+          },
+        }),
+        DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
+        DEFAULT_CLUSTER_LOCATION,
+        DEFAULT_CLUSTER_NAME,
+      ),
+    ).toMatchSnapshot();
+  });
+
+  test('should have bootDiskKmsKey set to undefined if boot disk encryption type is not set to customer managed', () => {
+    expect(
+      createContainerNodePoolEntity(
+        getMockContainerNodePool(),
         DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
         DEFAULT_CLUSTER_LOCATION,
         DEFAULT_CLUSTER_NAME,

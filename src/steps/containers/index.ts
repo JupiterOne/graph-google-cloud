@@ -4,6 +4,10 @@ import {
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  ENTITY_TYPE_COMPUTE_INSTANCE_GROUP,
+  STEP_COMPUTE_INSTANCE_GROUPS,
+} from '../compute';
 import { ContainerClient } from './client';
 import {
   STEP_CONTAINER_CLUSTERS,
@@ -12,6 +16,7 @@ import {
   CONTAINER_NODE_POOL_ENTITY_TYPE,
   RELATIONSHIP_TYPE_CONTAINER_CLUSTER_HAS_NODE_POOL,
   CONTAINER_NODE_POOL_ENTITY_CLASS,
+  RELATIONSHIP_TYPE_CONTAINER_NODE_POOL_HAS_INSTANCE_GROUP,
 } from './constants';
 import {
   createContainerClusterEntity,
@@ -53,6 +58,28 @@ export async function fetchContainerClusters(
           to: nodePoolEntity,
         }),
       );
+
+      // Add google_container_node_pool -> HAS -> google_compute_instance_group
+      for (const instanceGroupUrl of nodePool.instanceGroupUrls || []) {
+        // Instance group entity have keys of this format:
+        // https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-c/instanceGroups/gke-j1-gc-integratio-j1-gc-integratio-e1c64cb5-grp
+        // Node pools have pointers to their instance groups in this format:
+        // https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-c/instanceGroupManagers/gke-j1-gc-integratio-j1-gc-integratio-e1c64cb5-grp
+        // If we replace instanceGroupManagers with instanceGroups we can use it as _key for jobState.findEntity() and avoid having to use jobState.iterateEntities()
+        const instanceGroupEntity = await jobState.findEntity(
+          instanceGroupUrl.replace('instanceGroupManagers', 'instanceGroups'),
+        );
+
+        if (instanceGroupEntity) {
+          await jobState.addRelationship(
+            createDirectRelationship({
+              _class: RelationshipClass.HAS,
+              from: nodePoolEntity,
+              to: instanceGroupEntity,
+            }),
+          );
+        }
+      }
     }
   });
 }
@@ -80,7 +107,14 @@ export const containerSteps: IntegrationStep<IntegrationConfig>[] = [
         sourceType: CONTAINER_CLUSTER_ENTITY_TYPE,
         targetType: CONTAINER_NODE_POOL_ENTITY_TYPE,
       },
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_CONTAINER_NODE_POOL_HAS_INSTANCE_GROUP,
+        sourceType: CONTAINER_NODE_POOL_ENTITY_TYPE,
+        targetType: ENTITY_TYPE_COMPUTE_INSTANCE_GROUP,
+      },
     ],
+    dependsOn: [STEP_COMPUTE_INSTANCE_GROUPS],
     executionHandler: fetchContainerClusters,
   },
 ];

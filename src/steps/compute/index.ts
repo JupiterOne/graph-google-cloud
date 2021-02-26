@@ -246,13 +246,16 @@ export async function fetchComputeProject(
         _type: ENTITY_TYPE_COMPUTE_INSTANCE,
       },
       async (computeInstanceEntity) => {
-        await jobState.addRelationship(
-          createDirectRelationship({
-            _class: RelationshipClass.HAS,
-            from: computeProjectEntity,
-            to: computeInstanceEntity,
-          }),
-        );
+        // Add relationships to all instances but the one starting with 'gke' because GKE are handled separately
+        if (!computeInstanceEntity.displayName?.startsWith('gke')) {
+          await jobState.addRelationship(
+            createDirectRelationship({
+              _class: RelationshipClass.HAS,
+              from: computeProjectEntity,
+              to: computeInstanceEntity,
+            }),
+          );
+        }
       },
     );
   }
