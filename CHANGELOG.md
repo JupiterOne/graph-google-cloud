@@ -8,6 +8,34 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.15.0 - 2020-02-23
+
+### Added
+
+- Support for ingesting the following **new** resources
+
+- New relationships
+
+  - GKE
+    - `google_container_node_pool` **HAS** `google_compute_instance_group`
+
+- New properties added to resources:
+  - GKE
+    - `google_container_node_pool`
+      - `serviceAccount`
+      - `bootDiskKmsKey`
+  - `google_container_cluster`
+    - `workloadIdentity`
+
+### Changed
+
+- Update integration SDK packages
+
+### Fixed
+
+- SDK package upgrades contained bug fixes for `jobState.getData` typings. Fixed
+  usage in this project.
+
 ## 0.14.0 - 2020-02-23
 
 ### Added

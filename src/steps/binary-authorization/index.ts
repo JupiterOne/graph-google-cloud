@@ -1,6 +1,5 @@
 import {
   createDirectRelationship,
-  Entity,
   IntegrationStep,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
@@ -16,6 +15,7 @@ import {
 } from './constants';
 import { createBinaryAuthorizationPolicyEntity } from './converters';
 import { publishMissingPermissionEvent } from '../../utils/events';
+import { getProjectEntity } from '../../utils/project';
 
 export async function fetchBinaryAuthorizationPolicy(
   context: IntegrationStepContext,
@@ -58,7 +58,7 @@ export async function fetchBinaryAuthorizationPolicy(
 
     await jobState.addEntity(policyEntity);
 
-    const projectEntity = await jobState.getData<Entity>(PROJECT_ENTITY_TYPE);
+    const projectEntity = await getProjectEntity(jobState);
     await jobState.addRelationship(
       createDirectRelationship({
         _class: RelationshipClass.HAS,

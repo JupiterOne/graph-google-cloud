@@ -1,6 +1,6 @@
 {
   "name": "@jupiterone/graph-google-cloud",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "description": "A graph conversion tool for https://cloud.google.com/",
   "license": "MPL-2.0",
   "main": "dist/index.js",
@@ -28,12 +28,12 @@
     "jupiterone-organization-setup": "yarn ts-node ./scripts/organizationSetupCli.ts"
   },
   "peerDependencies": {
-    "@jupiterone/integration-sdk-core": "^5.2.0"
+    "@jupiterone/integration-sdk-core": "^5.8.1"
   },
   "devDependencies": {
-    "@jupiterone/integration-sdk-core": "^5.2.0",
-    "@jupiterone/integration-sdk-dev-tools": "^5.2.0",
-    "@jupiterone/integration-sdk-testing": "^5.2.0",
+    "@jupiterone/integration-sdk-core": "^5.8.1",
+    "@jupiterone/integration-sdk-dev-tools": "^5.8.1",
+    "@jupiterone/integration-sdk-testing": "^5.8.1",
     "@types/bunyan": "^1.8.6",
     "@types/bunyan-format": "^0.2.3",
     "@types/node-fetch": "^2.5.7",
