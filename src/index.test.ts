@@ -54,6 +54,21 @@ import {
 } from './steps/logging/constants';
 import { STEP_MONITORING_ALERT_POLICIES } from './steps/monitoring/constants';
 import { STEP_BINARY_AUTHORIZATION_POLICY } from './steps/binary-authorization/constants';
+import {
+  STEP_PUBSUB_SUBSCRIPTIONS,
+  STEP_PUBSUB_TOPICS,
+} from './steps/pub-sub/constants';
+import {
+  STEP_APP_ENGINE_APPLICATION,
+  STEP_APP_ENGINE_INSTANCES,
+  STEP_APP_ENGINE_SERVICES,
+  STEP_APP_ENGINE_VERSIONS,
+} from './steps/app-engine/constants';
+import {
+  STEP_CLOUD_RUN_CONFIGURATIONS,
+  STEP_CLOUD_RUN_ROUTES,
+  STEP_CLOUD_RUN_SERVICES,
+} from './steps/cloud-run/constants';
 
 interface ValidateInvocationInvalidConfigTestParams {
   instanceConfig?: Partial<IntegrationConfig>;
@@ -209,6 +224,33 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_BINARY_AUTHORIZATION_POLICY]: {
+        disabled: false,
+      },
+      [STEP_PUBSUB_TOPICS]: {
+        disabled: false,
+      },
+      [STEP_PUBSUB_SUBSCRIPTIONS]: {
+        disabled: false,
+      },
+      [STEP_APP_ENGINE_APPLICATION]: {
+        disabled: false,
+      },
+      [STEP_APP_ENGINE_SERVICES]: {
+        disabled: false,
+      },
+      [STEP_APP_ENGINE_VERSIONS]: {
+        disabled: false,
+      },
+      [STEP_APP_ENGINE_INSTANCES]: {
+        disabled: false,
+      },
+      [STEP_CLOUD_RUN_SERVICES]: {
+        disabled: false,
+      },
+      [STEP_CLOUD_RUN_ROUTES]: {
+        disabled: false,
+      },
+      [STEP_CLOUD_RUN_CONFIGURATIONS]: {
         disabled: false,
       },
     };

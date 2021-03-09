@@ -1,0 +1,216 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createPubSubProjectSubscriptionEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Service",
+  ],
+  "_key": "projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "ackDeadlineSeconds": 10,
+        "expirationPolicy": Object {
+          "ttl": "2678400s",
+        },
+        "messageRetentionDuration": "604800s",
+        "name": "projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription",
+        "pushConfig": Object {},
+        "topic": "projects/j1-gc-integration-dev-v2/topics/mock-topic",
+      },
+    },
+  ],
+  "_type": "google_pubsub_subscription",
+  "ackDeadlineSeconds": 10,
+  "category": Array [
+    "application",
+  ],
+  "createdOn": undefined,
+  "deadLetter": false,
+  "displayName": "projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription",
+  "enableMessageOrdering": false,
+  "messageRetentionDuration": "604800s",
+  "name": "projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription",
+  "webLink": "https://console.cloud.google.com/cloudpubsub/subscription/detail/mock-subscription?project=j1-gc-integration-dev-v2",
+}
+`;
+
+exports[`#createPubSubProjectSubscriptionEntity should have deadLetter set to false if it is not using dead letter 1`] = `
+Object {
+  "_class": Array [
+    "Service",
+  ],
+  "_key": "projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "ackDeadlineSeconds": 10,
+        "expirationPolicy": Object {
+          "ttl": "2678400s",
+        },
+        "messageRetentionDuration": "604800s",
+        "name": "projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription",
+        "pushConfig": Object {},
+        "topic": "projects/j1-gc-integration-dev-v2/topics/mock-topic",
+      },
+    },
+  ],
+  "_type": "google_pubsub_subscription",
+  "ackDeadlineSeconds": 10,
+  "category": Array [
+    "application",
+  ],
+  "createdOn": undefined,
+  "deadLetter": false,
+  "displayName": "projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription",
+  "enableMessageOrdering": false,
+  "messageRetentionDuration": "604800s",
+  "name": "projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription",
+  "webLink": "https://console.cloud.google.com/cloudpubsub/subscription/detail/mock-subscription?project=j1-gc-integration-dev-v2",
+}
+`;
+
+exports[`#createPubSubProjectSubscriptionEntity should have deadLetter set to true if it is using dead letter 1`] = `
+Object {
+  "_class": Array [
+    "Service",
+  ],
+  "_key": "projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "ackDeadlineSeconds": 10,
+        "deadLetterPolicy": Object {
+          "deadLetterTopic": "projects/j1-gc-integration-dev-v2/topics/mock-topic-dead-letter",
+          "maxDeliveryAttempts": 10,
+        },
+        "expirationPolicy": Object {
+          "ttl": "2678400s",
+        },
+        "messageRetentionDuration": "604800s",
+        "name": "projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription",
+        "pushConfig": Object {},
+        "topic": "projects/j1-gc-integration-dev-v2/topics/mock-topic",
+      },
+    },
+  ],
+  "_type": "google_pubsub_subscription",
+  "ackDeadlineSeconds": 10,
+  "category": Array [
+    "application",
+  ],
+  "createdOn": undefined,
+  "deadLetter": true,
+  "displayName": "projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription",
+  "enableMessageOrdering": false,
+  "messageRetentionDuration": "604800s",
+  "name": "projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription",
+  "webLink": "https://console.cloud.google.com/cloudpubsub/subscription/detail/mock-subscription?project=j1-gc-integration-dev-v2",
+}
+`;
+
+exports[`#createPubSubProjectSubscriptionEntity should have enableMessageOrdering set to false if it is not enabled 1`] = `
+Object {
+  "_class": Array [
+    "Service",
+  ],
+  "_key": "projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "ackDeadlineSeconds": 10,
+        "expirationPolicy": Object {
+          "ttl": "2678400s",
+        },
+        "messageRetentionDuration": "604800s",
+        "name": "projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription",
+        "pushConfig": Object {},
+        "topic": "projects/j1-gc-integration-dev-v2/topics/mock-topic",
+      },
+    },
+  ],
+  "_type": "google_pubsub_subscription",
+  "ackDeadlineSeconds": 10,
+  "category": Array [
+    "application",
+  ],
+  "createdOn": undefined,
+  "deadLetter": false,
+  "displayName": "projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription",
+  "enableMessageOrdering": false,
+  "messageRetentionDuration": "604800s",
+  "name": "projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription",
+  "webLink": "https://console.cloud.google.com/cloudpubsub/subscription/detail/mock-subscription?project=j1-gc-integration-dev-v2",
+}
+`;
+
+exports[`#createPubSubProjectSubscriptionEntity should have enableMessageOrdering set to true if it is enabled 1`] = `
+Object {
+  "_class": Array [
+    "Service",
+  ],
+  "_key": "projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "ackDeadlineSeconds": 10,
+        "enableMessageOrdering": true,
+        "expirationPolicy": Object {
+          "ttl": "2678400s",
+        },
+        "messageRetentionDuration": "604800s",
+        "name": "projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription",
+        "pushConfig": Object {},
+        "topic": "projects/j1-gc-integration-dev-v2/topics/mock-topic",
+      },
+    },
+  ],
+  "_type": "google_pubsub_subscription",
+  "ackDeadlineSeconds": 10,
+  "category": Array [
+    "application",
+  ],
+  "createdOn": undefined,
+  "deadLetter": false,
+  "displayName": "projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription",
+  "enableMessageOrdering": true,
+  "messageRetentionDuration": "604800s",
+  "name": "projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription",
+  "webLink": "https://console.cloud.google.com/cloudpubsub/subscription/detail/mock-subscription?project=j1-gc-integration-dev-v2",
+}
+`;
+
+exports[`#createPubSubProjectTopicEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Gateway",
+  ],
+  "_key": "projects/j1-gc-integration-dev-v2/topics/example-topic",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "name": "projects/j1-gc-integration-dev-v2/topics/example-topic",
+      },
+    },
+  ],
+  "_type": "google_pubsub_topic",
+  "category": Array [
+    "application",
+  ],
+  "createdOn": undefined,
+  "displayName": "projects/j1-gc-integration-dev-v2/topics/example-topic",
+  "function": Array [
+    "other",
+  ],
+  "kmsKeyName": undefined,
+  "name": "projects/j1-gc-integration-dev-v2/topics/example-topic",
+  "public": false,
+  "webLink": "https://console.cloud.google.com/cloudpubsub/topic/detail/example-topic?project=j1-gc-integration-dev-v2",
+}
+`;

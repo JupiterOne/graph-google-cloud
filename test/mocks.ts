@@ -13,6 +13,9 @@ import {
   binaryauthorization_v1,
   cloudfunctions_v1,
   serviceusage_v1,
+  pubsub_v1,
+  run_v1,
+  appengine_v1,
 } from 'googleapis';
 
 export function getMockIamRole(
@@ -1076,6 +1079,378 @@ export function getMockServiceApi(
     },
     state: 'ENABLED',
     parent: 'projects/545240943112',
+    ...partial,
+  };
+}
+
+export function getMockPubSubTopic(
+  partial?: pubsub_v1.Schema$Topic,
+): pubsub_v1.Schema$Topic {
+  return {
+    name: 'projects/j1-gc-integration-dev-v2/topics/example-topic',
+    ...partial,
+  };
+}
+
+export function getMockPubSubSubscription(
+  partial?: pubsub_v1.Schema$Subscription,
+): pubsub_v1.Schema$Subscription {
+  return {
+    name: 'projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription',
+    topic: 'projects/j1-gc-integration-dev-v2/topics/mock-topic',
+    pushConfig: {},
+    ackDeadlineSeconds: 10,
+    messageRetentionDuration: '604800s',
+    expirationPolicy: {
+      ttl: '2678400s',
+    },
+    ...partial,
+  };
+}
+
+export function getMockCloudRunService(
+  partial?: run_v1.Schema$Service,
+): run_v1.Schema$Service {
+  return {
+    apiVersion: 'serving.knative.dev/v1',
+    kind: 'Service',
+    metadata: {
+      name: 'example-cloud-run-service',
+      namespace: '711888229551',
+      selfLink:
+        '/apis/serving.knative.dev/v1/namespaces/711888229551/services/example-cloud-run-service',
+      uid: 'fce2d165-9ccb-4b6c-9204-67362d41aadd',
+      resourceVersion: 'AAW9IJgvqVc',
+      generation: 1,
+      labels: {
+        'cloud.googleapis.com/location': 'us-central1',
+      },
+      annotations: {
+        'run.googleapis.com/client-name': 'cloud-console',
+        'serving.knative.dev/creator': 'user@email.com',
+        'serving.knative.dev/lastModifier': 'user@email.com',
+        'client.knative.dev/user-image':
+          'us-docker.pkg.dev/cloudrun/container/hello',
+        'run.googleapis.com/launch-stage': 'BETA',
+        'run.googleapis.com/ingress': 'all',
+        'run.googleapis.com/ingress-status': 'all',
+      },
+      creationTimestamp: '2021-03-09T20:41:29.622532Z',
+    },
+    spec: {
+      template: {
+        metadata: {
+          name: 'example-cloud-run-service-00001-mub',
+          annotations: {
+            'run.googleapis.com/client-name': 'cloud-console',
+            'autoscaling.knative.dev/maxScale': '100',
+            'run.googleapis.com/sandbox': 'gvisor',
+          },
+        },
+        spec: {
+          containerConcurrency: 80,
+          timeoutSeconds: 300,
+          serviceAccountName:
+            '711888229551-compute@developer.gserviceaccount.com',
+          containers: [
+            {
+              image: 'us-docker.pkg.dev/cloudrun/container/hello',
+              resources: {
+                limits: {
+                  cpu: '1000m',
+                  memory: '256Mi',
+                },
+              },
+              ports: [
+                {
+                  containerPort: 8080,
+                },
+              ],
+            },
+          ],
+        },
+      },
+      traffic: [
+        {
+          percent: 100,
+          latestRevision: true,
+        },
+      ],
+    },
+    status: {
+      observedGeneration: 1,
+      conditions: [
+        {
+          type: 'Ready',
+          status: 'True',
+          lastTransitionTime: '2021-03-09T20:42:53.416791Z',
+        },
+        {
+          type: 'ConfigurationsReady',
+          status: 'True',
+          lastTransitionTime: '2021-03-09T20:42:53.211458Z',
+        },
+        {
+          type: 'RoutesReady',
+          status: 'True',
+          lastTransitionTime: '2021-03-09T20:42:53.416791Z',
+        },
+      ],
+      latestReadyRevisionName: 'example-cloud-run-service-00001-mub',
+      latestCreatedRevisionName: 'example-cloud-run-service-00001-mub',
+      traffic: [
+        {
+          revisionName: 'example-cloud-run-service-00001-mub',
+          percent: 100,
+          latestRevision: true,
+        },
+      ],
+      url: 'https://example-cloud-run-service-rhbpqun2qa-uc.a.run.app',
+      address: {
+        url: 'https://example-cloud-run-service-rhbpqun2qa-uc.a.run.app',
+      },
+    },
+    ...partial,
+  };
+}
+
+export function getMockCloudRunRoute(
+  partial?: run_v1.Schema$Route,
+): run_v1.Schema$Route {
+  return {
+    apiVersion: 'serving.knative.dev/v1',
+    kind: 'Route',
+    metadata: {
+      name: 'example-cloud-run-service',
+      namespace: '711888229551',
+      selfLink:
+        '/apis/serving.knative.dev/v1/namespaces/711888229551/routes/example-cloud-run-service',
+      uid: 'f538487c-6e93-4038-9f6a-b7936cc4dd04',
+      resourceVersion: 'AAW9IJgu/zw',
+      generation: 1,
+      creationTimestamp: '2021-03-09T20:41:30.309851Z',
+      labels: {
+        'serving.knative.dev/service': 'example-cloud-run-service',
+        'cloud.googleapis.com/location': 'us-central1',
+      },
+      annotations: {
+        'run.googleapis.com/client-name': 'cloud-console',
+        'serving.knative.dev/creator': 'user@email.com',
+        'serving.knative.dev/lastModifier': 'user@email.com',
+        'client.knative.dev/user-image':
+          'us-docker.pkg.dev/cloudrun/container/hello',
+        'run.googleapis.com/ingress': 'all',
+        'run.googleapis.com/ingress-status': 'all',
+      },
+      ownerReferences: [
+        {
+          kind: 'Service',
+          name: 'example-cloud-run-service',
+          uid: 'fce2d165-9ccb-4b6c-9204-67362d41aadd',
+          apiVersion: 'serving.knative.dev/v1',
+          controller: true,
+          blockOwnerDeletion: true,
+        },
+      ],
+    },
+    spec: {
+      traffic: [
+        {
+          configurationName: 'example-cloud-run-service',
+          percent: 100,
+          latestRevision: true,
+        },
+      ],
+    },
+    status: {
+      observedGeneration: 1,
+      conditions: [
+        {
+          type: 'Ready',
+          status: 'True',
+          lastTransitionTime: '2021-03-09T20:42:53.373244Z',
+        },
+      ],
+      traffic: [
+        {
+          revisionName: 'example-cloud-run-service-00001-mub',
+          percent: 100,
+          latestRevision: true,
+        },
+      ],
+      url: 'https://example-cloud-run-service-rhbpqun2qa-uc.a.run.app',
+      address: {
+        url: 'https://example-cloud-run-service-rhbpqun2qa-uc.a.run.app',
+      },
+    },
+    ...partial,
+  };
+}
+
+export function getMockCloudRunConfiguration(
+  partial?: run_v1.Schema$Configuration,
+): run_v1.Schema$Configuration {
+  return {
+    apiVersion: 'serving.knative.dev/v1',
+    kind: 'Configuration',
+    metadata: {
+      name: 'example-cloud-run-service',
+      namespace: '711888229551',
+      selfLink:
+        '/apis/serving.knative.dev/v1/namespaces/711888229551/configurations/example-cloud-run-service',
+      uid: 'f190d809-4de1-4eb3-80bb-ad0ac9954f85',
+      resourceVersion: 'AAW9IJgrZIw',
+      generation: 1,
+      labels: {
+        'serving.knative.dev/route': 'example-cloud-run-service',
+        'serving.knative.dev/service': 'example-cloud-run-service',
+        'cloud.googleapis.com/location': 'us-central1',
+      },
+      annotations: {
+        'run.googleapis.com/client-name': 'cloud-console',
+        'serving.knative.dev/creator': 'user@email.com',
+        'serving.knative.dev/lastModifier': 'user@email.com',
+        'client.knative.dev/user-image':
+          'us-docker.pkg.dev/cloudrun/container/hello',
+        'run.googleapis.com/launch-stage': 'BETA',
+      },
+      ownerReferences: [
+        {
+          apiVersion: 'serving.knative.dev/v1',
+          kind: 'Service',
+          name: 'example-cloud-run-service',
+          uid: 'fce2d165-9ccb-4b6c-9204-67362d41aadd',
+          controller: true,
+          blockOwnerDeletion: true,
+        },
+      ],
+      creationTimestamp: '2021-03-09T20:41:30.336883Z',
+    },
+    spec: {
+      template: {
+        metadata: {
+          name: 'example-cloud-run-service-00001-mub',
+          annotations: {
+            'run.googleapis.com/client-name': 'cloud-console',
+            'autoscaling.knative.dev/maxScale': '100',
+            'run.googleapis.com/sandbox': 'gvisor',
+          },
+        },
+        spec: {
+          containerConcurrency: 80,
+          timeoutSeconds: 300,
+          serviceAccountName:
+            '711888229551-compute@developer.gserviceaccount.com',
+          containers: [
+            {
+              image: 'us-docker.pkg.dev/cloudrun/container/hello',
+              resources: {
+                limits: {
+                  cpu: '1000m',
+                  memory: '256Mi',
+                },
+              },
+              ports: [
+                {
+                  containerPort: 8080,
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+    status: {
+      observedGeneration: 1,
+      latestCreatedRevisionName: 'example-cloud-run-service-00001-mub',
+      latestReadyRevisionName: 'example-cloud-run-service-00001-mub',
+      conditions: [
+        {
+          type: 'Ready',
+          status: 'True',
+          lastTransitionTime: '2021-03-09T20:42:53.137036Z',
+        },
+      ],
+    },
+    ...partial,
+  };
+}
+
+export function getMockAppEngineApplication(
+  partial?: appengine_v1.Schema$Application,
+): appengine_v1.Schema$Application {
+  return {
+    name: 'apps/j1-gc-integration-dev-v2',
+    id: 'j1-gc-integration-dev-v2',
+    authDomain: 'gmail.com',
+    locationId: 'us-central',
+    codeBucket: 'staging.j1-gc-integration-dev-v2.appspot.com',
+    servingStatus: 'SERVING',
+    defaultHostname: 'j1-gc-integration-dev-v2.uc.r.appspot.com',
+    defaultBucket: 'j1-gc-integration-dev-v2.appspot.com',
+    gcrDomain: 'us.gcr.io',
+    databaseType: 'CLOUD_DATASTORE_COMPATIBILITY',
+    featureSettings: {
+      splitHealthChecks: true,
+      useContainerOptimizedOs: true,
+    },
+    ...partial,
+  };
+}
+
+export function getMockAppEngineService(
+  partial?: appengine_v1.Schema$Service,
+): appengine_v1.Schema$Service {
+  return {
+    name: 'apps/j1-gc-integration-dev-v2/services/default',
+    id: 'default',
+    split: {
+      allocations: {
+        '20210309t141022': 1,
+      },
+    },
+    ...partial,
+  };
+}
+
+export function getMockAppEngineVersion(
+  partial?: appengine_v1.Schema$Version,
+): appengine_v1.Schema$Version {
+  return {
+    name:
+      'apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022',
+    id: '20210309t141022',
+    instanceClass: 'F1',
+    network: {},
+    runtime: 'nodejs14',
+    threadsafe: true,
+    env: 'standard',
+    servingStatus: 'SERVING',
+    createdBy: 'username@email.com',
+    createTime: '2021-03-09T14:11:25Z',
+    diskUsageBytes: '4027054',
+    versionUrl:
+      'https://20210309t141022-dot-j1-gc-integration-dev-v2.appspot.com',
+    runtimeChannel: 'default',
+    ...partial,
+  };
+}
+
+export function getMockAppEngineInstance(
+  partial?: appengine_v1.Schema$Instance,
+): appengine_v1.Schema$Instance {
+  return {
+    name:
+      'apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022/instances/00c61b117c4f411df406d524e4a05eedc1393bcc50f9e7895ad08f46a2422e90974a734f30ef08b500405d4d514704e0d99c2ee290b9e238e920cba5d5a1964fe1c37be53c9773c2',
+    id:
+      '00c61b117c4f411df406d524e4a05eedc1393bcc50f9e7895ad08f46a2422e90974a734f30ef08b500405d4d514704e0d99c2ee290b9e238e920cba5d5a1964fe1c37be53c9773c2',
+    appEngineRelease: '1.9.71',
+    availability: 'DYNAMIC',
+    startTime: '2021-03-11T17:28:44.506934Z',
+    requests: 3,
+    qps: 0.19493178,
+    averageLatency: 365,
+    memoryUsage: '55549952',
     ...partial,
   };
 }

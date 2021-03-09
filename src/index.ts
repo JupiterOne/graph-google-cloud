@@ -15,6 +15,9 @@ import { containerSteps } from './steps/containers';
 import { loggingSteps } from './steps/logging';
 import { monitoringSteps } from './steps/monitoring';
 import { binaryAuthorizationSteps } from './steps/binary-authorization';
+import { pubSubSteps } from './steps/pub-sub';
+import { appEngineSteps } from './steps/app-engine';
+import { cloudRunSteps } from './steps/cloud-run';
 
 export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> = {
   instanceConfigFields: {
@@ -39,5 +42,8 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> = 
     ...loggingSteps,
     ...monitoringSteps,
     ...binaryAuthorizationSteps,
+    ...pubSubSteps,
+    ...appEngineSteps,
+    ...cloudRunSteps,
   ],
 };

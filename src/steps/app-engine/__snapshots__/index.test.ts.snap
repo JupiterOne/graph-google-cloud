@@ -1,0 +1,446 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchAppEngineApplication should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Container",
+      ],
+      "_key": "apps/j1-gc-integration-dev-v2",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "authDomain": "gmail.com",
+            "codeBucket": "staging.j1-gc-integration-dev-v2.appspot.com",
+            "databaseType": "CLOUD_DATASTORE_COMPATIBILITY",
+            "defaultBucket": "j1-gc-integration-dev-v2.appspot.com",
+            "defaultHostname": "j1-gc-integration-dev-v2.uc.r.appspot.com",
+            "featureSettings": Object {
+              "splitHealthChecks": true,
+              "useContainerOptimizedOs": true,
+            },
+            "gcrDomain": "us.gcr.io",
+            "id": "j1-gc-integration-dev-v2",
+            "locationId": "us-central",
+            "name": "apps/j1-gc-integration-dev-v2",
+            "servingStatus": "SERVING",
+          },
+        },
+      ],
+      "_type": "google_app_engine_application",
+      "createdOn": undefined,
+      "defaultBucket": "j1-gc-integration-dev-v2.appspot.com",
+      "defaultHostname": "j1-gc-integration-dev-v2.uc.r.appspot.com",
+      "displayName": "apps/j1-gc-integration-dev-v2",
+      "id": "j1-gc-integration-dev-v2",
+      "location": "us-central",
+      "name": "apps/j1-gc-integration-dev-v2",
+      "servingStatus": "SERVING",
+      "splitHealthChecks": true,
+      "useContainerOptimizedOs": true,
+      "webLink": "https://console.cloud.google.com/appengine?project=j1-gc-integration-dev-v2",
+    },
+  ],
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
+    "google_app_engine_application",
+  ],
+  "numCollectedEntities": 1,
+  "numCollectedRelationships": 0,
+}
+`;
+
+exports[`#fetchAppEngineInstances should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Container",
+      ],
+      "_key": "apps/j1-gc-integration-dev-v2",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "authDomain": "gmail.com",
+            "codeBucket": "staging.j1-gc-integration-dev-v2.appspot.com",
+            "databaseType": "CLOUD_DATASTORE_COMPATIBILITY",
+            "defaultBucket": "j1-gc-integration-dev-v2.appspot.com",
+            "defaultHostname": "j1-gc-integration-dev-v2.uc.r.appspot.com",
+            "featureSettings": Object {
+              "splitHealthChecks": true,
+              "useContainerOptimizedOs": true,
+            },
+            "gcrDomain": "us.gcr.io",
+            "id": "j1-gc-integration-dev-v2",
+            "locationId": "us-central",
+            "name": "apps/j1-gc-integration-dev-v2",
+            "servingStatus": "SERVING",
+          },
+        },
+      ],
+      "_type": "google_app_engine_application",
+      "createdOn": undefined,
+      "defaultBucket": "j1-gc-integration-dev-v2.appspot.com",
+      "defaultHostname": "j1-gc-integration-dev-v2.uc.r.appspot.com",
+      "displayName": "apps/j1-gc-integration-dev-v2",
+      "id": "j1-gc-integration-dev-v2",
+      "location": "us-central",
+      "name": "apps/j1-gc-integration-dev-v2",
+      "servingStatus": "SERVING",
+      "splitHealthChecks": true,
+      "useContainerOptimizedOs": true,
+      "webLink": "https://console.cloud.google.com/appengine?project=j1-gc-integration-dev-v2",
+    },
+    Object {
+      "_class": Array [
+        "Container",
+      ],
+      "_key": "apps/j1-gc-integration-dev-v2/services/default",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "id": "default",
+            "name": "apps/j1-gc-integration-dev-v2/services/default",
+            "split": Object {
+              "allocations": Object {
+                "20210309t141022": 1,
+              },
+            },
+          },
+        },
+      ],
+      "_type": "google_app_engine_service",
+      "createdOn": undefined,
+      "displayName": "apps/j1-gc-integration-dev-v2/services/default",
+      "id": "default",
+      "name": "apps/j1-gc-integration-dev-v2/services/default",
+    },
+    Object {
+      "_class": Array [
+        "Service",
+      ],
+      "_key": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "createTime": "2021-03-09T14:11:25Z",
+            "createdBy": "user@email.com",
+            "diskUsageBytes": "4027054",
+            "env": "standard",
+            "id": "20210309t141022",
+            "instanceClass": "F1",
+            "name": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022",
+            "network": Object {},
+            "runtime": "nodejs14",
+            "runtimeChannel": "default",
+            "servingStatus": "SERVING",
+            "threadsafe": true,
+            "versionUrl": "https://20210309t141022-dot-j1-gc-integration-dev-v2.appspot.com",
+          },
+        },
+      ],
+      "_type": "google_app_engine_version",
+      "category": Array [
+        "application",
+      ],
+      "createdBy": "user@email.com",
+      "createdOn": 1615299085000,
+      "displayName": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022",
+      "id": "20210309t141022",
+      "name": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022",
+      "versionUrl": "https://20210309t141022-dot-j1-gc-integration-dev-v2.appspot.com",
+    },
+    Object {
+      "_class": Array [
+        "Host",
+      ],
+      "_key": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022/instances/00c61b117cb00c666a1ff843f3c6d0fd520bc6ddfc7cfc6bfa98841439c506acb2f6716ed2e379ff904b3285514d9f4470d6860e7b04294a78dc4c8a2605205b2bc3fde745050850",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "appEngineRelease": "1.9.71",
+            "availability": "DYNAMIC",
+            "id": "00c61b117cb00c666a1ff843f3c6d0fd520bc6ddfc7cfc6bfa98841439c506acb2f6716ed2e379ff904b3285514d9f4470d6860e7b04294a78dc4c8a2605205b2bc3fde745050850",
+            "memoryUsage": "54710272",
+            "name": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022/instances/00c61b117cb00c666a1ff843f3c6d0fd520bc6ddfc7cfc6bfa98841439c506acb2f6716ed2e379ff904b3285514d9f4470d6860e7b04294a78dc4c8a2605205b2bc3fde745050850",
+            "requests": 4,
+            "startTime": "2021-03-11T16:51:27.467810Z",
+          },
+        },
+      ],
+      "_type": "google_app_engine_instance",
+      "availability": "DYNAMIC",
+      "createdOn": 1615481487467,
+      "displayName": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022/instances/00c61b117cb00c666a1ff843f3c6d0fd520bc6ddfc7cfc6bfa98841439c506acb2f6716ed2e379ff904b3285514d9f4470d6860e7b04294a78dc4c8a2605205b2bc3fde745050850",
+      "id": "00c61b117cb00c666a1ff843f3c6d0fd520bc6ddfc7cfc6bfa98841439c506acb2f6716ed2e379ff904b3285514d9f4470d6860e7b04294a78dc4c8a2605205b2bc3fde745050850",
+      "name": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022/instances/00c61b117cb00c666a1ff843f3c6d0fd520bc6ddfc7cfc6bfa98841439c506acb2f6716ed2e379ff904b3285514d9f4470d6860e7b04294a78dc4c8a2605205b2bc3fde745050850",
+      "requests": 4,
+    },
+  ],
+  "collectedRelationships": Array [
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "apps/j1-gc-integration-dev-v2",
+      "_key": "apps/j1-gc-integration-dev-v2|has|apps/j1-gc-integration-dev-v2/services/default",
+      "_toEntityKey": "apps/j1-gc-integration-dev-v2/services/default",
+      "_type": "google_app_engine_application_has_service",
+      "displayName": "HAS",
+    },
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "apps/j1-gc-integration-dev-v2/services/default",
+      "_key": "apps/j1-gc-integration-dev-v2/services/default|has|apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022",
+      "_toEntityKey": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022",
+      "_type": "google_app_engine_service_has_version",
+      "displayName": "HAS",
+    },
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022",
+      "_key": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022|has|apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022/instances/00c61b117cb00c666a1ff843f3c6d0fd520bc6ddfc7cfc6bfa98841439c506acb2f6716ed2e379ff904b3285514d9f4470d6860e7b04294a78dc4c8a2605205b2bc3fde745050850",
+      "_toEntityKey": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022/instances/00c61b117cb00c666a1ff843f3c6d0fd520bc6ddfc7cfc6bfa98841439c506acb2f6716ed2e379ff904b3285514d9f4470d6860e7b04294a78dc4c8a2605205b2bc3fde745050850",
+      "_type": "google_app_engine_version_has_instance",
+      "displayName": "HAS",
+    },
+  ],
+  "encounteredTypes": Array [
+    "google_app_engine_application",
+    "google_app_engine_service",
+    "google_app_engine_application_has_service",
+    "google_app_engine_version",
+    "google_app_engine_service_has_version",
+    "google_app_engine_instance",
+    "google_app_engine_version_has_instance",
+  ],
+  "numCollectedEntities": 4,
+  "numCollectedRelationships": 3,
+}
+`;
+
+exports[`#fetchAppEngineServices should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Container",
+      ],
+      "_key": "apps/j1-gc-integration-dev-v2",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "authDomain": "gmail.com",
+            "codeBucket": "staging.j1-gc-integration-dev-v2.appspot.com",
+            "databaseType": "CLOUD_DATASTORE_COMPATIBILITY",
+            "defaultBucket": "j1-gc-integration-dev-v2.appspot.com",
+            "defaultHostname": "j1-gc-integration-dev-v2.uc.r.appspot.com",
+            "featureSettings": Object {
+              "splitHealthChecks": true,
+              "useContainerOptimizedOs": true,
+            },
+            "gcrDomain": "us.gcr.io",
+            "id": "j1-gc-integration-dev-v2",
+            "locationId": "us-central",
+            "name": "apps/j1-gc-integration-dev-v2",
+            "servingStatus": "SERVING",
+          },
+        },
+      ],
+      "_type": "google_app_engine_application",
+      "createdOn": undefined,
+      "defaultBucket": "j1-gc-integration-dev-v2.appspot.com",
+      "defaultHostname": "j1-gc-integration-dev-v2.uc.r.appspot.com",
+      "displayName": "apps/j1-gc-integration-dev-v2",
+      "id": "j1-gc-integration-dev-v2",
+      "location": "us-central",
+      "name": "apps/j1-gc-integration-dev-v2",
+      "servingStatus": "SERVING",
+      "splitHealthChecks": true,
+      "useContainerOptimizedOs": true,
+      "webLink": "https://console.cloud.google.com/appengine?project=j1-gc-integration-dev-v2",
+    },
+    Object {
+      "_class": Array [
+        "Container",
+      ],
+      "_key": "apps/j1-gc-integration-dev-v2/services/default",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "id": "default",
+            "name": "apps/j1-gc-integration-dev-v2/services/default",
+            "split": Object {
+              "allocations": Object {
+                "20210309t141022": 1,
+              },
+            },
+          },
+        },
+      ],
+      "_type": "google_app_engine_service",
+      "createdOn": undefined,
+      "displayName": "apps/j1-gc-integration-dev-v2/services/default",
+      "id": "default",
+      "name": "apps/j1-gc-integration-dev-v2/services/default",
+    },
+  ],
+  "collectedRelationships": Array [
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "apps/j1-gc-integration-dev-v2",
+      "_key": "apps/j1-gc-integration-dev-v2|has|apps/j1-gc-integration-dev-v2/services/default",
+      "_toEntityKey": "apps/j1-gc-integration-dev-v2/services/default",
+      "_type": "google_app_engine_application_has_service",
+      "displayName": "HAS",
+    },
+  ],
+  "encounteredTypes": Array [
+    "google_app_engine_application",
+    "google_app_engine_service",
+    "google_app_engine_application_has_service",
+  ],
+  "numCollectedEntities": 2,
+  "numCollectedRelationships": 1,
+}
+`;
+
+exports[`#fetchAppEngineVersions should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Container",
+      ],
+      "_key": "apps/j1-gc-integration-dev-v2",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "authDomain": "gmail.com",
+            "codeBucket": "staging.j1-gc-integration-dev-v2.appspot.com",
+            "databaseType": "CLOUD_DATASTORE_COMPATIBILITY",
+            "defaultBucket": "j1-gc-integration-dev-v2.appspot.com",
+            "defaultHostname": "j1-gc-integration-dev-v2.uc.r.appspot.com",
+            "featureSettings": Object {
+              "splitHealthChecks": true,
+              "useContainerOptimizedOs": true,
+            },
+            "gcrDomain": "us.gcr.io",
+            "id": "j1-gc-integration-dev-v2",
+            "locationId": "us-central",
+            "name": "apps/j1-gc-integration-dev-v2",
+            "servingStatus": "SERVING",
+          },
+        },
+      ],
+      "_type": "google_app_engine_application",
+      "createdOn": undefined,
+      "defaultBucket": "j1-gc-integration-dev-v2.appspot.com",
+      "defaultHostname": "j1-gc-integration-dev-v2.uc.r.appspot.com",
+      "displayName": "apps/j1-gc-integration-dev-v2",
+      "id": "j1-gc-integration-dev-v2",
+      "location": "us-central",
+      "name": "apps/j1-gc-integration-dev-v2",
+      "servingStatus": "SERVING",
+      "splitHealthChecks": true,
+      "useContainerOptimizedOs": true,
+      "webLink": "https://console.cloud.google.com/appengine?project=j1-gc-integration-dev-v2",
+    },
+    Object {
+      "_class": Array [
+        "Container",
+      ],
+      "_key": "apps/j1-gc-integration-dev-v2/services/default",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "id": "default",
+            "name": "apps/j1-gc-integration-dev-v2/services/default",
+            "split": Object {
+              "allocations": Object {
+                "20210309t141022": 1,
+              },
+            },
+          },
+        },
+      ],
+      "_type": "google_app_engine_service",
+      "createdOn": undefined,
+      "displayName": "apps/j1-gc-integration-dev-v2/services/default",
+      "id": "default",
+      "name": "apps/j1-gc-integration-dev-v2/services/default",
+    },
+    Object {
+      "_class": Array [
+        "Service",
+      ],
+      "_key": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "createTime": "2021-03-09T14:11:25Z",
+            "createdBy": "user@email.com",
+            "diskUsageBytes": "4027054",
+            "env": "standard",
+            "id": "20210309t141022",
+            "instanceClass": "F1",
+            "name": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022",
+            "network": Object {},
+            "runtime": "nodejs14",
+            "runtimeChannel": "default",
+            "servingStatus": "SERVING",
+            "threadsafe": true,
+            "versionUrl": "https://20210309t141022-dot-j1-gc-integration-dev-v2.appspot.com",
+          },
+        },
+      ],
+      "_type": "google_app_engine_version",
+      "category": Array [
+        "application",
+      ],
+      "createdBy": "user@email.com",
+      "createdOn": 1615299085000,
+      "displayName": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022",
+      "id": "20210309t141022",
+      "name": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022",
+      "versionUrl": "https://20210309t141022-dot-j1-gc-integration-dev-v2.appspot.com",
+    },
+  ],
+  "collectedRelationships": Array [
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "apps/j1-gc-integration-dev-v2",
+      "_key": "apps/j1-gc-integration-dev-v2|has|apps/j1-gc-integration-dev-v2/services/default",
+      "_toEntityKey": "apps/j1-gc-integration-dev-v2/services/default",
+      "_type": "google_app_engine_application_has_service",
+      "displayName": "HAS",
+    },
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "apps/j1-gc-integration-dev-v2/services/default",
+      "_key": "apps/j1-gc-integration-dev-v2/services/default|has|apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022",
+      "_toEntityKey": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022",
+      "_type": "google_app_engine_service_has_version",
+      "displayName": "HAS",
+    },
+  ],
+  "encounteredTypes": Array [
+    "google_app_engine_application",
+    "google_app_engine_service",
+    "google_app_engine_application_has_service",
+    "google_app_engine_version",
+    "google_app_engine_service_has_version",
+  ],
+  "numCollectedEntities": 3,
+  "numCollectedRelationships": 2,
+}
+`;

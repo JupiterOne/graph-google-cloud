@@ -691,13 +691,13 @@ Object {
       "_class": Array [
         "User",
       ],
-      "_key": "viragsf@gmail.com",
+      "_key": "user@email.com",
       "_rawData": Array [
         Object {
           "name": "default",
           "rawData": Object {
             "deleted": false,
-            "identifier": "viragsf@gmail.com",
+            "identifier": "user@email.com",
             "type": "user",
             "uniqueid": undefined,
           },
@@ -706,11 +706,11 @@ Object {
       "_type": "google_user",
       "createdOn": undefined,
       "deleted": false,
-      "displayName": "viragsf@gmail.com",
-      "name": "viragsf@gmail.com",
+      "displayName": "user@email.com",
+      "name": "user@email.com",
       "type": "user",
       "uniqueid": undefined,
-      "username": "viragsf@gmail.com",
+      "username": "user@email.com",
     },
     Object {
       "_class": Array [
@@ -916,8 +916,8 @@ Object {
     },
     Object {
       "_class": "ASSIGNED",
-      "_fromEntityKey": "viragsf@gmail.com",
-      "_key": "viragsf@gmail.com|assigned|roles/owner",
+      "_fromEntityKey": "user@email.com",
+      "_key": "user@email.com|assigned|roles/owner",
       "_toEntityKey": "roles/owner",
       "_type": "google_user_assigned_iam_role",
       "displayName": "ASSIGNED",
