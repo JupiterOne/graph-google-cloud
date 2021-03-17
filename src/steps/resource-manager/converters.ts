@@ -4,11 +4,11 @@ import {
   createDirectRelationship,
   Relationship,
   RelationshipClass,
-  createIntegrationEntity,
   convertProperties,
   parseTimePropertyValue,
 } from '@jupiterone/integration-sdk-core';
 import { PROJECT_ENTITY_TYPE, PROJECT_ENTITY_CLASS } from './constants';
+import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 
 function getConditionRelationshipProperties(
   condition: cloudresourcemanager_v1.Schema$Expr,
@@ -43,7 +43,7 @@ export function createProjectEntity(
   projectId: string,
   project: cloudresourcemanager_v1.Schema$Project | undefined = {},
 ) {
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(project, {
     entityData: {
       source: project,
       assign: {

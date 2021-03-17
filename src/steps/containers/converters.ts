@@ -1,8 +1,5 @@
 import { container_v1 } from 'googleapis';
-import {
-  createIntegrationEntity,
-  parseTimePropertyValue,
-} from '@jupiterone/integration-sdk-core';
+import { parseTimePropertyValue } from '@jupiterone/integration-sdk-core';
 import {
   CONTAINER_CLUSTER_ENTITY_CLASS,
   CONTAINER_CLUSTER_ENTITY_TYPE,
@@ -10,6 +7,7 @@ import {
   CONTAINER_NODE_POOL_ENTITY_TYPE,
 } from './constants';
 import { getGoogleCloudConsoleWebLink } from '../../utils/url';
+import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 
 export function createContainerClusterEntity(
   data: container_v1.Schema$Cluster,
@@ -17,7 +15,7 @@ export function createContainerClusterEntity(
 ) {
   const { nodePools, ...withoutPools } = data;
 
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: withoutPools,
       assign: {
@@ -117,7 +115,7 @@ export function createContainerNodePoolEntity(
   location: string,
   clusterName: string,
 ) {
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {

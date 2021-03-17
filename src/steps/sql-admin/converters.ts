@@ -1,5 +1,5 @@
 import { sqladmin_v1beta4 } from 'googleapis';
-import { createIntegrationEntity } from '@jupiterone/integration-sdk-core';
+import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import {
   SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
   SQL_ADMIN_MYSQL_INSTANCE_ENTITY_CLASS,
@@ -111,7 +111,7 @@ function getCommonBenchmarkProperties(
 export function createMySQLInstanceEntity(
   instance: sqladmin_v1beta4.Schema$DatabaseInstance,
 ) {
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(instance, {
     entityData: {
       source: instance,
       assign: {
@@ -131,7 +131,7 @@ export function createMySQLInstanceEntity(
 export function createPostgresInstanceEntity(
   instance: sqladmin_v1beta4.Schema$DatabaseInstance,
 ) {
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(instance, {
     entityData: {
       source: instance,
       assign: {
@@ -151,7 +151,7 @@ export function createPostgresInstanceEntity(
 export function createSQLServerInstanceEntity(
   instance: sqladmin_v1beta4.Schema$DatabaseInstance,
 ) {
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(instance, {
     entityData: {
       source: instance,
       assign: {

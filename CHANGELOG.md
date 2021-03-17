@@ -8,6 +8,24 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.17.0 - 2021-03-17
+
+### Added
+
+- Add a `tag.` property to every entity for each label in the Google Cloud
+  `labels` property. For example, if a `google_storage_bucket` has a `labels`
+  property that has the value:
+
+```json
+{
+  "myLabel": "myLabelVal",
+  "myOtherLabel": "myOtherLabelValue"
+}
+```
+
+The following individual tags will be copied onto the entity: `tag.myLabel`,
+`tag.myOtherLabel`
+
 ## 0.16.0 - 2021-03-17
 
 ### Added

@@ -1,17 +1,15 @@
 import { cloudfunctions_v1 } from 'googleapis';
-import {
-  createIntegrationEntity,
-  getTime,
-} from '@jupiterone/integration-sdk-core';
+import { getTime } from '@jupiterone/integration-sdk-core';
 import {
   CLOUD_FUNCTION_ENTITY_CLASS,
   CLOUD_FUNCTION_ENTITY_TYPE,
 } from './constants';
+import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 
 export function createCloudFunctionEntity(
   cloudFunction: cloudfunctions_v1.Schema$CloudFunction,
 ) {
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(cloudFunction, {
     entityData: {
       source: cloudFunction,
       assign: {

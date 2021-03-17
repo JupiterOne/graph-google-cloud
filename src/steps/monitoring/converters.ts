@@ -1,8 +1,6 @@
-import {
-  createIntegrationEntity,
-  parseTimePropertyValue,
-} from '@jupiterone/integration-sdk-core';
+import { parseTimePropertyValue } from '@jupiterone/integration-sdk-core';
 import { monitoring_v3 } from 'googleapis';
+import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import { getGoogleCloudConsoleWebLink } from '../../utils/url';
 import {
   MONITORING_ALERT_POLICY_CLASS,
@@ -13,7 +11,7 @@ export function createAlertPolicyEntity(
   data: monitoring_v3.Schema$AlertPolicy,
   projectId: string,
 ) {
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {

@@ -1,5 +1,5 @@
 import { serviceusage_v1 } from 'googleapis';
-import { createIntegrationEntity } from '@jupiterone/integration-sdk-core';
+import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import { API_SERVICE_ENTITY_CLASS, API_SERVICE_ENTITY_TYPE } from './constants';
 
 export function createApiServiceEntity(
@@ -11,7 +11,7 @@ export function createApiServiceEntity(
     throw new Error('API Service missing required "config" in response');
   }
 
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {

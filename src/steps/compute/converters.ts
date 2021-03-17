@@ -1,6 +1,5 @@
 import { compute_v1 } from 'googleapis';
 import {
-  createIntegrationEntity,
   getTime,
   createDirectRelationship,
   Entity,
@@ -50,9 +49,10 @@ import {
 import { getGoogleCloudConsoleWebLink, getLastUrlPart } from '../../utils/url';
 import { parseRegionNameFromRegionUrl } from '../../google-cloud/regions';
 import { FirewallRuleRelationshipTargetProperties } from '../../utils/firewall';
+import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 
 export function createComputeProjectEntity(data: compute_v1.Schema$Project) {
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {
@@ -77,7 +77,7 @@ export function createComputeProjectEntity(data: compute_v1.Schema$Project) {
 }
 
 export function createComputeDiskEntity(data: compute_v1.Schema$Disk) {
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: {
         ...data,
@@ -291,7 +291,7 @@ function isShieldedVM(
 export function createComputeInstanceEntity(data: compute_v1.Schema$Instance) {
   const ipAddresses = getIpAddressesForComputeInstance(data);
 
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: {
         ...data,
@@ -411,7 +411,7 @@ export function createComputeInstanceTrustsServiceAccountRelationship(params: {
 }
 
 export function createComputeFirewallEntity(data: compute_v1.Schema$Firewall) {
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {
@@ -497,7 +497,7 @@ export function createComputeSubnetEntity(
 ) {
   const regionName = parseRegionNameFromRegionUrl(data.region as string);
 
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {
@@ -543,7 +543,7 @@ export function createComputeNetworkEntity(
   data: compute_v1.Schema$Network,
   projectId: string,
 ) {
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {
@@ -669,7 +669,7 @@ export function createFirewallRuleMappedRelationship({
 }
 
 export function createHealthCheckEntity(data: compute_v1.Schema$HealthCheck) {
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {
@@ -718,7 +718,7 @@ export function createInstanceGroupNamedPortEntity({
   regionName: string;
   projectId: string;
 }) {
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(namedPort, {
     entityData: {
       source: namedPort,
       assign: {
@@ -744,7 +744,7 @@ export function createInstanceGroupEntity(
   projectId: string,
   regionName: string,
 ) {
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {
@@ -768,7 +768,7 @@ export function createInstanceGroupEntity(
 }
 
 export function createLoadBalancerEntity(data: compute_v1.Schema$UrlMap) {
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {
@@ -791,7 +791,7 @@ export function createLoadBalancerEntity(data: compute_v1.Schema$UrlMap) {
 export function createBackendServiceEntity(
   data: compute_v1.Schema$BackendService,
 ) {
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {
@@ -815,7 +815,7 @@ export function createBackendServiceEntity(
 export function createBackendBucketEntity(
   data: compute_v1.Schema$BackendBucket,
 ) {
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {
@@ -839,7 +839,7 @@ export function createBackendBucketEntity(
 export function createTargetSslProxyEntity(
   data: compute_v1.Schema$TargetSslProxy,
 ) {
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {
@@ -861,7 +861,7 @@ export function createTargetSslProxyEntity(
 export function createTargetHttpsProxyEntity(
   data: compute_v1.Schema$TargetHttpsProxy,
 ) {
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {
@@ -883,7 +883,7 @@ export function createTargetHttpsProxyEntity(
 export function createTargetHttpProxyEntity(
   data: compute_v1.Schema$TargetHttpProxy,
 ) {
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {
@@ -902,7 +902,7 @@ export function createTargetHttpProxyEntity(
 }
 
 export function createSslPolicyEntity(data: compute_v1.Schema$SslPolicy) {
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {

@@ -1,32 +1,21 @@
-import { storage_v1 } from 'googleapis';
 import { parseTimePropertyValue } from '@jupiterone/integration-sdk-core';
+import { storage_v1 } from 'googleapis';
+import { getMockStorageBucket } from '../../test/mocks';
 import {
-  CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
   CLOUD_STORAGE_BUCKET_ENTITY_CLASS,
-} from './constants';
-import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
+  CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
+} from '../steps/storage';
+import {
+  getCloudStorageBucketKey,
+  getCloudStorageBucketWebLink,
+} from '../steps/storage/converters';
+import { createGoogleCloudIntegrationEntity } from './entity';
 
-export function getCloudStorageBucketWebLink(
+function getMockStorageBucketEntityBuilderInput(
   data: storage_v1.Schema$Bucket,
   projectId: string,
 ) {
-  return `https://console.cloud.google.com/storage/browser/${data.name};tab=objects?forceOnBucketsSortingFiltering=false&project=${projectId}`;
-}
-
-export function getCloudStorageBucketKey(id: string) {
-  return `bucket:${id}`;
-}
-
-export function createCloudStorageBucketEntity({
-  data,
-  projectId,
-  isPublic,
-}: {
-  data: storage_v1.Schema$Bucket;
-  projectId: string;
-  isPublic: boolean;
-}) {
-  return createGoogleCloudIntegrationEntity(data, {
+  return {
     entityData: {
       source: data,
       assign: {
@@ -50,12 +39,44 @@ export function createCloudStorageBucketEntity({
         retentionPolicyEnabled: data.retentionPolicy?.isLocked,
         retentionPeriod: data.retentionPolicy?.retentionPeriod,
         retentionDate: data.retentionPolicy?.effectiveTime,
-        public: isPublic,
+        public: false,
         // Rely on the value of the classification tag
         classification: null,
         etag: data.etag,
         webLink: getCloudStorageBucketWebLink(data, projectId),
       },
     },
-  });
+  };
 }
+
+describe('#createGoogleCloudIntegrationEntity', () => {
+  test('should produce entity and copy labels if labels exist on resource', () => {
+    const projectId = 'j1';
+    const mockStorageBucket = getMockStorageBucket({
+      labels: {
+        myLabel: 'test',
+      },
+    });
+
+    expect(
+      createGoogleCloudIntegrationEntity(
+        mockStorageBucket,
+        getMockStorageBucketEntityBuilderInput(mockStorageBucket, projectId),
+      ),
+    ).toMatchSnapshot();
+  });
+
+  test('should produce entity and not fail if labels do not exist on resource', () => {
+    const projectId = 'j1';
+    const mockStorageBucket = getMockStorageBucket({
+      labels: undefined,
+    });
+
+    expect(
+      createGoogleCloudIntegrationEntity(
+        mockStorageBucket,
+        getMockStorageBucketEntityBuilderInput(mockStorageBucket, projectId),
+      ),
+    ).toMatchSnapshot();
+  });
+});
