@@ -259,7 +259,13 @@ describe('#createHealthCheckEntity', () => {
 
 describe('#createInstanceGroupEntity', () => {
   test('should convert to entity', () => {
-    expect(createInstanceGroupEntity(getMockInstanceGroup())).toMatchSnapshot();
+    expect(
+      createInstanceGroupEntity(
+        getMockInstanceGroup(),
+        'j1-gc-integration-dev-v2',
+        'us-central1',
+      ),
+    ).toMatchSnapshot();
   });
 });
 

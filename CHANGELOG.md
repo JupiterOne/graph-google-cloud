@@ -8,7 +8,22 @@ and this project adheres to
 
 ## [Unreleased]
 
-## 0.15.0 - 2020-02-23
+## 0.16.0 - 2021-03-17
+
+### Added
+
+- Support for ingesting the following **new** resources
+  - Entities
+    - `google_compute_instance_group_named_port`
+  - Relationships
+    - Compute
+      - `google_compute_instance_group` **HAS**
+        `google_compute_instance_group_named_port`
+- New properties added to resources:
+  - `google_compute_instance_group`
+    - `webLink`
+
+## 0.15.0 - 2021-03-04
 
 ### Added
 
@@ -36,7 +51,7 @@ and this project adheres to
 - SDK package upgrades contained bug fixes for `jobState.getData` typings. Fixed
   usage in this project.
 
-## 0.14.0 - 2020-02-23
+## 0.14.0 - 2021-02-23
 
 ### Added
 
@@ -45,7 +60,7 @@ and this project adheres to
     - `google_container_node_pool`
     - `google_binary_authorization_policy`
 
-## 0.13.0 - 2020-02-17
+## 0.13.0 - 2021-02-17
 
 ### Added
 
@@ -86,7 +101,7 @@ and this project adheres to
   service account used to execute the integration does not have the
   `compute.projects.get` permission.
 
-## 0.12.0 - 2020-02-05
+## 0.12.0 - 2021-02-05
 
 ### Added
 

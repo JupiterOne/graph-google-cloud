@@ -1110,6 +1110,7 @@ Object {
   "name": "instance-group-1",
   "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
   "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
+  "webLink": "https://console.cloud.google.com/compute/instanceGroups/details/us-central1/instance-group-1?project=j1-gc-integration-dev-v2",
   "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a",
 }
 `;

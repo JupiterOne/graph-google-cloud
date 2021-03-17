@@ -26,6 +26,7 @@ import {
   createSslPolicyEntity,
   createInstanceGroupEntity,
   createHealthCheckEntity,
+  createInstanceGroupNamedPortEntity,
 } from './converters';
 import {
   STEP_COMPUTE_INSTANCES,
@@ -92,6 +93,9 @@ import {
   ENTITY_TYPE_COMPUTE_HEALTH_CHECK,
   ENTITY_CLASS_COMPUTE_HEALTH_CHECK,
   RELATIONSHIP_TYPE_BACKEND_SERVICE_HAS_HEALTH_CHECK,
+  ENTITY_TYPE_COMPUTE_INSTANCE_GROUP_NAMED_PORT,
+  ENTITY_CLASS_COMPUTE_INSTANCE_GROUP_NAMED_PORT,
+  RELATIONSHIP_TYPE_INSTANCE_GROUP_HAS_NAMED_PORT,
 } from './constants';
 import { compute_v1 } from 'googleapis';
 import { INTERNET, RelationshipClass } from '@jupiterone/data-model';
@@ -110,6 +114,7 @@ import {
 } from '../storage';
 import { getCloudStorageBucketKey } from '../storage/converters';
 import { publishMissingPermissionEvent } from '../../utils/events';
+import { parseRegionNameFromRegionUrl } from '../../google-cloud/regions';
 
 export * from './constants';
 
@@ -489,10 +494,34 @@ export async function fetchComputeInstanceGroups(
 ): Promise<void> {
   const { jobState, instance } = context;
   const client = new ComputeClient({ config: instance.config });
+  const { projectId } = client;
 
   await client.iterateInstanceGroups(async (instanceGroup) => {
-    const instanceGroupEntity = createInstanceGroupEntity(instanceGroup);
-    await jobState.addEntity(instanceGroupEntity);
+    const regionName = parseRegionNameFromRegionUrl(instanceGroup.zone!);
+
+    const instanceGroupEntity = await jobState.addEntity(
+      createInstanceGroupEntity(instanceGroup, projectId, regionName),
+    );
+
+    for (const namedPort of instanceGroup.namedPorts || []) {
+      const namedPortEntity = await jobState.addEntity(
+        createInstanceGroupNamedPortEntity({
+          instanceGroupId: instanceGroup.id!,
+          instanceGroupName: instanceGroup.name!,
+          namedPort,
+          projectId,
+          regionName,
+        }),
+      );
+
+      await jobState.addRelationship(
+        createDirectRelationship({
+          _class: RelationshipClass.HAS,
+          from: instanceGroupEntity,
+          to: namedPortEntity,
+        }),
+      );
+    }
   });
 }
 
@@ -941,8 +970,20 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
         _type: ENTITY_TYPE_COMPUTE_INSTANCE_GROUP,
         _class: ENTITY_CLASS_COMPUTE_INSTANCE_GROUP,
       },
+      {
+        resourceName: 'Compute Instance Group Named Port',
+        _type: ENTITY_TYPE_COMPUTE_INSTANCE_GROUP_NAMED_PORT,
+        _class: ENTITY_CLASS_COMPUTE_INSTANCE_GROUP_NAMED_PORT,
+      },
     ],
-    relationships: [],
+    relationships: [
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_INSTANCE_GROUP_HAS_NAMED_PORT,
+        sourceType: ENTITY_TYPE_COMPUTE_LOAD_BALANCER,
+        targetType: ENTITY_TYPE_COMPUTE_BACKEND_SERVICE,
+      },
+    ],
     dependsOn: [],
     executionHandler: fetchComputeInstanceGroups,
   },
