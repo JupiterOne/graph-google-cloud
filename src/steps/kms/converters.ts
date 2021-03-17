@@ -1,8 +1,5 @@
 import { cloudkms_v1 } from 'googleapis';
-import {
-  createIntegrationEntity,
-  parseTimePropertyValue,
-} from '@jupiterone/integration-sdk-core';
+import { parseTimePropertyValue } from '@jupiterone/integration-sdk-core';
 import {
   ENTITY_CLASS_KMS_KEY,
   ENTITY_CLASS_KMS_KEY_RING,
@@ -12,6 +9,7 @@ import {
 import { getGoogleCloudConsoleWebLink } from '../../utils/url';
 import { googleCloudDurationSecondsToNumber } from '../../utils/time';
 import { isMemberPublic } from '../../utils/iam';
+import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 
 export interface KmsKeyRingParts {
   projectId: string;
@@ -44,7 +42,7 @@ export function createKmsKeyRingEntity(data: cloudkms_v1.Schema$KeyRing) {
   const name = data.name as string;
   const parts = getKmsKingRingParts(name);
 
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {
@@ -90,7 +88,7 @@ export function createKmsCryptoKeyEntity({
 }) {
   const name = cryptoKey.name as string;
 
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(cryptoKey, {
     entityData: {
       source: cryptoKey,
       assign: {

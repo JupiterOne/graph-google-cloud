@@ -1,15 +1,13 @@
-import {
-  createIntegrationEntity,
-  parseTimePropertyValue,
-} from '@jupiterone/integration-sdk-core';
+import { parseTimePropertyValue } from '@jupiterone/integration-sdk-core';
 import { dns_v1 } from 'googleapis';
+import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import {
   DNS_MANAGED_ZONE_ENTITY_CLASS,
   DNS_MANAGED_ZONE_ENTITY_TYPE,
 } from './constants';
 
 export function createDNSManagedZoneEntity(data: dns_v1.Schema$ManagedZone) {
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {

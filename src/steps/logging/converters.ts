@@ -1,8 +1,6 @@
-import {
-  createIntegrationEntity,
-  parseTimePropertyValue,
-} from '@jupiterone/integration-sdk-core';
+import { parseTimePropertyValue } from '@jupiterone/integration-sdk-core';
 import { logging_v2 } from 'googleapis';
+import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import { getGoogleCloudConsoleWebLink } from '../../utils/url';
 import {
   LOGGING_METRIC_ENTITY_CLASS,
@@ -19,7 +17,7 @@ export function createLoggingProjectSinkEntity(
   data: logging_v2.Schema$LogSink,
   projectId: string,
 ) {
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {
@@ -45,7 +43,7 @@ export function createMetricEntity(
   data: logging_v2.Schema$LogMetric,
   projectId: string,
 ) {
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {

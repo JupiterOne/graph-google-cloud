@@ -1,6 +1,5 @@
 import { iam_v1 } from 'googleapis';
 import {
-  createIntegrationEntity,
   getTime,
   Relationship,
   Entity,
@@ -18,6 +17,7 @@ import {
   IAM_USER_ENTITY_TYPE,
 } from './constants';
 import { ParsedIamMemberType } from '../../utils/iam';
+import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 
 export function createIamRoleEntity(
   data: iam_v1.Schema$Role,
@@ -34,7 +34,7 @@ export function createIamRoleEntity(
 ) {
   const roleName = data.name as string;
 
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {
@@ -70,7 +70,7 @@ export function createIamUserEntity(data: {
   uniqueid: string | undefined;
   deleted: boolean;
 }) {
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {
@@ -94,7 +94,7 @@ export function createIamServiceAccountEntity(
   const serviceAccountId = data.uniqueId as string;
   const projectId = data.projectId as string;
 
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {
@@ -130,7 +130,7 @@ export function createIamServiceAccountKeyEntity(
     projectId: string;
   },
 ) {
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {

@@ -1,8 +1,6 @@
-import {
-  createIntegrationEntity,
-  parseTimePropertyValue,
-} from '@jupiterone/integration-sdk-core';
+import { parseTimePropertyValue } from '@jupiterone/integration-sdk-core';
 import { binaryauthorization_v1 } from 'googleapis';
+import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import { getGoogleCloudConsoleWebLink } from '../../utils/url';
 import {
   BINARY_AUTHORIZATION_POLICY_ENTITY_CLASS,
@@ -23,7 +21,7 @@ export function createBinaryAuthorizationPolicyEntity(
     )
     .filter((value) => value);
 
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {

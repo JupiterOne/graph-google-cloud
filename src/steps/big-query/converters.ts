@@ -1,5 +1,5 @@
 import { bigquery_v2 } from 'googleapis';
-import { createIntegrationEntity } from '@jupiterone/integration-sdk-core';
+import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import {
   BIG_QUERY_DATASET_ENTITY_CLASS,
   BIG_QUERY_DATASET_ENTITY_TYPE,
@@ -35,7 +35,7 @@ function isBigQueryDatasetPublicAccess(accessList: DatasetAccess[]): boolean {
 export function createBigQueryDatasetEntity(
   dataset: bigquery_v2.Schema$Dataset,
 ) {
-  return createIntegrationEntity({
+  return createGoogleCloudIntegrationEntity(dataset, {
     entityData: {
       source: dataset,
       assign: {
