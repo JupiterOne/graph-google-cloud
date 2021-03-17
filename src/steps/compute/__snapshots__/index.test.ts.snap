@@ -271,7 +271,31 @@ Object {
       "name": "tf-www-resources",
       "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
       "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
+      "webLink": "https://console.cloud.google.com/compute/instanceGroups/details/us-central1-a/tf-www-resources?project=j1-gc-integration-dev-v2",
       "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "instance_group_5321623555643806192_http_80",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "name": "http",
+            "port": 80,
+          },
+        },
+      ],
+      "_type": "google_compute_instance_group_named_port",
+      "createdOn": undefined,
+      "displayName": "http",
+      "instanceGroupId": "5321623555643806192",
+      "instanceGroupName": "tf-www-resources",
+      "name": "http",
+      "port": 80,
+      "webLink": "https://console.cloud.google.com/compute/instanceGroups/details/us-central1-a/tf-www-resources?project=j1-gc-integration-dev-v2",
     },
     Object {
       "_class": Array [
@@ -304,6 +328,7 @@ Object {
       "name": "gke-j1-gc-integratio-j1-gc-integratio-d1ab6bb2-grp",
       "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
       "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
+      "webLink": "https://console.cloud.google.com/compute/instanceGroups/details/us-central1-b/gke-j1-gc-integratio-j1-gc-integratio-d1ab6bb2-grp?project=j1-gc-integration-dev-v2",
       "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-b",
     },
     Object {
@@ -337,6 +362,7 @@ Object {
       "name": "gke-j1-gc-integratio-j1-gc-integratio-e1c64cb5-grp",
       "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
       "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
+      "webLink": "https://console.cloud.google.com/compute/instanceGroups/details/us-central1-c/gke-j1-gc-integratio-j1-gc-integratio-e1c64cb5-grp?project=j1-gc-integration-dev-v2",
       "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-c",
     },
     Object {
@@ -370,6 +396,7 @@ Object {
       "name": "gke-j1-gc-integratio-j1-gc-integratio-da1fd85f-grp",
       "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
       "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
+      "webLink": "https://console.cloud.google.com/compute/instanceGroups/details/us-central1-f/gke-j1-gc-integratio-j1-gc-integratio-da1fd85f-grp?project=j1-gc-integration-dev-v2",
       "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-f",
     },
     Object {
@@ -477,6 +504,14 @@ Object {
   "collectedRelationships": Array [
     Object {
       "_class": "HAS",
+      "_fromEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instanceGroups/tf-www-resources",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instanceGroups/tf-www-resources|has|instance_group_5321623555643806192_http_80",
+      "_toEntityKey": "instance_group_5321623555643806192_http_80",
+      "_type": "google_compute_instance_group_has_named_port",
+      "displayName": "HAS",
+    },
+    Object {
+      "_class": "HAS",
       "_fromEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/backendServices/load-balancer-www-service",
       "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/backendServices/load-balancer-www-service|has|https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instanceGroups/tf-www-resources",
       "_toEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instanceGroups/tf-www-resources",
@@ -494,13 +529,15 @@ Object {
   ],
   "encounteredTypes": Array [
     "google_compute_instance_group",
+    "google_compute_instance_group_named_port",
+    "google_compute_instance_group_has_named_port",
     "google_compute_health_check",
     "google_compute_backend_service",
     "google_compute_backend_service_has_instance_group",
     "google_compute_backend_service_has_health_check",
   ],
-  "numCollectedEntities": 6,
-  "numCollectedRelationships": 2,
+  "numCollectedEntities": 7,
+  "numCollectedRelationships": 3,
 }
 `;
 
@@ -5183,7 +5220,31 @@ Object {
       "name": "tf-www-resources",
       "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
       "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
+      "webLink": "https://console.cloud.google.com/compute/instanceGroups/details/us-central1-a/tf-www-resources?project=j1-gc-integration-dev-v2",
       "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "instance_group_5321623555643806192_http_80",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "name": "http",
+            "port": 80,
+          },
+        },
+      ],
+      "_type": "google_compute_instance_group_named_port",
+      "createdOn": undefined,
+      "displayName": "http",
+      "instanceGroupId": "5321623555643806192",
+      "instanceGroupName": "tf-www-resources",
+      "name": "http",
+      "port": 80,
+      "webLink": "https://console.cloud.google.com/compute/instanceGroups/details/us-central1-a/tf-www-resources?project=j1-gc-integration-dev-v2",
     },
     Object {
       "_class": Array [
@@ -5216,6 +5277,7 @@ Object {
       "name": "gke-j1-gc-integratio-j1-gc-integratio-d1ab6bb2-grp",
       "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
       "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
+      "webLink": "https://console.cloud.google.com/compute/instanceGroups/details/us-central1-b/gke-j1-gc-integratio-j1-gc-integratio-d1ab6bb2-grp?project=j1-gc-integration-dev-v2",
       "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-b",
     },
     Object {
@@ -5249,6 +5311,7 @@ Object {
       "name": "gke-j1-gc-integratio-j1-gc-integratio-e1c64cb5-grp",
       "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
       "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
+      "webLink": "https://console.cloud.google.com/compute/instanceGroups/details/us-central1-c/gke-j1-gc-integratio-j1-gc-integratio-e1c64cb5-grp?project=j1-gc-integration-dev-v2",
       "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-c",
     },
     Object {
@@ -5282,15 +5345,27 @@ Object {
       "name": "gke-j1-gc-integratio-j1-gc-integratio-da1fd85f-grp",
       "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
       "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
+      "webLink": "https://console.cloud.google.com/compute/instanceGroups/details/us-central1-f/gke-j1-gc-integratio-j1-gc-integratio-da1fd85f-grp?project=j1-gc-integration-dev-v2",
       "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-f",
     },
   ],
-  "collectedRelationships": Array [],
+  "collectedRelationships": Array [
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instanceGroups/tf-www-resources",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instanceGroups/tf-www-resources|has|instance_group_5321623555643806192_http_80",
+      "_toEntityKey": "instance_group_5321623555643806192_http_80",
+      "_type": "google_compute_instance_group_has_named_port",
+      "displayName": "HAS",
+    },
+  ],
   "encounteredTypes": Array [
     "google_compute_instance_group",
+    "google_compute_instance_group_named_port",
+    "google_compute_instance_group_has_named_port",
   ],
-  "numCollectedEntities": 4,
-  "numCollectedRelationships": 0,
+  "numCollectedEntities": 5,
+  "numCollectedRelationships": 1,
 }
 `;
 
@@ -5334,7 +5409,31 @@ Object {
       "name": "tf-www-resources",
       "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
       "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
+      "webLink": "https://console.cloud.google.com/compute/instanceGroups/details/us-central1-a/tf-www-resources?project=j1-gc-integration-dev-v2",
       "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "instance_group_5321623555643806192_http_80",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "name": "http",
+            "port": 80,
+          },
+        },
+      ],
+      "_type": "google_compute_instance_group_named_port",
+      "createdOn": undefined,
+      "displayName": "http",
+      "instanceGroupId": "5321623555643806192",
+      "instanceGroupName": "tf-www-resources",
+      "name": "http",
+      "port": 80,
+      "webLink": "https://console.cloud.google.com/compute/instanceGroups/details/us-central1-a/tf-www-resources?project=j1-gc-integration-dev-v2",
     },
     Object {
       "_class": Array [
@@ -5367,6 +5466,7 @@ Object {
       "name": "gke-j1-gc-integratio-j1-gc-integratio-d1ab6bb2-grp",
       "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
       "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
+      "webLink": "https://console.cloud.google.com/compute/instanceGroups/details/us-central1-b/gke-j1-gc-integratio-j1-gc-integratio-d1ab6bb2-grp?project=j1-gc-integration-dev-v2",
       "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-b",
     },
     Object {
@@ -5400,6 +5500,7 @@ Object {
       "name": "gke-j1-gc-integratio-j1-gc-integratio-e1c64cb5-grp",
       "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
       "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
+      "webLink": "https://console.cloud.google.com/compute/instanceGroups/details/us-central1-c/gke-j1-gc-integratio-j1-gc-integratio-e1c64cb5-grp?project=j1-gc-integration-dev-v2",
       "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-c",
     },
     Object {
@@ -5433,6 +5534,7 @@ Object {
       "name": "gke-j1-gc-integratio-j1-gc-integratio-da1fd85f-grp",
       "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
       "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
+      "webLink": "https://console.cloud.google.com/compute/instanceGroups/details/us-central1-f/gke-j1-gc-integratio-j1-gc-integratio-da1fd85f-grp?project=j1-gc-integration-dev-v2",
       "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-f",
     },
     Object {
@@ -10211,6 +10313,14 @@ ZONE: us-central1
   "collectedRelationships": Array [
     Object {
       "_class": "HAS",
+      "_fromEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instanceGroups/tf-www-resources",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instanceGroups/tf-www-resources|has|instance_group_5321623555643806192_http_80",
+      "_toEntityKey": "instance_group_5321623555643806192_http_80",
+      "_type": "google_compute_instance_group_has_named_port",
+      "displayName": "HAS",
+    },
+    Object {
+      "_class": "HAS",
       "_fromEntityKey": "j1-gc-integration-dev-gke-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
       "_key": "j1-gc-integration-dev-gke-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com|has|projects/j1-gc-integration-dev-v2/serviceAccounts/j1-gc-integration-dev-gke-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com/keys/e363d748e6c81c37676730034ff08c56106a4b6c",
       "_toEntityKey": "projects/j1-gc-integration-dev-v2/serviceAccounts/j1-gc-integration-dev-gke-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com/keys/e363d748e6c81c37676730034ff08c56106a4b6c",
@@ -10434,6 +10544,8 @@ ZONE: us-central1
   ],
   "encounteredTypes": Array [
     "google_compute_instance_group",
+    "google_compute_instance_group_named_port",
+    "google_compute_instance_group_has_named_port",
     "google_iam_service_account",
     "google_iam_service_account_key",
     "google_iam_service_account_has_key",
@@ -10443,8 +10555,8 @@ ZONE: us-central1
     "google_compute_instance_trusts_iam_service_account",
     "google_compute_instance_group_has_instance",
   ],
-  "numCollectedEntities": 32,
-  "numCollectedRelationships": 23,
+  "numCollectedEntities": 33,
+  "numCollectedRelationships": 24,
 }
 `;
 
@@ -10852,7 +10964,31 @@ Object {
       "name": "tf-www-resources",
       "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
       "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
+      "webLink": "https://console.cloud.google.com/compute/instanceGroups/details/us-central1-a/tf-www-resources?project=j1-gc-integration-dev-v2",
       "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "instance_group_5321623555643806192_http_80",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "name": "http",
+            "port": 80,
+          },
+        },
+      ],
+      "_type": "google_compute_instance_group_named_port",
+      "createdOn": undefined,
+      "displayName": "http",
+      "instanceGroupId": "5321623555643806192",
+      "instanceGroupName": "tf-www-resources",
+      "name": "http",
+      "port": 80,
+      "webLink": "https://console.cloud.google.com/compute/instanceGroups/details/us-central1-a/tf-www-resources?project=j1-gc-integration-dev-v2",
     },
     Object {
       "_class": Array [
@@ -10885,6 +11021,7 @@ Object {
       "name": "gke-j1-gc-integratio-j1-gc-integratio-d1ab6bb2-grp",
       "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
       "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
+      "webLink": "https://console.cloud.google.com/compute/instanceGroups/details/us-central1-b/gke-j1-gc-integratio-j1-gc-integratio-d1ab6bb2-grp?project=j1-gc-integration-dev-v2",
       "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-b",
     },
     Object {
@@ -10918,6 +11055,7 @@ Object {
       "name": "gke-j1-gc-integratio-j1-gc-integratio-e1c64cb5-grp",
       "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
       "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
+      "webLink": "https://console.cloud.google.com/compute/instanceGroups/details/us-central1-c/gke-j1-gc-integratio-j1-gc-integratio-e1c64cb5-grp?project=j1-gc-integration-dev-v2",
       "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-c",
     },
     Object {
@@ -10951,6 +11089,7 @@ Object {
       "name": "gke-j1-gc-integratio-j1-gc-integratio-da1fd85f-grp",
       "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
       "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
+      "webLink": "https://console.cloud.google.com/compute/instanceGroups/details/us-central1-f/gke-j1-gc-integratio-j1-gc-integratio-da1fd85f-grp?project=j1-gc-integration-dev-v2",
       "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-f",
     },
     Object {
@@ -14964,6 +15103,14 @@ gke-8bbab0112cb94cb19340:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC+JEVg4vUEVNC+cCr
   "collectedRelationships": Array [
     Object {
       "_class": "HAS",
+      "_fromEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instanceGroups/tf-www-resources",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instanceGroups/tf-www-resources|has|instance_group_5321623555643806192_http_80",
+      "_toEntityKey": "instance_group_5321623555643806192_http_80",
+      "_type": "google_compute_instance_group_has_named_port",
+      "displayName": "HAS",
+    },
+    Object {
+      "_class": "HAS",
       "_fromEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-b/instanceGroups/gke-j1-gc-integratio-j1-gc-integratio-d1ab6bb2-grp",
       "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-b/instanceGroups/gke-j1-gc-integratio-j1-gc-integratio-d1ab6bb2-grp|has|https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-b/instances/gke-j1-gc-integratio-j1-gc-integratio-d1ab6bb2-ksb2",
       "_toEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-b/instances/gke-j1-gc-integratio-j1-gc-integratio-d1ab6bb2-ksb2",
@@ -15013,13 +15160,15 @@ gke-8bbab0112cb94cb19340:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC+JEVg4vUEVNC+cCr
   ],
   "encounteredTypes": Array [
     "google_compute_instance_group",
+    "google_compute_instance_group_named_port",
+    "google_compute_instance_group_has_named_port",
     "google_compute_instance",
     "google_compute_instance_group_has_instance",
     "google_compute_project",
     "google_compute_project_has_instance",
   ],
-  "numCollectedEntities": 11,
-  "numCollectedRelationships": 6,
+  "numCollectedEntities": 12,
+  "numCollectedRelationships": 7,
 }
 `;
 

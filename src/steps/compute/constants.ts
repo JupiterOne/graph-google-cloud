@@ -44,6 +44,10 @@ export const ENTITY_TYPE_COMPUTE_INSTANCE_GROUP =
   'google_compute_instance_group';
 export const ENTITY_CLASS_COMPUTE_INSTANCE_GROUP = 'Group';
 
+export const ENTITY_TYPE_COMPUTE_INSTANCE_GROUP_NAMED_PORT =
+  'google_compute_instance_group_named_port';
+export const ENTITY_CLASS_COMPUTE_INSTANCE_GROUP_NAMED_PORT = 'Configuration';
+
 export const ENTITY_TYPE_COMPUTE_LOAD_BALANCER = 'google_compute_url_map';
 export const ENTITY_CLASS_COMPUTE_LOAD_BALANCER = 'Gateway';
 
@@ -87,6 +91,8 @@ export const RELATIONSHIP_TYPE_PROJECT_HAS_INSTANCE =
   'google_compute_project_has_instance';
 export const RELATIONSHIP_TYPE_INSTANCE_GROUP_HAS_COMPUTE_INSTANCE =
   'google_compute_instance_group_has_instance';
+export const RELATIONSHIP_TYPE_INSTANCE_GROUP_HAS_NAMED_PORT =
+  'google_compute_instance_group_has_named_port';
 export const RELATIONSHIP_TYPE_BACKEND_SERVICE_HAS_INSTANCE_GROUP =
   'google_compute_backend_service_has_instance_group';
 export const RELATIONSHIP_TYPE_BACKEND_SERVICE_HAS_HEALTH_CHECK =

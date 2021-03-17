@@ -42,6 +42,8 @@ import {
   ENTITY_TYPE_COMPUTE_SSL_POLICY,
   ENTITY_CLASS_COMPUTE_INSTANCE_GROUP,
   ENTITY_TYPE_COMPUTE_INSTANCE_GROUP,
+  ENTITY_CLASS_COMPUTE_INSTANCE_GROUP_NAMED_PORT,
+  ENTITY_TYPE_COMPUTE_INSTANCE_GROUP_NAMED_PORT,
   ENTITY_CLASS_COMPUTE_HEALTH_CHECK,
   ENTITY_TYPE_COMPUTE_HEALTH_CHECK,
 } from './constants';
@@ -186,7 +188,7 @@ function getDefaultServiceAccountUsage(
     };
   }
 
-  /* 
+  /*
     Another option is to get jobState.getData(PROJECT_ENTITY_TYPE) in ./index.ts and send exact projectNumber to
     createComputeInstanceEntity() along with data: compute_v1.Schema$Instance
   */
@@ -234,7 +236,7 @@ function getBlockProjectSSHKeysValue(
     return undefined;
   }
 
-  /* 
+  /*
     We usually don't want to map original values, however this one returns true/false as a string
     It might be confusing if JupiterOne contained fields where true/false can be found in both string and boolean forms?
    */
@@ -252,7 +254,7 @@ function isSerialPortEnabled(
   if (!metadata) {
     return undefined;
   }
-  /* 
+  /*
     We usually don't want to map original values, however this one returns true/false or 0/1 as a string
     It might be confusing if JupiterOne contained fields where true/false and 0/1 can be found in both string and boolean forms?
    */
@@ -689,8 +691,58 @@ export function createHealthCheckEntity(data: compute_v1.Schema$HealthCheck) {
   });
 }
 
+function getInstanceGroupWebLink({
+  regionName,
+  instanceGroupName,
+  projectId,
+}: {
+  regionName: string;
+  instanceGroupName: string;
+  projectId: string;
+}): string {
+  return getGoogleCloudConsoleWebLink(
+    `/compute/instanceGroups/details/${regionName}/${instanceGroupName}?project=${projectId}`,
+  );
+}
+
+export function createInstanceGroupNamedPortEntity({
+  instanceGroupId,
+  instanceGroupName,
+  namedPort,
+  regionName,
+  projectId,
+}: {
+  instanceGroupId: string;
+  instanceGroupName: string;
+  namedPort: compute_v1.Schema$NamedPort;
+  regionName: string;
+  projectId: string;
+}) {
+  return createIntegrationEntity({
+    entityData: {
+      source: namedPort,
+      assign: {
+        _class: ENTITY_CLASS_COMPUTE_INSTANCE_GROUP_NAMED_PORT,
+        _type: ENTITY_TYPE_COMPUTE_INSTANCE_GROUP_NAMED_PORT,
+        _key: `instance_group_${instanceGroupId}_${namedPort.name}_${namedPort.port}`,
+        instanceGroupId,
+        instanceGroupName,
+        name: namedPort.name,
+        port: namedPort.port,
+        webLink: getInstanceGroupWebLink({
+          instanceGroupName,
+          regionName,
+          projectId,
+        }),
+      },
+    },
+  });
+}
+
 export function createInstanceGroupEntity(
   data: compute_v1.Schema$InstanceGroup,
+  projectId: string,
+  regionName: string,
 ) {
   return createIntegrationEntity({
     entityData: {
@@ -705,6 +757,11 @@ export function createInstanceGroupEntity(
         zone: data.zone,
         subnetwork: data.subnetwork,
         createdOn: parseTimePropertyValue(data.creationTimestamp),
+        webLink: getInstanceGroupWebLink({
+          instanceGroupName: data.name!,
+          regionName,
+          projectId,
+        }),
       },
     },
   });
