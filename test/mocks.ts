@@ -1098,7 +1098,6 @@ export function getMockPubSubSubscription(
   return {
     name: 'projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription',
     topic: 'projects/j1-gc-integration-dev-v2/topics/mock-topic',
-    pushConfig: {},
     ackDeadlineSeconds: 10,
     messageRetentionDuration: '604800s',
     expirationPolicy: {

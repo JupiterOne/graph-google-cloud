@@ -87,9 +87,16 @@ export async function fetchPubSubSubscriptions(
       projectSubscription,
       client.projectId,
     );
+
     await jobState.addEntity(projectSubscriptionEntity);
 
-    if (projectSubscription.topic) {
+    // Google Cloud subscriptions whose topic has been deleted have a `topic` property with value `_deleted-topic_`
+    // Detached subscriptions don't receive messages from their topic and don't retain any backlog.
+    if (
+      projectSubscription.topic &&
+      projectSubscription.topic !== '_deleted-topic_' &&
+      !projectSubscription.detached
+    ) {
       const projectTopicEntity = await jobState.findEntity(
         projectSubscription.topic,
       );

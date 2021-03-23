@@ -58,7 +58,13 @@ export function createPubSubSubscriptionEntity(
         // to match the AWS's name (https://ask.us.jupiterone.io/question/fde829cb832be99676b24e6da048cc9d7aca087f)
         deadLetter: data.deadLetterPolicy ? true : false,
         enableMessageOrdering: data.enableMessageOrdering || false,
+        expirationPolicyTtl: data.expirationPolicy?.ttl,
         category: ['application'],
+        isDetached: data.detached,
+        pushEndpoint: data.pushConfig?.pushEndpoint,
+        isDefaultRetryPolicy: data.retryPolicy === undefined,
+        minimumBackoff: data.retryPolicy?.minimumBackoff,
+        maximumBackoff: data.retryPolicy?.maximumBackoff,
         webLink: getGoogleCloudConsoleWebLink(
           `/cloudpubsub/subscription/detail/${
             data.name?.split('/')[3]

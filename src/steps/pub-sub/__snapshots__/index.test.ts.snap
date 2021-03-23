@@ -5,7 +5,7 @@ Object {
   "collectedEntities": Array [
     Object {
       "_class": Array [
-        "Gateway",
+        "Channel",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/topics/example-topic",
       "_rawData": Array [
@@ -33,7 +33,7 @@ Object {
     },
     Object {
       "_class": Array [
-        "Gateway",
+        "Channel",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/topics/example-topic-dead-letter",
       "_rawData": Array [
@@ -60,7 +60,7 @@ Object {
     },
     Object {
       "_class": Array [
-        "Gateway",
+        "Channel",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/topics/container-analysis-notes-v1",
       "_rawData": Array [
@@ -87,7 +87,7 @@ Object {
     },
     Object {
       "_class": Array [
-        "Gateway",
+        "Channel",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/topics/container-analysis-occurrences-v1",
       "_rawData": Array [
@@ -114,7 +114,7 @@ Object {
     },
     Object {
       "_class": Array [
-        "Gateway",
+        "Channel",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/topics/container-analysis-occurrences-v1beta1",
       "_rawData": Array [
@@ -141,7 +141,7 @@ Object {
     },
     Object {
       "_class": Array [
-        "Gateway",
+        "Channel",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/topics/container-analysis-notes-v1beta1",
       "_rawData": Array [
@@ -185,7 +185,16 @@ Object {
             },
             "messageRetentionDuration": "604800s",
             "name": "projects/j1-gc-integration-dev-v2/subscriptions/example-subscription",
-            "pushConfig": Object {},
+            "pushConfig": Object {
+              "attributes": Object {
+                "x-goog-version": "v1",
+              },
+              "pushEndpoint": "https://j1-gc-integration-dev-v2.uc.r.appspot.com/",
+            },
+            "retryPolicy": Object {
+              "maximumBackoff": "600s",
+              "minimumBackoff": "10s",
+            },
             "topic": "projects/j1-gc-integration-dev-v2/topics/example-topic",
           },
         },
@@ -199,8 +208,14 @@ Object {
       "deadLetter": true,
       "displayName": "projects/j1-gc-integration-dev-v2/subscriptions/example-subscription",
       "enableMessageOrdering": false,
+      "expirationPolicyTtl": "2678400s",
+      "isDefaultRetryPolicy": false,
+      "isDetached": undefined,
+      "maximumBackoff": "600s",
       "messageRetentionDuration": "604800s",
+      "minimumBackoff": "10s",
       "name": "projects/j1-gc-integration-dev-v2/subscriptions/example-subscription",
+      "pushEndpoint": "https://j1-gc-integration-dev-v2.uc.r.appspot.com/",
       "webLink": "https://console.cloud.google.com/cloudpubsub/subscription/detail/example-subscription?project=j1-gc-integration-dev-v2",
     },
   ],
@@ -371,7 +386,7 @@ Object {
     },
     Object {
       "_class": Array [
-        "Gateway",
+        "Channel",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/topics/example-topic",
       "_rawData": Array [
@@ -399,7 +414,7 @@ Object {
     },
     Object {
       "_class": Array [
-        "Gateway",
+        "Channel",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/topics/example-topic-dead-letter",
       "_rawData": Array [
@@ -426,7 +441,7 @@ Object {
     },
     Object {
       "_class": Array [
-        "Gateway",
+        "Channel",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/topics/container-analysis-notes-v1",
       "_rawData": Array [
@@ -453,7 +468,7 @@ Object {
     },
     Object {
       "_class": Array [
-        "Gateway",
+        "Channel",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/topics/container-analysis-occurrences-v1",
       "_rawData": Array [
@@ -480,7 +495,7 @@ Object {
     },
     Object {
       "_class": Array [
-        "Gateway",
+        "Channel",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/topics/container-analysis-occurrences-v1beta1",
       "_rawData": Array [
@@ -507,7 +522,7 @@ Object {
     },
     Object {
       "_class": Array [
-        "Gateway",
+        "Channel",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/topics/container-analysis-notes-v1beta1",
       "_rawData": Array [

@@ -231,7 +231,7 @@ describe('#fetchCloudRunConfigurations', () => {
     ).toMatchGraphObjectSchema({
       _class: ['Configuration'],
       schema: {
-        additionalProperties: false,
+        additionalProperties: true,
         properties: {
           _type: { const: 'google_cloud_run_configuration' },
           _rawData: {
@@ -240,6 +240,7 @@ describe('#fetchCloudRunConfigurations', () => {
           },
           name: { type: 'string' },
           displayName: { type: 'string' },
+          apiVersion: { type: 'string' },
           createdOn: { type: 'number' },
         },
       },

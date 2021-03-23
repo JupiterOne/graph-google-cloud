@@ -24,6 +24,9 @@ import {
   RELATIONSHIP_TYPE_APP_ENGINE_APPLICATION_HAS_SERVICE,
   RELATIONSHIP_TYPE_APP_ENGINE_SERVICE_HAS_VERSION,
   RELATIONSHIP_TYPE_APP_ENGINE_VERSION_HAS_INSTANCE,
+  RELATIONSHIP_TYPE_APP_ENGINE_APPLICATION_USES_BUCKET,
+  RELATIONSHIP_TYPE_USER_CREATED_VERSION,
+  RELATIONSHIP_TYPE_SERVICE_ACCOUNT_CREATED_VERSION,
 } from './constants';
 import {
   createAppEngineApplicationEntity,
@@ -31,6 +34,17 @@ import {
   createAppEngineServiceEntity,
   createAppEngineVersionEntity,
 } from './converters';
+import { getCloudStorageBucketKey } from '../storage/converters';
+import {
+  CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
+  STEP_CLOUD_STORAGE_BUCKETS,
+} from '../storage';
+import { STEP_RESOURCE_MANAGER_IAM_POLICY } from '../resource-manager';
+import {
+  IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
+  IAM_USER_ENTITY_TYPE,
+  STEP_IAM_SERVICE_ACCOUNTS,
+} from '../iam';
 
 export async function fetchAppEngineApplication(
   context: IntegrationStepContext,
@@ -77,6 +91,36 @@ export async function fetchAppEngineApplication(
       applicationEntity,
     );
     await jobState.addEntity(applicationEntity);
+
+    if (application.defaultBucket) {
+      const defaultBucketEntity = await jobState.findEntity(
+        getCloudStorageBucketKey(application.defaultBucket),
+      );
+      if (defaultBucketEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.USES,
+            from: applicationEntity,
+            to: defaultBucketEntity,
+          }),
+        );
+      }
+    }
+
+    if (application.codeBucket) {
+      const codeBucketEntity = await jobState.findEntity(
+        getCloudStorageBucketKey(application.codeBucket),
+      );
+      if (codeBucketEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.USES,
+            from: applicationEntity,
+            to: codeBucketEntity,
+          }),
+        );
+      }
+    }
   }
 }
 
@@ -132,7 +176,10 @@ export async function fetchAppEngineServiceVersions(
         await client.iterateAppEngineServiceVersions(
           serviceId,
           async (version) => {
-            const versionEntity = createAppEngineVersionEntity(version);
+            const versionEntity = createAppEngineVersionEntity(
+              version,
+              client.projectId,
+            );
             await jobState.addEntity(versionEntity);
             await jobState.addRelationship(
               createDirectRelationship({
@@ -141,6 +188,23 @@ export async function fetchAppEngineServiceVersions(
                 to: versionEntity,
               }),
             );
+
+            if (version.createdBy) {
+              // This can either be google_user or google_iam_service_account (both use email as their _key, so it depends on who created this)
+              const creatorEntity = await jobState.findEntity(
+                version.createdBy,
+              );
+
+              if (creatorEntity) {
+                await jobState.addRelationship(
+                  createDirectRelationship({
+                    _class: RelationshipClass.CREATED,
+                    from: creatorEntity,
+                    to: versionEntity,
+                  }),
+                );
+              }
+            }
           },
         );
       }
@@ -172,8 +236,8 @@ export async function fetchAppEngineVersionInstances(
           versionId,
           async (instance) => {
             const instanceEntity = createAppEngineInstanceEntity(instance);
-            await jobState.addEntity(instanceEntity);
 
+            await jobState.addEntity(instanceEntity);
             await jobState.addRelationship(
               createDirectRelationship({
                 _class: RelationshipClass.HAS,
@@ -199,8 +263,15 @@ export const appEngineSteps: IntegrationStep<IntegrationConfig>[] = [
         _class: ENTITY_CLASS_APP_ENGINE_APPLICATION,
       },
     ],
-    relationships: [],
-    dependsOn: [],
+    relationships: [
+      {
+        _class: RelationshipClass.USES,
+        _type: RELATIONSHIP_TYPE_APP_ENGINE_APPLICATION_USES_BUCKET,
+        sourceType: ENTITY_TYPE_APP_ENGINE_APPLICATION,
+        targetType: CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
+      },
+    ],
+    dependsOn: [STEP_CLOUD_STORAGE_BUCKETS],
     executionHandler: fetchAppEngineApplication,
   },
   {
@@ -241,8 +312,24 @@ export const appEngineSteps: IntegrationStep<IntegrationConfig>[] = [
         sourceType: ENTITY_TYPE_APP_ENGINE_SERVICE,
         targetType: ENTITY_TYPE_APP_ENGINE_VERSION,
       },
+      {
+        _class: RelationshipClass.CREATED,
+        _type: RELATIONSHIP_TYPE_USER_CREATED_VERSION,
+        sourceType: IAM_USER_ENTITY_TYPE,
+        targetType: ENTITY_TYPE_APP_ENGINE_VERSION,
+      },
+      {
+        _class: RelationshipClass.CREATED,
+        _type: RELATIONSHIP_TYPE_SERVICE_ACCOUNT_CREATED_VERSION,
+        sourceType: IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
+        targetType: ENTITY_TYPE_APP_ENGINE_VERSION,
+      },
     ],
-    dependsOn: [STEP_APP_ENGINE_SERVICES],
+    dependsOn: [
+      STEP_APP_ENGINE_SERVICES,
+      STEP_RESOURCE_MANAGER_IAM_POLICY,
+      STEP_IAM_SERVICE_ACCOUNTS,
+    ],
     executionHandler: fetchAppEngineServiceVersions,
   },
   {

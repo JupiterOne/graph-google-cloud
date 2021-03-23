@@ -2,7 +2,7 @@ export const STEP_PUBSUB_TOPICS = 'fetch-pubsub-topics';
 export const STEP_PUBSUB_SUBSCRIPTIONS = 'fetch-pubsub-subscriptions';
 
 export const ENTITY_TYPE_PUBSUB_TOPIC = 'google_pubsub_topic';
-export const ENTITY_CLASS_PUBSUB_TOPIC = 'Gateway';
+export const ENTITY_CLASS_PUBSUB_TOPIC = 'Channel';
 
 export const ENTITY_TYPE_PUBSUB_SUBSCRIPTION = 'google_pubsub_subscription';
 export const ENTITY_CLASS_PUBSUB_SUBSCRIPTION = 'Service';

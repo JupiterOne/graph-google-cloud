@@ -34,7 +34,10 @@ describe('#createAppEngineServices', () => {
 describe('#createAppEngineVersions', () => {
   test('should convert to entity', () => {
     expect(
-      createAppEngineVersionEntity(getMockAppEngineVersion()),
+      createAppEngineVersionEntity(
+        getMockAppEngineVersion(),
+        DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
+      ),
     ).toMatchSnapshot();
   });
 });

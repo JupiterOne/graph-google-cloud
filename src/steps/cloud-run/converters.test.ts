@@ -4,7 +4,11 @@ import {
   getMockCloudRunRoute,
   getMockCloudRunService,
 } from '../../../test/mocks';
-import { createCloudRunServiceEntity } from './converters';
+import {
+  createCloudRunConfigurationEntity,
+  createCloudRunRouteEntity,
+  createCloudRunServiceEntity,
+} from './converters';
 
 describe('#createCloudRunServiceEntity', () => {
   test('should convert to entity', () => {
@@ -19,22 +23,14 @@ describe('#createCloudRunServiceEntity', () => {
 
 describe('#createCloudRunRouteEntity', () => {
   test('should convert to entity', () => {
-    expect(
-      createCloudRunServiceEntity(
-        getMockCloudRunRoute(),
-        DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
-      ),
-    ).toMatchSnapshot();
+    expect(createCloudRunRouteEntity(getMockCloudRunRoute())).toMatchSnapshot();
   });
 });
 
 describe('#createCloudRunConfigurationEntity', () => {
   test('should convert to entity', () => {
     expect(
-      createCloudRunServiceEntity(
-        getMockCloudRunConfiguration(),
-        DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
-      ),
+      createCloudRunConfigurationEntity(getMockCloudRunConfiguration()),
     ).toMatchSnapshot();
   });
 });

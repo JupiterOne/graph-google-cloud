@@ -53,7 +53,7 @@ describe('#fetchProjectTopics', () => {
         (e) => e._type === ENTITY_TYPE_PUBSUB_TOPIC,
       ),
     ).toMatchGraphObjectSchema({
-      _class: ['Gateway'],
+      _class: ['Channel'],
       schema: {
         additionalProperties: false,
         properties: {
@@ -65,6 +65,15 @@ describe('#fetchProjectTopics', () => {
           name: { type: 'string' },
           displayName: { type: 'string' },
           kmsKeyName: { type: 'string' },
+          category: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          function: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          public: { type: 'boolean' },
           webLink: { type: 'string' },
         },
       },
@@ -154,7 +163,7 @@ describe('#fetchProjectSubscriptions', () => {
         (e) => e._type === ENTITY_TYPE_PUBSUB_TOPIC,
       ),
     ).toMatchGraphObjectSchema({
-      _class: ['Gateway'],
+      _class: ['Channel'],
       schema: {
         additionalProperties: false,
         properties: {
@@ -166,6 +175,15 @@ describe('#fetchProjectSubscriptions', () => {
           name: { type: 'string' },
           displayName: { type: 'string' },
           kmsKeyName: { type: 'string' },
+          category: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          function: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          public: { type: 'boolean' },
           webLink: { type: 'string' },
         },
       },
@@ -191,10 +209,16 @@ describe('#fetchProjectSubscriptions', () => {
           messageRetentionDuration: { type: 'string' },
           deadLetter: { type: 'boolean' },
           enableMessageOrdering: { type: 'boolean' },
+          expirationPolicyTtl: { type: 'string' },
           category: {
             type: 'array',
             items: { type: 'string' },
           },
+          isDetached: { type: 'boolean' },
+          pushEndpoint: { type: 'string' },
+          isDefaultRetryPolicy: { type: 'boolean' },
+          minimumBackoff: { type: 'string' },
+          maximumBackoff: { type: 'string' },
           webLink: { type: 'string' },
         },
       },

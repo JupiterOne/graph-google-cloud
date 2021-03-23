@@ -3,7 +3,7 @@
 exports[`#createCloudRunConfigurationEntity should convert to entity 1`] = `
 Object {
   "_class": Array [
-    "Service",
+    "Configuration",
   ],
   "_key": "/apis/serving.knative.dev/v1/namespaces/711888229551/configurations/example-cloud-run-service",
   "_rawData": Array [
@@ -91,22 +91,26 @@ Object {
       },
     },
   ],
-  "_type": "google_cloud_run_service",
+  "_type": "google_cloud_run_configuration",
   "active": undefined,
-  "category": Array [
-    "infrastructure",
-  ],
+  "apiVersion": "serving.knative.dev/v1",
   "createdOn": 1615322490336,
   "displayName": "example-cloud-run-service",
+  "metaClientName": "cloud-console",
+  "metaCreator": "user@email.com",
+  "metaLastModifier": "user@email.com",
+  "metaLaunchStage": "BETA",
+  "metaMaxScale": "100",
+  "metaSandbox": "gvisor",
+  "metaUserImage": "us-docker.pkg.dev/cloudrun/container/hello",
   "name": "example-cloud-run-service",
-  "webLink": "https://console.cloud.google.com/run/detail/us-central1/example-cloud-run-service",
 }
 `;
 
 exports[`#createCloudRunRouteEntity should convert to entity 1`] = `
 Object {
   "_class": Array [
-    "Service",
+    "Configuration",
   ],
   "_key": "/apis/serving.knative.dev/v1/namespaces/711888229551/routes/example-cloud-run-service",
   "_rawData": Array [
@@ -179,15 +183,12 @@ Object {
       },
     },
   ],
-  "_type": "google_cloud_run_service",
+  "_type": "google_cloud_run_route",
   "active": undefined,
-  "category": Array [
-    "infrastructure",
-  ],
   "createdOn": 1615322490309,
   "displayName": "example-cloud-run-service",
   "name": "example-cloud-run-service",
-  "webLink": "https://console.cloud.google.com/run/detail/us-central1/example-cloud-run-service",
+  "url": "https://example-cloud-run-service-rhbpqun2qa-uc.a.run.app",
 }
 `;
 

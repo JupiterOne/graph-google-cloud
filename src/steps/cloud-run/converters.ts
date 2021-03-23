@@ -13,6 +13,13 @@ import {
   ENTITY_TYPE_CLOUD_RUN_CONFIGURATION,
 } from './constants';
 
+export interface MetadataComputedPropertyData {
+  filteredProperties: {
+    [key: string]: string;
+  };
+  duplicateProperties: string[];
+}
+
 export function createCloudRunServiceEntity(
   data: run_v1.Schema$Service,
   projectId: string,
@@ -63,9 +70,88 @@ export function createCloudRunRouteEntity(data: run_v1.Schema$Route) {
   });
 }
 
+function getNormalizedKey(keyValue: string): string | null {
+  const [, key] = keyValue.split('/');
+  if (!key) {
+    return null;
+  }
+  // We want to uppercase the first character (becase 'meta' will be in front of it)
+  // e.g. last-Modifier -> Last-Modified
+  const modifiedKey = key.charAt(0).toUpperCase() + key.slice(1);
+
+  // Get the camelCase version
+  // e.g. LastModified
+  const camelCase = modifiedKey
+    .split('-')
+    .reduce((a, b) => a + b.charAt(0).toUpperCase() + b.slice(1));
+
+  // e.g metaLastModified
+  return `meta${camelCase}`;
+}
+
+function parseMetadata(
+  data: Partial<run_v1.Schema$Configuration>,
+): MetadataComputedPropertyData {
+  const combinedProperties: { [key: string]: string } = {};
+  const duplicateProperties: string[] = [];
+  const filteredProperties: {
+    [key: string]: string;
+  } = {};
+
+  if (data.metadata?.annotations) {
+    for (const [key, value] of Object.entries(data.metadata.annotations)) {
+      if (combinedProperties[key]) {
+        duplicateProperties.push(key);
+        continue;
+      }
+
+      combinedProperties[key] = value;
+    }
+  }
+
+  if (data.spec?.template?.metadata?.annotations) {
+    for (const [key, value] of Object.entries(
+      data.spec.template.metadata.annotations,
+    )) {
+      if (combinedProperties[key]) {
+        duplicateProperties.push(key);
+        continue;
+      }
+
+      combinedProperties[key] = value;
+    }
+  }
+
+  for (const [key, value] of Object.entries(combinedProperties)) {
+    const normalizedKey = getNormalizedKey(key);
+
+    if (!normalizedKey || filteredProperties[normalizedKey]) {
+      continue;
+    }
+
+    filteredProperties[normalizedKey] = value;
+  }
+
+  return {
+    filteredProperties,
+    duplicateProperties,
+  };
+}
+
 export function createCloudRunConfigurationEntity(
   data: run_v1.Schema$Configuration,
+  options?: {
+    onMetadataPropertiesComputed?: (
+      computedProperties: MetadataComputedPropertyData,
+    ) => void;
+  },
 ) {
+  const metadataProperties = parseMetadata(data);
+
+  if (options?.onMetadataPropertiesComputed) {
+    options.onMetadataPropertiesComputed(metadataProperties);
+  }
+
   return createIntegrationEntity({
     entityData: {
       source: data,
@@ -75,6 +161,8 @@ export function createCloudRunConfigurationEntity(
         _key: data.metadata?.selfLink as string,
         name: data.metadata?.name,
         displayName: data.metadata?.name as string,
+        apiVersion: data.apiVersion,
+        ...metadataProperties.filteredProperties,
         createdOn: parseTimePropertyValue(data.metadata?.creationTimestamp),
       },
     },

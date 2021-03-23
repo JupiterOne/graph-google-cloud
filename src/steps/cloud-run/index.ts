@@ -22,6 +22,7 @@ import {
   createCloudRunConfigurationEntity,
   createCloudRunRouteEntity,
   createCloudRunServiceEntity,
+  MetadataComputedPropertyData,
 } from './converters';
 
 export async function fetchCloudRunServices(
@@ -83,6 +84,7 @@ export async function fetchCloudRunConfigurations(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
 
   const client = new CloudRunClient({ config });
@@ -90,7 +92,22 @@ export async function fetchCloudRunConfigurations(
   await client.iterateCloudRunConfigurations(async (configuration) => {
     const configurationEntity = createCloudRunConfigurationEntity(
       configuration,
+      {
+        onMetadataPropertiesComputed(
+          computedProperties: MetadataComputedPropertyData,
+        ) {
+          if (computedProperties.duplicateProperties.length > 0) {
+            logger.warn(
+              {
+                duplicates: computedProperties.duplicateProperties,
+              },
+              'Found duplicate metadata properties in cloud run configuration',
+            );
+          }
+        },
+      },
     );
+
     await jobState.addEntity(configurationEntity);
 
     const ownerService = configuration.metadata?.ownerReferences?.find(

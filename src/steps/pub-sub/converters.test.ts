@@ -73,4 +73,40 @@ describe('#createPubSubProjectSubscriptionEntity', () => {
       ),
     ).toMatchSnapshot();
   });
+
+  test('should have pushEndpoint value if the subscription is using push', () => {
+    expect(
+      createPubSubSubscriptionEntity(
+        getMockPubSubSubscription({
+          pushConfig: {
+            pushEndpoint: 'https://j1-gc-integration-dev-v2.uc.r.appspot.com/',
+          },
+        }),
+        DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
+      ),
+    ).toMatchSnapshot();
+  });
+
+  test('should have isDefaultRetryPolicy set to true if the subscription is using the default retry policy', () => {
+    expect(
+      createPubSubSubscriptionEntity(
+        getMockPubSubSubscription(),
+        DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
+      ),
+    ).toMatchSnapshot();
+  });
+
+  test('should have isDefaultRetryPolicy set to false as well as minimumBackoff and maximumBackoff properties if the subscription is not using the default retry policy', () => {
+    expect(
+      createPubSubSubscriptionEntity(
+        getMockPubSubSubscription({
+          retryPolicy: {
+            minimumBackoff: '10s',
+            maximumBackoff: '600s',
+          },
+        }),
+        DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
+      ),
+    ).toMatchSnapshot();
+  });
 });

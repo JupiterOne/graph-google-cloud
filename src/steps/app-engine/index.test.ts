@@ -14,9 +14,13 @@ import {
   ENTITY_TYPE_APP_ENGINE_SERVICE,
   ENTITY_TYPE_APP_ENGINE_VERSION,
   RELATIONSHIP_TYPE_APP_ENGINE_APPLICATION_HAS_SERVICE,
+  RELATIONSHIP_TYPE_APP_ENGINE_APPLICATION_USES_BUCKET,
   RELATIONSHIP_TYPE_APP_ENGINE_SERVICE_HAS_VERSION,
   RELATIONSHIP_TYPE_APP_ENGINE_VERSION_HAS_INSTANCE,
+  RELATIONSHIP_TYPE_USER_CREATED_VERSION,
 } from './constants';
+import { fetchStorageBuckets } from '../storage';
+import { fetchResourceManagerIamPolicy } from '../resource-manager';
 
 describe('#fetchAppEngineApplication', () => {
   let recording: Recording;
@@ -37,6 +41,7 @@ describe('#fetchAppEngineApplication', () => {
       instanceConfig: integrationConfig,
     });
 
+    await fetchStorageBuckets(context);
     await fetchAppEngineApplication(context);
 
     expect({
@@ -52,7 +57,7 @@ describe('#fetchAppEngineApplication', () => {
         (e) => e._type === ENTITY_TYPE_APP_ENGINE_APPLICATION,
       ),
     ).toMatchGraphObjectSchema({
-      _class: ['Container'],
+      _class: ['Application'],
       schema: {
         additionalProperties: false,
         properties: {
@@ -67,9 +72,25 @@ describe('#fetchAppEngineApplication', () => {
           servingStatus: { type: 'string' },
           defaultHostname: { type: 'string' },
           defaultBucket: { type: 'string' },
+          codeBucket: { type: 'string' },
+          authDomain: { type: 'string' },
+          grcDomain: { type: 'string' },
           splitHealthChecks: { type: 'boolean' },
           useContainerOptimizedOs: { type: 'boolean' },
           webLink: { type: 'string' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === RELATIONSHIP_TYPE_APP_ENGINE_APPLICATION_USES_BUCKET,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'USES' },
+          _type: { const: 'google_app_engine_application_uses_storage_bucket' },
         },
       },
     });
@@ -111,7 +132,7 @@ describe('#fetchAppEngineServices', () => {
         (e) => e._type === ENTITY_TYPE_APP_ENGINE_APPLICATION,
       ),
     ).toMatchGraphObjectSchema({
-      _class: ['Container'],
+      _class: ['Application'],
       schema: {
         additionalProperties: false,
         properties: {
@@ -126,6 +147,9 @@ describe('#fetchAppEngineServices', () => {
           servingStatus: { type: 'string' },
           defaultHostname: { type: 'string' },
           defaultBucket: { type: 'string' },
+          codeBucket: { type: 'string' },
+          authDomain: { type: 'string' },
+          grcDomain: { type: 'string' },
           splitHealthChecks: { type: 'boolean' },
           useContainerOptimizedOs: { type: 'boolean' },
           webLink: { type: 'string' },
@@ -187,6 +211,7 @@ describe('#fetchAppEngineVersions', () => {
       instanceConfig: integrationConfig,
     });
 
+    await fetchResourceManagerIamPolicy(context);
     await fetchAppEngineApplication(context);
     await fetchAppEngineServices(context);
     await fetchAppEngineServiceVersions(context);
@@ -235,12 +260,34 @@ describe('#fetchAppEngineVersions', () => {
           },
           name: { type: 'string' },
           displayName: { type: 'string' },
-          versionUrl: { type: 'string' },
           category: {
             type: 'array',
             items: { type: 'string' },
           },
+          versionUrl: { type: 'string' },
+          threadsafe: { type: 'boolean' },
+          env: { type: 'string' },
+          runtime: { type: 'string' },
+          servingStatus: { type: 'string' },
+          createdBy: { type: 'string' },
+          instanceClass: { type: 'string' },
+          diskUsageBytes: { type: 'number' },
+          manualScalingInstances: { type: 'number' },
+          cpuCount: { type: 'number' },
+          diskGb: { type: 'number' },
+          memoryGb: { type: 'number' },
+          readinessCheckFailureThreshold: { type: 'number' },
+          readinessCheckSuccessThreshold: { type: 'number' },
+          readinessCheckInterval: { type: 'string' },
+          readinessCheckTimeout: { type: 'string' },
+          readinessCheckAppStartTimeout: { type: 'string' },
+          livenessCheckFailureThreshold: { type: 'number' },
+          livenessCheckSuccessThreshold: { type: 'number' },
+          livenessCheckInterval: { type: 'string' },
+          livenessCheckTimeout: { type: 'string' },
+          livenessCheckInitialDelay: { type: 'string' },
           createdOn: { type: 'number' },
+          webLink: { type: 'string' },
         },
       },
     });
@@ -254,6 +301,19 @@ describe('#fetchAppEngineVersions', () => {
         properties: {
           _class: { const: 'HAS' },
           _type: { const: 'google_app_engine_service_has_version' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === RELATIONSHIP_TYPE_USER_CREATED_VERSION,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'CREATED' },
+          _type: { const: 'google_user_created_app_engine_version' },
         },
       },
     });
@@ -308,12 +368,34 @@ describe('#fetchAppEngineInstances', () => {
           },
           name: { type: 'string' },
           displayName: { type: 'string' },
-          versionUrl: { type: 'string' },
           category: {
             type: 'array',
             items: { type: 'string' },
           },
+          versionUrl: { type: 'string' },
+          threadsafe: { type: 'boolean' },
+          env: { type: 'string' },
+          runtime: { type: 'string' },
+          servingStatus: { type: 'string' },
+          createdBy: { type: 'string' },
+          instanceClass: { type: 'string' },
+          diskUsageBytes: { type: 'number' },
+          manualScalingInstances: { type: 'number' },
+          cpuCount: { type: 'number' },
+          diskGb: { type: 'number' },
+          memoryGb: { type: 'number' },
+          readinessCheckFailureThreshold: { type: 'number' },
+          readinessCheckSuccessThreshold: { type: 'number' },
+          readinessCheckInterval: { type: 'string' },
+          readinessCheckTimeout: { type: 'string' },
+          readinessCheckAppStartTimeout: { type: 'string' },
+          livenessCheckFailureThreshold: { type: 'number' },
+          livenessCheckSuccessThreshold: { type: 'number' },
+          livenessCheckInterval: { type: 'string' },
+          livenessCheckTimeout: { type: 'string' },
+          livenessCheckInitialDelay: { type: 'string' },
           createdOn: { type: 'number' },
+          webLink: { type: 'string' },
         },
       },
     });
@@ -334,8 +416,14 @@ describe('#fetchAppEngineInstances', () => {
           },
           name: { type: 'string' },
           displayName: { type: 'string' },
+          appEngineRelease: { type: 'string' },
           availability: { type: 'string' },
           requests: { type: 'number' },
+          averageLatency: { type: 'number' },
+          memoryUsage: { type: 'number' },
+          vmStatus: { type: 'string' },
+          vmIp: { type: 'string' },
+          vmLiveness: { type: 'string' },
           createdOn: { type: 'number' },
         },
       },

@@ -32,6 +32,9 @@ export function createAppEngineApplicationEntity(
         servingStatus: data.servingStatus,
         defaultHostname: data.defaultHostname,
         defaultBucket: data.defaultBucket,
+        codeBucket: data.codeBucket,
+        authDomain: data.authDomain,
+        grcDomain: data.gcrDomain,
         splitHealthChecks: data.featureSettings?.splitHealthChecks,
         useContainerOptimizedOs: data.featureSettings?.useContainerOptimizedOs,
         webLink: getGoogleCloudConsoleWebLink(
@@ -61,6 +64,7 @@ export function createAppEngineServiceEntity(
 
 export function createAppEngineVersionEntity(
   data: appengine_v1.Schema$Version,
+  projectId: string,
 ) {
   return createIntegrationEntity({
     entityData: {
@@ -71,16 +75,48 @@ export function createAppEngineVersionEntity(
         _key: data.name as string,
         name: data.name,
         displayName: data.name as string,
-        versionUrl: data.versionUrl,
         category: ['application'],
+        // The following properties are shared (both standard and flexible)
+        versionUrl: data.versionUrl,
+        threadsafe: data.threadsafe,
+        // Tells us if this version is using standard of flexible env
+        env: data.env,
+        runtime: data.runtime,
+        servingStatus: data.servingStatus,
+        createdBy: data.createdBy,
+        // Standard specific properties
+        instanceClass: data.instanceClass,
+        diskUsageBytes: parseInt(data.diskUsageBytes as string, 10),
+        // Flexible specific properties
+        manualScalingInstances: data.manualScaling?.instances,
+        cpuCount: data.resources?.cpu,
+        diskGb: data.resources?.diskGb,
+        memoryGb: data.resources?.memoryGb,
+        readinessCheckFailureThreshold: data.readinessCheck?.failureThreshold,
+        readinessCheckSuccessThreshold: data.readinessCheck?.successThreshold,
+        readinessCheckInterval: data.readinessCheck?.checkInterval,
+        readinessCheckTimeout: data.readinessCheck?.timeout,
+        readinessCheckAppStartTimeout: data.readinessCheck?.appStartTimeout,
+        livenessCheckFailureThreshold: data.livenessCheck?.failureThreshold,
+        livenessCheckSuccessThreshold: data.livenessCheck?.successThreshold,
+        livenessCheckInterval: data.livenessCheck?.checkInterval,
+        livenessCheckTimeout: data.livenessCheck?.timeout,
+        livenessCheckInitialDelay: data.livenessCheck?.initialDelay,
         createdOn: parseTimePropertyValue(data.createTime),
+        webLink: getGoogleCloudConsoleWebLink(
+          `/appengine/versions?serviceId=${
+            data.name?.split('/')[3]
+          }&project=${projectId}`,
+        ),
       },
     },
   });
 }
 
 export function createAppEngineInstanceEntity(
-  data: appengine_v1.Schema$Instance,
+  // TypeScript complained that this property didn't exist on type appengine_v1.Schema$Instance
+  // But it does (not inside type definition). Maybe it'll be deprecated soon, I've included it but we can undo this change
+  data: appengine_v1.Schema$Instance & { vmLiveness?: string },
 ) {
   return createIntegrationEntity({
     entityData: {
@@ -91,8 +127,17 @@ export function createAppEngineInstanceEntity(
         _key: data.name as string,
         name: data.name,
         displayName: data.name as string,
+        // Standard specific properties
+        appEngineRelease: data.appEngineRelease,
         availability: data.availability,
         requests: data.requests,
+        averageLatency: data.averageLatency,
+        // Turning this to int so that you can apply ASC,DESC inside J1QL on it
+        memoryUsage: parseInt(data.memoryUsage as string, 10),
+        // Flexible specific properties
+        vmStatus: data.vmStatus,
+        vmIp: data.vmIp,
+        vmLiveness: data.vmLiveness,
         createdOn: parseTimePropertyValue(data.startTime),
       },
     },
