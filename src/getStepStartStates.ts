@@ -44,6 +44,21 @@ import {
 } from './steps/logging/constants';
 import { STEP_MONITORING_ALERT_POLICIES } from './steps/monitoring/constants';
 import { STEP_BINARY_AUTHORIZATION_POLICY } from './steps/binary-authorization/constants';
+import {
+  STEP_PUBSUB_SUBSCRIPTIONS,
+  STEP_PUBSUB_TOPICS,
+} from './steps/pub-sub/constants';
+import {
+  STEP_APP_ENGINE_APPLICATION,
+  STEP_APP_ENGINE_INSTANCES,
+  STEP_APP_ENGINE_SERVICES,
+  STEP_APP_ENGINE_VERSIONS,
+} from './steps/app-engine/constants';
+import {
+  STEP_CLOUD_RUN_CONFIGURATIONS,
+  STEP_CLOUD_RUN_ROUTES,
+  STEP_CLOUD_RUN_SERVICES,
+} from './steps/cloud-run/constants';
 
 async function getEnabledServiceNames(
   config: IntegrationConfig,
@@ -169,6 +184,25 @@ export default async function getStepStartStates(
     ),
     [STEP_BINARY_AUTHORIZATION_POLICY]: createStepStartState(
       ServiceUsageName.BINARY_AUTHORIZATION,
+    ),
+    [STEP_PUBSUB_TOPICS]: createStepStartState(ServiceUsageName.PUB_SUB),
+    [STEP_PUBSUB_SUBSCRIPTIONS]: createStepStartState(ServiceUsageName.PUB_SUB),
+    [STEP_APP_ENGINE_APPLICATION]: createStepStartState(
+      ServiceUsageName.APP_ENGINE,
+    ),
+    [STEP_APP_ENGINE_SERVICES]: createStepStartState(
+      ServiceUsageName.APP_ENGINE,
+    ),
+    [STEP_APP_ENGINE_VERSIONS]: createStepStartState(
+      ServiceUsageName.APP_ENGINE,
+    ),
+    [STEP_APP_ENGINE_INSTANCES]: createStepStartState(
+      ServiceUsageName.APP_ENGINE,
+    ),
+    [STEP_CLOUD_RUN_SERVICES]: createStepStartState(ServiceUsageName.CLOUD_RUN),
+    [STEP_CLOUD_RUN_ROUTES]: createStepStartState(ServiceUsageName.CLOUD_RUN),
+    [STEP_CLOUD_RUN_CONFIGURATIONS]: createStepStartState(
+      ServiceUsageName.CLOUD_RUN,
     ),
   };
 }

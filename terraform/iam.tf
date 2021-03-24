@@ -15,7 +15,8 @@ resource "google_project_iam_custom_role" "extended_role" {
   permissions = [
     "compute.projects.get",
     "resourcemanager.projects.get",
-    "binaryauthorization.policy.get"
+    "binaryauthorization.policy.get",
+    "appengine.applications.get",
   ]
 }
 
@@ -54,4 +55,24 @@ resource "google_project_iam_binding" "ga_custom_role_binding_conditions" {
     description = "Test condition description"
     expression  = "resource.name != \"bogusunknownresourcename\""
   }
+}
+
+# Needed for being able to create PubSub topics which use customer managed keys
+resource "google_project_iam_binding" "pubsub_sa_kms_encrypter_binding" {
+  role    = "roles/cloudkms.cryptoKeyEncrypter"
+
+  members = [
+    # PubSub service account (hidden from service accounts list)
+    "serviceAccount:service-${var.project_id_number}@gcp-sa-pubsub.iam.gserviceaccount.com",
+  ]
+}
+
+# Needed for being able to create PubSub topics which use customer managed keys
+resource "google_project_iam_binding" "pubsub_sa_kms_decrypter_binding" {
+  role    = "roles/cloudkms.cryptoKeyDecrypter"
+
+  members = [
+    # PubSub service account (hidden from service accounts list)
+    "serviceAccount:service-${var.project_id_number}@gcp-sa-pubsub.iam.gserviceaccount.com",
+  ]
 }

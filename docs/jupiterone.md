@@ -219,10 +219,17 @@ The following entities are created:
 
 | Resources                         | Entity `_type`                             | Entity `_class`     |
 | --------------------------------- | ------------------------------------------ | ------------------- |
+| AppEngine Application             | `google_app_engine_application`            | `Application`       |
+| AppEngine Instance                | `google_app_engine_instance`               | `Host`              |
+| AppEngine Service                 | `google_app_engine_service`                | `Container`         |
+| AppEngine Version                 | `google_app_engine_version`                | `Service`           |
 | Big Query Dataset                 | `google_bigquery_dataset`                  | `DataStore`         |
 | Binary Authorization Policy       | `google_binary_authorization_policy`       | `AccessPolicy`      |
 | Cloud API Service                 | `google_cloud_api_service`                 | `Service`           |
 | Cloud Function                    | `google_cloud_function`                    | `Function`          |
+| Cloud Run Configuration           | `google_cloud_run_configuration`           | `Configuration`     |
+| Cloud Run Route                   | `google_cloud_run_route`                   | `Configuration`     |
+| Cloud Run Service                 | `google_cloud_run_service`                 | `Service`           |
 | Cloud Storage Bucket              | `google_storage_bucket`                    | `DataStore`         |
 | Compute Backend Bucket            | `google_compute_backend_bucket`            | `Gateway`           |
 | Compute Backend Service           | `google_compute_backend_service`           | `Service`           |
@@ -253,6 +260,8 @@ The following entities are created:
 | Logging Project Sink              | `google_logging_project_sink`              | `Logs`              |
 | Monitoring Alert Policy           | `google_monitoring_alert_policy`           | `Policy`            |
 | Project                           | `google_cloud_project`                     | `Account`           |
+| PubSub Subscription               | `google_pubsub_subscription`               | `Service`           |
+| PubSub Topic                      | `google_pubsub_topic`                      | `Channel`           |
 | SQL Admin MySQL Instance          | `google_sql_mysql_instance`                | `Database`          |
 | SQL Admin Postgres Instance       | `google_sql_postgres_instance`             | `Database`          |
 | SQL Admin SQL Server Instance     | `google_sql_sql_server_instance`           | `Database`          |
@@ -263,9 +272,15 @@ The following relationships are created/mapped:
 
 | Source Entity `_type`               | Relationship `_class` | Target Entity `_type`                |
 | ----------------------------------- | --------------------- | ------------------------------------ |
+| `google_app_engine_application`     | **HAS**               | `google_app_engine_service`          |
+| `google_app_engine_application`     | **USES**              | `google_storage_bucket`              |
+| `google_app_engine_service`         | **HAS**               | `google_app_engine_version`          |
+| `google_app_engine_version`         | **HAS**               | `google_app_engine_instance`         |
 | `internet`                          | **ALLOWS**            | `google_compute_firewall`            |
 | `google_cloud_project`              | **HAS**               | `google_cloud_api_service`           |
 | `google_cloud_project`              | **HAS**               | `google_binary_authorization_policy` |
+| `google_cloud_run_service`          | **MANAGES**           | `google_cloud_run_configuration`     |
+| `google_cloud_run_service`          | **MANAGES**           | `google_cloud_run_route`             |
 | `google_compute_backend_bucket`     | **HAS**               | `google_storage_bucket`              |
 | `google_compute_backend_service`    | **HAS**               | `google_compute_health_check`        |
 | `google_compute_backend_service`    | **HAS**               | `google_compute_instance_group`      |
@@ -288,11 +303,15 @@ The following relationships are created/mapped:
 | `google_container_cluster`          | **HAS**               | `google_container_node_pool`         |
 | `google_container_node_pool`        | **HAS**               | `google_compute_instance_group`      |
 | `google_iam_service_account`        | **ASSIGNED**          | `google_iam_role`                    |
+| `google_iam_service_account`        | **CREATED**           | `google_app_engine_version`          |
 | `google_iam_service_account`        | **HAS**               | `google_iam_service_account_key`     |
 | `google_kms_key_ring`               | **HAS**               | `google_kms_crypto_key`              |
 | `google_logging_metric`             | **HAS**               | `google_monitoring_alert_policy`     |
 | `google_logging_project_sink`       | **USES**              | `google_storage_bucket`              |
+| `google_pubsub_subscription`        | **USES**              | `google_pubsub_topic`                |
+| `google_pubsub_topic`               | **USES**              | `google_kms_crypto_key`              |
 | `google_user`                       | **ASSIGNED**          | `google_iam_role`                    |
+| `google_user`                       | **CREATED**           | `google_app_engine_version`          |
 
 <!--
 ********************************************************************************
