@@ -8,6 +8,33 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.18.0 - 2021-03-24
+
+### Added
+
+- Support for ingesting the following **new** resources
+
+  - Pub/Sub
+
+    - `google_pubsub_topic`
+    - `google_pubsub_subscription`
+
+  - App Engine Admin
+
+    - `google_app_engine_application`
+    - `google_app_engine_service`
+    - `google_app_engine_version`
+    - `google_app_engine_instance`
+
+  - Cloud Run
+    - `google_cloud_run_service`
+    - `google_cloud_run_configuration`
+    - `google_cloud_run_route`
+
+### Changed
+
+- Upgraded all packages
+
 ## 0.17.0 - 2021-03-17
 
 ### Added

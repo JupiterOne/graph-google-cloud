@@ -38,6 +38,10 @@ ingest all of the supported data into JupiterOne:
 | [Kubernetes Engine](https://console.developers.google.com/apis/library/container.googleapis.com)                 | container.googleapis.com            |
 | [Cloud Logging](https://console.developers.google.com/apis/library/logging.googleapis.com)                       | logging.googleapis.com              |
 | [Stackdriver Monitoring](https://console.developers.google.com/apis/library/monitoring.googleapis.com)           | monitoring.googleapis.com           |
+| [Binary Authorization](https://console.developers.google.com/apis/library/binaryauthorization.googleapis.com)    | binaryauthorization.googleapis.com  |
+| [Cloud Pub/Sub](https://console.developers.google.com/apis/library/pubsub.googleapis.com)                        | pubsub.googleapis.com               |
+| [App Engine Admin](https://console.developers.google.com/apis/library/appengine.googleapis.com)                  | appengine.googleapis.com            |
+| [Cloud Run](https://console.developers.google.com/apis/library/run.googleapis.com)                               | run.googleapis.com                  |
 
 Google Cloud service APIs can be enabled using one of the following methods:
 
@@ -69,7 +73,13 @@ gcloud services enable \
   sqladmin.googleapis.com \
   bigquery.googleapis.com \
   container.googleapis.com \
-  dns.googleapis.com
+  dns.googleapis.com \
+  logging.googleapis.com \
+  monitoring.googleapis.com \
+  binaryauthorization.googleapis.com \
+  pubsub.googleapis.com \
+  appengine.googleapis.com \
+  run.googleapis.com
 ```
 
 ### Creating Google Cloud project service account
