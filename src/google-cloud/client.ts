@@ -5,6 +5,7 @@ import {
   Compute,
   UserRefreshClient,
   CredentialBody,
+  BaseExternalAccountClient,
 } from 'google-auth-library';
 import { GaxiosResponse } from 'gaxios';
 import {
@@ -28,7 +29,11 @@ export type PageableGaxiosResponse<T> = GaxiosResponse<
   }
 >;
 
-export type GoogleClientAuth = JWT | Compute | UserRefreshClient;
+export type GoogleClientAuth =
+  | JWT
+  | Compute
+  | UserRefreshClient
+  | BaseExternalAccountClient;
 
 export async function iterateApi<T>(
   fn: (nextPageToken?: string) => Promise<PageableGaxiosResponse<T>>,

@@ -114,9 +114,7 @@ export function createAppEngineVersionEntity(
 }
 
 export function createAppEngineInstanceEntity(
-  // TypeScript complained that this property didn't exist on type appengine_v1.Schema$Instance
-  // But it does (not inside type definition). Maybe it'll be deprecated soon, I've included it but we can undo this change
-  data: appengine_v1.Schema$Instance & { vmLiveness?: string },
+  data: appengine_v1.Schema$Instance,
 ) {
   return createIntegrationEntity({
     entityData: {
