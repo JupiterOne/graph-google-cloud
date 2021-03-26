@@ -59,6 +59,8 @@ import {
   STEP_CLOUD_RUN_ROUTES,
   STEP_CLOUD_RUN_SERVICES,
 } from './steps/cloud-run/constants';
+import { STEP_REDIS_INSTANCES } from './steps/redis/constants';
+import { STEP_MEMCACHE_INSTANCES } from './steps/memcache/constants';
 
 async function getEnabledServiceNames(
   config: IntegrationConfig,
@@ -204,5 +206,7 @@ export default async function getStepStartStates(
     [STEP_CLOUD_RUN_CONFIGURATIONS]: createStepStartState(
       ServiceUsageName.CLOUD_RUN,
     ),
+    [STEP_REDIS_INSTANCES]: createStepStartState(ServiceUsageName.REDIS),
+    [STEP_MEMCACHE_INSTANCES]: createStepStartState(ServiceUsageName.MEMCACHE),
   };
 }

@@ -18,6 +18,8 @@ import { binaryAuthorizationSteps } from './steps/binary-authorization';
 import { pubSubSteps } from './steps/pub-sub';
 import { appEngineSteps } from './steps/app-engine';
 import { cloudRunSteps } from './steps/cloud-run';
+import { redisSteps } from './steps/redis';
+import { memcacheSteps } from './steps/memcache';
 
 export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> = {
   instanceConfigFields: {
@@ -45,5 +47,7 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> = 
     ...pubSubSteps,
     ...appEngineSteps,
     ...cloudRunSteps,
+    ...redisSteps,
+    ...memcacheSteps,
   ],
 };
