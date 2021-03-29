@@ -33,4 +33,24 @@ describe('#createRedisInstanceEntity', () => {
       ),
     ).toMatchSnapshot();
   });
+
+  test('should have authEnabled set to false if it is disabled', () => {
+    expect(
+      createRedisInstanceEntity(
+        getMockRedisInstance(),
+        DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
+      ),
+    ).toMatchSnapshot();
+  });
+
+  test('should have authEnabled set to true if it is enabled', () => {
+    expect(
+      createRedisInstanceEntity(
+        getMockRedisInstance({
+          authEnabled: true,
+        }),
+        DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
+      ),
+    ).toMatchSnapshot();
+  });
 });

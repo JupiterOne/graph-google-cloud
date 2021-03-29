@@ -28,11 +28,13 @@ export function createMemcacheInstanceEntity(
         nodeCpuCount: withoutNodes.nodeConfig?.cpuCount,
         nodeMemorySizeMb: withoutNodes.nodeConfig?.memorySizeMb,
         memcacheVersion: withoutNodes.memcacheVersion,
+        memcacheFullVersion: withoutNodes.memcacheFullVersion,
         state: withoutNodes.state,
         discoveryEndpoint: withoutNodes.discoveryEndpoint,
-        encrypted: false,
+        encrypted: null,
         classification: null,
         createdOn: parseTimePropertyValue(withoutNodes.createTime),
+        updatedOn: parseTimePropertyValue(withoutNodes.updateTime),
         webLink: getGoogleCloudConsoleWebLink(
           `/memorystore/memcached/locations/${
             data.name?.split('/')[3]
@@ -81,7 +83,7 @@ export function createMemcacheNodeEntity(
         host: data.host,
         port: data.port,
         classification: null,
-        encrypted: false,
+        encrypted: null,
         webLink: getGoogleCloudConsoleWebLink(
           `/memorystore/memcached/locations/${
             instanceKey.split('/')[3]

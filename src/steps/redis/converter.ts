@@ -32,8 +32,12 @@ export function createRedisInstanceEntity(
         transitEncryptionModeEnabled:
           data.transitEncryptionMode?.toUpperCase() !== 'DISABLED',
         statusMessage: data.statusMessage,
-        encrypted: false,
+        encrypted: null,
         classification: null,
+        authEnabled: data.authEnabled === true,
+        alternativeLocationId: data.alternativeLocationId,
+        currentLocationId: data.currentLocationId,
+        locationId: data.locationId,
         createdOn: parseTimePropertyValue(data.createTime),
         webLink: getGoogleCloudConsoleWebLink(
           `/memorystore/redis/locations/${data.name?.split('/')[3]}/instances/${
