@@ -20,7 +20,7 @@ data into JupiterOne.
 
 Google Cloud has most API services disabled by default. When a Google Cloud
 service API is disabled, the JupiterOne integration will not ingest the data
-from that API. The following Google Cloud service APIs that must be enabled to
+from that API. The following Google Cloud service APIs must be enabled to
 ingest all of the supported data into JupiterOne:
 
 | Service Name                                                                                                     | Service API                         |
