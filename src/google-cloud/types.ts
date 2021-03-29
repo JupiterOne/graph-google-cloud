@@ -21,4 +21,6 @@ export enum ServiceUsageName {
   PUB_SUB = 'pubsub.googleapis.com',
   APP_ENGINE = 'appengine.googleapis.com',
   CLOUD_RUN = 'run.googleapis.com',
+  REDIS = 'redis.googleapis.com',
+  MEMCACHE = 'memcache.googleapis.com',
 }

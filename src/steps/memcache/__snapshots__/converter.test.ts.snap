@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createMemcacheInstanceEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Database",
+    "DataStore",
+    "Cluster",
+  ],
+  "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-memcached-instance",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "authorizedNetwork": "projects/j1-gc-integration-dev-v2/global/networks/test-private-vpc-network",
+        "createTime": "2021-03-25T19:18:40.749241219Z",
+        "discoveryEndpoint": "10.108.48.3:11211",
+        "displayName": "Test Memcached Instance Display Name",
+        "memcacheFullVersion": "memcached-1.5.16",
+        "memcacheVersion": "MEMCACHE_1_5",
+        "name": "projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-memcached-instance",
+        "nodeConfig": Object {
+          "cpuCount": 1,
+          "memorySizeMb": 1024,
+        },
+        "nodeCount": 1,
+        "parameters": Object {
+          "id": "1901468469",
+        },
+        "state": "READY",
+        "updateTime": "2021-03-25T19:24:13.408022433Z",
+        "zones": Array [
+          "us-central1-a",
+          "us-central1-b",
+          "us-central1-c",
+          "us-central1-f",
+        ],
+      },
+    },
+  ],
+  "_type": "google_memcache_instance",
+  "classification": null,
+  "createdOn": 1616699920749,
+  "discoveryEndpoint": "10.108.48.3:11211",
+  "displayName": "Test Memcached Instance Display Name",
+  "encrypted": null,
+  "memcacheFullVersion": "memcached-1.5.16",
+  "memcacheVersion": "MEMCACHE_1_5",
+  "name": "projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-memcached-instance",
+  "nodeCount": 1,
+  "nodeCpuCount": 1,
+  "nodeMemorySizeMb": 1024,
+  "state": "READY",
+  "updatedOn": 1616700253408,
+  "webLink": "https://console.cloud.google.com/memorystore/memcached/locations/us-central1/instances/test-memcached-instance/details?project=j1-gc-integration-dev-v2",
+}
+`;
+
+exports[`#createMemcacheNodeEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Database",
+    "DataStore",
+    "Host",
+  ],
+  "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-memcached-instance/node-c-1",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "host": "10.108.48.4",
+        "nodeId": "node-c-1",
+        "parameters": Object {
+          "id": "1901468469",
+        },
+        "port": 11211,
+        "state": "READY",
+        "zone": "us-central1-c",
+      },
+    },
+  ],
+  "_type": "google_memcache_instance_node",
+  "classification": null,
+  "createdOn": undefined,
+  "displayName": "node-c-1",
+  "encrypted": null,
+  "host": "10.108.48.4",
+  "name": "node-c-1",
+  "port": 11211,
+  "state": "READY",
+  "webLink": "https://console.cloud.google.com/memorystore/memcached/locations/us-central1/instances/test-memcached-instance/details?project=j1-gc-integration-dev-v2",
+  "zone": "us-central1-c",
+}
+`;

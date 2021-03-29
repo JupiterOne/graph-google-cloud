@@ -69,6 +69,8 @@ import {
   STEP_CLOUD_RUN_ROUTES,
   STEP_CLOUD_RUN_SERVICES,
 } from './steps/cloud-run/constants';
+import { STEP_REDIS_INSTANCES } from './steps/redis/constants';
+import { STEP_MEMCACHE_INSTANCES } from './steps/memcache/constants';
 
 interface ValidateInvocationInvalidConfigTestParams {
   instanceConfig?: Partial<IntegrationConfig>;
@@ -251,6 +253,12 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_CLOUD_RUN_CONFIGURATIONS]: {
+        disabled: false,
+      },
+      [STEP_REDIS_INSTANCES]: {
+        disabled: false,
+      },
+      [STEP_MEMCACHE_INSTANCES]: {
         disabled: false,
       },
     };

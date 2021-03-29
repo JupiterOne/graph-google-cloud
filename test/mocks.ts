@@ -16,6 +16,8 @@ import {
   pubsub_v1,
   run_v1,
   appengine_v1,
+  redis_v1,
+  memcache_v1,
 } from 'googleapis';
 
 export function getMockIamRole(
@@ -1450,6 +1452,89 @@ export function getMockAppEngineInstance(
     qps: 0.19493178,
     averageLatency: 365,
     memoryUsage: '55549952',
+    ...partial,
+  };
+}
+
+export function getMockRedisInstance(
+  partial?: redis_v1.Schema$Instance,
+): redis_v1.Schema$Instance {
+  return {
+    name:
+      'projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-redis-instance',
+    displayName: 'Test Redis Instance Display Name',
+    locationId: 'us-central1-f',
+    redisVersion: 'REDIS_5_0',
+    reservedIpRange: '10.22.66.64/29',
+    host: '10.22.66.67',
+    port: 6379,
+    currentLocationId: 'us-central1-f',
+    createTime: '2021-03-25T16:31:38.678284725Z',
+    state: 'READY',
+    tier: 'BASIC',
+    memorySizeGb: 1,
+    authorizedNetwork:
+      'projects/j1-gc-integration-dev-v2/global/networks/default',
+    persistenceIamIdentity:
+      'serviceAccount:188653769288-compute@developer.gserviceaccount.com',
+    connectMode: 'DIRECT_PEERING',
+    transitEncryptionMode: 'DISABLED',
+    ...partial,
+  };
+}
+
+export function getMockMemcacheInstance(
+  partial?: memcache_v1.Schema$Instance,
+): memcache_v1.Schema$Instance {
+  return {
+    name:
+      'projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-memcached-instance',
+    displayName: 'Test Memcached Instance Display Name',
+    authorizedNetwork:
+      'projects/j1-gc-integration-dev-v2/global/networks/test-private-vpc-network',
+    zones: ['us-central1-a', 'us-central1-b', 'us-central1-c', 'us-central1-f'],
+    nodeCount: 1,
+    nodeConfig: {
+      cpuCount: 1,
+      memorySizeMb: 1024,
+    },
+    memcacheVersion: 'MEMCACHE_1_5',
+    parameters: {
+      id: '1901468469',
+    },
+    memcacheNodes: [
+      {
+        nodeId: 'node-c-1',
+        zone: 'us-central1-c',
+        state: 'READY',
+        host: '10.108.48.4',
+        port: 11211,
+        parameters: {
+          id: '1901468469',
+        },
+      },
+    ],
+    createTime: '2021-03-25T19:18:40.749241219Z',
+    updateTime: '2021-03-25T19:24:13.408022433Z',
+    state: 'READY',
+    memcacheFullVersion: 'memcached-1.5.16',
+    discoveryEndpoint: '10.108.48.3:11211',
+    ...partial,
+  };
+}
+
+export function getMockMemcacheNode(
+  partial?: memcache_v1.Schema$Node,
+): memcache_v1.Schema$Node {
+  return {
+    nodeId: 'node-c-1',
+    zone: 'us-central1-c',
+    state: 'READY',
+    host: '10.108.48.4',
+    port: 11211,
+    parameters: {
+      id: '1901468469',
+    },
     ...partial,
   };
 }
