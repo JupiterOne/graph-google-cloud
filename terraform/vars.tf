@@ -44,5 +44,5 @@ variable "enable_google_monitoring_alert_policy_example" {
 
 variable "enable_redis_instance_example" {
   type = bool
-  default = true
+  default = false
 }
