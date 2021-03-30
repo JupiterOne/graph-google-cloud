@@ -61,6 +61,16 @@ import {
 } from './steps/cloud-run/constants';
 import { STEP_REDIS_INSTANCES } from './steps/redis/constants';
 import { STEP_MEMCACHE_INSTANCES } from './steps/memcache/constants';
+import {
+  STEP_SPANNER_INSTANCES,
+  STEP_SPANNER_INSTANCE_CONFIGS,
+  STEP_SPANNER_INSTANCE_DATABASES,
+} from './steps/spanner/constants';
+import {
+  STEP_API_GATEWAY_APIS,
+  STEP_API_GATEWAY_API_CONFIGS,
+  STEP_API_GATEWAY_GATEWAYS,
+} from './steps/api-gateway/constants';
 
 async function getEnabledServiceNames(
   config: IntegrationConfig,
@@ -208,5 +218,19 @@ export default async function getStepStartStates(
     ),
     [STEP_REDIS_INSTANCES]: createStepStartState(ServiceUsageName.REDIS),
     [STEP_MEMCACHE_INSTANCES]: createStepStartState(ServiceUsageName.MEMCACHE),
+    [STEP_SPANNER_INSTANCES]: createStepStartState(ServiceUsageName.SPANNER),
+    [STEP_SPANNER_INSTANCE_CONFIGS]: createStepStartState(
+      ServiceUsageName.SPANNER,
+    ),
+    [STEP_SPANNER_INSTANCE_DATABASES]: createStepStartState(
+      ServiceUsageName.SPANNER,
+    ),
+    [STEP_API_GATEWAY_APIS]: createStepStartState(ServiceUsageName.API_GATEWAY),
+    [STEP_API_GATEWAY_API_CONFIGS]: createStepStartState(
+      ServiceUsageName.API_GATEWAY,
+    ),
+    [STEP_API_GATEWAY_GATEWAYS]: createStepStartState(
+      ServiceUsageName.API_GATEWAY,
+    ),
   };
 }
