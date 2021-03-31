@@ -8,6 +8,16 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.19.0 - 2021-03-24
+
+- Support for ingesting the following **new** resources
+
+  - Redis
+    - `google_redis_instance`
+  - Memcache
+    - `google_memcache_instance`
+    - `google_memcache_instance_node`
+
 ## 0.18.0 - 2021-03-24
 
 ### Added
