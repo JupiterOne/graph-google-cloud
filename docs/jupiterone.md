@@ -8,6 +8,31 @@ relationships. Customers authorize access by creating a
 [Google Cloud service account](https://cloud.google.com/iam/docs/creating-managing-service-accounts)
 and providing the service account key to JupiterOne.
 
+## Google Cloud + JupiterOne Integration Benefits
+
+- Visualize Google cloud resources in the JupiterOne graph.
+- Map Google users to employees in your JupiterOne account.
+- Monitor visibility and governance of your Google cloud environment by
+  leveraging hundreds of out of the box queries.
+- Monitor compliance against the Google cloud CIS Framework and other security
+  benchmarks using the JupiterOne compliance app.
+- Monitor changes to your Google cloud resources using multiple JupiterOne alert
+  rule packs specific to AWS.
+
+## How it Works
+
+- JupiterOne periodically fetches users and cloud resources from Google Cloud
+ to update the graph.
+- Write JupiterOne queries to review and monitor updates to the graph, 
+or leverage existing queries.
+- Configure alerts to take action when the JupiterOne graph changes, 
+or leverage existing alerts.
+
+## Requirements
+
+- JupiterOne requires the contents of a Google Cloud service account key file with the correct API services enabled.
+- You must have permission in JupiterOne to install new integrations.
+
 ## Setup
 
 A
