@@ -22,7 +22,8 @@ or leverage existing alerts.
 
 ## Requirements
 
-- JupiterOne requires the contents of a Google Cloud service account key file with the correct API services enabled.
+- JupiterOne requires the contents of a Google Cloud service account key file 
+with the correct API services enabled (see the **Integration Walkthrough**).
 - You must have permission in JupiterOne to install new integrations.
 
 ## Support
