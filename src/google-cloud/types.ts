@@ -25,4 +25,5 @@ export enum ServiceUsageName {
   MEMCACHE = 'memcache.googleapis.com',
   SPANNER = 'spanner.googleapis.com',
   API_GATEWAY = 'apigateway.googleapis.com',
+  PRIVATE_CA = 'privateca.googleapis.com',
 }

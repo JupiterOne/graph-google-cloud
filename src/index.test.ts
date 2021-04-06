@@ -81,6 +81,10 @@ import {
   STEP_API_GATEWAY_API_CONFIGS,
   STEP_API_GATEWAY_GATEWAYS,
 } from './steps/api-gateway/constants';
+import {
+  STEP_PRIVATE_CA_CERTIFICATES,
+  STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES,
+} from './steps/privateca/constants';
 
 interface ValidateInvocationInvalidConfigTestParams {
   instanceConfig?: Partial<IntegrationConfig>;
@@ -287,6 +291,12 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_API_GATEWAY_GATEWAYS]: {
+        disabled: false,
+      },
+      [STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES]: {
+        disabled: false,
+      },
+      [STEP_PRIVATE_CA_CERTIFICATES]: {
         disabled: false,
       },
     };

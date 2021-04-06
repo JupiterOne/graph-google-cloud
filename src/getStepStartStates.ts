@@ -71,6 +71,10 @@ import {
   STEP_API_GATEWAY_API_CONFIGS,
   STEP_API_GATEWAY_GATEWAYS,
 } from './steps/api-gateway/constants';
+import {
+  STEP_PRIVATE_CA_CERTIFICATES,
+  STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES,
+} from './steps/privateca/constants';
 
 async function getEnabledServiceNames(
   config: IntegrationConfig,
@@ -231,6 +235,12 @@ export default async function getStepStartStates(
     ),
     [STEP_API_GATEWAY_GATEWAYS]: createStepStartState(
       ServiceUsageName.API_GATEWAY,
+    ),
+    [STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES]: createStepStartState(
+      ServiceUsageName.PRIVATE_CA,
+    ),
+    [STEP_PRIVATE_CA_CERTIFICATES]: createStepStartState(
+      ServiceUsageName.PRIVATE_CA,
     ),
   };
 }
