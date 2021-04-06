@@ -9,7 +9,7 @@
 - Monitor compliance against the Google Cloud CIS Framework and other security
   benchmarks using the JupiterOne compliance app.
 - Monitor changes to your Google Cloud resources using multiple JupiterOne alert
-  rule packs specific to AWS.
+  rule packs specific to Google Cloud.
 
 ## How it Works
 
