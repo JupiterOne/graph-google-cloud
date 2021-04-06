@@ -10,13 +10,17 @@ import {
 import { integrationConfig } from '../../../test/config';
 import { setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
+import { fetchKmsCryptoKeys, fetchKmsKeyRings } from '../kms';
 import {
   ENTITY_TYPE_SPANNER_INSTANCE,
   ENTITY_TYPE_SPANNER_INSTANCE_CONFIG,
   ENTITY_TYPE_SPANNER_INSTANCE_DATABASE,
   RELATIONSHIP_TYPE_SPANNER_INSTANCE_USES_CONFIG,
   RELATIONSHIP_TYPE_SPANNER_INSTANCE_HAS_DATABASE,
+  RELATIONSHIP_TYPE_SPANNER_INSTANCE_DATABASE_USES_KMS_KEY,
 } from './constants';
+
+jest.setTimeout(50000);
 
 describe('#fetchSpannerInstanceConfigs', () => {
   let recording: Recording;
@@ -177,6 +181,8 @@ describe('#fetchSpannerInstanceDatabases', () => {
       instanceConfig: integrationConfig,
     });
 
+    await fetchKmsKeyRings(context);
+    await fetchKmsCryptoKeys(context);
     await fetchSpannerInstances(context);
     await fetchSpannerInstanceDatabases(context);
 
@@ -221,7 +227,7 @@ describe('#fetchSpannerInstanceDatabases', () => {
       schema: {
         additionalProperties: false,
         properties: {
-          _type: { const: 'google_spanner_instance_database' },
+          _type: { const: 'google_spanner_database' },
           _rawData: {
             type: 'array',
             items: { type: 'object' },
@@ -232,6 +238,11 @@ describe('#fetchSpannerInstanceDatabases', () => {
           versionRetentionPeriod: { type: 'string' },
           earliestVersionTime: { type: 'number' },
           public: { type: 'boolean' },
+          'restoreInfo.sourceType': { type: 'string' },
+          'restoreInfo.backup': { type: 'string' },
+          'restoreInfo.versionTime': { type: 'number' },
+          'restoreInfo.createTime': { type: 'number' },
+          'restoreInfo.sourceDatabase': { type: 'string' },
           createdOn: { type: 'number' },
           webLink: { type: 'string' },
         },
@@ -247,6 +258,20 @@ describe('#fetchSpannerInstanceDatabases', () => {
         properties: {
           _class: { const: 'HAS' },
           _type: { const: 'google_spanner_instance_has_database' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) =>
+          e._type === RELATIONSHIP_TYPE_SPANNER_INSTANCE_DATABASE_USES_KMS_KEY,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'USES' },
+          _type: { const: 'google_spanner_database_uses_kms_crypto_key' },
         },
       },
     });

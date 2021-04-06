@@ -6,6 +6,7 @@ import {
 import { spanner_v1 } from 'googleapis';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
 import { isMemberPublic } from '../../utils/iam';
+import { ENTITY_TYPE_KMS_KEY, STEP_CLOUD_KMS_KEYS } from '../kms';
 import { SpannerClient } from './client';
 import {
   STEP_SPANNER_INSTANCES,
@@ -19,6 +20,7 @@ import {
   ENTITY_CLASS_SPANNER_INSTANCE_CONFIG,
   RELATIONSHIP_TYPE_SPANNER_INSTANCE_HAS_DATABASE,
   RELATIONSHIP_TYPE_SPANNER_INSTANCE_USES_CONFIG,
+  RELATIONSHIP_TYPE_SPANNER_INSTANCE_DATABASE_USES_KMS_KEY,
 } from './constants';
 import {
   createSpannerInstanceConfiguration,
@@ -129,6 +131,21 @@ export async function fetchSpannerInstanceDatabases(
             to: instanceDatabaseEntity,
           }),
         );
+
+        if (database.encryptionConfig?.kmsKeyName) {
+          const cryptoKeyEntity = await jobState.findEntity(
+            database.encryptionConfig.kmsKeyName,
+          );
+          if (cryptoKeyEntity) {
+            await jobState.addRelationship(
+              createDirectRelationship({
+                _class: RelationshipClass.USES,
+                from: instanceDatabaseEntity,
+                to: cryptoKeyEntity,
+              }),
+            );
+          }
+        }
       });
     },
   );
@@ -187,8 +204,14 @@ export const spannerSteps: IntegrationStep<IntegrationConfig>[] = [
         sourceType: ENTITY_TYPE_SPANNER_INSTANCE,
         targetType: ENTITY_TYPE_SPANNER_INSTANCE_DATABASE,
       },
+      {
+        _class: RelationshipClass.USES,
+        _type: RELATIONSHIP_TYPE_SPANNER_INSTANCE_DATABASE_USES_KMS_KEY,
+        sourceType: ENTITY_TYPE_SPANNER_INSTANCE_DATABASE,
+        targetType: ENTITY_TYPE_KMS_KEY,
+      },
     ],
-    dependsOn: [STEP_SPANNER_INSTANCES],
+    dependsOn: [STEP_SPANNER_INSTANCES, STEP_CLOUD_KMS_KEYS],
     executionHandler: fetchSpannerInstanceDatabases,
   },
 ];

@@ -16,3 +16,5 @@ export const RELATIONSHIP_TYPE_API_GATEWAY_API_USES_CONFIG =
   'google_api_gateway_api_uses_config';
 export const RELATIONSHIP_TYPE_API_GATEWAY_API_HAS_GATEWAY =
   'google_api_gateway_api_has_gateway';
+export const RELATIONSHIP_TYPE_API_GATEWAY_API_CONFIG_USES_SERVICE_ACCOUNT =
+  'google_api_gateway_api_config_uses_iam_service_account';

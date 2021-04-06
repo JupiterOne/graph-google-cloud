@@ -14,9 +14,13 @@ import {
   ENTITY_TYPE_API_GATEWAY_API,
   ENTITY_TYPE_API_GATEWAY_API_CONFIG,
   ENTITY_TYPE_API_GATEWAY_GATEWAY,
+  RELATIONSHIP_TYPE_API_GATEWAY_API_CONFIG_USES_SERVICE_ACCOUNT,
   RELATIONSHIP_TYPE_API_GATEWAY_API_HAS_GATEWAY,
   RELATIONSHIP_TYPE_API_GATEWAY_API_USES_CONFIG,
 } from './constants';
+import { fetchIamServiceAccounts } from '../iam';
+
+jest.setTimeout(50000);
 
 describe('#fetchApiGatewayApis', () => {
   let recording: Recording;
@@ -98,6 +102,7 @@ describe('#fetchApiGatewayApiConfigs', () => {
       instanceConfig: integrationConfig,
     });
 
+    await fetchIamServiceAccounts(context);
     await fetchApiGatewayApis(context);
     await fetchApiGatewayApiConfigs(context);
 
@@ -174,6 +179,23 @@ describe('#fetchApiGatewayApiConfigs', () => {
         properties: {
           _class: { const: 'USES' },
           _type: { const: 'google_api_gateway_api_uses_config' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) =>
+          e._type ===
+          RELATIONSHIP_TYPE_API_GATEWAY_API_CONFIG_USES_SERVICE_ACCOUNT,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'USES' },
+          _type: {
+            const: 'google_api_gateway_api_config_uses_iam_service_account',
+          },
         },
       },
     });

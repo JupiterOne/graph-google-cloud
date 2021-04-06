@@ -67,6 +67,16 @@ export function createSpannerInstanceDatabaseEntity({
         versionRetentionPeriod: data.versionRetentionPeriod,
         earliestVersionTime: parseTimePropertyValue(data.earliestVersionTime),
         public: isPublic,
+        'restoreInfo.sourceType': data.restoreInfo?.sourceType,
+        'restoreInfo.backup': data.restoreInfo?.backupInfo?.backup,
+        'restoreInfo.versionTime': parseTimePropertyValue(
+          data.restoreInfo?.backupInfo?.versionTime,
+        ),
+        'restoreInfo.createTime': parseTimePropertyValue(
+          data.restoreInfo?.backupInfo?.createTime,
+        ),
+        'restoreInfo.sourceDatabase':
+          data.restoreInfo?.backupInfo?.sourceDatabase,
         createdOn: parseTimePropertyValue(data.createTime),
         webLink: getGoogleCloudConsoleWebLink(
           `/spanner/instances/${instanceId}/databases/${databaseId}/details/tables?project=${projectId}`,

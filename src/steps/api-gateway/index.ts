@@ -19,12 +19,17 @@ import {
   ENTITY_CLASS_API_GATEWAY_GATEWAY,
   RELATIONSHIP_TYPE_API_GATEWAY_API_USES_CONFIG,
   RELATIONSHIP_TYPE_API_GATEWAY_API_HAS_GATEWAY,
+  RELATIONSHIP_TYPE_API_GATEWAY_API_CONFIG_USES_SERVICE_ACCOUNT,
 } from './constants';
 import {
   createApiGatewayApiConfigEntity,
   createApiGatewayApiEntity,
   createApiGatewayGatewayEntity,
 } from './converters';
+import {
+  IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
+  STEP_IAM_SERVICE_ACCOUNTS,
+} from '../iam/constants';
 
 function isApiGatewayPolicyPublicAccess(
   policy: apigateway_v1.Schema$ApigatewayPolicy,
@@ -68,6 +73,7 @@ export async function fetchApiGatewayApiConfigs(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
 
   const client = new ApiGatewayClient({ config });
@@ -101,6 +107,38 @@ export async function fetchApiGatewayApiConfigs(
             to: apiConfigEntity,
           }),
         );
+
+        if (
+          apiConfig.gatewayServiceAccount?.includes('iam.gserviceaccount.com')
+        ) {
+          const serviceAccountId = apiConfig.gatewayServiceAccount.split(
+            '/',
+          )[3];
+
+          const serviceAccountEntity = await jobState.findEntity(
+            serviceAccountId,
+          );
+          if (serviceAccountEntity) {
+            await jobState.addRelationship(
+              createDirectRelationship({
+                _class: RelationshipClass.USES,
+                from: apiConfigEntity,
+                to: serviceAccountEntity,
+              }),
+            );
+          }
+        } else {
+          // NOTE: It's not clear exactly when this case would happen.
+          // The following log message is to provide some clarity around
+          // how frequently we see this case and whether we should
+          // iterate on it further.
+          logger.warn(
+            {
+              fullResourceName: apiConfig.gatewayServiceAccount,
+            },
+            'The service account that api gateway should use to authenticate to the other services is using its full resource name',
+          );
+        }
       });
     },
   );
@@ -176,8 +214,14 @@ export const apiGatewaySteps: IntegrationStep<IntegrationConfig>[] = [
         sourceType: ENTITY_TYPE_API_GATEWAY_API,
         targetType: ENTITY_TYPE_API_GATEWAY_API_CONFIG,
       },
+      {
+        _class: RelationshipClass.USES,
+        _type: RELATIONSHIP_TYPE_API_GATEWAY_API_CONFIG_USES_SERVICE_ACCOUNT,
+        sourceType: ENTITY_TYPE_API_GATEWAY_API_CONFIG,
+        targetType: IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
+      },
     ],
-    dependsOn: [STEP_API_GATEWAY_APIS],
+    dependsOn: [STEP_API_GATEWAY_APIS, STEP_IAM_SERVICE_ACCOUNTS],
     executionHandler: fetchApiGatewayApiConfigs,
   },
   {

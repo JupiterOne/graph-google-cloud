@@ -1,4 +1,5 @@
 resource "google_spanner_instance" "example_spanner_instance" {
+  count        = var.enable_spanner_example ? 1 : 0
   config       = "regional-us-central1"
   name         = "example-spanner-instance"
   display_name = "Example Spanner Instance"
@@ -9,7 +10,8 @@ resource "google_spanner_instance" "example_spanner_instance" {
 }
 
 resource "google_spanner_instance_iam_binding" "spanner_instance_binding" {
-  instance = google_spanner_instance.example_spanner_instance.name
+  count    = var.enable_spanner_example ? 1 : 0
+  instance = google_spanner_instance.example_spanner_instance[0].name
   role     = "roles/spanner.databaseReader"
 
   members = [
@@ -18,7 +20,8 @@ resource "google_spanner_instance_iam_binding" "spanner_instance_binding" {
 }
 
 resource "google_spanner_database" "example_spanner_database" {
-  instance = google_spanner_instance.example_spanner_instance.name
+  count    = var.enable_spanner_example ? 1 : 0
+  instance = google_spanner_instance.example_spanner_instance[0].name
   name     = "example-database"
   ddl = [
     "CREATE TABLE t1 (t1 INT64 NOT NULL,) PRIMARY KEY(t1)",
@@ -28,8 +31,9 @@ resource "google_spanner_database" "example_spanner_database" {
 }
 
 resource "google_spanner_database_iam_binding" "spanner_database_binding" {
-  instance = google_spanner_instance.example_spanner_instance.name
-  database = google_spanner_database.example_spanner_database.name
+  count    = var.enable_spanner_example ? 1 : 0
+  instance = google_spanner_instance.example_spanner_instance[0].name
+  database = google_spanner_database.example_spanner_database[0].name
   role     = "roles/spanner.databaseReader"
 
   members = [
