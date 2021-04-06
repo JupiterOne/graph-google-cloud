@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createApiGatewayApiConfigEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Configuration",
+  ],
+  "_key": "projects/j1-gc-integration-dev-v2/locations/global/apis/example-api-gateway-endpoint/configs/example-config",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "createTime": "2021-03-30T21:17:10.657320375Z",
+        "displayName": "Example Config",
+        "gatewayServiceAccount": "projects/-/serviceAccounts/j1-gc-integration-dev-v2@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
+        "name": "projects/j1-gc-integration-dev-v2/locations/global/apis/example-api-gateway-endpoint/configs/example-config",
+        "serviceConfigId": "example-config-3u3w8my3mj12x",
+        "state": "ACTIVE",
+        "updateTime": "2021-03-31T13:57:35.950462993Z",
+      },
+    },
+  ],
+  "_type": "google_api_gateway_api_config",
+  "createdOn": 1617139030657,
+  "displayName": "Example Config",
+  "name": "projects/j1-gc-integration-dev-v2/locations/global/apis/example-api-gateway-endpoint/configs/example-config",
+  "public": false,
+  "state": "ACTIVE",
+  "updatedOn": 1617199055950,
+  "webLink": "https://console.cloud.google.com/api-gateway/api/example-api-gateway-endpoint/servicename/example-api-gateway-endpoint-0fo33j5zaqt68.apigateway.j1-gc-integration-dev-v2.cloud.goog/configs/example-config/rollout/example-config-3u3w8my3mj12x/details?project=j1-gc-integration-dev-v2",
+}
+`;
+
+exports[`#createApiGatewayApiEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Service",
+  ],
+  "_key": "projects/j1-gc-integration-dev-v2/locations/global/apis/example-api-gateway-endpoint",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "createTime": "2021-03-30T21:15:27.820351650Z",
+        "displayName": "Example API Gateway Endpoint",
+        "managedService": "example-api-gateway-endpoint-0fo33j5zaqt68.apigateway.j1-gc-integration-dev-v2.cloud.goog",
+        "name": "projects/j1-gc-integration-dev-v2/locations/global/apis/example-api-gateway-endpoint",
+        "state": "ACTIVE",
+        "updateTime": "2021-03-30T21:17:06.954180503Z",
+      },
+    },
+  ],
+  "_type": "google_api_gateway_api",
+  "category": Array [
+    "network",
+  ],
+  "createdOn": 1617138927820,
+  "displayName": "Example API Gateway Endpoint",
+  "managedService": "example-api-gateway-endpoint-0fo33j5zaqt68.apigateway.j1-gc-integration-dev-v2.cloud.goog",
+  "name": "projects/j1-gc-integration-dev-v2/locations/global/apis/example-api-gateway-endpoint",
+  "public": false,
+  "state": "ACTIVE",
+  "updatedOn": 1617139026954,
+  "webLink": "https://console.cloud.google.com/api-gateway/api/example-api-gateway-endpoint/servicename/example-api-gateway-endpoint-0fo33j5zaqt68.apigateway.j1-gc-integration-dev-v2.cloud.goog/overview?project=j1-gc-integration-dev-v2",
+}
+`;
+
+exports[`#createApiGatewayGatewayEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Gateway",
+  ],
+  "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/gateways/example-gateway",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "apiConfig": "projects/711888229551/locations/global/apis/example-api-gateway-endpoint/configs/example-config",
+        "createTime": "2021-03-30T21:19:35.916320550Z",
+        "defaultHostname": "example-gateway-931bvdf3.uc.gateway.dev",
+        "displayName": "Example gateway",
+        "name": "projects/j1-gc-integration-dev-v2/locations/us-central1/gateways/example-gateway",
+        "state": "ACTIVE",
+        "updateTime": "2021-03-31T14:02:49.272381610Z",
+      },
+    },
+  ],
+  "_type": "google_api_gateway_gateway",
+  "category": Array [
+    "network",
+  ],
+  "createdOn": 1617139175916,
+  "defaultHostname": "example-gateway-931bvdf3.uc.gateway.dev",
+  "displayName": "Example gateway",
+  "function": Array [
+    "api-gateway",
+  ],
+  "name": "projects/j1-gc-integration-dev-v2/locations/us-central1/gateways/example-gateway",
+  "public": false,
+  "state": "ACTIVE",
+  "updatedOn": 1617199369272,
+  "webLink": "https://console.cloud.google.com/api-gateway/gateway/example-gateway/location/us-central1?project=j1-gc-integration-dev-v2",
+}
+`;

@@ -1,0 +1,3160 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/asia1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Asia (Tokyo/Osaka/Seoul)",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/asia1",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "asia-northeast1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-northeast1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-northeast2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-northeast2",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/asia1",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/asia1",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur3",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Europe (Belgium/Netherlands)",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur3",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "europe-west1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west4",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west4",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur3",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur3",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur5",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Europe (London/Belgium/Netherlands)",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur5",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "europe-west2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur5",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur5",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur6",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Europe (Netherlands, Frankfurt)",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur6",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "europe-west4",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west4",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west3",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west3",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west6",
+                "type": "WITNESS",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur6",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur6",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam-eur-asia1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "United States, Europe, and Asia (Iowa/Oklahoma/Belgium/Taiwan)",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam-eur-asia1",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-central2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-central2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west1",
+                "type": "READ_ONLY",
+              },
+              Object {
+                "location": "europe-west1",
+                "type": "READ_ONLY",
+              },
+              Object {
+                "location": "asia-east1",
+                "type": "READ_ONLY",
+              },
+              Object {
+                "location": "asia-east1",
+                "type": "READ_ONLY",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam-eur-asia1",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam-eur-asia1",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam10",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "United States (Iowa/Salt Lake/Oklahoma)",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam10",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west3",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west3",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam10",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam10",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam11",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "United States (Iowa, South Carolina, Oklahoma)",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam11",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam11",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam11",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam3",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "United States (Northern Virginia/South Carolina)",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam3",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-east4",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east4",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam3",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam3",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam6",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "United States (Iowa/South Carolina/Oregon/Los Angeles)",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam6",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west1",
+                "type": "READ_ONLY",
+              },
+              Object {
+                "location": "us-west2",
+                "type": "READ_ONLY",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam6",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam6",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam7",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "United States (Iowa, Northern Virginia, Oklahoma)",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam7",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east4",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east4",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam7",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam7",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam8",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "United States (Los Angeles, Oregon, Salt Lake City)",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam8",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-west2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west3",
+                "type": "WITNESS",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam8",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam8",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam9",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "United States (Northern Virginia, Iowa, South Carolina, Oregon)",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam9",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-east4",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east4",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east1",
+                "type": "WITNESS",
+              },
+              Object {
+                "location": "us-west1",
+                "type": "READ_ONLY",
+              },
+              Object {
+                "location": "us-west1",
+                "type": "READ_ONLY",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam9",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam9",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "asia-east1",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east1",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "asia-east1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-east1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-east1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east1",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east1",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east2",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "asia-east2",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east2",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "asia-east2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-east2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-east2",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east2",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east2",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "asia-northeast1",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast1",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "asia-northeast1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-northeast1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-northeast1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast1",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast1",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast2",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "asia-northeast2",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast2",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "asia-northeast2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-northeast2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-northeast2",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast2",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast2",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast3",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "asia-northeast3",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast3",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "asia-northeast3",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-northeast3",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-northeast3",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast3",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast3",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-south1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "asia-south1",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-south1",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "asia-south1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-south1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-south1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-south1",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-south1",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "asia-southeast1",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast1",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "asia-southeast1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-southeast1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-southeast1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast1",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast1",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast2",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "asia-southeast2",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast2",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "asia-southeast2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-southeast2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-southeast2",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast2",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast2",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-australia-southeast1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "australia-southeast1",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-australia-southeast1",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "australia-southeast1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "australia-southeast1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "australia-southeast1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-australia-southeast1",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-australia-southeast1",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-central2",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "europe-central2",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-central2",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "europe-central2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-central2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-central2",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-central2",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-central2",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-north1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "europe-north1",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-north1",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "europe-north1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-north1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-north1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-north1",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-north1",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "europe-west1",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west1",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "europe-west1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west1",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west1",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west2",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "europe-west2",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west2",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "europe-west2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west2",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west2",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west2",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west3",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "europe-west3",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west3",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "europe-west3",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west3",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west3",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west3",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west3",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west4",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "europe-west4",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west4",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "europe-west4",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west4",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west4",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west4",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west4",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west6",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "europe-west6",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west6",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "europe-west6",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west6",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west6",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west6",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west6",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-northamerica-northeast1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "northamerica-northeast1",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-northamerica-northeast1",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "northamerica-northeast1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "northamerica-northeast1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "northamerica-northeast1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-northamerica-northeast1",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-northamerica-northeast1",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-southamerica-east1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "southamerica-east1",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-southamerica-east1",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "southamerica-east1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "southamerica-east1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "southamerica-east1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-southamerica-east1",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-southamerica-east1",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-central1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "us-central1",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-central1",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-central1",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-central1",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "us-east1",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east1",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-east1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east1",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east1",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east4",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "us-east4",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east4",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-east4",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east4",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east4",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east4",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east4",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "us-west1",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west1",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-west1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west1",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west1",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west2",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "us-west2",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west2",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-west2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west2",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west2",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west2",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west3",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "us-west3",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west3",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-west3",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west3",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west3",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west3",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west3",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west4",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "us-west4",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west4",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-west4",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west4",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west4",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west4",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west4",
+    },
+  ],
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
+    "google_spanner_instance_config",
+  ],
+  "numCollectedEntities": 37,
+  "numCollectedRelationships": 0,
+}
+`;
+
+exports[`#fetchSpannerInstanceDatabases should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Vault",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "createTime": "2021-03-03T04:19:41.000994349Z",
+            "name": "projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring",
+          },
+        },
+      ],
+      "_type": "google_kms_key_ring",
+      "createdOn": 1614745181000,
+      "displayName": "projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring",
+      "location": "global",
+      "name": "projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring",
+      "projectId": "j1-gc-integration-dev-v2",
+      "shortName": "example-topic-keyring",
+      "webLink": "https://console.cloud.google.com/security/kms/keyring/manage/global/example-topic-keyring/key?project=j1-gc-integration-dev-v2",
+    },
+    Object {
+      "_class": Array [
+        "Vault",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "createTime": "2021-02-18T00:04:21.166607506Z",
+            "name": "projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring",
+          },
+        },
+      ],
+      "_type": "google_kms_key_ring",
+      "createdOn": 1613606661166,
+      "displayName": "projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring",
+      "location": "us",
+      "name": "projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring",
+      "projectId": "j1-gc-integration-dev-v2",
+      "shortName": "j1-gc-integration-dev-v2-bucket-ring",
+      "webLink": "https://console.cloud.google.com/security/kms/keyring/manage/us/j1-gc-integration-dev-v2-bucket-ring/key?project=j1-gc-integration-dev-v2",
+    },
+    Object {
+      "_class": Array [
+        "Vault",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/keyRings/spannerKeyRing",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "createTime": "2021-04-06T13:35:23.070519902Z",
+            "name": "projects/j1-gc-integration-dev-v2/locations/us-central1/keyRings/spannerKeyRing",
+          },
+        },
+      ],
+      "_type": "google_kms_key_ring",
+      "createdOn": 1617716123070,
+      "displayName": "projects/j1-gc-integration-dev-v2/locations/us-central1/keyRings/spannerKeyRing",
+      "location": "us-central1",
+      "name": "projects/j1-gc-integration-dev-v2/locations/us-central1/keyRings/spannerKeyRing",
+      "projectId": "j1-gc-integration-dev-v2",
+      "shortName": "spannerKeyRing",
+      "webLink": "https://console.cloud.google.com/security/kms/keyring/manage/us-central1/spannerKeyRing/key?project=j1-gc-integration-dev-v2",
+    },
+    Object {
+      "_class": Array [
+        "Key",
+        "CryptoKey",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring/cryptoKeys/example-key",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "createTime": "2021-03-03T04:19:41.404330840Z",
+            "name": "projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring/cryptoKeys/example-key",
+            "primary": Object {
+              "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
+              "createTime": "2021-03-03T04:19:41.404330840Z",
+              "generateTime": "2021-03-03T04:19:41.404330840Z",
+              "name": "projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring/cryptoKeys/example-key/cryptoKeyVersions/1",
+              "protectionLevel": "SOFTWARE",
+              "state": "ENABLED",
+            },
+            "purpose": "ENCRYPT_DECRYPT",
+            "versionTemplate": Object {
+              "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
+              "protectionLevel": "SOFTWARE",
+            },
+          },
+        },
+      ],
+      "_type": "google_kms_crypto_key",
+      "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
+      "createdOn": 1614745181404,
+      "displayName": "projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring/cryptoKeys/example-key",
+      "keyUsage": "ENCRYPT_DECRYPT",
+      "name": "projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring/cryptoKeys/example-key",
+      "nextRotationTime": undefined,
+      "primaryAlgorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
+      "primaryCreateTime": 1614745181404,
+      "primaryGenerateTime": 1614745181404,
+      "primaryName": "projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring/cryptoKeys/example-key/cryptoKeyVersions/1",
+      "primaryProtectionLevel": "SOFTWARE",
+      "primaryState": "ENABLED",
+      "protectionLevel": "SOFTWARE",
+      "public": false,
+      "purpose": "ENCRYPT_DECRYPT",
+      "rotationPeriod": undefined,
+      "webLink": "https://console.cloud.google.com/security/kms/key/manage/global/example-topic-keyring/projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring/cryptoKeys/example-key?project=j1-gc-integration-dev-v2",
+    },
+    Object {
+      "_class": Array [
+        "Key",
+        "CryptoKey",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "createTime": "2021-02-18T00:04:24.586396675Z",
+            "name": "projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key",
+            "nextRotationTime": "2021-04-07T00:05:17.738346Z",
+            "primary": Object {
+              "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
+              "createTime": "2021-04-06T00:05:16.738346509Z",
+              "generateTime": "2021-04-06T00:05:16.738346509Z",
+              "name": "projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key/cryptoKeyVersions/48",
+              "protectionLevel": "SOFTWARE",
+              "state": "ENABLED",
+            },
+            "purpose": "ENCRYPT_DECRYPT",
+            "rotationPeriod": "86401s",
+            "versionTemplate": Object {
+              "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
+              "protectionLevel": "SOFTWARE",
+            },
+          },
+        },
+      ],
+      "_type": "google_kms_crypto_key",
+      "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
+      "createdOn": 1613606664586,
+      "displayName": "projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key",
+      "keyUsage": "ENCRYPT_DECRYPT",
+      "name": "projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key",
+      "nextRotationTime": 1617753917738,
+      "primaryAlgorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
+      "primaryCreateTime": 1617667516738,
+      "primaryGenerateTime": 1617667516738,
+      "primaryName": "projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key/cryptoKeyVersions/48",
+      "primaryProtectionLevel": "SOFTWARE",
+      "primaryState": "ENABLED",
+      "protectionLevel": "SOFTWARE",
+      "public": false,
+      "purpose": "ENCRYPT_DECRYPT",
+      "rotationPeriod": 86401,
+      "webLink": "https://console.cloud.google.com/security/kms/key/manage/us/j1-gc-integration-dev-v2-bucket-ring/projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key?project=j1-gc-integration-dev-v2",
+    },
+    Object {
+      "_class": Array [
+        "Key",
+        "CryptoKey",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/keyRings/spannerKeyRing/cryptoKeys/spannerCryptoKey",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "createTime": "2021-04-06T13:35:45.473429006Z",
+            "name": "projects/j1-gc-integration-dev-v2/locations/us-central1/keyRings/spannerKeyRing/cryptoKeys/spannerCryptoKey",
+            "nextRotationTime": "2021-07-04T22:00:00Z",
+            "primary": Object {
+              "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
+              "createTime": "2021-04-06T13:35:45.473429006Z",
+              "generateTime": "2021-04-06T13:35:45.473429006Z",
+              "name": "projects/j1-gc-integration-dev-v2/locations/us-central1/keyRings/spannerKeyRing/cryptoKeys/spannerCryptoKey/cryptoKeyVersions/1",
+              "protectionLevel": "SOFTWARE",
+              "state": "ENABLED",
+            },
+            "purpose": "ENCRYPT_DECRYPT",
+            "rotationPeriod": "7776000s",
+            "versionTemplate": Object {
+              "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
+              "protectionLevel": "SOFTWARE",
+            },
+          },
+        },
+      ],
+      "_type": "google_kms_crypto_key",
+      "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
+      "createdOn": 1617716145473,
+      "displayName": "projects/j1-gc-integration-dev-v2/locations/us-central1/keyRings/spannerKeyRing/cryptoKeys/spannerCryptoKey",
+      "keyUsage": "ENCRYPT_DECRYPT",
+      "name": "projects/j1-gc-integration-dev-v2/locations/us-central1/keyRings/spannerKeyRing/cryptoKeys/spannerCryptoKey",
+      "nextRotationTime": 1625436000000,
+      "primaryAlgorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
+      "primaryCreateTime": 1617716145473,
+      "primaryGenerateTime": 1617716145473,
+      "primaryName": "projects/j1-gc-integration-dev-v2/locations/us-central1/keyRings/spannerKeyRing/cryptoKeys/spannerCryptoKey/cryptoKeyVersions/1",
+      "primaryProtectionLevel": "SOFTWARE",
+      "primaryState": "ENABLED",
+      "protectionLevel": "SOFTWARE",
+      "public": false,
+      "purpose": "ENCRYPT_DECRYPT",
+      "rotationPeriod": 7776000,
+      "webLink": "https://console.cloud.google.com/security/kms/key/manage/us-central1/spannerKeyRing/projects/j1-gc-integration-dev-v2/locations/us-central1/keyRings/spannerKeyRing/cryptoKeys/spannerCryptoKey?project=j1-gc-integration-dev-v2",
+    },
+    Object {
+      "_class": Array [
+        "Database",
+        "Cluster",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "config": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-central1",
+            "displayName": "Example Spanner Instance",
+            "labels": Object {
+              "foo": "bar",
+            },
+            "name": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance",
+            "nodeCount": 2,
+            "state": "READY",
+          },
+        },
+      ],
+      "_type": "google_spanner_instance",
+      "createdOn": undefined,
+      "displayName": "Example Spanner Instance",
+      "name": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance",
+      "nodeCount": 2,
+      "public": false,
+      "state": "READY",
+      "tag.foo": "bar",
+      "webLink": "https://console.cloud.google.com/spanner/instances/example-spanner-instance/details/databases?project=j1-gc-integration-dev-v2",
+    },
+    Object {
+      "_class": Array [
+        "Database",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance/databases/cmek-database",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "createTime": "2021-04-06T13:36:33.011963Z",
+            "earliestVersionTime": "2021-04-06T17:10:27.779826Z",
+            "encryptionConfig": Object {
+              "kmsKeyName": "projects/j1-gc-integration-dev-v2/locations/us-central1/keyRings/spannerKeyRing/cryptoKeys/spannerCryptoKey",
+            },
+            "encryptionInfo": Array [
+              Object {
+                "encryptionType": "CUSTOMER_MANAGED_ENCRYPTION",
+                "kmsKeyVersion": "projects/j1-gc-integration-dev-v2/locations/us-central1/keyRings/spannerKeyRing/cryptoKeys/spannerCryptoKey/cryptoKeyVersions/1",
+              },
+            ],
+            "name": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance/databases/cmek-database",
+            "state": "READY",
+            "versionRetentionPeriod": "1h",
+          },
+        },
+      ],
+      "_type": "google_spanner_database",
+      "createdOn": 1617716193011,
+      "displayName": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance/databases/cmek-database",
+      "earliestVersionTime": 1617729027779,
+      "name": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance/databases/cmek-database",
+      "public": false,
+      "restoreInfo.backup": undefined,
+      "restoreInfo.createTime": undefined,
+      "restoreInfo.sourceDatabase": undefined,
+      "restoreInfo.sourceType": undefined,
+      "restoreInfo.versionTime": undefined,
+      "state": "READY",
+      "versionRetentionPeriod": "1h",
+      "webLink": "https://console.cloud.google.com/spanner/instances/example-spanner-instance/databases/cmek-database/details/tables?project=j1-gc-integration-dev-v2",
+    },
+    Object {
+      "_class": Array [
+        "Database",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance/databases/example-database",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "createTime": "2021-03-30T19:56:48.039053Z",
+            "earliestVersionTime": "2021-04-06T17:10:27.779841Z",
+            "encryptionInfo": Array [
+              Object {
+                "encryptionType": "GOOGLE_DEFAULT_ENCRYPTION",
+              },
+            ],
+            "name": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance/databases/example-database",
+            "state": "READY",
+            "versionRetentionPeriod": "1h",
+          },
+        },
+      ],
+      "_type": "google_spanner_database",
+      "createdOn": 1617134208039,
+      "displayName": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance/databases/example-database",
+      "earliestVersionTime": 1617729027779,
+      "name": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance/databases/example-database",
+      "public": false,
+      "restoreInfo.backup": undefined,
+      "restoreInfo.createTime": undefined,
+      "restoreInfo.sourceDatabase": undefined,
+      "restoreInfo.sourceType": undefined,
+      "restoreInfo.versionTime": undefined,
+      "state": "READY",
+      "versionRetentionPeriod": "1h",
+      "webLink": "https://console.cloud.google.com/spanner/instances/example-spanner-instance/databases/example-database/details/tables?project=j1-gc-integration-dev-v2",
+    },
+  ],
+  "collectedRelationships": Array [
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring",
+      "_key": "projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring|has|projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring/cryptoKeys/example-key",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring/cryptoKeys/example-key",
+      "_type": "google_kms_key_ring_has_crypto_key",
+      "displayName": "HAS",
+    },
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring",
+      "_key": "projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring|has|projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key",
+      "_type": "google_kms_key_ring_has_crypto_key",
+      "displayName": "HAS",
+    },
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "projects/j1-gc-integration-dev-v2/locations/us-central1/keyRings/spannerKeyRing",
+      "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/keyRings/spannerKeyRing|has|projects/j1-gc-integration-dev-v2/locations/us-central1/keyRings/spannerKeyRing/cryptoKeys/spannerCryptoKey",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v2/locations/us-central1/keyRings/spannerKeyRing/cryptoKeys/spannerCryptoKey",
+      "_type": "google_kms_key_ring_has_crypto_key",
+      "displayName": "HAS",
+    },
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance",
+      "_key": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance|has|projects/j1-gc-integration-dev-v2/instances/example-spanner-instance/databases/cmek-database",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance/databases/cmek-database",
+      "_type": "google_spanner_instance_has_database",
+      "displayName": "HAS",
+    },
+    Object {
+      "_class": "USES",
+      "_fromEntityKey": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance/databases/cmek-database",
+      "_key": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance/databases/cmek-database|uses|projects/j1-gc-integration-dev-v2/locations/us-central1/keyRings/spannerKeyRing/cryptoKeys/spannerCryptoKey",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v2/locations/us-central1/keyRings/spannerKeyRing/cryptoKeys/spannerCryptoKey",
+      "_type": "google_spanner_database_uses_kms_crypto_key",
+      "displayName": "USES",
+    },
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance",
+      "_key": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance|has|projects/j1-gc-integration-dev-v2/instances/example-spanner-instance/databases/example-database",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance/databases/example-database",
+      "_type": "google_spanner_instance_has_database",
+      "displayName": "HAS",
+    },
+  ],
+  "encounteredTypes": Array [
+    "google_kms_key_ring",
+    "google_kms_crypto_key",
+    "google_kms_key_ring_has_crypto_key",
+    "google_spanner_instance",
+    "google_spanner_database",
+    "google_spanner_instance_has_database",
+    "google_spanner_database_uses_kms_crypto_key",
+  ],
+  "numCollectedEntities": 9,
+  "numCollectedRelationships": 6,
+}
+`;
+
+exports[`#fetchSpannerInstances should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/asia1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Asia (Tokyo/Osaka/Seoul)",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/asia1",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "asia-northeast1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-northeast1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-northeast2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-northeast2",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/asia1",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/asia1",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur3",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Europe (Belgium/Netherlands)",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur3",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "europe-west1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west4",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west4",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur3",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur3",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur5",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Europe (London/Belgium/Netherlands)",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur5",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "europe-west2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur5",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur5",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur6",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Europe (Netherlands, Frankfurt)",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur6",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "europe-west4",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west4",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west3",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west3",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west6",
+                "type": "WITNESS",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur6",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur6",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam-eur-asia1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "United States, Europe, and Asia (Iowa/Oklahoma/Belgium/Taiwan)",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam-eur-asia1",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-central2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-central2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west1",
+                "type": "READ_ONLY",
+              },
+              Object {
+                "location": "europe-west1",
+                "type": "READ_ONLY",
+              },
+              Object {
+                "location": "asia-east1",
+                "type": "READ_ONLY",
+              },
+              Object {
+                "location": "asia-east1",
+                "type": "READ_ONLY",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam-eur-asia1",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam-eur-asia1",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam10",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "United States (Iowa/Salt Lake/Oklahoma)",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam10",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west3",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west3",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam10",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam10",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam11",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "United States (Iowa, South Carolina, Oklahoma)",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam11",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam11",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam11",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam3",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "United States (Northern Virginia/South Carolina)",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam3",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-east4",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east4",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam3",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam3",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam6",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "United States (Iowa/South Carolina/Oregon/Los Angeles)",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam6",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west1",
+                "type": "READ_ONLY",
+              },
+              Object {
+                "location": "us-west2",
+                "type": "READ_ONLY",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam6",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam6",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam7",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "United States (Iowa, Northern Virginia, Oklahoma)",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam7",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east4",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east4",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam7",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam7",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam8",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "United States (Los Angeles, Oregon, Salt Lake City)",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam8",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-west2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west3",
+                "type": "WITNESS",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam8",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam8",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam9",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "United States (Northern Virginia, Iowa, South Carolina, Oregon)",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam9",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-east4",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east4",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east1",
+                "type": "WITNESS",
+              },
+              Object {
+                "location": "us-west1",
+                "type": "READ_ONLY",
+              },
+              Object {
+                "location": "us-west1",
+                "type": "READ_ONLY",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam9",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam9",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "asia-east1",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east1",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "asia-east1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-east1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-east1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east1",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east1",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east2",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "asia-east2",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east2",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "asia-east2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-east2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-east2",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east2",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east2",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "asia-northeast1",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast1",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "asia-northeast1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-northeast1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-northeast1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast1",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast1",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast2",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "asia-northeast2",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast2",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "asia-northeast2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-northeast2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-northeast2",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast2",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast2",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast3",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "asia-northeast3",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast3",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "asia-northeast3",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-northeast3",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-northeast3",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast3",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast3",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-south1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "asia-south1",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-south1",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "asia-south1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-south1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-south1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-south1",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-south1",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "asia-southeast1",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast1",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "asia-southeast1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-southeast1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-southeast1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast1",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast1",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast2",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "asia-southeast2",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast2",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "asia-southeast2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-southeast2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "asia-southeast2",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast2",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast2",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-australia-southeast1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "australia-southeast1",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-australia-southeast1",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "australia-southeast1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "australia-southeast1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "australia-southeast1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-australia-southeast1",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-australia-southeast1",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-central2",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "europe-central2",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-central2",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "europe-central2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-central2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-central2",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-central2",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-central2",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-north1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "europe-north1",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-north1",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "europe-north1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-north1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-north1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-north1",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-north1",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "europe-west1",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west1",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "europe-west1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west1",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west1",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west2",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "europe-west2",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west2",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "europe-west2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west2",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west2",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west2",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west3",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "europe-west3",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west3",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "europe-west3",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west3",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west3",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west3",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west3",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west4",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "europe-west4",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west4",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "europe-west4",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west4",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west4",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west4",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west4",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west6",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "europe-west6",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west6",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "europe-west6",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west6",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "europe-west6",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west6",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west6",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-northamerica-northeast1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "northamerica-northeast1",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-northamerica-northeast1",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "northamerica-northeast1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "northamerica-northeast1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "northamerica-northeast1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-northamerica-northeast1",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-northamerica-northeast1",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-southamerica-east1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "southamerica-east1",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-southamerica-east1",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "southamerica-east1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "southamerica-east1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "southamerica-east1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-southamerica-east1",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-southamerica-east1",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-central1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "us-central1",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-central1",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-central1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-central1",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-central1",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "us-east1",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east1",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-east1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east1",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east1",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east4",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "us-east4",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east4",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-east4",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east4",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-east4",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east4",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east4",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "us-west1",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west1",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-west1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west1",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west1",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west1",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west1",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west2",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "us-west2",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west2",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-west2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west2",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west2",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west2",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west2",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west3",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "us-west3",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west3",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-west3",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west3",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west3",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west3",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west3",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west4",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "us-west4",
+            "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west4",
+            "replicas": Array [
+              Object {
+                "defaultLeaderLocation": true,
+                "location": "us-west4",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west4",
+                "type": "READ_WRITE",
+              },
+              Object {
+                "location": "us-west4",
+                "type": "READ_WRITE",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_spanner_instance_config",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west4",
+      "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west4",
+    },
+    Object {
+      "_class": Array [
+        "Database",
+        "Cluster",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "config": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-central1",
+            "displayName": "Example Spanner Instance",
+            "labels": Object {
+              "foo": "bar",
+            },
+            "name": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance",
+            "nodeCount": 2,
+            "state": "READY",
+          },
+        },
+      ],
+      "_type": "google_spanner_instance",
+      "createdOn": undefined,
+      "displayName": "Example Spanner Instance",
+      "name": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance",
+      "nodeCount": 2,
+      "public": false,
+      "state": "READY",
+      "tag.foo": "bar",
+      "webLink": "https://console.cloud.google.com/spanner/instances/example-spanner-instance/details/databases?project=j1-gc-integration-dev-v2",
+    },
+  ],
+  "collectedRelationships": Array [
+    Object {
+      "_class": "USES",
+      "_fromEntityKey": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance",
+      "_key": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance|uses|projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-central1",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-central1",
+      "_type": "google_spanner_instance_uses_config",
+      "displayName": "USES",
+    },
+  ],
+  "encounteredTypes": Array [
+    "google_spanner_instance_config",
+    "google_spanner_instance",
+    "google_spanner_instance_uses_config",
+  ],
+  "numCollectedEntities": 38,
+  "numCollectedRelationships": 1,
+}
+`;

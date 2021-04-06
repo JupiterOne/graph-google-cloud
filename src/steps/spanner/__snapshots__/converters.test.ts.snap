@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createSpannerInstanceConfiguration should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Configuration",
+  ],
+  "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west2",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "displayName": "us-west2",
+        "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west2",
+        "replicas": Array [
+          Object {
+            "defaultLeaderLocation": true,
+            "location": "us-west2",
+            "type": "READ_WRITE",
+          },
+          Object {
+            "location": "us-west2",
+            "type": "READ_WRITE",
+          },
+          Object {
+            "location": "us-west2",
+            "type": "READ_WRITE",
+          },
+        ],
+      },
+    },
+  ],
+  "_type": "google_spanner_instance_config",
+  "createdOn": undefined,
+  "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west2",
+  "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west2",
+}
+`;
+
+exports[`#createSpannerInstanceDatabaseEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Database",
+  ],
+  "_key": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance/databases/database-name",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "createTime": "2021-03-31T15:37:47.962882Z",
+        "earliestVersionTime": "2021-03-31T15:53:22.875987Z",
+        "encryptionInfo": Array [
+          Object {
+            "encryptionType": "GOOGLE_DEFAULT_ENCRYPTION",
+          },
+        ],
+        "name": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance/databases/database-name",
+        "state": "READY",
+        "versionRetentionPeriod": "1h",
+      },
+    },
+  ],
+  "_type": "google_spanner_database",
+  "createdOn": 1617205067962,
+  "displayName": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance/databases/database-name",
+  "earliestVersionTime": 1617206002875,
+  "name": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance/databases/database-name",
+  "public": false,
+  "restoreInfo.backup": undefined,
+  "restoreInfo.createTime": undefined,
+  "restoreInfo.sourceDatabase": undefined,
+  "restoreInfo.sourceType": undefined,
+  "restoreInfo.versionTime": undefined,
+  "state": "READY",
+  "versionRetentionPeriod": "1h",
+  "webLink": "https://console.cloud.google.com/spanner/instances/example-spanner-instance/databases/database-name/details/tables?project=j1-gc-integration-dev-v2",
+}
+`;
+
+exports[`#createSpannerInstanceEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Database",
+    "Cluster",
+  ],
+  "_key": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "config": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-central1",
+        "displayName": "Example Spanner Instance",
+        "name": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance",
+        "nodeCount": 2,
+        "state": "READY",
+      },
+    },
+  ],
+  "_type": "google_spanner_instance",
+  "createdOn": undefined,
+  "displayName": "Example Spanner Instance",
+  "name": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance",
+  "nodeCount": 2,
+  "public": false,
+  "state": "READY",
+  "webLink": "https://console.cloud.google.com/spanner/instances/example-spanner-instance/details/databases?project=j1-gc-integration-dev-v2",
+}
+`;
