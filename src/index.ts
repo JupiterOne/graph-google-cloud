@@ -20,6 +20,8 @@ import { appEngineSteps } from './steps/app-engine';
 import { cloudRunSteps } from './steps/cloud-run';
 import { redisSteps } from './steps/redis';
 import { memcacheSteps } from './steps/memcache';
+import { spannerSteps } from './steps/spanner';
+import { apiGatewaySteps } from './steps/api-gateway';
 
 export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> = {
   instanceConfigFields: {
@@ -49,5 +51,7 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> = 
     ...cloudRunSteps,
     ...redisSteps,
     ...memcacheSteps,
+    ...spannerSteps,
+    ...apiGatewaySteps,
   ],
 };

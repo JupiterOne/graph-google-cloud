@@ -23,4 +23,6 @@ export enum ServiceUsageName {
   CLOUD_RUN = 'run.googleapis.com',
   REDIS = 'redis.googleapis.com',
   MEMCACHE = 'memcache.googleapis.com',
+  SPANNER = 'spanner.googleapis.com',
+  API_GATEWAY = 'apigateway.googleapis.com',
 }

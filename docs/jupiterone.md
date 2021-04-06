@@ -233,6 +233,9 @@ The following entities are created:
 
 | Resources                         | Entity `_type`                             | Entity `_class`                    |
 | --------------------------------- | ------------------------------------------ | ---------------------------------- |
+| Api Gateway Api                   | `google_api_gateway_api`                   | `Service`                          |
+| Api Gateway Api Config            | `google_api_gateway_api_config`            | `Configuration`                    |
+| Api Gateway Gateway               | `google_api_gateway_gateway`               | `Gateway`                          |
 | AppEngine Application             | `google_app_engine_application`            | `Application`                      |
 | AppEngine Instance                | `google_app_engine_instance`               | `Host`                             |
 | AppEngine Service                 | `google_app_engine_service`                | `Container`                        |
@@ -282,6 +285,9 @@ The following entities are created:
 | SQL Admin MySQL Instance          | `google_sql_mysql_instance`                | `Database`                         |
 | SQL Admin Postgres Instance       | `google_sql_postgres_instance`             | `Database`                         |
 | SQL Admin SQL Server Instance     | `google_sql_sql_server_instance`           | `Database`                         |
+| Spanner Instance                  | `google_spanner_instance`                  | `Database`, `Cluster`              |
+| Spanner Instance Config           | `google_spanner_instance_config`           | `Configuration`                    |
+| Spanner Instance Database         | `google_spanner_database`                  | `Database`                         |
 
 ### Relationships
 
@@ -289,6 +295,9 @@ The following relationships are created/mapped:
 
 | Source Entity `_type`               | Relationship `_class` | Target Entity `_type`                |
 | ----------------------------------- | --------------------- | ------------------------------------ |
+| `google_api_gateway_api_config`     | **USES**              | `google_iam_service_account`         |
+| `google_api_gateway_api`            | **HAS**               | `google_api_gateway_gateway`         |
+| `google_api_gateway_api`            | **USES**              | `google_api_gateway_api_config`      |
 | `google_app_engine_application`     | **HAS**               | `google_app_engine_service`          |
 | `google_app_engine_application`     | **USES**              | `google_storage_bucket`              |
 | `google_app_engine_service`         | **HAS**               | `google_app_engine_version`          |
@@ -330,6 +339,9 @@ The following relationships are created/mapped:
 | `google_pubsub_subscription`        | **USES**              | `google_pubsub_topic`                |
 | `google_pubsub_topic`               | **USES**              | `google_kms_crypto_key`              |
 | `google_redis_instance`             | **USES**              | `google_compute_network`             |
+| `google_spanner_database`           | **USES**              | `google_kms_crypto_key`              |
+| `google_spanner_instance`           | **HAS**               | `google_spanner_database`            |
+| `google_spanner_instance`           | **USES**              | `google_spanner_instance_config`     |
 | `google_user`                       | **ASSIGNED**          | `google_iam_role`                    |
 | `google_user`                       | **CREATED**           | `google_app_engine_version`          |
 

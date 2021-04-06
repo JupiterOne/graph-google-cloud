@@ -18,6 +18,8 @@ import {
   appengine_v1,
   redis_v1,
   memcache_v1,
+  spanner_v1,
+  apigateway_v1,
 } from 'googleapis';
 
 export function getMockIamRole(
@@ -1483,6 +1485,21 @@ export function getMockRedisInstance(
   };
 }
 
+export function getMockSpannerInstance(
+  partial?: spanner_v1.Schema$Instance,
+): spanner_v1.Schema$Instance {
+  return {
+    name:
+      'projects/j1-gc-integration-dev-v2/instances/example-spanner-instance',
+    config:
+      'projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-central1',
+    displayName: 'Example Spanner Instance',
+    nodeCount: 2,
+    state: 'READY',
+    ...partial,
+  };
+}
+
 export function getMockMemcacheInstance(
   partial?: memcache_v1.Schema$Instance,
 ): memcache_v1.Schema$Instance {
@@ -1523,6 +1540,25 @@ export function getMockMemcacheInstance(
   };
 }
 
+export function getMockSpannerInstanceDatabase(
+  partial?: spanner_v1.Schema$Database,
+): spanner_v1.Schema$Database {
+  return {
+    name:
+      'projects/j1-gc-integration-dev-v2/instances/example-spanner-instance/databases/database-name',
+    state: 'READY',
+    createTime: '2021-03-31T15:37:47.962882Z',
+    versionRetentionPeriod: '1h',
+    earliestVersionTime: '2021-03-31T15:53:22.875987Z',
+    encryptionInfo: [
+      {
+        encryptionType: 'GOOGLE_DEFAULT_ENCRYPTION',
+      },
+    ],
+    ...partial,
+  };
+}
+
 export function getMockMemcacheNode(
   partial?: memcache_v1.Schema$Node,
 ): memcache_v1.Schema$Node {
@@ -1535,6 +1571,81 @@ export function getMockMemcacheNode(
     parameters: {
       id: '1901468469',
     },
+    ...partial,
+  };
+}
+
+export function getMockSpannerInstanceConfiguration(
+  partial?: spanner_v1.Schema$InstanceConfig,
+): spanner_v1.Schema$InstanceConfig {
+  return {
+    name: 'projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west2',
+    displayName: 'us-west2',
+    replicas: [
+      {
+        location: 'us-west2',
+        type: 'READ_WRITE',
+        defaultLeaderLocation: true,
+      },
+      {
+        location: 'us-west2',
+        type: 'READ_WRITE',
+      },
+      {
+        location: 'us-west2',
+        type: 'READ_WRITE',
+      },
+    ],
+    ...partial,
+  };
+}
+
+export function getMockApiGatewayApi(
+  partial?: apigateway_v1.Schema$ApigatewayApi,
+): apigateway_v1.Schema$ApigatewayApi {
+  return {
+    name:
+      'projects/j1-gc-integration-dev-v2/locations/global/apis/example-api-gateway-endpoint',
+    createTime: '2021-03-30T21:15:27.820351650Z',
+    updateTime: '2021-03-30T21:17:06.954180503Z',
+    displayName: 'Example API Gateway Endpoint',
+    managedService:
+      'example-api-gateway-endpoint-0fo33j5zaqt68.apigateway.j1-gc-integration-dev-v2.cloud.goog',
+    state: 'ACTIVE',
+    ...partial,
+  };
+}
+
+export function getMockApiGatewayApiConfig(
+  partial?: apigateway_v1.Schema$ApigatewayApiConfig,
+): apigateway_v1.Schema$ApigatewayApiConfig {
+  return {
+    name:
+      'projects/j1-gc-integration-dev-v2/locations/global/apis/example-api-gateway-endpoint/configs/example-config',
+    createTime: '2021-03-30T21:17:10.657320375Z',
+    updateTime: '2021-03-31T13:57:35.950462993Z',
+    displayName: 'Example Config',
+    state: 'ACTIVE',
+    serviceConfigId: 'example-config-3u3w8my3mj12x',
+    gatewayServiceAccount:
+      'projects/-/serviceAccounts/j1-gc-integration-dev-v2@j1-gc-integration-dev-v2.iam.gserviceaccount.com',
+    ...partial,
+  };
+}
+
+export function getMockApiGatewayGateway(
+  partial?: apigateway_v1.Schema$ApigatewayGateway,
+): apigateway_v1.Schema$ApigatewayGateway {
+  return {
+    name:
+      'projects/j1-gc-integration-dev-v2/locations/us-central1/gateways/example-gateway',
+    createTime: '2021-03-30T21:19:35.916320550Z',
+    updateTime: '2021-03-31T14:02:49.272381610Z',
+    displayName: 'Example gateway',
+    apiConfig:
+      'projects/711888229551/locations/global/apis/example-api-gateway-endpoint/configs/example-config',
+    state: 'ACTIVE',
+    defaultHostname: 'example-gateway-931bvdf3.uc.gateway.dev',
     ...partial,
   };
 }
