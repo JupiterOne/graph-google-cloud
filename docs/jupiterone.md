@@ -1,14 +1,43 @@
 # Integration with JupiterOne
 
-## Overview
+## Google Cloud + JupiterOne Integration Benefits
 
-JupiterOne provides a managed integration for Google Cloud. The integration
-connects directly to Google Cloud APIs to obtain metadata and analyze resource
-relationships. Customers authorize access by creating a
+- Visualize Google Cloud resources in the JupiterOne graph.
+- Map Google users to employees in your JupiterOne account.
+- Monitor visibility and governance of your Google Cloud environment by
+  leveraging hundreds of out of the box queries.
+- Monitor compliance against the Google Cloud CIS Framework and other security
+  benchmarks using the JupiterOne compliance app.
+- Monitor changes to your Google Cloud resources using multiple JupiterOne alert
+  rule packs specific to Google Cloud.
+
+## How it Works
+
+- JupiterOne periodically fetches users and cloud resources from Google Cloud
+ to update the graph.
+- Write JupiterOne queries to review and monitor updates to the graph, 
+or leverage existing queries.
+- Configure alerts to take action when the JupiterOne graph changes, 
+or leverage existing alerts.
+
+## Requirements
+
+- JupiterOne requires the contents of a Google Cloud service account key file 
+with the correct API services enabled (see the **Integration Walkthrough**).
+- You must have permission in JupiterOne to install new integrations.
+
+## Support
+
+If you need help with this integration, please contact
+[JupiterOne Support](https://support.jupiterone.io).
+
+## Integration Walkthrough
+
+Customers authorize access by creating a
 [Google Cloud service account](https://cloud.google.com/iam/docs/creating-managing-service-accounts)
 and providing the service account key to JupiterOne.
 
-## Setup
+### In Google Cloud
 
 A
 [Google Cloud service account](https://cloud.google.com/iam/docs/creating-managing-service-accounts)
@@ -47,13 +76,13 @@ all of the supported data into JupiterOne:
 
 Google Cloud service APIs can be enabled using one of the following methods:
 
-### Enabling Google Cloud Service API from Google Cloud Console
+#### Enabling Google Cloud Service API from Google Cloud Console
 
 1. Click on the service name link that you'd like to enable from the table above
 2. Select your Google Cloud project from the project dropdown menu
 3. Click the "Enable" button
 
-### Enabling Google Cloud Service API from `gcloud` CLI
+#### Enabling Google Cloud Service API from `gcloud` CLI
 
 Instructions on how to setup the
 [`gcloud` CLI](https://cloud.google.com/sdk/gcloud) can be found in the
@@ -86,7 +115,7 @@ gcloud services enable \
   memcache.googleapis.com
 ```
 
-### Creating Google Cloud project service account
+#### Creating Google Cloud project service account
 
 - See the
   [Google Cloud service account documentation](https://cloud.google.com/iam/docs/creating-managing-service-accounts#creating)
@@ -105,7 +134,7 @@ NOTE: You may also create a service account using the
 how to leverage the CLI in the
 [JupiterOne Google Cloud integration developer documentation](https://github.com/JupiterOne/graph-google-cloud/blob/master/docs/development.md).
 
-### Generate a service account key
+#### Generate a service account key
 
 - See the
   [Google Cloud service account key documentation](https://cloud.google.com/iam/docs/creating-managing-service-account-keys#creating_service_account_keys)
@@ -117,14 +146,14 @@ NOTE: You may also create a service account key using the
 how to leverage the CLI in the
 [Google Cloud integration developer documentation](https://github.com/JupiterOne/graph-google-cloud/blob/master/docs/development.md).
 
-### JupiterOne + Google Cloud Organization
+#### JupiterOne + Google Cloud Organization
 
 A CLI is exposed from the
 [`graph-google-cloud` project on GitHub](https://github.com/JupiterOne/graph-google-cloud)
 that can be leveraged to create individual integration instances for every
 project that is under a specific Google Cloud organization.
 
-#### Install Dependencies
+##### Install Dependencies
 
 The following dependencies are needed in order to run the CLI:
 
@@ -132,7 +161,7 @@ The following dependencies are needed in order to run the CLI:
 - [Yarn package manager](https://yarnpkg.com/)
 - [gcloud CLI](https://cloud.google.com/sdk/gcloud)
 
-#### Running
+##### Running
 
 The following shows all of the options that are exposed by the CLI.
 
@@ -198,7 +227,7 @@ yarn jupiterone-organization-setup \
   --project-id MY_GOOGLE_CLOUD_PROJECT_ID_HERE_3
 ```
 
-#### How it works
+##### How it works
 
 The following is the overall flow of how the CLI creates an integration instance
 for each project:
@@ -224,6 +253,29 @@ DOCUMENTATION FOR USAGE INFORMATION:
 https://github.com/JupiterOne/sdk/blob/master/docs/integrations/development.md
 ********************************************************************************
 -->
+
+### In JupiterOne
+
+1. From the configuration **Gear Icon**, select **Integrations**.
+2. Scroll to the **Google Cloud** integration tile and click it.
+3. Click the **Add Configuration** button and configure the following settings:
+- Enter the **Account Name** by which you'd like to identify this Google Cloud
+   account in JupiterOne. Ingested entities will have this value stored in
+   `tag.AccountName` when **Tag with Account Name** is checked.
+- Enter a **Description** that will further assist your team when identifying
+   the integration instance.
+- Select a **Polling Interval** that you feel is sufficient for your monitoring
+   needs. You may leave this as `DISABLED` and manually execute the integration.
+- Enter the **Servce Account Key File** contents of the Google Cloud service account.
+4. Click **Create Configuration** once all values are provided.
+
+## How to Uninstall
+
+1. From the configuration **Gear Icon**, select **Integrations**.
+2. Scroll to the **Google Cloud** integration tile and click it.
+3. Identify and click the **integration to delete**.
+4. Click the **trash can** icon.
+5. Click the **Remove** button to delete the integration.
 
 ## Data Model
 
