@@ -73,6 +73,8 @@ all of the supported data into JupiterOne:
 | [Cloud Run](https://console.developers.google.com/apis/library/run.googleapis.com)                               | run.googleapis.com                  |
 | [Cloud Memorystore for Redis](https://console.developers.google.com/apis/library/redis.googleapis.com)           | redis.googleapis.com                |
 | [Cloud Memorystore for Memcached](https://console.developers.google.com/apis/library/memcache.googleapis.com)    | memcache.googleapis.com             |
+| [API Gateway](https://console.developers.google.com/apis/library/apigateway.googleapis.com)                      | apigateway.googleapis.com           |
+| [Cloud Spanner](https://console.developers.google.com/apis/library/spanner.googleapis.com)                       | spanner.googleapis.com              |
 
 Google Cloud service APIs can be enabled using one of the following methods:
 
@@ -112,7 +114,9 @@ gcloud services enable \
   appengine.googleapis.com \
   run.googleapis.com \
   redis.googleapis.com \
-  memcache.googleapis.com
+  memcache.googleapis.com \
+  apigateway.googleapis.com \
+  spanner.googleapis.com
 ```
 
 #### Creating Google Cloud project service account

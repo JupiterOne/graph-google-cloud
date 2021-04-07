@@ -8,6 +8,28 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.20.0 - 2021-04-07
+
+### Added
+
+- Support for ingesting the following **new** resources
+
+  - API Gateway
+
+    - `google_api_gateway_api`
+    - `google_api_gateway_api_config`
+    - `google_api_gateway_gateway`
+
+  - Spanner
+
+    - `google_spanner_instance`
+    - `google_spanner_instance_database`
+    - `google_spanner_instance_config`
+
+### Changed
+
+- Upgraded all packages
+
 ## 0.19.0 - 2021-03-24
 
 - Support for ingesting the following **new** resources
