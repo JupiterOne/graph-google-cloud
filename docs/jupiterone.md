@@ -13,17 +13,17 @@
 
 ## How it Works
 
-- JupiterOne periodically fetches users and cloud resources from Google Cloud
- to update the graph.
-- Write JupiterOne queries to review and monitor updates to the graph, 
-or leverage existing queries.
-- Configure alerts to take action when the JupiterOne graph changes, 
-or leverage existing alerts.
+- JupiterOne periodically fetches users and cloud resources from Google Cloud to
+  update the graph.
+- Write JupiterOne queries to review and monitor updates to the graph, or
+  leverage existing queries.
+- Configure alerts to take action when the JupiterOne graph changes, or leverage
+  existing alerts.
 
 ## Requirements
 
-- JupiterOne requires the contents of a Google Cloud service account key file 
-with the correct API services enabled (see the **Integration Walkthrough**).
+- JupiterOne requires the contents of a Google Cloud service account key file
+  with the correct API services enabled (see the **Integration Walkthrough**).
 - You must have permission in JupiterOne to install new integrations.
 
 ## Support
@@ -243,6 +243,32 @@ for each project:
   - Create a JupiterOne integration instance using the newly generated service
     account key file
 
+### In JupiterOne
+
+1. From the configuration **Gear Icon**, select **Integrations**.
+2. Scroll to the **Google Cloud** integration tile and click it.
+3. Click the **Add Configuration** button and configure the following settings:
+
+- Enter the **Account Name** by which you'd like to identify this Google Cloud
+  account in JupiterOne. Ingested entities will have this value stored in
+  `tag.AccountName` when **Tag with Account Name** is checked.
+- Enter a **Description** that will further assist your team when identifying
+  the integration instance.
+- Select a **Polling Interval** that you feel is sufficient for your monitoring
+  needs. You may leave this as `DISABLED` and manually execute the integration.
+- Enter the **Servce Account Key File** contents of the Google Cloud service
+  account.
+
+4. Click **Create Configuration** once all values are provided.
+
+## How to Uninstall
+
+1. From the configuration **Gear Icon**, select **Integrations**.
+2. Scroll to the **Google Cloud** integration tile and click it.
+3. Identify and click the **integration to delete**.
+4. Click the **trash can** icon.
+5. Click the **Remove** button to delete the integration.
+
 <!-- {J1_DOCUMENTATION_MARKER_START} -->
 <!--
 ********************************************************************************
@@ -253,29 +279,6 @@ DOCUMENTATION FOR USAGE INFORMATION:
 https://github.com/JupiterOne/sdk/blob/master/docs/integrations/development.md
 ********************************************************************************
 -->
-
-### In JupiterOne
-
-1. From the configuration **Gear Icon**, select **Integrations**.
-2. Scroll to the **Google Cloud** integration tile and click it.
-3. Click the **Add Configuration** button and configure the following settings:
-- Enter the **Account Name** by which you'd like to identify this Google Cloud
-   account in JupiterOne. Ingested entities will have this value stored in
-   `tag.AccountName` when **Tag with Account Name** is checked.
-- Enter a **Description** that will further assist your team when identifying
-   the integration instance.
-- Select a **Polling Interval** that you feel is sufficient for your monitoring
-   needs. You may leave this as `DISABLED` and manually execute the integration.
-- Enter the **Servce Account Key File** contents of the Google Cloud service account.
-4. Click **Create Configuration** once all values are provided.
-
-## How to Uninstall
-
-1. From the configuration **Gear Icon**, select **Integrations**.
-2. Scroll to the **Google Cloud** integration tile and click it.
-3. Identify and click the **integration to delete**.
-4. Click the **trash can** icon.
-5. Click the **Remove** button to delete the integration.
 
 ## Data Model
 
