@@ -49,5 +49,5 @@ variable "enable_redis_instance_example" {
 
 variable "enable_spanner_example" {
   type = bool
-  default = true
+  default = false
 }
