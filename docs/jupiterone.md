@@ -362,6 +362,7 @@ The following relationships are created/mapped:
 | `google_app_engine_service`         | **HAS**               | `google_app_engine_version`          |
 | `google_app_engine_version`         | **HAS**               | `google_app_engine_instance`         |
 | `internet`                          | **ALLOWS**            | `google_compute_firewall`            |
+| `google_cloud_function`             | **USES**              | `google_iam_service_account`         |
 | `google_cloud_project`              | **HAS**               | `google_cloud_api_service`           |
 | `google_cloud_project`              | **HAS**               | `google_binary_authorization_policy` |
 | `google_cloud_run_service`          | **MANAGES**           | `google_cloud_run_configuration`     |
