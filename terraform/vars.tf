@@ -51,3 +51,28 @@ variable "enable_spanner_example" {
   type = bool
   default = false
 }
+
+variable "enable_gke_cluster" {
+  type = bool
+  default = false
+}
+
+variable "enable_compute_vm_no_internet" {
+  type = bool
+  default = false
+}
+
+variable "enable_compute_vm_internet" {
+  type = bool
+  default = false
+}
+
+variable "enable_postgres_instance" {
+  type = bool
+  default = false
+}
+
+variable "enable_mysql_instance" {
+  type = bool
+  default = false
+}

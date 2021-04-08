@@ -1,4 +1,6 @@
 resource "google_compute_instance" "testvm_not_accesible_internet" {
+  count = var.enable_compute_vm_no_internet ? 1 : 0
+
   name         = "testvm"
   machine_type = "n1-standard-1"
   zone         = "us-central1-a"
@@ -94,6 +96,8 @@ resource "google_compute_subnetwork" "public_subnet_1" {
 }
 
 resource "google_compute_instance" "vm_instance_public" {
+  count = var.enable_compute_vm_internet ? 1 : 0
+
   name         = "${local.public_compute_app_name}-vm"
   machine_type = "f1-micro"
   zone         = "us-central1-a"
