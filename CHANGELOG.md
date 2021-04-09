@@ -8,6 +8,17 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.21.0 - 2021-04-08
+
+### Added
+
+- Support for ingesting the following **new** resources
+
+- New relationships
+
+  - Cloud Functions
+    - `google_cloud_function` **USES** `google_iam_service_account`
+
 ## 0.20.0 - 2021-04-07
 
 ### Added
