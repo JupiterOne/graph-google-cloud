@@ -294,7 +294,6 @@ export function createComputeInstanceEntity(data: compute_v1.Schema$Instance) {
   return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: {
-        ...data,
         tags: buildComputeInstanceTags(data),
       },
       assign: {
