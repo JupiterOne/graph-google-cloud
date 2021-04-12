@@ -8,6 +8,13 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.21.1 - 2021-04-12
+
+### Fixed
+
+- Remove ingestion of raw data from `google_compute_instance` as it can contain
+  a significant amount of data
+
 ## 0.21.0 - 2021-04-08
 
 ### Added

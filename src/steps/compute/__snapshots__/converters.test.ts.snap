@@ -335,91 +335,6 @@ Object {
     Object {
       "name": "default",
       "rawData": Object {
-        "canIpForward": false,
-        "cpuPlatform": "Intel Haswell",
-        "creationTimestamp": "2020-08-12T08:20:05.921-07:00",
-        "deletionProtection": false,
-        "disks": Array [
-          Object {
-            "autoDelete": true,
-            "boot": true,
-            "deviceName": "persistent-disk-0",
-            "diskSizeGb": "10",
-            "guestOsFeatures": Array [
-              Object {
-                "type": "VIRTIO_SCSI_MULTIQUEUE",
-              },
-            ],
-            "index": 0,
-            "interface": "SCSI",
-            "kind": "compute#attachedDisk",
-            "licenses": Array [
-              "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-9-stretch",
-            ],
-            "mode": "READ_WRITE",
-            "source": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/testvm",
-            "type": "PERSISTENT",
-          },
-          Object {
-            "autoDelete": true,
-            "boot": false,
-            "deviceName": "local-ssd-0",
-            "diskSizeGb": "375",
-            "index": 1,
-            "interface": "SCSI",
-            "kind": "compute#attachedDisk",
-            "mode": "READ_WRITE",
-            "type": "SCRATCH",
-          },
-        ],
-        "fingerprint": "4gmEF7tlfn8=",
-        "id": "2248191918776890954",
-        "kind": "compute#instance",
-        "labelFingerprint": "42WmSpB8rSM=",
-        "machineType": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/machineTypes/n1-standard-1",
-        "metadata": Object {
-          "fingerprint": "9yLGkjCLBTs=",
-          "items": Array [
-            Object {
-              "key": "foo",
-              "value": "bar",
-            },
-            Object {
-              "key": "startup-script",
-              "value": "echo Hello",
-            },
-          ],
-          "kind": "compute#metadata",
-        },
-        "name": "testvm",
-        "networkInterfaces": Array [
-          Object {
-            "fingerprint": "RpvQNHzHRp8=",
-            "kind": "compute#networkInterface",
-            "name": "nic0",
-            "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
-            "networkIP": "10.128.0.2",
-            "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
-          },
-        ],
-        "scheduling": Object {
-          "automaticRestart": true,
-          "onHostMaintenance": "MIGRATE",
-          "preemptible": false,
-        },
-        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/testvm",
-        "serviceAccounts": Array [
-          Object {
-            "email": "j1-gc-integration-dev-v2-sa-tf@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
-            "scopes": Array [
-              "https://www.googleapis.com/auth/compute.readonly",
-              "https://www.googleapis.com/auth/devstorage.read_only",
-              "https://www.googleapis.com/auth/userinfo.email",
-            ],
-          },
-        ],
-        "startRestricted": false,
-        "status": "RUNNING",
         "tags": Array [
           Object {
             "testvmtag1": true,
@@ -428,7 +343,6 @@ Object {
             "testvmtag2": true,
           },
         ],
-        "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a",
       },
     },
   ],
@@ -471,91 +385,6 @@ Object {
     Object {
       "name": "default",
       "rawData": Object {
-        "canIpForward": false,
-        "cpuPlatform": "Intel Haswell",
-        "creationTimestamp": "2020-08-12T08:20:05.921-07:00",
-        "deletionProtection": false,
-        "disks": Array [
-          Object {
-            "autoDelete": true,
-            "boot": true,
-            "deviceName": "persistent-disk-0",
-            "diskSizeGb": "10",
-            "guestOsFeatures": Array [
-              Object {
-                "type": "VIRTIO_SCSI_MULTIQUEUE",
-              },
-            ],
-            "index": 0,
-            "interface": "SCSI",
-            "kind": "compute#attachedDisk",
-            "licenses": Array [
-              "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-9-stretch",
-            ],
-            "mode": "READ_WRITE",
-            "source": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/testvm",
-            "type": "PERSISTENT",
-          },
-          Object {
-            "autoDelete": true,
-            "boot": false,
-            "deviceName": "local-ssd-0",
-            "diskSizeGb": "375",
-            "index": 1,
-            "interface": "SCSI",
-            "kind": "compute#attachedDisk",
-            "mode": "READ_WRITE",
-            "type": "SCRATCH",
-          },
-        ],
-        "fingerprint": "4gmEF7tlfn8=",
-        "id": "2248191918776890954",
-        "kind": "compute#instance",
-        "labelFingerprint": "42WmSpB8rSM=",
-        "machineType": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/machineTypes/n1-standard-1",
-        "metadata": Object {
-          "fingerprint": "9yLGkjCLBTs=",
-          "items": Array [
-            Object {
-              "key": "foo",
-              "value": "bar",
-            },
-            Object {
-              "key": "startup-script",
-              "value": "echo Hello",
-            },
-          ],
-          "kind": "compute#metadata",
-        },
-        "name": "testvm",
-        "networkInterfaces": Array [
-          Object {
-            "fingerprint": "RpvQNHzHRp8=",
-            "kind": "compute#networkInterface",
-            "name": "nic0",
-            "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
-            "networkIP": "10.128.0.2",
-            "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
-          },
-        ],
-        "scheduling": Object {
-          "automaticRestart": true,
-          "onHostMaintenance": "MIGRATE",
-          "preemptible": false,
-        },
-        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/testvm",
-        "serviceAccounts": Array [
-          Object {
-            "email": "j1-gc-integration-dev-v2-sa-tf@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
-            "scopes": Array [
-              "https://www.googleapis.com/auth/compute.readonly",
-              "https://www.googleapis.com/auth/devstorage.read_only",
-              "https://www.googleapis.com/auth/userinfo.email",
-            ],
-          },
-        ],
-        "startRestricted": false,
-        "status": "SUSPENDED",
         "tags": Array [
           Object {
             "testvmtag1": true,
@@ -564,7 +393,6 @@ Object {
             "testvmtag2": true,
           },
         ],
-        "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a",
       },
     },
   ],
@@ -607,86 +435,6 @@ Object {
     Object {
       "name": "default",
       "rawData": Object {
-        "canIpForward": false,
-        "cpuPlatform": "Intel Haswell",
-        "creationTimestamp": "2020-08-12T08:20:05.921-07:00",
-        "deletionProtection": false,
-        "disks": Array [
-          Object {
-            "autoDelete": true,
-            "boot": true,
-            "deviceName": "persistent-disk-0",
-            "diskSizeGb": "10",
-            "guestOsFeatures": Array [
-              Object {
-                "type": "VIRTIO_SCSI_MULTIQUEUE",
-              },
-            ],
-            "index": 0,
-            "interface": "SCSI",
-            "kind": "compute#attachedDisk",
-            "licenses": Array [
-              "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-9-stretch",
-            ],
-            "mode": "READ_WRITE",
-            "source": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/testvm",
-            "type": "PERSISTENT",
-          },
-          Object {
-            "autoDelete": true,
-            "boot": false,
-            "deviceName": "local-ssd-0",
-            "diskSizeGb": "375",
-            "index": 1,
-            "interface": "SCSI",
-            "kind": "compute#attachedDisk",
-            "mode": "READ_WRITE",
-            "type": "SCRATCH",
-          },
-        ],
-        "fingerprint": "4gmEF7tlfn8=",
-        "id": "2248191918776890954",
-        "kind": "compute#instance",
-        "labelFingerprint": "42WmSpB8rSM=",
-        "machineType": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/machineTypes/n1-standard-1",
-        "metadata": Object {
-          "items": Array [
-            Object {
-              "key": "enable-oslogin",
-              "value": "TRUE",
-            },
-          ],
-          "kind": "compute#metadata",
-        },
-        "name": "testvm",
-        "networkInterfaces": Array [
-          Object {
-            "fingerprint": "RpvQNHzHRp8=",
-            "kind": "compute#networkInterface",
-            "name": "nic0",
-            "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
-            "networkIP": "10.128.0.2",
-            "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
-          },
-        ],
-        "scheduling": Object {
-          "automaticRestart": true,
-          "onHostMaintenance": "MIGRATE",
-          "preemptible": false,
-        },
-        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/testvm",
-        "serviceAccounts": Array [
-          Object {
-            "email": "j1-gc-integration-dev-v2-sa-tf@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
-            "scopes": Array [
-              "https://www.googleapis.com/auth/compute.readonly",
-              "https://www.googleapis.com/auth/devstorage.read_only",
-              "https://www.googleapis.com/auth/userinfo.email",
-            ],
-          },
-        ],
-        "startRestricted": false,
-        "status": "RUNNING",
         "tags": Array [
           Object {
             "testvmtag1": true,
@@ -695,7 +443,6 @@ Object {
             "testvmtag2": true,
           },
         ],
-        "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a",
       },
     },
   ],
