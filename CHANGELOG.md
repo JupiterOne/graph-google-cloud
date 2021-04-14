@@ -8,6 +8,20 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.22.0 - 2021-04-14
+
+### Added
+
+- Support for ingesting the following **new** resources
+
+  - Certificate Authority
+    - `google_privateca_certificate_authority`
+    - `google_privateca_certificate`
+
+### Changed
+
+- Upgraded `googleapis` package
+
 ## 0.21.1 - 2021-04-12
 
 ### Fixed

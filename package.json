@@ -1,6 +1,6 @@
 {
   "name": "@jupiterone/graph-google-cloud",
-  "version": "0.21.1",
+  "version": "0.22.0",
   "description": "A graph conversion tool for https://cloud.google.com/",
   "license": "MPL-2.0",
   "main": "dist/index.js",
@@ -48,6 +48,6 @@
   "dependencies": {
     "@lifeomic/attempt": "^3.0.0",
     "gaxios": "^4.2.0",
-    "googleapis": "^70.0.0"
+    "googleapis": "^71.0.0"
   }
 }
