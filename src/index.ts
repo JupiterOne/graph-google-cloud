@@ -22,6 +22,7 @@ import { redisSteps } from './steps/redis';
 import { memcacheSteps } from './steps/memcache';
 import { spannerSteps } from './steps/spanner';
 import { apiGatewaySteps } from './steps/api-gateway';
+import { privateCaSteps } from './steps/privateca';
 
 export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> = {
   instanceConfigFields: {
@@ -53,5 +54,6 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> = 
     ...memcacheSteps,
     ...spannerSteps,
     ...apiGatewaySteps,
+    ...privateCaSteps,
   ],
 };

@@ -4,7 +4,7 @@ import {
   SetupRecordingInput,
 } from '@jupiterone/integration-sdk-testing';
 import { gunzipSync } from 'zlib';
-import { cloudfunctions_v1, iam_v1 } from 'googleapis';
+import { cloudfunctions_v1, iam_v1, privateca_v1beta1 } from 'googleapis';
 import * as url from 'url';
 import * as querystring from 'querystring';
 import { integrationConfig } from './config';
@@ -70,6 +70,18 @@ function isCreateServiceAccountKeyUrl(url: string) {
   ).test(url);
 }
 
+function isListCertificateAutoritiesUrl(url: string) {
+  return new RegExp(
+    /https:\/\/privateca.googleapis.com\/v1beta1\/projects\/(.*?)\/locations\/-\/certificateAuthorities/,
+  ).test(url);
+}
+
+function isListCertificatesUrl(url: string) {
+  return new RegExp(
+    /https:\/\/privateca.googleapis.com\/v1beta1\/projects\/(.*?)\/locations\/(.*?)\/certificateAuthorities\/(.*?)\/certificates/,
+  ).test(url);
+}
+
 /**
  * The response from creating a service account key contains the private key
  * data, which we need to redact.
@@ -80,6 +92,56 @@ function sanitizeCreateServiceAccountKeyResponse(
   return {
     ...response,
     privateKeyData: '[REDACTED]',
+  };
+}
+
+function sanitizeListCertificateAuthoritiesResponse(
+  response: privateca_v1beta1.Schema$ListCertificateAuthoritiesResponse,
+) {
+  return {
+    certificateAuthorities:
+      response.certificateAuthorities &&
+      response.certificateAuthorities.map((certificateAuthority) => ({
+        ...certificateAuthority,
+        pemCaCertificates: [],
+        caCertificateDescriptions: certificateAuthority.caCertificateDescriptions?.map(
+          (description) => ({
+            ...description,
+            publicKey: {
+              type: description.publicKey?.type,
+              key: '[REDACTED]',
+            },
+          }),
+        ),
+      })),
+  };
+}
+
+function sanitizeListCertificatesResponse(
+  response: privateca_v1beta1.Schema$ListCertificatesResponse,
+) {
+  return {
+    certificates:
+      response.certificates &&
+      response.certificates.map((certificate) => ({
+        ...certificate,
+        config: {
+          ...certificate.config,
+          publicKey: {
+            type: certificate.config?.publicKey?.type,
+            key: '[REDACTED]',
+          },
+        },
+        pemCertificate: '[REDACTED]',
+        certificateDescription: {
+          ...certificate.certificateDescription,
+          publicKey: {
+            type: certificate.certificateDescription?.publicKey?.type,
+            key: '[REDACTED]',
+          },
+        },
+        pemCertificateChain: [],
+      })),
   };
 }
 
@@ -165,6 +227,16 @@ function redact(entry): void {
       parsedResponseText = sanitizeCreateServiceAccountKeyResponse(
         parsedResponseText,
       );
+    }
+
+    if (isListCertificateAutoritiesUrl(requestUrl)) {
+      parsedResponseText = sanitizeListCertificateAuthoritiesResponse(
+        parsedResponseText,
+      );
+    }
+
+    if (isListCertificatesUrl(requestUrl)) {
+      parsedResponseText = sanitizeListCertificatesResponse(parsedResponseText);
     }
 
     entry.response.content.text = JSON.stringify(parsedResponseText);

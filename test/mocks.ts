@@ -20,6 +20,7 @@ import {
   memcache_v1,
   spanner_v1,
   apigateway_v1,
+  privateca_v1beta1,
 } from 'googleapis';
 
 export function getMockIamRole(
@@ -1600,6 +1601,80 @@ export function getMockSpannerInstanceConfiguration(
   };
 }
 
+export function getMockCertificateAuthority(
+  partial?: privateca_v1beta1.Schema$CertificateAuthority,
+): privateca_v1beta1.Schema$CertificateAuthority {
+  return {
+    name:
+      'projects/j1-gc-integration-dev-v2/locations/us-central1/certificateAuthorities/acmeName',
+    type: 'SELF_SIGNED',
+    tier: 'ENTERPRISE',
+    config: {
+      subjectConfig: {
+        subject: {
+          organization: 'Acme',
+        },
+        commonName: 'acmeName',
+      },
+      reusableConfig: {},
+    },
+    lifetime: '314496000s',
+    keySpec: {
+      algorithm: 'RSA_PKCS1_2048_SHA256',
+    },
+    issuingOptions: {
+      includeCaCertUrl: true,
+      includeCrlAccessUrl: true,
+    },
+    state: 'ENABLED',
+    caCertificateDescriptions: [
+      {
+        subjectDescription: {
+          subject: {
+            organization: 'Acme',
+          },
+          commonName: 'acmeName',
+          subjectAltName: {},
+          hexSerialNumber: '008a51de1d92de213728c7733b74700f4a684513',
+          lifetime: '314496000s',
+          notBeforeTime: '2021-04-08T14:44:07.900172684Z',
+          notAfterTime: '2031-03-27T14:44:07.900172684Z',
+        },
+        configValues: {
+          keyUsage: {
+            baseKeyUsage: {
+              certSign: true,
+              crlSign: true,
+            },
+          },
+          caOptions: {
+            isCa: true,
+          },
+        },
+        subjectKeyId: {
+          keyId: 'ec21738d89c6020cfab46e73b1a001d7fb24d34c',
+        },
+        authorityKeyId: {
+          keyId: 'ec21738d89c6020cfab46e73b1a001d7fb24d34c',
+        },
+        certFingerprint: {
+          sha256Hash:
+            'd7de957b8c0903c662332fc8ec4966c5dc01b7426ed778dc389aaa545a37064a',
+        },
+      },
+    ],
+    accessUrls: {
+      caCertificateAccessUrl:
+        'http://test-bucket-with-labels.storage.googleapis.com/f1cc34b5b7e8fa026582/ca.crt',
+      crlAccessUrl:
+        'http://test-bucket-with-labels.storage.googleapis.com/f1cc34b5b7e8fa026582/crl.crl',
+    },
+    createTime: '2021-04-08T14:44:07.215539285Z',
+    updateTime: '2021-04-08T14:44:09.263990183Z',
+    ...partial,
+  };
+}
+
 export function getMockApiGatewayApi(
   partial?: apigateway_v1.Schema$ApigatewayApi,
 ): apigateway_v1.Schema$ApigatewayApi {
@@ -1646,6 +1721,78 @@ export function getMockApiGatewayGateway(
       'projects/711888229551/locations/global/apis/example-api-gateway-endpoint/configs/example-config',
     state: 'ACTIVE',
     defaultHostname: 'example-gateway-931bvdf3.uc.gateway.dev',
+    ...partial,
+  };
+}
+
+export function getMockCertificate(
+  partial?: privateca_v1beta1.Schema$Certificate,
+): privateca_v1beta1.Schema$Certificate {
+  return {
+    name:
+      'projects/711888229551/locations/us-central1/certificateAuthorities/Test-CA-Name/certificates/20210401-nkm-v03',
+    config: {
+      subjectConfig: {
+        subjectAltName: {
+          dnsNames: ['google.com'],
+        },
+      },
+      reusableConfig: {
+        reusableConfigValues: {
+          keyUsage: {
+            baseKeyUsage: {
+              digitalSignature: true,
+              keyEncipherment: true,
+            },
+            extendedKeyUsage: {},
+          },
+          caOptions: {
+            isCa: false,
+          },
+        },
+      },
+    },
+    lifetime: '2592000s',
+    certificateDescription: {
+      subjectDescription: {
+        subjectAltName: {
+          dnsNames: ['google.com'],
+        },
+        hexSerialNumber: 'ec41a22274884f34272ea3dabe37a42daffe41',
+        lifetime: '2592000s',
+        notBeforeTime: '2021-04-01T19:17:48Z',
+        notAfterTime: '2021-05-01T19:17:48Z',
+      },
+      configValues: {
+        keyUsage: {
+          baseKeyUsage: {
+            digitalSignature: true,
+            keyEncipherment: true,
+          },
+        },
+        caOptions: {
+          isCa: false,
+        },
+      },
+      subjectKeyId: {
+        keyId: 'abb01889d84091201b6c09b3f4f6cf04d0a91c13',
+      },
+      authorityKeyId: {
+        keyId: 'f4c932216ac01039c8f3c952fab0c2f7db202315',
+      },
+      crlDistributionPoints: [
+        'http://privateca-content-605f9a85-0000-2ec7-9474-f403043ccfa8.storage.googleapis.com/f168e1beb72a7e72e8c5/crl.crl',
+      ],
+      aiaIssuingCertificateUrls: [
+        'http://privateca-content-605f9a85-0000-2ec7-9474-f403043ccfa8.storage.googleapis.com/f168e1beb72a7e72e8c5/ca.crt',
+      ],
+      certFingerprint: {
+        sha256Hash:
+          '7aeb434082c0ea73d819c1e4fab7a3e31f027a9d4440f666af2e3ac38a26039b',
+      },
+    },
+    createTime: '2021-04-01T19:17:48.319675789Z',
+    updateTime: '2021-04-01T19:17:48.319675789Z',
     ...partial,
   };
 }
