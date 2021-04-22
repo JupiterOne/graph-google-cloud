@@ -86,7 +86,8 @@ export function createAppEngineVersionEntity(
         createdBy: data.createdBy,
         // Standard specific properties
         instanceClass: data.instanceClass,
-        diskUsageBytes: parseInt(data.diskUsageBytes as string, 10),
+        diskUsageBytes:
+          data.diskUsageBytes && parseInt(data.diskUsageBytes as string, 10),
         // Flexible specific properties
         manualScalingInstances: data.manualScaling?.instances,
         cpuCount: data.resources?.cpu,
@@ -131,7 +132,8 @@ export function createAppEngineInstanceEntity(
         requests: data.requests,
         averageLatency: data.averageLatency,
         // Turning this to int so that you can apply ASC,DESC inside J1QL on it
-        memoryUsage: parseInt(data.memoryUsage as string, 10),
+        memoryUsage:
+          data.memoryUsage && parseInt(data.memoryUsage as string, 10),
         // Flexible specific properties
         vmStatus: data.vmStatus,
         vmIp: data.vmIp,
