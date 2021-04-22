@@ -8,6 +8,18 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.22.1 - 2021-04-22
+
+### Changed
+
+- Upgrade integration SDK packages
+- Upgraded `googleapis` package
+
+### Fixed
+
+- Fix `memoryUsage` and `diskUsageBytes` App Engine properties having `NaN`
+  values
+
 ## 0.22.0 - 2021-04-14
 
 ### Added
