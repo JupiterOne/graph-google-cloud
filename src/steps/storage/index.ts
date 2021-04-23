@@ -32,13 +32,26 @@ export async function fetchStorageBuckets(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
 
   const client = new CloudStorageClient({ config });
 
   await client.iterateCloudStorageBuckets(async (bucket) => {
     const bucketId = bucket.id as string;
-    const bucketPolicy = await client.getPolicy(bucketId);
+
+    let bucketPolicy;
+    try {
+      bucketPolicy = await client.getPolicy(bucketId);
+    } catch (err) {
+      if (
+        err.message ===
+        'Bucket is requester pays bucket but no user project provided.'
+      ) {
+        logger.error({ err }, err.message);
+        return;
+      }
+    }
 
     await jobState.addEntity(
       createCloudStorageBucketEntity({
