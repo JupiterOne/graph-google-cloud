@@ -9,6 +9,7 @@ import {
 } from './constants';
 import { storage_v1 } from 'googleapis';
 import { isMemberPublic } from '../../utils/iam';
+import { publishUnprocessedBucketsEvent } from '../../utils/events';
 
 export * from './constants';
 
@@ -37,6 +38,7 @@ export async function fetchStorageBuckets(
 
   const client = new CloudStorageClient({ config });
 
+  const unprocessedBucketsIds: string[] = [];
   await client.iterateCloudStorageBuckets(async (bucket) => {
     const bucketId = bucket.id as string;
 
@@ -48,7 +50,7 @@ export async function fetchStorageBuckets(
         err.message ===
         'Bucket is requester pays bucket but no user project provided.'
       ) {
-        logger.error({ err }, err.message);
+        unprocessedBucketsIds.push(bucketId);
         return;
       }
     }
@@ -60,6 +62,11 @@ export async function fetchStorageBuckets(
         isPublic: isBucketPolicyPublicAccess(bucketPolicy),
       }),
     );
+  });
+
+  publishUnprocessedBucketsEvent({
+    logger,
+    bucketIds: unprocessedBucketsIds.join(','),
   });
 }
 
