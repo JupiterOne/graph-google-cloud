@@ -10,6 +10,11 @@ and this project adheres to
 
 ## 0.22.2 - 2021-04-26
 
+### Changed
+
+- Raise `project/{PROJECT_ID} is not a workspace` error message when attempting
+  to fetch alert monitoring policies
+
 ### Fixed
 
 - Fixed [#107](https://github.com/JupiterOne/graph-google-cloud/issues/107) -
