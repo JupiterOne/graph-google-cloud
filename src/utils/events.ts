@@ -19,7 +19,7 @@ export function publishMissingPermissionEvent({
 
 interface PublishUnprocessedBucketsEventParams {
   logger: IntegrationLogger;
-  bucketIds: string;
+  bucketIds: string[];
 }
 
 export function publishUnprocessedBucketsEvent({
@@ -28,6 +28,8 @@ export function publishUnprocessedBucketsEvent({
 }: PublishUnprocessedBucketsEventParams) {
   logger.publishEvent({
     name: 'unprocessed_buckets',
-    description: `Could not fetch the following buckets as their policies are inaccessible (reason: buckets are requestor pays and cannot be processed): ${bucketIds}"`,
+    description: `Could not fetch the following buckets as their policies are inaccessible (reason: buckets are requestor pays and cannot be processed. See here for more information: https://cloud.google.com/storage/docs/requester-pays): ${bucketIds.join(
+      ', ',
+    )}"`,
   });
 }

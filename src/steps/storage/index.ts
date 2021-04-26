@@ -64,10 +64,23 @@ export async function fetchStorageBuckets(
     );
   });
 
-  publishUnprocessedBucketsEvent({
-    logger,
-    bucketIds: unprocessedBucketsIds.join(','),
-  });
+  // NOTE: Being unable to process "requestor pays" buckets is a non-fatal error,
+  // and should _not_ cause dependent steps from running.
+  //
+  // See here for more info: https://cloud.google.com/storage/docs/requester-pays
+  if (unprocessedBucketsIds.length) {
+    logger.info(
+      {
+        numUnprocessedBuckets: unprocessedBucketsIds.length,
+      },
+      'Unprocessed buckets due to being configured with "requestor pays"',
+    );
+
+    publishUnprocessedBucketsEvent({
+      logger,
+      bucketIds: unprocessedBucketsIds,
+    });
+  }
 }
 
 export const storageSteps: IntegrationStep<IntegrationConfig>[] = [
