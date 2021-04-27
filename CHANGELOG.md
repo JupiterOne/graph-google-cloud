@@ -8,6 +8,13 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.22.3 - 2021-04-26
+
+### Fixed
+
+- Fixes [#119](https://github.com/JupiterOne/graph-google-cloud/issues/119)
+  Throw error when policy could not be fetched
+
 ## 0.22.2 - 2021-04-26
 
 ### Changed

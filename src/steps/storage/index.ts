@@ -53,6 +53,8 @@ export async function fetchStorageBuckets(
         unprocessedBucketsIds.push(bucketId);
         return;
       }
+
+      throw err;
     }
 
     await jobState.addEntity(
