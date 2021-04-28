@@ -337,6 +337,7 @@ export function createComputeInstanceEntity(data: compute_v1.Schema$Instance) {
         kind: data.kind,
         publicIpAddress: ipAddresses.publicIpAddresses,
         privateIpAddress: ipAddresses.privateIpAddresses,
+        hostname: data.hostname,
       },
     },
   });
