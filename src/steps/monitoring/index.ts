@@ -1,5 +1,6 @@
 import { IntegrationStep } from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import { publishUnsupportedConfigEvent } from '../../utils/events';
 import { MonitoringClient } from './client';
 import {
   MONITORING_ALERT_POLICY_CLASS,
@@ -14,15 +15,28 @@ export async function fetchAlertPolicies(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
 
   const client = new MonitoringClient({ config });
 
-  await client.iterateAlertPolicies(async (alertPolicy) => {
-    await jobState.addEntity(
-      createAlertPolicyEntity(alertPolicy, client.projectId),
-    );
-  });
+  try {
+    await client.iterateAlertPolicies(async (alertPolicy) => {
+      await jobState.addEntity(
+        createAlertPolicyEntity(alertPolicy, client.projectId),
+      );
+    });
+  } catch (err) {
+    if (err.message?.match && err.message.match(/is not a workspace/i)) {
+      publishUnsupportedConfigEvent({
+        logger,
+        resource: 'Alert Policies',
+        reason: `${client.projectId} project is not a workspace`,
+      });
+    } else {
+      throw err;
+    }
+  }
 }
 
 export const monitoringSteps: IntegrationStep<IntegrationConfig>[] = [
