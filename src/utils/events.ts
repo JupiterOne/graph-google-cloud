@@ -33,3 +33,20 @@ export function publishUnprocessedBucketsEvent({
     )}"`,
   });
 }
+
+interface PublishUnsupportedConfigEventParams {
+  logger: IntegrationLogger;
+  resource: string;
+  reason: string;
+}
+
+export function publishUnsupportedConfigEvent({
+  logger,
+  resource,
+  reason,
+}: PublishUnsupportedConfigEventParams) {
+  logger.publishEvent({
+    name: 'unsupported_config',
+    description: `Could not process "${resource}" because of the "${reason}" configuration`,
+  });
+}
