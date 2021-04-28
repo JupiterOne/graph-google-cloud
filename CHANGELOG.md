@@ -8,6 +8,15 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.23.0 - 2021-04-28
+
+### Changed
+
+- New properties added to resources:
+  - `google_compute_instance`
+    - `hostname` - Fixes
+      [#111](https://github.com/JupiterOne/graph-google-cloud/issues/111)
+
 ## 0.22.4 - 2021-04-28
 
 ### Fixed
