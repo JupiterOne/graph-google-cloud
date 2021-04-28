@@ -8,6 +8,14 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.22.4 - 2021-04-28
+
+### Fixed
+
+- Fixes [#116](https://github.com/JupiterOne/graph-google-cloud/issues/116)
+  Publish integration job log event when fetching alert monitoring policies
+  fails due to `project/{PROJECT_ID} is not a workspace`
+
 ## 0.22.3 - 2021-04-26
 
 ### Fixed
