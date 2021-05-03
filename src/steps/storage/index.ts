@@ -38,11 +38,11 @@ export async function fetchStorageBuckets(
 
   const client = new CloudStorageClient({ config });
 
-  const unprocessedBucketsIds: string[] = [];
+  const bucketIdsWithUnprocessedPolicies: string[] = [];
   await client.iterateCloudStorageBuckets(async (bucket) => {
     const bucketId = bucket.id as string;
 
-    let bucketPolicy;
+    let bucketPolicy: storage_v1.Schema$Policy | undefined;
     try {
       bucketPolicy = await client.getPolicy(bucketId);
     } catch (err) {
@@ -50,18 +50,17 @@ export async function fetchStorageBuckets(
         err.message ===
         'Bucket is requester pays bucket but no user project provided.'
       ) {
-        unprocessedBucketsIds.push(bucketId);
-        return;
+        bucketIdsWithUnprocessedPolicies.push(bucketId);
+      } else {
+        throw err;
       }
-
-      throw err;
     }
 
     await jobState.addEntity(
       createCloudStorageBucketEntity({
         data: bucket,
         projectId: config.serviceAccountKeyConfig.project_id,
-        isPublic: isBucketPolicyPublicAccess(bucketPolicy),
+        isPublic: bucketPolicy && isBucketPolicyPublicAccess(bucketPolicy),
       }),
     );
   });
@@ -70,17 +69,17 @@ export async function fetchStorageBuckets(
   // and should _not_ cause dependent steps from running.
   //
   // See here for more info: https://cloud.google.com/storage/docs/requester-pays
-  if (unprocessedBucketsIds.length) {
+  if (bucketIdsWithUnprocessedPolicies.length) {
     logger.info(
       {
-        numUnprocessedBuckets: unprocessedBucketsIds.length,
+        numUnprocessedBucketPolicies: bucketIdsWithUnprocessedPolicies.length,
       },
-      'Unprocessed buckets due to being configured with "requestor pays"',
+      'Unprocessed bucket policies due to being configured with "requestor pays"',
     );
 
     publishUnprocessedBucketsEvent({
       logger,
-      bucketIds: unprocessedBucketsIds,
+      bucketIdsWithUnprocessedPolicies,
     });
   }
 }

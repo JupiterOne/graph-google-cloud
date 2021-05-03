@@ -24,7 +24,7 @@ export function createCloudStorageBucketEntity({
 }: {
   data: storage_v1.Schema$Bucket;
   projectId: string;
-  isPublic: boolean;
+  isPublic?: boolean;
 }) {
   return createGoogleCloudIntegrationEntity(data, {
     entityData: {
