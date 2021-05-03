@@ -8,6 +8,13 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.23.1 - 2021-05-03
+
+### Fixed
+
+- Fixes [#126](https://github.com/JupiterOne/graph-google-cloud/issues/126)
+  Buckets should still be ingested if the bucket policy cannot be fetched
+
 ## 0.23.0 - 2021-04-28
 
 ### Changed
