@@ -25,6 +25,7 @@ import {
   fetchTargetHttpsProxies,
   fetchTargetSslProxies,
   fetchSslPolicies,
+  fetchComputeImages,
 } from '.';
 import {
   CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
@@ -65,12 +66,18 @@ import {
   ENTITY_TYPE_COMPUTE_SSL_POLICY,
   RELATIONSHIP_TYPE_TARGET_HTTPS_PROXY_HAS_SSL_POLICY,
   RELATIONSHIP_TYPE_INSTANCE_GROUP_HAS_COMPUTE_INSTANCE,
+  ENTITY_TYPE_COMPUTE_IMAGE,
 } from './constants';
 import {
   // IntegrationProviderAuthorizationError,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
 import { fetchIamServiceAccounts } from '../iam';
+import {
+  ENTITY_TYPE_KMS_KEY,
+  fetchKmsCryptoKeys,
+  fetchKmsKeyRings,
+} from '../kms';
 
 describe('#fetchComputeDisks', () => {
   let recording: Recording;
@@ -91,6 +98,7 @@ describe('#fetchComputeDisks', () => {
       instanceConfig: integrationConfig,
     });
 
+    await fetchComputeImages(context);
     await fetchComputeDisks(context);
 
     expect({
@@ -101,7 +109,11 @@ describe('#fetchComputeDisks', () => {
       encounteredTypes: context.jobState.encounteredTypes,
     }).toMatchSnapshot();
 
-    expect(context.jobState.collectedEntities).toMatchGraphObjectSchema({
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === ENTITY_TYPE_COMPUTE_DISK,
+      ),
+    ).toMatchGraphObjectSchema({
       _class: ['DataStore', 'Disk'],
       schema: {
         additionalProperties: false,
@@ -140,6 +152,152 @@ describe('#fetchComputeDisks', () => {
         },
       },
     });
+
+    const computeDiskUsesImageRelationship = context.jobState.collectedRelationships.filter(
+      (r) => r._type === 'google_compute_disk_uses_image',
+    );
+
+    expect(computeDiskUsesImageRelationship).toEqual(
+      computeDiskUsesImageRelationship.map((r) =>
+        expect.objectContaining({
+          _class: 'USES',
+        }),
+      ),
+    );
+  });
+});
+
+describe('#fetchComputeImages', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'fetchComputeImages',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: integrationConfig,
+    });
+
+    await fetchKmsKeyRings(context);
+    await fetchKmsCryptoKeys(context);
+    await fetchComputeImages(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === ENTITY_TYPE_KMS_KEY,
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: ['Key', 'CryptoKey'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_kms_crypto_key' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          projectId: { type: 'string' },
+          location: { type: 'string' },
+          shortName: { type: 'string' },
+          purpose: { type: 'string' },
+          keyUsage: { type: 'string' },
+          nextRotationTime: { type: 'number' },
+          rotationPeriod: { type: 'number' },
+          protectionLevel: { type: 'string' },
+          algorithm: { type: 'string' },
+          public: { type: 'boolean' },
+          primaryName: { type: 'string' },
+          primaryState: { type: 'string' },
+          primaryCreateTime: { type: 'number' },
+          primaryProtectionLevel: { type: 'string' },
+          primaryAlgorithm: { type: 'string' },
+          primaryGenerateTime: { type: 'number' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === ENTITY_TYPE_COMPUTE_IMAGE,
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: 'Image',
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_compute_image' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          id: { type: 'string' },
+          name: { type: 'string' },
+          displayName: { type: 'string' },
+          kind: { type: 'string' },
+          description: { type: 'string' },
+          status: { type: 'string' },
+          family: { type: 'string' },
+          archivedSizeBytes: { type: 'string' },
+          diskSizeGb: { type: 'string' },
+          guestOsFeatures: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          licenses: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          labelFingerprint: { type: 'string' },
+          licenseCodes: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          'rawDisk.containerType': { type: 'string' },
+          'rawDisk.sha1Checksum': { type: 'string' },
+          'rawDisk.source': { type: 'string' },
+          sourceDisk: { type: 'string' },
+          sourceDiskId: { type: 'string' },
+          sourceImage: { type: 'string' },
+          sourceImageId: { type: 'string' },
+          sourceSnapshot: { type: 'string' },
+          sourceType: { type: 'string' },
+          storageLocations: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          public: { type: 'boolean' },
+          createdOn: { type: 'number' },
+        },
+      },
+    });
+
+    const computeImageUsesCryptoKeyRelationship = context.jobState.collectedRelationships.filter(
+      (r) => r._type === 'google_compute_image_uses_kms_crypto_key',
+    );
+
+    expect(computeImageUsesCryptoKeyRelationship).toEqual(
+      computeImageUsesCryptoKeyRelationship.map((r) =>
+        expect.objectContaining({
+          _class: 'USES',
+        }),
+      ),
+    );
   });
 });
 

@@ -32,6 +32,7 @@ import {
   STEP_COMPUTE_DISKS,
   STEP_COMPUTE_FIREWALLS,
   STEP_COMPUTE_HEALTH_CHECKS,
+  STEP_COMPUTE_IMAGES,
   STEP_COMPUTE_INSTANCES,
   STEP_COMPUTE_INSTANCE_GROUPS,
   STEP_COMPUTE_LOADBALANCERS,
@@ -168,6 +169,9 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_COMPUTE_DISKS]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_IMAGES]: {
         disabled: false,
       },
       [STEP_COMPUTE_NETWORKS]: {

@@ -50,6 +50,52 @@ export class ComputeClient extends Client {
     );
   }
 
+  async fetchComputeImagePolicy(name: string) {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    const resp = await this.client.images.getIamPolicy({
+      auth,
+      project: this.projectId,
+      resource: name,
+    });
+
+    return resp.data;
+  }
+
+  async fetchComputeImage(name: string, projectId: string) {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    const resp = await this.client.images.get({
+      auth,
+      image: name,
+      // allow us to use the same method for both custom and public images
+      project: projectId,
+    });
+
+    return resp.data;
+  }
+
+  async iterateCustomComputeImages(
+    callback: (data: compute_v1.Schema$Image) => Promise<void>,
+  ) {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.images.list({
+          auth,
+          pageToken: nextPageToken,
+          project: this.projectId,
+        });
+      },
+      async (data: compute_v1.Schema$ImageList) => {
+        for (const item of data.items || []) {
+          await callback(item);
+        }
+      },
+    );
+  }
+
   async fetchComputeProject(): Promise<compute_v1.Schema$Project> {
     const auth = await this.getAuthenticatedServiceClient();
 

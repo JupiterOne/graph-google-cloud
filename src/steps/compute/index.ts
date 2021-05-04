@@ -3,6 +3,8 @@ import {
   JobState,
   Entity,
   createDirectRelationship,
+  createMappedRelationship,
+  RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
 import { ComputeClient } from './client';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
@@ -27,6 +29,7 @@ import {
   createInstanceGroupEntity,
   createHealthCheckEntity,
   createInstanceGroupNamedPortEntity,
+  createComputeImageEntity,
 } from './converters';
 import {
   STEP_COMPUTE_INSTANCES,
@@ -96,6 +99,11 @@ import {
   ENTITY_TYPE_COMPUTE_INSTANCE_GROUP_NAMED_PORT,
   ENTITY_CLASS_COMPUTE_INSTANCE_GROUP_NAMED_PORT,
   RELATIONSHIP_TYPE_INSTANCE_GROUP_HAS_NAMED_PORT,
+  STEP_COMPUTE_IMAGES,
+  ENTITY_TYPE_COMPUTE_IMAGE,
+  ENTITY_CLASS_COMPUTE_IMAGE,
+  RELATIONSHIP_TYPE_DISK_USES_IMAGE,
+  RELATIONSHIP_TYPE_IMAGE_USES_KMS_KEY,
 } from './constants';
 import { compute_v1 } from 'googleapis';
 import { INTERNET, RelationshipClass } from '@jupiterone/data-model';
@@ -115,8 +123,24 @@ import {
 import { getCloudStorageBucketKey } from '../storage/converters';
 import { publishMissingPermissionEvent } from '../../utils/events';
 import { parseRegionNameFromRegionUrl } from '../../google-cloud/regions';
+import { ENTITY_TYPE_KMS_KEY, STEP_CLOUD_KMS_KEYS } from '../kms';
+import { isMemberPublic } from '../../utils/iam';
 
 export * from './constants';
+
+function isComputeImagePublicAccess(
+  imagePolicy: compute_v1.Schema$Policy,
+): boolean {
+  for (const binding of imagePolicy.bindings || []) {
+    for (const member of binding.members || []) {
+      if (isMemberPublic(member)) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
 
 async function iterateComputeInstanceDisks(params: {
   jobState: JobState;
@@ -273,7 +297,93 @@ export async function fetchComputeDisks(
   const client = new ComputeClient({ config: instance.config });
 
   await client.iterateComputeDisks(async (disk) => {
-    await jobState.addEntity(createComputeDiskEntity(disk));
+    const diskEntity = createComputeDiskEntity(disk);
+    await jobState.addEntity(diskEntity);
+
+    // disk.sourceImage looks like this:
+    // https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/my-custom-image
+    // https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/ubuntu-1804-bionic-v20210211
+    // ProjectId part can be good separator between public and custom images and is necessary for images.get API call
+
+    const sourceImageProjectId = disk.sourceImage?.split('/')[6];
+    const sourceImageName = disk.sourceImage?.split('/')[9];
+    if (sourceImageProjectId === client.projectId) {
+      // Custom image
+      const imageEntity = await jobState.findEntity(disk.sourceImage as string);
+      if (imageEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.USES,
+            from: diskEntity,
+            to: imageEntity,
+          }),
+        );
+      }
+    } else {
+      // Public image
+      const image = await client.fetchComputeImage(
+        sourceImageName as string,
+        sourceImageProjectId as string,
+      );
+      // iamPolicy can't be fetched for public images/nor can it be changed (expected)
+      const imageEntity = createComputeImageEntity({
+        data: image,
+        isPublic: true,
+      });
+      delete imageEntity._rawData;
+
+      await jobState.addRelationship(
+        createMappedRelationship({
+          _class: RelationshipClass.USES,
+          _type: RELATIONSHIP_TYPE_DISK_USES_IMAGE,
+          _mapping: {
+            relationshipDirection: RelationshipDirection.FORWARD,
+            sourceEntityKey: diskEntity._key,
+            targetFilterKeys: [['_type', '_key']],
+            targetEntity: imageEntity,
+          },
+        }),
+      );
+    }
+  });
+}
+
+export async function fetchComputeImages(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, instance } = context;
+  const client = new ComputeClient({ config: instance.config });
+
+  await client.iterateCustomComputeImages(async (image) => {
+    const imagePolicy = await client.fetchComputeImagePolicy(
+      image.name as string,
+    );
+    const imageEntity = createComputeImageEntity({
+      data: image,
+      isPublic: isComputeImagePublicAccess(imagePolicy),
+    });
+    await jobState.addEntity(imageEntity);
+
+    if (image.imageEncryptionKey?.kmsKeyName) {
+      const versionPartIndex = image.imageEncryptionKey.kmsKeyName.indexOf(
+        '/cryptoKeyVersion',
+      );
+      const kmsNameWithoutVersion = image.imageEncryptionKey.kmsKeyName.substring(
+        0,
+        versionPartIndex,
+      );
+
+      const cryptoKeyEntity = await jobState.findEntity(kmsNameWithoutVersion);
+      if (cryptoKeyEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.USES,
+            from: imageEntity,
+            to: cryptoKeyEntity,
+          }),
+        );
+      }
+    }
   });
 }
 
@@ -878,8 +988,37 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
         _class: ENTITY_CLASS_COMPUTE_DISK,
       },
     ],
-    relationships: [],
+    relationships: [
+      {
+        _class: RelationshipClass.USES,
+        _type: RELATIONSHIP_TYPE_DISK_USES_IMAGE,
+        sourceType: ENTITY_TYPE_COMPUTE_DISK,
+        targetType: ENTITY_TYPE_COMPUTE_IMAGE,
+      },
+    ],
     executionHandler: fetchComputeDisks,
+    dependsOn: [STEP_COMPUTE_IMAGES],
+  },
+  {
+    id: STEP_COMPUTE_IMAGES,
+    name: 'Compute Images',
+    entities: [
+      {
+        resourceName: 'Compute Image',
+        _type: ENTITY_TYPE_COMPUTE_IMAGE,
+        _class: ENTITY_CLASS_COMPUTE_IMAGE,
+      },
+    ],
+    relationships: [
+      {
+        _class: RelationshipClass.USES,
+        _type: RELATIONSHIP_TYPE_IMAGE_USES_KMS_KEY,
+        sourceType: ENTITY_TYPE_COMPUTE_IMAGE,
+        targetType: ENTITY_TYPE_KMS_KEY,
+      },
+    ],
+    dependsOn: [STEP_CLOUD_KMS_KEYS],
+    executionHandler: fetchComputeImages,
   },
   {
     id: STEP_COMPUTE_INSTANCES,

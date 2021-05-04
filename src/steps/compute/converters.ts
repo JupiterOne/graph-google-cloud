@@ -45,6 +45,8 @@ import {
   ENTITY_TYPE_COMPUTE_INSTANCE_GROUP_NAMED_PORT,
   ENTITY_CLASS_COMPUTE_HEALTH_CHECK,
   ENTITY_TYPE_COMPUTE_HEALTH_CHECK,
+  ENTITY_CLASS_COMPUTE_IMAGE,
+  ENTITY_TYPE_COMPUTE_IMAGE,
 } from './constants';
 import { getGoogleCloudConsoleWebLink, getLastUrlPart } from '../../utils/url';
 import { parseRegionNameFromRegionUrl } from '../../google-cloud/regions';
@@ -70,6 +72,52 @@ export function createComputeProjectEntity(data: compute_v1.Schema$Project) {
         kind: data.kind,
         defaultServiceAccount: data.defaultServiceAccount,
         defaultNetworkTier: data.defaultNetworkTier,
+        createdOn: parseTimePropertyValue(data.creationTimestamp),
+      },
+    },
+  });
+}
+
+export function createComputeImageEntity({
+  data,
+  isPublic,
+}: {
+  data: compute_v1.Schema$Image;
+  isPublic: boolean;
+}) {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_COMPUTE_IMAGE,
+        _type: ENTITY_TYPE_COMPUTE_IMAGE,
+        _key: data.selfLink as string,
+        id: data.id as string,
+        name: data.name,
+        displayName: data.name as string,
+        kind: data.kind,
+        description: data.description,
+        status: data.status,
+        family: data.family,
+        archivedSizeBytes: data.archiveSizeBytes,
+        diskSizeGb: data.diskSizeGb,
+        guestOsFeatures:
+          data.guestOsFeatures &&
+          (data.guestOsFeatures.map((g) => g.type) as string[]),
+        licenses: data.licenses,
+        labelFingerprint: data.labelFingerprint,
+        licenseCodes: data.licenseCodes,
+        'rawDisk.containerType': data.rawDisk?.containerType,
+        'rawDisk.sha1Checksum': data.rawDisk?.sha1Checksum,
+        'rawDisk.source': data.rawDisk?.source,
+        sourceDisk: data.sourceDisk,
+        sourceDiskId: data.sourceDiskId,
+        sourceImage: data.sourceImage,
+        sourceImageId: data.sourceImageId,
+        sourceSnapshot: data.sourceSnapshot,
+        sourceType: data.sourceType,
+        storageLocations: data.storageLocations,
+        public: isPublic,
         createdOn: parseTimePropertyValue(data.creationTimestamp),
       },
     },

@@ -3,6 +3,7 @@ import {
   createBackendServiceEntity,
   createComputeDiskEntity,
   createComputeFirewallEntity,
+  createComputeImageEntity,
   createComputeInstanceEntity,
   createComputeInstanceUsesComputeDiskRelationship,
   createComputeNetworkEntity,
@@ -34,6 +35,7 @@ import {
   getMockTargetHttpsProxy,
   getMockTargetSslProxy,
   getMockSslPolicy,
+  getMockComputeImage,
 } from '../../../test/mocks';
 import { DEFAULT_INTEGRATION_CONFIG_PROJECT_ID } from '../../../test/config';
 import {
@@ -50,6 +52,17 @@ describe('#createComputeDiskEntity', () => {
   test('should set active to false when status is not READY', () => {
     expect(
       createComputeDiskEntity(getMockComputeDisk({ status: 'FAILED' })),
+    ).toMatchSnapshot();
+  });
+});
+
+describe('#createComputeImageEntity', () => {
+  test('should convert to entity', () => {
+    expect(
+      createComputeImageEntity({
+        data: getMockComputeImage(),
+        isPublic: false,
+      }),
     ).toMatchSnapshot();
   });
 });
