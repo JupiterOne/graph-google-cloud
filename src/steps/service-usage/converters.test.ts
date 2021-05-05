@@ -39,9 +39,14 @@ describe('#createApiServiceEntity', () => {
           },
         },
       ],
+      hasIamPermissions: false,
     };
 
-    expect(createApiServiceEntity(getMockServiceApi())).toEqual(expected);
+    expect(
+      createApiServiceEntity({
+        data: getMockServiceApi(),
+      }),
+    ).toEqual(expected);
   });
 
   test('should handle missing title', () => {
@@ -79,11 +84,12 @@ describe('#createApiServiceEntity', () => {
           },
         },
       ],
+      hasIamPermissions: false,
     };
 
     expect(
-      createApiServiceEntity(
-        getMockServiceApi({
+      createApiServiceEntity({
+        data: getMockServiceApi({
           config: {
             name: 'vision.googleapis.com',
             documentation: {
@@ -97,7 +103,7 @@ describe('#createApiServiceEntity', () => {
             },
           },
         }),
-      ),
+      }),
     ).toEqual(expected);
   });
 
@@ -130,11 +136,12 @@ describe('#createApiServiceEntity', () => {
           },
         },
       ],
+      hasIamPermissions: false,
     };
 
     expect(
-      createApiServiceEntity(
-        getMockServiceApi({
+      createApiServiceEntity({
+        data: getMockServiceApi({
           config: {
             name: 'vision.googleapis.com',
             quota: {},
@@ -144,7 +151,7 @@ describe('#createApiServiceEntity', () => {
             },
           },
         }),
-      ),
+      }),
     ).toEqual(expected);
   });
 
@@ -180,11 +187,12 @@ describe('#createApiServiceEntity', () => {
           },
         },
       ],
+      hasIamPermissions: false,
     };
 
     expect(
-      createApiServiceEntity(
-        getMockServiceApi({
+      createApiServiceEntity({
+        data: getMockServiceApi({
           config: {
             name: 'vision.googleapis.com',
             title: 'Cloud Vision API',
@@ -196,17 +204,17 @@ describe('#createApiServiceEntity', () => {
             authentication: {},
           },
         }),
-      ),
+      }),
     ).toEqual(expected);
   });
 
   test('should handle empty config property', () => {
     expect(() =>
-      createApiServiceEntity(
-        getMockServiceApi({
+      createApiServiceEntity({
+        data: getMockServiceApi({
           config: undefined,
         }),
-      ),
+      }),
     ).toThrowError('API Service missing required "config" in response');
   });
 });
