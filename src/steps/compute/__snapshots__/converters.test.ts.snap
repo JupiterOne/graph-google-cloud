@@ -405,6 +405,7 @@ Object {
   "sourceImage": undefined,
   "sourceImageId": undefined,
   "sourceSnapshot": undefined,
+  "sourceSnapshotId": undefined,
   "sourceType": "RAW",
   "status": "READY",
   "storageLocations": Array [

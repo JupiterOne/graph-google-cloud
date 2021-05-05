@@ -276,6 +276,7 @@ describe('#fetchComputeImages', () => {
           sourceImage: { type: 'string' },
           sourceImageId: { type: 'string' },
           sourceSnapshot: { type: 'string' },
+          sourceSnapshotId: { type: 'string' },
           sourceType: { type: 'string' },
           storageLocations: {
             type: 'array',

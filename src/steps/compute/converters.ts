@@ -115,6 +115,7 @@ export function createComputeImageEntity({
         sourceImage: data.sourceImage,
         sourceImageId: data.sourceImageId,
         sourceSnapshot: data.sourceSnapshot,
+        sourceSnapshotId: data.sourceSnapshotId,
         sourceType: data.sourceType,
         storageLocations: data.storageLocations,
         public: isPublic,

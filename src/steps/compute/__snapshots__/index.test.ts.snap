@@ -623,6 +623,7 @@ Object {
       "sourceImage": undefined,
       "sourceImageId": undefined,
       "sourceSnapshot": undefined,
+      "sourceSnapshotId": undefined,
       "sourceType": "RAW",
       "status": "READY",
       "storageLocations": Array [
@@ -943,6 +944,7 @@ Object {
           "sourceImage": undefined,
           "sourceImageId": undefined,
           "sourceSnapshot": undefined,
+          "sourceSnapshotId": undefined,
           "sourceType": "RAW",
           "status": "READY",
           "storageLocations": Array [
@@ -1011,6 +1013,7 @@ Object {
           "sourceImage": "https://www.googleapis.com/compute/v1/projects/gke-release-staging/global/images/gke-11816-gke2100-cos-85-13310-1209-7-v210316-pre",
           "sourceImageId": "3035567271792424335",
           "sourceSnapshot": undefined,
+          "sourceSnapshotId": undefined,
           "sourceType": "RAW",
           "status": "READY",
           "storageLocations": Array [
@@ -5428,6 +5431,7 @@ Object {
       "sourceImage": undefined,
       "sourceImageId": undefined,
       "sourceSnapshot": undefined,
+      "sourceSnapshotId": undefined,
       "sourceType": "RAW",
       "status": "READY",
       "storageLocations": Array [
@@ -6796,6 +6800,7 @@ Object {
           "sourceImage": undefined,
           "sourceImageId": undefined,
           "sourceSnapshot": undefined,
+          "sourceSnapshotId": undefined,
           "sourceType": "RAW",
           "status": "READY",
           "storageLocations": Array [
