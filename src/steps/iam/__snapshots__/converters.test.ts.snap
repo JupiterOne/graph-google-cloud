@@ -34,6 +34,7 @@ Object {
     "cloudfunctions.functions.get",
     "cloudfunctions.functions.getIamPolicy",
   ],
+  "readonly": true,
   "stage": "GA",
 }
 `;
@@ -72,6 +73,7 @@ Object {
     "cloudfunctions.functions.get",
     "cloudfunctions.functions.getIamPolicy",
   ],
+  "readonly": true,
   "stage": "GA",
 }
 `;

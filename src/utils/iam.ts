@@ -217,3 +217,40 @@ export function buildPermissionsByApiServiceMap(roles: iam_v1.Schema$Role[]) {
 
   return permissionsByServiceMap;
 }
+
+/**
+ * Determines whether a Google Cloud permission is read-only or not
+ *
+ * See: https://cloud.google.com/iam/docs/permissions-reference
+ *
+ * Examples:
+ *
+ * Input: binaryauthorization.attestors.update
+ * Output: false
+ *
+ * Input: binaryauthorization.continuousValidationConfig.get
+ * Output: true
+ */
+export function isReadOnlyPermission(permission: string): boolean {
+  const splitPermission = permission.split('.');
+  const action = splitPermission[splitPermission.length - 1];
+  return (
+    action === 'group' ||
+    action.startsWith('get') ||
+    action.startsWith('list') ||
+    action.startsWith('export') ||
+    action.startsWith('view') ||
+    action.startsWith('check') ||
+    action.startsWith('read')
+  );
+}
+
+export function isReadOnlyRole(role: iam_v1.Schema$Role): boolean {
+  for (const permission of role.includedPermissions || []) {
+    if (!isReadOnlyPermission(permission)) {
+      return false;
+    }
+  }
+
+  return true;
+}
