@@ -4,7 +4,7 @@ import {
 } from '@jupiterone/integration-sdk-testing';
 import { setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
-import { fetchIamRoles, fetchIamServiceAccounts } from '.';
+import { fetchIamCustomRoles, fetchIamServiceAccounts } from '.';
 import { integrationConfig } from '../../../test/config';
 
 describe('#fetchIamRoles', () => {
@@ -26,7 +26,7 @@ describe('#fetchIamRoles', () => {
       instanceConfig: integrationConfig,
     });
 
-    await fetchIamRoles(context);
+    await fetchIamCustomRoles(context);
 
     expect({
       numCollectedEntities: context.jobState.collectedEntities.length,

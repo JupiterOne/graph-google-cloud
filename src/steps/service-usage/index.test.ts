@@ -1,3 +1,5 @@
+jest.setTimeout(30000);
+
 import {
   Recording,
   createMockStepExecutionContext,
@@ -7,6 +9,7 @@ import { IntegrationConfig } from '../../types';
 import { fetchApiServices } from '.';
 import { integrationConfig } from '../../../test/config';
 import { PROJECT_ENTITY_TYPE, PROJECT_ENTITY_CLASS } from '../resource-manager';
+import { fetchIamManagedRoles } from '../iam';
 
 describe('#fetchApiServices', () => {
   let recording: Recording;
@@ -36,6 +39,7 @@ describe('#fetchApiServices', () => {
       },
     });
 
+    await fetchIamManagedRoles(context);
     await fetchApiServices(context);
 
     expect({
@@ -62,6 +66,7 @@ describe('#fetchApiServices', () => {
             type: 'array',
             items: { type: 'string' },
           },
+          hasIamPermissions: { type: 'boolean' },
           _rawData: {
             type: 'array',
             items: { type: 'object' },
