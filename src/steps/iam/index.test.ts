@@ -55,6 +55,7 @@ describe('#fetchIamRoles', () => {
             items: { type: 'string' },
           },
           etag: { type: 'string' },
+          readonly: { type: 'boolean' },
         },
       },
     });

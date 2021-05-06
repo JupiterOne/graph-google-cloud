@@ -36,6 +36,7 @@ Object {
         "cloudfunctions.functions.get",
         "cloudfunctions.functions.getIamPolicy",
       ],
+      "readonly": true,
       "stage": "GA",
     },
     Object {
@@ -69,6 +70,7 @@ Object {
       "permissions": Array [
         "cloudfunctions.functions.list",
       ],
+      "readonly": true,
       "stage": "GA",
     },
     Object {
@@ -108,6 +110,7 @@ Object {
         "compute.projects.get",
         "resourcemanager.projects.get",
       ],
+      "readonly": true,
       "stage": "GA",
     },
     Object {
@@ -754,6 +757,7 @@ Object {
       "etag": undefined,
       "name": "roles/editor",
       "permissions": undefined,
+      "readonly": true,
       "stage": undefined,
     },
     Object {
@@ -779,6 +783,7 @@ Object {
       "etag": undefined,
       "name": "roles/iam.securityReviewer",
       "permissions": undefined,
+      "readonly": true,
       "stage": undefined,
     },
     Object {
@@ -804,6 +809,7 @@ Object {
       "etag": undefined,
       "name": "roles/owner",
       "permissions": undefined,
+      "readonly": true,
       "stage": undefined,
     },
     Object {
@@ -879,6 +885,7 @@ Object {
       "etag": undefined,
       "name": "roles/storage.admin",
       "permissions": undefined,
+      "readonly": true,
       "stage": undefined,
     },
   ],
