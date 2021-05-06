@@ -254,3 +254,47 @@ export function isReadOnlyRole(role: iam_v1.Schema$Role): boolean {
 
   return true;
 }
+
+/**
+ * Some permissions are not 1:1 to the actual service API short name.
+ *
+ * For example:
+ *
+ * Permission: resourcemanager.projects.get
+ * Actual API service: cloudresourcemanager.googleapis.com
+ */
+const SHORT_SERVICE_TO_SERVICE_API_MAP: Map<string, string> = new Map([
+  ['resourcemanager', 'cloudresourcemanager'],
+]);
+
+/**
+ * Computes a Google Cloud a Google Cloud API service name from a permission
+ *
+ * See: https://cloud.google.com/iam/docs/permissions-reference
+ *
+ * Examples:
+ *
+ * Input: binaryauthorization.attestors.update
+ * Output: binaryauthorization.googleapis.com
+ */
+export function getFullServiceApiNameFromPermission(
+  permission: string,
+): string {
+  const splitPermission = permission.split('.');
+  const shortService = splitPermission[0];
+  const actualShortService =
+    SHORT_SERVICE_TO_SERVICE_API_MAP.get(shortService) || shortService;
+  return `${actualShortService}.googleapis.com`;
+}
+
+export function getUniqueFullServiceApiNamesFromRole(
+  role: iam_v1.Schema$Role,
+): string[] {
+  const serviceApiNameSet: Set<string> = new Set();
+
+  for (const permission of role.includedPermissions || []) {
+    serviceApiNameSet.add(getFullServiceApiNameFromPermission(permission));
+  }
+
+  return Array.from(serviceApiNameSet);
+}

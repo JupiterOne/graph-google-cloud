@@ -1,4 +1,10 @@
-import { isReadOnlyPermission, isReadOnlyRole, parseIamMember } from './iam';
+import {
+  getFullServiceApiNameFromPermission,
+  getUniqueFullServiceApiNamesFromRole,
+  isReadOnlyPermission,
+  isReadOnlyRole,
+  parseIamMember,
+} from './iam';
 import { IntegrationError } from '@jupiterone/integration-sdk-core';
 import { getMockIamRole } from '../../test/mocks';
 
@@ -209,5 +215,42 @@ describe('#isReadOnlyRole', () => {
         }),
       ),
     ).toEqual(false);
+  });
+});
+
+describe('#getFullServiceApiNameFromPermission', () => {
+  test('should convert full service API name from permission', () => {
+    expect(
+      getFullServiceApiNameFromPermission(
+        'binaryauthorization.attestors.update',
+      ),
+    ).toEqual('binaryauthorization.googleapis.com');
+  });
+
+  test('should consider API naming conversion map when converting full service API name from permission', () => {
+    expect(
+      getFullServiceApiNameFromPermission('resourcemanager.projects.get'),
+    ).toEqual('cloudresourcemanager.googleapis.com');
+  });
+});
+
+describe('#getUniqueFullServiceApiNamesFromRole', () => {
+  test('should generate unique set service API names from permission', () => {
+    expect(
+      getUniqueFullServiceApiNamesFromRole(
+        getMockIamRole({
+          includedPermissions: [
+            'binaryauthorization.policy.get',
+            'resourcemanager.projects.get',
+            'bigtable.tables.delete',
+            'binaryauthorization.attestors.update',
+          ],
+        }),
+      ),
+    ).toEqual([
+      'binaryauthorization.googleapis.com',
+      'cloudresourcemanager.googleapis.com',
+      'bigtable.googleapis.com',
+    ]);
   });
 });

@@ -14,7 +14,7 @@ import {
 } from './constants';
 import { STEP_PROJECT, PROJECT_ENTITY_TYPE } from '../resource-manager';
 import { getProjectEntity } from '../../utils/project';
-import { STEP_IAM_MANAGED_ROLES } from '../iam';
+import { STEP_IAM_MANAGED_ROLES } from '../iam/constants';
 import {
   buildPermissionsByApiServiceMap,
   getIamManagedRoleData,
@@ -62,6 +62,7 @@ export async function fetchApiServices(
 
     const serviceEntity = await jobState.addEntity(
       createApiServiceEntity({
+        projectId: client.projectId,
         data: service,
         permissions,
       }),

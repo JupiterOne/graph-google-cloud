@@ -18,12 +18,13 @@ import {
   PROJECT_ENTITY_TYPE,
 } from './constants';
 import {
-  iamSteps,
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
   IAM_ROLE_ENTITY_TYPE,
   IAM_USER_ENTITY_TYPE,
   IAM_ROLE_ENTITY_CLASS,
   IAM_USER_ENTITY_CLASS,
+  STEP_IAM_CUSTOM_ROLES,
+  STEP_IAM_SERVICE_ACCOUNTS,
 } from '../iam';
 import { cloudresourcemanager_v1 } from 'googleapis';
 import { parseIamMember } from '../../utils/iam';
@@ -249,7 +250,7 @@ export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
         targetType: IAM_ROLE_ENTITY_TYPE,
       },
     ],
-    dependsOn: [...iamSteps.map((step) => step.id)],
+    dependsOn: [STEP_IAM_CUSTOM_ROLES, STEP_IAM_SERVICE_ACCOUNTS],
     executionHandler: fetchResourceManagerIamPolicy,
   },
 ];
