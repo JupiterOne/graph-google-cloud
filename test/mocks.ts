@@ -1796,3 +1796,45 @@ export function getMockCertificate(
     ...partial,
   };
 }
+
+export function getMockComputeImage(
+  partial?: compute_v1.Schema$Image,
+): compute_v1.Schema$Image {
+  return {
+    id: '6989580994168613341',
+    creationTimestamp: '2021-05-03T13:04:03.663-07:00',
+    name: 'my-custom-image',
+    sourceType: 'RAW',
+    status: 'READY',
+    archiveSizeBytes: '1775261760',
+    diskSizeGb: '10',
+    sourceDisk:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/load-balancer-instance',
+    sourceDiskId: '7645090348976312809',
+    licenses: [
+      'https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/licenses/ubuntu-1804-lts',
+    ],
+    imageEncryptionKey: {
+      kmsKeyName:
+        'projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring/cryptoKeys/example-key/cryptoKeyVersions/1',
+    },
+    selfLink:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/my-custom-image',
+    labelFingerprint: '42WmSpB8rSM=',
+    guestOsFeatures: [
+      {
+        type: 'VIRTIO_SCSI_MULTIQUEUE',
+      },
+      {
+        type: 'SEV_CAPABLE',
+      },
+      {
+        type: 'UEFI_COMPATIBLE',
+      },
+    ],
+    licenseCodes: ['5926592092274602096'],
+    storageLocations: ['us-central1'],
+    kind: 'compute#image',
+    ...partial,
+  };
+}

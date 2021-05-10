@@ -325,6 +325,95 @@ Object {
 }
 `;
 
+exports[`#createComputeImageEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Image",
+  ],
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/my-custom-image",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "archiveSizeBytes": "1775261760",
+        "creationTimestamp": "2021-05-03T13:04:03.663-07:00",
+        "diskSizeGb": "10",
+        "guestOsFeatures": Array [
+          Object {
+            "type": "VIRTIO_SCSI_MULTIQUEUE",
+          },
+          Object {
+            "type": "SEV_CAPABLE",
+          },
+          Object {
+            "type": "UEFI_COMPATIBLE",
+          },
+        ],
+        "id": "6989580994168613341",
+        "imageEncryptionKey": Object {
+          "kmsKeyName": "projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring/cryptoKeys/example-key/cryptoKeyVersions/1",
+        },
+        "kind": "compute#image",
+        "labelFingerprint": "42WmSpB8rSM=",
+        "licenseCodes": Array [
+          "5926592092274602096",
+        ],
+        "licenses": Array [
+          "https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/licenses/ubuntu-1804-lts",
+        ],
+        "name": "my-custom-image",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/my-custom-image",
+        "sourceDisk": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/load-balancer-instance",
+        "sourceDiskId": "7645090348976312809",
+        "sourceType": "RAW",
+        "status": "READY",
+        "storageLocations": Array [
+          "us-central1",
+        ],
+      },
+    },
+  ],
+  "_type": "google_compute_image",
+  "active": undefined,
+  "archivedSizeBytes": "1775261760",
+  "createdOn": 1620072243663,
+  "description": undefined,
+  "diskSizeGb": "10",
+  "displayName": "my-custom-image",
+  "family": undefined,
+  "guestOsFeatures": Array [
+    "VIRTIO_SCSI_MULTIQUEUE",
+    "SEV_CAPABLE",
+    "UEFI_COMPATIBLE",
+  ],
+  "id": "6989580994168613341",
+  "kind": "compute#image",
+  "labelFingerprint": "42WmSpB8rSM=",
+  "licenseCodes": Array [
+    "5926592092274602096",
+  ],
+  "licenses": Array [
+    "https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/licenses/ubuntu-1804-lts",
+  ],
+  "name": "my-custom-image",
+  "public": false,
+  "rawDisk.containerType": undefined,
+  "rawDisk.sha1Checksum": undefined,
+  "rawDisk.source": undefined,
+  "sourceDisk": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/load-balancer-instance",
+  "sourceDiskId": "7645090348976312809",
+  "sourceImage": undefined,
+  "sourceImageId": undefined,
+  "sourceSnapshot": undefined,
+  "sourceSnapshotId": undefined,
+  "sourceType": "RAW",
+  "status": "READY",
+  "storageLocations": Array [
+    "us-central1",
+  ],
+}
+`;
+
 exports[`#createComputeInstanceEntity should convert to entity 1`] = `
 Object {
   "_class": Array [

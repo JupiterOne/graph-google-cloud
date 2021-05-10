@@ -314,6 +314,7 @@ The following entities are created:
 | Compute Disk                      | `google_compute_disk`                      | `DataStore`, `Disk`                |
 | Compute Firewalls                 | `google_compute_firewall`                  | `Firewall`                         |
 | Compute Health Check              | `google_compute_health_check`              | `Service`                          |
+| Compute Image                     | `google_compute_image`                     | `Image`                            |
 | Compute Instance                  | `google_compute_instance`                  | `Host`                             |
 | Compute Instance Group            | `google_compute_instance_group`            | `Group`                            |
 | Compute Instance Group Named Port | `google_compute_instance_group_named_port` | `Configuration`                    |
@@ -375,7 +376,9 @@ The following relationships are created/mapped:
 | `google_compute_backend_service`         | **HAS**               | `google_compute_health_check`        |
 | `google_compute_backend_service`         | **HAS**               | `google_compute_instance_group`      |
 | `google_compute_backend_service`         | **HAS**               | `google_compute_target_ssl_proxy`    |
+| `google_compute_disk`                    | **USES**              | `google_compute_image`               |
 | `google_compute_firewall`                | **PROTECTS**          | `google_compute_network`             |
+| `google_compute_image`                   | **USES**              | `google_kms_crypto_key`              |
 | `google_compute_instance_group`          | **HAS**               | `google_compute_instance`            |
 | `google_compute_url_map`                 | **HAS**               | `google_compute_backend_service`     |
 | `google_compute_instance`                | **TRUSTS**            | `google_iam_service_account`         |
