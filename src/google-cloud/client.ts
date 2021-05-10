@@ -127,7 +127,7 @@ function shouldKeepErrorMessage(error: any) {
     'billing is disabled',
     'requires billing to be enabled',
     'it is disabled',
-    'is not a workspace'
+    'is not a workspace',
   ];
   return (
     error?.message?.match &&
