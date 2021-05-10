@@ -36,6 +36,7 @@ Object {
         "cloudfunctions.functions.get",
         "cloudfunctions.functions.getIamPolicy",
       ],
+      "readonly": true,
       "stage": "GA",
     },
     Object {
@@ -69,6 +70,7 @@ Object {
       "permissions": Array [
         "cloudfunctions.functions.list",
       ],
+      "readonly": true,
       "stage": "GA",
     },
     Object {
@@ -104,6 +106,7 @@ Object {
         "compute.projects.get",
         "resourcemanager.projects.get",
       ],
+      "readonly": true,
       "stage": "GA",
     },
   ],

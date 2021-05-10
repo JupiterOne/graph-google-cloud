@@ -1,6 +1,9 @@
 import * as url from 'url';
 import * as querystring from 'querystring';
-import { IntegrationError } from '@jupiterone/integration-sdk-core';
+import { IntegrationError, JobState } from '@jupiterone/integration-sdk-core';
+import { iam_v1 } from 'googleapis';
+
+export const IAM_MANAGED_ROLES_DATA_JOB_STATE_KEY = 'iam_managed_roles';
 
 /**
  * Some IAM members resemble this format: `deleted:serviceAccount:{emailid}?uid={uniqueid}`
@@ -170,4 +173,84 @@ export function parseIamMember(member: string): ParsedIamMember {
  */
 export function isMemberPublic(member: string) {
   return member === 'allUsers' || member === 'allAuthenticatedUsers';
+}
+
+export async function getIamManagedRoleData(
+  jobState: JobState,
+): Promise<iam_v1.Schema$Role[]> {
+  const managedRoles = await jobState.getData<iam_v1.Schema$Role[]>(
+    IAM_MANAGED_ROLES_DATA_JOB_STATE_KEY,
+  );
+
+  if (!managedRoles) {
+    throw new IntegrationError({
+      message: 'Could not find managed roles in job state',
+      code: 'MANAGED_ROLES_NOT_FOUND',
+      fatal: true,
+    });
+  }
+
+  return managedRoles;
+}
+
+export function buildPermissionsByApiServiceMap(roles: iam_v1.Schema$Role[]) {
+  const allPermissions: Set<string> = new Set();
+  const permissionsByServiceMap: Map<string, string[]> = new Map();
+
+  for (const role of roles) {
+    for (const permission of role.includedPermissions || []) {
+      if (allPermissions.has(permission)) {
+        continue;
+      }
+
+      // apigateway.apiconfigs.update -> apigateway
+      const service = permission.split('.')[0];
+      const permissionsByService = permissionsByServiceMap.get(service);
+
+      if (!permissionsByService) {
+        permissionsByServiceMap.set(service, [permission]);
+      } else {
+        permissionsByService.push(permission);
+      }
+    }
+  }
+
+  return permissionsByServiceMap;
+}
+
+/**
+ * Determines whether a Google Cloud permission is read-only or not
+ *
+ * See: https://cloud.google.com/iam/docs/permissions-reference
+ *
+ * Examples:
+ *
+ * Input: binaryauthorization.attestors.update
+ * Output: false
+ *
+ * Input: binaryauthorization.continuousValidationConfig.get
+ * Output: true
+ */
+export function isReadOnlyPermission(permission: string): boolean {
+  const splitPermission = permission.split('.');
+  const action = splitPermission[splitPermission.length - 1];
+  return (
+    action === 'group' ||
+    action.startsWith('get') ||
+    action.startsWith('list') ||
+    action.startsWith('export') ||
+    action.startsWith('view') ||
+    action.startsWith('check') ||
+    action.startsWith('read')
+  );
+}
+
+export function isReadOnlyRole(role: iam_v1.Schema$Role): boolean {
+  for (const permission of role.includedPermissions || []) {
+    if (!isReadOnlyPermission(permission)) {
+      return false;
+    }
+  }
+
+  return true;
 }

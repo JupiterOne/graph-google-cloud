@@ -8,6 +8,14 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- New properties added to resources:
+  - `google_cloud_api_service`
+    - `hasIamPermissions`
+- `google_iam_role`
+  - `readonly`
+
 ## 0.23.1 - 2021-05-03
 
 ### Fixed

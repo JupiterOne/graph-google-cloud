@@ -16,7 +16,7 @@ import {
   IAM_USER_ENTITY_CLASS,
   IAM_USER_ENTITY_TYPE,
 } from './constants';
-import { ParsedIamMemberType } from '../../utils/iam';
+import { isReadOnlyRole, ParsedIamMemberType } from '../../utils/iam';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 
 export function createIamRoleEntity(
@@ -48,6 +48,7 @@ export function createIamRoleEntity(
         custom: custom === true,
         deleted: data.deleted === true,
         permissions: data.includedPermissions,
+        readonly: isReadOnlyRole(data),
         etag: data.etag,
       },
     },

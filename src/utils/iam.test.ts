@@ -1,5 +1,6 @@
-import { parseIamMember } from './iam';
+import { isReadOnlyPermission, isReadOnlyRole, parseIamMember } from './iam';
 import { IntegrationError } from '@jupiterone/integration-sdk-core';
+import { getMockIamRole } from '../../test/mocks';
 
 describe('#parseIamMember', () => {
   test('should parse `allUsers` format', () => {
@@ -129,5 +130,84 @@ describe('#parseIamMember', () => {
       );
       expect(err.code).toEqual('UNKNOWN_IAM_MEMBER_FORMAT');
     }
+  });
+});
+
+describe('#isReadOnlyPermission', () => {
+  // Some of the permissions that this will generate are bogus, but it will
+  // demonstrate all of the legitimate cases
+  for (const action of ['get', 'list', 'export', 'view', 'check', 'read']) {
+    test(`should return true when permission action is "${action}"`, () => {
+      expect(
+        isReadOnlyPermission(
+          `binaryauthorization.continuousValidationConfig.${action}`,
+        ),
+      ).toEqual(true);
+    });
+
+    test(`should return true when permission action starts with "${action}"`, () => {
+      expect(
+        isReadOnlyPermission(
+          `binaryauthorization.continuousValidationConfig.${action}All`,
+        ),
+      ).toEqual(true);
+    });
+  }
+
+  test('should return true when permission action is "group"', () => {
+    expect(isReadOnlyPermission('securitycenter.findings.group')).toEqual(true);
+  });
+
+  test('should return false when permission action is not read-only', () => {
+    expect(isReadOnlyPermission('storage.buckets.delete')).toEqual(false);
+  });
+});
+
+describe('#isReadOnlyRole', () => {
+  test('should return true when role permissions property is undefined', () => {
+    expect(
+      isReadOnlyRole(
+        getMockIamRole({
+          includedPermissions: undefined,
+        }),
+      ),
+    ).toEqual(true);
+  });
+
+  test('should return true when role has no permissions', () => {
+    expect(
+      isReadOnlyRole(
+        getMockIamRole({
+          includedPermissions: [],
+        }),
+      ),
+    ).toEqual(true);
+  });
+
+  test('should return true when role only has read-only permissions', () => {
+    expect(
+      isReadOnlyRole(
+        getMockIamRole({
+          includedPermissions: [
+            'binaryauthorization.continuousValidationConfig.get',
+            'binaryauthorization.continuousValidationConfig.list',
+          ],
+        }),
+      ),
+    ).toEqual(true);
+  });
+
+  test('should return false when role is not read-only', () => {
+    expect(
+      isReadOnlyRole(
+        getMockIamRole({
+          includedPermissions: [
+            'binaryauthorization.continuousValidationConfig.get',
+            'storage.buckets.delete',
+            'binaryauthorization.continuousValidationConfig.list',
+          ],
+        }),
+      ),
+    ).toEqual(false);
   });
 });

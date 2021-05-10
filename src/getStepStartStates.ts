@@ -11,7 +11,11 @@ import { STEP_CLOUD_FUNCTIONS } from './steps/functions';
 import { STEP_CLOUD_STORAGE_BUCKETS } from './steps/storage';
 import { STEP_API_SERVICES } from './steps/service-usage';
 import { deserializeIntegrationConfig } from './utils/integrationConfig';
-import { STEP_IAM_ROLES, STEP_IAM_SERVICE_ACCOUNTS } from './steps/iam';
+import {
+  STEP_IAM_CUSTOM_ROLES,
+  STEP_IAM_MANAGED_ROLES,
+  STEP_IAM_SERVICE_ACCOUNTS,
+} from './steps/iam';
 import {
   STEP_RESOURCE_MANAGER_IAM_POLICY,
   STEP_PROJECT,
@@ -148,7 +152,8 @@ export default async function getStepStartStates(
     [STEP_CLOUD_STORAGE_BUCKETS]: createStepStartState(
       ServiceUsageName.STORAGE,
     ),
-    [STEP_IAM_ROLES]: createStepStartState(ServiceUsageName.IAM),
+    [STEP_IAM_CUSTOM_ROLES]: createStepStartState(ServiceUsageName.IAM),
+    [STEP_IAM_MANAGED_ROLES]: createStepStartState(ServiceUsageName.IAM),
     [STEP_IAM_SERVICE_ACCOUNTS]: createStepStartState(ServiceUsageName.IAM),
     [STEP_RESOURCE_MANAGER_IAM_POLICY]: createStepStartState(
       ServiceUsageName.RESOURCE_MANAGER,

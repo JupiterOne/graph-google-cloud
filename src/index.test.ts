@@ -21,7 +21,11 @@ import { STEP_CLOUD_FUNCTIONS } from './steps/functions';
 import { STEP_CLOUD_STORAGE_BUCKETS } from './steps/storage';
 import { STEP_API_SERVICES } from './steps/service-usage';
 import { parseServiceAccountKeyFile } from './utils/parseServiceAccountKeyFile';
-import { STEP_IAM_ROLES, STEP_IAM_SERVICE_ACCOUNTS } from './steps/iam';
+import {
+  STEP_IAM_CUSTOM_ROLES,
+  STEP_IAM_MANAGED_ROLES,
+  STEP_IAM_SERVICE_ACCOUNTS,
+} from './steps/iam';
 import {
   STEP_RESOURCE_MANAGER_IAM_POLICY,
   STEP_PROJECT,
@@ -159,7 +163,10 @@ describe('#getStepStartStates success', () => {
       [STEP_CLOUD_STORAGE_BUCKETS]: {
         disabled: false,
       },
-      [STEP_IAM_ROLES]: {
+      [STEP_IAM_CUSTOM_ROLES]: {
+        disabled: false,
+      },
+      [STEP_IAM_MANAGED_ROLES]: {
         disabled: false,
       },
       [STEP_IAM_SERVICE_ACCOUNTS]: {

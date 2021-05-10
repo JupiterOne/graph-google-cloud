@@ -14,8 +14,31 @@ import {
 } from './constants';
 import { STEP_PROJECT, PROJECT_ENTITY_TYPE } from '../resource-manager';
 import { getProjectEntity } from '../../utils/project';
+import { STEP_IAM_MANAGED_ROLES } from '../iam';
+import {
+  buildPermissionsByApiServiceMap,
+  getIamManagedRoleData,
+  IAM_MANAGED_ROLES_DATA_JOB_STATE_KEY,
+} from '../../utils/iam';
+import { serviceusage_v1 } from 'googleapis';
 
 export * from './constants';
+
+function getPermissionsForApiService(
+  apiService: serviceusage_v1.Schema$GoogleApiServiceusageV1Service,
+  permissionsByApiServiceMap: Map<string, string[]>,
+): string[] | undefined {
+  const apiServiceName = apiService.config?.name;
+
+  if (!apiServiceName) {
+    // This should never happen.
+    return;
+  }
+
+  // youtube.googleapis.com -> youtube
+  const serviceShortName = apiServiceName.split('.')[0];
+  return permissionsByApiServiceMap.get(serviceShortName);
+}
 
 export async function fetchApiServices(
   context: IntegrationStepContext,
@@ -27,9 +50,21 @@ export async function fetchApiServices(
   const client = new ServiceUsageClient({ config });
   const projectEntity = await getProjectEntity(jobState);
 
+  const permissionsByApiServiceMap = buildPermissionsByApiServiceMap(
+    await getIamManagedRoleData(jobState),
+  );
+
   await client.iterateServices(async (service) => {
+    const permissions = getPermissionsForApiService(
+      service,
+      permissionsByApiServiceMap,
+    );
+
     const serviceEntity = await jobState.addEntity(
-      createApiServiceEntity(service),
+      createApiServiceEntity({
+        data: service,
+        permissions,
+      }),
     );
 
     await jobState.addRelationship(
@@ -43,6 +78,12 @@ export async function fetchApiServices(
       }),
     );
   });
+
+  // We don't need to hold all of this data in memory for the entire integration
+  // execution. If we decide that we need to share this across more steps in the
+  // future, we can consider holding the data for longer or until the integration
+  // finishes .
+  await jobState.setData(IAM_MANAGED_ROLES_DATA_JOB_STATE_KEY, undefined);
 }
 
 export const serviceUsageSteps: IntegrationStep<IntegrationConfig>[] = [
@@ -64,7 +105,7 @@ export const serviceUsageSteps: IntegrationStep<IntegrationConfig>[] = [
         targetType: API_SERVICE_ENTITY_TYPE,
       },
     ],
-    dependsOn: [STEP_PROJECT],
+    dependsOn: [STEP_PROJECT, STEP_IAM_MANAGED_ROLES],
     executionHandler: fetchApiServices,
   },
 ];
