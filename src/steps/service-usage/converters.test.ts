@@ -8,7 +8,7 @@ describe('#createApiServiceEntity', () => {
       name: 'vision.googleapis.com',
       _class: ['Service'],
       _type: 'google_cloud_api_service',
-      _key: 'projects/545240943112/services/vision.googleapis.com',
+      _key: 'projects/j1-gc-integration-dev-v2/services/vision.googleapis.com',
       displayName: 'Cloud Vision API',
       category: ['infrastructure'],
       description:
@@ -44,6 +44,7 @@ describe('#createApiServiceEntity', () => {
 
     expect(
       createApiServiceEntity({
+        projectId: 'j1-gc-integration-dev-v2',
         data: getMockServiceApi(),
       }),
     ).toEqual(expected);
@@ -54,7 +55,7 @@ describe('#createApiServiceEntity', () => {
       name: 'vision.googleapis.com',
       _class: ['Service'],
       _type: 'google_cloud_api_service',
-      _key: 'projects/545240943112/services/vision.googleapis.com',
+      _key: 'projects/j1-gc-integration-dev-v2/services/vision.googleapis.com',
       displayName: 'vision.googleapis.com',
       category: ['infrastructure'],
       description:
@@ -89,6 +90,7 @@ describe('#createApiServiceEntity', () => {
 
     expect(
       createApiServiceEntity({
+        projectId: 'j1-gc-integration-dev-v2',
         data: getMockServiceApi({
           config: {
             name: 'vision.googleapis.com',
@@ -112,7 +114,7 @@ describe('#createApiServiceEntity', () => {
       name: 'vision.googleapis.com',
       _class: ['Service'],
       _type: 'google_cloud_api_service',
-      _key: 'projects/545240943112/services/vision.googleapis.com',
+      _key: 'projects/j1-gc-integration-dev-v2/services/vision.googleapis.com',
       displayName: 'vision.googleapis.com',
       category: ['infrastructure'],
       state: 'ENABLED',
@@ -141,6 +143,7 @@ describe('#createApiServiceEntity', () => {
 
     expect(
       createApiServiceEntity({
+        projectId: 'j1-gc-integration-dev-v2',
         data: getMockServiceApi({
           config: {
             name: 'vision.googleapis.com',
@@ -160,7 +163,7 @@ describe('#createApiServiceEntity', () => {
       name: 'vision.googleapis.com',
       _class: ['Service'],
       _type: 'google_cloud_api_service',
-      _key: 'projects/545240943112/services/vision.googleapis.com',
+      _key: 'projects/j1-gc-integration-dev-v2/services/vision.googleapis.com',
       displayName: 'Cloud Vision API',
       category: ['infrastructure'],
       description:
@@ -192,6 +195,7 @@ describe('#createApiServiceEntity', () => {
 
     expect(
       createApiServiceEntity({
+        projectId: 'j1-gc-integration-dev-v2',
         data: getMockServiceApi({
           config: {
             name: 'vision.googleapis.com',
@@ -211,6 +215,7 @@ describe('#createApiServiceEntity', () => {
   test('should handle empty config property', () => {
     expect(() =>
       createApiServiceEntity({
+        projectId: 'j1-gc-integration-dev-v2',
         data: getMockServiceApi({
           config: undefined,
         }),

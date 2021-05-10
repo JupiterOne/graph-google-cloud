@@ -1,4 +1,10 @@
-import { IntegrationStep } from '@jupiterone/integration-sdk-core';
+import {
+  createDirectRelationship,
+  Entity,
+  IntegrationLogger,
+  IntegrationStep,
+  JobState,
+} from '@jupiterone/integration-sdk-core';
 import { IamClient } from './client';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
 import {
@@ -18,26 +24,116 @@ import {
   IAM_SERVICE_ACCOUNT_ENTITY_CLASS,
   IAM_SERVICE_ACCOUNT_KEY_ENTITY_CLASS,
   STEP_IAM_MANAGED_ROLES,
+  API_SERVICE_HAS_IAM_ROLE_RELATIONSHIP_TYPE,
 } from './constants';
 import { RelationshipClass } from '@jupiterone/data-model';
 import { iam_v1 } from 'googleapis';
-import { IAM_MANAGED_ROLES_DATA_JOB_STATE_KEY } from '../../utils/iam';
+import {
+  getUniqueFullServiceApiNamesFromRole,
+  IAM_MANAGED_ROLES_DATA_JOB_STATE_KEY,
+} from '../../utils/iam';
+import {
+  API_SERVICE_ENTITY_TYPE,
+  STEP_API_SERVICES,
+} from '../service-usage/constants';
+import { getServiceApiEntityKey } from '../service-usage/converters';
 
 export * from './constants';
+
+async function createApiServiceEntityHasIamRoleRelationships({
+  logger,
+  projectId,
+  jobState,
+  role,
+  iamRoleEntity,
+  serviceApiEntityKeySeenMap,
+}: {
+  logger: IntegrationLogger;
+  projectId: string;
+  jobState: JobState;
+  role: iam_v1.Schema$Role;
+  iamRoleEntity: Entity;
+  /**
+   *
+   * There will be many role permissions that result in duplicate service API entity
+   * lookups. This is a cache, so that we prevent doing too much duplicate work.
+   *
+   * NOTE: This map will not contain many keys (hundreds at most), so memory
+   * consumption is not an issue.
+   */
+  serviceApiEntityKeySeenMap: Map<string, boolean>;
+}) {
+  const serviceApiNamesForRole = getUniqueFullServiceApiNamesFromRole(role);
+
+  for (const serviceApiName of serviceApiNamesForRole) {
+    const serviceApiEntityKey = getServiceApiEntityKey({
+      projectId,
+      serviceApiName,
+    });
+
+    const serviceApiEntityKeySeenMapValue = serviceApiEntityKeySeenMap.get(
+      serviceApiEntityKey,
+    );
+
+    if (serviceApiEntityKeySeenMapValue === undefined) {
+      const serviceApiEntity = await jobState.findEntity(serviceApiEntityKey);
+
+      if (!serviceApiEntity) {
+        logger.warn(
+          {
+            serviceApiName,
+          },
+          'Could not find service API entity when attempting to build relationship to role',
+        );
+        serviceApiEntityKeySeenMap.set(serviceApiEntityKey, false);
+        continue;
+      }
+
+      serviceApiEntityKeySeenMap.set(serviceApiEntityKey, true);
+    } else if (serviceApiEntityKeySeenMapValue === false) {
+      continue;
+    }
+
+    await jobState.addRelationship(
+      createDirectRelationship({
+        _class: RelationshipClass.HAS,
+        fromType: API_SERVICE_ENTITY_TYPE,
+        fromKey: serviceApiEntityKey,
+        toType: IAM_ROLE_ENTITY_TYPE,
+        toKey: iamRoleEntity._key,
+      }),
+    );
+  }
+}
 
 export async function fetchIamCustomRoles(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, instance } = context;
+  const { jobState, instance, logger } = context;
   const client = new IamClient({ config: instance.config });
+  const serviceApiEntityKeySeenMap: Map<string, boolean> = new Map();
+  let numCustomRoles = 0;
 
   await client.iterateCustomRoles(async (role) => {
-    await jobState.addEntity(
+    const iamRoleEntity = await jobState.addEntity(
       createIamRoleEntity(role, {
         custom: true,
       }),
     );
+
+    await createApiServiceEntityHasIamRoleRelationships({
+      logger,
+      projectId: client.projectId,
+      jobState,
+      role,
+      iamRoleEntity,
+      serviceApiEntityKeySeenMap,
+    });
+
+    numCustomRoles++;
   });
+
+  logger.info({ numCustomRoles }, 'Created custom role entities');
 }
 
 /**
@@ -106,8 +202,16 @@ export const iamSteps: IntegrationStep<IntegrationConfig>[] = [
         _class: IAM_ROLE_ENTITY_CLASS,
       },
     ],
-    relationships: [],
+    relationships: [
+      {
+        _class: RelationshipClass.HAS,
+        _type: API_SERVICE_HAS_IAM_ROLE_RELATIONSHIP_TYPE,
+        sourceType: API_SERVICE_ENTITY_TYPE,
+        targetType: IAM_ROLE_ENTITY_TYPE,
+      },
+    ],
     executionHandler: fetchIamCustomRoles,
+    dependsOn: [STEP_API_SERVICES],
   },
   {
     id: STEP_IAM_MANAGED_ROLES,

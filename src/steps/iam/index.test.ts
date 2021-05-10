@@ -4,8 +4,18 @@ import {
 } from '@jupiterone/integration-sdk-testing';
 import { setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
-import { fetchIamCustomRoles, fetchIamServiceAccounts } from '.';
+import {
+  fetchIamCustomRoles,
+  fetchIamManagedRoles,
+  fetchIamServiceAccounts,
+} from '.';
 import { integrationConfig } from '../../../test/config';
+import { fetchApiServices } from '../service-usage';
+import { fetchResourceManagerProject } from '../resource-manager';
+import {
+  API_SERVICE_HAS_IAM_ROLE_RELATIONSHIP_TYPE,
+  IAM_ROLE_ENTITY_TYPE,
+} from './constants';
 
 describe('#fetchIamRoles', () => {
   let recording: Recording;
@@ -26,17 +36,32 @@ describe('#fetchIamRoles', () => {
       instanceConfig: integrationConfig,
     });
 
+    await fetchResourceManagerProject(context);
+    await fetchIamManagedRoles(context);
+    await fetchApiServices(context);
     await fetchIamCustomRoles(context);
 
+    const customRoleEntitiesCollected = context.jobState.collectedEntities.filter(
+      (e) => {
+        return e._type === IAM_ROLE_ENTITY_TYPE;
+      },
+    );
+
+    const customRoleEntityRelationships = context.jobState.collectedRelationships.filter(
+      (r) => {
+        return r._type === API_SERVICE_HAS_IAM_ROLE_RELATIONSHIP_TYPE;
+      },
+    );
+
     expect({
-      numCollectedEntities: context.jobState.collectedEntities.length,
-      numCollectedRelationships: context.jobState.collectedRelationships.length,
-      collectedEntities: context.jobState.collectedEntities,
-      collectedRelationships: context.jobState.collectedRelationships,
+      numCollectedEntities: customRoleEntitiesCollected.length,
+      numCollectedRelationships: customRoleEntityRelationships.length,
+      collectedEntities: customRoleEntitiesCollected,
+      collectedRelationships: customRoleEntityRelationships,
       encounteredTypes: context.jobState.encounteredTypes,
     }).toMatchSnapshot();
 
-    expect(context.jobState.collectedEntities).toMatchGraphObjectSchema({
+    expect(customRoleEntitiesCollected).toMatchGraphObjectSchema({
       _class: ['AccessRole'],
       schema: {
         additionalProperties: false,

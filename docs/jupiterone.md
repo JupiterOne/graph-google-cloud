@@ -366,6 +366,7 @@ The following relationships are created/mapped:
 | `google_app_engine_application`          | **USES**              | `google_storage_bucket`              |
 | `google_app_engine_service`              | **HAS**               | `google_app_engine_version`          |
 | `google_app_engine_version`              | **HAS**               | `google_app_engine_instance`         |
+| `google_cloud_api_service`               | **HAS**               | `google_iam_role`                    |
 | `internet`                               | **ALLOWS**            | `google_compute_firewall`            |
 | `google_cloud_function`                  | **USES**              | `google_iam_service_account`         |
 | `google_cloud_project`                   | **HAS**               | `google_cloud_api_service`           |
