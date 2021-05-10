@@ -40,7 +40,7 @@ import { getServiceApiEntityKey } from '../service-usage/converters';
 
 export * from './constants';
 
-async function buildApiServiceEntityHasIamRoleRelationships({
+async function createApiServiceEntityHasIamRoleRelationships({
   logger,
   projectId,
   jobState,
@@ -121,7 +121,7 @@ export async function fetchIamCustomRoles(
       }),
     );
 
-    await buildApiServiceEntityHasIamRoleRelationships({
+    await createApiServiceEntityHasIamRoleRelationships({
       logger,
       projectId: client.projectId,
       jobState,
