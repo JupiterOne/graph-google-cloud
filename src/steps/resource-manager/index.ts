@@ -3,8 +3,6 @@ import {
   Entity,
   JobState,
   Relationship,
-  createMappedRelationship,
-  RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
 import { ResourceManagerClient, PolicyMemberBinding } from './client';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
