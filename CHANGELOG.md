@@ -8,13 +8,31 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.24.0 - 2021-05-11
+
 ### Added
+
+- Support for ingesting the following **new** resources
+
+  - Compute
+    - `google_compute_image`
+
+- Support for ingesting the following **new** relationships
+
+  - IAM
+    - `google_group` **ASSIGNED** `google_iam_role`
+  - API Service
+    - `google_cloud_api_service` **HAS** `google_iam_role`
 
 - New properties added to resources:
   - `google_cloud_api_service`
     - `hasIamPermissions`
-- `google_iam_role`
-  - `readonly`
+  - `google_iam_role`
+    - `readonly`
+
+### Changes
+
+- `google_user` is now created as a target entity through a mapped relationship
 
 ## 0.23.1 - 2021-05-03
 
