@@ -65,6 +65,30 @@ describe('#createComputeImageEntity', () => {
       }),
     ).toMatchSnapshot();
   });
+
+  test('should set deprecated to true if the image is deprecated', () => {
+    expect(
+      createComputeImageEntity({
+        data: getMockComputeImage({
+          deprecated: {
+            state: 'DEPRECATED',
+            replacement:
+              'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/example-disk-image',
+          },
+        }),
+        isPublic: false,
+      }),
+    ).toMatchSnapshot();
+  });
+
+  test('should set deprecated to false if the image is not deprecated', () => {
+    expect(
+      createComputeImageEntity({
+        data: getMockComputeImage(),
+        isPublic: false,
+      }),
+    ).toMatchSnapshot();
+  });
 });
 
 describe('#createComputeInstanceEntity', () => {

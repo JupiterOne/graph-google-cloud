@@ -249,6 +249,8 @@ describe('#fetchComputeImages', () => {
           id: { type: 'string' },
           name: { type: 'string' },
           displayName: { type: 'string' },
+          deprecationState: { type: 'string' },
+          deprecated: { type: 'boolean' },
           kind: { type: 'string' },
           description: { type: 'string' },
           status: { type: 'string' },
