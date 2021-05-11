@@ -297,7 +297,7 @@ export async function fetchComputeDisks(
   const client = new ComputeClient({ config: instance.config });
 
   await client.iterateComputeDisks(async (disk) => {
-    const diskEntity = createComputeDiskEntity(disk);
+    const diskEntity = createComputeDiskEntity(disk, client.projectId);
     await jobState.addEntity(diskEntity);
 
     // disk.sourceImage looks like this:

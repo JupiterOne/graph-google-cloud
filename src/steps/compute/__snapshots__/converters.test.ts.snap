@@ -173,6 +173,7 @@ Object {
   "sourceImageId": "6709658075886210235",
   "status": "READY",
   "type": "pd-standard",
+  "webLink": "https://console.cloud.google.com/compute/disksDetail/zones/us-central1-a/disks/testvm?project=j1-gc-integration-dev-v2",
   "zone": "us-central1-a",
 }
 `;
@@ -248,6 +249,7 @@ Object {
   "sourceImageId": "6709658075886210235",
   "status": "FAILED",
   "type": "pd-standard",
+  "webLink": "https://console.cloud.google.com/compute/disksDetail/zones/us-central1-a/disks/testvm?project=j1-gc-integration-dev-v2",
   "zone": "us-central1-a",
 }
 `;

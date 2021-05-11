@@ -46,12 +46,17 @@ import { INTERNET } from '@jupiterone/data-model';
 
 describe('#createComputeDiskEntity', () => {
   test('should convert to entity', () => {
-    expect(createComputeDiskEntity(getMockComputeDisk())).toMatchSnapshot();
+    expect(
+      createComputeDiskEntity(getMockComputeDisk(), 'j1-gc-integration-dev-v2'),
+    ).toMatchSnapshot();
   });
 
   test('should set active to false when status is not READY', () => {
     expect(
-      createComputeDiskEntity(getMockComputeDisk({ status: 'FAILED' })),
+      createComputeDiskEntity(
+        getMockComputeDisk({ status: 'FAILED' }),
+        'j1-gc-integration-dev-v2',
+      ),
     ).toMatchSnapshot();
   });
 });
@@ -158,7 +163,10 @@ describe('#createComputeProjectEntity', () => {
 
 describe('#createComputeInstanceUsesComputeDiskRelationship', () => {
   test('should convert to relationship', () => {
-    const computeDiskEntity = createComputeDiskEntity(getMockComputeDisk());
+    const computeDiskEntity = createComputeDiskEntity(
+      getMockComputeDisk(),
+      'j1-gc-integration-dev-v2',
+    );
     const computeInstance = getMockComputeInstance();
     const computeInstanceEntity = createComputeInstanceEntity(
       computeInstance,
