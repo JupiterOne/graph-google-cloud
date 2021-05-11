@@ -67,6 +67,11 @@ variable "enable_compute_vm_internet" {
   default = false
 }
 
+variable "enable_testvm_not_accesible_internet_custom_image_snapshot" {
+  type = bool
+  default = true # TODO: Switch to false
+}
+
 variable "enable_postgres_instance" {
   type = bool
   default = false

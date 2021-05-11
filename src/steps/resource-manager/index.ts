@@ -28,9 +28,14 @@ import {
   STEP_IAM_SERVICE_ACCOUNTS,
   GOOGLE_GROUP_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE,
   GOOGLE_USER_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE,
+  STEP_IAM_MANAGED_ROLES,
 } from '../iam';
 import { cloudresourcemanager_v1 } from 'googleapis';
-import { ParsedIamMember, parseIamMember } from '../../utils/iam';
+import {
+  getIamManagedRoleData,
+  ParsedIamMember,
+  parseIamMember,
+} from '../../utils/iam';
 import { createIamRoleEntity } from '../iam/converters';
 import { RelationshipClass } from '@jupiterone/data-model';
 
@@ -91,11 +96,9 @@ async function maybeFindIamUserEntityWithParsedMember({
 
 async function findOrCreateIamRoleEntity({
   jobState,
-  projectId,
   roleName,
 }: {
   jobState: JobState;
-  projectId: string;
   roleName: string;
 }) {
   const roleEntity = await jobState.findEntity(roleName);
@@ -104,11 +107,24 @@ async function findOrCreateIamRoleEntity({
     return roleEntity;
   }
 
+  let includedPermissions: string[] | null | undefined;
+  const iamManagedRoleData = await getIamManagedRoleData(jobState);
+
+  // TODO: Optimize this by changing the data stored in the jobState to a Map
+  // instead of an array
+  for (const iamManangedRole of iamManagedRoleData) {
+    if (iamManangedRole.name === roleName) {
+      includedPermissions = iamManangedRole.includedPermissions;
+      break;
+    }
+  }
+
   return jobState.addEntity(
     createIamRoleEntity(
       {
         name: roleName,
         title: roleName,
+        includedPermissions,
       },
       {
         custom: false,
@@ -143,7 +159,6 @@ async function buildIamUserRoleRelationship({
     // in the Google Cloud integration (e.g. a GCP service account)
     const iamRoleEntity = await findOrCreateIamRoleEntity({
       jobState,
-      projectId,
       roleName,
     });
 
@@ -158,7 +173,6 @@ async function buildIamUserRoleRelationship({
     // that the Google Workspace integration technically owns.
     const iamRoleEntity = await findOrCreateIamRoleEntity({
       jobState,
-      projectId,
       roleName,
     });
 
@@ -172,7 +186,6 @@ async function buildIamUserRoleRelationship({
   } else if (iamUserEntityWithParsedMember.parsedMember.type === 'user') {
     const iamRoleEntity = await findOrCreateIamRoleEntity({
       jobState,
-      projectId,
       roleName,
     });
 
@@ -303,7 +316,11 @@ export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
         targetType: IAM_ROLE_ENTITY_TYPE,
       },
     ],
-    dependsOn: [STEP_IAM_CUSTOM_ROLES, STEP_IAM_SERVICE_ACCOUNTS],
+    dependsOn: [
+      STEP_IAM_CUSTOM_ROLES,
+      STEP_IAM_SERVICE_ACCOUNTS,
+      STEP_IAM_MANAGED_ROLES,
+    ],
     executionHandler: fetchResourceManagerIamPolicy,
   },
 ];

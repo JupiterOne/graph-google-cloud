@@ -19,6 +19,8 @@ and this project adheres to
   IAM permissions to service APIs, which will generate additional
   `google_cloud_api_service` **HAS** `google_iam_role` relationships
 
+- Add permissions property to managed `google_iam_role` entities
+
 ## 0.24.0 - 2021-05-11
 
 ### Added

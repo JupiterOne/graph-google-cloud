@@ -25,7 +25,8 @@ resource "google_project_iam_custom_role" "ga_custom_role_conditions" {
   title       = "GA custom role conditions"
   description = "My description"
   permissions = [
-    "cloudfunctions.functions.list"
+    "cloudfunctions.functions.list",
+    "cloudfunctions.functions.create"
   ]
 }
 

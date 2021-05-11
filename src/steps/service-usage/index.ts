@@ -18,7 +18,6 @@ import { STEP_IAM_MANAGED_ROLES } from '../iam/constants';
 import {
   buildPermissionsByApiServiceMap,
   getIamManagedRoleData,
-  IAM_MANAGED_ROLES_DATA_JOB_STATE_KEY,
 } from '../../utils/iam';
 import { serviceusage_v1 } from 'googleapis';
 
@@ -79,12 +78,6 @@ export async function fetchApiServices(
       }),
     );
   });
-
-  // We don't need to hold all of this data in memory for the entire integration
-  // execution. If we decide that we need to share this across more steps in the
-  // future, we can consider holding the data for longer or until the integration
-  // finishes .
-  await jobState.setData(IAM_MANAGED_ROLES_DATA_JOB_STATE_KEY, undefined);
 }
 
 export const serviceUsageSteps: IntegrationStep<IntegrationConfig>[] = [

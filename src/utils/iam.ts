@@ -204,7 +204,13 @@ export function buildPermissionsByApiServiceMap(roles: iam_v1.Schema$Role[]) {
       }
 
       // apigateway.apiconfigs.update -> apigateway
-      const service = permission.split('.')[0];
+      let service = permission.split('.')[0];
+      const actualShortService = SHORT_SERVICE_TO_SERVICE_API_MAP.get(service);
+
+      if (actualShortService) {
+        service = actualShortService;
+      }
+
       const permissionsByService = permissionsByServiceMap.get(service);
 
       if (!permissionsByService) {
