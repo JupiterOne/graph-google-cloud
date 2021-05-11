@@ -341,8 +341,12 @@ function isShieldedVM(
     : false;
 }
 
-export function createComputeInstanceEntity(data: compute_v1.Schema$Instance) {
+export function createComputeInstanceEntity(
+  data: compute_v1.Schema$Instance,
+  projectId: string,
+) {
   const ipAddresses = getIpAddressesForComputeInstance(data);
+  const zone = getLastUrlPart(data.zone!);
 
   return createGoogleCloudIntegrationEntity(data, {
     entityData: {
@@ -370,7 +374,7 @@ export function createComputeInstanceEntity(data: compute_v1.Schema$Instance) {
           data.metadata?.items
             ?.find((item) => item.key === 'enable-oslogin')
             ?.value?.toUpperCase() === 'TRUE',
-        zone: data.zone && getLastUrlPart(data.zone),
+        zone,
         canIpForward: data.canIpForward,
         cpuPlatform: data.cpuPlatform,
         ...getDefaultServiceAccountUsage(
@@ -391,6 +395,9 @@ export function createComputeInstanceEntity(data: compute_v1.Schema$Instance) {
         publicIpAddress: ipAddresses.publicIpAddresses,
         privateIpAddress: ipAddresses.privateIpAddresses,
         hostname: data.hostname,
+        webLink: getGoogleCloudConsoleWebLink(
+          `/compute/instancesDetail/zones/${zone}/instances/${data.name}?project=${projectId}`,
+        ),
       },
     },
   });

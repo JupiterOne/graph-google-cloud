@@ -94,7 +94,10 @@ describe('#createComputeImageEntity', () => {
 describe('#createComputeInstanceEntity', () => {
   test('should convert to entity', () => {
     expect(
-      createComputeInstanceEntity(getMockComputeInstance()),
+      createComputeInstanceEntity(
+        getMockComputeInstance(),
+        'j1-integration-dev-v2',
+      ),
     ).toMatchSnapshot();
   });
 
@@ -102,6 +105,7 @@ describe('#createComputeInstanceEntity', () => {
     expect(
       createComputeInstanceEntity(
         getMockComputeInstance({ status: 'SUSPENDED' }),
+        'j1-integration-dev-v2',
       ),
     ).toMatchSnapshot();
   });
@@ -120,6 +124,7 @@ describe('#createComputeInstanceEntity', () => {
             kind: 'compute#metadata',
           },
         }),
+        'j1-integration-dev-v2',
       ),
     ).toMatchSnapshot();
   });
@@ -155,7 +160,10 @@ describe('#createComputeInstanceUsesComputeDiskRelationship', () => {
   test('should convert to relationship', () => {
     const computeDiskEntity = createComputeDiskEntity(getMockComputeDisk());
     const computeInstance = getMockComputeInstance();
-    const computeInstanceEntity = createComputeInstanceEntity(computeInstance);
+    const computeInstanceEntity = createComputeInstanceEntity(
+      computeInstance,
+      'j1-integration-dev-v2',
+    );
 
     expect(
       createComputeInstanceUsesComputeDiskRelationship({
