@@ -21,6 +21,7 @@ import {
 } from './constants';
 import { fetchStorageBuckets } from '../storage';
 import { fetchResourceManagerIamPolicy } from '../resource-manager';
+import { fetchIamManagedRoles } from '../iam';
 
 describe('#fetchAppEngineApplication', () => {
   let recording: Recording;
@@ -211,6 +212,7 @@ describe('#fetchAppEngineVersions', () => {
       instanceConfig: integrationConfig,
     });
 
+    await fetchIamManagedRoles(context);
     await fetchResourceManagerIamPolicy(context);
     await fetchAppEngineApplication(context);
     await fetchAppEngineServices(context);
