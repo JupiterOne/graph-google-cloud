@@ -193,31 +193,3 @@ Object {
   "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/abc123?orgonly=true&project=j1-gc-integration-dev-v2&supportedpurview=organizationId",
 }
 `;
-
-exports[`#createIamUserEntity should convert custom role to entity 1`] = `
-Object {
-  "_class": Array [
-    "User",
-  ],
-  "_key": "test.user@example.com",
-  "_rawData": Array [
-    Object {
-      "name": "default",
-      "rawData": Object {
-        "deleted": false,
-        "identifier": "test.user@example.com",
-        "type": "user",
-        "uniqueid": undefined,
-      },
-    },
-  ],
-  "_type": "google_user",
-  "createdOn": undefined,
-  "deleted": false,
-  "displayName": "test.user@example.com",
-  "name": "test.user@example.com",
-  "type": "user",
-  "uniqueid": undefined,
-  "username": "test.user@example.com",
-}
-`;

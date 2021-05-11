@@ -728,12 +728,56 @@ Object {
       "displayName": "HAS",
     },
     Object {
+      "_class": "CREATED",
+      "_key": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022|created|REVERSE:_type=google_user:email=viragsf@gmail.com",
+      "_mapping": Object {
+        "relationshipDirection": "REVERSE",
+        "skipTargetCreation": false,
+        "sourceEntityKey": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022",
+        "targetEntity": Object {
+          "_type": "google_user",
+          "email": "viragsf@gmail.com",
+          "username": "viragsf@gmail.com",
+        },
+        "targetFilterKeys": Array [
+          Array [
+            "_type",
+            "email",
+          ],
+        ],
+      },
+      "_type": "mapping_source_created_google_user",
+      "displayName": "CREATED",
+    },
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "apps/j1-gc-integration-dev-v2/services/default",
       "_key": "apps/j1-gc-integration-dev-v2/services/default|has|apps/j1-gc-integration-dev-v2/services/default/versions/20210319t163820",
       "_toEntityKey": "apps/j1-gc-integration-dev-v2/services/default/versions/20210319t163820",
       "_type": "google_app_engine_service_has_version",
       "displayName": "HAS",
+    },
+    Object {
+      "_class": "CREATED",
+      "_key": "apps/j1-gc-integration-dev-v2/services/default/versions/20210319t163820|created|REVERSE:_type=google_user:email=viragsf@gmail.com",
+      "_mapping": Object {
+        "relationshipDirection": "REVERSE",
+        "skipTargetCreation": false,
+        "sourceEntityKey": "apps/j1-gc-integration-dev-v2/services/default/versions/20210319t163820",
+        "targetEntity": Object {
+          "_type": "google_user",
+          "email": "viragsf@gmail.com",
+          "username": "viragsf@gmail.com",
+        },
+        "targetFilterKeys": Array [
+          Array [
+            "_type",
+            "email",
+          ],
+        ],
+      },
+      "_type": "mapping_source_created_google_user",
+      "displayName": "CREATED",
     },
     Object {
       "_class": "HAS",
@@ -750,11 +794,12 @@ Object {
     "google_app_engine_application_has_service",
     "google_app_engine_version",
     "google_app_engine_service_has_version",
+    "mapping_source_created_google_user",
     "google_app_engine_instance",
     "google_app_engine_version_has_instance",
   ],
   "numCollectedEntities": 5,
-  "numCollectedRelationships": 4,
+  "numCollectedRelationships": 6,
 }
 `;
 
@@ -854,31 +899,6 @@ Object {
   "collectedEntities": Array [
     Object {
       "_class": Array [
-        "User",
-      ],
-      "_key": "austin.kelleher@jupiterone.com",
-      "_rawData": Array [
-        Object {
-          "name": "default",
-          "rawData": Object {
-            "deleted": false,
-            "identifier": "austin.kelleher@jupiterone.com",
-            "type": "user",
-            "uniqueid": undefined,
-          },
-        },
-      ],
-      "_type": "google_user",
-      "createdOn": undefined,
-      "deleted": false,
-      "displayName": "austin.kelleher@jupiterone.com",
-      "name": "austin.kelleher@jupiterone.com",
-      "type": "user",
-      "uniqueid": undefined,
-      "username": "austin.kelleher@jupiterone.com",
-    },
-    Object {
-      "_class": Array [
         "AccessRole",
       ],
       "_key": "roles/owner",
@@ -902,31 +922,6 @@ Object {
       "permissions": undefined,
       "readonly": true,
       "stage": undefined,
-    },
-    Object {
-      "_class": Array [
-        "User",
-      ],
-      "_key": "viragsf@gmail.com",
-      "_rawData": Array [
-        Object {
-          "name": "default",
-          "rawData": Object {
-            "deleted": false,
-            "identifier": "viragsf@gmail.com",
-            "type": "user",
-            "uniqueid": undefined,
-          },
-        },
-      ],
-      "_type": "google_user",
-      "createdOn": undefined,
-      "deleted": false,
-      "displayName": "viragsf@gmail.com",
-      "name": "viragsf@gmail.com",
-      "type": "user",
-      "uniqueid": undefined,
-      "username": "viragsf@gmail.com",
     },
     Object {
       "_class": Array [
@@ -1139,18 +1134,48 @@ Object {
   "collectedRelationships": Array [
     Object {
       "_class": "ASSIGNED",
-      "_fromEntityKey": "austin.kelleher@jupiterone.com",
       "_key": "austin.kelleher@jupiterone.com|assigned|roles/owner",
-      "_toEntityKey": "roles/owner",
+      "_mapping": Object {
+        "relationshipDirection": "REVERSE",
+        "skipTargetCreation": false,
+        "sourceEntityKey": "roles/owner",
+        "targetEntity": Object {
+          "_type": "google_user",
+          "deleted": false,
+          "email": "austin.kelleher@jupiterone.com",
+          "username": "austin.kelleher@jupiterone.com",
+        },
+        "targetFilterKeys": Array [
+          Array [
+            "_type",
+            "email",
+          ],
+        ],
+      },
       "_type": "google_user_assigned_iam_role",
       "displayName": "ASSIGNED",
       "projectId": "j1-gc-integration-dev-v2",
     },
     Object {
       "_class": "ASSIGNED",
-      "_fromEntityKey": "viragsf@gmail.com",
       "_key": "viragsf@gmail.com|assigned|roles/owner",
-      "_toEntityKey": "roles/owner",
+      "_mapping": Object {
+        "relationshipDirection": "REVERSE",
+        "skipTargetCreation": false,
+        "sourceEntityKey": "roles/owner",
+        "targetEntity": Object {
+          "_type": "google_user",
+          "deleted": false,
+          "email": "viragsf@gmail.com",
+          "username": "viragsf@gmail.com",
+        },
+        "targetFilterKeys": Array [
+          Array [
+            "_type",
+            "email",
+          ],
+        ],
+      },
       "_type": "google_user_assigned_iam_role",
       "displayName": "ASSIGNED",
       "projectId": "j1-gc-integration-dev-v2",
@@ -1173,10 +1198,24 @@ Object {
     },
     Object {
       "_class": "CREATED",
-      "_fromEntityKey": "viragsf@gmail.com",
-      "_key": "viragsf@gmail.com|created|apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022",
-      "_toEntityKey": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022",
-      "_type": "google_user_created_app_engine_version",
+      "_key": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022|created|REVERSE:_type=google_user:email=viragsf@gmail.com",
+      "_mapping": Object {
+        "relationshipDirection": "REVERSE",
+        "skipTargetCreation": false,
+        "sourceEntityKey": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022",
+        "targetEntity": Object {
+          "_type": "google_user",
+          "email": "viragsf@gmail.com",
+          "username": "viragsf@gmail.com",
+        },
+        "targetFilterKeys": Array [
+          Array [
+            "_type",
+            "email",
+          ],
+        ],
+      },
+      "_type": "mapping_source_created_google_user",
       "displayName": "CREATED",
     },
     Object {
@@ -1189,15 +1228,28 @@ Object {
     },
     Object {
       "_class": "CREATED",
-      "_fromEntityKey": "viragsf@gmail.com",
-      "_key": "viragsf@gmail.com|created|apps/j1-gc-integration-dev-v2/services/default/versions/20210319t163820",
-      "_toEntityKey": "apps/j1-gc-integration-dev-v2/services/default/versions/20210319t163820",
-      "_type": "google_user_created_app_engine_version",
+      "_key": "apps/j1-gc-integration-dev-v2/services/default/versions/20210319t163820|created|REVERSE:_type=google_user:email=viragsf@gmail.com",
+      "_mapping": Object {
+        "relationshipDirection": "REVERSE",
+        "skipTargetCreation": false,
+        "sourceEntityKey": "apps/j1-gc-integration-dev-v2/services/default/versions/20210319t163820",
+        "targetEntity": Object {
+          "_type": "google_user",
+          "email": "viragsf@gmail.com",
+          "username": "viragsf@gmail.com",
+        },
+        "targetFilterKeys": Array [
+          Array [
+            "_type",
+            "email",
+          ],
+        ],
+      },
+      "_type": "mapping_source_created_google_user",
       "displayName": "CREATED",
     },
   ],
   "encounteredTypes": Array [
-    "google_user",
     "google_iam_role",
     "google_user_assigned_iam_role",
     "google_app_engine_application",
@@ -1205,9 +1257,9 @@ Object {
     "google_app_engine_application_has_service",
     "google_app_engine_version",
     "google_app_engine_service_has_version",
-    "google_user_created_app_engine_version",
+    "mapping_source_created_google_user",
   ],
-  "numCollectedEntities": 7,
+  "numCollectedEntities": 5,
   "numCollectedRelationships": 7,
 }
 `;

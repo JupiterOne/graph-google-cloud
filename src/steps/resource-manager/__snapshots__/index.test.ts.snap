@@ -814,56 +814,6 @@ Object {
     },
     Object {
       "_class": Array [
-        "User",
-      ],
-      "_key": "austin.kelleher@jupiterone.com",
-      "_rawData": Array [
-        Object {
-          "name": "default",
-          "rawData": Object {
-            "deleted": false,
-            "identifier": "austin.kelleher@jupiterone.com",
-            "type": "user",
-            "uniqueid": undefined,
-          },
-        },
-      ],
-      "_type": "google_user",
-      "createdOn": undefined,
-      "deleted": false,
-      "displayName": "austin.kelleher@jupiterone.com",
-      "name": "austin.kelleher@jupiterone.com",
-      "type": "user",
-      "uniqueid": undefined,
-      "username": "austin.kelleher@jupiterone.com",
-    },
-    Object {
-      "_class": Array [
-        "User",
-      ],
-      "_key": "viragsf@gmail.com",
-      "_rawData": Array [
-        Object {
-          "name": "default",
-          "rawData": Object {
-            "deleted": false,
-            "identifier": "viragsf@gmail.com",
-            "type": "user",
-            "uniqueid": undefined,
-          },
-        },
-      ],
-      "_type": "google_user",
-      "createdOn": undefined,
-      "deleted": false,
-      "displayName": "viragsf@gmail.com",
-      "name": "viragsf@gmail.com",
-      "type": "user",
-      "uniqueid": undefined,
-      "username": "viragsf@gmail.com",
-    },
-    Object {
-      "_class": Array [
         "AccessRole",
       ],
       "_key": "roles/storage.admin",
@@ -1103,18 +1053,48 @@ Object {
     },
     Object {
       "_class": "ASSIGNED",
-      "_fromEntityKey": "austin.kelleher@jupiterone.com",
       "_key": "austin.kelleher@jupiterone.com|assigned|roles/owner",
-      "_toEntityKey": "roles/owner",
+      "_mapping": Object {
+        "relationshipDirection": "REVERSE",
+        "skipTargetCreation": false,
+        "sourceEntityKey": "roles/owner",
+        "targetEntity": Object {
+          "_type": "google_user",
+          "deleted": false,
+          "email": "austin.kelleher@jupiterone.com",
+          "username": "austin.kelleher@jupiterone.com",
+        },
+        "targetFilterKeys": Array [
+          Array [
+            "_type",
+            "email",
+          ],
+        ],
+      },
       "_type": "google_user_assigned_iam_role",
       "displayName": "ASSIGNED",
       "projectId": "j1-gc-integration-dev-v2",
     },
     Object {
       "_class": "ASSIGNED",
-      "_fromEntityKey": "viragsf@gmail.com",
       "_key": "viragsf@gmail.com|assigned|roles/owner",
-      "_toEntityKey": "roles/owner",
+      "_mapping": Object {
+        "relationshipDirection": "REVERSE",
+        "skipTargetCreation": false,
+        "sourceEntityKey": "roles/owner",
+        "targetEntity": Object {
+          "_type": "google_user",
+          "deleted": false,
+          "email": "viragsf@gmail.com",
+          "username": "viragsf@gmail.com",
+        },
+        "targetFilterKeys": Array [
+          Array [
+            "_type",
+            "email",
+          ],
+        ],
+      },
       "_type": "google_user_assigned_iam_role",
       "displayName": "ASSIGNED",
       "projectId": "j1-gc-integration-dev-v2",
@@ -1135,10 +1115,9 @@ Object {
     "google_iam_service_account_key",
     "google_iam_service_account_has_key",
     "google_iam_service_account_assigned_role",
-    "google_user",
     "google_user_assigned_iam_role",
   ],
-  "numCollectedEntities": 30,
+  "numCollectedEntities": 28,
   "numCollectedRelationships": 26,
 }
 `;

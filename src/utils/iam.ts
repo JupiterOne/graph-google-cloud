@@ -298,3 +298,7 @@ export function getUniqueFullServiceApiNamesFromRole(
 
   return Array.from(serviceApiNameSet);
 }
+
+export function isServiceAccountEmail(email: string): boolean {
+  return email.endsWith('.gserviceaccount.com');
+}

@@ -396,6 +396,7 @@ The following relationships are created/mapped:
 | `google_compute_url_map`                 | **HAS**               | `google_compute_target_https_proxy`  |
 | `google_container_cluster`               | **HAS**               | `google_container_node_pool`         |
 | `google_container_node_pool`             | **HAS**               | `google_compute_instance_group`      |
+| `google_group`                           | **ASSIGNED**          | `google_iam_role`                    |
 | `google_iam_service_account`             | **ASSIGNED**          | `google_iam_role`                    |
 | `google_iam_service_account`             | **CREATED**           | `google_app_engine_version`          |
 | `google_iam_service_account`             | **HAS**               | `google_iam_service_account_key`     |

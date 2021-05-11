@@ -3,7 +3,6 @@ import {
   createIamServiceAccountEntity,
   createIamServiceAccountKeyEntity,
   createIamServiceAccountHasKeyRelationship,
-  createIamUserEntity,
 } from './converters';
 import {
   getMockIamRole,
@@ -76,19 +75,6 @@ describe('#createIamServiceAccountHasKeyRelationship', () => {
       createIamServiceAccountHasKeyRelationship({
         serviceAccountEntity,
         serviceAccountKeyEntity,
-      }),
-    ).toMatchSnapshot();
-  });
-});
-
-describe('#createIamUserEntity', () => {
-  test('should convert custom role to entity', () => {
-    expect(
-      createIamUserEntity({
-        type: 'user',
-        identifier: 'test.user@example.com',
-        uniqueid: undefined,
-        deleted: false,
       }),
     ).toMatchSnapshot();
   });

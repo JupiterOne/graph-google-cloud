@@ -6,9 +6,16 @@ import {
   RelationshipClass,
   convertProperties,
   parseTimePropertyValue,
+  RelationshipDirection,
+  createMappedRelationship,
+  generateRelationshipType,
+  generateRelationshipKey,
+  IntegrationError,
 } from '@jupiterone/integration-sdk-core';
 import { PROJECT_ENTITY_TYPE, PROJECT_ENTITY_CLASS } from './constants';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
+import { IamUserEntityWithParsedMember } from '.';
+import { IAM_ROLE_ENTITY_TYPE } from '../iam';
 
 function getConditionRelationshipProperties(
   condition: cloudresourcemanager_v1.Schema$Expr,
@@ -21,7 +28,7 @@ function getConditionRelationshipProperties(
   };
 }
 
-export function createIamUserAssignedIamRoleRelationship(params: {
+export function createIamServiceAccountAssignedIamRoleRelationship(params: {
   iamUserEntity: Entity;
   iamRoleEntity: Entity;
   projectId: string;
@@ -35,6 +42,61 @@ export function createIamUserAssignedIamRoleRelationship(params: {
       projectId: params.projectId,
       ...(params.condition &&
         getConditionRelationshipProperties(params.condition)),
+    },
+  });
+}
+
+export function createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship({
+  targetEntityType,
+  iamRoleEntityKey,
+  iamUserEntityWithParsedMember,
+  projectId,
+  condition,
+}: {
+  targetEntityType: 'google_group' | 'google_user';
+  iamRoleEntityKey: string;
+  iamUserEntityWithParsedMember: IamUserEntityWithParsedMember;
+  projectId: string;
+  condition?: cloudresourcemanager_v1.Schema$Expr;
+}): Relationship {
+  const email = iamUserEntityWithParsedMember.parsedMember.identifier;
+
+  if (!email) {
+    // NOTE: This should never happen, but placing here for safety.
+    throw new IntegrationError({
+      message:
+        'createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship requires a parsed member identifier.',
+      code: 'UNPROCESSABLE_GOOGLE_WORKSPACE_MAPPED_RELATIONSHIP',
+    });
+  }
+
+  return createMappedRelationship({
+    _class: RelationshipClass.ASSIGNED,
+    _mapping: {
+      relationshipDirection: RelationshipDirection.REVERSE,
+      sourceEntityKey: iamRoleEntityKey,
+      targetFilterKeys: [['_type', 'email']],
+      skipTargetCreation: false,
+      targetEntity: {
+        _type: targetEntityType,
+        email,
+        username: iamUserEntityWithParsedMember.parsedMember.identifier,
+        deleted: iamUserEntityWithParsedMember.parsedMember.deleted,
+      },
+    },
+    properties: {
+      _type: generateRelationshipType(
+        RelationshipClass.ASSIGNED,
+        targetEntityType,
+        IAM_ROLE_ENTITY_TYPE,
+      ),
+      _key: generateRelationshipKey(
+        RelationshipClass.ASSIGNED,
+        email,
+        iamRoleEntityKey,
+      ),
+      projectId: projectId,
+      ...(condition && getConditionRelationshipProperties(condition)),
     },
   });
 }

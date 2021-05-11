@@ -1,5 +1,5 @@
 import {
-  createIamUserAssignedIamRoleRelationship,
+  createIamServiceAccountAssignedIamRoleRelationship,
   createProjectEntity,
 } from './converters';
 import {
@@ -10,12 +10,11 @@ import {
 import {
   createIamRoleEntity,
   createIamServiceAccountEntity,
-  createIamUserEntity,
 } from '../iam/converters';
 import { Entity } from '@jupiterone/integration-sdk-core';
 import { DEFAULT_INTEGRATION_CONFIG_PROJECT_ID } from '../../../test/config';
 
-describe('#createIamUserAssignedIamRoleRelationship', () => {
+describe('#createIamServiceAccountAssignedIamRoleRelationship', () => {
   test('should convert to relationship using service account', () => {
     const serviceAccountEntity = createIamServiceAccountEntity(
       getMockServiceAccount({
@@ -28,29 +27,8 @@ describe('#createIamUserAssignedIamRoleRelationship', () => {
     });
 
     expect(
-      createIamUserAssignedIamRoleRelationship({
+      createIamServiceAccountAssignedIamRoleRelationship({
         iamUserEntity: serviceAccountEntity,
-        iamRoleEntity: roleEntity,
-        projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
-      }),
-    ).toMatchSnapshot();
-  });
-
-  test('should convert to relationship using user', () => {
-    const userEntity = createIamUserEntity({
-      type: 'user',
-      identifier: 'test.user@example.com',
-      uniqueid: undefined,
-      deleted: false,
-    });
-
-    const roleEntity = createIamRoleEntity(getMockIamRole(), {
-      custom: true,
-    });
-
-    expect(
-      createIamUserAssignedIamRoleRelationship({
-        iamUserEntity: userEntity,
         iamRoleEntity: roleEntity,
         projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
       }),
@@ -69,7 +47,7 @@ describe('#createIamUserAssignedIamRoleRelationship', () => {
     });
 
     expect(
-      createIamUserAssignedIamRoleRelationship({
+      createIamServiceAccountAssignedIamRoleRelationship({
         iamUserEntity: serviceAccountEntity,
         iamRoleEntity: roleEntity,
         projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,

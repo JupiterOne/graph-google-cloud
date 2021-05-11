@@ -13,10 +13,8 @@ import {
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
   IAM_SERVICE_ACCOUNT_KEY_ENTITY_CLASS,
   IAM_SERVICE_ACCOUNT_KEY_ENTITY_TYPE,
-  IAM_USER_ENTITY_CLASS,
-  IAM_USER_ENTITY_TYPE,
 } from './constants';
-import { isReadOnlyRole, ParsedIamMemberType } from '../../utils/iam';
+import { isReadOnlyRole } from '../../utils/iam';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 
 export function createIamRoleEntity(
@@ -63,30 +61,6 @@ function getServiceAccountWebLink({
   serviceAccountId: string;
 }) {
   return `https://console.cloud.google.com/iam-admin/serviceaccounts/details/${serviceAccountId}?orgonly=true&project=${projectId}&supportedpurview=organizationId`;
-}
-
-export function createIamUserEntity(data: {
-  type: ParsedIamMemberType;
-  identifier: string;
-  uniqueid: string | undefined;
-  deleted: boolean;
-}) {
-  return createGoogleCloudIntegrationEntity(data, {
-    entityData: {
-      source: data,
-      assign: {
-        _class: IAM_USER_ENTITY_CLASS,
-        _type: IAM_USER_ENTITY_TYPE,
-        _key: data.identifier,
-        displayName: data.identifier,
-        name: data.identifier,
-        username: data.identifier,
-        type: data.type,
-        deleted: data.deleted,
-        uniqueid: data.uniqueid,
-      },
-    },
-  });
 }
 
 export function createIamServiceAccountEntity(

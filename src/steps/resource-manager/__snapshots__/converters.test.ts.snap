@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`#createIamUserAssignedIamRoleRelationship should convert to relationship using service account 1`] = `
+exports[`#createIamServiceAccountAssignedIamRoleRelationship should convert to relationship using service account 1`] = `
 Object {
   "_class": "ASSIGNED",
   "_fromEntityKey": "j1-gc-integration-dev-v2-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
@@ -12,19 +12,7 @@ Object {
 }
 `;
 
-exports[`#createIamUserAssignedIamRoleRelationship should convert to relationship using user 1`] = `
-Object {
-  "_class": "ASSIGNED",
-  "_fromEntityKey": "test.user@example.com",
-  "_key": "test.user@example.com|assigned|projects/j1-gc-integration-dev-v2/roles/myrole",
-  "_toEntityKey": "projects/j1-gc-integration-dev-v2/roles/myrole",
-  "_type": "google_user_assigned_iam_role",
-  "displayName": "ASSIGNED",
-  "projectId": "j1-gc-integration-dev-v2",
-}
-`;
-
-exports[`#createIamUserAssignedIamRoleRelationship should convert to relationship with conditions in role 1`] = `
+exports[`#createIamServiceAccountAssignedIamRoleRelationship should convert to relationship with conditions in role 1`] = `
 Object {
   "_class": "ASSIGNED",
   "_fromEntityKey": "j1-gc-integration-dev-v2-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com",

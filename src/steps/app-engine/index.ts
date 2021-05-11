@@ -1,8 +1,10 @@
 import {
   createDirectRelationship,
+  createMappedRelationship,
   Entity,
   IntegrationStep,
   RelationshipClass,
+  RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
 import { appengine_v1 } from 'googleapis';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
@@ -25,7 +27,7 @@ import {
   RELATIONSHIP_TYPE_APP_ENGINE_SERVICE_HAS_VERSION,
   RELATIONSHIP_TYPE_APP_ENGINE_VERSION_HAS_INSTANCE,
   RELATIONSHIP_TYPE_APP_ENGINE_APPLICATION_USES_BUCKET,
-  RELATIONSHIP_TYPE_USER_CREATED_VERSION,
+  RELATIONSHIP_TYPE_GOOGLE_USER_CREATED_VERSION,
   RELATIONSHIP_TYPE_SERVICE_ACCOUNT_CREATED_VERSION,
 } from './constants';
 import {
@@ -42,9 +44,10 @@ import {
 import { STEP_RESOURCE_MANAGER_IAM_POLICY } from '../resource-manager';
 import {
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
-  IAM_USER_ENTITY_TYPE,
+  GOOGLE_USER_ENTITY_TYPE,
   STEP_IAM_SERVICE_ACCOUNTS,
-} from '../iam';
+} from '../iam/constants';
+import { isServiceAccountEmail } from '../../utils/iam';
 
 export async function fetchAppEngineApplication(
   context: IntegrationStepContext,
@@ -190,17 +193,39 @@ export async function fetchAppEngineServiceVersions(
             );
 
             if (version.createdBy) {
-              // This can either be google_user or google_iam_service_account (both use email as their _key, so it depends on who created this)
-              const creatorEntity = await jobState.findEntity(
-                version.createdBy,
-              );
+              // This can either be google_user or google_iam_service_account.
+              // If it's a service account, the GCP integration owns this entity.
+              // If it's a google_user, the Google Workspace integration "owns"
+              // this entity and we should create a mapped relationship instead.
+              if (isServiceAccountEmail(version.createdBy)) {
+                const creatorEntity = await jobState.findEntity(
+                  version.createdBy,
+                );
 
-              if (creatorEntity) {
+                if (creatorEntity) {
+                  await jobState.addRelationship(
+                    createDirectRelationship({
+                      _class: RelationshipClass.CREATED,
+                      from: creatorEntity,
+                      to: versionEntity,
+                    }),
+                  );
+                }
+              } else {
                 await jobState.addRelationship(
-                  createDirectRelationship({
+                  createMappedRelationship({
                     _class: RelationshipClass.CREATED,
-                    from: creatorEntity,
-                    to: versionEntity,
+                    _mapping: {
+                      relationshipDirection: RelationshipDirection.REVERSE,
+                      sourceEntityKey: versionEntity._key,
+                      targetFilterKeys: [['_type', 'email']],
+                      skipTargetCreation: false,
+                      targetEntity: {
+                        _type: GOOGLE_USER_ENTITY_TYPE,
+                        email: version.createdBy,
+                        username: version.createdBy,
+                      },
+                    },
                   }),
                 );
               }
@@ -313,9 +338,9 @@ export const appEngineSteps: IntegrationStep<IntegrationConfig>[] = [
         targetType: ENTITY_TYPE_APP_ENGINE_VERSION,
       },
       {
+        _type: RELATIONSHIP_TYPE_GOOGLE_USER_CREATED_VERSION,
         _class: RelationshipClass.CREATED,
-        _type: RELATIONSHIP_TYPE_USER_CREATED_VERSION,
-        sourceType: IAM_USER_ENTITY_TYPE,
+        sourceType: GOOGLE_USER_ENTITY_TYPE,
         targetType: ENTITY_TYPE_APP_ENGINE_VERSION,
       },
       {

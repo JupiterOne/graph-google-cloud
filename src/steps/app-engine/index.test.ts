@@ -17,7 +17,7 @@ import {
   RELATIONSHIP_TYPE_APP_ENGINE_APPLICATION_USES_BUCKET,
   RELATIONSHIP_TYPE_APP_ENGINE_SERVICE_HAS_VERSION,
   RELATIONSHIP_TYPE_APP_ENGINE_VERSION_HAS_INSTANCE,
-  RELATIONSHIP_TYPE_USER_CREATED_VERSION,
+  RELATIONSHIP_TYPE_GOOGLE_USER_CREATED_VERSION,
 } from './constants';
 import { fetchStorageBuckets } from '../storage';
 import { fetchResourceManagerIamPolicy } from '../resource-manager';
@@ -307,13 +307,14 @@ describe('#fetchAppEngineVersions', () => {
 
     expect(
       context.jobState.collectedRelationships.filter(
-        (e) => e._type === RELATIONSHIP_TYPE_USER_CREATED_VERSION,
+        (e) => e._type === RELATIONSHIP_TYPE_GOOGLE_USER_CREATED_VERSION,
       ),
     ).toMatchDirectRelationshipSchema({
       schema: {
+        additionalProperties: true,
         properties: {
           _class: { const: 'CREATED' },
-          _type: { const: 'google_user_created_app_engine_version' },
+          _type: { const: 'mapping_source_created_google_user' },
         },
       },
     });

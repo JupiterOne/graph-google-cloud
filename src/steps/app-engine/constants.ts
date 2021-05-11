@@ -28,8 +28,8 @@ export const RELATIONSHIP_TYPE_APP_ENGINE_VERSION_HAS_INSTANCE =
 export const RELATIONSHIP_TYPE_APP_ENGINE_APPLICATION_USES_BUCKET =
   'google_app_engine_application_uses_storage_bucket';
 
-export const RELATIONSHIP_TYPE_USER_CREATED_VERSION =
-  'google_user_created_app_engine_version';
+export const RELATIONSHIP_TYPE_GOOGLE_USER_CREATED_VERSION =
+  'mapping_source_created_google_user';
 
 export const RELATIONSHIP_TYPE_SERVICE_ACCOUNT_CREATED_VERSION =
   'google_iam_service_account_created_app_engine_version';
