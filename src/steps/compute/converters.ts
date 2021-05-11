@@ -95,6 +95,10 @@ export function createComputeImageEntity({
         id: data.id as string,
         name: data.name,
         displayName: data.name as string,
+        deprecationState: data.deprecated?.state,
+        deprecated:
+          (data.deprecated?.state && data.deprecated?.state !== 'ACTIVE') ||
+          false,
         kind: data.kind,
         description: data.description,
         status: data.status,
