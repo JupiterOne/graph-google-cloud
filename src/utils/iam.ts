@@ -265,6 +265,48 @@ export function isReadOnlyRole(role: iam_v1.Schema$Role): boolean {
  */
 const SHORT_SERVICE_TO_SERVICE_API_MAP: Map<string, string> = new Map([
   ['resourcemanager', 'cloudresourcemanager'],
+  ['billing', 'cloudbilling'],
+  ['automlrecommendations', 'retail'],
+  ['cloudnotifications', 'compute'],
+  // ['axt', ''],
+  ['cloudsql', 'sqladmin'],
+  // ['commerceoffercatalog', 'retail'], // ? - This one is beta
+  // ['consumerprocurement', 'cloudcommerceprocurement'], // ? - This one doesn't get returned by the service list API
+  // ['dataprocessing', '...'], // No 1:1 mapping
+  // ['chroniclesm', '...'], // No 1:1 mapping
+  ['cloudconfig', 'firebase'],
+  ['clientauthconfig', 'firebase'], // ? - This one may map to multiple services
+  ['cloudiottoken', 'cloudiot'],
+  ['cloudjobdiscovery', 'jobs'],
+  ['cloudmigration', 'compute'],
+  ['cloudprivatecatalogproducer', 'cloudprivatecatalog'],
+  ['cloudsecurityscanner', 'websecurityscanner'],
+  // ["cloudsupport.googleapis.com", '...'] // ? - Beta
+  ['cloudtestservice', 'firebase'],
+  ['cloudtoolresults', 'firebase'],
+  ['cloudtranslate', 'translate'],
+  // ["commerceprice.googleapis.com", "..."] // ? - Beta
+  // ["cloudonefs.googleapis.com", "..."] // ? - No 1:1 mapping
+  ['earlyaccesscenter', 'cloudresourcemanager'],
+  // ["earthengine", ""] // ? - No 1:1 mapping
+  ['cloudmessaging', 'fcm'],
+  ['cloudmessaging', 'fcm'],
+  // ["cloudvolumesgcp-api.googleapis.com", "cloudvolumesgcp-api.netapp.com"] // Can't use the custom domain yet
+  ['errorreporting', 'clouderrorreporting'],
+  ['firebaseabt', 'firebase'],
+  ['firebaseanalytics', 'firebase'],
+  ['firebaseappdistro', 'firebaseappdistribution'],
+  ['firebaseauth', 'firebase'],
+  ['firebasecrash', 'firebase'],
+  ['firebasecrashlytics', 'firebase'],
+  ['firebasenotifications', 'firebase'],
+  ['firebaseperformance', 'firebase'],
+  // ["gcp", "gcp.redisenterprise.com"], // Can't use custom domain yet
+  ['gkemulticloud', 'anthos'],
+  // ["oauthconfig", "..."], // ? - No 1:1 mapping
+  // ["proximitybeacon.googleapis.com", "..."] // ? - Beta
+  // ["servicebroker", "..."], // ? - No 1:1 mapping
+  ['translationhub', 'translate'],
 ]);
 
 /**
