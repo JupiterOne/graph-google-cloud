@@ -395,7 +395,7 @@ export async function fetchComputeInstances(
 
   await client.iterateComputeInstances(async (computeInstance, projectId) => {
     const computeInstanceEntity = await jobState.addEntity(
-      createComputeInstanceEntity(computeInstance),
+      createComputeInstanceEntity(computeInstance, client.projectId),
     );
 
     await iterateComputeInstanceServiceAccounts({

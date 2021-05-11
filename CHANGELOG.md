@@ -10,6 +10,11 @@ and this project adheres to
 
 ### Added
 
+- New properties added to resources:
+
+  - `google_compute_instance`
+    - `webLink`
+
 - [#140](https://github.com/JupiterOne/graph-google-cloud/issues/140) - Map more
   IAM permissions to service APIs, which will generate additional
   `google_cloud_api_service` **HAS** `google_iam_role` relationships
