@@ -9,7 +9,8 @@ import {
 import { ResourceManagerClient, PolicyMemberBinding } from './client';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
 import {
-  createIamUserAssignedIamRoleRelationship,
+  createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship,
+  createIamServiceAccountAssignedIamRoleRelationship,
   createProjectEntity,
 } from './converters';
 import {
@@ -136,6 +137,9 @@ async function buildIamUserRoleRelationship({
     },
   );
 
+  const bindingCondition: cloudresourcemanager_v1.Schema$Expr | undefined =
+    data.binding.condition;
+
   if (iamUserEntityWithParsedMember.userEntity) {
     // Create a direct relationship. This is a user entity that _only_ exists
     // in the Google Cloud integration (e.g. a GCP service account)
@@ -145,11 +149,11 @@ async function buildIamUserRoleRelationship({
       roleName,
     });
 
-    return createIamUserAssignedIamRoleRelationship({
+    return createIamServiceAccountAssignedIamRoleRelationship({
       iamUserEntity: iamUserEntityWithParsedMember.userEntity,
       iamRoleEntity,
       projectId,
-      condition: data.binding.condition as cloudresourcemanager_v1.Schema$Expr,
+      condition: bindingCondition,
     });
   } else if (iamUserEntityWithParsedMember.parsedMember.type === 'group') {
     // Create a mapped relationship where the target entity is a google_user
@@ -160,20 +164,12 @@ async function buildIamUserRoleRelationship({
       roleName,
     });
 
-    return createMappedRelationship({
-      _class: RelationshipClass.ASSIGNED,
-      _mapping: {
-        relationshipDirection: RelationshipDirection.REVERSE,
-        sourceEntityKey: iamRoleEntity._key,
-        targetFilterKeys: [['_type', 'email']],
-        skipTargetCreation: false,
-        targetEntity: {
-          _type: 'google_group',
-          email: iamUserEntityWithParsedMember.parsedMember.identifier,
-          username: iamUserEntityWithParsedMember.parsedMember.identifier,
-          deleted: iamUserEntityWithParsedMember.parsedMember.deleted,
-        },
-      },
+    return createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship({
+      targetEntityType: GOOGLE_GROUP_ENTITY_TYPE,
+      iamRoleEntityKey: iamRoleEntity._key,
+      iamUserEntityWithParsedMember,
+      projectId,
+      condition: bindingCondition,
     });
   } else if (iamUserEntityWithParsedMember.parsedMember.type === 'user') {
     const iamRoleEntity = await findOrCreateIamRoleEntity({
@@ -182,20 +178,12 @@ async function buildIamUserRoleRelationship({
       roleName,
     });
 
-    return createMappedRelationship({
-      _class: RelationshipClass.ASSIGNED,
-      _mapping: {
-        relationshipDirection: RelationshipDirection.REVERSE,
-        sourceEntityKey: iamRoleEntity._key,
-        targetFilterKeys: [['_type', 'email']],
-        skipTargetCreation: false,
-        targetEntity: {
-          _type: 'google_user',
-          email: iamUserEntityWithParsedMember.parsedMember.identifier,
-          username: iamUserEntityWithParsedMember.parsedMember.identifier,
-          deleted: iamUserEntityWithParsedMember.parsedMember.deleted,
-        },
-      },
+    return createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship({
+      targetEntityType: GOOGLE_USER_ENTITY_TYPE,
+      iamRoleEntityKey: iamRoleEntity._key,
+      iamUserEntityWithParsedMember,
+      projectId,
+      condition: bindingCondition,
     });
   }
 }

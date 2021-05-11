@@ -1,5 +1,5 @@
 import {
-  createIamUserAssignedIamRoleRelationship,
+  createIamServiceAccountAssignedIamRoleRelationship,
   createProjectEntity,
 } from './converters';
 import {
@@ -14,7 +14,7 @@ import {
 import { Entity } from '@jupiterone/integration-sdk-core';
 import { DEFAULT_INTEGRATION_CONFIG_PROJECT_ID } from '../../../test/config';
 
-describe('#createIamUserAssignedIamRoleRelationship', () => {
+describe('#createIamServiceAccountAssignedIamRoleRelationship', () => {
   test('should convert to relationship using service account', () => {
     const serviceAccountEntity = createIamServiceAccountEntity(
       getMockServiceAccount({
@@ -27,7 +27,7 @@ describe('#createIamUserAssignedIamRoleRelationship', () => {
     });
 
     expect(
-      createIamUserAssignedIamRoleRelationship({
+      createIamServiceAccountAssignedIamRoleRelationship({
         iamUserEntity: serviceAccountEntity,
         iamRoleEntity: roleEntity,
         projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
@@ -47,7 +47,7 @@ describe('#createIamUserAssignedIamRoleRelationship', () => {
     });
 
     expect(
-      createIamUserAssignedIamRoleRelationship({
+      createIamServiceAccountAssignedIamRoleRelationship({
         iamUserEntity: serviceAccountEntity,
         iamRoleEntity: roleEntity,
         projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,

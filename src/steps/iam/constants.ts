@@ -18,6 +18,6 @@ export const API_SERVICE_HAS_IAM_ROLE_RELATIONSHIP_TYPE =
   'google_cloud_api_service_has_iam_role';
 
 export const GOOGLE_GROUP_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE =
-  'mapping_source_assigned_google_group';
+  'google_group_assigned_iam_role';
 export const GOOGLE_USER_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE =
-  'mapping_source_assigned_google_user';
+  'google_user_assigned_iam_role';

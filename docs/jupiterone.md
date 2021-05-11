@@ -396,6 +396,7 @@ The following relationships are created/mapped:
 | `google_compute_url_map`                 | **HAS**               | `google_compute_target_https_proxy`  |
 | `google_container_cluster`               | **HAS**               | `google_container_node_pool`         |
 | `google_container_node_pool`             | **HAS**               | `google_compute_instance_group`      |
+| `google_group`                           | **ASSIGNED**          | `google_iam_role`                    |
 | `google_iam_service_account`             | **ASSIGNED**          | `google_iam_role`                    |
 | `google_iam_service_account`             | **CREATED**           | `google_app_engine_version`          |
 | `google_iam_service_account`             | **HAS**               | `google_iam_service_account_key`     |
@@ -412,7 +413,6 @@ The following relationships are created/mapped:
 | `google_spanner_database`                | **USES**              | `google_kms_crypto_key`              |
 | `google_spanner_instance`                | **HAS**               | `google_spanner_database`            |
 | `google_spanner_instance`                | **USES**              | `google_spanner_instance_config`     |
-| `google_group`                           | **ASSIGNED**          | `google_iam_role`                    |
 | `google_user`                            | **ASSIGNED**          | `google_iam_role`                    |
 | `google_user`                            | **CREATED**           | `google_app_engine_version`          |
 

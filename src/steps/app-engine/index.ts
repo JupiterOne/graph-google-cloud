@@ -46,7 +46,7 @@ import {
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
   GOOGLE_USER_ENTITY_TYPE,
   STEP_IAM_SERVICE_ACCOUNTS,
-} from '../iam';
+} from '../iam/constants';
 import { isServiceAccountEmail } from '../../utils/iam';
 
 export async function fetchAppEngineApplication(
@@ -221,7 +221,7 @@ export async function fetchAppEngineServiceVersions(
                       targetFilterKeys: [['_type', 'email']],
                       skipTargetCreation: false,
                       targetEntity: {
-                        _type: 'google_user',
+                        _type: GOOGLE_USER_ENTITY_TYPE,
                         email: version.createdBy,
                         username: version.createdBy,
                       },

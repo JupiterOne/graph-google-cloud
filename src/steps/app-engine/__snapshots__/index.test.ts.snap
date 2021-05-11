@@ -1134,7 +1134,7 @@ Object {
   "collectedRelationships": Array [
     Object {
       "_class": "ASSIGNED",
-      "_key": "roles/owner|assigned|REVERSE:_type=google_user:email=austin.kelleher@jupiterone.com",
+      "_key": "austin.kelleher@jupiterone.com|assigned|roles/owner",
       "_mapping": Object {
         "relationshipDirection": "REVERSE",
         "skipTargetCreation": false,
@@ -1152,12 +1152,13 @@ Object {
           ],
         ],
       },
-      "_type": "mapping_source_assigned_google_user",
+      "_type": "google_user_assigned_iam_role",
       "displayName": "ASSIGNED",
+      "projectId": "j1-gc-integration-dev-v2",
     },
     Object {
       "_class": "ASSIGNED",
-      "_key": "roles/owner|assigned|REVERSE:_type=google_user:email=viragsf@gmail.com",
+      "_key": "viragsf@gmail.com|assigned|roles/owner",
       "_mapping": Object {
         "relationshipDirection": "REVERSE",
         "skipTargetCreation": false,
@@ -1175,8 +1176,9 @@ Object {
           ],
         ],
       },
-      "_type": "mapping_source_assigned_google_user",
+      "_type": "google_user_assigned_iam_role",
       "displayName": "ASSIGNED",
+      "projectId": "j1-gc-integration-dev-v2",
     },
     Object {
       "_class": "HAS",
@@ -1249,7 +1251,7 @@ Object {
   ],
   "encounteredTypes": Array [
     "google_iam_role",
-    "mapping_source_assigned_google_user",
+    "google_user_assigned_iam_role",
     "google_app_engine_application",
     "google_app_engine_service",
     "google_app_engine_application_has_service",
