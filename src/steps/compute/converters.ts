@@ -129,7 +129,12 @@ export function createComputeImageEntity({
   });
 }
 
-export function createComputeDiskEntity(data: compute_v1.Schema$Disk) {
+export function createComputeDiskEntity(
+  data: compute_v1.Schema$Disk,
+  projectId: string,
+) {
+  const zone = getLastUrlPart(data.zone!);
+
   return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: {
@@ -145,7 +150,7 @@ export function createComputeDiskEntity(data: compute_v1.Schema$Disk) {
         description: data.description,
         name: data.name,
         createdOn: getTime(data.creationTimestamp),
-        zone: data.zone && getLastUrlPart(data.zone),
+        zone,
         sizeGB: data.sizeGb,
         // Reference: https://cloud.google.com/compute/docs/reference/rest/v1/disks/get#response-body
         //
@@ -178,6 +183,9 @@ export function createComputeDiskEntity(data: compute_v1.Schema$Disk) {
         // If `classification` is not included in tags, we do not know how to
         // classify it.
         classification: null,
+        webLink: getGoogleCloudConsoleWebLink(
+          `/compute/disksDetail/zones/${zone}/disks/${data.name}?project=${projectId}`,
+        ),
       },
     },
   });

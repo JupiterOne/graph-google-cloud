@@ -710,6 +710,7 @@ Object {
       "sourceImageId": "6989580994168613341",
       "status": "READY",
       "type": "pd-balanced",
+      "webLink": "https://console.cloud.google.com/compute/disksDetail/zones/us-central1-a/disks/instance-custom-image?project=j1-gc-integration-dev-v2",
       "zone": "us-central1-a",
     },
     Object {
@@ -791,6 +792,7 @@ Object {
       "sourceImageId": "2326745892390492555",
       "status": "READY",
       "type": "pd-standard",
+      "webLink": "https://console.cloud.google.com/compute/disksDetail/zones/us-central1-a/disks/load-balancer-instance?project=j1-gc-integration-dev-v2",
       "zone": "us-central1-a",
     },
     Object {
@@ -891,6 +893,7 @@ Object {
       "sourceImageId": "2765958563870319444",
       "status": "READY",
       "type": "pd-standard",
+      "webLink": "https://console.cloud.google.com/compute/disksDetail/zones/us-central1-c/disks/gke-cluster-1-default-pool-0885ae44-t2p4?project=j1-gc-integration-dev-v2",
       "zone": "us-central1-c",
     },
   ],
@@ -6447,6 +6450,7 @@ Object {
       "sourceImageId": "6989580994168613341",
       "status": "READY",
       "type": "pd-balanced",
+      "webLink": "https://console.cloud.google.com/compute/disksDetail/zones/us-central1-a/disks/instance-custom-image?project=j1-gc-integration-dev-v2",
       "zone": "us-central1-a",
     },
     Object {
@@ -6528,6 +6532,7 @@ Object {
       "sourceImageId": "2326745892390492555",
       "status": "READY",
       "type": "pd-standard",
+      "webLink": "https://console.cloud.google.com/compute/disksDetail/zones/us-central1-a/disks/load-balancer-instance?project=j1-gc-integration-dev-v2",
       "zone": "us-central1-a",
     },
     Object {

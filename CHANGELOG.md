@@ -14,6 +14,8 @@ and this project adheres to
 
   - `google_compute_instance`
     - `webLink`
+  - `google_compute_disk`
+    - `webLink`
 
 - [#140](https://github.com/JupiterOne/graph-google-cloud/issues/140) - Map more
   IAM permissions to service APIs, which will generate additional
