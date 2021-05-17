@@ -293,57 +293,85 @@ export async function fetchComputeProject(
 export async function fetchComputeDisks(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, instance } = context;
+  const { jobState, instance, logger } = context;
   const client = new ComputeClient({ config: instance.config });
 
   await client.iterateComputeDisks(async (disk) => {
     const diskEntity = createComputeDiskEntity(disk, client.projectId);
     await jobState.addEntity(diskEntity);
 
-    // disk.sourceImage looks like this:
-    // https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/my-custom-image
-    // https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/ubuntu-1804-bionic-v20210211
-    // ProjectId part can be good separator between public and custom images and is necessary for images.get API call
+    if (disk.sourceImage) {
+      // disk.sourceImage looks like this:
+      // https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/my-custom-image
+      // https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/ubuntu-1804-bionic-v20210211
+      // ProjectId part can be good separator between public and custom images and is necessary for images.get API call
+      const sourceImageProjectId = disk.sourceImage?.split('/')[6];
+      const sourceImageName = disk.sourceImage?.split('/')[9];
 
-    const sourceImageProjectId = disk.sourceImage?.split('/')[6];
-    const sourceImageName = disk.sourceImage?.split('/')[9];
-    if (sourceImageProjectId === client.projectId) {
-      // Custom image
-      const imageEntity = await jobState.findEntity(disk.sourceImage as string);
-      if (imageEntity) {
-        await jobState.addRelationship(
-          createDirectRelationship({
-            _class: RelationshipClass.USES,
-            from: diskEntity,
-            to: imageEntity,
-          }),
+      if (sourceImageProjectId === client.projectId) {
+        // Custom image case
+        const imageEntity = await jobState.findEntity(
+          disk.sourceImage as string,
         );
-      }
-    } else {
-      // Public image
-      const image = await client.fetchComputeImage(
-        sourceImageName as string,
-        sourceImageProjectId as string,
-      );
-      // iamPolicy can't be fetched for public images/nor can it be changed (expected)
-      const imageEntity = createComputeImageEntity({
-        data: image,
-        isPublic: true,
-      });
-      delete imageEntity._rawData;
+        if (imageEntity) {
+          await jobState.addRelationship(
+            createDirectRelationship({
+              _class: RelationshipClass.USES,
+              from: diskEntity,
+              to: imageEntity,
+            }),
+          );
+        }
+      } else {
+        // Public image case
+        let image: compute_v1.Schema$Image;
 
-      await jobState.addRelationship(
-        createMappedRelationship({
-          _class: RelationshipClass.USES,
-          _type: RELATIONSHIP_TYPE_DISK_USES_IMAGE,
-          _mapping: {
-            relationshipDirection: RelationshipDirection.FORWARD,
-            sourceEntityKey: diskEntity._key,
-            targetFilterKeys: [['_type', '_key']],
-            targetEntity: imageEntity,
-          },
-        }),
-      );
+        try {
+          image = await client.fetchComputeImage(
+            sourceImageName as string,
+            sourceImageProjectId as string,
+          );
+        } catch (err) {
+          if (err.code === 403) {
+            logger.trace(
+              { err },
+              'Could not fetch compute image. Requires additional permission',
+            );
+
+            publishMissingPermissionEvent({
+              logger,
+              permission: 'compute.images.get',
+              stepId: STEP_COMPUTE_DISKS,
+            });
+
+            return;
+          }
+
+          throw err;
+        }
+
+        if (image) {
+          // iamPolicy can't be fetched for public images/nor can it be changed (expected)
+          const imageEntity = createComputeImageEntity({
+            data: image,
+            isPublic: true,
+          });
+          delete imageEntity._rawData;
+
+          await jobState.addRelationship(
+            createMappedRelationship({
+              _class: RelationshipClass.USES,
+              _type: RELATIONSHIP_TYPE_DISK_USES_IMAGE,
+              _mapping: {
+                relationshipDirection: RelationshipDirection.FORWARD,
+                sourceEntityKey: diskEntity._key,
+                targetFilterKeys: [['_type', '_key']],
+                targetEntity: imageEntity,
+              },
+            }),
+          );
+        }
+      }
     }
   });
 }
