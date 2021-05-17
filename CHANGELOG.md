@@ -8,6 +8,16 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.25.1 - 2021-05-17
+
+### Fixed
+
+- [#152](https://github.com/JupiterOne/graph-google-cloud/issues/152) - Publish
+  job log message when `compute.images.get` permission is missing
+
+- [#153](https://github.com/JupiterOne/graph-google-cloud/issues/153) - Handle
+  disks that do not have an image assigned (blank disks)
+
 ## 0.25.0 - 2021-05-12
 
 ### Added
