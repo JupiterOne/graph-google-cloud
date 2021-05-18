@@ -330,7 +330,8 @@ function isSerialPortEnabled(
   Alternative to doing this is to simply expose:
   "shieldedInstanceConfig": {
     "enableVtpm": true,
-    "enableIntegrityMonitoring": true
+    "enableIntegrityMonitoring": true,
+    "enableSecureBoot": true
   },
   As entity's properties.
 
@@ -344,7 +345,8 @@ function isShieldedVM(
   }
 
   return shieldedInstanceConfig.enableVtpm &&
-    shieldedInstanceConfig.enableIntegrityMonitoring
+    shieldedInstanceConfig.enableIntegrityMonitoring &&
+    shieldedInstanceConfig.enableSecureBoot
     ? true
     : false;
 }
@@ -394,7 +396,15 @@ export function createComputeInstanceEntity(
           data.metadata,
         ),
         isSerialPortEnabled: isSerialPortEnabled(data.metadata),
+
+        // Properties to determine whether a VM is shielded or not
         isShieldedVM: isShieldedVM(data.shieldedInstanceConfig),
+        integrityMonitoringEnabled:
+          data.shieldedInstanceConfig?.enableIntegrityMonitoring === true,
+        secureBootEnabled:
+          data.shieldedInstanceConfig?.enableSecureBoot === true,
+        vtpmEnabled: data.shieldedInstanceConfig?.enableVtpm === true,
+
         labelFingerprint: data.labelFingerprint,
         startRestricted: data.startRestricted,
         deletionProtection: data.deletionProtection,

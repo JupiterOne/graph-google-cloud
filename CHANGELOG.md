@@ -8,6 +8,20 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- New properties added to resources:
+
+  - `google_compute_instance`
+    - `integrityMonitoringEnabled`
+    - `secureBootEnabled`
+    - `vtpmEnabled`
+
+### Fixed
+
+- Improved logic that determines whether a `google_compute_instance` is a
+  shielded VM or not by considering whether vTPM is enabled
+
 ## 0.25.1 - 2021-05-17
 
 ### Fixed
