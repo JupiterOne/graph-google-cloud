@@ -20,6 +20,18 @@ export interface MetadataComputedPropertyData {
   duplicateProperties: string[];
 }
 
+export function getCloudRunServiceKey(uid: string) {
+  return `cloudrun_service:${uid}`;
+}
+
+export function getCloudRunRouteKey(uid: string) {
+  return `cloudrun_route:${uid}`;
+}
+
+export function getCloudRunConfigurationKey(uid: string) {
+  return `cloudrun_configuration:${uid}`;
+}
+
 export function createCloudRunServiceEntity(
   data: run_v1.Schema$Service,
   projectId: string,
@@ -42,7 +54,7 @@ export function createCloudRunServiceEntity(
       assign: {
         _class: ENTITY_CLASS_CLOUD_RUN_SERVICE,
         _type: ENTITY_TYPE_CLOUD_RUN_SERVICE,
-        _key: data.metadata?.selfLink as string,
+        _key: getCloudRunServiceKey(data.metadata?.uid as string),
         name: data.metadata?.name,
         displayName: data.metadata?.name as string,
         category: ['infrastructure'],
@@ -60,7 +72,7 @@ export function createCloudRunRouteEntity(data: run_v1.Schema$Route) {
       assign: {
         _class: ENTITY_CLASS_CLOUD_RUN_ROUTE,
         _type: ENTITY_TYPE_CLOUD_RUN_ROUTE,
-        _key: data.metadata?.selfLink as string,
+        _key: getCloudRunRouteKey(data.metadata?.uid as string),
         name: data.metadata?.name,
         displayName: data.metadata?.name as string,
         url: data.status?.url,
@@ -158,7 +170,7 @@ export function createCloudRunConfigurationEntity(
       assign: {
         _class: ENTITY_CLASS_CLOUD_RUN_CONFIGURATION,
         _type: ENTITY_TYPE_CLOUD_RUN_CONFIGURATION,
-        _key: data.metadata?.selfLink as string,
+        _key: getCloudRunConfigurationKey(data.metadata?.uid as string),
         name: data.metadata?.name,
         displayName: data.metadata?.name as string,
         apiVersion: data.apiVersion,

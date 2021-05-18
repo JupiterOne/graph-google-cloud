@@ -22,6 +22,7 @@ import {
   createCloudRunConfigurationEntity,
   createCloudRunRouteEntity,
   createCloudRunServiceEntity,
+  getCloudRunServiceKey,
   MetadataComputedPropertyData,
 } from './converters';
 
@@ -63,7 +64,7 @@ export async function fetchCloudRunRoutes(
     );
     if (ownerService) {
       const serviceEntity = await jobState.findEntity(
-        `/apis/serving.knative.dev/v1/namespaces/${route.metadata?.namespace}/services/${ownerService.name}`,
+        getCloudRunServiceKey(ownerService.uid as string),
       );
       if (serviceEntity) {
         await jobState.addRelationship(
@@ -115,7 +116,7 @@ export async function fetchCloudRunConfigurations(
     );
     if (ownerService) {
       const serviceEntity = await jobState.findEntity(
-        `/apis/serving.knative.dev/v1/namespaces/${configuration.metadata?.namespace}/services/${ownerService.name}`,
+        getCloudRunServiceKey(ownerService.uid as string),
       );
       if (serviceEntity) {
         await jobState.addRelationship(

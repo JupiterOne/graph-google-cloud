@@ -5,7 +5,7 @@ Object {
   "_class": Array [
     "Configuration",
   ],
-  "_key": "/apis/serving.knative.dev/v1/namespaces/711888229551/configurations/example-cloud-run-service",
+  "_key": "cloudrun_configuration:f190d809-4de1-4eb3-80bb-ad0ac9954f85",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -112,7 +112,7 @@ Object {
   "_class": Array [
     "Configuration",
   ],
-  "_key": "/apis/serving.knative.dev/v1/namespaces/711888229551/routes/example-cloud-run-service",
+  "_key": "cloudrun_route:f538487c-6e93-4038-9f6a-b7936cc4dd04",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -197,7 +197,7 @@ Object {
   "_class": Array [
     "Service",
   ],
-  "_key": "/apis/serving.knative.dev/v1/namespaces/711888229551/services/example-cloud-run-service",
+  "_key": "cloudrun_service:fce2d165-9ccb-4b6c-9204-67362d41aadd",
   "_rawData": Array [
     Object {
       "name": "default",
