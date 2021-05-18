@@ -106,6 +106,38 @@ describe('#createComputeInstanceEntity', () => {
     ).toMatchSnapshot();
   });
 
+  test('should set connectedNetworksCount to 2 when there are 2 network interfaces', () => {
+    expect(
+      createComputeInstanceEntity(
+        getMockComputeInstance({
+          networkInterfaces: [
+            {
+              network:
+                'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default',
+              subnetwork:
+                'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default',
+              networkIP: '10.128.0.2',
+              name: 'nic0',
+              fingerprint: 'RpvQNHzHRp8=',
+              kind: 'compute#networkInterface',
+            },
+            {
+              network:
+                'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default2',
+              subnetwork:
+                'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default2',
+              networkIP: '10.128.0.22',
+              name: 'nic1',
+              fingerprint: 'RpvQNHzHRp8=',
+              kind: 'compute#networkInterface',
+            },
+          ],
+        }),
+        'j1-integration-dev-v2',
+      ),
+    ).toMatchSnapshot();
+  });
+
   test('should set active to false when status is not RUNNING', () => {
     expect(
       createComputeInstanceEntity(

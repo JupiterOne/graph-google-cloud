@@ -629,6 +629,7 @@ Object {
   "active": true,
   "blockProjectSSHKeys": undefined,
   "canIpForward": false,
+  "connectedNetworksCount": 1,
   "cpuPlatform": "Intel Haswell",
   "createdOn": 1597245605921,
   "deletionProtection": false,
@@ -684,6 +685,7 @@ Object {
   "active": false,
   "blockProjectSSHKeys": undefined,
   "canIpForward": false,
+  "connectedNetworksCount": 1,
   "cpuPlatform": "Intel Haswell",
   "createdOn": 1597245605921,
   "deletionProtection": false,
@@ -714,6 +716,60 @@ Object {
 }
 `;
 
+exports[`#createComputeInstanceEntity should set connectedNetworksCount to 2 when there are 2 network interfaces 1`] = `
+Object {
+  "_class": Array [
+    "Host",
+  ],
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/testvm",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "tags": Array [
+          Object {
+            "testvmtag1": true,
+          },
+          Object {
+            "testvmtag2": true,
+          },
+        ],
+      },
+    },
+  ],
+  "_type": "google_compute_instance",
+  "active": true,
+  "blockProjectSSHKeys": undefined,
+  "canIpForward": false,
+  "connectedNetworksCount": 2,
+  "cpuPlatform": "Intel Haswell",
+  "createdOn": 1597245605921,
+  "deletionProtection": false,
+  "displayName": "testvm",
+  "fingerprint": "4gmEF7tlfn8=",
+  "hostname": undefined,
+  "id": "2248191918776890954",
+  "isOSLoginEnabled": false,
+  "isSerialPortEnabled": undefined,
+  "isShieldedVM": undefined,
+  "kind": "compute#instance",
+  "labelFingerprint": "42WmSpB8rSM=",
+  "machineType": "n1-standard-1",
+  "name": "testvm",
+  "privateIpAddress": Array [
+    "10.128.0.2",
+    "10.128.0.22",
+  ],
+  "publicIpAddress": Array [],
+  "startRestricted": false,
+  "status": "RUNNING",
+  "usesDefaultServiceAccount": false,
+  "usesFullAccessDefaultServiceAccount": false,
+  "webLink": "https://console.cloud.google.com/compute/instancesDetail/zones/us-central1-a/instances/testvm?project=j1-integration-dev-v2",
+  "zone": "us-central1-a",
+}
+`;
+
 exports[`#createComputeInstanceEntity should set isOSLoginEnabled to true when enabled-oslogin metadata value is "TRUE" 1`] = `
 Object {
   "_class": Array [
@@ -739,6 +795,7 @@ Object {
   "active": true,
   "blockProjectSSHKeys": undefined,
   "canIpForward": false,
+  "connectedNetworksCount": 1,
   "cpuPlatform": "Intel Haswell",
   "createdOn": 1597245605921,
   "deletionProtection": false,

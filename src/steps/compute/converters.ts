@@ -395,6 +395,7 @@ export function createComputeInstanceEntity(
           data.name as string,
           data.metadata,
         ),
+        connectedNetworksCount: data.networkInterfaces?.length,
         isSerialPortEnabled: isSerialPortEnabled(data.metadata),
 
         // Properties to determine whether a VM is shielded or not
