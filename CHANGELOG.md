@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.26.0 - 2021-05-19
+
 ### Added
 
 - New properties added to resources:
@@ -16,11 +18,22 @@ and this project adheres to
     - `integrityMonitoringEnabled`
     - `secureBootEnabled`
     - `vtpmEnabled`
+    - `connectedNetworksCount`
+
+### Changed
+
+- Upgrade all packages
 
 ### Fixed
 
 - Improved logic that determines whether a `google_compute_instance` is a
   shielded VM or not by considering whether vTPM is enabled
+
+- [#151](https://github.com/JupiterOne/graph-google-cloud/issues/151) - Fix
+  duplicate `_key` on Cloud Run resources
+
+- [#158](https://github.com/JupiterOne/graph-google-cloud/issues/158) - Do not
+  fail when App Engine services cannot be fetched
 
 ## 0.25.1 - 2021-05-17
 
