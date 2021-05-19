@@ -137,6 +137,7 @@ export async function fetchAppEngineServices(
   } = context;
 
   const client = new AppEngineClient({ config });
+  const { projectId } = client;
 
   try {
     await client.iterateAppEngineServices(async (service) => {
@@ -160,11 +161,16 @@ export async function fetchAppEngineServices(
     });
   } catch (err) {
     // client.iterateAppEngineServices()'s this.iterateApi() already called withErrorHandling(), this is one way of getting the original error code
-    if (err._cause.code === 404) {
-      logger.trace(
-        { err },
-        `Could not fetch app engine services for project ${client.projectId}`,
+    if (err._cause?.code === 404) {
+      logger.info(
+        { err, projectId },
+        'Could not fetch app engine services for project',
       );
+
+      logger.publishEvent({
+        name: 'unprocessed_app_engine_services',
+        description: `Could not fetch App Engine services (reason: 404 not found for project "${projectId}". Please check permissions.)"`,
+      });
 
       return;
     }
