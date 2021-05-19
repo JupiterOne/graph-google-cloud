@@ -133,29 +133,44 @@ export async function fetchAppEngineServices(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
 
   const client = new AppEngineClient({ config });
 
-  await client.iterateAppEngineServices(async (service) => {
-    const serviceEntity = createAppEngineServiceEntity(service);
-    await jobState.addEntity(serviceEntity);
+  try {
+    await client.iterateAppEngineServices(async (service) => {
+      const serviceEntity = createAppEngineServiceEntity(service);
+      await jobState.addEntity(serviceEntity);
 
-    // There's 1:1 mapping of GCloud project to AppEngine application
-    // So we can safely map these to the only one existing app engine application
-    const applicationEntity = await jobState.getData<Entity>(
-      ENTITY_TYPE_APP_ENGINE_APPLICATION,
-    );
-    if (applicationEntity) {
-      await jobState.addRelationship(
-        createDirectRelationship({
-          _class: RelationshipClass.HAS,
-          from: applicationEntity,
-          to: serviceEntity,
-        }),
+      // There's 1:1 mapping of GCloud project to AppEngine application
+      // So we can safely map these to the only one existing app engine application
+      const applicationEntity = await jobState.getData<Entity>(
+        ENTITY_TYPE_APP_ENGINE_APPLICATION,
       );
+      if (applicationEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.HAS,
+            from: applicationEntity,
+            to: serviceEntity,
+          }),
+        );
+      }
+    });
+  } catch (err) {
+    // client.iterateAppEngineServices()'s this.iterateApi() already called withErrorHandling(), this is one way of getting the original error code
+    if (err._cause.code === 404) {
+      logger.trace(
+        { err },
+        `Could not fetch app engine services for project ${client.projectId}`,
+      );
+
+      return;
     }
-  });
+
+    throw err;
+  }
 }
 
 export async function fetchAppEngineServiceVersions(
