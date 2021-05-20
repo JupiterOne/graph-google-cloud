@@ -43,6 +43,7 @@ export function createCloudStorageBucketEntity({
         encrypted: true,
         // If not set, we are using the default Google Encryption key
         encryptionKeyRef: data.encryption?.defaultKmsKeyName,
+        kmsKeyName: data.encryption?.defaultKmsKeyName,
         // https://cloud.google.com/storage/docs/uniform-bucket-level-access
         uniformBucketLevelAccess:
           data.iamConfiguration?.uniformBucketLevelAccess?.enabled === true,
