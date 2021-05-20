@@ -2,6 +2,7 @@ import {
   createDirectRelationship,
   createMappedRelationship,
   Entity,
+  IntegrationLogger,
   IntegrationStep,
   RelationshipClass,
   RelationshipDirection,
@@ -49,6 +50,32 @@ import {
 } from '../iam/constants';
 import { isServiceAccountEmail } from '../../utils/iam';
 
+async function withAppEngineErrorHandling<T>(
+  logger: IntegrationLogger,
+  projectId: string,
+  fn: () => Promise<T>,
+): Promise<T | undefined> {
+  try {
+    return await fn();
+  } catch (err) {
+    if (err._cause?.code === 404) {
+      logger.info(
+        { err, projectId },
+        'Could not fetch app engine data for project',
+      );
+
+      logger.publishEvent({
+        name: 'unprocessed_app_engine_data',
+        description: `Could not fetch App Engine data from step (reason: 404 not found for project "${projectId}". Please check permissions.)"`,
+      });
+
+      return;
+    }
+
+    throw err;
+  }
+}
+
 export async function fetchAppEngineApplication(
   context: IntegrationStepContext,
 ): Promise<void> {
@@ -58,14 +85,19 @@ export async function fetchAppEngineApplication(
     logger,
   } = context;
   const client = new AppEngineClient({ config });
+  const { projectId } = client;
 
-  let application: appengine_v1.Schema$Application;
+  let application: appengine_v1.Schema$Application | undefined;
 
   try {
-    application = await client.getAppEngineApplication();
+    application = await withAppEngineErrorHandling(
+      logger,
+      projectId,
+      async () => await client.getAppEngineApplication(),
+    );
   } catch (err) {
     if (err.code === 403) {
-      logger.trace(
+      logger.info(
         { err },
         'Could not fetch app engine application. Requires additional permission',
       );
@@ -139,7 +171,7 @@ export async function fetchAppEngineServices(
   const client = new AppEngineClient({ config });
   const { projectId } = client;
 
-  try {
+  await withAppEngineErrorHandling(logger, projectId, async () => {
     await client.iterateAppEngineServices(async (service) => {
       const serviceEntity = createAppEngineServiceEntity(service);
       await jobState.addEntity(serviceEntity);
@@ -159,24 +191,7 @@ export async function fetchAppEngineServices(
         );
       }
     });
-  } catch (err) {
-    // client.iterateAppEngineServices()'s this.iterateApi() already called withErrorHandling(), this is one way of getting the original error code
-    if (err._cause?.code === 404) {
-      logger.info(
-        { err, projectId },
-        'Could not fetch app engine services for project',
-      );
-
-      logger.publishEvent({
-        name: 'unprocessed_app_engine_services',
-        description: `Could not fetch App Engine services (reason: 404 not found for project "${projectId}". Please check permissions.)"`,
-      });
-
-      return;
-    }
-
-    throw err;
-  }
+  });
 }
 
 export async function fetchAppEngineServiceVersions(
@@ -185,9 +200,11 @@ export async function fetchAppEngineServiceVersions(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
 
   const client = new AppEngineClient({ config });
+  const { projectId } = client;
 
   await jobState.iterateEntities(
     {
@@ -197,62 +214,65 @@ export async function fetchAppEngineServiceVersions(
       if (serviceEntity) {
         const serviceId = (serviceEntity.name as string).split('/')[3];
 
-        await client.iterateAppEngineServiceVersions(
-          serviceId,
-          async (version) => {
-            const versionEntity = createAppEngineVersionEntity(
-              version,
-              client.projectId,
-            );
-            await jobState.addEntity(versionEntity);
-            await jobState.addRelationship(
-              createDirectRelationship({
-                _class: RelationshipClass.HAS,
-                from: serviceEntity,
-                to: versionEntity,
-              }),
-            );
+        await withAppEngineErrorHandling(logger, projectId, async () => {
+          await client.iterateAppEngineServiceVersions(
+            serviceId,
+            async (version) => {
+              const versionEntity = createAppEngineVersionEntity(
+                version,
+                client.projectId,
+              );
 
-            if (version.createdBy) {
-              // This can either be google_user or google_iam_service_account.
-              // If it's a service account, the GCP integration owns this entity.
-              // If it's a google_user, the Google Workspace integration "owns"
-              // this entity and we should create a mapped relationship instead.
-              if (isServiceAccountEmail(version.createdBy)) {
-                const creatorEntity = await jobState.findEntity(
-                  version.createdBy,
-                );
+              await jobState.addEntity(versionEntity);
+              await jobState.addRelationship(
+                createDirectRelationship({
+                  _class: RelationshipClass.HAS,
+                  from: serviceEntity,
+                  to: versionEntity,
+                }),
+              );
 
-                if (creatorEntity) {
+              if (version.createdBy) {
+                // This can either be google_user or google_iam_service_account.
+                // If it's a service account, the GCP integration owns this entity.
+                // If it's a google_user, the Google Workspace integration "owns"
+                // this entity and we should create a mapped relationship instead.
+                if (isServiceAccountEmail(version.createdBy)) {
+                  const creatorEntity = await jobState.findEntity(
+                    version.createdBy,
+                  );
+
+                  if (creatorEntity) {
+                    await jobState.addRelationship(
+                      createDirectRelationship({
+                        _class: RelationshipClass.CREATED,
+                        from: creatorEntity,
+                        to: versionEntity,
+                      }),
+                    );
+                  }
+                } else {
                   await jobState.addRelationship(
-                    createDirectRelationship({
+                    createMappedRelationship({
                       _class: RelationshipClass.CREATED,
-                      from: creatorEntity,
-                      to: versionEntity,
+                      _mapping: {
+                        relationshipDirection: RelationshipDirection.REVERSE,
+                        sourceEntityKey: versionEntity._key,
+                        targetFilterKeys: [['_type', 'email']],
+                        skipTargetCreation: false,
+                        targetEntity: {
+                          _type: GOOGLE_USER_ENTITY_TYPE,
+                          email: version.createdBy,
+                          username: version.createdBy,
+                        },
+                      },
                     }),
                   );
                 }
-              } else {
-                await jobState.addRelationship(
-                  createMappedRelationship({
-                    _class: RelationshipClass.CREATED,
-                    _mapping: {
-                      relationshipDirection: RelationshipDirection.REVERSE,
-                      sourceEntityKey: versionEntity._key,
-                      targetFilterKeys: [['_type', 'email']],
-                      skipTargetCreation: false,
-                      targetEntity: {
-                        _type: GOOGLE_USER_ENTITY_TYPE,
-                        email: version.createdBy,
-                        username: version.createdBy,
-                      },
-                    },
-                  }),
-                );
               }
-            }
-          },
-        );
+            },
+          );
+        });
       }
     },
   );
@@ -264,19 +284,25 @@ export async function fetchAppEngineVersionInstances(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
 
   const client = new AppEngineClient({ config });
+  const { projectId } = client;
 
   await jobState.iterateEntities(
     {
       _type: ENTITY_TYPE_APP_ENGINE_VERSION,
     },
     async (versionEntity) => {
-      if (versionEntity) {
-        const serviceId = (versionEntity.name as string).split('/')[3];
-        const versionId = (versionEntity.name as string).split('/')[5];
+      if (!versionEntity) {
+        return;
+      }
 
+      const serviceId = (versionEntity.name as string).split('/')[3];
+      const versionId = (versionEntity.name as string).split('/')[5];
+
+      await withAppEngineErrorHandling(logger, projectId, async () => {
         await client.iterateAppEngineVersionInstances(
           serviceId,
           versionId,
@@ -293,7 +319,7 @@ export async function fetchAppEngineVersionInstances(
             );
           },
         );
-      }
+      });
     },
   );
 }

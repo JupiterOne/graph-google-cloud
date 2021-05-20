@@ -35,6 +35,11 @@ and this project adheres to
     - `google_sql_postgres_instance` **USES** `google_kms_crypto_key`
     - `google_sql_sql_server_instance` **USES** `google_kms_crypto_key`
 
+### Fixed
+
+- [#171](https://github.com/JupiterOne/graph-google-cloud/issues/171) - Do not
+  fail when App Engine applications and versions cannot be fetched
+
 ## 0.26.0 - 2021-05-19
 
 ### Added
