@@ -86,7 +86,7 @@ function hasPublicIP(
   );
 }
 
-function getCommonBenchmarkProperties(
+function getCommonDatabaseInstanceProperties(
   instance: sqladmin_v1beta4.Schema$DatabaseInstance,
 ) {
   const authorizedNetworksInfo: sqladmin_v1beta4.Schema$AclEntry[] =
@@ -105,6 +105,7 @@ function getCommonBenchmarkProperties(
     hasPublicIP: hasPublicIP(instance),
     // 6.7 Ensure that Cloud SQL database instances are configured with automated backups (Scored)
     automatedBackupsEnabled: instance.settings?.backupConfiguration?.enabled,
+    kmsKeyName: instance.diskEncryptionConfiguration?.kmsKeyName,
   };
 }
 
@@ -122,7 +123,7 @@ export function createMySQLInstanceEntity(
         encrypted: true,
         location: instance.connectionName,
         ...getMySQLSpecificBenchmarkProperties(instance),
-        ...getCommonBenchmarkProperties(instance),
+        ...getCommonDatabaseInstanceProperties(instance),
       },
     },
   });
@@ -142,7 +143,7 @@ export function createPostgresInstanceEntity(
         encrypted: true,
         location: instance.connectionName,
         ...getPostgresSpecificBenchmarkProperties(instance),
-        ...getCommonBenchmarkProperties(instance),
+        ...getCommonDatabaseInstanceProperties(instance),
       },
     },
   });
@@ -162,7 +163,7 @@ export function createSQLServerInstanceEntity(
         encrypted: true,
         location: instance.connectionName,
         ...getSQLServerSpecificBenchmarkProperties(instance),
-        ...getCommonBenchmarkProperties(instance),
+        ...getCommonDatabaseInstanceProperties(instance),
       },
     },
   });

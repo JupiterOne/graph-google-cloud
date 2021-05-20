@@ -953,6 +953,7 @@ describe('#fetchComputeBackendBuckets', () => {
           storageClass: { type: 'string' },
           encrypted: { const: true },
           encryptionKeyRef: { type: 'string' },
+          kmsKeyName: { type: 'string' },
           uniformBucketLevelAccess: { type: 'boolean' },
           retentionPolicyEnabled: { type: 'boolean' },
           retentionPeriod: { type: 'string' },

@@ -1,5 +1,16 @@
-import { IntegrationStep } from '@jupiterone/integration-sdk-core';
+import {
+  createDirectRelationship,
+  Entity,
+  IntegrationStep,
+  RelationshipClass,
+} from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import { getKmsGraphObjectKeyFromKmsKeyName } from '../../utils/kms';
+import {
+  ENTITY_TYPE_KMS_KEY,
+  STEP_CLOUD_KMS_KEYS,
+  STEP_CLOUD_KMS_KEY_RINGS,
+} from '../kms';
 import { STEP_PROJECT } from '../resource-manager';
 import { SQLAdminClient } from './client';
 import {
@@ -11,6 +22,9 @@ import {
   SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_CLASS,
   SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
   SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_CLASS,
+  SQL_POSTGRES_INSTANCE_USES_KMS_KEY_RELATIONSHIP,
+  SQL_MYSQL_INSTANCE_USES_KMS_KEY_RELATIONSHIP,
+  SQL_SQL_INSTANCE_USES_KMS_KEY_RELATIONSHIP,
 } from './constants';
 import {
   createMySQLInstanceEntity,
@@ -33,21 +47,61 @@ export async function fetchSQLAdminInstances(
   await client.iterateCloudSQLInstances(async (instance) => {
     if (!instance?.databaseVersion) {
       logger.info(
+        {
+          selfLink: instance.selfLink,
+        },
         'Skipping cloud SQL instance resource where instance.databaseVersion is undefined',
       );
       return;
     }
 
+    let instanceEntity: Entity;
+
     if (instance.databaseVersion?.toUpperCase().includes(DATABASE_TYPE.MYSQL)) {
-      await jobState.addEntity(createMySQLInstanceEntity(instance));
+      instanceEntity = await jobState.addEntity(
+        createMySQLInstanceEntity(instance),
+      );
     } else if (
       instance.databaseVersion?.toUpperCase().includes(DATABASE_TYPE.POSTGRES)
     ) {
-      await jobState.addEntity(createPostgresInstanceEntity(instance));
+      instanceEntity = await jobState.addEntity(
+        createPostgresInstanceEntity(instance),
+      );
     } else if (
       instance.databaseVersion?.toUpperCase().includes(DATABASE_TYPE.SQL_SERVER)
     ) {
-      await jobState.addEntity(createSQLServerInstanceEntity(instance));
+      instanceEntity = await jobState.addEntity(
+        createSQLServerInstanceEntity(instance),
+      );
+    } else {
+      // NOTE: This could happen if Google Cloud introduces a new type of
+      // database under the SQL Admin offering. This log is intentially a `warn`,
+      // for greater visibility that we should support this new type.
+      logger.warn(
+        {
+          selfLink: instance.selfLink,
+        },
+        'Skipping cloud SQL instance resource where instance.databaseVersion is undefined',
+      );
+      return;
+    }
+
+    const kmsKeyName = instance.diskEncryptionConfiguration?.kmsKeyName;
+
+    if (kmsKeyName) {
+      const kmsKeyEntity = await jobState.findEntity(
+        getKmsGraphObjectKeyFromKmsKeyName(kmsKeyName),
+      );
+
+      if (kmsKeyEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.USES,
+            from: instanceEntity,
+            to: kmsKeyEntity,
+          }),
+        );
+      }
     }
   });
 }
@@ -73,8 +127,27 @@ export const sqlAdminSteps: IntegrationStep<IntegrationConfig>[] = [
         _class: SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_CLASS,
       },
     ],
-    relationships: [],
-    dependsOn: [STEP_PROJECT],
+    relationships: [
+      {
+        _class: RelationshipClass.USES,
+        _type: SQL_POSTGRES_INSTANCE_USES_KMS_KEY_RELATIONSHIP,
+        sourceType: SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
+        targetType: ENTITY_TYPE_KMS_KEY,
+      },
+      {
+        _class: RelationshipClass.USES,
+        _type: SQL_MYSQL_INSTANCE_USES_KMS_KEY_RELATIONSHIP,
+        sourceType: SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
+        targetType: ENTITY_TYPE_KMS_KEY,
+      },
+      {
+        _class: RelationshipClass.USES,
+        _type: SQL_SQL_INSTANCE_USES_KMS_KEY_RELATIONSHIP,
+        sourceType: SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
+        targetType: ENTITY_TYPE_KMS_KEY,
+      },
+    ],
+    dependsOn: [STEP_PROJECT, STEP_CLOUD_KMS_KEY_RINGS, STEP_CLOUD_KMS_KEYS],
     executionHandler: fetchSQLAdminInstances,
   },
 ];
