@@ -98,6 +98,8 @@ describe('#fetchComputeDisks', () => {
       instanceConfig: integrationConfig,
     });
 
+    await fetchKmsKeyRings(context);
+    await fetchKmsCryptoKeys(context);
     await fetchComputeImages(context);
     await fetchComputeDisks(context);
 
@@ -146,6 +148,8 @@ describe('#fetchComputeDisks', () => {
           },
           physicalBlockSizeBytes: { type: 'string' },
           isCustomerSuppliedKeysEncrypted: { type: 'boolean' },
+          kmsKeyName: { type: 'string' },
+          kmsKeyServiceAccount: { type: 'string' },
           kind: { type: 'string' },
           encrypted: true,
           classification: { const: null },
@@ -153,12 +157,24 @@ describe('#fetchComputeDisks', () => {
       },
     });
 
-    const computeDiskUsesImageRelationship = context.jobState.collectedRelationships.filter(
+    const computeDiskUsesImageRelationships = context.jobState.collectedRelationships.filter(
       (r) => r._type === 'google_compute_disk_uses_image',
     );
 
-    expect(computeDiskUsesImageRelationship).toEqual(
-      computeDiskUsesImageRelationship.map((r) =>
+    expect(computeDiskUsesImageRelationships).toEqual(
+      computeDiskUsesImageRelationships.map((r) =>
+        expect.objectContaining({
+          _class: 'USES',
+        }),
+      ),
+    );
+
+    const computeDiskUsesKmsKeyRelationships = context.jobState.collectedRelationships.filter(
+      (r) => r._type === 'google_compute_disk_uses_kms_crypto_key',
+    );
+
+    expect(computeDiskUsesKmsKeyRelationships).toEqual(
+      computeDiskUsesKmsKeyRelationships.map((r) =>
         expect.objectContaining({
           _class: 'USES',
         }),
@@ -373,6 +389,8 @@ describe('#fetchComputeInstances', () => {
           },
           physicalBlockSizeBytes: { type: 'string' },
           isCustomerSuppliedKeysEncrypted: { type: 'boolean' },
+          kmsKeyName: { type: 'string' },
+          kmsKeyServiceAccount: { type: 'string' },
           kind: { type: 'string' },
           encrypted: true,
           classification: { const: null },

@@ -10,6 +10,50 @@ resource "google_compute_disk" "example_disk" {
   physical_block_size_bytes = 4096
 }
 
+################################################################################
+# Start: Encrypted disk
+################################################################################
+resource "google_kms_key_ring" "encrypted_disk_bucket_key_ring" {
+  name = "${var.project_id}-disk-bucket-ring"
+  location = "us"
+}
+
+resource "google_kms_crypto_key" "encrypted_disk_bucket_key" {
+  name = "${var.project_id}-disk-bucket-key"
+  key_ring = google_kms_key_ring.encrypted_disk_bucket_key_ring.self_link
+  rotation_period = "86401s"
+  depends_on = [google_kms_key_ring.encrypted_disk_bucket_key_ring]
+}
+
+resource "google_kms_crypto_key_iam_binding" "service_account_encrypted_disk_role_binding" {
+  crypto_key_id = google_kms_crypto_key.encrypted_disk_bucket_key.self_link
+  role = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
+
+  members = [
+    "serviceAccount:service-${var.project_id_number}@compute-system.iam.gserviceaccount.com",
+  ]
+}
+
+resource "google_compute_disk" "example_encrypted_disk" {
+  name  = "example-encrypted-disk"
+  type  = "pd-ssd"
+  zone  = "us-central1-a"
+  image = "debian-9-stretch-v20200805"
+
+  labels = {
+    environment = "dev"
+  }
+
+  disk_encryption_key {
+    kms_key_self_link = google_kms_crypto_key.encrypted_disk_bucket_key.self_link
+  }
+
+  physical_block_size_bytes = 4096
+}
+################################################################################
+# End: Encrypted disk
+################################################################################
+
 resource "google_compute_snapshot" "example_snapshot" {
   name        = "example-snapshot"
   source_disk = google_compute_disk.example_disk.name

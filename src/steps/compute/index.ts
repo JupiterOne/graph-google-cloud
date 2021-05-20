@@ -103,6 +103,7 @@ import {
   ENTITY_TYPE_COMPUTE_IMAGE,
   ENTITY_CLASS_COMPUTE_IMAGE,
   RELATIONSHIP_TYPE_DISK_USES_IMAGE,
+  RELATIONSHIP_TYPE_COMPUTE_DISK_USES_KMS_CRYPTO_KEY,
   RELATIONSHIP_TYPE_IMAGE_USES_KMS_KEY,
 } from './constants';
 import { compute_v1 } from 'googleapis';
@@ -123,8 +124,13 @@ import {
 import { getCloudStorageBucketKey } from '../storage/converters';
 import { publishMissingPermissionEvent } from '../../utils/events';
 import { parseRegionNameFromRegionUrl } from '../../google-cloud/regions';
-import { ENTITY_TYPE_KMS_KEY, STEP_CLOUD_KMS_KEYS } from '../kms';
+import {
+  ENTITY_TYPE_KMS_KEY,
+  STEP_CLOUD_KMS_KEYS,
+  STEP_CLOUD_KMS_KEY_RINGS,
+} from '../kms';
 import { isMemberPublic } from '../../utils/iam';
+import { getKmsGraphObjectKeyFromKmsKeyName } from '../../utils/kms';
 
 export * from './constants';
 
@@ -290,6 +296,36 @@ export async function fetchComputeProject(
   }
 }
 
+async function buildComputeDiskUsesKmsKeyRelationship({
+  jobState,
+  diskEntity,
+  disk,
+}: {
+  jobState: JobState;
+  diskEntity: Entity;
+  disk: compute_v1.Schema$Disk;
+}) {
+  const kmsKeyName = disk.diskEncryptionKey?.kmsKeyName;
+
+  if (!kmsKeyName) {
+    return;
+  }
+
+  const kmsKeyEntity = await jobState.findEntity(
+    getKmsGraphObjectKeyFromKmsKeyName(kmsKeyName),
+  );
+
+  if (kmsKeyEntity) {
+    await jobState.addRelationship(
+      createDirectRelationship({
+        _class: RelationshipClass.USES,
+        from: diskEntity,
+        to: kmsKeyEntity,
+      }),
+    );
+  }
+}
+
 export async function fetchComputeDisks(
   context: IntegrationStepContext,
 ): Promise<void> {
@@ -297,8 +333,9 @@ export async function fetchComputeDisks(
   const client = new ComputeClient({ config: instance.config });
 
   await client.iterateComputeDisks(async (disk) => {
-    const diskEntity = createComputeDiskEntity(disk, client.projectId);
-    await jobState.addEntity(diskEntity);
+    const diskEntity = await jobState.addEntity(
+      createComputeDiskEntity(disk, client.projectId),
+    );
 
     if (disk.sourceImage) {
       // disk.sourceImage looks like this:
@@ -373,6 +410,12 @@ export async function fetchComputeDisks(
         }
       }
     }
+
+    await buildComputeDiskUsesKmsKeyRelationship({
+      jobState,
+      disk,
+      diskEntity,
+    });
   });
 }
 
@@ -393,15 +436,12 @@ export async function fetchComputeImages(
     await jobState.addEntity(imageEntity);
 
     if (image.imageEncryptionKey?.kmsKeyName) {
-      const versionPartIndex = image.imageEncryptionKey.kmsKeyName.indexOf(
-        '/cryptoKeyVersion',
-      );
-      const kmsNameWithoutVersion = image.imageEncryptionKey.kmsKeyName.substring(
-        0,
-        versionPartIndex,
+      const kmsNameWithoutVersion = getKmsGraphObjectKeyFromKmsKeyName(
+        image.imageEncryptionKey.kmsKeyName,
       );
 
       const cryptoKeyEntity = await jobState.findEntity(kmsNameWithoutVersion);
+
       if (cryptoKeyEntity) {
         await jobState.addRelationship(
           createDirectRelationship({
@@ -1023,9 +1063,19 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
         sourceType: ENTITY_TYPE_COMPUTE_DISK,
         targetType: ENTITY_TYPE_COMPUTE_IMAGE,
       },
+      {
+        _class: RelationshipClass.USES,
+        _type: RELATIONSHIP_TYPE_COMPUTE_DISK_USES_KMS_CRYPTO_KEY,
+        sourceType: ENTITY_TYPE_COMPUTE_DISK,
+        targetType: ENTITY_TYPE_KMS_KEY,
+      },
     ],
     executionHandler: fetchComputeDisks,
-    dependsOn: [STEP_COMPUTE_IMAGES],
+    dependsOn: [
+      STEP_CLOUD_KMS_KEYS,
+      STEP_CLOUD_KMS_KEY_RINGS,
+      STEP_COMPUTE_IMAGES,
+    ],
   },
   {
     id: STEP_COMPUTE_IMAGES,

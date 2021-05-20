@@ -177,6 +177,8 @@ export function createComputeDiskEntity(
         // 4.7 Ensure VM disks for critical VMs are encrypted with Customer-Supplied Encryption Keys (CSEK)
         isCustomerSuppliedKeysEncrypted:
           data.diskEncryptionKey?.sha256 !== undefined,
+        kmsKeyName: data.diskEncryptionKey?.kmsKeyName,
+        kmsKeyServiceAccount: data.diskEncryptionKey?.kmsKeyServiceAccount,
         kind: data.kind,
         // Compute disks are encrypted by default
         encrypted: true,

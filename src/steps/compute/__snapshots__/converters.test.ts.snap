@@ -158,6 +158,8 @@ Object {
   "id": "123456789",
   "isCustomerSuppliedKeysEncrypted": false,
   "kind": "compute#disk",
+  "kmsKeyName": undefined,
+  "kmsKeyServiceAccount": undefined,
   "labelFingerprint": "42WmSpB8rSM=",
   "lastAttachTimestamp": 1597245605930,
   "licenseCodes": Array [
@@ -234,6 +236,8 @@ Object {
   "id": "123456789",
   "isCustomerSuppliedKeysEncrypted": false,
   "kind": "compute#disk",
+  "kmsKeyName": undefined,
+  "kmsKeyServiceAccount": undefined,
   "labelFingerprint": "42WmSpB8rSM=",
   "lastAttachTimestamp": 1597245605930,
   "licenseCodes": Array [
