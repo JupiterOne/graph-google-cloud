@@ -378,6 +378,7 @@ The following relationships are created/mapped:
 | `google_compute_backend_service`         | **HAS**               | `google_compute_instance_group`      |
 | `google_compute_backend_service`         | **HAS**               | `google_compute_target_ssl_proxy`    |
 | `google_compute_disk`                    | **USES**              | `google_compute_image`               |
+| `google_compute_disk`                    | **USES**              | `google_kms_crypto_key`              |
 | `google_compute_firewall`                | **PROTECTS**          | `google_compute_network`             |
 | `google_compute_image`                   | **USES**              | `google_kms_crypto_key`              |
 | `google_compute_instance_group`          | **HAS**               | `google_compute_instance`            |

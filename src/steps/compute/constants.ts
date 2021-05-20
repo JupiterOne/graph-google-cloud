@@ -91,6 +91,8 @@ export const RELATIONSHIP_TYPE_FIREWALL_PROTECTS_NETWORK =
   'google_compute_firewall_protects_network';
 export const RELATIONSHIP_TYPE_DISK_USES_IMAGE =
   'google_compute_disk_uses_image';
+export const RELATIONSHIP_TYPE_COMPUTE_DISK_USES_KMS_CRYPTO_KEY =
+  'google_compute_disk_uses_kms_crypto_key';
 export const RELATIONSHIP_TYPE_IMAGE_USES_KMS_KEY =
   'google_compute_image_uses_kms_crypto_key';
 export const RELATIONSHIP_TYPE_NETWORK_HAS_FIREWALL =

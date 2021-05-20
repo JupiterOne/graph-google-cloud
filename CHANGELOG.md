@@ -8,6 +8,13 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- New relationships
+
+  - Compute
+    - `google_compute_disk` **USES** `google_kms_crypto_key`
+
 ## 0.26.0 - 2021-05-19
 
 ### Added
