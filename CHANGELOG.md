@@ -10,6 +10,12 @@ and this project adheres to
 
 ### Added
 
+- New properties added to resources:
+
+  - `google_compute_disk`
+    - `kmsKeyServiceAccount`
+    - `kmsKeyName`
+
 - New relationships
 
   - Compute

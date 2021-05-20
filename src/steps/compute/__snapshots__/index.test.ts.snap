@@ -1189,6 +1189,8 @@ Object {
       "id": "5025863156922044576",
       "isCustomerSuppliedKeysEncrypted": false,
       "kind": "compute#disk",
+      "kmsKeyName": undefined,
+      "kmsKeyServiceAccount": undefined,
       "labelFingerprint": "42WmSpB8rSM=",
       "lastAttachTimestamp": undefined,
       "licenseCodes": undefined,
@@ -1257,6 +1259,8 @@ Object {
       "id": "2951963474210532169",
       "isCustomerSuppliedKeysEncrypted": false,
       "kind": "compute#disk",
+      "kmsKeyName": undefined,
+      "kmsKeyServiceAccount": undefined,
       "labelFingerprint": "a6HI36FuYIQ=",
       "lastAttachTimestamp": undefined,
       "licenseCodes": Array [
@@ -1333,6 +1337,8 @@ Object {
       "id": "4576963122287924132",
       "isCustomerSuppliedKeysEncrypted": false,
       "kind": "compute#disk",
+      "kmsKeyName": "projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-disk-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-disk-bucket-key/cryptoKeyVersions/1",
+      "kmsKeyServiceAccount": undefined,
       "labelFingerprint": "a6HI36FuYIQ=",
       "lastAttachTimestamp": undefined,
       "licenseCodes": Array [
@@ -1415,6 +1421,8 @@ Object {
       "id": "5298728141546449239",
       "isCustomerSuppliedKeysEncrypted": false,
       "kind": "compute#disk",
+      "kmsKeyName": undefined,
+      "kmsKeyServiceAccount": undefined,
       "labelFingerprint": "42WmSpB8rSM=",
       "lastAttachTimestamp": 1620072378196,
       "licenseCodes": Array [
@@ -1496,6 +1504,8 @@ Object {
       "id": "7645090348976312809",
       "isCustomerSuppliedKeysEncrypted": false,
       "kind": "compute#disk",
+      "kmsKeyName": undefined,
+      "kmsKeyServiceAccount": undefined,
       "labelFingerprint": "42WmSpB8rSM=",
       "lastAttachTimestamp": 1613606665073,
       "licenseCodes": Array [
@@ -1573,6 +1583,8 @@ Object {
       "id": "6322539841150936081",
       "isCustomerSuppliedKeysEncrypted": false,
       "kind": "compute#disk",
+      "kmsKeyName": undefined,
+      "kmsKeyServiceAccount": undefined,
       "labelFingerprint": "42WmSpB8rSM=",
       "lastAttachTimestamp": 1621351167114,
       "licenseCodes": Array [
@@ -1646,6 +1658,8 @@ Object {
       "id": "2780308771148619644",
       "isCustomerSuppliedKeysEncrypted": false,
       "kind": "compute#disk",
+      "kmsKeyName": undefined,
+      "kmsKeyServiceAccount": undefined,
       "labelFingerprint": "42WmSpB8rSM=",
       "lastAttachTimestamp": 1620763027854,
       "licenseCodes": Array [
@@ -1741,6 +1755,8 @@ Object {
       "id": "3170494545553938496",
       "isCustomerSuppliedKeysEncrypted": false,
       "kind": "compute#disk",
+      "kmsKeyName": undefined,
+      "kmsKeyServiceAccount": undefined,
       "labelFingerprint": "wlu2T0lriLA=",
       "lastAttachTimestamp": 1621354160139,
       "licenseCodes": Array [
@@ -7594,6 +7610,8 @@ Object {
       "id": "5298728141546449239",
       "isCustomerSuppliedKeysEncrypted": false,
       "kind": "compute#disk",
+      "kmsKeyName": undefined,
+      "kmsKeyServiceAccount": undefined,
       "labelFingerprint": "42WmSpB8rSM=",
       "lastAttachTimestamp": 1620072378196,
       "licenseCodes": Array [
@@ -7676,6 +7694,8 @@ Object {
       "id": "7645090348976312809",
       "isCustomerSuppliedKeysEncrypted": false,
       "kind": "compute#disk",
+      "kmsKeyName": undefined,
+      "kmsKeyServiceAccount": undefined,
       "labelFingerprint": "42WmSpB8rSM=",
       "lastAttachTimestamp": 1613606665073,
       "licenseCodes": Array [
