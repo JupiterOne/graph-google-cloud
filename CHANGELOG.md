@@ -21,6 +21,8 @@ and this project adheres to
     - `kmsKeyName`
   - `google_sql_sql_server_instance`
     - `kmsKeyName`
+  - `google_storage_bucket`
+    - `kmsKeyName`
 
 - New relationships
 
