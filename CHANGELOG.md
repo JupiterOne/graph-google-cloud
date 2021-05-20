@@ -15,11 +15,23 @@ and this project adheres to
   - `google_compute_disk`
     - `kmsKeyServiceAccount`
     - `kmsKeyName`
+  - `google_sql_mysql_instance`
+    - `kmsKeyName`
+  - `google_sql_postgres_instance`
+    - `kmsKeyName`
+  - `google_sql_sql_server_instance`
+    - `kmsKeyName`
 
 - New relationships
 
   - Compute
+
     - `google_compute_disk` **USES** `google_kms_crypto_key`
+
+  - SQL Admin
+    - `google_sql_mysql_instance` **USES** `google_kms_crypto_key`
+    - `google_sql_postgres_instance` **USES** `google_kms_crypto_key`
+    - `google_sql_sql_server_instance` **USES** `google_kms_crypto_key`
 
 ## 0.26.0 - 2021-05-19
 

@@ -414,6 +414,9 @@ The following relationships are created/mapped:
 | `google_spanner_database`                | **USES**              | `google_kms_crypto_key`              |
 | `google_spanner_instance`                | **HAS**               | `google_spanner_database`            |
 | `google_spanner_instance`                | **USES**              | `google_spanner_instance_config`     |
+| `google_sql_mysql_instance`              | **USES**              | `google_kms_crypto_key`              |
+| `google_sql_postgres_instance`           | **USES**              | `google_kms_crypto_key`              |
+| `google_sql_sql_server_instance`         | **USES**              | `google_kms_crypto_key`              |
 | `google_user`                            | **ASSIGNED**          | `google_iam_role`                    |
 | `google_user`                            | **CREATED**           | `google_app_engine_version`          |
 
