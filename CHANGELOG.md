@@ -13,6 +13,10 @@ and this project adheres to
 - [#175](https://github.com/JupiterOne/graph-google-cloud/issues/175) - Add
   `projectId` property to _all_ entities
 
+### Changed
+
+- Upgraded integration SDK packages to v6.2.0
+
 ## 0.27.0 - 2021-05-20
 
 ### Added
