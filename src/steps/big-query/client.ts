@@ -1,8 +1,66 @@
 import { bigquery_v2, google } from 'googleapis';
 import { Client } from '../../google-cloud/client';
 
+// googleapis is missing a type for this
+export type BigQueryTable = {
+  clustering?: bigquery_v2.Schema$Clustering;
+  creationTime?: string;
+  expirationTime?: string;
+  friendlyName?: string;
+  id?: string;
+  kind?: string;
+  labels?: {
+    [key: string]: string;
+  };
+  rangePartitioning?: bigquery_v2.Schema$RangePartitioning;
+  tableReference?: bigquery_v2.Schema$TableReference;
+  timePartitioning?: bigquery_v2.Schema$TimePartitioning;
+  type?: string;
+  view?: {
+    useLegacySql?: boolean;
+  };
+};
+
 export class BigQueryClient extends Client {
   private client = google.bigquery('v2');
+
+  async iterateBigQueryTables(
+    datasetId: string,
+    callback: (data: BigQueryTable) => Promise<void>,
+  ) {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.tables.list({
+          auth,
+          datasetId,
+          pageToken: nextPageToken,
+          projectId: this.projectId,
+        });
+      },
+      async (data: bigquery_v2.Schema$TableList) => {
+        if (data.tables) {
+          for (const table of data.tables) {
+            await callback(table);
+          }
+        }
+      },
+    );
+  }
+
+  async getTablePolicy(
+    data: BigQueryTable,
+  ): Promise<bigquery_v2.Schema$Policy> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    const resp = await this.client.tables.getIamPolicy({
+      auth,
+      resource: `projects/${data.tableReference?.projectId}/datasets/${data.tableReference?.datasetId}/tables/${data.tableReference?.tableId}`,
+    });
+
+    return resp.data;
+  }
 
   async iterateBigQueryDatasets(
     callback: (data: bigquery_v2.Schema$Dataset) => Promise<void>,

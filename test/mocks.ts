@@ -22,6 +22,7 @@ import {
   apigateway_v1,
   privateca_v1beta1,
 } from 'googleapis';
+import { BigQueryTable } from '../src/steps/big-query/client';
 
 export function getMockIamRole(
   partial?: Partial<iam_v1.Schema$Role>,
@@ -1835,6 +1836,23 @@ export function getMockComputeImage(
     licenseCodes: ['5926592092274602096'],
     storageLocations: ['us-central1'],
     kind: 'compute#image',
+    ...partial,
+  };
+}
+
+export function getMockBigQueryTable(
+  partial?: Partial<BigQueryTable>,
+): BigQueryTable {
+  return {
+    kind: 'bigquery#table',
+    id: 'j1-gc-integration-dev-v2:new_dataset_test.mascots',
+    tableReference: {
+      projectId: 'j1-gc-integration-dev-v2',
+      datasetId: 'new_dataset_test',
+      tableId: 'mascots',
+    },
+    type: 'TABLE',
+    creationTime: '1621610438123',
     ...partial,
   };
 }

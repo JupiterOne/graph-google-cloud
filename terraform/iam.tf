@@ -58,6 +58,15 @@ resource "google_project_iam_binding" "ga_custom_role_binding_conditions" {
   }
 }
 
+// Needed for being able to read BigQuery datasets
+resource "google_project_iam_binding" "bigquery_data_viewer_binding" {
+  role    = "roles/bigquery.dataViewer"
+
+  members = [
+    "serviceAccount:${var.integration_runner_service_account_client_email}",
+  ]
+}
+
 # Needed for being able to create PubSub topics which use customer managed keys
 resource "google_project_iam_binding" "pubsub_sa_kms_encrypter_binding" {
   role    = "roles/cloudkms.cryptoKeyEncrypter"
