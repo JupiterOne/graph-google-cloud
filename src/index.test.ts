@@ -7,6 +7,7 @@ import { IntegrationConfig } from './types';
 import { google } from 'googleapis';
 import { GoogleAuth, GoogleAuthOptions } from 'google-auth-library';
 import {
+  Entity,
   IntegrationValidationError,
   StepStartStates,
 } from '@jupiterone/integration-sdk-core';
@@ -483,6 +484,49 @@ describe('#getStepStartStates failures', () => {
       });
 
       expect(googleAuthSpy.mock.calls.length).toEqual(0);
+    });
+  });
+});
+
+describe('#beforeAddEntity', () => {
+  test('should add projectId property to entity if projectId is not set', () => {
+    const context = createMockExecutionContext<IntegrationConfig>({
+      instanceConfig: integrationConfig,
+    });
+
+    const mockEntity: Entity = {
+      _key: 'abc',
+      _class: 'Resource',
+      _type: 'my_type',
+    };
+
+    expect(
+      invocationConfig.beforeAddEntity &&
+        invocationConfig.beforeAddEntity(context, mockEntity),
+    ).toEqual({
+      ...mockEntity,
+      projectId: 'j1-gc-integration-dev-v2',
+    });
+  });
+
+  test('should not override projectId property on entity', () => {
+    const context = createMockExecutionContext<IntegrationConfig>({
+      instanceConfig: integrationConfig,
+    });
+
+    const mockEntity: Entity = {
+      _key: 'abc',
+      _class: 'Resource',
+      _type: 'my_type',
+      projectId: 'my-project-id',
+    };
+
+    expect(
+      invocationConfig.beforeAddEntity &&
+        invocationConfig.beforeAddEntity(context, mockEntity),
+    ).toEqual({
+      ...mockEntity,
+      projectId: 'my-project-id',
     });
   });
 });

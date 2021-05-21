@@ -1,4 +1,7 @@
-import { IntegrationInvocationConfig } from '@jupiterone/integration-sdk-core';
+import {
+  Entity,
+  IntegrationInvocationConfig,
+} from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig } from './types';
 import getStepStartStates from './getStepStartStates';
 import { functionsSteps } from './steps/functions';
@@ -56,4 +59,14 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> = 
     ...apiGatewaySteps,
     ...privateCaSteps,
   ],
+
+  beforeAddEntity(context, entity: Entity): Entity {
+    const projectId =
+      context.instance.config.serviceAccountKeyConfig.project_id;
+
+    return {
+      ...entity,
+      projectId: entity.projectId || projectId,
+    };
+  },
 };
