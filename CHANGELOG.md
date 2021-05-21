@@ -8,6 +8,11 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- [#175](https://github.com/JupiterOne/graph-google-cloud/issues/175) - Add
+  `projectId` property to _all_ entities
+
 ## 0.27.0 - 2021-05-20
 
 ### Added
