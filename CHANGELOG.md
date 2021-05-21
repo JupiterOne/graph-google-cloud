@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.28.0 - 2021-05-21
+
 ### Added
 
 - [#175](https://github.com/JupiterOne/graph-google-cloud/issues/175) - Add
