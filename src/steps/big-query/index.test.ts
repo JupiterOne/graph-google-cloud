@@ -47,7 +47,7 @@ describe('#fetchBigQueryDatasets', () => {
         (e) => e._type === BIG_QUERY_DATASET_ENTITY_TYPE,
       ),
     ).toMatchGraphObjectSchema({
-      _class: ['DataStore'],
+      _class: ['DataStore', 'Database'],
       schema: {
         additionalProperties: false,
         properties: {
@@ -135,9 +135,11 @@ describe('#fetchBigQueryTables', () => {
           name: { type: 'string' },
           public: { type: 'boolean' },
           type: { type: 'string' },
-          classification: { type: 'string' },
-          createdOn: { type: 'number' },
+          friendlyName: { type: 'string' },
+          classification: { const: null },
           webLink: { type: 'string' },
+          createdOn: { type: 'number' },
+          expirationTime: { type: 'number' },
         },
       },
     });

@@ -4,6 +4,7 @@ exports[`#createBigQueryDatasetEntity should convert to entity 1`] = `
 Object {
   "_class": Array [
     "DataStore",
+    "Database",
   ],
   "_key": "j1-gc-integration-dev-v2:test_big_query_dataset",
   "_rawData": Array [
@@ -44,7 +45,7 @@ Object {
   ],
   "_type": "google_bigquery_dataset",
   "classification": null,
-  "createdOn": undefined,
+  "createdOn": 1610919167542,
   "description": undefined,
   "displayName": "test_big_query_dataset",
   "encrypted": true,
@@ -52,7 +53,7 @@ Object {
   "id": "j1-gc-integration-dev-v2:test_big_query_dataset",
   "kmsKeyName": undefined,
   "location": "US",
-  "modifiedOn": undefined,
+  "modifiedOn": 1610919344642,
   "name": "test_big_query_dataset",
   "public": false,
   "webLink": "https://console.cloud.google.com/bigquery?project=j1-gc-integration-dev-v2&d=test_big_query_dataset&p=j1-gc-integration-dev-v2&page=dataset",
@@ -63,6 +64,7 @@ exports[`#createBigQueryDatasetEntity should convert to entity with public param
 Object {
   "_class": Array [
     "DataStore",
+    "Database",
   ],
   "_key": "j1-gc-integration-dev-v2:test_big_query_dataset",
   "_rawData": Array [
@@ -111,7 +113,7 @@ Object {
   ],
   "_type": "google_bigquery_dataset",
   "classification": null,
-  "createdOn": undefined,
+  "createdOn": 1610919167542,
   "description": undefined,
   "displayName": "test_big_query_dataset",
   "encrypted": true,
@@ -119,7 +121,7 @@ Object {
   "id": "j1-gc-integration-dev-v2:test_big_query_dataset",
   "kmsKeyName": undefined,
   "location": "US",
-  "modifiedOn": undefined,
+  "modifiedOn": 1610919344642,
   "name": "test_big_query_dataset",
   "public": true,
   "webLink": "https://console.cloud.google.com/bigquery?project=j1-gc-integration-dev-v2&d=test_big_query_dataset&p=j1-gc-integration-dev-v2&page=dataset",
@@ -149,9 +151,11 @@ Object {
     },
   ],
   "_type": "google_bigquery_table",
-  "classification": "internal",
-  "createdOn": undefined,
+  "classification": null,
+  "createdOn": 1621610438123,
   "displayName": "mascots",
+  "expirationTime": undefined,
+  "friendlyName": undefined,
   "id": "j1-gc-integration-dev-v2:new_dataset_test.mascots",
   "name": "mascots",
   "public": false,

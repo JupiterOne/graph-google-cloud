@@ -301,7 +301,7 @@ The following entities are created:
 | AppEngine Instance                | `google_app_engine_instance`               | `Host`                             |
 | AppEngine Service                 | `google_app_engine_service`                | `Container`                        |
 | AppEngine Version                 | `google_app_engine_version`                | `Service`                          |
-| Big Query Dataset                 | `google_bigquery_dataset`                  | `DataStore`                        |
+| Big Query Dataset                 | `google_bigquery_dataset`                  | `DataStore`, `Database`            |
 | Big Query Table                   | `google_bigquery_table`                    | `DataObject`                       |
 | Binary Authorization Policy       | `google_binary_authorization_policy`       | `AccessPolicy`                     |
 | Cloud API Service                 | `google_cloud_api_service`                 | `Service`                          |

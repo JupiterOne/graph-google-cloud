@@ -8,7 +8,6 @@ import {
 } from './constants';
 import { isMemberPublic } from '../../utils/iam';
 import { BigQueryTable } from './client';
-import { parseTimePropertyValue } from '@jupiterone/integration-sdk-core';
 import { getGoogleCloudConsoleWebLink } from '../../utils/url';
 
 interface DatasetAccess {
@@ -53,8 +52,12 @@ export function createBigQueryDatasetEntity(data: bigquery_v2.Schema$Dataset) {
         encrypted: true,
         classification: null,
         etag: data.etag,
-        createdOn: parseTimePropertyValue(data.creationTime),
-        modifiedOn: parseTimePropertyValue(data.lastModifiedTime),
+        createdOn: data.creationTime
+          ? parseInt(data.creationTime, 10)
+          : undefined,
+        modifiedOn: data.lastModifiedTime
+          ? parseInt(data.lastModifiedTime, 10)
+          : undefined,
         webLink: getGoogleCloudConsoleWebLink(
           `/bigquery?project=${data.datasetReference?.projectId}&d=${data.datasetReference?.datasetId}&p=${data.datasetReference?.projectId}&page=dataset`,
         ),
@@ -82,14 +85,17 @@ export function createBigQueryTableEntity({
         name: data.tableReference?.tableId,
         public: isPublic,
         type: data.type,
-        // We can adjust this based on IAM for this resource
-        // Perhaps if it's public, the classification is public
-        // Else, classification is internal/confidential?
-        classification: isPublic ? 'public' : 'internal',
+        friendlyName: data.friendlyName,
+        classification: null,
         webLink: getGoogleCloudConsoleWebLink(
           `/bigquery?project=${projectId}&d=${data.tableReference?.datasetId}&p=${projectId}&t=${data.tableReference?.tableId}&page=table`,
         ),
-        createdOn: parseTimePropertyValue(data.creationTime),
+        createdOn: data.creationTime
+          ? parseInt(data.creationTime, 10)
+          : undefined,
+        expirationTime: data.expirationTime
+          ? parseInt(data.expirationTime, 10)
+          : undefined,
       },
     },
   });
