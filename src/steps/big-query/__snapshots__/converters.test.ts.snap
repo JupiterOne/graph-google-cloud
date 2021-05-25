@@ -4,6 +4,7 @@ exports[`#createBigQueryDatasetEntity should convert to entity 1`] = `
 Object {
   "_class": Array [
     "DataStore",
+    "Database",
   ],
   "_key": "j1-gc-integration-dev-v2:test_big_query_dataset",
   "_rawData": Array [
@@ -44,15 +45,18 @@ Object {
   ],
   "_type": "google_bigquery_dataset",
   "classification": null,
-  "createdOn": undefined,
+  "createdOn": 1610919167542,
+  "description": undefined,
   "displayName": "test_big_query_dataset",
   "encrypted": true,
   "etag": "Q1RJczpo1aoPRRoUJ1pElQ==",
   "id": "j1-gc-integration-dev-v2:test_big_query_dataset",
+  "kmsKeyName": undefined,
   "location": "US",
   "name": "test_big_query_dataset",
   "public": false,
-  "webLink": "https://www.googleapis.com/bigquery/v2/projects/j1-gc-integration-dev-v2/datasets/test_big_query_dataset",
+  "updatedOn": 1610919344642,
+  "webLink": "https://console.cloud.google.com/bigquery?project=j1-gc-integration-dev-v2&d=test_big_query_dataset&p=j1-gc-integration-dev-v2&page=dataset",
 }
 `;
 
@@ -60,6 +64,7 @@ exports[`#createBigQueryDatasetEntity should convert to entity with public param
 Object {
   "_class": Array [
     "DataStore",
+    "Database",
   ],
   "_key": "j1-gc-integration-dev-v2:test_big_query_dataset",
   "_rawData": Array [
@@ -108,14 +113,53 @@ Object {
   ],
   "_type": "google_bigquery_dataset",
   "classification": null,
-  "createdOn": undefined,
+  "createdOn": 1610919167542,
+  "description": undefined,
   "displayName": "test_big_query_dataset",
   "encrypted": true,
   "etag": "Q1RJczpo1aoPRRoUJ1pElQ==",
   "id": "j1-gc-integration-dev-v2:test_big_query_dataset",
+  "kmsKeyName": undefined,
   "location": "US",
   "name": "test_big_query_dataset",
   "public": true,
-  "webLink": "https://www.googleapis.com/bigquery/v2/projects/j1-gc-integration-dev-v2/datasets/test_big_query_dataset",
+  "updatedOn": 1610919344642,
+  "webLink": "https://console.cloud.google.com/bigquery?project=j1-gc-integration-dev-v2&d=test_big_query_dataset&p=j1-gc-integration-dev-v2&page=dataset",
+}
+`;
+
+exports[`#createBigQueryTableEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "DataObject",
+  ],
+  "_key": "j1-gc-integration-dev-v2:new_dataset_test.mascots",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "creationTime": "1621610438123",
+        "id": "j1-gc-integration-dev-v2:new_dataset_test.mascots",
+        "kind": "bigquery#table",
+        "tableReference": Object {
+          "datasetId": "new_dataset_test",
+          "projectId": "j1-gc-integration-dev-v2",
+          "tableId": "mascots",
+        },
+        "type": "TABLE",
+      },
+    },
+  ],
+  "_type": "google_bigquery_table",
+  "classification": null,
+  "createdOn": 1621610438123,
+  "displayName": "mascots",
+  "expirationTime": undefined,
+  "friendlyName": undefined,
+  "id": "j1-gc-integration-dev-v2:new_dataset_test.mascots",
+  "name": "mascots",
+  "public": false,
+  "type": "TABLE",
+  "webLink": "https://console.cloud.google.com/bigquery?project=j1-gc-integration-dev-v2&d=new_dataset_test&p=j1-gc-integration-dev-v2&t=mascots&page=table",
 }
 `;

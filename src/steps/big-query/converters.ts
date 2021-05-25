@@ -3,8 +3,12 @@ import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import {
   BIG_QUERY_DATASET_ENTITY_CLASS,
   BIG_QUERY_DATASET_ENTITY_TYPE,
+  BIG_QUERY_TABLE_ENTITY_CLASS,
+  BIG_QUERY_TABLE_ENTITY_TYPE,
 } from './constants';
 import { isMemberPublic } from '../../utils/iam';
+import { BigQueryTable } from './client';
+import { getGoogleCloudConsoleWebLink } from '../../utils/url';
 
 interface DatasetAccess {
   domain?: string;
@@ -32,25 +36,66 @@ function isBigQueryDatasetPublicAccess(accessList: DatasetAccess[]): boolean {
   return false;
 }
 
-export function createBigQueryDatasetEntity(
-  dataset: bigquery_v2.Schema$Dataset,
-) {
-  return createGoogleCloudIntegrationEntity(dataset, {
+export function createBigQueryDatasetEntity(data: bigquery_v2.Schema$Dataset) {
+  return createGoogleCloudIntegrationEntity(data, {
     entityData: {
-      source: dataset,
+      source: data,
       assign: {
-        _key: dataset.id as string,
+        _key: data.id as string,
         _type: BIG_QUERY_DATASET_ENTITY_TYPE,
         _class: BIG_QUERY_DATASET_ENTITY_CLASS,
-        name: dataset.datasetReference?.datasetId,
-        public: isBigQueryDatasetPublicAccess(dataset.access || []),
-        location: dataset.location,
-        webLink: dataset.selfLink as string,
-        // Encrypted by default
+        name: data.datasetReference?.datasetId,
+        description: data.description,
+        public: isBigQueryDatasetPublicAccess(data.access || []),
+        kmsKeyName: data.defaultEncryptionConfiguration?.kmsKeyName,
+        location: data.location,
         encrypted: true,
-        // Rely on the value of the classification tag
         classification: null,
-        etag: dataset.etag,
+        etag: data.etag,
+        createdOn: data.creationTime
+          ? parseInt(data.creationTime, 10)
+          : undefined,
+        updatedOn: data.lastModifiedTime
+          ? parseInt(data.lastModifiedTime, 10)
+          : undefined,
+        webLink: getGoogleCloudConsoleWebLink(
+          `/bigquery?project=${data.datasetReference?.projectId}&d=${data.datasetReference?.datasetId}&p=${data.datasetReference?.projectId}&page=dataset`,
+        ),
+      },
+    },
+  });
+}
+
+export function createBigQueryTableEntity({
+  data,
+  projectId,
+  isPublic,
+}: {
+  data: BigQueryTable;
+  projectId: string;
+  isPublic: boolean;
+}) {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _key: data.id as string,
+        _type: BIG_QUERY_TABLE_ENTITY_TYPE,
+        _class: BIG_QUERY_TABLE_ENTITY_CLASS,
+        name: data.tableReference?.tableId,
+        public: isPublic,
+        type: data.type,
+        friendlyName: data.friendlyName,
+        classification: null,
+        webLink: getGoogleCloudConsoleWebLink(
+          `/bigquery?project=${projectId}&d=${data.tableReference?.datasetId}&p=${projectId}&t=${data.tableReference?.tableId}&page=table`,
+        ),
+        createdOn: data.creationTime
+          ? parseInt(data.creationTime, 10)
+          : undefined,
+        expirationTime: data.expirationTime
+          ? parseInt(data.expirationTime, 10)
+          : undefined,
       },
     },
   });

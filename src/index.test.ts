@@ -50,7 +50,10 @@ import {
   STEP_COMPUTE_TARGET_SSL_PROXIES,
 } from './steps/compute';
 import { STEP_CLOUD_KMS_KEYS, STEP_CLOUD_KMS_KEY_RINGS } from './steps/kms';
-import { STEP_BIG_QUERY_DATASETS } from './steps/big-query';
+import {
+  STEP_BIG_QUERY_DATASETS,
+  STEP_BIG_QUERY_TABLES,
+} from './steps/big-query';
 import { STEP_SQL_ADMIN_INSTANCES } from './steps/sql-admin';
 import { STEP_DNS_MANAGED_ZONES } from './steps/dns/constants';
 import { STEP_CONTAINER_CLUSTERS } from './steps/containers';
@@ -240,6 +243,9 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_BIG_QUERY_DATASETS]: {
+        disabled: false,
+      },
+      [STEP_BIG_QUERY_TABLES]: {
         disabled: false,
       },
       [STEP_LOGGING_METRICS]: {
