@@ -65,7 +65,7 @@ describe('#fetchBigQueryDatasets', () => {
           classification: { const: null },
           etag: { type: 'string' },
           createdOn: { type: 'number' },
-          modifiedOn: { type: 'number' },
+          updatedOn: { type: 'number' },
           webLink: { type: 'string' },
         },
       },

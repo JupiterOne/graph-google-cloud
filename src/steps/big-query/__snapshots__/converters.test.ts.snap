@@ -53,9 +53,9 @@ Object {
   "id": "j1-gc-integration-dev-v2:test_big_query_dataset",
   "kmsKeyName": undefined,
   "location": "US",
-  "modifiedOn": 1610919344642,
   "name": "test_big_query_dataset",
   "public": false,
+  "updatedOn": 1610919344642,
   "webLink": "https://console.cloud.google.com/bigquery?project=j1-gc-integration-dev-v2&d=test_big_query_dataset&p=j1-gc-integration-dev-v2&page=dataset",
 }
 `;
@@ -121,9 +121,9 @@ Object {
   "id": "j1-gc-integration-dev-v2:test_big_query_dataset",
   "kmsKeyName": undefined,
   "location": "US",
-  "modifiedOn": 1610919344642,
   "name": "test_big_query_dataset",
   "public": true,
+  "updatedOn": 1610919344642,
   "webLink": "https://console.cloud.google.com/bigquery?project=j1-gc-integration-dev-v2&d=test_big_query_dataset&p=j1-gc-integration-dev-v2&page=dataset",
 }
 `;

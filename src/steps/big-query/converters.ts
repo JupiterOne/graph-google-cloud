@@ -55,7 +55,7 @@ export function createBigQueryDatasetEntity(data: bigquery_v2.Schema$Dataset) {
         createdOn: data.creationTime
           ? parseInt(data.creationTime, 10)
           : undefined,
-        modifiedOn: data.lastModifiedTime
+        updatedOn: data.lastModifiedTime
           ? parseInt(data.lastModifiedTime, 10)
           : undefined,
         webLink: getGoogleCloudConsoleWebLink(

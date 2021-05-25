@@ -535,7 +535,7 @@
     upath "^1.2.0"
     vis "^4.21.0-EOL"
 
-"@jupiterone/integration-sdk-core@^6.1.0", "@jupiterone/integration-sdk-core@^6.2.1":
+"@jupiterone/integration-sdk-core@^6.2.1":
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/@jupiterone/integration-sdk-core/-/integration-sdk-core-6.2.1.tgz#bcc9f12bef2a79ab75b23b03f916e9a75ad98c3c"
   integrity sha512-ZGmqyVY2Aoi79/DCl4+3vRO2yXORZmToSK8gZOjT+AEvOgaKf/bJzxB3ub5D1CvhtJSHifF2xurUyQ7yxMbhJA==
@@ -544,7 +544,7 @@
     lodash "^4.17.21"
     uuid "^8.3.2"
 
-"@jupiterone/integration-sdk-dev-tools@^6.1.0":
+"@jupiterone/integration-sdk-dev-tools@^6.2.1":
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/@jupiterone/integration-sdk-dev-tools/-/integration-sdk-dev-tools-6.2.1.tgz#6ca2c533a4f295d8663d08346c99caa4854fabf3"
   integrity sha512-vxRu6IDlWFerF6pWywKjTiXwAXnVVT3wGTGeX57pqe8L4IzgHknpoBqmMOrjH5XLMwnXKb94/AuSBzps2zQs1Q==
@@ -589,7 +589,7 @@
     rimraf "^3.0.2"
     uuid "^7.0.3"
 
-"@jupiterone/integration-sdk-testing@^6.1.0", "@jupiterone/integration-sdk-testing@^6.2.1":
+"@jupiterone/integration-sdk-testing@^6.2.1":
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/@jupiterone/integration-sdk-testing/-/integration-sdk-testing-6.2.1.tgz#29e8fe2b4dea6072b65e12eb173c680d1c94225c"
   integrity sha512-qk1Hpo0LOpM3Zqit7rDh96ScLHfRwXgFYpADoNCy2/Csrfw6MaBq4hBViYyMjhC7+ANgiwUTOkUvq5jAtmmsIQ==
