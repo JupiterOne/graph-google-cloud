@@ -8,6 +8,23 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- Support for ingesting the following **new** entities
+
+  - BigQuery
+    - `google_bigquery_table`
+
+- Support for ingesting the following **new** relationships
+
+  - BigQuery
+    - `google_bigquery_dataset` **HAS** `google_bigquery_table`
+    - `google_bigquery_dataset` **USES** `google_kms_crypto_key`
+
+### Changed
+
+- Add `Database` class to `google_bigquery_dataset`
+
 ## 0.28.0 - 2021-05-21
 
 ### Added
