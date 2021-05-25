@@ -104,15 +104,16 @@ function sanitizeListCertificateAuthoritiesResponse(
       response.certificateAuthorities.map((certificateAuthority) => ({
         ...certificateAuthority,
         pemCaCertificates: [],
-        caCertificateDescriptions: certificateAuthority.caCertificateDescriptions?.map(
-          (description) => ({
-            ...description,
-            publicKey: {
-              type: description.publicKey?.type,
-              key: '[REDACTED]',
-            },
-          }),
-        ),
+        caCertificateDescriptions:
+          certificateAuthority.caCertificateDescriptions?.map(
+            (description) => ({
+              ...description,
+              publicKey: {
+                type: description.publicKey?.type,
+                key: '[REDACTED]',
+              },
+            }),
+          ),
       })),
   };
 }
@@ -218,21 +219,18 @@ function redact(entry): void {
     let parsedResponseText = JSON.parse(responseText.replace(/\r?\n|\r/g, ''));
 
     if (requestUrl === isListFunctionsUrl(requestUrl)) {
-      parsedResponseText = sanitizeGoogleCloudFunctionResponse(
-        parsedResponseText,
-      );
+      parsedResponseText =
+        sanitizeGoogleCloudFunctionResponse(parsedResponseText);
     }
 
     if (isCreateServiceAccountKeyUrl(requestUrl)) {
-      parsedResponseText = sanitizeCreateServiceAccountKeyResponse(
-        parsedResponseText,
-      );
+      parsedResponseText =
+        sanitizeCreateServiceAccountKeyResponse(parsedResponseText);
     }
 
     if (isListCertificateAutoritiesUrl(requestUrl)) {
-      parsedResponseText = sanitizeListCertificateAuthoritiesResponse(
-        parsedResponseText,
-      );
+      parsedResponseText =
+        sanitizeListCertificateAuthoritiesResponse(parsedResponseText);
     }
 
     if (isListCertificatesUrl(requestUrl)) {

@@ -129,9 +129,10 @@ describe('#fetchKmsCryptoKeys', () => {
       },
     });
 
-    const keyRingKeyRelationships = context.jobState.collectedRelationships.filter(
-      (e) => e._type === RELATIONSHIP_TYPE_KMS_KEY_RING_HAS_KMS_KEY,
-    );
+    const keyRingKeyRelationships =
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === RELATIONSHIP_TYPE_KMS_KEY_RING_HAS_KMS_KEY,
+      );
 
     expect(keyRingKeyRelationships.length).toBeGreaterThan(0);
     expect(keyRingKeyRelationships).toMatchDirectRelationshipSchema({

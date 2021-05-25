@@ -25,18 +25,19 @@ export const DEFAULT_INTEGRATION_PRIVATE_KEY = fs.readFileSync(
 export const DEFAULT_INTEGRATION_CLIENT_EMAIL =
   'j1-gc-integration-dev-sa@j1-gc-integration-dev.iam.gserviceaccount.com';
 
-export const DEFAULT_INTEGRATION_CONFIG_SERVICE_ACCOUNT_KEY_FILE: ParsedServiceAccountKeyFile = {
-  type: 'service_account',
-  project_id: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
-  private_key_id: 'abcdef123456abcdef123456abcdef123456abc',
-  private_key: DEFAULT_INTEGRATION_PRIVATE_KEY,
-  client_email: DEFAULT_INTEGRATION_CLIENT_EMAIL,
-  client_id: '12345678901234567890',
-  auth_uri: 'https://accounts.google.com/o/oauth2/auth',
-  token_uri: 'https://oauth2.googleapis.com/token',
-  auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
-  client_x509_cert_url: 'https://www.googleapis.com/abc',
-};
+export const DEFAULT_INTEGRATION_CONFIG_SERVICE_ACCOUNT_KEY_FILE: ParsedServiceAccountKeyFile =
+  {
+    type: 'service_account',
+    project_id: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
+    private_key_id: 'abcdef123456abcdef123456abcdef123456abc',
+    private_key: DEFAULT_INTEGRATION_PRIVATE_KEY,
+    client_email: DEFAULT_INTEGRATION_CLIENT_EMAIL,
+    client_id: '12345678901234567890',
+    auth_uri: 'https://accounts.google.com/o/oauth2/auth',
+    token_uri: 'https://oauth2.googleapis.com/token',
+    auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
+    client_x509_cert_url: 'https://www.googleapis.com/abc',
+  };
 
 export const serializedIntegrationConfig: SerializedIntegrationConfig = {
   serviceAccountKeyFile:
@@ -44,9 +45,8 @@ export const serializedIntegrationConfig: SerializedIntegrationConfig = {
     JSON.stringify(DEFAULT_INTEGRATION_CONFIG_SERVICE_ACCOUNT_KEY_FILE),
 };
 
-export const integrationConfig: IntegrationConfig = deserializeIntegrationConfig(
-  serializedIntegrationConfig,
-);
+export const integrationConfig: IntegrationConfig =
+  deserializeIntegrationConfig(serializedIntegrationConfig);
 
 export const setupErrorIntegrationConfig: IntegrationConfig = {
   ...serializedIntegrationConfig,

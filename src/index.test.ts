@@ -346,10 +346,10 @@ describe('#getStepStartStates failures', () => {
       .fn()
       .mockRejectedValueOnce(new Error('should not call!'));
 
-    const mockGoogleAuthClient = ({
+    const mockGoogleAuthClient = {
       getClient: mockGetClient,
       getAccessToken: mockGetAccessToken,
-    } as unknown) as GoogleAuth;
+    } as unknown as GoogleAuth;
 
     googleAuthSpy.mockReturnValueOnce(mockGoogleAuthClient);
 
@@ -408,10 +408,10 @@ describe('#getStepStartStates failures', () => {
       }),
     );
 
-    const mockGoogleAuthClient = ({
+    const mockGoogleAuthClient = {
       getClient: mockGetClient,
       getAccessToken: mockGetAccessToken,
-    } as unknown) as GoogleAuth;
+    } as unknown as GoogleAuth;
 
     googleAuthSpy.mockReturnValueOnce(mockGoogleAuthClient);
 

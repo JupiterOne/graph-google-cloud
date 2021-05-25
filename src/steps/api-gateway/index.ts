@@ -111,9 +111,8 @@ export async function fetchApiGatewayApiConfigs(
         if (
           apiConfig.gatewayServiceAccount?.includes('iam.gserviceaccount.com')
         ) {
-          const serviceAccountId = apiConfig.gatewayServiceAccount.split(
-            '/',
-          )[3];
+          const serviceAccountId =
+            apiConfig.gatewayServiceAccount.split('/')[3];
 
           const serviceAccountEntity = await jobState.findEntity(
             serviceAccountId,

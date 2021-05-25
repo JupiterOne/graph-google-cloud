@@ -883,9 +883,8 @@ export async function fetchTargetHttpsProxies(
   const client = new ComputeClient({ config: instance.config });
 
   await client.iterateTargetHttpsProxies(async (targetHttpsProxy) => {
-    const targetHttpsProxyEntity = createTargetHttpsProxyEntity(
-      targetHttpsProxy,
-    );
+    const targetHttpsProxyEntity =
+      createTargetHttpsProxyEntity(targetHttpsProxy);
     await jobState.addEntity(targetHttpsProxyEntity);
 
     const loadBalancerEntity = await jobState.findEntity(
@@ -1038,7 +1037,8 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
     relationships: [
       {
         _class: RelationshipClass.CONTAINS,
-        _type: RELATIONSHIP_TYPE_GOOGLE_COMPUTE_NETWORK_CONTAINS_GOOGLE_COMPUTE_SUBNETWORK,
+        _type:
+          RELATIONSHIP_TYPE_GOOGLE_COMPUTE_NETWORK_CONTAINS_GOOGLE_COMPUTE_SUBNETWORK,
         sourceType: ENTITY_TYPE_COMPUTE_NETWORK,
         targetType: ENTITY_TYPE_COMPUTE_SUBNETWORK,
       },
@@ -1117,7 +1117,8 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
       },
       {
         _class: RelationshipClass.TRUSTS,
-        _type: RELATIONSHIP_TYPE_GOOGLE_COMPUTE_INSTANCE_TRUSTS_IAM_SERVICE_ACCOUNT,
+        _type:
+          RELATIONSHIP_TYPE_GOOGLE_COMPUTE_INSTANCE_TRUSTS_IAM_SERVICE_ACCOUNT,
         sourceType: ENTITY_TYPE_COMPUTE_INSTANCE,
         targetType: IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
       },

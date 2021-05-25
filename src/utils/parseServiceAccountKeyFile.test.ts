@@ -49,7 +49,7 @@ describe('#parseServiceAcccountKeyFile', () => {
     expect.assertions(2);
 
     try {
-      parseServiceAccountKeyFile((123 as unknown) as string);
+      parseServiceAccountKeyFile(123 as unknown as string);
     } catch (err) {
       expect(err instanceof IntegrationValidationError).toEqual(true);
       expect(err.message).toEqual(

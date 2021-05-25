@@ -59,7 +59,8 @@ export class ServiceUsageClient extends Client {
   async collectEnabledServices(): Promise<
     serviceusage_v1.Schema$GoogleApiServiceusageV1Service[]
   > {
-    const enabledServices: serviceusage_v1.Schema$GoogleApiServiceusageV1Service[] = [];
+    const enabledServices: serviceusage_v1.Schema$GoogleApiServiceusageV1Service[] =
+      [];
 
     await this.iterateEnabledServices((data) => {
       enabledServices.push(data);

@@ -11,14 +11,14 @@ import {
 import { cloudresourcemanager_v1 } from 'googleapis';
 
 function getMockLogger() {
-  const mockLogger = ({
+  const mockLogger = {
     info: jest.fn(),
     fatal: jest.fn(),
     warn: jest.fn(),
     error: jest.fn(),
     debug: jest.fn(),
     trace: jest.fn(),
-  } as unknown) as Logger;
+  } as unknown as Logger;
 
   mockLogger.child = () => mockLogger;
 
