@@ -141,7 +141,8 @@ export const privateCaSteps: IntegrationStep<IntegrationConfig>[] = [
     relationships: [
       {
         _class: RelationshipClass.USES,
-        _type: RELATIONSHIP_TYPE_PRIVATE_CA_CERTIFICATE_AUTHORITY_USES_STORAGE_BUCKET,
+        _type:
+          RELATIONSHIP_TYPE_PRIVATE_CA_CERTIFICATE_AUTHORITY_USES_STORAGE_BUCKET,
         sourceType: ENTITY_TYPE_PRIVATE_CA_CERTIFICATE_AUTHORITY,
         targetType: CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
       },
@@ -162,7 +163,8 @@ export const privateCaSteps: IntegrationStep<IntegrationConfig>[] = [
     relationships: [
       {
         _class: RelationshipClass.CREATED,
-        _type: RELATIONSHIP_TYPE_PRIVATE_CA_CERTIFICATE_AUTHORITY_CREATED_CERTIFICATE,
+        _type:
+          RELATIONSHIP_TYPE_PRIVATE_CA_CERTIFICATE_AUTHORITY_CREATED_CERTIFICATE,
         sourceType: ENTITY_TYPE_PRIVATE_CA_CERTIFICATE_AUTHORITY,
         targetType: ENTITY_TYPE_PRIVATE_CA_CERTIFICATE,
       },

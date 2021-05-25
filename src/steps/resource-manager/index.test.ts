@@ -55,15 +55,18 @@ describe('#fetchResourceManagerIamPolicy', () => {
     const iamServiceAccountEntities = context.jobState.collectedEntities.filter(
       (e) => e._type === 'google_iam_service_account',
     );
-    const iamServiceAccountKeyEntities = context.jobState.collectedEntities.filter(
-      (e) => e._type === 'google_iam_service_account_key',
-    );
-    const iamServiceAccountAssignedRoleRelationships = context.jobState.collectedRelationships.filter(
-      (r) => r._type === 'google_iam_service_account_assigned_role',
-    );
-    const iamServiceAccountHasKeyRelationships = context.jobState.collectedRelationships.filter(
-      (r) => r._type === 'google_iam_service_account_has_key',
-    );
+    const iamServiceAccountKeyEntities =
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === 'google_iam_service_account_key',
+      );
+    const iamServiceAccountAssignedRoleRelationships =
+      context.jobState.collectedRelationships.filter(
+        (r) => r._type === 'google_iam_service_account_assigned_role',
+      );
+    const iamServiceAccountHasKeyRelationships =
+      context.jobState.collectedRelationships.filter(
+        (r) => r._type === 'google_iam_service_account_has_key',
+      );
 
     expect(userEntities.length).toEqual(0);
     expect(iamServiceAccountEntities.length).toBeGreaterThanOrEqual(1);

@@ -41,17 +41,15 @@ describe('#fetchIamRoles', () => {
     await fetchApiServices(context);
     await fetchIamCustomRoles(context);
 
-    const customRoleEntitiesCollected = context.jobState.collectedEntities.filter(
-      (e) => {
+    const customRoleEntitiesCollected =
+      context.jobState.collectedEntities.filter((e) => {
         return e._type === IAM_ROLE_ENTITY_TYPE;
-      },
-    );
+      });
 
-    const customRoleEntityRelationships = context.jobState.collectedRelationships.filter(
-      (r) => {
+    const customRoleEntityRelationships =
+      context.jobState.collectedRelationships.filter((r) => {
         return r._type === API_SERVICE_HAS_IAM_ROLE_RELATIONSHIP_TYPE;
-      },
-    );
+      });
 
     expect({
       numCollectedEntities: customRoleEntitiesCollected.length,

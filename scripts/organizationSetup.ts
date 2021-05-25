@@ -296,9 +296,8 @@ export function buildPolicyWithServiceAccountSecurityRoleMember(
   const newBindings: cloudresourcemanager_v1.Schema$Binding[] = [];
   let foundSecurityPolicyBinding = false;
 
-  const serviceAccountMember = serviceAccountEmailToServiceAccountMember(
-    serviceAccountEmail,
-  );
+  const serviceAccountMember =
+    serviceAccountEmailToServiceAccountMember(serviceAccountEmail);
 
   for (const binding of policy.bindings || []) {
     const role = binding.role as string;
@@ -638,15 +637,14 @@ async function putJupiterOneIntegrationInstance({
     'Attempting to put integration instance for Google Cloud project...',
   );
 
-  const existingIntegrationInstance = await getIntegrationInstanceForAccountWithProjectTag(
-    {
+  const existingIntegrationInstance =
+    await getIntegrationInstanceForAccountWithProjectTag({
       logger,
       jupiteroneAccountId,
       jupiteroneApiKey,
       integrationInstanceName,
       jupiteroneEnv,
-    },
-  );
+    });
 
   let integrationInstance: IntegrationInstance;
 
@@ -817,7 +815,8 @@ async function setupOrganizationProject(
     return SetupOrganizationProjectResult.EXISTS;
   }
 
-  let serviceAccount: iam_v1.Schema$ServiceAccount | null = existingServiceAccount;
+  let serviceAccount: iam_v1.Schema$ServiceAccount | null =
+    existingServiceAccount;
   let serviceAccountEmail = serviceAccount?.email as string;
 
   if (serviceAccount) {

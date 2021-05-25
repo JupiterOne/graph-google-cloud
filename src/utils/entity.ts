@@ -15,7 +15,7 @@ export interface GoogleCloudResourceData {
 }
 
 export function createGoogleCloudIntegrationEntity<
-  T extends GoogleCloudResourceData
+  T extends GoogleCloudResourceData,
 >(data: T, entityBuilderInput: IntegrationEntityBuilderInput) {
   return assignTags(createIntegrationEntity(entityBuilderInput), data.labels);
 }

@@ -157,9 +157,10 @@ describe('#fetchComputeDisks', () => {
       },
     });
 
-    const computeDiskUsesImageRelationships = context.jobState.collectedRelationships.filter(
-      (r) => r._type === 'google_compute_disk_uses_image',
-    );
+    const computeDiskUsesImageRelationships =
+      context.jobState.collectedRelationships.filter(
+        (r) => r._type === 'google_compute_disk_uses_image',
+      );
 
     expect(computeDiskUsesImageRelationships).toEqual(
       computeDiskUsesImageRelationships.map((r) =>
@@ -169,9 +170,10 @@ describe('#fetchComputeDisks', () => {
       ),
     );
 
-    const computeDiskUsesKmsKeyRelationships = context.jobState.collectedRelationships.filter(
-      (r) => r._type === 'google_compute_disk_uses_kms_crypto_key',
-    );
+    const computeDiskUsesKmsKeyRelationships =
+      context.jobState.collectedRelationships.filter(
+        (r) => r._type === 'google_compute_disk_uses_kms_crypto_key',
+      );
 
     expect(computeDiskUsesKmsKeyRelationships).toEqual(
       computeDiskUsesKmsKeyRelationships.map((r) =>
@@ -306,9 +308,10 @@ describe('#fetchComputeImages', () => {
       },
     });
 
-    const computeImageUsesCryptoKeyRelationship = context.jobState.collectedRelationships.filter(
-      (r) => r._type === 'google_compute_image_uses_kms_crypto_key',
-    );
+    const computeImageUsesCryptoKeyRelationship =
+      context.jobState.collectedRelationships.filter(
+        (r) => r._type === 'google_compute_image_uses_kms_crypto_key',
+      );
 
     expect(computeImageUsesCryptoKeyRelationship).toEqual(
       computeImageUsesCryptoKeyRelationship.map((r) =>
@@ -468,9 +471,10 @@ describe('#fetchComputeInstances', () => {
       },
     });
 
-    const computeInstanceUsesDiskRelationship = context.jobState.collectedRelationships.filter(
-      (r) => r._type === 'google_compute_instance_uses_disk',
-    );
+    const computeInstanceUsesDiskRelationship =
+      context.jobState.collectedRelationships.filter(
+        (r) => r._type === 'google_compute_instance_uses_disk',
+      );
 
     expect(computeInstanceUsesDiskRelationship).toEqual(
       computeInstanceUsesDiskRelationship.map((r) =>
@@ -480,9 +484,10 @@ describe('#fetchComputeInstances', () => {
       ),
     );
 
-    const computeInstanceTrustsServiceAccountRelationship = context.jobState.collectedRelationships.filter(
-      (r) => r._type === 'google_compute_instance_trusts_iam_service_account',
-    );
+    const computeInstanceTrustsServiceAccountRelationship =
+      context.jobState.collectedRelationships.filter(
+        (r) => r._type === 'google_compute_instance_trusts_iam_service_account',
+      );
 
     expect(computeInstanceTrustsServiceAccountRelationship).toEqual(
       computeInstanceTrustsServiceAccountRelationship.map((r) =>

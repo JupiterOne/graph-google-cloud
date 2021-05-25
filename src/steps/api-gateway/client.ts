@@ -23,12 +23,11 @@ export class ApiGatewayClient extends Client {
   ): Promise<apigateway_v1.Schema$ApigatewayPolicy> {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const result = await this.client.projects.locations.apis.configs.getIamPolicy(
-      {
+    const result =
+      await this.client.projects.locations.apis.configs.getIamPolicy({
         resource: `projects/${this.projectId}/locations/global/apis/${apiId}/configs/${configId}`,
         auth,
-      },
-    );
+      });
 
     return result.data;
   }

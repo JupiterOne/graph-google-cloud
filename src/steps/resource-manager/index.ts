@@ -143,13 +143,12 @@ async function buildIamUserRoleRelationship({
   data: PolicyMemberBinding;
 }): Promise<Relationship | undefined> {
   const roleName = data.binding.role as string;
-  const iamUserEntityWithParsedMember = await maybeFindIamUserEntityWithParsedMember(
-    {
+  const iamUserEntityWithParsedMember =
+    await maybeFindIamUserEntityWithParsedMember({
       jobState,
       projectId,
       member: data.member,
-    },
-  );
+    });
 
   const bindingCondition: cloudresourcemanager_v1.Schema$Expr | undefined =
     data.binding.condition;

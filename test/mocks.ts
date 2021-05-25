@@ -45,8 +45,7 @@ export function getMockServiceAccount(
   partial?: Partial<iam_v1.Schema$ServiceAccount>,
 ): iam_v1.Schema$ServiceAccount {
   return {
-    name:
-      'projects/j1-gc-integration-dev-v2/serviceAccounts/j1-gc-integration-dev-v2-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com',
+    name: 'projects/j1-gc-integration-dev-v2/serviceAccounts/j1-gc-integration-dev-v2-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com',
     projectId: 'j1-gc-integration-dev-v2',
     uniqueId: '1234567890',
     email:
@@ -62,8 +61,7 @@ export function getMockServiceAccountKey(
   partial?: Partial<iam_v1.Schema$ServiceAccountKey>,
 ): iam_v1.Schema$ServiceAccountKey {
   return {
-    name:
-      'projects/j1-gc-integration-dev-v2/serviceAccounts/j1-gc-integration-dev-v2-sa-tf@j1-gc-integration-dev-v2.iam.gserviceaccount.com/keys/12345',
+    name: 'projects/j1-gc-integration-dev-v2/serviceAccounts/j1-gc-integration-dev-v2-sa-tf@j1-gc-integration-dev-v2.iam.gserviceaccount.com/keys/12345',
     validAfterTime: '2020-08-05T18:05:19Z',
     validBeforeTime: '2020-08-21T18:05:19Z',
     keyAlgorithm: 'KEY_ALG_RSA_2048',
@@ -81,16 +79,14 @@ export function getMockComputeDisk(
     creationTimestamp: '2020-08-12T08:20:05.930-07:00',
     name: 'testvm',
     sizeGb: '10',
-    zone:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a',
+    zone: 'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a',
     status: 'READY',
     selfLink:
       'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/testvm',
     sourceImage:
       'https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-9-stretch-v20200805',
     sourceImageId: '6709658075886210235',
-    type:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/diskTypes/pd-standard',
+    type: 'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/diskTypes/pd-standard',
     licenses: [
       'https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-9-stretch',
     ],
@@ -125,8 +121,7 @@ export function getMockComputeInstance(
     machineType:
       'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/machineTypes/n1-standard-1',
     status: 'RUNNING',
-    zone:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a',
+    zone: 'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a',
     canIpForward: false,
     networkInterfaces: [
       {
@@ -641,8 +636,7 @@ export function getMockKmsKeyRing(
   partial?: cloudkms_v1.Schema$KeyRing,
 ): cloudkms_v1.Schema$KeyRing {
   return {
-    name:
-      'projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring',
+    name: 'projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring',
     createTime: '2020-07-28T18:34:26.034565002Z',
     ...partial,
   };
@@ -685,11 +679,9 @@ export function getMockKmsCryptoKey(
   partial?: cloudkms_v1.Schema$CryptoKey,
 ): cloudkms_v1.Schema$CryptoKey {
   return {
-    name:
-      'projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key',
+    name: 'projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key',
     primary: {
-      name:
-        'projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key/cryptoKeyVersions/68',
+      name: 'projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key/cryptoKeyVersions/68',
       state: 'ENABLED',
       createTime: '2020-10-03T19:01:13.428484662Z',
       protectionLevel: 'SOFTWARE',
@@ -749,8 +741,7 @@ export function getMockMetric(
     filter:
       'protoPayload.methodName="SetIamPolicy" AND protoPayload.serviceData.policyDelta.auditConfigDeltas:*',
     metricDescriptor: {
-      name:
-        'projects/j1-gc-integration-dev-v2/metricDescriptors/logging.googleapis.com/user/my-example-metric',
+      name: 'projects/j1-gc-integration-dev-v2/metricDescriptors/logging.googleapis.com/user/my-example-metric',
       labels: [
         {
           key: 'occurences',
@@ -874,8 +865,7 @@ export function getMockInstanceGroup(
     network:
       'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default',
     fingerprint: 'Mhi8gtwR57U=',
-    zone:
-      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a',
+    zone: 'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a',
     selfLink:
       'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instanceGroups/instance-group-1',
     size: 1,
@@ -1040,14 +1030,12 @@ export function getMockCloudFunction(
   partial?: Partial<cloudfunctions_v1.Schema$CloudFunction>,
 ): cloudfunctions_v1.Schema$CloudFunction {
   return {
-    name:
-      'projects/j1-gc-integration-dev-v2/locations/us-central1/functions/j1-gc-integration-dev-v2testfunction',
+    name: 'projects/j1-gc-integration-dev-v2/locations/us-central1/functions/j1-gc-integration-dev-v2testfunction',
     description: 'Test function',
     sourceArchiveUrl:
       'gs://j1-gc-integration-dev-v2cloudfunctions/http_trigger.zip',
     httpsTrigger: {
-      url:
-        'https://us-central1-j1-gc-integration-dev-v2.cloudfunctions.net/j1-gc-integration-dev-v2testfunction',
+      url: 'https://us-central1-j1-gc-integration-dev-v2.cloudfunctions.net/j1-gc-integration-dev-v2testfunction',
     },
     status: 'ACTIVE',
     entryPoint: 'handler',
@@ -1422,8 +1410,7 @@ export function getMockAppEngineVersion(
   partial?: appengine_v1.Schema$Version,
 ): appengine_v1.Schema$Version {
   return {
-    name:
-      'apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022',
+    name: 'apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022',
     id: '20210309t141022',
     instanceClass: 'F1',
     network: {},
@@ -1445,10 +1432,8 @@ export function getMockAppEngineInstance(
   partial?: appengine_v1.Schema$Instance,
 ): appengine_v1.Schema$Instance {
   return {
-    name:
-      'apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022/instances/00c61b117c4f411df406d524e4a05eedc1393bcc50f9e7895ad08f46a2422e90974a734f30ef08b500405d4d514704e0d99c2ee290b9e238e920cba5d5a1964fe1c37be53c9773c2',
-    id:
-      '00c61b117c4f411df406d524e4a05eedc1393bcc50f9e7895ad08f46a2422e90974a734f30ef08b500405d4d514704e0d99c2ee290b9e238e920cba5d5a1964fe1c37be53c9773c2',
+    name: 'apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022/instances/00c61b117c4f411df406d524e4a05eedc1393bcc50f9e7895ad08f46a2422e90974a734f30ef08b500405d4d514704e0d99c2ee290b9e238e920cba5d5a1964fe1c37be53c9773c2',
+    id: '00c61b117c4f411df406d524e4a05eedc1393bcc50f9e7895ad08f46a2422e90974a734f30ef08b500405d4d514704e0d99c2ee290b9e238e920cba5d5a1964fe1c37be53c9773c2',
     appEngineRelease: '1.9.71',
     availability: 'DYNAMIC',
     startTime: '2021-03-11T17:28:44.506934Z',
@@ -1464,8 +1449,7 @@ export function getMockRedisInstance(
   partial?: redis_v1.Schema$Instance,
 ): redis_v1.Schema$Instance {
   return {
-    name:
-      'projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-redis-instance',
+    name: 'projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-redis-instance',
     displayName: 'Test Redis Instance Display Name',
     locationId: 'us-central1-f',
     redisVersion: 'REDIS_5_0',
@@ -1491,8 +1475,7 @@ export function getMockSpannerInstance(
   partial?: spanner_v1.Schema$Instance,
 ): spanner_v1.Schema$Instance {
   return {
-    name:
-      'projects/j1-gc-integration-dev-v2/instances/example-spanner-instance',
+    name: 'projects/j1-gc-integration-dev-v2/instances/example-spanner-instance',
     config:
       'projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-central1',
     displayName: 'Example Spanner Instance',
@@ -1506,8 +1489,7 @@ export function getMockMemcacheInstance(
   partial?: memcache_v1.Schema$Instance,
 ): memcache_v1.Schema$Instance {
   return {
-    name:
-      'projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-memcached-instance',
+    name: 'projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-memcached-instance',
     displayName: 'Test Memcached Instance Display Name',
     authorizedNetwork:
       'projects/j1-gc-integration-dev-v2/global/networks/test-private-vpc-network',
@@ -1546,8 +1528,7 @@ export function getMockSpannerInstanceDatabase(
   partial?: spanner_v1.Schema$Database,
 ): spanner_v1.Schema$Database {
   return {
-    name:
-      'projects/j1-gc-integration-dev-v2/instances/example-spanner-instance/databases/database-name',
+    name: 'projects/j1-gc-integration-dev-v2/instances/example-spanner-instance/databases/database-name',
     state: 'READY',
     createTime: '2021-03-31T15:37:47.962882Z',
     versionRetentionPeriod: '1h',
@@ -1606,8 +1587,7 @@ export function getMockCertificateAuthority(
   partial?: privateca_v1beta1.Schema$CertificateAuthority,
 ): privateca_v1beta1.Schema$CertificateAuthority {
   return {
-    name:
-      'projects/j1-gc-integration-dev-v2/locations/us-central1/certificateAuthorities/acmeName',
+    name: 'projects/j1-gc-integration-dev-v2/locations/us-central1/certificateAuthorities/acmeName',
     type: 'SELF_SIGNED',
     tier: 'ENTERPRISE',
     config: {
@@ -1680,8 +1660,7 @@ export function getMockApiGatewayApi(
   partial?: apigateway_v1.Schema$ApigatewayApi,
 ): apigateway_v1.Schema$ApigatewayApi {
   return {
-    name:
-      'projects/j1-gc-integration-dev-v2/locations/global/apis/example-api-gateway-endpoint',
+    name: 'projects/j1-gc-integration-dev-v2/locations/global/apis/example-api-gateway-endpoint',
     createTime: '2021-03-30T21:15:27.820351650Z',
     updateTime: '2021-03-30T21:17:06.954180503Z',
     displayName: 'Example API Gateway Endpoint',
@@ -1696,8 +1675,7 @@ export function getMockApiGatewayApiConfig(
   partial?: apigateway_v1.Schema$ApigatewayApiConfig,
 ): apigateway_v1.Schema$ApigatewayApiConfig {
   return {
-    name:
-      'projects/j1-gc-integration-dev-v2/locations/global/apis/example-api-gateway-endpoint/configs/example-config',
+    name: 'projects/j1-gc-integration-dev-v2/locations/global/apis/example-api-gateway-endpoint/configs/example-config',
     createTime: '2021-03-30T21:17:10.657320375Z',
     updateTime: '2021-03-31T13:57:35.950462993Z',
     displayName: 'Example Config',
@@ -1713,8 +1691,7 @@ export function getMockApiGatewayGateway(
   partial?: apigateway_v1.Schema$ApigatewayGateway,
 ): apigateway_v1.Schema$ApigatewayGateway {
   return {
-    name:
-      'projects/j1-gc-integration-dev-v2/locations/us-central1/gateways/example-gateway',
+    name: 'projects/j1-gc-integration-dev-v2/locations/us-central1/gateways/example-gateway',
     createTime: '2021-03-30T21:19:35.916320550Z',
     updateTime: '2021-03-31T14:02:49.272381610Z',
     displayName: 'Example gateway',
@@ -1730,8 +1707,7 @@ export function getMockCertificate(
   partial?: privateca_v1beta1.Schema$Certificate,
 ): privateca_v1beta1.Schema$Certificate {
   return {
-    name:
-      'projects/711888229551/locations/us-central1/certificateAuthorities/Test-CA-Name/certificates/20210401-nkm-v03',
+    name: 'projects/711888229551/locations/us-central1/certificateAuthorities/Test-CA-Name/certificates/20210401-nkm-v03',
     config: {
       subjectConfig: {
         subjectAltName: {

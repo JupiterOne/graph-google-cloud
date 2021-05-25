@@ -27,46 +27,47 @@ import { spannerSteps } from './steps/spanner';
 import { apiGatewaySteps } from './steps/api-gateway';
 import { privateCaSteps } from './steps/privateca';
 
-export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> = {
-  instanceConfigFields: {
-    serviceAccountKeyFile: {
-      type: 'string',
-      mask: true,
+export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> =
+  {
+    instanceConfigFields: {
+      serviceAccountKeyFile: {
+        type: 'string',
+        mask: true,
+      },
     },
-  },
-  getStepStartStates,
-  integrationSteps: [
-    ...functionsSteps,
-    ...storageSteps,
-    ...serviceUsageSteps,
-    ...iamSteps,
-    ...resourceManagerSteps,
-    ...computeSteps,
-    ...kmsSteps,
-    ...sqlAdminSteps,
-    ...bigQuerySteps,
-    ...dnsManagedZonesSteps,
-    ...containerSteps,
-    ...loggingSteps,
-    ...monitoringSteps,
-    ...binaryAuthorizationSteps,
-    ...pubSubSteps,
-    ...appEngineSteps,
-    ...cloudRunSteps,
-    ...redisSteps,
-    ...memcacheSteps,
-    ...spannerSteps,
-    ...apiGatewaySteps,
-    ...privateCaSteps,
-  ],
+    getStepStartStates,
+    integrationSteps: [
+      ...functionsSteps,
+      ...storageSteps,
+      ...serviceUsageSteps,
+      ...iamSteps,
+      ...resourceManagerSteps,
+      ...computeSteps,
+      ...kmsSteps,
+      ...sqlAdminSteps,
+      ...bigQuerySteps,
+      ...dnsManagedZonesSteps,
+      ...containerSteps,
+      ...loggingSteps,
+      ...monitoringSteps,
+      ...binaryAuthorizationSteps,
+      ...pubSubSteps,
+      ...appEngineSteps,
+      ...cloudRunSteps,
+      ...redisSteps,
+      ...memcacheSteps,
+      ...spannerSteps,
+      ...apiGatewaySteps,
+      ...privateCaSteps,
+    ],
 
-  beforeAddEntity(context, entity: Entity): Entity {
-    const projectId =
-      context.instance.config.serviceAccountKeyConfig.project_id;
+    beforeAddEntity(context, entity: Entity): Entity {
+      const projectId =
+        context.instance.config.serviceAccountKeyConfig.project_id;
 
-    return {
-      ...entity,
-      projectId: entity.projectId || projectId,
-    };
-  },
-};
+      return {
+        ...entity,
+        projectId: entity.projectId || projectId,
+      };
+    },
+  };

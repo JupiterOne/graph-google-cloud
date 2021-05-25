@@ -34,10 +34,10 @@ describe('#getAuthenticatedServiceClient', () => {
       }),
     );
 
-    const mockGoogleAuthClient = ({
+    const mockGoogleAuthClient = {
       getClient: mockGetClient,
       getAccessToken: mockGetAccessToken,
-    } as unknown) as GoogleAuth;
+    } as unknown as GoogleAuth;
 
     googleAuthSpy.mockReturnValueOnce(mockGoogleAuthClient);
 

@@ -71,9 +71,8 @@ async function createApiServiceEntityHasIamRoleRelationships({
       serviceApiName,
     });
 
-    const serviceApiEntityKeySeenMapValue = serviceApiEntityKeySeenMap.get(
-      serviceApiEntityKey,
-    );
+    const serviceApiEntityKeySeenMapValue =
+      serviceApiEntityKeySeenMap.get(serviceApiEntityKey);
 
     if (serviceApiEntityKeySeenMapValue === undefined) {
       const serviceApiEntity = await jobState.findEntity(serviceApiEntityKey);

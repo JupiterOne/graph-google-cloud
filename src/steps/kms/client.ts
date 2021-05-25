@@ -79,12 +79,11 @@ export class CloudKmsClient extends Client {
   async fetchCryptoKeyPolicy(resource: string) {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const result = await this.client.projects.locations.keyRings.cryptoKeys.getIamPolicy(
-      {
+    const result =
+      await this.client.projects.locations.keyRings.cryptoKeys.getIamPolicy({
         auth,
         resource,
-      },
-    );
+      });
 
     return result.data;
   }

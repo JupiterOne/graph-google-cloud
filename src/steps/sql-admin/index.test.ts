@@ -278,9 +278,10 @@ describe('#fetchSQLInstances encrypted', () => {
       },
     });
 
-    const postgresInstanceUsesKmsKeyRelationships = context.jobState.collectedRelationships.filter(
-      (r) => r._type === 'google_sql_postgres_instance_uses_kms_crypto_key',
-    );
+    const postgresInstanceUsesKmsKeyRelationships =
+      context.jobState.collectedRelationships.filter(
+        (r) => r._type === 'google_sql_postgres_instance_uses_kms_crypto_key',
+      );
 
     expect(postgresInstanceUsesKmsKeyRelationships.length).toBeGreaterThan(0);
 
