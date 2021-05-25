@@ -105,6 +105,189 @@ Object {
 }
 `;
 
+exports[`#createComputeAddressEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "IpAddress",
+  ],
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/addresses/my-test-address",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "address": "35.224.103.156",
+        "addressType": "EXTERNAL",
+        "creationTimestamp": "2021-05-21T05:34:18.344-07:00",
+        "description": "",
+        "id": "4228086364807763493",
+        "kind": "compute#address",
+        "name": "my-test-address",
+        "networkTier": "PREMIUM",
+        "region": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/addresses/my-test-address",
+        "status": "RESERVED",
+      },
+    },
+  ],
+  "_type": "google_compute_address",
+  "active": undefined,
+  "addressType": "EXTERNAL",
+  "createdOn": 1621600458344,
+  "description": "",
+  "displayName": "my-test-address",
+  "id": "4228086364807763493",
+  "ipAddress": "35.224.103.156",
+  "ipVersion": undefined,
+  "kind": "compute#address",
+  "name": "my-test-address",
+  "network": undefined,
+  "networkTier": "PREMIUM",
+  "purpose": undefined,
+  "status": "RESERVED",
+  "subnetwork": undefined,
+  "webLink": "https://console.cloud.google.com/networking/addresses/list?project=j1-gc-integration-dev-v2",
+}
+`;
+
+exports[`#createComputeAddressEntity should convert to entity 2`] = `
+Object {
+  "_class": Array [
+    "IpAddress",
+  ],
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/addresses/global-address-example",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "address": "100.100.100.105",
+        "addressType": "INTERNAL",
+        "creationTimestamp": "2021-07-07T04:43:33.648-07:00",
+        "description": "",
+        "id": "5882576143110385034",
+        "kind": "compute#address",
+        "name": "global-address-example",
+        "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/global-address-example-network",
+        "networkTier": "PREMIUM",
+        "purpose": "PRIVATE_SERVICE_CONNECT",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/addresses/global-address-example",
+        "status": "RESERVED",
+      },
+    },
+  ],
+  "_type": "google_compute_global_address",
+  "active": undefined,
+  "addressType": "INTERNAL",
+  "createdOn": 1625658213648,
+  "description": "",
+  "displayName": "global-address-example",
+  "id": "5882576143110385034",
+  "ipAddress": "100.100.100.105",
+  "ipVersion": undefined,
+  "kind": "compute#address",
+  "name": "global-address-example",
+  "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/global-address-example-network",
+  "networkTier": "PREMIUM",
+  "purpose": "PRIVATE_SERVICE_CONNECT",
+  "status": "RESERVED",
+  "subnetwork": undefined,
+  "webLink": "https://console.cloud.google.com/networking/addresses/list?project=j1-gc-integration-dev-v2",
+}
+`;
+
+exports[`#createComputeAddressEntity should have list of resources using the address if resources are using it 1`] = `
+Object {
+  "_class": Array [
+    "IpAddress",
+  ],
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/addresses/my-test-address",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "address": "35.224.103.156",
+        "addressType": "EXTERNAL",
+        "creationTimestamp": "2021-05-21T05:34:18.344-07:00",
+        "description": "",
+        "id": "4228086364807763493",
+        "kind": "compute#address",
+        "name": "my-test-address",
+        "networkTier": "PREMIUM",
+        "region": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/addresses/my-test-address",
+        "status": "RESERVED",
+        "users": Array [
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/instance-custom-image",
+        ],
+      },
+    },
+  ],
+  "_type": "google_compute_address",
+  "active": undefined,
+  "addressType": "EXTERNAL",
+  "createdOn": 1621600458344,
+  "description": "",
+  "displayName": "my-test-address",
+  "id": "4228086364807763493",
+  "ipAddress": "35.224.103.156",
+  "ipVersion": undefined,
+  "kind": "compute#address",
+  "name": "my-test-address",
+  "network": undefined,
+  "networkTier": "PREMIUM",
+  "purpose": undefined,
+  "status": "RESERVED",
+  "subnetwork": undefined,
+  "webLink": "https://console.cloud.google.com/networking/addresses/list?project=j1-gc-integration-dev-v2",
+}
+`;
+
+exports[`#createComputeAddressEntity should have list of resources using the address if resources are using it 2`] = `
+Object {
+  "_class": Array [
+    "IpAddress",
+  ],
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/addresses/my-test-address",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "address": "35.224.103.156",
+        "addressType": "EXTERNAL",
+        "creationTimestamp": "2021-05-21T05:34:18.344-07:00",
+        "description": "",
+        "id": "4228086364807763493",
+        "kind": "compute#address",
+        "name": "my-test-address",
+        "networkTier": "PREMIUM",
+        "region": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/addresses/my-test-address",
+        "status": "RESERVED",
+        "users": Array [
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/instance-custom-image",
+        ],
+      },
+    },
+  ],
+  "_type": "google_compute_address",
+  "active": undefined,
+  "addressType": "EXTERNAL",
+  "createdOn": 1621600458344,
+  "description": "",
+  "displayName": "my-test-address",
+  "id": "4228086364807763493",
+  "ipAddress": "35.224.103.156",
+  "ipVersion": undefined,
+  "kind": "compute#address",
+  "name": "my-test-address",
+  "network": undefined,
+  "networkTier": "PREMIUM",
+  "purpose": undefined,
+  "status": "RESERVED",
+  "subnetwork": undefined,
+  "webLink": "https://console.cloud.google.com/networking/addresses/list?project=j1-gc-integration-dev-v2",
+}
+`;
+
 exports[`#createComputeDiskEntity should convert to entity 1`] = `
 Object {
   "_class": Array [
@@ -176,6 +359,8 @@ Object {
   "sizeGB": "10",
   "sourceImage": "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-9-stretch-v20200805",
   "sourceImageId": "6709658075886210235",
+  "sourceSnapshot": undefined,
+  "sourceSnapshotId": undefined,
   "status": "READY",
   "type": "pd-standard",
   "webLink": "https://console.cloud.google.com/compute/disksDetail/zones/us-central1-a/disks/testvm?project=j1-gc-integration-dev-v2",
@@ -254,6 +439,8 @@ Object {
   "sizeGB": "10",
   "sourceImage": "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-9-stretch-v20200805",
   "sourceImageId": "6709658075886210235",
+  "sourceSnapshot": undefined,
+  "sourceSnapshotId": undefined,
   "status": "FAILED",
   "type": "pd-standard",
   "webLink": "https://console.cloud.google.com/compute/disksDetail/zones/us-central1-a/disks/testvm?project=j1-gc-integration-dev-v2",
@@ -1021,6 +1208,81 @@ Object {
 }
 `;
 
+exports[`#createComputeRegionDiskEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "DataStore",
+    "Disk",
+  ],
+  "_key": "region_disk:123456789",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "creationTimestamp": "2020-08-12T08:20:05.930-07:00",
+        "guestOsFeatures": Array [
+          Object {
+            "type": "VIRTIO_SCSI_MULTIQUEUE",
+          },
+        ],
+        "id": "123456789",
+        "kind": "compute#disk",
+        "labelFingerprint": "42WmSpB8rSM=",
+        "lastAttachTimestamp": "2021-07-09T08:20:05.930-07:00",
+        "licenseCodes": Array [
+          "1000205",
+        ],
+        "licenses": Array [
+          "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-9-stretch",
+        ],
+        "name": "my-region-disk",
+        "physicalBlockSizeBytes": "4096",
+        "region": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/disks/my-region-disk",
+        "sizeGb": "10",
+        "sourceSnapshot": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/snapshots/my-snapshot",
+        "sourceSnapshotId": "582017966438274022",
+        "status": "READY",
+        "tags": undefined,
+        "type": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/diskTypes/pd-ssd",
+      },
+    },
+  ],
+  "_type": "google_compute_region_disk",
+  "active": true,
+  "classification": null,
+  "createdOn": 1597245605930,
+  "description": undefined,
+  "displayName": "my-region-disk",
+  "encrypted": true,
+  "guestOsFeatures": Array [
+    "VIRTIO_SCSI_MULTIQUEUE",
+  ],
+  "id": "123456789",
+  "isCustomerSuppliedKeysEncrypted": false,
+  "kind": "compute#disk",
+  "kmsKeyName": undefined,
+  "kmsKeyServiceAccount": undefined,
+  "labelFingerprint": "42WmSpB8rSM=",
+  "lastAttachTimestamp": 1625844005930,
+  "licenseCodes": Array [
+    "1000205",
+  ],
+  "licenses": Array [
+    "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-9-stretch",
+  ],
+  "name": "my-region-disk",
+  "physicalBlockSizeBytes": "4096",
+  "region": "us-central1",
+  "sizeGB": "10",
+  "sourceSnapshot": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/snapshots/my-snapshot",
+  "sourceSnapshotId": "582017966438274022",
+  "status": "READY",
+  "type": "pd-ssd",
+  "webLink": "https://console.cloud.google.com/compute/disksDetail/regions/us-central1/disks/my-region-disk?project=j1-gc-integration-dev-v3",
+}
+`;
+
 exports[`#createComputeSubnetEntity should convert to entity 1`] = `
 Object {
   "CIDR": "10.164.0.0/20",
@@ -1147,6 +1409,109 @@ Object {
 }
 `;
 
+exports[`#createForwardingRuleEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Configuration",
+  ],
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/forwardingRules/forwarding-rule-example",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "IPAddress": "35.226.248.183",
+        "IPProtocol": "TCP",
+        "backendService": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/backendServices/forwarding-rule-example-backend",
+        "creationTimestamp": "2021-07-06T09:09:23.865-07:00",
+        "description": "",
+        "fingerprint": "a9razc1zgQg=",
+        "id": "8553404519655489244",
+        "kind": "compute#forwardingRule",
+        "labelFingerprint": "42WmSpB8rSM=",
+        "loadBalancingScheme": "EXTERNAL",
+        "name": "forwarding-rule-example",
+        "networkTier": "PREMIUM",
+        "portRange": "80-80",
+        "region": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/forwardingRules/forwarding-rule-example",
+      },
+    },
+  ],
+  "_type": "google_compute_forwarding_rule",
+  "allPorts": undefined,
+  "allowGlobalAccess": undefined,
+  "backendService": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/backendServices/forwarding-rule-example-backend",
+  "createdOn": 1625587763865,
+  "description": "",
+  "displayName": "forwarding-rule-example",
+  "id": "8553404519655489244",
+  "ipAddress": "35.226.248.183",
+  "ipProtocol": "TCP",
+  "isMirroringCollector": undefined,
+  "kind": "compute#forwardingRule",
+  "loadBalancingScheme": "EXTERNAL",
+  "name": "forwarding-rule-example",
+  "network": undefined,
+  "networkTier": "PREMIUM",
+  "portRange": "80-80",
+  "ports": undefined,
+  "pscConnectionId": undefined,
+  "serviceName": undefined,
+  "subnetwork": undefined,
+}
+`;
+
+exports[`#createGlobalForwardingRuleEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Configuration",
+  ],
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/forwardingRules/global-forwarding-rule-example",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "IPAddress": "34.149.86.61",
+        "IPProtocol": "TCP",
+        "creationTimestamp": "2021-07-06T12:13:10.197-07:00",
+        "description": "",
+        "fingerprint": "TcR6S3PkYpw=",
+        "id": "1882786573381604777",
+        "kind": "compute#forwardingRule",
+        "labelFingerprint": "42WmSpB8rSM=",
+        "loadBalancingScheme": "EXTERNAL",
+        "name": "global-forwarding-rule-example",
+        "networkTier": "PREMIUM",
+        "portRange": "80-80",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/forwardingRules/global-forwarding-rule-example",
+        "target": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/targetHttpProxies/global-forwarding-rule-example-http-proxy",
+      },
+    },
+  ],
+  "_type": "google_compute_global_forwarding_rule",
+  "allPorts": undefined,
+  "allowGlobalAccess": undefined,
+  "backendService": undefined,
+  "createdOn": 1625598790197,
+  "description": "",
+  "displayName": "global-forwarding-rule-example",
+  "id": "1882786573381604777",
+  "ipAddress": "34.149.86.61",
+  "ipProtocol": "TCP",
+  "isMirroringCollector": undefined,
+  "kind": "compute#forwardingRule",
+  "loadBalancingScheme": "EXTERNAL",
+  "name": "global-forwarding-rule-example",
+  "network": undefined,
+  "networkTier": "PREMIUM",
+  "portRange": "80-80",
+  "ports": undefined,
+  "pscConnectionId": undefined,
+  "serviceName": undefined,
+  "subnetwork": undefined,
+}
+`;
+
 exports[`#createHealthCheckEntity should convert to entity 1`] = `
 Object {
   "_class": Array [
@@ -1192,6 +1557,7 @@ Object {
   "timeoutSec": 5,
   "type": "TCP",
   "unhealthyThreshold": 3,
+  "webLink": "https://console.cloud.google.com/compute/healthChecks/details/health-check?project=j1-gc-integration-dev-v2",
 }
 `;
 
@@ -1233,12 +1599,227 @@ Object {
   "name": "instance-group-1",
   "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
   "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
-  "webLink": "https://console.cloud.google.com/compute/instanceGroups/details/us-central1/instance-group-1?project=j1-gc-integration-dev-v2",
+  "webLink": "https://console.cloud.google.com/compute/instanceGroups/details/us-central1-a/instance-group-1?project=j1-gc-integration-dev-v2",
   "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a",
 }
 `;
 
 exports[`#createLoadBalancerEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Gateway",
+  ],
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/urlMaps/region-load-balancer",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "creationTimestamp": "2021-07-06T08:43:38.575-07:00",
+        "defaultService": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/backendServices/region-backend-service-a",
+        "fingerprint": "pQIO2oOQZtQ=",
+        "hostRules": Array [
+          Object {
+            "hosts": Array [
+              "mysite.com",
+            ],
+            "pathMatcher": "allpaths",
+          },
+        ],
+        "id": "1752343790922351813",
+        "kind": "compute#urlMap",
+        "name": "region-load-balancer",
+        "pathMatchers": Array [
+          Object {
+            "defaultService": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/backendServices/region-backend-service-a",
+            "name": "allpaths",
+            "pathRules": Array [
+              Object {
+                "paths": Array [
+                  "/*",
+                ],
+                "service": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/backendServices/region-backend-service-a",
+              },
+            ],
+          },
+        ],
+        "region": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/urlMaps/region-load-balancer",
+      },
+    },
+  ],
+  "_type": "google_compute_url_map",
+  "category": Array [
+    "network",
+  ],
+  "createdOn": 1625586218575,
+  "defaultService": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/backendServices/region-backend-service-a",
+  "description": undefined,
+  "displayName": "region-load-balancer",
+  "function": Array [
+    "load-balancing",
+  ],
+  "id": "1752343790922351813",
+  "kind": "compute#urlMap",
+  "name": "region-load-balancer",
+  "public": true,
+}
+`;
+
+exports[`#createRegionBackendServiceEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Service",
+  ],
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/backendServices/region-service",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "affinityCookieTtlSec": 0,
+        "backends": Array [
+          Object {
+            "balancingMode": "UTILIZATION",
+            "capacityScaler": 1,
+            "group": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/instanceGroups/rbs-rigm",
+          },
+        ],
+        "connectionDraining": Object {
+          "drainingTimeoutSec": 0,
+        },
+        "creationTimestamp": "2021-07-02T11:37:53.945-07:00",
+        "description": "",
+        "fingerprint": "awc17aRlLnY=",
+        "healthChecks": Array [
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/healthChecks/region-health-check",
+        ],
+        "id": "4177301228397716462",
+        "kind": "compute#backendService",
+        "loadBalancingScheme": "INTERNAL_MANAGED",
+        "name": "region-service",
+        "port": 80,
+        "portName": "http",
+        "protocol": "HTTP",
+        "region": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/backendServices/region-service",
+        "sessionAffinity": "NONE",
+        "timeoutSec": 10,
+      },
+    },
+  ],
+  "_type": "google_compute_region_backend_service",
+  "category": Array [
+    "network",
+  ],
+  "createdOn": 1625251073945,
+  "description": "",
+  "displayName": "region-service",
+  "enableCDN": undefined,
+  "function": Array [
+    "load-balancing",
+  ],
+  "id": "4177301228397716462",
+  "name": "region-service",
+  "port": 80,
+  "protocol": "HTTP",
+  "timeoutSec": 10,
+}
+`;
+
+exports[`#createRegionHealthCheckEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Service",
+  ],
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/healthChecks/forwarding-rule-example-hc",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "checkIntervalSec": 10,
+        "creationTimestamp": "2021-07-07T13:09:23.908-08:00",
+        "description": "",
+        "healthyThreshold": 2,
+        "id": "1905105216322309484",
+        "kind": "compute#healthCheck",
+        "name": "region-health-check",
+        "region": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/healthChecks/forwarding-rule-example-hc",
+        "tcpHealthCheck": Object {
+          "port": 80,
+          "proxyHeader": "NONE",
+        },
+        "timeoutSec": 5,
+        "type": "TCP",
+        "unhealthyThreshold": 3,
+      },
+    },
+  ],
+  "_type": "google_compute_region_health_check",
+  "category": Array [
+    "network",
+  ],
+  "checkIntervalSec": 10,
+  "createdOn": 1625692163908,
+  "description": "",
+  "displayName": "region-health-check",
+  "function": Array [
+    "validation",
+  ],
+  "healthyThreshold": 2,
+  "id": "1905105216322309484",
+  "name": "region-health-check",
+  "region": "us-central1",
+  "timeoutSec": 5,
+  "type": "TCP",
+  "unhealthyThreshold": 3,
+  "webLink": "https://console.cloud.google.com/compute/healthChecks/details/regions/us-central1/region-health-check?project=j1-gc-integration-dev-v2",
+}
+`;
+
+exports[`#createRegionInstanceGroupEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Group",
+  ],
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/instanceGroups/rbs-rigm",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "creationTimestamp": "2021-07-02T11:37:36.900-07:00",
+        "description": "This instance group is controlled by Regional Instance Group Manager 'rbs-rigm'. To modify instances in this group, use the Regional Instance Group Manager API: https://cloud.google.com/compute/docs/reference/latest/regionInstanceGroupManagers",
+        "fingerprint": "l9ccw0jwP90=",
+        "id": "1067593809144242719",
+        "kind": "compute#instanceGroup",
+        "name": "rbs-rigm",
+        "namedPorts": Array [
+          Object {
+            "name": "http",
+            "port": 80,
+          },
+        ],
+        "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/rbs-net",
+        "region": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/instanceGroups/rbs-rigm",
+        "size": 1,
+        "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/subnetworks/rbs-net-default",
+      },
+    },
+  ],
+  "_type": "google_compute_region_instance_group",
+  "createdOn": 1625251056900,
+  "description": "This instance group is controlled by Regional Instance Group Manager 'rbs-rigm'. To modify instances in this group, use the Regional Instance Group Manager API: https://cloud.google.com/compute/docs/reference/latest/regionInstanceGroupManagers",
+  "displayName": "rbs-rigm",
+  "id": "1067593809144242719",
+  "name": "rbs-rigm",
+  "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/rbs-net",
+  "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/subnetworks/rbs-net-default",
+  "webLink": "https://console.cloud.google.com/compute/instanceGroups/details/us-central1/rbs-rigm?project=j1-gc-integration-dev-v2",
+  "zone": undefined,
+}
+`;
+
+exports[`#createRegionLoadBalancerEntity should convert to entity 1`] = `
 Object {
   "_class": Array [
     "Gateway",
@@ -1280,19 +1861,98 @@ Object {
       },
     },
   ],
-  "_type": "google_compute_url_map",
+  "_type": "google_compute_region_url_map",
   "category": Array [
     "network",
   ],
   "createdOn": 1611608972355,
   "defaultService": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/backendServices/example-backend-service",
+  "description": undefined,
   "displayName": "example-http-load-balancer",
   "function": Array [
     "load-balancing",
   ],
   "id": "7884251075960802659",
+  "kind": "compute#urlMap",
   "name": "example-http-load-balancer",
   "public": true,
+  "region": undefined,
+}
+`;
+
+exports[`#createRegionTargetHttpProxyEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Gateway",
+  ],
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/targetHttpProxies/region-target-http-proxy",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "creationTimestamp": "2021-07-06T08:43:50.058-07:00",
+        "fingerprint": "NsugSa3Ddx8=",
+        "id": "8864379689692153049",
+        "kind": "compute#targetHttpProxy",
+        "name": "region-target-http-proxy",
+        "region": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/targetHttpProxies/region-target-http-proxy",
+        "urlMap": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/urlMaps/region-load-balancer",
+      },
+    },
+  ],
+  "_type": "google_compute_region_target_http_proxy",
+  "category": Array [
+    "network",
+  ],
+  "createdOn": 1625586230058,
+  "displayName": "region-target-http-proxy",
+  "function": Array [
+    "load-balancing",
+  ],
+  "id": "8864379689692153049",
+  "name": "region-target-http-proxy",
+  "public": true,
+}
+`;
+
+exports[`#createRegionTargetHttpsProxyEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Gateway",
+  ],
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/targetHttpsProxies/example-http-load-balancer-target-proxy",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "creationTimestamp": "2021-01-25T13:12:07.139-08:00",
+        "id": "4900822412538579656",
+        "kind": "compute#targetHttpsProxy",
+        "name": "example-http-load-balancer-target-proxy",
+        "quicOverride": "NONE",
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/targetHttpsProxies/example-http-load-balancer-target-proxy",
+        "sslCertificates": Array [
+          "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/sslCertificates/example-certificate",
+        ],
+        "sslPolicy": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/sslPolicies/example-tls-1-2-policy",
+        "urlMap": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/urlMaps/example-http-load-balancer",
+      },
+    },
+  ],
+  "_type": "google_compute_target_https_proxy",
+  "category": Array [
+    "network",
+  ],
+  "createdOn": 1611609127139,
+  "displayName": "example-http-load-balancer-target-proxy",
+  "function": Array [
+    "load-balancing",
+  ],
+  "id": "4900822412538579656",
+  "name": "example-http-load-balancer-target-proxy",
+  "public": true,
+  "sslPolicy": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/sslPolicies/example-tls-1-2-policy",
 }
 `;
 
