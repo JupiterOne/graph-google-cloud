@@ -123,7 +123,7 @@ describe('#fetchBigQueryTables', () => {
         (e) => e._type === BIG_QUERY_TABLE_ENTITY_TYPE,
       ),
     ).toMatchGraphObjectSchema({
-      _class: ['DataObject'],
+      _class: ['DataCollection'],
       schema: {
         additionalProperties: false,
         properties: {

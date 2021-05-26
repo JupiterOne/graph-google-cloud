@@ -302,7 +302,7 @@ The following entities are created:
 | AppEngine Service                 | `google_app_engine_service`                | `Container`                        |
 | AppEngine Version                 | `google_app_engine_version`                | `Service`                          |
 | Big Query Dataset                 | `google_bigquery_dataset`                  | `DataStore`, `Database`            |
-| Big Query Table                   | `google_bigquery_table`                    | `DataObject`                       |
+| Big Query Table                   | `google_bigquery_table`                    | `DataCollection`                   |
 | Binary Authorization Policy       | `google_binary_authorization_policy`       | `AccessPolicy`                     |
 | Cloud API Service                 | `google_cloud_api_service`                 | `Service`                          |
 | Cloud Function                    | `google_cloud_function`                    | `Function`                         |
