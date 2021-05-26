@@ -21,6 +21,9 @@ and this project adheres to
     - `google_bigquery_dataset` **HAS** `google_bigquery_table`
     - `google_bigquery_dataset` **USES** `google_kms_crypto_key`
 
+- - Support for `--integration-polling-interval` in the
+    `jupiterone-organization-setup` CLI
+
 ### Changed
 
 - Add `Database` class to `google_bigquery_dataset`

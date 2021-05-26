@@ -10,6 +10,7 @@ import fetch from 'node-fetch';
 import Logger from 'bunyan';
 import { retry } from '@lifeomic/attempt';
 import { renderTemplate } from 'mutton';
+import { SchedulerInterval } from './types';
 
 const cloudresourcemanager = google.cloudresourcemanager('v1');
 const cloudresourcemanagerV2 = google.cloudresourcemanager('v2');
@@ -27,6 +28,7 @@ export interface BaseSetupOrganizationParams {
   logger: Logger;
   rotateServiceAccountKeys: boolean;
   servicesToEnable: string[];
+  integrationPollingInterval: SchedulerInterval;
 }
 
 export interface SetupOrganizationParams extends BaseSetupOrganizationParams {
@@ -426,6 +428,7 @@ interface CreateJupiterOneIntegrationInstanceParams {
   integrationInstanceName: string;
   serviceAccountKey: string;
   jupiteroneEnv: string;
+  integrationPollingInterval: SchedulerInterval;
 }
 
 async function createJupiterOneIntegrationInstance({
@@ -436,6 +439,7 @@ async function createJupiterOneIntegrationInstance({
   integrationInstanceName,
   serviceAccountKey,
   jupiteroneEnv,
+  integrationPollingInterval,
 }: CreateJupiterOneIntegrationInstanceParams): Promise<IntegrationInstance> {
   const response = await fetch(
     `https://api.${jupiteroneEnv}.jupiterone.io/graphql`,
@@ -447,7 +451,7 @@ async function createJupiterOneIntegrationInstance({
         variables: {
           instance: {
             name: integrationInstanceName,
-            pollingInterval: 'ONE_DAY',
+            pollingInterval: integrationPollingInterval,
             description: 'Created from JupiterOne org script',
             config: {
               '@tag': {
@@ -619,6 +623,7 @@ interface PutJupiterOneIntegrationInstanceParams {
   serviceAccountKey: string;
   jupiteroneEnv: string;
   integrationInstanceName: string;
+  integrationPollingInterval: SchedulerInterval;
 }
 
 async function putJupiterOneIntegrationInstance({
@@ -629,6 +634,7 @@ async function putJupiterOneIntegrationInstance({
   serviceAccountKey,
   jupiteroneEnv,
   integrationInstanceName,
+  integrationPollingInterval,
 }: PutJupiterOneIntegrationInstanceParams) {
   logger.info(
     {
@@ -685,6 +691,7 @@ async function putJupiterOneIntegrationInstance({
       integrationInstanceName,
       serviceAccountKey,
       jupiteroneEnv,
+      integrationPollingInterval,
     });
   }
 
@@ -774,6 +781,7 @@ async function setupOrganizationProject(
     rotateServiceAccountKeys,
     servicesToEnable,
     integrationInstanceName,
+    integrationPollingInterval,
   } = params;
 
   const projectId = project.projectId as string;
@@ -875,6 +883,7 @@ async function setupOrganizationProject(
       serviceAccountKey,
       jupiteroneEnv,
       integrationInstanceName,
+      integrationPollingInterval,
     });
 
     logger.info(
@@ -941,6 +950,7 @@ export async function setupOrganization(
     servicesToEnable,
     skipProjectIdRegex,
     integrationInstanceNamePattern,
+    integrationPollingInterval,
   } = params;
 
   const result: SetupOrganizationResult = {
@@ -1049,6 +1059,7 @@ export async function setupOrganization(
           rotateServiceAccountKeys,
           servicesToEnable,
           integrationInstanceName,
+          integrationPollingInterval,
         });
 
         result[setupResult.toLowerCase()].push(projectId);
@@ -1107,6 +1118,7 @@ export async function setupOrganization(
               rotateServiceAccountKeys,
               servicesToEnable,
               integrationInstanceName,
+              integrationPollingInterval,
             });
 
             result[setupResult.toLowerCase()].push(projectId);

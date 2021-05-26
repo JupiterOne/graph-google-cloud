@@ -194,6 +194,7 @@ Options:
   --rotate-service-account-keys [rotateServiceAccountKeys]              (Optional) Creates a new service account key for the JupiterOne service account and PUTs the JupiterOne integration instance (default: false)
   --skip-project-id-regex [skipProjectIdRegex]                          (Optional) Project IDs discovered that match this regex will be skipped
   --integration-instance-name-pattern [integrationInstanceNamePattern]  (Optional) Naming pattern for how the integration instances that are created will be named. Example: 'gcp-{{projectId}}'
+  --integration-polling-interval [integrationPollingInterval]           (Optional) Polling interval for the integration instances that are created (default: ONE_DAY)
   -h, --help                                                            Display this message
 ```
 
