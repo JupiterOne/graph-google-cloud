@@ -9,6 +9,7 @@ import {
   SetupOrganizationResult,
 } from './organizationSetup';
 import { cloudresourcemanager_v1 } from 'googleapis';
+import { SchedulerInterval } from './types';
 
 function getMockLogger() {
   const mockLogger = {
@@ -37,6 +38,7 @@ function getSetupOrganizationParams(
     logger: getMockLogger(),
     skipSystemProjects: false,
     rotateServiceAccountKeys: false,
+    integrationPollingInterval: SchedulerInterval.ONE_DAY,
     servicesToEnable: [
       'serviceusage.googleapis.com',
       'cloudfunctions.googleapis.com',

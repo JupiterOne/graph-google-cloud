@@ -4,6 +4,7 @@ import { ok as assert } from 'assert';
 import { setupOrganization } from './organizationSetup';
 import bunyanFormat from 'bunyan-format';
 import { ServiceUsageName } from '../src/google-cloud/types';
+import { SchedulerInterval } from './types';
 
 interface CliArguments {
   jupiteroneAccountId: string;
@@ -11,6 +12,7 @@ interface CliArguments {
   googleAccessToken: string;
   skipSystemProjects: boolean;
   rotateServiceAccountKeys: boolean;
+  integrationPollingInterval: SchedulerInterval;
   organizationId?: string[] | (string | number)[];
   projectId?: string[] | (string | number)[];
   skipProjectId?: string[] | (string | number)[];
@@ -41,6 +43,10 @@ function convertToArrayOfStrings(
 ): string[] {
   const projectIds = Array.isArray(data) ? data : [data];
   return Array.from(new Set(projectIds.map((p) => p.toString())));
+}
+
+function isValidPollingInterval(pollingInterval: string): boolean {
+  return SchedulerInterval[pollingInterval] !== undefined;
 }
 
 const cli = cac('JupiterOne Google Cloud Organization Integration Setup');
@@ -93,6 +99,13 @@ cli
     '--integration-instance-name-pattern [integrationInstanceNamePattern]',
     `(Optional) Naming pattern for how the integration instances that are created will be named. Example: 'gcp-{{projectId}}'`,
   )
+  .option(
+    '--integration-polling-interval [integrationPollingInterval]',
+    '(Optional) Polling interval for the integration instances that are created',
+    {
+      default: 'ONE_DAY',
+    },
+  )
   .action((options: CliArguments) => {
     assertRequiredCliArg(
       '--jupiterone-account-id',
@@ -110,6 +123,12 @@ cli
     if (options.organizationId && options.projectId) {
       throw new Error(
         'Only one of the following CLI arguments can be provided: "--organization-id", "--project-id"',
+      );
+    }
+
+    if (!isValidPollingInterval(options.integrationPollingInterval)) {
+      throw new Error(
+        `Invalid integration polling interval specified (integrationPollingInterval=${options.integrationPollingInterval})`,
       );
     }
   });
@@ -130,6 +149,7 @@ const parsed = cli.parse(process.argv, { run: true });
     rotateServiceAccountKeys,
     skipProjectIdRegex,
     integrationInstanceNamePattern,
+    integrationPollingInterval,
   } = parsed.options as CliArguments;
 
   const projectIds = projectId && convertToArrayOfStrings(projectId);
@@ -153,6 +173,7 @@ const parsed = cli.parse(process.argv, { run: true });
       rotateServiceAccountKeys,
       skipProjectIdRegex,
       integrationInstanceNamePattern,
+      integrationPollingInterval,
     },
     'Running CLI with options...',
   );
@@ -173,6 +194,7 @@ const parsed = cli.parse(process.argv, { run: true });
     servicesToEnable: Object.values(ServiceUsageName),
     skipProjectIdRegex,
     integrationInstanceNamePattern,
+    integrationPollingInterval,
   });
 
   logger.info(
