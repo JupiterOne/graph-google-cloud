@@ -138,11 +138,24 @@ export default async function getStepStartStates(
   }
 
   const createStepStartState = (
-    serviceName: ServiceUsageName,
+    primaryServiceName: ServiceUsageName,
+    ...additionalServiceNames: ServiceUsageName[]
   ): StepStartState => {
-    return {
-      disabled: !enabledServiceNames.includes(serviceName),
-    };
+    const allServicesToEnableStep: ServiceUsageName[] = [
+      primaryServiceName,
+      ...additionalServiceNames,
+    ];
+
+    let disabled = true;
+
+    for (const serviceName of allServicesToEnableStep) {
+      if (enabledServiceNames.includes(serviceName)) {
+        disabled = false;
+        break;
+      }
+    }
+
+    return { disabled };
   };
 
   return {
@@ -154,6 +167,8 @@ export default async function getStepStartStates(
     ),
     [STEP_CLOUD_STORAGE_BUCKETS]: createStepStartState(
       ServiceUsageName.STORAGE,
+      ServiceUsageName.STORAGE_COMPONENT,
+      ServiceUsageName.STORAGE_API,
     ),
     [STEP_IAM_CUSTOM_ROLES]: createStepStartState(ServiceUsageName.IAM),
     [STEP_IAM_MANAGED_ROLES]: createStepStartState(ServiceUsageName.IAM),
