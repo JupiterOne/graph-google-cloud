@@ -2,6 +2,7 @@ import {
   Entity,
   IntegrationInvocationConfig,
 } from '@jupiterone/integration-sdk-core';
+import { deserializeIntegrationConfig } from './utils/integrationConfig';
 import { IntegrationConfig } from './types';
 import getStepStartStates from './getStepStartStates';
 import { functionsSteps } from './steps/functions';
@@ -26,6 +27,7 @@ import { memcacheSteps } from './steps/memcache';
 import { spannerSteps } from './steps/spanner';
 import { apiGatewaySteps } from './steps/api-gateway';
 import { privateCaSteps } from './steps/privateca';
+import { Client } from './google-cloud/client';
 
 export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> =
   {
@@ -71,3 +73,9 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> =
       };
     },
   };
+
+export {
+  IntegrationConfig,
+  deserializeIntegrationConfig,
+  Client as GoogleCloudClient,
+};

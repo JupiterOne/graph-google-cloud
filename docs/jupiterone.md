@@ -95,6 +95,8 @@ After setting up the [`gcloud` CLI](https://cloud.google.com/sdk/gcloud), you
 can run the following command to enable all services that the JupiterOne
 integration supports:
 
+**NOTE** You can only enable 20 services at a time
+
 ```
 gcloud services enable \
   serviceusage.googleapis.com \

@@ -1,20 +1,17 @@
 import { google, compute_v1 } from 'googleapis';
-import {
-  Client,
-  PageableGaxiosResponse,
-  GoogleClientAuth,
-} from '../../google-cloud/client';
+import { Client, PageableGaxiosResponse } from '../../google-cloud/client';
 import {
   googleCloudRegions,
   iterateRegionZones,
 } from '../../google-cloud/regions';
+import { BaseExternalAccountClient } from 'google-auth-library';
 
 export class ComputeClient extends Client {
   private client = google.compute('v1');
 
   private async iterateComputeApi<T>(
     fn: (params: {
-      auth: GoogleClientAuth;
+      auth: BaseExternalAccountClient;
       zone: string;
       nextPageToken?: string;
     }) => Promise<PageableGaxiosResponse<T>>,
