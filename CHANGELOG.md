@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.30.0 - 2021-05-29
+
 ### Added
 
 - Additional integration config fields `configureOrganizationProjects`,
