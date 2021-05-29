@@ -8,6 +8,18 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- Additional integration config fields `configureOrganizationProjects`,
+  `organizationId`, and `projectId`
+
+### Changed
+
+- Exported `IntegrationConfig`, `deserializeIntegrationConfig` and `Client` from
+  the package
+
+- Upgraded packages
+
 ## 0.29.0 - 2021-05-27
 
 ### Added

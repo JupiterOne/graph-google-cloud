@@ -1,12 +1,6 @@
 import { IntegrationConfig } from '../types';
 import { google } from 'googleapis';
-import {
-  JWT,
-  Compute,
-  UserRefreshClient,
-  CredentialBody,
-  BaseExternalAccountClient,
-} from 'google-auth-library';
+import { CredentialBody, BaseExternalAccountClient } from 'google-auth-library';
 import { GaxiosResponse } from 'gaxios';
 import {
   IntegrationProviderAuthorizationError,
@@ -29,12 +23,6 @@ export type PageableGaxiosResponse<T> = GaxiosResponse<
   }
 >;
 
-export type GoogleClientAuth =
-  | JWT
-  | Compute
-  | UserRefreshClient
-  | BaseExternalAccountClient;
-
 export async function iterateApi<T>(
   fn: (nextPageToken?: string) => Promise<PageableGaxiosResponse<T>>,
   callback: (data: T) => Promise<void>,
@@ -53,28 +41,29 @@ export class Client {
   readonly iterateApi = iterateApi;
 
   private credentials: CredentialBody;
-  private auth: GoogleClientAuth;
+  private auth: BaseExternalAccountClient;
 
   constructor({ config }: ClientOptions) {
-    this.projectId = config.serviceAccountKeyConfig.project_id;
+    this.projectId =
+      config.projectId || config.serviceAccountKeyConfig.project_id;
     this.credentials = {
       client_email: config.serviceAccountKeyConfig.client_email,
       private_key: config.serviceAccountKeyConfig.private_key,
     };
   }
 
-  private async getClient() {
+  private async getClient(): Promise<BaseExternalAccountClient> {
     const auth = new google.auth.GoogleAuth({
       credentials: this.credentials,
       scopes: ['https://www.googleapis.com/auth/cloud-platform'],
     });
 
-    const client = await auth.getClient();
+    const client = (await auth.getClient()) as BaseExternalAccountClient;
     await client.getAccessToken();
     return client;
   }
 
-  async getAuthenticatedServiceClient(): Promise<GoogleClientAuth> {
+  async getAuthenticatedServiceClient(): Promise<BaseExternalAccountClient> {
     if (!this.auth) {
       this.auth = await this.getClient();
     }

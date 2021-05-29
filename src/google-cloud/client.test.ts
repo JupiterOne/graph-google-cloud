@@ -22,7 +22,7 @@ describe('#getAuthenticatedServiceClient', () => {
     jest.resetAllMocks();
   });
 
-  test('should cache authenticated service client GoogleClientAuth data', async () => {
+  test('should cache authenticated service client BaseExternalAccountClient data', async () => {
     const instanceConfig = getMockIntegrationConfig();
 
     const mockGetAccessToken = jest
