@@ -22,12 +22,6 @@ describe('#getUniqueIntegrationConfigProjectsForStepEnablement', () => {
   });
 });
 
-// describe('#serviceResourceNameToServiceName', () => {
-//   test('should convert service resource name to short service name', () => {
-//     expect(enablement.serviceResourceNameToServiceName('projects/my-proj/services/appengine.googleapis.com')).toEqual('appengine.googleapis.com');
-//   });
-// });
-
 describe('#createStepStartState', () => {
   test('should not mark step start state as disabled when the service is enabled', () => {
     expect(
