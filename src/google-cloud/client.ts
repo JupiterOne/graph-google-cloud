@@ -11,6 +11,14 @@ import { createErrorProps } from './utils/createErrorProps';
 
 export interface ClientOptions {
   config: IntegrationConfig;
+  /**
+   * Specific project ID to target. The order of overrides is the following:
+   *
+   * ClientOptions.projectId ||
+   * config.projectId ||
+   * config.serviceAccountKeyConfig.project_id
+   */
+  projectId?: string;
 }
 
 export interface PageableResponse {
@@ -43,9 +51,11 @@ export class Client {
   private credentials: CredentialBody;
   private auth: BaseExternalAccountClient;
 
-  constructor({ config }: ClientOptions) {
+  constructor({ config, projectId }: ClientOptions) {
     this.projectId =
-      config.projectId || config.serviceAccountKeyConfig.project_id;
+      projectId ||
+      config.projectId ||
+      config.serviceAccountKeyConfig.project_id;
     this.credentials = {
       client_email: config.serviceAccountKeyConfig.client_email,
       private_key: config.serviceAccountKeyConfig.private_key,

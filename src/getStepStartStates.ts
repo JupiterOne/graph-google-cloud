@@ -4,8 +4,7 @@ import {
   IntegrationValidationError,
   StepStartState,
 } from '@jupiterone/integration-sdk-core';
-import { SerializedIntegrationConfig, IntegrationConfig } from './types';
-import { ServiceUsageClient } from './steps/service-usage/client';
+import { SerializedIntegrationConfig } from './types';
 import { ServiceUsageName } from './google-cloud/types';
 import { STEP_CLOUD_FUNCTIONS } from './steps/functions';
 import { STEP_CLOUD_STORAGE_BUCKETS } from './steps/storage';
@@ -83,18 +82,7 @@ import {
   STEP_PRIVATE_CA_CERTIFICATES,
   STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES,
 } from './steps/privateca/constants';
-
-async function getEnabledServiceNames(
-  config: IntegrationConfig,
-): Promise<string[]> {
-  const client = new ServiceUsageClient({ config });
-  const enabledServices = await client.collectEnabledServices();
-  return enabledServices.map((v) => {
-    // Each value looks like this: `projects/PROJ_ID_NUM/services/appengine.googleapis.com`
-    const serviceParts = (v.name as string).split('/');
-    return serviceParts[serviceParts.length - 1];
-  });
-}
+import * as enablement from './steps/enablement';
 
 function validateInvocationConfig(
   context: IntegrationExecutionContext<SerializedIntegrationConfig>,
@@ -126,7 +114,7 @@ export default async function getStepStartStates(
   let enabledServiceNames: string[];
 
   try {
-    enabledServiceNames = await getEnabledServiceNames(config);
+    enabledServiceNames = await enablement.getEnabledServiceNames(config);
   } catch (err) {
     // NOTE: The `IntegrationValidationError` function does not currently support
     // a `cause` to be passed. We should update that.
@@ -141,21 +129,11 @@ export default async function getStepStartStates(
     primaryServiceName: ServiceUsageName,
     ...additionalServiceNames: ServiceUsageName[]
   ): StepStartState => {
-    const allServicesToEnableStep: ServiceUsageName[] = [
+    return enablement.createStepStartState(
+      enabledServiceNames,
       primaryServiceName,
       ...additionalServiceNames,
-    ];
-
-    let disabled = true;
-
-    for (const serviceName of allServicesToEnableStep) {
-      if (enabledServiceNames.includes(serviceName)) {
-        disabled = false;
-        break;
-      }
-    }
-
-    return { disabled };
+    );
   };
 
   return {

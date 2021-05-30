@@ -190,9 +190,21 @@ gcloud iam service-accounts keys create ~/Desktop/service-account-key.json \
 
 ### Create .env file
 
-At the root of the project, create a `.env` file. The `.env` file should contain
-properties from the service account key created above. A service account key
-should look like this:
+At the root of the project, create a `.env` file. The contents of the `.env`
+file are automatically loaded when running the integration locally. The
+following configuration properties are supported:
+
+```
+SERVICE_ACCOUNT_KEY_FILE={...}
+PROJECT_ID="my-j1-proj"
+```
+
+#### `SERVICE_ACCOUNT_KEY_FILE` {string}
+
+**Required** credentials for the JupiterOne integration to authenticate. The key
+file should be a flattened JSON string.
+
+The following is an example of an unflatted service account key file:
 
 ```json
 {
@@ -209,14 +221,18 @@ should look like this:
 }
 ```
 
-A `SERVICE_ACCOUNT_KEY_FILE` property should be added to the `.env` file with
-the value being the JSON stringified contents of the service account key file. A
-helper script can be run that will automatically generate the `.env` file in the
-correct format:
+A helper script can be run that will automatically generate the `.env` file in
+the correct format:
 
 ```bash
 yarn create-env-file ~/SERVICE_ACCOUNT_FILE_PATH_HERE.json
 ```
+
+#### `PROJECT_ID` {string?}
+
+Optional Google Cloud project ID to target for ingestion. A service account key
+can be generated from a specific project, and the JupiterOne integration can use
+these credentials to target a different project.
 
 ### Run tests against Google Cloud project
 

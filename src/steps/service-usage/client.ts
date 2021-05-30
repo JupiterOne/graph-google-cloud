@@ -1,6 +1,7 @@
 import { Client } from '../../google-cloud/client';
 import { ServiceUsageListFilter } from '../../google-cloud/types';
 import { google, serviceusage_v1 } from 'googleapis';
+import { IntegrationConfig } from '../..';
 
 export class ServiceUsageClient extends Client {
   private client = google.serviceusage('v1');
@@ -68,4 +69,24 @@ export class ServiceUsageClient extends Client {
 
     return enabledServices;
   }
+}
+
+/**
+ * Example input: projects/PROJ_ID_NUM/services/appengine.googleapis.com
+ * Example output: appengine.googleapis.com
+ */
+export function serviceResourceNameToServiceName(serviceResourceName: string) {
+  const serviceParts = serviceResourceName.split('/');
+  return serviceParts[serviceParts.length - 1];
+}
+
+export async function collectEnabledServicesForProject(
+  config: IntegrationConfig,
+  projectId: string,
+): Promise<string[]> {
+  const client = new ServiceUsageClient({ config, projectId });
+  const enabledServices = await client.collectEnabledServices();
+  return enabledServices.map((v) =>
+    serviceResourceNameToServiceName(v.name as string),
+  );
 }
