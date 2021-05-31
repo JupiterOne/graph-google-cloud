@@ -8,6 +8,11 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- Proper step enablement support when both a "main" and "target" Google Cloud
+  projects are supplied
+
 ## 0.30.0 - 2021-05-29
 
 ### Added

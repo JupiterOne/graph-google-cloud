@@ -73,6 +73,11 @@ export function getMockSerializedIntegrationConfig(): SerializedIntegrationConfi
   };
 }
 
-export function getMockIntegrationConfig(): IntegrationConfig {
-  return deserializeIntegrationConfig(getMockSerializedIntegrationConfig());
+export function getMockIntegrationConfig(
+  partial?: Partial<IntegrationConfig>,
+): IntegrationConfig {
+  return {
+    ...deserializeIntegrationConfig(getMockSerializedIntegrationConfig()),
+    ...partial,
+  };
 }

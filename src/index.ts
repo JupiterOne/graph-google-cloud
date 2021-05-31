@@ -36,6 +36,9 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> =
         type: 'string',
         mask: true,
       },
+      projectId: {
+        type: 'string',
+      },
     },
     getStepStartStates,
     integrationSteps: [
