@@ -364,6 +364,7 @@ The following entities are created:
 | AppEngine Service                 | `google_app_engine_service`                | `Container`                        |
 | AppEngine Version                 | `google_app_engine_version`                | `Service`                          |
 | Big Query Dataset                 | `google_bigquery_dataset`                  | `DataStore`, `Database`            |
+| Big Query Model                   | `google_bigquery_model`                    | `DataObject`                       |
 | Big Query Table                   | `google_bigquery_table`                    | `DataCollection`                   |
 | Binary Authorization Policy       | `google_binary_authorization_policy`       | `AccessPolicy`                     |
 | Cloud API Service                 | `google_cloud_api_service`                 | `Service`                          |
@@ -431,6 +432,7 @@ The following relationships are created/mapped:
 | `google_app_engine_application`          | **USES**              | `google_storage_bucket`              |
 | `google_app_engine_service`              | **HAS**               | `google_app_engine_version`          |
 | `google_app_engine_version`              | **HAS**               | `google_app_engine_instance`         |
+| `google_bigquery_dataset`                | **HAS**               | `google_bigquery_model`              |
 | `google_bigquery_dataset`                | **HAS**               | `google_bigquery_table`              |
 | `google_bigquery_dataset`                | **USES**              | `google_kms_crypto_key`              |
 | `google_cloud_api_service`               | **HAS**               | `google_iam_role`                    |

@@ -128,6 +128,115 @@ Object {
 }
 `;
 
+exports[`#createBigQueryModelEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "DataObject",
+  ],
+  "_key": "natality_model",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "creationTime": "1622485604349",
+        "etag": "NEs92BeE7yNA56rXtlPojg==",
+        "featureColumns": Array [
+          Object {
+            "name": "is_male",
+            "type": Object {
+              "typeKind": "BOOL",
+            },
+          },
+          Object {
+            "name": "gestation_weeks",
+            "type": Object {
+              "typeKind": "INT64",
+            },
+          },
+          Object {
+            "name": "mother_age",
+            "type": Object {
+              "typeKind": "INT64",
+            },
+          },
+          Object {
+            "name": "mother_race",
+            "type": Object {
+              "typeKind": "STRING",
+            },
+          },
+        ],
+        "labelColumns": Array [
+          Object {
+            "name": "predicted_weight_pounds",
+            "type": Object {
+              "typeKind": "FLOAT64",
+            },
+          },
+        ],
+        "lastModifiedTime": "1622485604453",
+        "location": "US",
+        "modelReference": Object {
+          "datasetId": "natality",
+          "modelId": "natality_model",
+          "projectId": "j1-gc-integration-dev-v2",
+        },
+        "modelType": "LINEAR_REGRESSION",
+        "trainingRuns": Array [
+          Object {
+            "dataSplitResult": Object {
+              "evaluationTable": Object {
+                "datasetId": "_dc91ff9c66b0b00709a1245f8bd9d5ddbfdf7aea",
+                "projectId": "j1-gc-integration-dev-v2",
+                "tableId": "anon74d97e3b_b105_4c61_a170_ab4d07a18969_imported_data_split_eval_data",
+              },
+              "trainingTable": Object {
+                "datasetId": "_dc91ff9c66b0b00709a1245f8bd9d5ddbfdf7aea",
+                "projectId": "j1-gc-integration-dev-v2",
+                "tableId": "anon74d97e3b_b105_4c61_a170_ab4d07a18969_imported_data_split_training_data",
+              },
+            },
+            "evaluationMetrics": Object {
+              "regressionMetrics": Object {
+                "meanAbsoluteError": 0.977932870859257,
+                "meanSquaredError": 1.739664352683728,
+                "meanSquaredLogError": 0.03609560638952963,
+                "medianAbsoluteError": 0.7624851534167556,
+                "rSquared": 0.043297645981164035,
+              },
+            },
+            "results": Array [
+              Object {
+                "durationMs": "5022",
+                "evalLoss": 1.7396643526837197,
+                "index": 0,
+                "trainingLoss": 1.6821061155036234,
+              },
+            ],
+            "startTime": "2021-05-31T18:26:24.431Z",
+            "trainingOptions": Object {
+              "l2Regularization": 0,
+              "lossType": "MEAN_SQUARED_LOSS",
+              "optimizationStrategy": "NORMAL_EQUATION",
+            },
+          },
+        ],
+      },
+    },
+  ],
+  "_type": "google_bigquery_model",
+  "classification": null,
+  "createdOn": 1622485604349,
+  "displayName": "natality_model",
+  "etag": "NEs92BeE7yNA56rXtlPojg==",
+  "location": "US",
+  "modelType": "LINEAR_REGRESSION",
+  "name": "natality_model",
+  "updatedOn": 1622485604453,
+  "webLink": "https://console.cloud.google.com/bigquery?project=j1-gc-integration-dev-v2&d=natality&m=natality_model&p=j1-gc-integration-dev-v2&page=model",
+}
+`;
+
 exports[`#createBigQueryTableEntity should convert to entity 1`] = `
 Object {
   "_class": Array [

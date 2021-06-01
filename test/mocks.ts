@@ -1832,6 +1832,99 @@ export function getMockBigQueryTable(
   };
 }
 
+export function getMockBigQueryModel(
+  partial?: Partial<bigquery_v2.Schema$Model>,
+): bigquery_v2.Schema$Model {
+  return {
+    etag: 'NEs92BeE7yNA56rXtlPojg==',
+    modelReference: {
+      projectId: 'j1-gc-integration-dev-v2',
+      datasetId: 'natality',
+      modelId: 'natality_model',
+    },
+    creationTime: '1622485604349',
+    lastModifiedTime: '1622485604453',
+    modelType: 'LINEAR_REGRESSION',
+    trainingRuns: [
+      {
+        trainingOptions: {
+          lossType: 'MEAN_SQUARED_LOSS',
+          l2Regularization: 0,
+          optimizationStrategy: 'NORMAL_EQUATION',
+        },
+        results: [
+          {
+            index: 0,
+            durationMs: '5022',
+            trainingLoss: 1.6821061155036234,
+            evalLoss: 1.7396643526837197,
+          },
+        ],
+        evaluationMetrics: {
+          regressionMetrics: {
+            meanAbsoluteError: 0.977932870859257,
+            meanSquaredError: 1.739664352683728,
+            meanSquaredLogError: 0.03609560638952963,
+            medianAbsoluteError: 0.7624851534167556,
+            rSquared: 0.043297645981164035,
+          },
+        },
+        startTime: '2021-05-31T18:26:24.431Z',
+        dataSplitResult: {
+          trainingTable: {
+            projectId: 'j1-gc-integration-dev-v2',
+            datasetId: '_dc91ff9c66b0b00709a1245f8bd9d5ddbfdf7aea',
+            tableId:
+              'anon74d97e3b_b105_4c61_a170_ab4d07a18969_imported_data_split_training_data',
+          },
+          evaluationTable: {
+            projectId: 'j1-gc-integration-dev-v2',
+            datasetId: '_dc91ff9c66b0b00709a1245f8bd9d5ddbfdf7aea',
+            tableId:
+              'anon74d97e3b_b105_4c61_a170_ab4d07a18969_imported_data_split_eval_data',
+          },
+        },
+      },
+    ],
+    featureColumns: [
+      {
+        name: 'is_male',
+        type: {
+          typeKind: 'BOOL',
+        },
+      },
+      {
+        name: 'gestation_weeks',
+        type: {
+          typeKind: 'INT64',
+        },
+      },
+      {
+        name: 'mother_age',
+        type: {
+          typeKind: 'INT64',
+        },
+      },
+      {
+        name: 'mother_race',
+        type: {
+          typeKind: 'STRING',
+        },
+      },
+    ],
+    labelColumns: [
+      {
+        name: 'predicted_weight_pounds',
+        type: {
+          typeKind: 'FLOAT64',
+        },
+      },
+    ],
+    location: 'US',
+    ...partial,
+  };
+}
+
 export function getMockOrganization(
   partial?: Partial<cloudresourcemanager_v3.Schema$Organization>,
 ): cloudresourcemanager_v3.Schema$Organization {

@@ -1,9 +1,11 @@
 import {
   createBigQueryDatasetEntity,
+  createBigQueryModelEntity,
   createBigQueryTableEntity,
 } from './converters';
 import {
   getMockBigQueryDataset,
+  getMockBigQueryModel,
   getMockBigQueryTable,
 } from '../../../test/mocks';
 import { DEFAULT_INTEGRATION_CONFIG_PROJECT_ID } from '../../../test/config';
@@ -30,6 +32,12 @@ describe('#createBigQueryDatasetEntity', () => {
         }),
       ),
     ).toMatchSnapshot();
+  });
+});
+
+describe('#createBigQueryModelEntity', () => {
+  test('should convert to entity', () => {
+    expect(createBigQueryModelEntity(getMockBigQueryModel())).toMatchSnapshot();
   });
 });
 

@@ -19,9 +19,14 @@ import {
   BIG_QUERY_TABLE_ENTITY_TYPE,
   BIG_QUERY_TABLE_ENTITY_CLASS,
   RELATIONSHIP_TYPE_DATASET_HAS_TABLE,
+  STEP_BIG_QUERY_MODELS,
+  BIG_QUERY_MODEL_ENTITY_TYPE,
+  BIG_QUERY_MODEL_ENTITY_CLASS,
+  RELATIONSHIP_TYPE_DATASET_HAS_MODEL,
 } from './constants';
 import {
   createBigQueryDatasetEntity,
+  createBigQueryModelEntity,
   createBigQueryTableEntity,
 } from './converters';
 
@@ -72,6 +77,41 @@ export async function fetchBigQueryDatasets(
       }
     }
   });
+}
+
+export async function fetchBigQueryModels(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const {
+    jobState,
+    instance: { config },
+  } = context;
+  const client = new BigQueryClient({ config });
+
+  await jobState.iterateEntities(
+    {
+      _type: BIG_QUERY_DATASET_ENTITY_TYPE,
+    },
+    async (datasetEntity) => {
+      if (datasetEntity.name) {
+        await client.iterateBigQueryModels(
+          datasetEntity.name as string,
+          async (model) => {
+            const modelEntity = createBigQueryModelEntity(model);
+            await jobState.addEntity(modelEntity);
+
+            await jobState.addRelationship(
+              createDirectRelationship({
+                _class: RelationshipClass.HAS,
+                from: datasetEntity,
+                to: modelEntity,
+              }),
+            );
+          },
+        );
+      }
+    },
+  );
 }
 
 export async function fetchBigQueryTables(
@@ -135,6 +175,27 @@ export const bigQuerySteps: IntegrationStep<IntegrationConfig>[] = [
     ],
     dependsOn: [STEP_CLOUD_KMS_KEYS],
     executionHandler: fetchBigQueryDatasets,
+  },
+  {
+    id: STEP_BIG_QUERY_MODELS,
+    name: 'Big Query Models',
+    entities: [
+      {
+        resourceName: 'Big Query Model',
+        _type: BIG_QUERY_MODEL_ENTITY_TYPE,
+        _class: BIG_QUERY_MODEL_ENTITY_CLASS,
+      },
+    ],
+    relationships: [
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_DATASET_HAS_MODEL,
+        sourceType: BIG_QUERY_DATASET_ENTITY_TYPE,
+        targetType: BIG_QUERY_MODEL_ENTITY_TYPE,
+      },
+    ],
+    dependsOn: [STEP_BIG_QUERY_DATASETS],
+    executionHandler: fetchBigQueryModels,
   },
   {
     id: STEP_BIG_QUERY_TABLES,
