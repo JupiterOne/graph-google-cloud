@@ -272,7 +272,7 @@ please request access.
 2. Navigate to the Google Cloud project's `terraform/` directory and create a
    `main.remote.tf` file with the following content:
 
-```
+```terraform
 terraform {
   backend "remote" {
     organization = "jupiterone"
@@ -307,7 +307,7 @@ state:
 3. Navigate to the Google Cloud project's `terraform/` directory and create a
    `main.remote.tf` file with the following content:
 
-```
+```terraform
 terraform {
   backend "remote" {
     organization = "YOUR_ORG_NAME_HERE"
