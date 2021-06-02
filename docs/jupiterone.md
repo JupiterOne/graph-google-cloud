@@ -156,6 +156,65 @@ how to leverage the CLI in the
 
 #### JupiterOne + Google Cloud Organization
 
+Given the correct permissions, JupiterOne has the ability to automatically
+discover each project under a Google Cloud organization and configure
+integration instances for each of the projects.
+
+##### Setup
+
+1. Select one Google Cloud project to configure a service account for
+   JupiterOne.
+1. Create the service account without a role. Copy the email address of the new
+   service account (e.g. `my-sa@my-j1-project.iam.gserviceaccount.com`)
+1. Generate and copy a new service account key
+1. Enable all service APIs in the "main" project that you'd like JupiterOne to
+   access across each of the projects we will generate later. Documentation for
+   enabling service APIs is described in an earlier section of this document.
+1. Switch to the organization that you'd like to create individual integration
+   instances for each project
+1. [Create a new custom role](https://cloud.google.com/iam/docs/creating-custom-roles)
+   with the following permissions:
+
+```
+resourcemanager.folders.get
+resourcemanager.folders.list
+resourcemanager.organizations.get
+resourcemanager.projects.get
+resourcemanager.projects.list
+serviceusage.services.list
+resourcemanager.organizations.getIamPolicy
+```
+
+1. Navigate to the Cloud Resource Manager for that organization and
+   [add a new member to the organization](https://cloud.google.com/resource-manager/docs/access-control-org#grant-access).
+   The new member email address is the email address of the service account that
+   was created earlier. Select the new organization role that was created above,
+   as well as the Google Cloud managed role "Security Reviewer"
+   (`roles/iam.securityReviewer`) or an alternative JupiterOne custom role that
+   you've created.
+
+1. Navigate to the JupiterOne Google Cloud integration configuration page to
+   begin configuring the "main" integration instance.
+
+Use the generated service account key as the value for the "Service Account Key
+File" field.
+
+**NOTE**: The "Polling Interval" that is selected for the "main" integration
+instances, will be the same polling interval that is used for each of the child
+integration instances.
+
+1. Check the "Configure Organization Projects" checkbox
+1. Place the numerical value of the Google Cloud organization into the
+   "Organization ID" text field (e.g. "1234567890")
+1. Click the `CREATE CONFIGURATION` button
+
+**NOTE**: Depending on how many projects exist under a Google Cloud
+organization, the auto-configuration process may take a few minutes to complete.
+When the process has been completed, you will see your new integration instances
+on the JupiterOne Google Cloud integration list page.
+
+#### JupiterOne + Google Cloud Organization CLI
+
 A CLI is exposed from the
 [`graph-google-cloud` project on GitHub](https://github.com/JupiterOne/graph-google-cloud)
 that can be leveraged to create individual integration instances for every
