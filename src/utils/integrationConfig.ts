@@ -17,5 +17,6 @@ export function deserializeIntegrationConfig(
   return {
     ...serializedIntegrationConfig,
     serviceAccountKeyConfig: parsedServiceAccountKeyFile,
+    organizationId: '958457776463',
   };
 }

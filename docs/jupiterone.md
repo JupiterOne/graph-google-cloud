@@ -403,6 +403,7 @@ The following entities are created:
 | Memcache Instance                 | `google_memcache_instance`                 | `Database`, `DataStore`, `Cluster` |
 | Memcache Instance Node            | `google_memcache_instance_node`            | `Database`, `DataStore`, `Host`    |
 | Monitoring Alert Policy           | `google_monitoring_alert_policy`           | `Policy`                           |
+| Organization                      | `google_cloud_organization`                | `Organization`                     |
 | Private CA Certificate            | `google_privateca_certificate`             | `Certificate`                      |
 | Private CA Certificate Authority  | `google_privateca_certificate_authority`   | `Service`                          |
 | Project                           | `google_cloud_project`                     | `Account`                          |

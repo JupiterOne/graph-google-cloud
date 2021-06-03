@@ -5,7 +5,11 @@ import {
 } from '@jupiterone/integration-sdk-testing';
 import { setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
-import { fetchResourceManagerIamPolicy, fetchResourceManagerProject } from '.';
+import {
+  fetchResourceManagerIamPolicy,
+  fetchResourceManagerOrganization,
+  fetchResourceManagerProject,
+} from '.';
 import { integrationConfig } from '../../../test/config';
 import { iamSteps, GOOGLE_USER_ENTITY_TYPE } from '../iam';
 
@@ -230,6 +234,55 @@ describe('#fetchResourceManagerProject', () => {
           createdOn: { type: 'number' },
           'parent.id': { type: 'string' },
           'parent.type': { type: 'string' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+        },
+      },
+    });
+  });
+});
+
+describe('#fetchResourceManagerOrganization', () => {
+  let recording: Recording;
+
+  afterEach(async () => {
+    if (recording) {
+      await recording.stop();
+    }
+  });
+
+  test('should collect data', async () => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'fetchResourceManagerOrganization',
+    });
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: integrationConfig,
+    });
+
+    await fetchResourceManagerOrganization(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
+
+    expect(context.jobState.collectedEntities).toMatchGraphObjectSchema({
+      _class: ['Organization'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_cloud_organization' },
+
+          name: { type: 'string' },
+          displayName: { type: 'string' },
+          lifecycleState: { type: 'string' },
+          createdOn: { type: 'number' },
           _rawData: {
             type: 'array',
             items: { type: 'object' },

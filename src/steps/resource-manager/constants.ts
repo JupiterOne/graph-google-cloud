@@ -1,4 +1,8 @@
+export const STEP_ORGANIZATION = 'fetch-resource-manager-organization';
 export const STEP_PROJECT = 'fetch-resource-manager-project';
+
+export const ORGANIZATION_ENTITY_TYPE = 'google_cloud_organization';
+export const ORGANIZATION_ENTITY_CLASS = 'Organization';
 
 export const PROJECT_ENTITY_TYPE = 'google_cloud_project';
 export const PROJECT_ENTITY_CLASS = 'Account';

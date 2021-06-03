@@ -18574,6 +18574,44 @@ Object {
 }
 `;
 
+exports[`#fetchResourceManagerOrganization should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Organization",
+      ],
+      "_key": "organizations/958457776463",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "creationTime": "2021-05-26T21:15:56.407Z",
+            "displayName": "jupiterone.dev",
+            "lifecycleState": "ACTIVE",
+            "name": "organizations/958457776463",
+            "owner": Object {
+              "directoryCustomerId": "C048tgq5f",
+            },
+          },
+        },
+      ],
+      "_type": "google_cloud_organization",
+      "createdOn": 1622063756407,
+      "displayName": "organizations/958457776463",
+      "lifecycleState": "ACTIVE",
+      "name": "organizations/958457776463",
+    },
+  ],
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
+    "google_cloud_organization",
+  ],
+  "numCollectedEntities": 1,
+  "numCollectedRelationships": 0,
+}
+`;
+
 exports[`#fetchResourceManagerProject should collect data 1`] = `
 Object {
   "collectedEntities": Array [

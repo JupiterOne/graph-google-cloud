@@ -9,6 +9,7 @@ import { IntegrationConfig, IntegrationStepContext } from '../../types';
 import {
   createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship,
   createIamServiceAccountAssignedIamRoleRelationship,
+  createOrganizationEntity,
   createProjectEntity,
 } from './converters';
 import {
@@ -16,6 +17,9 @@ import {
   STEP_PROJECT,
   IAM_SERVICE_ACCOUNT_ASSIGNED_ROLE_RELATIONSHIP_TYPE,
   PROJECT_ENTITY_TYPE,
+  STEP_ORGANIZATION,
+  ORGANIZATION_ENTITY_TYPE,
+  ORGANIZATION_ENTITY_CLASS,
 } from './constants';
 import {
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
@@ -198,6 +202,19 @@ async function buildIamUserRoleRelationship({
   }
 }
 
+export async function fetchResourceManagerOrganization(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const {
+    jobState,
+    instance: { config },
+  } = context;
+  const client = new ResourceManagerClient({ config });
+
+  const organization = await client.getOrganization();
+  await jobState.addEntity(createOrganizationEntity(organization));
+}
+
 export async function fetchResourceManagerProject(
   context: IntegrationStepContext,
 ): Promise<void> {
@@ -266,6 +283,20 @@ export async function fetchResourceManagerIamPolicy(
 }
 
 export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
+  {
+    id: STEP_ORGANIZATION,
+    name: 'Resource Manager Organization',
+    entities: [
+      {
+        resourceName: 'Organization',
+        _type: ORGANIZATION_ENTITY_TYPE,
+        _class: ORGANIZATION_ENTITY_CLASS,
+      },
+    ],
+    relationships: [],
+    dependsOn: [],
+    executionHandler: fetchResourceManagerOrganization,
+  },
   {
     id: STEP_PROJECT,
     name: 'Resource Manager Project',

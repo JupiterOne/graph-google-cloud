@@ -20,6 +20,17 @@ export class ResourceManagerClient extends Client {
     return result.data;
   }
 
+  async getOrganization() {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    const result = await this.client.organizations.get({
+      auth,
+      name: `organizations/${this.organizationId}`,
+    });
+
+    return result.data;
+  }
+
   async getServiceAccountPolicy() {
     const auth = await this.getAuthenticatedServiceClient();
 

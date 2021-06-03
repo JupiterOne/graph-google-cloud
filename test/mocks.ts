@@ -1832,3 +1832,18 @@ export function getMockBigQueryTable(
     ...partial,
   };
 }
+
+export function getMockOrganization(
+  partial?: Partial<cloudresourcemanager_v1.Schema$Organization>,
+): cloudresourcemanager_v1.Schema$Organization {
+  return {
+    creationTime: '2021-05-26T21:15:56.407Z',
+    displayName: 'jupiterone.dev',
+    lifecycleState: 'ACTIVE',
+    name: 'organizations/958457776463',
+    owner: {
+      directoryCustomerId: 'C048tgq5f',
+    },
+    ...partial,
+  };
+}

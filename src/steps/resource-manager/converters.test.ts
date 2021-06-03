@@ -1,11 +1,13 @@
 import {
   createIamServiceAccountAssignedIamRoleRelationship,
+  createOrganizationEntity,
   createProjectEntity,
 } from './converters';
 import {
   getMockIamRole,
   getMockServiceAccount,
   getMockProject,
+  getMockOrganization,
 } from '../../../test/mocks';
 import {
   createIamRoleEntity,
@@ -107,5 +109,11 @@ describe('#createProjectEntity', () => {
 
     const projectId = 'j1-gc-integration-dev-v2';
     expect(createProjectEntity(projectId, undefined)).toEqual(expected);
+  });
+});
+
+describe('#createOrganizationEntity', () => {
+  test('should convert to entity', () => {
+    expect(createOrganizationEntity(getMockOrganization())).toMatchSnapshot();
   });
 });

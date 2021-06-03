@@ -27,3 +27,31 @@ Object {
   "projectId": "j1-gc-integration-dev-v2",
 }
 `;
+
+exports[`#createOrganizationEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Organization",
+  ],
+  "_key": "organizations/958457776463",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "creationTime": "2021-05-26T21:15:56.407Z",
+        "displayName": "jupiterone.dev",
+        "lifecycleState": "ACTIVE",
+        "name": "organizations/958457776463",
+        "owner": Object {
+          "directoryCustomerId": "C048tgq5f",
+        },
+      },
+    },
+  ],
+  "_type": "google_cloud_organization",
+  "createdOn": 1622063756407,
+  "displayName": "organizations/958457776463",
+  "lifecycleState": "ACTIVE",
+  "name": "organizations/958457776463",
+}
+`;

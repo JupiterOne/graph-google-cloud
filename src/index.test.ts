@@ -9,6 +9,7 @@ import { GoogleAuth, GoogleAuthOptions } from 'google-auth-library';
 import {
   Entity,
   IntegrationValidationError,
+  Step,
   StepStartStates,
 } from '@jupiterone/integration-sdk-core';
 import { getMockIntegrationConfig } from '../test/config';
@@ -30,6 +31,7 @@ import {
 import {
   STEP_RESOURCE_MANAGER_IAM_POLICY,
   STEP_PROJECT,
+  STEP_ORGANIZATION,
 } from './steps/resource-manager';
 import {
   STEP_COMPUTE_BACKEND_BUCKETS,
@@ -94,6 +96,7 @@ import {
   STEP_PRIVATE_CA_CERTIFICATES,
   STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES,
 } from './steps/privateca/constants';
+import { getOrganizationSteps } from './getStepStartStates';
 
 interface ValidateInvocationInvalidConfigTestParams {
   instanceConfig?: Partial<IntegrationConfig>;
@@ -150,11 +153,30 @@ describe('#getStepStartStates success', () => {
 
   test('should return all enabled services', async () => {
     const context = createMockExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      // Unless we want to change what this test does, we need to modify the
+      // instanceConfig with configureOrganizationAccounts: true, else not
+      // all steps will be enabled it'll be disabled
+
+      // Temporary tweak to make this test pass since its recording has been updated from the new organization/v3
+      instanceConfig: {
+        ...integrationConfig,
+        serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+          'j1-gc-integration-dev-v2',
+          'j1-gc-integration-dev-v3',
+        ),
+        serviceAccountKeyConfig: {
+          ...integrationConfig.serviceAccountKeyConfig,
+          project_id: 'j1-gc-integration-dev-v3',
+        },
+        configureOrganizationAccounts: true,
+      },
     });
 
     const stepStartStates = await getStepStartStates(context);
     const expectedStepStartStates: StepStartStates = {
+      [STEP_ORGANIZATION]: {
+        disabled: false,
+      },
       [STEP_PROJECT]: {
         disabled: false,
       },
@@ -320,6 +342,57 @@ describe('#getStepStartStates success', () => {
     };
 
     expect(stepStartStates).toEqual(expectedStepStartStates);
+  });
+
+  test('configureOrganizationAccounts: true', async () => {
+    const context = createMockExecutionContext<IntegrationConfig>({
+      // Temporary tweak to make this test pass since its recording has been updated from the new organization/v3
+      instanceConfig: {
+        ...integrationConfig,
+        serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+          'j1-gc-integration-dev-v2',
+          'j1-gc-integration-dev-v3',
+        ),
+        serviceAccountKeyConfig: {
+          ...integrationConfig.serviceAccountKeyConfig,
+          project_id: 'j1-gc-integration-dev-v3',
+        },
+        configureOrganizationAccounts: true,
+      },
+    });
+
+    const stepStartStates = await getStepStartStates(context);
+
+    expect(stepStartStates).toMatchObject({
+      [STEP_ORGANIZATION]: {
+        disabled: false,
+      },
+    });
+  });
+
+  test('configureOrganizationAccounts: false or undefined', async () => {
+    const context = createMockExecutionContext<IntegrationConfig>({
+      // Temporary tweak to make this test pass since its recording has been updated from the new organization/v3
+      instanceConfig: {
+        ...integrationConfig,
+        serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+          'j1-gc-integration-dev-v2',
+          'j1-gc-integration-dev-v3',
+        ),
+        serviceAccountKeyConfig: {
+          ...integrationConfig.serviceAccountKeyConfig,
+          project_id: 'j1-gc-integration-dev-v3',
+        },
+      },
+    });
+
+    const stepStartStates = await getStepStartStates(context);
+
+    expect(stepStartStates).toMatchObject({
+      [STEP_ORGANIZATION]: {
+        disabled: true,
+      },
+    });
   });
 });
 
@@ -535,4 +608,49 @@ describe('#beforeAddEntity', () => {
       projectId: 'my-project-id',
     });
   });
+});
+
+describe('#dependencies', () => {
+  test('getOrganizationSteps should not depend on non-active steps', () => {
+    expect(invocationConfig.integrationSteps).toHaveIsolatedDependencies(
+      getOrganizationSteps(),
+    );
+  });
+});
+
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace jest {
+    interface Matchers<R> {
+      toHaveIsolatedDependencies(stepCollection: string[]): R;
+    }
+  }
+}
+
+expect.extend({
+  toHaveIsolatedDependencies(
+    integrationSteps: Step<any>[],
+    stepCollection: string[],
+  ) {
+    for (const stepId of stepCollection) {
+      const stepDependencies = integrationSteps.find(
+        (s) => s.id === stepId,
+      )?.dependsOn;
+
+      const invalidStepDependencies = stepDependencies?.filter(
+        (s) => !stepCollection.includes(s),
+      );
+      if (invalidStepDependencies?.length) {
+        return {
+          message: () =>
+            `Step '${stepId}' contains invalid step dependencies: [${invalidStepDependencies}]`,
+          pass: false,
+        };
+      }
+    }
+    return {
+      message: () => '',
+      pass: true,
+    };
+  },
 });
