@@ -18,6 +18,7 @@ import {
 import {
   STEP_RESOURCE_MANAGER_IAM_POLICY,
   STEP_PROJECT,
+  STEP_ORGANIZATION,
 } from './steps/resource-manager';
 import {
   STEP_COMPUTE_INSTANCES,
@@ -97,6 +98,27 @@ function validateInvocationConfig(
   }
 }
 
+function makeStepStartStates(
+  stepIds: string[],
+  stepStartState: StepStartState,
+): StepStartStates {
+  const stepStartStates: StepStartStates = {};
+  for (const stepId of stepIds) {
+    stepStartStates[stepId] = stepStartState;
+  }
+  return stepStartStates;
+}
+
+// Perhaps needs a better name?
+// Idea here is that we encapsulate/group all the steps that should be run
+// when configureOrganizationAccounts is set
+export function getOrganizationSteps() {
+  return [
+    // First of many, others will be VPC-related
+    STEP_ORGANIZATION,
+  ];
+}
+
 export default async function getStepStartStates(
   context: IntegrationExecutionContext<SerializedIntegrationConfig>,
 ): Promise<StepStartStates> {
@@ -111,6 +133,8 @@ export default async function getStepStartStates(
     serializedIntegrationConfig,
   ));
 
+  const organizationSteps = { disabled: !config.configureOrganizationAccounts };
+
   let enabledServiceNames: string[];
 
   try {
@@ -124,7 +148,6 @@ export default async function getStepStartStates(
       `Failed to fetch enabled service names. Ability to list services is required to run the Google Cloud integration. (error=${err.message})`,
     );
   }
-
   const createStepStartState = (
     primaryServiceName: ServiceUsageName,
     ...additionalServiceNames: ServiceUsageName[]
@@ -137,6 +160,9 @@ export default async function getStepStartStates(
   };
 
   return {
+    // Organization-required steps
+    ...makeStepStartStates([...getOrganizationSteps()], organizationSteps),
+    // Rest of steps...
     // This API will be enabled otherwise fetching services names above would fail
     [STEP_PROJECT]: { disabled: false },
     [STEP_API_SERVICES]: { disabled: false },

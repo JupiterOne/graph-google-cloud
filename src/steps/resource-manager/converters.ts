@@ -12,7 +12,12 @@ import {
   generateRelationshipKey,
   IntegrationError,
 } from '@jupiterone/integration-sdk-core';
-import { PROJECT_ENTITY_TYPE, PROJECT_ENTITY_CLASS } from './constants';
+import {
+  PROJECT_ENTITY_TYPE,
+  PROJECT_ENTITY_CLASS,
+  ORGANIZATION_ENTITY_TYPE,
+  ORGANIZATION_ENTITY_CLASS,
+} from './constants';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import { IamUserEntityWithParsedMember } from '.';
 import { IAM_ROLE_ENTITY_TYPE } from '../iam';
@@ -117,6 +122,25 @@ export function createProjectEntity(
         projectNumber: project.projectNumber,
         lifecycleState: project.lifecycleState,
         createdOn: parseTimePropertyValue(project.createTime),
+      },
+    },
+  });
+}
+
+export function createOrganizationEntity(
+  data: cloudresourcemanager_v1.Schema$Organization,
+) {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _key: data.name as string,
+        _type: ORGANIZATION_ENTITY_TYPE,
+        _class: ORGANIZATION_ENTITY_CLASS,
+        name: data.name,
+        displayName: data.name as string,
+        lifecycleState: data.lifecycleState,
+        createdOn: parseTimePropertyValue(data.creationTime),
       },
     },
   });
