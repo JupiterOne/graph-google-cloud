@@ -76,6 +76,7 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> =
 
     beforeAddEntity(context, entity: Entity): Entity {
       const projectId =
+        context.instance.config.projectId ||
         context.instance.config.serviceAccountKeyConfig.project_id;
 
       return {
