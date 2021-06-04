@@ -30,8 +30,10 @@ import {
 } from './steps/iam';
 import {
   STEP_RESOURCE_MANAGER_IAM_POLICY,
-  STEP_PROJECT,
-  STEP_ORGANIZATION,
+  STEP_RESOURCE_MANAGER_PROJECT,
+  STEP_RESOURCE_MANAGER_ORGANIZATION,
+  STEP_RESOURCE_MANAGER_FOLDERS,
+  STEP_RESOURCE_MANAGER_PROJECTS,
 } from './steps/resource-manager';
 import {
   STEP_COMPUTE_BACKEND_BUCKETS,
@@ -174,10 +176,16 @@ describe('#getStepStartStates success', () => {
 
     const stepStartStates = await getStepStartStates(context);
     const expectedStepStartStates: StepStartStates = {
-      [STEP_ORGANIZATION]: {
+      [STEP_RESOURCE_MANAGER_ORGANIZATION]: {
         disabled: false,
       },
-      [STEP_PROJECT]: {
+      [STEP_RESOURCE_MANAGER_FOLDERS]: {
+        disabled: false,
+      },
+      [STEP_RESOURCE_MANAGER_PROJECTS]: {
+        disabled: false,
+      },
+      [STEP_RESOURCE_MANAGER_PROJECT]: {
         disabled: false,
       },
       [STEP_API_SERVICES]: {
@@ -364,7 +372,13 @@ describe('#getStepStartStates success', () => {
     const stepStartStates = await getStepStartStates(context);
 
     expect(stepStartStates).toMatchObject({
-      [STEP_ORGANIZATION]: {
+      [STEP_RESOURCE_MANAGER_ORGANIZATION]: {
+        disabled: false,
+      },
+      [STEP_RESOURCE_MANAGER_FOLDERS]: {
+        disabled: false,
+      },
+      [STEP_RESOURCE_MANAGER_PROJECTS]: {
         disabled: false,
       },
     });
@@ -389,7 +403,13 @@ describe('#getStepStartStates success', () => {
     const stepStartStates = await getStepStartStates(context);
 
     expect(stepStartStates).toMatchObject({
-      [STEP_ORGANIZATION]: {
+      [STEP_RESOURCE_MANAGER_ORGANIZATION]: {
+        disabled: true,
+      },
+      [STEP_RESOURCE_MANAGER_FOLDERS]: {
+        disabled: true,
+      },
+      [STEP_RESOURCE_MANAGER_PROJECTS]: {
         disabled: true,
       },
     });

@@ -38,20 +38,70 @@ Object {
     Object {
       "name": "default",
       "rawData": Object {
-        "creationTime": "2021-05-26T21:15:56.407Z",
+        "createTime": "2021-05-26T21:15:56.407Z",
+        "directoryCustomerId": "C048tgq5f",
         "displayName": "jupiterone.dev",
-        "lifecycleState": "ACTIVE",
         "name": "organizations/958457776463",
-        "owner": Object {
-          "directoryCustomerId": "C048tgq5f",
-        },
+        "state": "ACTIVE",
+        "updateTime": "2021-05-26T21:15:57.407Z",
       },
     },
   ],
   "_type": "google_cloud_organization",
   "createdOn": 1622063756407,
+  "directoryCustomerId": "C048tgq5f",
   "displayName": "organizations/958457776463",
+  "etag": undefined,
   "lifecycleState": "ACTIVE",
   "name": "organizations/958457776463",
+  "updatedOn": 1622063757407,
+}
+`;
+
+exports[`#createProjectEntity should convert entity 1`] = `
+Object {
+  "_class": Array [
+    "Account",
+  ],
+  "_key": "projects/619127027446",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "createTime": "2021-05-31T15:45:06.340Z",
+        "displayName": "My First Project",
+        "etag": "Woe+unJqYGNKmCl1jbZyug==",
+        "name": "projects/619127027446",
+        "parent": "organizations/958457776463",
+        "projectId": "winged-guild-315415",
+        "state": "ACTIVE",
+        "updateTime": "2021-05-31T15:45:08.564Z",
+      },
+    },
+  ],
+  "_type": "google_cloud_project",
+  "createdOn": 1622475906340,
+  "displayName": "My First Project",
+  "lifecycleState": "ACTIVE",
+  "name": "projects/619127027446",
+  "parent": "organizations/958457776463",
+  "updatedOn": 1622475908564,
+}
+`;
+
+exports[`#createProjectEntity should convert entity with just projectId 1`] = `
+Object {
+  "_class": Array [
+    "Account",
+  ],
+  "_key": "j1-gc-integration-dev-v2",
+  "_rawData": Array [],
+  "_type": "google_cloud_project",
+  "createdOn": undefined,
+  "displayName": "j1-gc-integration-dev-v2",
+  "lifecycleState": undefined,
+  "name": "j1-gc-integration-dev-v2",
+  "parent": undefined,
+  "updatedOn": undefined,
 }
 `;

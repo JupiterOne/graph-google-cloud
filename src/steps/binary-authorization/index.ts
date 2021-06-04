@@ -5,7 +5,10 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { binaryauthorization_v1 } from 'googleapis';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
-import { PROJECT_ENTITY_TYPE, STEP_PROJECT } from '../resource-manager';
+import {
+  PROJECT_ENTITY_TYPE,
+  STEP_RESOURCE_MANAGER_PROJECT,
+} from '../resource-manager';
 import { BinaryAuthorizationClient } from './client';
 import {
   BINARY_AUTHORIZATION_POLICY_ENTITY_CLASS,
@@ -88,7 +91,7 @@ export const binaryAuthorizationSteps: IntegrationStep<IntegrationConfig>[] = [
         targetType: BINARY_AUTHORIZATION_POLICY_ENTITY_TYPE,
       },
     ],
-    dependsOn: [STEP_PROJECT],
+    dependsOn: [STEP_RESOURCE_MANAGER_PROJECT],
     executionHandler: fetchBinaryAuthorizationPolicy,
   },
 ];
