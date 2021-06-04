@@ -8,6 +8,20 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.32.0 - 2021-06-04
+
+### Added
+
+- Support for ingesting the following **new** entities
+
+  - Google Cloud
+    - `google_cloud_organization`
+
+### Fixed
+
+- [#171](https://github.com/JupiterOne/graph-google-cloud/issues/171) - Suppress
+  errors when App Engine application is not found
+
 ## 0.31.0 - 2021-06-01
 
 ### Added
