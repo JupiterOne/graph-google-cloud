@@ -33,7 +33,7 @@ import {
   STEP_RESOURCE_MANAGER_PROJECT,
   STEP_RESOURCE_MANAGER_ORGANIZATION,
   STEP_RESOURCE_MANAGER_FOLDERS,
-  STEP_RESOURCE_MANAGER_PROJECTS,
+  STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
 } from './steps/resource-manager';
 import {
   STEP_COMPUTE_BACKEND_BUCKETS,
@@ -182,7 +182,7 @@ describe('#getStepStartStates success', () => {
       [STEP_RESOURCE_MANAGER_FOLDERS]: {
         disabled: false,
       },
-      [STEP_RESOURCE_MANAGER_PROJECTS]: {
+      [STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS]: {
         disabled: false,
       },
       [STEP_RESOURCE_MANAGER_PROJECT]: {
@@ -378,7 +378,7 @@ describe('#getStepStartStates success', () => {
       [STEP_RESOURCE_MANAGER_FOLDERS]: {
         disabled: false,
       },
-      [STEP_RESOURCE_MANAGER_PROJECTS]: {
+      [STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS]: {
         disabled: false,
       },
     });
@@ -409,7 +409,7 @@ describe('#getStepStartStates success', () => {
       [STEP_RESOURCE_MANAGER_FOLDERS]: {
         disabled: true,
       },
-      [STEP_RESOURCE_MANAGER_PROJECTS]: {
+      [STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS]: {
         disabled: true,
       },
     });

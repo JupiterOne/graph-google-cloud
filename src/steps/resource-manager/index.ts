@@ -29,7 +29,7 @@ import {
   FOLDER_ENTITY_CLASS,
   ORGANIZATION_HAS_FOLDER_RELATIONSHIP_TYPE,
   FOLDER_HAS_FOLDER_RELATIONSHIP_TYPE,
-  STEP_RESOURCE_MANAGER_PROJECTS,
+  STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
   ORGANIZATION_HAS_PROJECT_RELATIONSHIP_TYPE,
   FOLDER_HAS_PROJECT_RELATIONSHIP_TYPE,
 } from './constants';
@@ -241,6 +241,7 @@ export async function fetchResourceManagerFolders(
   const getAllInnerFolders = async (
     client: ResourceManagerClient,
     parentFolder: Entity,
+    parentFolderName: string,
   ) => {
     await client.iterateFolders(async (folder) => {
       const folderEntity = createFolderEntity(folder);
@@ -255,8 +256,8 @@ export async function fetchResourceManagerFolders(
         }),
       );
 
-      await getAllInnerFolders(client, folderEntity);
-    }, parentFolder.name as string);
+      await getAllInnerFolders(client, folderEntity, folder.name!);
+    }, parentFolderName);
   };
 
   const organizationEntity = await jobState.findEntity(
@@ -277,7 +278,7 @@ export async function fetchResourceManagerFolders(
         }),
       );
 
-      await getAllInnerFolders(client, folderEntity);
+      await getAllInnerFolders(client, folderEntity, folder.name!);
     });
   }
 }
@@ -447,7 +448,7 @@ export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
     executionHandler: fetchResourceManagerFolders,
   },
   {
-    id: STEP_RESOURCE_MANAGER_PROJECTS,
+    id: STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
     name: 'Resource Manager Projects',
     entities: [],
     relationships: [
