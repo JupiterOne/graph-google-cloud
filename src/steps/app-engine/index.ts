@@ -66,7 +66,8 @@ async function withAppEngineErrorHandling<T>(
         {
           err,
           projectId,
-          code: err._cause?.code,
+          code: err.code,
+          causeCode: err._cause?.code,
         },
         'Could not fetch app engine data for project',
       );
