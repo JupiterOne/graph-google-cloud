@@ -8,6 +8,14 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.32.1 - 2021-06-04
+
+### Fixed
+
+- [#208](https://github.com/JupiterOne/graph-google-cloud/issues/208) -
+  Incorrect `projectId` property being applied to entities when `projectId` is
+  supplied in integration config
+
 ## 0.32.0 - 2021-06-04
 
 ### Added
