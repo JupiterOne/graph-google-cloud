@@ -58,9 +58,16 @@ async function withAppEngineErrorHandling<T>(
   try {
     return await fn();
   } catch (err) {
-    if (err._cause?.code === 404) {
+    if (
+      err._cause?.code === 404 ||
+      err.message.startsWith('Could not find Application')
+    ) {
       logger.info(
-        { err, projectId },
+        {
+          err,
+          projectId,
+          code: err._cause?.code,
+        },
         'Could not fetch app engine data for project',
       );
 
