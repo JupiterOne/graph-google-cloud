@@ -173,6 +173,7 @@ describe('#fetchBigQueryModels', () => {
           location: { type: 'string' },
           createdOn: { type: 'number' },
           updatedOn: { type: 'number' },
+          expirationTime: { type: 'number' },
           classification: { const: null },
         },
       },
