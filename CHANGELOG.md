@@ -8,6 +8,14 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- New properties added to resources:
+
+  | Entity                 | Properties                   |
+  | ---------------------- | ---------------------------- |
+  | `google_cloud_project` | `id`, `projectId`, `webLink` |
+
 ## 0.33.0 - 2021-06-04
 
 ### Added

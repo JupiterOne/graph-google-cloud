@@ -67,6 +67,7 @@ describe('#fetchBinaryAuthorization', () => {
             type: 'array',
             items: { type: 'object' },
           },
+          projectId: { type: 'string' },
           name: { type: 'string' },
           displayName: { type: 'string' },
           parent: { type: 'string' },
