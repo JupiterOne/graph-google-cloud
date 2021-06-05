@@ -12,7 +12,10 @@ import {
   API_SERVICE_ENTITY_CLASS,
   PROJECT_API_SERVICE_RELATIONSHIP_TYPE,
 } from './constants';
-import { STEP_PROJECT, PROJECT_ENTITY_TYPE } from '../resource-manager';
+import {
+  STEP_RESOURCE_MANAGER_PROJECT,
+  PROJECT_ENTITY_TYPE,
+} from '../resource-manager';
 import { getProjectEntity } from '../../utils/project';
 import { STEP_IAM_MANAGED_ROLES } from '../iam/constants';
 import {
@@ -99,7 +102,7 @@ export const serviceUsageSteps: IntegrationStep<IntegrationConfig>[] = [
         targetType: API_SERVICE_ENTITY_TYPE,
       },
     ],
-    dependsOn: [STEP_PROJECT, STEP_IAM_MANAGED_ROLES],
+    dependsOn: [STEP_RESOURCE_MANAGER_PROJECT, STEP_IAM_MANAGED_ROLES],
     executionHandler: fetchApiServices,
   },
 ];

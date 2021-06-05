@@ -17,8 +17,10 @@ import {
 } from './steps/iam';
 import {
   STEP_RESOURCE_MANAGER_IAM_POLICY,
-  STEP_PROJECT,
-  STEP_ORGANIZATION,
+  STEP_RESOURCE_MANAGER_PROJECT,
+  STEP_RESOURCE_MANAGER_ORGANIZATION,
+  STEP_RESOURCE_MANAGER_FOLDERS,
+  STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
 } from './steps/resource-manager';
 import {
   STEP_COMPUTE_INSTANCES,
@@ -115,7 +117,9 @@ function makeStepStartStates(
 export function getOrganizationSteps() {
   return [
     // First of many, others will be VPC-related
-    STEP_ORGANIZATION,
+    STEP_RESOURCE_MANAGER_ORGANIZATION,
+    STEP_RESOURCE_MANAGER_FOLDERS,
+    STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
   ];
 }
 
@@ -164,7 +168,7 @@ export default async function getStepStartStates(
     ...makeStepStartStates([...getOrganizationSteps()], organizationSteps),
     // Rest of steps...
     // This API will be enabled otherwise fetching services names above would fail
-    [STEP_PROJECT]: { disabled: false },
+    [STEP_RESOURCE_MANAGER_PROJECT]: { disabled: false },
     [STEP_API_SERVICES]: { disabled: false },
     [STEP_CLOUD_FUNCTIONS]: createStepStartState(
       ServiceUsageName.CLOUD_FUNCTIONS,

@@ -1,10 +1,9 @@
-import { cloudresourcemanager_v1 } from 'googleapis';
+import { cloudresourcemanager_v1, cloudresourcemanager_v3 } from 'googleapis';
 import {
   Entity,
   createDirectRelationship,
   Relationship,
   RelationshipClass,
-  convertProperties,
   parseTimePropertyValue,
   RelationshipDirection,
   createMappedRelationship,
@@ -17,6 +16,8 @@ import {
   PROJECT_ENTITY_CLASS,
   ORGANIZATION_ENTITY_TYPE,
   ORGANIZATION_ENTITY_CLASS,
+  FOLDER_ENTITY_TYPE,
+  FOLDER_ENTITY_CLASS,
 } from './constants';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import { IamUserEntityWithParsedMember } from '.';
@@ -106,29 +107,8 @@ export function createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship
   });
 }
 
-export function createProjectEntity(
-  projectId: string,
-  project: cloudresourcemanager_v1.Schema$Project | undefined = {},
-) {
-  return createGoogleCloudIntegrationEntity(project, {
-    entityData: {
-      source: project,
-      assign: {
-        ...convertProperties(project.parent || {}, { prefix: 'parent' }),
-        _key: projectId,
-        _type: PROJECT_ENTITY_TYPE,
-        _class: PROJECT_ENTITY_CLASS,
-        name: project.name || projectId,
-        projectNumber: project.projectNumber,
-        lifecycleState: project.lifecycleState,
-        createdOn: parseTimePropertyValue(project.createTime),
-      },
-    },
-  });
-}
-
 export function createOrganizationEntity(
-  data: cloudresourcemanager_v1.Schema$Organization,
+  data: cloudresourcemanager_v3.Schema$Organization,
 ) {
   return createGoogleCloudIntegrationEntity(data, {
     entityData: {
@@ -139,8 +119,54 @@ export function createOrganizationEntity(
         _class: ORGANIZATION_ENTITY_CLASS,
         name: data.name,
         displayName: data.name as string,
-        lifecycleState: data.lifecycleState,
-        createdOn: parseTimePropertyValue(data.creationTime),
+        directoryCustomerId: data.directoryCustomerId,
+        etag: data.etag,
+        lifecycleState: data.state,
+        createdOn: parseTimePropertyValue(data.createTime),
+        updatedOn: parseTimePropertyValue(data.updateTime),
+      },
+    },
+  });
+}
+
+export function createFolderEntity(
+  data: cloudresourcemanager_v3.Schema$Folder,
+) {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _key: data.name as string,
+        _type: FOLDER_ENTITY_TYPE,
+        _class: FOLDER_ENTITY_CLASS,
+        name: data.name,
+        displayName: data.displayName as string,
+        etag: data.etag,
+        lifecycleState: data.state,
+        createdOn: parseTimePropertyValue(data.createTime),
+        updatedOn: parseTimePropertyValue(data.updateTime),
+      },
+    },
+  });
+}
+
+export function createProjectEntity(
+  projectId: string,
+  project: cloudresourcemanager_v3.Schema$Project | undefined = {},
+) {
+  return createGoogleCloudIntegrationEntity(project, {
+    entityData: {
+      source: project,
+      assign: {
+        _key: project.name || projectId,
+        _type: PROJECT_ENTITY_TYPE,
+        _class: PROJECT_ENTITY_CLASS,
+        name: project.name || projectId,
+        displayName: project.displayName as string,
+        parent: project.parent,
+        lifecycleState: project.state,
+        createdOn: parseTimePropertyValue(project.createTime),
+        updatedOn: parseTimePropertyValue(project.updateTime),
       },
     },
   });

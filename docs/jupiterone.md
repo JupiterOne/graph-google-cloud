@@ -392,6 +392,7 @@ The following entities are created:
 | Container Cluster                 | `google_container_cluster`                 | `Cluster`                          |
 | Container Node Pool               | `google_container_node_pool`               | `Group`                            |
 | DNS Managed Zone                  | `google_dns_managed_zone`                  | `DomainZone`                       |
+| Folder                            | `google_cloud_folder`                      | `Group`                            |
 | IAM Managed Role                  | `google_iam_role`                          | `AccessRole`                       |
 | IAM Service Account               | `google_iam_service_account`               | `User`                             |
 | IAM Service Account Key           | `google_iam_service_account_key`           | `AccessKey`                        |
@@ -434,7 +435,9 @@ The following relationships are created/mapped:
 | `google_bigquery_dataset`                | **USES**              | `google_kms_crypto_key`              |
 | `google_cloud_api_service`               | **HAS**               | `google_iam_role`                    |
 | `internet`                               | **ALLOWS**            | `google_compute_firewall`            |
+| `google_cloud_folder`                    | **HAS**               | `google_cloud_folder`                |
 | `google_cloud_function`                  | **USES**              | `google_iam_service_account`         |
+| `google_cloud_organization`              | **HAS**               | `google_cloud_folder`                |
 | `google_cloud_project`                   | **HAS**               | `google_cloud_api_service`           |
 | `google_cloud_project`                   | **HAS**               | `google_binary_authorization_policy` |
 | `google_cloud_run_service`               | **MANAGES**           | `google_cloud_run_configuration`     |
@@ -463,6 +466,7 @@ The following relationships are created/mapped:
 | `google_compute_url_map`                 | **HAS**               | `google_compute_target_https_proxy`  |
 | `google_container_cluster`               | **HAS**               | `google_container_node_pool`         |
 | `google_container_node_pool`             | **HAS**               | `google_compute_instance_group`      |
+| `google_cloud_folder`                    | **HAS**               | `google_cloud_project`               |
 | `google_group`                           | **ASSIGNED**          | `google_iam_role`                    |
 | `google_iam_service_account`             | **ASSIGNED**          | `google_iam_role`                    |
 | `google_iam_service_account`             | **CREATED**           | `google_app_engine_version`          |
@@ -472,6 +476,7 @@ The following relationships are created/mapped:
 | `google_logging_project_sink`            | **USES**              | `google_storage_bucket`              |
 | `google_memcache_instance`               | **HAS**               | `google_memcache_instance_node`      |
 | `google_memcache_instance`               | **USES**              | `google_compute_network`             |
+| `google_cloud_organization`              | **HAS**               | `google_cloud_project`               |
 | `google_privateca_certificate_authority` | **CREATED**           | `google_privateca_certificate`       |
 | `google_privateca_certificate_authority` | **USES**              | `google_storage_bucket`              |
 | `google_pubsub_subscription`             | **USES**              | `google_pubsub_topic`                |

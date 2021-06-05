@@ -1,7 +1,6 @@
 import {
   iam_v1,
   compute_v1,
-  cloudresourcemanager_v1,
   bigquery_v2,
   sqladmin_v1beta4,
   dns_v1,
@@ -21,6 +20,7 @@ import {
   spanner_v1,
   apigateway_v1,
   privateca_v1beta1,
+  cloudresourcemanager_v3,
 } from 'googleapis';
 import { BigQueryTable } from '../src/steps/big-query/client';
 
@@ -326,18 +326,17 @@ export function getMockNetwork(
 }
 
 export function getMockProject(
-  partial?: cloudresourcemanager_v1.Schema$Project,
-): cloudresourcemanager_v1.Schema$Project {
+  partial?: cloudresourcemanager_v3.Schema$Project,
+): cloudresourcemanager_v3.Schema$Project {
   return {
-    projectNumber: '545240943112',
-    projectId: 'j1-gc-integration-dev-v2',
-    lifecycleState: 'ACTIVE',
-    name: 'j1-gc-integration-dev-v2',
-    createTime: '2020-07-28T14:38:24.744Z',
-    parent: {
-      type: 'organization',
-      id: '158838481165',
-    },
+    name: 'projects/619127027446',
+    parent: 'organizations/958457776463',
+    projectId: 'winged-guild-315415',
+    state: 'ACTIVE',
+    displayName: 'My First Project',
+    createTime: '2021-05-31T15:45:06.340Z',
+    updateTime: '2021-05-31T15:45:08.564Z',
+    etag: 'Woe+unJqYGNKmCl1jbZyug==',
     ...partial,
   };
 }
@@ -1834,16 +1833,15 @@ export function getMockBigQueryTable(
 }
 
 export function getMockOrganization(
-  partial?: Partial<cloudresourcemanager_v1.Schema$Organization>,
-): cloudresourcemanager_v1.Schema$Organization {
+  partial?: Partial<cloudresourcemanager_v3.Schema$Organization>,
+): cloudresourcemanager_v3.Schema$Organization {
   return {
-    creationTime: '2021-05-26T21:15:56.407Z',
+    createTime: '2021-05-26T21:15:56.407Z',
+    updateTime: '2021-05-26T21:15:57.407Z',
     displayName: 'jupiterone.dev',
-    lifecycleState: 'ACTIVE',
+    state: 'ACTIVE',
     name: 'organizations/958457776463',
-    owner: {
-      directoryCustomerId: 'C048tgq5f',
-    },
+    directoryCustomerId: 'C048tgq5f',
     ...partial,
   };
 }
