@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchAccessContextManagerAccessLevels should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "accessPolicies/368605946207",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "etag": "64186ca0c82b01b4",
+            "name": "accessPolicies/368605946207",
+            "parent": "organizations/958457776463",
+            "title": "default policy",
+          },
+        },
+      ],
+      "_type": "google_access_context_manager_access_policy",
+      "createdOn": undefined,
+      "displayName": "accessPolicies/368605946207",
+      "etag": "64186ca0c82b01b4",
+      "name": "accessPolicies/368605946207",
+      "title": "default policy",
+    },
+  ],
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
+    "google_access_context_manager_access_policy",
+  ],
+  "numCollectedEntities": 1,
+  "numCollectedRelationships": 0,
+}
+`;
+
+exports[`#fetchAccessContextManagerAccessPolicies should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "accessPolicies/368605946207",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "etag": "64186ca0c82b01b4",
+            "name": "accessPolicies/368605946207",
+            "parent": "organizations/958457776463",
+            "title": "default policy",
+          },
+        },
+      ],
+      "_type": "google_access_context_manager_access_policy",
+      "createdOn": undefined,
+      "displayName": "accessPolicies/368605946207",
+      "etag": "64186ca0c82b01b4",
+      "name": "accessPolicies/368605946207",
+      "title": "default policy",
+    },
+  ],
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
+    "google_access_context_manager_access_policy",
+  ],
+  "numCollectedEntities": 1,
+  "numCollectedRelationships": 0,
+}
+`;

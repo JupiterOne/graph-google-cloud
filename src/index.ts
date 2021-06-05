@@ -27,6 +27,7 @@ import { memcacheSteps } from './steps/memcache';
 import { spannerSteps } from './steps/spanner';
 import { apiGatewaySteps } from './steps/api-gateway';
 import { privateCaSteps } from './steps/privateca';
+import { accessPoliciesSteps } from './steps/access-context-manager';
 
 import { Client } from './google-cloud/client';
 
@@ -72,6 +73,7 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> =
       ...spannerSteps,
       ...apiGatewaySteps,
       ...privateCaSteps,
+      ...accessPoliciesSteps,
     ],
 
     beforeAddEntity(context, entity: Entity): Entity {
