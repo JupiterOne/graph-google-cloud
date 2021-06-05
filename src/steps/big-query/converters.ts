@@ -77,6 +77,8 @@ export function createBigQueryModelEntity(data: bigquery_v2.Schema$Model) {
         _type: BIG_QUERY_MODEL_ENTITY_TYPE,
         _class: BIG_QUERY_MODEL_ENTITY_CLASS,
         name: data.modelReference?.modelId,
+        displayName: data.friendlyName!,
+        description: data.description,
         etag: data.etag,
         modelType: data.modelType,
         location: data.location,
@@ -85,6 +87,9 @@ export function createBigQueryModelEntity(data: bigquery_v2.Schema$Model) {
           : undefined,
         updatedOn: data.lastModifiedTime
           ? parseInt(data.lastModifiedTime, 10)
+          : undefined,
+        expirationTime: data.expirationTime
+          ? parseInt(data.expirationTime, 10)
           : undefined,
         classification: null,
         webLink: getGoogleCloudConsoleWebLink(
