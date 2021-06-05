@@ -8,6 +8,25 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.33.0 - 2021-06-04
+
+### Added
+
+- Added support for ingesting the following **new** resources:
+
+  | Service                | Resource / Entity     |
+  | ---------------------- | --------------------- |
+  | Cloud Resource Manager | `google_cloud_folder` |
+
+- Added support for ingesting the following **new** relationships:
+
+  | Source                      | \_class | Target                 |
+  | --------------------------- | ------- | ---------------------- |
+  | `google_cloud_organization` | `HAS`   | `google_cloud_folder`  |
+  | `google_cloud_folder`       | `HAS`   | `google_cloud_folder`  |
+  | `google_cloud_organization` | `HAS`   | `google_cloud_project` |
+  | `google_cloud_folder`       | `HAS`   | `google_cloud_project` |
+
 ## 0.32.1 - 2021-06-04
 
 ### Fixed
