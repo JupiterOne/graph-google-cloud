@@ -87,6 +87,11 @@ import {
   STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES,
 } from './steps/privateca/constants';
 import * as enablement from './steps/enablement';
+import {
+  STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS,
+  STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
+  STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS,
+} from './steps/access-context-manager/constants';
 
 function validateInvocationConfig(
   context: IntegrationExecutionContext<SerializedIntegrationConfig>,
@@ -121,6 +126,9 @@ export function getOrganizationSteps() {
     STEP_RESOURCE_MANAGER_ORGANIZATION,
     STEP_RESOURCE_MANAGER_FOLDERS,
     STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
+    STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
+    STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS,
+    STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS,
   ];
 }
 
