@@ -8,6 +8,17 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.34.2 - 2021-06-06
+
+### Changed
+
+- Use the actual `google_cloud_organization` `displayName` property for the
+  display name instead of the organization `name` property
+
+### Fixed
+
+- Do not upload `_rawData` for mapped relationship target entities
+
 ## 0.34.1 - 2021-06-06
 
 ### Fixed

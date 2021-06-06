@@ -308,7 +308,10 @@ export async function buildOrgFolderProjectMappedRelationships(
             relationshipDirection: RelationshipDirection.FORWARD,
             sourceEntityKey: organizationEntity._key,
             targetFilterKeys: [['_type', '_key']],
-            targetEntity: projectEntity,
+            targetEntity: {
+              ...projectEntity,
+              _rawData: undefined,
+            },
           },
         }),
       );
@@ -332,7 +335,10 @@ export async function buildOrgFolderProjectMappedRelationships(
               relationshipDirection: RelationshipDirection.FORWARD,
               sourceEntityKey: folderEntity._key,
               targetFilterKeys: [['_type', '_key']],
-              targetEntity: projectEntity,
+              targetEntity: {
+                ...projectEntity,
+                _rawData: undefined,
+              },
             },
           }),
         );
