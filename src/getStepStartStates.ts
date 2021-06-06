@@ -114,7 +114,7 @@ function makeStepStartStates(
 
 // Perhaps needs a better name?
 // Idea here is that we encapsulate/group all the steps that should be run
-// when configureOrganizationAccounts is set
+// when configureOrganizationProjects is set
 export function getOrganizationSteps() {
   return [
     // First of many, others will be VPC-related
@@ -138,7 +138,7 @@ export default async function getStepStartStates(
     serializedIntegrationConfig,
   ));
 
-  const organizationSteps = { disabled: !config.configureOrganizationAccounts };
+  const organizationSteps = { disabled: !config.configureOrganizationProjects };
 
   let enabledServiceNames: string[];
 

@@ -157,7 +157,7 @@ describe('#getStepStartStates success', () => {
   test('should return all enabled services', async () => {
     const context = createMockExecutionContext<IntegrationConfig>({
       // Unless we want to change what this test does, we need to modify the
-      // instanceConfig with configureOrganizationAccounts: true, else not
+      // instanceConfig with configureOrganizationProjects: true, else not
       // all steps will be enabled it'll be disabled
 
       // Temporary tweak to make this test pass since its recording has been updated from the new organization/v3
@@ -171,7 +171,7 @@ describe('#getStepStartStates success', () => {
           ...integrationConfig.serviceAccountKeyConfig,
           project_id: 'j1-gc-integration-dev-v3',
         },
-        configureOrganizationAccounts: true,
+        configureOrganizationProjects: true,
       },
     });
 
@@ -356,7 +356,7 @@ describe('#getStepStartStates success', () => {
     expect(stepStartStates).toEqual(expectedStepStartStates);
   });
 
-  test('configureOrganizationAccounts: true', async () => {
+  test('configureOrganizationProjects: true', async () => {
     const context = createMockExecutionContext<IntegrationConfig>({
       // Temporary tweak to make this test pass since its recording has been updated from the new organization/v3
       instanceConfig: {
@@ -369,7 +369,7 @@ describe('#getStepStartStates success', () => {
           ...integrationConfig.serviceAccountKeyConfig,
           project_id: 'j1-gc-integration-dev-v3',
         },
-        configureOrganizationAccounts: true,
+        configureOrganizationProjects: true,
       },
     });
 
@@ -388,7 +388,7 @@ describe('#getStepStartStates success', () => {
     });
   });
 
-  test('configureOrganizationAccounts: false or undefined', async () => {
+  test('configureOrganizationProjects: false or undefined', async () => {
     const context = createMockExecutionContext<IntegrationConfig>({
       // Temporary tweak to make this test pass since its recording has been updated from the new organization/v3
       instanceConfig: {

@@ -8,6 +8,13 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.34.1 - 2021-06-06
+
+### Fixed
+
+- Rename `configureOrganizationAccounts` integration config property to
+  `configureOrganizationProjects`
+
 ## 0.34.0 - 2021-06-06
 
 ### Added

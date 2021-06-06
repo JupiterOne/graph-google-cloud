@@ -9,7 +9,6 @@ export type IntegrationStepContext =
 
 export interface SerializedIntegrationConfig extends IntegrationInstanceConfig {
   serviceAccountKeyFile: string;
-  configureOrganizationProjects?: boolean;
   organizationId?: string;
   /**
    * The project ID that this integration should target for ingestion. This
@@ -22,7 +21,7 @@ export interface SerializedIntegrationConfig extends IntegrationInstanceConfig {
    * target.
    */
   projectId?: string;
-  configureOrganizationAccounts?: boolean;
+  configureOrganizationProjects?: boolean;
 }
 
 export interface IntegrationConfig extends SerializedIntegrationConfig {
