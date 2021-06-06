@@ -82,10 +82,13 @@ Object {
   "_type": "google_cloud_project",
   "createdOn": 1622475906340,
   "displayName": "My First Project",
+  "id": "winged-guild-315415",
   "lifecycleState": "ACTIVE",
   "name": "projects/619127027446",
   "parent": "organizations/958457776463",
+  "projectId": "winged-guild-315415",
   "updatedOn": 1622475908564,
+  "webLink": "https://console.cloud.google.com/home/dashboard?project=winged-guild-315415",
 }
 `;
 
@@ -99,9 +102,12 @@ Object {
   "_type": "google_cloud_project",
   "createdOn": undefined,
   "displayName": "j1-gc-integration-dev-v2",
+  "id": "j1-gc-integration-dev-v2",
   "lifecycleState": undefined,
   "name": "j1-gc-integration-dev-v2",
   "parent": undefined,
+  "projectId": "j1-gc-integration-dev-v2",
   "updatedOn": undefined,
+  "webLink": "https://console.cloud.google.com/home/dashboard?project=j1-gc-integration-dev-v2",
 }
 `;

@@ -22,6 +22,7 @@ import {
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import { IamUserEntityWithParsedMember } from '.';
 import { IAM_ROLE_ENTITY_TYPE } from '../iam';
+import { getGoogleCloudConsoleWebLink } from '../../utils/url';
 
 function getConditionRelationshipProperties(
   condition: cloudresourcemanager_v1.Schema$Expr,
@@ -154,19 +155,26 @@ export function createProjectEntity(
   projectId: string,
   project: cloudresourcemanager_v3.Schema$Project | undefined = {},
 ) {
+  const primaryProjectId = project.projectId || projectId;
+
   return createGoogleCloudIntegrationEntity(project, {
     entityData: {
       source: project,
       assign: {
-        _key: project.name || projectId,
+        _key: project.name || primaryProjectId,
         _type: PROJECT_ENTITY_TYPE,
         _class: PROJECT_ENTITY_CLASS,
-        name: project.name || projectId,
+        id: primaryProjectId,
+        projectId: primaryProjectId,
+        name: project.name || primaryProjectId,
         displayName: project.displayName as string,
         parent: project.parent,
         lifecycleState: project.state,
         createdOn: parseTimePropertyValue(project.createTime),
         updatedOn: parseTimePropertyValue(project.updateTime),
+        webLink: getGoogleCloudConsoleWebLink(
+          `/home/dashboard?project=${primaryProjectId}`,
+        ),
       },
     },
   });
