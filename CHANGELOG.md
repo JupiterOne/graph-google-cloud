@@ -8,13 +8,35 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.34.0 - 2021-06-06
+
 ### Added
+
+- Added support for ingesting the following **new** resources:
+
+  | Service  | Resource / Entity       |
+  | -------- | ----------------------- |
+  | BigQuery | `google_bigquery_model` |
+
+- Added support for ingesting the following **new** relationships:
+
+  | Source                    | \_class | Target                  |
+  | ------------------------- | ------- | ----------------------- |
+  | `google_bigquery_dataset` | `HAS`   | `google_bigquery_model` |
 
 - New properties added to resources:
 
-  | Entity                 | Properties                   |
-  | ---------------------- | ---------------------------- |
-  | `google_cloud_project` | `id`, `projectId`, `webLink` |
+  | Entity                                   | Properties                   |
+  | ---------------------------------------- | ---------------------------- |
+  | `google_cloud_project`                   | `id`, `projectId`, `webLink` |
+  | `google_api_gateway_api`                 | `function`                   |
+  | `google_app_engine_version`              | `function`                   |
+  | `google_cloud_run_service`               | `function`                   |
+  | `google_compute_health_check`            | `function`                   |
+  | `google_compute_backend_service`         | `function`                   |
+  | `google_privateca_certificate_authority` | `function`                   |
+  | `google_pubsub_subscription`             | `function`                   |
+  | `google_cloud_api_service`               | `function`                   |
 
 ## 0.33.0 - 2021-06-04
 
