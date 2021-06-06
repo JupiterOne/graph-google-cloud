@@ -393,7 +393,6 @@ export async function fetchComputeDisks(
             data: image,
             isPublic: true,
           });
-          delete imageEntity._rawData;
 
           await jobState.addRelationship(
             createMappedRelationship({
@@ -403,7 +402,10 @@ export async function fetchComputeDisks(
                 relationshipDirection: RelationshipDirection.FORWARD,
                 sourceEntityKey: diskEntity._key,
                 targetFilterKeys: [['_type', '_key']],
-                targetEntity: imageEntity,
+                targetEntity: {
+                  ...imageEntity,
+                  _rawData: undefined,
+                },
               },
             }),
           );

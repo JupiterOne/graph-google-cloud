@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.34.2 - 2021-06-06
+
+### Fixed
+
+- Do not upload `_rawData` for mapped relationship target entities
+
 ## 0.34.1 - 2021-06-06
 
 ### Fixed

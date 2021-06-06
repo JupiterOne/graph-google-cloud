@@ -119,7 +119,7 @@ export function createOrganizationEntity(
         _type: ORGANIZATION_ENTITY_TYPE,
         _class: ORGANIZATION_ENTITY_CLASS,
         name: data.name,
-        displayName: data.name as string,
+        displayName: data.displayName as string,
         directoryCustomerId: data.directoryCustomerId,
         etag: data.etag,
         lifecycleState: data.state,
