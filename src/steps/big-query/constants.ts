@@ -8,7 +8,7 @@ export const BIG_QUERY_DATASET_ENTITY_TYPE = 'google_bigquery_dataset';
 export const BIG_QUERY_TABLE_ENTITY_CLASS = 'DataCollection';
 export const BIG_QUERY_TABLE_ENTITY_TYPE = 'google_bigquery_table';
 
-export const BIG_QUERY_MODEL_ENTITY_CLASS = 'DataObject';
+export const BIG_QUERY_MODEL_ENTITY_CLASS = 'Model';
 export const BIG_QUERY_MODEL_ENTITY_TYPE = 'google_bigquery_model';
 
 export const RELATIONSHIP_TYPE_DATASET_USES_KMS_CRYPTO_KEY =

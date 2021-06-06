@@ -35,6 +35,7 @@ export function createCertificateAuthorityEntity({
         _key: data.name as string,
         name: data.name,
         displayName: data.name as string,
+        function: ['certificate-management'],
         public: isPublic,
         category: ['security'],
         type: data.type,

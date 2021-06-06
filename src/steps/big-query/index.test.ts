@@ -158,7 +158,7 @@ describe('#fetchBigQueryModels', () => {
         (e) => e._type === BIG_QUERY_MODEL_ENTITY_TYPE,
       ),
     ).toMatchGraphObjectSchema({
-      _class: 'DataObject',
+      _class: 'Model',
       schema: {
         additionalProperties: false,
         properties: {

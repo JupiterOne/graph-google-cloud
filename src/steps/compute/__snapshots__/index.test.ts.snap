@@ -437,6 +437,9 @@ Object {
       "createdOn": 1613606661342,
       "description": undefined,
       "displayName": "load-balancer-health-check",
+      "function": Array [
+        "validation",
+      ],
       "healthyThreshold": 2,
       "id": "6034280886294286826",
       "name": "load-balancer-health-check",
@@ -498,6 +501,9 @@ Object {
       "description": "",
       "displayName": "load-balancer-www-service",
       "enableCDN": false,
+      "function": Array [
+        "load-balancing",
+      ],
       "id": "8569960656512487876",
       "name": "load-balancer-www-service",
       "port": 80,
@@ -6306,6 +6312,9 @@ Object {
       "createdOn": 1613606661342,
       "description": undefined,
       "displayName": "load-balancer-health-check",
+      "function": Array [
+        "validation",
+      ],
       "healthyThreshold": 2,
       "id": "6034280886294286826",
       "name": "load-balancer-health-check",
@@ -8136,6 +8145,9 @@ Object {
       "description": "",
       "displayName": "load-balancer-www-service",
       "enableCDN": false,
+      "function": Array [
+        "load-balancing",
+      ],
       "id": "8569960656512487876",
       "name": "load-balancer-www-service",
       "port": 80,
@@ -12105,6 +12117,9 @@ Object {
       "description": "",
       "displayName": "load-balancer-www-service",
       "enableCDN": false,
+      "function": Array [
+        "load-balancing",
+      ],
       "id": "8569960656512487876",
       "name": "load-balancer-www-service",
       "port": 80,

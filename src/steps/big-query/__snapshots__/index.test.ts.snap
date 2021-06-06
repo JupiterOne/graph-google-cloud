@@ -1064,7 +1064,7 @@ Object {
     },
     Object {
       "_class": Array [
-        "DataObject",
+        "Model",
       ],
       "_key": "natality_model",
       "_rawData": Array [

@@ -131,7 +131,7 @@ Object {
 exports[`#createBigQueryModelEntity should convert to entity 1`] = `
 Object {
   "_class": Array [
-    "DataObject",
+    "Model",
   ],
   "_key": "natality_model",
   "_rawData": Array [
