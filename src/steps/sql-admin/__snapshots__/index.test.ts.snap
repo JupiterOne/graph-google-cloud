@@ -382,10 +382,13 @@ Object {
       "_type": "google_cloud_project",
       "createdOn": 1622474156125,
       "displayName": "j1-gc-integration-dev-v3",
+      "id": "j1-gc-integration-dev-v3",
       "lifecycleState": "ACTIVE",
       "name": "projects/167984947943",
       "parent": "folders/306329820365",
+      "projectId": "j1-gc-integration-dev-v3",
       "updatedOn": 1622474158148,
+      "webLink": "https://console.cloud.google.com/home/dashboard?project=j1-gc-integration-dev-v3",
     },
     Object {
       "_class": Array [
@@ -733,10 +736,13 @@ Object {
       "_type": "google_cloud_project",
       "createdOn": 1622474156125,
       "displayName": "j1-gc-integration-dev-v3",
+      "id": "j1-gc-integration-dev-v3",
       "lifecycleState": "ACTIVE",
       "name": "projects/167984947943",
       "parent": "folders/306329820365",
+      "projectId": "j1-gc-integration-dev-v3",
       "updatedOn": 1622474158148,
+      "webLink": "https://console.cloud.google.com/home/dashboard?project=j1-gc-integration-dev-v3",
     },
     Object {
       "_class": Array [
