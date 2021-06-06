@@ -56,6 +56,7 @@ export function createCloudRunServiceEntity(
         _type: ENTITY_TYPE_CLOUD_RUN_SERVICE,
         _key: getCloudRunServiceKey(data.metadata?.uid as string),
         name: data.metadata?.name,
+        function: ['workload-management'],
         displayName: data.metadata?.name as string,
         category: ['infrastructure'],
         createdOn: parseTimePropertyValue(data.metadata?.creationTimestamp),

@@ -30,6 +30,9 @@ Object {
   "displayName": "projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription",
   "enableMessageOrdering": false,
   "expirationPolicyTtl": "2678400s",
+  "function": Array [
+    "notification",
+  ],
   "isDefaultRetryPolicy": true,
   "isDetached": undefined,
   "maximumBackoff": undefined,
@@ -71,6 +74,9 @@ Object {
   "displayName": "projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription",
   "enableMessageOrdering": false,
   "expirationPolicyTtl": "2678400s",
+  "function": Array [
+    "notification",
+  ],
   "isDefaultRetryPolicy": true,
   "isDetached": undefined,
   "maximumBackoff": undefined,
@@ -116,6 +122,9 @@ Object {
   "displayName": "projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription",
   "enableMessageOrdering": false,
   "expirationPolicyTtl": "2678400s",
+  "function": Array [
+    "notification",
+  ],
   "isDefaultRetryPolicy": true,
   "isDetached": undefined,
   "maximumBackoff": undefined,
@@ -157,6 +166,9 @@ Object {
   "displayName": "projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription",
   "enableMessageOrdering": false,
   "expirationPolicyTtl": "2678400s",
+  "function": Array [
+    "notification",
+  ],
   "isDefaultRetryPolicy": true,
   "isDetached": undefined,
   "maximumBackoff": undefined,
@@ -199,6 +211,9 @@ Object {
   "displayName": "projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription",
   "enableMessageOrdering": true,
   "expirationPolicyTtl": "2678400s",
+  "function": Array [
+    "notification",
+  ],
   "isDefaultRetryPolicy": true,
   "isDetached": undefined,
   "maximumBackoff": undefined,
@@ -244,6 +259,9 @@ Object {
   "displayName": "projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription",
   "enableMessageOrdering": false,
   "expirationPolicyTtl": "2678400s",
+  "function": Array [
+    "notification",
+  ],
   "isDefaultRetryPolicy": false,
   "isDetached": undefined,
   "maximumBackoff": "600s",
@@ -285,6 +303,9 @@ Object {
   "displayName": "projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription",
   "enableMessageOrdering": false,
   "expirationPolicyTtl": "2678400s",
+  "function": Array [
+    "notification",
+  ],
   "isDefaultRetryPolicy": true,
   "isDetached": undefined,
   "maximumBackoff": undefined,
@@ -329,6 +350,9 @@ Object {
   "displayName": "projects/j1-gc-integration-dev-v2/subscriptions/mock-subscription",
   "enableMessageOrdering": false,
   "expirationPolicyTtl": "2678400s",
+  "function": Array [
+    "notification",
+  ],
   "isDefaultRetryPolicy": true,
   "isDetached": undefined,
   "maximumBackoff": undefined,

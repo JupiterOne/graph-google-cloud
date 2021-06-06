@@ -209,6 +209,9 @@ Object {
       "displayName": "projects/j1-gc-integration-dev-v2/subscriptions/example-subscription",
       "enableMessageOrdering": false,
       "expirationPolicyTtl": "2678400s",
+      "function": Array [
+        "notification",
+      ],
       "isDefaultRetryPolicy": false,
       "isDetached": undefined,
       "maximumBackoff": "600s",

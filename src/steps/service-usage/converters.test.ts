@@ -11,6 +11,7 @@ describe('#createApiServiceEntity', () => {
       _key: 'projects/j1-gc-integration-dev-v2/services/vision.googleapis.com',
       displayName: 'Cloud Vision API',
       category: ['infrastructure'],
+      function: ['api-enablement'],
       description:
         'Integrates Google Vision features, including image labeling, face, logo, and landmark detection, optical character recognition (OCR), and detection of explicit content, into applications.',
       state: 'ENABLED',
@@ -58,6 +59,7 @@ describe('#createApiServiceEntity', () => {
       _key: 'projects/j1-gc-integration-dev-v2/services/vision.googleapis.com',
       displayName: 'vision.googleapis.com',
       category: ['infrastructure'],
+      function: ['api-enablement'],
       description:
         'Integrates Google Vision features, including image labeling, face, logo, and landmark detection, optical character recognition (OCR), and detection of explicit content, into applications.',
       state: 'ENABLED',
@@ -117,6 +119,7 @@ describe('#createApiServiceEntity', () => {
       _key: 'projects/j1-gc-integration-dev-v2/services/vision.googleapis.com',
       displayName: 'vision.googleapis.com',
       category: ['infrastructure'],
+      function: ['api-enablement'],
       state: 'ENABLED',
       enabled: true,
       usageRequirements: ['serviceusage.googleapis.com/tos/cloud'],
@@ -166,6 +169,7 @@ describe('#createApiServiceEntity', () => {
       _key: 'projects/j1-gc-integration-dev-v2/services/vision.googleapis.com',
       displayName: 'Cloud Vision API',
       category: ['infrastructure'],
+      function: ['api-enablement'],
       description:
         'Integrates Google Vision features, including image labeling, face, logo, and landmark detection, optical character recognition (OCR), and detection of explicit content, into applications.',
       state: 'ENABLED',

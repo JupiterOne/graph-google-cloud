@@ -56,6 +56,7 @@ import {
 import { STEP_CLOUD_KMS_KEYS, STEP_CLOUD_KMS_KEY_RINGS } from './steps/kms';
 import {
   STEP_BIG_QUERY_DATASETS,
+  STEP_BIG_QUERY_MODELS,
   STEP_BIG_QUERY_TABLES,
 } from './steps/big-query';
 import { STEP_SQL_ADMIN_INSTANCES } from './steps/sql-admin';
@@ -273,6 +274,9 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_BIG_QUERY_DATASETS]: {
+        disabled: false,
+      },
+      [STEP_BIG_QUERY_MODELS]: {
         disabled: false,
       },
       [STEP_BIG_QUERY_TABLES]: {

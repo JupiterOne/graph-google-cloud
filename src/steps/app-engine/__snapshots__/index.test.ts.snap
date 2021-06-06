@@ -641,6 +641,9 @@ Object {
       "diskUsageBytes": 4027054,
       "displayName": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022",
       "env": "standard",
+      "function": Array [
+        "workload-management",
+      ],
       "id": "20210309t141022",
       "instanceClass": "F1",
       "livenessCheckFailureThreshold": undefined,
@@ -724,6 +727,9 @@ Object {
       "diskUsageBytes": undefined,
       "displayName": "apps/j1-gc-integration-dev-v2/services/default/versions/20210319t163820",
       "env": "flexible",
+      "function": Array [
+        "workload-management",
+      ],
       "id": "20210319t163820",
       "instanceClass": undefined,
       "livenessCheckFailureThreshold": 4,

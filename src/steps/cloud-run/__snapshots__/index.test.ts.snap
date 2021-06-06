@@ -117,6 +117,9 @@ Object {
       ],
       "createdOn": 1615322489622,
       "displayName": "example-cloud-run-service",
+      "function": Array [
+        "workload-management",
+      ],
       "name": "example-cloud-run-service",
       "webLink": "https://console.cloud.google.com/run/detail/us-central1/example-cloud-run-service",
     },
@@ -362,6 +365,9 @@ Object {
       ],
       "createdOn": 1615322489622,
       "displayName": "example-cloud-run-service",
+      "function": Array [
+        "workload-management",
+      ],
       "name": "example-cloud-run-service",
       "webLink": "https://console.cloud.google.com/run/detail/us-central1/example-cloud-run-service",
     },
@@ -585,6 +591,9 @@ Object {
       ],
       "createdOn": 1615322489622,
       "displayName": "example-cloud-run-service",
+      "function": Array [
+        "workload-management",
+      ],
       "name": "example-cloud-run-service",
       "webLink": "https://console.cloud.google.com/run/detail/us-central1/example-cloud-run-service",
     },

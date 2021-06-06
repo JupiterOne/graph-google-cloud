@@ -43,6 +43,7 @@ export function createApiServiceEntity({
         name: config.name,
         displayName: config.title || undefined,
         category: ['infrastructure'],
+        function: ['api-enablement'],
         description: config.documentation?.summary,
         state: data.state,
         enabled: data.state === 'ENABLED',

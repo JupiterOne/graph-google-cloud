@@ -94,6 +94,9 @@ Object {
   "description": "",
   "displayName": "example-backend-service",
   "enableCDN": false,
+  "function": Array [
+    "load-balancing",
+  ],
   "id": "3052966098403233127",
   "name": "example-backend-service",
   "port": 80,
@@ -1168,6 +1171,9 @@ Object {
   "createdOn": 1611608963908,
   "description": "",
   "displayName": "health-check",
+  "function": Array [
+    "validation",
+  ],
   "healthyThreshold": 2,
   "id": "1905105216322309484",
   "name": "health-check",

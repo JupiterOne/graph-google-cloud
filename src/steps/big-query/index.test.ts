@@ -1,5 +1,9 @@
 import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-testing';
-import { fetchBigQueryDatasets, fetchBigQueryTables } from '.';
+import {
+  fetchBigQueryDatasets,
+  fetchBigQueryModels,
+  fetchBigQueryTables,
+} from '.';
 import { integrationConfig } from '../../../test/config';
 import { Recording, setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
@@ -9,6 +13,8 @@ import {
   RELATIONSHIP_TYPE_DATASET_USES_KMS_CRYPTO_KEY,
   BIG_QUERY_TABLE_ENTITY_TYPE,
   RELATIONSHIP_TYPE_DATASET_HAS_TABLE,
+  BIG_QUERY_MODEL_ENTITY_TYPE,
+  RELATIONSHIP_TYPE_DATASET_HAS_MODEL,
 } from './constants';
 
 describe('#fetchBigQueryDatasets', () => {
@@ -81,6 +87,108 @@ describe('#fetchBigQueryDatasets', () => {
           _class: { const: 'USES' },
           _type: {
             const: 'google_bigquery_dataset_uses_kms_crypto_key',
+          },
+        },
+      },
+    });
+  });
+});
+
+describe('#fetchBigQueryModels', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'fetchBigQueryModels',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: integrationConfig,
+    });
+
+    await fetchBigQueryDatasets(context);
+    await fetchBigQueryModels(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === BIG_QUERY_DATASET_ENTITY_TYPE,
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: ['DataStore', 'Database'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_bigquery_dataset' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          name: { type: 'string' },
+          description: { type: 'string' },
+          public: { type: 'boolean' },
+          kmsKeyName: { type: 'string' },
+          location: { type: 'string' },
+          encrypted: { type: 'boolean' },
+          classification: { const: null },
+          etag: { type: 'string' },
+          createdOn: { type: 'number' },
+          updatedOn: { type: 'number' },
+          webLink: { type: 'string' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === BIG_QUERY_MODEL_ENTITY_TYPE,
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: 'Model',
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_bigquery_model' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          name: { type: 'string' },
+          etag: { type: 'string' },
+          modelType: { type: 'string' },
+          location: { type: 'string' },
+          createdOn: { type: 'number' },
+          updatedOn: { type: 'number' },
+          expirationTime: { type: 'number' },
+          classification: { const: null },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === RELATIONSHIP_TYPE_DATASET_HAS_MODEL,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'HAS' },
+          _type: {
+            const: 'google_bigquery_dataset_has_model',
           },
         },
       },

@@ -90,6 +90,9 @@ Object {
   "extendedKeyUsage.ocspSigning": undefined,
   "extendedKeyUsage.serverAuth": undefined,
   "extendedKeyUsage.timeStamping": undefined,
+  "function": Array [
+    "certificate-management",
+  ],
   "keyAlgorithm": "RSA_PKCS1_2048_SHA256",
   "keyUsage.certSign": undefined,
   "keyUsage.contentCommitment": undefined,

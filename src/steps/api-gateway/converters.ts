@@ -31,6 +31,7 @@ export function createApiGatewayApiEntity({
         _key: data.name as string,
         name: data.name,
         displayName: data.displayName as string,
+        function: ['api-gateway'],
         state: data.state,
         category: ['network'],
         public: isPublic,
