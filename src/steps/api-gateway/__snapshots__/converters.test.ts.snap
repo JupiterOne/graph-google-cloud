@@ -56,6 +56,9 @@ Object {
   ],
   "createdOn": 1617138927820,
   "displayName": "Example API Gateway Endpoint",
+  "function": Array [
+    "api-gateway",
+  ],
   "managedService": "example-api-gateway-endpoint-0fo33j5zaqt68.apigateway.j1-gc-integration-dev-v2.cloud.goog",
   "name": "projects/j1-gc-integration-dev-v2/locations/global/apis/example-api-gateway-endpoint",
   "public": false,

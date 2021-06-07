@@ -148,6 +148,9 @@ Object {
   "diskUsageBytes": 4027054,
   "displayName": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022",
   "env": "standard",
+  "function": Array [
+    "workload-management",
+  ],
   "id": "20210309t141022",
   "instanceClass": "F1",
   "livenessCheckFailureThreshold": undefined,

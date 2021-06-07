@@ -90,4 +90,35 @@ export class BigQueryClient extends Client {
       },
     );
   }
+
+  async iterateBigQueryModels(
+    datasetId: string,
+    callback: (data: bigquery_v2.Schema$Model) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.models.list({
+          auth,
+          datasetId,
+          projectId: this.projectId,
+          pageToken: nextPageToken,
+        });
+      },
+      async (data: bigquery_v2.Schema$ListModelsResponse) => {
+        for (const modelRef of data.models || []) {
+          if (modelRef.modelReference?.modelId) {
+            const model = await this.client.models.get({
+              auth,
+              projectId: this.projectId,
+              datasetId,
+              modelId: modelRef.modelReference.modelId,
+            });
+            await callback(model.data);
+          }
+        }
+      },
+    );
+  }
 }

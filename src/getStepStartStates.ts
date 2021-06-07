@@ -17,8 +17,10 @@ import {
 } from './steps/iam';
 import {
   STEP_RESOURCE_MANAGER_IAM_POLICY,
-  STEP_PROJECT,
-  STEP_ORGANIZATION,
+  STEP_RESOURCE_MANAGER_PROJECT,
+  STEP_RESOURCE_MANAGER_ORGANIZATION,
+  STEP_RESOURCE_MANAGER_FOLDERS,
+  STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
 } from './steps/resource-manager';
 import {
   STEP_COMPUTE_INSTANCES,
@@ -41,6 +43,7 @@ import {
 import { STEP_CLOUD_KMS_KEYS, STEP_CLOUD_KMS_KEY_RINGS } from './steps/kms';
 import {
   STEP_BIG_QUERY_DATASETS,
+  STEP_BIG_QUERY_MODELS,
   STEP_BIG_QUERY_TABLES,
 } from './steps/big-query';
 import { STEP_SQL_ADMIN_INSTANCES } from './steps/sql-admin';
@@ -112,11 +115,13 @@ function makeStepStartStates(
 
 // Perhaps needs a better name?
 // Idea here is that we encapsulate/group all the steps that should be run
-// when configureOrganizationAccounts is set
+// when configureOrganizationProjects is set
 export function getOrganizationSteps() {
   return [
     // First of many, others will be VPC-related
-    STEP_ORGANIZATION,
+    STEP_RESOURCE_MANAGER_ORGANIZATION,
+    STEP_RESOURCE_MANAGER_FOLDERS,
+    STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
   ];
 }
 
@@ -134,7 +139,7 @@ export default async function getStepStartStates(
     serializedIntegrationConfig,
   ));
 
-  const organizationSteps = { disabled: !config.configureOrganizationAccounts };
+  const organizationSteps = { disabled: !config.configureOrganizationProjects };
 
   let enabledServiceNames: string[];
 
@@ -165,7 +170,7 @@ export default async function getStepStartStates(
     ...makeStepStartStates([...getOrganizationSteps()], organizationSteps),
     // Rest of steps...
     // This API will be enabled otherwise fetching services names above would fail
-    [STEP_PROJECT]: { disabled: false },
+    [STEP_RESOURCE_MANAGER_PROJECT]: { disabled: false },
     [STEP_API_SERVICES]: { disabled: false },
     [CLOUD_ASSET_STEPS.BINDINGS]: createStepStartState(
       ServiceUsageName.CLOUD_ASSET,
@@ -219,6 +224,7 @@ export default async function getStepStartStates(
     [STEP_CLOUD_KMS_KEY_RINGS]: createStepStartState(ServiceUsageName.KMS),
     [STEP_CLOUD_KMS_KEYS]: createStepStartState(ServiceUsageName.KMS),
     [STEP_BIG_QUERY_DATASETS]: createStepStartState(ServiceUsageName.BIG_QUERY),
+    [STEP_BIG_QUERY_MODELS]: createStepStartState(ServiceUsageName.BIG_QUERY),
     [STEP_BIG_QUERY_TABLES]: createStepStartState(ServiceUsageName.BIG_QUERY),
     [STEP_SQL_ADMIN_INSTANCES]: createStepStartState(
       ServiceUsageName.SQL_ADMIN,

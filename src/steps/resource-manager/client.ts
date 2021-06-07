@@ -1,20 +1,24 @@
 import { Client } from '../../google-cloud/client';
-import { google, cloudresourcemanager_v1 } from 'googleapis';
+import { google, cloudresourcemanager_v3 } from 'googleapis';
 
 export interface PolicyMemberBinding {
-  binding: cloudresourcemanager_v1.Schema$Binding;
+  binding: cloudresourcemanager_v3.Schema$Binding;
   member: string;
 }
 
+function shouldSkipProject(projectId: string) {
+  return projectId.startsWith('sys-');
+}
+
 export class ResourceManagerClient extends Client {
-  private client = google.cloudresourcemanager('v1');
+  private client = google.cloudresourcemanager('v3');
 
   async getProject() {
     const auth = await this.getAuthenticatedServiceClient();
 
     const result = await this.client.projects.get({
       auth,
-      projectId: this.projectId,
+      name: `projects/${this.projectId}`,
     });
 
     return result.data;
@@ -31,12 +35,59 @@ export class ResourceManagerClient extends Client {
     return result.data;
   }
 
+  async iterateFolders(
+    callback: (data: cloudresourcemanager_v3.Schema$Folder) => Promise<void>,
+    folderName?: string,
+  ) {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.folders.list({
+          auth,
+          parent: folderName || `organizations/${this.organizationId}`,
+          pageToken: nextPageToken,
+        });
+      },
+      async (data: cloudresourcemanager_v3.Schema$ListFoldersResponse) => {
+        for (const folder of data.folders || []) {
+          await callback(folder);
+        }
+      },
+    );
+  }
+
+  async iterateProjects(
+    callback: (data: cloudresourcemanager_v3.Schema$Project) => Promise<void>,
+    folderName?: string,
+  ) {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.projects.list({
+          auth,
+          parent: folderName || `organizations/${this.organizationId}`,
+          pageToken: nextPageToken,
+        });
+      },
+      async (data: cloudresourcemanager_v3.Schema$ListProjectsResponse) => {
+        for (const project of data.projects || []) {
+          if (shouldSkipProject(project.projectId!)) {
+            return;
+          }
+          await callback(project);
+        }
+      },
+    );
+  }
+
   async getServiceAccountPolicy() {
     const auth = await this.getAuthenticatedServiceClient();
 
     const result = await this.client.projects.getIamPolicy({
       auth,
-      resource: this.projectId,
+      resource: `projects/${this.projectId}`,
       requestBody: {
         options: {
           // Policies are versioned and specifying this version will return

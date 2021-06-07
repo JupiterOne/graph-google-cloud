@@ -29,7 +29,17 @@ describe('#fetchBinaryAuthorization', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: {
+        ...integrationConfig,
+        serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+          'j1-gc-integration-dev-v2',
+          'j1-gc-integration-dev-v3',
+        ),
+        serviceAccountKeyConfig: {
+          ...integrationConfig.serviceAccountKeyConfig,
+          project_id: 'j1-gc-integration-dev-v3',
+        },
+      },
     });
 
     await fetchResourceManagerProject(context);
@@ -53,16 +63,17 @@ describe('#fetchBinaryAuthorization', () => {
         additionalProperties: false,
         properties: {
           _type: { const: 'google_cloud_project' },
-          name: { type: 'string' },
-          projectNumber: { type: 'string' },
-          lifecycleState: { type: 'string' },
-          createdOn: { type: 'number' },
-          'parent.id': { type: 'string' },
-          'parent.type': { type: 'string' },
           _rawData: {
             type: 'array',
             items: { type: 'object' },
           },
+          projectId: { type: 'string' },
+          name: { type: 'string' },
+          displayName: { type: 'string' },
+          parent: { type: 'string' },
+          lifecycleState: { type: 'string' },
+          createdOn: { type: 'number' },
+          updatedOn: { type: 'number' },
         },
       },
     });

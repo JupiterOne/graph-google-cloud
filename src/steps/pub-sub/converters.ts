@@ -60,6 +60,7 @@ export function createPubSubSubscriptionEntity(
         enableMessageOrdering: data.enableMessageOrdering || false,
         expirationPolicyTtl: data.expirationPolicy?.ttl,
         category: ['application'],
+        function: ['notification'],
         isDetached: data.detached,
         pushEndpoint: data.pushConfig?.pushEndpoint,
         isDefaultRetryPolicy: data.retryPolicy === undefined,

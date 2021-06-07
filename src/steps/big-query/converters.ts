@@ -5,6 +5,8 @@ import {
   BIG_QUERY_DATASET_ENTITY_TYPE,
   BIG_QUERY_TABLE_ENTITY_CLASS,
   BIG_QUERY_TABLE_ENTITY_TYPE,
+  BIG_QUERY_MODEL_ENTITY_TYPE,
+  BIG_QUERY_MODEL_ENTITY_CLASS,
 } from './constants';
 import { isMemberPublic } from '../../utils/iam';
 import { BigQueryTable } from './client';
@@ -60,6 +62,38 @@ export function createBigQueryDatasetEntity(data: bigquery_v2.Schema$Dataset) {
           : undefined,
         webLink: getGoogleCloudConsoleWebLink(
           `/bigquery?project=${data.datasetReference?.projectId}&d=${data.datasetReference?.datasetId}&p=${data.datasetReference?.projectId}&page=dataset`,
+        ),
+      },
+    },
+  });
+}
+
+export function createBigQueryModelEntity(data: bigquery_v2.Schema$Model) {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _key: data.modelReference?.modelId as string,
+        _type: BIG_QUERY_MODEL_ENTITY_TYPE,
+        _class: BIG_QUERY_MODEL_ENTITY_CLASS,
+        name: data.modelReference?.modelId,
+        displayName: data.friendlyName!,
+        description: data.description,
+        etag: data.etag,
+        modelType: data.modelType,
+        location: data.location,
+        createdOn: data.creationTime
+          ? parseInt(data.creationTime, 10)
+          : undefined,
+        updatedOn: data.lastModifiedTime
+          ? parseInt(data.lastModifiedTime, 10)
+          : undefined,
+        expirationTime: data.expirationTime
+          ? parseInt(data.expirationTime, 10)
+          : undefined,
+        classification: null,
+        webLink: getGoogleCloudConsoleWebLink(
+          `/bigquery?project=${data.modelReference?.projectId}&d=${data.modelReference?.datasetId}&m=${data.modelReference?.modelId}&p=${data.modelReference?.projectId}&page=model`,
         ),
       },
     },

@@ -44,7 +44,7 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> =
       organizationId: {
         type: 'string',
       },
-      configureOrganizationAccounts: {
+      configureOrganizationProjects: {
         type: 'boolean',
         mask: false,
       },

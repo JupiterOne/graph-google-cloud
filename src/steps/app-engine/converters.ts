@@ -76,6 +76,7 @@ export function createAppEngineVersionEntity(
         name: data.name,
         displayName: data.name as string,
         category: ['application'],
+        function: ['workload-management'],
         // The following properties are shared (both standard and flexible)
         versionUrl: data.versionUrl,
         threadsafe: data.threadsafe,
