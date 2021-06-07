@@ -9,7 +9,7 @@ export function createIamBindingEntity(
   project: string | undefined | null,
   resource: string | undefined | null,
 ) {
-  // There are no unique values returned from this result so use everything I can to make the binding unique
+  // There are no unique values returned from this result so use everything available to make the binding key unique.
   const keyBuilders = ['binding'];
   if (project) keyBuilders.push('project:' + project);
   if (resource) keyBuilders.push('resource:' + resource);
