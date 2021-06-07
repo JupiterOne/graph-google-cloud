@@ -10,6 +10,8 @@ and this project adheres to
 
 ## 0.35.0 - 2021-06-07
 
+### Added
+
 - Added support for ingesting the following **new** resources:
 
   | Service     | Resource / Entity    |
