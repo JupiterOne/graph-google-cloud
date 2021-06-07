@@ -8,6 +8,14 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.35.0 - 2021-06-07
+
+- Added support for ingesting the following **new** resources:
+
+  | Service     | Resource / Entity    |
+  | ----------- | -------------------- |
+  | IAM Binding | `google_iam_binding` |
+
 ## 0.34.2 - 2021-06-06
 
 ### Changed
