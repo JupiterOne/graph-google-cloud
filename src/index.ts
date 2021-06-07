@@ -29,6 +29,7 @@ import { apiGatewaySteps } from './steps/api-gateway';
 import { privateCaSteps } from './steps/privateca';
 
 import { Client } from './google-cloud/client';
+import { cloudAssetSteps } from './steps/cloud-asset';
 
 export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> =
   {
@@ -54,6 +55,7 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> =
       ...storageSteps,
       ...serviceUsageSteps,
       ...iamSteps,
+      ...cloudAssetSteps,
       ...resourceManagerSteps,
       ...computeSteps,
       ...kmsSteps,

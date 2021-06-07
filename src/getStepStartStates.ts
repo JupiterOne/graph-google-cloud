@@ -84,6 +84,7 @@ import {
   STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES,
 } from './steps/privateca/constants';
 import * as enablement from './steps/enablement';
+import { CLOUD_ASSET_STEPS } from './steps/cloud-asset/constants';
 
 function validateInvocationConfig(
   context: IntegrationExecutionContext<SerializedIntegrationConfig>,
@@ -166,6 +167,9 @@ export default async function getStepStartStates(
     // This API will be enabled otherwise fetching services names above would fail
     [STEP_PROJECT]: { disabled: false },
     [STEP_API_SERVICES]: { disabled: false },
+    [CLOUD_ASSET_STEPS.BINDINGS]: createStepStartState(
+      ServiceUsageName.CLOUD_ASSET,
+    ),
     [STEP_CLOUD_FUNCTIONS]: createStepStartState(
       ServiceUsageName.CLOUD_FUNCTIONS,
     ),

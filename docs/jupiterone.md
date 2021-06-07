@@ -392,6 +392,7 @@ The following entities are created:
 | Container Cluster                 | `google_container_cluster`                 | `Cluster`                          |
 | Container Node Pool               | `google_container_node_pool`               | `Group`                            |
 | DNS Managed Zone                  | `google_dns_managed_zone`                  | `DomainZone`                       |
+| IAM Binding                       | `google_iam_binding`                       | `AccessPolicy`                     |
 | IAM Managed Role                  | `google_iam_role`                          | `AccessRole`                       |
 | IAM Service Account               | `google_iam_service_account`               | `User`                             |
 | IAM Service Account Key           | `google_iam_service_account_key`           | `AccessKey`                        |
