@@ -1,0 +1,2073 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchIamBindings should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/430707931057|role:roles/resourcemanager.folderAdmin",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "user:austin.kelleher@jupiterone.dev",
+            ],
+            "role": "roles/resourcemanager.folderAdmin",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/folders/430707931057",
+      "members": Array [
+        "user:austin.kelleher@jupiterone.dev",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/folders/430707931057",
+      "project": undefined,
+      "resource": "//cloudresourcemanager.googleapis.com/folders/430707931057",
+      "role": "roles/resourcemanager.folderAdmin",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/430707931057|role:roles/resourcemanager.folderEditor",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "user:austin.kelleher@jupiterone.dev",
+            ],
+            "role": "roles/resourcemanager.folderEditor",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/folders/430707931057",
+      "members": Array [
+        "user:austin.kelleher@jupiterone.dev",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/folders/430707931057",
+      "project": undefined,
+      "resource": "//cloudresourcemanager.googleapis.com/folders/430707931057",
+      "role": "roles/resourcemanager.folderEditor",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/811983343328|role:roles/resourcemanager.folderAdmin",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "user:viragsf@gmail.com",
+            ],
+            "role": "roles/resourcemanager.folderAdmin",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/folders/811983343328",
+      "members": Array [
+        "user:viragsf@gmail.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/folders/811983343328",
+      "project": undefined,
+      "resource": "//cloudresourcemanager.googleapis.com/folders/811983343328",
+      "role": "roles/resourcemanager.folderAdmin",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/811983343328|role:roles/resourcemanager.folderEditor",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "user:viragsf@gmail.com",
+            ],
+            "role": "roles/resourcemanager.folderEditor",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/folders/811983343328",
+      "members": Array [
+        "user:viragsf@gmail.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/folders/811983343328",
+      "project": undefined,
+      "resource": "//cloudresourcemanager.googleapis.com/folders/811983343328",
+      "role": "roles/resourcemanager.folderEditor",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/1065006483234|role:roles/resourcemanager.folderAdmin",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "user:viragsf@gmail.com",
+            ],
+            "role": "roles/resourcemanager.folderAdmin",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/folders/1065006483234",
+      "members": Array [
+        "user:viragsf@gmail.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/folders/1065006483234",
+      "project": undefined,
+      "resource": "//cloudresourcemanager.googleapis.com/folders/1065006483234",
+      "role": "roles/resourcemanager.folderAdmin",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/1065006483234|role:roles/resourcemanager.folderEditor",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "user:viragsf@gmail.com",
+            ],
+            "role": "roles/resourcemanager.folderEditor",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/folders/1065006483234",
+      "members": Array [
+        "user:viragsf@gmail.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/folders/1065006483234",
+      "project": undefined,
+      "resource": "//cloudresourcemanager.googleapis.com/folders/1065006483234",
+      "role": "roles/resourcemanager.folderEditor",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/299817291758|role:roles/resourcemanager.folderAdmin",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "user:viragsf@gmail.com",
+            ],
+            "role": "roles/resourcemanager.folderAdmin",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/folders/299817291758",
+      "members": Array [
+        "user:viragsf@gmail.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/folders/299817291758",
+      "project": undefined,
+      "resource": "//cloudresourcemanager.googleapis.com/folders/299817291758",
+      "role": "roles/resourcemanager.folderAdmin",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/299817291758|role:roles/resourcemanager.folderEditor",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "user:viragsf@gmail.com",
+            ],
+            "role": "roles/resourcemanager.folderEditor",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/folders/299817291758",
+      "members": Array [
+        "user:viragsf@gmail.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/folders/299817291758",
+      "project": undefined,
+      "resource": "//cloudresourcemanager.googleapis.com/folders/299817291758",
+      "role": "roles/resourcemanager.folderEditor",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/592147458023|resource://cloudresourcemanager.googleapis.com/projects/intense-pointer-315514|role:roles/owner",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "user:nick.dowmon@jupiterone.dev",
+            ],
+            "role": "roles/owner",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/projects/intense-pointer-315514",
+      "members": Array [
+        "user:nick.dowmon@jupiterone.dev",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/projects/intense-pointer-315514",
+      "project": "projects/592147458023",
+      "resource": "//cloudresourcemanager.googleapis.com/projects/intense-pointer-315514",
+      "role": "roles/owner",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/natality|role:roles/bigquery.dataEditor",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "projectEditor:j1-gc-integration-dev-v3",
+            ],
+            "role": "roles/bigquery.dataEditor",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/natality",
+      "members": Array [
+        "projectEditor:j1-gc-integration-dev-v3",
+      ],
+      "name": "role_binding_for_resource//bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/natality",
+      "project": "projects/167984947943",
+      "resource": "//bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/natality",
+      "role": "roles/bigquery.dataEditor",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/natality|role:roles/bigquery.dataOwner",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "projectOwner:j1-gc-integration-dev-v3",
+              "user:viragsf@gmail.com",
+            ],
+            "role": "roles/bigquery.dataOwner",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/natality",
+      "members": Array [
+        "projectOwner:j1-gc-integration-dev-v3",
+        "user:viragsf@gmail.com",
+      ],
+      "name": "role_binding_for_resource//bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/natality",
+      "project": "projects/167984947943",
+      "resource": "//bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/natality",
+      "role": "roles/bigquery.dataOwner",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/natality|role:roles/bigquery.dataViewer",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "projectViewer:j1-gc-integration-dev-v3",
+            ],
+            "role": "roles/bigquery.dataViewer",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/natality",
+      "members": Array [
+        "projectViewer:j1-gc-integration-dev-v3",
+      ],
+      "name": "role_binding_for_resource//bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/natality",
+      "project": "projects/167984947943",
+      "resource": "//bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/natality",
+      "role": "roles/bigquery.dataViewer",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/cmed_example_dataset|role:roles/bigquery.dataEditor",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "projectEditor:j1-gc-integration-dev-v3",
+            ],
+            "role": "roles/bigquery.dataEditor",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/cmed_example_dataset",
+      "members": Array [
+        "projectEditor:j1-gc-integration-dev-v3",
+      ],
+      "name": "role_binding_for_resource//bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/cmed_example_dataset",
+      "project": "projects/167984947943",
+      "resource": "//bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/cmed_example_dataset",
+      "role": "roles/bigquery.dataEditor",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/cmed_example_dataset|role:roles/bigquery.dataOwner",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "projectOwner:j1-gc-integration-dev-v3",
+              "serviceAccount:j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+            ],
+            "role": "roles/bigquery.dataOwner",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/cmed_example_dataset",
+      "members": Array [
+        "projectOwner:j1-gc-integration-dev-v3",
+        "serviceAccount:j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+      ],
+      "name": "role_binding_for_resource//bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/cmed_example_dataset",
+      "project": "projects/167984947943",
+      "resource": "//bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/cmed_example_dataset",
+      "role": "roles/bigquery.dataOwner",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/cmed_example_dataset|role:roles/bigquery.dataViewer",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "projectViewer:j1-gc-integration-dev-v3",
+            ],
+            "role": "roles/bigquery.dataViewer",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/cmed_example_dataset",
+      "members": Array [
+        "projectViewer:j1-gc-integration-dev-v3",
+      ],
+      "name": "role_binding_for_resource//bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/cmed_example_dataset",
+      "project": "projects/167984947943",
+      "resource": "//bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/cmed_example_dataset",
+      "role": "roles/bigquery.dataViewer",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/us.artifacts.j1-gc-integration-dev-v3.appspot.com|role:roles/storage.legacyBucketOwner",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "projectEditor:j1-gc-integration-dev-v3",
+              "projectOwner:j1-gc-integration-dev-v3",
+            ],
+            "role": "roles/storage.legacyBucketOwner",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //storage.googleapis.com/us.artifacts.j1-gc-integration-dev-v3.appspot.com",
+      "members": Array [
+        "projectEditor:j1-gc-integration-dev-v3",
+        "projectOwner:j1-gc-integration-dev-v3",
+      ],
+      "name": "role_binding_for_resource//storage.googleapis.com/us.artifacts.j1-gc-integration-dev-v3.appspot.com",
+      "project": "projects/167984947943",
+      "resource": "//storage.googleapis.com/us.artifacts.j1-gc-integration-dev-v3.appspot.com",
+      "role": "roles/storage.legacyBucketOwner",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/us.artifacts.j1-gc-integration-dev-v3.appspot.com|role:roles/storage.legacyBucketReader",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "projectViewer:j1-gc-integration-dev-v3",
+            ],
+            "role": "roles/storage.legacyBucketReader",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //storage.googleapis.com/us.artifacts.j1-gc-integration-dev-v3.appspot.com",
+      "members": Array [
+        "projectViewer:j1-gc-integration-dev-v3",
+      ],
+      "name": "role_binding_for_resource//storage.googleapis.com/us.artifacts.j1-gc-integration-dev-v3.appspot.com",
+      "project": "projects/167984947943",
+      "resource": "//storage.googleapis.com/us.artifacts.j1-gc-integration-dev-v3.appspot.com",
+      "role": "roles/storage.legacyBucketReader",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/gcf-sources-167984947943-us-central1|role:roles/storage.legacyBucketOwner",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "projectEditor:j1-gc-integration-dev-v3",
+              "projectOwner:j1-gc-integration-dev-v3",
+            ],
+            "role": "roles/storage.legacyBucketOwner",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //storage.googleapis.com/gcf-sources-167984947943-us-central1",
+      "members": Array [
+        "projectEditor:j1-gc-integration-dev-v3",
+        "projectOwner:j1-gc-integration-dev-v3",
+      ],
+      "name": "role_binding_for_resource//storage.googleapis.com/gcf-sources-167984947943-us-central1",
+      "project": "projects/167984947943",
+      "resource": "//storage.googleapis.com/gcf-sources-167984947943-us-central1",
+      "role": "roles/storage.legacyBucketOwner",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/gcf-sources-167984947943-us-central1|role:roles/storage.legacyBucketReader",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "projectViewer:j1-gc-integration-dev-v3",
+            ],
+            "role": "roles/storage.legacyBucketReader",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //storage.googleapis.com/gcf-sources-167984947943-us-central1",
+      "members": Array [
+        "projectViewer:j1-gc-integration-dev-v3",
+      ],
+      "name": "role_binding_for_resource//storage.googleapis.com/gcf-sources-167984947943-us-central1",
+      "project": "projects/167984947943",
+      "resource": "//storage.googleapis.com/gcf-sources-167984947943-us-central1",
+      "role": "roles/storage.legacyBucketReader",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/gcf-sources-167984947943-us-central1|role:roles/storage.legacyObjectOwner",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "projectEditor:j1-gc-integration-dev-v3",
+              "projectOwner:j1-gc-integration-dev-v3",
+            ],
+            "role": "roles/storage.legacyObjectOwner",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //storage.googleapis.com/gcf-sources-167984947943-us-central1",
+      "members": Array [
+        "projectEditor:j1-gc-integration-dev-v3",
+        "projectOwner:j1-gc-integration-dev-v3",
+      ],
+      "name": "role_binding_for_resource//storage.googleapis.com/gcf-sources-167984947943-us-central1",
+      "project": "projects/167984947943",
+      "resource": "//storage.googleapis.com/gcf-sources-167984947943-us-central1",
+      "role": "roles/storage.legacyObjectOwner",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/gcf-sources-167984947943-us-central1|role:roles/storage.legacyObjectReader",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "projectViewer:j1-gc-integration-dev-v3",
+            ],
+            "role": "roles/storage.legacyObjectReader",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //storage.googleapis.com/gcf-sources-167984947943-us-central1",
+      "members": Array [
+        "projectViewer:j1-gc-integration-dev-v3",
+      ],
+      "name": "role_binding_for_resource//storage.googleapis.com/gcf-sources-167984947943-us-central1",
+      "project": "projects/167984947943",
+      "resource": "//storage.googleapis.com/gcf-sources-167984947943-us-central1",
+      "role": "roles/storage.legacyObjectReader",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://cloudkms.googleapis.com/projects/j1-gc-integration-dev-v3/locations/us/keyRings/j1-gc-integration-dev-v3-disk-bucket-ring/cryptoKeys/j1-gc-integration-dev-v3-disk-bucket-key|role:roles/cloudkms.cryptoKeyEncrypterDecrypter",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "serviceAccount:service-167984947943@compute-system.iam.gserviceaccount.com",
+            ],
+            "role": "roles/cloudkms.cryptoKeyEncrypterDecrypter",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudkms.googleapis.com/projects/j1-gc-integration-dev-v3/locations/us/keyRings/j1-gc-integration-dev-v3-disk-bucket-ring/cryptoKeys/j1-gc-integration-dev-v3-disk-bucket-key",
+      "members": Array [
+        "serviceAccount:service-167984947943@compute-system.iam.gserviceaccount.com",
+      ],
+      "name": "role_binding_for_resource//cloudkms.googleapis.com/projects/j1-gc-integration-dev-v3/locations/us/keyRings/j1-gc-integration-dev-v3-disk-bucket-ring/cryptoKeys/j1-gc-integration-dev-v3-disk-bucket-key",
+      "project": "projects/167984947943",
+      "resource": "//cloudkms.googleapis.com/projects/j1-gc-integration-dev-v3/locations/us/keyRings/j1-gc-integration-dev-v3-disk-bucket-ring/cryptoKeys/j1-gc-integration-dev-v3-disk-bucket-key",
+      "role": "roles/cloudkms.cryptoKeyEncrypterDecrypter",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/j1-gc-integration-dev-v3-sink-logging-bucket|role:roles/storage.legacyBucketOwner",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "projectEditor:j1-gc-integration-dev-v3",
+              "projectOwner:j1-gc-integration-dev-v3",
+            ],
+            "role": "roles/storage.legacyBucketOwner",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //storage.googleapis.com/j1-gc-integration-dev-v3-sink-logging-bucket",
+      "members": Array [
+        "projectEditor:j1-gc-integration-dev-v3",
+        "projectOwner:j1-gc-integration-dev-v3",
+      ],
+      "name": "role_binding_for_resource//storage.googleapis.com/j1-gc-integration-dev-v3-sink-logging-bucket",
+      "project": "projects/167984947943",
+      "resource": "//storage.googleapis.com/j1-gc-integration-dev-v3-sink-logging-bucket",
+      "role": "roles/storage.legacyBucketOwner",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/j1-gc-integration-dev-v3-sink-logging-bucket|role:roles/storage.legacyBucketReader",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "projectViewer:j1-gc-integration-dev-v3",
+            ],
+            "role": "roles/storage.legacyBucketReader",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //storage.googleapis.com/j1-gc-integration-dev-v3-sink-logging-bucket",
+      "members": Array [
+        "projectViewer:j1-gc-integration-dev-v3",
+      ],
+      "name": "role_binding_for_resource//storage.googleapis.com/j1-gc-integration-dev-v3-sink-logging-bucket",
+      "project": "projects/167984947943",
+      "resource": "//storage.googleapis.com/j1-gc-integration-dev-v3-sink-logging-bucket",
+      "role": "roles/storage.legacyBucketReader",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/test_big_query_dataset|role:roles/bigquery.dataOwner",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "serviceAccount:j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+            ],
+            "role": "roles/bigquery.dataOwner",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/test_big_query_dataset",
+      "members": Array [
+        "serviceAccount:j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+      ],
+      "name": "role_binding_for_resource//bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/test_big_query_dataset",
+      "project": "projects/167984947943",
+      "resource": "//bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/test_big_query_dataset",
+      "role": "roles/bigquery.dataOwner",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/j1-gc-integration-dev-v3cloudfunctions|role:roles/storage.legacyBucketOwner",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "projectEditor:j1-gc-integration-dev-v3",
+              "projectOwner:j1-gc-integration-dev-v3",
+            ],
+            "role": "roles/storage.legacyBucketOwner",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //storage.googleapis.com/j1-gc-integration-dev-v3cloudfunctions",
+      "members": Array [
+        "projectEditor:j1-gc-integration-dev-v3",
+        "projectOwner:j1-gc-integration-dev-v3",
+      ],
+      "name": "role_binding_for_resource//storage.googleapis.com/j1-gc-integration-dev-v3cloudfunctions",
+      "project": "projects/167984947943",
+      "resource": "//storage.googleapis.com/j1-gc-integration-dev-v3cloudfunctions",
+      "role": "roles/storage.legacyBucketOwner",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/j1-gc-integration-dev-v3cloudfunctions|role:roles/storage.legacyBucketReader",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "projectViewer:j1-gc-integration-dev-v3",
+            ],
+            "role": "roles/storage.legacyBucketReader",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //storage.googleapis.com/j1-gc-integration-dev-v3cloudfunctions",
+      "members": Array [
+        "projectViewer:j1-gc-integration-dev-v3",
+      ],
+      "name": "role_binding_for_resource//storage.googleapis.com/j1-gc-integration-dev-v3cloudfunctions",
+      "project": "projects/167984947943",
+      "resource": "//storage.googleapis.com/j1-gc-integration-dev-v3cloudfunctions",
+      "role": "roles/storage.legacyBucketReader",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://cloudkms.googleapis.com/projects/j1-gc-integration-dev-v3/locations/us-central1/keyRings/j1-gc-integration-dev-v3-encrypted-sql-instance-ring/cryptoKeys/j1-gc-integration-dev-v3-encrypted-sql-instance-key|role:roles/cloudkms.cryptoKeyEncrypterDecrypter",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "serviceAccount:service-167984947943@gcp-sa-cloud-sql.iam.gserviceaccount.com",
+            ],
+            "role": "roles/cloudkms.cryptoKeyEncrypterDecrypter",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudkms.googleapis.com/projects/j1-gc-integration-dev-v3/locations/us-central1/keyRings/j1-gc-integration-dev-v3-encrypted-sql-instance-ring/cryptoKeys/j1-gc-integration-dev-v3-encrypted-sql-instance-key",
+      "members": Array [
+        "serviceAccount:service-167984947943@gcp-sa-cloud-sql.iam.gserviceaccount.com",
+      ],
+      "name": "role_binding_for_resource//cloudkms.googleapis.com/projects/j1-gc-integration-dev-v3/locations/us-central1/keyRings/j1-gc-integration-dev-v3-encrypted-sql-instance-ring/cryptoKeys/j1-gc-integration-dev-v3-encrypted-sql-instance-key",
+      "project": "projects/167984947943",
+      "resource": "//cloudkms.googleapis.com/projects/j1-gc-integration-dev-v3/locations/us-central1/keyRings/j1-gc-integration-dev-v3-encrypted-sql-instance-ring/cryptoKeys/j1-gc-integration-dev-v3-encrypted-sql-instance-key",
+      "role": "roles/cloudkms.cryptoKeyEncrypterDecrypter",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://cloudkms.googleapis.com/projects/j1-gc-integration-dev-v3/locations/us/keyRings/example-keyring|role:roles/cloudkms.cryptoKeyEncrypterDecrypter",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "serviceAccount:bq-167984947943@bigquery-encryption.iam.gserviceaccount.com",
+            ],
+            "role": "roles/cloudkms.cryptoKeyEncrypterDecrypter",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudkms.googleapis.com/projects/j1-gc-integration-dev-v3/locations/us/keyRings/example-keyring",
+      "members": Array [
+        "serviceAccount:bq-167984947943@bigquery-encryption.iam.gserviceaccount.com",
+      ],
+      "name": "role_binding_for_resource//cloudkms.googleapis.com/projects/j1-gc-integration-dev-v3/locations/us/keyRings/example-keyring",
+      "project": "projects/167984947943",
+      "resource": "//cloudkms.googleapis.com/projects/j1-gc-integration-dev-v3/locations/us/keyRings/example-keyring",
+      "role": "roles/cloudkms.cryptoKeyEncrypterDecrypter",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/988862309073|resource://cloudresourcemanager.googleapis.com/projects/learned-hour-315416|role:roles/owner",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "user:austin.kelleher@jupiterone.dev",
+            ],
+            "role": "roles/owner",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/projects/learned-hour-315416",
+      "members": Array [
+        "user:austin.kelleher@jupiterone.dev",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/projects/learned-hour-315416",
+      "project": "projects/988862309073",
+      "resource": "//cloudresourcemanager.googleapis.com/projects/learned-hour-315416",
+      "role": "roles/owner",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|resource://cloudbilling.googleapis.com/billingAccounts/01694E-12D60B-BEBCE5|role:roles/billing.admin",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "user:austin.kelleher@jupiterone.dev",
+            ],
+            "role": "roles/billing.admin",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudbilling.googleapis.com/billingAccounts/01694E-12D60B-BEBCE5",
+      "members": Array [
+        "user:austin.kelleher@jupiterone.dev",
+      ],
+      "name": "role_binding_for_resource//cloudbilling.googleapis.com/billingAccounts/01694E-12D60B-BEBCE5",
+      "project": undefined,
+      "resource": "//cloudbilling.googleapis.com/billingAccounts/01694E-12D60B-BEBCE5",
+      "role": "roles/billing.admin",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/619127027446|resource://cloudresourcemanager.googleapis.com/projects/winged-guild-315415|role:roles/owner",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "user:austin.kelleher@jupiterone.dev",
+            ],
+            "role": "roles/owner",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/projects/winged-guild-315415",
+      "members": Array [
+        "user:austin.kelleher@jupiterone.dev",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/projects/winged-guild-315415",
+      "project": "projects/619127027446",
+      "resource": "//cloudresourcemanager.googleapis.com/projects/winged-guild-315415",
+      "role": "roles/owner",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:projects/j1-gc-integration-dev-v3/roles/167984947943customrole",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "serviceAccount:j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+            ],
+            "role": "projects/j1-gc-integration-dev-v3/roles/167984947943customrole",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "members": Array [
+        "serviceAccount:j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "project": "projects/167984947943",
+      "resource": "//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "role": "projects/j1-gc-integration-dev-v3/roles/167984947943customrole",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:projects/j1-gc-integration-dev-v3/roles/167984947943customroleconditions",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "condition": Object {
+              "description": "Test condition description",
+              "expression": "resource.name != \\"bogusunknownresourcename\\"",
+              "title": "Test condition title",
+            },
+            "members": Array [
+              "serviceAccount:j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+            ],
+            "role": "projects/j1-gc-integration-dev-v3/roles/167984947943customroleconditions",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": "Test condition description",
+      "condition.expression": "resource.name != \\"bogusunknownresourcename\\"",
+      "condition.title": "Test condition title",
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "members": Array [
+        "serviceAccount:j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "project": "projects/167984947943",
+      "resource": "//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "role": "projects/j1-gc-integration-dev-v3/roles/167984947943customroleconditions",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:projects/j1-gc-integration-dev-v3/roles/167984947943extendedrole",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "serviceAccount:j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+            ],
+            "role": "projects/j1-gc-integration-dev-v3/roles/167984947943extendedrole",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "members": Array [
+        "serviceAccount:j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "project": "projects/167984947943",
+      "resource": "//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "role": "projects/j1-gc-integration-dev-v3/roles/167984947943extendedrole",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/bigquery.dataViewer",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "serviceAccount:j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+            ],
+            "role": "roles/bigquery.dataViewer",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "members": Array [
+        "serviceAccount:j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "project": "projects/167984947943",
+      "resource": "//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "role": "roles/bigquery.dataViewer",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/bigquery.resourceViewer",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "serviceAccount:j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+            ],
+            "role": "roles/bigquery.resourceViewer",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "members": Array [
+        "serviceAccount:j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "project": "projects/167984947943",
+      "resource": "//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "role": "roles/bigquery.resourceViewer",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/binaryauthorization.serviceAgent",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "serviceAccount:service-167984947943@gcp-sa-binaryauthorization.iam.gserviceaccount.com",
+            ],
+            "role": "roles/binaryauthorization.serviceAgent",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "members": Array [
+        "serviceAccount:service-167984947943@gcp-sa-binaryauthorization.iam.gserviceaccount.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "project": "projects/167984947943",
+      "resource": "//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "role": "roles/binaryauthorization.serviceAgent",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/cloudbuild.builds.builder",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "serviceAccount:167984947943@cloudbuild.gserviceaccount.com",
+            ],
+            "role": "roles/cloudbuild.builds.builder",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "members": Array [
+        "serviceAccount:167984947943@cloudbuild.gserviceaccount.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "project": "projects/167984947943",
+      "resource": "//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "role": "roles/cloudbuild.builds.builder",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/cloudbuild.serviceAgent",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "serviceAccount:service-167984947943@gcp-sa-cloudbuild.iam.gserviceaccount.com",
+            ],
+            "role": "roles/cloudbuild.serviceAgent",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "members": Array [
+        "serviceAccount:service-167984947943@gcp-sa-cloudbuild.iam.gserviceaccount.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "project": "projects/167984947943",
+      "resource": "//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "role": "roles/cloudbuild.serviceAgent",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/cloudfunctions.serviceAgent",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "serviceAccount:service-167984947943@gcf-admin-robot.iam.gserviceaccount.com",
+            ],
+            "role": "roles/cloudfunctions.serviceAgent",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "members": Array [
+        "serviceAccount:service-167984947943@gcf-admin-robot.iam.gserviceaccount.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "project": "projects/167984947943",
+      "resource": "//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "role": "roles/cloudfunctions.serviceAgent",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/cloudkms.cryptoKeyDecrypter",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "serviceAccount:service-167984947943@gcp-sa-pubsub.iam.gserviceaccount.com",
+            ],
+            "role": "roles/cloudkms.cryptoKeyDecrypter",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "members": Array [
+        "serviceAccount:service-167984947943@gcp-sa-pubsub.iam.gserviceaccount.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "project": "projects/167984947943",
+      "resource": "//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "role": "roles/cloudkms.cryptoKeyDecrypter",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/cloudkms.cryptoKeyEncrypter",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "serviceAccount:service-167984947943@gcp-sa-pubsub.iam.gserviceaccount.com",
+            ],
+            "role": "roles/cloudkms.cryptoKeyEncrypter",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "members": Array [
+        "serviceAccount:service-167984947943@gcp-sa-pubsub.iam.gserviceaccount.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "project": "projects/167984947943",
+      "resource": "//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "role": "roles/cloudkms.cryptoKeyEncrypter",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/compute.serviceAgent",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "serviceAccount:service-167984947943@compute-system.iam.gserviceaccount.com",
+            ],
+            "role": "roles/compute.serviceAgent",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "members": Array [
+        "serviceAccount:service-167984947943@compute-system.iam.gserviceaccount.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "project": "projects/167984947943",
+      "resource": "//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "role": "roles/compute.serviceAgent",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/container.serviceAgent",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "serviceAccount:service-167984947943@container-engine-robot.iam.gserviceaccount.com",
+            ],
+            "role": "roles/container.serviceAgent",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "members": Array [
+        "serviceAccount:service-167984947943@container-engine-robot.iam.gserviceaccount.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "project": "projects/167984947943",
+      "resource": "//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "role": "roles/container.serviceAgent",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/containeranalysis.ServiceAgent",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "serviceAccount:service-167984947943@container-analysis.iam.gserviceaccount.com",
+            ],
+            "role": "roles/containeranalysis.ServiceAgent",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "members": Array [
+        "serviceAccount:service-167984947943@container-analysis.iam.gserviceaccount.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "project": "projects/167984947943",
+      "resource": "//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "role": "roles/containeranalysis.ServiceAgent",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/containerregistry.ServiceAgent",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "serviceAccount:service-167984947943@containerregistry.iam.gserviceaccount.com",
+            ],
+            "role": "roles/containerregistry.ServiceAgent",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "members": Array [
+        "serviceAccount:service-167984947943@containerregistry.iam.gserviceaccount.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "project": "projects/167984947943",
+      "resource": "//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "role": "roles/containerregistry.ServiceAgent",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/editor",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "serviceAccount:167984947943-compute@developer.gserviceaccount.com",
+              "serviceAccount:167984947943@cloudservices.gserviceaccount.com",
+              "serviceAccount:j1-gc-integration-dev-v3@appspot.gserviceaccount.com",
+            ],
+            "role": "roles/editor",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "members": Array [
+        "serviceAccount:167984947943-compute@developer.gserviceaccount.com",
+        "serviceAccount:167984947943@cloudservices.gserviceaccount.com",
+        "serviceAccount:j1-gc-integration-dev-v3@appspot.gserviceaccount.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "project": "projects/167984947943",
+      "resource": "//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "role": "roles/editor",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/iam.securityReviewer",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "serviceAccount:j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+            ],
+            "role": "roles/iam.securityReviewer",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "members": Array [
+        "serviceAccount:j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "project": "projects/167984947943",
+      "resource": "//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "role": "roles/iam.securityReviewer",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/memcache.serviceAgent",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "serviceAccount:service-167984947943@cloud-memcache-sa.iam.gserviceaccount.com",
+            ],
+            "role": "roles/memcache.serviceAgent",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "members": Array [
+        "serviceAccount:service-167984947943@cloud-memcache-sa.iam.gserviceaccount.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "project": "projects/167984947943",
+      "resource": "//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "role": "roles/memcache.serviceAgent",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/owner",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "serviceAccount:j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+              "user:austin.kelleher@jupiterone.dev",
+              "user:michael.knoedel@jupiterone.com",
+            ],
+            "role": "roles/owner",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "members": Array [
+        "serviceAccount:j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+        "user:austin.kelleher@jupiterone.dev",
+        "user:michael.knoedel@jupiterone.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "project": "projects/167984947943",
+      "resource": "//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "role": "roles/owner",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/pubsub.serviceAgent",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "serviceAccount:service-167984947943@gcp-sa-pubsub.iam.gserviceaccount.com",
+            ],
+            "role": "roles/pubsub.serviceAgent",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "members": Array [
+        "serviceAccount:service-167984947943@gcp-sa-pubsub.iam.gserviceaccount.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "project": "projects/167984947943",
+      "resource": "//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "role": "roles/pubsub.serviceAgent",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/redis.serviceAgent",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "serviceAccount:service-167984947943@cloud-redis.iam.gserviceaccount.com",
+            ],
+            "role": "roles/redis.serviceAgent",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "members": Array [
+        "serviceAccount:service-167984947943@cloud-redis.iam.gserviceaccount.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "project": "projects/167984947943",
+      "resource": "//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "role": "roles/redis.serviceAgent",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/run.serviceAgent",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "serviceAccount:service-167984947943@serverless-robot-prod.iam.gserviceaccount.com",
+            ],
+            "role": "roles/run.serviceAgent",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "members": Array [
+        "serviceAccount:service-167984947943@serverless-robot-prod.iam.gserviceaccount.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "project": "projects/167984947943",
+      "resource": "//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "role": "roles/run.serviceAgent",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/viewer",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "group:integrations@jupiterone.dev",
+            ],
+            "role": "roles/viewer",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "members": Array [
+        "group:integrations@jupiterone.dev",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "project": "projects/167984947943",
+      "resource": "//cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3",
+      "role": "roles/viewer",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/306329820365|role:roles/resourcemanager.folderAdmin",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "user:austin.kelleher@jupiterone.dev",
+            ],
+            "role": "roles/resourcemanager.folderAdmin",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/folders/306329820365",
+      "members": Array [
+        "user:austin.kelleher@jupiterone.dev",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/folders/306329820365",
+      "project": undefined,
+      "resource": "//cloudresourcemanager.googleapis.com/folders/306329820365",
+      "role": "roles/resourcemanager.folderAdmin",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/306329820365|role:roles/resourcemanager.folderEditor",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "user:austin.kelleher@jupiterone.dev",
+            ],
+            "role": "roles/resourcemanager.folderEditor",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/folders/306329820365",
+      "members": Array [
+        "user:austin.kelleher@jupiterone.dev",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/folders/306329820365",
+      "project": undefined,
+      "resource": "//cloudresourcemanager.googleapis.com/folders/306329820365",
+      "role": "roles/resourcemanager.folderEditor",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/billing.creator",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "domain:jupiterone.dev",
+            ],
+            "role": "roles/billing.creator",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "members": Array [
+        "domain:jupiterone.dev",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "project": undefined,
+      "resource": "//cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "role": "roles/billing.creator",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/cloudasset.viewer",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "serviceAccount:j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+            ],
+            "role": "roles/cloudasset.viewer",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "members": Array [
+        "serviceAccount:j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "project": undefined,
+      "resource": "//cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "role": "roles/cloudasset.viewer",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/iam.securityReviewer",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "serviceAccount:j1-gc-integration-dev-org@my-j1-test-proj-test.iam.gserviceaccount.com",
+              "serviceAccount:j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+            ],
+            "role": "roles/iam.securityReviewer",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "members": Array [
+        "serviceAccount:j1-gc-integration-dev-org@my-j1-test-proj-test.iam.gserviceaccount.com",
+        "serviceAccount:j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "project": undefined,
+      "resource": "//cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "role": "roles/iam.securityReviewer",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/owner",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "serviceAccount:j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+              "user:adam.williams@jupiterone.dev",
+              "user:austin.kelleher@jupiterone.dev",
+              "user:michael.knoedel@jupiterone.com",
+              "user:nick.dowmon@jupiterone.dev",
+              "user:viragsf@gmail.com",
+            ],
+            "role": "roles/owner",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "members": Array [
+        "serviceAccount:j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+        "user:adam.williams@jupiterone.dev",
+        "user:austin.kelleher@jupiterone.dev",
+        "user:michael.knoedel@jupiterone.com",
+        "user:nick.dowmon@jupiterone.dev",
+        "user:viragsf@gmail.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "project": undefined,
+      "resource": "//cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "role": "roles/owner",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/resourcemanager.folderAdmin",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "user:austin.kelleher@jupiterone.dev",
+            ],
+            "role": "roles/resourcemanager.folderAdmin",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "members": Array [
+        "user:austin.kelleher@jupiterone.dev",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "project": undefined,
+      "resource": "//cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "role": "roles/resourcemanager.folderAdmin",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/resourcemanager.folderCreator",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "user:viragsf@gmail.com",
+            ],
+            "role": "roles/resourcemanager.folderCreator",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "members": Array [
+        "user:viragsf@gmail.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "project": undefined,
+      "resource": "//cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "role": "roles/resourcemanager.folderCreator",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/resourcemanager.organizationAdmin",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "user:adam.williams@jupiterone.dev",
+              "user:austin.kelleher@jupiterone.dev",
+              "user:michael.knoedel@jupiterone.com",
+              "user:nick.dowmon@jupiterone.dev",
+              "user:viragsf@gmail.com",
+            ],
+            "role": "roles/resourcemanager.organizationAdmin",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "members": Array [
+        "user:adam.williams@jupiterone.dev",
+        "user:austin.kelleher@jupiterone.dev",
+        "user:michael.knoedel@jupiterone.com",
+        "user:nick.dowmon@jupiterone.dev",
+        "user:viragsf@gmail.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "project": undefined,
+      "resource": "//cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "role": "roles/resourcemanager.organizationAdmin",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/resourcemanager.organizationViewer",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "serviceAccount:j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+            ],
+            "role": "roles/resourcemanager.organizationViewer",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "members": Array [
+        "serviceAccount:j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "project": undefined,
+      "resource": "//cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "role": "roles/resourcemanager.organizationViewer",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/resourcemanager.projectCreator",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "domain:jupiterone.dev",
+              "user:austin.kelleher@jupiterone.dev",
+            ],
+            "role": "roles/resourcemanager.projectCreator",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "members": Array [
+        "domain:jupiterone.dev",
+        "user:austin.kelleher@jupiterone.dev",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "project": undefined,
+      "resource": "//cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "role": "roles/resourcemanager.projectCreator",
+    },
+    Object {
+      "_class": Array [
+        "AccessPolicy",
+      ],
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/resourcemanager.projectMover",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "members": Array [
+              "user:austin.kelleher@jupiterone.dev",
+            ],
+            "role": "roles/resourcemanager.projectMover",
+          },
+        },
+      ],
+      "_type": "google_iam_binding",
+      "condition.description": undefined,
+      "condition.expression": undefined,
+      "condition.title": undefined,
+      "createdOn": undefined,
+      "displayName": "Role Binding for Resource: //cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "members": Array [
+        "user:austin.kelleher@jupiterone.dev",
+      ],
+      "name": "role_binding_for_resource//cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "project": undefined,
+      "resource": "//cloudresourcemanager.googleapis.com/organizations/958457776463",
+      "role": "roles/resourcemanager.projectMover",
+    },
+  ],
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
+    "google_iam_binding",
+  ],
+  "numCollectedEntities": 67,
+  "numCollectedRelationships": 0,
+}
+`;

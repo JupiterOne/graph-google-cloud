@@ -1,5 +1,6 @@
 import {
   iam_v1,
+  cloudasset_v1,
   compute_v1,
   bigquery_v2,
   sqladmin_v1beta4,
@@ -53,6 +54,23 @@ export function getMockServiceAccount(
     etag: 'abc=',
     description: 'J1 Google Cloud integration execution',
     oauth2ClientId: '1234567890',
+    ...partial,
+  };
+}
+
+export function getMockRoleBinding(
+  partial?: Partial<cloudasset_v1.Schema$Binding>,
+): cloudasset_v1.Schema$Binding {
+  return {
+    role: 'projects/j1-gc-integration-dev-v3/roles/167984947943customroleconditions',
+    members: [
+      'serviceAccount:j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com',
+    ],
+    condition: {
+      expression: 'resource.name != "bogusunknownresourcename"',
+      title: 'Test condition title',
+      description: 'Test condition description',
+    },
     ...partial,
   };
 }

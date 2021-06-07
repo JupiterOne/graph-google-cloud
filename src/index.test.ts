@@ -100,6 +100,7 @@ import {
   STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES,
 } from './steps/privateca/constants';
 import { getOrganizationSteps } from './getStepStartStates';
+import { CLOUD_ASSET_STEPS } from './steps/cloud-asset/constants';
 
 interface ValidateInvocationInvalidConfigTestParams {
   instanceConfig?: Partial<IntegrationConfig>;
@@ -191,6 +192,9 @@ describe('#getStepStartStates success', () => {
       },
       [STEP_API_SERVICES]: {
         disabled: false,
+      },
+      [CLOUD_ASSET_STEPS.BINDINGS]: {
+        disabled: true, // The recordings do not have this service enabled
       },
       [STEP_CLOUD_FUNCTIONS]: {
         disabled: false,
