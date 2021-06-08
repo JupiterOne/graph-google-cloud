@@ -33,6 +33,13 @@ export async function fetchIamBindings(
     );
   } catch (err) {
     if (err.status === 403) {
+      logger.info(
+        {
+          err,
+        },
+        'Error iterating all IAM policies',
+      );
+
       publishMissingPermissionEvent({
         logger,
         permission: 'cloudasset.assets.searchAllIamPolicies',
