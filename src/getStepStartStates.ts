@@ -139,6 +139,11 @@ export default async function getStepStartStates(
     serializedIntegrationConfig,
   ));
 
+  logger.publishEvent({
+    name: 'integration_config',
+    description: `Starting Google Cloud integration with service account (email=${config.serviceAccountKeyConfig.client_email})`,
+  });
+
   const organizationSteps = { disabled: !config.configureOrganizationProjects };
 
   let enabledServiceNames: string[];

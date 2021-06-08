@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.36.0 - 2021-06-08
+
+### Fixed
+
+- Publish job log event that prints the service account email in use
+
 ## 0.35.1 - 2021-06-07
 
 ### Fixed
