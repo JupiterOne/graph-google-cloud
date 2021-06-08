@@ -26,11 +26,6 @@ export async function fetchIamBindings(
         iamBindingsCount++;
       }
     });
-
-    logger.info(
-      { numIamBindings: iamBindingsCount },
-      'Created IAM binding entities',
-    );
   } catch (err) {
     if (err.status === 403) {
       logger.info(
@@ -51,6 +46,11 @@ export async function fetchIamBindings(
 
     throw err;
   }
+
+  logger.info(
+    { numIamBindings: iamBindingsCount },
+    'Created IAM binding entities',
+  );
 }
 
 export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
