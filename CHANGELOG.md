@@ -8,6 +8,30 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.37.0 - 2021-06-08
+
+### Added
+
+- Added support for ingesting the following **new** resources:
+
+  | Service                | Resource / Entity                                                                                                                                                                                                                                                                                                                                                                                                     |
+  | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | Access Context Manager | `google_access_context_manager_access_policy`, `google_access_context_manager_access_level`, `google_access_context_manager_service_perimeter`, `google_access_context_manager_service_perimeter_egress_policy`, `google_access_context_manager_service_perimeter_ingress_policy`, `google_access_context_manager_service_perimeter_api_operation`, `google_access_context_manager_service_perimeter_method_selector` |
+
+- Added support for ingesting the following **new** relationships:
+
+  | Source                                                           | \_class    | Target                                                            |
+  | ---------------------------------------------------------------- | ---------- | ----------------------------------------------------------------- |
+  | `google_access_context_manager_access_policy`                    | `HAS`      | `google_access_context_manager_access_level`                      |
+  | `google_access_context_manager_access_policy`                    | `HAS`      | `google_access_context_manager_service_perimeter`                 |
+  | `google_access_context_manager_service_perimeter`                | `HAS`      | `google_access_context_manager_service_perimeter_egress_policy`   |
+  | `google_access_context_manager_service_perimeter`                | `HAS`      | `google_access_context_manager_service_perimeter_ingress_policy`  |
+  | `google_access_context_manager_service_perimeter_egress_policy`  | `HAS`      | `google_access_context_manager_service_perimeter_api_operation`   |
+  | `google_access_context_manager_service_perimeter_ingress_policy` | `HAS`      | `google_access_context_manager_service_perimeter_api_operation`   |
+  | `google_access_context_manager_service_perimeter_api_operation`  | `HAS`      | `google_access_context_manager_service_perimeter_method_selector` |
+  | `google_access_context_manager_service_perimeter`                | `PROTECTS` | `google_cloud_project`                                            |
+  | `google_access_context_manager_service_perimeter`                | `PROTECTS` | `google_cloud_api_service`                                        |
+
 ## 0.36.2 - 2021-06-08
 
 ### Fixed
