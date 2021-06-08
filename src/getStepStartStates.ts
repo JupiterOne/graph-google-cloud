@@ -88,6 +88,11 @@ import {
 } from './steps/privateca/constants';
 import * as enablement from './steps/enablement';
 import { CLOUD_ASSET_STEPS } from './steps/cloud-asset/constants';
+import {
+  STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS,
+  STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
+  STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS,
+} from './steps/access-context-manager/constants';
 
 function validateInvocationConfig(
   context: IntegrationExecutionContext<SerializedIntegrationConfig>,
@@ -122,6 +127,9 @@ export function getOrganizationSteps() {
     STEP_RESOURCE_MANAGER_ORGANIZATION,
     STEP_RESOURCE_MANAGER_FOLDERS,
     STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
+    STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
+    STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS,
+    STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS,
     CLOUD_ASSET_STEPS.BINDINGS,
   ];
 }

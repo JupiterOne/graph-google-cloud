@@ -101,6 +101,11 @@ import {
 } from './steps/privateca/constants';
 import { getOrganizationSteps } from './getStepStartStates';
 import { CLOUD_ASSET_STEPS } from './steps/cloud-asset/constants';
+import {
+  STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS,
+  STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
+  STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS,
+} from './steps/access-context-manager/constants';
 
 interface ValidateInvocationInvalidConfigTestParams {
   instanceConfig?: Partial<IntegrationConfig>;
@@ -185,6 +190,15 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS]: {
+        disabled: false,
+      },
+      [STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES]: {
+        disabled: false,
+      },
+      [STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS]: {
+        disabled: false,
+      },
+      [STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS]: {
         disabled: false,
       },
       [STEP_RESOURCE_MANAGER_PROJECT]: {
@@ -389,6 +403,15 @@ describe('#getStepStartStates success', () => {
       [STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS]: {
         disabled: false,
       },
+      [STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES]: {
+        disabled: false,
+      },
+      [STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS]: {
+        disabled: false,
+      },
+      [STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS]: {
+        disabled: false,
+      },
     });
   });
 
@@ -418,6 +441,15 @@ describe('#getStepStartStates success', () => {
         disabled: true,
       },
       [STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS]: {
+        disabled: true,
+      },
+      [STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES]: {
+        disabled: true,
+      },
+      [STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS]: {
+        disabled: true,
+      },
+      [STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS]: {
         disabled: true,
       },
     });

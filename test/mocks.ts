@@ -22,6 +22,7 @@ import {
   apigateway_v1,
   privateca_v1beta1,
   cloudresourcemanager_v3,
+  accesscontextmanager_v1,
 } from 'googleapis';
 import { BigQueryTable } from '../src/steps/big-query/client';
 
@@ -1953,6 +1954,176 @@ export function getMockOrganization(
     state: 'ACTIVE',
     name: 'organizations/958457776463',
     directoryCustomerId: 'C048tgq5f',
+    ...partial,
+  };
+}
+
+export function getMockAccessPolicy(
+  partial?: Partial<accesscontextmanager_v1.Schema$AccessPolicy>,
+): accesscontextmanager_v1.Schema$AccessPolicy {
+  return {
+    name: 'accessPolicies/368605946207',
+    parent: 'organizations/958457776463',
+    title: 'default policy',
+    etag: '64186ca0c82b01b4',
+    ...partial,
+  };
+}
+
+export function getMockAccessLevel(
+  partial?: Partial<accesscontextmanager_v1.Schema$AccessLevel>,
+): accesscontextmanager_v1.Schema$AccessLevel {
+  return {
+    name: 'accessPolicies/368605946207/accessLevels/access_level_example',
+    title: 'access_level_example',
+    basic: {
+      conditions: [
+        {
+          regions: ['US'],
+        },
+      ],
+    },
+    ...partial,
+  };
+}
+
+export function getMockServicePerimeter(
+  partial?: Partial<accesscontextmanager_v1.Schema$ServicePerimeter>,
+): accesscontextmanager_v1.Schema$ServicePerimeter {
+  return {
+    name: 'accessPolicies/368605946207/servicePerimeters/example_perimetere',
+    title: 'example_perimetere',
+    status: {
+      resources: ['projects/167984947943'],
+      accessLevels: [
+        'accessPolicies/368605946207/accessLevels/access_level_example',
+      ],
+      restrictedServices: ['storage.googleapis.com'],
+      ingressPolicies: [
+        {
+          ingressFrom: {
+            sources: [
+              {
+                accessLevel:
+                  'accessPolicies/368605946207/accessLevels/access_level_example',
+              },
+            ],
+            identityType: 'ANY_IDENTITY',
+          },
+          ingressTo: {
+            operations: [
+              {
+                serviceName: 'storage.googleapis.com',
+                methodSelectors: [
+                  {
+                    method: '*',
+                  },
+                ],
+              },
+            ],
+            resources: ['projects/167984947943'],
+          },
+        },
+      ],
+      egressPolicies: [
+        {
+          egressFrom: {
+            identityType: 'ANY_IDENTITY',
+          },
+          egressTo: {
+            resources: ['projects/167984947943'],
+            operations: [
+              {
+                serviceName: 'storage.googleapis.com',
+                methodSelectors: [
+                  {
+                    method: '*',
+                  },
+                ],
+              },
+            ],
+          },
+        },
+      ],
+      vpcAccessibleServices: {},
+    },
+    ...partial,
+  };
+}
+
+export function getMockServicePerimeterEgressPolicy(
+  partial?: Partial<accesscontextmanager_v1.Schema$EgressPolicy>,
+): accesscontextmanager_v1.Schema$EgressPolicy {
+  return {
+    egressFrom: {
+      identityType: 'ANY_IDENTITY',
+    },
+    egressTo: {
+      resources: ['projects/167984947943'],
+      operations: [
+        {
+          serviceName: 'storage.googleapis.com',
+          methodSelectors: [
+            {
+              method: '*',
+            },
+          ],
+        },
+      ],
+    },
+    ...partial,
+  };
+}
+
+export function getMockServicePerimeterIngressPolicy(
+  partial?: Partial<accesscontextmanager_v1.Schema$IngressPolicy>,
+): accesscontextmanager_v1.Schema$IngressPolicy {
+  return {
+    ingressFrom: {
+      sources: [
+        {
+          accessLevel:
+            'accessPolicies/368605946207/accessLevels/access_level_example',
+        },
+      ],
+      identityType: 'ANY_IDENTITY',
+    },
+    ingressTo: {
+      operations: [
+        {
+          serviceName: 'storage.googleapis.com',
+          methodSelectors: [
+            {
+              method: '*',
+            },
+          ],
+        },
+      ],
+      resources: ['projects/167984947943'],
+    },
+    ...partial,
+  };
+}
+
+export function getMockServicePerimeterApiOperation(
+  partial?: Partial<accesscontextmanager_v1.Schema$ApiOperation>,
+): accesscontextmanager_v1.Schema$ApiOperation {
+  return {
+    serviceName: 'storage.googleapis.com',
+    methodSelectors: [
+      {
+        method: '*',
+      },
+    ],
+    ...partial,
+  };
+}
+
+export function getMockServicePerimeterMethodSelector(
+  partial?: Partial<accesscontextmanager_v1.Schema$MethodSelector>,
+): accesscontextmanager_v1.Schema$MethodSelector {
+  return {
+    method: '*',
     ...partial,
   };
 }
