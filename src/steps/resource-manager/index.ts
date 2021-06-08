@@ -54,6 +54,7 @@ import {
 } from '../../utils/iam';
 import { createIamRoleEntity } from '../iam/converters';
 import { RelationshipClass } from '@jupiterone/data-model';
+import { cacheProjectNameToId } from '../../utils/jobState';
 
 export * from './constants';
 
@@ -294,11 +295,11 @@ export async function buildOrgFolderProjectMappedRelationships(
   const organizationEntity = await jobState.findEntity(
     `organizations/${client.organizationId}`,
   );
-
   // Organization -> HAS -> Projects
   if (organizationEntity) {
     await client.iterateProjects(async (project) => {
       const projectEntity = createProjectEntity(client.projectId, project);
+      await cacheProjectNameToId(jobState, project);
 
       await jobState.addRelationship(
         createMappedRelationship({
@@ -326,6 +327,7 @@ export async function buildOrgFolderProjectMappedRelationships(
     async (folderEntity) => {
       await client.iterateProjects(async (project) => {
         const projectEntity = createProjectEntity(client.projectId, project);
+        await cacheProjectNameToId(jobState, project);
 
         await jobState.addRelationship(
           createMappedRelationship({
@@ -380,6 +382,7 @@ export async function fetchResourceManagerProject(
   }
 
   const projectEntity = createProjectEntity(client.projectId, project);
+  await cacheProjectNameToId(jobState, project);
 
   await jobState.setData(PROJECT_ENTITY_TYPE, projectEntity);
   await jobState.addEntity(projectEntity);

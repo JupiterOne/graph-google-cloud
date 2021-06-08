@@ -1,0 +1,244 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createAccessLevelEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Ruleset",
+  ],
+  "_key": "accessPolicies/368605946207/accessLevels/access_level_example",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "basic": Object {
+          "conditions": Array [
+            Object {
+              "regions": Array [
+                "US",
+              ],
+            },
+          ],
+        },
+        "name": "accessPolicies/368605946207/accessLevels/access_level_example",
+        "title": "access_level_example",
+      },
+    },
+  ],
+  "_type": "google_access_context_manager_access_level",
+  "createdOn": undefined,
+  "description": undefined,
+  "displayName": "accessPolicies/368605946207/accessLevels/access_level_example",
+  "name": "accessPolicies/368605946207/accessLevels/access_level_example",
+  "title": "access_level_example",
+}
+`;
+
+exports[`#createAccessPolicyEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "AccessPolicy",
+  ],
+  "_key": "accessPolicies/368605946207",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "etag": "64186ca0c82b01b4",
+        "name": "accessPolicies/368605946207",
+        "parent": "organizations/958457776463",
+        "title": "default policy",
+      },
+    },
+  ],
+  "_type": "google_access_context_manager_access_policy",
+  "createdOn": undefined,
+  "displayName": "accessPolicies/368605946207",
+  "etag": "64186ca0c82b01b4",
+  "name": "accessPolicies/368605946207",
+  "title": "default policy",
+}
+`;
+
+exports[`#createServicePerimeterApiOperationEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Configuration",
+  ],
+  "_key": "accessPolicies/368605946207/servicePerimeters/example_perimetere:egressPolicies[0]:apiOperations[0]",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "serviceName": "storage.googleapis.com",
+      },
+    },
+  ],
+  "_type": "google_access_context_manager_service_perimeter_api_operation",
+  "createdOn": undefined,
+  "displayName": "accessPolicies/368605946207/servicePerimeters/example_perimetere:egressPolicies[0]:operations[0]",
+  "name": "accessPolicies/368605946207/servicePerimeters/example_perimetere:egressPolicies[0]:operations[0]",
+  "serviceName": "storage.googleapis.com",
+}
+`;
+
+exports[`#createServicePerimeterEgressPolicyEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "ControlPolicy",
+  ],
+  "_key": "accessPolicies/368605946207/servicePerimeters/example_perimetere:egressPolicies[0]",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "egressFrom": Object {
+          "identityType": "ANY_IDENTITY",
+        },
+        "egressTo": Object {
+          "operations": Array [
+            Object {
+              "methodSelectors": Array [
+                Object {
+                  "method": "*",
+                },
+              ],
+              "serviceName": "storage.googleapis.com",
+            },
+          ],
+          "resources": Array [
+            "projects/167984947943",
+          ],
+        },
+      },
+    },
+  ],
+  "_type": "google_access_context_manager_service_perimeter_egress_policy",
+  "createdOn": undefined,
+  "displayName": "accessPolicies/368605946207/servicePerimeters/example_perimetere:egressPolicies[0]",
+  "fromIdentities": undefined,
+  "fromIdentityType": "ANY_IDENTITY",
+  "name": "accessPolicies/368605946207/servicePerimeters/example_perimetere:egressPolicies[0]",
+}
+`;
+
+exports[`#createServicePerimeterEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Configuration",
+  ],
+  "_key": "accessPolicies/368605946207/servicePerimeters/example_perimetere",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "name": "accessPolicies/368605946207/servicePerimeters/example_perimetere",
+        "spec": undefined,
+        "status": Object {
+          "accessLevels": Array [
+            "accessPolicies/368605946207/accessLevels/access_level_example",
+          ],
+          "egressPolicies": undefined,
+          "ingressPolicies": undefined,
+          "resources": Array [
+            "projects/167984947943",
+          ],
+          "restrictedServices": Array [
+            "storage.googleapis.com",
+          ],
+          "vpcAccessibleServices": Object {},
+        },
+        "title": "example_perimetere",
+      },
+    },
+  ],
+  "_type": "google_access_context_manager_service_perimeter",
+  "active": undefined,
+  "createdOn": undefined,
+  "description": undefined,
+  "displayName": "accessPolicies/368605946207/servicePerimeters/example_perimetere",
+  "name": "accessPolicies/368605946207/servicePerimeters/example_perimetere",
+  "perimeterType": undefined,
+  "spec.accessLevels": undefined,
+  "spec.resources": undefined,
+  "spec.restrictedServices": undefined,
+  "status.accessLevels": Array [
+    "accessPolicies/368605946207/accessLevels/access_level_example",
+  ],
+  "status.resources": Array [
+    "projects/167984947943",
+  ],
+  "status.restrictedServices": Array [
+    "storage.googleapis.com",
+  ],
+  "title": "example_perimetere",
+  "useExplicitDryRunSpec": undefined,
+}
+`;
+
+exports[`#createServicePerimeterIngressPolicyEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "ControlPolicy",
+  ],
+  "_key": "accessPolicies/368605946207/servicePerimeters/example_perimetere:ingressPolicies[0]",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "ingressFrom": Object {
+          "identityType": "ANY_IDENTITY",
+          "sources": Array [
+            Object {
+              "accessLevel": "accessPolicies/368605946207/accessLevels/access_level_example",
+            },
+          ],
+        },
+        "ingressTo": Object {
+          "operations": Array [
+            Object {
+              "methodSelectors": Array [
+                Object {
+                  "method": "*",
+                },
+              ],
+              "serviceName": "storage.googleapis.com",
+            },
+          ],
+          "resources": Array [
+            "projects/167984947943",
+          ],
+        },
+      },
+    },
+  ],
+  "_type": "google_access_context_manager_service_perimeter_ingress_policy",
+  "createdOn": undefined,
+  "displayName": "accessPolicies/368605946207/servicePerimeters/example_perimetere:ingressPolicies[0]",
+  "fromIdentities": undefined,
+  "fromIdentityType": "ANY_IDENTITY",
+  "name": "accessPolicies/368605946207/servicePerimeters/example_perimetere:ingressPolicies[0]",
+}
+`;
+
+exports[`#createServicePerimeterMethodSelectorEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Configuration",
+  ],
+  "_key": "accessPolicies/368605946207/servicePerimeters/example_perimetere:egressPolicies[0]:apiOperations[0]:methodSelectors[0]",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "method": "*",
+      },
+    },
+  ],
+  "_type": "google_access_context_manager_service_perimeter_method_selector",
+  "createdOn": undefined,
+  "displayName": "accessPolicies/368605946207/servicePerimeters/example_perimetere:egressPolicies[0]:apiOperations[0]:methodSelectors[0]",
+  "method": "*",
+  "name": "accessPolicies/368605946207/servicePerimeters/example_perimetere:egressPolicies[0]:apiOperations[0]:methodSelectors[0]",
+  "permission": undefined,
+}
+`;

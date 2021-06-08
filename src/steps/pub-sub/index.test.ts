@@ -214,6 +214,10 @@ describe('#fetchProjectSubscriptions', () => {
             type: 'array',
             items: { type: 'string' },
           },
+          function: {
+            type: 'array',
+            items: { type: 'string' },
+          },
           isDetached: { type: 'boolean' },
           pushEndpoint: { type: 'string' },
           isDefaultRetryPolicy: { type: 'boolean' },
