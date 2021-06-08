@@ -76,6 +76,7 @@ all of the supported data into JupiterOne:
 | [API Gateway](https://console.developers.google.com/apis/library/apigateway.googleapis.com)                      | apigateway.googleapis.com           |
 | [Cloud Spanner](https://console.developers.google.com/apis/library/spanner.googleapis.com)                       | spanner.googleapis.com              |
 | [Certificate Authority](https://console.developers.google.com/apis/library/privateca.googleapis.com)             | privateca.googleapis.com            |
+| [Cloud Asset](https://console.developers.google.com/apis/library/cloudasset.googleapis.com)                      | cloudasset.googleapis.com           |
 
 Google Cloud service APIs can be enabled using one of the following methods:
 
@@ -120,7 +121,8 @@ gcloud services enable \
   memcache.googleapis.com \
   apigateway.googleapis.com \
   spanner.googleapis.com \
-  privateca.googleapis.com
+  privateca.googleapis.com \
+  cloudasset.googleapis.com
 ```
 
 #### Creating Google Cloud project service account
@@ -183,6 +185,7 @@ resourcemanager.projects.get
 resourcemanager.projects.list
 serviceusage.services.list
 resourcemanager.organizations.getIamPolicy
+cloudasset.assets.searchAllIamPolicies
 ```
 
 1. Navigate to the Cloud Resource Manager for that organization and
