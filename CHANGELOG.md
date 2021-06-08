@@ -8,6 +8,19 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.36.2 - 2021-06-08
+
+### Fixed
+
+- Only run `fetch-iam-bindings` step when `configureOrganizationProjects` is
+  enabled
+
+## 0.36.1 - 2021-06-08
+
+### Changed
+
+- Additional error logging
+
 ## 0.36.0 - 2021-06-08
 
 ### Fixed
