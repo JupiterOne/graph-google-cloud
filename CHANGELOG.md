@@ -8,6 +8,13 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.35.1 - 2021-06-07
+
+### Fixed
+
+- Publish message when missing `cloudasset.assets.searchAllIamPolicies`
+  permission
+
 ## 0.35.0 - 2021-06-07
 
 ### Added
