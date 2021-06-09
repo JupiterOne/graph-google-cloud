@@ -8,6 +8,13 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.37.1 - 2021-06-08
+
+### Fixed
+
+- Disable organization steps using both `configurationOrganizationProjects`
+  config value and whether the service API is enabled
+
 ## 0.37.0 - 2021-06-08
 
 ### Added
