@@ -144,7 +144,9 @@ export default async function getStepStartStates(
 
   logger.publishEvent({
     name: 'integration_config',
-    description: `Starting Google Cloud integration with service account (email=${config.serviceAccountKeyConfig.client_email})`,
+    description: `Starting Google Cloud integration with service account (email=${
+      config.serviceAccountKeyConfig.client_email
+    }, configureOrganizationProjects=${!!config.configureOrganizationProjects})`,
   });
 
   const organizationSteps = { disabled: !config.configureOrganizationProjects };

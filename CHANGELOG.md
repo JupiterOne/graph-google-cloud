@@ -8,6 +8,13 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.38.0 - 2021-06-09
+
+### Fixed
+
+- Improve job log event to print whether organization project configuration is
+  enabled
+
 ## 0.37.1 - 2021-06-08
 
 ### Fixed
