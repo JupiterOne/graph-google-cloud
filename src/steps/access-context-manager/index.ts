@@ -266,6 +266,7 @@ async function buildServicePerimeterProtectsProjects({
   for (const resource of servicePerimeter.status?.resources ||
     servicePerimeter.spec?.resources ||
     []) {
+    // TODO: Check if this is a project resource. More may be added in the future
     await jobState.addRelationship(
       createMappedRelationship({
         _class: RelationshipClass.PROTECTS,
