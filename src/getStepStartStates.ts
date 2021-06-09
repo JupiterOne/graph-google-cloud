@@ -118,19 +118,13 @@ function makeStepStartStates(
   return stepStartStates;
 }
 
-// Perhaps needs a better name?
 // Idea here is that we encapsulate/group all the steps that should be run
 // when configureOrganizationProjects is set
 export function getOrganizationSteps() {
   return [
-    // First of many, others will be VPC-related
     STEP_RESOURCE_MANAGER_ORGANIZATION,
     STEP_RESOURCE_MANAGER_FOLDERS,
     STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
-    STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
-    STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS,
-    STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS,
-    CLOUD_ASSET_STEPS.BINDINGS,
   ];
 }
 
@@ -168,6 +162,7 @@ export default async function getStepStartStates(
       `Failed to fetch enabled service names. Ability to list services is required to run the Google Cloud integration. (error=${err.message})`,
     );
   }
+
   const createStepStartState = (
     primaryServiceName: ServiceUsageName,
     ...additionalServiceNames: ServiceUsageName[]
@@ -179,14 +174,35 @@ export default async function getStepStartStates(
     );
   };
 
+  function createOrgStepStartState(
+    primaryServiceName: ServiceUsageName,
+    ...additionalServiceNames: ServiceUsageName[]
+  ): StepStartState {
+    return {
+      disabled:
+        !config.configureOrganizationProjects ||
+        createStepStartState(primaryServiceName, ...additionalServiceNames)
+          .disabled,
+    };
+  }
+
   return {
     // Organization-required steps
     ...makeStepStartStates([...getOrganizationSteps()], organizationSteps),
+    [STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES]: createOrgStepStartState(
+      ServiceUsageName.ACCESS_CONTEXT_MANAGER,
+    ),
+    [STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS]: createOrgStepStartState(
+      ServiceUsageName.ACCESS_CONTEXT_MANAGER,
+    ),
+    [STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS]: createOrgStepStartState(
+      ServiceUsageName.ACCESS_CONTEXT_MANAGER,
+    ),
     // Rest of steps...
     // This API will be enabled otherwise fetching services names above would fail
     [STEP_RESOURCE_MANAGER_PROJECT]: { disabled: false },
     [STEP_API_SERVICES]: { disabled: false },
-    [CLOUD_ASSET_STEPS.BINDINGS]: createStepStartState(
+    [CLOUD_ASSET_STEPS.BINDINGS]: createOrgStepStartState(
       ServiceUsageName.CLOUD_ASSET,
     ),
     [STEP_CLOUD_FUNCTIONS]: createStepStartState(
