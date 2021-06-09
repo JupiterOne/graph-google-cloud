@@ -43,6 +43,8 @@ export const serializedIntegrationConfig: SerializedIntegrationConfig = {
   serviceAccountKeyFile:
     process.env.SERVICE_ACCOUNT_KEY_FILE ||
     JSON.stringify(DEFAULT_INTEGRATION_CONFIG_SERVICE_ACCOUNT_KEY_FILE),
+  organizationId: '958457776463',
+  configureOrganizationProjects: true
 };
 
 export const integrationConfig: IntegrationConfig =

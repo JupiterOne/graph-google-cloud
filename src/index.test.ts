@@ -178,6 +178,7 @@ describe('#getStepStartStates success', () => {
           project_id: 'j1-gc-integration-dev-v3',
         },
         configureOrganizationProjects: true,
+        organizationId: '958457776463'
       },
     });
 
@@ -428,6 +429,7 @@ describe('#getStepStartStates success', () => {
           ...integrationConfig.serviceAccountKeyConfig,
           project_id: 'j1-gc-integration-dev-v3',
         },
+        configureOrganizationProjects: false
       },
     });
 
