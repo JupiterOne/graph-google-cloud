@@ -7,7 +7,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/430707931057|role:roles/resourcemanager.folderAdmin",
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/430707931057|role:roles/resourcemanager.folderAdmin|members:14eb5a7eb28e4292af1d1b775c8f5ee7bf5d2339",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -37,7 +37,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/430707931057|role:roles/resourcemanager.folderEditor",
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/430707931057|role:roles/resourcemanager.folderEditor|members:14eb5a7eb28e4292af1d1b775c8f5ee7bf5d2339",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -67,7 +67,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/811983343328|role:roles/resourcemanager.folderAdmin",
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/811983343328|role:roles/resourcemanager.folderAdmin|members:f5e22662c0d070366e9306912623873f535913b9",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -97,7 +97,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/811983343328|role:roles/resourcemanager.folderEditor",
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/811983343328|role:roles/resourcemanager.folderEditor|members:f5e22662c0d070366e9306912623873f535913b9",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -127,7 +127,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/1065006483234|role:roles/resourcemanager.folderAdmin",
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/1065006483234|role:roles/resourcemanager.folderAdmin|members:f5e22662c0d070366e9306912623873f535913b9",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -157,7 +157,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/1065006483234|role:roles/resourcemanager.folderEditor",
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/1065006483234|role:roles/resourcemanager.folderEditor|members:f5e22662c0d070366e9306912623873f535913b9",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -187,7 +187,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/299817291758|role:roles/resourcemanager.folderAdmin",
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/299817291758|role:roles/resourcemanager.folderAdmin|members:f5e22662c0d070366e9306912623873f535913b9",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -217,7 +217,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/299817291758|role:roles/resourcemanager.folderEditor",
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/299817291758|role:roles/resourcemanager.folderEditor|members:f5e22662c0d070366e9306912623873f535913b9",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -247,7 +247,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/592147458023|resource://cloudresourcemanager.googleapis.com/projects/intense-pointer-315514|role:roles/owner",
+      "_key": "binding|project:projects/592147458023|resource://cloudresourcemanager.googleapis.com/projects/intense-pointer-315514|role:roles/owner|members:f370f241b2efaf3b43cdd51806e619d8284070ca",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -277,7 +277,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/natality|role:roles/bigquery.dataEditor",
+      "_key": "binding|project:projects/167984947943|resource://bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/natality|role:roles/bigquery.dataEditor|members:5cec4fdac55b7077fb9764c4193db4527a1adc4d",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -307,7 +307,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/natality|role:roles/bigquery.dataOwner",
+      "_key": "binding|project:projects/167984947943|resource://bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/natality|role:roles/bigquery.dataOwner|members:b8633a77f7b2e8bdd937e0265307a264c6a5994e",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -339,7 +339,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/natality|role:roles/bigquery.dataViewer",
+      "_key": "binding|project:projects/167984947943|resource://bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/natality|role:roles/bigquery.dataViewer|members:097ebac65f286c2f7085a3ed4f9be267e3ba7fe4",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -369,7 +369,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/cmed_example_dataset|role:roles/bigquery.dataEditor",
+      "_key": "binding|project:projects/167984947943|resource://bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/cmed_example_dataset|role:roles/bigquery.dataEditor|members:5cec4fdac55b7077fb9764c4193db4527a1adc4d",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -399,7 +399,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/cmed_example_dataset|role:roles/bigquery.dataOwner",
+      "_key": "binding|project:projects/167984947943|resource://bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/cmed_example_dataset|role:roles/bigquery.dataOwner|members:444d08ce897f728b264ab32e6cc1488e9dcd6915",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -431,7 +431,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/cmed_example_dataset|role:roles/bigquery.dataViewer",
+      "_key": "binding|project:projects/167984947943|resource://bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/cmed_example_dataset|role:roles/bigquery.dataViewer|members:097ebac65f286c2f7085a3ed4f9be267e3ba7fe4",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -461,7 +461,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/us.artifacts.j1-gc-integration-dev-v3.appspot.com|role:roles/storage.legacyBucketOwner",
+      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/us.artifacts.j1-gc-integration-dev-v3.appspot.com|role:roles/storage.legacyBucketOwner|members:c3363906b5dffa39971aa8879040c06a0315e132",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -493,7 +493,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/us.artifacts.j1-gc-integration-dev-v3.appspot.com|role:roles/storage.legacyBucketReader",
+      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/us.artifacts.j1-gc-integration-dev-v3.appspot.com|role:roles/storage.legacyBucketReader|members:097ebac65f286c2f7085a3ed4f9be267e3ba7fe4",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -523,7 +523,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/gcf-sources-167984947943-us-central1|role:roles/storage.legacyBucketOwner",
+      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/gcf-sources-167984947943-us-central1|role:roles/storage.legacyBucketOwner|members:c3363906b5dffa39971aa8879040c06a0315e132",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -555,7 +555,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/gcf-sources-167984947943-us-central1|role:roles/storage.legacyBucketReader",
+      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/gcf-sources-167984947943-us-central1|role:roles/storage.legacyBucketReader|members:097ebac65f286c2f7085a3ed4f9be267e3ba7fe4",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -585,7 +585,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/gcf-sources-167984947943-us-central1|role:roles/storage.legacyObjectOwner",
+      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/gcf-sources-167984947943-us-central1|role:roles/storage.legacyObjectOwner|members:c3363906b5dffa39971aa8879040c06a0315e132",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -617,7 +617,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/gcf-sources-167984947943-us-central1|role:roles/storage.legacyObjectReader",
+      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/gcf-sources-167984947943-us-central1|role:roles/storage.legacyObjectReader|members:097ebac65f286c2f7085a3ed4f9be267e3ba7fe4",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -647,7 +647,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://cloudkms.googleapis.com/projects/j1-gc-integration-dev-v3/locations/us/keyRings/j1-gc-integration-dev-v3-disk-bucket-ring/cryptoKeys/j1-gc-integration-dev-v3-disk-bucket-key|role:roles/cloudkms.cryptoKeyEncrypterDecrypter",
+      "_key": "binding|project:projects/167984947943|resource://cloudkms.googleapis.com/projects/j1-gc-integration-dev-v3/locations/us/keyRings/j1-gc-integration-dev-v3-disk-bucket-ring/cryptoKeys/j1-gc-integration-dev-v3-disk-bucket-key|role:roles/cloudkms.cryptoKeyEncrypterDecrypter|members:d5968d34545d00bebd0dd768990fd7162ac1f83b",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -677,7 +677,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/j1-gc-integration-dev-v3-sink-logging-bucket|role:roles/storage.legacyBucketOwner",
+      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/j1-gc-integration-dev-v3-sink-logging-bucket|role:roles/storage.legacyBucketOwner|members:c3363906b5dffa39971aa8879040c06a0315e132",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -709,7 +709,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/j1-gc-integration-dev-v3-sink-logging-bucket|role:roles/storage.legacyBucketReader",
+      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/j1-gc-integration-dev-v3-sink-logging-bucket|role:roles/storage.legacyBucketReader|members:097ebac65f286c2f7085a3ed4f9be267e3ba7fe4",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -739,7 +739,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/test_big_query_dataset|role:roles/bigquery.dataOwner",
+      "_key": "binding|project:projects/167984947943|resource://bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/test_big_query_dataset|role:roles/bigquery.dataOwner|members:d67596848eadce677215c99cb8d085373e61df54",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -769,7 +769,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/j1-gc-integration-dev-v3cloudfunctions|role:roles/storage.legacyBucketOwner",
+      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/j1-gc-integration-dev-v3cloudfunctions|role:roles/storage.legacyBucketOwner|members:c3363906b5dffa39971aa8879040c06a0315e132",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -801,7 +801,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/j1-gc-integration-dev-v3cloudfunctions|role:roles/storage.legacyBucketReader",
+      "_key": "binding|project:projects/167984947943|resource://storage.googleapis.com/j1-gc-integration-dev-v3cloudfunctions|role:roles/storage.legacyBucketReader|members:097ebac65f286c2f7085a3ed4f9be267e3ba7fe4",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -831,7 +831,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://cloudkms.googleapis.com/projects/j1-gc-integration-dev-v3/locations/us-central1/keyRings/j1-gc-integration-dev-v3-encrypted-sql-instance-ring/cryptoKeys/j1-gc-integration-dev-v3-encrypted-sql-instance-key|role:roles/cloudkms.cryptoKeyEncrypterDecrypter",
+      "_key": "binding|project:projects/167984947943|resource://cloudkms.googleapis.com/projects/j1-gc-integration-dev-v3/locations/us-central1/keyRings/j1-gc-integration-dev-v3-encrypted-sql-instance-ring/cryptoKeys/j1-gc-integration-dev-v3-encrypted-sql-instance-key|role:roles/cloudkms.cryptoKeyEncrypterDecrypter|members:058d1196782ec9427e725be6eff2f4f0672cd601",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -861,7 +861,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://cloudkms.googleapis.com/projects/j1-gc-integration-dev-v3/locations/us/keyRings/example-keyring|role:roles/cloudkms.cryptoKeyEncrypterDecrypter",
+      "_key": "binding|project:projects/167984947943|resource://cloudkms.googleapis.com/projects/j1-gc-integration-dev-v3/locations/us/keyRings/example-keyring|role:roles/cloudkms.cryptoKeyEncrypterDecrypter|members:dc2f50ceb6733e6d9d158ac4a341e983a04661f2",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -891,7 +891,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/988862309073|resource://cloudresourcemanager.googleapis.com/projects/learned-hour-315416|role:roles/owner",
+      "_key": "binding|project:projects/988862309073|resource://cloudresourcemanager.googleapis.com/projects/learned-hour-315416|role:roles/owner|members:14eb5a7eb28e4292af1d1b775c8f5ee7bf5d2339",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -921,7 +921,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|resource://cloudbilling.googleapis.com/billingAccounts/01694E-12D60B-BEBCE5|role:roles/billing.admin",
+      "_key": "binding|resource://cloudbilling.googleapis.com/billingAccounts/01694E-12D60B-BEBCE5|role:roles/billing.admin|members:14eb5a7eb28e4292af1d1b775c8f5ee7bf5d2339",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -951,7 +951,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/619127027446|resource://cloudresourcemanager.googleapis.com/projects/winged-guild-315415|role:roles/owner",
+      "_key": "binding|project:projects/619127027446|resource://cloudresourcemanager.googleapis.com/projects/winged-guild-315415|role:roles/owner|members:14eb5a7eb28e4292af1d1b775c8f5ee7bf5d2339",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -981,7 +981,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:projects/j1-gc-integration-dev-v3/roles/167984947943customrole",
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:projects/j1-gc-integration-dev-v3/roles/167984947943customrole|members:d67596848eadce677215c99cb8d085373e61df54",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1011,7 +1011,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:projects/j1-gc-integration-dev-v3/roles/167984947943customroleconditions",
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:projects/j1-gc-integration-dev-v3/roles/167984947943customroleconditions|members:d67596848eadce677215c99cb8d085373e61df54",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1046,7 +1046,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:projects/j1-gc-integration-dev-v3/roles/167984947943extendedrole",
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:projects/j1-gc-integration-dev-v3/roles/167984947943extendedrole|members:65fa6248afb073bb3e1ec9918fde938f4b50db32",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1076,7 +1076,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/bigquery.dataViewer",
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/bigquery.dataViewer|members:65fa6248afb073bb3e1ec9918fde938f4b50db32",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1106,7 +1106,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/bigquery.resourceViewer",
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/bigquery.resourceViewer|members:65fa6248afb073bb3e1ec9918fde938f4b50db32",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1136,7 +1136,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/binaryauthorization.serviceAgent",
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/binaryauthorization.serviceAgent|members:3de9ea157cbde277ee7d0d16ceb0941999649edf",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1166,7 +1166,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/cloudbuild.builds.builder",
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/cloudbuild.builds.builder|members:6d05ad6183c183406272202b390cb219088449d7",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1196,7 +1196,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/cloudbuild.serviceAgent",
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/cloudbuild.serviceAgent|members:fc57316b0080f640573ec584833c00548a186651",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1226,7 +1226,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/cloudfunctions.serviceAgent",
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/cloudfunctions.serviceAgent|members:a4e32267744e4b27e47d7096c83f0c109f25b89e",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1256,7 +1256,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/cloudkms.cryptoKeyDecrypter",
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/cloudkms.cryptoKeyDecrypter|members:31df5a2c9aee5c8319812a0aca18ede64124ab40",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1286,7 +1286,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/cloudkms.cryptoKeyEncrypter",
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/cloudkms.cryptoKeyEncrypter|members:31df5a2c9aee5c8319812a0aca18ede64124ab40",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1316,7 +1316,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/compute.serviceAgent",
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/compute.serviceAgent|members:d5968d34545d00bebd0dd768990fd7162ac1f83b",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1346,7 +1346,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/container.serviceAgent",
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/container.serviceAgent|members:821c0992ea560cfb01faa065a381fd05d4a4a2c8",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1376,7 +1376,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/containeranalysis.ServiceAgent",
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/containeranalysis.ServiceAgent|members:578227c89c70fbfa35278eda66f1a5b24d06c6fb",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1406,7 +1406,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/containerregistry.ServiceAgent",
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/containerregistry.ServiceAgent|members:2230dfa4f50fcef436d7050b4501519cbbdecfb2",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1436,7 +1436,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/editor",
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/editor|members:5ef48534743715ee53bb73a26646ba03ebe5fcc0",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1470,7 +1470,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/iam.securityReviewer",
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/iam.securityReviewer|members:65fa6248afb073bb3e1ec9918fde938f4b50db32",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1500,7 +1500,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/memcache.serviceAgent",
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/memcache.serviceAgent|members:9b1adb48be7724f13bf6421a1c5982187ab41fc5",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1530,7 +1530,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/owner",
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/owner|members:ee96e5a1aa1d8f60ad44f5c116968b987d1365c2",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1564,7 +1564,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/pubsub.serviceAgent",
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/pubsub.serviceAgent|members:31df5a2c9aee5c8319812a0aca18ede64124ab40",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1594,7 +1594,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/redis.serviceAgent",
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/redis.serviceAgent|members:a5f68f5e864f718cca87169cbe71f0001639f80a",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1624,7 +1624,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/run.serviceAgent",
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/run.serviceAgent|members:a33aefde2c10a324eac89186fdf73e46e26c44cd",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1654,7 +1654,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/viewer",
+      "_key": "binding|project:projects/167984947943|resource://cloudresourcemanager.googleapis.com/projects/j1-gc-integration-dev-v3|role:roles/viewer|members:c5d4e5ff0865eff592c2b91899852fbeb193e738",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1684,7 +1684,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/306329820365|role:roles/resourcemanager.folderAdmin",
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/306329820365|role:roles/resourcemanager.folderAdmin|members:14eb5a7eb28e4292af1d1b775c8f5ee7bf5d2339",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1714,7 +1714,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/306329820365|role:roles/resourcemanager.folderEditor",
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/folders/306329820365|role:roles/resourcemanager.folderEditor|members:14eb5a7eb28e4292af1d1b775c8f5ee7bf5d2339",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1744,7 +1744,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/billing.creator",
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/billing.creator|members:e2ad8862dada7738584d77452f92b01e98f76769",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1774,7 +1774,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/cloudasset.viewer",
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/cloudasset.viewer|members:65fa6248afb073bb3e1ec9918fde938f4b50db32",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1804,7 +1804,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/iam.securityReviewer",
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/iam.securityReviewer|members:fa7147ed00d12e4dfb878d08237a092ee1d0d2b1",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1836,7 +1836,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/owner",
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/owner|members:5ebb69ed258c866453ddbacaba5295f5c158dd29",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1876,7 +1876,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/resourcemanager.folderAdmin",
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/resourcemanager.folderAdmin|members:14eb5a7eb28e4292af1d1b775c8f5ee7bf5d2339",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1906,7 +1906,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/resourcemanager.folderCreator",
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/resourcemanager.folderCreator|members:f5e22662c0d070366e9306912623873f535913b9",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1936,7 +1936,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/resourcemanager.organizationAdmin",
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/resourcemanager.organizationAdmin|members:9aae18c70e04b1090e95e5443a701042b1a431f5",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1974,7 +1974,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/resourcemanager.organizationViewer",
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/resourcemanager.organizationViewer|members:65fa6248afb073bb3e1ec9918fde938f4b50db32",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -2004,7 +2004,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/resourcemanager.projectCreator",
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/resourcemanager.projectCreator|members:ae6e8573d6f17433f73b13e53de73a68704ee655",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -2036,7 +2036,7 @@ Object {
       "_class": Array [
         "AccessPolicy",
       ],
-      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/resourcemanager.projectMover",
+      "_key": "binding|resource://cloudresourcemanager.googleapis.com/organizations/958457776463|role:roles/resourcemanager.projectMover|members:14eb5a7eb28e4292af1d1b775c8f5ee7bf5d2339",
       "_rawData": Array [
         Object {
           "name": "default",

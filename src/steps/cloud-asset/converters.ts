@@ -1,5 +1,6 @@
 import { cloudasset_v1 } from 'googleapis';
 import { snakeCase } from 'lodash';
+import { hashArray } from '../../utils/crypto';
 
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import { bindingEntities } from './constants';
@@ -20,6 +21,8 @@ export function buildIamBindingEntityKey({
   if (project) keyBuilders.push('project:' + project);
   if (resource) keyBuilders.push('resource:' + resource);
   if (binding.role) keyBuilders.push('role:' + binding.role);
+  if (binding.members)
+    keyBuilders.push('members:' + hashArray(binding.members));
 
   return keyBuilders.join('|');
 }
