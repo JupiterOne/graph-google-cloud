@@ -8,6 +8,13 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.38.2 - 2021-06-09
+
+### Fixed
+
+- [#237](https://github.com/JupiterOne/graph-google-cloud/issues/237) - Prevent
+  duplicate `google_iam_binding` `_key` values
+
 ## 0.38.0 - 2021-06-09
 
 ### Fixed

@@ -4,7 +4,7 @@ import { IntegrationStepContext } from '../../types';
 import { publishMissingPermissionEvent } from '../../utils/events';
 import { CloudAssetClient } from './client';
 import { bindingEntities, CLOUD_ASSET_STEPS } from './constants';
-import { createIamBindingEntity } from './converters';
+import { buildIamBindingEntityKey, createIamBindingEntity } from './converters';
 
 export async function fetchIamBindings(
   context: IntegrationStepContext,
@@ -13,6 +13,9 @@ export async function fetchIamBindings(
   const client = new CloudAssetClient({ config: instance.config });
   let iamBindingsCount = 0;
 
+  const bindingGraphKeySet = new Set<string>();
+  const duplicateBindingGraphKeys: string[] = [];
+
   try {
     await client.iterateAllIamPolicies(context, async (policyResult) => {
       const resource = policyResult.resource;
@@ -20,9 +23,22 @@ export async function fetchIamBindings(
       const bindings = policyResult.policy?.bindings ?? [];
 
       for (const binding of bindings) {
+        const _key = buildIamBindingEntityKey({
+          binding,
+          project,
+          resource,
+        });
+
+        if (bindingGraphKeySet.has(_key)) {
+          duplicateBindingGraphKeys.push(_key);
+          continue;
+        }
+
         await jobState.addEntity(
-          createIamBindingEntity(binding, project, resource),
+          createIamBindingEntity({ _key, binding, project, resource }),
         );
+
+        bindingGraphKeySet.add(_key);
         iamBindingsCount++;
       }
     });
@@ -51,6 +67,13 @@ export async function fetchIamBindings(
     { numIamBindings: iamBindingsCount },
     'Created IAM binding entities',
   );
+
+  if (duplicateBindingGraphKeys.length) {
+    logger.info(
+      { duplicateBindingGraphKeys },
+      'Found duplicate IAM binding graph keys',
+    );
+  }
 }
 
 export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
