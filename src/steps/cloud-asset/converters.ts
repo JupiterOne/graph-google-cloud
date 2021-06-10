@@ -7,18 +7,18 @@ import { bindingEntities } from './constants';
 
 export function buildIamBindingEntityKey({
   binding,
-  project,
+  projectName,
   resource,
 }: {
   binding: cloudasset_v1.Schema$Binding;
-  project: string | undefined | null;
+  projectName: string | undefined | null;
   resource: string | undefined | null;
 }) {
   // There are no unique values returned from this result so use everything
   // available to make the binding key unique.
   const keyBuilders = ['binding'];
 
-  if (project) keyBuilders.push('project:' + project);
+  if (projectName) keyBuilders.push('project:' + projectName);
   if (resource) keyBuilders.push('resource:' + resource);
   if (binding.role) keyBuilders.push('role:' + binding.role);
   if (binding.members)
@@ -29,13 +29,13 @@ export function buildIamBindingEntityKey({
 
 export function createIamBindingEntity({
   _key,
+  projectId,
   binding,
-  project,
   resource,
 }: {
   _key: string;
+  projectId?: string;
   binding: cloudasset_v1.Schema$Binding;
-  project: string | undefined | null;
   resource: string | undefined | null;
 }) {
   const namePrefix = 'Role Binding for Resource: ';
@@ -50,9 +50,9 @@ export function createIamBindingEntity({
         name: snakeCase(namePrefix) + resource,
         displayName: namePrefix + resource,
         resource,
-        project,
         role: binding.role,
         members: binding.members,
+        projectId,
         'condition.title': binding.condition?.title,
         'condition.description': binding.condition?.description,
         'condition.expression': binding.condition?.expression,
