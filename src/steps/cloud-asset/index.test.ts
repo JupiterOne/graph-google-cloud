@@ -4,6 +4,11 @@ import { integrationConfig } from '../../../test/config';
 import { withRecording } from '../../../test/recording';
 import { fetchIamBindings } from '.';
 import { bindingEntities } from './constants';
+import {
+  buildOrgFolderProjectMappedRelationships,
+  fetchResourceManagerFolders,
+  fetchResourceManagerOrganization,
+} from '../resource-manager';
 
 describe('#fetchIamBindings', () => {
   test('should collect data', async () => {
@@ -12,6 +17,9 @@ describe('#fetchIamBindings', () => {
         instanceConfig: integrationConfig,
       });
 
+      await fetchResourceManagerOrganization(context);
+      await fetchResourceManagerFolders(context);
+      await buildOrgFolderProjectMappedRelationships(context);
       await fetchIamBindings(context);
 
       expect({
@@ -37,7 +45,7 @@ describe('#fetchIamBindings', () => {
               items: { type: 'object' },
             },
             resource: { type: 'string' },
-            project: { type: 'string' },
+            projectId: { type: 'string' },
             members: { type: 'array' },
             'condition.title': { type: 'string' },
             'condition.description': { type: 'string' },

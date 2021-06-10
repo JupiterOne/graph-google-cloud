@@ -4,12 +4,13 @@ import { buildIamBindingEntityKey, createIamBindingEntity } from './converters';
 describe('#createIamBindingEntity', () => {
   test('should convert to entity', () => {
     const resource = 'resource';
-    const project = 'project';
+    const projectName = 'projects/123456789';
+    const projectId = 'project-id';
     const binding = getMockRoleBinding();
 
     const _key = buildIamBindingEntityKey({
       binding,
-      project,
+      projectName,
       resource,
     });
 
@@ -17,7 +18,7 @@ describe('#createIamBindingEntity', () => {
       createIamBindingEntity({
         _key,
         binding,
-        project,
+        projectId,
         resource,
       }),
     ).toMatchSnapshot();

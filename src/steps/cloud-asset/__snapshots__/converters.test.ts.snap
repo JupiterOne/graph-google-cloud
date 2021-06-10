@@ -5,7 +5,7 @@ Object {
   "_class": Array [
     "AccessPolicy",
   ],
-  "_key": "binding|project:project|resource:resource|role:projects/j1-gc-integration-dev-v3/roles/167984947943customroleconditions|members:d67596848eadce677215c99cb8d085373e61df54",
+  "_key": "binding|project:projects/123456789|resource:resource|role:projects/j1-gc-integration-dev-v3/roles/167984947943customroleconditions|members:d67596848eadce677215c99cb8d085373e61df54",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -32,7 +32,7 @@ Object {
     "serviceAccount:j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
   ],
   "name": "role_binding_for_resourceresource",
-  "project": "project",
+  "projectId": "project-id",
   "resource": "resource",
   "role": "projects/j1-gc-integration-dev-v3/roles/167984947943customroleconditions",
 }
