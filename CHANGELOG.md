@@ -8,6 +8,14 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.38.3 - 2021-06-10
+
+### Fixed
+
+- [#239](https://github.com/JupiterOne/graph-google-cloud/issues/239) -
+  `google_iam_role` should assign the actual target project `projectId` instead
+  of the org project
+
 ## 0.38.2 - 2021-06-09
 
 ### Fixed
