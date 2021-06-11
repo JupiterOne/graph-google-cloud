@@ -39,6 +39,9 @@ import {
   STEP_COMPUTE_INSTANCE_GROUPS,
   STEP_COMPUTE_HEALTH_CHECKS,
   STEP_COMPUTE_IMAGES,
+  STEP_COMPUTE_SNAPSHOTS,
+  STEP_COMPUTE_IMAGE_IMAGE_RELATIONSHIPS,
+  STEP_COMPUTE_SNAPSHOT_DISK_RELATIONSHIPS,
 } from './steps/compute';
 import { STEP_CLOUD_KMS_KEYS, STEP_CLOUD_KMS_KEY_RINGS } from './steps/kms';
 import {
@@ -223,6 +226,13 @@ export default async function getStepStartStates(
     ),
     [STEP_COMPUTE_DISKS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_IMAGES]: createStepStartState(ServiceUsageName.COMPUTE),
+    [STEP_COMPUTE_SNAPSHOTS]: createStepStartState(ServiceUsageName.COMPUTE),
+    [STEP_COMPUTE_IMAGE_IMAGE_RELATIONSHIPS]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
+    [STEP_COMPUTE_SNAPSHOT_DISK_RELATIONSHIPS]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
     [STEP_COMPUTE_NETWORKS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_FIREWALLS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_SUBNETWORKS]: createStepStartState(ServiceUsageName.COMPUTE),

@@ -844,7 +844,7 @@ Object {
       "_class": Array [
         "Image",
       ],
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/example-disk-image",
+      "_key": "image:9189794406633252725",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -921,7 +921,7 @@ Object {
       "_class": Array [
         "Image",
       ],
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/example-snapshot-image",
+      "_key": "image:4631196516151666400",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -998,7 +998,7 @@ Object {
       "_class": Array [
         "Image",
       ],
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/example-source-image",
+      "_key": "image:8387170632253472151",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1075,7 +1075,7 @@ Object {
       "_class": Array [
         "Image",
       ],
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/my-custom-image",
+      "_key": "image:6989580994168613341",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1168,7 +1168,7 @@ Object {
         "DataStore",
         "Disk",
       ],
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/example-blank-disk",
+      "_key": "disk:5025863156922044576",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1220,7 +1220,7 @@ Object {
         "DataStore",
         "Disk",
       ],
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/example-disk",
+      "_key": "disk:2951963474210532169",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1295,7 +1295,7 @@ Object {
         "DataStore",
         "Disk",
       ],
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/example-encrypted-disk",
+      "_key": "disk:4576963122287924132",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1373,7 +1373,7 @@ Object {
         "DataStore",
         "Disk",
       ],
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/instance-custom-image",
+      "_key": "disk:5298728141546449239",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1456,7 +1456,7 @@ Object {
         "DataStore",
         "Disk",
       ],
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/load-balancer-instance",
+      "_key": "disk:7645090348976312809",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1539,7 +1539,7 @@ Object {
         "DataStore",
         "Disk",
       ],
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/multiple-networks-instance",
+      "_key": "disk:6322539841150936081",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1618,7 +1618,7 @@ Object {
         "DataStore",
         "Disk",
       ],
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/testvmusingsnapshot",
+      "_key": "disk:2780308771148619644",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1693,7 +1693,7 @@ Object {
         "DataStore",
         "Disk",
       ],
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-c/disks/gke-cluster-1-default-pool-f7e72aff-w4gg",
+      "_key": "disk:3170494545553938496",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -1827,23 +1827,23 @@ Object {
     },
     Object {
       "_class": "USES",
-      "_fromEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/my-custom-image",
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/my-custom-image|uses|projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring/cryptoKeys/example-key",
+      "_fromEntityKey": "image:6989580994168613341",
+      "_key": "image:6989580994168613341|uses|projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring/cryptoKeys/example-key",
       "_toEntityKey": "projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring/cryptoKeys/example-key",
       "_type": "google_compute_image_uses_kms_crypto_key",
       "displayName": "USES",
     },
     Object {
       "_class": "USES",
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/example-disk|uses|https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-9-stretch-v20200805",
+      "_key": "disk:2951963474210532169|uses|image:6709658075886210235",
       "_mapping": Object {
         "relationshipDirection": "FORWARD",
-        "sourceEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/example-disk",
+        "sourceEntityKey": "disk:2951963474210532169",
         "targetEntity": Object {
           "_class": Array [
             "Image",
           ],
-          "_key": "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-9-stretch-v20200805",
+          "_key": "image:6709658075886210235",
           "_rawData": undefined,
           "_type": "google_compute_image",
           "active": undefined,
@@ -1919,15 +1919,15 @@ Object {
     },
     Object {
       "_class": "USES",
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/example-encrypted-disk|uses|https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-9-stretch-v20200805",
+      "_key": "disk:4576963122287924132|uses|image:6709658075886210235",
       "_mapping": Object {
         "relationshipDirection": "FORWARD",
-        "sourceEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/example-encrypted-disk",
+        "sourceEntityKey": "disk:4576963122287924132",
         "targetEntity": Object {
           "_class": Array [
             "Image",
           ],
-          "_key": "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-9-stretch-v20200805",
+          "_key": "image:6709658075886210235",
           "_rawData": undefined,
           "_type": "google_compute_image",
           "active": undefined,
@@ -2003,31 +2003,31 @@ Object {
     },
     Object {
       "_class": "USES",
-      "_fromEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/example-encrypted-disk",
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/example-encrypted-disk|uses|projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-disk-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-disk-bucket-key",
+      "_fromEntityKey": "disk:4576963122287924132",
+      "_key": "disk:4576963122287924132|uses|projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-disk-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-disk-bucket-key",
       "_toEntityKey": "projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-disk-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-disk-bucket-key",
       "_type": "google_compute_disk_uses_kms_crypto_key",
       "displayName": "USES",
     },
     Object {
       "_class": "USES",
-      "_fromEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/instance-custom-image",
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/instance-custom-image|uses|https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/my-custom-image",
-      "_toEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/my-custom-image",
+      "_fromEntityKey": "disk:5298728141546449239",
+      "_key": "disk:5298728141546449239|uses|image:6989580994168613341",
+      "_toEntityKey": "image:6989580994168613341",
       "_type": "google_compute_disk_uses_image",
       "displayName": "USES",
     },
     Object {
       "_class": "USES",
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/load-balancer-instance|uses|https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/ubuntu-1804-bionic-v20210211",
+      "_key": "disk:7645090348976312809|uses|image:2326745892390492555",
       "_mapping": Object {
         "relationshipDirection": "FORWARD",
-        "sourceEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/load-balancer-instance",
+        "sourceEntityKey": "disk:7645090348976312809",
         "targetEntity": Object {
           "_class": Array [
             "Image",
           ],
-          "_key": "https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/ubuntu-1804-bionic-v20210211",
+          "_key": "image:2326745892390492555",
           "_rawData": undefined,
           "_type": "google_compute_image",
           "active": undefined,
@@ -2084,15 +2084,15 @@ Object {
     },
     Object {
       "_class": "USES",
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/multiple-networks-instance|uses|https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-10-buster-v20210512",
+      "_key": "disk:6322539841150936081|uses|image:351076797538995943",
       "_mapping": Object {
         "relationshipDirection": "FORWARD",
-        "sourceEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/multiple-networks-instance",
+        "sourceEntityKey": "disk:6322539841150936081",
         "targetEntity": Object {
           "_class": Array [
             "Image",
           ],
-          "_key": "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-10-buster-v20210512",
+          "_key": "image:351076797538995943",
           "_rawData": undefined,
           "_type": "google_compute_image",
           "active": undefined,
@@ -2148,23 +2148,23 @@ Object {
     },
     Object {
       "_class": "USES",
-      "_fromEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/testvmusingsnapshot",
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/testvmusingsnapshot|uses|https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/example-snapshot-image",
-      "_toEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/example-snapshot-image",
+      "_fromEntityKey": "disk:2780308771148619644",
+      "_key": "disk:2780308771148619644|uses|image:4631196516151666400",
+      "_toEntityKey": "image:4631196516151666400",
       "_type": "google_compute_disk_uses_image",
       "displayName": "USES",
     },
     Object {
       "_class": "USES",
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-c/disks/gke-cluster-1-default-pool-f7e72aff-w4gg|uses|https://www.googleapis.com/compute/v1/projects/gke-node-images/global/images/gke-1199-gke1400-cos-85-13310-1209-12-v210407-c-pre",
+      "_key": "disk:3170494545553938496|uses|image:7077762531100665800",
       "_mapping": Object {
         "relationshipDirection": "FORWARD",
-        "sourceEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-c/disks/gke-cluster-1-default-pool-f7e72aff-w4gg",
+        "sourceEntityKey": "disk:3170494545553938496",
         "targetEntity": Object {
           "_class": Array [
             "Image",
           ],
-          "_key": "https://www.googleapis.com/compute/v1/projects/gke-node-images/global/images/gke-1199-gke1400-cos-85-13310-1209-12-v210407-c-pre",
+          "_key": "image:7077762531100665800",
           "_rawData": undefined,
           "_type": "google_compute_image",
           "active": undefined,
@@ -6558,7 +6558,7 @@ Object {
       "_class": Array [
         "Image",
       ],
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/my-custom-image",
+      "_key": "image:6989580994168613341",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -6670,8 +6670,8 @@ Object {
     },
     Object {
       "_class": "USES",
-      "_fromEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/my-custom-image",
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/my-custom-image|uses|projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring/cryptoKeys/example-key",
+      "_fromEntityKey": "image:6989580994168613341",
+      "_key": "image:6989580994168613341|uses|projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring/cryptoKeys/example-key",
       "_toEntityKey": "projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring/cryptoKeys/example-key",
       "_type": "google_compute_image_uses_kms_crypto_key",
       "displayName": "USES",
@@ -7570,7 +7570,7 @@ Object {
         "DataStore",
         "Disk",
       ],
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/instance-custom-image",
+      "_key": "disk:5298728141546449239",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -7653,7 +7653,7 @@ Object {
         "DataStore",
         "Disk",
       ],
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/load-balancer-instance",
+      "_key": "disk:7645090348976312809",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -7979,15 +7979,15 @@ Object {
     },
     Object {
       "_class": "USES",
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/load-balancer-instance|uses|https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/ubuntu-1804-bionic-v20210211",
+      "_key": "disk:7645090348976312809|uses|image:2326745892390492555",
       "_mapping": Object {
         "relationshipDirection": "FORWARD",
-        "sourceEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/load-balancer-instance",
+        "sourceEntityKey": "disk:7645090348976312809",
         "targetEntity": Object {
           "_class": Array [
             "Image",
           ],
-          "_key": "https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/ubuntu-1804-bionic-v20210211",
+          "_key": "image:2326745892390492555",
           "_rawData": undefined,
           "_type": "google_compute_image",
           "active": undefined,
@@ -8054,8 +8054,8 @@ Object {
     Object {
       "_class": "USES",
       "_fromEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/instance-custom-image",
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/instance-custom-image|uses|https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/instance-custom-image",
-      "_toEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/instance-custom-image",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/instance-custom-image|uses|disk:5298728141546449239",
+      "_toEntityKey": "disk:5298728141546449239",
       "_type": "google_compute_instance_uses_disk",
       "autoDelete": true,
       "deviceName": "instance-custom-image",
@@ -8066,8 +8066,8 @@ Object {
     Object {
       "_class": "USES",
       "_fromEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/load-balancer-instance",
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/load-balancer-instance|uses|https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/load-balancer-instance",
-      "_toEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/load-balancer-instance",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/load-balancer-instance|uses|disk:7645090348976312809",
+      "_toEntityKey": "disk:7645090348976312809",
       "_type": "google_compute_instance_uses_disk",
       "autoDelete": true,
       "deviceName": "persistent-disk-0",

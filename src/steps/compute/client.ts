@@ -47,6 +47,27 @@ export class ComputeClient extends Client {
     );
   }
 
+  async iterateComputeSnapshots(
+    callback: (data: compute_v1.Schema$Snapshot) => Promise<void>,
+  ) {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.snapshots.list({
+          auth,
+          pageToken: nextPageToken,
+          project: this.projectId,
+        });
+      },
+      async (data: compute_v1.Schema$SnapshotList) => {
+        for (const item of data.items || []) {
+          await callback(item);
+        }
+      },
+    );
+  }
+
   async fetchComputeImagePolicy(name: string) {
     const auth = await this.getAuthenticatedServiceClient();
 

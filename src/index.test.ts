@@ -42,11 +42,14 @@ import {
   STEP_COMPUTE_FIREWALLS,
   STEP_COMPUTE_HEALTH_CHECKS,
   STEP_COMPUTE_IMAGES,
+  STEP_COMPUTE_IMAGE_IMAGE_RELATIONSHIPS,
   STEP_COMPUTE_INSTANCES,
   STEP_COMPUTE_INSTANCE_GROUPS,
   STEP_COMPUTE_LOADBALANCERS,
   STEP_COMPUTE_NETWORKS,
   STEP_COMPUTE_PROJECT,
+  STEP_COMPUTE_SNAPSHOTS,
+  STEP_COMPUTE_SNAPSHOT_DISK_RELATIONSHIPS,
   STEP_COMPUTE_SSL_POLICIES,
   STEP_COMPUTE_SUBNETWORKS,
   STEP_COMPUTE_TARGET_HTTPS_PROXIES,
@@ -178,7 +181,7 @@ describe('#getStepStartStates success', () => {
           project_id: 'j1-gc-integration-dev-v3',
         },
         configureOrganizationProjects: true,
-        organizationId: '958457776463'
+        organizationId: '958457776463',
       },
     });
 
@@ -230,6 +233,15 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_COMPUTE_DISKS]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_IMAGE_IMAGE_RELATIONSHIPS]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_SNAPSHOT_DISK_RELATIONSHIPS]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_SNAPSHOTS]: {
         disabled: false,
       },
       [STEP_COMPUTE_IMAGES]: {
@@ -429,7 +441,7 @@ describe('#getStepStartStates success', () => {
           ...integrationConfig.serviceAccountKeyConfig,
           project_id: 'j1-gc-integration-dev-v3',
         },
-        configureOrganizationProjects: false
+        configureOrganizationProjects: false,
       },
     });
 

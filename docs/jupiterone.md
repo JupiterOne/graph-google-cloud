@@ -396,6 +396,7 @@ The following entities are created:
 | Compute Networks                                         | `google_compute_network`                                          | `Network`                          |
 | Compute Project                                          | `google_compute_project`                                          | `Project`                          |
 | Compute SSL Policy                                       | `google_compute_ssl_policy`                                       | `Policy`                           |
+| Compute Snapshot                                         | `google_compute_snapshot`                                         | `Image`                            |
 | Compute Subnetwork                                       | `google_compute_subnetwork`                                       | `Network`                          |
 | Compute Target HTTP Proxy                                | `google_compute_target_http_proxy`                                | `Gateway`                          |
 | Compute Target HTTPS Proxy                               | `google_compute_target_https_proxy`                               | `Gateway`                          |
@@ -468,9 +469,11 @@ The following relationships are created/mapped:
 | `google_compute_backend_service`                                 | **HAS**               | `google_compute_health_check`                                     |
 | `google_compute_backend_service`                                 | **HAS**               | `google_compute_instance_group`                                   |
 | `google_compute_backend_service`                                 | **HAS**               | `google_compute_target_ssl_proxy`                                 |
+| `google_compute_disk`                                            | **CREATED**           | `google_compute_snapshot`                                         |
 | `google_compute_disk`                                            | **USES**              | `google_compute_image`                                            |
 | `google_compute_disk`                                            | **USES**              | `google_kms_crypto_key`                                           |
 | `google_compute_firewall`                                        | **PROTECTS**          | `google_compute_network`                                          |
+| `google_compute_image`                                           | **USES**              | `google_compute_image`                                            |
 | `google_compute_image`                                           | **USES**              | `google_kms_crypto_key`                                           |
 | `google_compute_instance_group`                                  | **HAS**               | `google_compute_instance`                                         |
 | `google_compute_url_map`                                         | **HAS**               | `google_compute_backend_service`                                  |
@@ -479,6 +482,7 @@ The following relationships are created/mapped:
 | `google_compute_network`                                         | **CONTAINS**          | `google_compute_subnetwork`                                       |
 | `google_compute_network`                                         | **HAS**               | `google_compute_firewall`                                         |
 | `google_compute_project`                                         | **HAS**               | `google_compute_instance`                                         |
+| `google_compute_snapshot`                                        | **CREATED**           | `google_compute_image`                                            |
 | `google_compute_subnetwork`                                      | **HAS**               | `google_compute_instance`                                         |
 | `google_compute_target_https_proxy`                              | **HAS**               | `google_compute_ssl_policy`                                       |
 | `google_compute_target_ssl_proxy`                                | **HAS**               | `google_compute_ssl_policy`                                       |

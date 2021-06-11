@@ -1,7 +1,12 @@
 // Steps
 export const STEP_COMPUTE_INSTANCES = 'fetch-compute-instances';
 export const STEP_COMPUTE_DISKS = 'fetch-compute-disks';
+export const STEP_COMPUTE_SNAPSHOTS = 'fetch-compute-snapshots';
+export const STEP_COMPUTE_SNAPSHOT_DISK_RELATIONSHIPS =
+  'build-compute-snapshot-disk-relationships';
 export const STEP_COMPUTE_IMAGES = 'fetch-compute-images';
+export const STEP_COMPUTE_IMAGE_IMAGE_RELATIONSHIPS =
+  'build-image-image-relationships';
 export const STEP_COMPUTE_NETWORKS = 'fetch-compute-networks';
 export const STEP_COMPUTE_SUBNETWORKS = 'fetch-compute-subnetworks';
 export const STEP_COMPUTE_FIREWALLS = 'fetch-compute-firewalls';
@@ -25,6 +30,9 @@ export const ENTITY_TYPE_COMPUTE_INSTANCE = 'google_compute_instance';
 
 export const ENTITY_CLASS_COMPUTE_DISK = ['DataStore', 'Disk'];
 export const ENTITY_TYPE_COMPUTE_DISK = 'google_compute_disk';
+
+export const ENTITY_CLASS_COMPUTE_SNAPSHOT = ['Image'];
+export const ENTITY_TYPE_COMPUTE_SNAPSHOT = 'google_compute_snapshot';
 
 export const ENTITY_CLASS_COMPUTE_IMAGE = 'Image';
 export const ENTITY_TYPE_COMPUTE_IMAGE = 'google_compute_image';
@@ -93,6 +101,12 @@ export const RELATIONSHIP_TYPE_DISK_USES_IMAGE =
   'google_compute_disk_uses_image';
 export const RELATIONSHIP_TYPE_COMPUTE_DISK_USES_KMS_CRYPTO_KEY =
   'google_compute_disk_uses_kms_crypto_key';
+export const RELATIONSHIP_TYPE_DISK_CREATED_SNAPSHOT =
+  'google_compute_disk_created_snapshot';
+export const RELATIONSHIP_TYPE_IMAGE_CREATED_IMAGE =
+  'google_compute_image_created_image';
+export const RELATIONSHIP_TYPE_SNAPSHOT_CREATED_IMAGE =
+  'google_compute_snapshot_created_image';
 export const RELATIONSHIP_TYPE_IMAGE_USES_KMS_KEY =
   'google_compute_image_uses_kms_crypto_key';
 export const RELATIONSHIP_TYPE_NETWORK_HAS_FIREWALL =
