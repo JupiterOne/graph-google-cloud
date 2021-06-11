@@ -560,9 +560,9 @@ export async function buildImageCreatedImageRelationships(
         return;
       }
 
-      const sourceImageEntity = await jobState.findEntity(
-        `image:${sourceImageId}`,
-      );
+      const sourceImageKey = `image:${sourceImageId}`;
+
+      const sourceImageEntity = await jobState.findEntity(sourceImageKey);
 
       if (sourceImageEntity) {
         await jobState.addRelationship(
@@ -579,7 +579,7 @@ export async function buildImageCreatedImageRelationships(
             _type: RELATIONSHIP_TYPE_IMAGE_CREATED_IMAGE,
             _mapping: {
               relationshipDirection: RelationshipDirection.FORWARD,
-              sourceEntityKey: sourceImageId,
+              sourceEntityKey: sourceImageKey,
               targetFilterKeys: [['_type', '_key']],
               skipTargetCreation: true,
               targetEntity: {
