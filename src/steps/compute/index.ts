@@ -30,6 +30,7 @@ import {
   createHealthCheckEntity,
   createInstanceGroupNamedPortEntity,
   createComputeImageEntity,
+  createComputeSnapshotEntity,
 } from './converters';
 import {
   STEP_COMPUTE_INSTANCES,
@@ -105,6 +106,14 @@ import {
   RELATIONSHIP_TYPE_DISK_USES_IMAGE,
   RELATIONSHIP_TYPE_COMPUTE_DISK_USES_KMS_CRYPTO_KEY,
   RELATIONSHIP_TYPE_IMAGE_USES_KMS_KEY,
+  ENTITY_TYPE_COMPUTE_SNAPSHOT,
+  ENTITY_CLASS_COMPUTE_SNAPSHOT,
+  STEP_COMPUTE_SNAPSHOTS,
+  RELATIONSHIP_TYPE_IMAGE_CREATED_IMAGE,
+  STEP_COMPUTE_SNAPSHOT_DISK_RELATIONSHIPS,
+  STEP_COMPUTE_IMAGE_IMAGE_RELATIONSHIPS,
+  RELATIONSHIP_TYPE_DISK_CREATED_SNAPSHOT,
+  RELATIONSHIP_TYPE_SNAPSHOT_CREATED_IMAGE,
 } from './constants';
 import { compute_v1 } from 'googleapis';
 import { INTERNET, RelationshipClass } from '@jupiterone/data-model';
@@ -163,7 +172,18 @@ async function iterateComputeInstanceDisks(params: {
       continue;
     }
 
-    const computeDiskEntity = await jobState.findEntity(disk.source);
+    // TODO: Also figure out how to build relationships to source snapshot and
+    // source image? Is that even possible?
+
+    const diskKey = await jobState.getData<string>(`disk:${disk.source}`);
+
+    if (!diskKey) {
+      continue;
+    } else {
+      // TODO: Mapped relationship to selfLink property? (disk.source as val)
+    }
+
+    const computeDiskEntity = await jobState.findEntity(diskKey);
 
     if (!computeDiskEntity) {
       continue;
@@ -333,6 +353,8 @@ export async function fetchComputeDisks(
   const client = new ComputeClient({ config: instance.config });
 
   await client.iterateComputeDisks(async (disk) => {
+    await jobState.setData(`disk:${disk.selfLink}`, `disk:${disk.id}`);
+
     const diskEntity = await jobState.addEntity(
       createComputeDiskEntity(disk, client.projectId),
     );
@@ -348,7 +370,7 @@ export async function fetchComputeDisks(
       if (sourceImageProjectId === client.projectId) {
         // Custom image case
         const imageEntity = await jobState.findEntity(
-          disk.sourceImage as string,
+          `image:${disk.sourceImageId}`,
         );
         if (imageEntity) {
           await jobState.addRelationship(
@@ -421,6 +443,53 @@ export async function fetchComputeDisks(
   });
 }
 
+export async function fetchComputeSnapshots(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, instance } = context;
+  const client = new ComputeClient({ config: instance.config });
+
+  await client.iterateComputeSnapshots(async (snapshot) => {
+    await jobState.addEntity(createComputeSnapshotEntity(snapshot));
+  });
+}
+
+export async function buildComputeSnapshotDiskRelationships(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState } = context;
+
+  await jobState.iterateEntities(
+    {
+      _type: ENTITY_TYPE_COMPUTE_SNAPSHOT,
+    },
+    async (snapshotEntity) => {
+      const sourceDiskId = snapshotEntity.sourceDiskId as string | undefined;
+
+      if (!sourceDiskId) {
+        return;
+      }
+
+      const sourceDiskEntity = await jobState.findEntity(
+        `disk:${sourceDiskId}`,
+      );
+
+      if (sourceDiskEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.CREATED,
+            from: sourceDiskEntity,
+            to: snapshotEntity,
+          }),
+        );
+      } else {
+        // TODO: Mapped relationship? I'm not sure whether it's possible for a
+        // snapshot to reference a source disk from another project.
+      }
+    },
+  );
+}
+
 export async function fetchComputeImages(
   context: IntegrationStepContext,
 ): Promise<void> {
@@ -454,7 +523,75 @@ export async function fetchComputeImages(
         );
       }
     }
+
+    if (image.sourceSnapshotId) {
+      const sourceSnapshotEntity = await jobState.findEntity(
+        `snapshot:${image.sourceSnapshotId}`,
+      );
+
+      if (sourceSnapshotEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.CREATED,
+            from: sourceSnapshotEntity,
+            to: imageEntity,
+          }),
+        );
+      } else {
+        // TODO: Mapped relationship?
+      }
+    }
   });
+}
+
+export async function buildImageCreatedImageRelationships(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState } = context;
+
+  await jobState.iterateEntities(
+    {
+      _type: ENTITY_TYPE_COMPUTE_IMAGE,
+    },
+    async (imageEntity) => {
+      const sourceImageId = imageEntity.sourceImageId as string | undefined;
+
+      if (!sourceImageId) {
+        return;
+      }
+
+      const sourceImageEntity = await jobState.findEntity(
+        `image:${sourceImageId}`,
+      );
+
+      if (sourceImageEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.CREATED,
+            from: sourceImageEntity,
+            to: imageEntity,
+          }),
+        );
+      } else {
+        await jobState.addRelationship(
+          createMappedRelationship({
+            _class: RelationshipClass.CREATED,
+            _type: RELATIONSHIP_TYPE_IMAGE_CREATED_IMAGE,
+            _mapping: {
+              relationshipDirection: RelationshipDirection.FORWARD,
+              sourceEntityKey: sourceImageId,
+              targetFilterKeys: [['_type', '_key']],
+              skipTargetCreation: true,
+              targetEntity: {
+                ...imageEntity,
+                _rawData: undefined,
+              },
+            },
+          }),
+        );
+      }
+    },
+  );
 }
 
 export async function fetchComputeInstances(
@@ -1080,6 +1217,35 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
     ],
   },
   {
+    id: STEP_COMPUTE_SNAPSHOTS,
+    name: 'Compute Snapshots',
+    entities: [
+      {
+        resourceName: 'Compute Snapshot',
+        _type: ENTITY_TYPE_COMPUTE_SNAPSHOT,
+        _class: ENTITY_CLASS_COMPUTE_SNAPSHOT,
+      },
+    ],
+    relationships: [],
+    executionHandler: fetchComputeSnapshots,
+    dependsOn: [],
+  },
+  {
+    id: STEP_COMPUTE_SNAPSHOT_DISK_RELATIONSHIPS,
+    name: 'Compute Snapshot Disk Relationships',
+    entities: [],
+    relationships: [
+      {
+        _class: RelationshipClass.CREATED,
+        _type: RELATIONSHIP_TYPE_DISK_CREATED_SNAPSHOT,
+        sourceType: ENTITY_TYPE_COMPUTE_DISK,
+        targetType: ENTITY_TYPE_COMPUTE_SNAPSHOT,
+      },
+    ],
+    executionHandler: buildComputeSnapshotDiskRelationships,
+    dependsOn: [STEP_COMPUTE_SNAPSHOTS, STEP_COMPUTE_DISKS],
+  },
+  {
     id: STEP_COMPUTE_IMAGES,
     name: 'Compute Images',
     entities: [
@@ -1096,9 +1262,30 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
         sourceType: ENTITY_TYPE_COMPUTE_IMAGE,
         targetType: ENTITY_TYPE_KMS_KEY,
       },
+      {
+        _class: RelationshipClass.CREATED,
+        _type: RELATIONSHIP_TYPE_SNAPSHOT_CREATED_IMAGE,
+        sourceType: ENTITY_TYPE_COMPUTE_SNAPSHOT,
+        targetType: ENTITY_TYPE_COMPUTE_IMAGE,
+      },
     ],
     dependsOn: [STEP_CLOUD_KMS_KEYS],
     executionHandler: fetchComputeImages,
+  },
+  {
+    id: STEP_COMPUTE_IMAGE_IMAGE_RELATIONSHIPS,
+    name: 'Compute Image Relationships',
+    entities: [],
+    relationships: [
+      {
+        _class: RelationshipClass.USES,
+        _type: RELATIONSHIP_TYPE_IMAGE_CREATED_IMAGE,
+        sourceType: ENTITY_TYPE_COMPUTE_IMAGE,
+        targetType: ENTITY_TYPE_COMPUTE_IMAGE,
+      },
+    ],
+    dependsOn: [STEP_COMPUTE_IMAGES],
+    executionHandler: buildImageCreatedImageRelationships,
   },
   {
     id: STEP_COMPUTE_INSTANCES,

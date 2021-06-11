@@ -47,6 +47,8 @@ import {
   ENTITY_TYPE_COMPUTE_HEALTH_CHECK,
   ENTITY_CLASS_COMPUTE_IMAGE,
   ENTITY_TYPE_COMPUTE_IMAGE,
+  ENTITY_CLASS_COMPUTE_SNAPSHOT,
+  ENTITY_TYPE_COMPUTE_SNAPSHOT,
 } from './constants';
 import { getGoogleCloudConsoleWebLink, getLastUrlPart } from '../../utils/url';
 import { parseRegionNameFromRegionUrl } from '../../google-cloud/regions';
@@ -91,7 +93,7 @@ export function createComputeImageEntity({
       assign: {
         _class: ENTITY_CLASS_COMPUTE_IMAGE,
         _type: ENTITY_TYPE_COMPUTE_IMAGE,
-        _key: data.selfLink as string,
+        _key: `image:${data.id}`,
         id: data.id as string,
         name: data.name,
         displayName: data.name as string,
@@ -144,7 +146,7 @@ export function createComputeDiskEntity(
       assign: {
         _class: ENTITY_CLASS_COMPUTE_DISK,
         _type: ENTITY_TYPE_COMPUTE_DISK,
-        _key: data.selfLink as string,
+        _key: `disk:${data.id}`,
         id: data.id as string,
         displayName: data.name as string,
         description: data.description,
@@ -188,6 +190,49 @@ export function createComputeDiskEntity(
         webLink: getGoogleCloudConsoleWebLink(
           `/compute/disksDetail/zones/${zone}/disks/${data.name}?project=${projectId}`,
         ),
+      },
+    },
+  });
+}
+
+export function createComputeSnapshotEntity(data: compute_v1.Schema$Snapshot) {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_COMPUTE_SNAPSHOT,
+        _type: ENTITY_TYPE_COMPUTE_SNAPSHOT,
+        _key: `snapshot:${data.id}`,
+        id: data.id as string,
+        displayName: data.name as string,
+        description: data.description,
+        name: data.name,
+        createdOn: parseTimePropertyValue(data.creationTimestamp),
+        status: data.status,
+        sourceDisk: data.sourceDisk,
+        sourceDiskId: data.sourceDiskId,
+        diskSizeGb: data.diskSizeGb,
+        storageBytes: data.storageBytes,
+        storageBytesStatus: data.storageBytesStatus,
+        licenses: data.licenses,
+        'snapshotEncryptionKey.kmsKeyName':
+          data.snapshotEncryptionKey?.kmsKeyName,
+        'snapshotEncryptionKey.kmsKeyServiceAccount':
+          data.snapshotEncryptionKey?.kmsKeyServiceAccount,
+        'sourceDiskEncryptionKey.kmsKeyName':
+          data.sourceDiskEncryptionKey?.kmsKeyName,
+        'sourceDiskEncryptionKey.kmsKeyServiceAccount':
+          data.sourceDiskEncryptionKey?.kmsKeyServiceAccount,
+        labelFingerprint: data.labelFingerprint,
+        licenseCodes: data.licenseCodes,
+        storageLocations: data.storageLocations,
+        autoCreated: data.autoCreated,
+        chainName: data.chainName,
+        satisfiesPzs: data.satisfiesPzs,
+        locationHint: data.locationHint,
+        // webLink: getGoogleCloudConsoleWebLink(
+        //   `/compute/disksDetail/zones/${zone}/disks/${data.name}?project=${projectId}`,
+        // ),
       },
     },
   });

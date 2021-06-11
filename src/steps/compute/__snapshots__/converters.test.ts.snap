@@ -111,7 +111,7 @@ Object {
     "DataStore",
     "Disk",
   ],
-  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/testvm",
+  "_key": "disk:123456789",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -189,7 +189,7 @@ Object {
     "DataStore",
     "Disk",
   ],
-  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/testvm",
+  "_key": "disk:123456789",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -339,7 +339,7 @@ Object {
   "_class": Array [
     "Image",
   ],
-  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/my-custom-image",
+  "_key": "image:6989580994168613341",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -430,7 +430,7 @@ Object {
   "_class": Array [
     "Image",
   ],
-  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/my-custom-image",
+  "_key": "image:6989580994168613341",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -521,7 +521,7 @@ Object {
   "_class": Array [
     "Image",
   ],
-  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/my-custom-image",
+  "_key": "image:6989580994168613341",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -840,8 +840,8 @@ exports[`#createComputeInstanceUsesComputeDiskRelationship should convert to rel
 Object {
   "_class": "USES",
   "_fromEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/testvm",
-  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/testvm|uses|https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/testvm",
-  "_toEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/disks/testvm",
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/testvm|uses|disk:123456789",
+  "_toEntityKey": "disk:123456789",
   "_type": "google_compute_instance_uses_disk",
   "autoDelete": true,
   "deviceName": "persisten-disk-0",
