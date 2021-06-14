@@ -8,6 +8,8 @@ export const STEP_COMPUTE_IMAGES = 'fetch-compute-images';
 export const STEP_COMPUTE_IMAGE_IMAGE_RELATIONSHIPS =
   'build-image-image-relationships';
 export const STEP_COMPUTE_NETWORKS = 'fetch-compute-networks';
+export const STEP_COMPUTE_NETWORK_PEERING_RELATIONSHIPS =
+  'fetch-compute-networks-peering-relationships';
 export const STEP_COMPUTE_SUBNETWORKS = 'fetch-compute-subnetworks';
 export const STEP_COMPUTE_FIREWALLS = 'fetch-compute-firewalls';
 export const STEP_COMPUTE_PROJECT = 'fetch-compute-project';
@@ -93,6 +95,8 @@ export const RELATIONSHIP_TYPE_GOOGLE_COMPUTE_INSTANCE_USES_DISK =
   'google_compute_instance_uses_disk';
 export const RELATIONSHIP_TYPE_GOOGLE_COMPUTE_NETWORK_CONTAINS_GOOGLE_COMPUTE_SUBNETWORK =
   'google_compute_network_contains_subnetwork';
+export const RELATIONSHIP_TYPE_COMPUTE_NETWORK_CONNECTS_NETWORK =
+  'google_compute_network_connects_network';
 export const RELATIONSHIP_TYPE_SUBNET_HAS_COMPUTE_INSTANCE =
   'google_compute_subnetwork_has_instance';
 export const RELATIONSHIP_TYPE_FIREWALL_PROTECTS_NETWORK =

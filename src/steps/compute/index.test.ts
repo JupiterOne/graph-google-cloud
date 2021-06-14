@@ -26,6 +26,7 @@ import {
   fetchTargetSslProxies,
   fetchSslPolicies,
   fetchComputeImages,
+  buildComputeNetworkPeeringRelationships,
 } from '.';
 import {
   CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
@@ -67,8 +68,13 @@ import {
   RELATIONSHIP_TYPE_TARGET_HTTPS_PROXY_HAS_SSL_POLICY,
   RELATIONSHIP_TYPE_INSTANCE_GROUP_HAS_COMPUTE_INSTANCE,
   ENTITY_TYPE_COMPUTE_IMAGE,
+  RELATIONSHIP_TYPE_COMPUTE_NETWORK_CONNECTS_NETWORK,
 } from './constants';
 import {
+  Entity,
+  ExplicitRelationship,
+  MappedRelationship,
+  Relationship,
   // IntegrationProviderAuthorizationError,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
@@ -78,6 +84,7 @@ import {
   fetchKmsCryptoKeys,
   fetchKmsKeyRings,
 } from '../kms';
+import { filterGraphObjects } from '../../../test/helpers/filterGraphObjects';
 
 describe('#fetchComputeDisks', () => {
   let recording: Recording;
@@ -694,6 +701,93 @@ describe('#fetchComputeNetworks', () => {
         },
       },
     });
+  });
+});
+
+describe('#buildComputeNetworkPeeringRelationships', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'buildComputeNetworkPeeringRelationships',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  function separateRelationships(collectedRelationships: Relationship[]) {
+    const { targets: directRelationships, rest: mappedRelationships } =
+      filterGraphObjects(collectedRelationships, (r) => !r._mapping) as {
+        targets: ExplicitRelationship[];
+        rest: MappedRelationship[];
+      };
+
+    return {
+      directRelationships,
+      mappedRelationships,
+    };
+  }
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: {
+        ...integrationConfig,
+        serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+          'j1-gc-integration-dev-v2',
+          'j1-gc-integration-dev-v3',
+        ),
+        serviceAccountKeyConfig: {
+          ...integrationConfig.serviceAccountKeyConfig,
+          project_id: 'j1-gc-integration-dev-v3',
+        },
+        projectId: 'j1-gc-integration-dev-v3',
+      },
+    });
+
+    await fetchComputeNetworks(context);
+    await buildComputeNetworkPeeringRelationships(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
+
+    const { directRelationships, mappedRelationships } = separateRelationships(
+      context.jobState.collectedRelationships,
+    );
+
+    expect(
+      directRelationships.filter(
+        (e) => e._type === RELATIONSHIP_TYPE_COMPUTE_NETWORK_CONNECTS_NETWORK,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'CONNECTS' },
+          _type: { const: 'google_compute_network_connects_network' },
+        },
+      },
+    });
+
+    // Check mapped relationships
+    // Very hacky as we don't have this entity (it is from another project)
+
+    expect(
+      mappedRelationships.filter(
+        (e) => e._mapping.targetEntity.displayName === 'google_compute_network',
+      ),
+    ).toCreateValidRelationshipsToEntities([
+      {
+        _type: 'google_compute_network',
+        _key: 'https://www.googleapis.com/compute/v1/projects/learned-hour-315416/global/networks/my-first-project-vpc',
+      } as Entity,
+    ]);
   });
 });
 
@@ -1951,3 +2045,71 @@ describe('#fetchComputeSslPolicies', () => {
 //     });
 //   });
 // });
+
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace jest {
+    interface Matchers<R> {
+      toCreateValidRelationshipsToEntities(entities: Entity[]): R;
+    }
+  }
+}
+
+expect.extend({
+  toCreateValidRelationshipsToEntities(
+    mappedRelationships: MappedRelationship[],
+    entities: Entity[],
+  ) {
+    for (const mappedRelationship of mappedRelationships) {
+      const _mapping = mappedRelationship._mapping;
+      if (!_mapping) {
+        throw new Error(
+          'expect(mappedRelationships).toCreateValidRelationshipsToEntities() requires relationships with the `_mapping` property!',
+        );
+      }
+      const targetEntity = _mapping.targetEntity;
+      for (let targetFilterKey of _mapping.targetFilterKeys) {
+        /* type TargetFilterKey = string | string[]; */
+        if (!Array.isArray(targetFilterKey)) {
+          console.warn(
+            'WARNING: Found mapped relationship with targetFilterKey of type string. Please ensure the targetFilterKey was not intended to be of type string[]',
+          );
+          targetFilterKey = [targetFilterKey];
+        }
+        const mappingTargetEntities = entities.filter((entity) =>
+          (targetFilterKey as string[]).every(
+            (k) => targetEntity[k] === entity[k],
+          ),
+        );
+
+        if (mappingTargetEntities.length === 0) {
+          return {
+            message: () =>
+              `No target entity found for mapped relationship: ${JSON.stringify(
+                mappedRelationship,
+                null,
+                2,
+              )}`,
+            pass: false,
+          };
+        } else if (mappingTargetEntities.length > 1) {
+          return {
+            message: () =>
+              `Multiple target entities found for mapped relationship [${mappingTargetEntities.map(
+                (e) => e._key,
+              )}]; expected exactly one: ${JSON.stringify(
+                mappedRelationship,
+                null,
+                2,
+              )}`,
+            pass: false,
+          };
+        }
+      }
+    }
+    return {
+      message: () => '',
+      pass: true,
+    };
+  },
+});
