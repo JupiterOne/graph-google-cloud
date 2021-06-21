@@ -192,7 +192,7 @@ export default async function getStepStartStates(
     };
   }
 
-  return {
+  const stepStartStates: StepStartStates = {
     // Organization-required steps
     ...makeStepStartStates([...getOrganizationSteps()], organizationSteps),
     [STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES]: createOrgStepStartState(
@@ -329,4 +329,10 @@ export default async function getStepStartStates(
       ServiceUsageName.PRIVATE_CA,
     ),
   };
+
+  logger.info(
+    { stepStartStates: JSON.stringify(stepStartStates) },
+    'Step start states',
+  );
+  return stepStartStates;
 }
