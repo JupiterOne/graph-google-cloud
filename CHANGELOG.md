@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.39.0 - 2021-06-21
+
+### Changed
+
+- Log step start states
+
 ## 0.38.3 - 2021-06-10
 
 ### Fixed
