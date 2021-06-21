@@ -8,7 +8,17 @@ and this project adheres to
 
 ## [Unreleased]
 
-## 0.39.0 - 2021-06-21
+## 0.41.0 - 2021-06-21
+
+### Added
+
+- Added support for ingesting the following **new** relationships:
+
+  | Source                   | \_class    | Target                   |
+  | ------------------------ | ---------- | ------------------------ |
+  | `google_compute_network` | `CONNECTS` | `google_compute_network` |
+
+## 0.40.0 - 2021-06-21
 
 ### Changed
 
