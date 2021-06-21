@@ -42,6 +42,7 @@ import {
   STEP_COMPUTE_SNAPSHOTS,
   STEP_COMPUTE_IMAGE_IMAGE_RELATIONSHIPS,
   STEP_COMPUTE_SNAPSHOT_DISK_RELATIONSHIPS,
+  STEP_COMPUTE_NETWORK_PEERING_RELATIONSHIPS,
 } from './steps/compute';
 import { STEP_CLOUD_KMS_KEYS, STEP_CLOUD_KMS_KEY_RINGS } from './steps/kms';
 import {
@@ -234,6 +235,9 @@ export default async function getStepStartStates(
       ServiceUsageName.COMPUTE,
     ),
     [STEP_COMPUTE_NETWORKS]: createStepStartState(ServiceUsageName.COMPUTE),
+    [STEP_COMPUTE_NETWORK_PEERING_RELATIONSHIPS]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
     [STEP_COMPUTE_FIREWALLS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_SUBNETWORKS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_PROJECT]: createStepStartState(ServiceUsageName.COMPUTE),

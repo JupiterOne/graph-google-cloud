@@ -479,6 +479,7 @@ The following relationships are created/mapped:
 | `google_compute_url_map`                                         | **HAS**               | `google_compute_backend_service`                                  |
 | `google_compute_instance`                                        | **TRUSTS**            | `google_iam_service_account`                                      |
 | `google_compute_instance`                                        | **USES**              | `google_compute_disk`                                             |
+| `google_compute_network`                                         | **CONNECTS**          | `google_compute_network`                                          |
 | `google_compute_network`                                         | **CONTAINS**          | `google_compute_subnetwork`                                       |
 | `google_compute_network`                                         | **HAS**               | `google_compute_firewall`                                         |
 | `google_compute_project`                                         | **HAS**               | `google_compute_instance`                                         |

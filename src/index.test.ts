@@ -47,6 +47,7 @@ import {
   STEP_COMPUTE_INSTANCE_GROUPS,
   STEP_COMPUTE_LOADBALANCERS,
   STEP_COMPUTE_NETWORKS,
+  STEP_COMPUTE_NETWORK_PEERING_RELATIONSHIPS,
   STEP_COMPUTE_PROJECT,
   STEP_COMPUTE_SNAPSHOTS,
   STEP_COMPUTE_SNAPSHOT_DISK_RELATIONSHIPS,
@@ -248,6 +249,9 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_COMPUTE_NETWORKS]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_NETWORK_PEERING_RELATIONSHIPS]: {
         disabled: false,
       },
       [STEP_COMPUTE_FIREWALLS]: {
