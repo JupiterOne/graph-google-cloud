@@ -11,6 +11,7 @@ import {
   STEP_CLOUD_FUNCTIONS,
   CLOUD_FUNCTION_ENTITY_CLASS,
   RELATIONSHIP_TYPE_CLOUD_FUNCTION_USES_IAM_SERVICE_ACCOUNT,
+  STEP_CLOUD_FUNCTIONS_SERVICE_ACCOUNT_RELATIONSHIPS,
 } from './constants';
 import {
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
@@ -26,37 +27,52 @@ export async function fetchCloudFunctions(
   const client = new CloudFunctionsClient({ config: context.instance.config });
 
   await client.iterateCloudFunctions(async (cloudFunction) => {
-    const cloudFunctionEntity = await jobState.addEntity(
-      createCloudFunctionEntity(cloudFunction),
-    );
-
-    const serviceAccountEmail = cloudFunction.serviceAccountEmail;
-
-    if (!serviceAccountEmail) {
-      return;
-    }
-
-    const serviceAccountEntity = await jobState.findEntity(serviceAccountEmail);
-
-    if (!serviceAccountEntity) {
-      return;
-    }
-
-    await jobState.addRelationship(
-      createDirectRelationship({
-        _class: RelationshipClass.USES,
-        from: cloudFunctionEntity,
-        to: serviceAccountEntity,
-      }),
-    );
+    await jobState.addEntity(createCloudFunctionEntity(cloudFunction));
   });
+}
+
+export async function buildCloudFunctionServiceAccountRelationships(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState } = context;
+
+  await jobState.iterateEntities(
+    {
+      _type: CLOUD_FUNCTION_ENTITY_TYPE,
+    },
+    async (cloudFunctionEntity) => {
+      const serviceAccountEmail = cloudFunctionEntity.serviceAccountEmail as
+        | string
+        | undefined;
+
+      if (!serviceAccountEmail) {
+        return;
+      }
+
+      const serviceAccountEntity = await jobState.findEntity(
+        serviceAccountEmail,
+      );
+
+      if (!serviceAccountEntity) {
+        return;
+      }
+
+      await jobState.addRelationship(
+        createDirectRelationship({
+          _class: RelationshipClass.USES,
+          from: cloudFunctionEntity,
+          to: serviceAccountEntity,
+        }),
+      );
+    },
+  );
 }
 
 export const functionsSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_CLOUD_FUNCTIONS,
     name: 'Cloud Functions',
-    dependsOn: [STEP_IAM_SERVICE_ACCOUNTS],
+    dependsOn: [],
     entities: [
       {
         resourceName: 'Cloud Function',
@@ -64,6 +80,14 @@ export const functionsSteps: IntegrationStep<IntegrationConfig>[] = [
         _class: CLOUD_FUNCTION_ENTITY_CLASS,
       },
     ],
+    relationships: [],
+    executionHandler: fetchCloudFunctions,
+  },
+  {
+    id: STEP_CLOUD_FUNCTIONS_SERVICE_ACCOUNT_RELATIONSHIPS,
+    name: 'Cloud Function Service Account Relationships',
+    dependsOn: [STEP_CLOUD_FUNCTIONS, STEP_IAM_SERVICE_ACCOUNTS],
+    entities: [],
     relationships: [
       {
         _class: RelationshipClass.USES,
@@ -72,6 +96,6 @@ export const functionsSteps: IntegrationStep<IntegrationConfig>[] = [
         targetType: IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
       },
     ],
-    executionHandler: fetchCloudFunctions,
+    executionHandler: buildCloudFunctionServiceAccountRelationships,
   },
 ];

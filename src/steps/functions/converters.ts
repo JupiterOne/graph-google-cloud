@@ -36,6 +36,7 @@ export function createCloudFunctionEntity(
         maxInstances: cloudFunction.maxInstances,
         status: cloudFunction.status,
         active: cloudFunction.status === 'ACTIVE',
+        serviceAccountEmail: cloudFunction.serviceAccountEmail,
       },
     },
   });
