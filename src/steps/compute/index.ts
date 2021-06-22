@@ -802,15 +802,33 @@ export async function fetchComputeNetworks(
       createComputeNetworkEntity(network, client.projectId),
     );
 
-    await setNetworkPeerings(
-      jobState,
-      network.selfLink as string,
-      network.peerings || [],
-    );
-    peeredNetworks.push(network.selfLink as string);
+    if (network.peerings?.length) {
+      await setNetworkPeerings(
+        jobState,
+        network.selfLink as string,
+        network.peerings || [],
+      );
+      peeredNetworks.push(network.selfLink as string);
+    }
   });
 
   await setPeeredNetworks(jobState, peeredNetworks);
+}
+
+function buildPeeringNetworkRelationshipProperties(
+  networkPeering: compute_v1.Schema$NetworkPeering,
+) {
+  return {
+    active: networkPeering.state === 'ACTIVE',
+    autoCreateRoutes: networkPeering.autoCreateRoutes,
+    exportCustomRoutes: networkPeering.exportCustomRoutes,
+    importCustomRoutes: networkPeering.importCustomRoutes,
+    exchangeSubnetRoutes: networkPeering.exchangeSubnetRoutes,
+    exportSubnetRoutesWithPublicIp:
+      networkPeering.exportSubnetRoutesWithPublicIp,
+    importSubnetRoutesWithPublicIp:
+      networkPeering.importSubnetRoutesWithPublicIp,
+  };
 }
 
 export async function buildComputeNetworkPeeringRelationships(
@@ -844,20 +862,12 @@ export async function buildComputeNetworkPeeringRelationships(
             from: sourceNetwork,
             to: targetNetwork,
             properties: {
-              active: networkPeering.state === 'ACTIVE',
-              autoCreateRoutes: networkPeering.autoCreateRoutes,
-              exportCustomRoutes: networkPeering.exportCustomRoutes,
-              importCustomRoutes: networkPeering.importCustomRoutes,
-              exchangeSubnetRoutes: networkPeering.exchangeSubnetRoutes,
-              exportSubnetRoutesWithPublicIp:
-                networkPeering.exportSubnetRoutesWithPublicIp,
-              importSubnetRoutesWithPublicIp:
-                networkPeering.importSubnetRoutesWithPublicIp,
+              ...buildPeeringNetworkRelationshipProperties(networkPeering),
             },
           }),
         );
       } else {
-        // VPC network peering exists acros projects, build mapped relationship
+        // VPC network peering exists across projects, build mapped relationship
         await jobState.addRelationship(
           createMappedRelationship({
             _class: RelationshipClass.CONNECTS,
@@ -873,15 +883,7 @@ export async function buildComputeNetworkPeeringRelationships(
               },
             },
             properties: {
-              active: networkPeering.state === 'ACTIVE',
-              autoCreateRoutes: networkPeering.autoCreateRoutes,
-              exportCustomRoutes: networkPeering.exportCustomRoutes,
-              importCustomRoutes: networkPeering.importCustomRoutes,
-              exchangeSubnetRoutes: networkPeering.exchangeSubnetRoutes,
-              exportSubnetRoutesWithPublicIp:
-                networkPeering.exportSubnetRoutesWithPublicIp,
-              importSubnetRoutesWithPublicIp:
-                networkPeering.importSubnetRoutesWithPublicIp,
+              ...buildPeeringNetworkRelationshipProperties(networkPeering),
             },
           }),
         );
