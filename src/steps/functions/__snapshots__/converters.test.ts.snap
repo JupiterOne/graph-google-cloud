@@ -42,6 +42,7 @@ Object {
   "maxInstances": undefined,
   "name": "projects/j1-gc-integration-dev-v2/locations/us-central1/functions/j1-gc-integration-dev-v2testfunction",
   "runtime": "nodejs10",
+  "serviceAccountEmail": "j1-gc-integration-dev-v2@appspot.gserviceaccount.com",
   "status": "ACTIVE",
   "timeout": "60s",
   "updatedOn": 1595961352821,

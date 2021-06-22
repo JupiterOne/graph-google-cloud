@@ -6,7 +6,10 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { SerializedIntegrationConfig } from './types';
 import { ServiceUsageName } from './google-cloud/types';
-import { STEP_CLOUD_FUNCTIONS } from './steps/functions';
+import {
+  STEP_CLOUD_FUNCTIONS,
+  STEP_CLOUD_FUNCTIONS_SERVICE_ACCOUNT_RELATIONSHIPS,
+} from './steps/functions';
 import { STEP_CLOUD_STORAGE_BUCKETS } from './steps/storage';
 import { STEP_API_SERVICES } from './steps/service-usage';
 import { deserializeIntegrationConfig } from './utils/integrationConfig';
@@ -212,6 +215,9 @@ export default async function getStepStartStates(
       ServiceUsageName.CLOUD_ASSET,
     ),
     [STEP_CLOUD_FUNCTIONS]: createStepStartState(
+      ServiceUsageName.CLOUD_FUNCTIONS,
+    ),
+    [STEP_CLOUD_FUNCTIONS_SERVICE_ACCOUNT_RELATIONSHIPS]: createStepStartState(
       ServiceUsageName.CLOUD_FUNCTIONS,
     ),
     [STEP_CLOUD_STORAGE_BUCKETS]: createStepStartState(

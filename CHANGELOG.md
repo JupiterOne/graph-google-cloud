@@ -8,6 +8,21 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.42.0 - 2021-06-22
+
+### Added
+
+- New properties added to resources:
+
+  | Entity                  | Properties            |
+  | ----------------------- | --------------------- |
+  | `google_cloud_function` | `serviceAccountEmail` |
+
+### Fixed
+
+- [#248](https://github.com/JupiterOne/graph-google-cloud/issues/248) - Always
+  execute steps in org child projects even if child project has service disabled
+
 ## 0.41.0 - 2021-06-21
 
 ### Added
