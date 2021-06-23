@@ -51,7 +51,7 @@ export function createCloudStorageBucketEntity({
         retentionPolicyEnabled: data.retentionPolicy?.isLocked,
         retentionPeriod: data.retentionPolicy?.retentionPeriod,
         retentionDate: data.retentionPolicy?.effectiveTime,
-        public: isPublic,
+        public: isPublic || false,
         // Rely on the value of the classification tag
         classification: null,
         etag: data.etag,
