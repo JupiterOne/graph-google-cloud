@@ -8,6 +8,13 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.43.1 - 2021-06-23
+
+### Fixed
+
+- [#243](https://github.com/JupiterOne/graph-google-cloud/issues/243) - Always
+  assign boolean value to `public` property on `google_storage_bucket`
+
 ## 0.43.0 - 2021-06-22
 
 ### Changed
