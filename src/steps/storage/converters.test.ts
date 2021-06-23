@@ -69,4 +69,16 @@ describe('#createCloudStorageBucketEntity', () => {
       }),
     ).toMatchSnapshot();
   });
+
+  test('should set "public" to "false" if "isPublic" is "undefined"', () => {
+    expect(
+      createCloudStorageBucketEntity({
+        data: getMockStorageBucket({
+          iamConfiguration: undefined,
+        }),
+        projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
+        isPublic: undefined,
+      }),
+    ).toMatchSnapshot();
+  });
 });
