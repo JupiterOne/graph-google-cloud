@@ -47,3 +47,22 @@ export async function getNetworkPeerings(
     `network:${networkSelfLink}:peerings`,
   );
 }
+
+export async function setComputeInstanceServiceAccountData(
+  jobState: JobState,
+  computeInstanceKeyToServiceAccountDataMap: Map<
+    string,
+    compute_v1.Schema$ServiceAccount[]
+  >,
+) {
+  await jobState.setData<Map<string, compute_v1.Schema$ServiceAccount[]>>(
+    `compute_instance_service_accounts`,
+    computeInstanceKeyToServiceAccountDataMap,
+  );
+}
+
+export async function getComputeInstanceServiceAccountData(jobState: JobState) {
+  return jobState.getData<Map<string, compute_v1.Schema$ServiceAccount[]>>(
+    `compute_instance_service_accounts`,
+  );
+}

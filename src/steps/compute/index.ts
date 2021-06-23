@@ -12,7 +12,6 @@ import {
   createComputeDiskEntity,
   createComputeInstanceEntity,
   createComputeInstanceUsesComputeDiskRelationship,
-  createComputeInstanceTrustsServiceAccountRelationship,
   createComputeNetworkEntity,
   createComputeSubnetEntity,
   createComputeFirewallEntity,
@@ -116,6 +115,7 @@ import {
   RELATIONSHIP_TYPE_SNAPSHOT_CREATED_IMAGE,
   STEP_COMPUTE_NETWORK_PEERING_RELATIONSHIPS,
   RELATIONSHIP_TYPE_COMPUTE_NETWORK_CONNECTS_NETWORK,
+  STEP_COMPUTE_INSTANCE_SERVICE_ACCOUNT_RELATIONSHIPS,
 } from './constants';
 import { compute_v1 } from 'googleapis';
 import { INTERNET, RelationshipClass } from '@jupiterone/data-model';
@@ -143,8 +143,10 @@ import {
 import { isMemberPublic } from '../../utils/iam';
 import { getKmsGraphObjectKeyFromKmsKeyName } from '../../utils/kms';
 import {
+  getComputeInstanceServiceAccountData,
   getNetworkPeerings,
   getPeeredNetworks,
+  setComputeInstanceServiceAccountData,
   setNetworkPeerings,
   setPeeredNetworks,
 } from '../../utils/jobState';
@@ -205,41 +207,6 @@ async function iterateComputeInstanceDisks(params: {
         autoDelete: disk.autoDelete,
         deviceName: disk.deviceName,
         interface: disk.interface,
-      }),
-    );
-  }
-}
-
-async function iterateComputeInstanceServiceAccounts(params: {
-  context: IntegrationStepContext;
-  computeInstanceEntity: Entity;
-  computeInstance: compute_v1.Schema$Instance;
-}) {
-  const {
-    context: { jobState, logger },
-    computeInstanceEntity,
-    computeInstance,
-  } = params;
-
-  for (const serviceAccount of computeInstance.serviceAccounts || []) {
-    const serviceAccountEntity = await jobState.findEntity(
-      serviceAccount.email as string,
-    );
-
-    if (!serviceAccountEntity) {
-      // This should never happen because this step dependsOn the fetch service
-      // account step.
-      logger.warn(
-        'Skipping building relationship between compute instance and service account. Service account entity does not exist.',
-      );
-      continue;
-    }
-
-    await jobState.addRelationship(
-      createComputeInstanceTrustsServiceAccountRelationship({
-        computeInstanceEntity,
-        serviceAccountEntity,
-        scopes: serviceAccount.scopes || [],
       }),
     );
   }
@@ -607,17 +574,33 @@ export async function fetchComputeInstances(
 ): Promise<void> {
   const { jobState, instance } = context;
   const client = new ComputeClient({ config: instance.config });
+  const computeInstanceKeyToServiceAccountDataMap = new Map<
+    string,
+    compute_v1.Schema$ServiceAccount[]
+  >();
 
   await client.iterateComputeInstances(async (computeInstance, projectId) => {
     const computeInstanceEntity = await jobState.addEntity(
       createComputeInstanceEntity(computeInstance, client.projectId),
     );
 
-    await iterateComputeInstanceServiceAccounts({
-      context,
-      computeInstance,
-      computeInstanceEntity,
-    });
+    /**
+     * Google Cloud Docs ref:
+     *
+     * Only one service account per VM instance is supported. Service accounts
+     * generate access tokens that can be accessed through the metadata server and
+     * used to authenticate applications on the instance.
+     *
+     * NOTE: Regardless of the fact that the GCP docs explicitly mention that
+     * only a single SA is supported today, the value of `serviceAccounts` is
+     * an array, which means that they may support more than one in the future.
+     */
+    if (computeInstance.serviceAccounts?.length) {
+      computeInstanceKeyToServiceAccountDataMap.set(
+        computeInstanceEntity._key,
+        computeInstance.serviceAccounts,
+      );
+    }
 
     await iterateComputeInstanceDisks({
       jobState,
@@ -668,6 +651,54 @@ export async function fetchComputeInstances(
       }
     }
   });
+
+  await setComputeInstanceServiceAccountData(
+    jobState,
+    computeInstanceKeyToServiceAccountDataMap,
+  );
+}
+
+export async function buildComputeInstanceServiceAccountRelationships(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState } = context;
+  const computeInstanceServiceAccountData =
+    await getComputeInstanceServiceAccountData(jobState);
+
+  if (!computeInstanceServiceAccountData) {
+    // This should never happen because of the step dependency graph
+    context.logger.error(
+      'Compute instance and service account relationships attempted to be built before possible',
+    );
+    return;
+  }
+
+  for (const [
+    computeInstanceKey,
+    serviceAccountData,
+  ] of computeInstanceServiceAccountData) {
+    for (const { email, scopes } of serviceAccountData) {
+      const serviceAccountEntity = await jobState.findEntity(email!);
+
+      if (!serviceAccountEntity) {
+        // TODO: Should we create a mapped relationship here?
+        continue;
+      }
+
+      await jobState.addRelationship(
+        createDirectRelationship({
+          _class: RelationshipClass.TRUSTS,
+          fromKey: computeInstanceKey,
+          fromType: ENTITY_TYPE_COMPUTE_INSTANCE,
+          toKey: serviceAccountEntity._key,
+          toType: serviceAccountEntity._type,
+          properties: {
+            scopes: scopes && `[${scopes.join(',')}]`,
+          },
+        }),
+      );
+    }
+  }
 }
 
 export async function processFirewallRuleLists({
@@ -1439,12 +1470,27 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
     ],
     dependsOn: [
       STEP_COMPUTE_DISKS,
-      STEP_IAM_SERVICE_ACCOUNTS,
       STEP_COMPUTE_NETWORKS,
       STEP_COMPUTE_SUBNETWORKS,
       STEP_COMPUTE_INSTANCE_GROUPS,
     ],
     executionHandler: fetchComputeInstances,
+  },
+  {
+    id: STEP_COMPUTE_INSTANCE_SERVICE_ACCOUNT_RELATIONSHIPS,
+    name: 'Compute Instance Service Account Relationships',
+    entities: [],
+    relationships: [
+      {
+        _class: RelationshipClass.TRUSTS,
+        _type:
+          RELATIONSHIP_TYPE_GOOGLE_COMPUTE_INSTANCE_TRUSTS_IAM_SERVICE_ACCOUNT,
+        sourceType: ENTITY_TYPE_COMPUTE_INSTANCE,
+        targetType: IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
+      },
+    ],
+    dependsOn: [STEP_COMPUTE_INSTANCES, STEP_IAM_SERVICE_ACCOUNTS],
+    executionHandler: buildComputeInstanceServiceAccountRelationships,
   },
   {
     id: STEP_COMPUTE_PROJECT,
