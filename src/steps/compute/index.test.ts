@@ -1,4 +1,4 @@
-jest.setTimeout(60000);
+jest.setTimeout(120000);
 
 import {
   Recording,
@@ -346,7 +346,17 @@ describe('#fetchComputeInstances', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: {
+        ...integrationConfig,
+        serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+          'j1-gc-integration-dev-v2',
+          'j1-gc-integration-dev-v3',
+        ),
+        serviceAccountKeyConfig: {
+          ...integrationConfig.serviceAccountKeyConfig,
+          project_id: 'j1-gc-integration-dev-v3',
+        },
+      },
     });
 
     await fetchComputeInstanceGroups(context);
@@ -474,6 +484,10 @@ describe('#fetchComputeInstances', () => {
             type: 'array',
             items: { type: 'string' },
           },
+          serviceAccountEmails: {
+            type: 'array',
+            items: { type: 'string' },
+          },
         },
       },
     });
@@ -590,6 +604,10 @@ describe('#fetchComputeProject', () => {
             items: { type: 'string' },
           },
           privateIpAddress: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          serviceAccountEmails: {
             type: 'array',
             items: { type: 'string' },
           },

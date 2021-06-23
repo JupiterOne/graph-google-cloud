@@ -657,6 +657,9 @@ Object {
   ],
   "publicIpAddress": Array [],
   "secureBootEnabled": false,
+  "serviceAccountEmails": Array [
+    "j1-gc-integration-dev-v2-sa-tf@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
+  ],
   "startRestricted": false,
   "status": "RUNNING",
   "usesDefaultServiceAccount": false,
@@ -713,6 +716,9 @@ Object {
   ],
   "publicIpAddress": Array [],
   "secureBootEnabled": false,
+  "serviceAccountEmails": Array [
+    "j1-gc-integration-dev-v2-sa-tf@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
+  ],
   "startRestricted": false,
   "status": "SUSPENDED",
   "usesDefaultServiceAccount": false,
@@ -770,6 +776,9 @@ Object {
   ],
   "publicIpAddress": Array [],
   "secureBootEnabled": false,
+  "serviceAccountEmails": Array [
+    "j1-gc-integration-dev-v2-sa-tf@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
+  ],
   "startRestricted": false,
   "status": "RUNNING",
   "usesDefaultServiceAccount": false,
@@ -826,6 +835,9 @@ Object {
   ],
   "publicIpAddress": Array [],
   "secureBootEnabled": false,
+  "serviceAccountEmails": Array [
+    "j1-gc-integration-dev-v2-sa-tf@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
+  ],
   "startRestricted": false,
   "status": "RUNNING",
   "usesDefaultServiceAccount": false,

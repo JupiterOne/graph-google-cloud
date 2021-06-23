@@ -461,6 +461,7 @@ export function createComputeInstanceEntity(
         publicIpAddress: ipAddresses.publicIpAddresses,
         privateIpAddress: ipAddresses.privateIpAddresses,
         hostname: data.hostname,
+        serviceAccountEmails: data.serviceAccounts?.map((s) => s.email!),
         webLink: getGoogleCloudConsoleWebLink(
           `/compute/instancesDetail/zones/${zone}/instances/${data.name}?project=${projectId}`,
         ),

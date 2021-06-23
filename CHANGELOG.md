@@ -8,6 +8,20 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.43.0 - 2021-06-22
+
+### Changed
+
+- Refactor multiple steps to build relationships in a separate step
+
+### Added
+
+- New properties added to resources:
+
+  | Entity                    | Properties             |
+  | ------------------------- | ---------------------- |
+  | `google_compute_instance` | `serviceAccountEmails` |
+
 ## 0.42.0 - 2021-06-22
 
 ### Added

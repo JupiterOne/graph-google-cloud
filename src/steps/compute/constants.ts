@@ -1,5 +1,7 @@
 // Steps
 export const STEP_COMPUTE_INSTANCES = 'fetch-compute-instances';
+export const STEP_COMPUTE_INSTANCE_SERVICE_ACCOUNT_RELATIONSHIPS =
+  'build-compute-instance-service-account-relationships';
 export const STEP_COMPUTE_DISKS = 'fetch-compute-disks';
 export const STEP_COMPUTE_SNAPSHOTS = 'fetch-compute-snapshots';
 export const STEP_COMPUTE_SNAPSHOT_DISK_RELATIONSHIPS =
