@@ -353,7 +353,7 @@ Object {
         "DataStore",
         "Cluster",
       ],
-      "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-memcached-instance",
+      "_key": "memcached:projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-memcached-instance",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -438,16 +438,16 @@ Object {
   "collectedRelationships": Array [
     Object {
       "_class": "USES",
-      "_fromEntityKey": "projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-memcached-instance",
-      "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-memcached-instance|uses|https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/test-private-vpc-network",
+      "_fromEntityKey": "memcached:projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-memcached-instance",
+      "_key": "memcached:projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-memcached-instance|uses|https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/test-private-vpc-network",
       "_toEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/test-private-vpc-network",
       "_type": "google_memcache_instance_uses_compute_network",
       "displayName": "USES",
     },
     Object {
       "_class": "HAS",
-      "_fromEntityKey": "projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-memcached-instance",
-      "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-memcached-instance|has|projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-memcached-instance/node-c-1",
+      "_fromEntityKey": "memcached:projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-memcached-instance",
+      "_key": "memcached:projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-memcached-instance|has|projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-memcached-instance/node-c-1",
       "_toEntityKey": "projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-memcached-instance/node-c-1",
       "_type": "google_memcache_instance_has_node",
       "displayName": "HAS",

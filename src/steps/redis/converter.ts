@@ -15,7 +15,7 @@ export function createRedisInstanceEntity(
     entityData: {
       source: data,
       assign: {
-        _key: data.name as string,
+        _key: `redis:${data.name}`,
         _type: ENTITY_TYPE_REDIS_INSTANCE,
         _class: ENTITY_CLASS_REDIS_INSTANCE,
         name: data.name,

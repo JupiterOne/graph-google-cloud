@@ -8,6 +8,14 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.43.2 - 2021-06-24
+
+### Fixed
+
+- [#255](https://github.com/JupiterOne/graph-google-cloud/issues/255) - Ensure
+  that `google_redis_instance` and `google_memcache_instance` use unique `_key`
+  values
+
 ## 0.43.1 - 2021-06-23
 
 ### Fixed

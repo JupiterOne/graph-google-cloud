@@ -7,7 +7,7 @@ Object {
     "DataStore",
     "Host",
   ],
-  "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-redis-instance",
+  "_key": "redis:projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-redis-instance",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -62,7 +62,7 @@ Object {
     "DataStore",
     "Host",
   ],
-  "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-redis-instance",
+  "_key": "redis:projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-redis-instance",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -117,7 +117,7 @@ Object {
     "DataStore",
     "Host",
   ],
-  "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-redis-instance",
+  "_key": "redis:projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-redis-instance",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -173,7 +173,7 @@ Object {
     "DataStore",
     "Host",
   ],
-  "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-redis-instance",
+  "_key": "redis:projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-redis-instance",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -228,7 +228,7 @@ Object {
     "DataStore",
     "Host",
   ],
-  "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-redis-instance",
+  "_key": "redis:projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-redis-instance",
   "_rawData": Array [
     Object {
       "name": "default",
