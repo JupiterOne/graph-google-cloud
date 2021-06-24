@@ -77,6 +77,7 @@ all of the supported data into JupiterOne:
 | [Cloud Spanner](https://console.developers.google.com/apis/library/spanner.googleapis.com)                       | spanner.googleapis.com              |
 | [Certificate Authority](https://console.developers.google.com/apis/library/privateca.googleapis.com)             | privateca.googleapis.com            |
 | [Cloud Asset](https://console.developers.google.com/apis/library/cloudasset.googleapis.com)                      | cloudasset.googleapis.com           |
+| [Access Context Manager](https://console.developers.google.com/apis/library/accesscontextmanager.googleapis.com) | accesscontextmanager.googleapis.com |
 
 Google Cloud service APIs can be enabled using one of the following methods:
 
@@ -122,7 +123,8 @@ gcloud services enable \
   apigateway.googleapis.com \
   spanner.googleapis.com \
   privateca.googleapis.com \
-  cloudasset.googleapis.com
+  cloudasset.googleapis.com \
+  accesscontextmanager.googleapis.com
 ```
 
 #### Creating Google Cloud project service account
@@ -140,7 +142,7 @@ Google Cloud:
 - [`roles/iam.roleViewer`](https://cloud.google.com/iam/docs/understanding-roles#iam.roleViewer)
 - [`roles/bigquery.dataViewer`](https://cloud.google.com/iam/docs/understanding-roles#bigquery.dataViewer)
 
-Some optionally additional data may be ingested by the JupiterOne Google Cloud
+Some additional data may be optionally ingested by the JupiterOne Google Cloud
 integration by configuring a custom role with the following permissions:
 
 ```
