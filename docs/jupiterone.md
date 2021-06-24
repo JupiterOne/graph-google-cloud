@@ -138,6 +138,20 @@ Google Cloud:
 
 - [`roles/iam.securityReviewer`](https://cloud.google.com/iam/docs/understanding-roles#iam.securityReviewer)
 - [`roles/iam.roleViewer`](https://cloud.google.com/iam/docs/understanding-roles#iam.roleViewer)
+- [`roles/bigquery.dataViewer`](https://cloud.google.com/iam/docs/understanding-roles#bigquery.dataViewer)
+
+Some optionally additional data may be ingested by the JupiterOne Google Cloud
+integration by configuring a custom role with the following permissions:
+
+```
+appengine.applications.get
+binaryauthorization.policy.get
+compute.projects.get
+```
+
+See the
+[Google Cloud custom role documentation](https://cloud.google.com/iam/docs/creating-custom-roles#creating_a_custom_role)
+for additional information on how custom roles can be configured and assigned.
 
 NOTE: You may also create a service account using the
 [`gcloud` CLI](https://cloud.google.com/sdk/gcloud). There is documentation on
