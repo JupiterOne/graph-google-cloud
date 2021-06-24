@@ -7,7 +7,7 @@ Object {
     "DataStore",
     "Cluster",
   ],
-  "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-memcached-instance",
+  "_key": "memcached:projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-memcached-instance",
   "_rawData": Array [
     Object {
       "name": "default",

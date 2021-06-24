@@ -19,7 +19,7 @@ export function createMemcacheInstanceEntity(
     entityData: {
       source: withoutNodes,
       assign: {
-        _key: withoutNodes.name as string,
+        _key: `memcached:${withoutNodes.name}`,
         _type: ENTITY_TYPE_MEMCACHE_INSTANCE,
         _class: ENTITY_CLASS_MEMCACHE_INSTANCE,
         name: withoutNodes.name,

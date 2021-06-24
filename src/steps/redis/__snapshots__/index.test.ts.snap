@@ -353,7 +353,7 @@ Object {
         "DataStore",
         "Host",
       ],
-      "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-redis-instance",
+      "_key": "redis:projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-redis-instance",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -403,8 +403,8 @@ Object {
   "collectedRelationships": Array [
     Object {
       "_class": "USES",
-      "_fromEntityKey": "projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-redis-instance",
-      "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-redis-instance|uses|https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
+      "_fromEntityKey": "redis:projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-redis-instance",
+      "_key": "redis:projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-redis-instance|uses|https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
       "_toEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
       "_type": "google_redis_instance_uses_compute_network",
       "displayName": "USES",
