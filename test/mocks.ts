@@ -126,6 +126,40 @@ export function getMockComputeDisk(
   };
 }
 
+export function getMockComputeRegionDisk(
+  partial?: Partial<compute_v1.Schema$Disk>,
+): compute_v1.Schema$Disk {
+  return {
+    id: '123456789',
+    creationTimestamp: '2020-08-12T08:20:05.930-07:00',
+    name: 'my-region-disk',
+    sizeGb: '10',
+    region:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1',
+    status: 'READY',
+    selfLink:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/disks/my-region-disk',
+    sourceSnapshot:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/snapshots/my-snapshot',
+    sourceSnapshotId: '582017966438274022',
+    type: 'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/diskTypes/pd-ssd',
+    licenses: [
+      'https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-9-stretch',
+    ],
+    guestOsFeatures: [
+      {
+        type: 'VIRTIO_SCSI_MULTIQUEUE',
+      },
+    ],
+    lastAttachTimestamp: '2021-07-09T08:20:05.930-07:00',
+    labelFingerprint: '42WmSpB8rSM=',
+    licenseCodes: ['1000205'],
+    physicalBlockSizeBytes: '4096',
+    kind: 'compute#disk',
+    ...partial,
+  };
+}
+
 export function getMockComputeInstance(
   partial?: Partial<compute_v1.Schema$Instance>,
 ): compute_v1.Schema$Instance {
@@ -841,6 +875,45 @@ export function getMockBackendService(
   };
 }
 
+export function getMockRegionBackendService(
+  partial?: compute_v1.Schema$BackendService,
+): compute_v1.Schema$BackendService {
+  return {
+    id: '4177301228397716462',
+    creationTimestamp: '2021-07-02T11:37:53.945-07:00',
+    name: 'region-service',
+    description: '',
+    selfLink:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/backendServices/region-service',
+    backends: [
+      {
+        group:
+          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/instanceGroups/rbs-rigm',
+        balancingMode: 'UTILIZATION',
+        capacityScaler: 1,
+      },
+    ],
+    healthChecks: [
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/healthChecks/region-health-check',
+    ],
+    timeoutSec: 10,
+    port: 80,
+    protocol: 'HTTP',
+    fingerprint: 'awc17aRlLnY=',
+    portName: 'http',
+    sessionAffinity: 'NONE',
+    affinityCookieTtlSec: 0,
+    region:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1',
+    loadBalancingScheme: 'INTERNAL_MANAGED',
+    connectionDraining: {
+      drainingTimeoutSec: 0,
+    },
+    kind: 'compute#backendService',
+    ...partial,
+  };
+}
+
 export function getMockHealthCheck(
   partial?: compute_v1.Schema$HealthCheck,
 ): compute_v1.Schema$HealthCheck {
@@ -860,6 +933,32 @@ export function getMockHealthCheck(
     },
     selfLink:
       'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/healthChecks/health-check',
+    kind: 'compute#healthCheck',
+    ...partial,
+  };
+}
+
+export function getMockRegionHealthCheck(
+  partial?: compute_v1.Schema$HealthCheck,
+): compute_v1.Schema$HealthCheck {
+  return {
+    id: '1905105216322309484',
+    creationTimestamp: '2021-07-07T13:09:23.908-08:00',
+    name: 'region-health-check',
+    description: '',
+    checkIntervalSec: 10,
+    timeoutSec: 5,
+    unhealthyThreshold: 3,
+    healthyThreshold: 2,
+    type: 'TCP',
+    tcpHealthCheck: {
+      port: 80,
+      proxyHeader: 'NONE',
+    },
+    region:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1',
+    selfLink:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/healthChecks/forwarding-rule-example-hc',
     kind: 'compute#healthCheck',
     ...partial,
   };
@@ -889,6 +988,36 @@ export function getMockInstanceGroup(
     size: 1,
     subnetwork:
       'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default',
+    kind: 'compute#instanceGroup',
+    ...partial,
+  };
+}
+
+export function getMockRegionInstanceGroup(
+  partial?: compute_v1.Schema$InstanceGroup,
+): compute_v1.Schema$InstanceGroup {
+  return {
+    id: '1067593809144242719',
+    creationTimestamp: '2021-07-02T11:37:36.900-07:00',
+    name: 'rbs-rigm',
+    description:
+      "This instance group is controlled by Regional Instance Group Manager 'rbs-rigm'. To modify instances in this group, use the Regional Instance Group Manager API: https://cloud.google.com/compute/docs/reference/latest/regionInstanceGroupManagers",
+    namedPorts: [
+      {
+        name: 'http',
+        port: 80,
+      },
+    ],
+    network:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/rbs-net',
+    fingerprint: 'l9ccw0jwP90=',
+    selfLink:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/instanceGroups/rbs-rigm',
+    size: 1,
+    region:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1',
+    subnetwork:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/subnetworks/rbs-net-default',
     kind: 'compute#instanceGroup',
     ...partial,
   };
@@ -931,6 +1060,45 @@ export function getMockLoadBalancer(
   };
 }
 
+export function getMockRegionLoadBalancer(
+  partial?: compute_v1.Schema$UrlMap,
+): compute_v1.Schema$UrlMap {
+  return {
+    id: '1752343790922351813',
+    creationTimestamp: '2021-07-06T08:43:38.575-07:00',
+    name: 'region-load-balancer',
+    selfLink:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/urlMaps/region-load-balancer',
+    hostRules: [
+      {
+        hosts: ['mysite.com'],
+        pathMatcher: 'allpaths',
+      },
+    ],
+    pathMatchers: [
+      {
+        name: 'allpaths',
+        defaultService:
+          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/backendServices/region-backend-service-a',
+        pathRules: [
+          {
+            service:
+              'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/backendServices/region-backend-service-a',
+            paths: ['/*'],
+          },
+        ],
+      },
+    ],
+    defaultService:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/backendServices/region-backend-service-a',
+    fingerprint: 'pQIO2oOQZtQ=',
+    region:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1',
+    kind: 'compute#urlMap',
+    ...partial,
+  };
+}
+
 export function getMockTargetHttpProxy(
   partial?: compute_v1.Schema$TargetHttpProxy,
 ): compute_v1.Schema$TargetHttpProxy {
@@ -943,6 +1111,25 @@ export function getMockTargetHttpProxy(
     urlMap:
       'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/urlMaps/example-http-loadbalancer',
     fingerprint: 'XrJcBMxyGME=',
+    kind: 'compute#targetHttpProxy',
+    ...partial,
+  };
+}
+
+export function getMockRegionTargetHttpProxy(
+  partial?: compute_v1.Schema$TargetHttpProxy,
+): compute_v1.Schema$TargetHttpProxy {
+  return {
+    id: '8864379689692153049',
+    creationTimestamp: '2021-07-06T08:43:50.058-07:00',
+    name: 'region-target-http-proxy',
+    selfLink:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/targetHttpProxies/region-target-http-proxy',
+    urlMap:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/urlMaps/region-load-balancer',
+    region:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1',
+    fingerprint: 'NsugSa3Ddx8=',
     kind: 'compute#targetHttpProxy',
     ...partial,
   };
@@ -2124,6 +2311,99 @@ export function getMockServicePerimeterMethodSelector(
 ): accesscontextmanager_v1.Schema$MethodSelector {
   return {
     method: '*',
+    ...partial,
+  };
+}
+
+export function getMockComputeAddress(
+  partial?: Partial<compute_v1.Schema$Address>,
+): compute_v1.Schema$Address {
+  return {
+    id: '4228086364807763493',
+    creationTimestamp: '2021-05-21T05:34:18.344-07:00',
+    name: 'my-test-address',
+    description: '',
+    address: '35.224.103.156',
+    status: 'RESERVED',
+    region:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1',
+    selfLink:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/addresses/my-test-address',
+    networkTier: 'PREMIUM',
+    addressType: 'EXTERNAL',
+    kind: 'compute#address',
+    ...partial,
+  };
+}
+
+export function getMockComputeGlobalAddress(
+  partial?: Partial<compute_v1.Schema$Address>,
+): compute_v1.Schema$Address {
+  return {
+    id: '5882576143110385034',
+    creationTimestamp: '2021-07-07T04:43:33.648-07:00',
+    name: 'global-address-example',
+    description: '',
+    address: '100.100.100.105',
+    status: 'RESERVED',
+    selfLink:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/addresses/global-address-example',
+    networkTier: 'PREMIUM',
+    addressType: 'INTERNAL',
+    purpose: 'PRIVATE_SERVICE_CONNECT',
+    network:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/global-address-example-network',
+    kind: 'compute#address',
+    ...partial,
+  };
+}
+
+export function getMockComputeGlobalForwardingRule(
+  partial?: Partial<compute_v1.Schema$ForwardingRule>,
+): compute_v1.Schema$ForwardingRule {
+  return {
+    id: '1882786573381604777',
+    creationTimestamp: '2021-07-06T12:13:10.197-07:00',
+    name: 'global-forwarding-rule-example',
+    description: '',
+    IPAddress: '34.149.86.61',
+    IPProtocol: 'TCP',
+    portRange: '80-80',
+    target:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/targetHttpProxies/global-forwarding-rule-example-http-proxy',
+    selfLink:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/forwardingRules/global-forwarding-rule-example',
+    loadBalancingScheme: 'EXTERNAL',
+    networkTier: 'PREMIUM',
+    labelFingerprint: '42WmSpB8rSM=',
+    fingerprint: 'TcR6S3PkYpw=',
+    kind: 'compute#forwardingRule',
+    ...partial,
+  };
+}
+
+export function getMockComputeForwardingRule(
+  partial?: Partial<compute_v1.Schema$ForwardingRule>,
+): compute_v1.Schema$ForwardingRule {
+  return {
+    id: '8553404519655489244',
+    creationTimestamp: '2021-07-06T09:09:23.865-07:00',
+    name: 'forwarding-rule-example',
+    description: '',
+    region:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1',
+    IPAddress: '35.226.248.183',
+    IPProtocol: 'TCP',
+    portRange: '80-80',
+    selfLink:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/forwardingRules/forwarding-rule-example',
+    loadBalancingScheme: 'EXTERNAL',
+    backendService:
+      'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/backendServices/forwarding-rule-example-backend',
+    networkTier: 'PREMIUM',
+    labelFingerprint: '42WmSpB8rSM=',
+    fingerprint: 'a9razc1zgQg=',
+    kind: 'compute#forwardingRule',
     ...partial,
   };
 }

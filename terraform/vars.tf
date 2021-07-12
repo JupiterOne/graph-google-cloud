@@ -81,3 +81,28 @@ variable "enable_mysql_instance" {
   type = bool
   default = false
 }
+
+variable "enable_pubsub_example" {
+  type = bool
+  default = false
+}
+
+variable "enable_forwarding_rule_external_example" {
+  type = bool
+  default = false
+}
+
+variable "enable_forwarding_rule_internal_example" {
+  type = bool
+  default = false
+}
+
+variable "enable_global_forwarding_rule_example" {
+  type = bool
+  default = false
+}
+
+variable "enable_global_address_with_network_example" {
+  type = bool
+  default = false
+}

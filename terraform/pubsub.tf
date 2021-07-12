@@ -18,6 +18,7 @@ resource "google_kms_key_ring" "topic_key_ring" {
 }
 
 resource "google_pubsub_subscription" "example" {
+  count = var.enable_pubsub_example ? 1 : 0
   name  = "example-subscription"
   topic = google_pubsub_topic.example.name
 

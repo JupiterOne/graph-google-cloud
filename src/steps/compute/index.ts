@@ -30,6 +30,17 @@ import {
   createInstanceGroupNamedPortEntity,
   createComputeImageEntity,
   createComputeSnapshotEntity,
+  createComputeAddressEntity,
+  createComputeForwardingRuleEntity,
+  createRegionBackendServiceEntity,
+  createRegionInstanceGroupEntity,
+  createRegionHealthCheckEntity,
+  createComputeRegionDiskEntity,
+  createRegionLoadBalancerEntity,
+  createRegionTargetHttpsProxyEntity,
+  createRegionTargetHttpProxyEntity,
+  createComputeGlobalForwardingRuleEntity,
+  createComputeGlobalAddressEntity,
 } from './converters';
 import {
   STEP_COMPUTE_INSTANCES,
@@ -116,6 +127,64 @@ import {
   STEP_COMPUTE_NETWORK_PEERING_RELATIONSHIPS,
   RELATIONSHIP_TYPE_COMPUTE_NETWORK_CONNECTS_NETWORK,
   STEP_COMPUTE_INSTANCE_SERVICE_ACCOUNT_RELATIONSHIPS,
+  STEP_COMPUTE_ADDRESSES,
+  ENTITY_TYPE_COMPUTE_ADDRESS,
+  ENTITY_CLASS_COMPUTE_ADDRESS,
+  STEP_COMPUTE_FORWARDING_RULES,
+  ENTITY_TYPE_COMPUTE_FORWARDING_RULE,
+  ENTITY_CLASS_COMPUTE_FORWARDING_RULE,
+  STEP_COMPUTE_GLOBAL_FORWARDING_RULES,
+  ENTITY_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE,
+  ENTITY_CLASS_COMPUTE_GLOBAL_FORWARDING_RULE,
+  STEP_COMPUTE_REGION_BACKEND_SERVICES,
+  ENTITY_TYPE_COMPUTE_REGION_BACKEND_SERVICE,
+  ENTITY_CLASS_COMPUTE_REGION_BACKEND_SERVICE,
+  RELATIONSHIP_TYPE_REGION_BACKEND_SERVICE_HAS_REGION_INSTANCE_GROUP,
+  RELATIONSHIP_TYPE_REGION_BACKEND_SERVICE_HAS_HEALTH_CHECK,
+  STEP_COMPUTE_REGION_INSTANCE_GROUPS,
+  ENTITY_TYPE_COMPUTE_REGION_INSTANCE_GROUP,
+  ENTITY_CLASS_COMPUTE_REGION_INSTANCE_GROUP,
+  RELATIONSHIP_TYPE_REGION_INSTANCE_GROUP_HAS_NAMED_PORT,
+  STEP_COMPUTE_REGION_HEALTH_CHECKS,
+  ENTITY_TYPE_COMPUTE_REGION_HEALTH_CHECK,
+  ENTITY_CLASS_COMPUTE_REGION_HEALTH_CHECK,
+  RELATIONSHIP_TYPE_REGION_BACKEND_SERVICE_HAS_REGION_HEALTH_CHECK,
+  RELATIONSHIP_TYPE_REGION_BACKEND_SERVICE_HAS_INSTANCE_GROUP,
+  STEP_COMPUTE_REGION_DISKS,
+  ENTITY_TYPE_COMPUTE_REGION_DISK,
+  ENTITY_CLASS_COMPUTE_REGION_DISK,
+  RELATIONSHIP_TYPE_COMPUTE_REGION_DISK_USES_KMS_CRYPTO_KEY,
+  STEP_COMPUTE_REGION_LOADBALANCERS,
+  ENTITY_TYPE_COMPUTE_REGION_LOAD_BALANCER,
+  ENTITY_CLASS_COMPUTE_REGION_LOAD_BALANCER,
+  RELATIONSHIP_TYPE_REGION_LOAD_BALANCER_HAS_REGION_BACKEND_SERVICE,
+  STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES,
+  ENTITY_TYPE_COMPUTE_REGION_TARGET_HTTPS_PROXY,
+  ENTITY_CLASS_COMPUTE_REGION_TARGET_HTTPS_PROXY,
+  RELATIONSHIP_TYPE_REGION_LOAD_BALANCER_HAS_REGION_TARGET_HTTPS_PROXY,
+  ENTITY_TYPE_COMPUTE_REGION_TARGET_HTTP_PROXY,
+  ENTITY_CLASS_COMPUTE_REGION_TARGET_HTTP_PROXY,
+  STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES,
+  RELATIONSHIP_TYPE_REGION_LOAD_BALANCER_HAS_REGION_TARGET_HTTP_PROXY,
+  RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_REGION_BACKEND_SERVICE,
+  RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_SUBNETWORK,
+  RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_NETWORK,
+  RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_REGION_TARGET_HTTP_PROXY,
+  RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_REGION_TARGET_HTTPS_PROXY,
+  RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_BACKEND_SERVICE,
+  RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_SUBNETWORK,
+  RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_NETWORK,
+  RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_TARGET_HTTP_PROXY,
+  RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_TARGET_HTTPS_PROXY,
+  RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_USES_ADDRESS,
+  RELATIONSHIP_TYPE_COMPUTE_INSTANCE_USES_ADDRESS,
+  STEP_COMPUTE_GLOBAL_ADDRESSES,
+  ENTITY_TYPE_COMPUTE_GLOBAL_ADDRESS,
+  ENTITY_CLASS_COMPUTE_GLOBAL_ADDRESS,
+  RELATIONSHIP_TYPE_COMPUTE_SUBNETWORK_HAS_ADDRESS,
+  RELATIONSHIP_TYPE_COMPUTE_NETWORK_HAS_ADDRESS,
+  RELATIONSHIP_TYPE_COMPUTE_NETWORK_HAS_GLOBAL_ADDRESS,
+  RELATIONSHIP_TYPE_COMPUTE_SUBNETWORK_HAS_GLOBAL_ADDRESS,
 } from './constants';
 import { compute_v1 } from 'googleapis';
 import { INTERNET, RelationshipClass } from '@jupiterone/data-model';
@@ -319,6 +388,25 @@ async function buildComputeDiskUsesKmsKeyRelationship({
       }),
     );
   }
+}
+
+// Region disks can't use image as source (only snapshots)
+export async function fetchComputeRegionDisks(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, instance } = context;
+  const client = new ComputeClient({ config: instance.config });
+
+  await client.iterateComputeRegionDisks(async (disk) => {
+    const diskEntity = createComputeRegionDiskEntity(disk, client.projectId);
+    await jobState.addEntity(diskEntity);
+
+    await buildComputeDiskUsesKmsKeyRelationship({
+      jobState,
+      disk,
+      diskEntity,
+    });
+  });
 }
 
 export async function fetchComputeDisks(
@@ -820,6 +908,256 @@ export async function fetchComputeSubnetworks(
   });
 }
 
+export async function fetchComputeGlobalAddresses(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, instance } = context;
+  const client = new ComputeClient({ config: instance.config });
+
+  await client.iterateComputeGlobalAddresses(async (address) => {
+    const addressEntity = createComputeGlobalAddressEntity(
+      address,
+      client.projectId,
+    );
+    await jobState.addEntity(addressEntity);
+
+    // Subnetwork -> HAS -> Compute Address
+    if (address.subnetwork) {
+      const subnetworkEntity = await jobState.findEntity(address.subnetwork);
+      if (subnetworkEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.HAS,
+            from: subnetworkEntity,
+            to: addressEntity,
+          }),
+        );
+      }
+    }
+
+    // Network -> HAS -> Compute Address (might be redundant because Network -> HAS -> Subnetwork?)
+    if (address.network) {
+      const networkEntity = await jobState.findEntity(address.network);
+      if (networkEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.HAS,
+            from: networkEntity,
+            to: addressEntity,
+          }),
+        );
+      }
+    }
+  });
+}
+
+export async function fetchComputeAddresses(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, instance } = context;
+  const client = new ComputeClient({ config: instance.config });
+
+  await client.iterateComputeAddresses(async (address) => {
+    const addressEntity = createComputeAddressEntity(address, client.projectId);
+    await jobState.addEntity(addressEntity);
+
+    // Subnetwork -> HAS -> Compute Address
+    if (address.subnetwork) {
+      const subnetworkEntity = await jobState.findEntity(address.subnetwork);
+      if (subnetworkEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.HAS,
+            from: subnetworkEntity,
+            to: addressEntity,
+          }),
+        );
+      }
+    }
+
+    // Network -> HAS -> Compute Address (might be redundant because Network -> HAS -> Subnetwork?)
+    if (address.network) {
+      const networkEntity = await jobState.findEntity(address.network);
+      if (networkEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.HAS,
+            from: networkEntity,
+            to: addressEntity,
+          }),
+        );
+      }
+    }
+
+    // *Some* resource is using the address (address's users' array contains selfLinks)
+    // Right now we know (from examples) that those resources include: Instance, ForwardingRule (non-region type)
+    // There may be more, we can keep adding here
+    if (address.users) {
+      for (const user of address.users) {
+        const resourceUser = await jobState.findEntity(user);
+        if (resourceUser) {
+          await jobState.addRelationship(
+            createDirectRelationship({
+              _class: RelationshipClass.USES,
+              from: resourceUser,
+              to: addressEntity,
+            }),
+          );
+        }
+      }
+    }
+  });
+}
+
+// Depending on the load balancer and its tier, a forwarding rule is either global or regional.
+// Terraform calls it "google_compute_forwarding_rule" not "google_compute_region_forwarding_rule"
+// We're doing the same here
+export async function fetchComputeForwardingRules(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, instance } = context;
+  const client = new ComputeClient({ config: instance.config });
+
+  await client.iterateForwardingRules(async (forwardingRule) => {
+    const forwardingRuleEntity =
+      createComputeForwardingRuleEntity(forwardingRule);
+    await jobState.addEntity(forwardingRuleEntity);
+
+    // This is a *region* backend service
+    if (forwardingRule.backendService) {
+      const backendServiceEntity = await jobState.findEntity(
+        forwardingRule.backendService,
+      );
+      if (backendServiceEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.CONNECTS,
+            from: forwardingRuleEntity,
+            to: backendServiceEntity,
+          }),
+        );
+      }
+    }
+
+    if (forwardingRule.subnetwork) {
+      const subnetworkEntity = await jobState.findEntity(
+        forwardingRule.subnetwork,
+      );
+      if (subnetworkEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.CONNECTS,
+            from: forwardingRuleEntity,
+            to: subnetworkEntity,
+          }),
+        );
+      }
+    }
+
+    if (forwardingRule.network) {
+      const networkEntity = await jobState.findEntity(forwardingRule.network);
+      if (networkEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.CONNECTS,
+            from: forwardingRuleEntity,
+            to: networkEntity,
+          }),
+        );
+      }
+    }
+
+    // The target can be target proxy or target pool
+    // Future: We may need to expect proxy SSL type here too
+    // Future: We also may want to ingest google_compute_target_pool so that we can build a relationship with it here
+    if (forwardingRule.target) {
+      const targetEntity = await jobState.findEntity(forwardingRule.target);
+      if (targetEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.CONNECTS,
+            from: forwardingRuleEntity,
+            to: targetEntity,
+          }),
+        );
+      }
+    }
+  });
+}
+
+export async function fetchComputeGlobalForwardingRules(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, instance } = context;
+  const client = new ComputeClient({ config: instance.config });
+
+  await client.iterateGlobalForwardingRules(async (forwardingRule) => {
+    const forwardingRuleEntity =
+      createComputeGlobalForwardingRuleEntity(forwardingRule);
+    await jobState.addEntity(forwardingRuleEntity);
+
+    // Should be non-region backend service (requires more testing to be 100% sure)
+    if (forwardingRule.backendService) {
+      const backendServiceEntity = await jobState.findEntity(
+        forwardingRule.backendService,
+      );
+      if (backendServiceEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.CONNECTS,
+            from: forwardingRuleEntity,
+            to: backendServiceEntity,
+          }),
+        );
+      }
+    }
+
+    if (forwardingRule.subnetwork) {
+      const subnetworkEntity = await jobState.findEntity(
+        forwardingRule.subnetwork,
+      );
+      if (subnetworkEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.CONNECTS,
+            from: forwardingRuleEntity,
+            to: subnetworkEntity,
+          }),
+        );
+      }
+    }
+
+    if (forwardingRule.network) {
+      const networkEntity = await jobState.findEntity(forwardingRule.network);
+      if (networkEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.CONNECTS,
+            from: forwardingRuleEntity,
+            to: networkEntity,
+          }),
+        );
+      }
+    }
+
+    // The target can be target proxy or target pool
+    // Future: We may need to expect proxy SSL type here too
+    // Future: We also may want to ingest google_compute_target_pool so that we can build a relationship with it here
+    if (forwardingRule.target) {
+      const targetEntity = await jobState.findEntity(forwardingRule.target);
+      if (targetEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.CONNECTS,
+            from: forwardingRuleEntity,
+            to: targetEntity,
+          }),
+        );
+      }
+    }
+  });
+}
+
 export async function fetchComputeNetworks(
   context: IntegrationStepContext,
 ): Promise<void> {
@@ -923,15 +1261,81 @@ export async function buildComputeNetworkPeeringRelationships(
   }
 }
 
-export async function fetchHealthChecks(
+export async function fetchComputeHealthChecks(
   context: IntegrationStepContext,
 ): Promise<void> {
   const { jobState, instance } = context;
   const client = new ComputeClient({ config: instance.config });
 
   await client.iterateHealthChecks(async (healthCheck) => {
-    const healthCheckEntity = createHealthCheckEntity(healthCheck);
+    const healthCheckEntity = createHealthCheckEntity(
+      healthCheck,
+      client.projectId,
+    );
     await jobState.addEntity(healthCheckEntity);
+  });
+}
+
+export async function fetchComputeRegionHealthChecks(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, instance } = context;
+  const client = new ComputeClient({ config: instance.config });
+
+  await client.iterateRegionHealthChecks(async (healthCheck) => {
+    const healthCheckEntity = createRegionHealthCheckEntity(
+      healthCheck,
+      client.projectId,
+    );
+    await jobState.addEntity(healthCheckEntity);
+  });
+}
+
+export async function fetchComputeRegionInstanceGroups(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, instance } = context;
+  const client = new ComputeClient({ config: instance.config });
+  const { projectId } = client;
+
+  await client.iterateRegionInstanceGroups(async (regionInstanceGroup) => {
+    const regionName = parseRegionNameFromRegionUrl(
+      regionInstanceGroup.region!,
+    );
+
+    const regionInstanceGroupEntity = await jobState.addEntity(
+      createRegionInstanceGroupEntity(
+        regionInstanceGroup,
+        projectId,
+        regionName,
+      ),
+    );
+
+    for (const namedPort of regionInstanceGroup.namedPorts || []) {
+      // we could create a separate resource for this
+      // e.g. region_instance_group_named_port
+      // however Terraform doesn't have separate resource for this
+      // so right now we're just calling it instance_group_named_port
+      // and the Entity type for this is the same as the one found in
+      // fetchComputeInstanceGroups
+      const namedPortEntity = await jobState.addEntity(
+        createInstanceGroupNamedPortEntity({
+          instanceGroupId: regionInstanceGroup.id!,
+          instanceGroupName: regionInstanceGroup.name!,
+          namedPort,
+          projectId,
+          regionName,
+        }),
+      );
+
+      await jobState.addRelationship(
+        createDirectRelationship({
+          _class: RelationshipClass.HAS,
+          from: regionInstanceGroupEntity,
+          to: namedPortEntity,
+        }),
+      );
+    }
   });
 }
 
@@ -999,7 +1403,42 @@ function getBackendServices(
   return services;
 }
 
-export async function fetchLoadBalancers(
+export async function fetchComputeRegionLoadBalancers(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, instance } = context;
+  const client = new ComputeClient({ config: instance.config });
+
+  await client.iterateRegionLoadBalancers(async (loadBalancer) => {
+    const loadBalancerEntity = createRegionLoadBalancerEntity(loadBalancer);
+    await jobState.addEntity(loadBalancerEntity);
+
+    const backendServicesIds = getBackendServices(
+      loadBalancer.pathMatchers || [],
+      'backendServices',
+    );
+
+    // regionLoadbalancer -> HAS -> regionBackendService relationship
+    for (const backendServiceKey of backendServicesIds) {
+      const backendService = await jobState.findEntity(backendServiceKey);
+      if (backendService) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.HAS,
+            from: loadBalancerEntity,
+            to: backendService,
+          }),
+        );
+      }
+    }
+
+    // region backend buckets don't exists
+    // To be researched: can region loadbalancer have backend buckets (non-region ones)?
+    // Add regionLoadbalancer -> HAS -> backendBucket relationships
+  });
+}
+
+export async function fetchComputeLoadBalancers(
   context: IntegrationStepContext,
 ): Promise<void> {
   const { jobState, instance } = context;
@@ -1018,7 +1457,7 @@ export async function fetchLoadBalancers(
       'backendBuckets',
     );
 
-    // Add loadbalancer -> HAS -> backendService relationships
+    // loadbalancer -> HAS -> backendService relationships
     for (const backendServiceKey of backendServicesIds) {
       const backendService = await jobState.findEntity(backendServiceKey);
       if (backendService) {
@@ -1032,7 +1471,7 @@ export async function fetchLoadBalancers(
       }
     }
 
-    // Add loadbalancer -> HAS -> backendBucket relationships
+    // loadbalancer -> HAS -> backendBucket relationships
     for (const backendBucketKey of backendBucketsIds) {
       const backendBucket = await jobState.findEntity(backendBucketKey);
       if (backendBucket) {
@@ -1048,7 +1487,50 @@ export async function fetchLoadBalancers(
   });
 }
 
-export async function fetchBackendServices(
+export async function fetchComputeRegionBackendServices(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, instance } = context;
+  const client = new ComputeClient({ config: instance.config });
+
+  await client.iterateRegionBackendServices(async (regionBackendService) => {
+    const regionBackendServiceEntity =
+      createRegionBackendServiceEntity(regionBackendService);
+    await jobState.addEntity(regionBackendServiceEntity);
+
+    // Get all the instanceGroupKeys
+    for (const backend of regionBackendService.backends || []) {
+      if (backend.group?.includes('instanceGroups')) {
+        const instanceGroupEntity = await jobState.findEntity(backend.group);
+        if (instanceGroupEntity) {
+          await jobState.addRelationship(
+            createDirectRelationship({
+              _class: RelationshipClass.HAS,
+              from: regionBackendServiceEntity,
+              to: instanceGroupEntity,
+            }),
+          );
+        }
+      }
+    }
+
+    // Add relationships to health checks
+    for (const healthCheckKey of regionBackendService.healthChecks || []) {
+      const healthCheckEntity = await jobState.findEntity(healthCheckKey);
+      if (healthCheckEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.HAS,
+            from: regionBackendServiceEntity,
+            to: healthCheckEntity,
+          }),
+        );
+      }
+    }
+  });
+}
+
+export async function fetchComputeBackendServices(
   context: IntegrationStepContext,
 ): Promise<void> {
   const { jobState, instance } = context;
@@ -1090,7 +1572,7 @@ export async function fetchBackendServices(
   });
 }
 
-export async function fetchBackendBuckets(
+export async function fetchComputeBackendBuckets(
   context: IntegrationStepContext,
 ): Promise<void> {
   const { jobState, instance } = context;
@@ -1115,7 +1597,7 @@ export async function fetchBackendBuckets(
   });
 }
 
-export async function fetchTargetSslProxies(
+export async function fetchComputeTargetSslProxies(
   context: IntegrationStepContext,
 ): Promise<void> {
   const { jobState, instance } = context;
@@ -1144,7 +1626,33 @@ export async function fetchTargetSslProxies(
   });
 }
 
-export async function fetchTargetHttpsProxies(
+export async function fetchComputeRegionTargetHttpsProxies(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, instance } = context;
+  const client = new ComputeClient({ config: instance.config });
+
+  await client.iterateRegionTargetHttpsProxies(async (targetHttpsProxy) => {
+    const targetHttpsProxyEntity =
+      createRegionTargetHttpsProxyEntity(targetHttpsProxy);
+    await jobState.addEntity(targetHttpsProxyEntity);
+
+    const loadBalancerEntity = await jobState.findEntity(
+      targetHttpsProxy.urlMap as string,
+    );
+    if (loadBalancerEntity) {
+      await jobState.addRelationship(
+        createDirectRelationship({
+          _class: RelationshipClass.HAS,
+          from: loadBalancerEntity,
+          to: targetHttpsProxyEntity,
+        }),
+      );
+    }
+  });
+}
+
+export async function fetchComputeTargetHttpsProxies(
   context: IntegrationStepContext,
 ): Promise<void> {
   const { jobState, instance } = context;
@@ -1170,7 +1678,33 @@ export async function fetchTargetHttpsProxies(
   });
 }
 
-export async function fetchTargetHttpProxies(
+export async function fetchComputeRegionTargetHttpProxies(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, instance } = context;
+  const client = new ComputeClient({ config: instance.config });
+
+  await client.iterateRegionTargetHttpProxies(async (targetHttpProxy) => {
+    const targetHttpProxyEntity =
+      createRegionTargetHttpProxyEntity(targetHttpProxy);
+    await jobState.addEntity(targetHttpProxyEntity);
+
+    const loadBalancerEntity = await jobState.findEntity(
+      targetHttpProxy.urlMap as string,
+    );
+    if (loadBalancerEntity) {
+      await jobState.addRelationship(
+        createDirectRelationship({
+          _class: RelationshipClass.HAS,
+          from: loadBalancerEntity,
+          to: targetHttpProxyEntity,
+        }),
+      );
+    }
+  });
+}
+
+export async function fetchComputeTargetHttpProxies(
   context: IntegrationStepContext,
 ): Promise<void> {
   const { jobState, instance } = context;
@@ -1195,7 +1729,7 @@ export async function fetchTargetHttpProxies(
   });
 }
 
-export async function fetchSslPolicies(
+export async function fetchComputeSslPolicies(
   context: IntegrationStepContext,
 ): Promise<void> {
   const { jobState, instance } = context;
@@ -1273,6 +1807,187 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
     ],
     dependsOn: [STEP_COMPUTE_NETWORKS],
     executionHandler: buildComputeNetworkPeeringRelationships,
+  },
+  {
+    id: STEP_COMPUTE_ADDRESSES,
+    name: 'Compute Addresses',
+    entities: [
+      {
+        resourceName: 'Compute Address',
+        _type: ENTITY_TYPE_COMPUTE_ADDRESS,
+        _class: ENTITY_CLASS_COMPUTE_ADDRESS,
+      },
+    ],
+    relationships: [
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_COMPUTE_NETWORK_HAS_ADDRESS,
+        sourceType: ENTITY_TYPE_COMPUTE_NETWORK,
+        targetType: ENTITY_TYPE_COMPUTE_ADDRESS,
+      },
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_COMPUTE_SUBNETWORK_HAS_ADDRESS,
+        sourceType: ENTITY_TYPE_COMPUTE_SUBNETWORK,
+        targetType: ENTITY_TYPE_COMPUTE_ADDRESS,
+      },
+      {
+        _class: RelationshipClass.USES,
+        _type: RELATIONSHIP_TYPE_COMPUTE_INSTANCE_USES_ADDRESS,
+        sourceType: ENTITY_TYPE_COMPUTE_INSTANCE,
+        targetType: ENTITY_TYPE_COMPUTE_ADDRESS,
+      },
+      {
+        _class: RelationshipClass.USES,
+        _type: RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_USES_ADDRESS,
+        sourceType: ENTITY_TYPE_COMPUTE_FORWARDING_RULE,
+        targetType: ENTITY_TYPE_COMPUTE_ADDRESS,
+      },
+    ],
+    dependsOn: [
+      STEP_COMPUTE_NETWORKS,
+      STEP_COMPUTE_SUBNETWORKS,
+      STEP_COMPUTE_INSTANCES,
+      STEP_COMPUTE_FORWARDING_RULES,
+    ],
+    executionHandler: fetchComputeAddresses,
+  },
+  {
+    id: STEP_COMPUTE_GLOBAL_ADDRESSES,
+    name: 'Compute Global Addresses',
+    entities: [
+      {
+        resourceName: 'Compute Global Address',
+        _type: ENTITY_TYPE_COMPUTE_GLOBAL_ADDRESS,
+        _class: ENTITY_CLASS_COMPUTE_GLOBAL_ADDRESS,
+      },
+    ],
+    relationships: [
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_COMPUTE_NETWORK_HAS_GLOBAL_ADDRESS,
+        sourceType: ENTITY_TYPE_COMPUTE_NETWORK,
+        targetType: ENTITY_TYPE_COMPUTE_GLOBAL_ADDRESS,
+      },
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_COMPUTE_SUBNETWORK_HAS_GLOBAL_ADDRESS,
+        sourceType: ENTITY_TYPE_COMPUTE_SUBNETWORK,
+        targetType: ENTITY_TYPE_COMPUTE_GLOBAL_ADDRESS,
+      },
+    ],
+    dependsOn: [STEP_COMPUTE_NETWORKS, STEP_COMPUTE_SUBNETWORKS],
+    executionHandler: fetchComputeGlobalAddresses,
+  },
+  {
+    id: STEP_COMPUTE_FORWARDING_RULES,
+    name: 'Compute Forwarding Rules',
+    entities: [
+      {
+        resourceName: 'Compute Forwarding Rule',
+        _type: ENTITY_TYPE_COMPUTE_FORWARDING_RULE,
+        _class: ENTITY_CLASS_COMPUTE_FORWARDING_RULE,
+      },
+    ],
+    relationships: [
+      {
+        _class: RelationshipClass.CONNECTS,
+        _type:
+          RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_REGION_BACKEND_SERVICE,
+        sourceType: ENTITY_TYPE_COMPUTE_FORWARDING_RULE,
+        targetType: ENTITY_TYPE_COMPUTE_REGION_BACKEND_SERVICE,
+      },
+      {
+        _class: RelationshipClass.CONNECTS,
+        _type: RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_SUBNETWORK,
+        sourceType: ENTITY_TYPE_COMPUTE_FORWARDING_RULE,
+        targetType: ENTITY_TYPE_COMPUTE_SUBNETWORK,
+      },
+      {
+        _class: RelationshipClass.CONNECTS,
+        _type: RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_NETWORK,
+        sourceType: ENTITY_TYPE_COMPUTE_FORWARDING_RULE,
+        targetType: ENTITY_TYPE_COMPUTE_NETWORK,
+      },
+      {
+        _class: RelationshipClass.CONNECTS,
+        _type:
+          RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_REGION_TARGET_HTTP_PROXY,
+        sourceType: ENTITY_TYPE_COMPUTE_FORWARDING_RULE,
+        targetType: ENTITY_TYPE_COMPUTE_REGION_TARGET_HTTP_PROXY,
+      },
+      {
+        _class: RelationshipClass.CONNECTS,
+        _type:
+          RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_REGION_TARGET_HTTPS_PROXY,
+        sourceType: ENTITY_TYPE_COMPUTE_FORWARDING_RULE,
+        targetType: ENTITY_TYPE_COMPUTE_REGION_TARGET_HTTPS_PROXY,
+      },
+    ],
+    dependsOn: [
+      STEP_COMPUTE_REGION_BACKEND_SERVICES,
+      STEP_COMPUTE_NETWORKS,
+      STEP_COMPUTE_SUBNETWORKS,
+      STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES,
+      STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES,
+    ],
+    executionHandler: fetchComputeForwardingRules,
+  },
+  {
+    id: STEP_COMPUTE_GLOBAL_FORWARDING_RULES,
+    name: 'Compute Global Forwarding Rules',
+    entities: [
+      {
+        resourceName: 'Compute Global Forwarding Rule',
+        _type: ENTITY_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE,
+        _class: ENTITY_CLASS_COMPUTE_GLOBAL_FORWARDING_RULE,
+      },
+    ],
+    relationships: [
+      {
+        _class: RelationshipClass.CONNECTS,
+        _type:
+          RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_BACKEND_SERVICE,
+        sourceType: ENTITY_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE,
+        targetType: ENTITY_TYPE_COMPUTE_BACKEND_SERVICE,
+      },
+      {
+        _class: RelationshipClass.CONNECTS,
+        _type:
+          RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_SUBNETWORK,
+        sourceType: ENTITY_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE,
+        targetType: ENTITY_TYPE_COMPUTE_SUBNETWORK,
+      },
+      {
+        _class: RelationshipClass.CONNECTS,
+        _type:
+          RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_NETWORK,
+        sourceType: ENTITY_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE,
+        targetType: ENTITY_TYPE_COMPUTE_NETWORK,
+      },
+      {
+        _class: RelationshipClass.CONNECTS,
+        _type:
+          RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_TARGET_HTTP_PROXY,
+        sourceType: ENTITY_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE,
+        targetType: ENTITY_TYPE_COMPUTE_TARGET_HTTP_PROXY,
+      },
+      {
+        _class: RelationshipClass.CONNECTS,
+        _type:
+          RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_TARGET_HTTPS_PROXY,
+        sourceType: ENTITY_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE,
+        targetType: ENTITY_TYPE_COMPUTE_TARGET_HTTPS_PROXY,
+      },
+    ],
+    dependsOn: [
+      STEP_COMPUTE_BACKEND_SERVICES,
+      STEP_COMPUTE_NETWORKS,
+      STEP_COMPUTE_SUBNETWORKS,
+      STEP_COMPUTE_TARGET_HTTP_PROXIES,
+      STEP_COMPUTE_TARGET_HTTPS_PROXIES,
+    ],
+    executionHandler: fetchComputeGlobalForwardingRules,
   },
   {
     id: STEP_COMPUTE_FIREWALLS,
@@ -1359,6 +2074,27 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
       STEP_CLOUD_KMS_KEY_RINGS,
       STEP_COMPUTE_IMAGES,
     ],
+  },
+  {
+    id: STEP_COMPUTE_REGION_DISKS,
+    name: 'Compute Region Disks',
+    entities: [
+      {
+        resourceName: 'Compute Region Disk',
+        _type: ENTITY_TYPE_COMPUTE_REGION_DISK,
+        _class: ENTITY_CLASS_COMPUTE_REGION_DISK,
+      },
+    ],
+    relationships: [
+      {
+        _class: RelationshipClass.USES,
+        _type: RELATIONSHIP_TYPE_COMPUTE_REGION_DISK_USES_KMS_CRYPTO_KEY,
+        sourceType: ENTITY_TYPE_COMPUTE_REGION_DISK,
+        targetType: ENTITY_TYPE_KMS_KEY,
+      },
+    ],
+    executionHandler: fetchComputeRegionDisks,
+    dependsOn: [STEP_CLOUD_KMS_KEYS, STEP_CLOUD_KMS_KEY_RINGS],
   },
   {
     id: STEP_COMPUTE_SNAPSHOTS,
@@ -1525,7 +2261,47 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
     ],
     relationships: [],
     dependsOn: [],
-    executionHandler: fetchHealthChecks,
+    executionHandler: fetchComputeHealthChecks,
+  },
+  {
+    id: STEP_COMPUTE_REGION_HEALTH_CHECKS,
+    name: 'Compute Region Health Checks',
+    entities: [
+      {
+        resourceName: 'Compute Region Health Check',
+        _type: ENTITY_TYPE_COMPUTE_REGION_HEALTH_CHECK,
+        _class: ENTITY_CLASS_COMPUTE_REGION_HEALTH_CHECK,
+      },
+    ],
+    relationships: [],
+    dependsOn: [],
+    executionHandler: fetchComputeRegionHealthChecks,
+  },
+  {
+    id: STEP_COMPUTE_REGION_INSTANCE_GROUPS,
+    name: 'Compute Region Instance Groups',
+    entities: [
+      {
+        resourceName: 'Compute Region Instance Group',
+        _type: ENTITY_TYPE_COMPUTE_REGION_INSTANCE_GROUP,
+        _class: ENTITY_CLASS_COMPUTE_REGION_INSTANCE_GROUP,
+      },
+      {
+        resourceName: 'Compute Instance Group Named Port',
+        _type: ENTITY_TYPE_COMPUTE_INSTANCE_GROUP_NAMED_PORT,
+        _class: ENTITY_CLASS_COMPUTE_INSTANCE_GROUP_NAMED_PORT,
+      },
+    ],
+    relationships: [
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_REGION_INSTANCE_GROUP_HAS_NAMED_PORT,
+        sourceType: ENTITY_TYPE_COMPUTE_REGION_INSTANCE_GROUP,
+        targetType: ENTITY_TYPE_COMPUTE_INSTANCE_GROUP_NAMED_PORT,
+      },
+    ],
+    dependsOn: [],
+    executionHandler: fetchComputeRegionInstanceGroups,
   },
   {
     id: STEP_COMPUTE_INSTANCE_GROUPS,
@@ -1546,8 +2322,8 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
       {
         _class: RelationshipClass.HAS,
         _type: RELATIONSHIP_TYPE_INSTANCE_GROUP_HAS_NAMED_PORT,
-        sourceType: ENTITY_TYPE_COMPUTE_LOAD_BALANCER,
-        targetType: ENTITY_TYPE_COMPUTE_BACKEND_SERVICE,
+        sourceType: ENTITY_TYPE_COMPUTE_INSTANCE_GROUP,
+        targetType: ENTITY_TYPE_COMPUTE_INSTANCE_GROUP_NAMED_PORT,
       },
     ],
     dependsOn: [],
@@ -1578,7 +2354,29 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
       },
     ],
     dependsOn: [STEP_COMPUTE_BACKEND_SERVICES, STEP_COMPUTE_BACKEND_BUCKETS],
-    executionHandler: fetchLoadBalancers,
+    executionHandler: fetchComputeLoadBalancers,
+  },
+  {
+    id: STEP_COMPUTE_REGION_LOADBALANCERS,
+    name: 'Compute Region Load Balancers',
+    entities: [
+      {
+        resourceName: 'Compute Region Load Balancer',
+        _type: ENTITY_TYPE_COMPUTE_REGION_LOAD_BALANCER,
+        _class: ENTITY_CLASS_COMPUTE_REGION_LOAD_BALANCER,
+      },
+    ],
+    relationships: [
+      {
+        _class: RelationshipClass.HAS,
+        _type:
+          RELATIONSHIP_TYPE_REGION_LOAD_BALANCER_HAS_REGION_BACKEND_SERVICE,
+        sourceType: ENTITY_TYPE_COMPUTE_REGION_LOAD_BALANCER,
+        targetType: ENTITY_TYPE_COMPUTE_REGION_BACKEND_SERVICE,
+      },
+    ],
+    dependsOn: [STEP_COMPUTE_REGION_BACKEND_SERVICES],
+    executionHandler: fetchComputeRegionLoadBalancers,
   },
   {
     id: STEP_COMPUTE_BACKEND_SERVICES,
@@ -1605,7 +2403,52 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
       },
     ],
     dependsOn: [STEP_COMPUTE_INSTANCE_GROUPS, STEP_COMPUTE_HEALTH_CHECKS],
-    executionHandler: fetchBackendServices,
+    executionHandler: fetchComputeBackendServices,
+  },
+  {
+    id: STEP_COMPUTE_REGION_BACKEND_SERVICES,
+    name: 'Compute Region Backend Services',
+    entities: [
+      {
+        resourceName: 'Compute Region Backend Service',
+        _type: ENTITY_TYPE_COMPUTE_REGION_BACKEND_SERVICE,
+        _class: ENTITY_CLASS_COMPUTE_REGION_BACKEND_SERVICE,
+      },
+    ],
+    relationships: [
+      {
+        _class: RelationshipClass.HAS,
+        _type:
+          RELATIONSHIP_TYPE_REGION_BACKEND_SERVICE_HAS_REGION_INSTANCE_GROUP,
+        sourceType: ENTITY_TYPE_COMPUTE_REGION_BACKEND_SERVICE,
+        targetType: ENTITY_TYPE_COMPUTE_REGION_INSTANCE_GROUP,
+      },
+      // It seems region backend service can be connected with non-regional instance group too
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_REGION_BACKEND_SERVICE_HAS_INSTANCE_GROUP,
+        sourceType: ENTITY_TYPE_COMPUTE_REGION_BACKEND_SERVICE,
+        targetType: ENTITY_TYPE_COMPUTE_INSTANCE_GROUP,
+      },
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_REGION_BACKEND_SERVICE_HAS_REGION_HEALTH_CHECK,
+        sourceType: ENTITY_TYPE_COMPUTE_REGION_BACKEND_SERVICE,
+        targetType: ENTITY_TYPE_COMPUTE_REGION_HEALTH_CHECK,
+      },
+      // It seems region backend service can be connected with non-regional health check too
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_REGION_BACKEND_SERVICE_HAS_HEALTH_CHECK,
+        sourceType: ENTITY_TYPE_COMPUTE_REGION_BACKEND_SERVICE,
+        targetType: ENTITY_TYPE_COMPUTE_HEALTH_CHECK,
+      },
+    ],
+    dependsOn: [
+      STEP_COMPUTE_REGION_INSTANCE_GROUPS,
+      STEP_COMPUTE_REGION_HEALTH_CHECKS,
+    ],
+    executionHandler: fetchComputeRegionBackendServices,
   },
   {
     id: STEP_COMPUTE_BACKEND_BUCKETS,
@@ -1626,7 +2469,7 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
       },
     ],
     dependsOn: [STEP_CLOUD_STORAGE_BUCKETS],
-    executionHandler: fetchBackendBuckets,
+    executionHandler: fetchComputeBackendBuckets,
   },
   {
     id: STEP_COMPUTE_TARGET_SSL_PROXIES,
@@ -1647,7 +2490,7 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
       },
     ],
     dependsOn: [STEP_COMPUTE_BACKEND_SERVICES],
-    executionHandler: fetchTargetSslProxies,
+    executionHandler: fetchComputeTargetSslProxies,
   },
   {
     id: STEP_COMPUTE_TARGET_HTTPS_PROXIES,
@@ -1668,7 +2511,29 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
       },
     ],
     dependsOn: [STEP_COMPUTE_LOADBALANCERS],
-    executionHandler: fetchTargetHttpsProxies,
+    executionHandler: fetchComputeTargetHttpsProxies,
+  },
+  {
+    id: STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES,
+    name: 'Compute Region Target HTTPS Proxies',
+    entities: [
+      {
+        resourceName: 'Compute Region Target HTTPS Proxy',
+        _type: ENTITY_TYPE_COMPUTE_REGION_TARGET_HTTPS_PROXY,
+        _class: ENTITY_CLASS_COMPUTE_REGION_TARGET_HTTPS_PROXY,
+      },
+    ],
+    relationships: [
+      {
+        _class: RelationshipClass.HAS,
+        _type:
+          RELATIONSHIP_TYPE_REGION_LOAD_BALANCER_HAS_REGION_TARGET_HTTPS_PROXY,
+        sourceType: ENTITY_TYPE_COMPUTE_REGION_LOAD_BALANCER,
+        targetType: ENTITY_TYPE_COMPUTE_REGION_TARGET_HTTPS_PROXY,
+      },
+    ],
+    dependsOn: [STEP_COMPUTE_REGION_LOADBALANCERS],
+    executionHandler: fetchComputeRegionTargetHttpsProxies,
   },
   {
     id: STEP_COMPUTE_TARGET_HTTP_PROXIES,
@@ -1689,7 +2554,29 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
       },
     ],
     dependsOn: [STEP_COMPUTE_LOADBALANCERS],
-    executionHandler: fetchTargetHttpProxies,
+    executionHandler: fetchComputeTargetHttpProxies,
+  },
+  {
+    id: STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES,
+    name: 'Compute Region Target HTTP Proxies',
+    entities: [
+      {
+        resourceName: 'Compute Region Target HTTP Proxy',
+        _type: ENTITY_TYPE_COMPUTE_REGION_TARGET_HTTP_PROXY,
+        _class: ENTITY_CLASS_COMPUTE_REGION_TARGET_HTTP_PROXY,
+      },
+    ],
+    relationships: [
+      {
+        _class: RelationshipClass.HAS,
+        _type:
+          RELATIONSHIP_TYPE_REGION_LOAD_BALANCER_HAS_REGION_TARGET_HTTP_PROXY,
+        sourceType: ENTITY_TYPE_COMPUTE_REGION_LOAD_BALANCER,
+        targetType: ENTITY_TYPE_COMPUTE_REGION_TARGET_HTTP_PROXY,
+      },
+    ],
+    dependsOn: [STEP_COMPUTE_REGION_LOADBALANCERS],
+    executionHandler: fetchComputeRegionTargetHttpProxies,
   },
   {
     id: STEP_COMPUTE_SSL_POLICIES,
@@ -1719,6 +2606,6 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
       STEP_COMPUTE_TARGET_HTTPS_PROXIES,
       STEP_COMPUTE_TARGET_SSL_PROXIES,
     ],
-    executionHandler: fetchSslPolicies,
+    executionHandler: fetchComputeSslPolicies,
   },
 ];

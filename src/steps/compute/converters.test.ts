@@ -1,18 +1,28 @@
 import {
   createBackendBucketEntity,
   createBackendServiceEntity,
+  createComputeAddressEntity,
   createComputeDiskEntity,
   createComputeFirewallEntity,
+  createComputeForwardingRuleEntity,
+  createComputeGlobalAddressEntity,
+  createComputeGlobalForwardingRuleEntity,
   createComputeImageEntity,
   createComputeInstanceEntity,
   createComputeInstanceUsesComputeDiskRelationship,
   createComputeNetworkEntity,
   createComputeProjectEntity,
+  createComputeRegionDiskEntity,
   createComputeSubnetEntity,
   createFirewallRuleMappedRelationship,
   createHealthCheckEntity,
   createInstanceGroupEntity,
   createLoadBalancerEntity,
+  createRegionBackendServiceEntity,
+  createRegionHealthCheckEntity,
+  createRegionInstanceGroupEntity,
+  createRegionLoadBalancerEntity,
+  createRegionTargetHttpProxyEntity,
   createSslPolicyEntity,
   createTargetHttpProxyEntity,
   createTargetHttpsProxyEntity,
@@ -36,6 +46,16 @@ import {
   getMockTargetSslProxy,
   getMockSslPolicy,
   getMockComputeImage,
+  getMockComputeAddress,
+  getMockComputeRegionDisk,
+  getMockRegionHealthCheck,
+  getMockRegionLoadBalancer,
+  getMockRegionInstanceGroup,
+  getMockRegionBackendService,
+  getMockRegionTargetHttpProxy,
+  getMockComputeGlobalForwardingRule,
+  getMockComputeForwardingRule,
+  getMockComputeGlobalAddress,
 } from '../../../test/mocks';
 import { DEFAULT_INTEGRATION_CONFIG_PROJECT_ID } from '../../../test/config';
 import {
@@ -47,7 +67,10 @@ import { INTERNET } from '@jupiterone/data-model';
 describe('#createComputeDiskEntity', () => {
   test('should convert to entity', () => {
     expect(
-      createComputeDiskEntity(getMockComputeDisk(), 'j1-gc-integration-dev-v2'),
+      createComputeDiskEntity(
+        getMockComputeDisk(),
+        DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
+      ),
     ).toMatchSnapshot();
   });
 
@@ -55,7 +78,18 @@ describe('#createComputeDiskEntity', () => {
     expect(
       createComputeDiskEntity(
         getMockComputeDisk({ status: 'FAILED' }),
-        'j1-gc-integration-dev-v2',
+        DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
+      ),
+    ).toMatchSnapshot();
+  });
+});
+
+describe('#createComputeRegionDiskEntity', () => {
+  test('should convert to entity', () => {
+    expect(
+      createComputeRegionDiskEntity(
+        getMockComputeRegionDisk(),
+        'j1-gc-integration-dev-v3',
       ),
     ).toMatchSnapshot();
   });
@@ -188,6 +222,54 @@ describe('#createComputeProjectEntity', () => {
             kind: 'compute#metadata',
           },
         }),
+      ),
+    ).toMatchSnapshot();
+  });
+});
+
+describe('#createComputeAddressEntity', () => {
+  test('should convert to entity', () => {
+    expect(
+      createComputeAddressEntity(
+        getMockComputeAddress(),
+        DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
+      ),
+    ).toMatchSnapshot();
+  });
+
+  test('should have list of resources using the address if resources are using it', () => {
+    expect(
+      createComputeAddressEntity(
+        getMockComputeAddress({
+          users: [
+            'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/instance-custom-image',
+          ],
+        }),
+        DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
+      ),
+    ).toMatchSnapshot();
+  });
+});
+
+describe('#createComputeAddressEntity', () => {
+  test('should convert to entity', () => {
+    expect(
+      createComputeGlobalAddressEntity(
+        getMockComputeGlobalAddress(),
+        DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
+      ),
+    ).toMatchSnapshot();
+  });
+
+  test('should have list of resources using the address if resources are using it', () => {
+    expect(
+      createComputeAddressEntity(
+        getMockComputeAddress({
+          users: [
+            'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/instance-custom-image',
+          ],
+        }),
+        DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
       ),
     ).toMatchSnapshot();
   });
@@ -336,9 +418,45 @@ describe('#createBackendServiceEntity', () => {
   });
 });
 
+describe('#createRegionBackendServiceEntity', () => {
+  test('should convert to entity', () => {
+    expect(
+      createRegionBackendServiceEntity(getMockRegionBackendService()),
+    ).toMatchSnapshot();
+  });
+});
+
 describe('#createHealthCheckEntity', () => {
   test('should convert to entity', () => {
-    expect(createHealthCheckEntity(getMockHealthCheck())).toMatchSnapshot();
+    expect(
+      createHealthCheckEntity(
+        getMockHealthCheck(),
+        DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
+      ),
+    ).toMatchSnapshot();
+  });
+});
+
+describe('#createRegionHealthCheckEntity', () => {
+  test('should convert to entity', () => {
+    expect(
+      createRegionHealthCheckEntity(
+        getMockRegionHealthCheck(),
+        DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
+      ),
+    ).toMatchSnapshot();
+  });
+});
+
+describe('#createRegionInstanceGroupEntity', () => {
+  test('should convert to entity', () => {
+    expect(
+      createRegionInstanceGroupEntity(
+        getMockRegionInstanceGroup(),
+        DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
+        'us-central1',
+      ),
+    ).toMatchSnapshot();
   });
 });
 
@@ -347,16 +465,44 @@ describe('#createInstanceGroupEntity', () => {
     expect(
       createInstanceGroupEntity(
         getMockInstanceGroup(),
-        'j1-gc-integration-dev-v2',
-        'us-central1',
+        DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
+        'us-central1-a',
       ),
+    ).toMatchSnapshot();
+  });
+});
+
+describe('#createGlobalForwardingRuleEntity', () => {
+  test('should convert to entity', () => {
+    expect(
+      createComputeGlobalForwardingRuleEntity(
+        getMockComputeGlobalForwardingRule(),
+      ),
+    ).toMatchSnapshot();
+  });
+});
+
+describe('#createForwardingRuleEntity', () => {
+  test('should convert to entity', () => {
+    expect(
+      createComputeForwardingRuleEntity(getMockComputeForwardingRule()),
     ).toMatchSnapshot();
   });
 });
 
 describe('#createLoadBalancerEntity', () => {
   test('should convert to entity', () => {
-    expect(createLoadBalancerEntity(getMockLoadBalancer())).toMatchSnapshot();
+    expect(
+      createLoadBalancerEntity(getMockRegionLoadBalancer()),
+    ).toMatchSnapshot();
+  });
+});
+
+describe('#createRegionLoadBalancerEntity', () => {
+  test('should convert to entity', () => {
+    expect(
+      createRegionLoadBalancerEntity(getMockLoadBalancer()),
+    ).toMatchSnapshot();
   });
 });
 
@@ -368,7 +514,23 @@ describe('#createTargetHttpProxyEntity', () => {
   });
 });
 
+describe('#createRegionTargetHttpProxyEntity', () => {
+  test('should convert to entity', () => {
+    expect(
+      createRegionTargetHttpProxyEntity(getMockRegionTargetHttpProxy()),
+    ).toMatchSnapshot();
+  });
+});
+
 describe('#createTargetHttpsProxyEntity', () => {
+  test('should convert to entity', () => {
+    expect(
+      createTargetHttpsProxyEntity(getMockTargetHttpsProxy()),
+    ).toMatchSnapshot();
+  });
+});
+
+describe('#createRegionTargetHttpsProxyEntity', () => {
   test('should convert to entity', () => {
     expect(
       createTargetHttpsProxyEntity(getMockTargetHttpsProxy()),

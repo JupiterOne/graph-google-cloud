@@ -47,6 +47,17 @@ import {
   STEP_COMPUTE_SNAPSHOT_DISK_RELATIONSHIPS,
   STEP_COMPUTE_NETWORK_PEERING_RELATIONSHIPS,
   STEP_COMPUTE_INSTANCE_SERVICE_ACCOUNT_RELATIONSHIPS,
+  STEP_COMPUTE_ADDRESSES,
+  STEP_COMPUTE_FORWARDING_RULES,
+  STEP_COMPUTE_GLOBAL_FORWARDING_RULES,
+  STEP_COMPUTE_REGION_BACKEND_SERVICES,
+  STEP_COMPUTE_REGION_INSTANCE_GROUPS,
+  STEP_COMPUTE_REGION_HEALTH_CHECKS,
+  STEP_COMPUTE_REGION_DISKS,
+  STEP_COMPUTE_REGION_LOADBALANCERS,
+  STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES,
+  STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES,
+  STEP_COMPUTE_GLOBAL_ADDRESSES,
 } from './steps/compute';
 import { STEP_CLOUD_KMS_KEYS, STEP_CLOUD_KMS_KEY_RINGS } from './steps/kms';
 import {
@@ -233,6 +244,7 @@ export default async function getStepStartStates(
       ServiceUsageName.RESOURCE_MANAGER,
     ),
     [STEP_COMPUTE_DISKS]: createStepStartState(ServiceUsageName.COMPUTE),
+    [STEP_COMPUTE_REGION_DISKS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_IMAGES]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_SNAPSHOTS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_IMAGE_IMAGE_RELATIONSHIPS]: createStepStartState(
@@ -245,10 +257,23 @@ export default async function getStepStartStates(
     [STEP_COMPUTE_NETWORK_PEERING_RELATIONSHIPS]: createStepStartState(
       ServiceUsageName.COMPUTE,
     ),
+    [STEP_COMPUTE_ADDRESSES]: createStepStartState(ServiceUsageName.COMPUTE),
+    [STEP_COMPUTE_GLOBAL_ADDRESSES]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
+    [STEP_COMPUTE_FORWARDING_RULES]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
+    [STEP_COMPUTE_GLOBAL_FORWARDING_RULES]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
     [STEP_COMPUTE_FIREWALLS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_SUBNETWORKS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_PROJECT]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_HEALTH_CHECKS]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
+    [STEP_COMPUTE_REGION_HEALTH_CHECKS]: createStepStartState(
       ServiceUsageName.COMPUTE,
     ),
     [STEP_COMPUTE_INSTANCES]: createStepStartState(ServiceUsageName.COMPUTE),
@@ -258,10 +283,19 @@ export default async function getStepStartStates(
     [STEP_COMPUTE_INSTANCE_GROUPS]: createStepStartState(
       ServiceUsageName.COMPUTE,
     ),
+    [STEP_COMPUTE_REGION_INSTANCE_GROUPS]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
     [STEP_COMPUTE_LOADBALANCERS]: createStepStartState(
       ServiceUsageName.COMPUTE,
     ),
+    [STEP_COMPUTE_REGION_LOADBALANCERS]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
     [STEP_COMPUTE_BACKEND_SERVICES]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
+    [STEP_COMPUTE_REGION_BACKEND_SERVICES]: createStepStartState(
       ServiceUsageName.COMPUTE,
     ),
     [STEP_COMPUTE_BACKEND_BUCKETS]: createStepStartState(
@@ -273,7 +307,13 @@ export default async function getStepStartStates(
     [STEP_COMPUTE_TARGET_HTTPS_PROXIES]: createStepStartState(
       ServiceUsageName.COMPUTE,
     ),
+    [STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
     [STEP_COMPUTE_TARGET_HTTP_PROXIES]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
+    [STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES]: createStepStartState(
       ServiceUsageName.COMPUTE,
     ),
     [STEP_COMPUTE_SSL_POLICIES]: createStepStartState(ServiceUsageName.COMPUTE),

@@ -123,6 +123,18 @@ export async function iterateRegionZones(
 }
 
 /**
+ * Some Google Cloud services (e.g. Compute) are region specific. APIs may
+ * need to be invoked for just all the regions but not zones.
+ */
+export async function iterateRegions(
+  callback: (zone: string) => Promise<void>,
+) {
+  for (const region of googleCloudRegions) {
+    await callback(region.name); // e.g. us-central1
+  }
+}
+
+/**
  * Example:
  *
  * Input: 'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev/regions/asia-southeast1'
