@@ -379,9 +379,20 @@ export async function fetchComputeDisks(
             });
 
             return;
+          } else if (err.code === 404) {
+            // Case where the wanted public image is deprecated and cannot be found
+            image = {
+              // We need an unique id for the key
+              id: `${sourceImageProjectId}:${sourceImageName}:deprecated`,
+              name: sourceImageName,
+              // Converter already knows how to handle this
+              deprecated: {
+                state: 'DEPRECATED',
+              },
+            } as compute_v1.Schema$Image;
+          } else {
+            throw err;
           }
-
-          throw err;
         }
 
         if (image) {
