@@ -65,11 +65,9 @@ export interface IamUserEntityWithParsedMember {
 
 async function maybeFindIamUserEntityWithParsedMember({
   jobState,
-  projectId,
   member,
 }: {
   jobState: JobState;
-  projectId: string;
   member: string;
 }): Promise<IamUserEntityWithParsedMember> {
   const parsedMember = parseIamMember(member);
@@ -150,25 +148,24 @@ async function findOrCreateIamRoleEntity({
   );
 }
 
-async function buildIamUserRoleRelationship({
+export async function buildIamUserRoleRelationship({
   jobState,
+  member,
+  roleName,
   projectId,
-  data,
+  condition,
 }: {
   jobState: JobState;
-  projectId: string;
-  data: PolicyMemberBinding;
+  member: string;
+  roleName: string;
+  projectId?: string;
+  condition?: cloudresourcemanager_v3.Schema$Expr;
 }): Promise<Relationship | undefined> {
-  const roleName = data.binding.role as string;
   const iamUserEntityWithParsedMember =
     await maybeFindIamUserEntityWithParsedMember({
       jobState,
-      projectId,
-      member: data.member,
+      member,
     });
-
-  const bindingCondition: cloudresourcemanager_v3.Schema$Expr | undefined =
-    data.binding.condition;
 
   if (iamUserEntityWithParsedMember.userEntity) {
     // Create a direct relationship. This is a user entity that _only_ exists
@@ -182,7 +179,7 @@ async function buildIamUserRoleRelationship({
       iamUserEntity: iamUserEntityWithParsedMember.userEntity,
       iamRoleEntity,
       projectId,
-      condition: bindingCondition,
+      condition,
     });
   } else if (iamUserEntityWithParsedMember.parsedMember.type === 'group') {
     // Create a mapped relationship where the target entity is a google_user
@@ -197,7 +194,7 @@ async function buildIamUserRoleRelationship({
       iamRoleEntityKey: iamRoleEntity._key,
       iamUserEntityWithParsedMember,
       projectId,
-      condition: bindingCondition,
+      condition,
     });
   } else if (iamUserEntityWithParsedMember.parsedMember.type === 'user') {
     const iamRoleEntity = await findOrCreateIamRoleEntity({
@@ -210,7 +207,7 @@ async function buildIamUserRoleRelationship({
       iamRoleEntityKey: iamRoleEntity._key,
       iamUserEntityWithParsedMember,
       projectId,
-      condition: bindingCondition,
+      condition,
     });
   }
 }
@@ -394,15 +391,26 @@ export async function fetchResourceManagerIamPolicy(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
   const client = new ResourceManagerClient({ config });
   const relationships = new Set<string>();
 
   await client.iteratePolicyMemberBindings(async (data) => {
+    if (!data.binding.role) {
+      logger.warn(
+        { binding: data.binding },
+        'Unable to build relationships for binding. Binding does not have an associated role.',
+      );
+      return;
+    }
+
     const relationship = await buildIamUserRoleRelationship({
       jobState,
       projectId: client.projectId,
-      data,
+      member: data.member,
+      roleName: data.binding.role,
+      condition: data.binding.condition,
     });
 
     if (!relationship || relationships.has(relationship._key)) {

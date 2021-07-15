@@ -11,13 +11,23 @@ import { IntegrationStepContext } from '../../types';
 import { publishMissingPermissionEvent } from '../../utils/events';
 import { getProjectIdFromName } from '../../utils/jobState';
 import {
+  IAM_ROLE_ENTITY_CLASS,
   IAM_ROLE_ENTITY_TYPE,
   STEP_IAM_CUSTOM_ROLES,
   STEP_IAM_MANAGED_ROLES,
+  STEP_IAM_SERVICE_ACCOUNTS,
 } from '../iam';
-import { STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS } from '../resource-manager';
+import {
+  buildIamUserRoleRelationship,
+  STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
+} from '../resource-manager';
 import { CloudAssetClient } from './client';
-import { bindingEntities, CLOUD_ASSET_STEPS } from './constants';
+import {
+  bindingEntities,
+  BINDING_TARGET_RELATIONSHIPS,
+  CLOUD_ASSET_STEPS,
+  ROLE_TARGET_RELATIONSHIPS,
+} from './constants';
 import { buildIamBindingEntityKey, createIamBindingEntity } from './converters';
 
 export async function fetchIamBindings(
@@ -29,6 +39,7 @@ export async function fetchIamBindings(
 
   const bindingGraphKeySet = new Set<string>();
   const duplicateBindingGraphKeys: string[] = [];
+  const memberRelationshipKeys = new Set<string>();
 
   try {
     await client.iterateAllIamPolicies(context, async (policyResult) => {
@@ -63,6 +74,9 @@ export async function fetchIamBindings(
         const bindingEntity = await jobState.addEntity(
           createIamBindingEntity({ _key, projectId, binding, resource }),
         );
+
+        bindingGraphKeySet.add(_key);
+        iamBindingsCount++;
 
         if (binding.role) {
           const roleEntity = await jobState.findEntity(binding.role);
@@ -102,8 +116,34 @@ export async function fetchIamBindings(
           }
         }
 
-        bindingGraphKeySet.add(_key);
-        iamBindingsCount++;
+        if (binding.members?.length) {
+          if (!binding.role) {
+            logger.warn(
+              { binding },
+              'Unable to build relationships for binding. Binding does not have an associated role.',
+            );
+          } else {
+            for (const member of binding.members) {
+              const relationship = await buildIamUserRoleRelationship({
+                jobState,
+                projectId,
+                member,
+                roleName: binding.role,
+                condition: binding.condition,
+              });
+
+              if (
+                !relationship ||
+                memberRelationshipKeys.has(relationship._key)
+              ) {
+                continue;
+              }
+
+              await jobState.addRelationship(relationship);
+              memberRelationshipKeys.add(String(relationship._key));
+            }
+          }
+        }
       }
     });
   } catch (err) {
@@ -144,12 +184,33 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: CLOUD_ASSET_STEPS.BINDINGS,
     name: 'IAM Bindings',
-    entities: [bindingEntities.BINDINGS],
-    relationships: [],
+    entities: [
+      bindingEntities.BINDINGS,
+      {
+        resourceName: 'IAM Role',
+        _type: IAM_ROLE_ENTITY_TYPE,
+        _class: IAM_ROLE_ENTITY_CLASS,
+      },
+    ],
+    relationships: [
+      {
+        _class: RelationshipClass.USES,
+        _type: generateRelationshipType(
+          RelationshipClass.USES,
+          bindingEntities.BINDINGS._type,
+          IAM_ROLE_ENTITY_TYPE,
+        ),
+        sourceType: bindingEntities.BINDINGS._type,
+        targetType: IAM_ROLE_ENTITY_TYPE,
+      },
+      // ...BINDING_TARGET_RELATIONSHIPS,
+      ...ROLE_TARGET_RELATIONSHIPS,
+    ],
     dependsOn: [
       STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
       STEP_IAM_CUSTOM_ROLES,
       STEP_IAM_MANAGED_ROLES,
+      STEP_IAM_SERVICE_ACCOUNTS,
     ],
     executionHandler: fetchIamBindings,
   },

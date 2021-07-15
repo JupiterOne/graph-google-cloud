@@ -159,6 +159,9 @@ export default async function getStepStartStates(
 
   const organizationSteps = { disabled: !config.configureOrganizationProjects };
 
+  const isMasterInstance =
+    config.organizationId && config.configureOrganizationProjects;
+
   let enabledServiceNames: string[];
 
   try {
@@ -229,9 +232,9 @@ export default async function getStepStartStates(
     [STEP_IAM_CUSTOM_ROLES]: createStepStartState(ServiceUsageName.IAM),
     [STEP_IAM_MANAGED_ROLES]: createStepStartState(ServiceUsageName.IAM),
     [STEP_IAM_SERVICE_ACCOUNTS]: createStepStartState(ServiceUsageName.IAM),
-    [STEP_RESOURCE_MANAGER_IAM_POLICY]: createStepStartState(
-      ServiceUsageName.RESOURCE_MANAGER,
-    ),
+    [STEP_RESOURCE_MANAGER_IAM_POLICY]: isMasterInstance
+      ? { disabled: true }
+      : createStepStartState(ServiceUsageName.RESOURCE_MANAGER),
     [STEP_COMPUTE_DISKS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_IMAGES]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_SNAPSHOTS]: createStepStartState(ServiceUsageName.COMPUTE),

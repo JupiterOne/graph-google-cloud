@@ -38,7 +38,7 @@ function getConditionRelationshipProperties(
 export function createIamServiceAccountAssignedIamRoleRelationship(params: {
   iamUserEntity: Entity;
   iamRoleEntity: Entity;
-  projectId: string;
+  projectId?: string;
   condition?: cloudresourcemanager_v1.Schema$Expr;
 }): Relationship {
   return createDirectRelationship({
@@ -63,7 +63,7 @@ export function createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship
   targetEntityType: 'google_group' | 'google_user';
   iamRoleEntityKey: string;
   iamUserEntityWithParsedMember: IamUserEntityWithParsedMember;
-  projectId: string;
+  projectId?: string;
   condition?: cloudresourcemanager_v1.Schema$Expr;
 }): Relationship {
   const email = iamUserEntityWithParsedMember.parsedMember.identifier;
