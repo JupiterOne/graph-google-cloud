@@ -3,6 +3,7 @@ import {
   createMappedRelationship,
   generateRelationshipType,
   IntegrationStep,
+  Relationship,
   RelationshipClass,
   RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
@@ -18,15 +19,18 @@ import {
   STEP_IAM_SERVICE_ACCOUNTS,
 } from '../iam';
 import {
-  buildIamUserRoleRelationship,
+  buildIamTargetRelationship,
+  findOrCreateIamRoleEntity,
+  maybeFindIamUserEntityWithParsedMember,
+  shouldMakeTargetIamRelationships,
   STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
 } from '../resource-manager';
 import { CloudAssetClient } from './client';
 import {
   bindingEntities,
-  BINDING_TARGET_RELATIONSHIPS,
+  BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS,
   CLOUD_ASSET_STEPS,
-  ROLE_TARGET_RELATIONSHIPS,
+  PRINCIPAL_ASSIGNED_ROLE_RELATIONSHIPS,
 } from './constants';
 import { buildIamBindingEntityKey, createIamBindingEntity } from './converters';
 
@@ -124,23 +128,51 @@ export async function fetchIamBindings(
             );
           } else {
             for (const member of binding.members) {
-              const relationship = await buildIamUserRoleRelationship({
-                jobState,
-                projectId,
-                member,
-                roleName: binding.role,
-                condition: binding.condition,
-              });
+              const iamUserEntityWithParsedMember =
+                await maybeFindIamUserEntityWithParsedMember({
+                  jobState,
+                  member,
+                });
 
-              if (
-                !relationship ||
-                memberRelationshipKeys.has(relationship._key)
-              ) {
-                continue;
+              // eslint-disable-next-line no-inner-declarations
+              async function safeAddRelationship(relationship?: Relationship) {
+                if (
+                  relationship &&
+                  !memberRelationshipKeys.has(relationship._key)
+                ) {
+                  await jobState.addRelationship(relationship);
+                  memberRelationshipKeys.add(String(relationship._key));
+                }
               }
 
-              await jobState.addRelationship(relationship);
-              memberRelationshipKeys.add(String(relationship._key));
+              if (
+                shouldMakeTargetIamRelationships(iamUserEntityWithParsedMember)
+              ) {
+                await safeAddRelationship(
+                  buildIamTargetRelationship({
+                    iamEntity: bindingEntity,
+                    projectId,
+                    iamUserEntityWithParsedMember,
+                    condition: binding.condition,
+                    relationshipDirection: RelationshipDirection.FORWARD,
+                  }),
+                );
+
+                if (binding.role) {
+                  const iamRoleEntity = await findOrCreateIamRoleEntity({
+                    jobState,
+                    roleName: binding.role,
+                  });
+                  await safeAddRelationship(
+                    buildIamTargetRelationship({
+                      iamEntity: iamRoleEntity,
+                      projectId,
+                      iamUserEntityWithParsedMember,
+                      condition: binding.condition,
+                    }),
+                  );
+                }
+              }
             }
           }
         }
@@ -203,8 +235,8 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
         sourceType: bindingEntities.BINDINGS._type,
         targetType: IAM_ROLE_ENTITY_TYPE,
       },
-      // ...BINDING_TARGET_RELATIONSHIPS,
-      ...ROLE_TARGET_RELATIONSHIPS,
+      ...BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS,
+      ...PRINCIPAL_ASSIGNED_ROLE_RELATIONSHIPS,
     ],
     dependsOn: [
       STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,

@@ -413,11 +413,10 @@ The following relationships are created/mapped:
 | `google_container_node_pool`                                     | **HAS**               | `google_compute_instance_group`                                   |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_project`                                            |
 | `google_group`                                                   | **ASSIGNED**          | `google_iam_role`                                                 |
+| `google_iam_binding`                                             | **ASSIGNED**          | `google_group`                                                    |
+| `google_iam_binding`                                             | **ASSIGNED**          | `google_iam_service_account`                                      |
+| `google_iam_binding`                                             | **ASSIGNED**          | `google_user`                                                     |
 | `google_iam_binding`                                             | **USES**              | `google_iam_role`                                                 |
-| `google_iam_role`                                                | **ASSIGNED**          | `google_domain`                                                   |
-| `google_iam_role`                                                | **ASSIGNED**          | `google_group`                                                    |
-| `google_iam_role`                                                | **ASSIGNED**          | `google_iam_service_account`                                      |
-| `google_iam_role`                                                | **ASSIGNED**          | `google_user`                                                     |
 | `google_iam_service_account`                                     | **ASSIGNED**          | `google_iam_role`                                                 |
 | `google_iam_service_account`                                     | **CREATED**           | `google_app_engine_version`                                       |
 | `google_iam_service_account`                                     | **HAS**               | `google_iam_service_account_key`                                  |

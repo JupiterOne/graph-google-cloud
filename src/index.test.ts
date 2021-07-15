@@ -238,7 +238,7 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_RESOURCE_MANAGER_IAM_POLICY]: {
-        disabled: false,
+        disabled: true,
       },
       [STEP_COMPUTE_DISKS]: {
         disabled: false,
@@ -479,6 +479,9 @@ describe('#getStepStartStates success', () => {
       },
       [STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS]: {
         disabled: true,
+      },
+      [STEP_RESOURCE_MANAGER_IAM_POLICY]: {
+        disabled: false,
       },
     });
   });

@@ -9,6 +9,7 @@ import {
   fetchResourceManagerFolders,
   fetchResourceManagerOrganization,
 } from '../resource-manager';
+import { fetchIamManagedRoles } from '../iam';
 
 describe('#fetchIamBindings', () => {
   test('should collect data', async () => {
@@ -20,6 +21,7 @@ describe('#fetchIamBindings', () => {
       await fetchResourceManagerOrganization(context);
       await fetchResourceManagerFolders(context);
       await buildOrgFolderProjectMappedRelationships(context);
+      await fetchIamManagedRoles(context);
       await fetchIamBindings(context);
 
       expect({

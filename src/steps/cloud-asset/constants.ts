@@ -22,54 +22,54 @@ export const bindingEntities = {
   },
 };
 
-const IAM_TARGET_TYPES = [
-  'google_domain', // Don't know what to do with this yet
+const IAM_PRINCIPAL_TYPES = [
+  // 'google_domain', // These are getting ignored for now
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
   GOOGLE_GROUP_ENTITY_TYPE,
   GOOGLE_USER_ENTITY_TYPE,
 ];
 
-export const BINDING_TARGET_RELATIONSHIPS = IAM_TARGET_TYPES.map(
-  (targetType) => {
+export const BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS = IAM_PRINCIPAL_TYPES.map(
+  (principalType) => {
     return {
       _type: generateRelationshipType(
         RelationshipClass.ASSIGNED,
         bindingEntities.BINDINGS._type,
-        targetType,
+        principalType,
       ),
       sourceType: bindingEntities.BINDINGS._type,
       _class: RelationshipClass.ASSIGNED,
-      targetType,
+      targetType: principalType,
     };
   },
 );
 
-export const ROLE_TARGET_RELATIONSHIPS = IAM_TARGET_TYPES.map((targetType) => {
-  return {
-    _type: generateRelationshipType(
-      RelationshipClass.ASSIGNED,
-      IAM_ROLE_ENTITY_TYPE,
-      targetType,
-    ),
-    sourceType: IAM_ROLE_ENTITY_TYPE,
-    _class: RelationshipClass.ASSIGNED,
-    targetType,
-  };
-});
-
-export const bindingRelationships = {
-  /**
-   * IAM policies can target any resource in Google Cloud. Because we do not ingest every resource,
-   * we have chosen, instead, to represent the relationship as IAM Binding assigned to ANY_RESOURCE.
-   */
-  BINDING_ASSIGNED_ANY_RESOURCE: {
-    _type: generateRelationshipType(
-      RelationshipClass.ASSIGNED,
-      bindingEntities.BINDINGS._type,
-      ANY_RESOURCE,
-    ),
-    sourceType: bindingEntities.BINDINGS._type,
-    _class: RelationshipClass.ASSIGNED,
-    targetType: ANY_RESOURCE,
+export const PRINCIPAL_ASSIGNED_ROLE_RELATIONSHIPS = IAM_PRINCIPAL_TYPES.map(
+  (principalType) => {
+    return {
+      _type: generateRelationshipType(
+        RelationshipClass.ASSIGNED,
+        principalType,
+        IAM_ROLE_ENTITY_TYPE,
+      ),
+      sourceType: principalType,
+      _class: RelationshipClass.ASSIGNED,
+      targetType: IAM_ROLE_ENTITY_TYPE,
+    };
   },
+);
+
+/**
+ * IAM policies can target any resource in Google Cloud. Because we do not ingest every resource,
+ * we have chosen, instead, to represent the relationship as IAM Binding assigned to ANY_RESOURCE.
+ */
+export const BINDING_ASSIGNED_ANY_RESOURCE_RELATIONSHIP = {
+  _type: generateRelationshipType(
+    RelationshipClass.ASSIGNED,
+    bindingEntities.BINDINGS._type,
+    ANY_RESOURCE,
+  ),
+  sourceType: bindingEntities.BINDINGS._type,
+  _class: RelationshipClass.ASSIGNED,
+  targetType: ANY_RESOURCE,
 };

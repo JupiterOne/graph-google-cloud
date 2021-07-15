@@ -1,7 +1,5 @@
 import { cloudresourcemanager_v1, cloudresourcemanager_v3 } from 'googleapis';
 import {
-  Entity,
-  createDirectRelationship,
   Relationship,
   RelationshipClass,
   parseTimePropertyValue,
@@ -24,7 +22,7 @@ import { IamUserEntityWithParsedMember } from '.';
 import { IAM_ROLE_ENTITY_TYPE } from '../iam';
 import { getGoogleCloudConsoleWebLink } from '../../utils/url';
 
-function getConditionRelationshipProperties(
+export function getConditionRelationshipProperties(
   condition: cloudresourcemanager_v1.Schema$Expr,
 ) {
   return {
@@ -35,34 +33,18 @@ function getConditionRelationshipProperties(
   };
 }
 
-export function createIamServiceAccountAssignedIamRoleRelationship(params: {
-  iamUserEntity: Entity;
-  iamRoleEntity: Entity;
-  projectId?: string;
-  condition?: cloudresourcemanager_v1.Schema$Expr;
-}): Relationship {
-  return createDirectRelationship({
-    _class: RelationshipClass.ASSIGNED,
-    from: params.iamUserEntity,
-    to: params.iamRoleEntity,
-    properties: {
-      projectId: params.projectId,
-      ...(params.condition &&
-        getConditionRelationshipProperties(params.condition)),
-    },
-  });
-}
-
 export function createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship({
   targetEntityType,
-  iamRoleEntityKey,
+  iamEntityKey,
   iamUserEntityWithParsedMember,
+  relationshipDirection,
   projectId,
   condition,
 }: {
   targetEntityType: 'google_group' | 'google_user';
-  iamRoleEntityKey: string;
+  iamEntityKey: string;
   iamUserEntityWithParsedMember: IamUserEntityWithParsedMember;
+  relationshipDirection: RelationshipDirection;
   projectId?: string;
   condition?: cloudresourcemanager_v1.Schema$Expr;
 }): Relationship {
@@ -80,8 +62,8 @@ export function createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship
   return createMappedRelationship({
     _class: RelationshipClass.ASSIGNED,
     _mapping: {
-      relationshipDirection: RelationshipDirection.REVERSE,
-      sourceEntityKey: iamRoleEntityKey,
+      relationshipDirection: relationshipDirection,
+      sourceEntityKey: iamEntityKey,
       targetFilterKeys: [['_type', 'email']],
       skipTargetCreation: false,
       targetEntity: {
@@ -100,7 +82,7 @@ export function createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship
       _key: generateRelationshipKey(
         RelationshipClass.ASSIGNED,
         email,
-        iamRoleEntityKey,
+        iamEntityKey,
       ),
       projectId: projectId,
       ...(condition && getConditionRelationshipProperties(condition)),
