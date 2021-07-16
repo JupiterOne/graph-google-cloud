@@ -172,6 +172,7 @@ describe('#processFirewallRuleRelationshipTargets', () => {
     };
 
     await processFirewallRuleRelationshipTargets({
+      ruleIndex: 0,
       rule,
       ipRanges: ['0.0.0.0/0'],
       callback: cb,
@@ -188,6 +189,8 @@ describe('#processFirewallRuleRelationshipTargets', () => {
         ipRange: '0.0.0.0/0',
         protocol: 'tcp',
         ipProtocol: 'tcp',
+        ruleIndex: 0,
+        protocolIndex: 0,
       },
     });
 
@@ -201,6 +204,8 @@ describe('#processFirewallRuleRelationshipTargets', () => {
         ipRange: '0.0.0.0/0',
         protocol: 'tcp',
         ipProtocol: 'tcp',
+        ruleIndex: 0,
+        protocolIndex: 1,
       },
     });
   });

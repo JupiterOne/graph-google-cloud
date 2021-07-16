@@ -724,8 +724,9 @@ export async function processFirewallRuleLists({
   const ipRanges = getFirewallIpRanges(firewall);
   const relationshipDirection = getFirewallRelationshipDirection(firewall);
 
-  for (const rule of firewall.allowed || []) {
+  for (const [ruleIndex, rule] of (firewall.allowed || []).entries()) {
     await processFirewallRuleRelationshipTargets({
+      ruleIndex,
       rule,
       ipRanges,
       callback: async (processedRuleTarget) => {
@@ -741,8 +742,9 @@ export async function processFirewallRuleLists({
     });
   }
 
-  for (const rule of firewall.denied || []) {
+  for (const [ruleIndex, rule] of (firewall.denied || []).entries()) {
     await processFirewallRuleRelationshipTargets({
+      ruleIndex,
       rule,
       ipRanges,
       callback: async (processedRuleTarget) => {
