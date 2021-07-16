@@ -198,7 +198,7 @@ export function buildIamTargetRelationship({
     // that the Google Workspace integration technically owns.
     return createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship({
       targetEntityType: GOOGLE_GROUP_ENTITY_TYPE,
-      iamEntityKey: iamEntity._key,
+      iamEntity: iamEntity,
       iamUserEntityWithParsedMember,
       relationshipDirection,
       projectId,
@@ -207,7 +207,7 @@ export function buildIamTargetRelationship({
   } else if (iamUserEntityWithParsedMember.parsedMember.type === 'user') {
     return createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship({
       targetEntityType: GOOGLE_USER_ENTITY_TYPE,
-      iamEntityKey: iamEntity._key,
+      iamEntity: iamEntity,
       iamUserEntityWithParsedMember,
       relationshipDirection,
       projectId,

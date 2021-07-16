@@ -8,6 +8,7 @@ import {
   generateRelationshipType,
   generateRelationshipKey,
   IntegrationError,
+  Entity,
 } from '@jupiterone/integration-sdk-core';
 import {
   PROJECT_ENTITY_TYPE,
@@ -19,7 +20,6 @@ import {
 } from './constants';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import { IamUserEntityWithParsedMember } from '.';
-import { IAM_ROLE_ENTITY_TYPE } from '../iam';
 import { getGoogleCloudConsoleWebLink } from '../../utils/url';
 
 export function getConditionRelationshipProperties(
@@ -35,14 +35,14 @@ export function getConditionRelationshipProperties(
 
 export function createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship({
   targetEntityType,
-  iamEntityKey,
+  iamEntity,
   iamUserEntityWithParsedMember,
   relationshipDirection,
   projectId,
   condition,
 }: {
   targetEntityType: 'google_group' | 'google_user';
-  iamEntityKey: string;
+  iamEntity: Entity;
   iamUserEntityWithParsedMember: IamUserEntityWithParsedMember;
   relationshipDirection: RelationshipDirection;
   projectId?: string;
@@ -59,11 +59,14 @@ export function createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship
     });
   }
 
+  const iamEntityToTargetRelationship =
+    relationshipDirection === RelationshipDirection.FORWARD;
+
   return createMappedRelationship({
     _class: RelationshipClass.ASSIGNED,
     _mapping: {
       relationshipDirection: relationshipDirection,
-      sourceEntityKey: iamEntityKey,
+      sourceEntityKey: iamEntity._key,
       targetFilterKeys: [['_type', 'email']],
       skipTargetCreation: false,
       targetEntity: {
@@ -76,13 +79,13 @@ export function createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship
     properties: {
       _type: generateRelationshipType(
         RelationshipClass.ASSIGNED,
-        targetEntityType,
-        IAM_ROLE_ENTITY_TYPE,
+        iamEntityToTargetRelationship ? iamEntity._type : targetEntityType,
+        iamEntityToTargetRelationship ? targetEntityType : iamEntity._type,
       ),
       _key: generateRelationshipKey(
         RelationshipClass.ASSIGNED,
-        email,
-        iamEntityKey,
+        iamEntityToTargetRelationship ? iamEntity._key : email,
+        iamEntityToTargetRelationship ? email : iamEntity._key,
       ),
       projectId: projectId,
       ...(condition && getConditionRelationshipProperties(condition)),
