@@ -45,6 +45,13 @@ export async function fetchIamBindings(
   const duplicateBindingGraphKeys: string[] = [];
   const memberRelationshipKeys = new Set<string>();
 
+  async function safeAddRelationship(relationship?: Relationship) {
+    if (relationship && !memberRelationshipKeys.has(relationship._key)) {
+      await jobState.addRelationship(relationship);
+      memberRelationshipKeys.add(String(relationship._key));
+    }
+  }
+
   try {
     await client.iterateAllIamPolicies(context, async (policyResult) => {
       const resource = policyResult.resource;
@@ -133,17 +140,6 @@ export async function fetchIamBindings(
                   jobState,
                   member,
                 });
-
-              // eslint-disable-next-line no-inner-declarations
-              async function safeAddRelationship(relationship?: Relationship) {
-                if (
-                  relationship &&
-                  !memberRelationshipKeys.has(relationship._key)
-                ) {
-                  await jobState.addRelationship(relationship);
-                  memberRelationshipKeys.add(String(relationship._key));
-                }
-              }
 
               if (
                 shouldMakeTargetIamRelationships(iamUserEntityWithParsedMember)
