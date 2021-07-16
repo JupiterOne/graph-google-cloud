@@ -251,7 +251,6 @@ export async function withRecording(
     directory: directoryName,
     name: recordingName,
     options: {
-      recordFailedRequests: true,
       ...(options || {}),
     },
   });

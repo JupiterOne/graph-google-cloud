@@ -215,13 +215,7 @@ export const iamSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_IAM_MANAGED_ROLES,
     name: 'Identity and Access Management (IAM) Managed Roles',
-    entities: [
-      {
-        resourceName: 'IAM Managed Role',
-        _type: IAM_ROLE_ENTITY_TYPE,
-        _class: IAM_ROLE_ENTITY_CLASS,
-      },
-    ],
+    entities: [],
     relationships: [],
     executionHandler: fetchIamManagedRoles,
   },

@@ -1,33 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`#createIamServiceAccountAssignedIamRoleRelationship should convert to relationship using service account 1`] = `
-Object {
-  "_class": "ASSIGNED",
-  "_fromEntityKey": "j1-gc-integration-dev-v2-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
-  "_key": "j1-gc-integration-dev-v2-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com|assigned|projects/j1-gc-integration-dev-v2/roles/myrole",
-  "_toEntityKey": "projects/j1-gc-integration-dev-v2/roles/myrole",
-  "_type": "google_iam_service_account_assigned_role",
-  "displayName": "ASSIGNED",
-  "projectId": "j1-gc-integration-dev-v2",
-}
-`;
-
-exports[`#createIamServiceAccountAssignedIamRoleRelationship should convert to relationship with conditions in role 1`] = `
-Object {
-  "_class": "ASSIGNED",
-  "_fromEntityKey": "j1-gc-integration-dev-v2-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
-  "_key": "j1-gc-integration-dev-v2-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com|assigned|projects/j1-gc-integration-dev-v2/roles/myrole",
-  "_toEntityKey": "projects/j1-gc-integration-dev-v2/roles/myrole",
-  "_type": "google_iam_service_account_assigned_role",
-  "conditionDescription": "Test description",
-  "conditionExpression": "resource.name != \\"bogusunknownresourcename\\"",
-  "conditionLocation": undefined,
-  "conditionTitle": "Test title",
-  "displayName": "ASSIGNED",
-  "projectId": "j1-gc-integration-dev-v2",
-}
-`;
-
 exports[`#createOrganizationEntity should convert to entity 1`] = `
 Object {
   "_class": Array [

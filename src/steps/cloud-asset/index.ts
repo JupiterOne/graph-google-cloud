@@ -3,6 +3,7 @@ import {
   createMappedRelationship,
   generateRelationshipType,
   IntegrationStep,
+  Relationship,
   RelationshipClass,
   RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
@@ -11,13 +12,26 @@ import { IntegrationStepContext } from '../../types';
 import { publishMissingPermissionEvent } from '../../utils/events';
 import { getProjectIdFromName } from '../../utils/jobState';
 import {
+  IAM_ROLE_ENTITY_CLASS,
   IAM_ROLE_ENTITY_TYPE,
   STEP_IAM_CUSTOM_ROLES,
   STEP_IAM_MANAGED_ROLES,
+  STEP_IAM_SERVICE_ACCOUNTS,
 } from '../iam';
-import { STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS } from '../resource-manager';
+import {
+  buildIamTargetRelationship,
+  findOrCreateIamRoleEntity,
+  maybeFindIamUserEntityWithParsedMember,
+  shouldMakeTargetIamRelationships,
+  STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
+} from '../resource-manager';
 import { CloudAssetClient } from './client';
-import { bindingEntities, CLOUD_ASSET_STEPS } from './constants';
+import {
+  bindingEntities,
+  BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS,
+  PRINCIPAL_ASSIGNED_ROLE_RELATIONSHIPS,
+  STEP_IAM_BINDINGS,
+} from './constants';
 import { buildIamBindingEntityKey, createIamBindingEntity } from './converters';
 
 export async function fetchIamBindings(
@@ -29,6 +43,14 @@ export async function fetchIamBindings(
 
   const bindingGraphKeySet = new Set<string>();
   const duplicateBindingGraphKeys: string[] = [];
+  const memberRelationshipKeys = new Set<string>();
+
+  async function safeAddRelationship(relationship?: Relationship) {
+    if (relationship && !memberRelationshipKeys.has(relationship._key)) {
+      await jobState.addRelationship(relationship);
+      memberRelationshipKeys.add(String(relationship._key));
+    }
+  }
 
   try {
     await client.iterateAllIamPolicies(context, async (policyResult) => {
@@ -63,6 +85,9 @@ export async function fetchIamBindings(
         const bindingEntity = await jobState.addEntity(
           createIamBindingEntity({ _key, projectId, binding, resource }),
         );
+
+        bindingGraphKeySet.add(_key);
+        iamBindingsCount++;
 
         if (binding.role) {
           const roleEntity = await jobState.findEntity(binding.role);
@@ -102,8 +127,51 @@ export async function fetchIamBindings(
           }
         }
 
-        bindingGraphKeySet.add(_key);
-        iamBindingsCount++;
+        if (binding.members?.length) {
+          if (!binding.role) {
+            logger.warn(
+              { binding },
+              'Unable to build relationships for binding. Binding does not have an associated role.',
+            );
+          } else {
+            for (const member of binding.members) {
+              const iamUserEntityWithParsedMember =
+                await maybeFindIamUserEntityWithParsedMember({
+                  jobState,
+                  member,
+                });
+
+              if (
+                shouldMakeTargetIamRelationships(iamUserEntityWithParsedMember)
+              ) {
+                await safeAddRelationship(
+                  buildIamTargetRelationship({
+                    iamEntity: bindingEntity,
+                    projectId,
+                    iamUserEntityWithParsedMember,
+                    condition: binding.condition,
+                    relationshipDirection: RelationshipDirection.FORWARD,
+                  }),
+                );
+
+                if (binding.role) {
+                  const iamRoleEntity = await findOrCreateIamRoleEntity({
+                    jobState,
+                    roleName: binding.role,
+                  });
+                  await safeAddRelationship(
+                    buildIamTargetRelationship({
+                      iamEntity: iamRoleEntity,
+                      projectId,
+                      iamUserEntityWithParsedMember,
+                      condition: binding.condition,
+                    }),
+                  );
+                }
+              }
+            }
+          }
+        }
       }
     });
   } catch (err) {
@@ -118,7 +186,7 @@ export async function fetchIamBindings(
       publishMissingPermissionEvent({
         logger,
         permission: 'cloudasset.assets.searchAllIamPolicies',
-        stepId: CLOUD_ASSET_STEPS.BINDINGS,
+        stepId: STEP_IAM_BINDINGS,
       });
 
       return;
@@ -142,14 +210,35 @@ export async function fetchIamBindings(
 
 export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
   {
-    id: CLOUD_ASSET_STEPS.BINDINGS,
+    id: STEP_IAM_BINDINGS,
     name: 'IAM Bindings',
-    entities: [bindingEntities.BINDINGS],
-    relationships: [],
+    entities: [
+      bindingEntities.BINDINGS,
+      {
+        resourceName: 'IAM Role',
+        _type: IAM_ROLE_ENTITY_TYPE,
+        _class: IAM_ROLE_ENTITY_CLASS,
+      },
+    ],
+    relationships: [
+      {
+        _class: RelationshipClass.USES,
+        _type: generateRelationshipType(
+          RelationshipClass.USES,
+          bindingEntities.BINDINGS._type,
+          IAM_ROLE_ENTITY_TYPE,
+        ),
+        sourceType: bindingEntities.BINDINGS._type,
+        targetType: IAM_ROLE_ENTITY_TYPE,
+      },
+      ...BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS,
+      ...PRINCIPAL_ASSIGNED_ROLE_RELATIONSHIPS,
+    ],
     dependsOn: [
       STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
       STEP_IAM_CUSTOM_ROLES,
       STEP_IAM_MANAGED_ROLES,
+      STEP_IAM_SERVICE_ACCOUNTS,
     ],
     executionHandler: fetchIamBindings,
   },
