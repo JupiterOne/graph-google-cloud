@@ -29,8 +29,8 @@ import { CloudAssetClient } from './client';
 import {
   bindingEntities,
   BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS,
-  CLOUD_ASSET_STEPS,
   PRINCIPAL_ASSIGNED_ROLE_RELATIONSHIPS,
+  STEP_IAM_BINDINGS,
 } from './constants';
 import { buildIamBindingEntityKey, createIamBindingEntity } from './converters';
 
@@ -190,7 +190,7 @@ export async function fetchIamBindings(
       publishMissingPermissionEvent({
         logger,
         permission: 'cloudasset.assets.searchAllIamPolicies',
-        stepId: CLOUD_ASSET_STEPS.BINDINGS,
+        stepId: STEP_IAM_BINDINGS,
       });
 
       return;
@@ -214,7 +214,7 @@ export async function fetchIamBindings(
 
 export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
   {
-    id: CLOUD_ASSET_STEPS.BINDINGS,
+    id: STEP_IAM_BINDINGS,
     name: 'IAM Bindings',
     entities: [
       bindingEntities.BINDINGS,

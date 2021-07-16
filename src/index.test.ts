@@ -108,7 +108,7 @@ import {
   STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES,
 } from './steps/privateca/constants';
 import { getOrganizationSteps } from './getStepStartStates';
-import { CLOUD_ASSET_STEPS } from './steps/cloud-asset/constants';
+import { STEP_IAM_BINDINGS } from './steps/cloud-asset/constants';
 import {
   STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS,
   STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
@@ -215,9 +215,6 @@ describe('#getStepStartStates success', () => {
       },
       [STEP_API_SERVICES]: {
         disabled: false,
-      },
-      [CLOUD_ASSET_STEPS.BINDINGS]: {
-        disabled: true, // The recordings do not have this service enabled
       },
       [STEP_CLOUD_FUNCTIONS]: {
         disabled: false,
@@ -396,12 +393,15 @@ describe('#getStepStartStates success', () => {
       [STEP_PRIVATE_CA_CERTIFICATES]: {
         disabled: false,
       },
+      [STEP_IAM_BINDINGS]: {
+        disabled: false,
+      },
     };
 
     expect(stepStartStates).toEqual(expectedStepStartStates);
   });
 
-  test('configureOrganizationProjects: true', async () => {
+  test('configureOrganizationProjects: true and organizationId: undefinied', async () => {
     const context = createMockExecutionContext<IntegrationConfig>({
       // Temporary tweak to make this test pass since its recording has been updated from the new organization/v3
       instanceConfig: {
@@ -415,6 +415,7 @@ describe('#getStepStartStates success', () => {
           project_id: 'j1-gc-integration-dev-v3',
         },
         configureOrganizationProjects: true,
+        organizationId: undefined,
       },
     });
 
@@ -438,6 +439,12 @@ describe('#getStepStartStates success', () => {
       },
       [STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS]: {
         disabled: false,
+      },
+      [STEP_RESOURCE_MANAGER_IAM_POLICY]: {
+        disabled: true,
+      },
+      [STEP_IAM_BINDINGS]: {
+        disabled: true,
       },
     });
   });
@@ -482,6 +489,9 @@ describe('#getStepStartStates success', () => {
       },
       [STEP_RESOURCE_MANAGER_IAM_POLICY]: {
         disabled: false,
+      },
+      [STEP_IAM_BINDINGS]: {
+        disabled: true,
       },
     });
   });

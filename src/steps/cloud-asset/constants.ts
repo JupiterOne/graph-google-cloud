@@ -10,9 +10,7 @@ import {
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
 } from '../iam';
 
-export const CLOUD_ASSET_STEPS = {
-  BINDINGS: 'fetch-iam-bindings',
-};
+export const STEP_IAM_BINDINGS = 'fetch-iam-bindings';
 
 export const bindingEntities = {
   BINDINGS: {

@@ -95,7 +95,7 @@ import {
   STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES,
 } from './steps/privateca/constants';
 import * as enablement from './steps/enablement';
-import { CLOUD_ASSET_STEPS } from './steps/cloud-asset/constants';
+import { STEP_IAM_BINDINGS } from './steps/cloud-asset/constants';
 import {
   STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS,
   STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
@@ -159,6 +159,9 @@ export default async function getStepStartStates(
 
   const organizationSteps = { disabled: !config.configureOrganizationProjects };
 
+  const isMasterOrgInstance =
+    config.configureOrganizationProjects && config.organizationId;
+
   let enabledServiceNames: string[];
 
   try {
@@ -212,9 +215,9 @@ export default async function getStepStartStates(
     // This API will be enabled otherwise fetching services names above would fail
     [STEP_RESOURCE_MANAGER_PROJECT]: { disabled: false },
     [STEP_API_SERVICES]: { disabled: false },
-    [CLOUD_ASSET_STEPS.BINDINGS]: createOrgStepStartState(
-      ServiceUsageName.CLOUD_ASSET,
-    ),
+    [STEP_IAM_BINDINGS]: !isMasterOrgInstance
+      ? { disabled: true }
+      : createStepStartState(ServiceUsageName.CLOUD_ASSET),
     [STEP_CLOUD_FUNCTIONS]: createStepStartState(
       ServiceUsageName.CLOUD_FUNCTIONS,
     ),
