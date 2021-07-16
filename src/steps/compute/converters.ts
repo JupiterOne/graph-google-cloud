@@ -749,13 +749,17 @@ export function toFirewallRuleRelationshipKey({
   portRange,
   ipRange,
   protocol,
+  ruleIndex,
+  protocolIndex,
 }: {
   firewallEntity: Entity;
   portRange: string;
   ipRange: string;
   protocol: string;
+  ruleIndex: number;
+  protocolIndex: number;
 }) {
-  return `${firewallEntity._key}:${protocol}:${ipRange}:${portRange}`;
+  return `${firewallEntity._key}:${ruleIndex}:${protocol}:${protocolIndex}:${ipRange}:${portRange}`;
 }
 
 export function createFirewallRuleMappedRelationship({
@@ -773,6 +777,8 @@ export function createFirewallRuleMappedRelationship({
   firewallEntity: Entity;
   properties: FirewallRuleRelationshipTargetProperties;
 }) {
+  const { ruleIndex, protocolIndex, ...propertiesWithoutIndices } = properties;
+
   return createMappedRelationship({
     _class,
     _mapping: {
@@ -789,8 +795,10 @@ export function createFirewallRuleMappedRelationship({
         ipRange: properties.ipRange,
         portRange: properties.portRange,
         protocol: properties.ipProtocol,
+        ruleIndex,
+        protocolIndex,
       }),
-      ...properties,
+      ...propertiesWithoutIndices,
     },
   });
 }
