@@ -72,7 +72,16 @@ export function createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship
       targetEntity: {
         _type: targetEntityType,
         email,
-        username: iamUserEntityWithParsedMember.parsedMember.identifier,
+        username: email,
+        /**
+         * google_groups have their own "name" identifier which we do not have access via the bindings.
+         * Therefore, for a google_user, we set their `name` and `displayName properties to the email per
+         * https://github.com/JupiterOne/graph-google/blob/master/src/steps/groups/converters.ts#L209,
+         * but not for google_groups per
+         * https://github.com/JupiterOne/graph-google/blob/master/src/steps/groups/converters.ts#L39
+         */
+        name: targetEntityType === 'google_user' ? email : undefined,
+        displayName: targetEntityType === 'google_user' ? email : undefined,
         deleted: iamUserEntityWithParsedMember.parsedMember.deleted,
       },
     },

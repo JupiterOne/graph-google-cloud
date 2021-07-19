@@ -159,6 +159,8 @@ export async function createBindingRoleRelationships(
                 targetEntity: {
                   _type: IAM_ROLE_ENTITY_TYPE,
                   _key: bindingEntity.role,
+                  name: bindingEntity.role,
+                  displayName: bindingEntity.role,
                 },
               },
             }),
