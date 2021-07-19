@@ -87,6 +87,8 @@ export interface FirewallRuleRelationshipTargetProperties
   ipRange: string;
   protocol: string;
   ipProtocol: string;
+  ruleIndex: number;
+  protocolIndex: number;
 }
 
 export interface FirewallRuleRelationshipTarget {
@@ -96,10 +98,12 @@ export interface FirewallRuleRelationshipTarget {
 }
 
 export async function processFirewallRuleRelationshipTargets({
+  ruleIndex,
   rule,
   ipRanges,
   callback,
 }: {
+  ruleIndex: number;
   rule: ComputeFirewallRule;
   ipRanges: string[];
   callback: (r: FirewallRuleRelationshipTarget) => Promise<void>;
@@ -107,13 +111,18 @@ export async function processFirewallRuleRelationshipTargets({
   const processedRule = processFirewallRule(rule);
   const protocol = processedRule.protocol.toLowerCase();
 
-  for (const processedRulePortData of processedRule.ports) {
+  for (const [
+    protocolIndex,
+    processedRulePortData,
+  ] of processedRule.ports.entries()) {
     for (const ipRange of ipRanges) {
       const relationshipProperties: FirewallRuleRelationshipTargetProperties = {
         ...processedRulePortData,
         ipRange,
         protocol,
         ipProtocol: protocol,
+        ruleIndex,
+        protocolIndex,
       };
 
       if (isInternet(ipRange)) {

@@ -16,6 +16,13 @@ and this project adheres to
   | -------------------- | ------ | ----------------- |
   | `google_iam_binding` | `USES` | `google_iam_role` |
 
+## 0.43.3 - 2021-07-15
+
+### Fixed
+
+- Handle case when global `google_compute_image` has been removed from Google
+  Cloud and results in a 404 status code when attempting to fetch
+
 ## 0.43.2 - 2021-06-24
 
 ### Fixed

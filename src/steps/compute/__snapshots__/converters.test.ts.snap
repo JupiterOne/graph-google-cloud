@@ -1113,7 +1113,7 @@ Object {
 exports[`#createFirewallRuleMappedRelationship should convert to mapped relationship 1`] = `
 Object {
   "_class": "ALLOWS",
-  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/firewalls/public-compute-app-fw-allow-https:tcp:0.0.0.0/0:443",
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/firewalls/public-compute-app-fw-allow-https:0:tcp:0:0.0.0.0/0:443",
   "_mapping": Object {
     "relationshipDirection": "REVERSE",
     "skipTargetCreation": true,

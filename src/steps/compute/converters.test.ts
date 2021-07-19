@@ -238,6 +238,8 @@ describe('#createFirewallRuleMappedRelationship', () => {
           portRange: '443',
           fromPort: 443,
           toPort: 443,
+          ruleIndex: 0,
+          protocolIndex: 0,
         },
       }),
     ).toMatchSnapshot();
