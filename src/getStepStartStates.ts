@@ -95,7 +95,11 @@ import {
   STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES,
 } from './steps/privateca/constants';
 import * as enablement from './steps/enablement';
-import { CLOUD_ASSET_STEPS } from './steps/cloud-asset/constants';
+import {
+  STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS,
+  STEP_CREATE_BINDING_ROLE_RELATIONSHIPS,
+  STEP_IAM_BINDINGS,
+} from './steps/cloud-asset/constants';
 import {
   STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS,
   STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
@@ -159,6 +163,9 @@ export default async function getStepStartStates(
 
   const organizationSteps = { disabled: !config.configureOrganizationProjects };
 
+  const isMasterOrgInstance =
+    config.configureOrganizationProjects && config.organizationId;
+
   let enabledServiceNames: string[];
 
   try {
@@ -212,9 +219,15 @@ export default async function getStepStartStates(
     // This API will be enabled otherwise fetching services names above would fail
     [STEP_RESOURCE_MANAGER_PROJECT]: { disabled: false },
     [STEP_API_SERVICES]: { disabled: false },
-    [CLOUD_ASSET_STEPS.BINDINGS]: createOrgStepStartState(
-      ServiceUsageName.CLOUD_ASSET,
-    ),
+    [STEP_IAM_BINDINGS]: isMasterOrgInstance
+      ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
+      : { disabled: true },
+    [STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS]: isMasterOrgInstance
+      ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
+      : { disabled: true },
+    [STEP_CREATE_BINDING_ROLE_RELATIONSHIPS]: isMasterOrgInstance
+      ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
+      : { disabled: true },
     [STEP_CLOUD_FUNCTIONS]: createStepStartState(
       ServiceUsageName.CLOUD_FUNCTIONS,
     ),
@@ -229,9 +242,9 @@ export default async function getStepStartStates(
     [STEP_IAM_CUSTOM_ROLES]: createStepStartState(ServiceUsageName.IAM),
     [STEP_IAM_MANAGED_ROLES]: createStepStartState(ServiceUsageName.IAM),
     [STEP_IAM_SERVICE_ACCOUNTS]: createStepStartState(ServiceUsageName.IAM),
-    [STEP_RESOURCE_MANAGER_IAM_POLICY]: createStepStartState(
-      ServiceUsageName.RESOURCE_MANAGER,
-    ),
+    [STEP_RESOURCE_MANAGER_IAM_POLICY]: config.configureOrganizationProjects
+      ? { disabled: true }
+      : createStepStartState(ServiceUsageName.RESOURCE_MANAGER),
     [STEP_COMPUTE_DISKS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_IMAGES]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_SNAPSHOTS]: createStepStartState(ServiceUsageName.COMPUTE),

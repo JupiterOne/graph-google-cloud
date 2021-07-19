@@ -25,6 +25,7 @@ Object {
   "_type": "google_iam_binding",
   "condition.description": "Test condition description",
   "condition.expression": "resource.name != \\"bogusunknownresourcename\\"",
+  "condition.location": undefined,
   "condition.title": "Test condition title",
   "createdOn": undefined,
   "displayName": "Role Binding for Resource: resource",

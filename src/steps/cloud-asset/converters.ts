@@ -1,9 +1,21 @@
+import { Entity } from '@jupiterone/integration-sdk-core';
 import { cloudasset_v1 } from 'googleapis';
 import { snakeCase } from 'lodash';
 import { hashArray } from '../../utils/crypto';
 
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import { bindingEntities } from './constants';
+
+export interface BindingEntity extends Entity {
+  resource: string;
+  role: string;
+  members: string;
+  projectId: string;
+  'condition.title': string;
+  'condition.description': string;
+  'condition.expression': string;
+  'condition.location': string;
+}
 
 export function buildIamBindingEntityKey({
   binding,
@@ -37,7 +49,7 @@ export function createIamBindingEntity({
   projectId?: string;
   binding: cloudasset_v1.Schema$Binding;
   resource: string | undefined | null;
-}) {
+}): BindingEntity {
   const namePrefix = 'Role Binding for Resource: ';
 
   return createGoogleCloudIntegrationEntity(binding, {
@@ -56,7 +68,8 @@ export function createIamBindingEntity({
         'condition.title': binding.condition?.title,
         'condition.description': binding.condition?.description,
         'condition.expression': binding.condition?.expression,
+        'condition.location': binding.condition?.location,
       },
     },
-  });
+  }) as BindingEntity;
 }
