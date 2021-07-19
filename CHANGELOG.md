@@ -8,13 +8,18 @@ and this project adheres to
 
 ## [Unreleased]
 
+### 0.44.0 - 2021-07-19
+
 ### Added
 
 - Added support for ingesting the following **new** relationships:
 
-  | Source               | class  | Target            |
-  | -------------------- | ------ | ----------------- |
-  | `google_iam_binding` | `USES` | `google_iam_role` |
+  | Source               | class        | Target                       |
+  | -------------------- | ------------ | ---------------------------- |
+  | `google_iam_binding` | **ASSIGNED** | `google_group`               |
+  | `google_iam_binding` | **ASSIGNED** | `google_iam_service_account` |
+  | `google_iam_binding` | **ASSIGNED** | `google_user`                |
+  | `google_iam_binding` | **USES**     | `google_iam_role`            |
 
 ## 0.43.3 - 2021-07-15
 
