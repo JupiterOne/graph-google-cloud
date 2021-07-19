@@ -28,12 +28,12 @@
     "jupiterone-organization-setup": "yarn ts-node ./scripts/organizationSetupCli.ts"
   },
   "peerDependencies": {
-    "@jupiterone/integration-sdk-core": "^6.5.0"
+    "@jupiterone/integration-sdk-core": "^6.10.0"
   },
   "devDependencies": {
-    "@jupiterone/integration-sdk-core": "^6.5.0",
-    "@jupiterone/integration-sdk-dev-tools": "^6.5.0",
-    "@jupiterone/integration-sdk-testing": "^6.5.0",
+    "@jupiterone/integration-sdk-core": "^6.10.0",
+    "@jupiterone/integration-sdk-dev-tools": "^6.10.0",
+    "@jupiterone/integration-sdk-testing": "^6.10.0",
     "@types/bunyan": "^1.8.6",
     "@types/bunyan-format": "^0.2.3",
     "@types/node-fetch": "^2.5.10",
@@ -49,6 +49,7 @@
     "@lifeomic/attempt": "^3.0.0",
     "gaxios": "^4.2.1",
     "google-auth-library": "^7.1.0",
-    "googleapis": "^74.2.0"
+    "googleapis": "^74.2.0",
+    "lodash.get": "^4.4.2"
   }
 }

@@ -7,14 +7,14 @@ import {
   createMappedRelationship,
   RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
-import { ResourceManagerClient, PolicyMemberBinding } from './client';
+import { ResourceManagerClient } from './client';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
 import {
   createFolderEntity,
   createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship,
-  createIamServiceAccountAssignedIamRoleRelationship,
   createOrganizationEntity,
   createProjectEntity,
+  getConditionRelationshipProperties,
 } from './converters';
 import {
   STEP_RESOURCE_MANAGER_IAM_POLICY,
@@ -63,13 +63,11 @@ export interface IamUserEntityWithParsedMember {
   userEntity: Entity | null;
 }
 
-async function maybeFindIamUserEntityWithParsedMember({
+export async function maybeFindIamUserEntityWithParsedMember({
   jobState,
-  projectId,
   member,
 }: {
   jobState: JobState;
-  projectId: string;
   member: string;
 }): Promise<IamUserEntityWithParsedMember> {
   const parsedMember = parseIamMember(member);
@@ -111,7 +109,7 @@ async function maybeFindIamUserEntityWithParsedMember({
   };
 }
 
-async function findOrCreateIamRoleEntity({
+export async function findOrCreateIamRoleEntity({
   jobState,
   roleName,
 }: {
@@ -150,67 +148,70 @@ async function findOrCreateIamRoleEntity({
   );
 }
 
-async function buildIamUserRoleRelationship({
-  jobState,
+// This is an optimization to only fetch the iam_role if it is needed for a relationship
+export function shouldMakeTargetIamRelationships(
+  iamUserEntityWithParsedMember: IamUserEntityWithParsedMember,
+) {
+  return (
+    iamUserEntityWithParsedMember.userEntity ||
+    iamUserEntityWithParsedMember.parsedMember.type === 'group' ||
+    iamUserEntityWithParsedMember.parsedMember.type === 'user'
+  );
+}
+
+export function buildIamTargetRelationship({
+  iamEntity,
+  iamUserEntityWithParsedMember,
   projectId,
-  data,
+  condition,
+  relationshipDirection,
 }: {
-  jobState: JobState;
-  projectId: string;
-  data: PolicyMemberBinding;
-}): Promise<Relationship | undefined> {
-  const roleName = data.binding.role as string;
-  const iamUserEntityWithParsedMember =
-    await maybeFindIamUserEntityWithParsedMember({
-      jobState,
-      projectId,
-      member: data.member,
-    });
-
-  const bindingCondition: cloudresourcemanager_v3.Schema$Expr | undefined =
-    data.binding.condition;
-
+  iamEntity: Entity;
+  iamUserEntityWithParsedMember: IamUserEntityWithParsedMember;
+  projectId?: string;
+  condition?: cloudresourcemanager_v3.Schema$Expr;
+  relationshipDirection?: RelationshipDirection;
+}): Relationship | undefined {
+  relationshipDirection = relationshipDirection
+    ? relationshipDirection
+    : RelationshipDirection.REVERSE;
   if (iamUserEntityWithParsedMember.userEntity) {
     // Create a direct relationship. This is a user entity that _only_ exists
     // in the Google Cloud integration (e.g. a GCP service account)
-    const iamRoleEntity = await findOrCreateIamRoleEntity({
-      jobState,
-      roleName,
-    });
-
-    return createIamServiceAccountAssignedIamRoleRelationship({
-      iamUserEntity: iamUserEntityWithParsedMember.userEntity,
-      iamRoleEntity,
-      projectId,
-      condition: bindingCondition,
+    return createDirectRelationship({
+      _class: RelationshipClass.ASSIGNED,
+      from:
+        relationshipDirection === RelationshipDirection.FORWARD
+          ? iamEntity
+          : iamUserEntityWithParsedMember.userEntity,
+      to:
+        relationshipDirection === RelationshipDirection.FORWARD
+          ? iamUserEntityWithParsedMember.userEntity
+          : iamEntity,
+      properties: {
+        projectId: projectId,
+        ...(condition && getConditionRelationshipProperties(condition)),
+      },
     });
   } else if (iamUserEntityWithParsedMember.parsedMember.type === 'group') {
     // Create a mapped relationship where the target entity is a google_user
     // that the Google Workspace integration technically owns.
-    const iamRoleEntity = await findOrCreateIamRoleEntity({
-      jobState,
-      roleName,
-    });
-
     return createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship({
       targetEntityType: GOOGLE_GROUP_ENTITY_TYPE,
-      iamRoleEntityKey: iamRoleEntity._key,
+      iamEntity: iamEntity,
       iamUserEntityWithParsedMember,
+      relationshipDirection,
       projectId,
-      condition: bindingCondition,
+      condition,
     });
   } else if (iamUserEntityWithParsedMember.parsedMember.type === 'user') {
-    const iamRoleEntity = await findOrCreateIamRoleEntity({
-      jobState,
-      roleName,
-    });
-
     return createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship({
       targetEntityType: GOOGLE_USER_ENTITY_TYPE,
-      iamRoleEntityKey: iamRoleEntity._key,
+      iamEntity: iamEntity,
       iamUserEntityWithParsedMember,
+      relationshipDirection,
       projectId,
-      condition: bindingCondition,
+      condition,
     });
   }
 }
@@ -394,23 +395,46 @@ export async function fetchResourceManagerIamPolicy(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
   const client = new ResourceManagerClient({ config });
   const relationships = new Set<string>();
 
   await client.iteratePolicyMemberBindings(async (data) => {
-    const relationship = await buildIamUserRoleRelationship({
-      jobState,
-      projectId: client.projectId,
-      data,
-    });
-
-    if (!relationship || relationships.has(relationship._key)) {
+    if (!data.binding.role) {
+      logger.warn(
+        { binding: data.binding },
+        'Unable to build relationships for binding. Binding does not have an associated role.',
+      );
       return;
     }
 
-    await jobState.addRelationship(relationship);
-    relationships.add(relationship._key);
+    const iamUserEntityWithParsedMember =
+      await maybeFindIamUserEntityWithParsedMember({
+        jobState,
+        member: data.member,
+      });
+
+    if (shouldMakeTargetIamRelationships(iamUserEntityWithParsedMember)) {
+      const iamRoleEntity = await findOrCreateIamRoleEntity({
+        jobState,
+        roleName: data.binding.role,
+      });
+
+      const relationship = buildIamTargetRelationship({
+        iamUserEntityWithParsedMember,
+        iamEntity: iamRoleEntity,
+        projectId: client.projectId,
+        condition: data.binding.condition,
+      });
+
+      if (!relationship || relationships.has(relationship._key)) {
+        return;
+      }
+
+      await jobState.addRelationship(relationship);
+      relationships.add(relationship._key);
+    }
   });
 }
 

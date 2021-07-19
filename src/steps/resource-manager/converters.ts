@@ -1,7 +1,5 @@
 import { cloudresourcemanager_v1, cloudresourcemanager_v3 } from 'googleapis';
 import {
-  Entity,
-  createDirectRelationship,
   Relationship,
   RelationshipClass,
   parseTimePropertyValue,
@@ -10,6 +8,7 @@ import {
   generateRelationshipType,
   generateRelationshipKey,
   IntegrationError,
+  Entity,
 } from '@jupiterone/integration-sdk-core';
 import {
   PROJECT_ENTITY_TYPE,
@@ -21,10 +20,9 @@ import {
 } from './constants';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import { IamUserEntityWithParsedMember } from '.';
-import { IAM_ROLE_ENTITY_TYPE } from '../iam';
 import { getGoogleCloudConsoleWebLink } from '../../utils/url';
 
-function getConditionRelationshipProperties(
+export function getConditionRelationshipProperties(
   condition: cloudresourcemanager_v1.Schema$Expr,
 ) {
   return {
@@ -35,35 +33,19 @@ function getConditionRelationshipProperties(
   };
 }
 
-export function createIamServiceAccountAssignedIamRoleRelationship(params: {
-  iamUserEntity: Entity;
-  iamRoleEntity: Entity;
-  projectId: string;
-  condition?: cloudresourcemanager_v1.Schema$Expr;
-}): Relationship {
-  return createDirectRelationship({
-    _class: RelationshipClass.ASSIGNED,
-    from: params.iamUserEntity,
-    to: params.iamRoleEntity,
-    properties: {
-      projectId: params.projectId,
-      ...(params.condition &&
-        getConditionRelationshipProperties(params.condition)),
-    },
-  });
-}
-
 export function createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship({
   targetEntityType,
-  iamRoleEntityKey,
+  iamEntity,
   iamUserEntityWithParsedMember,
+  relationshipDirection,
   projectId,
   condition,
 }: {
   targetEntityType: 'google_group' | 'google_user';
-  iamRoleEntityKey: string;
+  iamEntity: Entity;
   iamUserEntityWithParsedMember: IamUserEntityWithParsedMember;
-  projectId: string;
+  relationshipDirection: RelationshipDirection;
+  projectId?: string;
   condition?: cloudresourcemanager_v1.Schema$Expr;
 }): Relationship {
   const email = iamUserEntityWithParsedMember.parsedMember.identifier;
@@ -77,30 +59,42 @@ export function createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship
     });
   }
 
+  const iamEntityToTargetRelationship =
+    relationshipDirection === RelationshipDirection.FORWARD;
+
   return createMappedRelationship({
     _class: RelationshipClass.ASSIGNED,
     _mapping: {
-      relationshipDirection: RelationshipDirection.REVERSE,
-      sourceEntityKey: iamRoleEntityKey,
+      relationshipDirection: relationshipDirection,
+      sourceEntityKey: iamEntity._key,
       targetFilterKeys: [['_type', 'email']],
       skipTargetCreation: false,
       targetEntity: {
         _type: targetEntityType,
         email,
-        username: iamUserEntityWithParsedMember.parsedMember.identifier,
+        username: email,
+        /**
+         * google_groups have their own "name" identifier which we do not have access via the bindings.
+         * Therefore, for a google_user, we set their `name` and `displayName properties to the email per
+         * https://github.com/JupiterOne/graph-google/blob/master/src/steps/groups/converters.ts#L209,
+         * but not for google_groups per
+         * https://github.com/JupiterOne/graph-google/blob/master/src/steps/groups/converters.ts#L39
+         */
+        name: targetEntityType === 'google_user' ? email : undefined,
+        displayName: targetEntityType === 'google_user' ? email : undefined,
         deleted: iamUserEntityWithParsedMember.parsedMember.deleted,
       },
     },
     properties: {
       _type: generateRelationshipType(
         RelationshipClass.ASSIGNED,
-        targetEntityType,
-        IAM_ROLE_ENTITY_TYPE,
+        iamEntityToTargetRelationship ? iamEntity._type : targetEntityType,
+        iamEntityToTargetRelationship ? targetEntityType : iamEntity._type,
       ),
       _key: generateRelationshipKey(
         RelationshipClass.ASSIGNED,
-        email,
-        iamRoleEntityKey,
+        iamEntityToTargetRelationship ? iamEntity._key : email,
+        iamEntityToTargetRelationship ? email : iamEntity._key,
       ),
       projectId: projectId,
       ...(condition && getConditionRelationshipProperties(condition)),
