@@ -81,19 +81,6 @@ import {
   ENTITY_TYPE_COMPUTE_IMAGE,
   RELATIONSHIP_TYPE_COMPUTE_NETWORK_CONNECTS_NETWORK,
   ENTITY_TYPE_COMPUTE_ADDRESS,
-  ENTITY_TYPE_COMPUTE_REGION_BACKEND_SERVICE,
-  RELATIONSHIP_TYPE_REGION_BACKEND_SERVICE_HAS_HEALTH_CHECK,
-  ENTITY_TYPE_COMPUTE_REGION_DISK,
-  ENTITY_TYPE_COMPUTE_REGION_HEALTH_CHECK,
-  ENTITY_TYPE_COMPUTE_REGION_LOAD_BALANCER,
-  RELATIONSHIP_TYPE_REGION_LOAD_BALANCER_HAS_REGION_BACKEND_SERVICE,
-  RELATIONSHIP_TYPE_REGION_BACKEND_SERVICE_HAS_INSTANCE_GROUP,
-  RELATIONSHIP_TYPE_REGION_BACKEND_SERVICE_HAS_REGION_INSTANCE_GROUP,
-  RELATIONSHIP_TYPE_REGION_BACKEND_SERVICE_HAS_REGION_HEALTH_CHECK,
-  ENTITY_TYPE_COMPUTE_REGION_TARGET_HTTP_PROXY,
-  RELATIONSHIP_TYPE_REGION_LOAD_BALANCER_HAS_REGION_TARGET_HTTP_PROXY,
-  ENTITY_TYPE_COMPUTE_REGION_TARGET_HTTPS_PROXY,
-  RELATIONSHIP_TYPE_REGION_LOAD_BALANCER_HAS_REGION_TARGET_HTTPS_PROXY,
   ENTITY_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE,
   RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_BACKEND_SERVICE,
   RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_SUBNETWORK,
@@ -101,11 +88,8 @@ import {
   RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_TARGET_HTTP_PROXY,
   RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_TARGET_HTTPS_PROXY,
   ENTITY_TYPE_COMPUTE_FORWARDING_RULE,
-  RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_REGION_BACKEND_SERVICE,
   RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_SUBNETWORK,
   RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_NETWORK,
-  RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_REGION_TARGET_HTTP_PROXY,
-  RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_REGION_TARGET_HTTPS_PROXY,
   RELATIONSHIP_TYPE_COMPUTE_NETWORK_HAS_ADDRESS,
   RELATIONSHIP_TYPE_COMPUTE_SUBNETWORK_HAS_ADDRESS,
   RELATIONSHIP_TYPE_COMPUTE_INSTANCE_USES_ADDRESS,
@@ -113,6 +97,10 @@ import {
   ENTITY_TYPE_COMPUTE_GLOBAL_ADDRESS,
   RELATIONSHIP_TYPE_COMPUTE_NETWORK_HAS_GLOBAL_ADDRESS,
   RELATIONSHIP_TYPE_COMPUTE_SUBNETWORK_HAS_GLOBAL_ADDRESS,
+  RELATIONSHIP_TYPE_INSTANCE_GROUP_HAS_NAMED_PORT,
+  RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_BACKEND_SERVICE,
+  RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_TARGET_HTTP_PROXY,
+  RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_TARGET_HTTPS_PROXY,
 } from './constants';
 import {
   Entity,
@@ -189,6 +177,7 @@ describe('#fetchComputeDisks', () => {
             items: { type: 'object' },
           },
           description: { type: 'string' },
+          regional: { type: 'boolean' },
           zone: { type: 'string' },
           sizeGB: { type: 'string' },
           status: { type: 'string' },
@@ -284,19 +273,20 @@ describe('#fetchComputeRegionDisks', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e._type === ENTITY_TYPE_COMPUTE_REGION_DISK,
+        (e) => e._type === ENTITY_TYPE_COMPUTE_DISK,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['DataStore', 'Disk'],
       schema: {
         additionalProperties: false,
         properties: {
-          _type: { const: 'google_compute_region_disk' },
+          _type: { const: 'google_compute_disk' },
           _rawData: {
             type: 'array',
             items: { type: 'object' },
           },
           region: { type: 'string' },
+          regional: { type: 'boolean' },
           description: { type: 'string' },
           zone: { type: 'string' },
           sizeGB: { type: 'string' },
@@ -330,13 +320,13 @@ describe('#fetchComputeRegionDisks', () => {
       },
     });
 
-    const computeRegionDiskUsesKmsKeyRelationships =
+    const computeDiskUsesKmsKeyRelationships =
       context.jobState.collectedRelationships.filter(
-        (r) => r._type === 'google_compute_region_disk_uses_kms_crypto_key',
+        (r) => r._type === 'google_compute_disk_uses_kms_crypto_key',
       );
 
-    expect(computeRegionDiskUsesKmsKeyRelationships).toEqual(
-      computeRegionDiskUsesKmsKeyRelationships.map((r) =>
+    expect(computeDiskUsesKmsKeyRelationships).toEqual(
+      computeDiskUsesKmsKeyRelationships.map((r) =>
         expect.objectContaining({
           _class: 'USES',
         }),
@@ -745,6 +735,7 @@ describe('#fetchComputeInstances', () => {
             items: { type: 'object' },
           },
           description: { type: 'string' },
+          regional: { type: 'boolean' },
           zone: { type: 'string' },
           sizeGB: { type: 'string' },
           status: { type: 'string' },
@@ -794,6 +785,7 @@ describe('#fetchComputeInstances', () => {
           },
           id: { type: 'string' },
           name: { type: 'string' },
+          regional: { type: 'boolean' },
           network: { type: 'string' },
           zone: { type: 'string' },
           subnetwork: { type: 'string' },
@@ -1526,6 +1518,7 @@ describe('#fetchComputeBackendServices', () => {
           },
           id: { type: 'string' },
           name: { type: 'string' },
+          regional: { type: 'boolean' },
           network: { type: 'string' },
           zone: { type: 'string' },
           subnetwork: { type: 'string' },
@@ -1551,6 +1544,7 @@ describe('#fetchComputeBackendServices', () => {
           id: { type: 'string' },
           name: { type: 'string' },
           description: { type: 'string' },
+          regional: { type: 'boolean' },
           checkIntervalSec: { type: 'number' },
           timeoutSec: { type: 'number' },
           unhealthyThreshold: { type: 'number' },
@@ -1582,6 +1576,7 @@ describe('#fetchComputeBackendServices', () => {
           id: { type: 'string' },
           name: { type: 'string' },
           displayName: { type: 'string' },
+          regional: { type: 'boolean' },
           timeoutSec: { type: 'number' },
           port: { type: 'number' },
           protocol: { type: 'string' },
@@ -1663,14 +1658,14 @@ describe('#fetchComputeRegionBackendServices', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e._type === ENTITY_TYPE_COMPUTE_REGION_BACKEND_SERVICE,
+        (e) => e._type === ENTITY_TYPE_COMPUTE_BACKEND_SERVICE,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['Service'],
       schema: {
         additionalProperties: false,
         properties: {
-          _type: { const: 'google_compute_region_backend_service' },
+          _type: { const: 'google_compute_backend_service' },
           _rawData: {
             type: 'array',
             items: { type: 'object' },
@@ -1678,6 +1673,7 @@ describe('#fetchComputeRegionBackendServices', () => {
           id: { type: 'string' },
           name: { type: 'string' },
           displayName: { type: 'string' },
+          regional: { type: 'boolean' },
           timeoutSec: { type: 'number' },
           port: { type: 'number' },
           protocol: { type: 'string' },
@@ -1697,17 +1693,14 @@ describe('#fetchComputeRegionBackendServices', () => {
 
     expect(
       context.jobState.collectedRelationships.filter(
-        (e) =>
-          e._type ===
-          RELATIONSHIP_TYPE_REGION_BACKEND_SERVICE_HAS_REGION_INSTANCE_GROUP,
+        (e) => e._type === RELATIONSHIP_TYPE_BACKEND_SERVICE_HAS_INSTANCE_GROUP,
       ),
     ).toMatchDirectRelationshipSchema({
       schema: {
         properties: {
           _class: { const: 'HAS' },
           _type: {
-            const:
-              'google_compute_region_backend_service_has_region_instance_group',
+            const: 'google_compute_backend_service_has_instance_group',
           },
         },
       },
@@ -1715,16 +1708,14 @@ describe('#fetchComputeRegionBackendServices', () => {
 
     expect(
       context.jobState.collectedRelationships.filter(
-        (e) =>
-          e._type ===
-          RELATIONSHIP_TYPE_REGION_BACKEND_SERVICE_HAS_INSTANCE_GROUP,
+        (e) => e._type === RELATIONSHIP_TYPE_BACKEND_SERVICE_HAS_INSTANCE_GROUP,
       ),
     ).toMatchDirectRelationshipSchema({
       schema: {
         properties: {
           _class: { const: 'HAS' },
           _type: {
-            const: 'google_compute_region_backend_service_has_instance_group',
+            const: 'google_compute_backend_service_has_instance_group',
           },
         },
       },
@@ -1732,17 +1723,14 @@ describe('#fetchComputeRegionBackendServices', () => {
 
     expect(
       context.jobState.collectedRelationships.filter(
-        (e) =>
-          e._type ===
-          RELATIONSHIP_TYPE_REGION_BACKEND_SERVICE_HAS_REGION_HEALTH_CHECK,
+        (e) => e._type === RELATIONSHIP_TYPE_BACKEND_SERVICE_HAS_HEALTH_CHECK,
       ),
     ).toMatchDirectRelationshipSchema({
       schema: {
         properties: {
           _class: { const: 'HAS' },
           _type: {
-            const:
-              'google_compute_region_backend_service_has_region_health_check',
+            const: 'google_compute_backend_service_has_health_check',
           },
         },
       },
@@ -1750,15 +1738,14 @@ describe('#fetchComputeRegionBackendServices', () => {
 
     expect(
       context.jobState.collectedRelationships.filter(
-        (e) =>
-          e._type === RELATIONSHIP_TYPE_REGION_BACKEND_SERVICE_HAS_HEALTH_CHECK,
+        (e) => e._type === RELATIONSHIP_TYPE_BACKEND_SERVICE_HAS_HEALTH_CHECK,
       ),
     ).toMatchDirectRelationshipSchema({
       schema: {
         properties: {
           _class: { const: 'HAS' },
           _type: {
-            const: 'google_compute_region_backend_service_has_health_check',
+            const: 'google_compute_backend_service_has_health_check',
           },
         },
       },
@@ -1812,6 +1799,7 @@ describe('#fetchComputeHealthChecks', () => {
           id: { type: 'string' },
           name: { type: 'string' },
           description: { type: 'string' },
+          regional: { type: 'boolean' },
           checkIntervalSec: { type: 'number' },
           timeoutSec: { type: 'number' },
           unhealthyThreshold: { type: 'number' },
@@ -1859,20 +1847,21 @@ describe('#fetchComputeRegionHealthChecks', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e._type === ENTITY_TYPE_COMPUTE_REGION_HEALTH_CHECK,
+        (e) => e._type === ENTITY_TYPE_COMPUTE_HEALTH_CHECK,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['Service'],
       schema: {
         additionalProperties: false,
         properties: {
-          _type: { const: 'google_compute_region_health_check' },
+          _type: { const: 'google_compute_health_check' },
           _rawData: {
             type: 'array',
             items: { type: 'object' },
           },
           id: { type: 'string' },
           name: { type: 'string' },
+          regional: { type: 'boolean' },
           description: { type: 'string' },
           checkIntervalSec: { type: 'number' },
           timeoutSec: { type: 'number' },
@@ -1937,10 +1926,26 @@ describe('#fetchComputeInstanceGroups', () => {
           },
           id: { type: 'string' },
           name: { type: 'string' },
+          regional: { type: 'boolean' },
           network: { type: 'string' },
           zone: { type: 'string' },
           subnetwork: { type: 'string' },
           createdOn: { type: 'number' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === RELATIONSHIP_TYPE_INSTANCE_GROUP_HAS_NAMED_PORT,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'HAS' },
+          _type: {
+            const: 'google_compute_instance_group_has_named_port',
+          },
         },
       },
     });
@@ -1992,10 +1997,26 @@ describe('#fetchComputeRegionInstanceGroups', () => {
           },
           id: { type: 'string' },
           name: { type: 'string' },
+          regional: { type: 'boolean' },
           network: { type: 'string' },
           zone: { type: 'string' },
           subnetwork: { type: 'string' },
           createdOn: { type: 'number' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === RELATIONSHIP_TYPE_INSTANCE_GROUP_HAS_NAMED_PORT,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'HAS' },
+          _type: {
+            const: 'google_compute_instance_group_has_named_port',
+          },
         },
       },
     });
@@ -2050,6 +2071,7 @@ describe('#fetchComputeLoadBalancers', () => {
           id: { type: 'string' },
           name: { type: 'string' },
           displayName: { type: 'string' },
+          regional: { type: 'boolean' },
           timeoutSec: { type: 'number' },
           port: { type: 'number' },
           protocol: { type: 'string' },
@@ -2113,6 +2135,7 @@ describe('#fetchComputeLoadBalancers', () => {
           id: { type: 'string' },
           name: { type: 'string' },
           displayName: { type: 'string' },
+          regional: { type: 'boolean' },
           defaultService: { type: 'string' },
           description: { type: 'string' },
           kind: { type: 'string' },
@@ -2190,14 +2213,14 @@ describe('#fetchComputeRegionLoadBalancers', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e._type === ENTITY_TYPE_COMPUTE_REGION_BACKEND_SERVICE,
+        (e) => e._type === ENTITY_TYPE_COMPUTE_BACKEND_SERVICE,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['Service'],
       schema: {
         additionalProperties: false,
         properties: {
-          _type: { const: 'google_compute_region_backend_service' },
+          _type: { const: 'google_compute_backend_service' },
           _rawData: {
             type: 'array',
             items: { type: 'object' },
@@ -2205,6 +2228,7 @@ describe('#fetchComputeRegionLoadBalancers', () => {
           id: { type: 'string' },
           name: { type: 'string' },
           displayName: { type: 'string' },
+          regional: { type: 'boolean' },
           timeoutSec: { type: 'number' },
           port: { type: 'number' },
           protocol: { type: 'string' },
@@ -2220,14 +2244,14 @@ describe('#fetchComputeRegionLoadBalancers', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e._type === ENTITY_TYPE_COMPUTE_REGION_LOAD_BALANCER,
+        (e) => e._type === ENTITY_TYPE_COMPUTE_LOAD_BALANCER,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['Gateway'],
       schema: {
         additionalProperties: false,
         properties: {
-          _type: { const: 'google_compute_region_url_map' },
+          _type: { const: 'google_compute_url_map' },
           _rawData: {
             type: 'array',
             items: { type: 'object' },
@@ -2235,6 +2259,7 @@ describe('#fetchComputeRegionLoadBalancers', () => {
           id: { type: 'string' },
           name: { type: 'string' },
           displayName: { type: 'string' },
+          regional: { type: 'boolean' },
           defaultService: { type: 'string' },
           description: { type: 'string' },
           kind: { type: 'string' },
@@ -2255,15 +2280,13 @@ describe('#fetchComputeRegionLoadBalancers', () => {
 
     expect(
       context.jobState.collectedRelationships.filter(
-        (e) =>
-          e._type ===
-          RELATIONSHIP_TYPE_REGION_LOAD_BALANCER_HAS_REGION_BACKEND_SERVICE,
+        (e) => e._type === RELATIONSHIP_TYPE_LOAD_BALANCER_HAS_BACKEND_SERVICE,
       ),
     ).toMatchDirectRelationshipSchema({
       schema: {
         properties: {
           _class: { const: 'HAS' },
-          _type: { const: 'google_compute_region_url_map_has_backend_service' },
+          _type: { const: 'google_compute_url_map_has_backend_service' },
         },
       },
     });
@@ -2317,6 +2340,7 @@ describe('#fetchComputeTargetHttpProxies', () => {
           id: { type: 'string' },
           name: { type: 'string' },
           displayName: { type: 'string' },
+          regional: { type: 'boolean' },
           defaultService: { type: 'string' },
           kind: { type: 'string' },
           category: {
@@ -2349,6 +2373,7 @@ describe('#fetchComputeTargetHttpProxies', () => {
           },
           id: { type: 'string' },
           name: { type: 'string' },
+          regional: { type: 'boolean' },
           category: {
             type: 'array',
             items: { type: 'string' },
@@ -2411,14 +2436,14 @@ describe('#fetchComputeRegionTargetHttpProxies', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e._type === ENTITY_TYPE_COMPUTE_REGION_BACKEND_SERVICE,
+        (e) => e._type === ENTITY_TYPE_COMPUTE_BACKEND_SERVICE,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['Service'],
       schema: {
         additionalProperties: false,
         properties: {
-          _type: { const: 'google_compute_region_backend_service' },
+          _type: { const: 'google_compute_backend_service' },
           _rawData: {
             type: 'array',
             items: { type: 'object' },
@@ -2426,6 +2451,7 @@ describe('#fetchComputeRegionTargetHttpProxies', () => {
           id: { type: 'string' },
           name: { type: 'string' },
           displayName: { type: 'string' },
+          regional: { type: 'boolean' },
           timeoutSec: { type: 'number' },
           port: { type: 'number' },
           protocol: { type: 'string' },
@@ -2441,20 +2467,21 @@ describe('#fetchComputeRegionTargetHttpProxies', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e._type === ENTITY_TYPE_COMPUTE_REGION_TARGET_HTTP_PROXY,
+        (e) => e._type === ENTITY_TYPE_COMPUTE_TARGET_HTTP_PROXY,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['Gateway'],
       schema: {
         additionalProperties: false,
         properties: {
-          _type: { const: 'google_compute_region_target_http_proxy' },
+          _type: { const: 'google_compute_target_http_proxy' },
           _rawData: {
             type: 'array',
             items: { type: 'object' },
           },
           id: { type: 'string' },
           name: { type: 'string' },
+          regional: { type: 'boolean' },
           category: {
             type: 'array',
             items: { type: 'string' },
@@ -2472,15 +2499,14 @@ describe('#fetchComputeRegionTargetHttpProxies', () => {
     expect(
       context.jobState.collectedRelationships.filter(
         (e) =>
-          e._type ===
-          RELATIONSHIP_TYPE_REGION_LOAD_BALANCER_HAS_REGION_TARGET_HTTP_PROXY,
+          e._type === RELATIONSHIP_TYPE_LOAD_BALANCER_HAS_TARGET_HTTP_PROXY,
       ),
     ).toMatchDirectRelationshipSchema({
       schema: {
         properties: {
           _class: { const: 'HAS' },
           _type: {
-            const: 'google_compute_region_url_map_has_target_http_proxy',
+            const: 'google_compute_url_map_has_target_http_proxy',
           },
         },
       },
@@ -2535,6 +2561,7 @@ describe('#fetchComputeTargetHttpsProxies', () => {
           id: { type: 'string' },
           name: { type: 'string' },
           displayName: { type: 'string' },
+          regional: { type: 'boolean' },
           defaultService: { type: 'string' },
           kind: { type: 'string' },
           category: {
@@ -2567,6 +2594,7 @@ describe('#fetchComputeTargetHttpsProxies', () => {
           },
           id: { type: 'string' },
           name: { type: 'string' },
+          regional: { type: 'boolean' },
           sslPolicy: { type: 'string' },
           category: {
             type: 'array',
@@ -2630,20 +2658,21 @@ describe('#fetchComputeRegionTargetHttpsProxies', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e._type === ENTITY_TYPE_COMPUTE_REGION_TARGET_HTTPS_PROXY,
+        (e) => e._type === ENTITY_TYPE_COMPUTE_TARGET_HTTPS_PROXY,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['Gateway'],
       schema: {
         additionalProperties: false,
         properties: {
-          _type: { const: 'google_compute_region_target_https_proxy' },
+          _type: { const: 'google_compute_target_https_proxy' },
           _rawData: {
             type: 'array',
             items: { type: 'object' },
           },
           id: { type: 'string' },
           name: { type: 'string' },
+          regional: { type: 'boolean' },
           sslPolicy: { type: 'string' },
           category: {
             type: 'array',
@@ -2662,16 +2691,14 @@ describe('#fetchComputeRegionTargetHttpsProxies', () => {
     expect(
       context.jobState.collectedRelationships.filter(
         (e) =>
-          e._type ===
-          RELATIONSHIP_TYPE_REGION_LOAD_BALANCER_HAS_REGION_TARGET_HTTPS_PROXY,
+          e._type === RELATIONSHIP_TYPE_LOAD_BALANCER_HAS_TARGET_HTTPS_PROXY,
       ),
     ).toMatchDirectRelationshipSchema({
       schema: {
         properties: {
           _class: { const: 'HAS' },
           _type: {
-            const:
-              'google_compute_region_url_map_has_region_target_https_proxy',
+            const: 'google_compute_url_map_has_target_https_proxy',
           },
         },
       },
@@ -2726,6 +2753,7 @@ describe('#fetchComputeTargetSslProxies', () => {
           id: { type: 'string' },
           name: { type: 'string' },
           displayName: { type: 'string' },
+          regional: { type: 'boolean' },
           timeoutSec: { type: 'number' },
           port: { type: 'number' },
           protocol: { type: 'string' },
@@ -2866,6 +2894,7 @@ describe('#fetchComputeSslPolicies', () => {
           },
           id: { type: 'string' },
           name: { type: 'string' },
+          regional: { type: 'boolean' },
           sslPolicy: { type: 'string' },
           category: {
             type: 'array',
@@ -3170,15 +3199,14 @@ describe('#fetchComputeForwardingRules', () => {
       context.jobState.collectedRelationships.filter(
         (e) =>
           e._type ===
-          RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_REGION_BACKEND_SERVICE,
+          RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_BACKEND_SERVICE,
       ),
     ).toMatchDirectRelationshipSchema({
       schema: {
         properties: {
           _class: { const: 'CONNECTS' },
           _type: {
-            const:
-              'google_compute_forwarding_rule_connects_region_backend_service',
+            const: 'google_compute_forwarding_rule_connects_backend_service',
           },
         },
       },
@@ -3220,15 +3248,14 @@ describe('#fetchComputeForwardingRules', () => {
       context.jobState.collectedRelationships.filter(
         (e) =>
           e._type ===
-          RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_REGION_TARGET_HTTP_PROXY,
+          RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_TARGET_HTTP_PROXY,
       ),
     ).toMatchDirectRelationshipSchema({
       schema: {
         properties: {
           _class: { const: 'CONNECTS' },
           _type: {
-            const:
-              'google_compute_forwarding_rule_connects_region_target_http_proxy',
+            const: 'google_compute_forwarding_rule_connects_target_http_proxy',
           },
         },
       },
@@ -3238,15 +3265,14 @@ describe('#fetchComputeForwardingRules', () => {
       context.jobState.collectedRelationships.filter(
         (e) =>
           e._type ===
-          RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_REGION_TARGET_HTTPS_PROXY,
+          RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_TARGET_HTTPS_PROXY,
       ),
     ).toMatchDirectRelationshipSchema({
       schema: {
         properties: {
           _class: { const: 'CONNECTS' },
           _type: {
-            const:
-              'google_compute_forwarding_rule_connects_region_target_https_proxy',
+            const: 'google_compute_forwarding_rule_connects_target_https_proxy',
           },
         },
       },

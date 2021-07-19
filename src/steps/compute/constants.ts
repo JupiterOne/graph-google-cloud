@@ -53,9 +53,6 @@ export const ENTITY_TYPE_COMPUTE_INSTANCE = 'google_compute_instance';
 export const ENTITY_CLASS_COMPUTE_DISK = ['DataStore', 'Disk'];
 export const ENTITY_TYPE_COMPUTE_DISK = 'google_compute_disk';
 
-export const ENTITY_CLASS_COMPUTE_REGION_DISK = ['DataStore', 'Disk'];
-export const ENTITY_TYPE_COMPUTE_REGION_DISK = 'google_compute_region_disk';
-
 export const ENTITY_CLASS_COMPUTE_SNAPSHOT = ['Image'];
 export const ENTITY_TYPE_COMPUTE_SNAPSHOT = 'google_compute_snapshot';
 
@@ -89,20 +86,12 @@ export const ENTITY_CLASS_COMPUTE_FIREWALL = 'Firewall';
 export const ENTITY_TYPE_COMPUTE_HEALTH_CHECK = 'google_compute_health_check';
 export const ENTITY_CLASS_COMPUTE_HEALTH_CHECK = 'Service';
 
-export const ENTITY_TYPE_COMPUTE_REGION_HEALTH_CHECK =
-  'google_compute_region_health_check';
-export const ENTITY_CLASS_COMPUTE_REGION_HEALTH_CHECK = 'Service';
-
 export const ENTITY_TYPE_COMPUTE_PROJECT = 'google_compute_project';
 export const ENTITY_CLASS_COMPUTE_PROJECT = 'Project';
 
 export const ENTITY_TYPE_COMPUTE_INSTANCE_GROUP =
   'google_compute_instance_group';
 export const ENTITY_CLASS_COMPUTE_INSTANCE_GROUP = 'Group';
-
-export const ENTITY_TYPE_COMPUTE_REGION_INSTANCE_GROUP =
-  'google_compute_region_instance_group';
-export const ENTITY_CLASS_COMPUTE_REGION_INSTANCE_GROUP = 'Group';
 
 export const ENTITY_TYPE_COMPUTE_INSTANCE_GROUP_NAMED_PORT =
   'google_compute_instance_group_named_port';
@@ -111,17 +100,9 @@ export const ENTITY_CLASS_COMPUTE_INSTANCE_GROUP_NAMED_PORT = 'Configuration';
 export const ENTITY_TYPE_COMPUTE_LOAD_BALANCER = 'google_compute_url_map';
 export const ENTITY_CLASS_COMPUTE_LOAD_BALANCER = 'Gateway';
 
-export const ENTITY_TYPE_COMPUTE_REGION_LOAD_BALANCER =
-  'google_compute_region_url_map';
-export const ENTITY_CLASS_COMPUTE_REGION_LOAD_BALANCER = 'Gateway';
-
 export const ENTITY_TYPE_COMPUTE_BACKEND_SERVICE =
   'google_compute_backend_service';
 export const ENTITY_CLASS_COMPUTE_BACKEND_SERVICE = 'Service';
-
-export const ENTITY_CLASS_COMPUTE_REGION_BACKEND_SERVICE = 'Service';
-export const ENTITY_TYPE_COMPUTE_REGION_BACKEND_SERVICE =
-  'google_compute_region_backend_service';
 
 export const ENTITY_TYPE_COMPUTE_BACKEND_BUCKET =
   'google_compute_backend_bucket';
@@ -135,17 +116,9 @@ export const ENTITY_TYPE_COMPUTE_TARGET_HTTP_PROXY =
   'google_compute_target_http_proxy';
 export const ENTITY_CLASS_COMPUTE_TARGET_HTTP_PROXY = 'Gateway';
 
-export const ENTITY_TYPE_COMPUTE_REGION_TARGET_HTTP_PROXY =
-  'google_compute_region_target_http_proxy';
-export const ENTITY_CLASS_COMPUTE_REGION_TARGET_HTTP_PROXY = 'Gateway';
-
 export const ENTITY_TYPE_COMPUTE_TARGET_HTTPS_PROXY =
   'google_compute_target_https_proxy';
 export const ENTITY_CLASS_COMPUTE_TARGET_HTTPS_PROXY = 'Gateway';
-
-export const ENTITY_TYPE_COMPUTE_REGION_TARGET_HTTPS_PROXY =
-  'google_compute_region_target_https_proxy';
-export const ENTITY_CLASS_COMPUTE_REGION_TARGET_HTTPS_PROXY = 'Gateway';
 
 export const ENTITY_TYPE_COMPUTE_SSL_POLICY = 'google_compute_ssl_policy';
 export const ENTITY_CLASS_COMPUTE_SSL_POLICY = 'Policy';
@@ -177,8 +150,6 @@ export const RELATIONSHIP_TYPE_DISK_USES_IMAGE =
   'google_compute_disk_uses_image';
 export const RELATIONSHIP_TYPE_COMPUTE_DISK_USES_KMS_CRYPTO_KEY =
   'google_compute_disk_uses_kms_crypto_key';
-export const RELATIONSHIP_TYPE_COMPUTE_REGION_DISK_USES_KMS_CRYPTO_KEY =
-  'google_compute_region_disk_uses_kms_crypto_key';
 export const RELATIONSHIP_TYPE_DISK_CREATED_SNAPSHOT =
   'google_compute_disk_created_snapshot';
 export const RELATIONSHIP_TYPE_IMAGE_CREATED_IMAGE =
@@ -195,43 +166,27 @@ export const RELATIONSHIP_TYPE_INSTANCE_GROUP_HAS_COMPUTE_INSTANCE =
   'google_compute_instance_group_has_instance';
 export const RELATIONSHIP_TYPE_INSTANCE_GROUP_HAS_NAMED_PORT =
   'google_compute_instance_group_has_named_port';
-export const RELATIONSHIP_TYPE_REGION_INSTANCE_GROUP_HAS_NAMED_PORT =
-  'google_compute_region_instance_group_has_instance_group_named_port';
 export const RELATIONSHIP_TYPE_BACKEND_SERVICE_HAS_INSTANCE_GROUP =
   'google_compute_backend_service_has_instance_group';
 export const RELATIONSHIP_TYPE_BACKEND_SERVICE_HAS_HEALTH_CHECK =
   'google_compute_backend_service_has_health_check';
-export const RELATIONSHIP_TYPE_REGION_BACKEND_SERVICE_HAS_REGION_INSTANCE_GROUP =
-  'google_compute_region_backend_service_has_region_instance_group';
-export const RELATIONSHIP_TYPE_REGION_BACKEND_SERVICE_HAS_INSTANCE_GROUP =
-  'google_compute_region_backend_service_has_instance_group';
-export const RELATIONSHIP_TYPE_REGION_BACKEND_SERVICE_HAS_HEALTH_CHECK =
-  'google_compute_region_backend_service_has_health_check';
-export const RELATIONSHIP_TYPE_REGION_BACKEND_SERVICE_HAS_REGION_HEALTH_CHECK =
-  'google_compute_region_backend_service_has_region_health_check';
 export const RELATIONSHIP_TYPE_LOAD_BALANCER_HAS_BACKEND_SERVICE =
   'google_compute_url_map_has_backend_service';
-export const RELATIONSHIP_TYPE_REGION_LOAD_BALANCER_HAS_REGION_TARGET_HTTPS_PROXY =
-  'google_compute_region_url_map_has_region_region_target_https_proxy';
-export const RELATIONSHIP_TYPE_REGION_LOAD_BALANCER_HAS_REGION_BACKEND_SERVICE =
-  'google_compute_region_url_map_has_backend_service';
-export const RELATIONSHIP_TYPE_REGION_LOAD_BALANCER_HAS_REGION_TARGET_HTTP_PROXY =
-  'google_compute_region_url_map_has_target_http_proxy';
 export const RELATIONSHIP_TYPE_LOAD_BALANCER_HAS_BACKEND_BUCKET =
   'google_compute_url_map_has_backend_bucket';
 export const RELATIONSHIP_TYPE_BACKEND_BUCKET_HAS_STORAGE_BUCKET =
   'google_compute_backend_bucket_has_storage_bucket';
 
-export const RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_REGION_BACKEND_SERVICE =
-  'google_compute_forwarding_rule_connects_region_backend_service';
+export const RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_BACKEND_SERVICE =
+  'google_compute_forwarding_rule_connects_backend_service';
 export const RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_SUBNETWORK =
   'google_compute_forwarding_rule_connects_subnetwork';
 export const RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_NETWORK =
   'google_compute_forwarding_rule_connects_network';
-export const RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_REGION_TARGET_HTTP_PROXY =
-  'google_compute_forwarding_rule_connects_region_target_http_proxy';
-export const RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_REGION_TARGET_HTTPS_PROXY =
-  'google_compute_forwarding_rule_connects_region_target_https_proxy';
+export const RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_TARGET_HTTP_PROXY =
+  'google_compute_forwarding_rule_connects_target_http_proxy';
+export const RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_TARGET_HTTPS_PROXY =
+  'google_compute_forwarding_rule_connects_target_https_proxy';
 
 export const RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_BACKEND_SERVICE =
   'google_compute_global_forwarding_rule_connects_backend_service';

@@ -53,20 +53,6 @@ import {
   ENTITY_TYPE_COMPUTE_ADDRESS,
   ENTITY_CLASS_COMPUTE_FORWARDING_RULE,
   ENTITY_TYPE_COMPUTE_FORWARDING_RULE,
-  ENTITY_CLASS_COMPUTE_REGION_BACKEND_SERVICE,
-  ENTITY_TYPE_COMPUTE_REGION_BACKEND_SERVICE,
-  ENTITY_CLASS_COMPUTE_REGION_HEALTH_CHECK,
-  ENTITY_TYPE_COMPUTE_REGION_HEALTH_CHECK,
-  ENTITY_CLASS_COMPUTE_REGION_INSTANCE_GROUP,
-  ENTITY_TYPE_COMPUTE_REGION_INSTANCE_GROUP,
-  ENTITY_CLASS_COMPUTE_REGION_DISK,
-  ENTITY_TYPE_COMPUTE_REGION_DISK,
-  ENTITY_CLASS_COMPUTE_REGION_LOAD_BALANCER,
-  ENTITY_TYPE_COMPUTE_REGION_LOAD_BALANCER,
-  ENTITY_CLASS_COMPUTE_REGION_TARGET_HTTPS_PROXY,
-  ENTITY_TYPE_COMPUTE_REGION_TARGET_HTTPS_PROXY,
-  ENTITY_CLASS_COMPUTE_REGION_TARGET_HTTP_PROXY,
-  ENTITY_TYPE_COMPUTE_REGION_TARGET_HTTP_PROXY,
   ENTITY_CLASS_COMPUTE_GLOBAL_FORWARDING_RULE,
   ENTITY_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE,
   ENTITY_CLASS_COMPUTE_GLOBAL_ADDRESS,
@@ -216,6 +202,7 @@ export function createComputeDiskEntity(
         zone,
         sourceImage: data.sourceImage,
         sourceImageId: data.sourceImageId,
+        regional: false,
         ...getCommonDiskProps(data),
         webLink: getGoogleCloudConsoleWebLink(
           `/compute/disksDetail/zones/${zone}/disks/${data.name}?project=${projectId}`,
@@ -238,10 +225,11 @@ export function createComputeRegionDiskEntity(
         tags: buildComputeInstanceTags(data),
       },
       assign: {
-        _class: ENTITY_CLASS_COMPUTE_REGION_DISK,
-        _type: ENTITY_TYPE_COMPUTE_REGION_DISK,
+        _class: ENTITY_CLASS_COMPUTE_DISK,
+        _type: ENTITY_TYPE_COMPUTE_DISK,
         _key: `region_disk:${data.id}`,
         region,
+        regional: true,
         ...getCommonDiskProps(data),
         webLink: getGoogleCloudConsoleWebLink(
           `/compute/disksDetail/regions/${region}/disks/${data.name}?project=${projectId}`,
@@ -1000,9 +988,10 @@ export function createRegionHealthCheckEntity(
     entityData: {
       source: data,
       assign: {
-        _class: ENTITY_CLASS_COMPUTE_REGION_HEALTH_CHECK,
-        _type: ENTITY_TYPE_COMPUTE_REGION_HEALTH_CHECK,
+        _class: ENTITY_CLASS_COMPUTE_HEALTH_CHECK,
+        _type: ENTITY_TYPE_COMPUTE_HEALTH_CHECK,
         region,
+        regional: true,
         ...getCommonHealthCheckProps(data),
         webLink: getGoogleCloudConsoleWebLink(
           `/compute/healthChecks/details/regions/${region}/${data.name}?project=${projectId}`,
@@ -1022,6 +1011,7 @@ export function createHealthCheckEntity(
       assign: {
         _class: ENTITY_CLASS_COMPUTE_HEALTH_CHECK,
         _type: ENTITY_TYPE_COMPUTE_HEALTH_CHECK,
+        regional: false,
         ...getCommonHealthCheckProps(data),
         webLink: getGoogleCloudConsoleWebLink(
           `/compute/healthChecks/details/${data.name}?project=${projectId}`,
@@ -1113,8 +1103,9 @@ export function createRegionInstanceGroupEntity(
     entityData: {
       source: data,
       assign: {
-        _class: ENTITY_CLASS_COMPUTE_REGION_INSTANCE_GROUP,
-        _type: ENTITY_TYPE_COMPUTE_REGION_INSTANCE_GROUP,
+        _class: ENTITY_CLASS_COMPUTE_INSTANCE_GROUP,
+        _type: ENTITY_TYPE_COMPUTE_INSTANCE_GROUP,
+        regional: true,
         ...getCommonInstanceGroupProps({
           data,
           projectId,
@@ -1136,6 +1127,7 @@ export function createInstanceGroupEntity(
       assign: {
         _class: ENTITY_CLASS_COMPUTE_INSTANCE_GROUP,
         _type: ENTITY_TYPE_COMPUTE_INSTANCE_GROUP,
+        regional: false,
         ...getCommonInstanceGroupProps({
           data,
           projectId,
@@ -1167,9 +1159,10 @@ export function createRegionLoadBalancerEntity(data: compute_v1.Schema$UrlMap) {
     entityData: {
       source: data,
       assign: {
-        _class: ENTITY_CLASS_COMPUTE_REGION_LOAD_BALANCER,
-        _type: ENTITY_TYPE_COMPUTE_REGION_LOAD_BALANCER,
+        _class: ENTITY_CLASS_COMPUTE_LOAD_BALANCER,
+        _type: ENTITY_TYPE_COMPUTE_LOAD_BALANCER,
         region: data.region,
+        regional: true,
         ...getCommonLoadBalancerProps(data),
       },
     },
@@ -1183,6 +1176,7 @@ export function createLoadBalancerEntity(data: compute_v1.Schema$UrlMap) {
       assign: {
         _class: ENTITY_CLASS_COMPUTE_LOAD_BALANCER,
         _type: ENTITY_TYPE_COMPUTE_LOAD_BALANCER,
+        regional: false,
         ...getCommonLoadBalancerProps(data),
       },
     },
@@ -1212,8 +1206,9 @@ export function createRegionBackendServiceEntity(
     entityData: {
       source: data,
       assign: {
-        _class: ENTITY_CLASS_COMPUTE_REGION_BACKEND_SERVICE,
-        _type: ENTITY_TYPE_COMPUTE_REGION_BACKEND_SERVICE,
+        _class: ENTITY_CLASS_COMPUTE_BACKEND_SERVICE,
+        _type: ENTITY_TYPE_COMPUTE_BACKEND_SERVICE,
+        regional: true,
         ...getCommonBackendServiceProps(data),
       },
     },
@@ -1229,6 +1224,7 @@ export function createBackendServiceEntity(
       assign: {
         _class: ENTITY_CLASS_COMPUTE_BACKEND_SERVICE,
         _type: ENTITY_TYPE_COMPUTE_BACKEND_SERVICE,
+        regional: false,
         ...getCommonBackendServiceProps(data),
       },
     },
@@ -1303,8 +1299,9 @@ export function createRegionTargetHttpsProxyEntity(
     entityData: {
       source: data,
       assign: {
-        _class: ENTITY_CLASS_COMPUTE_REGION_TARGET_HTTPS_PROXY,
-        _type: ENTITY_TYPE_COMPUTE_REGION_TARGET_HTTPS_PROXY,
+        _class: ENTITY_CLASS_COMPUTE_TARGET_HTTPS_PROXY,
+        _type: ENTITY_TYPE_COMPUTE_TARGET_HTTPS_PROXY,
+        regional: true,
         ...getCommonTargetHttpsProxyProps(data),
       },
     },
@@ -1320,6 +1317,7 @@ export function createTargetHttpsProxyEntity(
       assign: {
         _class: ENTITY_CLASS_COMPUTE_TARGET_HTTPS_PROXY,
         _type: ENTITY_TYPE_COMPUTE_TARGET_HTTPS_PROXY,
+        regional: false,
         ...getCommonTargetHttpsProxyProps(data),
       },
     },
@@ -1347,8 +1345,9 @@ export function createRegionTargetHttpProxyEntity(
     entityData: {
       source: data,
       assign: {
-        _class: ENTITY_CLASS_COMPUTE_REGION_TARGET_HTTP_PROXY,
-        _type: ENTITY_TYPE_COMPUTE_REGION_TARGET_HTTP_PROXY,
+        _class: ENTITY_CLASS_COMPUTE_TARGET_HTTP_PROXY,
+        _type: ENTITY_TYPE_COMPUTE_TARGET_HTTP_PROXY,
+        regional: true,
         ...getCommonTargetHttpProxyProps(data),
       },
     },
@@ -1364,6 +1363,7 @@ export function createTargetHttpProxyEntity(
       assign: {
         _class: ENTITY_CLASS_COMPUTE_TARGET_HTTP_PROXY,
         _type: ENTITY_TYPE_COMPUTE_TARGET_HTTP_PROXY,
+        regional: false,
         ...getCommonTargetHttpProxyProps(data),
       },
     },

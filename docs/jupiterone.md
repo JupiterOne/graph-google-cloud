@@ -309,26 +309,19 @@ The following entities are created:
 | Compute Forwarding Rule                                  | `google_compute_forwarding_rule`                                  | `Configuration`                    |
 | Compute Global Address                                   | `google_compute_global_address`                                   | `IpAddress`                        |
 | Compute Global Forwarding Rule                           | `google_compute_global_forwarding_rule`                           | `Configuration`                    |
-| Compute Health Check                                     | `google_compute_health_check`                                     | `Service`                          |
 | Compute Image                                            | `google_compute_image`                                            | `Image`                            |
 | Compute Instance                                         | `google_compute_instance`                                         | `Host`                             |
 | Compute Instance Group                                   | `google_compute_instance_group`                                   | `Group`                            |
 | Compute Instance Group Named Port                        | `google_compute_instance_group_named_port`                        | `Configuration`                    |
-| Compute Load Balancer                                    | `google_compute_url_map`                                          | `Gateway`                          |
 | Compute Networks                                         | `google_compute_network`                                          | `Network`                          |
 | Compute Project                                          | `google_compute_project`                                          | `Project`                          |
-| Compute Region Backend Service                           | `google_compute_region_backend_service`                           | `Service`                          |
-| Compute Region Disk                                      | `google_compute_region_disk`                                      | `DataStore`, `Disk`                |
-| Compute Region Health Check                              | `google_compute_region_health_check`                              | `Service`                          |
-| Compute Region Instance Group                            | `google_compute_region_instance_group`                            | `Group`                            |
-| Compute Region Load Balancer                             | `google_compute_region_url_map`                                   | `Gateway`                          |
-| Compute Region Target HTTP Proxy                         | `google_compute_region_target_http_proxy`                         | `Gateway`                          |
-| Compute Region Target HTTPS Proxy                        | `google_compute_region_target_https_proxy`                        | `Gateway`                          |
+| Compute Region Health Check                              | `google_compute_health_check`                                     | `Service`                          |
+| Compute Region Load Balancer                             | `google_compute_url_map`                                          | `Gateway`                          |
+| Compute Region Target HTTP Proxy                         | `google_compute_target_http_proxy`                                | `Gateway`                          |
+| Compute Region Target HTTPS Proxy                        | `google_compute_target_https_proxy`                               | `Gateway`                          |
 | Compute SSL Policy                                       | `google_compute_ssl_policy`                                       | `Policy`                           |
 | Compute Snapshot                                         | `google_compute_snapshot`                                         | `Image`                            |
 | Compute Subnetwork                                       | `google_compute_subnetwork`                                       | `Network`                          |
-| Compute Target HTTP Proxy                                | `google_compute_target_http_proxy`                                | `Gateway`                          |
-| Compute Target HTTPS Proxy                               | `google_compute_target_https_proxy`                               | `Gateway`                          |
 | Compute Target SSL Proxy                                 | `google_compute_target_ssl_proxy`                                 | `Gateway`                          |
 | Container Cluster                                        | `google_container_cluster`                                        | `Cluster`                          |
 | Container Node Pool                                      | `google_container_node_pool`                                      | `Group`                            |
@@ -402,11 +395,11 @@ The following relationships are created/mapped:
 | `google_compute_disk`                                            | **USES**              | `google_compute_image`                                            |
 | `google_compute_disk`                                            | **USES**              | `google_kms_crypto_key`                                           |
 | `google_compute_firewall`                                        | **PROTECTS**          | `google_compute_network`                                          |
+| `google_compute_forwarding_rule`                                 | **CONNECTS**          | `google_compute_backend_service`                                  |
 | `google_compute_forwarding_rule`                                 | **CONNECTS**          | `google_compute_network`                                          |
-| `google_compute_forwarding_rule`                                 | **CONNECTS**          | `google_compute_region_backend_service`                           |
-| `google_compute_forwarding_rule`                                 | **CONNECTS**          | `google_compute_region_target_http_proxy`                         |
-| `google_compute_forwarding_rule`                                 | **CONNECTS**          | `google_compute_region_target_https_proxy`                        |
 | `google_compute_forwarding_rule`                                 | **CONNECTS**          | `google_compute_subnetwork`                                       |
+| `google_compute_forwarding_rule`                                 | **CONNECTS**          | `google_compute_target_http_proxy`                                |
+| `google_compute_forwarding_rule`                                 | **CONNECTS**          | `google_compute_target_https_proxy`                               |
 | `google_compute_forwarding_rule`                                 | **USES**              | `google_compute_address`                                          |
 | `google_compute_global_forwarding_rule`                          | **CONNECTS**          | `google_compute_backend_service`                                  |
 | `google_compute_global_forwarding_rule`                          | **CONNECTS**          | `google_compute_network`                                          |
@@ -426,15 +419,6 @@ The following relationships are created/mapped:
 | `google_compute_network`                                         | **HAS**               | `google_compute_firewall`                                         |
 | `google_compute_network`                                         | **HAS**               | `google_compute_global_address`                                   |
 | `google_compute_project`                                         | **HAS**               | `google_compute_instance`                                         |
-| `google_compute_region_backend_service`                          | **HAS**               | `google_compute_health_check`                                     |
-| `google_compute_region_backend_service`                          | **HAS**               | `google_compute_instance_group`                                   |
-| `google_compute_region_backend_service`                          | **HAS**               | `google_compute_region_health_check`                              |
-| `google_compute_region_backend_service`                          | **HAS**               | `google_compute_region_instance_group`                            |
-| `google_compute_region_disk`                                     | **USES**              | `google_kms_crypto_key`                                           |
-| `google_compute_region_instance_group`                           | **HAS**               | `google_compute_instance_group_named_port`                        |
-| `google_compute_region_url_map`                                  | **HAS**               | `google_compute_region_backend_service`                           |
-| `google_compute_region_url_map`                                  | **HAS**               | `google_compute_region_target_https_proxy`                        |
-| `google_compute_region_url_map`                                  | **HAS**               | `google_compute_region_target_http_proxy`                         |
 | `google_compute_snapshot`                                        | **CREATED**           | `google_compute_image`                                            |
 | `google_compute_subnetwork`                                      | **HAS**               | `google_compute_address`                                          |
 | `google_compute_subnetwork`                                      | **HAS**               | `google_compute_global_address`                                   |

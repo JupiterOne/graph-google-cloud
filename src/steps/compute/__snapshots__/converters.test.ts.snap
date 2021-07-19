@@ -101,6 +101,7 @@ Object {
   "name": "example-backend-service",
   "port": 80,
   "protocol": "HTTPS",
+  "regional": false,
   "timeoutSec": 30,
 }
 `;
@@ -356,6 +357,7 @@ Object {
   ],
   "name": "testvm",
   "physicalBlockSizeBytes": "4096",
+  "regional": false,
   "sizeGB": "10",
   "sourceImage": "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-9-stretch-v20200805",
   "sourceImageId": "6709658075886210235",
@@ -436,6 +438,7 @@ Object {
   ],
   "name": "testvm",
   "physicalBlockSizeBytes": "4096",
+  "regional": false,
   "sizeGB": "10",
   "sourceImage": "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-9-stretch-v20200805",
   "sourceImageId": "6709658075886210235",
@@ -1248,7 +1251,7 @@ Object {
       },
     },
   ],
-  "_type": "google_compute_region_disk",
+  "_type": "google_compute_disk",
   "active": true,
   "classification": null,
   "createdOn": 1597245605930,
@@ -1274,6 +1277,7 @@ Object {
   "name": "my-region-disk",
   "physicalBlockSizeBytes": "4096",
   "region": "us-central1",
+  "regional": true,
   "sizeGB": "10",
   "sourceSnapshot": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/snapshots/my-snapshot",
   "sourceSnapshotId": "582017966438274022",
@@ -1554,6 +1558,7 @@ Object {
   "healthyThreshold": 2,
   "id": "1905105216322309484",
   "name": "health-check",
+  "regional": false,
   "timeoutSec": 5,
   "type": "TCP",
   "unhealthyThreshold": 3,
@@ -1598,6 +1603,7 @@ Object {
   "id": "4682404015364017264",
   "name": "instance-group-1",
   "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/default",
+  "regional": false,
   "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/default",
   "webLink": "https://console.cloud.google.com/compute/instanceGroups/details/us-central1-a/instance-group-1?project=j1-gc-integration-dev-v2",
   "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a",
@@ -1662,6 +1668,7 @@ Object {
   "kind": "compute#urlMap",
   "name": "region-load-balancer",
   "public": true,
+  "regional": false,
 }
 `;
 
@@ -1706,7 +1713,7 @@ Object {
       },
     },
   ],
-  "_type": "google_compute_region_backend_service",
+  "_type": "google_compute_backend_service",
   "category": Array [
     "network",
   ],
@@ -1721,6 +1728,7 @@ Object {
   "name": "region-service",
   "port": 80,
   "protocol": "HTTP",
+  "regional": true,
   "timeoutSec": 10,
 }
 `;
@@ -1754,7 +1762,7 @@ Object {
       },
     },
   ],
-  "_type": "google_compute_region_health_check",
+  "_type": "google_compute_health_check",
   "category": Array [
     "network",
   ],
@@ -1769,6 +1777,7 @@ Object {
   "id": "1905105216322309484",
   "name": "region-health-check",
   "region": "us-central1",
+  "regional": true,
   "timeoutSec": 5,
   "type": "TCP",
   "unhealthyThreshold": 3,
@@ -1806,13 +1815,14 @@ Object {
       },
     },
   ],
-  "_type": "google_compute_region_instance_group",
+  "_type": "google_compute_instance_group",
   "createdOn": 1625251056900,
   "description": "This instance group is controlled by Regional Instance Group Manager 'rbs-rigm'. To modify instances in this group, use the Regional Instance Group Manager API: https://cloud.google.com/compute/docs/reference/latest/regionInstanceGroupManagers",
   "displayName": "rbs-rigm",
   "id": "1067593809144242719",
   "name": "rbs-rigm",
   "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/rbs-net",
+  "regional": true,
   "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/subnetworks/rbs-net-default",
   "webLink": "https://console.cloud.google.com/compute/instanceGroups/details/us-central1/rbs-rigm?project=j1-gc-integration-dev-v2",
   "zone": undefined,
@@ -1861,7 +1871,7 @@ Object {
       },
     },
   ],
-  "_type": "google_compute_region_url_map",
+  "_type": "google_compute_url_map",
   "category": Array [
     "network",
   ],
@@ -1877,6 +1887,7 @@ Object {
   "name": "example-http-load-balancer",
   "public": true,
   "region": undefined,
+  "regional": true,
 }
 `;
 
@@ -1901,7 +1912,7 @@ Object {
       },
     },
   ],
-  "_type": "google_compute_region_target_http_proxy",
+  "_type": "google_compute_target_http_proxy",
   "category": Array [
     "network",
   ],
@@ -1913,6 +1924,7 @@ Object {
   "id": "8864379689692153049",
   "name": "region-target-http-proxy",
   "public": true,
+  "regional": true,
 }
 `;
 
@@ -1952,6 +1964,7 @@ Object {
   "id": "4900822412538579656",
   "name": "example-http-load-balancer-target-proxy",
   "public": true,
+  "regional": false,
   "sslPolicy": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/sslPolicies/example-tls-1-2-policy",
 }
 `;
@@ -2034,6 +2047,7 @@ Object {
   "id": "3284730591055048813",
   "name": "example-http-loadbalancer-target-proxy",
   "public": true,
+  "regional": false,
 }
 `;
 
@@ -2073,6 +2087,7 @@ Object {
   "id": "4900822412538579656",
   "name": "example-http-load-balancer-target-proxy",
   "public": true,
+  "regional": false,
   "sslPolicy": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/sslPolicies/example-tls-1-2-policy",
 }
 `;

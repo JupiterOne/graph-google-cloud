@@ -749,7 +749,7 @@ describe('#beforeAddEntity', () => {
         invocationConfig.beforeAddEntity(context, mockEntity),
     ).toEqual({
       ...mockEntity,
-      projectId: 'j1-gc-integration-dev-v3',
+      projectId: 'j1-gc-integration-dev-v2',
     });
   });
 
