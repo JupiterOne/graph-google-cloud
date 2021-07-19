@@ -2,7 +2,11 @@ import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-test
 import { IntegrationConfig } from '../..';
 import { integrationConfig } from '../../../test/config';
 import { withRecording } from '../../../test/recording';
-import { fetchIamBindings } from '.';
+import {
+  createBindingRoleRelationships,
+  createPrincipalRelationships,
+  fetchIamBindings,
+} from '.';
 import { bindingEntities } from './constants';
 import {
   buildOrgFolderProjectMappedRelationships,
@@ -14,8 +18,57 @@ import {
   fetchIamManagedRoles,
   fetchIamServiceAccounts,
 } from '../iam';
-import { Entity, Relationship } from '@jupiterone/integration-sdk-core';
+import {
+  Entity,
+  ExplicitRelationship,
+  MappedRelationship,
+  Relationship,
+} from '@jupiterone/integration-sdk-core';
 import { filterGraphObjects } from '../../../test/helpers/filterGraphObjects';
+
+expect.extend({
+  toHaveBothDirectAndMappedRelationships(
+    collectedRelationships: Relationship[],
+    name: string,
+  ) {
+    if (collectedRelationships?.length < 1) {
+      return {
+        message: () => `${name} has no relatioinships`,
+        pass: false,
+      };
+    }
+    const { targets: directRelationships, rest: mappedRelationships } =
+      filterGraphObjects(collectedRelationships, (r) => !r._mapping) as {
+        targets: ExplicitRelationship[];
+        rest: MappedRelationship[];
+      };
+    if (directRelationships?.length < 1) {
+      return {
+        message: () => `${name} has no direct relatioinships`,
+        pass: false,
+      };
+    }
+    if (mappedRelationships?.length < 1) {
+      return {
+        message: () => `${name} has no mapped relatioinships`,
+        pass: false,
+      };
+    }
+    return {
+      message: () => `${name} should have both direct and mapped relationships`,
+      pass: true,
+    };
+  },
+});
+
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace jest {
+    interface Matchers<R> {
+      toHaveBothDirectAndMappedRelationships(name: string): CustomMatcherResult;
+    }
+  }
+}
 
 describe('#fetchIamBindings', () => {
   function separateGraphObjectsByType<T extends Entity | Relationship>(
@@ -57,6 +110,8 @@ describe('#fetchIamBindings', () => {
       await fetchIamManagedRoles(context);
       await fetchIamServiceAccounts(context);
       await fetchIamBindings(context);
+      await createPrincipalRelationships(context);
+      await createBindingRoleRelationships(context);
 
       expect({
         numCollectedEntities: context.jobState.collectedEntities.length,
@@ -81,7 +136,6 @@ describe('#fetchIamBindings', () => {
         context.jobState.encounteredTypes,
       );
 
-      // Each of these relationships could either be mapped or direct depending on if it has been previously ingested in this run so not checking if direct or mapped here
       expect(google_iam_binding_uses_role.length).toBeGreaterThan(0);
       expect(google_iam_binding_assigned_user.length).toBeGreaterThan(0);
       expect(google_iam_binding_assigned_group.length).toBeGreaterThan(0);
@@ -93,6 +147,18 @@ describe('#fetchIamBindings', () => {
       expect(google_iam_service_account_assigned_role.length).toBeGreaterThan(
         0,
       );
+
+      // Each of these relationships could either be mapped or direct depending on if it has been previously ingested in this run or not.
+      // TODO: Make an example case for each one to prevent potential reverts.
+      expect(
+        google_iam_binding_uses_role,
+      ).toHaveBothDirectAndMappedRelationships('google_iam_binding_uses_role');
+      // expect(google_iam_binding_assigned_user).toHaveBothDirectAndMappedRelationships('google_iam_binding_assigned_user')
+      // expect(google_iam_binding_assigned_group).toHaveBothDirectAndMappedRelationships('google_iam_binding_assigned_group')
+      // expect(google_iam_binding_assigned_service_account).toHaveBothDirectAndMappedRelationships('google_iam_binding_assigned_service_account')
+      // expect(google_user_assigned_iam_role).toHaveBothDirectAndMappedRelationships('google_user_assigned_iam_role')
+      // expect(google_group_assigned_iam_role).toHaveBothDirectAndMappedRelationships('google_group_assigned_iam_role')
+      // expect(google_iam_service_account_assigned_role).toHaveBothDirectAndMappedRelationships('google_iam_service_account_assigned_role')
 
       // Entities
       const { google_iam_binding, google_iam_role } =

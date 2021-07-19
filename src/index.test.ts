@@ -108,7 +108,11 @@ import {
   STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES,
 } from './steps/privateca/constants';
 import { getOrganizationSteps } from './getStepStartStates';
-import { STEP_IAM_BINDINGS } from './steps/cloud-asset/constants';
+import {
+  STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS,
+  STEP_CREATE_BINDING_ROLE_RELATIONSHIPS,
+  STEP_IAM_BINDINGS,
+} from './steps/cloud-asset/constants';
 import {
   STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS,
   STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
@@ -394,6 +398,12 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_IAM_BINDINGS]: {
+        disabled: false,
+      },
+      [STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS]: {
+        disabled: false,
+      },
+      [STEP_CREATE_BINDING_ROLE_RELATIONSHIPS]: {
         disabled: false,
       },
     };
