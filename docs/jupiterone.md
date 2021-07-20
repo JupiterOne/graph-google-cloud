@@ -326,6 +326,7 @@ The following entities are created:
 | Container Cluster                                        | `google_container_cluster`                                        | `Cluster`                          |
 | Container Node Pool                                      | `google_container_node_pool`                                      | `Group`                            |
 | DNS Managed Zone                                         | `google_dns_managed_zone`                                         | `DomainZone`                       |
+| Dataproc Cluster                                         | `google_dataproc_cluster`                                         | `Cluster`                          |
 | Folder                                                   | `google_cloud_folder`                                             | `Group`                            |
 | IAM Binding                                              | `google_iam_binding`                                              | `AccessPolicy`                     |
 | IAM Role                                                 | `google_iam_role`                                                 | `AccessRole`                       |

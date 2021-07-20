@@ -106,3 +106,8 @@ variable "enable_global_address_with_network_example" {
   type = bool
   default = false
 }
+
+variable "enable_dataproc_cluster" {
+  type = bool
+  default = false
+}
