@@ -117,6 +117,13 @@ export async function fetchAppEngineApplication(
       });
 
       return;
+    } else if (err.code === 404) {
+      logger.info(
+        { projectId },
+        'App engine application not found for project',
+      );
+
+      return;
     }
 
     throw err;
