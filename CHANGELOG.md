@@ -8,7 +8,14 @@ and this project adheres to
 
 ## [Unreleased]
 
-### 0.44.0 - 2021-07-19
+## 0.44.1 - 2021-07-20
+
+### Fixed
+
+- Step that fetches resource manager project should not fail when project cannot
+  be fetched
+
+## 0.44.0 - 2021-07-19
 
 ### Added
 
