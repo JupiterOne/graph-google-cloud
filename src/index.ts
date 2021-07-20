@@ -28,6 +28,7 @@ import { spannerSteps } from './steps/spanner';
 import { apiGatewaySteps } from './steps/api-gateway';
 import { privateCaSteps } from './steps/privateca';
 import { accessPoliciesSteps } from './steps/access-context-manager';
+import { dataprocSteps } from './steps/dataproc';
 
 import { Client } from './google-cloud/client';
 import { cloudAssetSteps } from './steps/cloud-asset';
@@ -76,6 +77,7 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> =
       ...apiGatewaySteps,
       ...privateCaSteps,
       ...accessPoliciesSteps,
+      ...dataprocSteps,
     ],
     dependencyGraphOrder: ['last'],
     beforeAddEntity(context, entity: Entity): Entity {

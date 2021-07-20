@@ -81,3 +81,8 @@ variable "enable_mysql_instance" {
   type = bool
   default = false
 }
+
+variable "enable_dataproc_cluster" {
+  type = bool
+  default = false
+}
