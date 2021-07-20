@@ -363,6 +363,7 @@ export async function fetchResourceManagerProject(
   let project;
   try {
     project = await client.getProject();
+    await cacheProjectNameToId(jobState, project);
   } catch (err) {
     // This step _always_ executes because it creates a root `Account` entity for the integration instance.
     // However, users can only fetch the project details if cloudresourcemanager API is enabled.
@@ -383,7 +384,6 @@ export async function fetchResourceManagerProject(
   }
 
   const projectEntity = createProjectEntity(client.projectId, project);
-  await cacheProjectNameToId(jobState, project);
 
   await jobState.setData(PROJECT_ENTITY_TYPE, projectEntity);
   await jobState.addEntity(projectEntity);
