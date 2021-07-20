@@ -8,6 +8,13 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.44.2 - 2021-07-20
+
+### Fixed
+
+- Step that fetches App Engine Applications should not fail when
+  `appengine.apps.get` responds with a `404`
+
 ## 0.44.1 - 2021-07-20
 
 ### Fixed
