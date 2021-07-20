@@ -40,7 +40,7 @@ import {
   buildIamBindingEntityKey,
   createIamBindingEntity,
 } from './converters';
-import get from 'lodash.get';
+import get from 'lodash/get';
 
 export async function fetchIamBindings(
   context: IntegrationStepContext,
