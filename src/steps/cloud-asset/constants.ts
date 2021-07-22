@@ -4,6 +4,7 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { ANY_RESOURCE } from '../../constants';
 import {
+  GOOGLE_DOMAIN_ENTITY_TYPE,
   GOOGLE_GROUP_ENTITY_TYPE,
   GOOGLE_USER_ENTITY_TYPE,
   IAM_ROLE_ENTITY_TYPE,
@@ -25,7 +26,7 @@ export const bindingEntities = {
 };
 
 const IAM_PRINCIPAL_TYPES = [
-  // 'google_domain', // These are getting ignored for now
+  GOOGLE_DOMAIN_ENTITY_TYPE,
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
   GOOGLE_GROUP_ENTITY_TYPE,
   GOOGLE_USER_ENTITY_TYPE,

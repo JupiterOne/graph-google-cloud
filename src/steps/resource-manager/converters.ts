@@ -7,8 +7,8 @@ import {
   createMappedRelationship,
   generateRelationshipType,
   generateRelationshipKey,
-  IntegrationError,
   Entity,
+  PrimitiveEntity,
 } from '@jupiterone/integration-sdk-core';
 import {
   PROJECT_ENTITY_TYPE,
@@ -19,7 +19,6 @@ import {
   FOLDER_ENTITY_CLASS,
 } from './constants';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
-import { IamUserEntityWithParsedMember } from '.';
 import { getGoogleCloudConsoleWebLink } from '../../utils/url';
 
 export function getConditionRelationshipProperties(
@@ -34,67 +33,46 @@ export function getConditionRelationshipProperties(
 }
 
 export function createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship({
-  targetEntityType,
   iamEntity,
-  iamUserEntityWithParsedMember,
+  targetEntity,
   relationshipDirection,
   projectId,
   condition,
 }: {
-  targetEntityType: 'google_group' | 'google_user';
   iamEntity: Entity;
-  iamUserEntityWithParsedMember: IamUserEntityWithParsedMember;
+  targetEntity: Partial<PrimitiveEntity>;
   relationshipDirection: RelationshipDirection;
   projectId?: string;
   condition?: cloudresourcemanager_v1.Schema$Expr;
 }): Relationship {
-  const email = iamUserEntityWithParsedMember.parsedMember.identifier;
-
-  if (!email) {
-    // NOTE: This should never happen, but placing here for safety.
-    throw new IntegrationError({
-      message:
-        'createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship requires a parsed member identifier.',
-      code: 'UNPROCESSABLE_GOOGLE_WORKSPACE_MAPPED_RELATIONSHIP',
-    });
-  }
-
   const iamEntityToTargetRelationship =
     relationshipDirection === RelationshipDirection.FORWARD;
+
+  // Not always able to determine a _key for google_users depending on how the binding is set up
+  const targetFilterKeys = targetEntity._key
+    ? [['_key']]
+    : [['_type', '_class', 'email']];
+  const targetKey = targetEntity._key ?? (targetEntity.email as string);
 
   return createMappedRelationship({
     _class: RelationshipClass.ASSIGNED,
     _mapping: {
       relationshipDirection: relationshipDirection,
       sourceEntityKey: iamEntity._key,
-      targetFilterKeys: [['_type', 'email']],
+      targetFilterKeys,
       skipTargetCreation: false,
-      targetEntity: {
-        _type: targetEntityType,
-        email,
-        username: email,
-        /**
-         * google_groups have their own "name" identifier which we do not have access via the bindings.
-         * Therefore, for a google_user, we set their `name` and `displayName properties to the email per
-         * https://github.com/JupiterOne/graph-google/blob/master/src/steps/groups/converters.ts#L209,
-         * but not for google_groups per
-         * https://github.com/JupiterOne/graph-google/blob/master/src/steps/groups/converters.ts#L39
-         */
-        name: targetEntityType === 'google_user' ? email : undefined,
-        displayName: targetEntityType === 'google_user' ? email : undefined,
-        deleted: iamUserEntityWithParsedMember.parsedMember.deleted,
-      },
+      targetEntity,
     },
     properties: {
       _type: generateRelationshipType(
         RelationshipClass.ASSIGNED,
-        iamEntityToTargetRelationship ? iamEntity._type : targetEntityType,
-        iamEntityToTargetRelationship ? targetEntityType : iamEntity._type,
+        iamEntityToTargetRelationship ? iamEntity._type : targetEntity._type!,
+        iamEntityToTargetRelationship ? targetEntity._type! : iamEntity._type,
       ),
       _key: generateRelationshipKey(
         RelationshipClass.ASSIGNED,
-        iamEntityToTargetRelationship ? iamEntity._key : email,
-        iamEntityToTargetRelationship ? email : iamEntity._key,
+        iamEntityToTargetRelationship ? iamEntity._key : targetKey,
+        iamEntityToTargetRelationship ? targetKey : iamEntity._key,
       ),
       projectId: projectId,
       ...(condition && getConditionRelationshipProperties(condition)),

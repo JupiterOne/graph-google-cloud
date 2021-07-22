@@ -27,6 +27,70 @@ import {
 import { filterGraphObjects } from '../../../test/helpers/filterGraphObjects';
 
 expect.extend({
+  toHaveOnlyDirectRelationships(
+    collectedRelationships: Relationship[],
+    name: string,
+  ) {
+    if (collectedRelationships?.length < 1) {
+      return {
+        message: () => `${name} has no relatioinships`,
+        pass: false,
+      };
+    }
+    const { targets: directRelationships, rest: mappedRelationships } =
+      filterGraphObjects(collectedRelationships, (r) => !r._mapping) as {
+        targets: ExplicitRelationship[];
+        rest: MappedRelationship[];
+      };
+    if (directRelationships?.length < 1) {
+      return {
+        message: () => `${name} has no direct relatioinships`,
+        pass: false,
+      };
+    }
+    if (mappedRelationships?.length > 0) {
+      return {
+        message: () => `${name} has mapped relatioinships`,
+        pass: false,
+      };
+    }
+    return {
+      message: () => `${name} should have only direct relationships`,
+      pass: true,
+    };
+  },
+  toHaveOnlyMappedRelationships(
+    collectedRelationships: Relationship[],
+    name: string,
+  ) {
+    if (collectedRelationships?.length < 1) {
+      return {
+        message: () => `${name} has no relatioinships`,
+        pass: false,
+      };
+    }
+    const { targets: directRelationships, rest: mappedRelationships } =
+      filterGraphObjects(collectedRelationships, (r) => !r._mapping) as {
+        targets: ExplicitRelationship[];
+        rest: MappedRelationship[];
+      };
+    if (directRelationships?.length > 0) {
+      return {
+        message: () => `${name} has direct relatioinships`,
+        pass: false,
+      };
+    }
+    if (mappedRelationships?.length < 1) {
+      return {
+        message: () => `${name} has no mapped relatioinships`,
+        pass: false,
+      };
+    }
+    return {
+      message: () => `${name} should have only mapped relationships`,
+      pass: true,
+    };
+  },
   toHaveBothDirectAndMappedRelationships(
     collectedRelationships: Relationship[],
     name: string,
@@ -66,6 +130,8 @@ declare global {
   namespace jest {
     interface Matchers<R> {
       toHaveBothDirectAndMappedRelationships(name: string): CustomMatcherResult;
+      toHaveOnlyDirectRelationships(name: string): CustomMatcherResult;
+      toHaveOnlyMappedRelationships(name: string): CustomMatcherResult;
     }
   }
 }
@@ -128,37 +194,52 @@ describe('#fetchIamBindings', () => {
         google_iam_binding_assigned_user,
         google_iam_binding_assigned_group,
         google_iam_binding_assigned_service_account,
+        google_iam_binding_assigned_domain,
         google_user_assigned_iam_role,
         google_group_assigned_iam_role,
         google_iam_service_account_assigned_role,
+        google_domain_assigned_iam_role,
       } = separateGraphObjectsByType(
         context.jobState.collectedRelationships,
         context.jobState.encounteredTypes,
       );
 
-      expect(google_iam_binding_uses_role.length).toBeGreaterThan(0);
-      expect(google_iam_binding_assigned_user.length).toBeGreaterThan(0);
-      expect(google_iam_binding_assigned_group.length).toBeGreaterThan(0);
-      expect(
-        google_iam_binding_assigned_service_account.length,
-      ).toBeGreaterThan(0);
-      expect(google_user_assigned_iam_role.length).toBeGreaterThan(0);
-      expect(google_group_assigned_iam_role.length).toBeGreaterThan(0);
-      expect(google_iam_service_account_assigned_role.length).toBeGreaterThan(
-        0,
-      );
-
-      // Each of these relationships could either be mapped or direct depending on if it has been previously ingested in this run or not.
-      // TODO: Make an example case for each one to prevent potential reverts.
+      // Both Direct and Mapped Relationships
       expect(
         google_iam_binding_uses_role,
       ).toHaveBothDirectAndMappedRelationships('google_iam_binding_uses_role');
-      // expect(google_iam_binding_assigned_user).toHaveBothDirectAndMappedRelationships('google_iam_binding_assigned_user')
-      // expect(google_iam_binding_assigned_group).toHaveBothDirectAndMappedRelationships('google_iam_binding_assigned_group')
-      // expect(google_iam_binding_assigned_service_account).toHaveBothDirectAndMappedRelationships('google_iam_binding_assigned_service_account')
-      // expect(google_user_assigned_iam_role).toHaveBothDirectAndMappedRelationships('google_user_assigned_iam_role')
-      // expect(google_group_assigned_iam_role).toHaveBothDirectAndMappedRelationships('google_group_assigned_iam_role')
-      // expect(google_iam_service_account_assigned_role).toHaveBothDirectAndMappedRelationships('google_iam_service_account_assigned_role')
+
+      // Mapped Relationships
+      expect(google_iam_binding_assigned_user).toHaveOnlyMappedRelationships(
+        'google_iam_binding_assigned_user',
+      );
+      expect(google_iam_binding_assigned_group).toHaveOnlyMappedRelationships(
+        'google_iam_binding_assigned_group',
+      );
+      expect(google_iam_binding_assigned_domain).toHaveOnlyMappedRelationships(
+        'google_iam_binding_assigned_domain',
+      );
+      expect(google_user_assigned_iam_role).toHaveOnlyMappedRelationships(
+        'google_user_assigned_iam_role',
+      );
+      expect(google_group_assigned_iam_role).toHaveOnlyMappedRelationships(
+        'google_group_assigned_iam_role',
+      );
+      expect(google_domain_assigned_iam_role).toHaveOnlyMappedRelationships(
+        'google_domain_assigned_iam_role',
+      );
+
+      // Direct Relationships
+      expect(
+        google_iam_binding_assigned_service_account,
+      ).toHaveOnlyDirectRelationships(
+        'google_iam_binding_assigned_service_account',
+      );
+      expect(
+        google_iam_service_account_assigned_role,
+      ).toHaveOnlyDirectRelationships(
+        'google_iam_service_account_assigned_role',
+      );
 
       // Entities
       const { google_iam_binding, google_iam_role } =
