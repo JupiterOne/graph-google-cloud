@@ -15,6 +15,8 @@ export const STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS =
   'create-binding-principal-relationships';
 export const STEP_CREATE_BINDING_ROLE_RELATIONSHIPS =
   'create-binding-role-relationships';
+export const STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS =
+  'create-binding-any-resource-relationships';
 
 export const bindingEntities = {
   BINDINGS: {
@@ -65,13 +67,13 @@ export const PRINCIPAL_ASSIGNED_ROLE_RELATIONSHIPS = IAM_PRINCIPAL_TYPES.map(
  * IAM policies can target any resource in Google Cloud. Because we do not ingest every resource,
  * we have chosen, instead, to represent the relationship as IAM Binding assigned to ANY_RESOURCE.
  */
-export const BINDING_ASSIGNED_ANY_RESOURCE_RELATIONSHIP = {
+export const BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP = {
   _type: generateRelationshipType(
-    RelationshipClass.ASSIGNED,
+    RelationshipClass.ALLOWS,
     bindingEntities.BINDINGS._type,
     ANY_RESOURCE,
   ),
   sourceType: bindingEntities.BINDINGS._type,
-  _class: RelationshipClass.ASSIGNED,
+  _class: RelationshipClass.ALLOWS,
   targetType: ANY_RESOURCE,
 };

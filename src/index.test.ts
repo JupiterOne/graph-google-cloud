@@ -109,6 +109,7 @@ import {
 } from './steps/privateca/constants';
 import { getOrganizationSteps } from './getStepStartStates';
 import {
+  STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS,
   STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS,
   STEP_CREATE_BINDING_ROLE_RELATIONSHIPS,
   STEP_IAM_BINDINGS,
@@ -406,6 +407,9 @@ describe('#getStepStartStates success', () => {
       [STEP_CREATE_BINDING_ROLE_RELATIONSHIPS]: {
         disabled: false,
       },
+      [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: {
+        disabled: false,
+      },
     };
 
     expect(stepStartStates).toEqual(expectedStepStartStates);
@@ -456,6 +460,9 @@ describe('#getStepStartStates success', () => {
       [STEP_IAM_BINDINGS]: {
         disabled: true,
       },
+      [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: {
+        disabled: true,
+      },
     });
   });
 
@@ -501,6 +508,9 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_IAM_BINDINGS]: {
+        disabled: true,
+      },
+      [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: {
         disabled: true,
       },
     });

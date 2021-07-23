@@ -14,6 +14,7 @@ export const IAM_SERVICE_ACCOUNT_HAS_KEY_RELATIONSHIP_TYPE =
 export const IAM_USER_ENTITY_CLASS = 'User';
 export const GOOGLE_USER_ENTITY_TYPE = 'google_user';
 export const GOOGLE_GROUP_ENTITY_TYPE = 'google_group';
+export const GOOGLE_DOMAIN_ENTITY_TYPE = 'google_domain';
 export const API_SERVICE_HAS_IAM_ROLE_RELATIONSHIP_TYPE =
   'google_cloud_api_service_has_iam_role';
 

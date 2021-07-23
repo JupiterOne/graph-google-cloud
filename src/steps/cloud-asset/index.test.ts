@@ -3,6 +3,7 @@ import { IntegrationConfig } from '../..';
 import { integrationConfig } from '../../../test/config';
 import { withRecording } from '../../../test/recording';
 import {
+  createBindingAnyResourceRelationships,
   createBindingRoleRelationships,
   createPrincipalRelationships,
   fetchIamBindings,
@@ -112,6 +113,7 @@ describe('#fetchIamBindings', () => {
       await fetchIamBindings(context);
       await createPrincipalRelationships(context);
       await createBindingRoleRelationships(context);
+      await createBindingAnyResourceRelationships(context);
 
       expect({
         numCollectedEntities: context.jobState.collectedEntities.length,
@@ -131,11 +133,17 @@ describe('#fetchIamBindings', () => {
         google_user_assigned_iam_role,
         google_group_assigned_iam_role,
         google_iam_service_account_assigned_role,
+        google_iam_binding_allows_cloud_organization,
+        google_iam_binding_allows_cloud_folder,
       } = separateGraphObjectsByType(
         context.jobState.collectedRelationships,
         context.jobState.encounteredTypes,
       );
 
+      expect(
+        google_iam_binding_allows_cloud_organization.length,
+      ).toBeGreaterThan(0);
+      expect(google_iam_binding_allows_cloud_folder.length).toBeGreaterThan(0);
       expect(google_iam_binding_uses_role.length).toBeGreaterThan(0);
       expect(google_iam_binding_assigned_user.length).toBeGreaterThan(0);
       expect(google_iam_binding_assigned_group.length).toBeGreaterThan(0);
