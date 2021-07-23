@@ -8,6 +8,14 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.45.0 - 2021-07-20
+
+- Added support for ingesting the following **new** relationships:
+
+  | Source               | class      | Target         |
+  | -------------------- | ---------- | -------------- |
+  | `google_iam_binding` | **ALLOWS** | `ANY_RESOURCE` |
+
 ## 0.44.2 - 2021-07-20
 
 ### Fixed
