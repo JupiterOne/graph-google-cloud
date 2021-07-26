@@ -12,367 +12,367 @@ const EARLY_STOP_KEY = '__EARLY_STOP_KEY';
  * https://cloud.google.com/asset-inventory/docs/resource-name-format
  */
 export const CLOUD_RESOURCES_MAP = {
-  '//cloudfunctions.googleapis.com': {
+  'cloudfunctions.googleapis.com': {
     projects: {
       PROJECT_ID: {
         locations: {
           LOCATION: {
             functions: {
-              CLOUD_FUNCTION: '//cloudfunctions.googleapis.com/CloudFunction',
+              CLOUD_FUNCTION: 'cloudfunctions.googleapis.com/CloudFunction',
             },
           },
         },
       },
     },
   },
-  '//cloudresourcemanager.googleapis.com': {
+  'cloudresourcemanager.googleapis.com': {
     organizations: {
-      ORGANIZATION_NUMBER: '//cloudresourcemanager.googleapis.com/Organization',
+      ORGANIZATION_NUMBER: 'cloudresourcemanager.googleapis.com/Organization',
     },
     folders: {
-      FOLDER_NUMBER: '//cloudresourcemanager.googleapis.com/Folder',
+      FOLDER_NUMBER: 'cloudresourcemanager.googleapis.com/Folder',
     },
     projects: {
-      PROJECT_NUMBER: '//cloudresourcemanager.googleapis.com/Project',
-      PROJECT_ID: '//cloudresourcemanager.googleapis.com/Project',
+      PROJECT_NUMBER: 'cloudresourcemanager.googleapis.com/Project',
+      PROJECT_ID: 'cloudresourcemanager.googleapis.com/Project',
     },
   },
-  '//run.googleapis.com': {
+  'run.googleapis.com': {
     projects: {
       PROJECT_ID: {
         locations: {
           LOCATION: {
             domainmappings: {
-              DOMAIN_MAPPING: '//run.googleapis.com/DomainMapping',
+              DOMAIN_MAPPING: 'run.googleapis.com/DomainMapping',
             },
             revisions: {
-              REVISION: '//run.googleapis.com/Revision',
+              REVISION: 'run.googleapis.com/Revision',
             },
             services: {
-              SERVICE: '//run.googleapis.com/Service',
+              SERVICE: 'run.googleapis.com/Service',
             },
           },
         },
         regions: {
           REGION: {
             addresses: {
-              ADDRESS: '//compute.googleapis.com/Address',
+              ADDRESS: 'compute.googleapis.com/Address',
             },
             autoscalers: {
-              AUTOSCALER: '//compute.googleapis.com/Autoscaler',
+              AUTOSCALER: 'compute.googleapis.com/Autoscaler',
             },
             forwardingRules: {
-              FORWARDING_RULE: '//compute.googleapis.com/ForwardingRule',
+              FORWARDING_RULE: 'compute.googleapis.com/ForwardingRule',
             },
             instanceGroups: {
-              INSTANCE_GROUP: '//compute.googleapis.com/InstanceGroup',
+              INSTANCE_GROUP: 'compute.googleapis.com/InstanceGroup',
             },
             instanceGroupManager: {
               INSTANCE_GROUP_MANAGER:
-                '//compute.googleapis.com/InstanceGroupManager',
+                'compute.googleapis.com/InstanceGroupManager',
             },
             nodeTemplates: {
-              NODE_TEMPLATE: '//compute.googleapis.com/NodeTemplate',
+              NODE_TEMPLATE: 'compute.googleapis.com/NodeTemplate',
             },
           },
           interconnectAttachments: {
             INTERCONNECT_ATTACHMENT:
-              '//compute.googleapis.com/InterconnectAttachment',
+              'compute.googleapis.com/InterconnectAttachment',
           },
         },
         global: {
           addresses: {
-            ADDRESS: '//compute.googleapis.com/GlobalAddress',
+            ADDRESS: 'compute.googleapis.com/GlobalAddress',
           },
           backendBuckets: {
-            BACKEND_BUCKET: '//compute.googleapis.com/BackendBucket',
+            BACKEND_BUCKET: 'compute.googleapis.com/BackendBucket',
           },
           backendServices: {
-            BACKEND_SERVICE: '//compute.googleapis.com/BackendService',
+            BACKEND_SERVICE: 'compute.googleapis.com/BackendService',
           },
           externalVpnGateways: {
-            EXTERNAL_VPN_GATEWAY: '//compute.googleapis.com/ExternalVpnGateway',
+            EXTERNAL_VPN_GATEWAY: 'compute.googleapis.com/ExternalVpnGateway',
           },
           firewalls: {
-            FIREWALL: '//compute.googleapis.com/Firewall',
+            FIREWALL: 'compute.googleapis.com/Firewall',
           },
           healthChecks: {
-            HEALTH_CHECK: '//compute.googleapis.com/HealthCheck',
+            HEALTH_CHECK: 'compute.googleapis.com/HealthCheck',
           },
           httpHealthChecks: {
-            HTTP_HEALTH_CHECK: '//compute.googleapis.com/HttpHealthCheck',
+            HTTP_HEALTH_CHECK: 'compute.googleapis.com/HttpHealthCheck',
           },
           httpsHealthChecks: {
-            HTTPS_HEALTH_CHECK: '//compute.googleapis.com/HttpsHealthCheck',
+            HTTPS_HEALTH_CHECK: 'compute.googleapis.com/HttpsHealthCheck',
           },
           images: {
-            IMAGE: '//compute.googleapis.com/Image',
+            IMAGE: 'compute.googleapis.com/Image',
           },
           instanceTemplates: {
-            INSTANCE_TEMPLATE: '//compute.googleapis.com/InstanceTemplate',
+            INSTANCE_TEMPLATE: 'compute.googleapis.com/InstanceTemplate',
           },
           interconnects: {
-            INTERCONNECT: '//compute.googleapis.com/Interconnect',
+            INTERCONNECT: 'compute.googleapis.com/Interconnect',
           },
           licenses: {
-            LICENSE: '//compute.googleapis.com/License',
+            LICENSE: 'compute.googleapis.com/License',
           },
           networks: {
-            NETWORK: '//compute.googleapis.com/Network',
+            NETWORK: 'compute.googleapis.com/Network',
           },
         },
         zones: {
           ZONE: {
             autoscalers: {
-              AUTOSCALER: '//compute.googleapis.com/Autoscaler',
+              AUTOSCALER: 'compute.googleapis.com/Autoscaler',
             },
             disks: {
-              DISKS: '//compute.googleapis.com/Disk',
+              DISKS: 'compute.googleapis.com/Disk',
             },
             instances: {
-              INSTANCE: '//compute.googleapis.com/Instance',
+              INSTANCE: 'compute.googleapis.com/Instance',
             },
             instanceGroups: {
-              INSTANCE_GROUP: '//compute.googleapis.com/InstanceGroup',
+              INSTANCE_GROUP: 'compute.googleapis.com/InstanceGroup',
             },
             instanceGroupManager: {
               INSTANCE_GROUP_MANAGER:
-                '//compute.googleapis.com/InstanceGroupManager',
+                'compute.googleapis.com/InstanceGroupManager',
             },
             networkEndpointGroups: {
               NETWORK_ENDPOINT_GROUP:
-                '//compute.googleapis.com/NetworkEndpointGroup',
+                'compute.googleapis.com/NetworkEndpointGroup',
             },
             nodeGroups: {
-              NODE_GROUP: '//compute.googleapis.com/NodeGroup',
+              NODE_GROUP: 'compute.googleapis.com/NodeGroup',
             },
           },
         },
         region: {
           REGION: {
             commitments: {
-              COMMITMENT: '//compute.googleapis.com/Commitment',
+              COMMITMENT: 'compute.googleapis.com/Commitment',
             },
           },
         },
       },
     },
   },
-  '//compute.googleapis.com': {
+  'compute.googleapis.com': {
     projects: {
       PROJECT_ID: {
-        [EARLY_STOP_KEY]: '//compute.googleapis.com/Project',
+        [EARLY_STOP_KEY]: 'compute.googleapis.com/Project',
         regions: {
           REGION: {
             packetMirrorings: {
-              PACKET_MIRRORING: '//compute.googleapis.com/PacketMirroring',
+              PACKET_MIRRORING: 'compute.googleapis.com/PacketMirroring',
             },
             disks: {
-              DISKS: '//compute.googleapis.com/RegionDisk',
+              DISKS: 'compute.googleapis.com/RegionDisk',
             },
             resourcePolicies: {
-              RESOURCE_POLICY: '//compute.googleapis.com/ResourcePolicy',
+              RESOURCE_POLICY: 'compute.googleapis.com/ResourcePolicy',
             },
             routers: {
-              ROUTER: '//compute.googleapis.com/Router',
+              ROUTER: 'compute.googleapis.com/Router',
             },
             subnetworks: {
-              SUBNETWORK: '//compute.googleapis.com/Subnetwork',
+              SUBNETWORK: 'compute.googleapis.com/Subnetwork',
             },
             targetPools: {
-              TARGET_POOL: '//compute.googleapis.com/TargetPool',
+              TARGET_POOL: 'compute.googleapis.com/TargetPool',
             },
             targetVpnGateways: {
-              TARGET_VPN_GATEWAY: '//compute.googleapis.com/TargetVpnGateway',
+              TARGET_VPN_GATEWAY: 'compute.googleapis.com/TargetVpnGateway',
             },
             vpnGateways: {
-              VPN_GATEWAY: '//compute.googleapis.com/VpnGateway',
+              VPN_GATEWAY: 'compute.googleapis.com/VpnGateway',
             },
             vpnTunnels: {
-              VPN_TUNNEL: '//compute.googleapis.com/VpnTunnel',
+              VPN_TUNNEL: 'compute.googleapis.com/VpnTunnel',
             },
           },
         },
         zones: {
           ZONE: {
             reservations: {
-              RESERVATION: '//compute.googleapis.com/Reservation',
+              RESERVATION: 'compute.googleapis.com/Reservation',
             },
             targetInstances: {
-              TARGET_INSTANCE: '//compute.googleapis.com/TargetInstance',
+              TARGET_INSTANCE: 'compute.googleapis.com/TargetInstance',
             },
           },
         },
         global: {
           routes: {
-            ROUTE: '//compute.googleapis.com/Route',
+            ROUTE: 'compute.googleapis.com/Route',
           },
           securityPolicies: {
-            SECURITY_POLICY: '//compute.googleapis.com/SecurityPolicy',
+            SECURITY_POLICY: 'compute.googleapis.com/SecurityPolicy',
           },
           snapshots: {
-            SNAPSHOT: '//compute.googleapis.com/Snapshot',
+            SNAPSHOT: 'compute.googleapis.com/Snapshot',
           },
           sslCertificates: {
-            SSL_CERTIFICATE: '//compute.googleapis.com/SslCertificate',
+            SSL_CERTIFICATE: 'compute.googleapis.com/SslCertificate',
           },
           sslPolicies: {
-            SSL_POLICY: '//compute.googleapis.com/SslPolicy',
+            SSL_POLICY: 'compute.googleapis.com/SslPolicy',
           },
           targetHttpProxies: {
-            TARGET_HTTP_PROXY: '//compute.googleapis.com/TargetHttpProxy',
+            TARGET_HTTP_PROXY: 'compute.googleapis.com/TargetHttpProxy',
           },
           targetHttpsProxies: {
-            TARGET_HTTPS_PROXY: '//compute.googleapis.com/TargetHttpsProxy',
+            TARGET_HTTPS_PROXY: 'compute.googleapis.com/TargetHttpsProxy',
           },
           targetTcpProxies: {
-            TARGET_TCP_PROXY: '//compute.googleapis.com/TargetTcpProxy',
+            TARGET_TCP_PROXY: 'compute.googleapis.com/TargetTcpProxy',
           },
           targetSslProxies: {
-            TARGET_SSL_PROXY: '//compute.googleapis.com/TargetSslProxy',
+            TARGET_SSL_PROXY: 'compute.googleapis.com/TargetSslProxy',
           },
           urlMaps: {
-            URL_MAP: '//compute.googleapis.com/UrlMap',
+            URL_MAP: 'compute.googleapis.com/UrlMap',
           },
         },
       },
     },
   },
-  '//appengine.googleapis.com': {
+  'appengine.googleapis.com': {
     apps: {
-      [EARLY_STOP_KEY]: '//appengine.googleapis.com/Application',
+      [EARLY_STOP_KEY]: 'appengine.googleapis.com/Application',
       APP: {
         services: {
           SERVICE: {
-            [EARLY_STOP_KEY]: '//appengine.googleapis.com/Service',
+            [EARLY_STOP_KEY]: 'appengine.googleapis.com/Service',
             versions: {
-              VERSION: '//appengine.googleapis.com/Version',
+              VERSION: 'appengine.googleapis.com/Version',
             },
           },
         },
       },
     },
-    '//cloudbilling.googleapis.com': {
+    'cloudbilling.googleapis.com': {
       billingAccounts: {
-        BILLING_ACCOUNT: '//cloudbilling.googleapis.com/BillingAccount',
+        BILLING_ACCOUNT: 'cloudbilling.googleapis.com/BillingAccount',
       },
     },
-    '//storage.googleapis.com': {
-      BUCKET: '//storage.googleapis.com/BUCKET',
+    'storage.googleapis.com': {
+      BUCKET: 'storage.googleapis.com/BUCKET',
     },
-    '//osconfig.googleapis.com': {
-      PATCH_DEPLOYMENT: '//osconfig.googleapis.com/PatchDeployment',
+    'osconfig.googleapis.com': {
+      PATCH_DEPLOYMENT: 'osconfig.googleapis.com/PatchDeployment',
     },
-    '//dns.googleapis.com': {
+    'dns.googleapis.com': {
       projects: {
         PROJECT_ID: {
           managedZones: {
-            ZONE_NUMBER: '//dns.googleapis.com/ManagedZone',
+            ZONE_NUMBER: 'dns.googleapis.com/ManagedZone',
           },
           policies: {
-            POLICY_NUMBER: '//dns.googleapis.com/Policy',
+            POLICY_NUMBER: 'dns.googleapis.com/Policy',
           },
         },
       },
     },
-    '//spanner.googleapis.com': {
+    'spanner.googleapis.com': {
       projects: {
         PROJECT_ID: {
           instances: {
             INSTANCE: {
-              [EARLY_STOP_KEY]: '//spanner.googleapis.com/Instance',
+              [EARLY_STOP_KEY]: 'spanner.googleapis.com/Instance',
               databases: {
-                DATABASE: '//spanner.googleapis.com/Database',
+                DATABASE: 'spanner.googleapis.com/Database',
               },
               backups: {
-                BACKUP: '//spanner.googleapis.com/Backup',
+                BACKUP: 'spanner.googleapis.com/Backup',
               },
             },
           },
         },
       },
     },
-    '//bigquery.googleapis.com': {
+    'bigquery.googleapis.com': {
       projects: {
         PROJECT_ID: {
           datasets: {
             DATA_SET: {
               tables: {
-                TABLE: '//bigquery.googleapis.com/Table',
+                TABLE: 'bigquery.googleapis.com/Table',
               },
             },
-            DATASET: '//bigquery.googleapis.com/Dataset',
+            DATASET: 'bigquery.googleapis.com/Dataset',
           },
         },
       },
     },
-    '//iam.googleapis.com': {
+    'iam.googleapis.com': {
       projects: {
         PROJECT_ID: {
           roles: {
-            ROLE: '//iam.googleapis.com/Role',
+            ROLE: 'iam.googleapis.com/Role',
           },
           serviceAccounts: {
             SERVICE_ACCOUNT_EMAIL_OR_ID: {
-              [EARLY_STOP_KEY]: '//iam.googleapis.com/ServiceAccount',
+              [EARLY_STOP_KEY]: 'iam.googleapis.com/ServiceAccount',
               keys: {
-                SERVICE_ACCOUNT_KEY: '//iam.googleapis.com/ServiceAccountKey',
+                SERVICE_ACCOUNT_KEY: 'iam.googleapis.com/ServiceAccountKey',
               },
             },
           },
         },
       },
     },
-    '//pubsub.googleapis.com': {
+    'pubsub.googleapis.com': {
       projects: {
         PROJECT_ID: {
           topics: {
-            TOPIC: '//pubsub.googleapis.com/Topic',
+            TOPIC: 'pubsub.googleapis.com/Topic',
           },
           subscriptions: {
-            SUBSCRIPTION: '//pubsub.googleapis.com/Subscription',
+            SUBSCRIPTION: 'pubsub.googleapis.com/Subscription',
           },
           snapshots: {
-            SNAPSHOT: '//pubsub.googleapis.com/Snapshot',
+            SNAPSHOT: 'pubsub.googleapis.com/Snapshot',
           },
         },
       },
     },
-    '//dataproc.googleapis.com': {
+    'dataproc.googleapis.com': {
       projects: {
         PROJECT_ID: {
           regions: {
             REGION: {
               clusters: {
-                CLUSTER: '//dataproc.googleapis.com/Cluster',
+                CLUSTER: 'dataproc.googleapis.com/Cluster',
               },
               jobs: {
-                JOB: '//dataproc.googleapis.com/Job',
+                JOB: 'dataproc.googleapis.com/Job',
               },
             },
           },
         },
       },
     },
-    '//cloudkms.googleapis.com': {
+    'cloudkms.googleapis.com': {
       projects: {
         PROJECT_ID: {
           locations: {
             LOCATION: {
               keyRings: {
                 KEY_RING: {
-                  [EARLY_STOP_KEY]: '//cloudkms.googleapis.com/KeyRing',
+                  [EARLY_STOP_KEY]: 'cloudkms.googleapis.com/KeyRing',
                   cryptoKeys: {
                     CRYPTO_KEY: {
-                      [EARLY_STOP_KEY]: '//cloudkms.googleapis.com/CryptoKey',
+                      [EARLY_STOP_KEY]: 'cloudkms.googleapis.com/CryptoKey',
                       cryptoKeyVersions: {
                         CRYPTO_KEY_VERSION:
-                          '//cloudkms.googleapis.com/CryptoKeyVersion',
+                          'cloudkms.googleapis.com/CryptoKeyVersion',
                       },
                     },
                   },
                   importJobs: {
-                    IMPORT_JOBS: '//cloudkms.googleapis.com/ImportJob',
+                    IMPORT_JOBS: 'cloudkms.googleapis.com/ImportJob',
                   },
                 },
               },
@@ -381,13 +381,13 @@ export const CLOUD_RESOURCES_MAP = {
         },
       },
     },
-    '//container.googleapis.com': {
+    'container.googleapis.com': {
       projects: {
         PROJECT_ID: {
           locations: {
             LOCATION: {
               clusters: {
-                CLUSTER: '//container.googleapis.com/Cluster',
+                CLUSTER: 'container.googleapis.com/Cluster',
               },
             },
           },
@@ -395,54 +395,54 @@ export const CLOUD_RESOURCES_MAP = {
             ZONE: {
               clusters: {
                 CLUSTER: {
-                  [EARLY_STOP_KEY]: '//container.googleapis.com/Cluster',
+                  [EARLY_STOP_KEY]: 'container.googleapis.com/Cluster',
                   k8s: {
                     nodes: {
-                      NODE: '//k8s.io/Node',
+                      NODE: 'k8s.io/Node',
                     },
                     namespaces: {
                       NAMESPACE: {
-                        [EARLY_STOP_KEY]: '//k8s.io/Namespace',
+                        [EARLY_STOP_KEY]: 'k8s.io/Namespace',
                         pods: {
-                          POD: '//k8s.io/Pod',
+                          POD: 'k8s.io/Pod',
                         },
                         services: {
-                          SERVICE: '//k8s.io/Service',
+                          SERVICE: 'k8s.io/Service',
                         },
                         'rbac.authorization.k8s.io': {
                           roles: {
-                            ROLE: '//rbac.authorization.k8s.io',
+                            ROLE: 'rbac.authorization.k8s.io',
                           },
                           rolebindings: {
-                            ROLEBINDING: '//rbac.authorization.k8s.io',
+                            ROLEBINDING: 'rbac.authorization.k8s.io',
                           },
                         },
                         extensions: {
                           ingresses: {
-                            INGRESS: '//extensions.k8s.io/Ingress',
+                            INGRESS: 'extensions.k8s.io/Ingress',
                           },
                         },
                         'networking.k8s.io': {
                           ingresses: {
-                            INGRESS: '//networking.k8s.io/Ingress',
+                            INGRESS: 'networking.k8s.io/Ingress',
                           },
                           networkpolicies: {
-                            NETWORKPOLICY: '//networking.k8s.io/Networkpolicy',
+                            NETWORKPOLICY: 'networking.k8s.io/Networkpolicy',
                           },
                         },
                       },
                     },
                     'rbac.authorization.k8s.io': {
                       clusterroles: {
-                        CLUSTER_ROLE: '//rbac.authorization.k8s.io',
+                        CLUSTER_ROLE: 'rbac.authorization.k8s.io',
                       },
                       clusterrolebindings: {
-                        CLUSTER_ROLE_BINDING: '//rbac.authorization.k8s.io',
+                        CLUSTER_ROLE_BINDING: 'rbac.authorization.k8s.io',
                       },
                     },
                   },
                   nodePools: {
-                    NODE_POOL: '//container.googleapis.com/NodePool',
+                    NODE_POOL: 'container.googleapis.com/NodePool',
                   },
                 },
               },
@@ -451,32 +451,32 @@ export const CLOUD_RESOURCES_MAP = {
         },
       },
     },
-    '//cloudsql.googleapis.com': {
+    'cloudsql.googleapis.com': {
       projects: {
         PROJECT_ID: {
           instances: {
-            INSTANCE: '//sqladmin.googleapis.com/Instance',
+            INSTANCE: 'sqladmin.googleapis.com/Instance',
           },
         },
       },
     },
-    '//bigtable.googleapis.com': {
+    'bigtable.googleapis.com': {
       projects: {
         PROJECT_ID: {
           instances: {
             INSTANCE: {
-              [EARLY_STOP_KEY]: '//bigtableadmin.googleapis.com/Instance',
+              [EARLY_STOP_KEY]: 'bigtableadmin.googleapis.com/Instance',
               appProfiles: {
-                APP_PROFILE: '//bigtableadmin.googleapis.com/AppProfile',
+                APP_PROFILE: 'bigtableadmin.googleapis.com/AppProfile',
               },
               tables: {
-                TABLE: '//bigtableadmin.googleapis.com/Table',
+                TABLE: 'bigtableadmin.googleapis.com/Table',
               },
               clusters: {
                 CLUSTER: {
-                  [EARLY_STOP_KEY]: '//bigtableadmin.googleapis.com/Cluster',
+                  [EARLY_STOP_KEY]: 'bigtableadmin.googleapis.com/Cluster',
                   backups: {
-                    BACKUP: '//bigtableadmin.googleapis.com/Backup',
+                    BACKUP: 'bigtableadmin.googleapis.com/Backup',
                   },
                 },
               },
@@ -485,109 +485,109 @@ export const CLOUD_RESOURCES_MAP = {
         },
       },
     },
-    '//serviceusage.googleapis.com': {
+    'serviceusage.googleapis.com': {
       projects: {
         PROJECT_NUMBER: {
           services: {
-            SERVICE: '//serviceusage.googleapis.com/Service',
+            SERVICE: 'serviceusage.googleapis.com/Service',
           },
         },
       },
     },
-    '//datafusion.googleapis.com': {
+    'datafusion.googleapis.com': {
       projects: {
         PROJECT_ID: {
           locations: {
             LOCATION: {
               instances: {
-                INSTANCE: '//datafusion.googleapis.com/Instance',
+                INSTANCE: 'datafusion.googleapis.com/Instance',
               },
             },
           },
         },
       },
     },
-    '//logging.googleapis.com': {
+    'logging.googleapis.com': {
       projects: {
         PROJECT_NUMBER: {
           locations: {
             LOCATION: {
               buckets: {
-                BUCKET: '//logging.googleapis.com/LogBucket',
+                BUCKET: 'logging.googleapis.com/LogBucket',
               },
             },
           },
           sinks: {
-            SINK: '//logging.googleapis.com/LogSink',
+            SINK: 'logging.googleapis.com/LogSink',
           },
           metrics: {
-            METRIC: '//logging.googleapis.com/LogMetric',
+            METRIC: 'logging.googleapis.com/LogMetric',
           },
         },
       },
       folders: {
         FOLDER_NUMBER: {
           sinks: {
-            SINK: '//logging.googleapis.com/LogSink',
+            SINK: 'logging.googleapis.com/LogSink',
           },
         },
       },
       organizations: {
         ORGANIZATION_NUMBER: {
           sinks: {
-            SINK: '//logging.googleapis.com/LogSink',
+            SINK: 'logging.googleapis.com/LogSink',
           },
         },
       },
       billingAccounts: {
         BILLING_ACCOUNT_ID: {
           sinks: {
-            SINK: '//logging.googleapis.com/LogSink',
+            SINK: 'logging.googleapis.com/LogSink',
           },
         },
       },
     },
-    '//networkmanagement.googleapis.com': {
+    'networkmanagement.googleapis.com': {
       projects: {
         PROJECT_ID: {
           locations: {
             global: {
               connectivityTests: {
-                TEST: '//networkmanagement.googleapis.com/ConnectivityTest',
+                TEST: 'networkmanagement.googleapis.com/ConnectivityTest',
               },
             },
           },
         },
       },
     },
-    '//managedidentities.googleapis.com': {
+    'managedidentities.googleapis.com': {
       projects: {
         PROJECT_ID: {
           locations: {
             global: {
               domains: {
-                DOMAIN: '//managedidentities.googleapis.com/Domain',
+                DOMAIN: 'managedidentities.googleapis.com/Domain',
               },
             },
           },
         },
       },
     },
-    '//privateca.googleapis.com': {
+    'privateca.googleapis.com': {
       projects: {
         PROJECT_ID: {
           locations: {
             LOCATION: {
               caPools: {
                 CA_POOL_ID: {
-                  [EARLY_STOP_KEY]: '//privateca.googleapis.com/CaPool',
+                  [EARLY_STOP_KEY]: 'privateca.googleapis.com/CaPool',
                   certificateAuthorities: {
                     CERTIFICATE_AUTHORITIES_ID: {
                       [EARLY_STOP_KEY]:
-                        '//privateca.googleapis.com/CertificateAuthority',
+                        'privateca.googleapis.com/CertificateAuthority',
                       certificateRevocationLists: {
                         CERTIFICATE_REVOCATION_LISTS_ID:
-                          '//privateca.googleapis.com/CertificateRevocationList',
+                          'privateca.googleapis.com/CertificateRevocationList',
                       },
                     },
                   },
@@ -595,46 +595,46 @@ export const CLOUD_RESOURCES_MAP = {
               },
               certificateTemplates: {
                 CERTIFICATE_TEMPLATES_ID:
-                  '//privateca.googleapis.com/CertificateTemplate',
+                  'privateca.googleapis.com/CertificateTemplate',
               },
             },
           },
         },
       },
     },
-    '//dataflow.googleapis.com': {
+    'dataflow.googleapis.com': {
       projects: {
         PROJECT_ID: {
           locations: {
             LOCATION: {
               jobs: {
-                JOB: '//dataflow.googleapis.com/Job',
+                JOB: 'dataflow.googleapis.com/Job',
               },
             },
           },
         },
       },
     },
-    '//gameservices.googleapis.com': {
+    'gameservices.googleapis.com': {
       projects: {
         PROJECT_ID: {
           locations: {
             global: {
               realms: {
                 REALM_ID: {
-                  [EARLY_STOP_KEY]: '//gameservices.googleapis.com/Realm',
+                  [EARLY_STOP_KEY]: 'gameservices.googleapis.com/Realm',
                   gameServerClusters: {
                     GAME_SERVER_CLUSTER_ID:
-                      '//gameservices.googleapis.com/GameServerCluster',
+                      'gameservices.googleapis.com/GameServerCluster',
                   },
                 },
               },
               gameServerDeployments: {
                 GAME_SERVER_DEPLOYMENTS_ID: {
                   [EARLY_STOP_KEY]:
-                    '//gameservices.googleapis.com/GameServerDeployment',
+                    'gameservices.googleapis.com/GameServerDeployment',
                   configs: {
-                    CONFIG_ID: '//gameservices.googleapis.com/GameServerConfig',
+                    CONFIG_ID: 'gameservices.googleapis.com/GameServerConfig',
                   },
                 },
               },
@@ -643,102 +643,102 @@ export const CLOUD_RESOURCES_MAP = {
         },
       },
     },
-    '//gkehub.googleapis.com': {
+    'gkehub.googleapis.com': {
       projects: {
         PROJECT_ID: {
           locations: {
             global: {
               memberships: {
-                MEMBERSHIP: '//gkehub.googleapis.com/Membership',
+                MEMBERSHIP: 'gkehub.googleapis.com/Membership',
               },
             },
           },
         },
       },
     },
-    '//secretmanager.googleapis.com': {
+    'secretmanager.googleapis.com': {
       projects: {
         PROJECT_NUMBER: {
           secrets: {
             SECRET: {
-              [EARLY_STOP_KEY]: '//secretmanager.googleapis.com/Secret',
+              [EARLY_STOP_KEY]: 'secretmanager.googleapis.com/Secret',
               versions: {
-                VERSION: '//secretmanager.googleapis.com/SecretVersion',
+                VERSION: 'secretmanager.googleapis.com/SecretVersion',
               },
             },
           },
         },
       },
     },
-    '//tpu.googleapis.com': {
+    'tpu.googleapis.com': {
       projects: {
         PROJECT_NUMBER: {
           locations: {
             LOCATION: {
               nodes: {
-                NODE_ID: '//tpu.googleapis.com/Node',
+                NODE_ID: 'tpu.googleapis.com/Node',
               },
             },
           },
         },
       },
     },
-    '//composer.googleapis.com': {
+    'composer.googleapis.com': {
       projects: {
         PROJECT_NUMBER: {
           locations: {
             LOCATION: {
               environments: {
-                ENVIRONMENT: '//composer.googleapis.com/Environment',
+                ENVIRONMENT: 'composer.googleapis.com/Environment',
               },
             },
           },
         },
       },
     },
-    '//file.googleapis.com': {
+    'file.googleapis.com': {
       projects: {
         PROJECT_NUMBER: {
           locations: {
             LOCATION: {
               instances: {
-                INSTANCE: '//file.googleapis.com/Instance',
+                INSTANCE: 'file.googleapis.com/Instance',
               },
               backups: {
-                BACKUP: '//file.googleapis.com/Backup',
+                BACKUP: 'file.googleapis.com/Backup',
               },
             },
           },
         },
       },
     },
-    '//servicedirectory.googleapis.com': {
+    'servicedirectory.googleapis.com': {
       projects: {
         PROJECT_NUMBER: {
           locations: {
             LOCATION: {
               namespaces: {
-                NAMESPACE: '//servicedirectory.googleapis.com/Namespace',
+                NAMESPACE: 'servicedirectory.googleapis.com/Namespace',
               },
             },
           },
         },
       },
     },
-    '//assuredworkloads.googleapis.com': {
+    'assuredworkloads.googleapis.com': {
       organizations: {
         ORGANIZATION_NUMBER: {
           locations: {
             LOCATION: {
               workloads: {
-                WORKLOAD: '//assuredworkloads.googleapis.com/Workload',
+                WORKLOAD: 'assuredworkloads.googleapis.com/Workload',
               },
             },
           },
         },
       },
     },
-    '//artifactregistry.googleapis.com': {
+    'artifactregistry.googleapis.com': {
       projects: {
         PROJECT_NUMBER: {
           locations: {
@@ -746,10 +746,10 @@ export const CLOUD_RESOURCES_MAP = {
               repositories: {
                 REPOSITORY: {
                   [EARLY_STOP_KEY]:
-                    '//artifactregistry.googleapis.com/Repository',
+                    'artifactregistry.googleapis.com/Repository',
                   dockerimages: {
                     DOCKER_IMAGE:
-                      '//artifactregistry.googleapis.com/DockerImage',
+                      'artifactregistry.googleapis.com/DockerImage',
                   },
                 },
               },
@@ -758,130 +758,130 @@ export const CLOUD_RESOURCES_MAP = {
         },
       },
     },
-    '//apigateway.googleapis.com': {
+    'apigateway.googleapis.com': {
       projects: {
         PROJECT_NUMBER: {
           locations: {
             LOCATION: {
               apis: {
                 API: {
-                  [EARLY_STOP_KEY]: '//apigateway.googleapis.com/Api',
+                  [EARLY_STOP_KEY]: 'apigateway.googleapis.com/Api',
                   configs: {
-                    CONFIG: '//apigateway.googleapis.com/ApiConfig',
+                    CONFIG: 'apigateway.googleapis.com/ApiConfig',
                   },
                 },
               },
               gateways: {
-                GATEWAY: '//apigateway.googleapis.com/Gateway',
+                GATEWAY: 'apigateway.googleapis.com/Gateway',
               },
             },
           },
         },
       },
     },
-    '//redis.googleapis.com': {
+    'redis.googleapis.com': {
       projects: {
         PROJECT_ID: {
           locations: {
             LOCATION: {
               instances: {
-                INSTANCE: '//redis.googleapis.com/Instance',
+                INSTANCE: 'redis.googleapis.com/Instance',
               },
             },
           },
         },
       },
     },
-    '//memcache.googleapis.com': {
+    'memcache.googleapis.com': {
       projects: {
         PROJECT_NUMBER: {
           locations: {
             LOCATION: {
               instances: {
-                INSTANCE: '//memcache.googleapis.com/Instance',
+                INSTANCE: 'memcache.googleapis.com/Instance',
               },
             },
           },
         },
       },
     },
-    '//documentai.googleapis.com': {
+    'documentai.googleapis.com': {
       projects: {
         PROJECT_NUMBER: {
           locations: {
             LOCATION: {
               processors: {
-                [EARLY_STOP_KEY]: '//documentai.googleapis.com/Processor',
+                [EARLY_STOP_KEY]: 'documentai.googleapis.com/Processor',
                 PROCESSOR: {
                   humanReviewConfig:
-                    '//documentai.googleapis.com/HumanReviewConfig',
+                    'documentai.googleapis.com/HumanReviewConfig',
                 },
               },
               labelerPools: {
-                LABELERPOOL: '//documentai.googleapis.com/LabelerPool',
+                LABELERPOOL: 'documentai.googleapis.com/LabelerPool',
               },
             },
           },
         },
       },
     },
-    '//aiplatform.googleapis.com': {
+    'aiplatform.googleapis.com': {
       projects: {
         PROJECT_NUMBER: {
           locations: {
             LOCATION: {
               batchPredictionJobs: {
                 BATCH_PREDICTION_JOB:
-                  '//aiplatform.googleapis.com/BatchPredictionJob',
+                  'aiplatform.googleapis.com/BatchPredictionJob',
               },
               customJobs: {
-                CUSTOM_JOB: '//aiplatform.googleapis.com/CustomJob',
+                CUSTOM_JOB: 'aiplatform.googleapis.com/CustomJob',
               },
               dataLabelingJobs: {
                 DATA_LABELING_JOB:
-                  '//aiplatform.googleapis.com/DataLabelingJob',
+                  'aiplatform.googleapis.com/DataLabelingJob',
               },
               datasets: {
-                DATASET: '//aiplatform.googleapis.com/Dataset',
+                DATASET: 'aiplatform.googleapis.com/Dataset',
               },
               endpoints: {
-                ENDPOINT: '//aiplatform.googleapis.com/Endpoint',
+                ENDPOINT: 'aiplatform.googleapis.com/Endpoint',
               },
               hyperparameterTuningJobs: {
                 HYPERPARAMETER_TUNING_JOB:
-                  '//aiplatform.googleapis.com/HyperparameterTuningJob',
+                  'aiplatform.googleapis.com/HyperparameterTuningJob',
               },
               models: {
-                MODEL: '//aiplatform.googleapis.com/Model',
+                MODEL: 'aiplatform.googleapis.com/Model',
               },
               specialistPools: {
-                SPECIALIST_POOL: '//aiplatform.googleapis.com/SpecialistPool',
+                SPECIALIST_POOL: 'aiplatform.googleapis.com/SpecialistPool',
               },
               trainingPipelines: {
                 TRAINING_PIPELINE:
-                  '//aiplatform.googleapis.com/TrainingPipeline',
+                  'aiplatform.googleapis.com/TrainingPipeline',
               },
             },
           },
         },
       },
     },
-    '//monitoring.googleapis.com': {
+    'monitoring.googleapis.com': {
       projects: {
         PROJECT_NUMBER: {
           policies: {
-            POLICY_NUMBER: '//monitoring.googleapis.com/AlertPolicy',
+            POLICY_NUMBER: 'monitoring.googleapis.com/AlertPolicy',
           },
         },
       },
     },
-    '//vpcaccess.googleapis.com': {
+    'vpcaccess.googleapis.com': {
       projects: {
         PROJECT_NUMBER: {
           locations: {
             LOCATION: {
               connectors: {
-                CONNECTOR: '//vpcaccess.googleapis.com/Connector',
+                CONNECTOR: 'vpcaccess.googleapis.com/Connector',
               },
             },
           },
@@ -890,3 +890,4 @@ export const CLOUD_RESOURCES_MAP = {
     },
   },
 };
+
