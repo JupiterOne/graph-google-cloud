@@ -4,8 +4,12 @@
  */
 export const ANY_RESOURCE = 'ANY_RESOURCE';
 
+// Used when resource type stops with still more to traverse
+const EARLY_STOP_KEY = '__EARLY_STOP_KEY';
+
 /**
- * A map that goes from google cloud resource
+ * A map that goes from google cloud resource identifier structure to the cloud resource kind.
+ * https://cloud.google.com/asset-inventory/docs/resource-name-format
  */
 export const CLOUD_RESOURCES_MAP = {
   '//cloudfunctions.googleapis.com': {
@@ -157,7 +161,7 @@ export const CLOUD_RESOURCES_MAP = {
   '//compute.googleapis.com': {
     projects: {
       PROJECT_ID: {
-        //compute.googleapis.com/Project
+        [EARLY_STOP_KEY]: '//compute.googleapis.com/Project',
         regions: {
           REGION: {
             packetMirrorings: {
@@ -236,11 +240,11 @@ export const CLOUD_RESOURCES_MAP = {
   },
   '//appengine.googleapis.com': {
     apps: {
-      //appengine.googleapis.com/Application
+      [EARLY_STOP_KEY]: '//appengine.googleapis.com/Application',
       APP: {
         services: {
           SERVICE: {
-            //appengine.googleapis.com/Service
+            [EARLY_STOP_KEY]: '//appengine.googleapis.com/Service',
             versions: {
               VERSION: '//appengine.googleapis.com/Version',
             },
@@ -276,7 +280,7 @@ export const CLOUD_RESOURCES_MAP = {
         PROJECT_ID: {
           instances: {
             INSTANCE: {
-              //spanner.googleapis.com/Instance
+              [EARLY_STOP_KEY]: '//spanner.googleapis.com/Instance',
               databases: {
                 DATABASE: '//spanner.googleapis.com/Database',
               },
@@ -310,7 +314,7 @@ export const CLOUD_RESOURCES_MAP = {
           },
           serviceAccounts: {
             SERVICE_ACCOUNT_EMAIL_OR_ID: {
-              //iam.googleapis.com/ServiceAccount
+              [EARLY_STOP_KEY]: '//iam.googleapis.com/ServiceAccount',
               keys: {
                 SERVICE_ACCOUNT_KEY: '//iam.googleapis.com/ServiceAccountKey',
               },
@@ -357,10 +361,10 @@ export const CLOUD_RESOURCES_MAP = {
             LOCATION: {
               keyRings: {
                 KEY_RING: {
-                  //cloudkms.googleapis.com/KeyRing
+                  [EARLY_STOP_KEY]: '//cloudkms.googleapis.com/KeyRing',
                   cryptoKeys: {
                     CRYPTO_KEY: {
-                      //cloudkms.googleapis.com/CryptoKey
+                      [EARLY_STOP_KEY]: '//cloudkms.googleapis.com/CryptoKey',
                       cryptoKeyVersions: {
                         CRYPTO_KEY_VERSION:
                           '//cloudkms.googleapis.com/CryptoKeyVersion',
@@ -391,14 +395,14 @@ export const CLOUD_RESOURCES_MAP = {
             ZONE: {
               clusters: {
                 CLUSTER: {
-                  //container.googleapis.com/Cluster
+                  [EARLY_STOP_KEY]: '//container.googleapis.com/Cluster',
                   k8s: {
                     nodes: {
                       NODE: '//k8s.io/Node',
                     },
                     namespaces: {
                       NAMESPACE: {
-                        //k8s.io/Namespace
+                        [EARLY_STOP_KEY]: '//k8s.io/Namespace',
                         pods: {
                           POD: '//k8s.io/Pod',
                         },
@@ -461,7 +465,7 @@ export const CLOUD_RESOURCES_MAP = {
         PROJECT_ID: {
           instances: {
             INSTANCE: {
-              //bigtableadmin.googleapis.com/Instance
+              [EARLY_STOP_KEY]: '//bigtableadmin.googleapis.com/Instance',
               appProfiles: {
                 APP_PROFILE: '//bigtableadmin.googleapis.com/AppProfile',
               },
@@ -470,7 +474,7 @@ export const CLOUD_RESOURCES_MAP = {
               },
               clusters: {
                 CLUSTER: {
-                  //bigtableadmin.googleapis.com/Cluster
+                  [EARLY_STOP_KEY]: '//bigtableadmin.googleapis.com/Cluster',
                   backups: {
                     BACKUP: '//bigtableadmin.googleapis.com/Backup',
                   },
@@ -576,10 +580,11 @@ export const CLOUD_RESOURCES_MAP = {
             LOCATION: {
               caPools: {
                 CA_POOL_ID: {
-                  //privateca.googleapis.com/CaPool
+                  [EARLY_STOP_KEY]: '//privateca.googleapis.com/CaPool',
                   certificateAuthorities: {
                     CERTIFICATE_AUTHORITIES_ID: {
-                      //privateca.googleapis.com/CertificateAuthority
+                      [EARLY_STOP_KEY]:
+                        '//privateca.googleapis.com/CertificateAuthority',
                       certificateRevocationLists: {
                         CERTIFICATE_REVOCATION_LISTS_ID:
                           '//privateca.googleapis.com/CertificateRevocationList',
@@ -617,7 +622,7 @@ export const CLOUD_RESOURCES_MAP = {
             global: {
               realms: {
                 REALM_ID: {
-                  //gameservices.googleapis.com/Realm
+                  [EARLY_STOP_KEY]: '//gameservices.googleapis.com/Realm',
                   gameServerClusters: {
                     GAME_SERVER_CLUSTER_ID:
                       '//gameservices.googleapis.com/GameServerCluster',
@@ -626,7 +631,8 @@ export const CLOUD_RESOURCES_MAP = {
               },
               gameServerDeployments: {
                 GAME_SERVER_DEPLOYMENTS_ID: {
-                  //gameservices.googleapis.com/GameServerDeployment
+                  [EARLY_STOP_KEY]:
+                    '//gameservices.googleapis.com/GameServerDeployment',
                   configs: {
                     CONFIG_ID: '//gameservices.googleapis.com/GameServerConfig',
                   },
@@ -655,7 +661,7 @@ export const CLOUD_RESOURCES_MAP = {
         PROJECT_NUMBER: {
           secrets: {
             SECRET: {
-              //secretmanager.googleapis.com/Secret
+              [EARLY_STOP_KEY]: '//secretmanager.googleapis.com/Secret',
               versions: {
                 VERSION: '//secretmanager.googleapis.com/SecretVersion',
               },
@@ -739,7 +745,8 @@ export const CLOUD_RESOURCES_MAP = {
             LOCATION: {
               repositories: {
                 REPOSITORY: {
-                  //artifactregistry.googleapis.com/Repository
+                  [EARLY_STOP_KEY]:
+                    '//artifactregistry.googleapis.com/Repository',
                   dockerimages: {
                     DOCKER_IMAGE:
                       '//artifactregistry.googleapis.com/DockerImage',
@@ -758,7 +765,7 @@ export const CLOUD_RESOURCES_MAP = {
             LOCATION: {
               apis: {
                 API: {
-                  //apigateway.googleapis.com/Api
+                  [EARLY_STOP_KEY]: '//apigateway.googleapis.com/Api',
                   configs: {
                     CONFIG: '//apigateway.googleapis.com/ApiConfig',
                   },
@@ -804,6 +811,7 @@ export const CLOUD_RESOURCES_MAP = {
           locations: {
             LOCATION: {
               processors: {
+                [EARLY_STOP_KEY]: '//documentai.googleapis.com/Processor',
                 PROCESSOR: {
                   humanReviewConfig:
                     '//documentai.googleapis.com/HumanReviewConfig',
@@ -811,9 +819,6 @@ export const CLOUD_RESOURCES_MAP = {
               },
               labelerPools: {
                 LABELERPOOL: '//documentai.googleapis.com/LabelerPool',
-              },
-              processors: {
-                PROCESSOR: '//documentai.googleapis.com/Processor',
               },
             },
           },
