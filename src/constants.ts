@@ -955,7 +955,10 @@ export const CLOUD_RESOURCES_MAP = {
 
 const NONE = 'NO_DIRECT_J1_RESOURCE_YET';
 
-const GOOGLE_RESOURCE_TO_J1_ENTITY_MAP = {
+/**
+ * A map of all existing Google Cloud resources to their associated JupiterOne type
+ */
+const GOOGLE_RESOURCE_TO_J1_TYPE_MAP: { [key: string]: string | string[] } = {
   'cloudfunctions.googleapis.com/CloudFunction': CLOUD_FUNCTION_ENTITY_TYPE,
   'cloudresourcemanager.googleapis.com/Organization': ORGANIZATION_ENTITY_TYPE,
   'cloudresourcemanager.googleapis.com/Folder': FOLDER_ENTITY_TYPE,
@@ -1039,11 +1042,6 @@ const GOOGLE_RESOURCE_TO_J1_ENTITY_MAP = {
   'cloudkms.googleapis.com/ImportJob': NONE,
   'container.googleapis.com/Cluster': CONTAINER_CLUSTER_ENTITY_TYPE,
   'container.googleapis.com/NodePool': CONTAINER_NODE_POOL_ENTITY_TYPE,
-  'sqladmin.googleapis.com/Instance': [
-    SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
-    SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
-    SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
-  ],
   'bigtableadmin.googleapis.com/AppProfile': NONE,
   'bigtableadmin.googleapis.com/Backup': NONE,
   'bigtableadmin.googleapis.com/Cluster': NONE,
@@ -1079,6 +1077,11 @@ const GOOGLE_RESOURCE_TO_J1_ENTITY_MAP = {
   'secretmanager.googleapis.com/SecretVersion': NONE,
   'tpu.googleapis.com/Node': NONE,
   'composer.googleapis.com/Environment': NONE,
+  'sqladmin.googleapis.com/Instance': [
+    SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
+    SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
+    SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
+  ],
   'file.googleapis.com/Instance': NONE,
   'file.googleapis.com/Backup': NONE,
   'servicedirectory.googleapis.com/Namespace': NONE,
@@ -1104,4 +1107,74 @@ const GOOGLE_RESOURCE_TO_J1_ENTITY_MAP = {
   'aiplatform.googleapis.com/TrainingPipeline': NONE,
   'monitoring.googleapis.com/AlertPolicy': MONITORING_ALERT_POLICY_TYPE,
   'vpcaccess.googleapis.com/Connector': NONE,
+};
+
+function standardKeyMap(googleResourceIdentifier: string) {
+  const [_, __, _service, ...key] = googleResourceIdentifier.split('/');
+  return key.join('/');
+}
+
+function unknown(googleResourceIdentifier: string) {
+  return false;
+}
+
+// Used for denoting that it is impossible to make a link between the google cloud resource and the JupiterOne Enitty
+function impossible(googleResourceIdentifier: string) {
+  return false;
+}
+
+const J1_TYPE_TO_KEY_GENERATOR_MAP = {
+  [CLOUD_FUNCTION_ENTITY_TYPE]: standardKeyMap,
+  [ORGANIZATION_ENTITY_TYPE]: standardKeyMap,
+  [FOLDER_ENTITY_TYPE]: standardKeyMap,
+  [PROJECT_ENTITY_TYPE]: unknown,
+  [ENTITY_TYPE_CLOUD_RUN_SERVICE]: unknown,
+  [ENTITY_TYPE_COMPUTE_BACKEND_BUCKET]: unknown,
+  [ENTITY_TYPE_COMPUTE_BACKEND_SERVICE]: unknown,
+  [ENTITY_TYPE_COMPUTE_DISK]: unknown,
+  [ENTITY_TYPE_COMPUTE_FIREWALL]: unknown,
+  [ENTITY_TYPE_COMPUTE_HEALTH_CHECK]: unknown,
+  [ENTITY_TYPE_COMPUTE_IMAGE]: unknown,
+  [ENTITY_TYPE_COMPUTE_INSTANCE]: unknown,
+  [ENTITY_TYPE_COMPUTE_INSTANCE_GROUP]: unknown,
+  [ENTITY_TYPE_COMPUTE_NETWORK]: unknown,
+  [ENTITY_TYPE_COMPUTE_PROJECT]: unknown,
+  [ENTITY_TYPE_COMPUTE_SNAPSHOT]: unknown,
+  [ENTITY_TYPE_COMPUTE_SSL_POLICY]: unknown,
+  [ENTITY_TYPE_COMPUTE_SUBNETWORK]: unknown,
+  [ENTITY_TYPE_COMPUTE_TARGET_HTTP_PROXY]: unknown,
+  [ENTITY_TYPE_COMPUTE_TARGET_HTTPS_PROXY]: unknown,
+  [ENTITY_TYPE_COMPUTE_TARGET_SSL_PROXY]: unknown,
+  [ENTITY_TYPE_COMPUTE_LOAD_BALANCER]: unknown,
+  [ENTITY_TYPE_APP_ENGINE_APPLICATION]: unknown,
+  [ENTITY_TYPE_APP_ENGINE_SERVICE]: unknown,
+  [ENTITY_TYPE_APP_ENGINE_VERSION]: unknown,
+  [CLOUD_STORAGE_BUCKET_ENTITY_TYPE]: unknown,
+  [DNS_MANAGED_ZONE_ENTITY_TYPE]: unknown,
+  [ENTITY_TYPE_SPANNER_INSTANCE]: unknown,
+  [ENTITY_TYPE_SPANNER_INSTANCE_DATABASE]: unknown,
+  [BIG_QUERY_DATASET_ENTITY_TYPE]: unknown,
+  [BIG_QUERY_TABLE_ENTITY_TYPE]: unknown,
+  [IAM_ROLE_ENTITY_TYPE]: unknown,
+  [IAM_SERVICE_ACCOUNT_ENTITY_TYPE]: unknown,
+  [IAM_SERVICE_ACCOUNT_KEY_ENTITY_TYPE]: unknown,
+  [ENTITY_TYPE_PUBSUB_TOPIC]: unknown,
+  [ENTITY_TYPE_PUBSUB_SUBSCRIPTION]: unknown,
+  [ENTITY_TYPE_KMS_KEY_RING]: standardKeyMap,
+  [ENTITY_TYPE_KMS_KEY]: standardKeyMap,
+  [CONTAINER_CLUSTER_ENTITY_TYPE]: unknown,
+  [CONTAINER_NODE_POOL_ENTITY_TYPE]: unknown,
+  [API_SERVICE_ENTITY_TYPE]: unknown,
+  [LOGGING_PROJECT_SINK_ENTITY_TYPE]: unknown,
+  [LOGGING_METRIC_ENTITY_TYPE]: unknown,
+  [ENTITY_TYPE_PRIVATE_CA_CERTIFICATE_AUTHORITY]: unknown,
+  [ENTITY_TYPE_API_GATEWAY_API]: unknown,
+  [ENTITY_TYPE_API_GATEWAY_API_CONFIG]: unknown,
+  [ENTITY_TYPE_API_GATEWAY_GATEWAY]: unknown,
+  [ENTITY_TYPE_REDIS_INSTANCE]: unknown,
+  [ENTITY_TYPE_MEMCACHE_INSTANCE]: unknown,
+  [MONITORING_ALERT_POLICY_TYPE]: unknown,
+  [SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE]: unknown,
+  [SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE]: unknown,
+  [SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE]: unknown,
 };
