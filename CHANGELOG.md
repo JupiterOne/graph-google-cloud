@@ -8,7 +8,19 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.46.0 - 2021-07-28
+
+### Changed
+
+- Upgraded integration SDK packages to v6.13.0
+
+### Fixed
+
+- Encode path part of `webLink` entity property
+
 ## 0.45.0 - 2021-07-20
+
+### Added
 
 - Added support for ingesting the following **new** relationships:
 
