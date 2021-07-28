@@ -13,6 +13,7 @@ import {
   BIG_QUERY_TABLE_ENTITY_TYPE,
 } from './steps/big-query';
 import { ENTITY_TYPE_CLOUD_RUN_SERVICE } from './steps/cloud-run/constants';
+import { getCloudRunServiceKey } from './steps/cloud-run/converters';
 import {
   ENTITY_TYPE_COMPUTE_BACKEND_BUCKET,
   ENTITY_TYPE_COMPUTE_BACKEND_SERVICE,
@@ -33,6 +34,11 @@ import {
   ENTITY_TYPE_COMPUTE_LOAD_BALANCER,
 } from './steps/compute';
 import {
+  getComputeDiskKey,
+  getComputeImageKey,
+  getComputeSnapshotKey,
+} from './steps/compute/converters';
+import {
   CONTAINER_CLUSTER_ENTITY_TYPE,
   CONTAINER_NODE_POOL_ENTITY_TYPE,
 } from './steps/containers';
@@ -48,7 +54,9 @@ import {
   LOGGING_PROJECT_SINK_ENTITY_TYPE,
   LOGGING_METRIC_ENTITY_TYPE,
 } from './steps/logging/constants';
+import { getLogingProjectSinkId } from './steps/logging/converters';
 import { ENTITY_TYPE_MEMCACHE_INSTANCE } from './steps/memcache/constants';
+import { getMemcacheKey } from './steps/memcache/converter';
 import { MONITORING_ALERT_POLICY_TYPE } from './steps/monitoring/constants';
 import { ENTITY_TYPE_PRIVATE_CA_CERTIFICATE_AUTHORITY } from './steps/privateca/constants';
 import {
@@ -56,6 +64,7 @@ import {
   ENTITY_TYPE_PUBSUB_SUBSCRIPTION,
 } from './steps/pub-sub/constants';
 import { ENTITY_TYPE_REDIS_INSTANCE } from './steps/redis/constants';
+import { getRedisKey } from './steps/redis/converter';
 import {
   FOLDER_ENTITY_TYPE,
   ORGANIZATION_ENTITY_TYPE,
@@ -72,6 +81,7 @@ import {
   SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
 } from './steps/sql-admin';
 import { CLOUD_STORAGE_BUCKET_ENTITY_TYPE } from './steps/storage';
+import { getCloudStorageBucketKey } from './steps/storage/converters';
 
 /**
  * ANY_RESOURCE is used to describe any Google Cloud resource.
@@ -953,12 +963,14 @@ export const CLOUD_RESOURCES_MAP = {
   },
 };
 
-const NONE = 'NO_DIRECT_J1_RESOURCE_YET';
+export const NONE = 'NO_DIRECT_J1_RESOURCE_YET';
 
 /**
  * A map of all existing Google Cloud resources to their associated JupiterOne type
  */
-const GOOGLE_RESOURCE_TO_J1_TYPE_MAP: { [key: string]: string | string[] } = {
+export const GOOGLE_RESOURCE_TO_J1_TYPE_MAP: {
+  [key: string]: string | string[];
+} = {
   'cloudfunctions.googleapis.com/CloudFunction': CLOUD_FUNCTION_ENTITY_TYPE,
   'cloudresourcemanager.googleapis.com/Organization': ORGANIZATION_ENTITY_TYPE,
   'cloudresourcemanager.googleapis.com/Folder': FOLDER_ENTITY_TYPE,
@@ -1109,72 +1121,138 @@ const GOOGLE_RESOURCE_TO_J1_TYPE_MAP: { [key: string]: string | string[] } = {
   'vpcaccess.googleapis.com/Connector': NONE,
 };
 
-function standardKeyMap(googleResourceIdentifier: string) {
+// ex: projects/j1-gc-integration-dev-v3/locations/us-central1/functions/j1-gc-integration-dev-v3testfunction
+function fullPathKeyMap(googleResourceIdentifier: string): string {
   const [_, __, _service, ...key] = googleResourceIdentifier.split('/');
   return key.join('/');
 }
 
-function unknown(googleResourceIdentifier: string) {
+// ex: 2fab1cb9-fb5c-4f22-b364-979cebdc2820
+// ex: 711888229551-compute@developer.gserviceaccount.com
+function finalIdentifierKeyMap(googleResourceIdentifier: string): string {
+  return googleResourceIdentifier.split('/').slice(-1)[0];
+}
+
+// ex: https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/backendServices/load-balancer-www-service
+function selfLinkKeyMap(googleResourceIdentifier: string): string {
+  const [_, __, service, ...key] = googleResourceIdentifier.split('/');
+  const [shortenedServiceName, googleDomainName, topLevelDomainName] =
+    service.split('.');
+  return (
+    'https://www.' +
+    googleDomainName +
+    '.' +
+    topLevelDomainName +
+    '/' +
+    [shortenedServiceName, ...key].join('/')
+  );
+}
+
+// ex: j1-gc-integration-dev-v3
+// ex: j1-gc-integration-dev-v3:test_big_query_dataset
+// ex: j1-gc-integration-dev-v3:natality.Test Table
+function allUniqueIdentifiers(googleResourceIdentifier: string): string {
+  const [
+    _,
+    __,
+    _service,
+    _firstDivision,
+    idForFistDivision,
+    _secondDivision,
+    idForSecondDivision,
+    _thirdDivision,
+    idForThirdDivision,
+    _fourthDivision,
+    idForFourthDivision,
+  ] = googleResourceIdentifier.split('/');
+  return [
+    idForFistDivision,
+    idForSecondDivision,
+    idForThirdDivision,
+    idForFourthDivision,
+  ]
+    .filter((i) => !!i)
+    .join(':');
+}
+
+// ex: cloudrun_service:2fab1cb9-fb5c-4f22-b364-979cebdc2820
+function customPrefixAndIdKeyMap(
+  customKeyPrefixFunction: (uid: string) => string,
+): (googleResourceIdentifier: string) => string {
+  return (googleResourceIdentifier: string) =>
+    customKeyPrefixFunction(finalIdentifierKeyMap(googleResourceIdentifier));
+}
+
+// Used when there is no way to generate the J1 entity key given only the googleResourceIdentifier
+function impossible(googleResourceIdentifier: string): false {
   return false;
 }
 
-// Used for denoting that it is impossible to make a link between the google cloud resource and the JupiterOne Enitty
-function impossible(googleResourceIdentifier: string) {
-  return false;
-}
-
-const J1_TYPE_TO_KEY_GENERATOR_MAP = {
-  [CLOUD_FUNCTION_ENTITY_TYPE]: standardKeyMap,
-  [ORGANIZATION_ENTITY_TYPE]: standardKeyMap,
-  [FOLDER_ENTITY_TYPE]: standardKeyMap,
-  [PROJECT_ENTITY_TYPE]: unknown,
-  [ENTITY_TYPE_CLOUD_RUN_SERVICE]: unknown,
-  [ENTITY_TYPE_COMPUTE_BACKEND_BUCKET]: unknown,
-  [ENTITY_TYPE_COMPUTE_BACKEND_SERVICE]: unknown,
-  [ENTITY_TYPE_COMPUTE_DISK]: unknown,
-  [ENTITY_TYPE_COMPUTE_FIREWALL]: unknown,
-  [ENTITY_TYPE_COMPUTE_HEALTH_CHECK]: unknown,
-  [ENTITY_TYPE_COMPUTE_IMAGE]: unknown,
-  [ENTITY_TYPE_COMPUTE_INSTANCE]: unknown,
-  [ENTITY_TYPE_COMPUTE_INSTANCE_GROUP]: unknown,
-  [ENTITY_TYPE_COMPUTE_NETWORK]: unknown,
-  [ENTITY_TYPE_COMPUTE_PROJECT]: unknown,
-  [ENTITY_TYPE_COMPUTE_SNAPSHOT]: unknown,
-  [ENTITY_TYPE_COMPUTE_SSL_POLICY]: unknown,
-  [ENTITY_TYPE_COMPUTE_SUBNETWORK]: unknown,
-  [ENTITY_TYPE_COMPUTE_TARGET_HTTP_PROXY]: unknown,
-  [ENTITY_TYPE_COMPUTE_TARGET_HTTPS_PROXY]: unknown,
-  [ENTITY_TYPE_COMPUTE_TARGET_SSL_PROXY]: unknown,
-  [ENTITY_TYPE_COMPUTE_LOAD_BALANCER]: unknown,
-  [ENTITY_TYPE_APP_ENGINE_APPLICATION]: unknown,
-  [ENTITY_TYPE_APP_ENGINE_SERVICE]: unknown,
-  [ENTITY_TYPE_APP_ENGINE_VERSION]: unknown,
-  [CLOUD_STORAGE_BUCKET_ENTITY_TYPE]: unknown,
-  [DNS_MANAGED_ZONE_ENTITY_TYPE]: unknown,
-  [ENTITY_TYPE_SPANNER_INSTANCE]: unknown,
-  [ENTITY_TYPE_SPANNER_INSTANCE_DATABASE]: unknown,
-  [BIG_QUERY_DATASET_ENTITY_TYPE]: unknown,
-  [BIG_QUERY_TABLE_ENTITY_TYPE]: unknown,
-  [IAM_ROLE_ENTITY_TYPE]: unknown,
-  [IAM_SERVICE_ACCOUNT_ENTITY_TYPE]: unknown,
-  [IAM_SERVICE_ACCOUNT_KEY_ENTITY_TYPE]: unknown,
-  [ENTITY_TYPE_PUBSUB_TOPIC]: unknown,
-  [ENTITY_TYPE_PUBSUB_SUBSCRIPTION]: unknown,
-  [ENTITY_TYPE_KMS_KEY_RING]: standardKeyMap,
-  [ENTITY_TYPE_KMS_KEY]: standardKeyMap,
-  [CONTAINER_CLUSTER_ENTITY_TYPE]: unknown,
-  [CONTAINER_NODE_POOL_ENTITY_TYPE]: unknown,
-  [API_SERVICE_ENTITY_TYPE]: unknown,
-  [LOGGING_PROJECT_SINK_ENTITY_TYPE]: unknown,
-  [LOGGING_METRIC_ENTITY_TYPE]: unknown,
-  [ENTITY_TYPE_PRIVATE_CA_CERTIFICATE_AUTHORITY]: unknown,
-  [ENTITY_TYPE_API_GATEWAY_API]: unknown,
-  [ENTITY_TYPE_API_GATEWAY_API_CONFIG]: unknown,
-  [ENTITY_TYPE_API_GATEWAY_GATEWAY]: unknown,
-  [ENTITY_TYPE_REDIS_INSTANCE]: unknown,
-  [ENTITY_TYPE_MEMCACHE_INSTANCE]: unknown,
-  [MONITORING_ALERT_POLICY_TYPE]: unknown,
-  [SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE]: unknown,
-  [SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE]: unknown,
-  [SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE]: unknown,
+/**
+ * A map of JupiterOne types to a function which can generate their _key properties given a Google Cloud resource identifier
+ */
+export const J1_TYPE_TO_KEY_GENERATOR_MAP: {
+  [key: string]: (googleResourceIdentifier: string) => string | false;
+} = {
+  [CLOUD_FUNCTION_ENTITY_TYPE]: fullPathKeyMap,
+  [ORGANIZATION_ENTITY_TYPE]: fullPathKeyMap,
+  [FOLDER_ENTITY_TYPE]: fullPathKeyMap,
+  [PROJECT_ENTITY_TYPE]: allUniqueIdentifiers,
+  [ENTITY_TYPE_CLOUD_RUN_SERVICE]: customPrefixAndIdKeyMap(
+    getCloudRunServiceKey,
+  ),
+  [ENTITY_TYPE_COMPUTE_BACKEND_BUCKET]: selfLinkKeyMap,
+  [ENTITY_TYPE_COMPUTE_BACKEND_SERVICE]: selfLinkKeyMap,
+  [ENTITY_TYPE_COMPUTE_DISK]: customPrefixAndIdKeyMap(getComputeDiskKey),
+  [ENTITY_TYPE_COMPUTE_FIREWALL]: selfLinkKeyMap,
+  [ENTITY_TYPE_COMPUTE_HEALTH_CHECK]: selfLinkKeyMap,
+  [ENTITY_TYPE_COMPUTE_IMAGE]: customPrefixAndIdKeyMap(getComputeImageKey),
+  [ENTITY_TYPE_COMPUTE_INSTANCE]: selfLinkKeyMap,
+  [ENTITY_TYPE_COMPUTE_INSTANCE_GROUP]: selfLinkKeyMap,
+  [ENTITY_TYPE_COMPUTE_NETWORK]: selfLinkKeyMap,
+  [ENTITY_TYPE_COMPUTE_PROJECT]: selfLinkKeyMap,
+  [ENTITY_TYPE_COMPUTE_SNAPSHOT]: customPrefixAndIdKeyMap(
+    getComputeSnapshotKey,
+  ),
+  [ENTITY_TYPE_COMPUTE_SSL_POLICY]: selfLinkKeyMap,
+  [ENTITY_TYPE_COMPUTE_SUBNETWORK]: selfLinkKeyMap,
+  [ENTITY_TYPE_COMPUTE_TARGET_HTTP_PROXY]: selfLinkKeyMap,
+  [ENTITY_TYPE_COMPUTE_TARGET_HTTPS_PROXY]: selfLinkKeyMap,
+  [ENTITY_TYPE_COMPUTE_TARGET_SSL_PROXY]: selfLinkKeyMap,
+  [ENTITY_TYPE_COMPUTE_LOAD_BALANCER]: selfLinkKeyMap,
+  [ENTITY_TYPE_APP_ENGINE_APPLICATION]: fullPathKeyMap,
+  [ENTITY_TYPE_APP_ENGINE_SERVICE]: fullPathKeyMap,
+  [ENTITY_TYPE_APP_ENGINE_VERSION]: fullPathKeyMap,
+  [CLOUD_STORAGE_BUCKET_ENTITY_TYPE]: customPrefixAndIdKeyMap(
+    getCloudStorageBucketKey,
+  ),
+  [DNS_MANAGED_ZONE_ENTITY_TYPE]: finalIdentifierKeyMap,
+  [ENTITY_TYPE_SPANNER_INSTANCE]: fullPathKeyMap,
+  [ENTITY_TYPE_SPANNER_INSTANCE_DATABASE]: fullPathKeyMap,
+  [BIG_QUERY_DATASET_ENTITY_TYPE]: allUniqueIdentifiers,
+  [BIG_QUERY_TABLE_ENTITY_TYPE]: allUniqueIdentifiers,
+  [IAM_ROLE_ENTITY_TYPE]: impossible, // Key is different depending on if it is a custom or managed Role. I'm pretty sure this can not be the target of a role binding.
+  [IAM_SERVICE_ACCOUNT_ENTITY_TYPE]: finalIdentifierKeyMap,
+  [IAM_SERVICE_ACCOUNT_KEY_ENTITY_TYPE]: fullPathKeyMap,
+  [ENTITY_TYPE_PUBSUB_TOPIC]: fullPathKeyMap,
+  [ENTITY_TYPE_PUBSUB_SUBSCRIPTION]: fullPathKeyMap,
+  [ENTITY_TYPE_KMS_KEY_RING]: fullPathKeyMap,
+  [ENTITY_TYPE_KMS_KEY]: fullPathKeyMap,
+  [CONTAINER_CLUSTER_ENTITY_TYPE]: selfLinkKeyMap,
+  [CONTAINER_NODE_POOL_ENTITY_TYPE]: selfLinkKeyMap,
+  [API_SERVICE_ENTITY_TYPE]: fullPathKeyMap,
+  [LOGGING_PROJECT_SINK_ENTITY_TYPE]: customPrefixAndIdKeyMap(
+    getLogingProjectSinkId,
+  ),
+  [LOGGING_METRIC_ENTITY_TYPE]: finalIdentifierKeyMap, // I'm pretty sure this can not be the target of a role binding.
+  [ENTITY_TYPE_PRIVATE_CA_CERTIFICATE_AUTHORITY]: fullPathKeyMap,
+  [ENTITY_TYPE_API_GATEWAY_API]: fullPathKeyMap,
+  [ENTITY_TYPE_API_GATEWAY_API_CONFIG]: fullPathKeyMap,
+  [ENTITY_TYPE_API_GATEWAY_GATEWAY]: fullPathKeyMap,
+  [ENTITY_TYPE_REDIS_INSTANCE]: customPrefixAndIdKeyMap(getRedisKey),
+  [ENTITY_TYPE_MEMCACHE_INSTANCE]: customPrefixAndIdKeyMap(getMemcacheKey),
+  [MONITORING_ALERT_POLICY_TYPE]: fullPathKeyMap,
+  [SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE]: impossible, // needs access to the region (us-east1, etc...) the instance is in in order to generate the key
+  [SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE]: impossible, // needs access to the region (us-east1, etc...) the instance is in in order to generate the key
+  [SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE]: impossible, // needs access to the region (us-east1, etc...) the instance is in in order to generate the key
 };

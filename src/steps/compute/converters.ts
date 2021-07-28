@@ -80,6 +80,10 @@ export function createComputeProjectEntity(data: compute_v1.Schema$Project) {
   });
 }
 
+export function getComputeImageKey(uid: string) {
+  return `image:${uid}`;
+}
+
 export function createComputeImageEntity({
   data,
   isPublic,
@@ -93,7 +97,7 @@ export function createComputeImageEntity({
       assign: {
         _class: ENTITY_CLASS_COMPUTE_IMAGE,
         _type: ENTITY_TYPE_COMPUTE_IMAGE,
-        _key: `image:${data.id}`,
+        _key: getComputeImageKey(data.id!),
         id: data.id as string,
         name: data.name,
         displayName: data.name as string,
@@ -131,6 +135,10 @@ export function createComputeImageEntity({
   });
 }
 
+export function getComputeDiskKey(uid: string) {
+  return `disk:${uid}`;
+}
+
 export function createComputeDiskEntity(
   data: compute_v1.Schema$Disk,
   projectId: string,
@@ -146,7 +154,7 @@ export function createComputeDiskEntity(
       assign: {
         _class: ENTITY_CLASS_COMPUTE_DISK,
         _type: ENTITY_TYPE_COMPUTE_DISK,
-        _key: `disk:${data.id}`,
+        _key: getComputeDiskKey(data.id!),
         id: data.id as string,
         displayName: data.name as string,
         description: data.description,
@@ -195,6 +203,10 @@ export function createComputeDiskEntity(
   });
 }
 
+export function getComputeSnapshotKey(uid: string) {
+  return `snapshot:${uid}`;
+}
+
 export function createComputeSnapshotEntity(data: compute_v1.Schema$Snapshot) {
   return createGoogleCloudIntegrationEntity(data, {
     entityData: {
@@ -202,7 +214,7 @@ export function createComputeSnapshotEntity(data: compute_v1.Schema$Snapshot) {
       assign: {
         _class: ENTITY_CLASS_COMPUTE_SNAPSHOT,
         _type: ENTITY_TYPE_COMPUTE_SNAPSHOT,
-        _key: `snapshot:${data.id}`,
+        _key: getComputeSnapshotKey(data.id!),
         id: data.id as string,
         displayName: data.name as string,
         description: data.description,
