@@ -143,6 +143,13 @@ import {
   STEP_BIG_TABLE_INSTANCES,
   STEP_BIG_TABLE_TABLES,
 } from './steps/big-table/constants';
+import {
+  STEP_BILLING_BUDGETS,
+  STEP_BUILD_ACCOUNT_BUDGET,
+  STEP_BUILD_ADDITIONAL_PROJECT_BUDGET,
+  STEP_BUILD_PROJECT_BUDGET,
+} from './steps/billing-budgets/constants';
+import { STEP_BILLING_ACCOUNTS } from './steps/cloud-billing/constants';
 
 interface ValidateInvocationInvalidConfigTestParams {
   instanceConfig?: Partial<IntegrationConfig>;
@@ -494,6 +501,21 @@ describe('#getStepStartStates success', () => {
       [STEP_BIG_TABLE_TABLES]: {
         disabled: false,
       },
+      [STEP_BILLING_ACCOUNTS]: {
+        disabled: false,
+      },
+      [STEP_BILLING_BUDGETS]: {
+        disabled: false,
+      },
+      [STEP_BUILD_ACCOUNT_BUDGET]: {
+        disabled: false,
+      },
+      [STEP_BUILD_PROJECT_BUDGET]: {
+        disabled: false,
+      },
+      [STEP_BUILD_ADDITIONAL_PROJECT_BUDGET]: {
+        disabled: false,
+      },
     };
 
     expect(stepStartStates).toEqual(expectedStepStartStates);
@@ -547,6 +569,9 @@ describe('#getStepStartStates success', () => {
       [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: {
         disabled: true,
       },
+      [STEP_BUILD_ADDITIONAL_PROJECT_BUDGET]: {
+        disabled: false,
+      },
     });
   });
 
@@ -595,6 +620,9 @@ describe('#getStepStartStates success', () => {
         disabled: true,
       },
       [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: {
+        disabled: true,
+      },
+      [STEP_BUILD_ADDITIONAL_PROJECT_BUDGET]: {
         disabled: true,
       },
     });

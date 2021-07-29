@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchBillingAccounts should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Account",
+      ],
+      "_key": "billingAccounts/01694E-12D60B-BEBCE5",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "My Billing Account",
+            "masterBillingAccount": "",
+            "name": "billingAccounts/01694E-12D60B-BEBCE5",
+            "open": true,
+          },
+        },
+      ],
+      "_type": "google_billing_account",
+      "createdOn": undefined,
+      "displayName": "My Billing Account",
+      "masterBillingAccount": "",
+      "name": "billingAccounts/01694E-12D60B-BEBCE5",
+      "open": true,
+    },
+  ],
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
+    "google_billing_account",
+  ],
+  "numCollectedEntities": 1,
+  "numCollectedRelationships": 0,
+}
+`;

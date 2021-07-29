@@ -29,6 +29,8 @@ import { apiGatewaySteps } from './steps/api-gateway';
 import { privateCaSteps } from './steps/privateca';
 import { accessPoliciesSteps } from './steps/access-context-manager';
 import { dataprocSteps } from './steps/dataproc';
+import { billingBudgetsSteps } from './steps/billing-budgets';
+import { cloudBillingSteps } from './steps/cloud-billing';
 
 import { Client } from './google-cloud/client';
 import { cloudAssetSteps } from './steps/cloud-asset';
@@ -80,6 +82,8 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> =
       ...accessPoliciesSteps,
       ...dataprocSteps,
       ...bigTableSteps,
+      ...billingBudgetsSteps,
+      ...cloudBillingSteps,
     ],
     dependencyGraphOrder: ['last'],
     beforeAddEntity(context, entity: Entity): Entity {
