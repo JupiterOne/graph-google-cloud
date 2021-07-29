@@ -5,7 +5,7 @@ import { integrationConfig } from '../../../test/config';
 import { withRecording } from '../../../test/recording';
 import {
   createBindingRoleRelationships,
-  createMappedBindingAnyResourceRelationships,
+  createBindingToAnyResourceRelationships,
   createPrincipalRelationships,
   fetchIamBindings,
 } from '.';
@@ -199,7 +199,6 @@ declare global {
       toHaveBothDirectAndMappedRelationships(name: string): R;
       toHaveOnlyDirectRelationships(name: string): R;
       toHaveOnlyMappedRelationships(name: string): R;
-      toHaveOnlyMappedRelationships(name: string): R;
       toTargetEntities(entities: Entity[]): R;
     }
   }
@@ -239,7 +238,7 @@ describe('#fetchIamBindings', () => {
     return relationshipsByType;
   }
 
-  test('should create Binding entities, Direct Relationships with resources and principals ingested, and Mapped Relationships with resources and principals not ingested.', async () => {
+  test('should create Binding and Role entities, Direct Relationships with resources and principals ingested, and Mapped Relationships with resources and principals not ingested.', async () => {
     await withRecording('fetchIamBindings', __dirname, async () => {
       const context = createMockContext();
 
@@ -252,7 +251,7 @@ describe('#fetchIamBindings', () => {
       await fetchIamBindings(context);
       await createPrincipalRelationships(context);
       await createBindingRoleRelationships(context);
-      await createMappedBindingAnyResourceRelationships(context);
+      await createBindingToAnyResourceRelationships(context);
 
       expect({
         numCollectedEntities: context.jobState.collectedEntities.length,
@@ -272,6 +271,8 @@ describe('#fetchIamBindings', () => {
         google_user_assigned_iam_role,
         google_group_assigned_iam_role,
         google_iam_service_account_assigned_role,
+        google_iam_binding_allows_cloud_organization,
+        google_iam_binding_allows_cloud_folder,
         google_iam_binding_allows_ANY_RESOURCE,
       } = separateGraphObjectsByType(
         context.jobState.collectedRelationships,
@@ -311,6 +312,14 @@ describe('#fetchIamBindings', () => {
       ).toHaveOnlyDirectRelationships(
         'google_iam_service_account_assigned_role',
       );
+      expect(
+        google_iam_binding_allows_cloud_organization,
+      ).toHaveOnlyDirectRelationships(
+        'google_iam_binding_allows_cloud_organization',
+      );
+      expect(
+        google_iam_binding_allows_cloud_folder,
+      ).toHaveOnlyDirectRelationships('google_iam_binding_allows_cloud_folder');
 
       // Entities
       const { google_iam_binding, google_iam_role } =
@@ -410,7 +419,7 @@ describe('#fetchIamBindings', () => {
         const context = createMockContext();
 
         await fetchIamBindings(context);
-        await createMappedBindingAnyResourceRelationships(context);
+        await createBindingToAnyResourceRelationships(context);
 
         const bindingAnyResourceMappedRelationships =
           context.jobState.collectedRelationships.filter((r) =>

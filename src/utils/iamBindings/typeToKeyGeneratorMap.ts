@@ -80,7 +80,8 @@ import { CLOUD_STORAGE_BUCKET_ENTITY_TYPE } from '../../steps/storage';
 import { getCloudStorageBucketKey } from '../../steps/storage/converters';
 
 /**
- * A map of JupiterOne types to a function which can generate their _key properties given a Google Cloud resource identifier
+ * A map of JupiterOne types to a function which can generate their _key
+ * properties given a Google Cloud resource identifier.
  */
 export const J1_TYPE_TO_KEY_GENERATOR_MAP: {
   [key: string]: (googleResourceIdentifier: string) => string | false;

@@ -37,6 +37,7 @@ import {
 } from './converters';
 import get from 'lodash.get';
 import { getTypeAndKeyFromResourceIdentifier } from '../../utils/iamBindings/getTypeAndKeyFromResourceIdentifier';
+import { getEnabledServiceNames } from '../enablement';
 
 export async function fetchIamBindings(
   context: IntegrationStepContext,
@@ -238,10 +239,16 @@ export async function createPrincipalRelationships(
   );
 }
 
-export async function createMappedBindingAnyResourceRelationships(
+function getServiceFromResourceIdentifier(googleResourceIdentifier: string) {
+  const [_, __, service, ..._rest] = googleResourceIdentifier.split('/');
+  return service;
+}
+
+export async function createBindingToAnyResourceRelationships(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
+  const { jobState, instance } = context;
+  const enabledServiceNames = await getEnabledServiceNames(instance.config);
   await jobState.iterateEntities(
     { _type: bindingEntities.BINDINGS._type },
     async (bindingEntity: BindingEntity) => {
@@ -251,7 +258,11 @@ export async function createMappedBindingAnyResourceRelationships(
       if (typeof type !== 'string' || typeof key !== 'string') {
         return;
       }
-      const existingEntity = await jobState.findEntity(key);
+      // Check to see if service is enabled prior to searching the jobState for an entity
+      const service = getServiceFromResourceIdentifier(bindingEntity.resource);
+      const existingEntity = enabledServiceNames.includes(service)
+        ? await jobState.findEntity(key)
+        : undefined;
       await jobState.addRelationship(
         existingEntity
           ? createDirectRelationship({
@@ -328,11 +339,11 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
   },
   {
     id: STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS,
-    name: 'Role Binding to Any Resource Relationships Outside Integration',
+    name: 'Role Binding to Any Resource Relationships',
     entities: [],
     relationships: [BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP],
     dependsOn: [STEP_IAM_BINDINGS],
-    executionHandler: createMappedBindingAnyResourceRelationships,
+    executionHandler: createBindingToAnyResourceRelationships,
     dependencyGraphId: 'last',
   },
 ];

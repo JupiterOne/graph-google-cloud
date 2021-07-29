@@ -12,7 +12,7 @@ export interface TypeAndKey {
 }
 
 /**
- * Gets the JupiterOne `_type` and `_key` properties from a Google Cloud Resource Identifier
+ * Gets the JupiterOne `_type` and `_key` properties using a Google Cloud Resource Identifier
  */
 export function getTypeAndKeyFromResourceIdentifier(
   context: IntegrationStepContext,
