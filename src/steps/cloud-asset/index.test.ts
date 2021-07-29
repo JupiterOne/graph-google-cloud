@@ -3,6 +3,7 @@ import { IntegrationConfig } from '../..';
 import { integrationConfig } from '../../../test/config';
 import { withRecording } from '../../../test/recording';
 import {
+  createBindingAnyResourceRelationships,
   createBindingRoleRelationships,
   createPrincipalRelationships,
   fetchIamBindings,
@@ -178,6 +179,7 @@ describe('#fetchIamBindings', () => {
       await fetchIamBindings(context);
       await createPrincipalRelationships(context);
       await createBindingRoleRelationships(context);
+      await createBindingAnyResourceRelationships(context);
 
       expect({
         numCollectedEntities: context.jobState.collectedEntities.length,
@@ -199,6 +201,8 @@ describe('#fetchIamBindings', () => {
         google_group_assigned_iam_role,
         google_iam_service_account_assigned_role,
         google_domain_assigned_iam_role,
+        google_iam_binding_allows_cloud_organization,
+        google_iam_binding_allows_cloud_folder,
       } = separateGraphObjectsByType(
         context.jobState.collectedRelationships,
         context.jobState.encounteredTypes,
@@ -240,6 +244,14 @@ describe('#fetchIamBindings', () => {
       ).toHaveOnlyDirectRelationships(
         'google_iam_service_account_assigned_role',
       );
+      expect(
+        google_iam_binding_allows_cloud_organization,
+      ).toHaveOnlyDirectRelationships(
+        'google_iam_binding_allows_cloud_organization',
+      );
+      expect(
+        google_iam_binding_allows_cloud_folder,
+      ).toHaveOnlyDirectRelationships('google_iam_binding_allows_cloud_folder');
 
       // Entities
       const { google_iam_binding, google_iam_role } =

@@ -77,7 +77,7 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> =
       ...privateCaSteps,
       ...accessPoliciesSteps,
     ],
-
+    dependencyGraphOrder: ['last'],
     beforeAddEntity(context, entity: Entity): Entity {
       const projectId =
         context.instance.config.projectId ||

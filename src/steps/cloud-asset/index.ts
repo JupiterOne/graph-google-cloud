@@ -12,25 +12,21 @@ import { IntegrationConfig } from '../..';
 import { IntegrationStepContext } from '../../types';
 import { publishMissingPermissionEvent } from '../../utils/events';
 import { getProjectIdFromName } from '../../utils/jobState';
-import {
-  IAM_ROLE_ENTITY_CLASS,
-  IAM_ROLE_ENTITY_TYPE,
-  STEP_IAM_CUSTOM_ROLES,
-  STEP_IAM_MANAGED_ROLES,
-  STEP_IAM_SERVICE_ACCOUNTS,
-} from '../iam';
+import { getEnabledServiceNames } from '../enablement';
+import { IAM_ROLE_ENTITY_CLASS, IAM_ROLE_ENTITY_TYPE } from '../iam';
 import {
   buildIamTargetRelationship,
   findOrCreateIamRoleEntity,
   maybeFindIamUserEntityWithParsedMember,
   shouldMakeTargetIamRelationships,
-  STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
 } from '../resource-manager';
 import { CloudAssetClient } from './client';
 import {
   bindingEntities,
+  BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP,
   BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS,
   PRINCIPAL_ASSIGNED_ROLE_RELATIONSHIPS,
+  STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS,
   STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS,
   STEP_CREATE_BINDING_ROLE_RELATIONSHIPS,
   STEP_IAM_BINDINGS,
@@ -243,17 +239,44 @@ export async function createPrincipalRelationships(
   );
 }
 
+// This strategy seems to get a good amount of the resource entities, but I don't think it gets them all.
+export async function createBindingAnyResourceRelationships(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, instance } = context;
+  const enabledServiceNames = await getEnabledServiceNames(instance.config);
+
+  await jobState.iterateEntities(
+    { _type: bindingEntities.BINDINGS._type },
+    async (bindingEntity: BindingEntity) => {
+      const [_, __, service, ...key] = bindingEntity.resource.split('/');
+      bindingEntity['condition.expression'];
+      // TODO: check the condition before creating ALLOWS relationship
+      if (enabledServiceNames.includes(service)) {
+        const targetEntity = await jobState.findEntity(key.join('/'));
+        if (targetEntity) {
+          await jobState.addRelationship(
+            createDirectRelationship({
+              from: bindingEntity,
+              _class: RelationshipClass.ALLOWS,
+              to: targetEntity,
+            }),
+          );
+        }
+      }
+    },
+  );
+}
+
 export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_IAM_BINDINGS,
     name: 'IAM Bindings',
     entities: [bindingEntities.BINDINGS],
-    relationships: [
-      ...BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS,
-      ...PRINCIPAL_ASSIGNED_ROLE_RELATIONSHIPS,
-    ],
-    dependsOn: [STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS],
+    relationships: [],
+    dependsOn: [],
     executionHandler: fetchIamBindings,
+    dependencyGraphId: 'last',
   },
   {
     id: STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS,
@@ -269,13 +292,9 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
       ...BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS,
       ...PRINCIPAL_ASSIGNED_ROLE_RELATIONSHIPS,
     ],
-    dependsOn: [
-      STEP_IAM_BINDINGS,
-      STEP_IAM_CUSTOM_ROLES,
-      STEP_IAM_MANAGED_ROLES,
-      STEP_IAM_SERVICE_ACCOUNTS,
-    ],
+    dependsOn: [STEP_IAM_BINDINGS],
     executionHandler: createPrincipalRelationships,
+    dependencyGraphId: 'last',
   },
   {
     id: STEP_CREATE_BINDING_ROLE_RELATIONSHIPS,
@@ -295,5 +314,15 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
     ],
     dependsOn: [STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS],
     executionHandler: createBindingRoleRelationships,
+    dependencyGraphId: 'last',
+  },
+  {
+    id: STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS,
+    name: 'Role Binding to Any Resource Relationships',
+    entities: [],
+    relationships: [BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP],
+    dependsOn: [STEP_IAM_BINDINGS],
+    executionHandler: createBindingAnyResourceRelationships,
+    dependencyGraphId: 'last',
   },
 ];

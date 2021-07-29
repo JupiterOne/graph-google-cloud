@@ -96,6 +96,7 @@ import {
 } from './steps/privateca/constants';
 import * as enablement from './steps/enablement';
 import {
+  STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS,
   STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS,
   STEP_CREATE_BINDING_ROLE_RELATIONSHIPS,
   STEP_IAM_BINDINGS,
@@ -226,6 +227,9 @@ export default async function getStepStartStates(
       ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
       : { disabled: true },
     [STEP_CREATE_BINDING_ROLE_RELATIONSHIPS]: isMasterOrgInstance
+      ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
+      : { disabled: true },
+    [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: isMasterOrgInstance
       ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
       : { disabled: true },
     [STEP_CLOUD_FUNCTIONS]: createStepStartState(
