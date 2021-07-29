@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`#fetchIamBindings should collect data 1`] = `
+exports[`#fetchIamBindings should create Binding entities, Direct Relationships with resources and principals ingested, and Mapped Relationships with resources and principals not ingested. 1`] = `
 Object {
   "collectedEntities": 144,
   "collectedRelationships": 307,

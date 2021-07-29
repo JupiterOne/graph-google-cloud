@@ -209,6 +209,6 @@ function customPrefixAndIdKeyMap(
 }
 
 // Used when there is no way to generate the J1 entity key given only the googleResourceIdentifier
-function impossible(googleResourceIdentifier: string): false {
+export function impossible(googleResourceIdentifier: string): false {
   return false;
 }

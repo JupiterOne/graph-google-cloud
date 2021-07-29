@@ -11,7 +11,7 @@ import {
 import { cloudresourcemanager_v1 } from 'googleapis';
 import { SchedulerInterval } from './types';
 
-function getMockLogger() {
+export function getMockLogger() {
   const mockLogger = {
     info: jest.fn(),
     fatal: jest.fn(),
@@ -26,7 +26,7 @@ function getMockLogger() {
   return mockLogger;
 }
 
-function getSetupOrganizationParams(
+export function getSetupOrganizationParams(
   params?: Partial<SetupOrganizationParams>,
 ): SetupOrganizationParams {
   return {
