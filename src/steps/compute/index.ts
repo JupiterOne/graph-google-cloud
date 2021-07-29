@@ -153,6 +153,17 @@ import {
 
 export * from './constants';
 
+function createComputeClient(context: IntegrationStepContext) {
+  const client = new ComputeClient({
+    config: context.instance.config,
+    onRetry(err) {
+      context.logger.info({ err }, 'Retrying API call');
+    },
+  });
+
+  return client;
+}
+
 function isComputeImagePublicAccess(
   imagePolicy: compute_v1.Schema$Policy,
 ): boolean {
@@ -241,8 +252,8 @@ async function iterateComputeInstanceNetworkInterfaces(params: {
 export async function fetchComputeProject(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, instance, logger } = context;
-  const client = new ComputeClient({ config: instance.config });
+  const { jobState, logger } = context;
+  const client = createComputeClient(context);
 
   let computeProject: compute_v1.Schema$Project;
 
@@ -324,8 +335,8 @@ async function buildComputeDiskUsesKmsKeyRelationship({
 export async function fetchComputeDisks(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, instance, logger } = context;
-  const client = new ComputeClient({ config: instance.config });
+  const { jobState, logger } = context;
+  const client = createComputeClient(context);
 
   await client.iterateComputeDisks(async (disk) => {
     await jobState.setData(`disk:${disk.selfLink}`, `disk:${disk.id}`);
@@ -432,8 +443,8 @@ export async function fetchComputeDisks(
 export async function fetchComputeSnapshots(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, instance } = context;
-  const client = new ComputeClient({ config: instance.config });
+  const { jobState } = context;
+  const client = createComputeClient(context);
 
   await client.iterateComputeSnapshots(async (snapshot) => {
     await jobState.addEntity(createComputeSnapshotEntity(snapshot));
@@ -479,8 +490,8 @@ export async function buildComputeSnapshotDiskRelationships(
 export async function fetchComputeImages(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, instance } = context;
-  const client = new ComputeClient({ config: instance.config });
+  const { jobState } = context;
+  const client = createComputeClient(context);
 
   await client.iterateCustomComputeImages(async (image) => {
     const imagePolicy = await client.fetchComputeImagePolicy(
@@ -583,8 +594,8 @@ export async function buildImageCreatedImageRelationships(
 export async function fetchComputeInstances(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, instance } = context;
-  const client = new ComputeClient({ config: instance.config });
+  const { jobState } = context;
+  const client = createComputeClient(context);
   const computeInstanceKeyToServiceAccountDataMap = new Map<
     string,
     compute_v1.Schema$ServiceAccount[]
@@ -764,8 +775,8 @@ export async function processFirewallRuleLists({
 export async function fetchComputeFirewalls(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, instance } = context;
-  const client = new ComputeClient({ config: instance.config });
+  const { jobState } = context;
+  const client = createComputeClient(context);
 
   await client.iterateFirewalls(async (firewall) => {
     const firewallEntity = await jobState.addEntity(
@@ -807,8 +818,8 @@ export async function fetchComputeFirewalls(
 export async function fetchComputeSubnetworks(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, instance } = context;
-  const client = new ComputeClient({ config: instance.config });
+  const { jobState } = context;
+  const client = createComputeClient(context);
 
   await client.iterateSubnetworks(async (subnet) => {
     const subnetEntity = await jobState.addEntity(
@@ -836,8 +847,8 @@ export async function fetchComputeSubnetworks(
 export async function fetchComputeNetworks(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, instance } = context;
-  const client = new ComputeClient({ config: instance.config });
+  const { jobState } = context;
+  const client = createComputeClient(context);
 
   const peeredNetworks: string[] = [];
 
@@ -939,8 +950,8 @@ export async function buildComputeNetworkPeeringRelationships(
 export async function fetchHealthChecks(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, instance } = context;
-  const client = new ComputeClient({ config: instance.config });
+  const { jobState } = context;
+  const client = createComputeClient(context);
 
   await client.iterateHealthChecks(async (healthCheck) => {
     const healthCheckEntity = createHealthCheckEntity(healthCheck);
@@ -951,8 +962,8 @@ export async function fetchHealthChecks(
 export async function fetchComputeInstanceGroups(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, instance } = context;
-  const client = new ComputeClient({ config: instance.config });
+  const { jobState } = context;
+  const client = createComputeClient(context);
   const { projectId } = client;
 
   await client.iterateInstanceGroups(async (instanceGroup) => {
@@ -1015,8 +1026,8 @@ function getBackendServices(
 export async function fetchLoadBalancers(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, instance } = context;
-  const client = new ComputeClient({ config: instance.config });
+  const { jobState } = context;
+  const client = createComputeClient(context);
 
   await client.iterateLoadBalancers(async (loadBalancer) => {
     const loadBalancerEntity = createLoadBalancerEntity(loadBalancer);
@@ -1064,8 +1075,8 @@ export async function fetchLoadBalancers(
 export async function fetchBackendServices(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, instance } = context;
-  const client = new ComputeClient({ config: instance.config });
+  const { jobState } = context;
+  const client = createComputeClient(context);
 
   await client.iterateBackendServices(async (backendService) => {
     const backendServiceEntity = createBackendServiceEntity(backendService);
@@ -1106,8 +1117,8 @@ export async function fetchBackendServices(
 export async function fetchBackendBuckets(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, instance } = context;
-  const client = new ComputeClient({ config: instance.config });
+  const { jobState } = context;
+  const client = createComputeClient(context);
 
   await client.iterateBackendBuckets(async (backendBucket) => {
     const backendBucketEntity = createBackendBucketEntity(backendBucket);
@@ -1131,8 +1142,8 @@ export async function fetchBackendBuckets(
 export async function fetchTargetSslProxies(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, instance } = context;
-  const client = new ComputeClient({ config: instance.config });
+  const { jobState } = context;
+  const client = createComputeClient(context);
 
   await client.iterateTargetSslProxies(async (targetSslProxy) => {
     const targetSslProxyEntity = createTargetSslProxyEntity(targetSslProxy);
@@ -1160,8 +1171,8 @@ export async function fetchTargetSslProxies(
 export async function fetchTargetHttpsProxies(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, instance } = context;
-  const client = new ComputeClient({ config: instance.config });
+  const { jobState } = context;
+  const client = createComputeClient(context);
 
   await client.iterateTargetHttpsProxies(async (targetHttpsProxy) => {
     const targetHttpsProxyEntity =
@@ -1186,8 +1197,8 @@ export async function fetchTargetHttpsProxies(
 export async function fetchTargetHttpProxies(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, instance } = context;
-  const client = new ComputeClient({ config: instance.config });
+  const { jobState } = context;
+  const client = createComputeClient(context);
 
   await client.iterateTargetHttpProxies(async (targetHttpProxy) => {
     const targetHttpProxyEntity = createTargetHttpProxyEntity(targetHttpProxy);
@@ -1211,8 +1222,8 @@ export async function fetchTargetHttpProxies(
 export async function fetchSslPolicies(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, instance } = context;
-  const client = new ComputeClient({ config: instance.config });
+  const { jobState } = context;
+  const client = createComputeClient(context);
 
   await client.iterateSslPolicies(async (sslPolicy) => {
     const sslPolicyEntity = createSslPolicyEntity(sslPolicy);

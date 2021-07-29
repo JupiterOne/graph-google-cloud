@@ -104,10 +104,15 @@ describe('withErrorHandling', () => {
     const executionHandler = jest
       .fn()
       .mockRejectedValue(new Error('Something esploded'));
-    const handledFunction = withErrorHandling(executionHandler);
+
+    const onRetry = jest.fn();
+    const handledFunction = withErrorHandling(executionHandler, { onRetry });
+
     await expect(handledFunction()).rejects.toThrow(
       IntegrationProviderAPIError,
     );
+
+    expect(onRetry).toHaveBeenCalledTimes(0);
   });
 
   test('should pass parameters to the wrapped function return the result if no errors', async () => {
@@ -119,5 +124,28 @@ describe('withErrorHandling', () => {
       'param1',
       'param2',
     ]);
+  });
+
+  test('should retry if quota error received', async () => {
+    const err = new Error(
+      "Error: Quota exceeded for quota group 'ListGroup' and limit 'List requests per 100 seconds' of service 'compute.googleapis.com' for consumer 'project_number:12345'.",
+    );
+    (err as any).response = { status: 403 };
+
+    const executionHandler = jest
+      .fn()
+      .mockRejectedValueOnce(err)
+      .mockImplementationOnce((...params) => Promise.resolve(params));
+
+    const onRetry = jest.fn();
+    const handledFunction = withErrorHandling(executionHandler, { onRetry });
+
+    await expect(handledFunction('param1', 'param2')).resolves.toEqual([
+      'param1',
+      'param2',
+    ]);
+
+    expect(onRetry).toHaveBeenCalledTimes(1);
+    expect(onRetry).toHaveBeenCalledWith(err);
   });
 });

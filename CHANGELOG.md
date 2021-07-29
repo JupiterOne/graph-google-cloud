@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.46.1 - 2021-07-28
+
+### Fixed
+
+- Retry API calls on "Quota exceeded" errors
+
 ## 0.46.0 - 2021-07-28
 
 ### Changed
