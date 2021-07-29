@@ -1,3 +1,4 @@
+import { uniq } from 'lodash';
 import {
   createDirectRelationship,
   createMappedRelationship,
@@ -26,9 +27,10 @@ import {
   BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP,
   BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS,
   PRINCIPAL_ASSIGNED_ROLE_RELATIONSHIPS,
-  STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS,
+  // STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS,
   STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS,
   STEP_CREATE_BINDING_ROLE_RELATIONSHIPS,
+  STEP_CREATE_MAPPED_BINDING_ANY_RESOURCE_RELATIONSHIPS,
   STEP_IAM_BINDINGS,
 } from './constants';
 import {
@@ -37,6 +39,12 @@ import {
   createIamBindingEntity,
 } from './converters';
 import get from 'lodash.get';
+import {
+  GOOGLE_RESOURCE_TO_J1_TYPE_MAP,
+  J1_TYPE_TO_KEY_GENERATOR_MAP,
+  NONE,
+  traverseCloudResourcesMap,
+} from '../../constants';
 
 export async function fetchIamBindings(
   context: IntegrationStepContext,
@@ -267,6 +275,93 @@ export async function createBindingAnyResourceRelationships(
   );
 }
 
+function getTargetKey(targetResourceType: string, resource: string) {
+  const keyGenFunction = J1_TYPE_TO_KEY_GENERATOR_MAP[targetResourceType];
+  if (!keyGenFunction) {
+    console.log(
+      { resource, targetResourceType },
+      'unable to find key generation function for J1 type.',
+    );
+    return;
+  }
+  return keyGenFunction(resource);
+}
+
+export async function createMappedBindingAnyResourceRelationships(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, logger } = context;
+  await jobState.iterateEntities(
+    { _type: bindingEntities.BINDINGS._type },
+    async (bindingEntity: BindingEntity) => {
+      const cloudResourceIdentifier = traverseCloudResourcesMap(
+        bindingEntity.resource,
+      );
+      if (!cloudResourceIdentifier) {
+        logger.warn(
+          { resource: bindingEntity.resource },
+          'unable to find google cloud resource identifier.',
+        );
+        return;
+      }
+      const targetResourceType =
+        GOOGLE_RESOURCE_TO_J1_TYPE_MAP[cloudResourceIdentifier];
+      if (!targetResourceType) {
+        logger.warn(
+          { resource: bindingEntity.resource, cloudResourceIdentifier },
+          'unable to find J1 type from google cloud resource.',
+        );
+        return;
+      } else if (targetResourceType === NONE) {
+        logger.warn(
+          { resource: bindingEntity.resource, cloudResourceIdentifier },
+          'There is no JupiterOne entity for this resource',
+        );
+        return;
+      }
+      const keys = uniq(
+        Array.isArray(targetResourceType)
+          ? targetResourceType
+          : [targetResourceType],
+      ).map((type) => getTargetKey(type, bindingEntity.resource));
+      if (keys.length < 1) {
+        logger.warn(
+          {
+            resource: bindingEntity.resource,
+            cloudResourceIdentifier,
+            targetResourceType,
+            keys,
+          },
+          'unable to generate key for type.',
+        );
+        return;
+      }
+      for (const key of keys) {
+        if (typeof key === 'string') {
+          await jobState.addRelationship(
+            createMappedRelationship({
+              _class: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP._class,
+              _type: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP._type,
+              _mapping: {
+                relationshipDirection: RelationshipDirection.FORWARD,
+                sourceEntityKey: bindingEntity._key,
+                targetFilterKeys: [['_type', '_key']],
+                skipTargetCreation: false,
+                targetEntity: {
+                  _type: Array.isArray(targetResourceType)
+                    ? targetResourceType[0]
+                    : targetResourceType, // TODO: fix
+                  _key: key,
+                },
+              },
+            }),
+          );
+        }
+      }
+    },
+  );
+}
+
 export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_IAM_BINDINGS,
@@ -315,13 +410,22 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
     executionHandler: createBindingRoleRelationships,
     dependencyGraphId: 'last',
   },
+  // {
+  //   id: STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS,
+  //   name: 'Role Binding to Any Resource Relationships',
+  //   entities: [],
+  //   relationships: [BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP],
+  //   dependsOn: [STEP_IAM_BINDINGS],
+  //   executionHandler: createBindingAnyResourceRelationships,
+  //   dependencyGraphId: 'last',
+  // },
   {
-    id: STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS,
-    name: 'Role Binding to Any Resource Relationships',
+    id: STEP_CREATE_MAPPED_BINDING_ANY_RESOURCE_RELATIONSHIPS,
+    name: 'Role Binding to Any Resource Relationships Outside Integration',
     entities: [],
     relationships: [BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP],
     dependsOn: [STEP_IAM_BINDINGS],
-    executionHandler: createBindingAnyResourceRelationships,
+    executionHandler: createMappedBindingAnyResourceRelationships,
     dependencyGraphId: 'last',
   },
 ];

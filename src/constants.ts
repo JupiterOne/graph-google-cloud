@@ -1,3 +1,4 @@
+import { isObject } from 'lodash';
 import {
   ENTITY_TYPE_API_GATEWAY_API,
   ENTITY_TYPE_API_GATEWAY_API_CONFIG,
@@ -88,6 +89,46 @@ import { getCloudStorageBucketKey } from './steps/storage/converters';
  * This includes all assets both ingested and not ingested with this integration
  */
 export const ANY_RESOURCE = 'ANY_RESOURCE';
+
+function isUpperCase(str) {
+  return str === str.toUpperCase();
+}
+
+export function traverseCloudResourcesMap(
+  googleResourceIdentifier: string,
+): string | undefined {
+  const [_, __, ...rest] = googleResourceIdentifier.split('/');
+  const finalProperty = rest.slice(-1)[0];
+
+  const reducer = (cloudResourcesMap, currentProperty) => {
+    let val = cloudResourcesMap[currentProperty];
+    if (!val) {
+      const paths = Object.keys(cloudResourcesMap).reduce(
+        (vals, key) =>
+          isUpperCase(key) ? [cloudResourcesMap[key], ...vals] : vals,
+        [] as string[],
+      );
+      if (currentProperty === finalProperty) {
+        for (const path of paths) {
+          if (isObject(path) && path[EARLY_STOP_KEY]) {
+            val = path[EARLY_STOP_KEY];
+          }
+        }
+      }
+      if (!val) {
+        val = paths[0]; // TODO: allow for branching traversals
+      }
+    }
+    if (!val) {
+      console.warn(
+        { googleResourceIdentifier, currentProperty, cloudResourcesMap },
+        'no value defined in cloud resouce map',
+      );
+    }
+    return val;
+  };
+  return rest.reduce(reducer, CLOUD_RESOURCES_MAP);
+}
 
 // Used when resource type stops with still more to traverse
 const EARLY_STOP_KEY = '__EARLY_STOP_KEY';
@@ -315,8 +356,8 @@ export const CLOUD_RESOURCES_MAP = {
   },
   'appengine.googleapis.com': {
     apps: {
-      [EARLY_STOP_KEY]: 'appengine.googleapis.com/Application',
       APP: {
+        [EARLY_STOP_KEY]: 'appengine.googleapis.com/Application',
         services: {
           SERVICE: {
             [EARLY_STOP_KEY]: 'appengine.googleapis.com/Service',
@@ -327,390 +368,128 @@ export const CLOUD_RESOURCES_MAP = {
         },
       },
     },
-    'cloudbilling.googleapis.com': {
-      billingAccounts: {
-        BILLING_ACCOUNT: 'cloudbilling.googleapis.com/BillingAccount',
-      },
+  },
+  'cloudbilling.googleapis.com': {
+    billingAccounts: {
+      ACCOUNT_NUMBER: 'cloudbilling.googleapis.com/BillingAccount',
     },
-    'storage.googleapis.com': {
-      BUCKET: 'storage.googleapis.com/BUCKET',
-    },
-    'osconfig.googleapis.com': {
-      PATCH_DEPLOYMENT: 'osconfig.googleapis.com/PatchDeployment',
-    },
-    'dns.googleapis.com': {
-      projects: {
-        PROJECT_ID: {
-          managedZones: {
-            ZONE_NUMBER: 'dns.googleapis.com/ManagedZone',
-          },
-          policies: {
-            POLICY_NUMBER: 'dns.googleapis.com/Policy',
-          },
+  },
+  'storage.googleapis.com': {
+    BUCKET: 'storage.googleapis.com/Bucket',
+  },
+  'osconfig.googleapis.com': {
+    PATCH_DEPLOYMENT: 'osconfig.googleapis.com/PatchDeployment',
+  },
+  'dns.googleapis.com': {
+    projects: {
+      PROJECT_ID: {
+        managedZones: {
+          ZONE_NUMBER: 'dns.googleapis.com/ManagedZone',
+        },
+        policies: {
+          POLICY_NUMBER: 'dns.googleapis.com/Policy',
         },
       },
     },
-    'spanner.googleapis.com': {
-      projects: {
-        PROJECT_ID: {
-          instances: {
-            INSTANCE: {
-              [EARLY_STOP_KEY]: 'spanner.googleapis.com/Instance',
-              databases: {
-                DATABASE: 'spanner.googleapis.com/Database',
-              },
-              backups: {
-                BACKUP: 'spanner.googleapis.com/Backup',
-              },
+  },
+  'spanner.googleapis.com': {
+    projects: {
+      PROJECT_ID: {
+        instances: {
+          INSTANCE: {
+            [EARLY_STOP_KEY]: 'spanner.googleapis.com/Instance',
+            databases: {
+              DATABASE: 'spanner.googleapis.com/Database',
+            },
+            backups: {
+              BACKUP: 'spanner.googleapis.com/Backup',
             },
           },
         },
       },
     },
-    'bigquery.googleapis.com': {
-      projects: {
-        PROJECT_ID: {
-          datasets: {
-            DATA_SET: {
-              tables: {
-                TABLE: 'bigquery.googleapis.com/Table',
-              },
-            },
-            DATASET: 'bigquery.googleapis.com/Dataset',
-          },
-        },
-      },
-    },
-    'iam.googleapis.com': {
-      projects: {
-        PROJECT_ID: {
-          roles: {
-            ROLE: 'iam.googleapis.com/Role',
-          },
-          serviceAccounts: {
-            SERVICE_ACCOUNT_EMAIL_OR_ID: {
-              [EARLY_STOP_KEY]: 'iam.googleapis.com/ServiceAccount',
-              keys: {
-                SERVICE_ACCOUNT_KEY: 'iam.googleapis.com/ServiceAccountKey',
-              },
+  },
+  'bigquery.googleapis.com': {
+    projects: {
+      PROJECT_ID: {
+        datasets: {
+          DATA_SET: {
+            tables: {
+              TABLE: 'bigquery.googleapis.com/Table',
             },
           },
+          DATASET: 'bigquery.googleapis.com/Dataset',
         },
       },
     },
-    'pubsub.googleapis.com': {
-      projects: {
-        PROJECT_ID: {
-          topics: {
-            TOPIC: 'pubsub.googleapis.com/Topic',
-          },
-          subscriptions: {
-            SUBSCRIPTION: 'pubsub.googleapis.com/Subscription',
-          },
-          snapshots: {
-            SNAPSHOT: 'pubsub.googleapis.com/Snapshot',
-          },
+  },
+  'iam.googleapis.com': {
+    projects: {
+      PROJECT_ID: {
+        roles: {
+          ROLE: 'iam.googleapis.com/Role',
         },
-      },
-    },
-    'dataproc.googleapis.com': {
-      projects: {
-        PROJECT_ID: {
-          regions: {
-            REGION: {
-              clusters: {
-                CLUSTER: 'dataproc.googleapis.com/Cluster',
-              },
-              jobs: {
-                JOB: 'dataproc.googleapis.com/Job',
-              },
+        serviceAccounts: {
+          SERVICE_ACCOUNT_EMAIL_OR_ID: {
+            [EARLY_STOP_KEY]: 'iam.googleapis.com/ServiceAccount',
+            keys: {
+              SERVICE_ACCOUNT_KEY: 'iam.googleapis.com/ServiceAccountKey',
             },
           },
         },
       },
     },
-    'cloudkms.googleapis.com': {
-      projects: {
-        PROJECT_ID: {
-          locations: {
-            LOCATION: {
-              keyRings: {
-                KEY_RING: {
-                  [EARLY_STOP_KEY]: 'cloudkms.googleapis.com/KeyRing',
-                  cryptoKeys: {
-                    CRYPTO_KEY: {
-                      [EARLY_STOP_KEY]: 'cloudkms.googleapis.com/CryptoKey',
-                      cryptoKeyVersions: {
-                        CRYPTO_KEY_VERSION:
-                          'cloudkms.googleapis.com/CryptoKeyVersion',
-                      },
-                    },
-                  },
-                  importJobs: {
-                    IMPORT_JOBS: 'cloudkms.googleapis.com/ImportJob',
-                  },
-                },
-              },
+  },
+  'pubsub.googleapis.com': {
+    projects: {
+      PROJECT_ID: {
+        topics: {
+          TOPIC: 'pubsub.googleapis.com/Topic',
+        },
+        subscriptions: {
+          SUBSCRIPTION: 'pubsub.googleapis.com/Subscription',
+        },
+        snapshots: {
+          SNAPSHOT: 'pubsub.googleapis.com/Snapshot',
+        },
+      },
+    },
+  },
+  'dataproc.googleapis.com': {
+    projects: {
+      PROJECT_ID: {
+        regions: {
+          REGION: {
+            clusters: {
+              CLUSTER: 'dataproc.googleapis.com/Cluster',
+            },
+            jobs: {
+              JOB: 'dataproc.googleapis.com/Job',
             },
           },
         },
       },
     },
-    'container.googleapis.com': {
-      projects: {
-        PROJECT_ID: {
-          locations: {
-            LOCATION: {
-              clusters: {
-                CLUSTER: 'container.googleapis.com/Cluster',
-              },
-            },
-          },
-          zones: {
-            ZONE: {
-              clusters: {
-                CLUSTER: {
-                  [EARLY_STOP_KEY]: 'container.googleapis.com/Cluster',
-                  k8s: {
-                    nodes: {
-                      NODE: 'k8s.io/Node',
-                    },
-                    namespaces: {
-                      NAMESPACE: {
-                        [EARLY_STOP_KEY]: 'k8s.io/Namespace',
-                        pods: {
-                          POD: 'k8s.io/Pod',
-                        },
-                        services: {
-                          SERVICE: 'k8s.io/Service',
-                        },
-                        'rbac.authorization.k8s.io': {
-                          roles: {
-                            ROLE: 'rbac.authorization.k8s.io',
-                          },
-                          rolebindings: {
-                            ROLEBINDING: 'rbac.authorization.k8s.io',
-                          },
-                        },
-                        extensions: {
-                          ingresses: {
-                            INGRESS: 'extensions.k8s.io/Ingress',
-                          },
-                        },
-                        'networking.k8s.io': {
-                          ingresses: {
-                            INGRESS: 'networking.k8s.io/Ingress',
-                          },
-                          networkpolicies: {
-                            NETWORKPOLICY: 'networking.k8s.io/Networkpolicy',
-                          },
-                        },
-                      },
-                    },
-                    'rbac.authorization.k8s.io': {
-                      clusterroles: {
-                        CLUSTER_ROLE: 'rbac.authorization.k8s.io',
-                      },
-                      clusterrolebindings: {
-                        CLUSTER_ROLE_BINDING: 'rbac.authorization.k8s.io',
-                      },
-                    },
-                  },
-                  nodePools: {
-                    NODE_POOL: 'container.googleapis.com/NodePool',
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-    'cloudsql.googleapis.com': {
-      projects: {
-        PROJECT_ID: {
-          instances: {
-            INSTANCE: 'sqladmin.googleapis.com/Instance',
-          },
-        },
-      },
-    },
-    'bigtable.googleapis.com': {
-      projects: {
-        PROJECT_ID: {
-          instances: {
-            INSTANCE: {
-              [EARLY_STOP_KEY]: 'bigtableadmin.googleapis.com/Instance',
-              appProfiles: {
-                APP_PROFILE: 'bigtableadmin.googleapis.com/AppProfile',
-              },
-              tables: {
-                TABLE: 'bigtableadmin.googleapis.com/Table',
-              },
-              clusters: {
-                CLUSTER: {
-                  [EARLY_STOP_KEY]: 'bigtableadmin.googleapis.com/Cluster',
-                  backups: {
-                    BACKUP: 'bigtableadmin.googleapis.com/Backup',
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-    'serviceusage.googleapis.com': {
-      projects: {
-        PROJECT_NUMBER: {
-          services: {
-            SERVICE: 'serviceusage.googleapis.com/Service',
-          },
-        },
-      },
-    },
-    'datafusion.googleapis.com': {
-      projects: {
-        PROJECT_ID: {
-          locations: {
-            LOCATION: {
-              instances: {
-                INSTANCE: 'datafusion.googleapis.com/Instance',
-              },
-            },
-          },
-        },
-      },
-    },
-    'logging.googleapis.com': {
-      projects: {
-        PROJECT_NUMBER: {
-          locations: {
-            LOCATION: {
-              buckets: {
-                BUCKET: 'logging.googleapis.com/LogBucket',
-              },
-            },
-          },
-          sinks: {
-            SINK: 'logging.googleapis.com/LogSink',
-          },
-          metrics: {
-            METRIC: 'logging.googleapis.com/LogMetric',
-          },
-        },
-      },
-      folders: {
-        FOLDER_NUMBER: {
-          sinks: {
-            SINK: 'logging.googleapis.com/LogSink',
-          },
-        },
-      },
-      organizations: {
-        ORGANIZATION_NUMBER: {
-          sinks: {
-            SINK: 'logging.googleapis.com/LogSink',
-          },
-        },
-      },
-      billingAccounts: {
-        BILLING_ACCOUNT_ID: {
-          sinks: {
-            SINK: 'logging.googleapis.com/LogSink',
-          },
-        },
-      },
-    },
-    'networkmanagement.googleapis.com': {
-      projects: {
-        PROJECT_ID: {
-          locations: {
-            global: {
-              connectivityTests: {
-                TEST: 'networkmanagement.googleapis.com/ConnectivityTest',
-              },
-            },
-          },
-        },
-      },
-    },
-    'managedidentities.googleapis.com': {
-      projects: {
-        PROJECT_ID: {
-          locations: {
-            global: {
-              domains: {
-                DOMAIN: 'managedidentities.googleapis.com/Domain',
-              },
-            },
-          },
-        },
-      },
-    },
-    'privateca.googleapis.com': {
-      projects: {
-        PROJECT_ID: {
-          locations: {
-            LOCATION: {
-              caPools: {
-                CA_POOL_ID: {
-                  [EARLY_STOP_KEY]: 'privateca.googleapis.com/CaPool',
-                  certificateAuthorities: {
-                    CERTIFICATE_AUTHORITIES_ID: {
-                      [EARLY_STOP_KEY]:
-                        'privateca.googleapis.com/CertificateAuthority',
-                      certificateRevocationLists: {
-                        CERTIFICATE_REVOCATION_LISTS_ID:
-                          'privateca.googleapis.com/CertificateRevocationList',
-                      },
+  },
+  'cloudkms.googleapis.com': {
+    projects: {
+      PROJECT_ID: {
+        locations: {
+          LOCATION: {
+            keyRings: {
+              KEY_RING: {
+                [EARLY_STOP_KEY]: 'cloudkms.googleapis.com/KeyRing',
+                cryptoKeys: {
+                  CRYPTO_KEY: {
+                    [EARLY_STOP_KEY]: 'cloudkms.googleapis.com/CryptoKey',
+                    cryptoKeyVersions: {
+                      CRYPTO_KEY_VERSION:
+                        'cloudkms.googleapis.com/CryptoKeyVersion',
                     },
                   },
                 },
-              },
-              certificateTemplates: {
-                CERTIFICATE_TEMPLATES_ID:
-                  'privateca.googleapis.com/CertificateTemplate',
-              },
-            },
-          },
-        },
-      },
-    },
-    'dataflow.googleapis.com': {
-      projects: {
-        PROJECT_ID: {
-          locations: {
-            LOCATION: {
-              jobs: {
-                JOB: 'dataflow.googleapis.com/Job',
-              },
-            },
-          },
-        },
-      },
-    },
-    'gameservices.googleapis.com': {
-      projects: {
-        PROJECT_ID: {
-          locations: {
-            global: {
-              realms: {
-                REALM_ID: {
-                  [EARLY_STOP_KEY]: 'gameservices.googleapis.com/Realm',
-                  gameServerClusters: {
-                    GAME_SERVER_CLUSTER_ID:
-                      'gameservices.googleapis.com/GameServerCluster',
-                  },
-                },
-              },
-              gameServerDeployments: {
-                GAME_SERVER_DEPLOYMENTS_ID: {
-                  [EARLY_STOP_KEY]:
-                    'gameservices.googleapis.com/GameServerDeployment',
-                  configs: {
-                    CONFIG_ID: 'gameservices.googleapis.com/GameServerConfig',
-                  },
+                importJobs: {
+                  IMPORT_JOBS: 'cloudkms.googleapis.com/ImportJob',
                 },
               },
             },
@@ -718,113 +497,69 @@ export const CLOUD_RESOURCES_MAP = {
         },
       },
     },
-    'gkehub.googleapis.com': {
-      projects: {
-        PROJECT_ID: {
-          locations: {
-            global: {
-              memberships: {
-                MEMBERSHIP: 'gkehub.googleapis.com/Membership',
-              },
+  },
+  'container.googleapis.com': {
+    projects: {
+      PROJECT_ID: {
+        locations: {
+          LOCATION: {
+            clusters: {
+              CLUSTER: 'container.googleapis.com/Cluster',
             },
           },
         },
-      },
-    },
-    'secretmanager.googleapis.com': {
-      projects: {
-        PROJECT_NUMBER: {
-          secrets: {
-            SECRET: {
-              [EARLY_STOP_KEY]: 'secretmanager.googleapis.com/Secret',
-              versions: {
-                VERSION: 'secretmanager.googleapis.com/SecretVersion',
-              },
-            },
-          },
-        },
-      },
-    },
-    'tpu.googleapis.com': {
-      projects: {
-        PROJECT_NUMBER: {
-          locations: {
-            LOCATION: {
-              nodes: {
-                NODE_ID: 'tpu.googleapis.com/Node',
-              },
-            },
-          },
-        },
-      },
-    },
-    'composer.googleapis.com': {
-      projects: {
-        PROJECT_NUMBER: {
-          locations: {
-            LOCATION: {
-              environments: {
-                ENVIRONMENT: 'composer.googleapis.com/Environment',
-              },
-            },
-          },
-        },
-      },
-    },
-    'file.googleapis.com': {
-      projects: {
-        PROJECT_NUMBER: {
-          locations: {
-            LOCATION: {
-              instances: {
-                INSTANCE: 'file.googleapis.com/Instance',
-              },
-              backups: {
-                BACKUP: 'file.googleapis.com/Backup',
-              },
-            },
-          },
-        },
-      },
-    },
-    'servicedirectory.googleapis.com': {
-      projects: {
-        PROJECT_NUMBER: {
-          locations: {
-            LOCATION: {
-              namespaces: {
-                NAMESPACE: 'servicedirectory.googleapis.com/Namespace',
-              },
-            },
-          },
-        },
-      },
-    },
-    'assuredworkloads.googleapis.com': {
-      organizations: {
-        ORGANIZATION_NUMBER: {
-          locations: {
-            LOCATION: {
-              workloads: {
-                WORKLOAD: 'assuredworkloads.googleapis.com/Workload',
-              },
-            },
-          },
-        },
-      },
-    },
-    'artifactregistry.googleapis.com': {
-      projects: {
-        PROJECT_NUMBER: {
-          locations: {
-            LOCATION: {
-              repositories: {
-                REPOSITORY: {
-                  [EARLY_STOP_KEY]:
-                    'artifactregistry.googleapis.com/Repository',
-                  dockerimages: {
-                    DOCKER_IMAGE: 'artifactregistry.googleapis.com/DockerImage',
+        zones: {
+          ZONE: {
+            clusters: {
+              CLUSTER: {
+                [EARLY_STOP_KEY]: 'container.googleapis.com/Cluster',
+                k8s: {
+                  nodes: {
+                    NODE: 'k8s.io/Node',
                   },
+                  namespaces: {
+                    NAMESPACE: {
+                      [EARLY_STOP_KEY]: 'k8s.io/Namespace',
+                      pods: {
+                        POD: 'k8s.io/Pod',
+                      },
+                      services: {
+                        SERVICE: 'k8s.io/Service',
+                      },
+                      'rbac.authorization.k8s.io': {
+                        roles: {
+                          ROLE: 'rbac.authorization.k8s.io',
+                        },
+                        rolebindings: {
+                          ROLEBINDING: 'rbac.authorization.k8s.io',
+                        },
+                      },
+                      extensions: {
+                        ingresses: {
+                          INGRESS: 'extensions.k8s.io/Ingress',
+                        },
+                      },
+                      'networking.k8s.io': {
+                        ingresses: {
+                          INGRESS: 'networking.k8s.io/Ingress',
+                        },
+                        networkpolicies: {
+                          NETWORKPOLICY: 'networking.k8s.io/Networkpolicy',
+                        },
+                      },
+                    },
+                  },
+                  'rbac.authorization.k8s.io': {
+                    clusterroles: {
+                      CLUSTER_ROLE: 'rbac.authorization.k8s.io',
+                    },
+                    clusterrolebindings: {
+                      CLUSTER_ROLE_BINDING: 'rbac.authorization.k8s.io',
+                    },
+                  },
+                },
+                nodePools: {
+                  NODE_POOL: 'container.googleapis.com/NodePool',
                 },
               },
             },
@@ -832,129 +567,434 @@ export const CLOUD_RESOURCES_MAP = {
         },
       },
     },
-    'apigateway.googleapis.com': {
-      projects: {
-        PROJECT_NUMBER: {
-          locations: {
-            LOCATION: {
-              apis: {
-                API: {
-                  [EARLY_STOP_KEY]: 'apigateway.googleapis.com/Api',
-                  configs: {
-                    CONFIG: 'apigateway.googleapis.com/ApiConfig',
+  },
+  'cloudsql.googleapis.com': {
+    projects: {
+      PROJECT_ID: {
+        instances: {
+          INSTANCE: 'sqladmin.googleapis.com/Instance',
+        },
+      },
+    },
+  },
+  'bigtable.googleapis.com': {
+    projects: {
+      PROJECT_ID: {
+        instances: {
+          INSTANCE: {
+            [EARLY_STOP_KEY]: 'bigtableadmin.googleapis.com/Instance',
+            appProfiles: {
+              APP_PROFILE: 'bigtableadmin.googleapis.com/AppProfile',
+            },
+            tables: {
+              TABLE: 'bigtableadmin.googleapis.com/Table',
+            },
+            clusters: {
+              CLUSTER: {
+                [EARLY_STOP_KEY]: 'bigtableadmin.googleapis.com/Cluster',
+                backups: {
+                  BACKUP: 'bigtableadmin.googleapis.com/Backup',
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+  'serviceusage.googleapis.com': {
+    projects: {
+      PROJECT_NUMBER: {
+        services: {
+          SERVICE: 'serviceusage.googleapis.com/Service',
+        },
+      },
+    },
+  },
+  'datafusion.googleapis.com': {
+    projects: {
+      PROJECT_ID: {
+        locations: {
+          LOCATION: {
+            instances: {
+              INSTANCE: 'datafusion.googleapis.com/Instance',
+            },
+          },
+        },
+      },
+    },
+  },
+  'logging.googleapis.com': {
+    projects: {
+      PROJECT_NUMBER: {
+        locations: {
+          LOCATION: {
+            buckets: {
+              BUCKET: 'logging.googleapis.com/LogBucket',
+            },
+          },
+        },
+        sinks: {
+          SINK: 'logging.googleapis.com/LogSink',
+        },
+        metrics: {
+          METRIC: 'logging.googleapis.com/LogMetric',
+        },
+      },
+    },
+    folders: {
+      FOLDER_NUMBER: {
+        sinks: {
+          SINK: 'logging.googleapis.com/LogSink',
+        },
+      },
+    },
+    organizations: {
+      ORGANIZATION_NUMBER: {
+        sinks: {
+          SINK: 'logging.googleapis.com/LogSink',
+        },
+      },
+    },
+    billingAccounts: {
+      BILLING_ACCOUNT_ID: {
+        sinks: {
+          SINK: 'logging.googleapis.com/LogSink',
+        },
+      },
+    },
+  },
+  'networkmanagement.googleapis.com': {
+    projects: {
+      PROJECT_ID: {
+        locations: {
+          global: {
+            connectivityTests: {
+              TEST: 'networkmanagement.googleapis.com/ConnectivityTest',
+            },
+          },
+        },
+      },
+    },
+  },
+  'managedidentities.googleapis.com': {
+    projects: {
+      PROJECT_ID: {
+        locations: {
+          global: {
+            domains: {
+              DOMAIN: 'managedidentities.googleapis.com/Domain',
+            },
+          },
+        },
+      },
+    },
+  },
+  'privateca.googleapis.com': {
+    projects: {
+      PROJECT_ID: {
+        locations: {
+          LOCATION: {
+            caPools: {
+              CA_POOL_ID: {
+                [EARLY_STOP_KEY]: 'privateca.googleapis.com/CaPool',
+                certificateAuthorities: {
+                  CERTIFICATE_AUTHORITIES_ID: {
+                    [EARLY_STOP_KEY]:
+                      'privateca.googleapis.com/CertificateAuthority',
+                    certificateRevocationLists: {
+                      CERTIFICATE_REVOCATION_LISTS_ID:
+                        'privateca.googleapis.com/CertificateRevocationList',
+                    },
                   },
                 },
               },
-              gateways: {
-                GATEWAY: 'apigateway.googleapis.com/Gateway',
+            },
+            certificateTemplates: {
+              CERTIFICATE_TEMPLATES_ID:
+                'privateca.googleapis.com/CertificateTemplate',
+            },
+          },
+        },
+      },
+    },
+  },
+  'dataflow.googleapis.com': {
+    projects: {
+      PROJECT_ID: {
+        locations: {
+          LOCATION: {
+            jobs: {
+              JOB: 'dataflow.googleapis.com/Job',
+            },
+          },
+        },
+      },
+    },
+  },
+  'gameservices.googleapis.com': {
+    projects: {
+      PROJECT_ID: {
+        locations: {
+          global: {
+            realms: {
+              REALM_ID: {
+                [EARLY_STOP_KEY]: 'gameservices.googleapis.com/Realm',
+                gameServerClusters: {
+                  GAME_SERVER_CLUSTER_ID:
+                    'gameservices.googleapis.com/GameServerCluster',
+                },
+              },
+            },
+            gameServerDeployments: {
+              GAME_SERVER_DEPLOYMENTS_ID: {
+                [EARLY_STOP_KEY]:
+                  'gameservices.googleapis.com/GameServerDeployment',
+                configs: {
+                  CONFIG_ID: 'gameservices.googleapis.com/GameServerConfig',
+                },
               },
             },
           },
         },
       },
     },
-    'redis.googleapis.com': {
-      projects: {
-        PROJECT_ID: {
-          locations: {
-            LOCATION: {
-              instances: {
-                INSTANCE: 'redis.googleapis.com/Instance',
+  },
+  'gkehub.googleapis.com': {
+    projects: {
+      PROJECT_ID: {
+        locations: {
+          global: {
+            memberships: {
+              MEMBERSHIP: 'gkehub.googleapis.com/Membership',
+            },
+          },
+        },
+      },
+    },
+  },
+  'secretmanager.googleapis.com': {
+    projects: {
+      PROJECT_NUMBER: {
+        secrets: {
+          SECRET: {
+            [EARLY_STOP_KEY]: 'secretmanager.googleapis.com/Secret',
+            versions: {
+              VERSION: 'secretmanager.googleapis.com/SecretVersion',
+            },
+          },
+        },
+      },
+    },
+  },
+  'tpu.googleapis.com': {
+    projects: {
+      PROJECT_NUMBER: {
+        locations: {
+          LOCATION: {
+            nodes: {
+              NODE_ID: 'tpu.googleapis.com/Node',
+            },
+          },
+        },
+      },
+    },
+  },
+  'composer.googleapis.com': {
+    projects: {
+      PROJECT_NUMBER: {
+        locations: {
+          LOCATION: {
+            environments: {
+              ENVIRONMENT: 'composer.googleapis.com/Environment',
+            },
+          },
+        },
+      },
+    },
+  },
+  'file.googleapis.com': {
+    projects: {
+      PROJECT_NUMBER: {
+        locations: {
+          LOCATION: {
+            instances: {
+              INSTANCE: 'file.googleapis.com/Instance',
+            },
+            backups: {
+              BACKUP: 'file.googleapis.com/Backup',
+            },
+          },
+        },
+      },
+    },
+  },
+  'servicedirectory.googleapis.com': {
+    projects: {
+      PROJECT_NUMBER: {
+        locations: {
+          LOCATION: {
+            namespaces: {
+              NAMESPACE: 'servicedirectory.googleapis.com/Namespace',
+            },
+          },
+        },
+      },
+    },
+  },
+  'assuredworkloads.googleapis.com': {
+    organizations: {
+      ORGANIZATION_NUMBER: {
+        locations: {
+          LOCATION: {
+            workloads: {
+              WORKLOAD: 'assuredworkloads.googleapis.com/Workload',
+            },
+          },
+        },
+      },
+    },
+  },
+  'artifactregistry.googleapis.com': {
+    projects: {
+      PROJECT_NUMBER: {
+        locations: {
+          LOCATION: {
+            repositories: {
+              REPOSITORY: {
+                [EARLY_STOP_KEY]: 'artifactregistry.googleapis.com/Repository',
+                dockerimages: {
+                  DOCKER_IMAGE: 'artifactregistry.googleapis.com/DockerImage',
+                },
               },
             },
           },
         },
       },
     },
-    'memcache.googleapis.com': {
-      projects: {
-        PROJECT_NUMBER: {
-          locations: {
-            LOCATION: {
-              instances: {
-                INSTANCE: 'memcache.googleapis.com/Instance',
+  },
+  'apigateway.googleapis.com': {
+    projects: {
+      PROJECT_NUMBER: {
+        locations: {
+          LOCATION: {
+            apis: {
+              API: {
+                [EARLY_STOP_KEY]: 'apigateway.googleapis.com/Api',
+                configs: {
+                  CONFIG: 'apigateway.googleapis.com/ApiConfig',
+                },
               },
+            },
+            gateways: {
+              GATEWAY: 'apigateway.googleapis.com/Gateway',
             },
           },
         },
       },
     },
-    'documentai.googleapis.com': {
-      projects: {
-        PROJECT_NUMBER: {
-          locations: {
-            LOCATION: {
-              processors: {
+  },
+  'redis.googleapis.com': {
+    projects: {
+      PROJECT_ID: {
+        locations: {
+          LOCATION: {
+            instances: {
+              INSTANCE: 'redis.googleapis.com/Instance',
+            },
+          },
+        },
+      },
+    },
+  },
+  'memcache.googleapis.com': {
+    projects: {
+      PROJECT_NUMBER: {
+        locations: {
+          LOCATION: {
+            instances: {
+              INSTANCE: 'memcache.googleapis.com/Instance',
+            },
+          },
+        },
+      },
+    },
+  },
+  'documentai.googleapis.com': {
+    projects: {
+      PROJECT_NUMBER: {
+        locations: {
+          LOCATION: {
+            processors: {
+              PROCESSOR: {
                 [EARLY_STOP_KEY]: 'documentai.googleapis.com/Processor',
-                PROCESSOR: {
-                  humanReviewConfig:
-                    'documentai.googleapis.com/HumanReviewConfig',
-                },
+                humanReviewConfig:
+                  'documentai.googleapis.com/HumanReviewConfig',
               },
-              labelerPools: {
-                LABELERPOOL: 'documentai.googleapis.com/LabelerPool',
-              },
+            },
+            labelerPools: {
+              LABELERPOOL: 'documentai.googleapis.com/LabelerPool',
             },
           },
         },
       },
     },
-    'aiplatform.googleapis.com': {
-      projects: {
-        PROJECT_NUMBER: {
-          locations: {
-            LOCATION: {
-              batchPredictionJobs: {
-                BATCH_PREDICTION_JOB:
-                  'aiplatform.googleapis.com/BatchPredictionJob',
-              },
-              customJobs: {
-                CUSTOM_JOB: 'aiplatform.googleapis.com/CustomJob',
-              },
-              dataLabelingJobs: {
-                DATA_LABELING_JOB: 'aiplatform.googleapis.com/DataLabelingJob',
-              },
-              datasets: {
-                DATASET: 'aiplatform.googleapis.com/Dataset',
-              },
-              endpoints: {
-                ENDPOINT: 'aiplatform.googleapis.com/Endpoint',
-              },
-              hyperparameterTuningJobs: {
-                HYPERPARAMETER_TUNING_JOB:
-                  'aiplatform.googleapis.com/HyperparameterTuningJob',
-              },
-              models: {
-                MODEL: 'aiplatform.googleapis.com/Model',
-              },
-              specialistPools: {
-                SPECIALIST_POOL: 'aiplatform.googleapis.com/SpecialistPool',
-              },
-              trainingPipelines: {
-                TRAINING_PIPELINE: 'aiplatform.googleapis.com/TrainingPipeline',
-              },
+  },
+  'aiplatform.googleapis.com': {
+    projects: {
+      PROJECT_NUMBER: {
+        locations: {
+          LOCATION: {
+            batchPredictionJobs: {
+              BATCH_PREDICTION_JOB:
+                'aiplatform.googleapis.com/BatchPredictionJob',
+            },
+            customJobs: {
+              CUSTOM_JOB: 'aiplatform.googleapis.com/CustomJob',
+            },
+            dataLabelingJobs: {
+              DATA_LABELING_JOB: 'aiplatform.googleapis.com/DataLabelingJob',
+            },
+            datasets: {
+              DATASET: 'aiplatform.googleapis.com/Dataset',
+            },
+            endpoints: {
+              ENDPOINT: 'aiplatform.googleapis.com/Endpoint',
+            },
+            hyperparameterTuningJobs: {
+              HYPERPARAMETER_TUNING_JOB:
+                'aiplatform.googleapis.com/HyperparameterTuningJob',
+            },
+            models: {
+              MODEL: 'aiplatform.googleapis.com/Model',
+            },
+            specialistPools: {
+              SPECIALIST_POOL: 'aiplatform.googleapis.com/SpecialistPool',
+            },
+            trainingPipelines: {
+              TRAINING_PIPELINE: 'aiplatform.googleapis.com/TrainingPipeline',
             },
           },
         },
       },
     },
-    'monitoring.googleapis.com': {
-      projects: {
-        PROJECT_NUMBER: {
-          policies: {
-            POLICY_NUMBER: 'monitoring.googleapis.com/AlertPolicy',
-          },
+  },
+  'monitoring.googleapis.com': {
+    projects: {
+      PROJECT_NUMBER: {
+        policies: {
+          POLICY_NUMBER: 'monitoring.googleapis.com/AlertPolicy',
         },
       },
     },
-    'vpcaccess.googleapis.com': {
-      projects: {
-        PROJECT_NUMBER: {
-          locations: {
-            LOCATION: {
-              connectors: {
-                CONNECTOR: 'vpcaccess.googleapis.com/Connector',
-              },
+  },
+  'vpcaccess.googleapis.com': {
+    projects: {
+      PROJECT_NUMBER: {
+        locations: {
+          LOCATION: {
+            connectors: {
+              CONNECTOR: 'vpcaccess.googleapis.com/Connector',
             },
           },
         },
