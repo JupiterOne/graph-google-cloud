@@ -13,7 +13,6 @@ import { IntegrationConfig } from '../..';
 import { IntegrationStepContext } from '../../types';
 import { publishMissingPermissionEvent } from '../../utils/events';
 import { getProjectIdFromName } from '../../utils/jobState';
-import { getEnabledServiceNames } from '../enablement';
 import { IAM_ROLE_ENTITY_CLASS, IAM_ROLE_ENTITY_TYPE } from '../iam';
 import {
   buildIamTargetRelationship,
@@ -27,10 +26,9 @@ import {
   BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP,
   BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS,
   PRINCIPAL_ASSIGNED_ROLE_RELATIONSHIPS,
-  // STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS,
+  STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS,
   STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS,
   STEP_CREATE_BINDING_ROLE_RELATIONSHIPS,
-  STEP_CREATE_MAPPED_BINDING_ANY_RESOURCE_RELATIONSHIPS,
   STEP_IAM_BINDINGS,
 } from './constants';
 import {
@@ -246,35 +244,6 @@ export async function createPrincipalRelationships(
   );
 }
 
-// This strategy seems to get a good amount of the resource entities, but I don't think it gets them all.
-export async function createBindingAnyResourceRelationships(
-  context: IntegrationStepContext,
-): Promise<void> {
-  const { jobState, instance } = context;
-  const enabledServiceNames = await getEnabledServiceNames(instance.config);
-
-  await jobState.iterateEntities(
-    { _type: bindingEntities.BINDINGS._type },
-    async (bindingEntity: BindingEntity) => {
-      const [_, __, service, ...key] = bindingEntity.resource.split('/');
-      bindingEntity['condition.expression'];
-      // TODO: check the condition before creating ALLOWS relationship
-      if (enabledServiceNames.includes(service)) {
-        const targetEntity = await jobState.findEntity(key.join('/'));
-        if (targetEntity) {
-          await jobState.addRelationship(
-            createDirectRelationship({
-              from: bindingEntity,
-              _class: RelationshipClass.ALLOWS,
-              to: targetEntity,
-            }),
-          );
-        }
-      }
-    },
-  );
-}
-
 function getTargetKey(targetResourceType: string, resource: string) {
   const keyGenFunction = J1_TYPE_TO_KEY_GENERATOR_MAP[targetResourceType];
   if (!keyGenFunction) {
@@ -338,24 +307,35 @@ export async function createMappedBindingAnyResourceRelationships(
       }
       for (const key of keys) {
         if (typeof key === 'string') {
-          await jobState.addRelationship(
-            createMappedRelationship({
-              _class: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP._class,
-              _type: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP._type,
-              _mapping: {
-                relationshipDirection: RelationshipDirection.FORWARD,
-                sourceEntityKey: bindingEntity._key,
-                targetFilterKeys: [['_type', '_key']],
-                skipTargetCreation: false,
-                targetEntity: {
-                  _type: Array.isArray(targetResourceType)
-                    ? targetResourceType[0]
-                    : targetResourceType, // TODO: fix
-                  _key: key,
+          const existingEntity = await jobState.findEntity(key);
+          if (existingEntity) {
+            await jobState.addRelationship(
+              createDirectRelationship({
+                from: bindingEntity,
+                _class: RelationshipClass.ALLOWS,
+                to: existingEntity,
+              }),
+            );
+          } else {
+            await jobState.addRelationship(
+              createMappedRelationship({
+                _class: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP._class,
+                _type: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP._type,
+                _mapping: {
+                  relationshipDirection: RelationshipDirection.FORWARD,
+                  sourceEntityKey: bindingEntity._key,
+                  targetFilterKeys: [['_type', '_key']],
+                  skipTargetCreation: false,
+                  targetEntity: {
+                    _type: Array.isArray(targetResourceType)
+                      ? targetResourceType[0]
+                      : targetResourceType, // TODO: fix
+                    _key: key,
+                  },
                 },
-              },
-            }),
-          );
+              }),
+            );
+          }
         }
       }
     },
@@ -410,17 +390,8 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
     executionHandler: createBindingRoleRelationships,
     dependencyGraphId: 'last',
   },
-  // {
-  //   id: STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS,
-  //   name: 'Role Binding to Any Resource Relationships',
-  //   entities: [],
-  //   relationships: [BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP],
-  //   dependsOn: [STEP_IAM_BINDINGS],
-  //   executionHandler: createBindingAnyResourceRelationships,
-  //   dependencyGraphId: 'last',
-  // },
   {
-    id: STEP_CREATE_MAPPED_BINDING_ANY_RESOURCE_RELATIONSHIPS,
+    id: STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS,
     name: 'Role Binding to Any Resource Relationships Outside Integration',
     entities: [],
     relationships: [BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP],

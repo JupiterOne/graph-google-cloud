@@ -3,7 +3,7 @@ import { IntegrationConfig } from '../..';
 import { integrationConfig } from '../../../test/config';
 import { withRecording } from '../../../test/recording';
 import {
-  createBindingAnyResourceRelationships,
+  createMappedBindingAnyResourceRelationships,
   createBindingRoleRelationships,
   createPrincipalRelationships,
   fetchIamBindings,
@@ -113,7 +113,7 @@ describe('#fetchIamBindings', () => {
       await fetchIamBindings(context);
       await createPrincipalRelationships(context);
       await createBindingRoleRelationships(context);
-      await createBindingAnyResourceRelationships(context);
+      await createMappedBindingAnyResourceRelationships(context);
 
       expect({
         numCollectedEntities: context.jobState.collectedEntities.length,

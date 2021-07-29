@@ -17,8 +17,6 @@ export const STEP_CREATE_BINDING_ROLE_RELATIONSHIPS =
   'create-binding-role-relationships';
 export const STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS =
   'create-binding-any-resource-relationships';
-export const STEP_CREATE_MAPPED_BINDING_ANY_RESOURCE_RELATIONSHIPS =
-  'create-mapped-binding-any-resource-relationships';
 
 export const bindingEntities = {
   BINDINGS: {

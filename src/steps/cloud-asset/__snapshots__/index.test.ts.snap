@@ -3,7 +3,7 @@
 exports[`#fetchIamBindings should collect data 1`] = `
 Object {
   "collectedEntities": 144,
-  "collectedRelationships": 238,
+  "collectedRelationships": 307,
   "encounteredTypes": Array [
     "google_cloud_organization",
     "google_cloud_folder",
@@ -23,10 +23,11 @@ Object {
     "google_iam_binding_assigned_group",
     "google_group_assigned_iam_role",
     "google_iam_binding_uses_role",
+    "google_iam_binding_allows_ANY_RESOURCE",
     "google_iam_binding_allows_cloud_folder",
     "google_iam_binding_allows_cloud_organization",
   ],
   "numCollectedEntities": 144,
-  "numCollectedRelationships": 238,
+  "numCollectedRelationships": 307,
 }
 `;
