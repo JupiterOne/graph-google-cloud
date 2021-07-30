@@ -1,6 +1,5 @@
 jest.setTimeout(60000);
 
-import Logger from 'bunyan';
 import { withRecording } from '../test/recording';
 import {
   buildPolicyWithServiceAccountSecurityRoleMember,
@@ -10,21 +9,7 @@ import {
 } from './organizationSetup';
 import { cloudresourcemanager_v1 } from 'googleapis';
 import { SchedulerInterval } from './types';
-
-function getMockLogger() {
-  const mockLogger = {
-    info: jest.fn(),
-    fatal: jest.fn(),
-    warn: jest.fn(),
-    error: jest.fn(),
-    debug: jest.fn(),
-    trace: jest.fn(),
-  } as unknown as Logger;
-
-  mockLogger.child = () => mockLogger;
-
-  return mockLogger;
-}
+import { getMockLogger } from '../test/helpers/getMockLogger';
 
 function getSetupOrganizationParams(
   params?: Partial<SetupOrganizationParams>,
