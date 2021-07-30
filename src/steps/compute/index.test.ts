@@ -17,16 +17,27 @@ import {
   fetchComputeSubnetworks,
   fetchComputeProject,
   fetchComputeInstanceGroups,
-  fetchHealthChecks,
-  fetchBackendBuckets,
-  fetchBackendServices,
-  fetchLoadBalancers,
-  fetchTargetHttpProxies,
-  fetchTargetHttpsProxies,
-  fetchTargetSslProxies,
-  fetchSslPolicies,
+  fetchComputeHealthChecks,
+  fetchComputeBackendBuckets,
+  fetchComputeBackendServices,
+  fetchComputeLoadBalancers,
+  fetchComputeTargetHttpProxies,
+  fetchComputeTargetHttpsProxies,
+  fetchComputeTargetSslProxies,
+  fetchComputeSslPolicies,
   fetchComputeImages,
   buildComputeNetworkPeeringRelationships,
+  fetchComputeAddresses,
+  fetchComputeRegionBackendServices,
+  fetchComputeRegionInstanceGroups,
+  fetchComputeRegionDisks,
+  fetchComputeRegionHealthChecks,
+  fetchComputeRegionLoadBalancers,
+  fetchComputeRegionTargetHttpProxies,
+  fetchComputeRegionTargetHttpsProxies,
+  fetchComputeGlobalForwardingRules,
+  fetchComputeForwardingRules,
+  fetchComputeGlobalAddresses,
 } from '.';
 import {
   CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
@@ -69,6 +80,27 @@ import {
   RELATIONSHIP_TYPE_INSTANCE_GROUP_HAS_COMPUTE_INSTANCE,
   ENTITY_TYPE_COMPUTE_IMAGE,
   RELATIONSHIP_TYPE_COMPUTE_NETWORK_CONNECTS_NETWORK,
+  ENTITY_TYPE_COMPUTE_ADDRESS,
+  ENTITY_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE,
+  RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_BACKEND_SERVICE,
+  RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_SUBNETWORK,
+  RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_NETWORK,
+  RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_TARGET_HTTP_PROXY,
+  RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_TARGET_HTTPS_PROXY,
+  ENTITY_TYPE_COMPUTE_FORWARDING_RULE,
+  RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_SUBNETWORK,
+  RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_NETWORK,
+  RELATIONSHIP_TYPE_COMPUTE_NETWORK_HAS_ADDRESS,
+  RELATIONSHIP_TYPE_COMPUTE_SUBNETWORK_HAS_ADDRESS,
+  RELATIONSHIP_TYPE_COMPUTE_INSTANCE_USES_ADDRESS,
+  RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_USES_ADDRESS,
+  ENTITY_TYPE_COMPUTE_GLOBAL_ADDRESS,
+  RELATIONSHIP_TYPE_COMPUTE_NETWORK_HAS_GLOBAL_ADDRESS,
+  RELATIONSHIP_TYPE_COMPUTE_SUBNETWORK_HAS_GLOBAL_ADDRESS,
+  RELATIONSHIP_TYPE_INSTANCE_GROUP_HAS_NAMED_PORT,
+  RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_BACKEND_SERVICE,
+  RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_TARGET_HTTP_PROXY,
+  RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_TARGET_HTTPS_PROXY,
 } from './constants';
 import {
   Entity,
@@ -86,6 +118,18 @@ import {
 } from '../kms';
 import { filterGraphObjects } from '../../../test/helpers/filterGraphObjects';
 
+const tempNewAccountConfig = {
+  ...integrationConfig,
+  serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+    'j1-gc-integration-dev-v2',
+    'j1-gc-integration-dev-v3',
+  ),
+  serviceAccountKeyConfig: {
+    ...integrationConfig.serviceAccountKeyConfig,
+    project_id: 'j1-gc-integration-dev-v3',
+  },
+};
+
 describe('#fetchComputeDisks', () => {
   let recording: Recording;
 
@@ -102,7 +146,7 @@ describe('#fetchComputeDisks', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: tempNewAccountConfig,
     });
 
     await fetchKmsKeyRings(context);
@@ -133,11 +177,14 @@ describe('#fetchComputeDisks', () => {
             items: { type: 'object' },
           },
           description: { type: 'string' },
+          regional: { type: 'boolean' },
           zone: { type: 'string' },
           sizeGB: { type: 'string' },
           status: { type: 'string' },
           sourceImage: { type: 'string' },
           sourceImageId: { type: 'string' },
+          sourceSnapshot: { type: 'string' },
+          sourceSnapshotId: { type: 'string' },
           type: { type: 'string' },
           licenses: {
             type: 'array',
@@ -160,6 +207,7 @@ describe('#fetchComputeDisks', () => {
           kind: { type: 'string' },
           encrypted: true,
           classification: { const: null },
+          webLink: { type: 'string' },
         },
       },
     });
@@ -176,6 +224,101 @@ describe('#fetchComputeDisks', () => {
         }),
       ),
     );
+
+    const computeDiskUsesKmsKeyRelationships =
+      context.jobState.collectedRelationships.filter(
+        (r) => r._type === 'google_compute_disk_uses_kms_crypto_key',
+      );
+
+    expect(computeDiskUsesKmsKeyRelationships).toEqual(
+      computeDiskUsesKmsKeyRelationships.map((r) =>
+        expect.objectContaining({
+          _class: 'USES',
+        }),
+      ),
+    );
+  });
+});
+
+describe('#fetchComputeRegionDisks', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'fetchComputeRegionDisks',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: tempNewAccountConfig,
+    });
+
+    await fetchKmsKeyRings(context);
+    await fetchKmsCryptoKeys(context);
+    await fetchComputeRegionDisks(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === ENTITY_TYPE_COMPUTE_DISK,
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: ['DataStore', 'Disk'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_compute_disk' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          region: { type: 'string' },
+          regional: { type: 'boolean' },
+          description: { type: 'string' },
+          zone: { type: 'string' },
+          sizeGB: { type: 'string' },
+          status: { type: 'string' },
+          type: { type: 'string' },
+          licenses: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          guestOsFeatures: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          lastAttachTimestamp: { type: 'number' },
+          labelFingerprint: { type: 'string' },
+          licenseCodes: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          physicalBlockSizeBytes: { type: 'string' },
+          sourceSnapshot: { type: 'string' },
+          sourceSnapshotId: { type: 'string' },
+          isCustomerSuppliedKeysEncrypted: { type: 'boolean' },
+          kmsKeyName: { type: 'string' },
+          kmsKeyServiceAccount: { type: 'string' },
+          kind: { type: 'string' },
+          encrypted: true,
+          classification: { const: null },
+          webLink: { type: 'string' },
+        },
+      },
+    });
 
     const computeDiskUsesKmsKeyRelationships =
       context.jobState.collectedRelationships.filter(
@@ -330,6 +473,221 @@ describe('#fetchComputeImages', () => {
   });
 });
 
+describe('#fetchComputeAddresses', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'fetchComputeAddresses',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: tempNewAccountConfig,
+    });
+
+    await fetchComputeNetworks(context);
+    await fetchComputeSubnetworks(context);
+    await fetchComputeInstances(context);
+    await fetchComputeForwardingRules(context);
+    await fetchComputeAddresses(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === ENTITY_TYPE_COMPUTE_ADDRESS,
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: 'IpAddress',
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_compute_address' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          id: { type: 'string' },
+          kind: { type: 'string' },
+          projectId: { type: 'string' },
+          displayName: { type: 'string' },
+          name: { type: 'string' },
+          description: { type: 'string' },
+          ipAddress: { type: 'string' },
+          ipVersion: { type: 'string' },
+          addressType: { type: 'string' },
+          status: { type: 'string' },
+          purpose: { type: 'string' },
+          network: { type: 'string' },
+          networkTier: { type: 'string' },
+          subnetwork: { type: 'string' },
+          createdOn: { type: 'number' },
+          webLink: { type: 'string' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === RELATIONSHIP_TYPE_COMPUTE_NETWORK_HAS_ADDRESS,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'HAS' },
+          _type: { const: 'google_compute_network_has_address' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === RELATIONSHIP_TYPE_COMPUTE_SUBNETWORK_HAS_ADDRESS,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'HAS' },
+          _type: { const: 'google_compute_subnetwork_has_address' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === RELATIONSHIP_TYPE_COMPUTE_INSTANCE_USES_ADDRESS,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'USES' },
+          _type: { const: 'google_compute_instance_uses_address' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) =>
+          e._type === RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_USES_ADDRESS,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'USES' },
+          _type: { const: 'google_compute_forwarding_rule_uses_address' },
+        },
+      },
+    });
+  });
+});
+
+describe('#fetchComputeGlobalAddresses', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'fetchComputeGlobalAddresses',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: tempNewAccountConfig,
+    });
+
+    await fetchComputeNetworks(context);
+    await fetchComputeSubnetworks(context);
+    await fetchComputeGlobalAddresses(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === ENTITY_TYPE_COMPUTE_GLOBAL_ADDRESS,
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: 'IpAddress',
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_compute_global_address' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          id: { type: 'string' },
+          kind: { type: 'string' },
+          displayName: { type: 'string' },
+          name: { type: 'string' },
+          description: { type: 'string' },
+          ipAddress: { type: 'string' },
+          ipVersion: { type: 'string' },
+          addressType: { type: 'string' },
+          status: { type: 'string' },
+          purpose: { type: 'string' },
+          network: { type: 'string' },
+          networkTier: { type: 'string' },
+          subnetwork: { type: 'string' },
+          createdOn: { type: 'number' },
+          webLink: { type: 'string' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === RELATIONSHIP_TYPE_COMPUTE_NETWORK_HAS_GLOBAL_ADDRESS,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'HAS' },
+          _type: { const: 'google_compute_network_has_global_address' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) =>
+          e._type === RELATIONSHIP_TYPE_COMPUTE_SUBNETWORK_HAS_GLOBAL_ADDRESS,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'HAS' },
+          _type: { const: 'google_compute_subnetwork_has_global_address' },
+        },
+      },
+    });
+  });
+});
+
 describe('#fetchComputeInstances', () => {
   let recording: Recording;
 
@@ -346,17 +704,7 @@ describe('#fetchComputeInstances', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: {
-        ...integrationConfig,
-        serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
-          'j1-gc-integration-dev-v2',
-          'j1-gc-integration-dev-v3',
-        ),
-        serviceAccountKeyConfig: {
-          ...integrationConfig.serviceAccountKeyConfig,
-          project_id: 'j1-gc-integration-dev-v3',
-        },
-      },
+      instanceConfig: tempNewAccountConfig,
     });
 
     await fetchComputeInstanceGroups(context);
@@ -387,11 +735,14 @@ describe('#fetchComputeInstances', () => {
             items: { type: 'object' },
           },
           description: { type: 'string' },
+          regional: { type: 'boolean' },
           zone: { type: 'string' },
           sizeGB: { type: 'string' },
           status: { type: 'string' },
           sourceImage: { type: 'string' },
           sourceImageId: { type: 'string' },
+          sourceSnapshot: { type: 'string' },
+          sourceSnapshotId: { type: 'string' },
           type: { type: 'string' },
           licenses: {
             type: 'array',
@@ -434,6 +785,7 @@ describe('#fetchComputeInstances', () => {
           },
           id: { type: 'string' },
           name: { type: 'string' },
+          regional: { type: 'boolean' },
           network: { type: 'string' },
           zone: { type: 'string' },
           subnetwork: { type: 'string' },
@@ -751,18 +1103,7 @@ describe('#buildComputeNetworkPeeringRelationships', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: {
-        ...integrationConfig,
-        serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
-          'j1-gc-integration-dev-v2',
-          'j1-gc-integration-dev-v3',
-        ),
-        serviceAccountKeyConfig: {
-          ...integrationConfig.serviceAccountKeyConfig,
-          project_id: 'j1-gc-integration-dev-v3',
-        },
-        projectId: 'j1-gc-integration-dev-v3',
-      },
+      instanceConfig: tempNewAccountConfig,
     });
 
     await fetchComputeNetworks(context);
@@ -1043,7 +1384,7 @@ describe('#fetchComputeBackendBuckets', () => {
     });
 
     await fetchStorageBuckets(context);
-    await fetchBackendBuckets(context);
+    await fetchComputeBackendBuckets(context);
 
     expect({
       numCollectedEntities: context.jobState.collectedEntities.length,
@@ -1146,12 +1487,12 @@ describe('#fetchComputeBackendServices', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: tempNewAccountConfig,
     });
 
     await fetchComputeInstanceGroups(context);
-    await fetchHealthChecks(context);
-    await fetchBackendServices(context);
+    await fetchComputeHealthChecks(context);
+    await fetchComputeBackendServices(context);
 
     expect({
       numCollectedEntities: context.jobState.collectedEntities.length,
@@ -1177,6 +1518,7 @@ describe('#fetchComputeBackendServices', () => {
           },
           id: { type: 'string' },
           name: { type: 'string' },
+          regional: { type: 'boolean' },
           network: { type: 'string' },
           zone: { type: 'string' },
           subnetwork: { type: 'string' },
@@ -1202,6 +1544,7 @@ describe('#fetchComputeBackendServices', () => {
           id: { type: 'string' },
           name: { type: 'string' },
           description: { type: 'string' },
+          regional: { type: 'boolean' },
           checkIntervalSec: { type: 'number' },
           timeoutSec: { type: 'number' },
           unhealthyThreshold: { type: 'number' },
@@ -1233,11 +1576,16 @@ describe('#fetchComputeBackendServices', () => {
           id: { type: 'string' },
           name: { type: 'string' },
           displayName: { type: 'string' },
+          regional: { type: 'boolean' },
           timeoutSec: { type: 'number' },
           port: { type: 'number' },
           protocol: { type: 'string' },
           enableCDN: { type: 'boolean' },
           category: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          function: {
             type: 'array',
             items: { type: 'string' },
           },
@@ -1274,6 +1622,137 @@ describe('#fetchComputeBackendServices', () => {
   });
 });
 
+describe('#fetchComputeRegionBackendServices', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'fetchComputeRegionBackendServices',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: tempNewAccountConfig,
+    });
+
+    await fetchComputeRegionInstanceGroups(context);
+    await fetchComputeRegionHealthChecks(context);
+    // It seems region backend service can be connected with these 2 non-regional resources
+    await fetchComputeHealthChecks(context);
+    await fetchComputeInstanceGroups(context);
+    await fetchComputeRegionBackendServices(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === ENTITY_TYPE_COMPUTE_BACKEND_SERVICE,
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: ['Service'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_compute_backend_service' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          id: { type: 'string' },
+          name: { type: 'string' },
+          displayName: { type: 'string' },
+          regional: { type: 'boolean' },
+          timeoutSec: { type: 'number' },
+          port: { type: 'number' },
+          protocol: { type: 'string' },
+          enableCDN: { type: 'boolean' },
+          category: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          function: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          createdOn: { type: 'number' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === RELATIONSHIP_TYPE_BACKEND_SERVICE_HAS_INSTANCE_GROUP,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'HAS' },
+          _type: {
+            const: 'google_compute_backend_service_has_instance_group',
+          },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === RELATIONSHIP_TYPE_BACKEND_SERVICE_HAS_INSTANCE_GROUP,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'HAS' },
+          _type: {
+            const: 'google_compute_backend_service_has_instance_group',
+          },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === RELATIONSHIP_TYPE_BACKEND_SERVICE_HAS_HEALTH_CHECK,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'HAS' },
+          _type: {
+            const: 'google_compute_backend_service_has_health_check',
+          },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === RELATIONSHIP_TYPE_BACKEND_SERVICE_HAS_HEALTH_CHECK,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'HAS' },
+          _type: {
+            const: 'google_compute_backend_service_has_health_check',
+          },
+        },
+      },
+    });
+  });
+});
+
 describe('#fetchComputeHealthChecks', () => {
   let recording: Recording;
 
@@ -1290,10 +1769,10 @@ describe('#fetchComputeHealthChecks', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: tempNewAccountConfig,
     });
 
-    await fetchHealthChecks(context);
+    await fetchComputeHealthChecks(context);
 
     expect({
       numCollectedEntities: context.jobState.collectedEntities.length,
@@ -1320,6 +1799,7 @@ describe('#fetchComputeHealthChecks', () => {
           id: { type: 'string' },
           name: { type: 'string' },
           description: { type: 'string' },
+          regional: { type: 'boolean' },
           checkIntervalSec: { type: 'number' },
           timeoutSec: { type: 'number' },
           unhealthyThreshold: { type: 'number' },
@@ -1330,6 +1810,71 @@ describe('#fetchComputeHealthChecks', () => {
             items: { type: 'string' },
           },
           createdOn: { type: 'number' },
+        },
+      },
+    });
+  });
+});
+
+describe('#fetchComputeRegionHealthChecks', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'fetchComputeRegionHealthChecks',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: tempNewAccountConfig,
+    });
+
+    await fetchComputeRegionHealthChecks(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === ENTITY_TYPE_COMPUTE_HEALTH_CHECK,
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: ['Service'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_compute_health_check' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          id: { type: 'string' },
+          name: { type: 'string' },
+          regional: { type: 'boolean' },
+          description: { type: 'string' },
+          checkIntervalSec: { type: 'number' },
+          timeoutSec: { type: 'number' },
+          unhealthyThreshold: { type: 'number' },
+          healthyThreshold: { type: 'number' },
+          region: { type: 'string' },
+          type: { type: 'string' },
+          category: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          createdOn: { type: 'number' },
+          webLink: { type: 'string' },
         },
       },
     });
@@ -1352,7 +1897,7 @@ describe('#fetchComputeInstanceGroups', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: tempNewAccountConfig,
     });
 
     await fetchComputeInstanceGroups(context);
@@ -1381,10 +1926,97 @@ describe('#fetchComputeInstanceGroups', () => {
           },
           id: { type: 'string' },
           name: { type: 'string' },
+          regional: { type: 'boolean' },
           network: { type: 'string' },
           zone: { type: 'string' },
           subnetwork: { type: 'string' },
           createdOn: { type: 'number' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === RELATIONSHIP_TYPE_INSTANCE_GROUP_HAS_NAMED_PORT,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'HAS' },
+          _type: {
+            const: 'google_compute_instance_group_has_named_port',
+          },
+        },
+      },
+    });
+  });
+});
+
+describe('#fetchComputeRegionInstanceGroups', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'fetchComputeRegionInstanceGroups',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: tempNewAccountConfig,
+    });
+
+    await fetchComputeRegionInstanceGroups(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === ENTITY_TYPE_COMPUTE_INSTANCE_GROUP,
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: ['Group'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_compute_instance_group' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          id: { type: 'string' },
+          name: { type: 'string' },
+          regional: { type: 'boolean' },
+          network: { type: 'string' },
+          zone: { type: 'string' },
+          subnetwork: { type: 'string' },
+          createdOn: { type: 'number' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === RELATIONSHIP_TYPE_INSTANCE_GROUP_HAS_NAMED_PORT,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'HAS' },
+          _type: {
+            const: 'google_compute_instance_group_has_named_port',
+          },
         },
       },
     });
@@ -1407,12 +2039,12 @@ describe('#fetchComputeLoadBalancers', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: tempNewAccountConfig,
     });
 
-    await fetchBackendServices(context);
-    await fetchBackendBuckets(context);
-    await fetchLoadBalancers(context);
+    await fetchComputeBackendServices(context);
+    await fetchComputeBackendBuckets(context);
+    await fetchComputeLoadBalancers(context);
 
     expect({
       numCollectedEntities: context.jobState.collectedEntities.length,
@@ -1439,6 +2071,7 @@ describe('#fetchComputeLoadBalancers', () => {
           id: { type: 'string' },
           name: { type: 'string' },
           displayName: { type: 'string' },
+          regional: { type: 'boolean' },
           timeoutSec: { type: 'number' },
           port: { type: 'number' },
           protocol: { type: 'string' },
@@ -1502,7 +2135,10 @@ describe('#fetchComputeLoadBalancers', () => {
           id: { type: 'string' },
           name: { type: 'string' },
           displayName: { type: 'string' },
+          regional: { type: 'boolean' },
           defaultService: { type: 'string' },
+          description: { type: 'string' },
+          kind: { type: 'string' },
           category: {
             type: 'array',
             items: { type: 'string' },
@@ -1545,6 +2181,118 @@ describe('#fetchComputeLoadBalancers', () => {
   });
 });
 
+describe('#fetchComputeRegionLoadBalancers', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'fetchComputeRegionLoadBalancers',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: tempNewAccountConfig,
+    });
+
+    await fetchComputeRegionBackendServices(context);
+    await fetchComputeRegionLoadBalancers(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === ENTITY_TYPE_COMPUTE_BACKEND_SERVICE,
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: ['Service'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_compute_backend_service' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          id: { type: 'string' },
+          name: { type: 'string' },
+          displayName: { type: 'string' },
+          regional: { type: 'boolean' },
+          timeoutSec: { type: 'number' },
+          port: { type: 'number' },
+          protocol: { type: 'string' },
+          enableCDN: { type: 'boolean' },
+          category: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          createdOn: { type: 'number' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === ENTITY_TYPE_COMPUTE_LOAD_BALANCER,
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: ['Gateway'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_compute_url_map' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          id: { type: 'string' },
+          name: { type: 'string' },
+          displayName: { type: 'string' },
+          regional: { type: 'boolean' },
+          defaultService: { type: 'string' },
+          description: { type: 'string' },
+          kind: { type: 'string' },
+          region: { type: 'string' },
+          category: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          function: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          public: { type: 'boolean' },
+          createdOn: { type: 'number' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === RELATIONSHIP_TYPE_LOAD_BALANCER_HAS_BACKEND_SERVICE,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'HAS' },
+          _type: { const: 'google_compute_url_map_has_backend_service' },
+        },
+      },
+    });
+  });
+});
+
 describe('#fetchComputeTargetHttpProxies', () => {
   let recording: Recording;
 
@@ -1564,8 +2312,8 @@ describe('#fetchComputeTargetHttpProxies', () => {
       instanceConfig: integrationConfig,
     });
 
-    await fetchLoadBalancers(context);
-    await fetchTargetHttpProxies(context);
+    await fetchComputeLoadBalancers(context);
+    await fetchComputeTargetHttpProxies(context);
 
     expect({
       numCollectedEntities: context.jobState.collectedEntities.length,
@@ -1592,7 +2340,9 @@ describe('#fetchComputeTargetHttpProxies', () => {
           id: { type: 'string' },
           name: { type: 'string' },
           displayName: { type: 'string' },
+          regional: { type: 'boolean' },
           defaultService: { type: 'string' },
+          kind: { type: 'string' },
           category: {
             type: 'array',
             items: { type: 'string' },
@@ -1623,6 +2373,7 @@ describe('#fetchComputeTargetHttpProxies', () => {
           },
           id: { type: 'string' },
           name: { type: 'string' },
+          regional: { type: 'boolean' },
           category: {
             type: 'array',
             items: { type: 'string' },
@@ -1653,6 +2404,116 @@ describe('#fetchComputeTargetHttpProxies', () => {
   });
 });
 
+describe('#fetchComputeRegionTargetHttpProxies', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'fetchComputeRegionTargetHttpProxies',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: tempNewAccountConfig,
+    });
+
+    await fetchComputeRegionLoadBalancers(context);
+    await fetchComputeRegionTargetHttpProxies(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === ENTITY_TYPE_COMPUTE_BACKEND_SERVICE,
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: ['Service'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_compute_backend_service' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          id: { type: 'string' },
+          name: { type: 'string' },
+          displayName: { type: 'string' },
+          regional: { type: 'boolean' },
+          timeoutSec: { type: 'number' },
+          port: { type: 'number' },
+          protocol: { type: 'string' },
+          enableCDN: { type: 'boolean' },
+          category: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          createdOn: { type: 'number' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === ENTITY_TYPE_COMPUTE_TARGET_HTTP_PROXY,
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: ['Gateway'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_compute_target_http_proxy' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          id: { type: 'string' },
+          name: { type: 'string' },
+          regional: { type: 'boolean' },
+          category: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          function: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          public: { type: 'boolean' },
+          createdOn: { type: 'number' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) =>
+          e._type === RELATIONSHIP_TYPE_LOAD_BALANCER_HAS_TARGET_HTTP_PROXY,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'HAS' },
+          _type: {
+            const: 'google_compute_url_map_has_target_http_proxy',
+          },
+        },
+      },
+    });
+  });
+});
+
 describe('#fetchComputeTargetHttpsProxies', () => {
   let recording: Recording;
 
@@ -1669,11 +2530,11 @@ describe('#fetchComputeTargetHttpsProxies', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: tempNewAccountConfig,
     });
 
-    await fetchLoadBalancers(context);
-    await fetchTargetHttpsProxies(context);
+    await fetchComputeLoadBalancers(context);
+    await fetchComputeTargetHttpsProxies(context);
 
     expect({
       numCollectedEntities: context.jobState.collectedEntities.length,
@@ -1700,7 +2561,9 @@ describe('#fetchComputeTargetHttpsProxies', () => {
           id: { type: 'string' },
           name: { type: 'string' },
           displayName: { type: 'string' },
+          regional: { type: 'boolean' },
           defaultService: { type: 'string' },
+          kind: { type: 'string' },
           category: {
             type: 'array',
             items: { type: 'string' },
@@ -1731,6 +2594,7 @@ describe('#fetchComputeTargetHttpsProxies', () => {
           },
           id: { type: 'string' },
           name: { type: 'string' },
+          regional: { type: 'boolean' },
           sslPolicy: { type: 'string' },
           category: {
             type: 'array',
@@ -1762,6 +2626,86 @@ describe('#fetchComputeTargetHttpsProxies', () => {
   });
 });
 
+describe('#fetchComputeRegionTargetHttpsProxies', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'fetchComputeRegionTargetHttpsProxies',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: tempNewAccountConfig,
+    });
+
+    await fetchComputeRegionLoadBalancers(context);
+    await fetchComputeRegionTargetHttpsProxies(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === ENTITY_TYPE_COMPUTE_TARGET_HTTPS_PROXY,
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: ['Gateway'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_compute_target_https_proxy' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          id: { type: 'string' },
+          name: { type: 'string' },
+          regional: { type: 'boolean' },
+          sslPolicy: { type: 'string' },
+          category: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          function: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          public: { type: 'boolean' },
+          createdOn: { type: 'number' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) =>
+          e._type === RELATIONSHIP_TYPE_LOAD_BALANCER_HAS_TARGET_HTTPS_PROXY,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'HAS' },
+          _type: {
+            const: 'google_compute_url_map_has_target_https_proxy',
+          },
+        },
+      },
+    });
+  });
+});
+
 describe('#fetchComputeTargetSslProxies', () => {
   let recording: Recording;
 
@@ -1781,8 +2725,8 @@ describe('#fetchComputeTargetSslProxies', () => {
       instanceConfig: integrationConfig,
     });
 
-    await fetchBackendServices(context);
-    await fetchTargetSslProxies(context);
+    await fetchComputeBackendServices(context);
+    await fetchComputeTargetSslProxies(context);
 
     expect({
       numCollectedEntities: context.jobState.collectedEntities.length,
@@ -1809,6 +2753,7 @@ describe('#fetchComputeTargetSslProxies', () => {
           id: { type: 'string' },
           name: { type: 'string' },
           displayName: { type: 'string' },
+          regional: { type: 'boolean' },
           timeoutSec: { type: 'number' },
           port: { type: 'number' },
           protocol: { type: 'string' },
@@ -1890,9 +2835,9 @@ describe('#fetchComputeSslPolicies', () => {
       instanceConfig: integrationConfig,
     });
 
-    await fetchTargetSslProxies(context);
-    await fetchTargetHttpsProxies(context);
-    await fetchSslPolicies(context);
+    await fetchComputeTargetSslProxies(context);
+    await fetchComputeTargetHttpsProxies(context);
+    await fetchComputeSslPolicies(context);
 
     expect({
       numCollectedEntities: context.jobState.collectedEntities.length,
@@ -1949,6 +2894,7 @@ describe('#fetchComputeSslPolicies', () => {
           },
           id: { type: 'string' },
           name: { type: 'string' },
+          regional: { type: 'boolean' },
           sslPolicy: { type: 'string' },
           category: {
             type: 'array',
@@ -2003,6 +2949,331 @@ describe('#fetchComputeSslPolicies', () => {
         properties: {
           _class: { const: 'HAS' },
           _type: { const: 'google_compute_target_https_proxy_has_ssl_policy' },
+        },
+      },
+    });
+  });
+});
+
+describe('#fetchComputeGlobalForwardingRules', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'fetchComputeGlobalForwardingRules',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: tempNewAccountConfig,
+    });
+
+    await fetchComputeBackendServices(context);
+    await fetchComputeNetworks(context);
+    await fetchComputeSubnetworks(context);
+    await fetchComputeTargetHttpProxies(context);
+    await fetchComputeTargetHttpsProxies(context);
+    await fetchComputeGlobalForwardingRules(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === ENTITY_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE,
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: ['Configuration'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_compute_global_forwarding_rule' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          id: { type: 'string' },
+          kind: { type: 'string' },
+          displayName: { type: 'string' },
+          name: { type: 'string' },
+          description: { type: 'string' },
+          ipAddress: { type: 'string' },
+          ipProtocol: { type: 'string' },
+          portRange: { type: 'string' },
+          ports: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          pscConnectionId: { type: 'string' },
+          serviceName: { type: 'string' },
+          loadBalancingScheme: { type: 'string' },
+          isMirroringCollector: { type: 'boolean' },
+          networkTier: { type: 'string' },
+          allPorts: { type: 'boolean' },
+          allowGlobalAccess: { type: 'boolean' },
+          subnetwork: { type: 'string' },
+          network: { type: 'string' },
+          backendService: { type: 'string' },
+          createdOn: { type: 'number' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) =>
+          e._type ===
+          RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_BACKEND_SERVICE,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'CONNECTS' },
+          _type: {
+            const:
+              'google_compute_global_forwarding_rule_connects_backend_service',
+          },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) =>
+          e._type ===
+          RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_SUBNETWORK,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'CONNECTS' },
+          _type: {
+            const: 'google_compute_global_forwarding_rule_connects_subnetwork',
+          },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) =>
+          e._type ===
+          RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_NETWORK,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'CONNECTS' },
+          _type: {
+            const: 'google_compute_global_forwarding_rule_connects_network',
+          },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) =>
+          e._type ===
+          RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_TARGET_HTTP_PROXY,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'CONNECTS' },
+          _type: {
+            const:
+              'google_compute_global_forwarding_rule_connects_target_http_proxy',
+          },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) =>
+          e._type ===
+          RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_TARGET_HTTPS_PROXY,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'CONNECTS' },
+          _type: {
+            const:
+              'google_compute_global_forwarding_rule_connects_target_https_proxy',
+          },
+        },
+      },
+    });
+  });
+});
+
+describe('#fetchComputeForwardingRules', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'fetchComputeForwardingRules',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: tempNewAccountConfig,
+    });
+
+    await fetchComputeRegionBackendServices(context);
+    await fetchComputeNetworks(context);
+    await fetchComputeSubnetworks(context);
+    await fetchComputeRegionTargetHttpProxies(context);
+    await fetchComputeRegionTargetHttpsProxies(context);
+    await fetchComputeForwardingRules(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === ENTITY_TYPE_COMPUTE_FORWARDING_RULE,
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: ['Configuration'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_compute_forwarding_rule' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          id: { type: 'string' },
+          kind: { type: 'string' },
+          displayName: { type: 'string' },
+          name: { type: 'string' },
+          description: { type: 'string' },
+          ipAddress: { type: 'string' },
+          ipProtocol: { type: 'string' },
+          portRange: { type: 'string' },
+          ports: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          pscConnectionId: { type: 'string' },
+          serviceName: { type: 'string' },
+          loadBalancingScheme: { type: 'string' },
+          isMirroringCollector: { type: 'boolean' },
+          networkTier: { type: 'string' },
+          allPorts: { type: 'boolean' },
+          allowGlobalAccess: { type: 'boolean' },
+          subnetwork: { type: 'string' },
+          network: { type: 'string' },
+          backendService: { type: 'string' },
+          createdOn: { type: 'number' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) =>
+          e._type ===
+          RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_BACKEND_SERVICE,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'CONNECTS' },
+          _type: {
+            const: 'google_compute_forwarding_rule_connects_backend_service',
+          },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) =>
+          e._type ===
+          RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_SUBNETWORK,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'CONNECTS' },
+          _type: {
+            const: 'google_compute_forwarding_rule_connects_subnetwork',
+          },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) =>
+          e._type ===
+          RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_NETWORK,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'CONNECTS' },
+          _type: { const: 'google_compute_forwarding_rule_connects_network' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) =>
+          e._type ===
+          RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_TARGET_HTTP_PROXY,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'CONNECTS' },
+          _type: {
+            const: 'google_compute_forwarding_rule_connects_target_http_proxy',
+          },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) =>
+          e._type ===
+          RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_TARGET_HTTPS_PROXY,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'CONNECTS' },
+          _type: {
+            const: 'google_compute_forwarding_rule_connects_target_https_proxy',
+          },
         },
       },
     });
