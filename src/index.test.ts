@@ -136,6 +136,13 @@ import {
   STEP_CREATE_CLUSTER_IMAGE_RELATIONSHIPS,
   STEP_DATAPROC_CLUSTERS,
 } from './steps/dataproc/constants';
+import {
+  STEP_BIG_TABLE_APP_PROFILES,
+  STEP_BIG_TABLE_BACKUPS,
+  STEP_BIG_TABLE_CLUSTERS,
+  STEP_BIG_TABLE_INSTANCES,
+  STEP_BIG_TABLE_TABLES,
+} from './steps/big-table/constants';
 
 interface ValidateInvocationInvalidConfigTestParams {
   instanceConfig?: Partial<IntegrationConfig>;
@@ -470,6 +477,21 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_CREATE_CLUSTER_IMAGE_RELATIONSHIPS]: {
+        disabled: false,
+      },
+      [STEP_BIG_TABLE_INSTANCES]: {
+        disabled: false,
+      },
+      [STEP_BIG_TABLE_APP_PROFILES]: {
+        disabled: false,
+      },
+      [STEP_BIG_TABLE_CLUSTERS]: {
+        disabled: false,
+      },
+      [STEP_BIG_TABLE_BACKUPS]: {
+        disabled: false,
+      },
+      [STEP_BIG_TABLE_TABLES]: {
         disabled: false,
       },
     };

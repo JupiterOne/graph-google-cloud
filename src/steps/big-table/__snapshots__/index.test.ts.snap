@@ -1,0 +1,432 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchAppProfiles should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Database",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "bt-instance",
+            "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
+            "state": "READY",
+            "type": "PRODUCTION",
+          },
+        },
+      ],
+      "_type": "google_bigtable_instance",
+      "active": true,
+      "createdOn": undefined,
+      "displayName": "bt-instance",
+      "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
+      "state": "READY",
+      "type": "PRODUCTION",
+      "webLink": "https://console.cloud.google.com/bigtable/instances/bt-instance/overview?project=j1-gc-integration-dev-v3",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance/appProfiles/bt-profile",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance/appProfiles/bt-profile",
+            "singleClusterRouting": Object {
+              "allowTransactionalWrites": true,
+              "clusterId": "bt-instance",
+            },
+          },
+        },
+      ],
+      "_type": "google_bigtable_app_profile",
+      "createdOn": undefined,
+      "description": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v3/instances/bt-instance/appProfiles/bt-profile",
+      "etag": undefined,
+      "instanceId": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
+      "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance/appProfiles/bt-profile",
+      "singleClusterRouting.allowTransactionalWrites": true,
+      "singleClusterRouting.clusterId": "bt-instance",
+      "webLink": "https://console.cloud.google.com/bigtable/instances/bt-instance/app-profiles/bt-profile?project=j1-gc-integration-dev-v3",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance/appProfiles/default",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "description": "Default application profile for this instance. This profile is used if you do not supply a different profile ID at connection time.",
+            "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance/appProfiles/default",
+            "singleClusterRouting": Object {
+              "allowTransactionalWrites": true,
+              "clusterId": "bt-instance",
+            },
+          },
+        },
+      ],
+      "_type": "google_bigtable_app_profile",
+      "createdOn": undefined,
+      "description": "Default application profile for this instance. This profile is used if you do not supply a different profile ID at connection time.",
+      "displayName": "projects/j1-gc-integration-dev-v3/instances/bt-instance/appProfiles/default",
+      "etag": undefined,
+      "instanceId": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
+      "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance/appProfiles/default",
+      "singleClusterRouting.allowTransactionalWrites": true,
+      "singleClusterRouting.clusterId": "bt-instance",
+      "webLink": "https://console.cloud.google.com/bigtable/instances/bt-instance/app-profiles/default?project=j1-gc-integration-dev-v3",
+    },
+  ],
+  "collectedRelationships": Array [
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
+      "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance|has|projects/j1-gc-integration-dev-v3/instances/bt-instance/appProfiles/bt-profile",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v3/instances/bt-instance/appProfiles/bt-profile",
+      "_type": "google_bigtable_instance_has_app_profile",
+      "displayName": "HAS",
+    },
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
+      "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance|has|projects/j1-gc-integration-dev-v3/instances/bt-instance/appProfiles/default",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v3/instances/bt-instance/appProfiles/default",
+      "_type": "google_bigtable_instance_has_app_profile",
+      "displayName": "HAS",
+    },
+  ],
+  "encounteredTypes": Array [
+    "google_bigtable_instance",
+    "google_bigtable_app_profile",
+    "google_bigtable_instance_has_app_profile",
+  ],
+  "numCollectedEntities": 3,
+  "numCollectedRelationships": 2,
+}
+`;
+
+exports[`#fetchBackups should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Database",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "bt-instance",
+            "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
+            "state": "READY",
+            "type": "PRODUCTION",
+          },
+        },
+      ],
+      "_type": "google_bigtable_instance",
+      "active": true,
+      "createdOn": undefined,
+      "displayName": "bt-instance",
+      "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
+      "state": "READY",
+      "type": "PRODUCTION",
+      "webLink": "https://console.cloud.google.com/bigtable/instances/bt-instance/overview?project=j1-gc-integration-dev-v3",
+    },
+    Object {
+      "_class": Array [
+        "Cluster",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "defaultStorageType": "HDD",
+            "location": "projects/j1-gc-integration-dev-v3/locations/us-central1-b",
+            "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance",
+            "serveNodes": 3,
+            "state": "READY",
+          },
+        },
+      ],
+      "_type": "google_bigtable_cluster",
+      "active": true,
+      "createdOn": undefined,
+      "defaultStorageType": "HDD",
+      "displayName": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance",
+      "instanceId": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
+      "kmsKeyName": undefined,
+      "location": "projects/j1-gc-integration-dev-v3/locations/us-central1-b",
+      "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance",
+      "serveNodes": 3,
+      "state": "READY",
+      "webLink": "https://console.cloud.google.com/bigtable/instances/bt-instance/overview?project=j1-gc-integration-dev-v3",
+    },
+    Object {
+      "_class": Array [
+        "Backup",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance/backups/tf-backup",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "encryptionInfo": Object {
+              "encryptionType": "GOOGLE_DEFAULT_ENCRYPTION",
+            },
+            "endTime": "2021-08-12T00:46:40.026785Z",
+            "expireTime": "2021-08-13T00:46:37.503Z",
+            "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance/backups/tf-backup",
+            "sourceTable": "projects/j1-gc-integration-dev-v3/instances/bt-instance/tables/tf-table",
+            "startTime": "2021-08-12T00:46:39.326777Z",
+            "state": "READY",
+          },
+        },
+      ],
+      "_type": "google_bigtable_backup",
+      "active": true,
+      "clusterId": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance/backups/tf-backup",
+      "encryptionType": "GOOGLE_DEFAULT_ENCRYPTION",
+      "endTime": 1628729200026,
+      "expireTime": 1628815597503,
+      "instanceId": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
+      "kmsKeyVersion": undefined,
+      "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance/backups/tf-backup",
+      "sizeBytes": undefined,
+      "sourceTable": "projects/j1-gc-integration-dev-v3/instances/bt-instance/tables/tf-table",
+      "startTime": 1628729199326,
+      "state": "READY",
+      "webLink": "https://console.cloud.google.com/bigtable/instances/bt-instance/backups?project=j1-gc-integration-dev-v3",
+    },
+  ],
+  "collectedRelationships": Array [
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
+      "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance|has|projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance",
+      "_type": "google_bigtable_instance_has_cluster",
+      "displayName": "HAS",
+    },
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance",
+      "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance|has|projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance/backups/tf-backup",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance/backups/tf-backup",
+      "_type": "google_bigtable_cluster_has_backup",
+      "displayName": "HAS",
+    },
+  ],
+  "encounteredTypes": Array [
+    "google_bigtable_instance",
+    "google_bigtable_cluster",
+    "google_bigtable_instance_has_cluster",
+    "google_bigtable_backup",
+    "google_bigtable_cluster_has_backup",
+  ],
+  "numCollectedEntities": 3,
+  "numCollectedRelationships": 2,
+}
+`;
+
+exports[`#fetchClusters should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Database",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "bt-instance",
+            "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
+            "state": "READY",
+            "type": "PRODUCTION",
+          },
+        },
+      ],
+      "_type": "google_bigtable_instance",
+      "active": true,
+      "createdOn": undefined,
+      "displayName": "bt-instance",
+      "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
+      "state": "READY",
+      "type": "PRODUCTION",
+      "webLink": "https://console.cloud.google.com/bigtable/instances/bt-instance/overview?project=j1-gc-integration-dev-v3",
+    },
+    Object {
+      "_class": Array [
+        "Cluster",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "defaultStorageType": "HDD",
+            "location": "projects/j1-gc-integration-dev-v3/locations/us-central1-b",
+            "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance",
+            "serveNodes": 3,
+            "state": "READY",
+          },
+        },
+      ],
+      "_type": "google_bigtable_cluster",
+      "active": true,
+      "createdOn": undefined,
+      "defaultStorageType": "HDD",
+      "displayName": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance",
+      "instanceId": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
+      "kmsKeyName": undefined,
+      "location": "projects/j1-gc-integration-dev-v3/locations/us-central1-b",
+      "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance",
+      "serveNodes": 3,
+      "state": "READY",
+      "webLink": "https://console.cloud.google.com/bigtable/instances/bt-instance/overview?project=j1-gc-integration-dev-v3",
+    },
+  ],
+  "collectedRelationships": Array [
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
+      "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance|has|projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance",
+      "_type": "google_bigtable_instance_has_cluster",
+      "displayName": "HAS",
+    },
+  ],
+  "encounteredTypes": Array [
+    "google_bigtable_instance",
+    "google_bigtable_cluster",
+    "google_bigtable_instance_has_cluster",
+  ],
+  "numCollectedEntities": 2,
+  "numCollectedRelationships": 1,
+}
+`;
+
+exports[`#fetchInstances should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Database",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "bt-instance",
+            "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
+            "state": "READY",
+            "type": "PRODUCTION",
+          },
+        },
+      ],
+      "_type": "google_bigtable_instance",
+      "active": true,
+      "createdOn": undefined,
+      "displayName": "bt-instance",
+      "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
+      "state": "READY",
+      "type": "PRODUCTION",
+      "webLink": "https://console.cloud.google.com/bigtable/instances/bt-instance/overview?project=j1-gc-integration-dev-v3",
+    },
+  ],
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
+    "google_bigtable_instance",
+  ],
+  "numCollectedEntities": 1,
+  "numCollectedRelationships": 0,
+}
+`;
+
+exports[`#fetchTables should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Database",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "bt-instance",
+            "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
+            "state": "READY",
+            "type": "PRODUCTION",
+          },
+        },
+      ],
+      "_type": "google_bigtable_instance",
+      "active": true,
+      "createdOn": undefined,
+      "displayName": "bt-instance",
+      "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
+      "state": "READY",
+      "type": "PRODUCTION",
+      "webLink": "https://console.cloud.google.com/bigtable/instances/bt-instance/overview?project=j1-gc-integration-dev-v3",
+    },
+    Object {
+      "_class": Array [
+        "DataCollection",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance/tables/tf-table",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance/tables/tf-table",
+          },
+        },
+      ],
+      "_type": "google_bigtable_table",
+      "backup": undefined,
+      "classification": null,
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v3/instances/bt-instance/tables/tf-table",
+      "granularity": undefined,
+      "instanceId": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
+      "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance/tables/tf-table",
+      "sourceType": undefined,
+      "webLink": "https://console.cloud.google.com/bigtable/instances/bt-instance/tables?project=j1-gc-integration-dev-v3",
+    },
+  ],
+  "collectedRelationships": Array [
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
+      "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance|has|projects/j1-gc-integration-dev-v3/instances/bt-instance/tables/tf-table",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v3/instances/bt-instance/tables/tf-table",
+      "_type": "google_bigtable_instance_has_table",
+      "displayName": "HAS",
+    },
+  ],
+  "encounteredTypes": Array [
+    "google_bigtable_instance",
+    "google_bigtable_table",
+    "google_bigtable_instance_has_table",
+  ],
+  "numCollectedEntities": 2,
+  "numCollectedRelationships": 1,
+}
+`;

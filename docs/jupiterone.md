@@ -294,6 +294,11 @@ The following entities are created:
 | Big Query Dataset                                        | `google_bigquery_dataset`                                         | `DataStore`, `Database`            |
 | Big Query Model                                          | `google_bigquery_model`                                           | `Model`                            |
 | Big Query Table                                          | `google_bigquery_table`                                           | `DataCollection`                   |
+| Bigtable AppProfile                                      | `google_bigtable_app_profile`                                     | `Configuration`                    |
+| Bigtable Backup                                          | `google_bigtable_backup`                                          | `Backup`                           |
+| Bigtable Cluster                                         | `google_bigtable_cluster`                                         | `Cluster`                          |
+| Bigtable Instance                                        | `google_bigtable_instance`                                        | `Database`                         |
+| Bigtable Table                                           | `google_bigtable_table`                                           | `DataCollection`                   |
 | Binary Authorization Policy                              | `google_binary_authorization_policy`                              | `AccessPolicy`                     |
 | Cloud API Service                                        | `google_cloud_api_service`                                        | `Service`                          |
 | Cloud Function                                           | `google_cloud_function`                                           | `Function`                         |
@@ -379,6 +384,12 @@ The following relationships are created/mapped:
 | `google_bigquery_dataset`                                        | **HAS**               | `google_bigquery_model`                                           |
 | `google_bigquery_dataset`                                        | **HAS**               | `google_bigquery_table`                                           |
 | `google_bigquery_dataset`                                        | **USES**              | `google_kms_crypto_key`                                           |
+| `google_bigtable_cluster`                                        | **HAS**               | `google_bigtable_backup`                                          |
+| `google_bigtable_cluster`                                        | **USES**              | `google_kms_crypto_key`                                           |
+| `google_bigtable_instance`                                       | **HAS**               | `google_bigtable_app_profile`                                     |
+| `google_bigtable_instance`                                       | **HAS**               | `google_bigtable_cluster`                                         |
+| `google_bigtable_instance`                                       | **HAS**               | `google_bigtable_table`                                           |
+| `google_bigtable_table`                                          | **HAS**               | `google_bigtable_backup`                                          |
 | `google_cloud_api_service`                                       | **HAS**               | `google_iam_role`                                                 |
 | `internet`                                                       | **ALLOWS**            | `google_compute_firewall`                                         |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_folder`                                             |
