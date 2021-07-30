@@ -143,10 +143,6 @@ export function createComputeImageEntity({
   });
 }
 
-export function getComputeDiskKey(id: string) {
-  return `disk:${id}`;
-}
-
 function getCommonDiskProps(data: compute_v1.Schema$Disk) {
   return {
     id: data.id as string,
@@ -191,6 +187,10 @@ function getCommonDiskProps(data: compute_v1.Schema$Disk) {
   };
 }
 
+export function getComputeDiskKey(id: string) {
+  return `disk:${id}`;
+}
+
 export function createComputeDiskEntity(
   data: compute_v1.Schema$Disk,
   projectId: string,
@@ -220,10 +220,6 @@ export function createComputeDiskEntity(
   });
 }
 
-export function getComputeSnapshotKey(id: string) {
-  return `snapshot:${id}`;
-}
-
 export function createComputeRegionDiskEntity(
   data: compute_v1.Schema$Disk,
   projectId: string,
@@ -249,6 +245,10 @@ export function createComputeRegionDiskEntity(
       },
     },
   });
+}
+
+export function getComputeSnapshotKey(id: string) {
+  return `snapshot:${id}`;
 }
 
 export function createComputeSnapshotEntity(data: compute_v1.Schema$Snapshot) {
