@@ -14,6 +14,8 @@ import {
   buildOrgFolderProjectMappedRelationships,
   fetchResourceManagerFolders,
   fetchResourceManagerOrganization,
+  fetchResourceManagerProject,
+  PROJECT_ENTITY_TYPE,
 } from '../resource-manager';
 import {
   fetchIamCustomRoles,
@@ -273,7 +275,11 @@ describe('#fetchIamBindings', () => {
         google_iam_service_account_assigned_role,
         google_iam_binding_allows_cloud_organization,
         google_iam_binding_allows_cloud_folder,
-        google_iam_binding_allows_ANY_RESOURCE,
+        google_iam_binding_allows_cloud_project,
+        google_iam_binding_allows_storage_bucket,
+        google_iam_binding_allows_bigquery_dataset,
+        google_iam_binding_allows_kms_crypto_key,
+        google_iam_binding_allows_kms_key_ring,
       } = separateGraphObjectsByType(
         context.jobState.collectedRelationships,
         context.jobState.encounteredTypes,
@@ -283,6 +289,11 @@ describe('#fetchIamBindings', () => {
       expect(
         google_iam_binding_uses_role,
       ).toHaveBothDirectAndMappedRelationships('google_iam_binding_uses_role');
+      // Do not have examples of some resources ingested in this integration and some in others yet.
+      expect(google_iam_binding_allows_storage_bucket.length > 0).toBe(true);
+      expect(google_iam_binding_allows_bigquery_dataset.length > 0).toBe(true);
+      expect(google_iam_binding_allows_kms_crypto_key.length > 0).toBe(true);
+      expect(google_iam_binding_allows_kms_key_ring.length > 0).toBe(true);
 
       // Mapped Relationships
       expect(google_iam_binding_assigned_user).toHaveOnlyMappedRelationships(
@@ -298,8 +309,10 @@ describe('#fetchIamBindings', () => {
         'google_group_assigned_iam_role',
       );
       expect(
-        google_iam_binding_allows_ANY_RESOURCE,
-      ).toHaveOnlyMappedRelationships('google_iam_binding_allows_ANY_RESOURCE');
+        google_iam_binding_allows_cloud_project,
+      ).toHaveOnlyMappedRelationships(
+        'google_iam_binding_allows_cloud_project',
+      );
 
       // Direct Relationships
       expect(
@@ -384,6 +397,12 @@ describe('#fetchIamBindings', () => {
   async function getSetupEntities() {
     const context = createMockContext();
 
+    await fetchResourceManagerProject(context);
+    const projects = context.jobState.collectedEntities.filter(
+      (e) => e._type === PROJECT_ENTITY_TYPE,
+    );
+    expect(projects.length).toBe(1);
+
     await fetchStorageBuckets(context);
     const storageBuckets = context.jobState.collectedEntities.filter(
       (e) => e._type === CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
@@ -406,6 +425,7 @@ describe('#fetchIamBindings', () => {
       storageBuckets,
       bigQueryDatasets,
       cloudFunctions,
+      projects,
     };
   }
 
@@ -414,22 +434,44 @@ describe('#fetchIamBindings', () => {
       'createMappedBindingAnyResourceRelationships',
       __dirname,
       async () => {
-        const targetResourcesNotIngestedInThisRun = await getSetupEntities();
+        const targetResourcesNotIngestedInThisRun = flatten(
+          Object.values(await getSetupEntities()),
+        );
+        const resourceKeys = targetResourcesNotIngestedInThisRun.map(
+          (e) => e._key,
+        );
 
         const context = createMockContext();
 
         await fetchIamBindings(context);
         await createBindingToAnyResourceRelationships(context);
 
-        const bindingAnyResourceMappedRelationships =
-          context.jobState.collectedRelationships.filter((r) =>
-            [
-              'google_iam_binding_allows_storage_bucket',
-              'google_iam_binding_allows_bigquery_dataset',
-              'google_iam_binding_allows_cloud_function',
-            ].includes(r._type),
-          );
+        const bindingAnyResourceMappedRelationships = (
+          context.jobState.collectedRelationships as MappedRelationship[]
+        ).filter((r: MappedRelationship) =>
+          resourceKeys.includes(r._mapping?.targetEntity?._key),
+        );
 
+        expect(
+          bindingAnyResourceMappedRelationships.filter(
+            (r) => r._type === 'google_iam_binding_allows_storage_bucket',
+          ).length > 0,
+        ).toBe(true);
+        expect(
+          bindingAnyResourceMappedRelationships.filter(
+            (r) => r._type === 'google_iam_binding_allows_bigquery_dataset',
+          ).length > 0,
+        ).toBe(true);
+        expect(
+          bindingAnyResourceMappedRelationships.filter(
+            (r) => r._type === 'google_iam_binding_allows_cloud_function',
+          ).length > 0,
+        ).toBe(true);
+        expect(
+          bindingAnyResourceMappedRelationships.filter(
+            (r) => r._type === 'google_iam_binding_allows_cloud_project',
+          ).length > 0,
+        ).toBe(true);
         expect(bindingAnyResourceMappedRelationships).toTargetEntities(
           flatten(Object.values(targetResourcesNotIngestedInThisRun)),
         );

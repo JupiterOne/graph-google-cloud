@@ -258,7 +258,10 @@ export async function createBindingToAnyResourceRelationships(
       const { type, key } =
         makeLogsForTypeAndKeyResponse(
           logger,
-          getTypeAndKeyFromResourceIdentifier(bindingEntity.resource),
+          await getTypeAndKeyFromResourceIdentifier(
+            bindingEntity.resource,
+            context,
+          ),
         ) ?? {};
       if (typeof type !== 'string' || typeof key !== 'string') {
         return;
@@ -277,7 +280,11 @@ export async function createBindingToAnyResourceRelationships(
             })
           : createMappedRelationship({
               _class: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP._class,
-              _type: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP._type,
+              _type: generateRelationshipType(
+                RelationshipClass.ALLOWS,
+                bindingEntities.BINDINGS._type,
+                type,
+              ),
               _mapping: {
                 relationshipDirection: RelationshipDirection.FORWARD,
                 sourceEntityKey: bindingEntity._key,

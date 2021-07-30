@@ -1,12 +1,13 @@
 import { findResourceKindFromCloudResourceIdentifier } from './findResourceKindFromCloudResourceIdentifier';
 
-const TEST_PROJECT_ID = '12345';
+export const TEST_PROJECT_ID = '12345';
 const TEST_LOCATION = 'us-east1';
 const TEST_PROJECT_NUMBER = '67890';
 const TEST_REGION = 'us-east2';
 const TEST_ZONE = 'us-east3';
 const TEST_CLUSTER = 'test';
 const GENERIC_ID = 'abcdef12345';
+export const TEST_PROJECT_NAME = 'testy-testerson';
 export const testResourceIdentifiers = {
   [`//cloudfunctions.googleapis.com/projects/${TEST_PROJECT_ID}/locations/${TEST_LOCATION}/functions/${GENERIC_ID}`]:
     'cloudfunctions.googleapis.com/CloudFunction',
@@ -14,7 +15,7 @@ export const testResourceIdentifiers = {
     'cloudresourcemanager.googleapis.com/Organization',
   [`//cloudresourcemanager.googleapis.com/folders/${GENERIC_ID}`]:
     'cloudresourcemanager.googleapis.com/Folder',
-  [`//cloudresourcemanager.googleapis.com/projects/${GENERIC_ID}`]:
+  [`//cloudresourcemanager.googleapis.com/projects/${TEST_PROJECT_NAME}`]:
     'cloudresourcemanager.googleapis.com/Project',
   [`//cloudresourcemanager.googleapis.com/projects/${TEST_PROJECT_ID}`]:
     'cloudresourcemanager.googleapis.com/Project',

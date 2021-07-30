@@ -54,7 +54,7 @@ import {
 } from '../../utils/iam';
 import { createIamRoleEntity } from '../iam/converters';
 import { RelationshipClass } from '@jupiterone/data-model';
-import { cacheProjectNameToId } from '../../utils/jobState';
+import { cacheProjectNameAndId } from '../../utils/jobState';
 
 export * from './constants';
 
@@ -300,7 +300,7 @@ export async function buildOrgFolderProjectMappedRelationships(
   if (organizationEntity) {
     await client.iterateProjects(async (project) => {
       const projectEntity = createProjectEntity(client.projectId, project);
-      await cacheProjectNameToId(jobState, project);
+      await cacheProjectNameAndId(jobState, project);
 
       await jobState.addRelationship(
         createMappedRelationship({
@@ -328,7 +328,7 @@ export async function buildOrgFolderProjectMappedRelationships(
     async (folderEntity) => {
       await client.iterateProjects(async (project) => {
         const projectEntity = createProjectEntity(client.projectId, project);
-        await cacheProjectNameToId(jobState, project);
+        await cacheProjectNameAndId(jobState, project);
 
         await jobState.addRelationship(
           createMappedRelationship({
@@ -363,7 +363,7 @@ export async function fetchResourceManagerProject(
   let project;
   try {
     project = await client.getProject();
-    await cacheProjectNameToId(jobState, project);
+    await cacheProjectNameAndId(jobState, project);
   } catch (err) {
     // This step _always_ executes because it creates a root `Account` entity for the integration instance.
     // However, users can only fetch the project details if cloudresourcemanager API is enabled.

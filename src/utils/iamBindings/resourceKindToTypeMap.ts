@@ -59,6 +59,7 @@ import { ENTITY_TYPE_REDIS_INSTANCE } from '../../steps/redis/constants';
 import {
   ORGANIZATION_ENTITY_TYPE,
   FOLDER_ENTITY_TYPE,
+  PROJECT_ENTITY_TYPE,
 } from '../../steps/resource-manager';
 import { API_SERVICE_ENTITY_TYPE } from '../../steps/service-usage';
 import {
@@ -83,7 +84,7 @@ export const GOOGLE_RESOURCE_KIND_TO_J1_TYPE_MAP: {
   'cloudfunctions.googleapis.com/CloudFunction': CLOUD_FUNCTION_ENTITY_TYPE,
   'cloudresourcemanager.googleapis.com/Organization': ORGANIZATION_ENTITY_TYPE,
   'cloudresourcemanager.googleapis.com/Folder': FOLDER_ENTITY_TYPE,
-  'cloudresourcemanager.googleapis.com/Project': NONE, // can't map directly to PROJECT_ENTITY_TYPE right now as we need a way to differentiate between a PROJECT_NAME and a PROJECT_ID
+  'cloudresourcemanager.googleapis.com/Project': PROJECT_ENTITY_TYPE,
   'run.googleapis.com/DomainMapping': NONE,
   'run.googleapis.com/Revision': NONE,
   'run.googleapis.com/Service': ENTITY_TYPE_CLOUD_RUN_SERVICE,
