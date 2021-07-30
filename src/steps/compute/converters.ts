@@ -49,6 +49,14 @@ import {
   ENTITY_TYPE_COMPUTE_IMAGE,
   ENTITY_CLASS_COMPUTE_SNAPSHOT,
   ENTITY_TYPE_COMPUTE_SNAPSHOT,
+  ENTITY_CLASS_COMPUTE_ADDRESS,
+  ENTITY_TYPE_COMPUTE_ADDRESS,
+  ENTITY_CLASS_COMPUTE_FORWARDING_RULE,
+  ENTITY_TYPE_COMPUTE_FORWARDING_RULE,
+  ENTITY_CLASS_COMPUTE_GLOBAL_FORWARDING_RULE,
+  ENTITY_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE,
+  ENTITY_CLASS_COMPUTE_GLOBAL_ADDRESS,
+  ENTITY_TYPE_COMPUTE_GLOBAL_ADDRESS,
 } from './constants';
 import { getGoogleCloudConsoleWebLink, getLastUrlPart } from '../../utils/url';
 import { parseRegionNameFromRegionUrl } from '../../google-cloud/regions';
@@ -131,6 +139,50 @@ export function createComputeImageEntity({
   });
 }
 
+function getCommonDiskProps(data: compute_v1.Schema$Disk) {
+  return {
+    id: data.id as string,
+    displayName: data.name as string,
+    description: data.description,
+    name: data.name,
+    createdOn: parseTimePropertyValue(data.creationTimestamp),
+    sizeGB: data.sizeGb,
+    // Reference: https://cloud.google.com/compute/docs/reference/rest/v1/disks/get#response-body
+    //
+    // [Output Only] The status of disk creation. CREATING: Disk is
+    // provisioning.
+    //
+    // RESTORING: Source data is being copied into the disk.
+    // FAILED: Disk creation failed.
+    // READY: Disk is ready for use.
+    // DELETING: Disk is deleting.
+    active: data.status === 'READY',
+    status: data.status,
+    type: data.type && getLastUrlPart(data.type),
+    licenses: data.licenses,
+    guestOsFeatures:
+      data.guestOsFeatures &&
+      (data.guestOsFeatures.map((g) => g.type) as string[]),
+    lastAttachTimestamp: parseTimePropertyValue(data.lastAttachTimestamp),
+    labelFingerprint: data.labelFingerprint,
+    licenseCodes: data.licenseCodes,
+    physicalBlockSizeBytes: data.physicalBlockSizeBytes,
+    sourceSnapshot: data.sourceSnapshot,
+    sourceSnapshotId: data.sourceSnapshotId,
+    // 4.7 Ensure VM disks for critical VMs are encrypted with Customer-Supplied Encryption Keys (CSEK)
+    isCustomerSuppliedKeysEncrypted:
+      data.diskEncryptionKey?.sha256 !== undefined,
+    kmsKeyName: data.diskEncryptionKey?.kmsKeyName,
+    kmsKeyServiceAccount: data.diskEncryptionKey?.kmsKeyServiceAccount,
+    kind: data.kind,
+    // Compute disks are encrypted by default
+    encrypted: true,
+    // If `classification` is not included in tags, we do not know how to
+    // classify it.
+    classification: null,
+  };
+}
+
 export function createComputeDiskEntity(
   data: compute_v1.Schema$Disk,
   projectId: string,
@@ -147,48 +199,40 @@ export function createComputeDiskEntity(
         _class: ENTITY_CLASS_COMPUTE_DISK,
         _type: ENTITY_TYPE_COMPUTE_DISK,
         _key: `disk:${data.id}`,
-        id: data.id as string,
-        displayName: data.name as string,
-        description: data.description,
-        name: data.name,
-        createdOn: getTime(data.creationTimestamp),
         zone,
-        sizeGB: data.sizeGb,
-        // Reference: https://cloud.google.com/compute/docs/reference/rest/v1/disks/get#response-body
-        //
-        // [Output Only] The status of disk creation. CREATING: Disk is
-        // provisioning.
-        //
-        // RESTORING: Source data is being copied into the disk.
-        // FAILED: Disk creation failed.
-        // READY: Disk is ready for use.
-        // DELETING: Disk is deleting.
-        active: data.status === 'READY',
-        status: data.status,
         sourceImage: data.sourceImage,
         sourceImageId: data.sourceImageId,
-        type: data.type && getLastUrlPart(data.type),
-        licenses: data.licenses,
-        guestOsFeatures:
-          data.guestOsFeatures &&
-          (data.guestOsFeatures.map((g) => g.type) as string[]),
-        lastAttachTimestamp: getTime(data.lastAttachTimestamp),
-        labelFingerprint: data.labelFingerprint,
-        licenseCodes: data.licenseCodes,
-        physicalBlockSizeBytes: data.physicalBlockSizeBytes,
-        // 4.7 Ensure VM disks for critical VMs are encrypted with Customer-Supplied Encryption Keys (CSEK)
-        isCustomerSuppliedKeysEncrypted:
-          data.diskEncryptionKey?.sha256 !== undefined,
-        kmsKeyName: data.diskEncryptionKey?.kmsKeyName,
-        kmsKeyServiceAccount: data.diskEncryptionKey?.kmsKeyServiceAccount,
-        kind: data.kind,
-        // Compute disks are encrypted by default
-        encrypted: true,
-        // If `classification` is not included in tags, we do not know how to
-        // classify it.
-        classification: null,
+        regional: false,
+        ...getCommonDiskProps(data),
         webLink: getGoogleCloudConsoleWebLink(
           `/compute/disksDetail/zones/${zone}/disks/${data.name}?project=${projectId}`,
+        ),
+      },
+    },
+  });
+}
+
+export function createComputeRegionDiskEntity(
+  data: compute_v1.Schema$Disk,
+  projectId: string,
+) {
+  const region = getLastUrlPart(data.region!);
+
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: {
+        ...data,
+        tags: buildComputeInstanceTags(data),
+      },
+      assign: {
+        _class: ENTITY_CLASS_COMPUTE_DISK,
+        _type: ENTITY_TYPE_COMPUTE_DISK,
+        _key: `region_disk:${data.id}`,
+        region,
+        regional: true,
+        ...getCommonDiskProps(data),
+        webLink: getGoogleCloudConsoleWebLink(
+          `/compute/disksDetail/regions/${region}/disks/${data.name}?project=${projectId}`,
         ),
       },
     },
@@ -699,6 +743,120 @@ export function createComputeNetworkEntity(
   });
 }
 
+function getCommonGlobalAddressProps(
+  data: compute_v1.Schema$Address,
+  projectId: string,
+) {
+  return {
+    _key: data.selfLink as string,
+    id: data.id as string,
+    kind: data.kind,
+    displayName: data.name as string,
+    name: data.name,
+    description: data.description,
+    ipAddress: data.address,
+    ipVersion: data.ipVersion,
+    addressType: data.addressType,
+    status: data.status,
+    purpose: data.purpose,
+    network: data.network,
+    networkTier: data.networkTier,
+    subnetwork: data.subnetwork,
+    createdOn: parseTimePropertyValue(data.creationTimestamp),
+    webLink: getGoogleCloudConsoleWebLink(
+      `/networking/addresses/list?project=${projectId}`,
+    ),
+  };
+}
+
+export function createComputeGlobalAddressEntity(
+  data: compute_v1.Schema$Address,
+  projectId: string,
+) {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_COMPUTE_GLOBAL_ADDRESS,
+        _type: ENTITY_TYPE_COMPUTE_GLOBAL_ADDRESS,
+        ...getCommonGlobalAddressProps(data, projectId),
+      },
+    },
+  });
+}
+
+export function createComputeAddressEntity(
+  data: compute_v1.Schema$Address,
+  projectId: string,
+) {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_COMPUTE_ADDRESS,
+        _type: ENTITY_TYPE_COMPUTE_ADDRESS,
+        ...getCommonGlobalAddressProps(data, projectId),
+      },
+    },
+  });
+}
+
+function getCommonForwardingRuleProps(data: compute_v1.Schema$ForwardingRule) {
+  return {
+    _key: data.selfLink as string,
+    id: data.id as string,
+    kind: data.kind,
+    displayName: data.name as string,
+    name: data.name,
+    description: data.description,
+    ipAddress: data.IPAddress,
+    ipProtocol: data.IPProtocol,
+    portRange: data.portRange,
+    ports: data.ports,
+    pscConnectionId: data.pscConnectionId,
+    serviceName: data.serviceName,
+    loadBalancingScheme: data.loadBalancingScheme,
+    isMirroringCollector: data.isMirroringCollector,
+    networkTier: data.networkTier,
+    allPorts: data.allPorts,
+    allowGlobalAccess: data.allowGlobalAccess,
+    subnetwork: data.subnetwork,
+    network: data.network,
+    backendService: data.backendService,
+    createdOn: parseTimePropertyValue(data.creationTimestamp),
+  };
+}
+
+export function createComputeGlobalForwardingRuleEntity(
+  data: compute_v1.Schema$ForwardingRule,
+) {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_COMPUTE_GLOBAL_FORWARDING_RULE,
+        _type: ENTITY_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE,
+        ...getCommonForwardingRuleProps(data),
+      },
+    },
+  });
+}
+
+export function createComputeForwardingRuleEntity(
+  data: compute_v1.Schema$ForwardingRule,
+) {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_COMPUTE_FORWARDING_RULE,
+        _type: ENTITY_TYPE_COMPUTE_FORWARDING_RULE,
+        ...getCommonForwardingRuleProps(data),
+      },
+    },
+  });
+}
+
 export function getAccessConfigProperties(
   accessConfig: compute_v1.Schema$AccessConfig,
 ) {
@@ -803,25 +961,61 @@ export function createFirewallRuleMappedRelationship({
   });
 }
 
-export function createHealthCheckEntity(data: compute_v1.Schema$HealthCheck) {
+function getCommonHealthCheckProps(data: compute_v1.Schema$HealthCheck) {
+  return {
+    _key: data.selfLink as string,
+    id: data.id as string,
+    name: data.name,
+    description: data.description,
+    checkIntervalSec: data.checkIntervalSec,
+    timeoutSec: data.timeoutSec,
+    unhealthyThreshold: data.unhealthyThreshold,
+    healthyThreshold: data.healthyThreshold,
+    type: data.type,
+    category: ['network'],
+    function: ['validation'],
+    createdOn: parseTimePropertyValue(data.creationTimestamp),
+  };
+}
+
+export function createRegionHealthCheckEntity(
+  data: compute_v1.Schema$HealthCheck,
+  projectId: string,
+) {
+  const region = getLastUrlPart(data.region!);
+
   return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {
         _class: ENTITY_CLASS_COMPUTE_HEALTH_CHECK,
         _type: ENTITY_TYPE_COMPUTE_HEALTH_CHECK,
-        _key: data.selfLink as string,
-        id: data.id as string,
-        name: data.name,
-        description: data.description,
-        checkIntervalSec: data.checkIntervalSec,
-        timeoutSec: data.timeoutSec,
-        unhealthyThreshold: data.unhealthyThreshold,
-        healthyThreshold: data.healthyThreshold,
-        type: data.type,
-        category: ['network'],
-        function: ['validation'],
-        createdOn: parseTimePropertyValue(data.creationTimestamp),
+        region,
+        regional: true,
+        ...getCommonHealthCheckProps(data),
+        webLink: getGoogleCloudConsoleWebLink(
+          `/compute/healthChecks/details/regions/${region}/${data.name}?project=${projectId}`,
+        ),
+      },
+    },
+  });
+}
+
+export function createHealthCheckEntity(
+  data: compute_v1.Schema$HealthCheck,
+  projectId: string,
+) {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_COMPUTE_HEALTH_CHECK,
+        _type: ENTITY_TYPE_COMPUTE_HEALTH_CHECK,
+        regional: false,
+        ...getCommonHealthCheckProps(data),
+        webLink: getGoogleCloudConsoleWebLink(
+          `/compute/healthChecks/details/${data.name}?project=${projectId}`,
+        ),
       },
     },
   });
@@ -875,6 +1069,53 @@ export function createInstanceGroupNamedPortEntity({
   });
 }
 
+function getCommonInstanceGroupProps({
+  data,
+  regionName,
+  projectId,
+}: {
+  data: compute_v1.Schema$InstanceGroup;
+  regionName: string;
+  projectId: string;
+}) {
+  return {
+    _key: data.selfLink as string,
+    id: data.id as string,
+    name: data.name,
+    network: data.network,
+    zone: data.zone,
+    subnetwork: data.subnetwork,
+    createdOn: parseTimePropertyValue(data.creationTimestamp),
+    webLink: getInstanceGroupWebLink({
+      instanceGroupName: data.name!,
+      regionName,
+      projectId,
+    }),
+  };
+}
+
+export function createRegionInstanceGroupEntity(
+  data: compute_v1.Schema$InstanceGroup,
+  projectId: string,
+  regionName: string,
+) {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_COMPUTE_INSTANCE_GROUP,
+        _type: ENTITY_TYPE_COMPUTE_INSTANCE_GROUP,
+        regional: true,
+        ...getCommonInstanceGroupProps({
+          data,
+          projectId,
+          regionName,
+        }),
+      },
+    },
+  });
+}
+
 export function createInstanceGroupEntity(
   data: compute_v1.Schema$InstanceGroup,
   projectId: string,
@@ -886,18 +1127,43 @@ export function createInstanceGroupEntity(
       assign: {
         _class: ENTITY_CLASS_COMPUTE_INSTANCE_GROUP,
         _type: ENTITY_TYPE_COMPUTE_INSTANCE_GROUP,
-        _key: data.selfLink as string,
-        id: data.id as string,
-        name: data.name,
-        network: data.network,
-        zone: data.zone,
-        subnetwork: data.subnetwork,
-        createdOn: parseTimePropertyValue(data.creationTimestamp),
-        webLink: getInstanceGroupWebLink({
-          instanceGroupName: data.name!,
-          regionName,
+        regional: false,
+        ...getCommonInstanceGroupProps({
+          data,
           projectId,
+          regionName,
         }),
+      },
+    },
+  });
+}
+
+function getCommonLoadBalancerProps(data: compute_v1.Schema$UrlMap) {
+  return {
+    _key: data.selfLink as string,
+    id: data.id as string,
+    name: data.name,
+    displayName: data.name as string,
+    defaultService: data.defaultService,
+    description: data.description,
+    kind: data.kind,
+    category: ['network'],
+    function: ['load-balancing'],
+    public: true,
+    createdOn: parseTimePropertyValue(data.creationTimestamp),
+  };
+}
+
+export function createRegionLoadBalancerEntity(data: compute_v1.Schema$UrlMap) {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_COMPUTE_LOAD_BALANCER,
+        _type: ENTITY_TYPE_COMPUTE_LOAD_BALANCER,
+        region: data.region,
+        regional: true,
+        ...getCommonLoadBalancerProps(data),
       },
     },
   });
@@ -910,15 +1176,40 @@ export function createLoadBalancerEntity(data: compute_v1.Schema$UrlMap) {
       assign: {
         _class: ENTITY_CLASS_COMPUTE_LOAD_BALANCER,
         _type: ENTITY_TYPE_COMPUTE_LOAD_BALANCER,
-        _key: data.selfLink as string,
-        id: data.id as string,
-        name: data.name,
-        displayName: data.name as string,
-        defaultService: data.defaultService,
-        category: ['network'],
-        function: ['load-balancing'],
-        public: true,
-        createdOn: parseTimePropertyValue(data.creationTimestamp),
+        regional: false,
+        ...getCommonLoadBalancerProps(data),
+      },
+    },
+  });
+}
+
+function getCommonBackendServiceProps(data: compute_v1.Schema$BackendService) {
+  return {
+    _key: data.selfLink as string,
+    id: data.id as string,
+    name: data.name,
+    displayName: data.name as string,
+    timeoutSec: data.timeoutSec,
+    port: data.port,
+    protocol: data.protocol,
+    enableCDN: data.enableCDN,
+    category: ['network'],
+    function: ['load-balancing'],
+    createdOn: parseTimePropertyValue(data.creationTimestamp),
+  };
+}
+
+export function createRegionBackendServiceEntity(
+  data: compute_v1.Schema$BackendService,
+) {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_COMPUTE_BACKEND_SERVICE,
+        _type: ENTITY_TYPE_COMPUTE_BACKEND_SERVICE,
+        regional: true,
+        ...getCommonBackendServiceProps(data),
       },
     },
   });
@@ -933,17 +1224,8 @@ export function createBackendServiceEntity(
       assign: {
         _class: ENTITY_CLASS_COMPUTE_BACKEND_SERVICE,
         _type: ENTITY_TYPE_COMPUTE_BACKEND_SERVICE,
-        _key: data.selfLink as string,
-        id: data.id as string,
-        name: data.name,
-        displayName: data.name as string,
-        timeoutSec: data.timeoutSec,
-        port: data.port,
-        protocol: data.protocol,
-        enableCDN: data.enableCDN,
-        category: ['network'],
-        function: ['load-balancing'],
-        createdOn: parseTimePropertyValue(data.creationTimestamp),
+        regional: false,
+        ...getCommonBackendServiceProps(data),
       },
     },
   });
@@ -995,6 +1277,37 @@ export function createTargetSslProxyEntity(
   });
 }
 
+function getCommonTargetHttpsProxyProps(
+  data: compute_v1.Schema$TargetHttpsProxy,
+) {
+  return {
+    _key: data.selfLink as string,
+    id: data.id as string,
+    name: data.name,
+    sslPolicy: data.sslPolicy,
+    category: ['network'],
+    function: ['load-balancing'],
+    public: true,
+    createdOn: parseTimePropertyValue(data.creationTimestamp),
+  };
+}
+
+export function createRegionTargetHttpsProxyEntity(
+  data: compute_v1.Schema$TargetHttpsProxy,
+) {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_COMPUTE_TARGET_HTTPS_PROXY,
+        _type: ENTITY_TYPE_COMPUTE_TARGET_HTTPS_PROXY,
+        regional: true,
+        ...getCommonTargetHttpsProxyProps(data),
+      },
+    },
+  });
+}
+
 export function createTargetHttpsProxyEntity(
   data: compute_v1.Schema$TargetHttpsProxy,
 ) {
@@ -1004,14 +1317,38 @@ export function createTargetHttpsProxyEntity(
       assign: {
         _class: ENTITY_CLASS_COMPUTE_TARGET_HTTPS_PROXY,
         _type: ENTITY_TYPE_COMPUTE_TARGET_HTTPS_PROXY,
-        _key: data.selfLink as string,
-        id: data.id as string,
-        name: data.name,
-        sslPolicy: data.sslPolicy,
-        category: ['network'],
-        function: ['load-balancing'],
-        public: true,
-        createdOn: parseTimePropertyValue(data.creationTimestamp),
+        regional: false,
+        ...getCommonTargetHttpsProxyProps(data),
+      },
+    },
+  });
+}
+
+function getCommonTargetHttpProxyProps(
+  data: compute_v1.Schema$TargetHttpProxy,
+) {
+  return {
+    _key: data.selfLink as string,
+    id: data.id as string,
+    name: data.name,
+    category: ['network'],
+    function: ['load-balancing'],
+    public: true,
+    createdOn: parseTimePropertyValue(data.creationTimestamp),
+  };
+}
+
+export function createRegionTargetHttpProxyEntity(
+  data: compute_v1.Schema$TargetHttpProxy,
+) {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_COMPUTE_TARGET_HTTP_PROXY,
+        _type: ENTITY_TYPE_COMPUTE_TARGET_HTTP_PROXY,
+        regional: true,
+        ...getCommonTargetHttpProxyProps(data),
       },
     },
   });
@@ -1026,13 +1363,8 @@ export function createTargetHttpProxyEntity(
       assign: {
         _class: ENTITY_CLASS_COMPUTE_TARGET_HTTP_PROXY,
         _type: ENTITY_TYPE_COMPUTE_TARGET_HTTP_PROXY,
-        _key: data.selfLink as string,
-        id: data.id as string,
-        name: data.name,
-        category: ['network'],
-        function: ['load-balancing'],
-        public: true,
-        createdOn: parseTimePropertyValue(data.creationTimestamp),
+        regional: false,
+        ...getCommonTargetHttpProxyProps(data),
       },
     },
   });
