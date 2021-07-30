@@ -12,7 +12,6 @@ import { IntegrationConfig } from '../..';
 import { IntegrationStepContext } from '../../types';
 import { publishMissingPermissionEvent } from '../../utils/events';
 import { getProjectIdFromName } from '../../utils/jobState';
-import { getEnabledServiceNames } from '../enablement';
 import { IAM_ROLE_ENTITY_CLASS, IAM_ROLE_ENTITY_TYPE } from '../iam';
 import {
   buildIamTargetRelationship,
@@ -37,6 +36,11 @@ import {
   createIamBindingEntity,
 } from './converters';
 import get from 'lodash.get';
+import {
+  getTypeAndKeyFromResourceIdentifier,
+  makeLogsForTypeAndKeyResponse,
+} from '../../utils/iamBindings/getTypeAndKeyFromResourceIdentifier';
+import { getEnabledServiceNames } from '../enablement';
 
 export async function fetchIamBindings(
   context: IntegrationStepContext,
@@ -239,31 +243,55 @@ export async function createPrincipalRelationships(
   );
 }
 
-// This strategy seems to get a good amount of the resource entities, but I don't think it gets them all.
-export async function createBindingAnyResourceRelationships(
+function getServiceFromResourceIdentifier(googleResourceIdentifier: string) {
+  const [_, __, service, ..._rest] = googleResourceIdentifier.split('/');
+  return service;
+}
+
+export async function createBindingToAnyResourceRelationships(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, instance } = context;
+  const { jobState, instance, logger } = context;
   const enabledServiceNames = await getEnabledServiceNames(instance.config);
-
   await jobState.iterateEntities(
     { _type: bindingEntities.BINDINGS._type },
     async (bindingEntity: BindingEntity) => {
-      const [_, __, service, ...key] = bindingEntity.resource.split('/');
-      bindingEntity['condition.expression'];
-      // TODO: check the condition before creating ALLOWS relationship
-      if (enabledServiceNames.includes(service)) {
-        const targetEntity = await jobState.findEntity(key.join('/'));
-        if (targetEntity) {
-          await jobState.addRelationship(
-            createDirectRelationship({
+      const { type, key } =
+        makeLogsForTypeAndKeyResponse(
+          logger,
+          getTypeAndKeyFromResourceIdentifier(bindingEntity.resource),
+        ) ?? {};
+      if (typeof type !== 'string' || typeof key !== 'string') {
+        return;
+      }
+      // Check to see if service is enabled prior to searching the jobState for an entity
+      const service = getServiceFromResourceIdentifier(bindingEntity.resource);
+      const existingEntity = enabledServiceNames.includes(service)
+        ? await jobState.findEntity(key)
+        : undefined;
+      await jobState.addRelationship(
+        existingEntity
+          ? createDirectRelationship({
               from: bindingEntity,
               _class: RelationshipClass.ALLOWS,
-              to: targetEntity,
+              to: existingEntity,
+            })
+          : createMappedRelationship({
+              _class: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP._class,
+              _type: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP._type,
+              _mapping: {
+                relationshipDirection: RelationshipDirection.FORWARD,
+                sourceEntityKey: bindingEntity._key,
+                targetFilterKeys: [['_type', '_key']],
+                skipTargetCreation: false,
+                targetEntity: {
+                  _type: type,
+                  _key: key,
+                  resourceIdentifier: bindingEntity.resource,
+                },
+              },
             }),
-          );
-        }
-      }
+      );
     },
   );
 }
@@ -322,7 +350,7 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
     entities: [],
     relationships: [BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP],
     dependsOn: [STEP_IAM_BINDINGS],
-    executionHandler: createBindingAnyResourceRelationships,
+    executionHandler: createBindingToAnyResourceRelationships,
     dependencyGraphId: 'last',
   },
 ];

@@ -9,6 +9,10 @@ import {
   ENTITY_CLASS_MEMCACHE_INSTANCE_NODE,
 } from './constants';
 
+export function getMemcacheKey(uid: string) {
+  return `memcached:${uid}`;
+}
+
 export function createMemcacheInstanceEntity(
   data: memcache_v1.Schema$Instance,
   projectId: string,
@@ -19,7 +23,7 @@ export function createMemcacheInstanceEntity(
     entityData: {
       source: withoutNodes,
       assign: {
-        _key: `memcached:${withoutNodes.name}`,
+        _key: getMemcacheKey(withoutNodes.name!),
         _type: ENTITY_TYPE_MEMCACHE_INSTANCE,
         _class: ENTITY_CLASS_MEMCACHE_INSTANCE,
         name: withoutNodes.name,
