@@ -1,6 +1,10 @@
 /**
  * Find the Cloud Resource Kind for a Google Cloud Resource Identifier
  * reference: https://cloud.google.com/asset-inventory/docs/resource-name-format
+ *
+ * ex:
+ *   input - googleResourceIdentifier = //bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/natality
+ *   returns - bigquery.googleapis.com/Dataset
  */
 export function findResourceKindFromCloudResourceIdentifier(
   googleResourceIdentifier: string,

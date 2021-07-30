@@ -1,6 +1,10 @@
 import Logger from 'bunyan';
 
-export function getMockLogger() {
+export function getMockLogger<
+  T extends {
+    child: (options: Object, simple?: boolean | undefined) => T;
+  } = Logger,
+>() {
   const mockLogger = {
     info: jest.fn(),
     fatal: jest.fn(),
@@ -8,7 +12,7 @@ export function getMockLogger() {
     error: jest.fn(),
     debug: jest.fn(),
     trace: jest.fn(),
-  } as unknown as Logger;
+  } as unknown as T;
 
   mockLogger.child = () => mockLogger;
 

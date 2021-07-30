@@ -36,7 +36,10 @@ import {
   createIamBindingEntity,
 } from './converters';
 import get from 'lodash.get';
-import { getTypeAndKeyFromResourceIdentifier } from '../../utils/iamBindings/getTypeAndKeyFromResourceIdentifier';
+import {
+  getTypeAndKeyFromResourceIdentifier,
+  makeLogsForTypeAndKeyResponse,
+} from '../../utils/iamBindings/getTypeAndKeyFromResourceIdentifier';
 import { getEnabledServiceNames } from '../enablement';
 
 export async function fetchIamBindings(
@@ -247,14 +250,16 @@ function getServiceFromResourceIdentifier(googleResourceIdentifier: string) {
 export async function createBindingToAnyResourceRelationships(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, instance } = context;
+  const { jobState, instance, logger } = context;
   const enabledServiceNames = await getEnabledServiceNames(instance.config);
   await jobState.iterateEntities(
     { _type: bindingEntities.BINDINGS._type },
     async (bindingEntity: BindingEntity) => {
       const { type, key } =
-        getTypeAndKeyFromResourceIdentifier(context, bindingEntity.resource) ??
-        {};
+        makeLogsForTypeAndKeyResponse(
+          logger,
+          getTypeAndKeyFromResourceIdentifier(bindingEntity.resource),
+        ) ?? {};
       if (typeof type !== 'string' || typeof key !== 'string') {
         return;
       }
@@ -281,6 +286,7 @@ export async function createBindingToAnyResourceRelationships(
                 targetEntity: {
                   _type: type,
                   _key: key,
+                  resourceIdentifier: bindingEntity.resource,
                 },
               },
             }),

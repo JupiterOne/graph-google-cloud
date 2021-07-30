@@ -44,7 +44,7 @@ expect.extend({
   ) {
     if (!collectedRelationships || collectedRelationships.length < 1) {
       return {
-        message: () => `${name} has no relatioinships`,
+        message: () => `${name} has no relationships`,
         pass: false,
       };
     }
@@ -55,13 +55,13 @@ expect.extend({
       };
     if (directRelationships?.length < 1) {
       return {
-        message: () => `${name} has no direct relatioinships`,
+        message: () => `${name} has no direct relationships`,
         pass: false,
       };
     }
     if (mappedRelationships?.length > 0) {
       return {
-        message: () => `${name} has mapped relatioinships`,
+        message: () => `${name} has mapped relationships`,
         pass: false,
       };
     }
@@ -76,7 +76,7 @@ expect.extend({
   ) {
     if (!collectedRelationships || collectedRelationships.length < 1) {
       return {
-        message: () => `${name} has no relatioinships`,
+        message: () => `${name} has no relationships`,
         pass: false,
       };
     }
@@ -87,13 +87,13 @@ expect.extend({
       };
     if (directRelationships?.length > 0) {
       return {
-        message: () => `${name} has direct relatioinships`,
+        message: () => `${name} has direct relationships`,
         pass: false,
       };
     }
     if (mappedRelationships?.length < 1) {
       return {
-        message: () => `${name} has no mapped relatioinships`,
+        message: () => `${name} has no mapped relationships`,
         pass: false,
       };
     }
@@ -108,7 +108,7 @@ expect.extend({
   ) {
     if (!collectedRelationships || collectedRelationships.length < 1) {
       return {
-        message: () => `${name} has no relatioinships`,
+        message: () => `${name} has no relationships`,
         pass: false,
       };
     }
@@ -119,13 +119,13 @@ expect.extend({
       };
     if (directRelationships?.length < 1) {
       return {
-        message: () => `${name} has no direct relatioinships`,
+        message: () => `${name} has no direct relationships`,
         pass: false,
       };
     }
     if (mappedRelationships?.length < 1) {
       return {
-        message: () => `${name} has no mapped relatioinships`,
+        message: () => `${name} has no mapped relationships`,
         pass: false,
       };
     }

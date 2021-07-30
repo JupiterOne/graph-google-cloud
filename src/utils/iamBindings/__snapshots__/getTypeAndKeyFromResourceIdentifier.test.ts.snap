@@ -38,14 +38,14 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 6`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 7`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
@@ -59,28 +59,28 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 9`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 10`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 11`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 12`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
@@ -101,7 +101,7 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 15`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
@@ -115,7 +115,7 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 17`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
@@ -129,7 +129,7 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 19`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
@@ -143,14 +143,14 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 21`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 22`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
@@ -185,42 +185,42 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 27`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 28`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 29`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 30`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 31`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 32`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
@@ -234,21 +234,21 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 34`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 35`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 36`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
@@ -262,49 +262,49 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 38`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 39`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 40`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 41`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 42`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 43`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 44`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
@@ -318,7 +318,7 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 46`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
@@ -353,21 +353,21 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 51`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 52`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 53`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
@@ -381,7 +381,7 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 55`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
@@ -395,14 +395,14 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 57`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 58`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
@@ -430,7 +430,7 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 62`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
@@ -444,7 +444,7 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 64`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
@@ -458,7 +458,7 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 66`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
@@ -479,7 +479,7 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 69`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
@@ -499,8 +499,8 @@ Object {
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 72`] = `
 Object {
-  "key": undefined,
-  "type": undefined,
+  "key": false,
+  "type": "google_iam_role",
 }
 `;
 
@@ -535,21 +535,21 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 77`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 78`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 79`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
@@ -570,14 +570,14 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 82`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 83`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
@@ -604,64 +604,64 @@ Object {
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 87`] = `
 Object {
-  "key": undefined,
-  "type": undefined,
+  "key": false,
+  "type": "DO_SOMETHING_DIFFERENT_FOR_SQL_INSTANCES",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 88`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 89`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 90`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 91`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 92`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 93`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 94`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 95`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
@@ -675,14 +675,14 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 97`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 98`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
@@ -724,21 +724,21 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 104`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 105`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 106`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
@@ -752,126 +752,126 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 108`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 109`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 110`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 111`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 112`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 113`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 114`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 115`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 116`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 117`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 118`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 119`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 120`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 121`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 122`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 123`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 124`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 125`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
@@ -913,84 +913,84 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 131`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 132`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 133`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 134`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 135`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 136`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 137`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 138`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 139`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 140`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 141`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 142`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
@@ -1004,7 +1004,7 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 144`] = `
 Object {
   "key": undefined,
-  "type": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 

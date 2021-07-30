@@ -1,8 +1,13 @@
+import { IntegrationLogger } from '@jupiterone/integration-sdk-core';
 import { pickBy } from 'lodash';
 import { getMockLogger } from '../../../test/helpers/getMockLogger';
-import { IntegrationStepContext } from '../../types';
 import { testResourceIdentifiers } from './findResourceKindFromCloudResourceIdentifier.test';
-import { getTypeAndKeyFromResourceIdentifier } from './getTypeAndKeyFromResourceIdentifier';
+import {
+  getTypeAndKeyFromResourceIdentifier,
+  makeLogsForTypeAndKeyResponse,
+  TypeAndKey,
+} from './getTypeAndKeyFromResourceIdentifier';
+import { NONE } from './resourceKindToTypeMap';
 import {
   impossible,
   J1_TYPE_TO_KEY_GENERATOR_MAP,
@@ -16,11 +21,8 @@ describe('getTypeAndKeyFromResourceIdentifier', () => {
   it(`should find the correct keys for all available resources`, () => {
     const successfullyMappedTypes: string[] = [];
     for (const identifier of Object.keys(testResourceIdentifiers)) {
-      const context = {
-        logger: getMockLogger(),
-      } as unknown as IntegrationStepContext;
       const { type, key } =
-        getTypeAndKeyFromResourceIdentifier(context, identifier) ?? {};
+        getTypeAndKeyFromResourceIdentifier(identifier) ?? {};
       expect({ type, key }).toMatchSnapshot();
       if (type && jupiterOneTypesWithMappedGoogleResources.includes(type)) {
         successfullyMappedTypes.push(type);
@@ -29,5 +31,82 @@ describe('getTypeAndKeyFromResourceIdentifier', () => {
     expect(successfullyMappedTypes.sort()).toEqual(
       expect.arrayContaining(jupiterOneTypesWithMappedGoogleResources.sort()),
     );
+  });
+});
+
+describe('makeLogsForTypeAndKeyResponse', () => {
+  it(`should log 'Unable to find google cloud resource identifier.' when there is no googleResourceKind`, () => {
+    const typeAndKeyResponse: TypeAndKey = { metadata: {} };
+    const logger = getMockLogger<IntegrationLogger>();
+    makeLogsForTypeAndKeyResponse(logger, typeAndKeyResponse);
+    expect(logger.warn).toHaveBeenCalledWith(
+      typeAndKeyResponse,
+      'Unable to find google cloud resource identifier.',
+    );
+  });
+  it(`should log 'Unable to find J1 type from google cloud resource.' when there is no type`, () => {
+    const typeAndKeyResponse: TypeAndKey = {
+      metadata: { googleResourceKind: 'googleResourceKind' },
+    };
+    const logger = getMockLogger<IntegrationLogger>();
+    makeLogsForTypeAndKeyResponse(logger, typeAndKeyResponse);
+    expect(logger.warn).toHaveBeenCalledWith(
+      typeAndKeyResponse,
+      'Unable to find J1 type from google cloud resource.',
+    );
+  });
+  it(`should log 'There is no JupiterOne entity for this resource.' when the type is mapped to NONE`, () => {
+    const typeAndKeyResponse: TypeAndKey = {
+      type: NONE,
+      metadata: { googleResourceKind: 'googleResourceKind' },
+    };
+    const logger = getMockLogger<IntegrationLogger>();
+    makeLogsForTypeAndKeyResponse(logger, typeAndKeyResponse);
+    expect(logger.info).toHaveBeenCalledWith(
+      typeAndKeyResponse,
+      'There is no JupiterOne entity for this resource.',
+    );
+  });
+  it(`should log 'Unable to find a key generation function for this entity.' when a function is not found`, () => {
+    const typeAndKeyResponse: TypeAndKey = {
+      type: 'type',
+      metadata: { googleResourceKind: 'googleResourceKind' },
+    };
+    const logger = getMockLogger<IntegrationLogger>();
+    makeLogsForTypeAndKeyResponse(logger, typeAndKeyResponse);
+    expect(logger.warn).toHaveBeenCalledWith(
+      typeAndKeyResponse,
+      'Unable to find a key generation function for this entity.',
+    );
+  });
+  it(`should log 'Unable to generate key for this type.' when the key generation function does not product a key`, () => {
+    const typeAndKeyResponse: TypeAndKey = {
+      type: 'type',
+      metadata: {
+        googleResourceKind: 'googleResourceKind',
+        keyGenFunction: () => null,
+      },
+    };
+    const logger = getMockLogger<IntegrationLogger>();
+    makeLogsForTypeAndKeyResponse(logger, typeAndKeyResponse);
+    expect(logger.warn).toHaveBeenCalledWith(
+      typeAndKeyResponse,
+      'Unable to generate key for this type.',
+    );
+  });
+  it(`should not log anything and return the response on correct responses`, () => {
+    const typeAndKeyResponse: TypeAndKey = {
+      type: 'type',
+      key: 'key',
+      metadata: {
+        googleResourceKind: 'googleResourceKind',
+        keyGenFunction: () => null,
+      },
+    };
+    const logger = getMockLogger<IntegrationLogger>();
+    expect(makeLogsForTypeAndKeyResponse(logger, typeAndKeyResponse)).toBe(
+      typeAndKeyResponse,
+    );
+    expect(logger.warn).not.toHaveBeenCalled();
   });
 });
