@@ -89,7 +89,7 @@ export const J1_TYPE_TO_KEY_GENERATOR_MAP: {
   [CLOUD_FUNCTION_ENTITY_TYPE]: fullPathKeyMap,
   [ORGANIZATION_ENTITY_TYPE]: fullPathKeyMap,
   [FOLDER_ENTITY_TYPE]: fullPathKeyMap,
-  [PROJECT_ENTITY_TYPE]: allUniqueIdentifiers,
+  [PROJECT_ENTITY_TYPE]: impossible, // // can't map directly to allUniqueIdentifiers right now as we need a way to differentiate between a PROJECT_NAME and a PROJECT_ID
   [ENTITY_TYPE_CLOUD_RUN_SERVICE]: customPrefixAndIdKeyMap(
     getCloudRunServiceKey,
   ),

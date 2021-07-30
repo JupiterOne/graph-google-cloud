@@ -3,7 +3,7 @@
 exports[`#fetchIamBindings should create Binding and Role entities, Direct Relationships with resources and principals ingested, and Mapped Relationships with resources and principals not ingested. 1`] = `
 Object {
   "collectedEntities": 144,
-  "collectedRelationships": 307,
+  "collectedRelationships": 264,
   "encounteredTypes": Array [
     "google_cloud_organization",
     "google_cloud_folder",
@@ -28,6 +28,6 @@ Object {
     "google_iam_binding_allows_cloud_organization",
   ],
   "numCollectedEntities": 144,
-  "numCollectedRelationships": 307,
+  "numCollectedRelationships": 264,
 }
 `;

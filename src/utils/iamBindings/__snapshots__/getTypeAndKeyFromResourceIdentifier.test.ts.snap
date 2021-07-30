@@ -23,15 +23,15 @@ Object {
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 4`] = `
 Object {
-  "key": "abcdef12345",
-  "type": "google_cloud_project",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 5`] = `
 Object {
-  "key": "12345",
-  "type": "google_cloud_project",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
 }
 `;
 
