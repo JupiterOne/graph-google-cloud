@@ -8,5 +8,5 @@ export function getLastUrlPart(url: string) {
 }
 
 export function getGoogleCloudConsoleWebLink(path: string) {
-  return `https://console.cloud.google.com${path}`;
+  return `https://console.cloud.google.com${encodeURI(path)}`;
 }

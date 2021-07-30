@@ -2,6 +2,7 @@ import { google, compute_v1 } from 'googleapis';
 import { Client, PageableGaxiosResponse } from '../../google-cloud/client';
 import {
   googleCloudRegions,
+  iterateRegions,
   iterateRegionZones,
 } from '../../google-cloud/regions';
 import { BaseExternalAccountClient } from 'google-auth-library';
@@ -23,6 +24,30 @@ export class ComputeClient extends Client {
       await this.iterateApi(
         async (nextPageToken) => fn({ auth, zone, nextPageToken }),
         callback,
+      );
+    });
+  }
+
+  async iterateComputeRegionDisks(
+    callback: (data: compute_v1.Schema$Disk) => Promise<void>,
+  ) {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await iterateRegions(async (region) => {
+      await this.iterateApi(
+        async (nextPageToken) => {
+          return this.client.regionDisks.list({
+            auth,
+            region,
+            pageToken: nextPageToken,
+            project: this.projectId,
+          });
+        },
+        async (data: compute_v1.Schema$DiskList) => {
+          for (const item of data.items || []) {
+            await callback(item);
+          }
+        },
       );
     });
   }
@@ -68,6 +93,54 @@ export class ComputeClient extends Client {
     );
   }
 
+  async iterateComputeGlobalAddresses(
+    callback: (data: compute_v1.Schema$Address) => Promise<void>,
+  ) {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.globalAddresses.list({
+          auth,
+          project: this.projectId,
+          pageToken: nextPageToken,
+        });
+      },
+      async (data: compute_v1.Schema$AddressList) => {
+        for (const item of data.items || []) {
+          await callback(item);
+        }
+      },
+    );
+  }
+
+  // This seems to be similar to region counterpart
+  // It requires region as a parameter plus there's GlobalAddress
+  // Unfortunately, Terraform doesn't call it google_compute_region_address so neither will we.
+  async iterateComputeAddresses(
+    callback: (data: compute_v1.Schema$Address) => Promise<void>,
+  ) {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await iterateRegions(async (region) => {
+      await this.iterateApi(
+        async (nextPageToken) => {
+          return this.client.addresses.list({
+            auth,
+            region,
+            project: this.projectId,
+            pageToken: nextPageToken,
+          });
+        },
+        async (data: compute_v1.Schema$AddressList) => {
+          for (const item of data.items || []) {
+            await callback(item);
+          }
+        },
+      );
+    });
+  }
+
   async fetchComputeImagePolicy(name: string) {
     const auth = await this.getAuthenticatedServiceClient();
 
@@ -91,6 +164,50 @@ export class ComputeClient extends Client {
     });
 
     return resp.data;
+  }
+
+  async iterateGlobalForwardingRules(
+    callback: (data: compute_v1.Schema$ForwardingRule) => Promise<void>,
+  ) {
+    const auth = await this.getAuthenticatedServiceClient();
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.globalForwardingRules.list({
+          auth,
+          project: this.projectId,
+          pageToken: nextPageToken,
+        });
+      },
+      async (data: compute_v1.Schema$ForwardingRuleList) => {
+        for (const item of data.items || []) {
+          await callback(item);
+        }
+      },
+    );
+  }
+
+  async iterateForwardingRules(
+    callback: (data: compute_v1.Schema$ForwardingRule) => Promise<void>,
+  ) {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await iterateRegions(async (region) => {
+      await this.iterateApi(
+        async (nextPageToken) => {
+          return this.client.forwardingRules.list({
+            auth,
+            region,
+            project: this.projectId,
+            pageToken: nextPageToken,
+          });
+        },
+        async (data: compute_v1.Schema$ForwardingRuleList) => {
+          for (const item of data.items || []) {
+            await callback(item);
+          }
+        },
+      );
+    });
   }
 
   async iterateCustomComputeImages(
@@ -124,6 +241,8 @@ export class ComputeClient extends Client {
 
     return computeProjectResponse.data;
   }
+
+  // CAN'T: iterateRegionComputeInstances => this.client.regionInstances (missing .list())
 
   async iterateComputeInstances(
     callback: (
@@ -173,7 +292,6 @@ export class ComputeClient extends Client {
     callback: (data: compute_v1.Schema$Subnetwork) => Promise<void>,
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
-
     for (const region of googleCloudRegions) {
       await this.iterateApi(
         async (nextPageToken) => {
@@ -197,7 +315,6 @@ export class ComputeClient extends Client {
     callback: (data: compute_v1.Schema$Network) => Promise<void>,
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
-
     await this.iterateApi(
       async (nextPageToken) => {
         return this.client.networks.list({
@@ -214,11 +331,34 @@ export class ComputeClient extends Client {
     );
   }
 
-  async iterateHealthChecks(
+  async iterateRegionHealthChecks(
     callback: (data: compute_v1.Schema$HealthCheck) => Promise<void>,
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
 
+    await iterateRegions(async (region) => {
+      await this.iterateApi(
+        async (nextPageToken) => {
+          return this.client.regionHealthChecks.list({
+            auth,
+            region,
+            pageToken: nextPageToken,
+            project: this.projectId,
+          });
+        },
+        async (data: compute_v1.Schema$HealthCheckList) => {
+          for (const item of data.items || []) {
+            await callback(item);
+          }
+        },
+      );
+    });
+  }
+
+  async iterateHealthChecks(
+    callback: (data: compute_v1.Schema$HealthCheck) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
     await this.iterateApi(
       async (nextPageToken) => {
         return this.client.healthChecks.list({
@@ -233,6 +373,30 @@ export class ComputeClient extends Client {
         }
       },
     );
+  }
+
+  async iterateRegionInstanceGroups(
+    callback: (data: compute_v1.Schema$InstanceGroup) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await iterateRegions(async (region) => {
+      await this.iterateApi(
+        async (nextPageToken) => {
+          return this.client.regionInstanceGroups.list({
+            auth,
+            region,
+            pageToken: nextPageToken,
+            project: this.projectId,
+          });
+        },
+        async (data: compute_v1.Schema$RegionInstanceGroupList) => {
+          for (const item of data.items || []) {
+            await callback(item);
+          }
+        },
+      );
+    });
   }
 
   async iterateInstanceGroups(
@@ -255,11 +419,34 @@ export class ComputeClient extends Client {
     );
   }
 
-  async iterateLoadBalancers(
+  async iterateRegionLoadBalancers(
     callback: (data: compute_v1.Schema$UrlMap) => Promise<void>,
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
 
+    await iterateRegions(async (region) => {
+      await this.iterateApi(
+        async (nextPageToken) => {
+          return this.client.regionUrlMaps.list({
+            auth,
+            region,
+            pageToken: nextPageToken,
+            project: this.projectId,
+          });
+        },
+        async (data: compute_v1.Schema$UrlMapList) => {
+          for (const item of data.items || []) {
+            await callback(item);
+          }
+        },
+      );
+    });
+  }
+
+  async iterateLoadBalancers(
+    callback: (data: compute_v1.Schema$UrlMap) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
     await this.iterateApi(
       async (nextPageToken) => {
         return this.client.urlMaps.list({
@@ -274,6 +461,30 @@ export class ComputeClient extends Client {
         }
       },
     );
+  }
+
+  async iterateRegionBackendServices(
+    callback: (data: compute_v1.Schema$BackendService) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await iterateRegions(async (region) => {
+      await this.iterateApi(
+        async (nextPageToken) => {
+          return this.client.regionBackendServices.list({
+            auth,
+            region,
+            pageToken: nextPageToken,
+            project: this.projectId,
+          });
+        },
+        async (data: compute_v1.Schema$BackendServiceList) => {
+          for (const item of data.items || []) {
+            await callback(item);
+          }
+        },
+      );
+    });
   }
 
   async iterateBackendServices(
@@ -301,7 +512,6 @@ export class ComputeClient extends Client {
     callback: (data: compute_v1.Schema$BackendBucket) => Promise<void>,
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
-
     await this.iterateApi(
       async (nextPageToken) => {
         return this.client.backendBuckets.list({
@@ -322,7 +532,6 @@ export class ComputeClient extends Client {
     callback: (data: compute_v1.Schema$TargetSslProxy) => Promise<void>,
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
-
     await this.iterateApi(
       async (nextPageToken) => {
         return this.client.targetSslProxies.list({
@@ -337,6 +546,30 @@ export class ComputeClient extends Client {
         }
       },
     );
+  }
+
+  async iterateRegionTargetHttpsProxies(
+    callback: (data: compute_v1.Schema$TargetHttpsProxy) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await iterateRegions(async (region) => {
+      await this.iterateApi(
+        async (nextPageToken) => {
+          return this.client.regionTargetHttpsProxies.list({
+            auth,
+            region,
+            pageToken: nextPageToken,
+            project: this.projectId,
+          });
+        },
+        async (data: compute_v1.Schema$TargetHttpsProxyList) => {
+          for (const item of data.items || []) {
+            await callback(item);
+          }
+        },
+      );
+    });
   }
 
   async iterateTargetHttpsProxies(
@@ -360,11 +593,34 @@ export class ComputeClient extends Client {
     );
   }
 
-  async iterateTargetHttpProxies(
+  async iterateRegionTargetHttpProxies(
     callback: (data: compute_v1.Schema$TargetHttpProxy) => Promise<void>,
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
 
+    await iterateRegions(async (region) => {
+      await this.iterateApi(
+        async (nextPageToken) => {
+          return this.client.regionTargetHttpProxies.list({
+            auth,
+            region,
+            pageToken: nextPageToken,
+            project: this.projectId,
+          });
+        },
+        async (data: compute_v1.Schema$TargetHttpProxyList) => {
+          for (const item of data.items || []) {
+            await callback(item);
+          }
+        },
+      );
+    });
+  }
+
+  async iterateTargetHttpProxies(
+    callback: (data: compute_v1.Schema$TargetHttpProxy) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
     await this.iterateApi(
       async (nextPageToken) => {
         return this.client.targetHttpProxies.list({
@@ -385,7 +641,6 @@ export class ComputeClient extends Client {
     callback: (data: compute_v1.Schema$SslPolicy) => Promise<void>,
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
-
     await this.iterateApi(
       async (nextPageToken) => {
         return this.client.sslPolicies.list({

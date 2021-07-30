@@ -3,6 +3,7 @@ export const STEP_COMPUTE_INSTANCES = 'fetch-compute-instances';
 export const STEP_COMPUTE_INSTANCE_SERVICE_ACCOUNT_RELATIONSHIPS =
   'build-compute-instance-service-account-relationships';
 export const STEP_COMPUTE_DISKS = 'fetch-compute-disks';
+export const STEP_COMPUTE_REGION_DISKS = 'fetch-compute-region-disks';
 export const STEP_COMPUTE_SNAPSHOTS = 'fetch-compute-snapshots';
 export const STEP_COMPUTE_SNAPSHOT_DISK_RELATIONSHIPS =
   'build-compute-snapshot-disk-relationships';
@@ -12,20 +13,37 @@ export const STEP_COMPUTE_IMAGE_IMAGE_RELATIONSHIPS =
 export const STEP_COMPUTE_NETWORKS = 'fetch-compute-networks';
 export const STEP_COMPUTE_NETWORK_PEERING_RELATIONSHIPS =
   'fetch-compute-networks-peering-relationships';
+export const STEP_COMPUTE_ADDRESSES = 'fetch-compute-addresses';
+export const STEP_COMPUTE_GLOBAL_ADDRESSES = 'fetch-compute-global-addresses';
+export const STEP_COMPUTE_FORWARDING_RULES = 'fetch-compute-forwarding-rules';
+export const STEP_COMPUTE_GLOBAL_FORWARDING_RULES =
+  'fetch-compute-global-forwarding-rules';
 export const STEP_COMPUTE_SUBNETWORKS = 'fetch-compute-subnetworks';
 export const STEP_COMPUTE_FIREWALLS = 'fetch-compute-firewalls';
 export const STEP_COMPUTE_PROJECT = 'fetch-compute-project';
 export const STEP_COMPUTE_HEALTH_CHECKS = 'fetch-compute-health-checks';
+export const STEP_COMPUTE_REGION_HEALTH_CHECKS =
+  'fetch-compute-region-health-checks';
 export const STEP_COMPUTE_INSTANCE_GROUPS = 'fetch-compute-instance-groups';
+export const STEP_COMPUTE_REGION_INSTANCE_GROUPS =
+  'fetch-compute-region-instance-groups';
 export const STEP_COMPUTE_LOADBALANCERS = 'fetch-compute-loadbalancers';
+export const STEP_COMPUTE_REGION_LOADBALANCERS =
+  'fetch-compute-region-loadbalancers';
 export const STEP_COMPUTE_BACKEND_SERVICES = 'fetch-compute-backend-services';
+export const STEP_COMPUTE_REGION_BACKEND_SERVICES =
+  'fetch-compute-region_backend-services';
 export const STEP_COMPUTE_BACKEND_BUCKETS = 'fetch-compute-backend-buckets';
 export const STEP_COMPUTE_TARGET_SSL_PROXIES =
   'fetch-compute-target-ssl-proxies';
 export const STEP_COMPUTE_TARGET_HTTPS_PROXIES =
   'fetch-compute-target-https-proxies';
+export const STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES =
+  'fetch-compute-region-target-https-proxies';
 export const STEP_COMPUTE_TARGET_HTTP_PROXIES =
   'fetch-compute-target-http-proxies';
+export const STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES =
+  'fetch-compute-region-target-http-proxies';
 export const STEP_COMPUTE_SSL_POLICIES = 'fetch-compute-ssl-policies';
 
 // Entities
@@ -43,6 +61,21 @@ export const ENTITY_TYPE_COMPUTE_IMAGE = 'google_compute_image';
 
 export const ENTITY_TYPE_COMPUTE_NETWORK = 'google_compute_network';
 export const ENTITY_CLASS_COMPUTE_NETWORK = 'Network';
+
+export const ENTITY_TYPE_COMPUTE_ADDRESS = 'google_compute_address';
+export const ENTITY_CLASS_COMPUTE_ADDRESS = 'IpAddress';
+
+export const ENTITY_TYPE_COMPUTE_GLOBAL_ADDRESS =
+  'google_compute_global_address';
+export const ENTITY_CLASS_COMPUTE_GLOBAL_ADDRESS = 'IpAddress';
+
+export const ENTITY_TYPE_COMPUTE_FORWARDING_RULE =
+  'google_compute_forwarding_rule';
+export const ENTITY_CLASS_COMPUTE_FORWARDING_RULE = 'Configuration';
+
+export const ENTITY_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE =
+  'google_compute_global_forwarding_rule';
+export const ENTITY_CLASS_COMPUTE_GLOBAL_FORWARDING_RULE = 'Configuration';
 
 export const ENTITY_TYPE_COMPUTE_SUBNETWORK = 'google_compute_subnetwork';
 export const ENTITY_CLASS_COMPUTE_SUBNETWORK = 'Network';
@@ -101,6 +134,16 @@ export const RELATIONSHIP_TYPE_COMPUTE_NETWORK_CONNECTS_NETWORK =
   'google_compute_network_connects_network';
 export const RELATIONSHIP_TYPE_SUBNET_HAS_COMPUTE_INSTANCE =
   'google_compute_subnetwork_has_instance';
+export const RELATIONSHIP_TYPE_COMPUTE_SUBNETWORK_HAS_ADDRESS =
+  'google_compute_subnetwork_has_address';
+export const RELATIONSHIP_TYPE_COMPUTE_SUBNETWORK_HAS_GLOBAL_ADDRESS =
+  'google_compute_subnetwork_has_global_address';
+export const RELATIONSHIP_TYPE_COMPUTE_NETWORK_HAS_ADDRESS =
+  'google_compute_network_has_address';
+export const RELATIONSHIP_TYPE_COMPUTE_NETWORK_HAS_GLOBAL_ADDRESS =
+  'google_compute_network_has_global_address';
+export const RELATIONSHIP_TYPE_COMPUTE_INSTANCE_USES_ADDRESS =
+  'google_compute_instance_uses_address';
 export const RELATIONSHIP_TYPE_FIREWALL_PROTECTS_NETWORK =
   'google_compute_firewall_protects_network';
 export const RELATIONSHIP_TYPE_DISK_USES_IMAGE =
@@ -133,6 +176,36 @@ export const RELATIONSHIP_TYPE_LOAD_BALANCER_HAS_BACKEND_BUCKET =
   'google_compute_url_map_has_backend_bucket';
 export const RELATIONSHIP_TYPE_BACKEND_BUCKET_HAS_STORAGE_BUCKET =
   'google_compute_backend_bucket_has_storage_bucket';
+
+export const RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_BACKEND_SERVICE =
+  'google_compute_forwarding_rule_connects_backend_service';
+export const RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_SUBNETWORK =
+  'google_compute_forwarding_rule_connects_subnetwork';
+export const RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_NETWORK =
+  'google_compute_forwarding_rule_connects_network';
+export const RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_TARGET_HTTP_PROXY =
+  'google_compute_forwarding_rule_connects_target_http_proxy';
+export const RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_TARGET_HTTPS_PROXY =
+  'google_compute_forwarding_rule_connects_target_https_proxy';
+
+export const RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_BACKEND_SERVICE =
+  'google_compute_global_forwarding_rule_connects_backend_service';
+
+export const RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_SUBNETWORK =
+  'google_compute_global_forwarding_rule_connects_subnetwork';
+
+export const RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_NETWORK =
+  'google_compute_global_forwarding_rule_connects_network';
+
+export const RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_TARGET_HTTP_PROXY =
+  'google_compute_global_forwarding_rule_connects_target_http_proxy';
+
+export const RELATIONSHIP_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE_CONNECTS_TARGET_HTTPS_PROXY =
+  'google_compute_global_forwarding_rule_connects_target_https_proxy';
+
+export const RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_USES_ADDRESS =
+  'google_compute_forwarding_rule_uses_address';
+
 export const RELATIONSHIP_TYPE_LOAD_BALANCER_HAS_TARGET_HTTPS_PROXY =
   'google_compute_url_map_has_target_https_proxy';
 export const RELATIONSHIP_TYPE_LOAD_BALANCER_HAS_TARGET_HTTP_PROXY =
