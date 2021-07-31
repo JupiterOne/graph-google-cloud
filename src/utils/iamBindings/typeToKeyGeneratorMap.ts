@@ -153,7 +153,7 @@ export const J1_TYPE_TO_KEY_GENERATOR_MAP: {
   [ENTITY_TYPE_REDIS_INSTANCE]: customPrefixAndIdKeyMap(getRedisKey),
   [ENTITY_TYPE_MEMCACHE_INSTANCE]: customPrefixAndIdKeyMap(getMemcacheKey),
   [MONITORING_ALERT_POLICY_TYPE]: fullPathKeyMap,
-  [DO_SOMETHING_DIFFERENT_FOR_SQL_INSTANCES]: impossible, // needs access to the region (us-east1, etc...) the instance is in in order to generate the key
+  [DO_SOMETHING_DIFFERENT_FOR_SQL_INSTANCES]: selfLinkKeyMap,
 };
 
 // ex: projects/j1-gc-integration-dev-v3/locations/us-central1/functions/j1-gc-integration-dev-v3testfunction

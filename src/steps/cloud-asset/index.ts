@@ -41,6 +41,7 @@ import {
   makeLogsForTypeAndKeyResponse,
 } from '../../utils/iamBindings/getTypeAndKeyFromResourceIdentifier';
 import { getEnabledServiceNames } from '../enablement';
+import { DO_SOMETHING_DIFFERENT_FOR_SQL_INSTANCES } from '../../utils/iamBindings/resourceKindToTypeMap';
 
 export async function fetchIamBindings(
   context: IntegrationStepContext,
@@ -288,7 +289,11 @@ export async function createBindingToAnyResourceRelationships(
               _mapping: {
                 relationshipDirection: RelationshipDirection.FORWARD,
                 sourceEntityKey: bindingEntity._key,
-                targetFilterKeys: [['_type', '_key']],
+                targetFilterKeys: [
+                  type === DO_SOMETHING_DIFFERENT_FOR_SQL_INSTANCES
+                    ? ['_key']
+                    : ['_type', '_key'],
+                ],
                 skipTargetCreation: false,
                 targetEntity: {
                   _type: type,

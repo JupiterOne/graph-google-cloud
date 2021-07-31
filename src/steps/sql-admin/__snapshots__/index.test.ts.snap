@@ -394,7 +394,7 @@ Object {
       "_class": Array [
         "Database",
       ],
-      "_key": "j1-gc-integration-dev-v3:us-central1:test-instance-delete-soon",
+      "_key": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v3/instances/test-instance-delete-soon",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -498,6 +498,7 @@ aCQCewmcw/urdZEKbY9HW93EGgwWF7ywAUNDEvQ3t4OqNWc=
       "_type": "google_sql_postgres_instance",
       "authorizedNetworks": Array [],
       "automatedBackupsEnabled": false,
+      "connectionName": "j1-gc-integration-dev-v3:us-central1:test-instance-delete-soon",
       "createdOn": undefined,
       "displayName": "test-instance-delete-soon",
       "encrypted": true,
@@ -518,7 +519,7 @@ aCQCewmcw/urdZEKbY9HW93EGgwWF7ywAUNDEvQ3t4OqNWc=
       "_class": Array [
         "Database",
       ],
-      "_key": "j1-gc-integration-dev-v3:us-central1:kms-example",
+      "_key": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v3/instances/kms-example",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -630,6 +631,7 @@ ujSQnO+eMjAzyhM6qCBwOQGtqrI6XzWUmy7fsx0pAy1qnQ8=
       "_type": "google_sql_postgres_instance",
       "authorizedNetworks": Array [],
       "automatedBackupsEnabled": true,
+      "connectionName": "j1-gc-integration-dev-v3:us-central1:kms-example",
       "createdOn": undefined,
       "displayName": "kms-example",
       "encrypted": true,
@@ -690,8 +692,8 @@ ujSQnO+eMjAzyhM6qCBwOQGtqrI6XzWUmy7fsx0pAy1qnQ8=
     },
     Object {
       "_class": "USES",
-      "_fromEntityKey": "j1-gc-integration-dev-v3:us-central1:kms-example",
-      "_key": "j1-gc-integration-dev-v3:us-central1:kms-example|uses|projects/j1-gc-integration-dev-v3/locations/us-central1/keyRings/j1-gc-integration-dev-v3-encrypted-sql-instance-ring/cryptoKeys/j1-gc-integration-dev-v3-encrypted-sql-instance-key",
+      "_fromEntityKey": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v3/instances/kms-example",
+      "_key": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v3/instances/kms-example|uses|projects/j1-gc-integration-dev-v3/locations/us-central1/keyRings/j1-gc-integration-dev-v3-encrypted-sql-instance-ring/cryptoKeys/j1-gc-integration-dev-v3-encrypted-sql-instance-key",
       "_toEntityKey": "projects/j1-gc-integration-dev-v3/locations/us-central1/keyRings/j1-gc-integration-dev-v3-encrypted-sql-instance-ring/cryptoKeys/j1-gc-integration-dev-v3-encrypted-sql-instance-key",
       "_type": "google_sql_postgres_instance_uses_kms_crypto_key",
       "displayName": "USES",
@@ -748,7 +750,7 @@ Object {
       "_class": Array [
         "Database",
       ],
-      "_key": "j1-gc-integration-dev-v3:us-central1:test-instance-delete-soon",
+      "_key": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v3/instances/test-instance-delete-soon",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -852,6 +854,7 @@ aCQCewmcw/urdZEKbY9HW93EGgwWF7ywAUNDEvQ3t4OqNWc=
       "_type": "google_sql_postgres_instance",
       "authorizedNetworks": Array [],
       "automatedBackupsEnabled": false,
+      "connectionName": "j1-gc-integration-dev-v3:us-central1:test-instance-delete-soon",
       "createdOn": undefined,
       "displayName": "test-instance-delete-soon",
       "encrypted": true,

@@ -691,7 +691,7 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 87`] = `
 Object {
   "identifier": "//cloudsql.googleapis.com/projects/12345/instances/abcdef12345",
-  "key": undefined,
+  "key": "https://www.googleapis.com/cloudsql/projects/12345/instances/abcdef12345",
   "type": "DO_SOMETHING_DIFFERENT_FOR_SQL_INSTANCES",
 }
 `;
