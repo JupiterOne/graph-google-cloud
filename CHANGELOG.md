@@ -8,6 +8,23 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.47.0 - 2021-08-02
+
+- Added support for ingesting the following **new** relationships:
+
+  | Source               | class        | Target                           |
+  | -------------------- | ------------ | -------------------------------- |
+  | `google_iam_binding` | **ALLOWS**   | `google_cloud_projects`          |
+  | `google_iam_binding` | **ALLOWS**   | `google_sql_mysql_instance`      |
+  | `google_iam_binding` | **ALLOWS**   | `google_sql_postgres_instance`   |
+  | `google_iam_binding` | **ALLOWS**   | `google_sql_sql_server_instance` |
+  | `google_iam_binding` | **ASSIGNED** | `google_domain`                  |
+
+## Fixed
+
+- `google_iam_binding` **ALLOWS** `ANY_RESOURCE` relationships to work for all
+  ingested resources
+
 ## 0.46.1 - 2021-07-28
 
 ### Fixed
