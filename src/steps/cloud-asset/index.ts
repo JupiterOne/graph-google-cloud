@@ -41,6 +41,7 @@ import {
   makeLogsForTypeAndKeyResponse,
 } from '../../utils/iamBindings/getTypeAndKeyFromResourceIdentifier';
 import { getEnabledServiceNames } from '../enablement';
+import { MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND } from '../../utils/iamBindings/resourceKindToTypeMap';
 
 export async function fetchIamBindings(
   context: IntegrationStepContext,
@@ -259,7 +260,10 @@ export async function createBindingToAnyResourceRelationships(
       const { type, key } =
         makeLogsForTypeAndKeyResponse(
           logger,
-          getTypeAndKeyFromResourceIdentifier(bindingEntity.resource),
+          await getTypeAndKeyFromResourceIdentifier(
+            bindingEntity.resource,
+            context,
+          ),
         ) ?? {};
       if (typeof type !== 'string' || typeof key !== 'string') {
         return;
@@ -278,14 +282,27 @@ export async function createBindingToAnyResourceRelationships(
             })
           : createMappedRelationship({
               _class: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP._class,
-              _type: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP._type,
+              _type: generateRelationshipType(
+                RelationshipClass.ALLOWS,
+                bindingEntities.BINDINGS._type,
+                type,
+              ),
               _mapping: {
                 relationshipDirection: RelationshipDirection.FORWARD,
                 sourceEntityKey: bindingEntity._key,
-                targetFilterKeys: [['_type', '_key']],
+                targetFilterKeys: [
+                  // Because there is no one-to-one-mapping from Google Resource Kind to J1 Type, only map on the `_key`.
+                  type === MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND
+                    ? ['_key']
+                    : ['_type', '_key'],
+                ],
                 skipTargetCreation: false,
                 targetEntity: {
-                  _type: type,
+                  // When there is no one-to-one-mapping from Google Resource Kind to J1 Type, do not set the _type on target entities.
+                  _type:
+                    type === MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND
+                      ? undefined
+                      : type,
                   _key: key,
                   resourceIdentifier: bindingEntity.resource,
                 },

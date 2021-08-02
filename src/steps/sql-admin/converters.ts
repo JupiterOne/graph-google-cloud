@@ -105,6 +105,7 @@ function getCommonDatabaseInstanceProperties(
     hasPublicIP: hasPublicIP(instance),
     // 6.7 Ensure that Cloud SQL database instances are configured with automated backups (Scored)
     automatedBackupsEnabled: instance.settings?.backupConfiguration?.enabled,
+    connectionName: instance.connectionName,
     kmsKeyName: instance.diskEncryptionConfiguration?.kmsKeyName,
   };
 }
@@ -116,7 +117,7 @@ export function createMySQLInstanceEntity(
     entityData: {
       source: instance,
       assign: {
-        _key: instance.connectionName as string,
+        _key: instance.selfLink as string,
         _type: SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
         _class: SQL_ADMIN_MYSQL_INSTANCE_ENTITY_CLASS,
         name: instance.name,
@@ -136,7 +137,7 @@ export function createPostgresInstanceEntity(
     entityData: {
       source: instance,
       assign: {
-        _key: instance.connectionName as string,
+        _key: instance.selfLink as string,
         _type: SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
         _class: SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_CLASS,
         name: instance.name,
@@ -156,7 +157,7 @@ export function createSQLServerInstanceEntity(
     entityData: {
       source: instance,
       assign: {
-        _key: instance.connectionName as string,
+        _key: instance.selfLink as string,
         _type: SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
         _class: SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_CLASS,
         name: instance.name,

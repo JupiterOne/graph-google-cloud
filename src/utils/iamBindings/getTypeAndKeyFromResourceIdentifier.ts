@@ -4,7 +4,10 @@ import {
 } from './resourceKindToTypeMap';
 import { findResourceKindFromCloudResourceIdentifier } from './findResourceKindFromCloudResourceIdentifier';
 import { J1_TYPE_TO_KEY_GENERATOR_MAP } from './typeToKeyGeneratorMap';
-import { IntegrationLogger } from '@jupiterone/integration-sdk-core';
+import {
+  IntegrationLogger,
+  StepExecutionContext,
+} from '@jupiterone/integration-sdk-core';
 
 export interface TypeAndKey {
   key?: string | false;
@@ -22,9 +25,10 @@ export interface TypeAndKey {
  *   input - googleResourceIdentifier = //bigquery.googleapis.com/projects/j1-gc-integration-dev-v3/datasets/natality
  *   returns - j1-gc-integration-dev-v3:natality
  */
-export function getTypeAndKeyFromResourceIdentifier(
+export async function getTypeAndKeyFromResourceIdentifier(
   googleResourceIdentifier: string,
-): TypeAndKey {
+  context: StepExecutionContext,
+): Promise<TypeAndKey> {
   const response: TypeAndKey = { metadata: {} };
 
   const googleResourceKind = findResourceKindFromCloudResourceIdentifier(
@@ -48,7 +52,7 @@ export function getTypeAndKeyFromResourceIdentifier(
     return response;
   }
 
-  const key = keyGenFunction(googleResourceIdentifier);
+  const key = await keyGenFunction(googleResourceIdentifier, context);
   response.key = key;
 
   return response;

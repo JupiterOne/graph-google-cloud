@@ -1,4 +1,4 @@
-import { DO_SOMETHING_DIFFERENT_FOR_SQL_INSTANCES } from './resourceKindToTypeMap';
+import { MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND } from './resourceKindToTypeMap';
 import {
   ENTITY_TYPE_API_GATEWAY_API,
   ENTITY_TYPE_API_GATEWAY_API_CONFIG,
@@ -78,18 +78,27 @@ import {
 } from '../../steps/spanner/constants';
 import { CLOUD_STORAGE_BUCKET_ENTITY_TYPE } from '../../steps/storage';
 import { getCloudStorageBucketKey } from '../../steps/storage/converters';
+import { StepExecutionContext } from '@jupiterone/integration-sdk-core';
+import { getProjectNameFromId } from '../jobState';
 
 /**
  * A map of JupiterOne types to a function which can generate their _key
  * properties given a Google Cloud resource identifier.
  */
 export const J1_TYPE_TO_KEY_GENERATOR_MAP: {
-  [key: string]: (googleResourceIdentifier: string) => string | false;
+  [key: string]: (
+    googleResourceIdentifier: string,
+    context?: StepExecutionContext,
+  ) => string | undefined | Promise<string | undefined>;
 } = {
   [CLOUD_FUNCTION_ENTITY_TYPE]: fullPathKeyMap,
   [ORGANIZATION_ENTITY_TYPE]: fullPathKeyMap,
   [FOLDER_ENTITY_TYPE]: fullPathKeyMap,
-  [PROJECT_ENTITY_TYPE]: impossible, // // can't map directly to allUniqueIdentifiers right now as we need a way to differentiate between a PROJECT_NAME and a PROJECT_ID
+  [PROJECT_ENTITY_TYPE]: async (id: string, context?: StepExecutionContext) =>
+    (await getProjectNameFromId(
+      context!.jobState,
+      finalIdentifierKeyMap(id),
+    )) ?? finalIdentifierKeyMap(id),
   [ENTITY_TYPE_CLOUD_RUN_SERVICE]: customPrefixAndIdKeyMap(
     getCloudRunServiceKey,
   ),
@@ -144,7 +153,7 @@ export const J1_TYPE_TO_KEY_GENERATOR_MAP: {
   [ENTITY_TYPE_REDIS_INSTANCE]: customPrefixAndIdKeyMap(getRedisKey),
   [ENTITY_TYPE_MEMCACHE_INSTANCE]: customPrefixAndIdKeyMap(getMemcacheKey),
   [MONITORING_ALERT_POLICY_TYPE]: fullPathKeyMap,
-  [DO_SOMETHING_DIFFERENT_FOR_SQL_INSTANCES]: impossible, // needs access to the region (us-east1, etc...) the instance is in in order to generate the key
+  [MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND]: selfLinkKeyMap,
 };
 
 // ex: projects/j1-gc-integration-dev-v3/locations/us-central1/functions/j1-gc-integration-dev-v3testfunction
@@ -210,6 +219,6 @@ function customPrefixAndIdKeyMap(
 }
 
 // Used when there is no way to generate the J1 entity key given only the googleResourceIdentifier
-export function impossible(googleResourceIdentifier: string): false {
-  return false;
+export function impossible(googleResourceIdentifier: string): undefined {
+  return undefined;
 }

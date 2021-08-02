@@ -1,7 +1,13 @@
 import { IntegrationLogger } from '@jupiterone/integration-sdk-core';
+import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-testing';
 import { pickBy } from 'lodash';
 import { getMockLogger } from '../../../test/helpers/getMockLogger';
-import { testResourceIdentifiers } from './findResourceKindFromCloudResourceIdentifier.test';
+import {
+  testResourceIdentifiers,
+  TEST_PROJECT_ID,
+  TEST_PROJECT_NAME,
+} from './findResourceKindFromCloudResourceIdentifier.test';
+import { integrationConfig } from '../../../test/config';
 import {
   getTypeAndKeyFromResourceIdentifier,
   makeLogsForTypeAndKeyResponse,
@@ -18,12 +24,19 @@ const jupiterOneTypesWithMappedGoogleResources = Object.keys(
 );
 
 describe('getTypeAndKeyFromResourceIdentifier', () => {
-  it(`should find the correct keys for all available resources`, () => {
+  it(`should find the correct keys for all available resources`, async () => {
+    const context = createMockStepExecutionContext({
+      instanceConfig: integrationConfig,
+      setData: {
+        // Used when maping google_projects
+        [`projectId:${TEST_PROJECT_ID}`]: TEST_PROJECT_NAME,
+      },
+    });
     const successfullyMappedTypes: string[] = [];
     for (const identifier of Object.keys(testResourceIdentifiers)) {
       const { type, key } =
-        getTypeAndKeyFromResourceIdentifier(identifier) ?? {};
-      expect({ type, key }).toMatchSnapshot();
+        (await getTypeAndKeyFromResourceIdentifier(identifier, context)) ?? {};
+      expect({ identifier, type, key }).toMatchSnapshot();
       if (type && jupiterOneTypesWithMappedGoogleResources.includes(type)) {
         successfullyMappedTypes.push(type);
       }
