@@ -231,6 +231,7 @@ export async function createPrincipalRelationships(
                     projectId: bindingEntity.projectId,
                     iamUserEntityWithParsedMember,
                     condition,
+                    relationshipDirection: RelationshipDirection.REVERSE,
                   }),
                 );
               }

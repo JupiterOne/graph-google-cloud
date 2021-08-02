@@ -431,9 +431,11 @@ The following relationships are created/mapped:
 | `google_compute_url_map`                                         | **HAS**               | `google_compute_target_https_proxy`                               |
 | `google_container_cluster`                                       | **HAS**               | `google_container_node_pool`                                      |
 | `google_container_node_pool`                                     | **HAS**               | `google_compute_instance_group`                                   |
+| `google_domain`                                                  | **ASSIGNED**          | `google_iam_role`                                                 |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_project`                                            |
 | `google_group`                                                   | **ASSIGNED**          | `google_iam_role`                                                 |
 | `google_iam_binding`                                             | **ALLOWS**            | `ANY_RESOURCE`                                                    |
+| `google_iam_binding`                                             | **ASSIGNED**          | `google_domain`                                                   |
 | `google_iam_binding`                                             | **ASSIGNED**          | `google_group`                                                    |
 | `google_iam_binding`                                             | **ASSIGNED**          | `google_iam_service_account`                                      |
 | `google_iam_binding`                                             | **ASSIGNED**          | `google_user`                                                     |

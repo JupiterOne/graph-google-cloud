@@ -9676,12 +9676,11 @@ Object {
         "skipTargetCreation": false,
         "sourceEntityKey": "roles/owner",
         "targetEntity": Object {
+          "_class": "User",
           "_type": "google_user",
           "deleted": false,
-          "displayName": "austin.kelleher@jupiterone.dev",
           "email": "austin.kelleher@jupiterone.dev",
-          "name": "austin.kelleher@jupiterone.dev",
-          "username": "austin.kelleher@jupiterone.dev",
+          "username": "austin.kelleher",
         },
         "targetFilterKeys": Array [
           Array [
