@@ -41,7 +41,7 @@ import {
   makeLogsForTypeAndKeyResponse,
 } from '../../utils/iamBindings/getTypeAndKeyFromResourceIdentifier';
 import { getEnabledServiceNames } from '../enablement';
-import { DO_SOMETHING_DIFFERENT_FOR_SQL_INSTANCES } from '../../utils/iamBindings/resourceKindToTypeMap';
+import { MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND } from '../../utils/iamBindings/resourceKindToTypeMap';
 
 export async function fetchIamBindings(
   context: IntegrationStepContext,
@@ -290,7 +290,8 @@ export async function createBindingToAnyResourceRelationships(
                 relationshipDirection: RelationshipDirection.FORWARD,
                 sourceEntityKey: bindingEntity._key,
                 targetFilterKeys: [
-                  type === DO_SOMETHING_DIFFERENT_FOR_SQL_INSTANCES
+                  // Because there is no one-to-one-mapping from Google Resource Kind to J1 Type, only map on the `_key`.
+                  type === MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND
                     ? ['_key']
                     : ['_type', '_key'],
                 ],

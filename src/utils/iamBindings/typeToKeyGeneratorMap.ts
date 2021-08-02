@@ -1,4 +1,4 @@
-import { DO_SOMETHING_DIFFERENT_FOR_SQL_INSTANCES } from './resourceKindToTypeMap';
+import { MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND } from './resourceKindToTypeMap';
 import {
   ENTITY_TYPE_API_GATEWAY_API,
   ENTITY_TYPE_API_GATEWAY_API_CONFIG,
@@ -153,7 +153,7 @@ export const J1_TYPE_TO_KEY_GENERATOR_MAP: {
   [ENTITY_TYPE_REDIS_INSTANCE]: customPrefixAndIdKeyMap(getRedisKey),
   [ENTITY_TYPE_MEMCACHE_INSTANCE]: customPrefixAndIdKeyMap(getMemcacheKey),
   [MONITORING_ALERT_POLICY_TYPE]: fullPathKeyMap,
-  [DO_SOMETHING_DIFFERENT_FOR_SQL_INSTANCES]: selfLinkKeyMap,
+  [MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND]: selfLinkKeyMap,
 };
 
 // ex: projects/j1-gc-integration-dev-v3/locations/us-central1/functions/j1-gc-integration-dev-v3testfunction
