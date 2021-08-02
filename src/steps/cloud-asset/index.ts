@@ -297,7 +297,11 @@ export async function createBindingToAnyResourceRelationships(
                 ],
                 skipTargetCreation: false,
                 targetEntity: {
-                  _type: type,
+                  _type:
+                    // Because there is no one-to-one-mapping from Google Resource Kind to J1 Type, do not add the key to the target entity.
+                    type === MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND
+                      ? undefined
+                      : type,
                   _key: key,
                   resourceIdentifier: bindingEntity.resource,
                 },
