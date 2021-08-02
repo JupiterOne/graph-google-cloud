@@ -56,7 +56,7 @@ jobs:
       - name: Fetch tags
         run: |
           git fetch --tags
-          if git describe --exact-match --match "v*.*.*" HEAD
+          if git describe --exact-match --match "v*.*.*" HEAD^2
           then
             echo "Found version commit tag. Publishing."
             echo "publish=true" >> $GITHUB_ENV
