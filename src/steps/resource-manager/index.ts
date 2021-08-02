@@ -45,6 +45,8 @@ import {
   GOOGLE_GROUP_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE,
   GOOGLE_USER_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE,
   STEP_IAM_MANAGED_ROLES,
+  GOOGLE_DOMAIN_ENTITY_TYPE,
+  IAM_PRINCIPAL_TYPE,
 } from '../iam';
 import { cloudresourcemanager_v3 } from 'googleapis';
 import {
@@ -55,6 +57,7 @@ import {
 import { createIamRoleEntity } from '../iam/converters';
 import { RelationshipClass } from '@jupiterone/data-model';
 import { cacheProjectNameAndId } from '../../utils/jobState';
+import { CREATE_IAM_ENTITY_MAP } from './createIamEntities';
 
 export * from './constants';
 
@@ -154,6 +157,7 @@ export function shouldMakeTargetIamRelationships(
 ) {
   return (
     iamUserEntityWithParsedMember.userEntity ||
+    iamUserEntityWithParsedMember.parsedMember.type === 'domain' ||
     iamUserEntityWithParsedMember.parsedMember.type === 'group' ||
     iamUserEntityWithParsedMember.parsedMember.type === 'user'
   );
@@ -168,47 +172,47 @@ export function buildIamTargetRelationship({
 }: {
   iamEntity: Entity;
   iamUserEntityWithParsedMember: IamUserEntityWithParsedMember;
+  relationshipDirection: RelationshipDirection;
   projectId?: string;
   condition?: cloudresourcemanager_v3.Schema$Expr;
-  relationshipDirection?: RelationshipDirection;
 }): Relationship | undefined {
-  relationshipDirection = relationshipDirection
-    ? relationshipDirection
-    : RelationshipDirection.REVERSE;
+  const iamEntityToTargetRelationship =
+    relationshipDirection === RelationshipDirection.FORWARD;
+
   if (iamUserEntityWithParsedMember.userEntity) {
     // Create a direct relationship. This is a user entity that _only_ exists
     // in the Google Cloud integration (e.g. a GCP service account)
     return createDirectRelationship({
       _class: RelationshipClass.ASSIGNED,
-      from:
-        relationshipDirection === RelationshipDirection.FORWARD
-          ? iamEntity
-          : iamUserEntityWithParsedMember.userEntity,
-      to:
-        relationshipDirection === RelationshipDirection.FORWARD
-          ? iamUserEntityWithParsedMember.userEntity
-          : iamEntity,
+      from: iamEntityToTargetRelationship
+        ? iamEntity
+        : iamUserEntityWithParsedMember.userEntity,
+      to: iamEntityToTargetRelationship
+        ? iamUserEntityWithParsedMember.userEntity
+        : iamEntity,
       properties: {
         projectId: projectId,
         ...(condition && getConditionRelationshipProperties(condition)),
       },
     });
-  } else if (iamUserEntityWithParsedMember.parsedMember.type === 'group') {
-    // Create a mapped relationship where the target entity is a google_user
-    // that the Google Workspace integration technically owns.
+  } else {
+    let targetEntityType: IAM_PRINCIPAL_TYPE;
+    const parsedMemberType = iamUserEntityWithParsedMember.parsedMember.type;
+    if (parsedMemberType === 'domain') {
+      targetEntityType = GOOGLE_DOMAIN_ENTITY_TYPE;
+    } else if (parsedMemberType === 'group') {
+      targetEntityType = GOOGLE_GROUP_ENTITY_TYPE;
+    } else if (parsedMemberType === 'user') {
+      targetEntityType = GOOGLE_USER_ENTITY_TYPE;
+    }
+
+    // Create a mapped relationship where the target entity exists is owned
+    // by the Google Workspace integration.
     return createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship({
-      targetEntityType: GOOGLE_GROUP_ENTITY_TYPE,
       iamEntity: iamEntity,
-      iamUserEntityWithParsedMember,
-      relationshipDirection,
-      projectId,
-      condition,
-    });
-  } else if (iamUserEntityWithParsedMember.parsedMember.type === 'user') {
-    return createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship({
-      targetEntityType: GOOGLE_USER_ENTITY_TYPE,
-      iamEntity: iamEntity,
-      iamUserEntityWithParsedMember,
+      targetEntity: CREATE_IAM_ENTITY_MAP[targetEntityType!](
+        iamUserEntityWithParsedMember,
+      ),
       relationshipDirection,
       projectId,
       condition,
@@ -424,6 +428,7 @@ export async function fetchResourceManagerIamPolicy(
       const relationship = buildIamTargetRelationship({
         iamUserEntityWithParsedMember,
         iamEntity: iamRoleEntity,
+        relationshipDirection: RelationshipDirection.REVERSE,
         projectId: client.projectId,
         condition: data.binding.condition,
       });

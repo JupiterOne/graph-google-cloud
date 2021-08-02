@@ -270,9 +270,11 @@ describe('#fetchIamBindings', () => {
         google_iam_binding_assigned_user,
         google_iam_binding_assigned_group,
         google_iam_binding_assigned_service_account,
+        google_iam_binding_assigned_domain,
         google_user_assigned_iam_role,
         google_group_assigned_iam_role,
         google_iam_service_account_assigned_role,
+        google_domain_assigned_iam_role,
         google_iam_binding_allows_cloud_organization,
         google_iam_binding_allows_cloud_folder,
         google_iam_binding_allows_cloud_project,
@@ -298,6 +300,12 @@ describe('#fetchIamBindings', () => {
       // Mapped Relationships
       expect(google_iam_binding_assigned_user).toHaveOnlyMappedRelationships(
         'google_iam_binding_assigned_user',
+      );
+      expect(google_iam_binding_assigned_domain).toHaveOnlyMappedRelationships(
+        'google_iam_binding_assigned_domain',
+      );
+      expect(google_domain_assigned_iam_role).toHaveOnlyMappedRelationships(
+        'google_domain_assigned_iam_role',
       );
       expect(google_iam_binding_assigned_group).toHaveOnlyMappedRelationships(
         'google_iam_binding_assigned_group',
