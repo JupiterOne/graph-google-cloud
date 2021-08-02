@@ -19820,7 +19820,6 @@ Object {
         "targetFilterKeys": Array [
           Array [
             "_type",
-            "_class",
             "email",
           ],
         ],

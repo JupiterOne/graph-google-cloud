@@ -50,8 +50,8 @@ export function createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship
 
   // Not always able to determine a _key for google_users depending on how the binding is set up
   const targetFilterKeys = targetEntity._key
-    ? [['_key']]
-    : [['_type', '_class', 'email']];
+    ? [['_key', '_type']]
+    : [['_type', 'email']];
   const targetKey = targetEntity._key ?? (targetEntity.email as string);
 
   return createMappedRelationship({
