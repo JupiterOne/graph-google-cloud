@@ -12,10 +12,10 @@ import {
 } from '../iam';
 
 export const STEP_IAM_BINDINGS = 'fetch-iam-bindings';
-export const STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS =
-  'create-binding-principal-relationships';
 export const STEP_CREATE_BINDING_ROLE_RELATIONSHIPS =
   'create-binding-role-relationships';
+export const STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS =
+  'create-binding-principal-relationships';
 export const STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS =
   'create-binding-any-resource-relationships';
 

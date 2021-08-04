@@ -251,8 +251,8 @@ describe('#fetchIamBindings', () => {
       await fetchIamManagedRoles(context);
       await fetchIamServiceAccounts(context);
       await fetchIamBindings(context);
-      await createPrincipalRelationships(context);
       await createBindingRoleRelationships(context);
+      await createPrincipalRelationships(context);
       await createBindingToAnyResourceRelationships(context);
 
       expect({
@@ -288,9 +288,6 @@ describe('#fetchIamBindings', () => {
       );
 
       // Both Direct and Mapped Relationships
-      expect(
-        google_iam_binding_uses_role,
-      ).toHaveBothDirectAndMappedRelationships('google_iam_binding_uses_role');
       // Do not have examples of some resources ingested in this integration and some in others yet.
       expect(google_iam_binding_allows_storage_bucket.length > 0).toBe(true);
       expect(google_iam_binding_allows_bigquery_dataset.length > 0).toBe(true);
@@ -323,6 +320,9 @@ describe('#fetchIamBindings', () => {
       );
 
       // Direct Relationships
+      expect(google_iam_binding_uses_role).toHaveOnlyDirectRelationships(
+        'google_iam_binding_uses_role',
+      );
       expect(
         google_iam_binding_assigned_service_account,
       ).toHaveOnlyDirectRelationships(
