@@ -2326,6 +2326,9 @@ export function getMockDataprocCluster(
     status: {
       state: 'RUNNING',
     },
+    labels: {
+      'goog-dataproc-location': 'sample-region',
+    },
     config: {
       configBucket: 'dataproc-staging-europe-north1-167984947943-oqqo30p7',
       tempBucket: 'dataproc-temp-europe-north1-167984947943-0quq0oz0',
@@ -2354,6 +2357,9 @@ export function getMockDataprocCluster(
         preemptibility: 'NON_PREEMPTIBLE',
       },
       softwareConfig: { imageVersion: '2.0.13-debian10' },
+      encryptionConfig: {
+        gcePdKmsKeyName: 'sample-key',
+      },
     },
     ...partial,
   };

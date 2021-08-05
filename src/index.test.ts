@@ -456,7 +456,7 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_DATAPROC_CLUSTERS]: {
-        disabled: true,
+        disabled: false,
       },
     };
 

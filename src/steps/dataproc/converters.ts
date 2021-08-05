@@ -15,8 +15,11 @@ export function createDataprocClusterEntity(data: dataproc_v1.Schema$Cluster) {
       assign: {
         _class: ENTITY_CLASS_DATAPROC_CLUSTER,
         _type: ENTITY_TYPE_DATAPROC_CLUSTER,
-        _key: data.clusterUuid as string,
+        _key: `projects/${data.projectId}/regions/${region}/clusters/${data.clusterName}`,
+        id: data.clusterUuid as string,
         name: data.clusterName,
+        encrypted: true,
+        kmsKey: data.config?.encryptionConfig?.gcePdKmsKeyName,
         status: data.status?.state,
         active: data.status?.state === 'RUNNING',
         configBucket: data.config?.configBucket,
@@ -34,6 +37,34 @@ export function createDataprocClusterEntity(data: dataproc_v1.Schema$Cluster) {
         workerConfigMinCpuPlatform: data.config?.workerConfig?.minCpuPlatform,
         workerConfigPreemptibility: data.config?.workerConfig?.preemptibility,
         softwareConfigImageVersion: data.config?.softwareConfig?.imageVersion,
+        enableKerberos:
+          data.config?.securityConfig?.kerberosConfig?.enableKerberos,
+        rootPrincipalPasswordUri:
+          data.config?.securityConfig?.kerberosConfig?.rootPrincipalPasswordUri,
+        kmsKeyUri: data.config?.securityConfig?.kerberosConfig?.kmsKeyUri,
+        keystoreUri: data.config?.securityConfig?.kerberosConfig?.keystoreUri,
+        truststoreUri:
+          data.config?.securityConfig?.kerberosConfig?.truststoreUri,
+        keystorePasswordUri:
+          data.config?.securityConfig?.kerberosConfig?.keystorePasswordUri,
+        keyPasswordUri:
+          data.config?.securityConfig?.kerberosConfig?.keyPasswordUri,
+        truststorePasswordUri:
+          data.config?.securityConfig?.kerberosConfig?.truststorePasswordUri,
+        crossRealmTrustRealm:
+          data.config?.securityConfig?.kerberosConfig?.crossRealmTrustRealm,
+        crossRealmTrustKdc:
+          data.config?.securityConfig?.kerberosConfig?.crossRealmTrustKdc,
+        crossRealmTrustAdminServer:
+          data.config?.securityConfig?.kerberosConfig
+            ?.crossRealmTrustAdminServer,
+        crossRealmTrustSharedPasswordUri:
+          data.config?.securityConfig?.kerberosConfig
+            ?.crossRealmTrustSharedPasswordUri,
+        kdcDbKeyUri: data.config?.securityConfig?.kerberosConfig?.kdcDbKeyUri,
+        tgtLifetimeHours:
+          data.config?.securityConfig?.kerberosConfig?.tgtLifetimeHours,
+        realm: data.config?.securityConfig?.kerberosConfig?.realm,
         webLink: getGoogleCloudConsoleWebLink(
           region
             ? `/dataproc/clusters/${data.clusterName}/monitoring?region=${region}&project=${data.projectId}`

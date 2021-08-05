@@ -5,7 +5,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "12345678-8d9f-1234-5678-65cf0691abd0",
+  "_key": "projects/sample-project-id/regions/sample-region/clusters/sample-cluster-name",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -14,6 +14,9 @@ Object {
         "clusterUuid": "12345678-8d9f-1234-5678-65cf0691abd0",
         "config": Object {
           "configBucket": "dataproc-staging-europe-north1-167984947943-oqqo30p7",
+          "encryptionConfig": Object {
+            "gcePdKmsKeyName": "sample-key",
+          },
           "gceClusterConfig": Object {
             "networkUri": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/default",
             "zoneUri": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/zones/europe-north1-b",
@@ -37,6 +40,9 @@ Object {
             "preemptibility": "NON_PREEMPTIBLE",
           },
         },
+        "labels": Object {
+          "goog-dataproc-location": "sample-region",
+        },
         "projectId": "sample-project-id",
         "status": Object {
           "state": "RUNNING",
@@ -48,7 +54,20 @@ Object {
   "active": true,
   "configBucket": "dataproc-staging-europe-north1-167984947943-oqqo30p7",
   "createdOn": undefined,
+  "crossRealmTrustAdminServer": undefined,
+  "crossRealmTrustKdc": undefined,
+  "crossRealmTrustRealm": undefined,
+  "crossRealmTrustSharedPasswordUri": undefined,
   "displayName": "sample-cluster-name",
+  "enableKerberos": undefined,
+  "encrypted": true,
+  "id": "12345678-8d9f-1234-5678-65cf0691abd0",
+  "kdcDbKeyUri": undefined,
+  "keyPasswordUri": undefined,
+  "keystorePasswordUri": undefined,
+  "keystoreUri": undefined,
+  "kmsKey": "sample-key",
+  "kmsKeyUri": undefined,
   "masterConfigImageUri": "https://www.googleapis.com/compute/v1/projects/cloud-dataproc/global/images/dataproc-2-0-deb10-20210711-000000-rc01",
   "masterConfigMachineTypeUri": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/zones/europe-north1-b/machineTypes/n1-standard-4",
   "masterConfigMinCpuPlatform": "AUTOMATIC",
@@ -56,10 +75,16 @@ Object {
   "masterConfigPreemptibility": "NON_PREEMPTIBLE",
   "name": "sample-cluster-name",
   "networkUri": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/default",
+  "realm": undefined,
+  "rootPrincipalPasswordUri": undefined,
   "softwareConfigImageVersion": "2.0.13-debian10",
   "status": "RUNNING",
+  "tag.goog-dataproc-location": "sample-region",
   "tempBucket": "dataproc-temp-europe-north1-167984947943-0quq0oz0",
-  "webLink": "https://console.cloud.google.com/dataproc/clusters?project=sample-project-id",
+  "tgtLifetimeHours": undefined,
+  "truststorePasswordUri": undefined,
+  "truststoreUri": undefined,
+  "webLink": "https://console.cloud.google.com/dataproc/clusters/sample-cluster-name/monitoring?region=sample-region&project=sample-project-id",
   "workerConfigImageUri": "https://www.googleapis.com/compute/v1/projects/cloud-dataproc/global/images/dataproc-2-0-deb10-20210711-000000-rc01",
   "workerConfigMachineTypeUri": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/zones/europe-north1-b/machineTypes/n1-standard-4",
   "workerConfigMinCpuPlatform": "AUTOMATIC",
