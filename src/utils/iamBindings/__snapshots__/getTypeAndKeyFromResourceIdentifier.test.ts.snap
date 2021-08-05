@@ -619,8 +619,8 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 78`] = `
 Object {
   "identifier": "//dataproc.googleapis.com/projects/12345/regions/us-east2/clusters/abcdef12345",
-  "key": undefined,
-  "type": "NO_DIRECT_J1_RESOURCE_YET",
+  "key": "projects/12345/regions/us-east2/clusters/abcdef12345",
+  "type": "google_dataproc_cluster",
 }
 `;
 

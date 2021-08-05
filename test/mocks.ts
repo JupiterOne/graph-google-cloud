@@ -2316,6 +2316,55 @@ export function getMockServicePerimeterMethodSelector(
   };
 }
 
+export function getMockDataprocCluster(
+  partial?: Partial<dataproc_v1.Schema$Cluster>,
+): dataproc_v1.Schema$Cluster {
+  return {
+    projectId: 'sample-project-id',
+    clusterName: 'sample-cluster-name',
+    clusterUuid: '12345678-8d9f-1234-5678-65cf0691abd0',
+    status: {
+      state: 'RUNNING',
+    },
+    labels: {
+      'goog-dataproc-location': 'sample-region',
+    },
+    config: {
+      configBucket: 'dataproc-staging-europe-north1-167984947943-oqqo30p7',
+      tempBucket: 'dataproc-temp-europe-north1-167984947943-0quq0oz0',
+      gceClusterConfig: {
+        zoneUri:
+          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/zones/europe-north1-b',
+        networkUri:
+          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/default',
+      },
+      masterConfig: {
+        numInstances: 1,
+        imageUri:
+          'https://www.googleapis.com/compute/v1/projects/cloud-dataproc/global/images/dataproc-2-0-deb10-20210711-000000-rc01',
+        machineTypeUri:
+          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/zones/europe-north1-b/machineTypes/n1-standard-4',
+        minCpuPlatform: 'AUTOMATIC',
+        preemptibility: 'NON_PREEMPTIBLE',
+      },
+      workerConfig: {
+        numInstances: 2,
+        imageUri:
+          'https://www.googleapis.com/compute/v1/projects/cloud-dataproc/global/images/dataproc-2-0-deb10-20210711-000000-rc01',
+        machineTypeUri:
+          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/zones/europe-north1-b/machineTypes/n1-standard-4',
+        minCpuPlatform: 'AUTOMATIC',
+        preemptibility: 'NON_PREEMPTIBLE',
+      },
+      softwareConfig: { imageVersion: '2.0.13-debian10' },
+      encryptionConfig: {
+        gcePdKmsKeyName: 'sample-key',
+      },
+    },
+    ...partial,
+  };
+}
+
 export function getMockComputeAddress(
   partial?: Partial<compute_v1.Schema$Address>,
 ): compute_v1.Schema$Address {
@@ -2407,47 +2456,4 @@ export function getMockComputeForwardingRule(
     kind: 'compute#forwardingRule',
     ...partial,
   }
-}
-
-export function getMockDataprocCluster(
-  partial?: Partial<dataproc_v1.Schema$Cluster>,
-): dataproc_v1.Schema$Cluster {
-  return {
-    projectId: 'sample-project-id',
-    clusterName: 'sample-cluster-name',
-    clusterUuid: '12345678-8d9f-1234-5678-65cf0691abd0',
-    status: {
-      state: 'RUNNING',
-    },
-    config: {
-      configBucket: 'dataproc-staging-europe-north1-167984947943-oqqo30p7',
-      tempBucket: 'dataproc-temp-europe-north1-167984947943-0quq0oz0',
-      gceClusterConfig: {
-        zoneUri:
-          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/zones/europe-north1-b',
-        networkUri:
-          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/default',
-      },
-      masterConfig: {
-        numInstances: 1,
-        imageUri:
-          'https://www.googleapis.com/compute/v1/projects/cloud-dataproc/global/images/dataproc-2-0-deb10-20210711-000000-rc01',
-        machineTypeUri:
-          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/zones/europe-north1-b/machineTypes/n1-standard-4',
-        minCpuPlatform: 'AUTOMATIC',
-        preemptibility: 'NON_PREEMPTIBLE',
-      },
-      workerConfig: {
-        numInstances: 2,
-        imageUri:
-          'https://www.googleapis.com/compute/v1/projects/cloud-dataproc/global/images/dataproc-2-0-deb10-20210711-000000-rc01',
-        machineTypeUri:
-          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/zones/europe-north1-b/machineTypes/n1-standard-4',
-        minCpuPlatform: 'AUTOMATIC',
-        preemptibility: 'NON_PREEMPTIBLE',
-      },
-      softwareConfig: { imageVersion: '2.0.13-debian10' },
-    },
-    ...partial,
-  };
 }
