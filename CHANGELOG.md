@@ -8,6 +8,10 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.47.4
+
+- Add 429 status code to existing retry logic
+
 ## 0.47.0 - 2021-08-02
 
 - Added support for ingesting the following **new** relationships:
