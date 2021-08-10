@@ -149,6 +149,10 @@ function handleApiClientError(error: any) {
   const errorProps = createErrorProps(error);
   const code = error.response?.status;
 
+  // Per these two sets of docs, and depending on the api, gcloud
+  // will return a 403 or 429 error to signify rate limiting:
+  // https://cloud.google.com/compute/docs/api-rate-limits
+  // https://cloud.google.com/resource-manager/docs/core_errors
   if (code == 403) {
     err = new IntegrationProviderAuthorizationError(errorProps);
 
@@ -166,6 +170,9 @@ function handleApiClientError(error: any) {
     error.message.match(/billing/i)
   ) {
     err = new IntegrationProviderAuthorizationError(errorProps);
+  } else if (code === 429) {
+    err = new IntegrationProviderAPIError(errorProps);
+    (err as any).retryable = true;
   } else {
     err = new IntegrationProviderAPIError(errorProps);
   }

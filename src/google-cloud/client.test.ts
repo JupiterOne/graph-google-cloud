@@ -126,11 +126,32 @@ describe('withErrorHandling', () => {
     ]);
   });
 
-  test('should retry if quota error received', async () => {
+  test('should retry if quota error received with 403 status code', async () => {
     const err = new Error(
       "Error: Quota exceeded for quota group 'ListGroup' and limit 'List requests per 100 seconds' of service 'compute.googleapis.com' for consumer 'project_number:12345'.",
     );
     (err as any).response = { status: 403 };
+
+    const executionHandler = jest
+      .fn()
+      .mockRejectedValueOnce(err)
+      .mockImplementationOnce((...params) => Promise.resolve(params));
+
+    const onRetry = jest.fn();
+    const handledFunction = withErrorHandling(executionHandler, { onRetry });
+
+    await expect(handledFunction('param1', 'param2')).resolves.toEqual([
+      'param1',
+      'param2',
+    ]);
+
+    expect(onRetry).toHaveBeenCalledTimes(1);
+    expect(onRetry).toHaveBeenCalledWith(err);
+  });
+
+  test('should retry if throttling error received with 429 status code', async () => {
+    const err = new Error('Error: Too Many Requests');
+    (err as any).response = { status: 429 };
 
     const executionHandler = jest
       .fn()
