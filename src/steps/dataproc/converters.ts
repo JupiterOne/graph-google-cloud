@@ -19,7 +19,7 @@ export function createDataprocClusterEntity(data: dataproc_v1.Schema$Cluster) {
         id: data.clusterUuid as string,
         name: data.clusterName,
         encrypted: true,
-        kmsKey: data.config?.encryptionConfig?.gcePdKmsKeyName,
+        kmsKeyName: data.config?.encryptionConfig?.gcePdKmsKeyName,
         status: data.status?.state,
         active: data.status?.state === 'RUNNING',
         configBucket: data.config?.configBucket,
