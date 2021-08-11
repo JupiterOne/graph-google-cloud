@@ -71,7 +71,7 @@ describe('#fetchDataprocClusters', () => {
           id: { type: 'string' },
           name: { type: 'string' },
           encrypted: { type: 'boolean' },
-          kmsKey: { type: 'string' },
+          kmsKeyName: { type: 'string' },
           status: { type: 'string' },
           configBucket: { type: 'string' },
           tempBucket: { type: 'string' },
