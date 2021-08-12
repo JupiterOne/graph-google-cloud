@@ -10,7 +10,11 @@ import {
   ENTITY_TYPE_DATAPROC_CLUSTER,
   RELATIONSHIP_TYPE_DATAPROC_CLUSTER_USES_KMS_CRYPTO_KEY,
 } from './constants';
-import { ENTITY_TYPE_KMS_KEY, fetchKmsCryptoKeys } from '../kms';
+import {
+  ENTITY_TYPE_KMS_KEY,
+  fetchKmsCryptoKeys,
+  fetchKmsKeyRings,
+} from '../kms';
 
 jest.setTimeout(500000);
 
@@ -43,6 +47,7 @@ describe('#fetchDataprocClusters', () => {
       },
     });
 
+    await fetchKmsKeyRings(context);
     await fetchKmsCryptoKeys(context);
     await fetchDataprocClusters(context);
 

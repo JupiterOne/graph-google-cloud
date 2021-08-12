@@ -4,6 +4,7 @@ import {
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import { getKmsGraphObjectKeyFromKmsKeyName } from '../../utils/kms';
 import { ENTITY_TYPE_KMS_KEY, STEP_CLOUD_KMS_KEYS } from '../kms';
 import { DataProcClient } from './client';
 import {
@@ -29,7 +30,9 @@ export async function fetchDataprocClusters(
 
     const kmsKey = cluster.config?.encryptionConfig?.gcePdKmsKeyName;
     if (kmsKey) {
-      const kmsKeyEntity = await jobState.findEntity(kmsKey);
+      const kmsKeyEntity = await jobState.findEntity(
+        getKmsGraphObjectKeyFromKmsKeyName(kmsKey),
+      );
 
       if (kmsKeyEntity) {
         await jobState.addRelationship(
