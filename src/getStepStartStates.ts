@@ -118,7 +118,10 @@ import {
   STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
   STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS,
 } from './steps/access-context-manager/constants';
-import { STEP_DATAPROC_CLUSTERS } from './steps/dataproc/constants';
+import {
+  STEP_CREATE_CLUSTER_STORAGE_RELATIONSHIPS,
+  STEP_DATAPROC_CLUSTERS,
+} from './steps/dataproc/constants';
 
 function validateInvocationConfig(
   context: IntegrationExecutionContext<SerializedIntegrationConfig>,
@@ -414,6 +417,9 @@ export default async function getStepStartStates(
       ServiceUsageName.PRIVATE_CA,
     ),
     [STEP_DATAPROC_CLUSTERS]: createStepStartState(
+      ServiceUsageName.DATAPROC_CLUSTERS,
+    ),
+    [STEP_CREATE_CLUSTER_STORAGE_RELATIONSHIPS]: createStepStartState(
       ServiceUsageName.DATAPROC_CLUSTERS,
     ),
   };
