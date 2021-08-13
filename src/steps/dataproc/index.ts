@@ -1,12 +1,12 @@
 import {
   createDirectRelationship,
+  Entity,
   IntegrationStep,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
 import { getKmsGraphObjectKeyFromKmsKeyName } from '../../utils/kms';
 import { ENTITY_TYPE_COMPUTE_IMAGE, STEP_COMPUTE_IMAGES } from '../compute';
-import { getComputeImageKey } from '../compute/converters';
 import { ENTITY_TYPE_KMS_KEY, STEP_CLOUD_KMS_KEYS } from '../kms';
 import {
   CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
