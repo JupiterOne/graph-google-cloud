@@ -10,8 +10,9 @@ and this project adheres to
 
 ### Changed
 
-- property `permissions` on `google_iam_bindings` to be a string instead of an
-  array.
+- Changed `google_iam_bindings.permissions: string[]` to `google_iam_bindings.permissions: string` due to
+  limitations on `string[]` property lengths in JupiterOne. Queries will need to be changed from
+  `permissions={{string}}` to `permissions~={{string}}` to maintain functionality.
 
 ## 0.47.4
 
