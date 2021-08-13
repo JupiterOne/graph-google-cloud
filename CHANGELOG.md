@@ -8,6 +8,11 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Changed
+
+- property `permissions` on `google_iam_bindings` to be a string instead of an
+  array.
+
 ## 0.47.4
 
 - Add 429 status code to existing retry logic

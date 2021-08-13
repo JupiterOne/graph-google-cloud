@@ -45,7 +45,9 @@ export function createIamRoleEntity(
         stage: data.stage,
         custom: custom === true,
         deleted: data.deleted === true,
-        permissions: data.includedPermissions,
+        permissions: data.includedPermissions
+          ? data.includedPermissions?.join(',')
+          : undefined, // This array can bee too large to be stored in Neptune. Strings have more storage space.
         readonly: isReadOnlyRole(data),
         etag: data.etag,
       },
