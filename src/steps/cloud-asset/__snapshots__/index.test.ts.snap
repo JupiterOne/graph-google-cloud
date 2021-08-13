@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`#fetchIamBindings should collect data 1`] = `
+exports[`#fetchIamBindings should create Binding and Role entities, Direct Relationships with resources and principals ingested, and Mapped Relationships with resources and principals not ingested. 1`] = `
 Object {
-  "collectedEntities": 144,
-  "collectedRelationships": 238,
+  "collectedEntities": 145,
+  "collectedRelationships": 311,
   "encounteredTypes": Array [
     "google_cloud_organization",
     "google_cloud_folder",
@@ -22,11 +22,18 @@ Object {
     "google_iam_service_account_assigned_role",
     "google_iam_binding_assigned_group",
     "google_group_assigned_iam_role",
+    "google_iam_binding_assigned_domain",
+    "google_domain_assigned_iam_role",
     "google_iam_binding_uses_role",
+    "google_iam_binding_allows_cloud_project",
+    "google_iam_binding_allows_storage_bucket",
     "google_iam_binding_allows_cloud_folder",
+    "google_iam_binding_allows_bigquery_dataset",
+    "google_iam_binding_allows_kms_crypto_key",
+    "google_iam_binding_allows_kms_key_ring",
     "google_iam_binding_allows_cloud_organization",
   ],
-  "numCollectedEntities": 144,
-  "numCollectedRelationships": 238,
+  "numCollectedEntities": 145,
+  "numCollectedRelationships": 311,
 }
 `;

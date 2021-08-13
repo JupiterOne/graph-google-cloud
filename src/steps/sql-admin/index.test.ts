@@ -81,6 +81,7 @@ describe('#fetchSQLInstances', () => {
           hasPublicIP: { type: 'boolean' },
           automatedBackupsEnabled: { type: 'boolean' },
           kmsKeyName: { type: 'string' },
+          connectionName: { type: 'string' },
         },
       },
     });
@@ -118,6 +119,7 @@ describe('#fetchSQLInstances', () => {
           hasPublicIP: { type: 'boolean' },
           automatedBackupsEnabled: { type: 'boolean' },
           kmsKeyName: { type: 'string' },
+          connectionName: { type: 'string' },
         },
       },
     });
@@ -150,6 +152,7 @@ describe('#fetchSQLInstances', () => {
           hasPublicIP: { type: 'boolean' },
           automatedBackupsEnabled: { type: 'boolean' },
           kmsKeyName: { type: 'string' },
+          connectionName: { type: 'string' },
         },
       },
     });
@@ -225,6 +228,7 @@ describe('#fetchSQLInstances encrypted', () => {
           hasPublicIP: { type: 'boolean' },
           automatedBackupsEnabled: { type: 'boolean' },
           kmsKeyName: { type: 'string' },
+          connectionName: { type: 'string' },
         },
       },
     });
@@ -262,6 +266,7 @@ describe('#fetchSQLInstances encrypted', () => {
           hasPublicIP: { type: 'boolean' },
           automatedBackupsEnabled: { type: 'boolean' },
           kmsKeyName: { type: 'string' },
+          connectionName: { type: 'string' },
         },
       },
     });
@@ -294,6 +299,7 @@ describe('#fetchSQLInstances encrypted', () => {
           hasPublicIP: { type: 'boolean' },
           automatedBackupsEnabled: { type: 'boolean' },
           kmsKeyName: { type: 'string' },
+          connectionName: { type: 'string' },
         },
       },
     });

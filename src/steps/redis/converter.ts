@@ -7,6 +7,10 @@ import {
   ENTITY_CLASS_REDIS_INSTANCE,
 } from './constants';
 
+export function getRedisKey(uid: string) {
+  return `redis:${uid}`;
+}
+
 export function createRedisInstanceEntity(
   data: redis_v1.Schema$Instance,
   projectId: string,
@@ -15,7 +19,7 @@ export function createRedisInstanceEntity(
     entityData: {
       source: data,
       assign: {
-        _key: `redis:${data.name}`,
+        _key: getRedisKey(data.name!),
         _type: ENTITY_TYPE_REDIS_INSTANCE,
         _class: ENTITY_CLASS_REDIS_INSTANCE,
         name: data.name,

@@ -39,10 +39,14 @@ import {
   STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
 } from './steps/resource-manager';
 import {
+  STEP_COMPUTE_ADDRESSES,
   STEP_COMPUTE_BACKEND_BUCKETS,
   STEP_COMPUTE_BACKEND_SERVICES,
   STEP_COMPUTE_DISKS,
   STEP_COMPUTE_FIREWALLS,
+  STEP_COMPUTE_FORWARDING_RULES,
+  STEP_COMPUTE_GLOBAL_ADDRESSES,
+  STEP_COMPUTE_GLOBAL_FORWARDING_RULES,
   STEP_COMPUTE_HEALTH_CHECKS,
   STEP_COMPUTE_IMAGES,
   STEP_COMPUTE_IMAGE_IMAGE_RELATIONSHIPS,
@@ -53,6 +57,13 @@ import {
   STEP_COMPUTE_NETWORKS,
   STEP_COMPUTE_NETWORK_PEERING_RELATIONSHIPS,
   STEP_COMPUTE_PROJECT,
+  STEP_COMPUTE_REGION_BACKEND_SERVICES,
+  STEP_COMPUTE_REGION_DISKS,
+  STEP_COMPUTE_REGION_HEALTH_CHECKS,
+  STEP_COMPUTE_REGION_INSTANCE_GROUPS,
+  STEP_COMPUTE_REGION_LOADBALANCERS,
+  STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES,
+  STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES,
   STEP_COMPUTE_SNAPSHOTS,
   STEP_COMPUTE_SNAPSHOT_DISK_RELATIONSHIPS,
   STEP_COMPUTE_SSL_POLICIES,
@@ -246,6 +257,9 @@ describe('#getStepStartStates success', () => {
       [STEP_COMPUTE_DISKS]: {
         disabled: false,
       },
+      [STEP_COMPUTE_REGION_DISKS]: {
+        disabled: false,
+      },
       [STEP_COMPUTE_IMAGE_IMAGE_RELATIONSHIPS]: {
         disabled: false,
       },
@@ -264,7 +278,25 @@ describe('#getStepStartStates success', () => {
       [STEP_COMPUTE_NETWORK_PEERING_RELATIONSHIPS]: {
         disabled: false,
       },
+      [STEP_COMPUTE_ADDRESSES]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_GLOBAL_ADDRESSES]: {
+        disabled: false,
+      },
       [STEP_COMPUTE_FIREWALLS]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_FORWARDING_RULES]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_GLOBAL_FORWARDING_RULES]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_REGION_INSTANCE_GROUPS]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_REGION_BACKEND_SERVICES]: {
         disabled: false,
       },
       [STEP_COMPUTE_SUBNETWORKS]: {
@@ -274,6 +306,9 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_COMPUTE_HEALTH_CHECKS]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_REGION_HEALTH_CHECKS]: {
         disabled: false,
       },
       [STEP_COMPUTE_INSTANCES]: {
@@ -288,6 +323,9 @@ describe('#getStepStartStates success', () => {
       [STEP_COMPUTE_LOADBALANCERS]: {
         disabled: false,
       },
+      [STEP_COMPUTE_REGION_LOADBALANCERS]: {
+        disabled: false,
+      },
       [STEP_COMPUTE_BACKEND_SERVICES]: {
         disabled: false,
       },
@@ -300,7 +338,13 @@ describe('#getStepStartStates success', () => {
       [STEP_COMPUTE_TARGET_HTTPS_PROXIES]: {
         disabled: false,
       },
+      [STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES]: {
+        disabled: false,
+      },
       [STEP_COMPUTE_TARGET_HTTP_PROXIES]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES]: {
         disabled: false,
       },
       [STEP_COMPUTE_SSL_POLICIES]: {

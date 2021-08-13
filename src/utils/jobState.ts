@@ -3,18 +3,26 @@ import { cloudresourcemanager_v3, compute_v1 } from 'googleapis';
 
 export const PEERED_NETWORKS = 'network:all_peerings';
 
-export async function cacheProjectNameToId(
+export async function cacheProjectNameAndId(
   jobState: JobState,
   project: cloudresourcemanager_v3.Schema$Project,
 ) {
-  await jobState.setData(`project:${project.name}`, project.projectId);
+  await jobState.setData(`projectName:${project.name}`, project.projectId);
+  await jobState.setData(`projectId:${project.projectId}`, project.name);
 }
 
 export async function getProjectIdFromName(
   jobState: JobState,
   projectName: string,
 ) {
-  return jobState.getData<string>(`project:${projectName}`);
+  return jobState.getData<string>(`projectName:${projectName}`);
+}
+
+export async function getProjectNameFromId(
+  jobState: JobState,
+  projectId: string,
+) {
+  return jobState.getData<string>(`projectId:${projectId}`);
 }
 
 export async function getPeeredNetworks(jobState: JobState) {

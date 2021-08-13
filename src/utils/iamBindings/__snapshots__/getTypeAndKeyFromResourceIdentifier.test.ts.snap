@@ -1,0 +1,1233 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 1`] = `
+Object {
+  "identifier": "//cloudfunctions.googleapis.com/projects/12345/locations/us-east1/functions/abcdef12345",
+  "key": "projects/12345/locations/us-east1/functions/abcdef12345",
+  "type": "google_cloud_function",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 2`] = `
+Object {
+  "identifier": "//cloudresourcemanager.googleapis.com/organizations/abcdef12345",
+  "key": "organizations/abcdef12345",
+  "type": "google_cloud_organization",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 3`] = `
+Object {
+  "identifier": "//cloudresourcemanager.googleapis.com/folders/abcdef12345",
+  "key": "folders/abcdef12345",
+  "type": "google_cloud_folder",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 4`] = `
+Object {
+  "identifier": "//cloudresourcemanager.googleapis.com/projects/testy-testerson",
+  "key": "testy-testerson",
+  "type": "google_cloud_project",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 5`] = `
+Object {
+  "identifier": "//cloudresourcemanager.googleapis.com/projects/12345",
+  "key": "testy-testerson",
+  "type": "google_cloud_project",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 6`] = `
+Object {
+  "identifier": "//run.googleapis.com/projects/12345/locations/us-east1/domainmappings/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 7`] = `
+Object {
+  "identifier": "//run.googleapis.com/projects/12345/locations/us-east1/revisions/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 8`] = `
+Object {
+  "identifier": "//run.googleapis.com/projects/12345/locations/us-east1/services/abcdef12345",
+  "key": "cloudrun_service:abcdef12345",
+  "type": "google_cloud_run_service",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 9`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/regions/us-east2/addresses/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 10`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/global/addresses/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 11`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/zones/us-east3/autoscalers/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 12`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/regions/us-east2/autoscalers/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 13`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/global/backendBuckets/abcdef12345",
+  "key": "https://www.googleapis.com/compute/projects/12345/global/backendBuckets/abcdef12345",
+  "type": "google_compute_backend_bucket",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 14`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/global/backendServices/abcdef12345",
+  "key": "https://www.googleapis.com/compute/projects/12345/global/backendServices/abcdef12345",
+  "type": "google_compute_backend_service",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 15`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/region/us-east2/commitments/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 16`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/zones/us-east3/disks/abcdef12345",
+  "key": "disk:abcdef12345",
+  "type": "google_compute_disk",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 17`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/global/externalVpnGateways/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 18`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/global/firewalls/abcdef12345",
+  "key": "https://www.googleapis.com/compute/projects/12345/global/firewalls/abcdef12345",
+  "type": "google_compute_firewall",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 19`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/regions/us-east2/forwardingRules/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 20`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/global/healthChecks/abcdef12345",
+  "key": "https://www.googleapis.com/compute/projects/12345/global/healthChecks/abcdef12345",
+  "type": "google_compute_health_check",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 21`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/global/httpHealthChecks/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 22`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/global/httpsHealthChecks/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 23`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/global/images/abcdef12345",
+  "key": "image:abcdef12345",
+  "type": "google_compute_image",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 24`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/zones/us-east3/instances/abcdef12345",
+  "key": "https://www.googleapis.com/compute/projects/12345/zones/us-east3/instances/abcdef12345",
+  "type": "google_compute_instance",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 25`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/zones/us-east3/instanceGroups/abcdef12345",
+  "key": "https://www.googleapis.com/compute/projects/12345/zones/us-east3/instanceGroups/abcdef12345",
+  "type": "google_compute_instance_group",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 26`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/regions/us-east2/instanceGroups/abcdef12345",
+  "key": "https://www.googleapis.com/compute/projects/12345/regions/us-east2/instanceGroups/abcdef12345",
+  "type": "google_compute_instance_group",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 27`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/zones/us-east3/instanceGroupManager/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 28`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/regions/us-east2/instanceGroupManager/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 29`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/global/instanceTemplates/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 30`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/global/interconnects/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 31`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/regions/interconnectAttachments/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 32`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/global/licenses/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 33`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/global/networks/abcdef12345",
+  "key": "https://www.googleapis.com/compute/projects/12345/global/networks/abcdef12345",
+  "type": "google_compute_network",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 34`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/zones/us-east3/networkEndpointGroups/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 35`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/zones/us-east3/nodeGroups/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 36`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/regions/us-east2/nodeTemplates/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 37`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345",
+  "key": "https://www.googleapis.com/compute/projects/12345",
+  "type": "google_compute_project",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 38`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/regions/us-east2/packetMirrorings/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 39`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/regions/us-east2/disks/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 40`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/zones/us-east3/reservations/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 41`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/regions/us-east2/resourcePolicies/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 42`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/global/routes/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 43`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/regions/us-east2/routers/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 44`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/global/securityPolicies/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 45`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/global/snapshots/abcdef12345",
+  "key": "snapshot:abcdef12345",
+  "type": "google_compute_snapshot",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 46`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/global/sslCertificates/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 47`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/global/sslPolicies/abcdef12345",
+  "key": "https://www.googleapis.com/compute/projects/12345/global/sslPolicies/abcdef12345",
+  "type": "google_compute_ssl_policy",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 48`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/regions/us-east2/subnetworks/abcdef12345",
+  "key": "https://www.googleapis.com/compute/projects/12345/regions/us-east2/subnetworks/abcdef12345",
+  "type": "google_compute_subnetwork",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 49`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/global/targetHttpProxies/abcdef12345",
+  "key": "https://www.googleapis.com/compute/projects/12345/global/targetHttpProxies/abcdef12345",
+  "type": "google_compute_target_http_proxy",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 50`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/global/targetHttpsProxies/abcdef12345",
+  "key": "https://www.googleapis.com/compute/projects/12345/global/targetHttpsProxies/abcdef12345",
+  "type": "google_compute_target_https_proxy",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 51`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/zones/us-east3/targetInstances/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 52`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/regions/us-east2/targetPools/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 53`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/global/targetTcpProxies/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 54`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/global/targetSslProxies/abcdef12345",
+  "key": "https://www.googleapis.com/compute/projects/12345/global/targetSslProxies/abcdef12345",
+  "type": "google_compute_target_ssl_proxy",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 55`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/regions/us-east2/targetVpnGateways/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 56`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/global/urlMaps/abcdef12345",
+  "key": "https://www.googleapis.com/compute/projects/12345/global/urlMaps/abcdef12345",
+  "type": "google_compute_url_map",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 57`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/regions/us-east2/vpnGateways/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 58`] = `
+Object {
+  "identifier": "//compute.googleapis.com/projects/12345/regions/us-east2/vpnTunnels/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 59`] = `
+Object {
+  "identifier": "//appengine.googleapis.com/apps/abcdef12345",
+  "key": "apps/abcdef12345",
+  "type": "google_app_engine_application",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 60`] = `
+Object {
+  "identifier": "//appengine.googleapis.com/apps/APP/services/abcdef12345",
+  "key": "apps/APP/services/abcdef12345",
+  "type": "google_app_engine_service",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 61`] = `
+Object {
+  "identifier": "//appengine.googleapis.com/apps/APP/services/abcdef12345/versions/abcdef12345",
+  "key": "apps/APP/services/abcdef12345/versions/abcdef12345",
+  "type": "google_app_engine_version",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 62`] = `
+Object {
+  "identifier": "//cloudbilling.googleapis.com/billingAccounts/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 63`] = `
+Object {
+  "identifier": "//storage.googleapis.com/abcdef12345",
+  "key": "bucket:abcdef12345",
+  "type": "google_storage_bucket",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 64`] = `
+Object {
+  "identifier": "//osconfig.googleapis.com/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 65`] = `
+Object {
+  "identifier": "//dns.googleapis.com/projects/12345/managedZones/abcdef12345",
+  "key": "abcdef12345",
+  "type": "google_dns_managed_zone",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 66`] = `
+Object {
+  "identifier": "//dns.googleapis.com/projects/12345/policies/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 67`] = `
+Object {
+  "identifier": "//spanner.googleapis.com/projects/12345/instances/abcdef12345",
+  "key": "projects/12345/instances/abcdef12345",
+  "type": "google_spanner_instance",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 68`] = `
+Object {
+  "identifier": "//spanner.googleapis.com/projects/12345/instances/abcdef12345/databases/abcdef12345",
+  "key": "projects/12345/instances/abcdef12345/databases/abcdef12345",
+  "type": "google_spanner_database",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 69`] = `
+Object {
+  "identifier": "//spanner.googleapis.com/projects/12345/instances/abcdef12345/backups/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 70`] = `
+Object {
+  "identifier": "//bigquery.googleapis.com/projects/12345/datasets/abcdef12345",
+  "key": "12345:abcdef12345",
+  "type": "google_bigquery_dataset",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 71`] = `
+Object {
+  "identifier": "//bigquery.googleapis.com/projects/12345/datasets/abcdef12345/tables/abcdef12345",
+  "key": "12345:abcdef12345:abcdef12345",
+  "type": "google_bigquery_table",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 72`] = `
+Object {
+  "identifier": "//iam.googleapis.com/projects/12345/roles/abcdef12345",
+  "key": undefined,
+  "type": "google_iam_role",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 73`] = `
+Object {
+  "identifier": "//iam.googleapis.com/projects/12345/serviceAccounts/abcdef12345",
+  "key": "abcdef12345",
+  "type": "google_iam_service_account",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 74`] = `
+Object {
+  "identifier": "//iam.googleapis.com/projects/12345/serviceAccounts/abcdef12345/keys/abcdef12345",
+  "key": "projects/12345/serviceAccounts/abcdef12345/keys/abcdef12345",
+  "type": "google_iam_service_account_key",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 75`] = `
+Object {
+  "identifier": "//pubsub.googleapis.com/projects/12345/topics/abcdef12345",
+  "key": "projects/12345/topics/abcdef12345",
+  "type": "google_pubsub_topic",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 76`] = `
+Object {
+  "identifier": "//pubsub.googleapis.com/projects/12345/subscriptions/abcdef12345",
+  "key": "projects/12345/subscriptions/abcdef12345",
+  "type": "google_pubsub_subscription",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 77`] = `
+Object {
+  "identifier": "//pubsub.googleapis.com/projects/12345/snapshots/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 78`] = `
+Object {
+  "identifier": "//dataproc.googleapis.com/projects/12345/regions/us-east2/clusters/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 79`] = `
+Object {
+  "identifier": "//dataproc.googleapis.com/projects/12345/regions/us-east2/jobs/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 80`] = `
+Object {
+  "identifier": "//cloudkms.googleapis.com/projects/12345/locations/us-east1/keyRings/abcdef12345",
+  "key": "projects/12345/locations/us-east1/keyRings/abcdef12345",
+  "type": "google_kms_key_ring",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 81`] = `
+Object {
+  "identifier": "//cloudkms.googleapis.com/projects/12345/locations/us-east1/keyRings/abcdef12345/cryptoKeys/abcdef12345",
+  "key": "projects/12345/locations/us-east1/keyRings/abcdef12345/cryptoKeys/abcdef12345",
+  "type": "google_kms_crypto_key",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 82`] = `
+Object {
+  "identifier": "//cloudkms.googleapis.com/projects/12345/locations/us-east1/keyRings/abcdef12345/cryptoKeys/abcdef12345/cryptoKeyVersions/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 83`] = `
+Object {
+  "identifier": "//cloudkms.googleapis.com/projects/12345/locations/us-east1/keyRings/abcdef12345/importJobs/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 84`] = `
+Object {
+  "identifier": "//container.googleapis.com/projects/12345/zones/us-east3/clusters/abcdef12345",
+  "key": "https://www.googleapis.com/container/projects/12345/zones/us-east3/clusters/abcdef12345",
+  "type": "google_container_cluster",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 85`] = `
+Object {
+  "identifier": "//container.googleapis.com/projects/12345/locations/us-east1/clusters/abcdef12345",
+  "key": "https://www.googleapis.com/container/projects/12345/locations/us-east1/clusters/abcdef12345",
+  "type": "google_container_cluster",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 86`] = `
+Object {
+  "identifier": "//container.googleapis.com/projects/12345/zones/us-east3/clusters/abcdef12345/nodePools/abcdef12345",
+  "key": "https://www.googleapis.com/container/projects/12345/zones/us-east3/clusters/abcdef12345/nodePools/abcdef12345",
+  "type": "google_container_node_pool",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 87`] = `
+Object {
+  "identifier": "//cloudsql.googleapis.com/projects/12345/instances/abcdef12345",
+  "key": "https://www.googleapis.com/cloudsql/projects/12345/instances/abcdef12345",
+  "type": "MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 88`] = `
+Object {
+  "identifier": "//bigtable.googleapis.com/projects/12345/instances/abcdef12345/appProfiles/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 89`] = `
+Object {
+  "identifier": "//bigtable.googleapis.com/projects/12345/instances/abcdef12345/clusters/abcdef12345/backups/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 90`] = `
+Object {
+  "identifier": "//bigtable.googleapis.com/projects/12345/instances/abcdef12345/clusters/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 91`] = `
+Object {
+  "identifier": "//bigtable.googleapis.com/projects/12345/instances/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 92`] = `
+Object {
+  "identifier": "//bigtable.googleapis.com/projects/12345/instances/abcdef12345/tables/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 93`] = `
+Object {
+  "identifier": "//container.googleapis.com/projects/12345/zones/us-east3/clusters/abcdef12345/k8s/namespaces/abcdef12345/extensions/ingresses/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 94`] = `
+Object {
+  "identifier": "//container.googleapis.com/projects/12345/zones/us-east3/clusters/abcdef12345/k8s/namespaces/abcdef12345/networking.k8s.io/ingresses/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 95`] = `
+Object {
+  "identifier": "//container.googleapis.com/projects/12345/zones/us-east3/clusters/abcdef12345/k8s/namespaces/abcdef12345/networking.k8s.io/networkpolicies/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 96`] = `
+Object {
+  "identifier": "//serviceusage.googleapis.com/projects/67890/services/abcdef12345",
+  "key": "projects/67890/services/abcdef12345",
+  "type": "google_cloud_api_service",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 97`] = `
+Object {
+  "identifier": "//datafusion.googleapis.com/projects/12345/locations/us-east1/instances/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 98`] = `
+Object {
+  "identifier": "//logging.googleapis.com/projects/67890/locations/us-east1/buckets/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 99`] = `
+Object {
+  "identifier": "//logging.googleapis.com/projects/67890/sinks/abcdef12345",
+  "key": "google_logging_log_sink:abcdef12345",
+  "type": "google_logging_project_sink",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 100`] = `
+Object {
+  "identifier": "//logging.googleapis.com/folders/abcdef12345/sinks/abcdef12345",
+  "key": "google_logging_log_sink:abcdef12345",
+  "type": "google_logging_project_sink",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 101`] = `
+Object {
+  "identifier": "//logging.googleapis.com/organizations/abcdef12345/sinks/abcdef12345",
+  "key": "google_logging_log_sink:abcdef12345",
+  "type": "google_logging_project_sink",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 102`] = `
+Object {
+  "identifier": "//logging.googleapis.com/billingAccounts/abcdef12345/sinks/abcdef12345",
+  "key": "google_logging_log_sink:abcdef12345",
+  "type": "google_logging_project_sink",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 103`] = `
+Object {
+  "identifier": "//logging.googleapis.com/projects/67890/metrics/abcdef12345",
+  "key": "abcdef12345",
+  "type": "google_logging_metric",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 104`] = `
+Object {
+  "identifier": "//networkmanagement.googleapis.com/projects/12345/locations/global/connectivityTests/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 105`] = `
+Object {
+  "identifier": "//managedidentities.googleapis.com/projects/12345/locations/global/domains/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 106`] = `
+Object {
+  "identifier": "//privateca.googleapis.com/projects/12345/locations/us-east1/caPools/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 107`] = `
+Object {
+  "identifier": "//privateca.googleapis.com/projects/12345/locations/us-east1/caPools/abcdef12345/certificateAuthorities/abcdef12345",
+  "key": "projects/12345/locations/us-east1/caPools/abcdef12345/certificateAuthorities/abcdef12345",
+  "type": "google_privateca_certificate_authority",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 108`] = `
+Object {
+  "identifier": "//privateca.googleapis.com/projects/12345/locations/us-east1/caPools/abcdef12345/certificateAuthorities/abcdef12345/certificateRevocationLists/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 109`] = `
+Object {
+  "identifier": "//privateca.googleapis.com/projects/12345/locations/us-east1/certificateTemplates/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 110`] = `
+Object {
+  "identifier": "//dataflow.googleapis.com/projects/12345/locations/us-east1/jobs/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 111`] = `
+Object {
+  "identifier": "//gameservices.googleapis.com/projects/12345/locations/global/realms/abcdef12345/gameServerClusters/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 112`] = `
+Object {
+  "identifier": "//gameservices.googleapis.com/projects/12345/locations/global/realms/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 113`] = `
+Object {
+  "identifier": "//gameservices.googleapis.com/projects/12345/locations/global/gameServerDeployments/abcdef12345/configs/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 114`] = `
+Object {
+  "identifier": "//gameservices.googleapis.com/projects/12345/locations/global/gameServerDeployments/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 115`] = `
+Object {
+  "identifier": "//gkehub.googleapis.com/projects/12345/locations/global/memberships/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 116`] = `
+Object {
+  "identifier": "//secretmanager.googleapis.com/projects/67890/secrets/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 117`] = `
+Object {
+  "identifier": "//secretmanager.googleapis.com/projects/67890/secrets/abcdef12345/versions/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 118`] = `
+Object {
+  "identifier": "//tpu.googleapis.com/projects/67890/locations/us-east1/nodes/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 119`] = `
+Object {
+  "identifier": "//composer.googleapis.com/projects/67890/locations/us-east1/environments/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 120`] = `
+Object {
+  "identifier": "//file.googleapis.com/projects/67890/locations/us-east1/instances/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 121`] = `
+Object {
+  "identifier": "//file.googleapis.com/projects/67890/locations/us-east1/backups/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 122`] = `
+Object {
+  "identifier": "//servicedirectory.googleapis.com/projects/67890/locations/us-east1/namespaces/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 123`] = `
+Object {
+  "identifier": "//assuredworkloads.googleapis.com/organizations/abcdef12345/locations/us-east1/workloads/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 124`] = `
+Object {
+  "identifier": "//artifactregistry.googleapis.com/projects/67890/locations/us-east1/repositories/abcdef12345/dockerimages/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 125`] = `
+Object {
+  "identifier": "//artifactregistry.googleapis.com/projects/67890/locations/us-east1/repositories/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 126`] = `
+Object {
+  "identifier": "//apigateway.googleapis.com/projects/67890/locations/us-east1/apis/abcdef12345",
+  "key": "projects/67890/locations/us-east1/apis/abcdef12345",
+  "type": "google_api_gateway_api",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 127`] = `
+Object {
+  "identifier": "//apigateway.googleapis.com/projects/67890/locations/us-east1/apis/abcdef12345/configs/abcdef12345",
+  "key": "projects/67890/locations/us-east1/apis/abcdef12345/configs/abcdef12345",
+  "type": "google_api_gateway_api_config",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 128`] = `
+Object {
+  "identifier": "//apigateway.googleapis.com/projects/67890/locations/us-east1/gateways/abcdef12345",
+  "key": "projects/67890/locations/us-east1/gateways/abcdef12345",
+  "type": "google_api_gateway_gateway",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 129`] = `
+Object {
+  "identifier": "//redis.googleapis.com/projects/12345/locations/us-east1/instances/abcdef12345",
+  "key": "redis:abcdef12345",
+  "type": "google_redis_instance",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 130`] = `
+Object {
+  "identifier": "//memcache.googleapis.com/projects/67890/locations/us-east1/instances/abcdef12345",
+  "key": "memcached:abcdef12345",
+  "type": "google_memcache_instance",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 131`] = `
+Object {
+  "identifier": "//documentai.googleapis.com/projects/67890/locations/us-east1/processors/abcdef12345/humanReviewConfig",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 132`] = `
+Object {
+  "identifier": "//documentai.googleapis.com/projects/67890/locations/us-east1/labelerPools/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 133`] = `
+Object {
+  "identifier": "//documentai.googleapis.com/projects/67890/locations/us-east1/processors/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 134`] = `
+Object {
+  "identifier": "//aiplatform.googleapis.com/projects/67890/locations/us-east1/batchPredictionJobs/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 135`] = `
+Object {
+  "identifier": "//aiplatform.googleapis.com/projects/67890/locations/us-east1/customJobs/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 136`] = `
+Object {
+  "identifier": "//aiplatform.googleapis.com/projects/67890/locations/us-east1/dataLabelingJobs/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 137`] = `
+Object {
+  "identifier": "//aiplatform.googleapis.com/projects/67890/locations/us-east1/datasets/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 138`] = `
+Object {
+  "identifier": "//aiplatform.googleapis.com/projects/67890/locations/us-east1/endpoints/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 139`] = `
+Object {
+  "identifier": "//aiplatform.googleapis.com/projects/67890/locations/us-east1/hyperparameterTuningJobs/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 140`] = `
+Object {
+  "identifier": "//aiplatform.googleapis.com/projects/67890/locations/us-east1/models/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 141`] = `
+Object {
+  "identifier": "//aiplatform.googleapis.com/projects/67890/locations/us-east1/specialistPools/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 142`] = `
+Object {
+  "identifier": "//aiplatform.googleapis.com/projects/67890/locations/us-east1/trainingPipelines/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 143`] = `
+Object {
+  "identifier": "//monitoring.googleapis.com/projects/67890/policies/abcdef12345",
+  "key": "projects/67890/policies/abcdef12345",
+  "type": "google_monitoring_alert_policy",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 144`] = `
+Object {
+  "identifier": "//vpcaccess.googleapis.com/projects/67890/locations/us-east1/connectors/abcdef12345",
+  "key": undefined,
+  "type": "NO_DIRECT_J1_RESOURCE_YET",
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 145`] = `
+Object {
+  "identifier": "//servicemanagement.googleapis.com/services/abcdef12345",
+  "key": undefined,
+  "type": undefined,
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 146`] = `
+Object {
+  "identifier": "//eventarc.googleapis.com/projects/67890/locations/us-east1/triggers/abcdef12345",
+  "key": undefined,
+  "type": undefined,
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 147`] = `
+Object {
+  "identifier": "//container.googleapis.com/projects/12345/zones/us-east3/clusters/test/k8s/nodes/abcdef12345",
+  "key": undefined,
+  "type": undefined,
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 148`] = `
+Object {
+  "identifier": "//container.googleapis.com/projects/12345/zones/us-east3/clusters/test/k8s/namespaces/abcdef12345/pods/abcdef12345",
+  "key": undefined,
+  "type": undefined,
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 149`] = `
+Object {
+  "identifier": "//container.googleapis.com/projects/12345/zones/us-east3/clusters/test/k8s/namespaces/abcdef12345",
+  "key": undefined,
+  "type": undefined,
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 150`] = `
+Object {
+  "identifier": "//container.googleapis.com/projects/12345/zones/us-east3/clusters/test/k8s/namespaces/abcdef12345/services/abcdef12345",
+  "key": undefined,
+  "type": undefined,
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 151`] = `
+Object {
+  "identifier": "//container.googleapis.com/projects/12345/zones/us-east3/clusters/test/k8s/namespaces/abcdef12345/rbac.authorization.k8s.io/roles/abcdef12345",
+  "key": undefined,
+  "type": undefined,
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 152`] = `
+Object {
+  "identifier": "//container.googleapis.com/projects/12345/zones/us-east3/clusters/test/k8s/namespaces/abcdef12345/rbac.authorization.k8s.io/rolebindings/abcdef12345",
+  "key": undefined,
+  "type": undefined,
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 153`] = `
+Object {
+  "identifier": "//container.googleapis.com/projects/12345/zones/us-east3/clusters/test/k8s/rbac.authorization.k8s.io/clusterroles/abcdef12345",
+  "key": undefined,
+  "type": undefined,
+}
+`;
+
+exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 154`] = `
+Object {
+  "identifier": "//container.googleapis.com/projects/12345/zones/us-east3/clusters/test/k8s/rbac.authorization.k8s.io/clusterrolebindings/abcdef12345",
+  "key": undefined,
+  "type": undefined,
+}
+`;

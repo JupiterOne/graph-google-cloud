@@ -8,7 +8,46 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.47.4
+
+- Add 429 status code to existing retry logic
+
+## 0.47.0 - 2021-08-02
+
+- Added support for ingesting the following **new** relationships:
+
+  | Source               | class        | Target                           |
+  | -------------------- | ------------ | -------------------------------- |
+  | `google_iam_binding` | **ALLOWS**   | `google_cloud_projects`          |
+  | `google_iam_binding` | **ALLOWS**   | `google_sql_mysql_instance`      |
+  | `google_iam_binding` | **ALLOWS**   | `google_sql_postgres_instance`   |
+  | `google_iam_binding` | **ALLOWS**   | `google_sql_sql_server_instance` |
+  | `google_iam_binding` | **ASSIGNED** | `google_domain`                  |
+
+## Fixed
+
+- `google_iam_binding` **ALLOWS** `ANY_RESOURCE` relationships to work for all
+  ingested resources
+
+## 0.46.1 - 2021-07-28
+
+### Fixed
+
+- Retry API calls on "Quota exceeded" errors
+
+## 0.46.0 - 2021-07-28
+
+### Changed
+
+- Upgraded integration SDK packages to v6.13.0
+
+### Fixed
+
+- Encode path part of `webLink` entity property
+
 ## 0.45.0 - 2021-07-20
+
+### Added
 
 - Added support for ingesting the following **new** relationships:
 
