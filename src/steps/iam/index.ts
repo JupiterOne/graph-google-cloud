@@ -196,7 +196,7 @@ export const iamSteps: IntegrationStep<IntegrationConfig>[] = [
     name: 'Identity and Access Management (IAM) Custom Roles',
     entities: [
       {
-        resourceName: 'IAM Custom Role',
+        resourceName: 'IAM Role',
         _type: IAM_ROLE_ENTITY_TYPE,
         _class: IAM_ROLE_ENTITY_CLASS,
       },

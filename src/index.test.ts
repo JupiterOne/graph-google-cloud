@@ -23,7 +23,10 @@ import {
   STEP_CLOUD_FUNCTIONS,
   STEP_CLOUD_FUNCTIONS_SERVICE_ACCOUNT_RELATIONSHIPS,
 } from './steps/functions';
-import { STEP_CLOUD_STORAGE_BUCKETS } from './steps/storage';
+import {
+  STEP_CLOUD_STORAGE_BUCKETS,
+  STEP_CLOUD_STORAGE_BUCKETS_WITH_ACCESS_LEVELS,
+} from './steps/storage';
 import { STEP_API_SERVICES } from './steps/service-usage';
 import { parseServiceAccountKeyFile } from './utils/parseServiceAccountKeyFile';
 import {
@@ -120,6 +123,7 @@ import {
 } from './steps/privateca/constants';
 import { getOrganizationSteps } from './getStepStartStates';
 import {
+  STEP_CACHE_IF_RESOURCES_ARE_PUBLIC,
   STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS,
   STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS,
   STEP_CREATE_BINDING_ROLE_RELATIONSHIPS,
@@ -236,9 +240,6 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_CLOUD_FUNCTIONS_SERVICE_ACCOUNT_RELATIONSHIPS]: {
-        disabled: false,
-      },
-      [STEP_CLOUD_STORAGE_BUCKETS]: {
         disabled: false,
       },
       [STEP_IAM_CUSTOM_ROLES]: {
@@ -454,6 +455,15 @@ describe('#getStepStartStates success', () => {
       [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: {
         disabled: false,
       },
+      [STEP_CACHE_IF_RESOURCES_ARE_PUBLIC]: {
+        disabled: false,
+      },
+      [STEP_CLOUD_STORAGE_BUCKETS_WITH_ACCESS_LEVELS]: {
+        disabled: false,
+      },
+      [STEP_CLOUD_STORAGE_BUCKETS]: {
+        disabled: true,
+      },
     };
 
     expect(stepStartStates).toEqual(expectedStepStartStates);
@@ -507,6 +517,12 @@ describe('#getStepStartStates success', () => {
       [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: {
         disabled: true,
       },
+      [STEP_CLOUD_STORAGE_BUCKETS_WITH_ACCESS_LEVELS]: {
+        disabled: true,
+      },
+      [STEP_CLOUD_STORAGE_BUCKETS]: {
+        disabled: false,
+      },
     });
   });
 
@@ -556,6 +572,12 @@ describe('#getStepStartStates success', () => {
       },
       [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: {
         disabled: true,
+      },
+      [STEP_CLOUD_STORAGE_BUCKETS_WITH_ACCESS_LEVELS]: {
+        disabled: true,
+      },
+      [STEP_CLOUD_STORAGE_BUCKETS]: {
+        disabled: false,
       },
     });
   });

@@ -10,7 +10,10 @@ import {
   STEP_CLOUD_FUNCTIONS,
   STEP_CLOUD_FUNCTIONS_SERVICE_ACCOUNT_RELATIONSHIPS,
 } from './steps/functions';
-import { STEP_CLOUD_STORAGE_BUCKETS } from './steps/storage';
+import {
+  STEP_CLOUD_STORAGE_BUCKETS,
+  STEP_CLOUD_STORAGE_BUCKETS_WITH_ACCESS_LEVELS,
+} from './steps/storage';
 import { STEP_API_SERVICES } from './steps/service-usage';
 import { deserializeIntegrationConfig } from './utils/integrationConfig';
 import {
@@ -107,6 +110,7 @@ import {
 } from './steps/privateca/constants';
 import * as enablement from './steps/enablement';
 import {
+  STEP_CACHE_IF_RESOURCES_ARE_PUBLIC,
   STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS,
   STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS,
   STEP_CREATE_BINDING_ROLE_RELATIONSHIPS,
@@ -215,6 +219,33 @@ export default async function getStepStartStates(
     };
   }
 
+  function createMasterInstanceStepStartState(
+    primaryServiceName: ServiceUsageName,
+    ...additionalServiceNames: ServiceUsageName[]
+  ): StepStartState {
+    return {
+      disabled:
+        !isMasterOrgInstance ||
+        createStepStartState(primaryServiceName, ...additionalServiceNames)
+          .disabled,
+    };
+  }
+
+  const storageStartState = createStepStartState(
+    ServiceUsageName.STORAGE,
+    ServiceUsageName.STORAGE_COMPONENT,
+    ServiceUsageName.STORAGE_API,
+  );
+  // Select which storageBucket step to use depending on if you are the masterOrgInstance or not
+  const storageBucketStartStates: StepStartStates = {
+    [STEP_CLOUD_STORAGE_BUCKETS]: isMasterOrgInstance
+      ? { disabled: true }
+      : storageStartState,
+    [STEP_CLOUD_STORAGE_BUCKETS_WITH_ACCESS_LEVELS]: isMasterOrgInstance
+      ? storageStartState
+      : { disabled: true },
+  };
+
   const stepStartStates: StepStartStates = {
     // Organization-required steps
     ...makeStepStartStates([...getOrganizationSteps()], organizationSteps),
@@ -231,29 +262,25 @@ export default async function getStepStartStates(
     // This API will be enabled otherwise fetching services names above would fail
     [STEP_RESOURCE_MANAGER_PROJECT]: { disabled: false },
     [STEP_API_SERVICES]: { disabled: false },
-    [STEP_IAM_BINDINGS]: isMasterOrgInstance
-      ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
-      : { disabled: true },
-    [STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS]: isMasterOrgInstance
-      ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
-      : { disabled: true },
-    [STEP_CREATE_BINDING_ROLE_RELATIONSHIPS]: isMasterOrgInstance
-      ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
-      : { disabled: true },
-    [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: isMasterOrgInstance
-      ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
-      : { disabled: true },
+    [STEP_IAM_BINDINGS]: createMasterInstanceStepStartState(
+      ServiceUsageName.CLOUD_ASSET,
+    ),
+    [STEP_CREATE_BINDING_ROLE_RELATIONSHIPS]:
+      createMasterInstanceStepStartState(ServiceUsageName.CLOUD_ASSET),
+    [STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS]:
+      createMasterInstanceStepStartState(ServiceUsageName.CLOUD_ASSET),
+    [STEP_CACHE_IF_RESOURCES_ARE_PUBLIC]: createMasterInstanceStepStartState(
+      ServiceUsageName.CLOUD_ASSET,
+    ),
+    [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]:
+      createMasterInstanceStepStartState(ServiceUsageName.CLOUD_ASSET),
     [STEP_CLOUD_FUNCTIONS]: createStepStartState(
       ServiceUsageName.CLOUD_FUNCTIONS,
     ),
     [STEP_CLOUD_FUNCTIONS_SERVICE_ACCOUNT_RELATIONSHIPS]: createStepStartState(
       ServiceUsageName.CLOUD_FUNCTIONS,
     ),
-    [STEP_CLOUD_STORAGE_BUCKETS]: createStepStartState(
-      ServiceUsageName.STORAGE,
-      ServiceUsageName.STORAGE_COMPONENT,
-      ServiceUsageName.STORAGE_API,
-    ),
+    ...storageBucketStartStates,
     [STEP_IAM_CUSTOM_ROLES]: createStepStartState(ServiceUsageName.IAM),
     [STEP_IAM_MANAGED_ROLES]: createStepStartState(ServiceUsageName.IAM),
     [STEP_IAM_SERVICE_ACCOUNTS]: createStepStartState(ServiceUsageName.IAM),

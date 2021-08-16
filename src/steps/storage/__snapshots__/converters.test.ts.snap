@@ -37,6 +37,9 @@ Object {
     },
   ],
   "_type": "google_storage_bucket",
+  "accessLevel": "SubjectToObjectACLs",
+  "accessLevelCondition": "Subject to object ACLs",
+  "accessLevelIsConditional": true,
   "classification": null,
   "createdOn": 1595963174033,
   "displayName": "customer-managed-encryption-key-bucket-1234",
@@ -95,6 +98,9 @@ Object {
     },
   ],
   "_type": "google_storage_bucket",
+  "accessLevel": "public",
+  "accessLevelCondition": undefined,
+  "accessLevelIsConditional": false,
   "classification": null,
   "createdOn": 1595963174033,
   "displayName": "customer-managed-encryption-key-bucket-1234",
@@ -153,6 +159,9 @@ Object {
     },
   ],
   "_type": "google_storage_bucket",
+  "accessLevel": "private",
+  "accessLevelCondition": undefined,
+  "accessLevelIsConditional": false,
   "classification": null,
   "createdOn": 1595963174033,
   "displayName": "customer-managed-encryption-key-bucket-1234",
@@ -216,6 +225,9 @@ Object {
     },
   ],
   "_type": "google_storage_bucket",
+  "accessLevel": "SubjectToObjectACLs",
+  "accessLevelCondition": "Subject to object ACLs",
+  "accessLevelIsConditional": true,
   "classification": null,
   "createdOn": 1595963174033,
   "displayName": "customer-managed-encryption-key-bucket-1234",
@@ -267,6 +279,9 @@ Object {
     },
   ],
   "_type": "google_storage_bucket",
+  "accessLevel": "SubjectToObjectACLs",
+  "accessLevelCondition": "Subject to object ACLs",
+  "accessLevelIsConditional": true,
   "classification": null,
   "createdOn": 1595963174033,
   "displayName": "customer-managed-encryption-key-bucket-1234",
@@ -288,7 +303,7 @@ Object {
 }
 `;
 
-exports[`#createCloudStorageBucketEntity should set "public" to "false" if "isPublic" is "undefined" 1`] = `
+exports[`#createCloudStorageBucketEntity should set "public" to "false" if "accessLevel" is "undefined" 1`] = `
 Object {
   "_class": Array [
     "DataStore",
@@ -318,6 +333,9 @@ Object {
     },
   ],
   "_type": "google_storage_bucket",
+  "accessLevel": undefined,
+  "accessLevelCondition": undefined,
+  "accessLevelIsConditional": false,
   "classification": null,
   "createdOn": 1595963174033,
   "displayName": "customer-managed-encryption-key-bucket-1234",

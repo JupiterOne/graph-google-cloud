@@ -12,6 +12,8 @@ import {
 } from '../iam';
 
 export const STEP_IAM_BINDINGS = 'fetch-iam-bindings';
+export const STEP_CACHE_IF_RESOURCES_ARE_PUBLIC =
+  'calculate-if-resources-are-public';
 export const STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS =
   'create-binding-principal-relationships';
 export const STEP_CREATE_BINDING_ROLE_RELATIONSHIPS =

@@ -8,6 +8,7 @@ import {
   createBindingToAnyResourceRelationships,
   createPrincipalRelationships,
   fetchIamBindings,
+  putResourceIsPublicIntoJobState,
 } from '.';
 import { bindingEntities } from './constants';
 import {
@@ -253,6 +254,7 @@ describe('#fetchIamBindings', () => {
       await fetchIamBindings(context);
       await createPrincipalRelationships(context);
       await createBindingRoleRelationships(context);
+      await putResourceIsPublicIntoJobState(context);
       await createBindingToAnyResourceRelationships(context);
 
       expect({
@@ -298,6 +300,7 @@ describe('#fetchIamBindings', () => {
       expect(google_iam_binding_allows_kms_key_ring.length > 0).toBe(true);
 
       // Mapped Relationships
+      // principal relationships
       expect(google_iam_binding_assigned_user).toHaveOnlyMappedRelationships(
         'google_iam_binding_assigned_user',
       );
@@ -316,6 +319,7 @@ describe('#fetchIamBindings', () => {
       expect(google_group_assigned_iam_role).toHaveOnlyMappedRelationships(
         'google_group_assigned_iam_role',
       );
+      // resource relationships
       expect(
         google_iam_binding_allows_cloud_project,
       ).toHaveOnlyMappedRelationships(

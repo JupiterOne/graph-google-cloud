@@ -9,7 +9,7 @@ import { bindingEntities } from './constants';
 export interface BindingEntity extends Entity {
   resource: string;
   role: string;
-  members: string;
+  members: string[];
   projectId: string;
   'condition.title': string;
   'condition.description': string;

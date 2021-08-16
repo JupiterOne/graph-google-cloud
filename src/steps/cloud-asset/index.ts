@@ -11,13 +11,23 @@ import { cloudresourcemanager_v3 } from 'googleapis';
 import { IntegrationConfig } from '../..';
 import { IntegrationStepContext } from '../../types';
 import { publishMissingPermissionEvent } from '../../utils/events';
-import { getProjectIdFromName } from '../../utils/jobState';
-import { IAM_ROLE_ENTITY_CLASS, IAM_ROLE_ENTITY_TYPE } from '../iam';
+import {
+  cacheIfResourceIsPublic,
+  getProjectIdFromName,
+} from '../../utils/jobState';
+import {
+  IAM_ROLE_ENTITY_CLASS,
+  IAM_ROLE_ENTITY_TYPE,
+  STEP_IAM_CUSTOM_ROLES,
+  STEP_IAM_MANAGED_ROLES,
+  STEP_IAM_SERVICE_ACCOUNTS,
+} from '../iam';
 import {
   buildIamTargetRelationship,
   findOrCreateIamRoleEntity,
   maybeFindIamUserEntityWithParsedMember,
   shouldMakeTargetIamRelationships,
+  STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
 } from '../resource-manager';
 import { CloudAssetClient } from './client';
 import {
@@ -25,6 +35,7 @@ import {
   BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP,
   BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS,
   PRINCIPAL_ASSIGNED_ROLE_RELATIONSHIPS,
+  STEP_CACHE_IF_RESOURCES_ARE_PUBLIC,
   STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS,
   STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS,
   STEP_CREATE_BINDING_ROLE_RELATIONSHIPS,
@@ -42,6 +53,7 @@ import {
 } from '../../utils/iamBindings/getTypeAndKeyFromResourceIdentifier';
 import { getEnabledServiceNames } from '../enablement';
 import { MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND } from '../../utils/iamBindings/resourceKindToTypeMap';
+import { isMemberPublic } from '../../utils/iam';
 
 export async function fetchIamBindings(
   context: IntegrationStepContext,
@@ -172,6 +184,51 @@ export async function createBindingRoleRelationships(
   );
 }
 
+export async function putResourceIsPublicIntoJobState(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, logger } = context;
+  await jobState.iterateEntities(
+    { _type: bindingEntities.BINDINGS._type },
+    async (bindingEntity: BindingEntity) => {
+      const { type, key } =
+        makeLogsForTypeAndKeyResponse(
+          logger,
+          await getTypeAndKeyFromResourceIdentifier(
+            bindingEntity.resource!,
+            context,
+          ),
+        ) ?? {};
+      if (typeof type !== 'string' || typeof key !== 'string') {
+        return;
+      }
+
+      let accessLevel: 'private' | 'publicRead' | 'publicWrite' = 'private';
+      let condition: string | undefined = undefined;
+      const resourceIsPublic = (bindingEntity.members ?? []).some(
+        isMemberPublic,
+      );
+      if (resourceIsPublic) {
+        condition = bindingEntity['condition.expression'];
+        const roleEntity = await jobState.findEntity(bindingEntity.role);
+        if (!roleEntity) {
+          // Not a runtime error - This would only happen due to an error when developing
+          throw new Error(
+            'Role Entitiy not found in Job state, make sure step create-binding-role-relationships is run prior to this step.',
+          );
+        }
+        accessLevel = roleEntity!.readonly ? 'publicRead' : 'publicWrite';
+      }
+      await cacheIfResourceIsPublic(jobState, {
+        type,
+        key,
+        accessLevel,
+        condition,
+      });
+    },
+  );
+}
+
 export async function createPrincipalRelationships(
   context: IntegrationStepContext,
 ): Promise<void> {
@@ -273,6 +330,7 @@ export async function createBindingToAnyResourceRelationships(
       const existingEntity = enabledServiceNames.includes(service)
         ? await jobState.findEntity(key)
         : undefined;
+
       await jobState.addRelationship(
         existingEntity
           ? createDirectRelationship({
@@ -319,9 +377,8 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
     name: 'IAM Bindings',
     entities: [bindingEntities.BINDINGS],
     relationships: [],
-    dependsOn: [],
+    dependsOn: [STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS],
     executionHandler: fetchIamBindings,
-    dependencyGraphId: 'last',
   },
   {
     id: STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS,
@@ -337,9 +394,13 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
       ...BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS,
       ...PRINCIPAL_ASSIGNED_ROLE_RELATIONSHIPS,
     ],
-    dependsOn: [STEP_IAM_BINDINGS],
+    dependsOn: [
+      STEP_IAM_BINDINGS,
+      STEP_IAM_CUSTOM_ROLES,
+      STEP_IAM_SERVICE_ACCOUNTS,
+      STEP_IAM_MANAGED_ROLES,
+    ],
     executionHandler: createPrincipalRelationships,
-    dependencyGraphId: 'last',
   },
   {
     id: STEP_CREATE_BINDING_ROLE_RELATIONSHIPS,
@@ -359,14 +420,21 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
     ],
     dependsOn: [STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS],
     executionHandler: createBindingRoleRelationships,
-    dependencyGraphId: 'last',
+  },
+  {
+    id: STEP_CACHE_IF_RESOURCES_ARE_PUBLIC,
+    name: 'Calculate If Resources Are Public',
+    entities: [],
+    relationships: [],
+    dependsOn: [STEP_CREATE_BINDING_ROLE_RELATIONSHIPS],
+    executionHandler: putResourceIsPublicIntoJobState,
   },
   {
     id: STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS,
     name: 'Role Binding to Any Resource Relationships',
     entities: [],
     relationships: [BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP],
-    dependsOn: [STEP_IAM_BINDINGS],
+    dependsOn: [],
     executionHandler: createBindingToAnyResourceRelationships,
     dependencyGraphId: 'last',
   },

@@ -1,7 +1,66 @@
 import { JobState } from '@jupiterone/integration-sdk-core';
 import { cloudresourcemanager_v3, compute_v1 } from 'googleapis';
+import { compact } from 'lodash';
 
 export const PEERED_NETWORKS = 'network:all_peerings';
+export const IS_PUBLIC_PREFIX = 'isPublic';
+
+const ACCESS_LEVEL_ORDERED = ['private', 'publicRead', 'publicWrite'];
+export interface AccessData {
+  accessLevel?: 'private' | 'public' | 'publicRead' | 'publicWrite';
+  condition?: string;
+}
+
+export async function cacheIfResourceIsPublic(
+  jobState: JobState,
+  {
+    type,
+    key,
+    accessLevel: newAccessLevel,
+    condition: newCondition,
+  }: {
+    type: string;
+    key: string;
+  } & AccessData,
+) {
+  // If there is an existing value for this resource, we only want to overwrite it if the new value represents more public access than the existing value.
+  const { accessLevel: oldAccessLevel, condition: existingCondition } =
+    (await getIfResourceIsPublic(jobState, type, key)) ?? {};
+
+  const oldOpenness = ACCESS_LEVEL_ORDERED.findIndex(
+    (c) => c == oldAccessLevel,
+  );
+  const newOpenness = ACCESS_LEVEL_ORDERED.findIndex(
+    (c) => c == newAccessLevel,
+  );
+
+  // If the new access level is more open than the existing access level, replace the value.
+  if (newOpenness > oldOpenness) {
+    await jobState.setData(`${IS_PUBLIC_PREFIX}:${type}:${key}`, {
+      accessLevel: newAccessLevel,
+      condition: newCondition,
+    });
+    // If the access levels are the same:
+    // if there is no new condition, then this resource is always open, so set the conditon to undefined,
+    // else, join the conditions togeather with OR as access is granted by either condition.
+  } else if (newOpenness === oldOpenness && existingCondition)
+    await jobState.setData(`${IS_PUBLIC_PREFIX}:${type}:${key}`, {
+      accessLevel: newAccessLevel,
+      condition: newCondition
+        ? compact([existingCondition, newCondition]).join(' OR ')
+        : undefined,
+    });
+}
+
+export async function getIfResourceIsPublic(
+  jobState: JobState,
+  type: string,
+  key: string,
+): Promise<AccessData | undefined> {
+  return await jobState.getData<AccessData>(
+    `${IS_PUBLIC_PREFIX}:${type}:${key}`,
+  );
+}
 
 export async function cacheProjectNameAndId(
   jobState: JobState,
