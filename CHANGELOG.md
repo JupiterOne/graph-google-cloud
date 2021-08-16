@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Changed
+
+- Changed `google_iam_bindings.permissions: string[]` to `google_iam_bindings.permissions: string` due to
+  limitations on `string[]` property lengths in JupiterOne. Queries will need to be changed from
+  `permissions={{string}}` to `permissions~={{string}}` to maintain functionality.
+
 ## 0.47.4
 
 - Add 429 status code to existing retry logic

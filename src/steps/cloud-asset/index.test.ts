@@ -384,10 +384,7 @@ describe('#fetchIamBindings', () => {
             stage: { type: 'string' },
             custom: { type: 'boolean' },
             deleted: { type: 'boolean' },
-            permissions: {
-              type: 'array',
-              items: { type: 'string' },
-            },
+            permissions: { type: 'string' },
             etag: { type: 'string' },
             readonly: { type: 'boolean' },
           },
