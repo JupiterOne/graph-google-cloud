@@ -167,8 +167,8 @@ export async function createBindingRoleRelationships(
                   _key: bindingEntity.role,
                   name: bindingEntity.role,
                   displayName: bindingEntity.role,
-                  permissions,
-                  custom: !!permissions, // If there are permissions, that means it is a managed role
+                  permissions: permissions?.join(','),
+                  custom: !!permissions, // If there are permissions, this is a managed role
                 },
               },
             }),
@@ -381,7 +381,7 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
     name: 'Role Binding to Any Resource Relationships',
     entities: [],
     relationships: [BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP],
-    dependsOn: [],
+    dependsOn: [STEP_IAM_BINDINGS],
     executionHandler: createBindingToAnyResourceRelationships,
     dependencyGraphId: 'last',
   },

@@ -144,10 +144,12 @@ export async function fetchIamManagedRoles(
 ): Promise<void> {
   const { jobState, instance } = context;
   const client = new IamClient({ config: instance.config });
-  const managedRoles: iam_v1.Schema$Role[] = [];
+  const managedRoles: { [k: string]: iam_v1.Schema$Role } = {};
 
   await client.iterateManagedRoles(async (role) => {
-    managedRoles.push(role);
+    if (role?.name) {
+      managedRoles[role.name] = role;
+    }
     return Promise.resolve();
   });
 

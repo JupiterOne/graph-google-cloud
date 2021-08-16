@@ -288,7 +288,6 @@ describe('#fetchIamBindings', () => {
       );
 
       // Both Direct and Mapped Relationships
-      // mapped are for managed roles that were only used by binding
       expect(
         google_iam_binding_uses_role,
       ).toHaveBothDirectAndMappedRelationships('google_iam_binding_uses_role');
@@ -405,6 +404,16 @@ describe('#fetchIamBindings', () => {
           ingestedIamRoleEntityKeys.includes(key as string),
         ),
       ).toBe(false);
+
+      // Ensure managed role target entities have permissions
+      google_iam_binding_uses_role.forEach((relationship) => {
+        if (relationship._mapping) {
+          expect(
+            typeof (relationship as MappedRelationship)._mapping?.targetEntity
+              ?.permissions,
+          ).toBe('string');
+        }
+      });
     });
   });
 

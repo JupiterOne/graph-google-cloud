@@ -116,19 +116,8 @@ export async function getPermissionsForManagedRole(
   jobState: JobState,
   roleName: string,
 ): Promise<string[] | null | undefined> {
-  let includedPermissions: string[] | null | undefined = undefined;
   const iamManagedRoleData = await getIamManagedRoleData(jobState);
-
-  // TODO: Optimize this by changing the data stored in the jobState to a Map
-  // instead of an array
-  for (const iamManangedRole of iamManagedRoleData) {
-    if (iamManangedRole.name === roleName) {
-      includedPermissions = iamManangedRole.includedPermissions;
-      break;
-    }
-  }
-
-  return includedPermissions;
+  return iamManagedRoleData[roleName]?.includedPermissions;
 }
 
 export async function findOrCreateIamRoleEntity({
