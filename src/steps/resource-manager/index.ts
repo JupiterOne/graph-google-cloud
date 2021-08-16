@@ -112,20 +112,11 @@ export async function maybeFindIamUserEntityWithParsedMember({
   };
 }
 
-export async function findOrCreateIamRoleEntity({
-  jobState,
-  roleName,
-}: {
-  jobState: JobState;
-  roleName: string;
-}) {
-  const roleEntity = await jobState.findEntity(roleName);
-
-  if (roleEntity) {
-    return roleEntity;
-  }
-
-  let includedPermissions: string[] | null | undefined;
+export async function getPermissionsForManagedRole(
+  jobState: JobState,
+  roleName: string,
+): Promise<string[] | null | undefined> {
+  let includedPermissions: string[] | null | undefined = undefined;
   const iamManagedRoleData = await getIamManagedRoleData(jobState);
 
   // TODO: Optimize this by changing the data stored in the jobState to a Map
@@ -137,6 +128,25 @@ export async function findOrCreateIamRoleEntity({
     }
   }
 
+  return includedPermissions;
+}
+
+export async function findOrCreateIamRoleEntity({
+  jobState,
+  roleName,
+}: {
+  jobState: JobState;
+  roleName: string;
+}) {
+  const roleEntity = await jobState.findEntity(roleName);
+  if (roleEntity) {
+    return roleEntity;
+  }
+
+  const includedPermissions = await getPermissionsForManagedRole(
+    jobState,
+    roleName,
+  );
   return jobState.addEntity(
     createIamRoleEntity(
       {

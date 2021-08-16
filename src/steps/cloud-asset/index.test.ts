@@ -251,8 +251,8 @@ describe('#fetchIamBindings', () => {
       await fetchIamManagedRoles(context);
       await fetchIamServiceAccounts(context);
       await fetchIamBindings(context);
-      await createBindingRoleRelationships(context);
       await createPrincipalRelationships(context);
+      await createBindingRoleRelationships(context);
       await createBindingToAnyResourceRelationships(context);
 
       expect({
@@ -288,6 +288,10 @@ describe('#fetchIamBindings', () => {
       );
 
       // Both Direct and Mapped Relationships
+      // mapped are for managed roles that were only used by binding
+      expect(
+        google_iam_binding_uses_role,
+      ).toHaveBothDirectAndMappedRelationships('google_iam_binding_uses_role');
       // Do not have examples of some resources ingested in this integration and some in others yet.
       expect(google_iam_binding_allows_storage_bucket.length > 0).toBe(true);
       expect(google_iam_binding_allows_bigquery_dataset.length > 0).toBe(true);
@@ -320,9 +324,6 @@ describe('#fetchIamBindings', () => {
       );
 
       // Direct Relationships
-      expect(google_iam_binding_uses_role).toHaveOnlyDirectRelationships(
-        'google_iam_binding_uses_role',
-      );
       expect(
         google_iam_binding_assigned_service_account,
       ).toHaveOnlyDirectRelationships(
@@ -384,15 +385,26 @@ describe('#fetchIamBindings', () => {
             stage: { type: 'string' },
             custom: { type: 'boolean' },
             deleted: { type: 'boolean' },
-            permissions: {
-              type: 'array',
-              items: { type: 'string' },
-            },
+            permissions: { type: 'string' },
             etag: { type: 'string' },
             readonly: { type: 'boolean' },
           },
         },
       });
+
+      // Ensure there are no mapped relationships to google_iam_roles that we are also ingesting
+      const iamRoleTargetEntityKeys = google_iam_binding_uses_role.map(
+        (relationship) =>
+          (relationship as MappedRelationship)._mapping?.targetEntity?._key,
+      );
+      const ingestedIamRoleEntityKeys = google_iam_role.map(
+        (entity) => entity._key,
+      );
+      expect(
+        iamRoleTargetEntityKeys.some((key) =>
+          ingestedIamRoleEntityKeys.includes(key as string),
+        ),
+      ).toBe(false);
     });
   });
 
