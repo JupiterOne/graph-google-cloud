@@ -10,6 +10,15 @@ and this project adheres to
 
 ### Added
 
+- Added support for ingesting the following **new** properties on direct and
+  mapped `google_iam_binding_allows_ANY_RESOURCE` relationships:
+
+  | Property                   | Type                                   | Description                                           |
+  | -------------------------- | -------------------------------------- | ----------------------------------------------------- |
+  | `accessLevel`              | 'private', 'publicRead', 'publicWrite' | The level public access on the contents of the bucket |
+  | `accessLevelIsConditional` | boolean                                | Whether there is a condition to the access or not     |
+  | `accessLevelCondition`     | string                                 | The condition for access at this access level         |
+
 - Added support for ingesting the following **new** properties on
   `google_storage_bucket`:
 

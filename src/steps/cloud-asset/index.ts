@@ -13,6 +13,7 @@ import { IntegrationStepContext } from '../../types';
 import { publishMissingPermissionEvent } from '../../utils/events';
 import {
   cacheIfResourceIsPublic,
+  getIfResourceIsPublic,
   getProjectIdFromName,
 } from '../../utils/jobState';
 import {
@@ -331,12 +332,19 @@ export async function createBindingToAnyResourceRelationships(
         ? await jobState.findEntity(key)
         : undefined;
 
+      const { accessLevel, condition } =
+        (await getIfResourceIsPublic(jobState, type, key)) ?? {};
       await jobState.addRelationship(
         existingEntity
           ? createDirectRelationship({
               from: bindingEntity,
               _class: RelationshipClass.ALLOWS,
               to: existingEntity,
+              properties: {
+                accessLevel,
+                accessLevelCondition: condition,
+                accessLevelIsConditional: !!condition,
+              },
             })
           : createMappedRelationship({
               _class: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP._class,
@@ -345,6 +353,11 @@ export async function createBindingToAnyResourceRelationships(
                 bindingEntities.BINDINGS._type,
                 type,
               ),
+              properties: {
+                accessLevel,
+                accessLevelCondition: condition,
+                accessLevelIsConditional: !!condition,
+              },
               _mapping: {
                 relationshipDirection: RelationshipDirection.FORWARD,
                 sourceEntityKey: bindingEntity._key,
@@ -363,6 +376,9 @@ export async function createBindingToAnyResourceRelationships(
                       : type,
                   _key: key,
                   resourceIdentifier: bindingEntity.resource,
+                  accessLevel,
+                  accessLevelCondition: condition,
+                  accessLevelIsConditional: !!condition,
                 },
               },
             }),

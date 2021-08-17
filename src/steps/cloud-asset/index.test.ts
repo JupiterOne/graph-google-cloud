@@ -39,6 +39,7 @@ import {
   CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
 } from '../storage';
 import { CLOUD_FUNCTION_ENTITY_TYPE, fetchCloudFunctions } from '../functions';
+import { AccessData } from '../../utils/jobState';
 
 expect.extend({
   toHaveOnlyDirectRelationships(
@@ -266,6 +267,12 @@ describe('#fetchIamBindings', () => {
         encounteredTypes: context.jobState.encounteredTypes,
       }).toMatchSnapshot();
 
+      const accessLevels: AccessData['accessLevel'][] = [
+        'private',
+        'publicRead',
+        'publicWrite',
+      ];
+
       // Relationships
       const {
         google_iam_binding_uses_role,
@@ -325,8 +332,15 @@ describe('#fetchIamBindings', () => {
       ).toHaveOnlyMappedRelationships(
         'google_iam_binding_allows_cloud_project',
       );
+      google_iam_binding_allows_cloud_project.forEach((mappedRelationship) => {
+        expect(accessLevels).toContain(
+          (mappedRelationship as MappedRelationship)._mapping.targetEntity
+            .accessLevel,
+        );
+      });
 
       // Direct Relationships
+      // principal relationships
       expect(
         google_iam_binding_assigned_service_account,
       ).toHaveOnlyDirectRelationships(
@@ -337,14 +351,21 @@ describe('#fetchIamBindings', () => {
       ).toHaveOnlyDirectRelationships(
         'google_iam_service_account_assigned_role',
       );
+      // resource relationships
       expect(
         google_iam_binding_allows_cloud_organization,
       ).toHaveOnlyDirectRelationships(
         'google_iam_binding_allows_cloud_organization',
       );
+      google_iam_binding_allows_cloud_organization.forEach((relationship) => {
+        expect(accessLevels).toContain(relationship.accessLevel);
+      });
       expect(
         google_iam_binding_allows_cloud_folder,
       ).toHaveOnlyDirectRelationships('google_iam_binding_allows_cloud_folder');
+      google_iam_binding_allows_cloud_folder.forEach((relationship) => {
+        expect(accessLevels).toContain(relationship.accessLevel);
+      });
 
       // Entities
       const { google_iam_binding, google_iam_role } =
