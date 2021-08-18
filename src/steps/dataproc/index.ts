@@ -1,6 +1,5 @@
 import {
   createDirectRelationship,
-  Entity,
   IntegrationStep,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
