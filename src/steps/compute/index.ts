@@ -420,9 +420,7 @@ export async function fetchComputeDisks(
 
       if (sourceImageProjectId === client.projectId) {
         // Custom image case
-        const imageEntity = await jobState.findEntity(
-          `image:${disk.sourceImage}`,
-        );
+        const imageEntity = await jobState.findEntity(disk.sourceImage);
         if (imageEntity) {
           await jobState.addRelationship(
             createDirectRelationship({

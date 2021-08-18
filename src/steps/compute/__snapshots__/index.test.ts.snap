@@ -4546,6 +4546,14 @@ Object {
     },
     Object {
       "_class": "USES",
+      "_fromEntityKey": "disk:3169341475684659331",
+      "_key": "disk:3169341475684659331|uses|https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/images/example-snapshot-image",
+      "_toEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/images/example-snapshot-image",
+      "_type": "google_compute_disk_uses_image",
+      "displayName": "USES",
+    },
+    Object {
+      "_class": "USES",
       "_key": "disk:1310020433553318895|uses|https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-9-stretch-v20210701",
       "_mapping": Object {
         "relationshipDirection": "FORWARD",
@@ -4618,7 +4626,7 @@ Object {
     "google_compute_disk_uses_kms_crypto_key",
   ],
   "numCollectedEntities": 22,
-  "numCollectedRelationships": 11,
+  "numCollectedRelationships": 12,
 }
 `;
 
