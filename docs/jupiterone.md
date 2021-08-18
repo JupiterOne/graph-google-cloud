@@ -326,6 +326,7 @@ The following entities are created:
 | Container Cluster                                        | `google_container_cluster`                                        | `Cluster`                          |
 | Container Node Pool                                      | `google_container_node_pool`                                      | `Group`                            |
 | DNS Managed Zone                                         | `google_dns_managed_zone`                                         | `DomainZone`                       |
+| Dataproc Cluster                                         | `google_dataproc_cluster`                                         | `Cluster`                          |
 | Folder                                                   | `google_cloud_folder`                                             | `Group`                            |
 | IAM Binding                                              | `google_iam_binding`                                              | `AccessPolicy`                     |
 | IAM Role                                                 | `google_iam_role`                                                 | `AccessRole`                       |
@@ -431,6 +432,7 @@ The following relationships are created/mapped:
 | `google_compute_url_map`                                         | **HAS**               | `google_compute_target_https_proxy`                               |
 | `google_container_cluster`                                       | **HAS**               | `google_container_node_pool`                                      |
 | `google_container_node_pool`                                     | **HAS**               | `google_compute_instance_group`                                   |
+| `google_dataproc_cluster`                                        | **USES**              | `google_kms_crypto_key`                                           |
 | `google_domain`                                                  | **ASSIGNED**          | `google_iam_role`                                                 |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_project`                                            |
 | `google_group`                                                   | **ASSIGNED**          | `google_iam_role`                                                 |

@@ -36,6 +36,7 @@ import {
   CONTAINER_CLUSTER_ENTITY_TYPE,
   CONTAINER_NODE_POOL_ENTITY_TYPE,
 } from '../../steps/containers';
+import { ENTITY_TYPE_DATAPROC_CLUSTER } from '../../steps/dataproc/constants';
 import { DNS_MANAGED_ZONE_ENTITY_TYPE } from '../../steps/dns/constants';
 import { CLOUD_FUNCTION_ENTITY_TYPE } from '../../steps/functions';
 import {
@@ -156,7 +157,7 @@ export const GOOGLE_RESOURCE_KIND_TO_J1_TYPE_MAP: {
   'pubsub.googleapis.com/Topic': ENTITY_TYPE_PUBSUB_TOPIC,
   'pubsub.googleapis.com/Subscription': ENTITY_TYPE_PUBSUB_SUBSCRIPTION,
   'pubsub.googleapis.com/Snapshot': NONE,
-  'dataproc.googleapis.com/Cluster': NONE,
+  'dataproc.googleapis.com/Cluster': ENTITY_TYPE_DATAPROC_CLUSTER,
   'dataproc.googleapis.com/Job': NONE,
   'cloudkms.googleapis.com/KeyRing': ENTITY_TYPE_KMS_KEY_RING,
   'cloudkms.googleapis.com/CryptoKey': ENTITY_TYPE_KMS_KEY,
