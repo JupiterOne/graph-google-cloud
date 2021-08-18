@@ -23,6 +23,7 @@ import {
   BIG_QUERY_MODEL_ENTITY_TYPE,
   BIG_QUERY_MODEL_ENTITY_CLASS,
   RELATIONSHIP_TYPE_DATASET_HAS_MODEL,
+  STEP_BUILD_BIG_QUERY_DATASET_KMS_RELATIONSHIPS,
 } from './constants';
 import {
   createBigQueryDatasetEntity,
@@ -56,27 +57,39 @@ export async function fetchBigQueryDatasets(
   const client = new BigQueryClient({ config });
 
   await client.iterateBigQueryDatasets(async (dataset) => {
-    const datasetEntity = createBigQueryDatasetEntity(dataset);
-    await jobState.addEntity(datasetEntity);
-
-    if (dataset.defaultEncryptionConfiguration?.kmsKeyName) {
-      const kmsKeyEntity = await jobState.findEntity(
-        getKmsGraphObjectKeyFromKmsKeyName(
-          dataset.defaultEncryptionConfiguration.kmsKeyName,
-        ),
-      );
-
-      if (kmsKeyEntity) {
-        await jobState.addRelationship(
-          createDirectRelationship({
-            _class: RelationshipClass.USES,
-            from: datasetEntity,
-            to: kmsKeyEntity,
-          }),
-        );
-      }
-    }
+    await jobState.addEntity(createBigQueryDatasetEntity(dataset));
   });
+}
+
+export async function buildBigQueryDatasetKMSRelationships(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState } = context;
+
+  await jobState.iterateEntities(
+    {
+      _type: BIG_QUERY_DATASET_ENTITY_TYPE,
+    },
+    async (datasetEntity) => {
+      if (datasetEntity.kmsKeyName) {
+        const kmsKeyEntity = await jobState.findEntity(
+          getKmsGraphObjectKeyFromKmsKeyName(
+            datasetEntity.kmsKeyName as string,
+          ),
+        );
+
+        if (kmsKeyEntity) {
+          await jobState.addRelationship(
+            createDirectRelationship({
+              _class: RelationshipClass.USES,
+              from: datasetEntity,
+              to: kmsKeyEntity,
+            }),
+          );
+        }
+      }
+    },
+  );
 }
 
 export async function fetchBigQueryModels(
@@ -165,6 +178,14 @@ export const bigQuerySteps: IntegrationStep<IntegrationConfig>[] = [
         _class: BIG_QUERY_DATASET_ENTITY_CLASS,
       },
     ],
+    relationships: [],
+    dependsOn: [],
+    executionHandler: fetchBigQueryDatasets,
+  },
+  {
+    id: STEP_BUILD_BIG_QUERY_DATASET_KMS_RELATIONSHIPS,
+    name: 'Build Big Query Dataset KMS Relationships',
+    entities: [],
     relationships: [
       {
         _class: RelationshipClass.USES,
@@ -173,8 +194,8 @@ export const bigQuerySteps: IntegrationStep<IntegrationConfig>[] = [
         targetType: ENTITY_TYPE_KMS_KEY,
       },
     ],
-    dependsOn: [STEP_CLOUD_KMS_KEYS],
-    executionHandler: fetchBigQueryDatasets,
+    dependsOn: [STEP_CLOUD_KMS_KEYS, STEP_BIG_QUERY_DATASETS],
+    executionHandler: buildBigQueryDatasetKMSRelationships,
   },
   {
     id: STEP_BIG_QUERY_MODELS,

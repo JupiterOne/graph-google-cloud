@@ -77,6 +77,7 @@ import {
   STEP_BIG_QUERY_DATASETS,
   STEP_BIG_QUERY_MODELS,
   STEP_BIG_QUERY_TABLES,
+  STEP_BUILD_BIG_QUERY_DATASET_KMS_RELATIONSHIPS,
 } from './steps/big-query';
 import { STEP_SQL_ADMIN_INSTANCES } from './steps/sql-admin';
 import { STEP_DNS_MANAGED_ZONES } from './steps/dns/constants';
@@ -366,6 +367,9 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_BIG_QUERY_DATASETS]: {
+        disabled: false,
+      },
+      [STEP_BUILD_BIG_QUERY_DATASET_KMS_RELATIONSHIPS]: {
         disabled: false,
       },
       [STEP_BIG_QUERY_MODELS]: {

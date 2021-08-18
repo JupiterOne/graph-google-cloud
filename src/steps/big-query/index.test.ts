@@ -1,5 +1,6 @@
 import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-testing';
 import {
+  buildBigQueryDatasetKMSRelationships,
   fetchBigQueryDatasets,
   fetchBigQueryModels,
   fetchBigQueryTables,
@@ -17,6 +18,18 @@ import {
   RELATIONSHIP_TYPE_DATASET_HAS_MODEL,
 } from './constants';
 
+const tempNewAccountConfig = {
+  ...integrationConfig,
+  serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+    'j1-gc-integration-dev-v2',
+    'j1-gc-integration-dev-v3',
+  ),
+  serviceAccountKeyConfig: {
+    ...integrationConfig.serviceAccountKeyConfig,
+    project_id: 'j1-gc-integration-dev-v3',
+  },
+};
+
 describe('#fetchBigQueryDatasets', () => {
   let recording: Recording;
 
@@ -33,11 +46,9 @@ describe('#fetchBigQueryDatasets', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: tempNewAccountConfig,
     });
 
-    await fetchKmsKeyRings(context);
-    await fetchKmsCryptoKeys(context);
     await fetchBigQueryDatasets(context);
 
     expect({
@@ -76,6 +87,32 @@ describe('#fetchBigQueryDatasets', () => {
         },
       },
     });
+  });
+});
+
+describe('#buildBigQueryDatasetKMSRelationships', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'buildBigQueryDatasetKMSRelationships',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should build relationships', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: tempNewAccountConfig,
+    });
+
+    await fetchKmsKeyRings(context);
+    await fetchKmsCryptoKeys(context);
+    await fetchBigQueryDatasets(context);
+    await buildBigQueryDatasetKMSRelationships(context);
 
     expect(
       context.jobState.collectedRelationships.filter(
@@ -110,7 +147,7 @@ describe('#fetchBigQueryModels', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: tempNewAccountConfig,
     });
 
     await fetchBigQueryDatasets(context);
@@ -212,7 +249,7 @@ describe('#fetchBigQueryTables', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: tempNewAccountConfig,
     });
 
     await fetchBigQueryDatasets(context);
