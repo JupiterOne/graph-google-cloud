@@ -529,7 +529,7 @@ Object {
   "_class": Array [
     "Image",
   ],
-  "_key": "image:6989580994168613341",
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/my-custom-image",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -620,7 +620,7 @@ Object {
   "_class": Array [
     "Image",
   ],
-  "_key": "image:6989580994168613341",
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/my-custom-image",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -711,7 +711,7 @@ Object {
   "_class": Array [
     "Image",
   ],
-  "_key": "image:6989580994168613341",
+  "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/my-custom-image",
   "_rawData": Array [
     Object {
       "name": "default",

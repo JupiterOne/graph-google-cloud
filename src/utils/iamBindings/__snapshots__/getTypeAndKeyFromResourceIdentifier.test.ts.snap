@@ -179,7 +179,7 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 23`] = `
 Object {
   "identifier": "//compute.googleapis.com/projects/12345/global/images/abcdef12345",
-  "key": "image:abcdef12345",
+  "key": "https://www.googleapis.com/compute/projects/12345/global/images/abcdef12345",
   "type": "google_compute_image",
 }
 `;

@@ -3248,7 +3248,7 @@ Object {
       "_class": Array [
         "Image",
       ],
-      "_key": "image:3455131146476105975",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/images/example-disk-image",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -3325,7 +3325,7 @@ Object {
       "_class": Array [
         "Image",
       ],
-      "_key": "image:6763584320471347416",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/images/example-snapshot-image",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -3402,7 +3402,7 @@ Object {
       "_class": Array [
         "Image",
       ],
-      "_key": "image:111513778154299984",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/images/example-source-image",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -3479,7 +3479,7 @@ Object {
       "_class": Array [
         "Image",
       ],
-      "_key": "image:1190666273104526959",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/images/image-1",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -3560,7 +3560,7 @@ Object {
       "_class": Array [
         "Image",
       ],
-      "_key": "image:7233253107557138230",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/images/j1-image2",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -3645,7 +3645,7 @@ Object {
       "_class": Array [
         "Image",
       ],
-      "_key": "image:282817071286254677",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/images/j1-image3",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -4242,7 +4242,7 @@ Object {
     },
     Object {
       "_class": "USES",
-      "_key": "disk:7109116204666106089|uses|image:6709658075886210235",
+      "_key": "disk:7109116204666106089|uses|https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-9-stretch-v20200805",
       "_mapping": Object {
         "relationshipDirection": "FORWARD",
         "sourceEntityKey": "disk:7109116204666106089",
@@ -4250,7 +4250,7 @@ Object {
           "_class": Array [
             "Image",
           ],
-          "_key": "image:6709658075886210235",
+          "_key": "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-9-stretch-v20200805",
           "_rawData": undefined,
           "_type": "google_compute_image",
           "active": undefined,
@@ -4326,7 +4326,7 @@ Object {
     },
     Object {
       "_class": "USES",
-      "_key": "disk:3259810228720939259|uses|image:6709658075886210235",
+      "_key": "disk:3259810228720939259|uses|https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-9-stretch-v20200805",
       "_mapping": Object {
         "relationshipDirection": "FORWARD",
         "sourceEntityKey": "disk:3259810228720939259",
@@ -4334,7 +4334,7 @@ Object {
           "_class": Array [
             "Image",
           ],
-          "_key": "image:6709658075886210235",
+          "_key": "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-9-stretch-v20200805",
           "_rawData": undefined,
           "_type": "google_compute_image",
           "active": undefined,
@@ -4418,7 +4418,7 @@ Object {
     },
     Object {
       "_class": "USES",
-      "_key": "disk:8160594975492976872|uses|image:6612659826821650947",
+      "_key": "disk:8160594975492976872|uses|https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/ubuntu-1804-bionic-v20210514",
       "_mapping": Object {
         "relationshipDirection": "FORWARD",
         "sourceEntityKey": "disk:8160594975492976872",
@@ -4426,7 +4426,7 @@ Object {
           "_class": Array [
             "Image",
           ],
-          "_key": "image:6612659826821650947",
+          "_key": "https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/ubuntu-1804-bionic-v20210514",
           "_rawData": undefined,
           "_type": "google_compute_image",
           "active": undefined,
@@ -4483,7 +4483,7 @@ Object {
     },
     Object {
       "_class": "USES",
-      "_key": "disk:1274011462103388689|uses|image:147490644723517758",
+      "_key": "disk:1274011462103388689|uses|https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-9-stretch-v20210701",
       "_mapping": Object {
         "relationshipDirection": "FORWARD",
         "sourceEntityKey": "disk:1274011462103388689",
@@ -4491,7 +4491,7 @@ Object {
           "_class": Array [
             "Image",
           ],
-          "_key": "image:147490644723517758",
+          "_key": "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-9-stretch-v20210701",
           "_rawData": undefined,
           "_type": "google_compute_image",
           "active": undefined,
@@ -4546,15 +4546,7 @@ Object {
     },
     Object {
       "_class": "USES",
-      "_fromEntityKey": "disk:3169341475684659331",
-      "_key": "disk:3169341475684659331|uses|image:6763584320471347416",
-      "_toEntityKey": "image:6763584320471347416",
-      "_type": "google_compute_disk_uses_image",
-      "displayName": "USES",
-    },
-    Object {
-      "_class": "USES",
-      "_key": "disk:1310020433553318895|uses|image:147490644723517758",
+      "_key": "disk:1310020433553318895|uses|https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-9-stretch-v20210701",
       "_mapping": Object {
         "relationshipDirection": "FORWARD",
         "sourceEntityKey": "disk:1310020433553318895",
@@ -4562,7 +4554,7 @@ Object {
           "_class": Array [
             "Image",
           ],
-          "_key": "image:147490644723517758",
+          "_key": "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-9-stretch-v20210701",
           "_rawData": undefined,
           "_type": "google_compute_image",
           "active": undefined,
@@ -4626,7 +4618,7 @@ Object {
     "google_compute_disk_uses_kms_crypto_key",
   ],
   "numCollectedEntities": 22,
-  "numCollectedRelationships": 12,
+  "numCollectedRelationships": 11,
 }
 `;
 
@@ -14410,7 +14402,7 @@ Object {
       "_class": Array [
         "Image",
       ],
-      "_key": "image:6989580994168613341",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/my-custom-image",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -14522,8 +14514,8 @@ Object {
     },
     Object {
       "_class": "USES",
-      "_fromEntityKey": "image:6989580994168613341",
-      "_key": "image:6989580994168613341|uses|projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring/cryptoKeys/example-key",
+      "_fromEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/my-custom-image",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/my-custom-image|uses|projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring/cryptoKeys/example-key",
       "_toEntityKey": "projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring/cryptoKeys/example-key",
       "_type": "google_compute_image_uses_kms_crypto_key",
       "displayName": "USES",
@@ -16008,7 +16000,7 @@ Object {
     },
     Object {
       "_class": "USES",
-      "_key": "disk:7109116204666106089|uses|image:6709658075886210235",
+      "_key": "disk:7109116204666106089|uses|https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-9-stretch-v20200805",
       "_mapping": Object {
         "relationshipDirection": "FORWARD",
         "sourceEntityKey": "disk:7109116204666106089",
@@ -16016,7 +16008,7 @@ Object {
           "_class": Array [
             "Image",
           ],
-          "_key": "image:6709658075886210235",
+          "_key": "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-9-stretch-v20200805",
           "_rawData": undefined,
           "_type": "google_compute_image",
           "active": undefined,
@@ -16092,7 +16084,7 @@ Object {
     },
     Object {
       "_class": "USES",
-      "_key": "disk:3259810228720939259|uses|image:6709658075886210235",
+      "_key": "disk:3259810228720939259|uses|https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-9-stretch-v20200805",
       "_mapping": Object {
         "relationshipDirection": "FORWARD",
         "sourceEntityKey": "disk:3259810228720939259",
@@ -16100,7 +16092,7 @@ Object {
           "_class": Array [
             "Image",
           ],
-          "_key": "image:6709658075886210235",
+          "_key": "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-9-stretch-v20200805",
           "_rawData": undefined,
           "_type": "google_compute_image",
           "active": undefined,
@@ -16176,7 +16168,7 @@ Object {
     },
     Object {
       "_class": "USES",
-      "_key": "disk:8160594975492976872|uses|image:6612659826821650947",
+      "_key": "disk:8160594975492976872|uses|https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/ubuntu-1804-bionic-v20210514",
       "_mapping": Object {
         "relationshipDirection": "FORWARD",
         "sourceEntityKey": "disk:8160594975492976872",
@@ -16184,7 +16176,7 @@ Object {
           "_class": Array [
             "Image",
           ],
-          "_key": "image:6612659826821650947",
+          "_key": "https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/ubuntu-1804-bionic-v20210514",
           "_rawData": undefined,
           "_type": "google_compute_image",
           "active": undefined,
