@@ -1,6 +1,8 @@
 export const STEP_BIG_QUERY_DATASETS = 'fetch-big-query-datasets';
 export const STEP_BIG_QUERY_TABLES = 'fetch-big-query-tables';
 export const STEP_BIG_QUERY_MODELS = 'fetch-big-query-models';
+export const STEP_BUILD_BIG_QUERY_DATASET_KMS_RELATIONSHIPS =
+  'build-big-query-dataset-kms-relationships';
 
 export const BIG_QUERY_DATASET_ENTITY_CLASS = ['DataStore', 'Database'];
 export const BIG_QUERY_DATASET_ENTITY_TYPE = 'google_bigquery_dataset';
