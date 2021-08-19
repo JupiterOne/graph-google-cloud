@@ -64,6 +64,7 @@ import {
   STEP_BIG_QUERY_DATASETS,
   STEP_BIG_QUERY_MODELS,
   STEP_BIG_QUERY_TABLES,
+  STEP_BUILD_BIG_QUERY_DATASET_KMS_RELATIONSHIPS,
 } from './steps/big-query';
 import { STEP_SQL_ADMIN_INSTANCES } from './steps/sql-admin';
 import { STEP_DNS_MANAGED_ZONES } from './steps/dns/constants';
@@ -117,6 +118,7 @@ import {
   STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
   STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS,
 } from './steps/access-context-manager/constants';
+import { STEP_DATAPROC_CLUSTERS } from './steps/dataproc/constants';
 
 function validateInvocationConfig(
   context: IntegrationExecutionContext<SerializedIntegrationConfig>,
@@ -337,6 +339,9 @@ export default async function getStepStartStates(
     [STEP_CLOUD_KMS_KEY_RINGS]: createStepStartState(ServiceUsageName.KMS),
     [STEP_CLOUD_KMS_KEYS]: createStepStartState(ServiceUsageName.KMS),
     [STEP_BIG_QUERY_DATASETS]: createStepStartState(ServiceUsageName.BIG_QUERY),
+    [STEP_BUILD_BIG_QUERY_DATASET_KMS_RELATIONSHIPS]: createStepStartState(
+      ServiceUsageName.BIG_QUERY,
+    ),
     [STEP_BIG_QUERY_MODELS]: createStepStartState(ServiceUsageName.BIG_QUERY),
     [STEP_BIG_QUERY_TABLES]: createStepStartState(ServiceUsageName.BIG_QUERY),
     [STEP_SQL_ADMIN_INSTANCES]: createStepStartState(
@@ -394,6 +399,9 @@ export default async function getStepStartStates(
     ),
     [STEP_PRIVATE_CA_CERTIFICATES]: createStepStartState(
       ServiceUsageName.PRIVATE_CA,
+    ),
+    [STEP_DATAPROC_CLUSTERS]: createStepStartState(
+      ServiceUsageName.DATAPROC_CLUSTERS,
     ),
   };
 

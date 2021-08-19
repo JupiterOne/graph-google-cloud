@@ -80,6 +80,7 @@ import { CLOUD_STORAGE_BUCKET_ENTITY_TYPE } from '../../steps/storage';
 import { getCloudStorageBucketKey } from '../../steps/storage/converters';
 import { StepExecutionContext } from '@jupiterone/integration-sdk-core';
 import { getProjectNameFromId } from '../jobState';
+import { ENTITY_TYPE_DATAPROC_CLUSTER } from '../../steps/dataproc/constants';
 
 /**
  * A map of JupiterOne types to a function which can generate their _key
@@ -154,6 +155,7 @@ export const J1_TYPE_TO_KEY_GENERATOR_MAP: {
   [ENTITY_TYPE_MEMCACHE_INSTANCE]: customPrefixAndIdKeyMap(getMemcacheKey),
   [MONITORING_ALERT_POLICY_TYPE]: fullPathKeyMap,
   [MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND]: selfLinkKeyMap,
+  [ENTITY_TYPE_DATAPROC_CLUSTER]: fullPathKeyMap,
 };
 
 // ex: projects/j1-gc-integration-dev-v3/locations/us-central1/functions/j1-gc-integration-dev-v3testfunction
