@@ -4,6 +4,7 @@ import { snakeCase } from 'lodash';
 import { hashArray } from '../../utils/crypto';
 
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
+import { isMemberPublic } from '../../utils/iam';
 import { bindingEntities } from './constants';
 
 export interface BindingEntity extends Entity {
@@ -15,6 +16,8 @@ export interface BindingEntity extends Entity {
   'condition.description': string;
   'condition.expression': string;
   'condition.location': string;
+  isReadOnly: boolean;
+  isOpenToTheInternet: boolean;
 }
 
 export function buildIamBindingEntityKey({
@@ -44,11 +47,13 @@ export function createIamBindingEntity({
   projectId,
   binding,
   resource,
+  isReadOnly,
 }: {
   _key: string;
   projectId?: string;
   binding: cloudasset_v1.Schema$Binding;
   resource: string | undefined | null;
+  isReadOnly: boolean;
 }): BindingEntity {
   const namePrefix = 'Role Binding for Resource: ';
 
@@ -75,6 +80,8 @@ export function createIamBindingEntity({
         'condition.description': binding.condition?.description,
         'condition.expression': binding.condition?.expression,
         'condition.location': binding.condition?.location,
+        isReadOnly, // Are all the permissions associated with this binding read only permissions
+        isOpenToTheInternet: (binding.members ?? []).some(isMemberPublic), // Is there a member associated with this binding that is open to the internet
       },
     },
   }) as BindingEntity;

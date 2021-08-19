@@ -26,10 +26,14 @@ export interface TypeAndKey {
  *   returns - j1-gc-integration-dev-v3:natality
  */
 export async function getTypeAndKeyFromResourceIdentifier(
-  googleResourceIdentifier: string,
+  googleResourceIdentifier: string | undefined,
   context: StepExecutionContext,
 ): Promise<TypeAndKey> {
   const response: TypeAndKey = { metadata: {} };
+
+  if (!googleResourceIdentifier) {
+    return response;
+  }
 
   const googleResourceKind = findResourceKindFromCloudResourceIdentifier(
     googleResourceIdentifier,

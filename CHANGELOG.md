@@ -8,6 +8,15 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- New properties added to resources:
+
+  | Entity                | Properties            |
+  | --------------------- | --------------------- |
+  | `google_iam_bindings` | `isReadOnly`          |
+  | `google_iam_bindings` | `isOpenToTheInternet` |
+
 ### Fixed
 
 - Managed `google_iam_roles` now have a `permissions` property, similar to
