@@ -81,4 +81,23 @@ describe('#createCloudStorageBucketEntity', () => {
       }),
     ).toMatchSnapshot();
   });
+
+  test('should set "public" to "true" if "isPublic" is "false" but the bucket is subject to object ACLs', () => {
+    expect(
+      createCloudStorageBucketEntity({
+        data: getMockStorageBucket({
+          iamConfiguration: {
+            uniformBucketLevelAccess: {
+              enabled: false,
+            },
+          },
+        }),
+        projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
+        isPublic: false,
+      }),
+    ).toMatchObject({
+      public: true,
+      isSubjectToObjectAcls: true,
+    });
+  });
 });

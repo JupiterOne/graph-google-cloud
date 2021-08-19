@@ -8,6 +8,20 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- New properties added to resources:
+
+  | Entity                  | Properties              |
+  | ----------------------- | ----------------------- |
+  | `google_storage_bucket` | `isSubjectToObjectAcls` |
+
+### Changed
+
+- The property `public` on `google_storage_bucket` to be `true` when the storage
+  bucket does not have Uniform Bucket Access Level enabled. We can not determine
+  if the bucket is public or not when this setting is not enabled.
+
 ### Fixed
 
 - Managed `google_iam_roles` now have a `permissions` property, similar to
