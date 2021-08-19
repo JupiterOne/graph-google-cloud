@@ -21,8 +21,6 @@ import {
   fetchStorageBuckets,
 } from '../storage';
 
-jest.setTimeout(500000);
-
 describe('#fetchDataprocClusters', () => {
   let recording: Recording;
 
