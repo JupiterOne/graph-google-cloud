@@ -177,10 +177,10 @@ export function isMemberPublic(member: string) {
 
 export async function getIamManagedRoleData(
   jobState: JobState,
-): Promise<iam_v1.Schema$Role[]> {
-  const managedRoles = await jobState.getData<iam_v1.Schema$Role[]>(
-    IAM_MANAGED_ROLES_DATA_JOB_STATE_KEY,
-  );
+): Promise<{ [k: string]: iam_v1.Schema$Role }> {
+  const managedRoles = await jobState.getData<{
+    [k: string]: iam_v1.Schema$Role;
+  }>(IAM_MANAGED_ROLES_DATA_JOB_STATE_KEY);
 
   if (!managedRoles) {
     throw new IntegrationError({
@@ -193,11 +193,14 @@ export async function getIamManagedRoleData(
   return managedRoles;
 }
 
-export function buildPermissionsByApiServiceMap(roles: iam_v1.Schema$Role[]) {
+export function buildPermissionsByApiServiceMap(roles: {
+  [k: string]: iam_v1.Schema$Role;
+}) {
   const allPermissions: Set<string> = new Set();
   const permissionsByServiceMap: Map<string, string[]> = new Map();
 
-  for (const role of roles) {
+  for (const roleName of Object.keys(roles)) {
+    const role = roles[roleName];
     for (const permission of role.includedPermissions || []) {
       if (allPermissions.has(permission)) {
         continue;

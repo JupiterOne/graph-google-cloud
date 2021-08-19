@@ -16,6 +16,7 @@ import { IAM_ROLE_ENTITY_CLASS, IAM_ROLE_ENTITY_TYPE } from '../iam';
 import {
   buildIamTargetRelationship,
   findOrCreateIamRoleEntity,
+  getPermissionsForManagedRole,
   maybeFindIamUserEntityWithParsedMember,
   shouldMakeTargetIamRelationships,
 } from '../resource-manager';
@@ -144,6 +145,10 @@ export async function createBindingRoleRelationships(
             }),
           );
         } else {
+          const permissions = await getPermissionsForManagedRole(
+            jobState,
+            bindingEntity.role,
+          );
           await jobState.addRelationship(
             createMappedRelationship({
               _class: RelationshipClass.USES,
@@ -162,6 +167,8 @@ export async function createBindingRoleRelationships(
                   _key: bindingEntity.role,
                   name: bindingEntity.role,
                   displayName: bindingEntity.role,
+                  permissions: permissions?.join(','),
+                  custom: !!permissions, // If there are permissions, this is a managed role
                 },
               },
             }),
@@ -222,6 +229,13 @@ export async function createPrincipalRelationships(
               );
 
               if (bindingEntity.role) {
+                /**
+                 * We need to create IAM managed role entities here because the sdk does not allow for creating
+                 * mapped relationships with two target entities.
+                 *
+                 * NOTE: This will duplicate Google Managed Roles if multiple Google Cloud Organizations are
+                 * ingested in a single JupiterOne account.
+                 */
                 const iamRoleEntity = await findOrCreateIamRoleEntity({
                   jobState,
                   roleName: bindingEntity.role,
@@ -357,6 +371,7 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
         targetType: IAM_ROLE_ENTITY_TYPE,
       },
     ],
+    // Needs to run after all google_iam_roles have been created in this integration
     dependsOn: [STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS],
     executionHandler: createBindingRoleRelationships,
     dependencyGraphId: 'last',

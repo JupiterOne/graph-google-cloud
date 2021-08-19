@@ -390,6 +390,30 @@ describe('#fetchIamBindings', () => {
           },
         },
       });
+
+      // Ensure there are no mapped relationships to google_iam_roles that we are also ingesting
+      const iamRoleTargetEntityKeys = google_iam_binding_uses_role.map(
+        (relationship) =>
+          (relationship as MappedRelationship)._mapping?.targetEntity?._key,
+      );
+      const ingestedIamRoleEntityKeys = google_iam_role.map(
+        (entity) => entity._key,
+      );
+      expect(
+        iamRoleTargetEntityKeys.some((key) =>
+          ingestedIamRoleEntityKeys.includes(key as string),
+        ),
+      ).toBe(false);
+
+      // Ensure managed role target entities have permissions
+      google_iam_binding_uses_role.forEach((relationship) => {
+        if (relationship._mapping) {
+          expect(
+            typeof (relationship as MappedRelationship)._mapping?.targetEntity
+              ?.permissions,
+          ).toBe('string');
+        }
+      });
     });
   });
 
