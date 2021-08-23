@@ -8,10 +8,14 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.47.5
+
 ### Fixed
 
 - Managed `google_iam_roles` now have a `permissions` property, similar to
   custom `google_iam_roles`.
+
+- Allow BigQuery data to be ingested independently of KMS key data
 
 ### Changed
 
@@ -19,7 +23,7 @@ and this project adheres to
   `google_iam_bindings.permissions: string` due to limitations on `string[]`
   property lengths in JupiterOne. Queries will need to be changed from
   `permissions={{string}}` to `permissions~={{string}}` to maintain
-  functionality.
+  functionality
 
 - Add logging around Google Cloud configuration and step enablement
 
