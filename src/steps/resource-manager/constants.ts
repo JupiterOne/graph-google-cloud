@@ -31,7 +31,7 @@ export const SERVICE_USES_AUDIT_CONFIG_RELATIONSHIP_TYPE =
   'google_cloud_api_service_uses_audit_config';
 
 export const AUDIT_CONFIG_ALLOWS_SERVICE_ACCOUNT_RELATIONSHIP_TYPE =
-  'google_cloud_audit_config_allows_service_account';
+  'google_cloud_audit_config_allows_iam_service_account';
 export const AUDIT_CONFIG_ALLOWS_USER_RELATIONSHIP_TYPE =
   'google_cloud_audit_config_allows_user';
 export const AUDIT_CONFIG_ALLOWS_GROUP_RELATIONSHIP_TYPE =

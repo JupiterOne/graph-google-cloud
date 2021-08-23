@@ -12,7 +12,7 @@ import {
   IAM_ROLE_ENTITY_TYPE,
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
 } from '../iam';
-import { API_SERVICE_ENTITY_TYPE } from '../service-usage';
+import { API_SERVICE_ENTITY_TYPE } from '../service-usage/constants';
 
 export const STEP_IAM_BINDINGS = 'fetch-iam-bindings';
 export const STEP_CREATE_BASIC_ROLES = 'create-basic-roles';

@@ -19,6 +19,7 @@ import {
   FOLDER_HAS_FOLDER_RELATIONSHIP_TYPE,
   PROJECT_ENTITY_TYPE,
   SERVICE_USES_AUDIT_CONFIG_RELATIONSHIP_TYPE,
+  AUDIT_CONFIG_ALLOWS_SERVICE_ACCOUNT_RELATIONSHIP_TYPE,
 } from './constants';
 import {
   Entity,
@@ -28,7 +29,7 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { filterGraphObjects } from '../../../test/helpers/filterGraphObjects';
 import { fetchApiServices } from '../service-usage';
-import { fetchIamManagedRoles } from '../iam';
+import { fetchIamManagedRoles, fetchIamServiceAccounts } from '../iam';
 import { separateDirectMappedRelationships } from '../../../test/helpers/separateDirectMappedRelationships';
 
 describe('#fetchIamPolicyAuditConfig', () => {
@@ -65,6 +66,7 @@ describe('#fetchIamPolicyAuditConfig', () => {
     await fetchResourceManagerProject(context);
     await fetchIamManagedRoles(context);
     await fetchApiServices(context);
+    await fetchIamServiceAccounts(context);
     await fetchIamPolicyAuditConfig(context);
 
     expect({
@@ -178,19 +180,34 @@ describe('#fetchIamPolicyAuditConfig', () => {
       },
     });
 
+    expect(
+      directRelationships.filter(
+        (e) =>
+          e._type === AUDIT_CONFIG_ALLOWS_SERVICE_ACCOUNT_RELATIONSHIP_TYPE,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'ALLOWS' },
+          _type: {
+            const: 'google_cloud_audit_config_allows_iam_service_account',
+          },
+        },
+      },
+    });
+
     expect(mappedRelationships.length).toBeGreaterThan(0);
 
     expect(
       mappedRelationships
         .filter(
           (e) =>
-            e._mapping.sourceEntityKey ===
-            'auditConfig:binaryauthorization.googleapis.com',
+            e._type === 'google_cloud_audit_config_allows_iam_service_account',
         )
         .every(
           (mappedRelationship) =>
             mappedRelationship._key ===
-            'auditConfig:binaryauthorization.googleapis.com|allows|j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com',
+            'auditConfig:binaryauthorization.googleapis.com|allows|j1-gc-integration-dev-org@my-j1-test-proj-test.iam.gserviceaccount.com',
         ),
     ).toBe(true);
   });
