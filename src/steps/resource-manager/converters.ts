@@ -7,9 +7,99 @@ import {
   ORGANIZATION_ENTITY_CLASS,
   FOLDER_ENTITY_TYPE,
   FOLDER_ENTITY_CLASS,
+  AUDIT_CONFIG_ENTITY_TYPE,
+  AUDIT_CONFIG_ENTITY_CLASS,
 } from './constants';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import { getGoogleCloudConsoleWebLink } from '../../utils/url';
+
+export function getConditionRelationshipProperties(
+  condition: cloudresourcemanager_v1.Schema$Expr,
+) {
+  return {
+    conditionDescription: condition.description,
+    conditionExpression: condition.expression,
+    conditionLocation: condition.location,
+    conditionTitle: condition.title,
+  };
+}
+
+export function createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship({
+  iamEntity,
+  targetEntity,
+  relationshipDirection,
+  projectId,
+  condition,
+}: {
+  iamEntity: Entity;
+  targetEntity: Partial<PrimitiveEntity>;
+  relationshipDirection: RelationshipDirection;
+  projectId?: string;
+  condition?: cloudresourcemanager_v1.Schema$Expr;
+}): Relationship {
+  const iamEntityToTargetRelationship =
+    relationshipDirection === RelationshipDirection.FORWARD;
+
+  // Not always able to determine a _key for google_users depending on how the binding is set up
+  const targetFilterKeys = targetEntity._key
+    ? [['_key', '_type']]
+    : [['_type', 'email']];
+  const targetKey = targetEntity._key ?? (targetEntity.email as string);
+
+  return createMappedRelationship({
+    _class: RelationshipClass.ASSIGNED,
+    _mapping: {
+      relationshipDirection: relationshipDirection,
+      sourceEntityKey: iamEntity._key,
+      targetFilterKeys,
+      /**
+       * The mapper does properly remove mapper-created entities at the moment. These
+       * entities will never be cleaned up which will causes duplicates.
+       *
+       * Until this is fixed, we should not create mapped relatioonships with target creation
+       * enabled, thus only creating iam entity relationships to targets that have already
+       * been ingested by other integrations.
+       */
+      // skipTargetCreation: false, // true is the default
+      targetEntity,
+    },
+    properties: {
+      _type: generateRelationshipType(
+        RelationshipClass.ASSIGNED,
+        iamEntityToTargetRelationship ? iamEntity._type : targetEntity._type!,
+        iamEntityToTargetRelationship ? targetEntity._type! : iamEntity._type,
+      ),
+      _key: generateRelationshipKey(
+        RelationshipClass.ASSIGNED,
+        iamEntityToTargetRelationship ? iamEntity._key : targetKey,
+        iamEntityToTargetRelationship ? targetKey : iamEntity._key,
+      ),
+      projectId: projectId,
+      ...(condition && getConditionRelationshipProperties(condition)),
+    },
+  });
+}
+
+export function createAuditConfigEntity(
+  data: cloudresourcemanager_v3.Schema$AuditConfig,
+) {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _key: `auditConfig:${data.service}`,
+        _type: AUDIT_CONFIG_ENTITY_TYPE,
+        _class: AUDIT_CONFIG_ENTITY_CLASS,
+        name: `auditConfig:${data.service}`,
+        displayName: `auditConfig:${data.service}`,
+        service: data.service,
+        logTypes: data.auditLogConfigs?.map(
+          (logConfig) => logConfig.logType as string,
+        ),
+      },
+    },
+  });
+}
 
 export function createOrganizationEntity(
   data: cloudresourcemanager_v3.Schema$Organization,

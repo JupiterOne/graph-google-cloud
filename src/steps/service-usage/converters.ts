@@ -19,10 +19,12 @@ export function createApiServiceEntity({
   projectId,
   data,
   permissions,
+  isAuditable,
 }: {
   projectId: string;
   data: serviceusage_v1.Schema$GoogleApiServiceusageV1Service;
   permissions?: string[];
+  isAuditable?: boolean;
 }) {
   const { config } = data;
 
@@ -49,6 +51,7 @@ export function createApiServiceEntity({
         enabled: data.state === 'ENABLED',
         usageRequirements: config.usage?.requirements,
         hasIamPermissions: !!permissions && permissions.length > 0,
+        isAuditable,
       },
     },
   });

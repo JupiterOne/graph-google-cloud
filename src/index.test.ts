@@ -36,6 +36,7 @@ import {
   STEP_RESOURCE_MANAGER_ORGANIZATION,
   STEP_RESOURCE_MANAGER_FOLDERS,
   STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
+  STEP_AUDIT_CONFIG_IAM_POLICY,
 } from './steps/resource-manager';
 import {
   STEP_COMPUTE_ADDRESSES,
@@ -273,6 +274,12 @@ describe('#getStepStartStates success', () => {
       },
       [STEP_IAM_SERVICE_ACCOUNTS]: {
         disabled: false,
+      },
+      [STEP_RESOURCE_MANAGER_IAM_POLICY]: {
+        disabled: true,
+      },
+      [STEP_AUDIT_CONFIG_IAM_POLICY]: {
+        disabled: true,
       },
       [STEP_COMPUTE_DISKS]: {
         disabled: false,

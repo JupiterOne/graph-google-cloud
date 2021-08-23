@@ -1,5 +1,13 @@
-import { createOrganizationEntity, createProjectEntity } from './converters';
-import { getMockProject, getMockOrganization } from '../../../test/mocks';
+import {
+  createOrganizationEntity,
+  createProjectEntity,
+  createAuditConfigEntity,
+} from './converters';
+import {
+  getMockProject,
+  getMockOrganization,
+  getMockAuditConfig,
+} from '../../../test/mocks';
 import { DEFAULT_INTEGRATION_CONFIG_PROJECT_ID } from '../../../test/config';
 
 describe('#createProjectEntity', () => {
@@ -22,5 +30,11 @@ describe('#createProjectEntity', () => {
 describe('#createOrganizationEntity', () => {
   test('should convert to entity', () => {
     expect(createOrganizationEntity(getMockOrganization())).toMatchSnapshot();
+  });
+});
+
+describe('#createAuditConfigEntity', () => {
+  test('should convert to entity', () => {
+    expect(createAuditConfigEntity(getMockAuditConfig())).toMatchSnapshot();
   });
 });

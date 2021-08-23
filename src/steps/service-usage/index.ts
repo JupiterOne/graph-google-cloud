@@ -23,6 +23,7 @@ import {
   getIamManagedRoleData,
 } from '../../utils/iam';
 import { serviceusage_v1 } from 'googleapis';
+import { IamClient } from '../iam/client';
 
 export * from './constants';
 
@@ -50,11 +51,14 @@ export async function fetchApiServices(
     instance: { config },
   } = context;
   const client = new ServiceUsageClient({ config });
+  const iamClient = new IamClient({ config });
   const projectEntity = await getProjectEntity(jobState);
 
   const permissionsByApiServiceMap = buildPermissionsByApiServiceMap(
     await getIamManagedRoleData(jobState),
   );
+
+  const auditableServices = await iamClient.collectAuditableServices();
 
   await client.iterateServices(async (service) => {
     const permissions = getPermissionsForApiService(
@@ -67,6 +71,7 @@ export async function fetchApiServices(
         projectId: client.projectId,
         data: service,
         permissions,
+        isAuditable: auditableServices.includes(service.config?.name as string),
       }),
     );
 

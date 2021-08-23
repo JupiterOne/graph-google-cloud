@@ -292,6 +292,7 @@ This is a test role. If you see this, delete it!",
       "_fromEntityKey": "projects/j1-gc-integration-dev-v3/services/cloudfunctions.googleapis.com",
       "_key": "projects/j1-gc-integration-dev-v3/services/cloudfunctions.googleapis.com|has|projects/j1-gc-integration-dev-v3/roles/167984947943customrole3",
       "_toEntityKey": "projects/j1-gc-integration-dev-v3/roles/167984947943customrole3",
+<<<<<<< HEAD
       "_type": "google_cloud_api_service_has_iam_role",
       "displayName": "HAS",
     },
@@ -300,11 +301,14 @@ This is a test role. If you see this, delete it!",
       "_fromEntityKey": "projects/j1-gc-integration-dev-v3/services/cloudfunctions.googleapis.com",
       "_key": "projects/j1-gc-integration-dev-v3/services/cloudfunctions.googleapis.com|has|projects/j1-gc-integration-dev-v3/roles/167984947943customroleconditions",
       "_toEntityKey": "projects/j1-gc-integration-dev-v3/roles/167984947943customroleconditions",
+=======
+>>>>>>> a6937ee... Ingest auditConfig in iamPolicy
       "_type": "google_cloud_api_service_has_iam_role",
       "displayName": "HAS",
     },
     Object {
       "_class": "HAS",
+<<<<<<< HEAD
       "_fromEntityKey": "projects/j1-gc-integration-dev-v3/services/storage.googleapis.com",
       "_key": "projects/j1-gc-integration-dev-v3/services/storage.googleapis.com|has|projects/j1-gc-integration-dev-v3/roles/TerriblePublicDeleteBucketRule",
       "_toEntityKey": "projects/j1-gc-integration-dev-v3/roles/TerriblePublicDeleteBucketRule",
@@ -364,11 +368,17 @@ This is a test role. If you see this, delete it!",
       "_fromEntityKey": "projects/j1-gc-integration-dev-v3/services/serviceusage.googleapis.com",
       "_key": "projects/j1-gc-integration-dev-v3/services/serviceusage.googleapis.com|has|organizations/958457776463/roles/JupiterOneMainIntegration",
       "_toEntityKey": "organizations/958457776463/roles/JupiterOneMainIntegration",
+=======
+      "_fromEntityKey": "projects/j1-gc-integration-dev-v3/services/cloudfunctions.googleapis.com",
+      "_key": "projects/j1-gc-integration-dev-v3/services/cloudfunctions.googleapis.com|has|projects/j1-gc-integration-dev-v3/roles/167984947943customroleconditions",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v3/roles/167984947943customroleconditions",
+>>>>>>> a6937ee... Ingest auditConfig in iamPolicy
       "_type": "google_cloud_api_service_has_iam_role",
       "displayName": "HAS",
     },
     Object {
       "_class": "HAS",
+<<<<<<< HEAD
       "_fromEntityKey": "projects/j1-gc-integration-dev-v3/services/cloudresourcemanager.googleapis.com",
       "_key": "projects/j1-gc-integration-dev-v3/services/cloudresourcemanager.googleapis.com|has|organizations/958457776463/roles/NothingToSeeHere",
       "_toEntityKey": "organizations/958457776463/roles/NothingToSeeHere",
@@ -388,6 +398,11 @@ This is a test role. If you see this, delete it!",
       "_fromEntityKey": "projects/j1-gc-integration-dev-v3/services/storage.googleapis.com",
       "_key": "projects/j1-gc-integration-dev-v3/services/storage.googleapis.com|has|organizations/958457776463/roles/TerriblePublicRole",
       "_toEntityKey": "organizations/958457776463/roles/TerriblePublicRole",
+=======
+      "_fromEntityKey": "projects/j1-gc-integration-dev-v3/services/storage.googleapis.com",
+      "_key": "projects/j1-gc-integration-dev-v3/services/storage.googleapis.com|has|projects/j1-gc-integration-dev-v3/roles/TerriblePublicDeleteBucketRule",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v3/roles/TerriblePublicDeleteBucketRule",
+>>>>>>> a6937ee... Ingest auditConfig in iamPolicy
       "_type": "google_cloud_api_service_has_iam_role",
       "displayName": "HAS",
     },
@@ -399,8 +414,13 @@ This is a test role. If you see this, delete it!",
     "google_iam_role",
     "google_cloud_api_service_has_iam_role",
   ],
+<<<<<<< HEAD
   "numCollectedEntities": 8,
   "numCollectedRelationships": 14,
+=======
+  "numCollectedEntities": 4,
+  "numCollectedRelationships": 4,
+>>>>>>> a6937ee... Ingest auditConfig in iamPolicy
 }
 `;
 
