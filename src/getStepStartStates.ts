@@ -168,6 +168,17 @@ export default async function getStepStartStates(
     serializedIntegrationConfig,
   ));
 
+  logger.info(
+    {
+      projectId: config.projectId,
+      configureOrganizationProjects: config.configureOrganizationProjects,
+      organizationId: config.organizationId,
+      serviceAccountKeyEmail: config.serviceAccountKeyConfig.client_email,
+      serviceAccountKeyProjectId: config.serviceAccountKeyConfig.project_id,
+    },
+    'Starting integration with config',
+  );
+
   logger.publishEvent({
     name: 'integration_config',
     description: `Starting Google Cloud integration with service account (email=${
@@ -193,6 +204,8 @@ export default async function getStepStartStates(
       `Failed to fetch enabled service names. Ability to list services is required to run the Google Cloud integration. (error=${err.message})`,
     );
   }
+
+  logger.info({ enabledServiceNames }, 'Services enabled for project');
 
   const createStepStartState = (
     primaryServiceName: ServiceUsageName,

@@ -21,6 +21,8 @@ and this project adheres to
   `permissions={{string}}` to `permissions~={{string}}` to maintain
   functionality.
 
+- Add logging around Google Cloud configuration and step enablement
+
 ## 0.47.4
 
 - Add 429 status code to existing retry logic
