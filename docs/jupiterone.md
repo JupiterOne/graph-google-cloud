@@ -53,7 +53,7 @@ from that API. The following Google Cloud service APIs must be enabled to ingest
 all of the supported data into JupiterOne:
 
 | Service Name                                                                                                     | Service API                         |
-| ---------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
+|------------------------------------------------------------------------------------------------------------------|-------------------------------------|
 | [Service Usage](https://console.developers.google.com/apis/library/serviceusage.googleapis.com)                  | serviceusage.googleapis.com         |
 | [Cloud Functions](https://console.developers.google.com/apis/library/cloudfunctions.googleapis.com)              | cloudfunctions.googleapis.com       |
 | [Cloud Storage](https://console.developers.google.com/apis/library/storage.googleapis.com)                       | storage.googleapis.com              |
@@ -278,7 +278,7 @@ https://github.com/JupiterOne/sdk/blob/main/docs/integrations/development.md
 The following entities are created:
 
 | Resources                                                | Entity `_type`                                                    | Entity `_class`                    |
-| -------------------------------------------------------- | ----------------------------------------------------------------- | ---------------------------------- |
+|----------------------------------------------------------|-------------------------------------------------------------------|------------------------------------|
 | Access Context Manager Access Level                      | `google_access_context_manager_access_level`                      | `Ruleset`                          |
 | Access Context Manager Access Policy                     | `google_access_context_manager_access_policy`                     | `AccessPolicy`                     |
 | Access Context Manager Service Perimeter                 | `google_access_context_manager_service_perimeter`                 | `Configuration`                    |
@@ -369,7 +369,7 @@ The following entities are created:
 The following relationships are created:
 
 | Source Entity `_type`                                            | Relationship `_class` | Target Entity `_type`                                             |
-| ---------------------------------------------------------------- | --------------------- | ----------------------------------------------------------------- |
+|------------------------------------------------------------------|-----------------------|-------------------------------------------------------------------|
 | `google_access_context_manager_access_policy`                    | **HAS**               | `google_access_context_manager_access_level`                      |
 | `google_access_context_manager_access_policy`                    | **HAS**               | `google_access_context_manager_service_perimeter`                 |
 | `google_access_context_manager_service_perimeter_api_operation`  | **HAS**               | `google_access_context_manager_service_perimeter_method_selector` |
@@ -399,6 +399,11 @@ The following relationships are created:
 | `google_cloud_api_service`                                       | **HAS**               | `google_iam_role`                                                 |
 | `google_cloud_api_service`                                       | **HAS**               | `resource`                                                        |
 | `google_cloud_api_service`                                       | **USES**              | `google_cloud_audit_config`                                       |
+| `google_cloud_audit_config`                                      | **ALLOWS**            | `google_domain`                                                   |
+| `google_cloud_audit_config`                                      | **ALLOWS**            | `UserGroup`                                                       |
+| `google_cloud_audit_config`                                      | **ALLOWS**            | `google_cloud_api_service`                                        |
+| `google_cloud_audit_config`                                      | **ALLOWS**            | `google_user`                                                     |
+| `google_cloud_audit_config`                                      | **MONITORS**          | `google_cloud_api_service`                                        |
 | `internet`                                                       | **ALLOWS**            | `google_compute_firewall`                                         |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_folder`                                             |
 | `google_cloud_function`                                          | **USES**              | `google_iam_service_account`                                      |

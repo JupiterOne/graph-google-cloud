@@ -29,6 +29,7 @@ import {
 import { filterGraphObjects } from '../../../test/helpers/filterGraphObjects';
 import { fetchApiServices } from '../service-usage';
 import { fetchIamManagedRoles } from '../iam';
+import { separateDirectMappedRelationships } from '../../../test/helpers/separateDirectMappedRelationships';
 
 describe('#fetchIamPolicyAuditConfig', () => {
   let recording: Recording;
@@ -157,8 +158,13 @@ describe('#fetchIamPolicyAuditConfig', () => {
       },
     });
 
+    const { directRelationships, mappedRelationships } =
+      separateDirectMappedRelationships(
+        context.jobState.collectedRelationships,
+      );
+
     expect(
-      context.jobState.collectedRelationships.filter(
+      directRelationships.filter(
         (e) => e._type === SERVICE_USES_AUDIT_CONFIG_RELATIONSHIP_TYPE,
       ),
     ).toMatchDirectRelationshipSchema({
@@ -171,6 +177,22 @@ describe('#fetchIamPolicyAuditConfig', () => {
         },
       },
     });
+
+    expect(mappedRelationships.length).toBeGreaterThan(0);
+
+    expect(
+      mappedRelationships
+        .filter(
+          (e) =>
+            e._mapping.sourceEntityKey ===
+            'auditConfig:binaryauthorization.googleapis.com',
+        )
+        .every(
+          (mappedRelationship) =>
+            mappedRelationship._key ===
+            'auditConfig:binaryauthorization.googleapis.com|allows|j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com',
+        ),
+    ).toBe(true);
   });
 });
 

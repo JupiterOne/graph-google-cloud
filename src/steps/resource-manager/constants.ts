@@ -4,7 +4,6 @@ export const STEP_RESOURCE_MANAGER_FOLDERS = 'fetch-resource-manager-folders';
 export const STEP_RESOURCE_MANAGER_PROJECT = 'fetch-resource-manager-project';
 export const STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS =
   'fetch-resource-manager-org-project-relationships';
-
 export const STEP_AUDIT_CONFIG_IAM_POLICY = 'fetch-iam-policy-audit-config';
 
 export const ORGANIZATION_ENTITY_TYPE = 'google_cloud_organization';
@@ -30,3 +29,12 @@ export const ORGANIZATION_HAS_PROJECT_RELATIONSHIP_TYPE =
 export const FOLDER_HAS_PROJECT_RELATIONSHIP_TYPE = 'google_folder_has_project';
 export const SERVICE_USES_AUDIT_CONFIG_RELATIONSHIP_TYPE =
   'google_cloud_api_service_uses_audit_config';
+
+export const AUDIT_CONFIG_ALLOWS_SERVICE_ACCOUNT_RELATIONSHIP_TYPE =
+  'google_cloud_audit_config_allows_service_account';
+export const AUDIT_CONFIG_ALLOWS_USER_RELATIONSHIP_TYPE =
+  'google_cloud_audit_config_allows_user';
+export const AUDIT_CONFIG_ALLOWS_GROUP_RELATIONSHIP_TYPE =
+  'google_cloud_audit_config_allows_group';
+export const AUDIT_CONFIG_ALLOWS_DOMAIN_RELATIONSHIP_TYPE =
+  'google_cloud_audit_config_allows_domain';
