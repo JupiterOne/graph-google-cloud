@@ -1,7 +1,9 @@
 import {
   createDirectRelationship,
+  createMappedRelationship,
   IntegrationStep,
   RelationshipClass,
+  RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
 import { pubsub_v1 } from 'googleapis';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
@@ -12,7 +14,7 @@ import {
   ENTITY_TYPE_PUBSUB_TOPIC,
   STEP_PUBSUB_TOPICS,
   STEP_PUBSUB_SUBSCRIPTIONS,
-  RELATIONSHIP_TYPE_PUBSUB_TOPIC_HAS_KMS_KEY,
+  RELATIONSHIP_TYPE_PUBSUB_TOPIC_USES_KMS_KEY,
   RELATIONSHIP_TYPE_PUBSUB_SUBSCRIPTION_USES_TOPIC,
   ENTITY_CLASS_PUBSUB_SUBSCRIPTION,
   ENTITY_TYPE_PUBSUB_SUBSCRIPTION,
@@ -22,6 +24,7 @@ import {
   createPubSubTopicEntity,
 } from './converters';
 import { isMemberPublic } from '../../utils/iam';
+import { getKmsGraphObjectKeyFromKmsKeyName } from '../../utils/kms';
 
 function isTopicPolicyPublicAccess(
   topicPolicy: pubsub_v1.Schema$Policy,
@@ -58,13 +61,33 @@ export async function fetchPubSubTopics(
     await jobState.addEntity(projectTopicEntity);
 
     if (projectTopic.kmsKeyName) {
-      const kmsKeyEntity = await jobState.findEntity(projectTopic.kmsKeyName);
+      const kmsKey = getKmsGraphObjectKeyFromKmsKeyName(
+        projectTopic.kmsKeyName,
+      );
+      const kmsKeyEntity = await jobState.findEntity(kmsKey);
       if (kmsKeyEntity) {
         await jobState.addRelationship(
           createDirectRelationship({
             _class: RelationshipClass.USES,
             from: projectTopicEntity,
             to: kmsKeyEntity,
+          }),
+        );
+      } else {
+        await jobState.addRelationship(
+          createMappedRelationship({
+            _class: RelationshipClass.USES,
+            _type: RELATIONSHIP_TYPE_PUBSUB_TOPIC_USES_KMS_KEY,
+            _mapping: {
+              relationshipDirection: RelationshipDirection.FORWARD,
+              sourceEntityKey: projectTopicEntity._key,
+              targetFilterKeys: [['_type', '_key']],
+              skipTargetCreation: true,
+              targetEntity: {
+                _type: ENTITY_TYPE_KMS_KEY,
+                _key: kmsKey,
+              },
+            },
           }),
         );
       }
@@ -127,7 +150,7 @@ export const pubSubSteps: IntegrationStep<IntegrationConfig>[] = [
     relationships: [
       {
         _class: RelationshipClass.USES,
-        _type: RELATIONSHIP_TYPE_PUBSUB_TOPIC_HAS_KMS_KEY,
+        _type: RELATIONSHIP_TYPE_PUBSUB_TOPIC_USES_KMS_KEY,
         sourceType: ENTITY_TYPE_PUBSUB_TOPIC,
         targetType: ENTITY_TYPE_KMS_KEY,
       },

@@ -1,8 +1,10 @@
 import {
   createDirectRelationship,
+  createMappedRelationship,
   Entity,
   IntegrationStep,
   RelationshipClass,
+  RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
 import { getKmsGraphObjectKeyFromKmsKeyName } from '../../utils/kms';
@@ -56,23 +58,27 @@ export async function fetchSQLAdminInstances(
     }
 
     let instanceEntity: Entity;
+    let relationshipType: string;
 
     if (instance.databaseVersion?.toUpperCase().includes(DATABASE_TYPE.MYSQL)) {
       instanceEntity = await jobState.addEntity(
         createMySQLInstanceEntity(instance),
       );
+      relationshipType = SQL_MYSQL_INSTANCE_USES_KMS_KEY_RELATIONSHIP;
     } else if (
       instance.databaseVersion?.toUpperCase().includes(DATABASE_TYPE.POSTGRES)
     ) {
       instanceEntity = await jobState.addEntity(
         createPostgresInstanceEntity(instance),
       );
+      relationshipType = SQL_POSTGRES_INSTANCE_USES_KMS_KEY_RELATIONSHIP;
     } else if (
       instance.databaseVersion?.toUpperCase().includes(DATABASE_TYPE.SQL_SERVER)
     ) {
       instanceEntity = await jobState.addEntity(
         createSQLServerInstanceEntity(instance),
       );
+      relationshipType = SQL_SQL_INSTANCE_USES_KMS_KEY_RELATIONSHIP;
     } else {
       // NOTE: This could happen if Google Cloud introduces a new type of
       // database under the SQL Admin offering. This log is intentially a `warn`,
@@ -89,9 +95,8 @@ export async function fetchSQLAdminInstances(
     const kmsKeyName = instance.diskEncryptionConfiguration?.kmsKeyName;
 
     if (kmsKeyName) {
-      const kmsKeyEntity = await jobState.findEntity(
-        getKmsGraphObjectKeyFromKmsKeyName(kmsKeyName),
-      );
+      const kmsKey = getKmsGraphObjectKeyFromKmsKeyName(kmsKeyName);
+      const kmsKeyEntity = await jobState.findEntity(kmsKey);
 
       if (kmsKeyEntity) {
         await jobState.addRelationship(
@@ -99,6 +104,23 @@ export async function fetchSQLAdminInstances(
             _class: RelationshipClass.USES,
             from: instanceEntity,
             to: kmsKeyEntity,
+          }),
+        );
+      } else {
+        await jobState.addRelationship(
+          createMappedRelationship({
+            _class: RelationshipClass.USES,
+            _type: relationshipType,
+            _mapping: {
+              relationshipDirection: RelationshipDirection.FORWARD,
+              sourceEntityKey: instanceEntity._key,
+              targetFilterKeys: [['_type', '_key']],
+              skipTargetCreation: true,
+              targetEntity: {
+                _type: ENTITY_TYPE_KMS_KEY,
+                _key: kmsKey,
+              },
+            },
           }),
         );
       }

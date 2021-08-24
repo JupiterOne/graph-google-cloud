@@ -1,8 +1,7 @@
-jest.setTimeout(60000);
-
 import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-testing';
 import { fetchSQLAdminInstances } from '.';
 import { integrationConfig } from '../../../test/config';
+import { separateDirectMappedRelationships } from '../../../test/helpers/separateDirectMappedRelationships';
 import { Recording, setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
 import { fetchKmsCryptoKeys, fetchKmsKeyRings } from '../kms';
@@ -322,10 +321,14 @@ describe('#fetchSQLInstances encrypted', () => {
       },
     });
 
-    const postgresInstanceUsesKmsKeyRelationships =
-      context.jobState.collectedRelationships.filter(
-        (r) => r._type === 'google_sql_postgres_instance_uses_kms_crypto_key',
+    const { directRelationships, mappedRelationships } =
+      separateDirectMappedRelationships(
+        context.jobState.collectedRelationships,
       );
+
+    const postgresInstanceUsesKmsKeyRelationships = directRelationships.filter(
+      (r) => r._type === 'google_sql_postgres_instance_uses_kms_crypto_key',
+    );
 
     expect(postgresInstanceUsesKmsKeyRelationships.length).toBeGreaterThan(0);
 
@@ -336,5 +339,21 @@ describe('#fetchSQLInstances encrypted', () => {
         }),
       ),
     );
+
+    expect(mappedRelationships.length).toBeGreaterThan(0);
+
+    expect(
+      mappedRelationships
+        .filter(
+          (e) =>
+            e._mapping.sourceEntityKey ===
+            'https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v3/instances/sample-mysql-foreign-key',
+        )
+        .every(
+          (mappedRelationship) =>
+            mappedRelationship._key ===
+            'https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v3/instances/sample-mysql-foreign-key|uses|projects/vmware-account/locations/us-central1/keyRings/test-key-ring-us-central-1/cryptoKeys/test-key-us-central-1',
+        ),
+    ).toBe(true);
   });
 });
