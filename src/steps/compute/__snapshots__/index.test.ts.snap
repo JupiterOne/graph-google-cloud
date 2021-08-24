@@ -15720,6 +15720,53 @@ Object {
     },
     Object {
       "_class": Array [
+        "Image",
+      ],
+      "_key": "j1-gc-integration-dev-v3:example-snapshot-image:deleted",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "deprecated": Object {
+              "state": "DELETED",
+            },
+            "id": "j1-gc-integration-dev-v3:example-snapshot-image:deleted",
+            "name": "example-snapshot-image",
+          },
+        },
+      ],
+      "_type": "google_compute_image",
+      "archivedSizeBytes": undefined,
+      "createdOn": undefined,
+      "deprecated": true,
+      "deprecationState": "DELETED",
+      "description": undefined,
+      "diskSizeGb": undefined,
+      "displayName": "example-snapshot-image",
+      "family": undefined,
+      "guestOsFeatures": undefined,
+      "id": "j1-gc-integration-dev-v3:example-snapshot-image:deleted",
+      "kind": undefined,
+      "labelFingerprint": undefined,
+      "licenseCodes": undefined,
+      "licenses": undefined,
+      "name": "example-snapshot-image",
+      "public": false,
+      "rawDisk.containerType": undefined,
+      "rawDisk.sha1Checksum": undefined,
+      "rawDisk.source": undefined,
+      "sourceDisk": undefined,
+      "sourceDiskId": undefined,
+      "sourceImage": undefined,
+      "sourceImageId": undefined,
+      "sourceSnapshot": undefined,
+      "sourceSnapshotId": undefined,
+      "sourceType": undefined,
+      "status": undefined,
+      "storageLocations": undefined,
+    },
+    Object {
+      "_class": Array [
         "Host",
       ],
       "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/zones/us-central1-a/instances/load-balancer-instance",
@@ -16241,6 +16288,14 @@ Object {
     },
     Object {
       "_class": "USES",
+      "_fromEntityKey": "disk:3169341475684659331",
+      "_key": "disk:3169341475684659331|uses|j1-gc-integration-dev-v3:example-snapshot-image:deleted",
+      "_toEntityKey": "j1-gc-integration-dev-v3:example-snapshot-image:deleted",
+      "_type": "google_compute_disk_uses_image",
+      "displayName": "USES",
+    },
+    Object {
+      "_class": "USES",
       "_fromEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/zones/us-central1-a/instances/load-balancer-instance",
       "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/zones/us-central1-a/instances/load-balancer-instance|uses|disk:8160594975492976872",
       "_toEntityKey": "disk:8160594975492976872",
@@ -16273,11 +16328,12 @@ Object {
     "google_iam_service_account_has_key",
     "google_compute_disk",
     "google_compute_disk_uses_image",
+    "google_compute_image",
     "google_compute_instance",
     "google_compute_instance_uses_disk",
   ],
-  "numCollectedEntities": 32,
-  "numCollectedRelationships": 25,
+  "numCollectedEntities": 33,
+  "numCollectedRelationships": 26,
 }
 `;
 
@@ -17165,53 +17221,6 @@ Object {
     },
     Object {
       "_class": Array [
-        "Image",
-      ],
-      "_key": "image:j1-gc-integration-dev-v3:example-snapshot-image:deleted",
-      "_rawData": Array [
-        Object {
-          "name": "default",
-          "rawData": Object {
-            "deprecated": Object {
-              "state": "DELETED",
-            },
-            "id": "j1-gc-integration-dev-v3:example-snapshot-image:deleted",
-            "name": "example-snapshot-image",
-          },
-        },
-      ],
-      "_type": "google_compute_image",
-      "archivedSizeBytes": undefined,
-      "createdOn": undefined,
-      "deprecated": true,
-      "deprecationState": "DELETED",
-      "description": undefined,
-      "diskSizeGb": undefined,
-      "displayName": "example-snapshot-image",
-      "family": undefined,
-      "guestOsFeatures": undefined,
-      "id": "j1-gc-integration-dev-v3:example-snapshot-image:deleted",
-      "kind": undefined,
-      "labelFingerprint": undefined,
-      "licenseCodes": undefined,
-      "licenses": undefined,
-      "name": "example-snapshot-image",
-      "public": false,
-      "rawDisk.containerType": undefined,
-      "rawDisk.sha1Checksum": undefined,
-      "rawDisk.source": undefined,
-      "sourceDisk": undefined,
-      "sourceDiskId": undefined,
-      "sourceImage": undefined,
-      "sourceImageId": undefined,
-      "sourceSnapshot": undefined,
-      "sourceSnapshotId": undefined,
-      "sourceType": undefined,
-      "status": undefined,
-      "storageLocations": undefined,
-    },
-    Object {
-      "_class": Array [
         "Host",
       ],
       "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-f/instances/gke-j1-gc-integratio-j1-gc-integratio-da1fd85f-btg5",
@@ -18008,24 +18017,52 @@ Object {
       "timeoutSec": 30,
     },
     Object {
-      "_class": "USES",
-      "_fromEntityKey": "disk:3169341475684659331",
-      "_key": "disk:3169341475684659331|uses|image:j1-gc-integration-dev-v3:example-snapshot-image:deleted",
-      "_toEntityKey": "image:j1-gc-integration-dev-v3:example-snapshot-image:deleted",
-      "_type": "google_compute_disk_uses_image",
-      "displayName": "USES",
-    },
-    Object {
-      "_class": "USES",
-      "_fromEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/zones/us-central1-a/instances/load-balancer-instance",
-      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/zones/us-central1-a/instances/load-balancer-instance|uses|disk:8160594975492976872",
-      "_toEntityKey": "disk:8160594975492976872",
-      "_type": "google_compute_instance_uses_disk",
-      "autoDelete": true,
-      "deviceName": "persistent-disk-0",
-      "displayName": "USES",
-      "interface": "SCSI",
-      "mode": "READ_WRITE",
+      "_class": Array [
+        "Service",
+      ],
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/backendServices/forwarding-rule-example-backend-internal",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "connectionDraining": Object {
+              "drainingTimeoutSec": 0,
+            },
+            "creationTimestamp": "2021-07-06T11:38:06.057-07:00",
+            "description": "",
+            "fingerprint": "AtsH1U6gvSA=",
+            "healthChecks": Array [
+              "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/healthChecks/forwarding-rule-example-hc-internal",
+            ],
+            "id": "9002198696230198753",
+            "kind": "compute#backendService",
+            "loadBalancingScheme": "INTERNAL",
+            "name": "forwarding-rule-example-backend-internal",
+            "protocol": "TCP",
+            "region": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1",
+            "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/backendServices/forwarding-rule-example-backend-internal",
+            "sessionAffinity": "NONE",
+            "timeoutSec": 30,
+          },
+        },
+      ],
+      "_type": "google_compute_backend_service",
+      "category": Array [
+        "network",
+      ],
+      "createdOn": 1625596686057,
+      "description": "",
+      "displayName": "forwarding-rule-example-backend-internal",
+      "enableCDN": undefined,
+      "function": Array [
+        "load-balancing",
+      ],
+      "id": "9002198696230198753",
+      "name": "forwarding-rule-example-backend-internal",
+      "port": undefined,
+      "protocol": "TCP",
+      "regional": true,
+      "timeoutSec": 30,
     },
     Object {
       "_class": Array [
@@ -18078,28 +18115,6 @@ Object {
       "regional": true,
       "timeoutSec": 10,
     },
-  ],
-  "encounteredTypes": Array [
-    "google_compute_instance_group",
-    "google_compute_instance_group_named_port",
-    "google_compute_instance_group_has_named_port",
-    "google_iam_service_account",
-    "google_iam_service_account_key",
-    "google_iam_service_account_has_key",
-    "google_compute_disk",
-    "google_compute_disk_uses_image",
-    "google_compute_image",
-    "google_compute_instance",
-    "google_compute_instance_uses_disk",
-  ],
-  "numCollectedEntities": 33,
-  "numCollectedRelationships": 26,
-}
-`;
-
-exports[`#fetchComputeLoadBalancers should collect data 1`] = `
-Object {
-  "collectedEntities": Array [
     Object {
       "_class": Array [
         "Service",
