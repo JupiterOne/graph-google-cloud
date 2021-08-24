@@ -432,6 +432,7 @@ The following relationships are created/mapped:
 | `google_compute_url_map`                                         | **HAS**               | `google_compute_target_https_proxy`                               |
 | `google_container_cluster`                                       | **HAS**               | `google_container_node_pool`                                      |
 | `google_container_node_pool`                                     | **HAS**               | `google_compute_instance_group`                                   |
+| `google_dataproc_cluster`                                        | **USES**              | `google_compute_image`                                            |
 | `google_dataproc_cluster`                                        | **USES**              | `google_kms_crypto_key`                                           |
 | `google_dataproc_cluster`                                        | **USES**              | `google_storage_bucket`                                           |
 | `google_domain`                                                  | **ASSIGNED**          | `google_iam_role`                                                 |

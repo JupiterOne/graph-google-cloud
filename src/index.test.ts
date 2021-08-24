@@ -133,6 +133,7 @@ import {
 } from './steps/access-context-manager/constants';
 import {
   STEP_CREATE_CLUSTER_STORAGE_RELATIONSHIPS,
+  STEP_CREATE_CLUSTER_IMAGE_RELATIONSHIPS,
   STEP_DATAPROC_CLUSTERS,
 } from './steps/dataproc/constants';
 
@@ -466,6 +467,9 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_CREATE_CLUSTER_STORAGE_RELATIONSHIPS]: {
+        disabled: false,
+      },
+      [STEP_CREATE_CLUSTER_IMAGE_RELATIONSHIPS]: {
         disabled: false,
       },
     };

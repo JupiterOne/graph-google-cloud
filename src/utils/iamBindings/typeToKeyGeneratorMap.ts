@@ -36,7 +36,6 @@ import {
 } from '../../steps/compute';
 import {
   getComputeDiskKey,
-  getComputeImageKey,
   getComputeSnapshotKey,
 } from '../../steps/compute/converters';
 import {
@@ -108,7 +107,7 @@ export const J1_TYPE_TO_KEY_GENERATOR_MAP: {
   [ENTITY_TYPE_COMPUTE_DISK]: customPrefixAndIdKeyMap(getComputeDiskKey),
   [ENTITY_TYPE_COMPUTE_FIREWALL]: selfLinkKeyMap,
   [ENTITY_TYPE_COMPUTE_HEALTH_CHECK]: selfLinkKeyMap,
-  [ENTITY_TYPE_COMPUTE_IMAGE]: customPrefixAndIdKeyMap(getComputeImageKey),
+  [ENTITY_TYPE_COMPUTE_IMAGE]: selfLinkKeyMap,
   [ENTITY_TYPE_COMPUTE_INSTANCE]: selfLinkKeyMap,
   [ENTITY_TYPE_COMPUTE_INSTANCE_GROUP]: selfLinkKeyMap,
   [ENTITY_TYPE_COMPUTE_NETWORK]: selfLinkKeyMap,

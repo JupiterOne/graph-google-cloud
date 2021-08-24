@@ -88,10 +88,6 @@ export function createComputeProjectEntity(data: compute_v1.Schema$Project) {
   });
 }
 
-export function getComputeImageKey(id: string) {
-  return `image:${id}`;
-}
-
 export function createComputeImageEntity({
   data,
   isPublic,
@@ -105,7 +101,7 @@ export function createComputeImageEntity({
       assign: {
         _class: ENTITY_CLASS_COMPUTE_IMAGE,
         _type: ENTITY_TYPE_COMPUTE_IMAGE,
-        _key: getComputeImageKey(data.id!),
+        _key: data.selfLink as string,
         id: data.id as string,
         name: data.name,
         displayName: data.name as string,
