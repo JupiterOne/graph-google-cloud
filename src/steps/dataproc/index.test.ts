@@ -23,8 +23,6 @@ import {
 } from '../storage';
 import { ENTITY_TYPE_COMPUTE_IMAGE, fetchComputeImages } from '../compute';
 
-jest.setTimeout(500000);
-
 describe('#fetchDataprocClusters', () => {
   let recording: Recording;
 
