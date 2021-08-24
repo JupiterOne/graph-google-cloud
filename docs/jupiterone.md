@@ -433,6 +433,7 @@ The following relationships are created/mapped:
 | `google_container_cluster`                                       | **HAS**               | `google_container_node_pool`                                      |
 | `google_container_node_pool`                                     | **HAS**               | `google_compute_instance_group`                                   |
 | `google_dataproc_cluster`                                        | **USES**              | `google_kms_crypto_key`                                           |
+| `google_dataproc_cluster`                                        | **USES**              | `google_storage_bucket`                                           |
 | `google_domain`                                                  | **ASSIGNED**          | `google_iam_role`                                                 |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_project`                                            |
 | `google_group`                                                   | **ASSIGNED**          | `google_iam_role`                                                 |
