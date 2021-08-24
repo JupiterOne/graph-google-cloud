@@ -31,4 +31,5 @@ export enum ServiceUsageName {
   PRIVATE_CA = 'privateca.googleapis.com',
   ACCESS_CONTEXT_MANAGER = 'accesscontextmanager.googleapis.com',
   DATAPROC_CLUSTERS = 'dataproc.googleapis.com',
+  BIG_TABLE = 'bigtableadmin.googleapis.com',
 }

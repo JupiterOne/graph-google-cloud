@@ -24,6 +24,7 @@ import {
   cloudresourcemanager_v3,
   accesscontextmanager_v1,
   dataproc_v1,
+  bigtableadmin_v2,
 } from 'googleapis';
 import { BigQueryTable } from '../src/steps/big-query/client';
 
@@ -2408,6 +2409,18 @@ export function getMockComputeGlobalAddress(
   };
 }
 
+export function getMockBigTableInstance(
+  partial?: Partial<bigtableadmin_v2.Schema$Instance>,
+): bigtableadmin_v2.Schema$Instance {
+  return {
+    name: 'projects/j1-gc-integration-dev-v3/instances/j1-test-instance',
+    displayName: 'j1-test-instance',
+    state: 'READY',
+    type: 'PRODUCTION',
+    ...partial,
+  };
+}
+
 export function getMockComputeGlobalForwardingRule(
   partial?: Partial<compute_v1.Schema$ForwardingRule>,
 ): compute_v1.Schema$ForwardingRule {
@@ -2428,6 +2441,21 @@ export function getMockComputeGlobalForwardingRule(
     labelFingerprint: '42WmSpB8rSM=',
     fingerprint: 'TcR6S3PkYpw=',
     kind: 'compute#forwardingRule',
+    ...partial,
+  };
+}
+
+export function getMockBigTableAppProfile(
+  partial?: Partial<bigtableadmin_v2.Schema$AppProfile>,
+): bigtableadmin_v2.Schema$AppProfile {
+  return {
+    name: 'projects/j1-gc-integration-dev-v3/instances/j1-test-instance/appProfiles/default',
+    description:
+      'Default application profile for this instance. This profile is used if you do not supply a different profile ID at connection time.',
+    singleClusterRouting: {
+      clusterId: 'j1-test-instance-c1',
+      allowTransactionalWrites: true,
+    },
     ...partial,
   };
 }
@@ -2454,6 +2482,46 @@ export function getMockComputeForwardingRule(
     labelFingerprint: '42WmSpB8rSM=',
     fingerprint: 'a9razc1zgQg=',
     kind: 'compute#forwardingRule',
+    ...partial,
+  };
+}
+
+export function getMockBigTableCluster(
+  partial?: Partial<bigtableadmin_v2.Schema$Cluster>,
+): bigtableadmin_v2.Schema$Cluster {
+  return {
+    name: 'projects/j1-gc-integration-dev-v3/instances/j1-test-instance/clusters/j1-test-instance-c1',
+    location: 'projects/j1-gc-integration-dev-v3/locations/asia-south1-a',
+    state: 'READY',
+    serveNodes: 1,
+    defaultStorageType: 'SSD',
+    ...partial,
+  };
+}
+
+export function getMockBigTableTable(
+  partial?: Partial<bigtableadmin_v2.Schema$Table>,
+): bigtableadmin_v2.Schema$Table {
+  return {
+    name: 'projects/j1-gc-integration-dev-v3/instances/j1-test-instance/tables/j1-table',
+    ...partial,
+  };
+}
+
+export function getMockBigTableBackup(
+  partial?: Partial<bigtableadmin_v2.Schema$Backup>,
+): bigtableadmin_v2.Schema$Backup {
+  return {
+    name: 'projects/j1-gc-integration-dev-v3/instances/j1-test-instance/clusters/j1-test-instance-c1/backups/j1-backup',
+    sourceTable:
+      'projects/j1-gc-integration-dev-v3/instances/j1-test-instance/tables/j1-table',
+    expireTime: '2021-08-04T19:37:45.191Z',
+    startTime: '2021-08-03T19:37:45.359529Z',
+    endTime: '2021-08-03T19:37:46.235458Z',
+    state: 'READY',
+    encryptionInfo: {
+      encryptionType: 'GOOGLE_DEFAULT_ENCRYPTION',
+    },
     ...partial,
   };
 }

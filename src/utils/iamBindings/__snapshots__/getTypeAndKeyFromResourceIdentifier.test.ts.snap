@@ -699,40 +699,40 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 88`] = `
 Object {
   "identifier": "//bigtable.googleapis.com/projects/12345/instances/abcdef12345/appProfiles/abcdef12345",
-  "key": undefined,
-  "type": "NO_DIRECT_J1_RESOURCE_YET",
+  "key": "projects/12345/instances/abcdef12345/appProfiles/abcdef12345",
+  "type": "google_bigtable_app_profile",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 89`] = `
 Object {
   "identifier": "//bigtable.googleapis.com/projects/12345/instances/abcdef12345/clusters/abcdef12345/backups/abcdef12345",
-  "key": undefined,
-  "type": "NO_DIRECT_J1_RESOURCE_YET",
+  "key": "projects/12345/instances/abcdef12345/clusters/abcdef12345/backups/abcdef12345",
+  "type": "google_bigtable_backup",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 90`] = `
 Object {
   "identifier": "//bigtable.googleapis.com/projects/12345/instances/abcdef12345/clusters/abcdef12345",
-  "key": undefined,
-  "type": "NO_DIRECT_J1_RESOURCE_YET",
+  "key": "projects/12345/instances/abcdef12345/clusters/abcdef12345",
+  "type": "google_bigtable_cluster",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 91`] = `
 Object {
   "identifier": "//bigtable.googleapis.com/projects/12345/instances/abcdef12345",
-  "key": undefined,
-  "type": "NO_DIRECT_J1_RESOURCE_YET",
+  "key": "projects/12345/instances/abcdef12345",
+  "type": "google_bigtable_instance",
 }
 `;
 
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 92`] = `
 Object {
   "identifier": "//bigtable.googleapis.com/projects/12345/instances/abcdef12345/tables/abcdef12345",
-  "key": undefined,
-  "type": "NO_DIRECT_J1_RESOURCE_YET",
+  "key": "projects/12345/instances/abcdef12345/tables/abcdef12345",
+  "type": "google_bigtable_table",
 }
 `;
 

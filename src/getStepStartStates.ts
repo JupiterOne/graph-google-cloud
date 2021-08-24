@@ -123,6 +123,13 @@ import {
   STEP_CREATE_CLUSTER_IMAGE_RELATIONSHIPS,
   STEP_DATAPROC_CLUSTERS,
 } from './steps/dataproc/constants';
+import {
+  STEP_BIG_TABLE_APP_PROFILES,
+  STEP_BIG_TABLE_BACKUPS,
+  STEP_BIG_TABLE_CLUSTERS,
+  STEP_BIG_TABLE_INSTANCES,
+  STEP_BIG_TABLE_TABLES,
+} from './steps/big-table/constants';
 
 function validateInvocationConfig(
   context: IntegrationExecutionContext<SerializedIntegrationConfig>,
@@ -426,6 +433,15 @@ export default async function getStepStartStates(
     [STEP_CREATE_CLUSTER_IMAGE_RELATIONSHIPS]: createStepStartState(
       ServiceUsageName.DATAPROC_CLUSTERS,
     ),
+    [STEP_BIG_TABLE_INSTANCES]: createStepStartState(
+      ServiceUsageName.BIG_TABLE,
+    ),
+    [STEP_BIG_TABLE_APP_PROFILES]: createStepStartState(
+      ServiceUsageName.BIG_TABLE,
+    ),
+    [STEP_BIG_TABLE_CLUSTERS]: createStepStartState(ServiceUsageName.BIG_TABLE),
+    [STEP_BIG_TABLE_BACKUPS]: createStepStartState(ServiceUsageName.BIG_TABLE),
+    [STEP_BIG_TABLE_TABLES]: createStepStartState(ServiceUsageName.BIG_TABLE),
   };
 
   logger.info(
