@@ -225,6 +225,27 @@ Object {
   "collectedRelationships": Array [
     Object {
       "_class": "USES",
+      "_key": "projects/j1-gc-integration-dev-v2/topics/example-topic|uses|projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring/cryptoKeys/example-key",
+      "_mapping": Object {
+        "relationshipDirection": "FORWARD",
+        "skipTargetCreation": true,
+        "sourceEntityKey": "projects/j1-gc-integration-dev-v2/topics/example-topic",
+        "targetEntity": Object {
+          "_key": "projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring/cryptoKeys/example-key",
+          "_type": "google_kms_crypto_key",
+        },
+        "targetFilterKeys": Array [
+          Array [
+            "_type",
+            "_key",
+          ],
+        ],
+      },
+      "_type": "google_pubsub_topic_uses_kms_crypto_key",
+      "displayName": "USES",
+    },
+    Object {
+      "_class": "USES",
       "_fromEntityKey": "projects/j1-gc-integration-dev-v2/subscriptions/example-subscription",
       "_key": "projects/j1-gc-integration-dev-v2/subscriptions/example-subscription|uses|projects/j1-gc-integration-dev-v2/topics/example-topic",
       "_toEntityKey": "projects/j1-gc-integration-dev-v2/topics/example-topic",
@@ -234,11 +255,12 @@ Object {
   ],
   "encounteredTypes": Array [
     "google_pubsub_topic",
+    "google_pubsub_topic_uses_kms_crypto_key",
     "google_pubsub_subscription",
     "google_pubsub_subscription_uses_topic",
   ],
   "numCollectedEntities": 7,
-  "numCollectedRelationships": 1,
+  "numCollectedRelationships": 2,
 }
 `;
 

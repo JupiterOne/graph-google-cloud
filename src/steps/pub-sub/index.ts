@@ -1,7 +1,9 @@
 import {
   createDirectRelationship,
+  createMappedRelationship,
   IntegrationStep,
   RelationshipClass,
+  RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
 import { pubsub_v1 } from 'googleapis';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
@@ -12,7 +14,7 @@ import {
   ENTITY_TYPE_PUBSUB_TOPIC,
   STEP_PUBSUB_TOPICS,
   STEP_PUBSUB_SUBSCRIPTIONS,
-  RELATIONSHIP_TYPE_PUBSUB_TOPIC_HAS_KMS_KEY,
+  RELATIONSHIP_TYPE_PUBSUB_TOPIC_USES_KMS_KEY,
   RELATIONSHIP_TYPE_PUBSUB_SUBSCRIPTION_USES_TOPIC,
   ENTITY_CLASS_PUBSUB_SUBSCRIPTION,
   ENTITY_TYPE_PUBSUB_SUBSCRIPTION,
@@ -65,6 +67,23 @@ export async function fetchPubSubTopics(
             _class: RelationshipClass.USES,
             from: projectTopicEntity,
             to: kmsKeyEntity,
+          }),
+        );
+      } else {
+        await jobState.addRelationship(
+          createMappedRelationship({
+            _class: RelationshipClass.USES,
+            _type: RELATIONSHIP_TYPE_PUBSUB_TOPIC_USES_KMS_KEY,
+            _mapping: {
+              relationshipDirection: RelationshipDirection.FORWARD,
+              sourceEntityKey: projectTopicEntity._key,
+              targetFilterKeys: [['_type', '_key']],
+              skipTargetCreation: true,
+              targetEntity: {
+                _type: ENTITY_TYPE_KMS_KEY,
+                _key: projectTopic.kmsKeyName,
+              },
+            },
           }),
         );
       }
@@ -127,7 +146,7 @@ export const pubSubSteps: IntegrationStep<IntegrationConfig>[] = [
     relationships: [
       {
         _class: RelationshipClass.USES,
-        _type: RELATIONSHIP_TYPE_PUBSUB_TOPIC_HAS_KMS_KEY,
+        _type: RELATIONSHIP_TYPE_PUBSUB_TOPIC_USES_KMS_KEY,
         sourceType: ENTITY_TYPE_PUBSUB_TOPIC,
         targetType: ENTITY_TYPE_KMS_KEY,
       },

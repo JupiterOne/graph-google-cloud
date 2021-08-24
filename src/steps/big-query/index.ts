@@ -1,7 +1,9 @@
 import {
   createDirectRelationship,
+  createMappedRelationship,
   IntegrationStep,
   RelationshipClass,
+  RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
 import { bigquery_v2 } from 'googleapis';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
@@ -84,6 +86,25 @@ export async function buildBigQueryDatasetKMSRelationships(
               _class: RelationshipClass.USES,
               from: datasetEntity,
               to: kmsKeyEntity,
+            }),
+          );
+        } else {
+          await jobState.addRelationship(
+            createMappedRelationship({
+              _class: RelationshipClass.USES,
+              _type: RELATIONSHIP_TYPE_DATASET_USES_KMS_CRYPTO_KEY,
+              _mapping: {
+                relationshipDirection: RelationshipDirection.FORWARD,
+                sourceEntityKey: datasetEntity._key,
+                targetFilterKeys: [['_type', '_key']],
+                skipTargetCreation: true,
+                targetEntity: {
+                  _type: ENTITY_TYPE_KMS_KEY,
+                  _key: getKmsGraphObjectKeyFromKmsKeyName(
+                    datasetEntity.kmsKeyName as string,
+                  ),
+                },
+              },
             }),
           );
         }

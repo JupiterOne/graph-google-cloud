@@ -6,7 +6,7 @@ import {
   ENTITY_TYPE_PUBSUB_SUBSCRIPTION,
   ENTITY_TYPE_PUBSUB_TOPIC,
   RELATIONSHIP_TYPE_PUBSUB_SUBSCRIPTION_USES_TOPIC,
-  RELATIONSHIP_TYPE_PUBSUB_TOPIC_HAS_KMS_KEY,
+  RELATIONSHIP_TYPE_PUBSUB_TOPIC_USES_KMS_KEY,
 } from './constants';
 import { fetchPubSubSubscriptions, fetchPubSubTopics } from '.';
 import {
@@ -115,7 +115,7 @@ describe('#fetchProjectTopics', () => {
 
     expect(
       context.jobState.collectedRelationships.filter(
-        (e) => e._type === RELATIONSHIP_TYPE_PUBSUB_TOPIC_HAS_KMS_KEY,
+        (e) => e._type === RELATIONSHIP_TYPE_PUBSUB_TOPIC_USES_KMS_KEY,
       ),
     ).toMatchDirectRelationshipSchema({
       schema: {

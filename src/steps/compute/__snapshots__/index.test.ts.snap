@@ -16176,6 +16176,27 @@ Object {
     },
     Object {
       "_class": "USES",
+      "_key": "disk:3259810228720939259|uses|projects/j1-gc-integration-dev-v3/locations/us/keyRings/j1-gc-integration-dev-v3-disk-bucket-ring/cryptoKeys/j1-gc-integration-dev-v3-disk-bucket-key",
+      "_mapping": Object {
+        "relationshipDirection": "FORWARD",
+        "skipTargetCreation": true,
+        "sourceEntityKey": "disk:3259810228720939259",
+        "targetEntity": Object {
+          "_key": "projects/j1-gc-integration-dev-v3/locations/us/keyRings/j1-gc-integration-dev-v3-disk-bucket-ring/cryptoKeys/j1-gc-integration-dev-v3-disk-bucket-key",
+          "_type": "google_kms_crypto_key",
+        },
+        "targetFilterKeys": Array [
+          Array [
+            "_type",
+            "_key",
+          ],
+        ],
+      },
+      "_type": "google_compute_disk_uses_kms_crypto_key",
+      "displayName": "USES",
+    },
+    Object {
+      "_class": "USES",
       "_key": "disk:8160594975492976872|uses|image:6612659826821650947",
       "_mapping": Object {
         "relationshipDirection": "FORWARD",
@@ -16273,11 +16294,12 @@ Object {
     "google_iam_service_account_has_key",
     "google_compute_disk",
     "google_compute_disk_uses_image",
+    "google_compute_disk_uses_kms_crypto_key",
     "google_compute_instance",
     "google_compute_instance_uses_disk",
   ],
   "numCollectedEntities": 32,
-  "numCollectedRelationships": 25,
+  "numCollectedRelationships": 26,
 }
 `;
 

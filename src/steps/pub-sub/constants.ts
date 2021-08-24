@@ -7,7 +7,7 @@ export const ENTITY_CLASS_PUBSUB_TOPIC = 'Channel';
 export const ENTITY_TYPE_PUBSUB_SUBSCRIPTION = 'google_pubsub_subscription';
 export const ENTITY_CLASS_PUBSUB_SUBSCRIPTION = 'Service';
 
-export const RELATIONSHIP_TYPE_PUBSUB_TOPIC_HAS_KMS_KEY =
+export const RELATIONSHIP_TYPE_PUBSUB_TOPIC_USES_KMS_KEY =
   'google_pubsub_topic_uses_kms_crypto_key';
 
 export const RELATIONSHIP_TYPE_PUBSUB_SUBSCRIPTION_USES_TOPIC =
