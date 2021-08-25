@@ -508,9 +508,17 @@ aCQCewmcw/urdZEKbY9HW93EGgwWF7ywAUNDEvQ3t4OqNWc=
       "logCheckpoints": undefined,
       "logConnections": undefined,
       "logDisconnections": undefined,
+      "logDuration": undefined,
+      "logErrorVerbosity": undefined,
+      "logExecutorStats": undefined,
+      "logHostname": undefined,
       "logLockWaits": undefined,
       "logMinDurationStatement": undefined,
       "logMinErrorStatement": undefined,
+      "logParserStats": undefined,
+      "logPlannerStats": undefined,
+      "logStatement": undefined,
+      "logStatementStats": undefined,
       "logTempFiles": undefined,
       "name": "test-instance-delete-soon",
       "requireSSL": undefined,
@@ -641,9 +649,17 @@ ujSQnO+eMjAzyhM6qCBwOQGtqrI6XzWUmy7fsx0pAy1qnQ8=
       "logCheckpoints": undefined,
       "logConnections": undefined,
       "logDisconnections": undefined,
+      "logDuration": undefined,
+      "logErrorVerbosity": undefined,
+      "logExecutorStats": undefined,
+      "logHostname": undefined,
       "logLockWaits": undefined,
       "logMinDurationStatement": undefined,
       "logMinErrorStatement": undefined,
+      "logParserStats": undefined,
+      "logPlannerStats": undefined,
+      "logStatement": undefined,
+      "logStatementStats": undefined,
       "logTempFiles": undefined,
       "name": "kms-example",
       "requireSSL": undefined,
@@ -726,7 +742,7 @@ Object {
           "rawData": Object {
             "createTime": "2021-05-31T15:15:56.125Z",
             "displayName": "j1-gc-integration-dev-v3",
-            "etag": "6nNZKrLueq5A5QHM92fcDg==",
+            "etag": "CzUfI2XTWvMJgVGlic9LWA==",
             "name": "projects/167984947943",
             "parent": "folders/306329820365",
             "projectId": "j1-gc-integration-dev-v3",
@@ -750,63 +766,64 @@ Object {
       "_class": Array [
         "Database",
       ],
-      "_key": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v3/instances/test-instance-delete-soon",
+      "_key": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v3/instances/test-instance-id",
       "_rawData": Array [
         Object {
           "name": "default",
           "rawData": Object {
             "backendType": "SECOND_GEN",
-            "connectionName": "j1-gc-integration-dev-v3:us-central1:test-instance-delete-soon",
+            "connectionName": "j1-gc-integration-dev-v3:us-central1:test-instance-id",
+            "createTime": "2021-07-30T23:55:30.931Z",
             "databaseVersion": "POSTGRES_13",
-            "etag": "fbeba6872568e35a2bf3ae908e099edf735f4feecb41b57cb659334b3e6070fe",
+            "etag": "817c5db5f95f74acbfd2cc2512b95c10f32c08dae2986616837fd0fc50225ac4",
             "gceZone": "us-central1-f",
             "instanceType": "CLOUD_SQL_INSTANCE",
             "ipAddresses": Array [
               Object {
-                "ipAddress": "34.134.130.68",
+                "ipAddress": "34.133.152.231",
                 "type": "PRIMARY",
               },
               Object {
-                "ipAddress": "34.121.255.142",
+                "ipAddress": "35.226.134.255",
                 "type": "OUTGOING",
               },
             ],
             "kind": "sql#instance",
-            "name": "test-instance-delete-soon",
+            "name": "test-instance-id",
             "project": "j1-gc-integration-dev-v3",
             "region": "us-central1",
-            "selfLink": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v3/instances/test-instance-delete-soon",
+            "selfLink": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v3/instances/test-instance-id",
             "serverCaCert": Object {
               "cert": "-----BEGIN CERTIFICATE-----
-MIIDfzCCAmegAwIBAgIBADANBgkqhkiG9w0BAQsFADB3MS0wKwYDVQQuEyQzNjg5
-ZmEzYS0zYWMzLTRmMGMtOWJjMS0zNjFhODYzMjNmZDYxIzAhBgNVBAMTGkdvb2ds
+MIIDfzCCAmegAwIBAgIBADANBgkqhkiG9w0BAQsFADB3MS0wKwYDVQQuEyQyMjA1
+M2VkNy1kZmFhLTQxYzgtYmQ2NC1lNmVkN2IzZWU2YTIxIzAhBgNVBAMTGkdvb2ds
 ZSBDbG91ZCBTUUwgU2VydmVyIENBMRQwEgYDVQQKEwtHb29nbGUsIEluYzELMAkG
-A1UEBhMCVVMwHhcNMjEwNTMxMTY0NDI4WhcNMzEwNTI5MTY0NTI4WjB3MS0wKwYD
-VQQuEyQzNjg5ZmEzYS0zYWMzLTRmMGMtOWJjMS0zNjFhODYzMjNmZDYxIzAhBgNV
+A1UEBhMCVVMwHhcNMjEwNzMwMjM1NTQxWhcNMzEwNzI4MjM1NjQxWjB3MS0wKwYD
+VQQuEyQyMjA1M2VkNy1kZmFhLTQxYzgtYmQ2NC1lNmVkN2IzZWU2YTIxIzAhBgNV
 BAMTGkdvb2dsZSBDbG91ZCBTUUwgU2VydmVyIENBMRQwEgYDVQQKEwtHb29nbGUs
 IEluYzELMAkGA1UEBhMCVVMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB
-AQDaSFrVVfEDVLbxb33pxPhFw6BiSKP6/ejP32qZc5AlriBQX80Vh5JHNZGb2CLD
-Ax/pD7sFPyp4AaSz7XD+igU/Z+mE+zYxFq2h3jWzB8OtS9MWhaIU/ZqoYHLGJRMe
-aQuDQvT+2I1R8czsQNPSykwgsD74lYv21zlQVgxj8zdl22MoGN+DYgHs3e5DV2V8
-JJ6t1K8JpWG+PP4fZWej5JdnKXPQ4SgYkH51g/37ZzqmkS8fUIraFVzuU+QyaSm4
-cquSZvskV6cpT6sc2aXvG5Omy8rPIuA5UgzCB+JdG8QoaRpbKOfX4NS9njtVcbHJ
-3UnhpRCYDIg8RV1pXIPFkokbAgMBAAGjFjAUMBIGA1UdEwEB/wQIMAYBAf8CAQAw
-DQYJKoZIhvcNAQELBQADggEBADvNQYXhPBUKwA9OUOY43vbq9/lK0xBXL9H4QVgB
-nqKPeYwQ1fgZEy5mYLydq/uYoJpgEexOvo8RnzkI9q+/qt9XuNz1wvBJcBWtCq9+
-BGchr0u4uFHUDnAbHDIhQVffUNhzvKrkkpBvWNTWhr7jas8C+IKQmiDug2WbN8N0
-Uzn5gw3TTugaU+FqZUM4DFBUkIAXApZKppdc/5A89Mg3No6k5enhPNeT4mAdGAEi
-wrRRXXzpBh9Oz8wBFtiw9tk0l28zx8HSfD3jwzFKst1UXcHuMwglilrpJgfw9bP/
-aCQCewmcw/urdZEKbY9HW93EGgwWF7ywAUNDEvQ3t4OqNWc=
+AQCE4SCcQ3LDV1dqSkKMG56hDl6ZVNM9M2B8JHpQhjmOAD6wlqWMJIjO+wR2qX3j
+2gvjhjTWXiR6O7an3KfdOduxHhKJsEH+uwMDKeHPKdE1ubEgh+VsH98zSZ6MLjSd
+ikB+UsptXb2UeZNR9SVJqcC29ln2Xq7QsrIOXm0RZjJCv7PteDjR40vcywQ6DLNI
+aiYyyXqPlTENiWoie+GIvjEc82qHSuFw9Gs22w5t4RmqP2Kq5zTQZqq4Kgc1Hf7n
+XySvkprFAFU25NyLvIaH1Gfblimjiq+/u6E9wPN1k6UFpU70usYbSk105QCkGHPP
+oY+HUGkEGJLKgQ9J33MBwW7dAgMBAAGjFjAUMBIGA1UdEwEB/wQIMAYBAf8CAQAw
+DQYJKoZIhvcNAQELBQADggEBAAJTMPzTrAQclDmks45hTkZyrNZQwYrLq8CGEmBy
+GIQmzddF2CFuE85tKzSYd988+0TtR7SL38dW4DorMeCDH6L3hWZqT7pUC62/6WhX
+C8OrfYSntLNMmnsJdD6KYD8VPN16aciIwsq8i2jGnUstIaZu4RE8yW/kDYfAsgaq
+8cOu714CFyynF2I2nAV4+DSx1+/nLgMGQ7je2HIvkIBQm8zStKPrv7i/NLylwSsD
+bZU7+CUHK8VDzUp7F+sqRJ/iCPu7osXujBhEYaKU3q0+0x6Q+fYArrbxKvq4/R8m
+BR0lYpAW/RluzCTNHmEwPY7HNzKtGtrj9TYkNQ7p0kyS6cI=
 -----END CERTIFICATE-----",
               "certSerialNumber": "0",
-              "commonName": "C=US,O=Google\\\\, Inc,CN=Google Cloud SQL Server CA,dnQualifier=3689fa3a-3ac3-4f0c-9bc1-361a86323fd6",
-              "createTime": "2021-05-31T16:44:28.715Z",
-              "expirationTime": "2031-05-29T16:45:28.715Z",
-              "instance": "test-instance-delete-soon",
+              "commonName": "C=US,O=Google\\\\, Inc,CN=Google Cloud SQL Server CA,dnQualifier=22053ed7-dfaa-41c8-bd64-e6ed7b3ee6a2",
+              "createTime": "2021-07-30T23:55:41.594Z",
+              "expirationTime": "2031-07-28T23:56:41.594Z",
+              "instance": "test-instance-id",
               "kind": "sql#sslCert",
-              "sha1Fingerprint": "ecc6c499157ef07596bba110c602490ff80c5cbb",
+              "sha1Fingerprint": "4adfff362237538328878763cb7700385f4947c1",
             },
-            "serviceAccountEmailAddress": "p167984947943-wcfyii@gcp-sa-cloud-sql.iam.gserviceaccount.com",
+            "serviceAccountEmailAddress": "p167984947943-mmes6i@gcp-sa-cloud-sql.iam.gserviceaccount.com",
             "settings": Object {
               "activationPolicy": "ALWAYS",
               "authorizedGaeApplications": Array [],
@@ -818,14 +835,43 @@ aCQCewmcw/urdZEKbY9HW93EGgwWF7ywAUNDEvQ3t4OqNWc=
                 },
                 "enabled": false,
                 "kind": "sql#backupConfiguration",
-                "location": "us",
                 "pointInTimeRecoveryEnabled": false,
                 "replicationLogArchivingEnabled": false,
-                "startTime": "21:00",
+                "startTime": "03:00",
                 "transactionLogRetentionDays": 7,
               },
               "dataDiskSizeGb": "10",
-              "dataDiskType": "PD_SSD",
+              "dataDiskType": "PD_HDD",
+              "databaseFlags": Array [
+                Object {
+                  "name": "log_duration",
+                  "value": "on",
+                },
+                Object {
+                  "name": "log_error_verbosity",
+                  "value": "default",
+                },
+                Object {
+                  "name": "log_hostname",
+                  "value": "on",
+                },
+                Object {
+                  "name": "log_parser_stats",
+                  "value": "off",
+                },
+                Object {
+                  "name": "log_planner_stats",
+                  "value": "off",
+                },
+                Object {
+                  "name": "log_executor_stats",
+                  "value": "off",
+                },
+                Object {
+                  "name": "log_statement_stats",
+                  "value": "off",
+                },
+              ],
               "ipConfiguration": Object {
                 "authorizedNetworks": Array [],
                 "ipv4Enabled": true,
@@ -842,10 +888,10 @@ aCQCewmcw/urdZEKbY9HW93EGgwWF7ywAUNDEvQ3t4OqNWc=
               },
               "pricingPlan": "PER_USE",
               "replicationType": "SYNCHRONOUS",
-              "settingsVersion": "1",
-              "storageAutoResize": true,
+              "settingsVersion": "7",
+              "storageAutoResize": false,
               "storageAutoResizeLimit": "0",
-              "tier": "db-custom-4-26624",
+              "tier": "db-custom-1-3840",
             },
             "state": "RUNNABLE",
           },
@@ -854,21 +900,29 @@ aCQCewmcw/urdZEKbY9HW93EGgwWF7ywAUNDEvQ3t4OqNWc=
       "_type": "google_sql_postgres_instance",
       "authorizedNetworks": Array [],
       "automatedBackupsEnabled": false,
-      "connectionName": "j1-gc-integration-dev-v3:us-central1:test-instance-delete-soon",
+      "connectionName": "j1-gc-integration-dev-v3:us-central1:test-instance-id",
       "createdOn": undefined,
-      "displayName": "test-instance-delete-soon",
+      "displayName": "test-instance-id",
       "encrypted": true,
       "hasPublicIP": true,
       "kmsKeyName": undefined,
-      "location": "j1-gc-integration-dev-v3:us-central1:test-instance-delete-soon",
+      "location": "j1-gc-integration-dev-v3:us-central1:test-instance-id",
       "logCheckpoints": undefined,
       "logConnections": undefined,
       "logDisconnections": undefined,
+      "logDuration": "on",
+      "logErrorVerbosity": "default",
+      "logExecutorStats": "off",
+      "logHostname": "on",
       "logLockWaits": undefined,
       "logMinDurationStatement": undefined,
       "logMinErrorStatement": undefined,
+      "logParserStats": "off",
+      "logPlannerStats": "off",
+      "logStatement": undefined,
+      "logStatementStats": "off",
       "logTempFiles": undefined,
-      "name": "test-instance-delete-soon",
+      "name": "test-instance-id",
       "requireSSL": undefined,
     },
   ],
