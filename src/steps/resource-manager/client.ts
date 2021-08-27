@@ -68,6 +68,7 @@ export class ResourceManagerClient extends Client {
         return this.client.projects.list({
           auth,
           parent: folderName || `organizations/${this.organizationId}`,
+          showDeleted: true, // We need to pull deleted projects so we can 1. map iam_bindings and 2. set the project.state to "DELETED" as soon as possible.
           pageToken: nextPageToken,
         });
       },

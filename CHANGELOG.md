@@ -8,6 +8,11 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Changed
+
+- Relationships from `google_cloud_organization`s and `google_cloud_folder`s to
+  `google_cloud_project`s will also be made for projects that have been deleted.
+
 ## 0.48.0 - 2021-08-27
 
 ### Added
