@@ -4,7 +4,6 @@ import { snakeCase } from 'lodash';
 import { hashArray } from '../../utils/crypto';
 
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
-import { isMemberPublic } from '../../utils/iam';
 import { bindingEntities } from './constants';
 
 export interface BindingEntity extends Entity {
