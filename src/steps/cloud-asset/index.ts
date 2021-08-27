@@ -3,6 +3,7 @@ import {
   createMappedRelationship,
   generateRelationshipType,
   IntegrationStep,
+  JobState,
   Relationship,
   RelationshipClass,
   RelationshipDirection,
@@ -43,6 +44,26 @@ import {
 } from '../../utils/iamBindings/getTypeAndKeyFromResourceIdentifier';
 import { getEnabledServiceNames } from '../enablement';
 import { MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND } from '../../utils/iamBindings/resourceKindToTypeMap';
+import { isReadOnlyPermission } from '../../utils/iam';
+import { createIamRoleEntity } from '../iam/converters';
+
+async function isBindingReadOnly(
+  jobState: JobState,
+  roleName: string | undefined | null,
+): Promise<boolean> {
+  let permissions: string[] | null | undefined = undefined;
+  if (roleName) {
+    // previously ingested custom role entity
+    const roleEntity = await jobState.findEntity(roleName);
+    if (roleEntity) {
+      permissions = ((roleEntity.permissions as string) || '').split(',');
+    } else {
+      // managed role data from jobState
+      permissions = await getPermissionsForManagedRole(jobState, roleName);
+    }
+  }
+  return permissions?.some(isReadOnlyPermission) ?? true; // default to true if there are no permissions
+}
 
 export async function fetchIamBindings(
   context: IntegrationStepContext,
@@ -73,19 +94,23 @@ export async function fetchIamBindings(
         }
 
         let projectId: string | undefined;
-
         if (projectName) {
           projectId = await getProjectIdFromName(jobState, projectName);
-
           if (!projectId) {
-            // This should never happen because this step depends on another
-            // step that collects all of the project data in an organization.
+            // This would only happen if we have not run fetch-resource-manager-org-project-relationships, which caches project data
             logger.warn({ projectName }, 'Missing project ID in local cache');
           }
         }
 
+        const isReadOnly = await isBindingReadOnly(jobState, binding.role);
         await jobState.addEntity(
-          createIamBindingEntity({ _key, projectId, binding, resource }),
+          createIamBindingEntity({
+            _key,
+            projectId,
+            binding,
+            resource,
+            isReadOnly,
+          }),
         );
 
         bindingGraphKeySet.add(_key);
@@ -145,9 +170,19 @@ export async function createBindingRoleRelationships(
             }),
           );
         } else {
-          const permissions = await getPermissionsForManagedRole(
+          const includedPermissions = await getPermissionsForManagedRole(
             jobState,
             bindingEntity.role,
+          );
+          const targetRoleEntitiy = createIamRoleEntity(
+            {
+              name: bindingEntity.role,
+              title: bindingEntity.role,
+              includedPermissions,
+            },
+            {
+              custom: false,
+            },
           );
           await jobState.addRelationship(
             createMappedRelationship({
@@ -163,12 +198,8 @@ export async function createBindingRoleRelationships(
                 targetFilterKeys: [['_type', '_key']],
                 skipTargetCreation: false,
                 targetEntity: {
-                  _type: IAM_ROLE_ENTITY_TYPE,
-                  _key: bindingEntity.role,
-                  name: bindingEntity.role,
-                  displayName: bindingEntity.role,
-                  permissions: permissions?.join(','),
-                  custom: !!permissions, // If there are permissions, this is a managed role
+                  ...targetRoleEntitiy,
+                  _rawData: undefined,
                 },
               },
             }),

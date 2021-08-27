@@ -38,6 +38,7 @@ import {
   CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
 } from '../storage';
 import { CLOUD_FUNCTION_ENTITY_TYPE, fetchCloudFunctions } from '../functions';
+import { IAM_MANAGED_ROLES_DATA_JOB_STATE_KEY } from '../../utils/iam';
 
 expect.extend({
   toHaveOnlyDirectRelationships(
@@ -353,6 +354,7 @@ describe('#fetchIamBindings', () => {
       expect(google_iam_binding).toMatchGraphObjectSchema({
         _class: bindingEntities.BINDINGS._class,
         schema: {
+          additionalProperties: false,
           properties: {
             _type: { const: bindingEntities.BINDINGS._type },
             _rawData: {
@@ -362,15 +364,17 @@ describe('#fetchIamBindings', () => {
             resource: { type: 'string' },
             projectId: { type: 'string' },
             members: { type: 'array' },
+            role: { type: 'string' },
             'condition.title': { type: 'string' },
             'condition.description': { type: 'string' },
             'condition.expression': { type: 'string' },
+            'condition.location': { type: 'string' },
+            readonly: { type: 'boolean' },
           },
         },
       });
 
-      expect(google_iam_role.length).toBeGreaterThan(0);
-      expect(google_iam_role).toMatchGraphObjectSchema({
+      const roleSchema = {
         _class: ['AccessRole'],
         schema: {
           additionalProperties: false,
@@ -389,6 +393,20 @@ describe('#fetchIamBindings', () => {
             readonly: { type: 'boolean' },
           },
         },
+      };
+      expect(google_iam_role.length).toBeGreaterThan(0);
+      expect(google_iam_role).toMatchGraphObjectSchema(roleSchema);
+      const { targets: roleMappedRelationships } = filterGraphObjects(
+        google_iam_binding_uses_role,
+        (r) => !!r._mapping,
+      ) as {
+        targets: ExplicitRelationship[];
+        rest: MappedRelationship[];
+      };
+      roleMappedRelationships.forEach((relationship) => {
+        expect(
+          (relationship as unknown as MappedRelationship)._mapping.targetEntity,
+        ).toMatchGraphObjectSchema(roleSchema);
       });
 
       // Ensure there are no mapped relationships to google_iam_roles that we are also ingesting
@@ -472,6 +490,10 @@ describe('#fetchIamBindings', () => {
 
         const context = createMockContext();
 
+        await context.jobState.setData(
+          IAM_MANAGED_ROLES_DATA_JOB_STATE_KEY,
+          {},
+        );
         await fetchIamBindings(context);
         await createBindingToAnyResourceRelationships(context);
 

@@ -15,6 +15,7 @@ and this project adheres to
   | Entity                  | Properties              |
   | ----------------------- | ----------------------- |
   | `google_storage_bucket` | `isSubjectToObjectAcls` |
+  | `google_iam_binding`    | `readonly`              |
 
 ### Changed
 

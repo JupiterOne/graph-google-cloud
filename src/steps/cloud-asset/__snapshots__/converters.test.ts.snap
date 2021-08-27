@@ -34,6 +34,7 @@ Object {
   ],
   "name": "role_binding_for_resourceresource",
   "projectId": "project-id",
+  "readonly": true,
   "resource": "resource",
   "role": "projects/j1-gc-integration-dev-v3/roles/167984947943customroleconditions",
 }
