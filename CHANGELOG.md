@@ -12,9 +12,16 @@ and this project adheres to
 
 - New properties added to resources:
 
-  | Entity               | Properties |
-  | -------------------- | ---------- |
-  | `google_iam_binding` | `readonly` |
+  | Entity                  | Properties              |
+  | ----------------------- | ----------------------- |
+  | `google_storage_bucket` | `isSubjectToObjectAcls` |
+  | `google_iam_binding`    | `readonly`              |
+
+### Changed
+
+- The property `public` on `google_storage_bucket` to be `true` when the storage
+  bucket does not have Uniform Bucket Access Level enabled. We can not determine
+  if the bucket is public or not when this setting is not enabled.
 
 ## 0.47.5
 

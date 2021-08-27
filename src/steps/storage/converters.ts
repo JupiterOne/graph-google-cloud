@@ -26,6 +26,9 @@ export function createCloudStorageBucketEntity({
   projectId: string;
   isPublic?: boolean;
 }) {
+  const isSubjectToObjectAcls =
+    data.iamConfiguration?.uniformBucketLevelAccess?.enabled !== true &&
+    !isPublic;
   return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
@@ -51,7 +54,16 @@ export function createCloudStorageBucketEntity({
         retentionPolicyEnabled: data.retentionPolicy?.isLocked,
         retentionPeriod: data.retentionPolicy?.retentionPeriod,
         retentionDate: data.retentionPolicy?.effectiveTime,
-        public: isPublic || false,
+        /**
+         * It is not possible to know if bucket is public or not when uniformBucketLevelAccess is not enabled
+         * as when it is not enabled, each item in the google_storage_bucket is subject to its own Access
+         * Control List (ACL) which may or may not be open to the internet. Ingesting the ACLs of every
+         * element in a storage bucket is far too large a task for this integration.
+         *
+         * Ref: https://cloud.google.com/storage/docs/cloud-console?&_ga=2.84754521.-1526178294.1622832983&_gac=1.262728446.1626996208.CjwKCAjwruSHBhAtEiwA_qCppsTtaBT90RDQ-e9xjNnNQM0lwd2aI9wJfUhrVgFjQ0_SDu4kR1yUDhoCeRwQAvD_BwE#_sharingdata
+         */
+        public: isPublic || isSubjectToObjectAcls,
+        isSubjectToObjectAcls,
         // Rely on the value of the classification tag
         classification: null,
         etag: data.etag,
