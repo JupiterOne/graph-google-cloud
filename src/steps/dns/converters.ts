@@ -4,6 +4,8 @@ import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import {
   DNS_MANAGED_ZONE_ENTITY_CLASS,
   DNS_MANAGED_ZONE_ENTITY_TYPE,
+  DNS_POLICY_ENTITY_CLASS,
+  DNS_POLICY_ENTITY_TYPE,
 } from './constants';
 
 export function createDNSManagedZoneEntity(data: dns_v1.Schema$ManagedZone) {
@@ -30,6 +32,30 @@ export function createDNSManagedZoneEntity(data: dns_v1.Schema$ManagedZone) {
           (spec) => spec.keyType === 'zoneSigning',
         )?.algorithm,
         createdOn: parseTimePropertyValue(data.creationTime),
+      },
+    },
+  });
+}
+
+export function createDNSPolicyEntity(
+  data: dns_v1.Schema$Policy,
+  projectId: string,
+) {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _key: `projects/${projectId}/policies/${data.id}`,
+        _type: DNS_POLICY_ENTITY_TYPE,
+        _class: DNS_POLICY_ENTITY_CLASS,
+        id: data.id as string,
+        name: data.name,
+        displayName: data.name as string,
+        description: data.description,
+        enableInboundForwarding: data.enableInboundForwarding,
+        enableLogging: data.enableLogging,
+        networks: data.networks?.map((network) => network.networkUrl as string),
+        kind: data.kind,
       },
     },
   });

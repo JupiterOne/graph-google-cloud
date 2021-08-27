@@ -194,3 +194,48 @@ Object {
   "zoneSigningAlgorithm": "rsasha256",
 }
 `;
+
+exports[`#createDNSPolicyEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Ruleset",
+  ],
+  "_key": "projects/j1-gc-integration-dev-v2/policies/2869664235641544935",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "description": "",
+        "enableInboundForwarding": true,
+        "enableLogging": true,
+        "id": "2869664235641544935",
+        "kind": "dns#policy",
+        "name": "test-policy",
+        "networks": Array [
+          Object {
+            "kind": "dns#policyNetwork",
+            "networkUrl": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/public-compute-app-vpc",
+          },
+          Object {
+            "kind": "dns#policyNetwork",
+            "networkUrl": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/default",
+          },
+        ],
+      },
+    },
+  ],
+  "_type": "google_dns_policy",
+  "createdOn": undefined,
+  "description": "",
+  "displayName": "test-policy",
+  "enableInboundForwarding": true,
+  "enableLogging": true,
+  "id": "2869664235641544935",
+  "kind": "dns#policy",
+  "name": "test-policy",
+  "networks": Array [
+    "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/public-compute-app-vpc",
+    "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/default",
+  ],
+}
+`;

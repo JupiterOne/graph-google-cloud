@@ -8,20 +8,21 @@ and this project adheres to
 
 ## [Unreleased]
 
+
+
 ### Changed
 
-- Relationships from `google_cloud_organization`s and `google_cloud_folder`s to
-  `google_cloud_project`s will also be made for deleted projects as well.
-- the following **mapped** relationships to skip target creation:
+- Added support for ingesting the following **new** resources:
 
-  | Source               | class        | Target                       |
-  | -------------------- | ------------ | ---------------------------- |
-  | `google_iam_binding` | **ALLOWS**   | `ANY_RESOURCE`               |
-  | `google_iam_binding` | **ASSIGNED** | `google_group`               |
-  | `google_iam_binding` | **ASSIGNED** | `google_iam_service_account` |
-  | `google_iam_binding` | **ASSIGNED** | `google_user`                |
-  | `google_iam_binding` | **ASSIGNED** | `google_domain`              |
-  | `google_user`        | **CREATED**  | `google_app_engine_version`  |
+  | Service     | Resource / Entity    |
+  | ----------- | -------------------- |
+  | DNS Policy  | `google_dns_policy`  |
+
+- Added support for ingesting the following **new** relationships:
+
+  | Source               | class        | Target                           |
+  | -------------------- | ------------ | -------------------------------- |
+  | `google_dns_policy`  | **MANAGES**  | `google_compute_network`         |
 
 ## 0.48.0 - 2021-08-27
 
