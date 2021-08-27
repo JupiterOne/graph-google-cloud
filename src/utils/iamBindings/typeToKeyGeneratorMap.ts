@@ -36,7 +36,6 @@ import {
 } from '../../steps/compute';
 import {
   getComputeDiskKey,
-  getComputeImageKey,
   getComputeSnapshotKey,
 } from '../../steps/compute/converters';
 import {
@@ -81,6 +80,14 @@ import { getCloudStorageBucketKey } from '../../steps/storage/converters';
 import { StepExecutionContext } from '@jupiterone/integration-sdk-core';
 import { getProjectNameFromId } from '../jobState';
 import { ENTITY_TYPE_DATAPROC_CLUSTER } from '../../steps/dataproc/constants';
+import {
+  ENTITY_TYPE_BIG_TABLE_APP_PROFILE,
+  ENTITY_TYPE_BIG_TABLE_CLUSTER,
+  ENTITY_TYPE_BIG_TABLE_INSTANCE,
+  ENTITY_TYPE_BIG_TABLE_TABLE,
+  ENTITY_TYPE_BIG_TABLE_BACKUP,
+} from '../../steps/big-table/constants';
+import { ENTITY_TYPE_BILLING_ACCOUNT } from '../../steps/cloud-billing/constants';
 
 /**
  * A map of JupiterOne types to a function which can generate their _key
@@ -108,7 +115,7 @@ export const J1_TYPE_TO_KEY_GENERATOR_MAP: {
   [ENTITY_TYPE_COMPUTE_DISK]: customPrefixAndIdKeyMap(getComputeDiskKey),
   [ENTITY_TYPE_COMPUTE_FIREWALL]: selfLinkKeyMap,
   [ENTITY_TYPE_COMPUTE_HEALTH_CHECK]: selfLinkKeyMap,
-  [ENTITY_TYPE_COMPUTE_IMAGE]: customPrefixAndIdKeyMap(getComputeImageKey),
+  [ENTITY_TYPE_COMPUTE_IMAGE]: selfLinkKeyMap,
   [ENTITY_TYPE_COMPUTE_INSTANCE]: selfLinkKeyMap,
   [ENTITY_TYPE_COMPUTE_INSTANCE_GROUP]: selfLinkKeyMap,
   [ENTITY_TYPE_COMPUTE_NETWORK]: selfLinkKeyMap,
@@ -156,6 +163,12 @@ export const J1_TYPE_TO_KEY_GENERATOR_MAP: {
   [MONITORING_ALERT_POLICY_TYPE]: fullPathKeyMap,
   [MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND]: selfLinkKeyMap,
   [ENTITY_TYPE_DATAPROC_CLUSTER]: fullPathKeyMap,
+  [ENTITY_TYPE_BIG_TABLE_INSTANCE]: fullPathKeyMap,
+  [ENTITY_TYPE_BIG_TABLE_CLUSTER]: fullPathKeyMap,
+  [ENTITY_TYPE_BIG_TABLE_APP_PROFILE]: fullPathKeyMap,
+  [ENTITY_TYPE_BIG_TABLE_TABLE]: fullPathKeyMap,
+  [ENTITY_TYPE_BIG_TABLE_BACKUP]: fullPathKeyMap,
+  [ENTITY_TYPE_BILLING_ACCOUNT]: fullPathKeyMap,
 };
 
 // ex: projects/j1-gc-integration-dev-v3/locations/us-central1/functions/j1-gc-integration-dev-v3testfunction

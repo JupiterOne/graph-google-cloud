@@ -420,15 +420,38 @@ export async function fetchComputeDisks(
 
       if (sourceImageProjectId === client.projectId) {
         // Custom image case
-        const imageEntity = await jobState.findEntity(
-          `image:${disk.sourceImageId}`,
-        );
+        const imageEntity = await jobState.findEntity(disk.sourceImage);
         if (imageEntity) {
           await jobState.addRelationship(
             createDirectRelationship({
               _class: RelationshipClass.USES,
               from: diskEntity,
               to: imageEntity,
+            }),
+          );
+        } else {
+          // The custom image no longer exist most likely because it got deleted
+          const placeholderImageEntity = await jobState.addEntity(
+            createComputeImageEntity({
+              data: {
+                // We need an unique id for the key
+                id: `${sourceImageProjectId}:${sourceImageName}:deleted`,
+                name: sourceImageName,
+                // Converter already knows how to handle this
+                deprecated: {
+                  state: 'DELETED',
+                },
+              } as compute_v1.Schema$Image,
+              // It doesn't exist anymore
+              isPublic: false,
+            }),
+          );
+
+          await jobState.addRelationship(
+            createDirectRelationship({
+              _class: RelationshipClass.USES,
+              from: diskEntity,
+              to: placeholderImageEntity,
             }),
           );
         }
@@ -622,7 +645,7 @@ export async function buildImageCreatedImageRelationships(
         return;
       }
 
-      const sourceImageKey = `image:${sourceImageId}`;
+      const sourceImageKey = imageEntity._key;
 
       const sourceImageEntity = await jobState.findEntity(sourceImageKey);
 

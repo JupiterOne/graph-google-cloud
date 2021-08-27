@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createBillingAccountEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Account",
+  ],
+  "_key": "sample-name",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "displayName": "sample-display-name",
+        "masterBillingAccount": "sample-account",
+        "name": "sample-name",
+        "open": true,
+      },
+    },
+  ],
+  "_type": "google_billing_account",
+  "createdOn": undefined,
+  "displayName": "sample-display-name",
+  "masterBillingAccount": "sample-account",
+  "name": "sample-name",
+  "open": true,
+}
+`;

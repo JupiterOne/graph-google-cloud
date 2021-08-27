@@ -111,3 +111,8 @@ variable "enable_global_address_with_network_example" {
   type = bool
   default = false
 }
+
+variable "enable_google_bigtable_example" {
+  type = bool
+  default = false
+}
