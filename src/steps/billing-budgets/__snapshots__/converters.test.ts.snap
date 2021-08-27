@@ -3,7 +3,7 @@
 exports[`#createBillingBudgetEntity should convert to entity 1`] = `
 Object {
   "_class": Array [
-    "Entity",
+    "Ruleset",
   ],
   "_key": "sample-name",
   "_rawData": Array [

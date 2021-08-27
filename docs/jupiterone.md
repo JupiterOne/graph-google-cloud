@@ -300,7 +300,7 @@ The following entities are created:
 | Bigtable Instance                                        | `google_bigtable_instance`                                        | `Database`                         |
 | Bigtable Table                                           | `google_bigtable_table`                                           | `DataCollection`                   |
 | Billing Account                                          | `google_billing_account`                                          | `Account`                          |
-| Billing Budget                                           | `google_billing_budget`                                           | `Entity`                           |
+| Billing Budget                                           | `google_billing_budget`                                           | `Ruleset`                          |
 | Binary Authorization Policy                              | `google_binary_authorization_policy`                              | `AccessPolicy`                     |
 | Cloud API Service                                        | `google_cloud_api_service`                                        | `Service`                          |
 | Cloud Function                                           | `google_cloud_function`                                           | `Function`                         |

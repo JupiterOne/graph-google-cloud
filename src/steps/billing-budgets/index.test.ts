@@ -30,8 +30,6 @@ import {
 import { filterGraphObjects } from '../../../test/helpers/filterGraphObjects';
 import { fetchBillingAccounts } from '../cloud-billing';
 
-jest.setTimeout(500000);
-
 describe('#fetchBillingBudget', () => {
   let recording: Recording;
 
@@ -67,7 +65,7 @@ describe('#fetchBillingBudget', () => {
         (e) => e._type === ENTITY_TYPE_BILLING_BUDGET,
       ),
     ).toMatchGraphObjectSchema({
-      _class: ['Entity'],
+      _class: ['Ruleset'],
       schema: {
         additionalProperties: false,
         properties: {
@@ -211,7 +209,7 @@ describe('#buildProjectBudgetRelationships', () => {
         (e) => e._type === ENTITY_TYPE_BILLING_BUDGET,
       ),
     ).toMatchGraphObjectSchema({
-      _class: ['Entity'],
+      _class: ['Ruleset'],
       schema: {
         additionalProperties: false,
         properties: {
@@ -353,7 +351,7 @@ describe('#buildAdditionalProjectBudgetRelationships', () => {
         (e) => e._type === ENTITY_TYPE_BILLING_BUDGET,
       ),
     ).toMatchGraphObjectSchema({
-      _class: ['Entity'],
+      _class: ['Ruleset'],
       schema: {
         additionalProperties: false,
         properties: {

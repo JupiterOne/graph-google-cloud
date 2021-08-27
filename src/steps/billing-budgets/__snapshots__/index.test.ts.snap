@@ -87,7 +87,7 @@ Object {
     },
     Object {
       "_class": Array [
-        "Entity",
+        "Ruleset",
       ],
       "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/459b5dfa-1c2b-47af-8396-e3fd5e32a834",
       "_rawData": Array [
@@ -147,7 +147,7 @@ Object {
     },
     Object {
       "_class": Array [
-        "Entity",
+        "Ruleset",
       ],
       "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/7fa6803c-0e1a-415e-ab30-69d953298d11",
       "_rawData": Array [
@@ -202,7 +202,7 @@ Object {
     },
     Object {
       "_class": Array [
-        "Entity",
+        "Ruleset",
       ],
       "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/c7f7c572-2c36-4d77-bd73-a5090d150177",
       "_rawData": Array [
@@ -479,7 +479,7 @@ Object {
         "sourceEntityKey": "projects/538466736102",
         "targetEntity": Object {
           "_class": Array [
-            "Entity",
+            "Ruleset",
           ],
           "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/7fa6803c-0e1a-415e-ab30-69d953298d11",
           "_rawData": undefined,
@@ -517,7 +517,7 @@ Object {
         "sourceEntityKey": "projects/988862309073",
         "targetEntity": Object {
           "_class": Array [
-            "Entity",
+            "Ruleset",
           ],
           "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/7fa6803c-0e1a-415e-ab30-69d953298d11",
           "_rawData": undefined,
@@ -588,7 +588,7 @@ Object {
     },
     Object {
       "_class": Array [
-        "Entity",
+        "Ruleset",
       ],
       "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/459b5dfa-1c2b-47af-8396-e3fd5e32a834",
       "_rawData": Array [
@@ -648,7 +648,7 @@ Object {
     },
     Object {
       "_class": Array [
-        "Entity",
+        "Ruleset",
       ],
       "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/7fa6803c-0e1a-415e-ab30-69d953298d11",
       "_rawData": Array [
@@ -703,7 +703,7 @@ Object {
     },
     Object {
       "_class": Array [
-        "Entity",
+        "Ruleset",
       ],
       "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/c7f7c572-2c36-4d77-bd73-a5090d150177",
       "_rawData": Array [
@@ -828,7 +828,7 @@ Object {
     },
     Object {
       "_class": Array [
-        "Entity",
+        "Ruleset",
       ],
       "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/459b5dfa-1c2b-47af-8396-e3fd5e32a834",
       "_rawData": Array [
@@ -888,7 +888,7 @@ Object {
     },
     Object {
       "_class": Array [
-        "Entity",
+        "Ruleset",
       ],
       "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/7fa6803c-0e1a-415e-ab30-69d953298d11",
       "_rawData": Array [
@@ -943,7 +943,7 @@ Object {
     },
     Object {
       "_class": Array [
-        "Entity",
+        "Ruleset",
       ],
       "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/c7f7c572-2c36-4d77-bd73-a5090d150177",
       "_rawData": Array [
@@ -1046,34 +1046,14 @@ Object {
     },
     Object {
       "_class": "HAS",
-      "_key": "projects/538466736102|has|billingAccounts/01694E-12D60B-BEBCE5/budgets/c7f7c572-2c36-4d77-bd73-a5090d150177",
+      "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/c7f7c572-2c36-4d77-bd73-a5090d150177|has|projects/538466736102",
       "_mapping": Object {
-        "relationshipDirection": "FORWARD",
+        "relationshipDirection": "REVERSE",
         "skipTargetCreation": true,
-        "sourceEntityKey": "projects/538466736102",
+        "sourceEntityKey": "billingAccounts/01694E-12D60B-BEBCE5/budgets/c7f7c572-2c36-4d77-bd73-a5090d150177",
         "targetEntity": Object {
-          "_class": Array [
-            "Entity",
-          ],
-          "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/c7f7c572-2c36-4d77-bd73-a5090d150177",
-          "_rawData": undefined,
-          "_type": "google_billing_budget",
-          "billingAccount": "billingAccounts/01694E-12D60B-BEBCE5",
-          "createdOn": undefined,
-          "disableDefaultIamRecipients": undefined,
-          "displayName": "budget-example-some-projects",
-          "etag": "1627656774053178",
-          "monitoringNotificationChannels": undefined,
-          "name": "billingAccounts/01694E-12D60B-BEBCE5/budgets/c7f7c572-2c36-4d77-bd73-a5090d150177",
-          "projects": Array [
-            "projects/538466736102",
-            "projects/167984947943",
-          ],
-          "pubsubTopic": undefined,
-          "schemaVersion": undefined,
-          "specifiedAmoutCurrencyCode": "USD",
-          "specifiedAmoutNanos": undefined,
-          "specifiedAmoutUnits": "1000",
+          "_key": "projects/538466736102",
+          "_type": "google_cloud_project",
         },
         "targetFilterKeys": Array [
           Array [
@@ -1133,7 +1113,7 @@ Object {
     },
     Object {
       "_class": Array [
-        "Entity",
+        "Ruleset",
       ],
       "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/459b5dfa-1c2b-47af-8396-e3fd5e32a834",
       "_rawData": Array [
@@ -1193,7 +1173,7 @@ Object {
     },
     Object {
       "_class": Array [
-        "Entity",
+        "Ruleset",
       ],
       "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/7fa6803c-0e1a-415e-ab30-69d953298d11",
       "_rawData": Array [
@@ -1248,7 +1228,7 @@ Object {
     },
     Object {
       "_class": Array [
-        "Entity",
+        "Ruleset",
       ],
       "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/c7f7c572-2c36-4d77-bd73-a5090d150177",
       "_rawData": Array [

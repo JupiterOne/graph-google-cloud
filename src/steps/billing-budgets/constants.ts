@@ -4,7 +4,7 @@ export const STEP_BUILD_PROJECT_BUDGET = 'build-project-budget';
 export const STEP_BUILD_ADDITIONAL_PROJECT_BUDGET =
   'build-additional-project-budget';
 
-export const ENTITY_CLASS_BILLING_BUDGET = 'Entity';
+export const ENTITY_CLASS_BILLING_BUDGET = 'Ruleset';
 export const ENTITY_TYPE_BILLING_BUDGET = 'google_billing_budget';
 
 export const RELATIONSHIP_TYPE_PROJECT_HAS_BUDGET =

@@ -521,7 +521,7 @@ describe('#getStepStartStates success', () => {
     expect(stepStartStates).toEqual(expectedStepStartStates);
   });
 
-  test('configureOrganizationProjects: true and organizationId: undefinied', async () => {
+  test('configureOrganizationProjects: true and organizationId: undefined', async () => {
     const context = createMockExecutionContext<IntegrationConfig>({
       // Temporary tweak to make this test pass since its recording has been updated from the new organization/v3
       instanceConfig: {
@@ -569,8 +569,20 @@ describe('#getStepStartStates success', () => {
       [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: {
         disabled: true,
       },
+      [STEP_BILLING_BUDGETS]: {
+        disabled: true,
+      },
+      [STEP_BUILD_ACCOUNT_BUDGET]: {
+        disabled: true,
+      },
+      [STEP_BUILD_PROJECT_BUDGET]: {
+        disabled: true,
+      },
+      [STEP_BILLING_ACCOUNTS]: {
+        disabled: true,
+      },
       [STEP_BUILD_ADDITIONAL_PROJECT_BUDGET]: {
-        disabled: false,
+        disabled: true,
       },
     });
   });
@@ -621,6 +633,18 @@ describe('#getStepStartStates success', () => {
       },
       [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: {
         disabled: true,
+      },
+      [STEP_BILLING_BUDGETS]: {
+        disabled: false,
+      },
+      [STEP_BUILD_ACCOUNT_BUDGET]: {
+        disabled: false,
+      },
+      [STEP_BUILD_PROJECT_BUDGET]: {
+        disabled: false,
+      },
+      [STEP_BILLING_ACCOUNTS]: {
+        disabled: false,
       },
       [STEP_BUILD_ADDITIONAL_PROJECT_BUDGET]: {
         disabled: true,

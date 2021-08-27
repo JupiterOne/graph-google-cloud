@@ -110,13 +110,13 @@ export async function buildProjectBudgetRelationships(
                 _class: RelationshipClass.HAS,
                 _type: RELATIONSHIP_TYPE_PROJECT_HAS_BUDGET,
                 _mapping: {
-                  relationshipDirection: RelationshipDirection.FORWARD,
-                  sourceEntityKey: project,
+                  relationshipDirection: RelationshipDirection.REVERSE,
+                  sourceEntityKey: budgetEntity._key,
                   targetFilterKeys: [['_type', '_key']],
                   skipTargetCreation: true,
                   targetEntity: {
-                    ...budgetEntity,
-                    _rawData: undefined,
+                    _type: PROJECT_ENTITY_TYPE,
+                    _key: project,
                   },
                 },
               }),
@@ -128,6 +128,14 @@ export async function buildProjectBudgetRelationships(
   );
 }
 
+/*
+Budget can be assigned to one or more projects, but only to those that are in the scope of the (owning) billing account. 
+The GCP convention is that if the budget entity's projects field is undefined it means "this budget is assigned/affects all the projects but again only those that are covered by the billing_account". We've introduced this buildAdditionalProjectBudgetRelationships step function for this which makes use of two things:
+
+1) iterateBillingAccountProjects allows us to find out what projects fall under this billing account's territory
+
+2) but we also needed to make this step function depend on ENV configureOrganizationProjects value, because we need integration to have already traversed those projects because of the discrepancy between the values we've used for project's keys and the values we get out of iterateBillingAccountProjects. As an example, we get my-project-name but we need projects/167984947943, so we needed to convert it.
+*/
 export async function buildAdditionalProjectBudgetRelationships(
   context: IntegrationStepContext,
 ): Promise<void> {
