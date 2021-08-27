@@ -12,6 +12,13 @@ import {
   BIG_QUERY_DATASET_ENTITY_TYPE,
   BIG_QUERY_TABLE_ENTITY_TYPE,
 } from '../../steps/big-query';
+import {
+  ENTITY_TYPE_BIG_TABLE_APP_PROFILE,
+  ENTITY_TYPE_BIG_TABLE_BACKUP,
+  ENTITY_TYPE_BIG_TABLE_CLUSTER,
+  ENTITY_TYPE_BIG_TABLE_INSTANCE,
+  ENTITY_TYPE_BIG_TABLE_TABLE,
+} from '../../steps/big-table/constants';
 import { ENTITY_TYPE_CLOUD_RUN_SERVICE } from '../../steps/cloud-run/constants';
 import {
   ENTITY_TYPE_COMPUTE_BACKEND_BUCKET,
@@ -165,11 +172,11 @@ export const GOOGLE_RESOURCE_KIND_TO_J1_TYPE_MAP: {
   'cloudkms.googleapis.com/ImportJob': NONE,
   'container.googleapis.com/Cluster': CONTAINER_CLUSTER_ENTITY_TYPE,
   'container.googleapis.com/NodePool': CONTAINER_NODE_POOL_ENTITY_TYPE,
-  'bigtableadmin.googleapis.com/AppProfile': NONE,
-  'bigtableadmin.googleapis.com/Backup': NONE,
-  'bigtableadmin.googleapis.com/Cluster': NONE,
-  'bigtableadmin.googleapis.com/Instance': NONE,
-  'bigtableadmin.googleapis.com/Table': NONE,
+  'bigtableadmin.googleapis.com/AppProfile': ENTITY_TYPE_BIG_TABLE_APP_PROFILE,
+  'bigtableadmin.googleapis.com/Backup': ENTITY_TYPE_BIG_TABLE_BACKUP,
+  'bigtableadmin.googleapis.com/Cluster': ENTITY_TYPE_BIG_TABLE_CLUSTER,
+  'bigtableadmin.googleapis.com/Instance': ENTITY_TYPE_BIG_TABLE_INSTANCE,
+  'bigtableadmin.googleapis.com/Table': ENTITY_TYPE_BIG_TABLE_TABLE,
   'k8s.io/Node	//': NONE,
   'k8s.io/Pod	//': NONE,
   'k8s.io/Namespace	//': NONE,

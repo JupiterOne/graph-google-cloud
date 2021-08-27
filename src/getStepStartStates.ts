@@ -118,7 +118,18 @@ import {
   STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
   STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS,
 } from './steps/access-context-manager/constants';
-import { STEP_DATAPROC_CLUSTERS } from './steps/dataproc/constants';
+import {
+  STEP_CREATE_CLUSTER_STORAGE_RELATIONSHIPS,
+  STEP_CREATE_CLUSTER_IMAGE_RELATIONSHIPS,
+  STEP_DATAPROC_CLUSTERS,
+} from './steps/dataproc/constants';
+import {
+  STEP_BIG_TABLE_APP_PROFILES,
+  STEP_BIG_TABLE_BACKUPS,
+  STEP_BIG_TABLE_CLUSTERS,
+  STEP_BIG_TABLE_INSTANCES,
+  STEP_BIG_TABLE_TABLES,
+} from './steps/big-table/constants';
 
 function validateInvocationConfig(
   context: IntegrationExecutionContext<SerializedIntegrationConfig>,
@@ -168,6 +179,17 @@ export default async function getStepStartStates(
     serializedIntegrationConfig,
   ));
 
+  logger.info(
+    {
+      projectId: config.projectId,
+      configureOrganizationProjects: config.configureOrganizationProjects,
+      organizationId: config.organizationId,
+      serviceAccountKeyEmail: config.serviceAccountKeyConfig.client_email,
+      serviceAccountKeyProjectId: config.serviceAccountKeyConfig.project_id,
+    },
+    'Starting integration with config',
+  );
+
   logger.publishEvent({
     name: 'integration_config',
     description: `Starting Google Cloud integration with service account (email=${
@@ -193,6 +215,8 @@ export default async function getStepStartStates(
       `Failed to fetch enabled service names. Ability to list services is required to run the Google Cloud integration. (error=${err.message})`,
     );
   }
+
+  logger.info({ enabledServiceNames }, 'Services enabled for project');
 
   const createStepStartState = (
     primaryServiceName: ServiceUsageName,
@@ -403,6 +427,21 @@ export default async function getStepStartStates(
     [STEP_DATAPROC_CLUSTERS]: createStepStartState(
       ServiceUsageName.DATAPROC_CLUSTERS,
     ),
+    [STEP_CREATE_CLUSTER_STORAGE_RELATIONSHIPS]: createStepStartState(
+      ServiceUsageName.DATAPROC_CLUSTERS,
+    ),
+    [STEP_CREATE_CLUSTER_IMAGE_RELATIONSHIPS]: createStepStartState(
+      ServiceUsageName.DATAPROC_CLUSTERS,
+    ),
+    [STEP_BIG_TABLE_INSTANCES]: createStepStartState(
+      ServiceUsageName.BIG_TABLE,
+    ),
+    [STEP_BIG_TABLE_APP_PROFILES]: createStepStartState(
+      ServiceUsageName.BIG_TABLE,
+    ),
+    [STEP_BIG_TABLE_CLUSTERS]: createStepStartState(ServiceUsageName.BIG_TABLE),
+    [STEP_BIG_TABLE_BACKUPS]: createStepStartState(ServiceUsageName.BIG_TABLE),
+    [STEP_BIG_TABLE_TABLES]: createStepStartState(ServiceUsageName.BIG_TABLE),
   };
 
   logger.info(

@@ -1,0 +1,161 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createAppProfileEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Database",
+  ],
+  "_key": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/appProfiles/default",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "description": "Default application profile for this instance. This profile is used if you do not supply a different profile ID at connection time.",
+        "name": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/appProfiles/default",
+        "singleClusterRouting": Object {
+          "allowTransactionalWrites": true,
+          "clusterId": "j1-test-instance-c1",
+        },
+      },
+    },
+  ],
+  "_type": "google_bigtable_instance",
+  "active": false,
+  "createdOn": undefined,
+  "description": "Default application profile for this instance. This profile is used if you do not supply a different profile ID at connection time.",
+  "displayName": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/appProfiles/default",
+  "name": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/appProfiles/default",
+  "state": undefined,
+  "type": undefined,
+  "webLink": "https://console.cloud.google.com/bigtable/instances/default/overview?project=j1-gc-integration-dev-v2",
+}
+`;
+
+exports[`#createBackupEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Backup",
+  ],
+  "_key": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/clusters/j1-test-instance-c1/backups/j1-backup",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "encryptionInfo": Object {
+          "encryptionType": "GOOGLE_DEFAULT_ENCRYPTION",
+        },
+        "endTime": "2021-08-03T19:37:46.235458Z",
+        "expireTime": "2021-08-04T19:37:45.191Z",
+        "name": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/clusters/j1-test-instance-c1/backups/j1-backup",
+        "sourceTable": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/tables/j1-table",
+        "startTime": "2021-08-03T19:37:45.359529Z",
+        "state": "READY",
+      },
+    },
+  ],
+  "_type": "google_bigtable_backup",
+  "active": true,
+  "clusterId": "mock-cluster-id",
+  "createdOn": undefined,
+  "displayName": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/clusters/j1-test-instance-c1/backups/j1-backup",
+  "encryptionType": "GOOGLE_DEFAULT_ENCRYPTION",
+  "endTime": 1628019466235,
+  "expireTime": 1628105865191,
+  "instanceId": "mock-instance-id",
+  "kmsKeyVersion": undefined,
+  "name": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/clusters/j1-test-instance-c1/backups/j1-backup",
+  "sizeBytes": undefined,
+  "sourceTable": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/tables/j1-table",
+  "startTime": 1628019465359,
+  "state": "READY",
+  "webLink": "https://console.cloud.google.com/bigtable/instances/mock-instance-id/backups?project=j1-gc-integration-dev-v2",
+}
+`;
+
+exports[`#createClusterEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Cluster",
+  ],
+  "_key": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/clusters/j1-test-instance-c1",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "defaultStorageType": "SSD",
+        "location": "projects/j1-gc-integration-dev-v3/locations/asia-south1-a",
+        "name": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/clusters/j1-test-instance-c1",
+        "serveNodes": 1,
+        "state": "READY",
+      },
+    },
+  ],
+  "_type": "google_bigtable_cluster",
+  "active": true,
+  "createdOn": undefined,
+  "defaultStorageType": "SSD",
+  "displayName": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/clusters/j1-test-instance-c1",
+  "instanceId": "mock-instance-id",
+  "kmsKeyName": undefined,
+  "location": "projects/j1-gc-integration-dev-v3/locations/asia-south1-a",
+  "name": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/clusters/j1-test-instance-c1",
+  "serveNodes": 1,
+  "state": "READY",
+  "webLink": "https://console.cloud.google.com/bigtable/instances/mock-instance-id/overview?project=j1-gc-integration-dev-v2",
+}
+`;
+
+exports[`#createInstanceEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Database",
+  ],
+  "_key": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "displayName": "j1-test-instance",
+        "name": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance",
+        "state": "READY",
+        "type": "PRODUCTION",
+      },
+    },
+  ],
+  "_type": "google_bigtable_instance",
+  "active": true,
+  "createdOn": undefined,
+  "displayName": "j1-test-instance",
+  "name": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance",
+  "state": "READY",
+  "type": "PRODUCTION",
+  "webLink": "https://console.cloud.google.com/bigtable/instances/j1-test-instance/overview?project=j1-gc-integration-dev-v2",
+}
+`;
+
+exports[`#createTableEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "DataCollection",
+  ],
+  "_key": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/tables/j1-table",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "name": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/tables/j1-table",
+      },
+    },
+  ],
+  "_type": "google_bigtable_table",
+  "backup": undefined,
+  "classification": null,
+  "createdOn": undefined,
+  "displayName": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/tables/j1-table",
+  "granularity": undefined,
+  "instanceId": "mock-instance-id",
+  "name": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/tables/j1-table",
+  "sourceType": undefined,
+  "webLink": "https://console.cloud.google.com/bigtable/instances/mock-instance-id/tables?project=j1-gc-integration-dev-v2",
+}
+`;

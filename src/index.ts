@@ -32,6 +32,7 @@ import { dataprocSteps } from './steps/dataproc';
 
 import { Client } from './google-cloud/client';
 import { cloudAssetSteps } from './steps/cloud-asset';
+import { bigTableSteps } from './steps/big-table';
 
 export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> =
   {
@@ -78,6 +79,7 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> =
       ...privateCaSteps,
       ...accessPoliciesSteps,
       ...dataprocSteps,
+      ...bigTableSteps,
     ],
     dependencyGraphOrder: ['last'],
     beforeAddEntity(context, entity: Entity): Entity {
