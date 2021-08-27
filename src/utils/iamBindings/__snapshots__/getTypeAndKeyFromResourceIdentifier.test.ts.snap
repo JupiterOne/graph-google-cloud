@@ -491,8 +491,8 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 62`] = `
 Object {
   "identifier": "//cloudbilling.googleapis.com/billingAccounts/abcdef12345",
-  "key": undefined,
-  "type": "NO_DIRECT_J1_RESOURCE_YET",
+  "key": "billingAccounts/abcdef12345",
+  "type": "google_billing_account",
 }
 `;
 

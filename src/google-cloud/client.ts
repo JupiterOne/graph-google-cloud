@@ -71,7 +71,6 @@ export class Client {
       client_email: config.serviceAccountKeyConfig.client_email,
       private_key: config.serviceAccountKeyConfig.private_key,
     };
-
     this.onRetry = onRetry;
   }
 

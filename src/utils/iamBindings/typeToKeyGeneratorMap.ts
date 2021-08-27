@@ -87,6 +87,7 @@ import {
   ENTITY_TYPE_BIG_TABLE_TABLE,
   ENTITY_TYPE_BIG_TABLE_BACKUP,
 } from '../../steps/big-table/constants';
+import { ENTITY_TYPE_BILLING_ACCOUNT } from '../../steps/cloud-billing/constants';
 
 /**
  * A map of JupiterOne types to a function which can generate their _key
@@ -167,6 +168,7 @@ export const J1_TYPE_TO_KEY_GENERATOR_MAP: {
   [ENTITY_TYPE_BIG_TABLE_APP_PROFILE]: fullPathKeyMap,
   [ENTITY_TYPE_BIG_TABLE_TABLE]: fullPathKeyMap,
   [ENTITY_TYPE_BIG_TABLE_BACKUP]: fullPathKeyMap,
+  [ENTITY_TYPE_BILLING_ACCOUNT]: fullPathKeyMap,
 };
 
 // ex: projects/j1-gc-integration-dev-v3/locations/us-central1/functions/j1-gc-integration-dev-v3testfunction

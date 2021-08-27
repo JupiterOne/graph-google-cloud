@@ -130,6 +130,13 @@ import {
   STEP_BIG_TABLE_INSTANCES,
   STEP_BIG_TABLE_TABLES,
 } from './steps/big-table/constants';
+import {
+  STEP_BILLING_BUDGETS,
+  STEP_BUILD_ACCOUNT_BUDGET,
+  STEP_BUILD_ADDITIONAL_PROJECT_BUDGET,
+  STEP_BUILD_PROJECT_BUDGET,
+} from './steps/billing-budgets/constants';
+import { STEP_BILLING_ACCOUNTS } from './steps/cloud-billing/constants';
 
 function validateInvocationConfig(
   context: IntegrationExecutionContext<SerializedIntegrationConfig>,
@@ -442,6 +449,25 @@ export default async function getStepStartStates(
     [STEP_BIG_TABLE_CLUSTERS]: createStepStartState(ServiceUsageName.BIG_TABLE),
     [STEP_BIG_TABLE_BACKUPS]: createStepStartState(ServiceUsageName.BIG_TABLE),
     [STEP_BIG_TABLE_TABLES]: createStepStartState(ServiceUsageName.BIG_TABLE),
+    [STEP_BILLING_BUDGETS]:
+      !config.configureOrganizationProjects || isMasterOrgInstance
+        ? createStepStartState(ServiceUsageName.BILLING_BUDGET)
+        : { disabled: true },
+    [STEP_BUILD_ACCOUNT_BUDGET]:
+      !config.configureOrganizationProjects || isMasterOrgInstance
+        ? createStepStartState(ServiceUsageName.BILLING_BUDGET)
+        : { disabled: true },
+    [STEP_BUILD_PROJECT_BUDGET]:
+      !config.configureOrganizationProjects || isMasterOrgInstance
+        ? createStepStartState(ServiceUsageName.BILLING_BUDGET)
+        : { disabled: true },
+    [STEP_BILLING_ACCOUNTS]:
+      !config.configureOrganizationProjects || isMasterOrgInstance
+        ? createStepStartState(ServiceUsageName.CLOUD_BILLING)
+        : { disabled: true },
+    [STEP_BUILD_ADDITIONAL_PROJECT_BUDGET]: isMasterOrgInstance
+      ? createStepStartState(ServiceUsageName.BILLING_BUDGET)
+      : { disabled: true },
   };
 
   logger.info(

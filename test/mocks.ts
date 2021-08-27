@@ -25,6 +25,8 @@ import {
   accesscontextmanager_v1,
   dataproc_v1,
   bigtableadmin_v2,
+  billingbudgets_v1,
+  cloudbilling_v1,
 } from 'googleapis';
 import { BigQueryTable } from '../src/steps/big-query/client';
 
@@ -2521,6 +2523,45 @@ export function getMockBigTableBackup(
     state: 'READY',
     encryptionInfo: {
       encryptionType: 'GOOGLE_DEFAULT_ENCRYPTION',
+    },
+    ...partial,
+  };
+}
+
+export function getMockBillingAccount(
+  partial?: Partial<cloudbilling_v1.Schema$BillingAccount>,
+): cloudbilling_v1.Schema$BillingAccount {
+  return {
+    name: 'sample-name',
+    displayName: 'sample-display-name',
+    open: true,
+    masterBillingAccount: 'sample-account',
+    ...partial,
+  };
+}
+
+export function getMockBillingBudget(
+  partial?: Partial<billingbudgets_v1.Schema$GoogleCloudBillingBudgetsV1Budget>,
+): billingbudgets_v1.Schema$GoogleCloudBillingBudgetsV1Budget {
+  return {
+    name: 'sample-name',
+    displayName: 'sample-display-name',
+    etag: 'sample-etag',
+    budgetFilter: {
+      projects: ['project/project-1', 'project/project-2'],
+    },
+    amount: {
+      specifiedAmount: {
+        currencyCode: 'USD',
+        units: '1',
+        nanos: 750000000,
+      },
+    },
+    notificationsRule: {
+      pubsubTopic: 'sample-pubsub-topic',
+      schemaVersion: 'sample-schema-version',
+      monitoringNotificationChannels: ['channel-1', 'channel-2'],
+      disableDefaultIamRecipients: true,
     },
     ...partial,
   };
