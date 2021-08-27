@@ -12,10 +12,9 @@ and this project adheres to
 
 - New properties added to resources:
 
-  | Entity                | Properties            |
-  | --------------------- | --------------------- |
-  | `google_iam_bindings` | `isReadOnly`          |
-  | `google_iam_bindings` | `isOpenToTheInternet` |
+  | Entity               | Properties |
+  | -------------------- | ---------- |
+  | `google_iam_binding` | `readonly` |
 
 ### Fixed
 

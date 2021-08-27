@@ -29,13 +29,12 @@ Object {
   "condition.title": "Test condition title",
   "createdOn": undefined,
   "displayName": "Role Binding for Resource: resource",
-  "isOpenToTheInternet": false,
-  "isReadOnly": true,
   "members": Array [
     "serviceAccount:j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
   ],
   "name": "role_binding_for_resourceresource",
   "projectId": "project-id",
+  "readonly": true,
   "resource": "resource",
   "role": "projects/j1-gc-integration-dev-v3/roles/167984947943customroleconditions",
 }

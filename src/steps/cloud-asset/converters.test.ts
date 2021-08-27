@@ -1,5 +1,4 @@
 import { getMockRoleBinding } from '../../../test/mocks';
-import { PUBLIC_MEMBERS } from '../../utils/iam';
 import { buildIamBindingEntityKey, createIamBindingEntity } from './converters';
 
 describe('#createIamBindingEntity', () => {
@@ -23,47 +22,5 @@ describe('#createIamBindingEntity', () => {
         isReadOnly,
       }),
     ).toMatchSnapshot();
-  });
-
-  PUBLIC_MEMBERS.forEach((member) => {
-    it(`Should set isOpenToTheInternet to "true" when a member is ${member}`, () => {
-      expect(
-        createIamBindingEntity({
-          _key: buildIamBindingEntityKey({
-            binding,
-            projectName,
-            resource,
-          }),
-          binding: {
-            ...binding,
-            members: [member],
-          },
-          projectId,
-          resource,
-          isReadOnly,
-        }).isOpenToTheInternet,
-      ).toBe(true);
-    });
-  });
-
-  ['gerald', 'nobody@here.com'].forEach((member) => {
-    it(`Should set isOpenToTheInternet to "false" when roles are assigned to specific users`, () => {
-      expect(
-        createIamBindingEntity({
-          _key: buildIamBindingEntityKey({
-            binding,
-            projectName,
-            resource,
-          }),
-          binding: {
-            ...binding,
-            members: [member],
-          },
-          projectId,
-          resource,
-          isReadOnly,
-        }).isOpenToTheInternet,
-      ).toBe(false);
-    });
   });
 });

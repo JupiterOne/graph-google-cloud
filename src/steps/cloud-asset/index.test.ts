@@ -369,8 +369,7 @@ describe('#fetchIamBindings', () => {
             'condition.description': { type: 'string' },
             'condition.expression': { type: 'string' },
             'condition.location': { type: 'string' },
-            isReadOnly: { type: 'boolean' },
-            isOpenToTheInternet: { type: 'boolean' },
+            readonly: { type: 'boolean' },
           },
         },
       });

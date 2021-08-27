@@ -16,8 +16,7 @@ export interface BindingEntity extends Entity {
   'condition.description': string;
   'condition.expression': string;
   'condition.location': string;
-  isReadOnly: boolean;
-  isOpenToTheInternet: boolean;
+  readonly: boolean;
 }
 
 export function buildIamBindingEntityKey({
@@ -80,8 +79,7 @@ export function createIamBindingEntity({
         'condition.description': binding.condition?.description,
         'condition.expression': binding.condition?.expression,
         'condition.location': binding.condition?.location,
-        isReadOnly, // Are all the permissions associated with this binding read only permissions
-        isOpenToTheInternet: (binding.members ?? []).some(isMemberPublic), // Is there a member associated with this binding that is open to the internet
+        readonly: isReadOnly, // Are all the permissions associated with this binding read only permissions
       },
     },
   }) as BindingEntity;
