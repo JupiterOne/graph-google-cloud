@@ -15,6 +15,7 @@ export interface BindingEntity extends Entity {
   'condition.description': string;
   'condition.expression': string;
   'condition.location': string;
+  readonly: boolean;
 }
 
 export function buildIamBindingEntityKey({
@@ -44,11 +45,13 @@ export function createIamBindingEntity({
   projectId,
   binding,
   resource,
+  isReadOnly,
 }: {
   _key: string;
   projectId?: string;
   binding: cloudasset_v1.Schema$Binding;
   resource: string | undefined | null;
+  isReadOnly: boolean;
 }): BindingEntity {
   const namePrefix = 'Role Binding for Resource: ';
 
@@ -75,6 +78,7 @@ export function createIamBindingEntity({
         'condition.description': binding.condition?.description,
         'condition.expression': binding.condition?.expression,
         'condition.location': binding.condition?.location,
+        readonly: isReadOnly, // Are all the permissions associated with this binding read only permissions
       },
     },
   }) as BindingEntity;

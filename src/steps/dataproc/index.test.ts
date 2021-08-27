@@ -5,7 +5,11 @@ import {
 import { integrationConfig } from '../../../test/config';
 import { setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
-import { createClusterStorageRelationships, createClusterImageRelationships, fetchDataprocClusters } from '.';
+import {
+  createClusterStorageRelationships,
+  createClusterImageRelationships,
+  fetchDataprocClusters,
+} from '.';
 import {
   ENTITY_TYPE_DATAPROC_CLUSTER,
   RELATIONSHIP_TYPE_DATAPROC_CLUSTER_USES_COMPUTE_IMAGE,

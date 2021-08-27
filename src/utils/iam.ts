@@ -172,8 +172,9 @@ export function parseIamMember(member: string): ParsedIamMember {
  * - https://cloud.google.com/iam/docs/overview#allusers
  */
 export function isMemberPublic(member: string) {
-  return member === 'allUsers' || member === 'allAuthenticatedUsers';
+  return PUBLIC_MEMBERS.includes(member);
 }
+export const PUBLIC_MEMBERS = ['allUsers', 'allAuthenticatedUsers'];
 
 export async function getIamManagedRoleData(
   jobState: JobState,

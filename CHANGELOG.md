@@ -8,6 +8,14 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- New properties added to resources:
+
+  | Entity               | Properties |
+  | -------------------- | ---------- |
+  | `google_iam_binding` | `readonly` |
+
 ## 0.47.5
 
 ### Fixed
