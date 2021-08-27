@@ -143,6 +143,13 @@ import {
   STEP_BIG_TABLE_INSTANCES,
   STEP_BIG_TABLE_TABLES,
 } from './steps/big-table/constants';
+import {
+  STEP_BILLING_BUDGETS,
+  STEP_BUILD_ACCOUNT_BUDGET,
+  STEP_BUILD_ADDITIONAL_PROJECT_BUDGET,
+  STEP_BUILD_PROJECT_BUDGET,
+} from './steps/billing-budgets/constants';
+import { STEP_BILLING_ACCOUNTS } from './steps/cloud-billing/constants';
 
 interface ValidateInvocationInvalidConfigTestParams {
   instanceConfig?: Partial<IntegrationConfig>;
@@ -494,12 +501,27 @@ describe('#getStepStartStates success', () => {
       [STEP_BIG_TABLE_TABLES]: {
         disabled: false,
       },
+      [STEP_BILLING_ACCOUNTS]: {
+        disabled: false,
+      },
+      [STEP_BILLING_BUDGETS]: {
+        disabled: false,
+      },
+      [STEP_BUILD_ACCOUNT_BUDGET]: {
+        disabled: false,
+      },
+      [STEP_BUILD_PROJECT_BUDGET]: {
+        disabled: false,
+      },
+      [STEP_BUILD_ADDITIONAL_PROJECT_BUDGET]: {
+        disabled: false,
+      },
     };
 
     expect(stepStartStates).toEqual(expectedStepStartStates);
   });
 
-  test('configureOrganizationProjects: true and organizationId: undefinied', async () => {
+  test('configureOrganizationProjects: true and organizationId: undefined', async () => {
     const context = createMockExecutionContext<IntegrationConfig>({
       // Temporary tweak to make this test pass since its recording has been updated from the new organization/v3
       instanceConfig: {
@@ -545,6 +567,21 @@ describe('#getStepStartStates success', () => {
         disabled: true,
       },
       [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: {
+        disabled: true,
+      },
+      [STEP_BILLING_BUDGETS]: {
+        disabled: true,
+      },
+      [STEP_BUILD_ACCOUNT_BUDGET]: {
+        disabled: true,
+      },
+      [STEP_BUILD_PROJECT_BUDGET]: {
+        disabled: true,
+      },
+      [STEP_BILLING_ACCOUNTS]: {
+        disabled: true,
+      },
+      [STEP_BUILD_ADDITIONAL_PROJECT_BUDGET]: {
         disabled: true,
       },
     });
@@ -595,6 +632,21 @@ describe('#getStepStartStates success', () => {
         disabled: true,
       },
       [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: {
+        disabled: true,
+      },
+      [STEP_BILLING_BUDGETS]: {
+        disabled: false,
+      },
+      [STEP_BUILD_ACCOUNT_BUDGET]: {
+        disabled: false,
+      },
+      [STEP_BUILD_PROJECT_BUDGET]: {
+        disabled: false,
+      },
+      [STEP_BILLING_ACCOUNTS]: {
+        disabled: false,
+      },
+      [STEP_BUILD_ADDITIONAL_PROJECT_BUDGET]: {
         disabled: true,
       },
     });

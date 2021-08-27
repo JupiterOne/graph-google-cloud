@@ -32,4 +32,6 @@ export enum ServiceUsageName {
   ACCESS_CONTEXT_MANAGER = 'accesscontextmanager.googleapis.com',
   DATAPROC_CLUSTERS = 'dataproc.googleapis.com',
   BIG_TABLE = 'bigtableadmin.googleapis.com',
+  BILLING_BUDGET = 'billingbudgets.googleapis.com',
+  CLOUD_BILLING = 'cloudbilling.googleapis.com',
 }

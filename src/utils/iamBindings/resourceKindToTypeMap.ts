@@ -19,6 +19,7 @@ import {
   ENTITY_TYPE_BIG_TABLE_INSTANCE,
   ENTITY_TYPE_BIG_TABLE_TABLE,
 } from '../../steps/big-table/constants';
+import { ENTITY_TYPE_BILLING_ACCOUNT } from '../../steps/cloud-billing/constants';
 import { ENTITY_TYPE_CLOUD_RUN_SERVICE } from '../../steps/cloud-run/constants';
 import {
   ENTITY_TYPE_COMPUTE_BACKEND_BUCKET,
@@ -148,7 +149,7 @@ export const GOOGLE_RESOURCE_KIND_TO_J1_TYPE_MAP: {
   'appengine.googleapis.com/Application': ENTITY_TYPE_APP_ENGINE_APPLICATION,
   'appengine.googleapis.com/Service': ENTITY_TYPE_APP_ENGINE_SERVICE,
   'appengine.googleapis.com/Version': ENTITY_TYPE_APP_ENGINE_VERSION,
-  'cloudbilling.googleapis.com/BillingAccount': NONE,
+  'cloudbilling.googleapis.com/BillingAccount': ENTITY_TYPE_BILLING_ACCOUNT,
   'storage.googleapis.com/Bucket': CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
   'osconfig.googleapis.com/PatchDeployment': NONE,
   'dns.googleapis.com/ManagedZone': DNS_MANAGED_ZONE_ENTITY_TYPE,
