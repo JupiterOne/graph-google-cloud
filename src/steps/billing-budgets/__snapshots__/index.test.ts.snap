@@ -40,7 +40,7 @@ Object {
         Object {
           "name": "default",
           "rawData": Object {
-            "displayName": "My Billing Account",
+            "displayName": "Integration Development",
             "masterBillingAccount": "",
             "name": "billingAccounts/01694E-12D60B-BEBCE5",
             "open": true,
@@ -49,7 +49,7 @@ Object {
       ],
       "_type": "google_billing_account",
       "createdOn": undefined,
-      "displayName": "My Billing Account",
+      "displayName": "Integration Development",
       "masterBillingAccount": "",
       "name": "billingAccounts/01694E-12D60B-BEBCE5",
       "open": true,
@@ -280,11 +280,11 @@ Object {
           "createdOn": 1626458389450,
           "displayName": "testing-appengine-get",
           "id": "even-arc-320017",
-          "lifecycleState": "ACTIVE",
+          "lifecycleState": "DELETE_REQUESTED",
           "name": "projects/477021317437",
           "parent": "organizations/958457776463",
           "projectId": "even-arc-320017",
-          "updatedOn": 1626458391550,
+          "updatedOn": 1629408720110,
           "webLink": "https://console.cloud.google.com/home/dashboard?project=even-arc-320017",
         },
         "targetFilterKeys": Array [
@@ -350,7 +350,7 @@ Object {
           "name": "projects/592147458023",
           "parent": "organizations/958457776463",
           "projectId": "intense-pointer-315514",
-          "updatedOn": 1622559318929,
+          "updatedOn": 1628092716049,
           "webLink": "https://console.cloud.google.com/home/dashboard?project=intense-pointer-315514",
         },
         "targetFilterKeys": Array [
