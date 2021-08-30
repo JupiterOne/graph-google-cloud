@@ -196,7 +196,15 @@ export async function createBindingRoleRelationships(
                 relationshipDirection: RelationshipDirection.FORWARD,
                 sourceEntityKey: bindingEntity._key,
                 targetFilterKeys: [['_type', '_key']],
-                skipTargetCreation: false,
+                /**
+                 * The mapper does properly remove mapper-created entities at the moment. These
+                 * entities will never be cleaned up which will cause duplicates.
+                 *
+                 * Until this is fixed, we should not create mapped relationships with target creation
+                 * enabled, thus only creating iam_binding relationships to principles that have already
+                 * been ingested by other integrations.
+                 */
+                // skipTargetCreation: false, // true is the default
                 targetEntity: {
                   ...targetRoleEntitiy,
                   _rawData: undefined,
@@ -341,7 +349,15 @@ export async function createBindingToAnyResourceRelationships(
                     ? ['_key']
                     : ['_type', '_key'],
                 ],
-                skipTargetCreation: false,
+                /**
+                 * The mapper does properly remove mapper-created entities at the moment. These
+                 * entities will never be cleaned up which will cause duplicates.
+                 *
+                 * Until this is fixed, we should not create mapped relationships with target creation
+                 * enabled, thus only creating iam_binding relationships to resources that have already
+                 * been ingested by other integrations.
+                 */
+                // skipTargetCreation: false, // true is the default
                 targetEntity: {
                   // When there is no one-to-one-mapping from Google Resource Kind to J1 Type, do not set the _type on target entities.
                   _type:

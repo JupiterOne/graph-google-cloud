@@ -10582,7 +10582,6 @@ Object {
       "_key": "austin.kelleher@jupiterone.dev|assigned|roles/owner",
       "_mapping": Object {
         "relationshipDirection": "REVERSE",
-        "skipTargetCreation": false,
         "sourceEntityKey": "roles/owner",
         "targetEntity": Object {
           "_class": "User",

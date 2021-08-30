@@ -60,7 +60,15 @@ export function createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship
       relationshipDirection: relationshipDirection,
       sourceEntityKey: iamEntity._key,
       targetFilterKeys,
-      skipTargetCreation: false,
+      /**
+       * The mapper does properly remove mapper-created entities at the moment. These
+       * entities will never be cleaned up which will causes duplicates.
+       *
+       * Until this is fixed, we should not create mapped relatioonships with target creation
+       * enabled, thus only creating iam entity relationships to targets that have already
+       * been ingested by other integrations.
+       */
+      // skipTargetCreation: false, // true is the default
       targetEntity,
     },
     properties: {
