@@ -10,6 +10,8 @@ and this project adheres to
 
 ### Changed
 
+- Relationships from `google_cloud_organization`s and `google_cloud_folder`s to
+  `google_cloud_project`s will also be made for deleted projects as well.
 - the following **mapped** relationships to skip target creation:
 
   | Source               | class        | Target                       |

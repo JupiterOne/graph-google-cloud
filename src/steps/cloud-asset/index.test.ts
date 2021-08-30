@@ -490,6 +490,11 @@ describe('#fetchIamBindings', () => {
 
         const context = createMockContext();
 
+        // Needed for populating the ProjectName to ProjectId map in the job state
+        await fetchResourceManagerOrganization(context);
+        await fetchResourceManagerFolders(context);
+        await buildOrgFolderProjectMappedRelationships(context);
+
         await context.jobState.setData(
           IAM_MANAGED_ROLES_DATA_JOB_STATE_KEY,
           {},

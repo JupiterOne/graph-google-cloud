@@ -2,6 +2,7 @@ import {
   createDirectRelationship,
   createMappedRelationship,
   generateRelationshipType,
+  IntegrationError,
   IntegrationStep,
   JobState,
   Relationship,
@@ -95,10 +96,23 @@ export async function fetchIamBindings(
 
         let projectId: string | undefined;
         if (projectName) {
+          /**
+           * We can not pull the projectId from the resource identifier because the resource
+           * identifier does not gaurentee a projectId value.
+           *
+           * See https://cloud.google.com/asset-inventory/docs/resource-name-format and search
+           * for cloudresourcemanager.googleapis.com/Project to see that the identifier could
+           * either be for PROJECT_NUMBER or PROJECT_ID
+           *
+           * Because of this we have to pull the projectId from the jobState instead.
+           */
           projectId = await getProjectIdFromName(jobState, projectName);
           if (!projectId) {
-            // This would only happen if we have not run fetch-resource-manager-org-project-relationships, which caches project data
-            logger.warn({ projectName }, 'Missing project ID in local cache');
+            // This would only happen if we have not run fetch-resource-manager-org-project-relationships which caches project data
+            throw new IntegrationError({
+              message: 'Unable to find projectId in jobState for role binding.',
+              code: 'UNABLE_TO_FIND_PROJECT_ID',
+            });
           }
         }
 
