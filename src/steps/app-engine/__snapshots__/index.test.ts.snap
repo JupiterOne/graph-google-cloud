@@ -814,7 +814,6 @@ Object {
       "_key": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022|created|REVERSE:_type=google_user:email=viragsf@gmail.com",
       "_mapping": Object {
         "relationshipDirection": "REVERSE",
-        "skipTargetCreation": false,
         "sourceEntityKey": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022",
         "targetEntity": Object {
           "_type": "google_user",
@@ -844,7 +843,6 @@ Object {
       "_key": "apps/j1-gc-integration-dev-v2/services/default/versions/20210319t163820|created|REVERSE:_type=google_user:email=viragsf@gmail.com",
       "_mapping": Object {
         "relationshipDirection": "REVERSE",
-        "skipTargetCreation": false,
         "sourceEntityKey": "apps/j1-gc-integration-dev-v2/services/default/versions/20210319t163820",
         "targetEntity": Object {
           "_type": "google_user",
@@ -5367,7 +5365,6 @@ Object {
       "_key": "austin.kelleher@jupiterone.dev|assigned|roles/owner",
       "_mapping": Object {
         "relationshipDirection": "REVERSE",
-        "skipTargetCreation": false,
         "sourceEntityKey": "roles/owner",
         "targetEntity": Object {
           "_class": "User",

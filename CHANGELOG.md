@@ -11,7 +11,17 @@ and this project adheres to
 ### Changed
 
 - Relationships from `google_cloud_organization`s and `google_cloud_folder`s to
-  `google_cloud_project`s will also be made for projects that have been deleted.
+  `google_cloud_project`s will also be made for deleted projects as well.
+- the following **mapped** relationships to skip target creation:
+
+  | Source               | class        | Target                       |
+  | -------------------- | ------------ | ---------------------------- |
+  | `google_iam_binding` | **ALLOWS**   | `ANY_RESOURCE`               |
+  | `google_iam_binding` | **ASSIGNED** | `google_group`               |
+  | `google_iam_binding` | **ASSIGNED** | `google_iam_service_account` |
+  | `google_iam_binding` | **ASSIGNED** | `google_user`                |
+  | `google_iam_binding` | **ASSIGNED** | `google_domain`              |
+  | `google_user`        | **CREATED**  | `google_app_engine_version`  |
 
 ## 0.48.0 - 2021-08-27
 
