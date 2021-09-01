@@ -48,6 +48,7 @@ describe('#createBigQueryTableEntity', () => {
         data: getMockBigQueryTable(),
         projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
         isPublic: false,
+        isUsingCmek: true,
       }),
     ).toMatchSnapshot();
   });
