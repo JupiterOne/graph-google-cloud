@@ -8,6 +8,15 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- New properties added to resources:
+
+  | Entity                    | Properties              |
+  | -----------------------   | ----------------------- |
+  | `google_bigquery_table`   | `isUsingCmek`           |
+  | `google_bigquery_dataset` | `isCmekDefault`         |
+
 ## 0.49.0 - 2021-09-14
 
 ### Added
