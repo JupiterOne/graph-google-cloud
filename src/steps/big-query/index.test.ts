@@ -6,6 +6,7 @@ import {
   fetchBigQueryTables,
 } from '.';
 import { integrationConfig } from '../../../test/config';
+import { separateDirectMappedRelationships } from '../../../test/helpers/separateDirectMappedRelationships';
 import { Recording, setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
 import { fetchKmsCryptoKeys, fetchKmsKeyRings } from '../kms';
@@ -114,8 +115,13 @@ describe('#buildBigQueryDatasetKMSRelationships', () => {
     await fetchBigQueryDatasets(context);
     await buildBigQueryDatasetKMSRelationships(context);
 
+    const { directRelationships, mappedRelationships } =
+      separateDirectMappedRelationships(
+        context.jobState.collectedRelationships,
+      );
+
     expect(
-      context.jobState.collectedRelationships.filter(
+      directRelationships.filter(
         (e) => e._type === RELATIONSHIP_TYPE_DATASET_USES_KMS_CRYPTO_KEY,
       ),
     ).toMatchDirectRelationshipSchema({
@@ -128,6 +134,22 @@ describe('#buildBigQueryDatasetKMSRelationships', () => {
         },
       },
     });
+
+    expect(mappedRelationships.length).toBeGreaterThan(0);
+
+    expect(
+      mappedRelationships
+        .filter(
+          (e) =>
+            e._mapping.sourceEntityKey ===
+            'j1-gc-integration-dev-v3:sample_dataset_foreign_key',
+        )
+        .every(
+          (mappedRelationship) =>
+            mappedRelationship._key ===
+            'j1-gc-integration-dev-v3:sample_dataset_foreign_key|uses|projects/vmware-account/locations/global/keyRings/test-key-ring/cryptoKeys/foreign-key',
+        ),
+    ).toBe(true);
   });
 });
 

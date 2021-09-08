@@ -8,6 +8,7 @@ import {
   fetchSpannerInstances,
 } from '.';
 import { integrationConfig } from '../../../test/config';
+import { separateDirectMappedRelationships } from '../../../test/helpers/separateDirectMappedRelationships';
 import { setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
 import { fetchKmsCryptoKeys, fetchKmsKeyRings } from '../kms';
@@ -19,8 +20,6 @@ import {
   RELATIONSHIP_TYPE_SPANNER_INSTANCE_HAS_DATABASE,
   RELATIONSHIP_TYPE_SPANNER_INSTANCE_DATABASE_USES_KMS_KEY,
 } from './constants';
-
-jest.setTimeout(50000);
 
 describe('#fetchSpannerInstanceConfigs', () => {
   let recording: Recording;
@@ -178,7 +177,17 @@ describe('#fetchSpannerInstanceDatabases', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: {
+        ...integrationConfig,
+        serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+          'j1-gc-integration-dev-v2',
+          'j1-gc-integration-dev-v3',
+        ),
+        serviceAccountKeyConfig: {
+          ...integrationConfig.serviceAccountKeyConfig,
+          project_id: 'j1-gc-integration-dev-v3',
+        },
+      },
     });
 
     await fetchKmsKeyRings(context);
@@ -262,8 +271,13 @@ describe('#fetchSpannerInstanceDatabases', () => {
       },
     });
 
+    const { directRelationships, mappedRelationships } =
+      separateDirectMappedRelationships(
+        context.jobState.collectedRelationships,
+      );
+
     expect(
-      context.jobState.collectedRelationships.filter(
+      directRelationships.filter(
         (e) =>
           e._type === RELATIONSHIP_TYPE_SPANNER_INSTANCE_DATABASE_USES_KMS_KEY,
       ),
@@ -275,5 +289,21 @@ describe('#fetchSpannerInstanceDatabases', () => {
         },
       },
     });
+
+    expect(mappedRelationships.length).toBeGreaterThan(0);
+
+    expect(
+      mappedRelationships
+        .filter(
+          (e) =>
+            e._mapping.sourceEntityKey ===
+            'projects/j1-gc-integration-dev-v3/instances/sample-spanner-foreign-key/databases/database-foreign-key',
+        )
+        .every(
+          (mappedRelationship) =>
+            mappedRelationship._key ===
+            'projects/j1-gc-integration-dev-v3/instances/sample-spanner-foreign-key/databases/database-foreign-key|uses|projects/vmware-account/locations/us-central1/keyRings/test-key-ring-us-central-1/cryptoKeys/test-key-us-central-1',
+        ),
+    ).toBe(true);
   });
 });

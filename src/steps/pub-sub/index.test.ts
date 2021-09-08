@@ -6,7 +6,7 @@ import {
   ENTITY_TYPE_PUBSUB_SUBSCRIPTION,
   ENTITY_TYPE_PUBSUB_TOPIC,
   RELATIONSHIP_TYPE_PUBSUB_SUBSCRIPTION_USES_TOPIC,
-  RELATIONSHIP_TYPE_PUBSUB_TOPIC_HAS_KMS_KEY,
+  RELATIONSHIP_TYPE_PUBSUB_TOPIC_USES_KMS_KEY,
 } from './constants';
 import { fetchPubSubSubscriptions, fetchPubSubTopics } from '.';
 import {
@@ -14,8 +14,7 @@ import {
   fetchKmsCryptoKeys,
   fetchKmsKeyRings,
 } from '../kms';
-
-jest.setTimeout(50000);
+import { separateDirectMappedRelationships } from '../../../test/helpers/separateDirectMappedRelationships';
 
 describe('#fetchProjectTopics', () => {
   let recording: Recording;
@@ -33,7 +32,17 @@ describe('#fetchProjectTopics', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: {
+        ...integrationConfig,
+        serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+          'j1-gc-integration-dev-v2',
+          'j1-gc-integration-dev-v3',
+        ),
+        serviceAccountKeyConfig: {
+          ...integrationConfig.serviceAccountKeyConfig,
+          project_id: 'j1-gc-integration-dev-v3',
+        },
+      },
     });
 
     await fetchKmsKeyRings(context);
@@ -113,9 +122,14 @@ describe('#fetchProjectTopics', () => {
       },
     });
 
+    const { directRelationships, mappedRelationships: mappedKmsRelationships } =
+      separateDirectMappedRelationships(
+        context.jobState.collectedRelationships,
+      );
+
     expect(
-      context.jobState.collectedRelationships.filter(
-        (e) => e._type === RELATIONSHIP_TYPE_PUBSUB_TOPIC_HAS_KMS_KEY,
+      directRelationships.filter(
+        (e) => e._type === RELATIONSHIP_TYPE_PUBSUB_TOPIC_USES_KMS_KEY,
       ),
     ).toMatchDirectRelationshipSchema({
       schema: {
@@ -125,6 +139,22 @@ describe('#fetchProjectTopics', () => {
         },
       },
     });
+
+    expect(mappedKmsRelationships.length).toBeGreaterThan(0);
+
+    expect(
+      mappedKmsRelationships
+        .filter(
+          (e) =>
+            e._mapping.sourceEntityKey ===
+            'projects/j1-gc-integration-dev-v3/topics/sample-topic-foreign-key',
+        )
+        .every(
+          (mappedRelationship) =>
+            mappedRelationship._key ===
+            'projects/j1-gc-integration-dev-v3/topics/sample-topic-foreign-key|uses|projects/vmware-account/locations/global/keyRings/test-key-ring/cryptoKeys/foreign-key',
+        ),
+    ).toBe(true);
   });
 });
 

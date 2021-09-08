@@ -35,6 +35,19 @@ and this project adheres to
   | `google_bigtable_instance` | `HAS`  | `google_bigtable_table`       |
   | `google_bigtable_table`    | `HAS`  | `google_bigtable_backup`      |
 
+- Added support for ingesting the following **new** relationships:
+
+  | Source                           | class  | Target                  |
+  | -------------------------------- | ------ | ----------------------- |
+  | `google_bigquery_dataset`        | `USES` | `google_kms_crypto_key` |
+  | `google_compute_disk`            | `USES` | `google_kms_crypto_key` |
+  | `google_compute_image`           | `USES` | `google_kms_crypto_key` |
+  | `google_pubsub_topic`            | `USES` | `google_kms_crypto_key` |
+  | `google_spanner_database`        | `USES` | `google_kms_crypto_key` |
+  | `google_sql_mysql_instance`      | `USES` | `google_kms_crypto_key` |
+  | `google_sql_postgres_instance`   | `USES` | `google_kms_crypto_key` |
+  | `google_sql_sql_server_instance` | `USES` | `google_kms_crypto_key` |
+
 ### Changed
 
 - Relationships from `google_cloud_organization`s and `google_cloud_folder`s to

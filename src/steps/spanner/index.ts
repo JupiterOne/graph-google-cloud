@@ -1,11 +1,15 @@
 import {
   createDirectRelationship,
+  createMappedRelationship,
   IntegrationStep,
   RelationshipClass,
+  RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
 import { spanner_v1 } from 'googleapis';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
 import { isMemberPublic } from '../../utils/iam';
+import { getKmsGraphObjectKeyFromKmsKeyName } from '../../utils/kms';
+import { RELATIONSHIP_TYPE_DATASET_USES_KMS_CRYPTO_KEY } from '../big-query';
 import { ENTITY_TYPE_KMS_KEY, STEP_CLOUD_KMS_KEYS } from '../kms';
 import { SpannerClient } from './client';
 import {
@@ -133,15 +137,34 @@ export async function fetchSpannerInstanceDatabases(
         );
 
         if (database.encryptionConfig?.kmsKeyName) {
-          const cryptoKeyEntity = await jobState.findEntity(
+          const kmsKey = getKmsGraphObjectKeyFromKmsKeyName(
             database.encryptionConfig.kmsKeyName,
           );
+
+          const cryptoKeyEntity = await jobState.findEntity(kmsKey);
           if (cryptoKeyEntity) {
             await jobState.addRelationship(
               createDirectRelationship({
                 _class: RelationshipClass.USES,
                 from: instanceDatabaseEntity,
                 to: cryptoKeyEntity,
+              }),
+            );
+          } else {
+            await jobState.addRelationship(
+              createMappedRelationship({
+                _class: RelationshipClass.USES,
+                _type: RELATIONSHIP_TYPE_DATASET_USES_KMS_CRYPTO_KEY,
+                _mapping: {
+                  relationshipDirection: RelationshipDirection.FORWARD,
+                  sourceEntityKey: instanceDatabaseEntity._key,
+                  targetFilterKeys: [['_type', '_key']],
+                  skipTargetCreation: true,
+                  targetEntity: {
+                    _type: ENTITY_TYPE_KMS_KEY,
+                    _key: kmsKey,
+                  },
+                },
               }),
             );
           }
