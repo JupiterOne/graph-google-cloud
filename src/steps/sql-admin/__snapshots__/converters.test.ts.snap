@@ -431,6 +431,7 @@ Object {
   "requireSSL": undefined,
   "traceFlag": undefined,
   "userConnections": undefined,
+  "userOptions": undefined,
 }
 `;
 
@@ -487,5 +488,6 @@ Object {
   "requireSSL": undefined,
   "traceFlag": undefined,
   "userConnections": undefined,
+  "userOptions": undefined,
 }
 `;

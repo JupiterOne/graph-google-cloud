@@ -76,6 +76,7 @@ function getSQLServerSpecificBenchmarkProperties(
   instance: sqladmin_v1beta4.Schema$DatabaseInstance,
 ) {
   const userConnections = getFlagValue(instance, 'user connections');
+  const userOptions = getFlagValue(instance, 'user options');
 
   return {
     // 6.3.1 Ensure that the 'cross db ownership chaining' database flag for Cloud SQL SQL Server instance is set to 'off' (Scored)
@@ -92,6 +93,8 @@ function getSQLServerSpecificBenchmarkProperties(
     externalScriptsEnabled: getFlagValue(instance, 'external scripts enabled'),
     // (acc. to new benchmark) 6.3.3 Ensure 'user connections' database flag for Cloud SQL SQL Server instance is set as appropriate
     userConnections: userConnections ? parseInt(userConnections) : undefined,
+    // (acc. to new benchmark) 6.3.4 Ensure 'user options' database flag for Cloud SQL SQL Server instance is not configured (Automated)
+    userOptions: userOptions ? parseInt(userOptions) : undefined,
     // (acc. to new benchmark) 6.3.5 Ensure 'remote access' database flag for Cloud SQL SQL Server instance is set to 'off'
     remoteAccess: getFlagValue(instance, 'remote access'),
     // (acc. to new benchmark) 6.3.6 Ensure '3625 (trace flag)' database flag for Cloud SQL SQL Server instance is set to 'off'
