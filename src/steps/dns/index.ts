@@ -11,7 +11,7 @@ import {
   DNS_MANAGED_ZONE_ENTITY_TYPE,
   DNS_POLICY_ENTITY_CLASS,
   DNS_POLICY_ENTITY_TYPE,
-  RELATIONSHIP_TYPE_DNS_POLICY_MANAGES_COMPUTE_NETWORK,
+  RELATIONSHIP_TYPE_COMPUTE_NETWORK_HAS_DNS_POLICY,
   STEP_DNS_MANAGED_ZONES,
   STEP_DNS_POLICIES,
 } from './constants';
@@ -59,9 +59,9 @@ export async function fetchDNSPolicies(
           if (networkEntity) {
             await jobState.addRelationship(
               createDirectRelationship({
-                _class: RelationshipClass.MANAGES,
-                from: dnsPolicyEntity,
-                to: networkEntity,
+                _class: RelationshipClass.HAS,
+                from: networkEntity,
+                to: dnsPolicyEntity,
               }),
             );
           }
@@ -98,10 +98,10 @@ export const dnsManagedZonesSteps: IntegrationStep<IntegrationConfig>[] = [
     ],
     relationships: [
       {
-        _class: RelationshipClass.MANAGES,
-        _type: RELATIONSHIP_TYPE_DNS_POLICY_MANAGES_COMPUTE_NETWORK,
-        sourceType: DNS_POLICY_ENTITY_TYPE,
-        targetType: ENTITY_TYPE_COMPUTE_NETWORK,
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_COMPUTE_NETWORK_HAS_DNS_POLICY,
+        sourceType: ENTITY_TYPE_COMPUTE_NETWORK,
+        targetType: DNS_POLICY_ENTITY_TYPE,
       },
     ],
     executionHandler: fetchDNSPolicies,

@@ -7,7 +7,7 @@ import { fetchComputeNetworks } from '../compute';
 import {
   DNS_MANAGED_ZONE_ENTITY_TYPE,
   DNS_POLICY_ENTITY_TYPE,
-  RELATIONSHIP_TYPE_DNS_POLICY_MANAGES_COMPUTE_NETWORK,
+  RELATIONSHIP_TYPE_COMPUTE_NETWORK_HAS_DNS_POLICY
 } from './constants';
 
 const tempNewAccountConfig = {
@@ -137,14 +137,14 @@ describe('#fetchDNSPolicies', () => {
 
     expect(
       context.jobState.collectedRelationships.filter(
-        (e) => e._type === RELATIONSHIP_TYPE_DNS_POLICY_MANAGES_COMPUTE_NETWORK,
+        (e) => e._type === RELATIONSHIP_TYPE_COMPUTE_NETWORK_HAS_DNS_POLICY,
       ),
     ).toMatchDirectRelationshipSchema({
       schema: {
         properties: {
-          _class: { const: 'MANAGES' },
+          _class: { const: 'HAS' },
           _type: {
-            const: 'google_dns_policy_manages_compute_network',
+            const: 'google_compute_network_has_dns_policy',
           },
         },
       },
