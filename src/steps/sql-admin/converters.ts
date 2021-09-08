@@ -42,7 +42,9 @@ function getPostgresSpecificBenchmarkProperties(
     logDisconnections: getFlagValue(instance, 'log_disconnections'),
     // 6.2.4 Ensure that the 'log_lock_waits' database flag for Cloud SQL PostgreSQL instance is set to 'on' (Scored)
     logLockWaits: getFlagValue(instance, 'log_lock_waits'),
-    // 6.2.5 Ensure that the 'log_min_messages' database flag for Cloud SQL PostgreSQL instance is set appropriately (Not Scored)
+    // 6.2.13 Ensure that the 'log_min_messages' database flag for Cloud SQL PostgreSQL instance is set appropriately
+    logMinMessages: getFlagValue(instance, 'log_min_messages'),
+    // 6.2.14 Ensure 'log_min_error_statement' database flag for Cloud SQL PostgreSQL instance is set to 'Error' or stricter
     logMinErrorStatement: getFlagValue(instance, 'log_min_error_statement'),
     // 6.2.6 Ensure that the 'log_temp_files' database flag for Cloud SQL PostgreSQL instance is set to '0' (on) (Scored)
     logTempFiles: getFlagValue(instance, 'log_temp_files'),
@@ -73,6 +75,8 @@ function getPostgresSpecificBenchmarkProperties(
 function getSQLServerSpecificBenchmarkProperties(
   instance: sqladmin_v1beta4.Schema$DatabaseInstance,
 ) {
+  const userConnections = getFlagValue(instance, 'user connections');
+
   return {
     // 6.3.1 Ensure that the 'cross db ownership chaining' database flag for Cloud SQL SQL Server instance is set to 'off' (Scored)
     crossDatabaseOwnershipChaining: getFlagValue(
@@ -84,6 +88,14 @@ function getSQLServerSpecificBenchmarkProperties(
       instance,
       'contained database authentication',
     ),
+    // (acc. to new benchmark) 6.3.1 Ensure 'external scripts enabled' database flag for Cloud SQL SQL Server instance is set to 'off'
+    externalScriptsEnabled: getFlagValue(instance, 'external scripts enabled'),
+    // (acc. to new benchmark) 6.3.3 Ensure 'user connections' database flag for Cloud SQL SQL Server instance is set as appropriate
+    userConnections: userConnections ? parseInt(userConnections) : undefined,
+    // (acc. to new benchmark) 6.3.5 Ensure 'remote access' database flag for Cloud SQL SQL Server instance is set to 'off'
+    remoteAccess: getFlagValue(instance, 'remote access'),
+    // (acc. to new benchmark) 6.3.6 Ensure '3625 (trace flag)' database flag for Cloud SQL SQL Server instance is set to 'off'
+    traceFlag: getFlagValue(instance, '3625'),
   };
 }
 
