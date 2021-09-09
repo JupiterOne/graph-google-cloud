@@ -1,4 +1,10 @@
-import { IntegrationStep } from '@jupiterone/integration-sdk-core';
+import {
+  createDirectRelationship,
+  Entity,
+  generateRelationshipType,
+  IntegrationStep,
+  RelationshipClass,
+} from '@jupiterone/integration-sdk-core';
 import { CloudStorageClient } from './client';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
 import { createCloudStorageBucketEntity } from './converters';
@@ -6,10 +12,13 @@ import {
   CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
   STEP_CLOUD_STORAGE_BUCKETS,
   CLOUD_STORAGE_BUCKET_ENTITY_CLASS,
+  CREATE_PROJECT_BUCKET_RELATIONSHIPS,
 } from './constants';
 import { storage_v1 } from 'googleapis';
 import { isMemberPublic } from '../../utils/iam';
 import { publishUnprocessedBucketsEvent } from '../../utils/events';
+import { getProjectNameFromId } from '../../utils/jobState';
+import { PROJECT_ENTITY_TYPE } from '../resource-manager';
 
 export * from './constants';
 
@@ -84,6 +93,50 @@ export async function fetchStorageBuckets(
   }
 }
 
+async function createProjectStorageBucketRelationships(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, logger } = context;
+  await jobState.iterateEntities(
+    { _type: CLOUD_STORAGE_BUCKET_ENTITY_TYPE },
+    async (bucketEntity: Entity) => {
+      if (typeof bucketEntity.projectId !== 'string') {
+        logger.warn(
+          { bucketEntityKey: bucketEntity._key },
+          'Bucket does not have a projectId',
+        );
+        return;
+      }
+      const projectKey = await getProjectNameFromId(
+        jobState,
+        bucketEntity.projectId,
+      );
+      if (!projectKey) {
+        logger.warn(
+          { projectId: bucketEntity.projectId },
+          'Unable to find project name in jobState',
+        );
+        return;
+      }
+      const projectEntity = await jobState.findEntity(projectKey);
+      if (!projectEntity) {
+        logger.warn(
+          { projectKey: projectKey },
+          'Unable to find project entity in jobState',
+        );
+        return;
+      }
+      await jobState.addRelationship(
+        createDirectRelationship({
+          _class: RelationshipClass.HAS,
+          from: projectEntity,
+          to: bucketEntity,
+        }),
+      );
+    },
+  );
+}
+
 export const storageSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_CLOUD_STORAGE_BUCKETS,
@@ -97,5 +150,24 @@ export const storageSteps: IntegrationStep<IntegrationConfig>[] = [
     ],
     relationships: [],
     executionHandler: fetchStorageBuckets,
+  },
+  {
+    id: CREATE_PROJECT_BUCKET_RELATIONSHIPS,
+    name: 'Create Project Storage Bucket Relationships',
+    entities: [],
+    relationships: [
+      {
+        _class: RelationshipClass.HAS,
+        _type: generateRelationshipType(
+          RelationshipClass.HAS,
+          PROJECT_ENTITY_TYPE,
+          CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
+        ),
+        sourceType: PROJECT_ENTITY_TYPE,
+        targetType: CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
+      },
+    ],
+    dependsOn: [STEP_CLOUD_STORAGE_BUCKETS],
+    executionHandler: createProjectStorageBucketRelationships,
   },
 ];

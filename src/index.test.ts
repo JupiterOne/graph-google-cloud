@@ -23,7 +23,10 @@ import {
   STEP_CLOUD_FUNCTIONS,
   STEP_CLOUD_FUNCTIONS_SERVICE_ACCOUNT_RELATIONSHIPS,
 } from './steps/functions';
-import { STEP_CLOUD_STORAGE_BUCKETS } from './steps/storage';
+import {
+  CREATE_PROJECT_BUCKET_RELATIONSHIPS,
+  STEP_CLOUD_STORAGE_BUCKETS,
+} from './steps/storage';
 import { STEP_API_SERVICES } from './steps/service-usage';
 import { parseServiceAccountKeyFile } from './utils/parseServiceAccountKeyFile';
 import {
@@ -259,6 +262,9 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_CLOUD_STORAGE_BUCKETS]: {
+        disabled: false,
+      },
+      [CREATE_PROJECT_BUCKET_RELATIONSHIPS]: {
         disabled: false,
       },
       [STEP_IAM_CUSTOM_ROLES]: {
