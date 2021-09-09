@@ -10,6 +10,12 @@ and this project adheres to
 
 ### Added
 
+- Added support for ingesting the following **new** relationships:
+
+  | Source                 | class | Target                  |
+  | ---------------------- | ----- | ----------------------- |
+  | `google_cloud_project` | `HAS` | `google_storage_bucket` |
+
 - Added support for ingesting the following **new** resources:
 
   | Service        | Resource / Entity                                                                                                                       |

@@ -10,7 +10,10 @@ import {
   STEP_CLOUD_FUNCTIONS,
   STEP_CLOUD_FUNCTIONS_SERVICE_ACCOUNT_RELATIONSHIPS,
 } from './steps/functions';
-import { STEP_CLOUD_STORAGE_BUCKETS } from './steps/storage';
+import {
+  CREATE_PROJECT_BUCKET_RELATIONSHIPS,
+  STEP_CLOUD_STORAGE_BUCKETS,
+} from './steps/storage';
 import { STEP_API_SERVICES } from './steps/service-usage';
 import { deserializeIntegrationConfig } from './utils/integrationConfig';
 import {
@@ -283,6 +286,11 @@ export default async function getStepStartStates(
       ServiceUsageName.CLOUD_FUNCTIONS,
     ),
     [STEP_CLOUD_STORAGE_BUCKETS]: createStepStartState(
+      ServiceUsageName.STORAGE,
+      ServiceUsageName.STORAGE_COMPONENT,
+      ServiceUsageName.STORAGE_API,
+    ),
+    [CREATE_PROJECT_BUCKET_RELATIONSHIPS]: createStepStartState(
       ServiceUsageName.STORAGE,
       ServiceUsageName.STORAGE_COMPONENT,
       ServiceUsageName.STORAGE_API,

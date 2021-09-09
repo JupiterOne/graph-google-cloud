@@ -4,8 +4,20 @@ import {
 } from '@jupiterone/integration-sdk-testing';
 import { setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
-import { fetchStorageBuckets } from '.';
+import {
+  CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
+  createProjectStorageBucketRelationships,
+  fetchStorageBuckets,
+} from '.';
 import { integrationConfig } from '../../../test/config';
+import {
+  fetchResourceManagerProject,
+  PROJECT_ENTITY_TYPE,
+} from '../resource-manager';
+import {
+  generateRelationshipType,
+  RelationshipClass,
+} from '@jupiterone/integration-sdk-core';
 
 describe('#fetchCloudStorageBuckets', () => {
   let recording: Recording;
@@ -58,6 +70,71 @@ describe('#fetchCloudStorageBuckets', () => {
           isSubjectToObjectAcls: { type: 'boolean' },
           classification: { const: null },
           etag: { type: 'string' },
+        },
+      },
+    });
+  });
+});
+
+describe('#createProjectStorageBucketRelationships', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'createProjectStorageBucketRelationships',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      // Temporary tweak to make this test pass since its recording has been updated from the new organization/v3
+      instanceConfig: {
+        ...integrationConfig,
+        serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+          'j1-gc-integration-dev-v2',
+          'j1-gc-integration-dev-v3',
+        ),
+        serviceAccountKeyConfig: {
+          ...integrationConfig.serviceAccountKeyConfig,
+          project_id: 'j1-gc-integration-dev-v3',
+        },
+      },
+    });
+
+    await fetchResourceManagerProject(context);
+    await fetchStorageBuckets(context);
+    await createProjectStorageBucketRelationships(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
+
+    const projectHasBucketRelationshipType = generateRelationshipType(
+      RelationshipClass.HAS,
+      PROJECT_ENTITY_TYPE,
+      CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
+    );
+    const projectHasBucketRelationships =
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === projectHasBucketRelationshipType,
+      );
+    expect(projectHasBucketRelationships.length).toBeGreaterThan(1);
+    expect(projectHasBucketRelationships).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'HAS' },
+          _type: {
+            const: projectHasBucketRelationshipType,
+          },
         },
       },
     });
