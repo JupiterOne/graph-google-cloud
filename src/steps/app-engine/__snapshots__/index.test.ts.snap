@@ -5362,15 +5362,17 @@ Object {
   "collectedRelationships": Array [
     Object {
       "_class": "ASSIGNED",
-      "_key": "austin.kelleher@jupiterone.dev|assigned|roles/owner",
+      "_key": "roles/owner|assigned|REVERSE:_type=google_user:email=austin.kelleher@jupiterone.dev",
       "_mapping": Object {
         "relationshipDirection": "REVERSE",
         "sourceEntityKey": "roles/owner",
         "targetEntity": Object {
           "_class": "User",
+          "_key": undefined,
           "_type": "google_user",
           "deleted": false,
           "email": "austin.kelleher@jupiterone.dev",
+          "id": undefined,
           "username": "austin.kelleher",
         },
         "targetFilterKeys": Array [

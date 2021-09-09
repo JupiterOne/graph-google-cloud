@@ -52,6 +52,7 @@ describe('#fetchResourceManagerIamPolicy', () => {
     }
   });
 
+  // TODO: fix
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
       instanceConfig: {

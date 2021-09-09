@@ -6,7 +6,6 @@ import {
   RelationshipDirection,
   createMappedRelationship,
   generateRelationshipType,
-  generateRelationshipKey,
   Entity,
   PrimitiveEntity,
 } from '@jupiterone/integration-sdk-core';
@@ -45,21 +44,14 @@ export function createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship
   projectId?: string;
   condition?: cloudresourcemanager_v1.Schema$Expr;
 }): Relationship {
-  const iamEntityToTargetRelationship =
-    relationshipDirection === RelationshipDirection.FORWARD;
-
-  // Not always able to determine a _key for google_users depending on how the binding is set up
-  const targetFilterKeys = targetEntity._key
-    ? [['_key', '_type']]
-    : [['_type', 'email']];
-  const targetKey = targetEntity._key ?? (targetEntity.email as string);
-
   return createMappedRelationship({
     _class: RelationshipClass.ASSIGNED,
     _mapping: {
-      relationshipDirection: relationshipDirection,
+      relationshipDirection,
       sourceEntityKey: iamEntity._key,
-      targetFilterKeys,
+      targetFilterKeys: targetEntity._key // Not always able to determine a _key for google_users depending on how the binding is set up
+        ? [['_key', '_type']]
+        : [['_type', 'email']],
       /**
        * The mapper does properly remove mapper-created entities at the moment. These
        * entities will never be cleaned up which will causes duplicates.
@@ -74,15 +66,14 @@ export function createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship
     properties: {
       _type: generateRelationshipType(
         RelationshipClass.ASSIGNED,
-        iamEntityToTargetRelationship ? iamEntity._type : targetEntity._type!,
-        iamEntityToTargetRelationship ? targetEntity._type! : iamEntity._type,
+        relationshipDirection === RelationshipDirection.FORWARD
+          ? iamEntity._type
+          : targetEntity._type!,
+        relationshipDirection === RelationshipDirection.FORWARD
+          ? targetEntity._type!
+          : iamEntity._type,
       ),
-      _key: generateRelationshipKey(
-        RelationshipClass.ASSIGNED,
-        iamEntityToTargetRelationship ? iamEntity._key : targetKey,
-        iamEntityToTargetRelationship ? targetKey : iamEntity._key,
-      ),
-      projectId: projectId,
+      projectId,
       ...(condition && getConditionRelationshipProperties(condition)),
     },
   });

@@ -2,6 +2,7 @@ import {
   createDirectRelationship,
   createMappedRelationship,
   generateRelationshipType,
+  getRawData,
   IntegrationError,
   IntegrationStep,
   JobState,
@@ -20,7 +21,6 @@ import {
   findOrCreateIamRoleEntity,
   getPermissionsForManagedRole,
   maybeFindIamUserEntityWithParsedMember,
-  shouldMakeTargetIamRelationships,
 } from '../resource-manager';
 import { CloudAssetClient } from './client';
 import {
@@ -31,6 +31,7 @@ import {
   STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS,
   STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS,
   STEP_CREATE_BINDING_ROLE_RELATIONSHIPS,
+  STEP_CREATE_ROLES_FOR_BINDING_PRINCIPAL_RELATIONSHIPS,
   STEP_IAM_BINDINGS,
 } from './constants';
 import {
@@ -38,7 +39,6 @@ import {
   buildIamBindingEntityKey,
   createIamBindingEntity,
 } from './converters';
-import get from 'lodash.get';
 import {
   getTypeAndKeyFromResourceIdentifier,
   makeLogsForTypeAndKeyResponse,
@@ -46,7 +46,6 @@ import {
 import { getEnabledServiceNames } from '../enablement';
 import { MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND } from '../../utils/iamBindings/resourceKindToTypeMap';
 import { isReadOnlyPermission } from '../../utils/iam';
-import { createIamRoleEntity } from '../iam/converters';
 
 async function isBindingReadOnly(
   jobState: JobState,
@@ -168,66 +167,57 @@ export async function fetchIamBindings(
 export async function createBindingRoleRelationships(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
+  const { jobState, logger } = context;
   await jobState.iterateEntities(
     { _type: bindingEntities.BINDINGS._type },
     async (bindingEntity: BindingEntity) => {
       if (bindingEntity.role) {
         const roleEntity = await jobState.findEntity(bindingEntity.role);
-
-        if (roleEntity) {
-          await jobState.addRelationship(
-            createDirectRelationship({
-              _class: RelationshipClass.USES,
-              from: bindingEntity,
-              to: roleEntity,
-            }),
+        if (!roleEntity) {
+          logger.info(
+            { role: bindingEntity.role },
+            'Unable to find role entitiy in jobState.',
           );
-        } else {
-          const includedPermissions = await getPermissionsForManagedRole(
-            jobState,
-            bindingEntity.role,
-          );
-          const targetRoleEntitiy = createIamRoleEntity(
-            {
-              name: bindingEntity.role,
-              title: bindingEntity.role,
-              includedPermissions,
-            },
-            {
-              custom: false,
-            },
-          );
-          await jobState.addRelationship(
-            createMappedRelationship({
-              _class: RelationshipClass.USES,
-              _type: generateRelationshipType(
-                RelationshipClass.USES,
-                bindingEntities.BINDINGS._type,
-                IAM_ROLE_ENTITY_TYPE,
-              ),
-              _mapping: {
-                relationshipDirection: RelationshipDirection.FORWARD,
-                sourceEntityKey: bindingEntity._key,
-                targetFilterKeys: [['_type', '_key']],
-                /**
-                 * The mapper does properly remove mapper-created entities at the moment. These
-                 * entities will never be cleaned up which will cause duplicates.
-                 *
-                 * Until this is fixed, we should not create mapped relationships with target creation
-                 * enabled, thus only creating iam_binding relationships to principles that have already
-                 * been ingested by other integrations.
-                 */
-                // skipTargetCreation: false, // true is the default
-                targetEntity: {
-                  ...targetRoleEntitiy,
-                  _rawData: undefined,
-                },
-              },
-            }),
-          );
+          return;
         }
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.USES,
+            from: bindingEntity,
+            to: roleEntity,
+          }),
+        );
       }
+    },
+  );
+}
+
+export async function createRolesForPrincipalRelationships(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, logger } = context;
+  await jobState.iterateEntities(
+    { _type: bindingEntities.BINDINGS._type },
+    async (bindingEntity: BindingEntity) => {
+      if (!bindingEntity.members?.length) {
+        logger.info(
+          { bindingKey: bindingEntity._key },
+          'Invalid role binding detected. Binding does not include any members',
+        );
+        return;
+      }
+      if (!bindingEntity.role) {
+        logger.info(
+          { bindingKey: bindingEntity._key },
+          'Invalid role binding detected. Binding does not include a role',
+        );
+        return;
+      }
+      // If role already in jobState skip it, otherwise create it
+      await findOrCreateIamRoleEntity({
+        jobState,
+        roleName: bindingEntity.role,
+      });
     },
   );
 }
@@ -248,63 +238,53 @@ export async function createPrincipalRelationships(
   await jobState.iterateEntities(
     { _type: bindingEntities.BINDINGS._type },
     async (bindingEntity: BindingEntity) => {
-      const condition: cloudresourcemanager_v3.Schema$Expr = {
-        description: get(bindingEntity, 'condition.description'),
-        expression: get(bindingEntity, 'condition.expression'),
-        location: get(bindingEntity, 'condition.location'),
-        title: get(bindingEntity, 'condition.title'),
-      };
-      if (bindingEntity.members?.length) {
-        if (!bindingEntity.role) {
-          logger.warn(
-            { binding: bindingEntity },
-            'Unable to build relationships for binding. Binding does not have an associated role.',
+      const condition: cloudresourcemanager_v3.Schema$Expr | undefined =
+        getRawData<cloudresourcemanager_v3.Schema$Binding>(
+          bindingEntity,
+        )?.condition;
+      if (!bindingEntity.role) {
+        logger.warn(
+          { binding: bindingEntity },
+          'Binding does not have an associated role.',
+        );
+      }
+      const iamRoleEntity = bindingEntity.role
+        ? await jobState.findEntity(bindingEntity.role)
+        : undefined;
+
+      for (const member of bindingEntity?.members ?? []) {
+        const iamUserEntityWithParsedMember =
+          await maybeFindIamUserEntityWithParsedMember({
+            jobState,
+            member,
+          });
+
+        await safeAddRelationship(
+          buildIamTargetRelationship({
+            iamEntity: bindingEntity,
+            projectId: bindingEntity.projectId,
+            iamUserEntityWithParsedMember,
+            condition,
+            relationshipDirection: RelationshipDirection.FORWARD,
+          }),
+        );
+
+        if (
+          // Role entity found
+          iamRoleEntity &&
+          // Do not Role to Role relationships
+          iamUserEntityWithParsedMember.userEntity?._type !==
+            IAM_ROLE_ENTITY_TYPE
+        ) {
+          await safeAddRelationship(
+            buildIamTargetRelationship({
+              iamEntity: iamRoleEntity,
+              projectId: bindingEntity.projectId,
+              iamUserEntityWithParsedMember,
+              condition,
+              relationshipDirection: RelationshipDirection.REVERSE,
+            }),
           );
-        } else {
-          for (const member of bindingEntity.members) {
-            const iamUserEntityWithParsedMember =
-              await maybeFindIamUserEntityWithParsedMember({
-                jobState,
-                member,
-              });
-
-            if (
-              shouldMakeTargetIamRelationships(iamUserEntityWithParsedMember)
-            ) {
-              await safeAddRelationship(
-                buildIamTargetRelationship({
-                  iamEntity: bindingEntity,
-                  projectId: bindingEntity.projectId,
-                  iamUserEntityWithParsedMember,
-                  condition,
-                  relationshipDirection: RelationshipDirection.FORWARD,
-                }),
-              );
-
-              if (bindingEntity.role) {
-                /**
-                 * We need to create IAM managed role entities here because the sdk does not allow for creating
-                 * mapped relationships with two target entities.
-                 *
-                 * NOTE: This will duplicate Google Managed Roles if multiple Google Cloud Organizations are
-                 * ingested in a single JupiterOne account.
-                 */
-                const iamRoleEntity = await findOrCreateIamRoleEntity({
-                  jobState,
-                  roleName: bindingEntity.role,
-                });
-                await safeAddRelationship(
-                  buildIamTargetRelationship({
-                    iamEntity: iamRoleEntity,
-                    projectId: bindingEntity.projectId,
-                    iamUserEntityWithParsedMember,
-                    condition,
-                    relationshipDirection: RelationshipDirection.REVERSE,
-                  }),
-                );
-              }
-            }
-          }
         }
       }
     },
@@ -399,8 +379,8 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
     dependencyGraphId: 'last',
   },
   {
-    id: STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS,
-    name: 'IAM Binding Principal Relationships',
+    id: STEP_CREATE_ROLES_FOR_BINDING_PRINCIPAL_RELATIONSHIPS,
+    name: 'Roles for IAM Binding Principal Relationships',
     entities: [
       {
         resourceName: 'IAM Role',
@@ -408,11 +388,20 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
         _class: IAM_ROLE_ENTITY_CLASS,
       },
     ],
+    relationships: [],
+    executionHandler: createRolesForPrincipalRelationships,
+    dependsOn: [STEP_IAM_BINDINGS],
+    dependencyGraphId: 'last',
+  },
+  {
+    id: STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS,
+    name: 'IAM Binding Principal Relationships',
+    entities: [],
     relationships: [
       ...BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS,
       ...PRINCIPAL_ASSIGNED_ROLE_RELATIONSHIPS,
     ],
-    dependsOn: [STEP_IAM_BINDINGS],
+    dependsOn: [STEP_CREATE_ROLES_FOR_BINDING_PRINCIPAL_RELATIONSHIPS],
     executionHandler: createPrincipalRelationships,
     dependencyGraphId: 'last',
   },
@@ -432,8 +421,7 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
         targetType: IAM_ROLE_ENTITY_TYPE,
       },
     ],
-    // Needs to run after all google_iam_roles have been created in this integration
-    dependsOn: [STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS],
+    dependsOn: [STEP_CREATE_ROLES_FOR_BINDING_PRINCIPAL_RELATIONSHIPS],
     executionHandler: createBindingRoleRelationships,
     dependencyGraphId: 'last',
   },

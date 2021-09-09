@@ -111,6 +111,7 @@ import {
   STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS,
   STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS,
   STEP_CREATE_BINDING_ROLE_RELATIONSHIPS,
+  STEP_CREATE_ROLES_FOR_BINDING_PRINCIPAL_RELATIONSHIPS,
   STEP_IAM_BINDINGS,
 } from './steps/cloud-asset/constants';
 import {
@@ -265,6 +266,9 @@ export default async function getStepStartStates(
     [STEP_RESOURCE_MANAGER_PROJECT]: { disabled: false },
     [STEP_API_SERVICES]: { disabled: false },
     [STEP_IAM_BINDINGS]: isMasterOrgInstance
+      ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
+      : { disabled: true },
+    [STEP_CREATE_ROLES_FOR_BINDING_PRINCIPAL_RELATIONSHIPS]: isMasterOrgInstance
       ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
       : { disabled: true },
     [STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS]: isMasterOrgInstance

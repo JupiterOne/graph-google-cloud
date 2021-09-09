@@ -26,8 +26,3 @@ export const GOOGLE_GROUP_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE =
   'google_group_assigned_iam_role';
 export const GOOGLE_USER_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE =
   'google_user_assigned_iam_role';
-
-export type IAM_PRINCIPAL_TYPE =
-  | typeof GOOGLE_USER_ENTITY_TYPE
-  | typeof GOOGLE_GROUP_ENTITY_TYPE
-  | typeof GOOGLE_DOMAIN_ENTITY_TYPE;

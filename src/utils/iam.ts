@@ -33,13 +33,28 @@ function parseMemberIdentifyingData(partialMember: string) {
   };
 }
 
+// Google Storage buckets have extra "Convenience" members that need to be handled differently
+// https://cloud.google.com/storage/docs/access-control/iam#convenience-values
+export type ConvenienceMemberType =
+  | 'projectEditor'
+  | 'projectOwner'
+  | 'projectViewer';
+export const ConvenienceMembers: ConvenienceMemberType[] = [
+  'projectEditor',
+  'projectOwner',
+  'projectViewer',
+];
+
+// All possible Google Cloud principal members
+// https://cloud.google.com/iam/docs/overview#cloud-iam-policy
 export type ParsedIamMemberType =
   | 'allUsers'
   | 'allAuthenticatedUsers'
   | 'user'
   | 'serviceAccount'
   | 'group'
-  | 'domain';
+  | 'domain'
+  | ConvenienceMemberType;
 
 export interface ParsedIamMember {
   type: ParsedIamMemberType;
@@ -353,4 +368,11 @@ export function getUniqueFullServiceApiNamesFromRole(
 
 export function isServiceAccountEmail(email: string): boolean {
   return email.endsWith('.gserviceaccount.com');
+}
+
+// remove 'project' and lowercase - projectOwner, projectEditor, projectViewer
+export function getRoleKeyFromConvienenceType(
+  member: ConvenienceMemberType,
+): string {
+  return 'roles/' + member.substring(7).toLowerCase();
 }
