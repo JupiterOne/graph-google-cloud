@@ -79,6 +79,7 @@ Object {
   "location": "j1-gc-integration-dev-v2:europe-west3:cloud-sql-postgres",
   "name": "cloud-sql-postgres",
   "requireSSL": undefined,
+  "skipShowDatabase": undefined,
 }
 `;
 
@@ -130,6 +131,7 @@ Object {
   "location": "j1-gc-integration-dev-v2:europe-west3:cloud-sql-postgres",
   "name": "cloud-sql-postgres",
   "requireSSL": undefined,
+  "skipShowDatabase": undefined,
 }
 `;
 
@@ -178,6 +180,7 @@ Object {
   "location": "j1-gc-integration-dev-v2:europe-west3:cloud-sql-postgres",
   "name": "cloud-sql-postgres",
   "requireSSL": true,
+  "skipShowDatabase": undefined,
 }
 `;
 
@@ -260,9 +263,18 @@ Object {
   "logCheckpoints": undefined,
   "logConnections": undefined,
   "logDisconnections": undefined,
+  "logDuration": undefined,
+  "logErrorVerbosity": undefined,
+  "logExecutorStats": undefined,
+  "logHostname": undefined,
   "logLockWaits": undefined,
   "logMinDurationStatement": undefined,
   "logMinErrorStatement": undefined,
+  "logMinMessages": undefined,
+  "logParserStats": undefined,
+  "logPlannerStats": undefined,
+  "logStatement": undefined,
+  "logStatementStats": undefined,
   "logTempFiles": undefined,
   "name": "cloud-sql-postgres",
   "requireSSL": undefined,
@@ -317,9 +329,18 @@ Object {
   "logCheckpoints": "off",
   "logConnections": undefined,
   "logDisconnections": undefined,
+  "logDuration": undefined,
+  "logErrorVerbosity": undefined,
+  "logExecutorStats": undefined,
+  "logHostname": undefined,
   "logLockWaits": undefined,
   "logMinDurationStatement": undefined,
   "logMinErrorStatement": undefined,
+  "logMinMessages": undefined,
+  "logParserStats": undefined,
+  "logPlannerStats": undefined,
+  "logStatement": undefined,
+  "logStatementStats": undefined,
   "logTempFiles": undefined,
   "name": "cloud-sql-postgres",
   "requireSSL": undefined,
@@ -401,11 +422,15 @@ Object {
   "crossDatabaseOwnershipChaining": undefined,
   "displayName": "cloud-sql-postgres",
   "encrypted": true,
+  "externalScriptsEnabled": undefined,
   "hasPublicIP": false,
   "kmsKeyName": undefined,
   "location": "j1-gc-integration-dev-v2:europe-west3:cloud-sql-postgres",
   "name": "cloud-sql-postgres",
+  "remoteAccess": undefined,
   "requireSSL": undefined,
+  "traceFlag": undefined,
+  "userConnections": undefined,
 }
 `;
 
@@ -453,10 +478,14 @@ Object {
   "crossDatabaseOwnershipChaining": "on",
   "displayName": "cloud-sql-postgres",
   "encrypted": true,
+  "externalScriptsEnabled": undefined,
   "hasPublicIP": false,
   "kmsKeyName": undefined,
   "location": "j1-gc-integration-dev-v2:europe-west3:cloud-sql-postgres",
   "name": "cloud-sql-postgres",
+  "remoteAccess": undefined,
   "requireSSL": undefined,
+  "traceFlag": undefined,
+  "userConnections": undefined,
 }
 `;

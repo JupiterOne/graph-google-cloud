@@ -363,9 +363,8 @@ async function buildComputeDiskUsesKmsKeyRelationship({
     return;
   }
 
-  const kmsKeyEntity = await jobState.findEntity(
-    getKmsGraphObjectKeyFromKmsKeyName(kmsKeyName),
-  );
+  const kmsKey = getKmsGraphObjectKeyFromKmsKeyName(kmsKeyName);
+  const kmsKeyEntity = await jobState.findEntity(kmsKey);
 
   if (kmsKeyEntity) {
     await jobState.addRelationship(
@@ -373,6 +372,23 @@ async function buildComputeDiskUsesKmsKeyRelationship({
         _class: RelationshipClass.USES,
         from: diskEntity,
         to: kmsKeyEntity,
+      }),
+    );
+  } else {
+    await jobState.addRelationship(
+      createMappedRelationship({
+        _class: RelationshipClass.USES,
+        _type: RELATIONSHIP_TYPE_COMPUTE_DISK_USES_KMS_CRYPTO_KEY,
+        _mapping: {
+          relationshipDirection: RelationshipDirection.FORWARD,
+          sourceEntityKey: diskEntity._key,
+          targetFilterKeys: [['_type', '_key']],
+          skipTargetCreation: true,
+          targetEntity: {
+            _type: ENTITY_TYPE_KMS_KEY,
+            _key: kmsKey,
+          },
+        },
       }),
     );
   }
@@ -604,6 +620,23 @@ export async function fetchComputeImages(
             _class: RelationshipClass.USES,
             from: imageEntity,
             to: cryptoKeyEntity,
+          }),
+        );
+      } else {
+        await jobState.addRelationship(
+          createMappedRelationship({
+            _class: RelationshipClass.USES,
+            _type: RELATIONSHIP_TYPE_IMAGE_USES_KMS_KEY,
+            _mapping: {
+              relationshipDirection: RelationshipDirection.FORWARD,
+              sourceEntityKey: imageEntity._key,
+              targetFilterKeys: [['_type', '_key']],
+              skipTargetCreation: true,
+              targetEntity: {
+                _type: ENTITY_TYPE_KMS_KEY,
+                _key: kmsNameWithoutVersion,
+              },
+            },
           }),
         );
       }

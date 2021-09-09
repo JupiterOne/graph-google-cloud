@@ -8,6 +8,58 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- Added support for ingesting the following **new** resources:
+
+  | Service        | Resource / Entity                                                                                                                       |
+  | -------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+  | Dataproc       | `google_dataproc_cluster`                                                                                                               |
+  | Cloud Billing  | `google_billing_account`                                                                                                                |
+  | N/A            | `google_billing_budget`                                                                                                                 |
+  | Cloud Bigtable | `google_bigtable_app_profile`, `google_bigtable_backup`, `google_bigtable_cluster`, `google_bigtable_instance`, `google_bigtable_table` |
+
+- Added support for ingesting the following **new** relationships:
+
+  | Source                     | class  | Target                        |
+  | -------------------------- | ------ | ----------------------------- |
+  | `google_dataproc_cluster`  | `USES` | `google_kms_crypto_key`       |
+  | `google_dataproc_cluster`  | `USES` | `google_compute_image`        |
+  | `google_dataproc_cluster`  | `USES` | `google_storage_bucket`       |
+  | `google_billing_account`   | `HAS`  | `google_billing_budget`       |
+  | `google_cloud_project`     | `USES` | `google_billing_budget`       |
+  | `google_bigtable_cluster`  | `HAS`  | `google_bigtable_backup`      |
+  | `google_bigtable_cluster`  | `USES` | `google_kms_crypto_key`       |
+  | `google_bigtable_instance` | `HAS`  | `google_bigtable_app_profile` |
+  | `google_bigtable_instance` | `HAS`  | `google_bigtable_cluster`     |
+  | `google_bigtable_instance` | `HAS`  | `google_bigtable_table`       |
+  | `google_bigtable_table`    | `HAS`  | `google_bigtable_backup`      |
+
+- Added support for ingesting the following **new** relationships:
+
+  | Source                           | class  | Target                  |
+  | -------------------------------- | ------ | ----------------------- |
+  | `google_bigquery_dataset`        | `USES` | `google_kms_crypto_key` |
+  | `google_compute_disk`            | `USES` | `google_kms_crypto_key` |
+  | `google_compute_image`           | `USES` | `google_kms_crypto_key` |
+  | `google_pubsub_topic`            | `USES` | `google_kms_crypto_key` |
+  | `google_spanner_database`        | `USES` | `google_kms_crypto_key` |
+  | `google_sql_mysql_instance`      | `USES` | `google_kms_crypto_key` |
+  | `google_sql_postgres_instance`   | `USES` | `google_kms_crypto_key` |
+  | `google_sql_sql_server_instance` | `USES` | `google_kms_crypto_key` |
+
+- New properties added to resources:
+
+  | Entity                           | Properties               |
+  | -------------------------------- | ------------------------ |
+  | `google_sql_postgres_instance`   | `logMinMessages`         |
+  | `google_sql_sql_server_instance` | `externalScriptsEnabled` |
+  | `google_sql_sql_server_instance` | `userConnections`        |
+  | `google_sql_sql_server_instance` | `remoteAccess`           |
+  | `google_sql_sql_server_instance` | `traceFlag`              |
+
+## 0.48.0 - 2021-08-27
+
 ### Changed
 
 - Relationships from `google_cloud_organization`s and `google_cloud_folder`s to
@@ -22,6 +74,11 @@ and this project adheres to
   | `google_iam_binding` | **ASSIGNED** | `google_user`                |
   | `google_iam_binding` | **ASSIGNED** | `google_domain`              |
   | `google_user`        | **CREATED**  | `google_app_engine_version`  |
+
+- Separate the step to build `google_bigquery_dataset_uses_kms_crypto_key`
+  relationship
+- Modified `google_bigquery_dataset` step to be independent from
+  `google_kms_crypto_key` step
 
 ## 0.48.0 - 2021-08-27
 

@@ -117,6 +117,7 @@ import {
   fetchKmsKeyRings,
 } from '../kms';
 import { filterGraphObjects } from '../../../test/helpers/filterGraphObjects';
+import { separateDirectMappedRelationships } from '../../../test/helpers/separateDirectMappedRelationships';
 
 const tempNewAccountConfig = {
   ...integrationConfig,
@@ -225,10 +226,14 @@ describe('#fetchComputeDisks', () => {
       ),
     );
 
-    const computeDiskUsesKmsKeyRelationships =
-      context.jobState.collectedRelationships.filter(
-        (r) => r._type === 'google_compute_disk_uses_kms_crypto_key',
+    const { directRelationships, mappedRelationships } =
+      separateDirectMappedRelationships(
+        context.jobState.collectedRelationships,
       );
+
+    const computeDiskUsesKmsKeyRelationships = directRelationships.filter(
+      (r) => r._type === 'google_compute_disk_uses_kms_crypto_key',
+    );
 
     expect(computeDiskUsesKmsKeyRelationships).toEqual(
       computeDiskUsesKmsKeyRelationships.map((r) =>
@@ -237,6 +242,24 @@ describe('#fetchComputeDisks', () => {
         }),
       ),
     );
+
+    const mappedKmsRelationships = mappedRelationships.filter(
+      (r) => r._type === 'google_compute_disk_uses_kms_crypto_key',
+    );
+
+    expect(mappedKmsRelationships.length).toBeGreaterThan(0);
+
+    expect(
+      mappedKmsRelationships
+        .filter(
+          (e) => e._mapping.sourceEntityKey === 'disk:8578135375158446695',
+        )
+        .every(
+          (mappedRelationship) =>
+            mappedRelationship._key ===
+            'disk:8578135375158446695|uses|projects/vmware-account/locations/global/keyRings/test-key-ring/cryptoKeys/foreign-key',
+        ),
+    ).toBe(true);
   });
 });
 
@@ -351,7 +374,17 @@ describe('#fetchComputeImages', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: {
+        ...integrationConfig,
+        serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+          'j1-gc-integration-dev-v2',
+          'j1-gc-integration-dev-v3',
+        ),
+        serviceAccountKeyConfig: {
+          ...integrationConfig.serviceAccountKeyConfig,
+          project_id: 'j1-gc-integration-dev-v3',
+        },
+      },
     });
 
     await fetchKmsKeyRings(context);
@@ -458,10 +491,14 @@ describe('#fetchComputeImages', () => {
       },
     });
 
-    const computeImageUsesCryptoKeyRelationship =
-      context.jobState.collectedRelationships.filter(
-        (r) => r._type === 'google_compute_image_uses_kms_crypto_key',
+    const { directRelationships, mappedRelationships } =
+      separateDirectMappedRelationships(
+        context.jobState.collectedRelationships,
       );
+
+    const computeImageUsesCryptoKeyRelationship = directRelationships.filter(
+      (r) => r._type === 'google_compute_image_uses_kms_crypto_key',
+    );
 
     expect(computeImageUsesCryptoKeyRelationship).toEqual(
       computeImageUsesCryptoKeyRelationship.map((r) =>
@@ -470,6 +507,24 @@ describe('#fetchComputeImages', () => {
         }),
       ),
     );
+
+    const mappedKmsRelationships = mappedRelationships.filter(
+      (r) => r._type === 'google_compute_image_uses_kms_crypto_key',
+    );
+
+    expect(mappedKmsRelationships.length).toBeGreaterThan(0);
+
+    expect(
+      mappedKmsRelationships
+        .filter(
+          (e) => e._mapping.sourceEntityKey === 'image:3010540488777795565',
+        )
+        .every(
+          (mappedRelationship) =>
+            mappedRelationship._key ===
+            'image:3010540488777795565|uses|projects/vmware-account/locations/global/keyRings/test-key-ring/cryptoKeys/foreign-key',
+        ),
+    ).toBe(true);
   });
 });
 
