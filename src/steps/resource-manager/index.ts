@@ -136,18 +136,6 @@ export async function findOrCreateIamRoleEntity({
   );
 }
 
-// This is an optimization to only fetch the iam_role if it is needed for a relationship
-export function shouldMakeTargetIamRelationships(
-  iamUserEntityWithParsedMember: IamUserEntityWithParsedMember,
-) {
-  return (
-    iamUserEntityWithParsedMember.userEntity ||
-    iamUserEntityWithParsedMember.parsedMember.type === 'domain' ||
-    iamUserEntityWithParsedMember.parsedMember.type === 'group' ||
-    iamUserEntityWithParsedMember.parsedMember.type === 'user'
-  );
-}
-
 export function buildIamTargetRelationship({
   iamEntity,
   iamUserEntityWithParsedMember,
@@ -394,27 +382,25 @@ export async function fetchResourceManagerIamPolicy(
         member: data.member,
       });
 
-    if (shouldMakeTargetIamRelationships(iamUserEntityWithParsedMember)) {
-      const iamRoleEntity = await findOrCreateIamRoleEntity({
-        jobState,
-        roleName: data.binding.role,
-      });
+    const iamRoleEntity = await findOrCreateIamRoleEntity({
+      jobState,
+      roleName: data.binding.role,
+    });
 
-      const relationship = buildIamTargetRelationship({
-        iamUserEntityWithParsedMember,
-        iamEntity: iamRoleEntity,
-        relationshipDirection: RelationshipDirection.REVERSE,
-        projectId: client.projectId,
-        condition: data.binding.condition,
-      });
+    const relationship = buildIamTargetRelationship({
+      iamUserEntityWithParsedMember,
+      iamEntity: iamRoleEntity,
+      relationshipDirection: RelationshipDirection.REVERSE,
+      projectId: client.projectId,
+      condition: data.binding.condition,
+    });
 
-      if (!relationship || relationships.has(relationship._key)) {
-        return;
-      }
-
-      await jobState.addRelationship(relationship);
-      relationships.add(relationship._key);
+    if (!relationship || relationships.has(relationship._key)) {
+      return;
     }
+
+    await jobState.addRelationship(relationship);
+    relationships.add(relationship._key);
   });
 }
 
