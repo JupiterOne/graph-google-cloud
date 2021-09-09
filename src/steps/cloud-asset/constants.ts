@@ -4,6 +4,8 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { ANY_RESOURCE } from '../../constants';
 import {
+  ALL_AUTHENTICATED_USERS_TYPE,
+  EVERYONE_TYPE,
   GOOGLE_DOMAIN_ENTITY_TYPE,
   GOOGLE_GROUP_ENTITY_TYPE,
   GOOGLE_USER_ENTITY_TYPE,
@@ -34,22 +36,25 @@ const IAM_PRINCIPAL_TYPES = [
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
   GOOGLE_GROUP_ENTITY_TYPE,
   GOOGLE_USER_ENTITY_TYPE,
+  ALL_AUTHENTICATED_USERS_TYPE,
+  EVERYONE_TYPE,
 ];
 
-export const BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS = IAM_PRINCIPAL_TYPES.map(
-  (principalType) => {
-    return {
-      _type: generateRelationshipType(
-        RelationshipClass.ASSIGNED,
-        bindingEntities.BINDINGS._type,
-        principalType,
-      ),
-      sourceType: bindingEntities.BINDINGS._type,
-      _class: RelationshipClass.ASSIGNED,
-      targetType: principalType,
-    };
-  },
-);
+export const BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS = [
+  ...IAM_PRINCIPAL_TYPES,
+  IAM_ROLE_ENTITY_TYPE, // bindings can have roles as principals
+].map((principalType) => {
+  return {
+    _type: generateRelationshipType(
+      RelationshipClass.ASSIGNED,
+      bindingEntities.BINDINGS._type,
+      principalType,
+    ),
+    sourceType: bindingEntities.BINDINGS._type,
+    _class: RelationshipClass.ASSIGNED,
+    targetType: principalType,
+  };
+});
 
 export const PRINCIPAL_ASSIGNED_ROLE_RELATIONSHIPS = IAM_PRINCIPAL_TYPES.map(
   (principalType) => {

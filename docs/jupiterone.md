@@ -265,7 +265,7 @@ NOTE: ALL OF THE FOLLOWING DOCUMENTATION IS GENERATED USING THE
 "j1-integration document" COMMAND. DO NOT EDIT BY HAND! PLEASE SEE THE DEVELOPER
 DOCUMENTATION FOR USAGE INFORMATION:
 
-https://github.com/JupiterOne/sdk/blob/master/docs/integrations/development.md
+https://github.com/JupiterOne/sdk/blob/main/docs/integrations/development.md
 ********************************************************************************
 -->
 
@@ -367,6 +367,7 @@ The following relationships are created/mapped:
 
 | Source Entity `_type`                                            | Relationship `_class` | Target Entity `_type`                                             |
 | ---------------------------------------------------------------- | --------------------- | ----------------------------------------------------------------- |
+| `everyone`                                                       | **ASSIGNED**          | `google_iam_role`                                                 |
 | `google_access_context_manager_access_policy`                    | **HAS**               | `google_access_context_manager_access_level`                      |
 | `google_access_context_manager_access_policy`                    | **HAS**               | `google_access_context_manager_service_perimeter`                 |
 | `google_access_context_manager_service_perimeter_api_operation`  | **HAS**               | `google_access_context_manager_service_perimeter_method_selector` |
@@ -394,6 +395,7 @@ The following relationships are created/mapped:
 | `google_bigtable_table`                                          | **HAS**               | `google_bigtable_backup`                                          |
 | `google_billing_account`                                         | **HAS**               | `google_billing_budget`                                           |
 | `google_cloud_api_service`                                       | **HAS**               | `google_iam_role`                                                 |
+| `google_cloud_authenticated_users`                               | **ASSIGNED**          | `google_iam_role`                                                 |
 | `internet`                                                       | **ALLOWS**            | `google_compute_firewall`                                         |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_folder`                                             |
 | `google_cloud_function`                                          | **USES**              | `google_iam_service_account`                                      |
@@ -454,8 +456,11 @@ The following relationships are created/mapped:
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_project`                                            |
 | `google_group`                                                   | **ASSIGNED**          | `google_iam_role`                                                 |
 | `google_iam_binding`                                             | **ALLOWS**            | `ANY_RESOURCE`                                                    |
+| `google_iam_binding`                                             | **ASSIGNED**          | `google_cloud_authenticated_users`                                |
 | `google_iam_binding`                                             | **ASSIGNED**          | `google_domain`                                                   |
+| `google_iam_binding`                                             | **ASSIGNED**          | `everyone`                                                        |
 | `google_iam_binding`                                             | **ASSIGNED**          | `google_group`                                                    |
+| `google_iam_binding`                                             | **ASSIGNED**          | `google_iam_role`                                                 |
 | `google_iam_binding`                                             | **ASSIGNED**          | `google_iam_service_account`                                      |
 | `google_iam_binding`                                             | **ASSIGNED**          | `google_user`                                                     |
 | `google_iam_binding`                                             | **USES**              | `google_iam_role`                                                 |

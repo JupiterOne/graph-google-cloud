@@ -192,6 +192,13 @@ export async function createBindingRoleRelationships(
   );
 }
 
+/**
+ * We need to create IAM managed role entities for role bindings because the sdk does not
+ * allow for creating mapped relationships with two target entities.
+ *
+ * NOTE: This will duplicate Google Managed Roles if multiple Google Cloud Organizations are
+ * ingested in a single JupiterOne account.
+ */
 export async function createRolesForPrincipalRelationships(
   context: IntegrationStepContext,
 ): Promise<void> {

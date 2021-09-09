@@ -1,4 +1,6 @@
 import {
+  ALL_AUTHENTICATED_USERS_TYPE,
+  EVERYONE_TYPE,
   GOOGLE_DOMAIN_ENTITY_CLASS,
   GOOGLE_DOMAIN_ENTITY_TYPE,
   GOOGLE_GROUP_ENTITY_CLASS,
@@ -10,7 +12,11 @@ import {
   IAM_SERVICE_ACCOUNT_ENTITY_CLASS,
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
 } from '../iam';
-import { ParsedIamMemberType } from '../../utils/iam';
+import {
+  ConvenienceMemberType,
+  getRoleKeyFromConvienenceType,
+  ParsedIamMemberType,
+} from '../../utils/iam';
 import {
   IntegrationError,
   PrimitiveEntity,
@@ -23,7 +29,7 @@ function CreateIamAllUsers(
 ) {
   return {
     _class: ['UserGroup', 'Everyone'],
-    _type: 'everyone',
+    _type: EVERYONE_TYPE,
     _key: 'global:everyone',
     public: true,
     displayName: 'Everyone (Public Global)',
@@ -36,7 +42,7 @@ function CreateIamAllAuthenticatedUsers(
 ) {
   return {
     _class: ['UserGroup', 'Everyone'],
-    _type: 'google_cloud_authenticated_users',
+    _type: ALL_AUTHENTICATED_USERS_TYPE,
     _key: 'global:google-cloud:authenticated-users',
     public: true,
     displayName: 'Everyone (All Google Cloud Authenticated Users)',
@@ -84,9 +90,9 @@ function createIamRole(
   iamUserEntityWithParsedMember: IamUserEntityWithParsedMember,
 ) {
   const projectId = iamUserEntityWithParsedMember.parsedMember.identifier;
-  const roleName =
-    'role/' +
-    iamUserEntityWithParsedMember.parsedMember.type.substring(7).toLowerCase(); // all roles will start with 'project' - projectOwner, projectEditor, projectViewer
+  const roleName = getRoleKeyFromConvienenceType(
+    iamUserEntityWithParsedMember.parsedMember.type as ConvenienceMemberType,
+  );
   const deleted = iamUserEntityWithParsedMember.parsedMember.deleted;
   return {
     _class: IAM_ROLE_ENTITY_CLASS,
