@@ -45,12 +45,13 @@ import {
   GOOGLE_GROUP_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE,
   GOOGLE_USER_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE,
   STEP_IAM_MANAGED_ROLES,
-  GOOGLE_DOMAIN_ENTITY_TYPE,
-  IAM_PRINCIPAL_TYPE,
 } from '../iam';
 import { cloudresourcemanager_v3 } from 'googleapis';
 import {
+  ConvenienceMemberType,
+  ConvenienceMembers,
   getIamManagedRoleData,
+  getRoleKeyFromConvienenceType,
   ParsedIamMember,
   parseIamMember,
 } from '../../utils/iam';
@@ -75,40 +76,25 @@ export async function maybeFindIamUserEntityWithParsedMember({
 }): Promise<IamUserEntityWithParsedMember> {
   const parsedMember = parseIamMember(member);
   const { identifier: parsedIdentifier, type: parsedMemberType } = parsedMember;
+  let userEntity: Entity | null = null;
 
-  if (
-    !parsedIdentifier ||
-    parsedMemberType === 'domain' ||
-    parsedMemberType === 'group'
+  if (parsedIdentifier && parsedMemberType === 'serviceAccount') {
+    // It is possible that this integration has not created this service account yet. That is fine, just return null.
+    userEntity = (await jobState.findEntity(parsedIdentifier)) ?? null;
+  } else if (
+    ConvenienceMembers.includes(parsedMemberType as ConvenienceMemberType)
   ) {
-    // This is a member that we do not want to create. For example: `allAuthenticatedUsers`
-    // or `domain:{domain}` or `group:abc@123.com`
-    return {
-      parsedMember,
-      userEntity: null,
-    };
+    // It is possible that this integration has not created these role entities. That is fine, just return null.
+    userEntity =
+      (await jobState.findEntity(
+        getRoleKeyFromConvienenceType(
+          parsedMemberType as ConvenienceMemberType,
+        ),
+      )) ?? null;
   }
-
-  // We always want to find or create relationships to user entities. Since
-  // the same user can have multiple roles, there is a possibility that a
-  // user is created earlier in this step. In order to avoid duplicate entity
-  // keys, we need to look for the user before creating anything.
-  if (parsedMember.type === 'serviceAccount') {
-    const userEntity = await jobState.findEntity(parsedIdentifier);
-
-    // We already created service accounts in another step. If this service
-    // account does not exist, it's possible that it was created in between
-    // steps. The caller handles the case that not entity is returned, so we
-    // will just ignore it.
-    return {
-      parsedMember,
-      userEntity,
-    };
-  }
-
   return {
     parsedMember,
-    userEntity: null,
+    userEntity,
   };
 }
 
@@ -150,18 +136,6 @@ export async function findOrCreateIamRoleEntity({
   );
 }
 
-// This is an optimization to only fetch the iam_role if it is needed for a relationship
-export function shouldMakeTargetIamRelationships(
-  iamUserEntityWithParsedMember: IamUserEntityWithParsedMember,
-) {
-  return (
-    iamUserEntityWithParsedMember.userEntity ||
-    iamUserEntityWithParsedMember.parsedMember.type === 'domain' ||
-    iamUserEntityWithParsedMember.parsedMember.type === 'group' ||
-    iamUserEntityWithParsedMember.parsedMember.type === 'user'
-  );
-}
-
 export function buildIamTargetRelationship({
   iamEntity,
   iamUserEntityWithParsedMember,
@@ -195,23 +169,13 @@ export function buildIamTargetRelationship({
       },
     });
   } else {
-    let targetEntityType: IAM_PRINCIPAL_TYPE;
-    const parsedMemberType = iamUserEntityWithParsedMember.parsedMember.type;
-    if (parsedMemberType === 'domain') {
-      targetEntityType = GOOGLE_DOMAIN_ENTITY_TYPE;
-    } else if (parsedMemberType === 'group') {
-      targetEntityType = GOOGLE_GROUP_ENTITY_TYPE;
-    } else if (parsedMemberType === 'user') {
-      targetEntityType = GOOGLE_USER_ENTITY_TYPE;
-    }
-
-    // Create a mapped relationship where the target entity exists is owned
+    // Create a mapped relationship where the target entity exists and is owned
     // by the Google Workspace integration.
     return createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship({
       iamEntity: iamEntity,
-      targetEntity: CREATE_IAM_ENTITY_MAP[targetEntityType!](
-        iamUserEntityWithParsedMember,
-      ),
+      targetEntity: CREATE_IAM_ENTITY_MAP[
+        iamUserEntityWithParsedMember.parsedMember.type
+      ](iamUserEntityWithParsedMember),
       relationshipDirection,
       projectId,
       condition,
@@ -418,27 +382,25 @@ export async function fetchResourceManagerIamPolicy(
         member: data.member,
       });
 
-    if (shouldMakeTargetIamRelationships(iamUserEntityWithParsedMember)) {
-      const iamRoleEntity = await findOrCreateIamRoleEntity({
-        jobState,
-        roleName: data.binding.role,
-      });
+    const iamRoleEntity = await findOrCreateIamRoleEntity({
+      jobState,
+      roleName: data.binding.role,
+    });
 
-      const relationship = buildIamTargetRelationship({
-        iamUserEntityWithParsedMember,
-        iamEntity: iamRoleEntity,
-        relationshipDirection: RelationshipDirection.REVERSE,
-        projectId: client.projectId,
-        condition: data.binding.condition,
-      });
+    const relationship = buildIamTargetRelationship({
+      iamUserEntityWithParsedMember,
+      iamEntity: iamRoleEntity,
+      relationshipDirection: RelationshipDirection.REVERSE,
+      projectId: client.projectId,
+      condition: data.binding.condition,
+    });
 
-      if (!relationship || relationships.has(relationship._key)) {
-        return;
-      }
-
-      await jobState.addRelationship(relationship);
-      relationships.add(relationship._key);
+    if (!relationship || relationships.has(relationship._key)) {
+      return;
     }
+
+    await jobState.addRelationship(relationship);
+    relationships.add(relationship._key);
   });
 }
 

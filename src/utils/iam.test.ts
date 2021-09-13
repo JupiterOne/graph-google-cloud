@@ -1,5 +1,6 @@
 import {
   getFullServiceApiNameFromPermission,
+  getRoleKeyFromConvienenceType,
   getUniqueFullServiceApiNamesFromRole,
   isReadOnlyPermission,
   isReadOnlyRole,
@@ -252,5 +253,17 @@ describe('#getUniqueFullServiceApiNamesFromRole', () => {
       'cloudresourcemanager.googleapis.com',
       'bigtable.googleapis.com',
     ]);
+  });
+});
+
+describe('getRoleKeyFromConvienenceType', () => {
+  it('should parse projectEditor correctly', () => {
+    expect(getRoleKeyFromConvienenceType('projectEditor')).toBe('roles/editor');
+  });
+  it('should parse projectOwner correctly', () => {
+    expect(getRoleKeyFromConvienenceType('projectOwner')).toBe('roles/owner');
+  });
+  it('should parse projectViewer correctly', () => {
+    expect(getRoleKeyFromConvienenceType('projectViewer')).toBe('roles/viewer');
   });
 });
