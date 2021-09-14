@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.49.0 - 2021-09-14
+
 ### Added
 
 - Added support for ingesting the following **new** resources:
