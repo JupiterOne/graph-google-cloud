@@ -170,7 +170,9 @@ export async function fetchBigQueryTables(
               data: table,
               projectId: client.projectId,
               isPublic: isBigQueryPolicyPublicAccess(tablePolicy),
-              kmsKeyName: tableResource.encryptionConfiguration?.kmsKeyName ? tableResource.encryptionConfiguration?.kmsKeyName : undefined,
+              kmsKeyName: tableResource.encryptionConfiguration?.kmsKeyName
+                ? tableResource.encryptionConfiguration?.kmsKeyName
+                : undefined,
             });
 
             await jobState.addEntity(tableEntity);

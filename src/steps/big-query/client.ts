@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+
 import { bigquery_v2, google } from 'googleapis';
 import { Client } from '../../google-cloud/client';
 
