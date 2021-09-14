@@ -69,9 +69,9 @@ export class BigQueryClient extends Client {
 
     const resp = await this.client.tables.get({
       auth,
-      projectId: data.tableReference?.projectId || '',
-      datasetId: data.tableReference?.datasetId || '',
-      tableId: data.tableReference?.tableId || '',
+      projectId: data.tableReference?.projectId!,
+      datasetId: data.tableReference?.datasetId!,
+      tableId: data.tableReference?.tableId!,
     });
 
     return resp.data;

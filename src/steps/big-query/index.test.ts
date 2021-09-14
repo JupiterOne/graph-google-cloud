@@ -208,7 +208,6 @@ describe('#fetchBigQueryModels', () => {
           createdOn: { type: 'number' },
           updatedOn: { type: 'number' },
           webLink: { type: 'string' },
-          isCmekDefault: { type: 'boolean' },
         },
       },
     });

@@ -12,10 +12,9 @@ and this project adheres to
 
 - New properties added to resources:
 
-  | Entity                    | Properties              |
-  | -----------------------   | ----------------------- |
-  | `google_bigquery_table`   | `isUsingCmek`           |
-  | `google_bigquery_dataset` | `isCmekDefault`         |
+  | Entity                  | Properties   |
+  | ----------------------- | ------------ |
+  | `google_bigquery_table` | `kmsKeyName` |
 
 ## 0.49.0 - 2021-09-14
 
