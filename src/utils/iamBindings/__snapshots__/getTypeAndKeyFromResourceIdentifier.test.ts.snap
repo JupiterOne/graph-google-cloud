@@ -523,8 +523,8 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 66`] = `
 Object {
   "identifier": "//dns.googleapis.com/projects/12345/policies/abcdef12345",
-  "key": undefined,
-  "type": "NO_DIRECT_J1_RESOURCE_YET",
+  "key": "projects/12345/policies/abcdef12345",
+  "type": "google_dns_policy",
 }
 `;
 

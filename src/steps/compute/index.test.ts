@@ -1079,7 +1079,7 @@ describe('#fetchComputeNetworks', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: tempNewAccountConfig,
     });
 
     await fetchComputeNetworks(context);
