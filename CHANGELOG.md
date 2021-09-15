@@ -8,21 +8,19 @@ and this project adheres to
 
 ## [Unreleased]
 
-
-
 ### Changed
 
 - Added support for ingesting the following **new** resources:
 
-  | Service     | Resource / Entity    |
-  | ----------- | -------------------- |
-  | DNS Policy  | `google_dns_policy`  |
+  | Service    | Resource / Entity   |
+  | ---------- | ------------------- |
+  | DNS Policy | `google_dns_policy` |
 
 - Added support for ingesting the following **new** relationships:
 
-  | Source               | class        | Target                           |
-  | -------------------- | ------------ | -------------------------------- |
-  | `google_dns_policy`  | **MANAGES**  | `google_compute_network`         |
+  | Source                   | class   | Target              |
+  | ------------------------ | ------- | ------------------- |
+  | `google_compute_network` | **HAS** | `google_dns_policy` |
 
 - Relationships from `google_cloud_organization`s and `google_cloud_folder`s to
   `google_cloud_project`s will also be made for deleted projects as well.
