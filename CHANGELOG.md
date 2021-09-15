@@ -8,13 +8,16 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.50.0 - 2021-09-15
+
 ### Added
 
 - New properties added to resources:
 
-  | Entity                  | Properties   |
-  | ----------------------- | ------------ |
-  | `google_bigquery_table` | `kmsKeyName` |
+  | Entity                           | Properties    |
+  | -------------------------------- | ------------- |
+  | `google_bigquery_table`          | `kmsKeyName`  |
+  | `google_sql_sql_server_instance` | `userOptions` |
 
 ## 0.49.0 - 2021-09-14
 
