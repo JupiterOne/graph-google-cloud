@@ -1,0 +1,1258 @@
+---
+sourceId: managed:google_cloud
+integrationDefinitionId: "${integration_definition_id}"
+questions:
+################################################################################
+# Generic non-compliance questions
+################################################################################
+- id: integration-question-google-cloud-disabled-project-services
+  title: Which Google Cloud API services are disabled for my project?
+  description:
+    Finds all disabled Google Cloud API services in a specified project
+  queries:
+  - query: |
+      FIND google_cloud_api_service WITH projectId = '{{projectId}}' AND enabled = false
+  tags:
+  - google-cloud
+  - service
+  - api
+################################################################################
+# End generic non-compliance questions
+################################################################################
+
+################################################################################
+# Section 1: Identity and Access Management (IAM)
+################################################################################
+- id: integration-question-google-cloud-corporate-login-credentials
+  title: Ensure that corporate login credentials are used
+  description:
+    Use corporate login credentials instead of personal accounts, such as Gmail accounts.
+  queries:
+  - name: good
+    query: find google_user with email $="@{{domain}}"
+  - name: bad
+    query: find google_user with email !$="@{{domain}}"
+  tags:
+  - google-cloud
+  - user
+  - access
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '1.1'
+- id: integration-question-google-cloud-managed-service-account-keys
+  title: Ensure that there are only GCP-managed service account keys for each service account
+  description:
+    User managed service accounts should not have user-managed keys.
+  queries:
+  - name: good
+    query: find google_iam_service_account_key with type="SYSTEM_MANAGED"
+  - name: bad
+    query: find google_iam_service_account_key with type!="SYSTEM_MANAGED"
+  tags:
+  - google-cloud
+  - service-account
+  - access
+  - iam
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '1.4'
+- id: integration-question-google-cloud-service-account-non-admin
+  title: Ensure that Service Account has no Admin privileges
+  description:
+    A service account should not have admin privileges
+  queries:
+  - name: good
+    query: |
+      find google_iam_service_account as user
+        that ASSIGNED google_iam_role
+        with name!~=(
+          "admin" or
+          "Admin"
+        ) and name!=(
+          "roles/owner" or
+          "roles/editor"
+        )
+      return
+        user.name,
+        user.username,
+        user.email,
+        google_iam_role.name
+  - name: bad
+    query: |
+      find google_iam_service_account as user
+        that ASSIGNED google_iam_role
+        with name~=(
+          "admin" or
+          "Admin"
+        ) or name=(
+          "roles/owner" or
+          "roles/editor"
+        )
+      return
+        user.name,
+        user.username,
+        user.email,
+        google_iam_role.name
+  tags:
+  - google-cloud
+  - service-account
+  - admin
+  - access
+  - iam
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '1.5'
+- id: integration-question-google-cloud-iam-not-assigned-user-token-roles-project-level
+  title: Ensure that IAM users are not assigned the Service Account User or Service Account Token Creator roles at project level
+  description: >
+    It is recommended to assign the Service Account User (iam.serviceAccountUser)
+    and Service Account Token Creator (iam.serviceAccountTokenCreator) roles to
+    a user for a specific service account rather than assigning the role to a
+    user at project level.
+  queries:
+  - name: good
+    query: |
+      find google_iam_service_account as user
+        that ASSIGNED google_iam_role as role
+        where
+          role.name!="roles/iam.serviceAccountUser" and
+          role.name!="roles/iam.serviceAccountTokenCreator"
+      return
+        user.name,
+        role.name
+  - name: bad
+    query: |
+      find google_iam_service_account as user
+        that ASSIGNED google_iam_role as role
+        where
+          role.name="roles/iam.serviceAccountUser" or
+          role.name="roles/iam.serviceAccountTokenCreator"
+      return
+        user.name,
+        role.name
+  tags:
+  - google-cloud
+  - service-account
+  - access
+  - iam
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '1.6'
+- id: integration-question-google-cloud-user-managed-external-keys-service-account-rotation-period
+  title: Ensure user-managed/external keys for service accounts are rotated every 90 days or less
+  description: >
+    Service Account keys consist of a key ID (Private_key_Id) and Private key,
+    which are used to sign programmatic requests users make to Google cloud
+    services accessible to that particular service account. It is recommended
+    that all Service Account keys are regularly rotated.
+  queries:
+  - name: bad
+    query: |
+      find google_iam_service_account as serviceAccount
+        that HAS google_iam_service_account_key
+        with createdOn <= date.now-90days
+      return
+        serviceAccount.id,
+        serviceAccount.email,
+        serviceAccount.description,
+        serviceAccount.enabled,
+        serviceAccount.webLink,
+        google_iam_service_account_key.name,
+        google_iam_service_account_key.type,
+        google_iam_service_account_key.createdOn,
+        google_iam_service_account_key.expiresOn
+  tags:
+  - google-cloud
+  - service-account
+  - access
+  - iam
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '1.7'
+
+- id: integration-question-google-cloud-encryption-keys-publicly-accessible
+  title: Are there Cloud KMS crypto keys that are publicly accessible?
+  description: >
+    It is recommended that the IAM policy on Cloud KMS cryptokeys should restrict anonymous and/or public access.
+  queries:
+  - name: good
+    query: |
+      find google_kms_crypto_key with public=false
+  - name: bad
+    query: |
+      find google_kms_crypto_key with public=true
+  tags:
+  - google-cloud
+  - kms
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '1.9'
+
+- id: integration-question-google-cloud-encryption-keys-rotation-period
+  title: Ensure encryption keys are rotated within a period of 365 days
+  description: >
+    Google Cloud Crypto keys should be rotated at least once per 365 days
+  queries:
+  - name: good
+    query: |
+      find google_kms_key_ring as keyRing
+        THAT HAS google_kms_crypto_key as key
+      where
+        key.rotationPeriod <= 31536000
+      return
+        keyRing.name,
+        keyRing.location,
+        keyRing.webLink,
+        key.name,
+        key.displayName,
+        key.createdOn,
+        key.nextRotationTime,
+        key.rotationPeriod,
+        key.webLink
+  - name: bad
+    query: |
+      find google_kms_key_ring as keyRing
+        THAT HAS google_kms_crypto_key as key
+      where
+        key.rotationPeriod > 31536000
+      return
+        keyRing.name,
+        keyRing.location,
+        keyRing.webLink,
+        key.name,
+        key.displayName,
+        key.createdOn,
+        key.nextRotationTime,
+        key.rotationPeriod,
+        key.webLink
+  tags:
+  - google-cloud
+  - kms
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '1.10'
+
+- id: integration-question-google-cloud-iam-all-user-policies
+  title: Which policies are bound to “allUsers” or “allAuthenticatedUsers”?
+  description: >
+    Return a list of GCP policies bound to certain all user groups.
+  queries:
+  - name: bad
+    query: |
+      FIND google_iam_binding WITH members = ("allUsers" OR "allAuthenticatedUsers")
+  tags:
+  - google-cloud
+  - iam
+
+- id: integration-question-google-cloud-policies-bound-to-users
+  title: Which policies are bound to users?
+  description: >
+    Return a list of GCP policies bound to one or more users.
+  queries:
+  - name: good
+    query: |
+      FIND google_iam_binding WITH members ^="user:"
+  tags:
+  - google-cloud
+  - iam
+
+- id: integration-question-google-cloud-gke-kms-not-admin
+  title: Which Google Cloud resources were provisioned with a KMS key that was not generated from the KMS admin project?
+  description: >
+    Return the GCP resources that were provisioned to use a KMS key that was not generated from the KMS admin project.
+  queries:
+  - name: bad
+    query: |
+      FIND (
+        google_compute_disk |
+        google_storage_bucket |
+        google_bigquery_dataset |
+        google_pubsub_topic |
+        google_sql_mysql_instance |
+        google_sql_postgres_instance |
+        google_sql_sql_server_instance
+      )
+        WITH kmsKeyName !^="{{kms project reference}}"
+        AND kmsKeyName != undefined AS result
+      RETURN
+        result.name,
+        result.kmsKeyName,
+        result.webLink
+  tags:
+  - google-cloud
+  - gke
+  - kms
+################################################################################
+# End section 1: Identity and Access Management (IAM)
+################################################################################
+
+################################################################################
+# Section 2: Account Management
+################################################################################
+- id: integration-question-google-cloud-account-service-perimeter
+  title: Which Google Cloud projects are not protected by a service perimeter?
+  description: >
+    Return a list of GCP projects that are not protected by a service perimiter.
+  queries:
+  - name: bad
+    query: |
+      FIND google_cloud_project
+        THAT !PROTECTS google_access_context_manager_service_perimeter AS perimeter
+        RETURN
+          google_cloud_project.id, google_cloud_project.displayName, google_cloud_project.webLink
+  tags:
+  - google-cloud
+  - account
+
+- id: integration-question-google-cloud-api-services-service-perimeter
+  title: Which Google Cloud API services are not limited by a service perimeter?
+  description: >
+    Return the GCP API services that are not limited by a service perimeter.
+  queries:
+  - name: bad
+    query: |
+      Find google_cloud_api_service
+        THAT !LIMITS google_access_context_manager_service_perimeter as perimeter
+        return
+          google_cloud_api_service.name, google_cloud_api_service.displayName
+  tags:
+  - google-cloud
+  - account
+  - api
+################################################################################
+# End section 2: Account Management
+################################################################################
+
+################################################################################
+# Section 3: Networking
+################################################################################
+- id: integration-question-google-cloud-default-network-not-exist
+  title: Ensure that the default network does not exist in a project
+  description: >
+    To prevent use of default network, a project should not have a default network.
+  queries:
+  - name: bad
+    query: find google_compute_network with name="default"
+  tags:
+  - google-cloud
+  - compute
+  - network
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '3.1'
+
+- id: integration-question-google-cloud-dnssec-enabled-cloud-dns
+  title: Are Domain Name System Security Extensions (DNSSEC) enabled for Cloud DNS?
+  description: >
+    Cloud Domain Name System (DNS) is a fast, reliable and cost-effective domain name system that powers millions of domains on the internet. Domain Name System Security Extensions (DNSSEC) in Cloud DNS enables domain owners to take easy steps to protect their domains against DNS hijacking and man-in-the-middle and other attacks.
+  queries:
+  - name: good
+    query: find google_dns_managed_zone with dnssec="on"
+  - name: bad
+    query: find google_dns_managed_zone with dnssec!="on"
+  tags:
+  - google-cloud
+  - domain
+  - dns
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '3.3'
+
+- id: integration-question-google-cloud-dns-dnssec-key-signing-key-insecure-algo
+  title: Are my key-signing keys used in Cloud DNS DNSSEC using an insecure algorithm?
+  description: >
+    DNSSEC algorithm numbers in this registry may be used in CERT RRs. Zone signing (DNSSEC) and transaction security mechanisms (SIG(0) and TSIG) make use of particular subsets of these algorithms. The algorithm used for key signing should be a recommended one and it should be strong.
+  queries:
+  - name: good
+    query: find google_dns_managed_zone with keySigningAlgorithm!="rsasha1"
+  - name: bad
+    query: find google_dns_managed_zone with keySigningAlgorithm="rsasha1"
+  tags:
+  - google-cloud
+  - domain
+  - dns
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '3.4'
+
+- id: integration-question-google-cloud-dns-dnssec-zone-signing-key-insecure-algo
+  title: Are my zone-signing keys used in Cloud DNS DNSSEC using an insecure algorithm?
+  description: >
+    DNSSEC algorithm numbers in this registry may be used in CERT RRs. Zone signing (DNSSEC) and transaction security mechanisms (SIG(0) and TSIG) make use of particular subsets of these algorithms. The algorithm used for key signing should be a recommended one and it should be strong.
+  queries:
+  - name: good
+    query: find google_dns_managed_zone with zoneSigningAlgorithm!="rsasha1"
+  - name: bad
+    query: find google_dns_managed_zone with zoneSigningAlgorithm="rsasha1"
+  tags:
+  - google-cloud
+  - domain
+  - dns
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '3.5'
+
+- id: integration-question-google-cloud-ssh-restricted-internet
+  title: Ensure that SSH access is restricted from the internet
+  description: >
+    Firewall rules that allow traffic to SSH port (22) should be restricted
+  queries:
+  - name: bad
+    query: |
+      find Internet
+        THAT ALLOWS as rule google_compute_firewall as firewall
+        THAT PROTECTS google_compute_network as network
+        THAT CONTAINS google_compute_subnetwork as subnetwork
+      WHERE
+        firewall.ingress=true AND
+        rule.ipProtocol='tcp' AND
+        rule.fromPort <= 22 AND
+        rule.toPort >= 22
+      return
+        rule.ipProtocol,
+          rule.fromPort,
+          rule.toPort,
+        firewall.sourceRanges,
+          firewall.destinationRanges,
+        network.displayName,
+          network.name,
+          network.description,
+        subnetwork.CIDR,
+          subnetwork.displayName,
+          subnetwork.name
+  tags:
+  - google-cloud
+  - compute
+  - network
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '3.6'
+
+- id: integration-question-google-cloud-rdp-restricted-internet
+  title: Ensure that RDP access is restricted from the Internet
+  description: >
+    Firewall rules that allow traffic to RDP port (3389) should be restricted
+  queries:
+  - name: bad
+    query: |
+      find Internet
+        THAT ALLOWS as rule google_compute_firewall as firewall
+        THAT PROTECTS google_compute_network as network
+        THAT CONTAINS google_compute_subnetwork as subnetwork
+      WHERE
+        firewall.ingress=true AND
+        rule.ipProtocol='tcp' AND
+        rule.fromPort <= 3389 AND
+        rule.toPort >= 3389
+      return
+        rule.ipProtocol,
+          rule.fromPort,
+          rule.toPort,
+        firewall.sourceRanges,
+          firewall.destinationRanges,
+        network.displayName,
+          network.name,
+          network.description,
+        subnetwork.CIDR,
+          subnetwork.displayName,
+          subnetwork.name
+  tags:
+  - google-cloud
+  - compute
+  - network
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '3.7'
+
+- id: integration-question-google-cloud-firewall-deny-all
+  title: Which Google Cloud networks do not have a default Deny All egress rule for firewalls?
+  description: >
+    Return a list of GCP networks that do not have a default Deny All egress rule for firewalls.
+  queries:
+  - name: bad
+    query: |
+      FIND google_compute_network AS network
+        THAT !HAS google_compute_firewall
+          WITH denied ~= '{"IPProtocol":"all"}'
+          AND egress = true
+          AND destinationRanges ~= '0.0.0.0/0'
+          AS firewall
+      RETURN
+        network.projectId,
+        network.displayName,
+        network.name,
+        network.description
+  tags:
+  - google-cloud
+  - network
+  - firewall
+
+- id: integration-question-google-cloud-firewall-remote-access
+  title: Which compute instances in production projects have firewalls that allow remote user access?
+  description: >
+    Return instances in production projects with firewalls that allow remote user access.
+  queries:
+  - name: bad
+    query: |
+      FIND Internet
+        THAT ALLOWS AS rule google_compute_firewall
+          WITH ingress = true AS firewall
+        THAT PROTECTS google_compute_network AS network
+        THAT CONTAINS google_compute_subnetwork AS subnetwork
+        THAT HAS google_compute_instance
+          WITH projectId ~= 'prod' as instance
+      WHERE (
+          (rule.fromPort <= 3389 AND rule.toPort >= 3389) OR
+          (rule.fromPort <= 22 AND rule.toPort >= 22) OR
+          (rule.fromPort <= 5985 AND rule.toPort >= 5985) OR
+          (rule.fromPort <= 5986 AND rule.toPort >= 5986)
+      )
+      RETURN
+        instance.projectId, instance.displayName,
+        firewall.name, firewall.priority,
+        rule.ipRange,rule.fromPort, rule.toPort,
+        network.displayName, network.name, network.description
+  tags:
+  - google-cloud
+  - compute
+  - network
+  - firewall
+################################################################################
+# End section 3: Networking
+################################################################################
+
+################################################################################
+# Section 4: Virtual Machines
+################################################################################
+- id: integration-question-google-cloud-compute-instance-non-default-service-account
+  title: Ensure that Google Cloud Compute instances are not configured to use the default service account
+  description: >
+    It is recommended to configure your instance to not use the default Compute
+    Engine service account because it has the Editor role on the project.
+  queries:
+  - name: bad
+    query: |
+      find google_compute_instance as instance
+        that TRUSTS as trusts google_iam_service_account
+        with email$="-compute@developer.gserviceaccount.com"
+      return
+        instance.id,
+        instance.name,
+        instance.displayName,
+        instance.webLink,
+        google_iam_service_account.name,
+        google_iam_service_account.username,
+        google_iam_service_account.email,
+        trusts.scopes as serviceAccountScopes,
+        google_iam_service_account.webLink
+  tags:
+  - google-cloud
+  - compute
+  - instance
+  - service-account
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '4.1'
+
+- id: integration-question-google-cloud-compute-instance-default-service-account-full-access
+  title: Are any of my Google Compute instances using the default service account with full access to all cloud APIs?
+  description: >
+    To support principle of least privileges and prevent potential privilege escalation it is recommended that instances are not assigned to default service account Compute Engine default service account with Scope Allow full access to all Cloud APIs.
+  queries:
+  - name: good
+    query: |
+      find google_compute_instance with usesFullAccessDefaultServiceAccount!=true
+  - name: bad
+    query: |
+      find google_compute_instance with usesFullAccessDefaultServiceAccount=true
+  tags:
+  - google-cloud
+  - compute
+  - instance
+  - service-account
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '4.2'
+
+- id: integration-question-google-cloud-compute-instance-block-project-wide-ssh-keys
+  title: Is blocking of project-wide SSK keys enabled for my Google Cloud VM instances?
+  description: >
+    It is recommended to use Instance specific SSH key(s) instead of using common/shared project-wide SSH key(s) to access Instances.
+  queries:
+  - name: good
+    query: |
+      find google_compute_instance with blockProjectSSHKeys=true
+  - name: bad
+    query: |
+      FIND google_compute_instance
+      WITH blockProjectSSHKeys != true
+      AND [tag.goog-gke-node] = undefined
+      AND name !^= "gke-"
+  tags:
+  - google-cloud
+  - compute
+  - instance
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '4.3'
+
+- id: integration-question-google-cloud-os-login-enabled-project
+  title: Is OS login enabled for projects?
+  description: >
+    Enabling OS login binds SSH certificates to IAM users and facilitates effective SSH certificate management.
+  queries:
+  - name: good
+    query: |
+      find google_compute_project
+        with isOSLoginEnabled=true
+      that HAS google_compute_instance
+        with isOSLoginEnabled!=false
+      return
+        google_compute_instance.id,
+        google_compute_instance.name,
+        google_compute_instance.displayName,
+        google_compute_instance.webLink,
+        google_compute_project.id,
+        google_compute_project.displayName
+  - name: bad
+    query: |
+      find google_compute_project as project
+        that HAS google_compute_instance as instance
+       where
+        project.isOSLoginEnabled=false or
+        (project.isOSLoginEnabled=true and instance.isOSLoginEnabled=false)
+  tags:
+  - google-cloud
+  - compute
+  - project
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '4.4'
+
+- id: integration-question-google-cloud-vm-serial-port-connection-enabled
+  title: Is connecting to serial ports enabled for VM instances?
+  description: >
+    Interacting with a serial port is often referred to as the serial console,
+    which is similar to using a terminal window, in that input and output is
+    entirely in text mode and there is no graphical interface or mouse support.
+
+    If you enable the interactive serial console on an instance, clients can
+    attempt to connect to that instance from any IP address. Therefore
+    interactive serial console support should be disabled.
+  queries:
+  - name: good
+    query: |
+      find google_compute_instance with isSerialPortEnabled!=true
+  - name: bad
+    query: |
+      find google_compute_instance with isSerialPortEnabled=true
+  tags:
+  - google-cloud
+  - compute
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '4.5'
+
+- id: integration-question-google-cloud-instance-ip-forwarding-not-enabled
+  title: Is IP forwarding enabled on compute instances?
+  description: >
+    Compute Engine instance cannot forward a packet unless the source IP address
+    of the packet matches the IP address of the instance. Similarly, GCP won't
+    deliver a packet whose destination IP address is different than the IP
+    address of the instance receiving the packet. However, both capabilities are
+    required if you want to use instances to help route packets.
+
+    Forwarding of data packets should be disabled to prevent data loss or
+    information disclosure.
+  queries:
+  - name: good
+    query: |
+      find google_compute_instance with canIpForward!=true
+  - name: bad
+    query: |
+      find google_compute_instance with canIpForward=true
+  tags:
+  - google-cloud
+  - compute
+  - network
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '4.6'
+
+- id: integration-question-google-cloud-vm-disk-encrypted-customer-supplied-encryption-keys
+  title: Are my VM disks encrypted with Customer-Supplied Encryption Keys (CSEK)?
+  description: >
+    Customer-Supplied Encryption Keys (CSEK) are a feature in Google Cloud Storage and Google Compute Engine. If you supply your own encryption keys, Google uses your key to protect the Google-generated keys used to encrypt and decrypt your data. By default, Google Compute Engine encrypts all data at rest. Compute Engine handles and manages this encryption for you without any additional actions on your part. However, if you wanted to control and manage this encryption yourself, you can provide your own encryption keys.
+  queries:
+  - name: good
+    query: |
+      find google_compute_disk with isCustomerSuppliedKeysEncrypted=true
+  - name: bad
+    query: |
+      find google_compute_disk with isCustomerSuppliedKeysEncrypted!=true
+  tags:
+  - google-cloud
+  - compute
+  - encryption
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '4.7'
+
+- id: integration-question-google-cloud-instances-shielded-vm-config
+  title: Are my compute instances launched with shielded VM configuration?
+  description: >
+    To defend against against advanced threats and ensure that the boot loader and firmware on your VMs are signed and untampered, it is recommended that Compute instances are launched with Shielded VM enabled.
+  queries:
+  - name: good
+    query: |
+      find google_compute_instance with isShieldedVM=true
+  - name: bad
+    query: |
+      find google_compute_instance with isShieldedVM!=true
+  tags:
+  - google-cloud
+  - compute
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '4.8'
+################################################################################
+# End Section 4: Virtual Machines
+################################################################################
+
+################################################################################
+# Section 5: Storage
+################################################################################
+- id: integration-question-google-cloud-storage-bucket-public-access
+  title: Ensure that Cloud Storage bucket is not anonymously or publicly accessible
+  description: >
+    It is recommended that IAM policy on Cloud Storage bucket does not allow
+    anonymous or public access.
+  queries:
+  - name: good
+    query: find google_storage_bucket with public!=true
+  - name: bad
+    query: find google_storage_bucket with public=true and classification!='public'
+  tags:
+  - google-cloud
+  - storage
+  - access
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '5.1'
+- id: integration-question-google-cloud-storage-bucket-uniform-bucket-access-enabled
+  title: Ensure that Cloud Storage buckets have uniform bucket-level access enabled
+  description: >
+    It is recommended to use uniform bucket-level access to unify and simplify
+    how you grant access to your Cloud Storage resources.
+  queries:
+  - name: good
+    query: find google_storage_bucket with uniformBucketLevelAccess=true
+  - name: bad
+    query: find google_storage_bucket with uniformBucketLevelAccess!=true
+  tags:
+  - google-cloud
+  - storage
+  - access
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '5.2'
+################################################################################
+# End Section 5: Storage
+################################################################################
+
+################################################################################
+# Section 6: Cloud SQL Database Services
+################################################################################
+- id: integration-question-google-mysql-local-infile-flag-off
+  title: Are my Cloud SQL MySQL instances configured with the "local_infile" database flag set to "off"?
+  description: >
+    It is recommended to set the local_infile database flag for a Cloud SQL MySQL instance to off.
+  queries:
+  - name: good
+    query: |
+      find google_sql_mysql_instance with localInfile='off'
+  - name: bad
+    query: |
+      find google_sql_mysql_instance with localInfile!='off'
+  tags:
+  - google-cloud
+  - sql
+  - mysql
+  - datastore
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '6.1.2'
+
+- id: integration-question-google-postgresql-log-checkpoints-flag-on
+  title: Are my Cloud PostgreSQL instances configured with the "log_checkpoints" database flag set to "on"?
+  description: >
+    Ensure that the log_checkpoints database flag for the Cloud SQL PostgreSQL instance is set to on.
+  queries:
+  - name: good
+    query: |
+      find google_sql_postgres_instance with logCheckpoints='on'
+  - name: bad
+    query: |
+      find google_sql_postgres_instance with logCheckpoints!='on'
+  tags:
+  - google-cloud
+  - sql
+  - postgresql
+  - datastore
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '6.2.1'
+
+- id: integration-question-google-postgresql-log-connections-flag-on
+  title: Are my Cloud PostgreSQL instances configured with the "log_connections" database flag set to "on"?
+  description: >
+    Enabling the log_connections setting causes each attempted connection to the server to be logged, along with successful completion of client authentication. This parameter cannot be changed after the session starts.
+  queries:
+  - name: good
+    query: |
+      find google_sql_postgres_instance with logConnections='on'
+  - name: bad
+    query: |
+      find google_sql_postgres_instance with logConnections!='on'
+  tags:
+  - google-cloud
+  - sql
+  - postgresql
+  - datastore
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '6.2.2'
+
+- id: integration-question-google-postgresql-log-disconnections-flag-on
+  title: Are my Cloud PostgreSQL instances configured with the "log_disconnections" database flag set to "on"?
+  description: >
+    Enabling the log_disconnections setting logs the end of each session, including the session duration.
+  queries:
+  - name: good
+    query: |
+      find google_sql_postgres_instance with logDisconnections='on'
+  - name: bad
+    query: |
+      find google_sql_postgres_instance with logDisconnections!='on'
+  tags:
+  - google-cloud
+  - sql
+  - postgresql
+  - datastore
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '6.2.3'
+
+- id: integration-question-google-postgresql-log-lock-awaits-flag-on
+  title: Are my Cloud SQL PostgreSQL instances configured with the "log_lock_waits" database flag set to "on"?
+  description: >
+    Enabling the log_lock_waits flag for a PostgreSQL instance creates a log for any session waits that take longer than the alloted deadlock_timeout time to acquire a lock.
+  queries:
+  - name: good
+    query: |
+      find google_sql_postgres_instance with logLockWaits='on'
+  - name: bad
+    query: |
+      find google_sql_postgres_instance with logLockWaits!='on'
+  tags:
+  - google-cloud
+  - sql
+  - postgresql
+  - datastore
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '6.2.4'
+
+- id: integration-question-google-postgresql-log-min-messages-flag-on
+  title: Are my Cloud PostgreSQL instances configured with the "log_min_messages" database flag set to an accetable value?
+  description: >
+    The log_min_error_statement flag defines the minimum message severity level
+    that is considered as an error statement. Messages for error statements are
+    logged with the SQL statement. Valid values include debug5, debug4, debug3,
+    debug2, debug1, info, notice, warning, error, log, fatal, and panic.
+    Each severity level includes the subsequent levels mentioned above.
+  queries:
+  - name: good
+    query: |
+      find google_sql_postgres_instance with logMinErrorStatement='{{orgMinErrorStatementPolicy}}'
+  - name: bad
+    query: |
+      find google_sql_postgres_instance with logMinErrorStatement!='{{orgMinErrorStatementPolicy}}'
+  tags:
+  - google-cloud
+  - sql
+  - postgresql
+  - datastore
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '6.2.5'
+
+- id: integration-question-google-postgresql-log-temp-files-flag
+  title: Are my Cloud PostgreSQL instances configured with the "log_temp_files" database flag set to "0"?
+  description: >
+    PostgreSQL can create a temporary file for actions such as sorting, hashing
+    and temporary query results when these operations exceed work_mem. The
+    log_temp_files flag controls logging names and the file size when it is
+    deleted. Configuring log_temp_files to 0 causes all temporary file
+    information to be logged, while positive values log only files whose size is
+    greater than or equal to the specified number of kilobytes. A value of -1
+    disables temporary file information logging.
+  queries:
+  - name: good
+    query: |
+      find google_sql_postgres_instance with logTempFiles='0'
+  - name: bad
+    query: |
+      find google_sql_postgres_instance with logTempFiles!='0'
+  tags:
+  - google-cloud
+  - sql
+  - postgresql
+  - datastore
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '6.2.6'
+
+- id: integration-question-google-postgresql-log-min-duration-statement-flag
+  title: Are my Cloud SQL MySQL instances configured with the "log_min_duration_statement" database flag set to "-1"?
+  description: >
+    The log_min_duration_statement flag defines the minimum amount of execution time of a statement in milliseconds where the total duration of the statement is logged. Ensure that log_min_duration_statement is disabled, i.e., a value of -1 is set.
+  queries:
+  - name: good
+    query: |
+      find google_sql_postgres_instance with logMinDurationStatement='-1'
+  - name: bad
+    query: |
+      find google_sql_postgres_instance with logMinDurationStatement!='-1'
+  tags:
+  - google-cloud
+  - sql
+  - postgresql
+  - datastore
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '6.2.7'
+
+- id: integration-question-google-sql-server-cross-db-ownership-chaining-flag
+  title: Are my Cloud SQL Server instances configured with the "cross db ownership chaining" database flag set to "off"?
+  description: >
+    It is recommended to set cross db ownership chaining database flag for Cloud SQL SQL Server instance to off.
+  queries:
+  - name: good
+    query: |
+      find google_sql_sql_server_instance with crossDatabaseOwnershipChaining='off'
+  - name: bad
+    query: |
+      find google_sql_sql_server_instance with crossDatabaseOwnershipChaining!='off'
+  tags:
+  - google-cloud
+  - sql
+  - sql-server
+  - datastore
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '6.3.1'
+
+- id: integration-question-google-sql-server-contained-database-authentication-flag
+  title: Are my Cloud SQL Server instances configured with the "contained database authentication" database flag set to "off"?
+  description: >
+    It is recommended to set contained database authentication database flag for Cloud SQL on the SQL Server instance is set to off.
+  queries:
+  - name: good
+    query: |
+      find google_sql_sql_server_instance with containedDatabaseAuthentication='off'
+  - name: bad
+    query: |
+      find google_sql_sql_server_instance with containedDatabaseAuthentication!='off'
+  tags:
+  - google-cloud
+  - sql
+  - sql-server
+  - datastore
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '6.3.2'
+
+- id: integration-question-google-sql-require-ssl-incoming
+  title: Are my Cloud SQL instances requiring SSL on all incoming connections?
+  description: >
+    It is recommended to enforce all incoming connections to SQL database instance to use SSL.
+  queries:
+  - name: good
+    query: |
+      find (google_sql_mysql_instance|google_sql_postgres_instance|google_sql_sql_server_instance)
+        with requireSSL=true
+  - name: bad
+    query: |
+      find (google_sql_mysql_instance|google_sql_postgres_instance|google_sql_sql_server_instance)
+        with requireSSL!=true
+  tags:
+  - google-cloud
+  - sql
+  - datastore
+  - network
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '6.4'
+
+- id: integration-question-google-sql-open-to-world
+  title: Are my Cloud SQL instances open to the world?
+  description: >
+    Database servers should accept connections only from trusted Network(s)/IP(s) and restrict access from the world.
+  queries:
+  - name: good
+    query: |
+      find (google_sql_mysql_instance|google_sql_postgres_instance|google_sql_sql_server_instance)
+        with authorizedNetworks!="0.0.0.0/0"
+  - name: bad
+    query: |
+      find (google_sql_mysql_instance|google_sql_postgres_instance|google_sql_sql_server_instance)
+        with authorizedNetworks="0.0.0.0/0"
+  tags:
+  - google-cloud
+  - sql
+  - datastore
+  - network
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '6.5'
+
+- id: integration-question-google-sql-public-ips
+  title: Do my Cloud SQL instances have public IP addresses?
+  description: >
+    It is recommended to configure Second Generation Sql instance to use private IPs instead of public IPs.
+  queries:
+  - name: good
+    query: |
+      find (google_sql_mysql_instance|google_sql_postgres_instance|google_sql_sql_server_instance)
+        with hasPublicIP!=true
+  - name: bad
+    query: |
+      find (google_sql_mysql_instance|google_sql_postgres_instance|google_sql_sql_server_instance)
+        with hasPublicIP=true
+  tags:
+  - google-cloud
+  - sql
+  - datastore
+  - network
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '6.6'
+
+- id: integration-question-google-sql-automated-backups
+  title: Are my Cloud SQL instances configured with automated backups?
+  description: >
+    It is recommended to have all SQL database instances set to enable automated backups.
+  queries:
+  - name: good
+    query: |
+      find (google_sql_mysql_instance|google_sql_postgres_instance|google_sql_sql_server_instance)
+        with automatedBackupsEnabled=true
+  - name: bad
+    query: |
+      find (google_sql_mysql_instance|google_sql_postgres_instance|google_sql_sql_server_instance)
+        with automatedBackupsEnabled!=true
+  tags:
+  - google-cloud
+  - sql
+  - datastore
+  - network
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '6.7'
+################################################################################
+# End Section 6: Cloud SQL Database Services
+################################################################################
+
+################################################################################
+# Section 7: BigQuery
+################################################################################
+- id: integration-question-google-big-query-public
+  title: Are any of my BigQuery datasets anonymously or publicly accessible?
+  description: >
+    It is recommended that the IAM policy on BigQuery datasets does not allow anonymous and/or public access.
+  queries:
+  - name: good
+    query: |
+      find google_bigquery_dataset with public=false
+  - name: bad
+    query: |
+      find google_bigquery_dataset with public!=false
+  tags:
+  - google-cloud
+  - big-query
+  - datastore
+  compliance:
+  - standard: CIS Google Cloud Foundations
+    requirements:
+      - '7.1'
+################################################################################
+# End Section 7: Big Query
+################################################################################
+
+################################################################################
+# Section 7: Kubernetes
+################################################################################
+- id: integration-question-google-cloud-gke-instance-disks-cos
+  title: Which Google Cloud GKE Clusters created compute instances that use disks, which are not provisioned with a COS image?
+  description: >
+    Return the GCP Google Kubernetes Engine clusters that created an instance using disks that are not provisioned wih a container optomized OS image.
+  queries:
+  - name: bad
+    query: |
+      FIND google_container_cluster
+        THAT HAS google_container_node_pool
+        THAT HAS google_compute_instance_group
+        THAT HAS google_compute_instance
+        THAT USES google_compute_disk
+        THAT USES google_compute_image
+          WITH family !^="cos-"
+        RETURN
+          google_compute_instance.projectId,
+          google_container_cluster.id,
+          google_container_cluster.webLink,
+          google_compute_instance.id,
+          google_compute_instance.displayName,
+          google_compute_image.description,
+          google_compute_instance.webLink,
+          google_compute_image.id,
+          google_compute_image.displayName,
+          google_compute_image.description,
+          google_compute_image.family,
+          google_compute_image.webLink
+  tags:
+  - google-cloud
+  - gke
+  - compute
+  - image
+
+- id: integration-question-google-cloud-gke-instance-no-shielding-vm
+  title: Which Google Cloud GKE Clusters created compute instances without shielding VMs?
+  description: >
+    Return the GCP Google Kubernetes Engine clusters that created an instance without shielding virtual machines.
+  queries:
+  - name: bad
+    query: |
+      FIND google_container_cluster
+        THAT HAS google_container_node_pool
+        THAT HAS google_compute_instance_group
+        THAT HAS google_compute_instance
+          WITH isShieldedVM!=true
+        RETURN
+          google_compute_instance.projectId,
+          google_container_cluster.id,
+          google_container_cluster.webLink,
+          google_compute_instance.id,
+          google_compute_instance.displayName,
+          google_compute_instance.description,
+          google_compute_instance.webLink,
+          google_compute_instance.integrityMonitoringEnabled,
+          google_compute_instance.secureBootEnabled,
+          google_compute_instance.vtpmEnabled
+  tags:
+  - google-cloud
+  - gke
+  - compute
+  - virtual-machine
+
+- id: integration-question-google-cloud-gke-kms-compute-multiple-network
+  title: Which Google Cloud GKE Clusters created compute instances that are connected to more than one network?
+  description: >
+    Return the GCP Google Kubernetes Engine clusters that created an instance that are connected to more than a single network.
+  queries:
+  - name: bad
+    query: |
+      FIND google_container_cluster
+        THAT HAS google_container_node_pool
+        THAT HAS google_compute_instance_group
+        THAT HAS google_compute_instance
+          WITH connectedNetworksCount > 1
+        THAT HAS google_compute_subnetwork
+        return
+          google_compute_instance.projectId,
+          google_container_cluster.id,
+          google_container_cluster.webLink,
+          google_compute_instance.id,
+          google_compute_instance.displayName,
+          google_compute_instance.description,
+          google_compute_instance.webLink,
+          google_compute_subnetwork.name,
+          google_compute_subnetwork.displayName,
+          google_compute_subnetwork.description,
+          google_compute_subnetwork.webLink
+  tags:
+  - google-cloud
+  - gke
+  - compute
+  - network
+
+- id: integration-question-google-cloud-gke-instance-not-default
+  title: Which Google Cloud GKE Clusters created compute instances that do not use the default subnet?
+  description: >
+    Return the GCP Google Kubernetes Engine clusters that created an instance that is not using the default subnet.
+  queries:
+  - name: bad
+    query: |
+      find google_container_cluster
+        THAT HAS google_container_node_pool
+        THAT HAS google_compute_instance_group
+        THAT HAS google_compute_instance
+        THAT HAS google_compute_subnetwork
+          with name!="{{subnetwork name}}"
+        return
+          google_compute_instance.projectId,
+          google_container_cluster.id,
+          google_container_cluster.webLink,
+          google_compute_instance.id,
+          google_compute_instance.displayName,
+          google_compute_instance.description,
+          google_compute_instance.webLink,
+          google_compute_subnetwork.name,
+          google_compute_subnetwork.displayName,
+          google_compute_subnetwork.description,
+          google_compute_subnetwork.webLink
+  tags:
+  - google-cloud
+  - gke
+  - compute
+  - network
+################################################################################
+# End Section 7: Kubernetes
+################################################################################
