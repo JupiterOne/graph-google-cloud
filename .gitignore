@@ -6,3 +6,5 @@ dist/
 tsconfig.tsbuildinfo
 coverage/
 main.remote.tf
+.DS_Store
+.idea/
