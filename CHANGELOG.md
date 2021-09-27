@@ -12,6 +12,12 @@ and this project adheres to
 
 - Initial managed JupiterOne questions moved into this project
 
+### Fixed
+
+- `Internet` **ALLOWS** `google_compute_firewall` relationship for
+  `0.0.0.0/0`/`::/0` source CIDR blocks restored by adding `_type` to the target
+  filter keys.
+
 ## 0.50.0 - 2021-09-15
 
 ### Added

@@ -127,7 +127,7 @@ export async function processFirewallRuleRelationshipTargets({
 
       if (isInternet(ipRange)) {
         await callback({
-          targetFilterKeys: [['_key']],
+          targetFilterKeys: [['_type', '_key']],
           targetEntity: INTERNET,
           properties: relationshipProperties,
         });
