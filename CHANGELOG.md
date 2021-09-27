@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.50.4 - 2021-09-27
+
 ### Added
 
 - Initial managed JupiterOne questions moved into this project
