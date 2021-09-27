@@ -8,6 +8,10 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- Initial managed JupiterOne questions moved into this project
+
 ### Fixed
 
 - `Internet` **ALLOWS** `google_compute_firewall` relationship for

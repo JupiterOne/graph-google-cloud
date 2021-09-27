@@ -1,12 +1,13 @@
 {
   "name": "@jupiterone/graph-google-cloud",
-  "version": "0.50.0",
+  "version": "0.51.2",
   "description": "A graph conversion tool for https://cloud.google.com/",
   "license": "MPL-2.0",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
   "files": [
-    "dist"
+    "src",
+    "jupiterone"
   ],
   "publishConfig": {
     "access": "public"
@@ -20,9 +21,8 @@
     "test:env": "LOAD_ENV=1 yarn test",
     "test": "jest",
     "test:ci": "yarn lint && yarn type-check && yarn test",
-    "build": "tsc -p tsconfig.dist.json --declaration",
+    "build": "./build.sh",
     "prepush": "yarn lint && yarn type-check && jest --changedSince main",
-    "prepack": "yarn build",
     "tf": "cd terraform && env `grep -v '^#' .env` terraform $1",
     "create-env-file": "yarn ts-node ./scripts/createEnvFile $1",
     "jupiterone-organization-setup": "yarn ts-node ./scripts/organizationSetupCli.ts"
