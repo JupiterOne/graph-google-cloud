@@ -8,6 +8,19 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- Create relationships for every member of `google_iam_binding`s.
+- Added support for ingesting the following **new** relationships:
+
+| Source                             | class      | Target                             |
+| ---------------------------------- | ---------- | ---------------------------------- |
+| `google_iam_binding`               | `ASSIGNED` | `google_cloud_authenticated_users` |
+| `google_iam_binding`               | `ASSIGNED` | `everyone`                         |
+| `google_iam_binding`               | `ASSIGNED` | `google_iam_role`                  |
+| `everyone`                         | `ASSIGNED` | `google_iam_role`                  |
+| `google_cloud_authenticated_users` | `ASSIGNED` | `google_iam_role`                  |
+
 ## 0.51.4 - 2021-09-27
 
 ### Added
@@ -34,17 +47,6 @@ and this project adheres to
 ## 0.49.0 - 2021-09-14
 
 ### Added
-
-- Create relationships for every member of `google_iam_binding`s.
-- Added support for ingesting the following **new** relationships:
-
-| Source                             | class      | Target                             |
-| ---------------------------------- | ---------- | ---------------------------------- |
-| `google_iam_binding`               | `ASSIGNED` | `google_cloud_authenticated_users` |
-| `google_iam_binding`               | `ASSIGNED` | `everyone`                         |
-| `google_iam_binding`               | `ASSIGNED` | `google_iam_role`                  |
-| `everyone`                         | `ASSIGNED` | `google_iam_role`                  |
-| `google_cloud_authenticated_users` | `ASSIGNED` | `google_iam_role`                  |
 
 - Added support for ingesting the following **new** resources:
 
