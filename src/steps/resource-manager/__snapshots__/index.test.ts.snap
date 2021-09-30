@@ -10719,6 +10719,7 @@ Object {
           "_class": "User",
           "_type": "google_user",
           "deleted": false,
+          "domainName": "jupiterone.dev",
           "email": "austin.kelleher@jupiterone.dev",
           "username": "austin.kelleher",
         },

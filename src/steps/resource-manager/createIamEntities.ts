@@ -12,6 +12,7 @@ import {
   PrimitiveEntity,
 } from '@jupiterone/integration-sdk-core';
 import { IamUserEntityWithParsedMember } from '.';
+import { last } from 'lodash';
 
 // https://github.com/JupiterOne/graph-google/blob/ad4d88d0151cd7dc4ad93dc30d1aa40e6c97778e/src/steps/domains/converters.ts#L6
 function createIamDomain(
@@ -61,12 +62,14 @@ function createIamUser(
     _class: string;
     id?: string;
     email: string;
+    domainName?: string | null;
     username: string | null;
     deleted: boolean;
   } = {
     _type: GOOGLE_USER_ENTITY_TYPE,
     _class: GOOGLE_USER_ENTITY_CLASS,
     email: email,
+    domainName: email ? getDomain(email) : undefined,
     username: getUsername(email),
     deleted: false,
     // // We do not have access to the user's name which makes the entities look incomplete
@@ -85,6 +88,11 @@ function createIamUser(
 function getUsername(email: string): string | null {
   const usernameMatch = /(.*?)@.*/.exec(email);
   return usernameMatch && usernameMatch[1];
+}
+
+// https://github.com/JupiterOne/graph-google/blob/ad4d88d0151cd7dc4ad93dc30d1aa40e6c97778e/src/steps/users/converters.ts#L166
+function getDomain(email: string): string | null {
+  return last(email.split('@'));
 }
 
 /**
