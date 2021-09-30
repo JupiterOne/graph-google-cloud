@@ -369,6 +369,7 @@ export async function fetchResourceManagerProject(
   await jobState.addEntity(projectEntity);
 }
 
+// TODO: This needs to create IAM bindings and make relationships to the Binding instead of the Role
 export async function fetchResourceManagerIamPolicy(
   context: IntegrationStepContext,
 ): Promise<void> {
