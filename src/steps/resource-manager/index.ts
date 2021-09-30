@@ -93,6 +93,7 @@ export async function maybeFindIamUserEntityWithParsedMember({
       projectKey +
       '/' +
       getRoleKeyFromConvienenceType(convenienceMember as ConvenienceMemberType);
+    // TODO: need to check for all Folder and Organization keys as well.
     userEntity = await jobState.findEntity(roleKey);
   }
   return {

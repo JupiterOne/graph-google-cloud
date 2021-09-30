@@ -37,23 +37,23 @@ const IAM_PRINCIPAL_TYPES = [
   GOOGLE_USER_ENTITY_TYPE,
   ALL_AUTHENTICATED_USERS_TYPE,
   EVERYONE_TYPE,
+  IAM_ROLE_ENTITY_TYPE, // bindings can have roles as principals for "convienence members"
 ];
 
-export const BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS = [
-  ...IAM_PRINCIPAL_TYPES,
-  IAM_ROLE_ENTITY_TYPE, // bindings can have roles as principals
-].map((principalType) => {
-  return {
-    _type: generateRelationshipType(
-      RelationshipClass.ASSIGNED,
-      bindingEntities.BINDINGS._type,
-      principalType,
-    ),
-    sourceType: bindingEntities.BINDINGS._type,
-    _class: RelationshipClass.ASSIGNED,
-    targetType: principalType,
-  };
-});
+export const BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS = IAM_PRINCIPAL_TYPES.map(
+  (principalType) => {
+    return {
+      _type: generateRelationshipType(
+        RelationshipClass.ASSIGNED,
+        bindingEntities.BINDINGS._type,
+        principalType,
+      ),
+      sourceType: bindingEntities.BINDINGS._type,
+      _class: RelationshipClass.ASSIGNED,
+      targetType: principalType,
+    };
+  },
+);
 
 /**
  * IAM policies can target any resource in Google Cloud. Because we do not ingest every resource,

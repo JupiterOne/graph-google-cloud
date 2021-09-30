@@ -435,9 +435,7 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
     id: STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS,
     name: 'IAM Binding Principal Relationships',
     entities: [],
-    relationships: [
-      ...BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS,
-    ],
+    relationships: [...BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS],
     dependsOn: [STEP_IAM_BINDINGS, STEP_CREATE_BASIC_ROLES],
     executionHandler: createPrincipalRelationships,
     dependencyGraphId: 'last',
