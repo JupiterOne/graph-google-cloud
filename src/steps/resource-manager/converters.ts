@@ -60,7 +60,6 @@ export function createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship
        * enabled, thus only creating iam entity relationships to targets that have already
        * been ingested by other integrations.
        */
-      // skipTargetCreation: false, // true is the default
       targetEntity,
     },
     properties: {

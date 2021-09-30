@@ -4,10 +4,10 @@ import { IntegrationConfig } from '../..';
 import { integrationConfig } from '../../../test/config';
 import { withRecording } from '../../../test/recording';
 import {
+  createBasicRolesForBindings,
   createBindingRoleRelationships,
   createBindingToAnyResourceRelationships,
   createPrincipalRelationships,
-  createRolesForPrincipalRelationships,
   fetchIamBindings,
 } from '.';
 import { bindingEntities } from './constants';
@@ -253,7 +253,7 @@ describe('#fetchIamBindings', () => {
       await fetchIamManagedRoles(context);
       await fetchIamServiceAccounts(context);
       await fetchIamBindings(context);
-      await createRolesForPrincipalRelationships(context);
+      await createBasicRolesForBindings(context);
       await createPrincipalRelationships(context);
       await createBindingRoleRelationships(context);
       await createBindingToAnyResourceRelationships(context);
@@ -307,10 +307,13 @@ describe('#fetchIamBindings', () => {
         'google_iam_binding_assigned_service_account',
       );
       expect(
-        google_iam_service_account_assigned_role,
+        google_iam_binding_assigned_role,
       ).toHaveBothDirectAndMappedRelationships(
-        'google_iam_service_account_assigned_role',
+        'google_iam_binding_assigned_role',
       );
+      expect(
+        google_iam_binding_uses_role,
+      ).toHaveBothDirectAndMappedRelationships('google_iam_binding_uses_role');
       // Currently, do not have examples of some resources ingested in this integration and some in others
       // For now, just check that we have some relationships
       expect(google_iam_binding_allows_storage_bucket.length > 0).toBe(true);
@@ -319,9 +322,6 @@ describe('#fetchIamBindings', () => {
       expect(google_iam_binding_allows_kms_key_ring.length > 0).toBe(true);
       expect(google_iam_binding_allows_billing_account.length > 0).toBe(true);
       expect(google_iam_binding_allows_cloud_function.length > 0).toBe(true);
-      // Direct if bindings already USE role, mapped if role is only ASSIGNED
-      // Test environment USES all Convenience roles so only have direct relationships here.
-      expect(google_iam_binding_assigned_role.length > 0).toBe(true);
 
       // Mapped Relationships
       expect(google_iam_binding_assigned_user).toHaveOnlyMappedRelationships(
@@ -337,18 +337,13 @@ describe('#fetchIamBindings', () => {
         google_iam_binding_assigned_everyone,
       ).toHaveOnlyMappedRelationships('google_iam_binding_assigned_everyone');
 
-      expect(google_user_assigned_iam_role).toHaveOnlyMappedRelationships(
-        'google_user_assigned_iam_role',
-      );
-      expect(google_group_assigned_iam_role).toHaveOnlyMappedRelationships(
-        'google_group_assigned_iam_role',
-      );
-      expect(google_domain_assigned_iam_role).toHaveOnlyMappedRelationships(
-        'google_domain_assigned_iam_role',
-      );
-      expect(everyone_assigned_google_iam_role).toHaveOnlyMappedRelationships(
-        'everyone_assigned_google_iam_role',
-      );
+      // Ensure we do not assign principals directly to roles as in GCP a principal is only given a role for a specific resource, not for EVERY resource.
+      expect(google_iam_service_account_assigned_role).toBeUndefined();
+      expect(google_user_assigned_iam_role).toBeUndefined();
+      expect(google_group_assigned_iam_role).toBeUndefined();
+      expect(google_domain_assigned_iam_role).toBeUndefined();
+      expect(everyone_assigned_google_iam_role).toBeUndefined();
+
       // Ensure there are never any group assigned group relationships created
       expect(google_iam_role_assigned_role).toBeUndefined();
 
@@ -360,10 +355,6 @@ describe('#fetchIamBindings', () => {
       );
 
       // Direct Relationships
-
-      expect(google_iam_binding_uses_role).toHaveOnlyDirectRelationships(
-        'google_iam_binding_uses_role',
-      );
       expect(
         google_iam_binding_allows_cloud_organization,
       ).toHaveOnlyDirectRelationships(
@@ -400,6 +391,7 @@ describe('#fetchIamBindings', () => {
             'condition.expression': { type: 'string' },
             'condition.location': { type: 'string' },
             readonly: { type: 'boolean' },
+            permissions: { type: 'string' },
           },
         },
       });

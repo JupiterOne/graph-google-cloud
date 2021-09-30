@@ -57,7 +57,10 @@ import {
 } from '../../utils/iam';
 import { createIamRoleEntity } from '../iam/converters';
 import { RelationshipClass } from '@jupiterone/data-model';
-import { cacheProjectNameAndId } from '../../utils/jobState';
+import {
+  cacheProjectNameAndId,
+  getProjectNameFromId,
+} from '../../utils/jobState';
 import { CREATE_IAM_ENTITY_MAP } from './createIamEntities';
 
 export * from './constants';
@@ -68,34 +71,40 @@ export interface IamUserEntityWithParsedMember {
 }
 
 export async function maybeFindIamUserEntityWithParsedMember({
-  jobState,
+  context,
   member,
 }: {
-  jobState: JobState;
+  context: IntegrationStepContext;
   member: string;
 }): Promise<IamUserEntityWithParsedMember> {
+  const { jobState } = context;
   const parsedMember = parseIamMember(member);
   const { identifier: parsedIdentifier, type: parsedMemberType } = parsedMember;
   let userEntity: Entity | null = null;
 
   if (parsedIdentifier && parsedMemberType === 'serviceAccount') {
-    // It is possible that this integration has not created this service account yet. That is fine, just return null.
-    userEntity = (await jobState.findEntity(parsedIdentifier)) ?? null;
-  } else if (
-    ConvenienceMembers.includes(parsedMemberType as ConvenienceMemberType)
-  ) {
-    // It is possible that this integration has not created these role entities. That is fine, just return null.
-    userEntity =
-      (await jobState.findEntity(
-        getRoleKeyFromConvienenceType(
-          parsedMemberType as ConvenienceMemberType,
-        ),
-      )) ?? null;
+    userEntity = await jobState.findEntity(parsedIdentifier);
+  } else if (isConvienenceMember(member)) {
+    // find the Basic Role that relates to this member.
+    const [convenienceMember, projectId] = member.split(':');
+    const projectKey =
+      (await getProjectNameFromId(context!.jobState, projectId)) ?? projectId;
+    const roleKey =
+      projectKey +
+      '/' +
+      getRoleKeyFromConvienenceType(convenienceMember as ConvenienceMemberType);
+    userEntity = await jobState.findEntity(roleKey);
   }
   return {
     parsedMember,
     userEntity,
   };
+}
+
+function isConvienenceMember(member: string) {
+  return ConvenienceMembers.includes(
+    member.split(':')[0] as ConvenienceMemberType,
+  );
 }
 
 export async function getPermissionsForManagedRole(
@@ -109,18 +118,20 @@ export async function getPermissionsForManagedRole(
 export async function findOrCreateIamRoleEntity({
   jobState,
   roleName,
+  roleKey = roleName,
 }: {
   jobState: JobState;
   roleName: string;
+  roleKey?: string;
 }) {
-  const roleEntity = await jobState.findEntity(roleName);
+  const roleEntity = await jobState.findEntity(roleKey);
   if (roleEntity) {
     return roleEntity;
   }
 
   const includedPermissions = await getPermissionsForManagedRole(
     jobState,
-    roleName,
+    roleKey,
   );
   return jobState.addEntity(
     createIamRoleEntity(
@@ -131,6 +142,7 @@ export async function findOrCreateIamRoleEntity({
       },
       {
         custom: false,
+        key: roleKey,
       },
     ),
   );
@@ -378,7 +390,7 @@ export async function fetchResourceManagerIamPolicy(
 
     const iamUserEntityWithParsedMember =
       await maybeFindIamUserEntityWithParsedMember({
-        jobState,
+        context,
         member: data.member,
       });
 

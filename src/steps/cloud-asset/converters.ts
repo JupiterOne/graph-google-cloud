@@ -4,6 +4,7 @@ import { snakeCase } from 'lodash';
 import { hashArray } from '../../utils/crypto';
 
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
+import { isReadOnlyPermission } from '../../utils/iam';
 import { bindingEntities } from './constants';
 
 export interface BindingEntity extends Entity {
@@ -45,13 +46,13 @@ export function createIamBindingEntity({
   projectId,
   binding,
   resource,
-  isReadOnly,
+  permissions,
 }: {
   _key: string;
   projectId?: string;
   binding: cloudasset_v1.Schema$Binding;
   resource: string | undefined | null;
-  isReadOnly: boolean;
+  permissions: string[] | undefined | null;
 }): BindingEntity {
   const namePrefix = 'Role Binding for Resource: ';
 
@@ -78,7 +79,8 @@ export function createIamBindingEntity({
         'condition.description': binding.condition?.description,
         'condition.expression': binding.condition?.expression,
         'condition.location': binding.condition?.location,
-        readonly: isReadOnly, // Are all the permissions associated with this binding read only permissions
+        permissions: permissions?.join(','),
+        readonly: permissions?.some((p) => !isReadOnlyPermission(p)) ?? true, // default to true if there are no permissions
       },
     },
   }) as BindingEntity;

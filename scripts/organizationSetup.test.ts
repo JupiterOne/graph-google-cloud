@@ -1,5 +1,3 @@
-jest.setTimeout(60000);
-
 import { withRecording } from '../test/recording';
 import {
   buildPolicyWithServiceAccountSecurityRoleMember,

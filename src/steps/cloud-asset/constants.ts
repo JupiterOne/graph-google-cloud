@@ -14,8 +14,7 @@ import {
 } from '../iam';
 
 export const STEP_IAM_BINDINGS = 'fetch-iam-bindings';
-export const STEP_CREATE_ROLES_FOR_BINDING_PRINCIPAL_RELATIONSHIPS =
-  'create-roles-for-binding-principal-relationships';
+export const STEP_CREATE_BASIC_ROLES = 'create-basic-roles';
 export const STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS =
   'create-binding-principal-relationships';
 export const STEP_CREATE_BINDING_ROLE_RELATIONSHIPS =

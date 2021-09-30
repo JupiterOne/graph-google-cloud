@@ -33,7 +33,22 @@ function parseMemberIdentifyingData(partialMember: string) {
   };
 }
 
-// Google Storage buckets have extra "Convenience" members that need to be handled differently
+// A few special roles that get automatically generated for every project
+// https://cloud.google.com/iam/docs/understanding-roles?_ga=2.17065465.-1526178294.1622832983#basic
+export type BasicRoleType =
+  | 'roles/viewer'
+  | 'roles/editor'
+  | 'roles/owner'
+  | 'roles/browser';
+export const basicRoles: BasicRoleType[] = [
+  'roles/viewer',
+  'roles/editor',
+  'roles/owner',
+  'roles/browser',
+];
+
+// Google Storage buckets have extra "Convenience" members that need to be handled differently.
+// Each of these members maps up to thier corresponding Basic Role
 // https://cloud.google.com/storage/docs/access-control/iam#convenience-values
 export type ConvenienceMemberType =
   | 'projectEditor'
@@ -44,6 +59,8 @@ export const ConvenienceMembers: ConvenienceMemberType[] = [
   'projectOwner',
   'projectViewer',
 ];
+// NOTE: projectBrowser is not a Convienence Member but it does relate to roles/browser which is a basicRole.
+// This is fine because by design roles/browser has no access to Cloud Storage which is the only place Convienence Members are used.
 
 // All possible Google Cloud principal members
 // https://cloud.google.com/iam/docs/overview#cloud-iam-policy

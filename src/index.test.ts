@@ -124,7 +124,7 @@ import {
   STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS,
   STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS,
   STEP_CREATE_BINDING_ROLE_RELATIONSHIPS,
-  STEP_CREATE_ROLES_FOR_BINDING_PRINCIPAL_RELATIONSHIPS,
+  STEP_CREATE_BASIC_ROLES,
   STEP_IAM_BINDINGS,
 } from './steps/cloud-asset/constants';
 import {
@@ -472,7 +472,7 @@ describe('#getStepStartStates success', () => {
       [STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS]: {
         disabled: false,
       },
-      [STEP_CREATE_ROLES_FOR_BINDING_PRINCIPAL_RELATIONSHIPS]: {
+      [STEP_CREATE_BASIC_ROLES]: {
         disabled: false,
       },
       [STEP_CREATE_BINDING_ROLE_RELATIONSHIPS]: {
@@ -570,7 +570,7 @@ describe('#getStepStartStates success', () => {
       [STEP_IAM_BINDINGS]: {
         disabled: true,
       },
-      [STEP_CREATE_ROLES_FOR_BINDING_PRINCIPAL_RELATIONSHIPS]: {
+      [STEP_CREATE_BASIC_ROLES]: {
         disabled: true,
       },
       [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: {
@@ -638,7 +638,7 @@ describe('#getStepStartStates success', () => {
       [STEP_IAM_BINDINGS]: {
         disabled: true,
       },
-      [STEP_CREATE_ROLES_FOR_BINDING_PRINCIPAL_RELATIONSHIPS]: {
+      [STEP_CREATE_BASIC_ROLES]: {
         disabled: true,
       },
       [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: {

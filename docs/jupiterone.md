@@ -265,7 +265,7 @@ NOTE: ALL OF THE FOLLOWING DOCUMENTATION IS GENERATED USING THE
 "j1-integration document" COMMAND. DO NOT EDIT BY HAND! PLEASE SEE THE DEVELOPER
 DOCUMENTATION FOR USAGE INFORMATION:
 
-https://github.com/JupiterOne/sdk/blob/main/docs/integrations/development.md
+https://github.com/JupiterOne/sdk/blob/master/docs/integrations/development.md
 ********************************************************************************
 -->
 
@@ -335,8 +335,8 @@ The following entities are created:
 | DNS Managed Zone                                         | `google_dns_managed_zone`                                         | `DomainZone`                       |
 | Dataproc Cluster                                         | `google_dataproc_cluster`                                         | `Cluster`                          |
 | Folder                                                   | `google_cloud_folder`                                             | `Group`                            |
+| IAM Basic Role                                           | `google_iam_role`                                                 | `AccessRole`                       |
 | IAM Binding                                              | `google_iam_binding`                                              | `AccessPolicy`                     |
-| IAM Role                                                 | `google_iam_role`                                                 | `AccessRole`                       |
 | IAM Service Account                                      | `google_iam_service_account`                                      | `User`                             |
 | IAM Service Account Key                                  | `google_iam_service_account_key`                                  | `AccessKey`                        |
 | IAM User                                                 | `google_user`                                                     | `User`                             |

@@ -14,8 +14,6 @@ import {
   RELATIONSHIP_TYPE_PRIVATE_CA_CERTIFICATE_AUTHORITY_CREATED_CERTIFICATE,
 } from './constants';
 
-jest.setTimeout(50000);
-
 describe('#fetchCertificateAuthorities', () => {
   let recording: Recording;
 

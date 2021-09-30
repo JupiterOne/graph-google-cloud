@@ -2,8 +2,8 @@
 
 exports[`#fetchIamBindings should create Binding and Role entities, Direct Relationships with resources and principals ingested, and Mapped Relationships with resources and principals not ingested. 1`] = `
 Object {
-  "collectedEntities": 214,
-  "collectedRelationships": 556,
+  "collectedEntities": 185,
+  "collectedRelationships": 441,
   "encounteredTypes": Array [
     "google_cloud_organization",
     "google_cloud_folder",
@@ -16,21 +16,17 @@ Object {
     "google_iam_service_account_key",
     "google_iam_service_account_has_key",
     "google_iam_binding",
-    "google_iam_binding_assigned_service_account",
-    "google_iam_service_account_assigned_role",
     "google_iam_binding_assigned_user",
-    "google_user_assigned_iam_role",
+    "google_iam_binding_assigned_service_account",
     "google_iam_binding_assigned_role",
     "google_iam_binding_assigned_everyone",
-    "everyone_assigned_google_iam_role",
     "google_iam_binding_assigned_group",
-    "google_group_assigned_iam_role",
     "google_iam_binding_assigned_domain",
-    "google_domain_assigned_iam_role",
     "google_iam_binding_uses_role",
-    "google_iam_binding_allows_kms_crypto_key",
     "google_iam_binding_allows_cloud_project",
+    "google_iam_binding_allows_service_account",
     "google_iam_binding_allows_storage_bucket",
+    "google_iam_binding_allows_kms_crypto_key",
     "google_iam_binding_allows_cloud_folder",
     "google_iam_binding_allows_bigquery_dataset",
     "google_iam_binding_allows_kms_key_ring",
@@ -38,7 +34,7 @@ Object {
     "google_iam_binding_allows_cloud_organization",
     "google_iam_binding_allows_cloud_function",
   ],
-  "numCollectedEntities": 214,
-  "numCollectedRelationships": 556,
+  "numCollectedEntities": 185,
+  "numCollectedRelationships": 441,
 }
 `;

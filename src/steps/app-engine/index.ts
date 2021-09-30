@@ -282,7 +282,6 @@ export async function fetchAppEngineServiceVersions(
                          * enabled, thus only creating version relationships to google users that have already
                          * been ingested by other integrations.
                          */
-                        // skipTargetCreation: false, // true is the default
                         targetEntity: {
                           _type: GOOGLE_USER_ENTITY_TYPE,
                           email: version.createdBy,
