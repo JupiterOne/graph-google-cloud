@@ -3,7 +3,6 @@ import {
   createMappedRelationship,
   generateRelationshipType,
   getRawData,
-  IntegrationError,
   IntegrationStep,
   JobState,
   Relationship,
@@ -106,20 +105,13 @@ export async function fetchIamBindings(
            * Because of this we have to pull the projectId from the jobState instead.
            */
           projectId = await getProjectIdFromName(jobState, projectName);
-          if (!projectId) {
-            // This would only happen if we have not run fetch-resource-manager-org-project-relationships which caches project data
-            throw new IntegrationError({
-              message: 'Unable to find projectId in jobState for role binding.',
-              code: 'UNABLE_TO_FIND_PROJECT_ID',
-            });
-          }
         }
 
         const isReadOnly = await isBindingReadOnly(jobState, binding.role);
         await jobState.addEntity(
           createIamBindingEntity({
             _key,
-            projectId,
+            projectId: projectId ?? (projectName as string),
             binding,
             resource,
             isReadOnly,
