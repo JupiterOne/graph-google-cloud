@@ -659,6 +659,41 @@ Object {
       "_class": Array [
         "DataCollection",
       ],
+      "_key": "j1-gc-integration-dev-v3:cmed_example_dataset.cis-cmek-sample",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "creationTime": "1630476546010",
+            "expirationTime": "1630480146010",
+            "id": "j1-gc-integration-dev-v3:cmed_example_dataset.cis-cmek-sample",
+            "kind": "bigquery#table",
+            "tableReference": Object {
+              "datasetId": "cmed_example_dataset",
+              "projectId": "j1-gc-integration-dev-v3",
+              "tableId": "cis-cmek-sample",
+            },
+            "type": "TABLE",
+          },
+        },
+      ],
+      "_type": "google_bigquery_table",
+      "classification": null,
+      "createdOn": 1630476546010,
+      "displayName": "cis-cmek-sample",
+      "expirationTime": 1630480146010,
+      "friendlyName": undefined,
+      "id": "j1-gc-integration-dev-v3:cmed_example_dataset.cis-cmek-sample",
+      "kmsKeyName": "projects/j1-gc-integration-dev-v3/locations/us/keyRings/example-keyring/cryptoKeys/cmek_bigquery_crypto_key",
+      "name": "cis-cmek-sample",
+      "public": false,
+      "type": "TABLE",
+      "webLink": "https://console.cloud.google.com/bigquery?project=j1-gc-integration-dev-v3&d=cmed_example_dataset&p=j1-gc-integration-dev-v3&t=cis-cmek-sample&page=table",
+    },
+    Object {
+      "_class": Array [
+        "DataCollection",
+      ],
       "_key": "j1-gc-integration-dev-v3:natality.Test Table",
       "_rawData": Array [
         Object {
@@ -683,6 +718,7 @@ Object {
       "expirationTime": undefined,
       "friendlyName": undefined,
       "id": "j1-gc-integration-dev-v3:natality.Test Table",
+      "kmsKeyName": undefined,
       "name": "Test Table",
       "public": false,
       "type": "TABLE",
@@ -690,6 +726,14 @@ Object {
     },
   ],
   "collectedRelationships": Array [
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "j1-gc-integration-dev-v3:cmed_example_dataset",
+      "_key": "j1-gc-integration-dev-v3:cmed_example_dataset|has|j1-gc-integration-dev-v3:cmed_example_dataset.cis-cmek-sample",
+      "_toEntityKey": "j1-gc-integration-dev-v3:cmed_example_dataset.cis-cmek-sample",
+      "_type": "google_bigquery_dataset_has_table",
+      "displayName": "HAS",
+    },
     Object {
       "_class": "HAS",
       "_fromEntityKey": "j1-gc-integration-dev-v3:natality",
@@ -704,7 +748,7 @@ Object {
     "google_bigquery_table",
     "google_bigquery_dataset_has_table",
   ],
-  "numCollectedEntities": 4,
-  "numCollectedRelationships": 1,
+  "numCollectedEntities": 5,
+  "numCollectedRelationships": 2,
 }
 `;

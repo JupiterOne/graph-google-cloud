@@ -164,10 +164,15 @@ export async function fetchBigQueryTables(
           datasetEntity.name as string,
           async (table) => {
             const tablePolicy = await client.getTablePolicy(table);
+            const tableResource = await client.getTableResource(table);
+
             const tableEntity = createBigQueryTableEntity({
               data: table,
               projectId: client.projectId,
               isPublic: isBigQueryPolicyPublicAccess(tablePolicy),
+              kmsKeyName: tableResource.encryptionConfiguration?.kmsKeyName
+                ? tableResource.encryptionConfiguration?.kmsKeyName
+                : undefined,
             });
 
             await jobState.addEntity(tableEntity);

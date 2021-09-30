@@ -333,6 +333,7 @@ The following entities are created:
 | Container Cluster                                        | `google_container_cluster`                                        | `Cluster`                          |
 | Container Node Pool                                      | `google_container_node_pool`                                      | `Group`                            |
 | DNS Managed Zone                                         | `google_dns_managed_zone`                                         | `DomainZone`                       |
+| DNS Policy                                               | `google_dns_policy`                                               | `Ruleset`                          |
 | Dataproc Cluster                                         | `google_dataproc_cluster`                                         | `Cluster`                          |
 | Folder                                                   | `google_cloud_folder`                                             | `Group`                            |
 | IAM Basic Role                                           | `google_iam_role`                                                 | `AccessRole`                       |
@@ -363,7 +364,7 @@ The following entities are created:
 
 ### Relationships
 
-The following relationships are created/mapped:
+The following relationships are created:
 
 | Source Entity `_type`                                            | Relationship `_class` | Target Entity `_type`                                             |
 | ---------------------------------------------------------------- | --------------------- | ----------------------------------------------------------------- |
@@ -432,6 +433,7 @@ The following relationships are created/mapped:
 | `google_compute_network`                                         | **CONNECTS**          | `google_compute_network`                                          |
 | `google_compute_network`                                         | **CONTAINS**          | `google_compute_subnetwork`                                       |
 | `google_compute_network`                                         | **HAS**               | `google_compute_address`                                          |
+| `google_compute_network`                                         | **HAS**               | `google_dns_policy`                                               |
 | `google_compute_network`                                         | **HAS**               | `google_compute_firewall`                                         |
 | `google_compute_network`                                         | **HAS**               | `google_compute_global_address`                                   |
 | `google_compute_project`                                         | **HAS**               | `google_compute_instance`                                         |

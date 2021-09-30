@@ -116,3 +116,8 @@ variable "enable_google_bigtable_example" {
   type = bool
   default = false
 }
+
+variable "enable_google_dns_policy_example" {
+  type = bool
+  default = false
+}
