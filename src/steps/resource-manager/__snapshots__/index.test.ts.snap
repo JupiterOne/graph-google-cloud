@@ -87,6 +87,7 @@ Object {
       "etag": "2f8zjBmyEStHXN45HiqtvA==",
       "lifecycleState": "ACTIVE",
       "name": "folders/299817291758",
+      "parent": "organizations/958457776463",
       "updatedOn": 1622738668216,
     },
     Object {
@@ -114,6 +115,7 @@ Object {
       "etag": "dV+Si+qLs1/yoqzfIcKDFw==",
       "lifecycleState": "ACTIVE",
       "name": "folders/1065006483234",
+      "parent": "folders/299817291758",
       "updatedOn": 1622738703939,
     },
     Object {
@@ -141,6 +143,7 @@ Object {
       "etag": "ZKljr9WBPqy9lzArWkk7Mg==",
       "lifecycleState": "ACTIVE",
       "name": "folders/811983343328",
+      "parent": "folders/1065006483234",
       "updatedOn": 1622740774539,
     },
     Object {
@@ -168,6 +171,7 @@ Object {
       "etag": "AIbp3/+xtzAFwc+jklXkEA==",
       "lifecycleState": "ACTIVE",
       "name": "folders/306329820365",
+      "parent": "organizations/958457776463",
       "updatedOn": 1622474104386,
     },
   ],
@@ -671,6 +675,7 @@ Object {
       "etag": "2f8zjBmyEStHXN45HiqtvA==",
       "lifecycleState": "ACTIVE",
       "name": "folders/299817291758",
+      "parent": "organizations/958457776463",
       "updatedOn": 1622738668216,
     },
     Object {
@@ -698,6 +703,7 @@ Object {
       "etag": "dV+Si+qLs1/yoqzfIcKDFw==",
       "lifecycleState": "ACTIVE",
       "name": "folders/1065006483234",
+      "parent": "folders/299817291758",
       "updatedOn": 1622738703939,
     },
     Object {
@@ -725,6 +731,7 @@ Object {
       "etag": "ZKljr9WBPqy9lzArWkk7Mg==",
       "lifecycleState": "ACTIVE",
       "name": "folders/811983343328",
+      "parent": "folders/1065006483234",
       "updatedOn": 1622740774539,
     },
     Object {
@@ -752,6 +759,7 @@ Object {
       "etag": "AIbp3/+xtzAFwc+jklXkEA==",
       "lifecycleState": "ACTIVE",
       "name": "folders/306329820365",
+      "parent": "organizations/958457776463",
       "updatedOn": 1622474104386,
     },
   ],

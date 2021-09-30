@@ -412,6 +412,7 @@ describe('#fetchResourceManagerFolders', () => {
           displayName: { type: 'string' },
           etag: { type: 'string' },
           lifecycleState: { type: 'string' },
+          parent: { type: 'string'},
           createdOn: { type: 'number' },
           updatedOn: { type: 'number' },
         },

@@ -111,6 +111,7 @@ export function createFolderEntity(
         _type: FOLDER_ENTITY_TYPE,
         _class: FOLDER_ENTITY_CLASS,
         name: data.name,
+        parent: data.parent,
         displayName: data.displayName as string,
         etag: data.etag,
         lifecycleState: data.state,
