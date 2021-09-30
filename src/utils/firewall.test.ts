@@ -180,7 +180,7 @@ describe('#processFirewallRuleRelationshipTargets', () => {
 
     expect(cb).toHaveBeenCalledTimes(2);
     expect(cb).toHaveBeenNthCalledWith(1, {
-      targetFilterKeys: [['_key']],
+      targetFilterKeys: [['_type', '_key']],
       targetEntity: INTERNET,
       properties: {
         fromPort: 123,
@@ -195,7 +195,7 @@ describe('#processFirewallRuleRelationshipTargets', () => {
     });
 
     expect(cb).toHaveBeenNthCalledWith(2, {
-      targetFilterKeys: [['_key']],
+      targetFilterKeys: [['_type', '_key']],
       targetEntity: INTERNET,
       properties: {
         fromPort: 789,

@@ -83,7 +83,10 @@ import {
   STEP_BUILD_BIG_QUERY_DATASET_KMS_RELATIONSHIPS,
 } from './steps/big-query';
 import { STEP_SQL_ADMIN_INSTANCES } from './steps/sql-admin';
-import { STEP_DNS_MANAGED_ZONES } from './steps/dns/constants';
+import {
+  STEP_DNS_MANAGED_ZONES,
+  STEP_DNS_POLICIES,
+} from './steps/dns/constants';
 import { STEP_CONTAINER_CLUSTERS } from './steps/containers';
 import {
   STEP_LOGGING_METRICS,
@@ -377,6 +380,9 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_DNS_MANAGED_ZONES]: {
+        disabled: false,
+      },
+      [STEP_DNS_POLICIES]: {
         disabled: false,
       },
       [STEP_CLOUD_KMS_KEY_RINGS]: {

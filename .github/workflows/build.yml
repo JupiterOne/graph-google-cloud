@@ -1,21 +1,19 @@
 name: Build
-on: [push, pull_request]
+on:
+  pull_request:
+  push:
+    branches:
+      - main
 
 jobs:
   test:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        node-version: [14.x]
-        os: [ubuntu-latest]
-
+    runs-on: ubuntu-latest
     steps:
       - id: setup-node
         name: Setup Node
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 14.x
 
       - name: Check out code repository source code
         uses: actions/checkout@v2
@@ -24,6 +22,9 @@ jobs:
         run: yarn
 
       - name: Run tests
+        env:
+          JUPITERONE_ACCOUNT_ID: ${{ secrets.JUPITERONE_ACCOUNT_ID }}
+          JUPITERONE_API_KEY: ${{ secrets.JUPITERONE_API_KEY }}
         run: yarn test:ci
 
       - name: Run build
@@ -35,11 +36,6 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-    strategy:
-      fail-fast: false
-      matrix:
-        node: [14]
-
     steps:
       - name: Setup Node
         uses: actions/setup-node@v1
@@ -60,10 +56,10 @@ jobs:
           then
             echo "Found version commit tag. Publishing."
             echo "publish=true" >> $GITHUB_ENV
+            echo "VERSION_NUM=`echo $(git describe --tags --abbrev=0 | sed -e "s/v//gI")`" >> $GITHUB_ENV
           else
             echo "Version commit tag not found. Not publishing."
           fi
-
       - name: Publish
         if: env.publish == 'true'
         env:
@@ -71,4 +67,28 @@ jobs:
         run: |
           echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" > .npmrc
           yarn
-          npm publish
+          yarn build
+          npm publish ./dist
+
+      - name: Get Version Changelog Entry
+        if: env.publish == 'true'
+        id: changelog_reader
+        uses: mindsers/changelog-reader-action@v2
+        with:
+          version: ${{ env.VERSION_NUM }}
+          path: ./CHANGELOG.md
+        continue-on-error: true
+
+      - name: Create Release
+        if: env.publish == 'true'
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.changelog_reader.outputs.version }}
+          release_name: Release ${{ steps.changelog_reader.outputs.version }}
+          body: ${{ steps.changelog_reader.outputs.changes }}
+          prerelease: ${{ steps.changelog_reader.outputs.status == 'prereleased' }}
+          draft: ${{ steps.changelog_reader.outputs.status == 'unreleased' }}
+        continue-on-error: true

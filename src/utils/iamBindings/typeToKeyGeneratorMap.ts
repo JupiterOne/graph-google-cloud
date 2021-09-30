@@ -42,7 +42,10 @@ import {
   CONTAINER_CLUSTER_ENTITY_TYPE,
   CONTAINER_NODE_POOL_ENTITY_TYPE,
 } from '../../steps/containers';
-import { DNS_MANAGED_ZONE_ENTITY_TYPE } from '../../steps/dns/constants';
+import {
+  DNS_MANAGED_ZONE_ENTITY_TYPE,
+  DNS_POLICY_ENTITY_TYPE,
+} from '../../steps/dns/constants';
 import { CLOUD_FUNCTION_ENTITY_TYPE } from '../../steps/functions';
 import {
   IAM_ROLE_ENTITY_TYPE,
@@ -169,6 +172,7 @@ export const J1_TYPE_TO_KEY_GENERATOR_MAP: {
   [ENTITY_TYPE_BIG_TABLE_TABLE]: fullPathKeyMap,
   [ENTITY_TYPE_BIG_TABLE_BACKUP]: fullPathKeyMap,
   [ENTITY_TYPE_BILLING_ACCOUNT]: fullPathKeyMap,
+  [DNS_POLICY_ENTITY_TYPE]: fullPathKeyMap,
 };
 
 // ex: projects/j1-gc-integration-dev-v3/locations/us-central1/functions/j1-gc-integration-dev-v3testfunction

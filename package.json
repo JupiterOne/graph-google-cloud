@@ -1,12 +1,13 @@
 {
   "name": "@jupiterone/graph-google-cloud",
-  "version": "0.48.0",
+  "version": "0.51.4",
   "description": "A graph conversion tool for https://cloud.google.com/",
   "license": "MPL-2.0",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
   "files": [
-    "dist"
+    "src",
+    "jupiterone"
   ],
   "publishConfig": {
     "access": "public"
@@ -14,26 +15,29 @@
   "scripts": {
     "start": "LOG_LEVEL=trace j1-integration collect",
     "graph": "j1-integration visualize",
+    "graph:types": "j1-integration visualize-types",
+    "graph:spec": "j1-integration visualize-types --project-path docs/spec --output-file ./.j1-integration/types-graph/index.spec.html",
+    "validate:questions:dry": "j1-integration validate-question-file --dry-run",
+    "validate:questions": "j1-integration validate-question-file -a $JUPITERONE_ACCOUNT_ID -k $JUPITERONE_API_KEY",
     "lint": "eslint . --cache --fix --ext .ts,.tsx",
     "format": "prettier --write '**/*.{ts,js,json,css,md,yml}'",
     "type-check": "tsc",
     "test:env": "LOAD_ENV=1 yarn test",
-    "test": "jest",
-    "test:ci": "yarn lint && yarn type-check && yarn test",
-    "build": "tsc -p tsconfig.dist.json --declaration",
+    "test": "jest && yarn validate:questions:dry",
+    "test:ci": "yarn validate:questions && yarn lint && yarn type-check",
+    "build": "./build.sh",
     "prepush": "yarn lint && yarn type-check && jest --changedSince main",
-    "prepack": "yarn build",
     "tf": "cd terraform && env `grep -v '^#' .env` terraform $1",
     "create-env-file": "yarn ts-node ./scripts/createEnvFile $1",
     "jupiterone-organization-setup": "yarn ts-node ./scripts/organizationSetupCli.ts"
   },
   "peerDependencies": {
-    "@jupiterone/integration-sdk-core": "^6.13.0"
+    "@jupiterone/integration-sdk-core": "^6.21.0"
   },
   "devDependencies": {
-    "@jupiterone/integration-sdk-core": "^6.13.0",
-    "@jupiterone/integration-sdk-dev-tools": "^6.13.0",
-    "@jupiterone/integration-sdk-testing": "^6.13.0",
+    "@jupiterone/integration-sdk-core": "^6.21.0",
+    "@jupiterone/integration-sdk-dev-tools": "^6.21.0",
+    "@jupiterone/integration-sdk-testing": "^6.21.0",
     "@types/bunyan": "^1.8.6",
     "@types/bunyan-format": "^0.2.3",
     "@types/node-fetch": "^2.5.10",

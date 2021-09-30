@@ -49,6 +49,7 @@ export function createBigQueryDatasetEntity(data: bigquery_v2.Schema$Dataset) {
         name: data.datasetReference?.datasetId,
         description: data.description,
         public: isBigQueryDatasetPublicAccess(data.access || []),
+        // 7.3 Ensure that a Default Customer-managed encryption key (CMEK) is specified for all BigQuery Data Sets
         kmsKeyName: data.defaultEncryptionConfiguration?.kmsKeyName,
         location: data.location,
         encrypted: true,
@@ -104,10 +105,12 @@ export function createBigQueryTableEntity({
   data,
   projectId,
   isPublic,
+  kmsKeyName,
 }: {
   data: BigQueryTable;
   projectId: string;
   isPublic: boolean;
+  kmsKeyName: string | undefined;
 }) {
   return createGoogleCloudIntegrationEntity(data, {
     entityData: {
@@ -121,6 +124,8 @@ export function createBigQueryTableEntity({
         type: data.type,
         friendlyName: data.friendlyName,
         classification: null,
+        // 7.2 Ensure that all BigQuery Tables are encrypted with Customer-managed encryption key (CMEK)
+        kmsKeyName,
         webLink: getGoogleCloudConsoleWebLink(
           `/bigquery?project=${projectId}&d=${data.tableReference?.datasetId}&p=${projectId}&t=${data.tableReference?.tableId}&page=table`,
         ),

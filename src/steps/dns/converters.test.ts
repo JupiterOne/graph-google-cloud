@@ -1,5 +1,9 @@
-import { getMockDNSManagedZone } from '../../../test/mocks';
-import { createDNSManagedZoneEntity } from './converters';
+import { getMockDNSManagedZone, getMockDNSPolicy } from '../../../test/mocks';
+import {
+  createDNSManagedZoneEntity,
+  createDNSPolicyEntity,
+} from './converters';
+import { DEFAULT_INTEGRATION_CONFIG_PROJECT_ID } from '../../../test/config';
 
 describe('#createDNSManagedZoneEntity', () => {
   test('should convert to entity', () => {
@@ -62,6 +66,17 @@ describe('#createDNSManagedZoneEntity', () => {
             kind: 'dns#managedZoneDnsSecConfig',
           },
         }),
+      ),
+    ).toMatchSnapshot();
+  });
+});
+
+describe('#createDNSPolicyEntity', () => {
+  test('should convert to entity', () => {
+    expect(
+      createDNSPolicyEntity(
+        getMockDNSPolicy(),
+        DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
       ),
     ).toMatchSnapshot();
   });

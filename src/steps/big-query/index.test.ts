@@ -307,6 +307,7 @@ describe('#fetchBigQueryTables', () => {
           webLink: { type: 'string' },
           createdOn: { type: 'number' },
           expirationTime: { type: 'number' },
+          kmsKeyName: { type: 'string' },
         },
       },
     });

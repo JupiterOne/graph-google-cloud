@@ -166,8 +166,8 @@ gcloud projects add-iam-policy-binding my-proj-id-123 \
 
 ### Generate a service account key
 
-A service account key will be used to to execute the integration. You can
-generate a service account key using the
+A service account key will be used to execute the integration. You can generate
+a service account key using the
 [`gcloud iam service-accounts keys create`](https://cloud.google.com/sdk/gcloud/reference/iam/service-accounts/keys/create)
 command:
 
@@ -204,7 +204,7 @@ PROJECT_ID="my-j1-proj"
 **Required** credentials for the JupiterOne integration to authenticate. The key
 file should be a flattened JSON string.
 
-The following is an example of an unflatted service account key file:
+The following is an example of an unflattened service account key file:
 
 ```json
 {
