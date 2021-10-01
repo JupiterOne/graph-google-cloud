@@ -8,6 +8,32 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Removed
+
+- **Breaking** Step `create-binding-principal-relationships` no longer generates
+  relationships between `google_iam_role`s and principal members. These
+  traversals will now need to go through the `google_iam_binding` first. Ex:
+  `Find google_user ASSIGNED google_iam_role` will need to change to be
+  `Find google_user that ASSIGNED google_iam_bindg that USES google_iam_role`.
+  This is done because in Google Cloud, a principal is not directly assigned a
+  role, they are only assigned a role for a specific reasource.
+
+| Source                             | class        | Target            |
+| ---------------------------------- | ------------ | ----------------- |
+| `google_group`                     | **ASSIGNED** | `google_iam_role` |
+| `google_iam_service_account`       | **ASSIGNED** | `google_iam_role` |
+| `google_user`                      | **ASSIGNED** | `google_iam_role` |
+| `google_domain`                    | **ASSIGNED** | `google_iam_role` |
+| `everyone`                         | **ASSIGNED** | `google_iam_role` |
+| `google_cloud_authenticated_users` | **ASSIGNED** | `google_iam_role` |
+
+### Changed
+
+- New `google_iam_role`s for `google_cloud_project`s, `google_cloud_folder`s,
+  and `google_cloud_organization`s will get created for each Google Cloud Basic
+  Role (`roles/editor`, `roles/owner`, ...) that is attached via a role binding,
+  instead of having a single `google_iam_role` that all relate to.
+
 ### Added
 
 - Create relationships for every member of `google_iam_binding`s.
@@ -23,28 +49,24 @@ and this project adheres to
 
 - New properties added to resources:
 
-  | Entity                 | Properties    |
-  | ---------------------- | ------------- |
-  | `google_cloud_project` | `permissions` |
-  | `google_cloud_folder`  | `parent`      |
+  | Entity                | Properties    |
+  | --------------------- | ------------- |
+  | `google_iam_binding`  | `permissions` |
+  | `google_cloud_folder` | `parent`      |
 
 - Custom `google_iam_roles` will be ingested from the Organization level as well
   as the Project level.
-
-### Changed
-
-- New `google_iam_role`s for `google_cloud_project`s, `google_cloud_folder`s,
-  and `google_cloud_organization`s will get created for each Google Cloud Basic
-  Role (`roles/editor`, `roles/owner`, ...) that is attached via a role binding,
-  instead of having a single `google_iam_role` that all relate to.
-
-- Step `create-binding-principal-relationships` no longer generates
-  relationships between `google_iam_role`s and principal members.
 
 ### Fixed
 
 - Mapped relationships were not getting between `google_iam_bindings` and
   principals.
+
+## 0.51.5 - 2021-10-01
+
+### Fixed
+
+- Removed unnecessary "UNABLE_TO_FIND_PROJECT_ID" error.
 
 ## 0.51.4 - 2021-09-27
 

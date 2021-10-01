@@ -3,7 +3,6 @@ import {
   createMappedRelationship,
   generateRelationshipType,
   getRawData,
-  IntegrationError,
   IntegrationStep,
   Relationship,
   RelationshipClass,
@@ -59,7 +58,7 @@ export async function fetchIamBindings(
   try {
     await client.iterateAllIamPolicies(context, async (policyResult) => {
       const resource = policyResult.resource;
-      const projectName = policyResult.project;
+      const projectName = policyResult.project as string | undefined;
       const bindings = policyResult.policy?.bindings ?? [];
 
       for (const binding of bindings) {
@@ -87,13 +86,6 @@ export async function fetchIamBindings(
            * Because of this we have to pull the projectId from the jobState instead.
            */
           projectId = await getProjectIdFromName(jobState, projectName);
-          if (!projectId) {
-            // This would only happen if we have not run fetch-resource-manager-org-project-relationships which caches project data
-            throw new IntegrationError({
-              message: 'Unable to find projectId in jobState for role binding.',
-              code: 'UNABLE_TO_FIND_PROJECT_ID',
-            });
-          }
         }
 
         /**
@@ -114,6 +106,7 @@ export async function fetchIamBindings(
           createIamBindingEntity({
             _key,
             projectId,
+            projectName,
             binding,
             resource,
             permissions,

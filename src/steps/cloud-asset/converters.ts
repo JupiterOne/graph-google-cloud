@@ -44,12 +44,14 @@ export function buildIamBindingEntityKey({
 export function createIamBindingEntity({
   _key,
   projectId,
+  projectName,
   binding,
   resource,
   permissions,
 }: {
   _key: string;
   projectId?: string;
+  projectName?: string;
   binding: cloudasset_v1.Schema$Binding;
   resource: string | undefined | null;
   permissions: string[] | undefined | null;
@@ -75,6 +77,7 @@ export function createIamBindingEntity({
         role: binding.role,
         members: binding.members,
         projectId,
+        projectName,
         'condition.title': binding.condition?.title,
         'condition.description': binding.condition?.description,
         'condition.expression': binding.condition?.expression,

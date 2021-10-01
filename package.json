@@ -1,6 +1,6 @@
 {
   "name": "@jupiterone/graph-google-cloud",
-  "version": "0.51.4",
+  "version": "0.51.5",
   "description": "A graph conversion tool for https://cloud.google.com/",
   "license": "MPL-2.0",
   "main": "src/index.js",
@@ -23,7 +23,7 @@
     "format": "prettier --write '**/*.{ts,js,json,css,md,yml}'",
     "type-check": "tsc",
     "test:env": "LOAD_ENV=1 yarn test",
-    "test": "jest && yarn validate:questions:dry",
+    "test": "yarn validate:questions:dry && yarn jest",
     "test:ci": "yarn validate:questions && yarn lint && yarn type-check",
     "build": "./build.sh",
     "prepush": "yarn lint && yarn type-check && jest --changedSince main",

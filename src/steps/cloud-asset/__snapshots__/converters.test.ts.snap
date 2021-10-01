@@ -35,6 +35,7 @@ Object {
   "name": "role_binding_for_resourceresource",
   "permissions": "storage.admin,storage.objects.list",
   "projectId": "project-id",
+  "projectName": undefined,
   "readonly": true,
   "resource": "resource",
   "role": "projects/j1-gc-integration-dev-v3/roles/167984947943customroleconditions",
