@@ -18,6 +18,8 @@ export const GOOGLE_GROUP_ENTITY_TYPE = 'google_group';
 export const GOOGLE_GROUP_ENTITY_CLASS = 'UserGroup';
 export const GOOGLE_DOMAIN_ENTITY_TYPE = 'google_domain';
 export const GOOGLE_DOMAIN_ENTITY_CLASS = 'Domain';
+export const ALL_AUTHENTICATED_USERS_TYPE = 'google_cloud_authenticated_users';
+export const EVERYONE_TYPE = 'everyone';
 
 export const API_SERVICE_HAS_IAM_ROLE_RELATIONSHIP_TYPE =
   'google_cloud_api_service_has_iam_role';
@@ -26,8 +28,3 @@ export const GOOGLE_GROUP_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE =
   'google_group_assigned_iam_role';
 export const GOOGLE_USER_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE =
   'google_user_assigned_iam_role';
-
-export type IAM_PRINCIPAL_TYPE =
-  | typeof GOOGLE_USER_ENTITY_TYPE
-  | typeof GOOGLE_GROUP_ENTITY_TYPE
-  | typeof GOOGLE_DOMAIN_ENTITY_TYPE;

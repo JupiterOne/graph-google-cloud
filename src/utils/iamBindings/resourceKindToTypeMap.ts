@@ -72,7 +72,7 @@ import {
   ORGANIZATION_ENTITY_TYPE,
   FOLDER_ENTITY_TYPE,
   PROJECT_ENTITY_TYPE,
-} from '../../steps/resource-manager';
+} from '../../steps/resource-manager/constants';
 import { API_SERVICE_ENTITY_TYPE } from '../../steps/service-usage';
 import {
   ENTITY_TYPE_SPANNER_INSTANCE,

@@ -20,8 +20,6 @@ import {
 } from './constants';
 import { fetchIamServiceAccounts } from '../iam';
 
-jest.setTimeout(50000);
-
 describe('#fetchApiGatewayApis', () => {
   let recording: Recording;
 

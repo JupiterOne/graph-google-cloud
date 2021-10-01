@@ -42,8 +42,6 @@ import {
   RELATIONSHIP_TYPE_SERVICE_PERIMETER_HAS_INGRESS_POLICY,
 } from './constants';
 
-jest.setTimeout(5000000);
-
 describe('#fetchAccessContextManagerAccessPolicies', () => {
   let recording: Recording;
 

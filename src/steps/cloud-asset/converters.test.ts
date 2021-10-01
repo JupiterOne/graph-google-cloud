@@ -6,7 +6,7 @@ describe('#createIamBindingEntity', () => {
   const projectName = 'projects/123456789';
   const projectId = 'project-id';
   const binding = getMockRoleBinding();
-  const isReadOnly = true;
+  const permissions = ['storage.admin', 'storage.objects.list'];
 
   test('should convert to entity', () => {
     expect(
@@ -19,7 +19,7 @@ describe('#createIamBindingEntity', () => {
         binding,
         projectId,
         resource,
-        isReadOnly,
+        permissions,
       }),
     ).toMatchSnapshot();
   });

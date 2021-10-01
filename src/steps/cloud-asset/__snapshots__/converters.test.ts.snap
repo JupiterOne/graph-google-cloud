@@ -33,6 +33,7 @@ Object {
     "serviceAccount:j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
   ],
   "name": "role_binding_for_resourceresource",
+  "permissions": "storage.admin,storage.objects.list",
   "projectId": "project-id",
   "projectName": undefined,
   "readonly": true,

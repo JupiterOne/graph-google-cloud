@@ -336,8 +336,8 @@ The following entities are created:
 | DNS Policy                                               | `google_dns_policy`                                               | `Ruleset`                          |
 | Dataproc Cluster                                         | `google_dataproc_cluster`                                         | `Cluster`                          |
 | Folder                                                   | `google_cloud_folder`                                             | `Group`                            |
+| IAM Basic Role                                           | `google_iam_role`                                                 | `AccessRole`                       |
 | IAM Binding                                              | `google_iam_binding`                                              | `AccessPolicy`                     |
-| IAM Role                                                 | `google_iam_role`                                                 | `AccessRole`                       |
 | IAM Service Account                                      | `google_iam_service_account`                                      | `User`                             |
 | IAM Service Account Key                                  | `google_iam_service_account_key`                                  | `AccessKey`                        |
 | IAM User                                                 | `google_user`                                                     | `User`                             |
@@ -452,12 +452,14 @@ The following relationships are created:
 | `google_dataproc_cluster`                                        | **USES**              | `google_compute_image`                                            |
 | `google_dataproc_cluster`                                        | **USES**              | `google_kms_crypto_key`                                           |
 | `google_dataproc_cluster`                                        | **USES**              | `google_storage_bucket`                                           |
-| `google_domain`                                                  | **ASSIGNED**          | `google_iam_role`                                                 |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_project`                                            |
 | `google_group`                                                   | **ASSIGNED**          | `google_iam_role`                                                 |
 | `google_iam_binding`                                             | **ALLOWS**            | `ANY_RESOURCE`                                                    |
+| `google_iam_binding`                                             | **ASSIGNED**          | `google_cloud_authenticated_users`                                |
 | `google_iam_binding`                                             | **ASSIGNED**          | `google_domain`                                                   |
+| `google_iam_binding`                                             | **ASSIGNED**          | `everyone`                                                        |
 | `google_iam_binding`                                             | **ASSIGNED**          | `google_group`                                                    |
+| `google_iam_binding`                                             | **ASSIGNED**          | `google_iam_role`                                                 |
 | `google_iam_binding`                                             | **ASSIGNED**          | `google_iam_service_account`                                      |
 | `google_iam_binding`                                             | **ASSIGNED**          | `google_user`                                                     |
 | `google_iam_binding`                                             | **USES**              | `google_iam_role`                                                 |
