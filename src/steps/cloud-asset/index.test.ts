@@ -363,6 +363,7 @@ describe('#fetchIamBindings', () => {
             },
             resource: { type: 'string' },
             projectId: { type: 'string' },
+            projectName: { type: 'string' },
             members: { type: 'array' },
             role: { type: 'string' },
             'condition.title': { type: 'string' },
