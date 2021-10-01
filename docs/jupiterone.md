@@ -394,6 +394,7 @@ The following relationships are created:
 | `google_bigtable_instance`                                       | **HAS**               | `google_bigtable_table`                                           |
 | `google_bigtable_table`                                          | **HAS**               | `google_bigtable_backup`                                          |
 | `google_billing_account`                                         | **HAS**               | `google_billing_budget`                                           |
+| `google_cloud_api_service`                                       | **HAS**               | `ANY_RESOURCE`                                                    |
 | `google_cloud_api_service`                                       | **HAS**               | `google_iam_role`                                                 |
 | `internet`                                                       | **ALLOWS**            | `google_compute_firewall`                                         |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_folder`                                             |

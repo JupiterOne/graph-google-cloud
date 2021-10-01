@@ -8,6 +8,14 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- Added support for ingesting the following **new** relationships:
+
+| Source                     | class   | Target         |
+| -------------------------- | ------- | -------------- |
+| `google_cloud_api_service` | **HAS** | `ANY_RESOURCE` |
+
 ### Removed
 
 - **Breaking** Step `create-binding-principal-relationships` no longer generates

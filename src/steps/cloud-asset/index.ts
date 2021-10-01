@@ -17,14 +17,19 @@ import { IAM_ROLE_ENTITY_CLASS, IAM_ROLE_ENTITY_TYPE } from '../iam';
 import {
   buildIamTargetRelationship,
   findOrCreateIamRoleEntity,
+  FOLDER_ENTITY_TYPE,
   getPermissionsForManagedRole,
   maybeFindIamUserEntityWithParsedMember,
+  ORGANIZATION_ENTITY_TYPE,
+  PROJECT_ENTITY_TYPE,
 } from '../resource-manager';
 import { CloudAssetClient } from './client';
 import {
+  API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP,
   bindingEntities,
   BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP,
   BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS,
+  STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS,
   STEP_CREATE_BASIC_ROLES,
   STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS,
   STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS,
@@ -44,6 +49,7 @@ import { getEnabledServiceNames } from '../enablement';
 import { MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND } from '../../utils/iamBindings/resourceKindToTypeMap';
 import { createIamRoleEntity } from '../iam/converters';
 import { basicRoles, BasicRoleType } from '../../utils/iam';
+import { API_SERVICE_ENTITY_TYPE } from '../service-usage';
 
 export async function fetchIamBindings(
   context: IntegrationStepContext,
@@ -399,6 +405,110 @@ export async function createBindingToAnyResourceRelationships(
   );
 }
 
+export async function createApiServiceToAnyResourceRelationships(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, logger } = context;
+
+  // Optimization to prevent calling jobState.findEntity for entities we have already made relationships for.
+  const projectToResourceTracker = new Set<string>();
+
+  await jobState.iterateEntities(
+    { _type: bindingEntities.BINDINGS._type },
+    async (bindingEntity: BindingEntity) => {
+      // skip processing resource -> project pairs that we have already made relationships for.
+      if (
+        projectToResourceTracker.has(
+          (bindingEntity.projectId ?? bindingEntity.projectName) +
+            '|' +
+            bindingEntity.resource,
+        )
+      ) {
+        return;
+      } else {
+        projectToResourceTracker.add(
+          (bindingEntity.projectId ?? bindingEntity.projectName) +
+            '|' +
+            bindingEntity.resource,
+        );
+      }
+
+      const {
+        type: resourceType,
+        key: resourceKey,
+        metadata: { googleResourceKind },
+      } = makeLogsForTypeAndKeyResponse(
+        logger,
+        await getTypeAndKeyFromResourceIdentifier(
+          bindingEntity.resource,
+          context,
+        ),
+      ) ?? {};
+
+      // Do NOT make relationships for resources in the Organization Resource Heirarchy
+      if (
+        [
+          ORGANIZATION_ENTITY_TYPE,
+          FOLDER_ENTITY_TYPE,
+          PROJECT_ENTITY_TYPE,
+          API_SERVICE_ENTITY_TYPE,
+        ].includes(resourceType!)
+      ) {
+        return;
+      }
+
+      if (googleResourceKind && resourceKey) {
+        const serviceKey =
+          'projects/' +
+          (bindingEntity.projectId ?? bindingEntity.projectName) +
+          '/services/' +
+          googleResourceKind.split('/')[0];
+        const serviceEntity = await jobState.findEntity(serviceKey);
+        const resourceEntity = await jobState.findEntity(resourceKey);
+
+        // This means we can not make these relationships for sqladmin.googleapis.com/Instances
+        if (
+          !serviceEntity ||
+          resourceType === MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND ||
+          !resourceType
+        )
+          return;
+        await jobState.addRelationship(
+          resourceEntity
+            ? createDirectRelationship({
+                _class: RelationshipClass.HAS,
+                from: serviceEntity,
+                to: resourceEntity,
+              })
+            : createMappedRelationship({
+                _class: RelationshipClass.HAS,
+                _type: generateRelationshipType(
+                  RelationshipClass.HAS,
+                  API_SERVICE_ENTITY_TYPE,
+                  resourceType,
+                ),
+                source: serviceEntity,
+                /**
+                 * The mapper does properly remove mapper-created entities at the moment. These
+                 * entities will never be cleaned up which will cause duplicates.
+                 *
+                 * Until this is fixed, we should not create mapped relationships with target creation
+                 * enabled, thus only creating iam_binding relationships to resources that have already
+                 * been ingested by other integrations.
+                 */
+                skipTargetCreation: true,
+                target: {
+                  _type: resourceType,
+                  _key: resourceKey,
+                  resourceIdentifier: bindingEntity.resource,
+                },
+              }),
+        );
+      }
+    },
+  );
+}
+
 export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_IAM_BINDINGS,
@@ -460,6 +570,15 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
     relationships: [BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP],
     dependsOn: [STEP_IAM_BINDINGS],
     executionHandler: createBindingToAnyResourceRelationships,
+    dependencyGraphId: 'last',
+  },
+  {
+    id: STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS,
+    name: 'Api Service to Any Resource Relationships',
+    entities: [],
+    relationships: [API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP],
+    dependsOn: [STEP_IAM_BINDINGS],
+    executionHandler: createApiServiceToAnyResourceRelationships,
     dependencyGraphId: 'last',
   },
 ];
