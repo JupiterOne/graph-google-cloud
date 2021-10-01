@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.51.5 - 2021-10-01
+
 ### Fixed
 
 - Removed unnecessary "UNABLE_TO_FIND_PROJECT_ID" error.
