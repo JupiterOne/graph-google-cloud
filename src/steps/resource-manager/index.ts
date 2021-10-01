@@ -51,16 +51,12 @@ import {
   ConvenienceMemberType,
   ConvenienceMembers,
   getIamManagedRoleData,
-  getRoleKeyFromConvienenceType,
   ParsedIamMember,
   parseIamMember,
 } from '../../utils/iam';
 import { createIamRoleEntity } from '../iam/converters';
 import { RelationshipClass } from '@jupiterone/data-model';
-import {
-  cacheProjectNameAndId,
-  getProjectNameFromId,
-} from '../../utils/jobState';
+import { cacheProjectNameAndId } from '../../utils/jobState';
 import { CREATE_IAM_ENTITY_MAP } from './createIamEntities';
 
 export * from './constants';
@@ -84,25 +80,15 @@ export async function maybeFindIamUserEntityWithParsedMember({
 
   if (parsedIdentifier && parsedMemberType === 'serviceAccount') {
     userEntity = await jobState.findEntity(parsedIdentifier);
-  } else if (isConvienenceMember(member)) {
-    // find the Basic Role that relates to this member.
-    const [convenienceMember, projectId] = member.split(':');
-    const projectKey =
-      (await getProjectNameFromId(context!.jobState, projectId)) ?? projectId;
-    const roleKey =
-      projectKey +
-      '/' +
-      getRoleKeyFromConvienenceType(convenienceMember as ConvenienceMemberType);
-    // TODO: need to check for all Folder and Organization keys as well.
-    userEntity = await jobState.findEntity(roleKey);
   }
+
   return {
     parsedMember,
     userEntity,
   };
 }
 
-function isConvienenceMember(member: string) {
+export function isConvienenceMember(member: string) {
   return ConvenienceMembers.includes(
     member.split(':')[0] as ConvenienceMemberType,
   );

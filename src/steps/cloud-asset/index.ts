@@ -4,7 +4,6 @@ import {
   generateRelationshipType,
   getRawData,
   IntegrationStep,
-  Relationship,
   RelationshipClass,
   RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
@@ -18,6 +17,7 @@ import {
   buildIamTargetRelationship,
   findOrCreateIamRoleEntity,
   getPermissionsForManagedRole,
+  isConvienenceMember,
   maybeFindIamUserEntityWithParsedMember,
 } from '../resource-manager';
 import { CloudAssetClient } from './client';
@@ -43,7 +43,13 @@ import {
 import { getEnabledServiceNames } from '../enablement';
 import { MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND } from '../../utils/iamBindings/resourceKindToTypeMap';
 import { createIamRoleEntity } from '../iam/converters';
-import { basicRoles, BasicRoleType } from '../../utils/iam';
+import {
+  basicRoles,
+  BasicRoleType,
+  ConvenienceMemberType,
+  getRoleKeyFromConvienenceType,
+} from '../../utils/iam';
+import { getConditionRelationshipProperties } from '../resource-manager/converters';
 
 export async function fetchIamBindings(
   context: IntegrationStepContext,
@@ -58,7 +64,8 @@ export async function fetchIamBindings(
   try {
     await client.iterateAllIamPolicies(context, async (policyResult) => {
       const resource = policyResult.resource;
-      const projectName = policyResult.project as string | undefined;
+      const projectName = policyResult.project;
+      const { organization, folders } = policyResult as any;
       const bindings = policyResult.policy?.bindings ?? [];
 
       for (const binding of bindings) {
@@ -109,6 +116,8 @@ export async function fetchIamBindings(
             projectName,
             binding,
             resource,
+            folders,
+            organization,
             permissions,
           }),
         );
@@ -274,14 +283,6 @@ export async function createPrincipalRelationships(
   context: IntegrationStepContext,
 ): Promise<void> {
   const { jobState, logger } = context;
-  const memberRelationshipKeys = new Set<string>();
-
-  async function safeAddRelationship(relationship?: Relationship) {
-    if (relationship && !memberRelationshipKeys.has(relationship._key)) {
-      await jobState.addRelationship(relationship);
-      memberRelationshipKeys.add(String(relationship._key));
-    }
-  }
 
   await jobState.iterateEntities(
     { _type: bindingEntities.BINDINGS._type },
@@ -298,21 +299,49 @@ export async function createPrincipalRelationships(
       }
 
       for (const member of bindingEntity?.members ?? []) {
-        const iamUserEntityWithParsedMember =
-          await maybeFindIamUserEntityWithParsedMember({
-            context,
-            member,
-          });
-
-        await safeAddRelationship(
-          buildIamTargetRelationship({
+        if (isConvienenceMember(member)) {
+          const convenienceMember = member.split(
+            ':',
+          )[0] as ConvenienceMemberType;
+          for (const levelKey of [
+            bindingEntity.projectName,
+            ...(bindingEntity.folders ?? []),
+            bindingEntity.organization,
+          ].filter((c) => !!c)) {
+            // find the Basic Role that relates to this member.
+            const roleKey =
+              levelKey + '/' + getRoleKeyFromConvienenceType(convenienceMember);
+            const roleEntity = await jobState.findEntity(roleKey);
+            if (roleEntity) {
+              await jobState.addRelationship(
+                createDirectRelationship({
+                  _class: RelationshipClass.ASSIGNED,
+                  from: bindingEntity,
+                  to: roleEntity,
+                  properties: {
+                    projectId: bindingEntity.projectId,
+                    ...(condition &&
+                      getConditionRelationshipProperties(condition)),
+                  },
+                }),
+              );
+            }
+          }
+        } else {
+          const iamUserEntityWithParsedMember =
+            await maybeFindIamUserEntityWithParsedMember({
+              context,
+              member,
+            });
+          const relationship = buildIamTargetRelationship({
             iamEntity: bindingEntity,
             projectId: bindingEntity.projectId,
             iamUserEntityWithParsedMember,
             condition,
             relationshipDirection: RelationshipDirection.FORWARD,
-          }),
-        );
+          });
+          if (relationship) await jobState.addRelationship(relationship);
+        }
       }
     },
   );

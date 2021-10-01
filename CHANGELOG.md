@@ -29,6 +29,9 @@ and this project adheres to
 
 ### Changed
 
+- `google_iam_binding`'s `_key` property will now contain the `condition`
+  property of the binding in order to ensure all conditions are properly
+  captured in binding entities.
 - New `google_iam_role`s for `google_cloud_project`s, `google_cloud_folder`s,
   and `google_cloud_organization`s will get created for each Google Cloud Basic
   Role (`roles/editor`, `roles/owner`, ...) that is attached via a role binding,
@@ -49,10 +52,12 @@ and this project adheres to
 
 - New properties added to resources:
 
-  | Entity                | Properties    |
-  | --------------------- | ------------- |
-  | `google_iam_binding`  | `permissions` |
-  | `google_cloud_folder` | `parent`      |
+  | Entity                | Properties     |
+  | --------------------- | -------------- |
+  | `google_iam_binding`  | `permissions`  |
+  | `google_iam_binding`  | `organization` |
+  | `google_iam_binding`  | `folders`      |
+  | `google_cloud_folder` | `parent`       |
 
 - Custom `google_iam_roles` will be ingested from the Organization level as well
   as the Project level.

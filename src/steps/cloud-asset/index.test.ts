@@ -307,11 +307,6 @@ describe('#fetchIamBindings', () => {
         'google_iam_binding_assigned_service_account',
       );
       expect(
-        google_iam_binding_assigned_role,
-      ).toHaveBothDirectAndMappedRelationships(
-        'google_iam_binding_assigned_role',
-      );
-      expect(
         google_iam_binding_uses_role,
       ).toHaveBothDirectAndMappedRelationships('google_iam_binding_uses_role');
       // Currently, do not have examples of some resources ingested in this integration and some in others
@@ -363,6 +358,10 @@ describe('#fetchIamBindings', () => {
       expect(
         google_iam_binding_allows_cloud_folder,
       ).toHaveOnlyDirectRelationships('google_iam_binding_allows_cloud_folder');
+      // These are for "Convienence Values" which we make sure connected Basic Role exists in `createBasicRolesForBindings` so it will always be direct.
+      expect(google_iam_binding_assigned_role).toHaveOnlyDirectRelationships(
+        'google_iam_binding_assigned_role',
+      );
 
       // Entities
       const { google_iam_binding, google_iam_role } =
@@ -385,6 +384,11 @@ describe('#fetchIamBindings', () => {
             resource: { type: 'string' },
             projectId: { type: 'string' },
             projectName: { type: 'string' },
+            folders: {
+              type: 'array',
+              items: { type: 'string' },
+            },
+            organization: { type: 'string' },
             members: { type: 'array' },
             role: { type: 'string' },
             'condition.title': { type: 'string' },
