@@ -129,6 +129,7 @@ import {
   STEP_CREATE_BINDING_ROLE_RELATIONSHIPS,
   STEP_CREATE_BASIC_ROLES,
   STEP_IAM_BINDINGS,
+  STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS,
 } from './steps/cloud-asset/constants';
 import {
   STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS,
@@ -487,6 +488,9 @@ describe('#getStepStartStates success', () => {
       [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: {
         disabled: false,
       },
+      [STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS]: {
+        disabled: false,
+      },
       [STEP_DATAPROC_CLUSTERS]: {
         disabled: false,
       },
@@ -582,6 +586,9 @@ describe('#getStepStartStates success', () => {
       [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: {
         disabled: true,
       },
+      [STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS]: {
+        disabled: true,
+      },
       [STEP_BILLING_BUDGETS]: {
         disabled: true,
       },
@@ -648,6 +655,9 @@ describe('#getStepStartStates success', () => {
         disabled: true,
       },
       [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: {
+        disabled: true,
+      },
+      [STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS]: {
         disabled: true,
       },
       [STEP_BILLING_BUDGETS]: {

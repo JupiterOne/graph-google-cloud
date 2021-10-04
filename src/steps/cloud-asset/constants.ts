@@ -12,6 +12,7 @@ import {
   IAM_ROLE_ENTITY_TYPE,
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
 } from '../iam';
+import { API_SERVICE_ENTITY_TYPE } from '../service-usage';
 
 export const STEP_IAM_BINDINGS = 'fetch-iam-bindings';
 export const STEP_CREATE_BASIC_ROLES = 'create-basic-roles';
@@ -21,6 +22,8 @@ export const STEP_CREATE_BINDING_ROLE_RELATIONSHIPS =
   'create-binding-role-relationships';
 export const STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS =
   'create-binding-any-resource-relationships';
+export const STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS =
+  'create-api-service-any-resource-relationships';
 
 export const bindingEntities = {
   BINDINGS: {
@@ -67,5 +70,16 @@ export const BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP = {
   ),
   sourceType: bindingEntities.BINDINGS._type,
   _class: RelationshipClass.ALLOWS,
+  targetType: ANY_RESOURCE,
+};
+
+export const API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP = {
+  _class: RelationshipClass.HAS,
+  _type: generateRelationshipType(
+    RelationshipClass.HAS,
+    API_SERVICE_ENTITY_TYPE,
+    ANY_RESOURCE,
+  ),
+  sourceType: API_SERVICE_ENTITY_TYPE,
   targetType: ANY_RESOURCE,
 };

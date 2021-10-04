@@ -12,6 +12,7 @@ export interface BindingEntity extends Entity {
   role: string;
   members: string;
   projectId: string;
+  projectName: string;
   'condition.title': string;
   'condition.description': string;
   'condition.expression': string;
