@@ -116,6 +116,7 @@ import {
   STEP_CREATE_BINDING_ROLE_RELATIONSHIPS,
   STEP_CREATE_BASIC_ROLES,
   STEP_IAM_BINDINGS,
+  STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS,
 } from './steps/cloud-asset/constants';
 import {
   STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS,
@@ -281,6 +282,9 @@ export default async function getStepStartStates(
       ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
       : { disabled: true },
     [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: isMasterOrgInstance
+      ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
+      : { disabled: true },
+    [STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS]: isMasterOrgInstance
       ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
       : { disabled: true },
     [STEP_CLOUD_FUNCTIONS]: createStepStartState(
