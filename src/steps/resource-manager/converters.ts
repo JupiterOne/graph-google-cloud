@@ -53,7 +53,7 @@ export function createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship
         ? [['_key', '_type']]
         : [['_type', 'email']],
       /**
-       * The mapper does properly remove mapper-created entities at the moment. These
+       * The mapper does not properly remove mapper-created entities at the moment. These
        * entities will never be cleaned up which will causes duplicates.
        *
        * Until this is fixed, we should not create mapped relatioonships with target creation

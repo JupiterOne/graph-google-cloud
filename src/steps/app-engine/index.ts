@@ -275,7 +275,7 @@ export async function fetchAppEngineServiceVersions(
                         sourceEntityKey: versionEntity._key,
                         targetFilterKeys: [['_type', 'email']],
                         /**
-                         * The mapper does properly remove mapper-created entities at the moment. These
+                         * The mapper does not properly remove mapper-created entities at the moment. These
                          * entities will never be cleaned up which will cause duplicates.
                          *
                          * Until this is fixed, we should not create mapped relationships with target creation
