@@ -329,11 +329,6 @@ describe('#fetchIamBindings', () => {
         'google_iam_binding_allows_cloud_project',
       );
       expect(
-        google_iam_binding_assigned_role,
-      ).toHaveBothDirectAndMappedRelationships(
-        'google_iam_binding_assigned_role',
-      );
-      expect(
         google_iam_binding_uses_role,
       ).toHaveBothDirectAndMappedRelationships('google_iam_binding_uses_role');
 
