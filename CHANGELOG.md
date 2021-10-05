@@ -57,10 +57,11 @@ and this project adheres to
 
 - New properties added to resources:
 
-  | Entity                | Properties    |
-  | --------------------- | ------------- |
-  | `google_iam_binding`  | `permissions` |
-  | `google_cloud_folder` | `parent`      |
+  | Entity                 | Properties    |
+  | ---------------------- | ------------- |
+  | `google_iam_binding`   | `permissions` |
+  | `google_cloud_folder`  | `parent`      |
+  | (mapped) `google_user` | `emailDomain` |
 
 - Custom `google_iam_roles` will be ingested from the Organization level as well
   as the Project level.

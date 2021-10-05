@@ -142,7 +142,7 @@ function createIamUser(
     email: email,
     username: email ? getUsername(email) : undefined,
     deleted: deleted ?? false,
-    domainName: email ? getDomain(email) : undefined,
+    emailDomain: email ? getDomain(email) : undefined,
   };
 }
 
