@@ -14,7 +14,7 @@ import {
 } from '../iam';
 import {
   ConvenienceMemberType,
-  getRoleKeyFromConvienenceType,
+  getRoleKeyFromConvienenceMember,
   ParsedIamMember,
   ParsedIamMemberType,
 } from '../../utils/iam';
@@ -80,7 +80,7 @@ function createIamGroup(parsedMember: ParsedIamMember) {
 
 function createIamRole(parsedMember: ParsedIamMember) {
   const projectId = parsedMember.identifier;
-  const roleName = getRoleKeyFromConvienenceType(
+  const roleName = getRoleKeyFromConvienenceMember(
     parsedMember.type as ConvenienceMemberType,
   );
   const deleted = parsedMember.deleted;

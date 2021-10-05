@@ -8,32 +8,31 @@ and this project adheres to
 
 ## [Unreleased]
 
-### Added
-
-- Added support for ingesting the following **new** relationships:
-
-| Source                     | class   | Target         |
-| -------------------------- | ------- | -------------- |
-| `google_cloud_api_service` | **HAS** | `ANY_RESOURCE` |
-
 ### Removed
 
-- **Breaking** Step `create-binding-principal-relationships` no longer generates
-  relationships between `google_iam_role`s and principal members. These
-  traversals will now need to go through the `google_iam_binding` first. Ex:
-  `Find google_user ASSIGNED google_iam_role` will need to change to be
-  `Find google_user that ASSIGNED google_iam_bindg that USES google_iam_role`.
-  This is done because in Google Cloud, a principal is not directly assigned a
-  role, they are only assigned a role for a specific reasource.
+- **Breaking** Relationships between `google_iam_role`s and principal members.
+  These traversals will now need to go through the `google_iam_binding` first.
+  Ex: `Find google_user ASSIGNED google_iam_role` will need to change to be
+  `Find google_user that ASSIGNED google_iam_binding that USES google_iam_role`.
+  This is done because in Google Cloud IAM, a principal is not directly assigned
+  a role, they are only assigned a role for a specific reasource via an IAM
+  Binding.
 
 | Source                             | class        | Target            |
 | ---------------------------------- | ------------ | ----------------- |
-| `google_group`                     | **ASSIGNED** | `google_iam_role` |
-| `google_iam_service_account`       | **ASSIGNED** | `google_iam_role` |
 | `google_user`                      | **ASSIGNED** | `google_iam_role` |
+| `google_group`                     | **ASSIGNED** | `google_iam_role` |
 | `google_domain`                    | **ASSIGNED** | `google_iam_role` |
 | `everyone`                         | **ASSIGNED** | `google_iam_role` |
 | `google_cloud_authenticated_users` | **ASSIGNED** | `google_iam_role` |
+| `google_iam_service_account`       | **ASSIGNED** | `google_iam_role` |
+
+- **Breaking** Step `fetch-resource-manager-iam-policy` was removed. IAM Policy
+  analysis for projects will now be done in the `fetch-iam-bindings` step, which
+  requires the Cloud Asset API to be enabled. In order to continue having the
+  project level IAM Policy analyzed, ensure your gcloud account has
+  `cloudasset.googleapis.com` enabled (instructions
+  [here](https://github.com/JupiterOne/graph-google-cloud/blob/main/docs/jupiterone.md#in-google-cloud))
 
 ### Changed
 
@@ -44,6 +43,9 @@ and this project adheres to
   and `google_cloud_organization`s will get created for each Google Cloud Basic
   Role (`roles/editor`, `roles/owner`, ...) that is attached via a role binding,
   instead of having a single `google_iam_role` that all relate to.
+- Step `fetch-iam-bindings` will fetch IAM Policies using the project scope when
+  triggered by an integration without an `organizationId` in its
+  integrationConfig.
 
 ### Added
 
@@ -57,6 +59,7 @@ and this project adheres to
 | `google_iam_binding`               | `ASSIGNED` | `google_iam_role`                  |
 | `everyone`                         | `ASSIGNED` | `google_iam_role`                  |
 | `google_cloud_authenticated_users` | `ASSIGNED` | `google_iam_role`                  |
+| `google_cloud_api_service`         | `HAS`      | `ANY_RESOURCE`                     |
 
 - New properties added to resources:
 

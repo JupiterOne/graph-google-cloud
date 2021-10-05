@@ -51,7 +51,7 @@ import {
   BasicRoleType,
   ConvenienceMemberType,
   getIamManagedRoleData,
-  getRoleKeyFromConvienenceType,
+  getRoleKeyFromConvienenceMember,
   isConvienenceMember,
   ParsedIamMember,
   parseIamMember,
@@ -176,6 +176,10 @@ export async function fetchIamBindings(
   }
 }
 
+function createBasicRoleKey(orgHierarchyKey: string, roleIdentifier: string) {
+  return orgHierarchyKey + '/' + roleIdentifier;
+}
+
 export async function findOrCreateIamRoleEntity({
   jobState,
   roleName,
@@ -237,10 +241,11 @@ export async function createBasicRolesForBindings(
                 context,
               ),
             ) ?? {};
+          if (!key) return;
           await findOrCreateIamRoleEntity({
             jobState,
             roleName: bindingEntity.role,
-            roleKey: key + '/' + bindingEntity.role,
+            roleKey: createBasicRoleKey(key, bindingEntity.role),
           });
         }
       }
@@ -268,7 +273,8 @@ export async function createBindingRoleRelationships(
                 context,
               ),
             ) ?? {};
-          roleKey = key + '/' + bindingEntity.role;
+          if (!key) return;
+          roleKey = createBasicRoleKey(key, bindingEntity.role);
         }
 
         const roleEntity = await jobState.findEntity(roleKey);
@@ -396,54 +402,65 @@ export function buildIamTargetRelationship({
   }
 }
 
+function getOrgHierarchyKeysForBinding(bindingEntity: BindingEntity) {
+  return [
+    bindingEntity.projectName,
+    ...(bindingEntity.folders ?? []),
+    bindingEntity.organization,
+  ].filter((identifier) => !!identifier);
+}
+
+async function createAndAddConvienceMemberTargetRelationships(
+  jobState: JobState,
+  member: string,
+  bindingEntity: BindingEntity,
+  condition?: cloudresourcemanager_v3.Schema$Expr,
+) {
+  const convenienceMember = member.split(':')[0] as ConvenienceMemberType; // 'projectOwner:PROJECT_ID' => 'projectOwner'
+  for (const orgHierarchyKey of getOrgHierarchyKeysForBinding(bindingEntity)) {
+    // Find the Basic Role that relates to this member.
+    const roleKey = createBasicRoleKey(
+      orgHierarchyKey!,
+      getRoleKeyFromConvienenceMember(convenienceMember),
+    );
+    const roleEntity = await jobState.findEntity(roleKey);
+    if (roleEntity) {
+      await jobState.addRelationship(
+        createDirectRelationship({
+          _class: RelationshipClass.ASSIGNED,
+          from: bindingEntity,
+          to: roleEntity,
+          properties: {
+            projectId: bindingEntity.projectId,
+            ...(condition && getConditionRelationshipProperties(condition)),
+          },
+        }),
+      );
+    }
+  }
+}
+
 export async function createPrincipalRelationships(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, logger } = context;
+  const { jobState } = context;
 
   await jobState.iterateEntities(
     { _type: bindingEntities.BINDINGS._type },
     async (bindingEntity: BindingEntity) => {
-      const condition: cloudresourcemanager_v3.Schema$Expr | undefined =
+      const condition =
         getRawData<cloudresourcemanager_v3.Schema$Binding>(
           bindingEntity,
         )?.condition;
-      if (!bindingEntity.role) {
-        logger.warn(
-          { binding: bindingEntity },
-          'Binding does not have an associated role.',
-        );
-      }
 
       for (const member of bindingEntity?.members ?? []) {
         if (isConvienenceMember(member)) {
-          const convenienceMember = member.split(
-            ':',
-          )[0] as ConvenienceMemberType;
-          for (const levelKey of [
-            bindingEntity.projectName,
-            ...(bindingEntity.folders ?? []),
-            bindingEntity.organization,
-          ].filter((c) => !!c)) {
-            // find the Basic Role that relates to this member.
-            const roleKey =
-              levelKey + '/' + getRoleKeyFromConvienenceType(convenienceMember);
-            const roleEntity = await jobState.findEntity(roleKey);
-            if (roleEntity) {
-              await jobState.addRelationship(
-                createDirectRelationship({
-                  _class: RelationshipClass.ASSIGNED,
-                  from: bindingEntity,
-                  to: roleEntity,
-                  properties: {
-                    projectId: bindingEntity.projectId,
-                    ...(condition &&
-                      getConditionRelationshipProperties(condition)),
-                  },
-                }),
-              );
-            }
-          }
+          await createAndAddConvienceMemberTargetRelationships(
+            jobState,
+            member,
+            bindingEntity,
+            condition,
+          );
         } else {
           const parsedMember = parseIamMember(member);
           const { identifier: parsedIdentifier, type: parsedMemberType } =
@@ -611,9 +628,10 @@ export async function createApiServiceToAnyResourceRelationships(
       if (isOrganizationalHierarchyResource(resourceType!)) return;
       if (!googleResourceKind || !resourceKey) return;
 
+      const serviceIdentifier = googleResourceKind.split('/')[0]; // 'cloudfunctions.googleapis.com/CloudFunction' => 'cloudfunctions.googleapis.com'
       const serviceKey = buildServiceGraphObjectKey(
         bindingEntity,
-        googleResourceKind.split('/')[0],
+        serviceIdentifier,
       );
       const serviceEntity = await jobState.findEntity(serviceKey);
       const resourceEntity = await jobState.findEntity(resourceKey);

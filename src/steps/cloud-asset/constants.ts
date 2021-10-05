@@ -77,7 +77,7 @@ export const API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP = {
   _class: RelationshipClass.HAS,
   _type: generateRelationshipType(
     RelationshipClass.HAS,
-    'google_cloud_api_service',
+    API_SERVICE_ENTITY_TYPE,
     ANY_RESOURCE,
   ),
   sourceType: API_SERVICE_ENTITY_TYPE,
