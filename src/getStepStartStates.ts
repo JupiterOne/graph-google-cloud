@@ -70,7 +70,10 @@ import {
   STEP_BUILD_BIG_QUERY_DATASET_KMS_RELATIONSHIPS,
 } from './steps/big-query';
 import { STEP_SQL_ADMIN_INSTANCES } from './steps/sql-admin';
-import { STEP_DNS_MANAGED_ZONES } from './steps/dns/constants';
+import {
+  STEP_DNS_MANAGED_ZONES,
+  STEP_DNS_POLICIES,
+} from './steps/dns/constants';
 import { STEP_CONTAINER_CLUSTERS } from './steps/containers';
 import {
   STEP_LOGGING_METRICS,
@@ -114,7 +117,9 @@ import {
   STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS,
   STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS,
   STEP_CREATE_BINDING_ROLE_RELATIONSHIPS,
+  STEP_CREATE_BASIC_ROLES,
   STEP_IAM_BINDINGS,
+  STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS,
 } from './steps/cloud-asset/constants';
 import {
   STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS,
@@ -270,6 +275,9 @@ export default async function getStepStartStates(
     [STEP_IAM_BINDINGS]: isMasterOrgInstance
       ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
       : { disabled: true },
+    [STEP_CREATE_BASIC_ROLES]: isMasterOrgInstance
+      ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
+      : { disabled: true },
     [STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS]: isMasterOrgInstance
       ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
       : { disabled: true },
@@ -277,6 +285,9 @@ export default async function getStepStartStates(
       ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
       : { disabled: true },
     [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: isMasterOrgInstance
+      ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
+      : { disabled: true },
+    [STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS]: isMasterOrgInstance
       ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
       : { disabled: true },
     [STEP_CLOUD_FUNCTIONS]: createStepStartState(
@@ -387,6 +398,7 @@ export default async function getStepStartStates(
       ServiceUsageName.SQL_ADMIN,
     ),
     [STEP_DNS_MANAGED_ZONES]: createStepStartState(ServiceUsageName.DNS),
+    [STEP_DNS_POLICIES]: createStepStartState(ServiceUsageName.DNS),
     [STEP_CONTAINER_CLUSTERS]: createStepStartState(ServiceUsageName.CONTAINER),
     [STEP_LOGGING_PROJECT_SINKS]: createStepStartState(
       ServiceUsageName.LOGGING,

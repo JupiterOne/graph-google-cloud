@@ -45,7 +45,10 @@ import {
   CONTAINER_NODE_POOL_ENTITY_TYPE,
 } from '../../steps/containers';
 import { ENTITY_TYPE_DATAPROC_CLUSTER } from '../../steps/dataproc/constants';
-import { DNS_MANAGED_ZONE_ENTITY_TYPE } from '../../steps/dns/constants';
+import {
+  DNS_MANAGED_ZONE_ENTITY_TYPE,
+  DNS_POLICY_ENTITY_TYPE,
+} from '../../steps/dns/constants';
 import { CLOUD_FUNCTION_ENTITY_TYPE } from '../../steps/functions';
 import {
   IAM_ROLE_ENTITY_TYPE,
@@ -69,7 +72,7 @@ import {
   ORGANIZATION_ENTITY_TYPE,
   FOLDER_ENTITY_TYPE,
   PROJECT_ENTITY_TYPE,
-} from '../../steps/resource-manager';
+} from '../../steps/resource-manager/constants';
 import { API_SERVICE_ENTITY_TYPE } from '../../steps/service-usage';
 import {
   ENTITY_TYPE_SPANNER_INSTANCE,
@@ -153,7 +156,7 @@ export const GOOGLE_RESOURCE_KIND_TO_J1_TYPE_MAP: {
   'storage.googleapis.com/Bucket': CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
   'osconfig.googleapis.com/PatchDeployment': NONE,
   'dns.googleapis.com/ManagedZone': DNS_MANAGED_ZONE_ENTITY_TYPE,
-  'dns.googleapis.com/Policy': NONE,
+  'dns.googleapis.com/Policy': DNS_POLICY_ENTITY_TYPE,
   'spanner.googleapis.com/Instance': ENTITY_TYPE_SPANNER_INSTANCE,
   'spanner.googleapis.com/Database': ENTITY_TYPE_SPANNER_INSTANCE_DATABASE,
   'spanner.googleapis.com/Backup': NONE,

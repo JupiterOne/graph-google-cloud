@@ -21,6 +21,7 @@ export function createIamRoleEntity(
   data: iam_v1.Schema$Role,
   {
     custom,
+    key = data.name as string,
   }: {
     /**
      * Google Cloud has managed roles and custom roles. There is no metadata
@@ -28,18 +29,17 @@ export function createIamRoleEntity(
      * We mark explcitly fetched custom rules as custom.
      */
     custom: boolean;
+    key?: string;
   },
 ) {
-  const roleName = data.name as string;
-
   return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {
         _class: IAM_ROLE_ENTITY_CLASS,
         _type: IAM_ROLE_ENTITY_TYPE,
-        _key: roleName,
-        name: roleName,
+        _key: key,
+        name: data.name,
         displayName: data.title as string,
         description: data.description,
         stage: data.stage,

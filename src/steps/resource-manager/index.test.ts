@@ -92,6 +92,13 @@ describe('#fetchResourceManagerIamPolicy', () => {
       context.jobState.collectedRelationships.filter(
         (r) => r._type === 'google_iam_service_account_assigned_role',
       );
+    const {
+      targets: mappedIamServiceAccountAssignedRoleRelationships,
+      rest: directIamServiceAccountAssignedRoleRelationships,
+    } = filterGraphObjects(
+      iamServiceAccountAssignedRoleRelationships,
+      (r) => !!r._mapping,
+    );
     const iamServiceAccountHasKeyRelationships =
       context.jobState.collectedRelationships.filter(
         (r) => r._type === 'google_iam_service_account_has_key',
@@ -101,7 +108,10 @@ describe('#fetchResourceManagerIamPolicy', () => {
     expect(iamServiceAccountEntities.length).toBeGreaterThanOrEqual(1);
     expect(iamServiceAccountKeyEntities.length).toBeGreaterThanOrEqual(1);
     expect(
-      iamServiceAccountAssignedRoleRelationships.length,
+      mappedIamServiceAccountAssignedRoleRelationships.length,
+    ).toBeGreaterThanOrEqual(1);
+    expect(
+      directIamServiceAccountAssignedRoleRelationships.length,
     ).toBeGreaterThanOrEqual(1);
     expect(iamServiceAccountHasKeyRelationships.length).toBeGreaterThanOrEqual(
       1,
@@ -402,6 +412,7 @@ describe('#fetchResourceManagerFolders', () => {
           displayName: { type: 'string' },
           etag: { type: 'string' },
           lifecycleState: { type: 'string' },
+          parent: { type: 'string' },
           createdOn: { type: 'number' },
           updatedOn: { type: 'number' },
         },

@@ -506,6 +506,32 @@ export function getMockDNSManagedZone(
   };
 }
 
+export function getMockDNSPolicy(
+  partial?: dns_v1.Schema$Policy,
+): dns_v1.Schema$Policy {
+  return {
+    id: '2869664235641544935',
+    name: 'test-policy',
+    enableInboundForwarding: true,
+    description: '',
+    networks: [
+      {
+        networkUrl:
+          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/public-compute-app-vpc',
+        kind: 'dns#policyNetwork',
+      },
+      {
+        networkUrl:
+          'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/default',
+        kind: 'dns#policyNetwork',
+      },
+    ],
+    enableLogging: true,
+    kind: 'dns#policy',
+    ...partial,
+  };
+}
+
 export function getMockContainerCluster(
   partial?: container_v1.Schema$Cluster,
 ): container_v1.Schema$Cluster {

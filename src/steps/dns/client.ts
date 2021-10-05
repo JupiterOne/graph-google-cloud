@@ -24,4 +24,25 @@ export class DNSClient extends Client {
       },
     );
   }
+
+  async iterateDNSPolicies(
+    callback: (data: dns_v1.Schema$Policy) => Promise<void>,
+  ) {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.policies.list({
+          project: this.projectId,
+          auth,
+          pageToken: nextPageToken,
+        });
+      },
+      async (data: dns_v1.Schema$PoliciesListResponse) => {
+        for (const policy of data.policies || []) {
+          await callback(policy);
+        }
+      },
+    );
+  }
 }
