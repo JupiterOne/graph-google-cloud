@@ -29,6 +29,26 @@ export class IamClient extends Client {
         }
       },
     );
+
+    // If the organizationId is available, fetch those Custom Roles as well.
+    if (this.organizationId) {
+      await this.iterateApi(
+        async (nextPageToken) => {
+          return this.client.roles.list({
+            auth,
+            pageToken: nextPageToken,
+            parent: `organizations/${this.organizationId}`,
+            view: 'FULL',
+            showDeleted: true,
+          });
+        },
+        async (data: iam_v1.Schema$ListRolesResponse) => {
+          for (const role of data.roles || []) {
+            await callback(role);
+          }
+        },
+      );
+    }
   }
 
   async iterateManagedRoles(

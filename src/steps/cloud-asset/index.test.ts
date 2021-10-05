@@ -1,12 +1,16 @@
+jest.setTimeout(50000);
+
 import { flatten } from 'lodash';
 import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-testing';
 import { IntegrationConfig } from '../..';
 import { integrationConfig } from '../../../test/config';
 import { withRecording } from '../../../test/recording';
 import {
+  createBasicRolesForBindings,
   createBindingRoleRelationships,
   createBindingToAnyResourceRelationships,
   createPrincipalRelationships,
+  createApiServiceToAnyResourceRelationships,
   fetchIamBindings,
 } from '.';
 import { bindingEntities } from './constants';
@@ -39,6 +43,7 @@ import {
 } from '../storage';
 import { CLOUD_FUNCTION_ENTITY_TYPE, fetchCloudFunctions } from '../functions';
 import { IAM_MANAGED_ROLES_DATA_JOB_STATE_KEY } from '../../utils/iam';
+import { fetchApiServices } from '../service-usage';
 
 expect.extend({
   toHaveOnlyDirectRelationships(
@@ -247,14 +252,18 @@ describe('#fetchIamBindings', () => {
 
       await fetchResourceManagerOrganization(context);
       await fetchResourceManagerFolders(context);
+      await fetchResourceManagerProject(context);
       await buildOrgFolderProjectMappedRelationships(context);
       await fetchIamCustomRoles(context);
       await fetchIamManagedRoles(context);
       await fetchIamServiceAccounts(context);
       await fetchIamBindings(context);
+      await createBasicRolesForBindings(context);
       await createPrincipalRelationships(context);
       await createBindingRoleRelationships(context);
       await createBindingToAnyResourceRelationships(context);
+      await fetchApiServices(context);
+      await createApiServiceToAnyResourceRelationships(context);
 
       expect({
         numCollectedEntities: context.jobState.collectedEntities.length,
@@ -268,14 +277,31 @@ describe('#fetchIamBindings', () => {
       // Relationships
       const {
         google_iam_binding_uses_role,
+
         google_iam_binding_assigned_user,
         google_iam_binding_assigned_group,
         google_iam_binding_assigned_service_account,
         google_iam_binding_assigned_domain,
+        google_iam_binding_assigned_role,
+        google_iam_binding_assigned_everyone,
+
         google_user_assigned_iam_role,
         google_group_assigned_iam_role,
         google_iam_service_account_assigned_role,
         google_domain_assigned_iam_role,
+        everyone_assigned_google_iam_role,
+        google_iam_role_assigned_role,
+
+        google_cloud_api_service_has_storage_bucket,
+        google_cloud_api_service_has_bigquery_dataset,
+        google_cloud_api_service_has_kms_crypto_key,
+        google_cloud_api_service_has_kms_key_ring,
+        google_cloud_api_service_has_function,
+        google_cloud_api_service_has_project,
+        google_cloud_api_service_has_folder,
+        google_cloud_api_service_has_organization,
+        google_cloud_api_service_has_service,
+
         google_iam_binding_allows_cloud_organization,
         google_iam_binding_allows_cloud_folder,
         google_iam_binding_allows_cloud_project,
@@ -283,57 +309,82 @@ describe('#fetchIamBindings', () => {
         google_iam_binding_allows_bigquery_dataset,
         google_iam_binding_allows_kms_crypto_key,
         google_iam_binding_allows_kms_key_ring,
+        google_iam_binding_allows_billing_account,
+        google_iam_binding_allows_cloud_function,
       } = separateGraphObjectsByType(
         context.jobState.collectedRelationships,
         context.jobState.encounteredTypes,
       );
 
       // Both Direct and Mapped Relationships
+      // Direct if target already ingested in this integration, mapped otherwise.
+      expect(
+        google_iam_binding_assigned_service_account,
+      ).toHaveBothDirectAndMappedRelationships(
+        'google_iam_binding_assigned_service_account',
+      );
+      expect(
+        google_iam_binding_allows_cloud_project,
+      ).toHaveBothDirectAndMappedRelationships(
+        'google_iam_binding_allows_cloud_project',
+      );
+      expect(
+        google_iam_binding_assigned_role,
+      ).toHaveBothDirectAndMappedRelationships(
+        'google_iam_binding_assigned_role',
+      );
       expect(
         google_iam_binding_uses_role,
       ).toHaveBothDirectAndMappedRelationships('google_iam_binding_uses_role');
-      // Do not have examples of some resources ingested in this integration and some in others yet.
+
+      // Currently, do not have examples of some resources ingested in this integration and some in others
+      // For now, just check that we have some relationships
       expect(google_iam_binding_allows_storage_bucket.length > 0).toBe(true);
       expect(google_iam_binding_allows_bigquery_dataset.length > 0).toBe(true);
       expect(google_iam_binding_allows_kms_crypto_key.length > 0).toBe(true);
       expect(google_iam_binding_allows_kms_key_ring.length > 0).toBe(true);
+      expect(google_iam_binding_allows_billing_account.length > 0).toBe(true);
+      expect(google_iam_binding_allows_cloud_function.length > 0).toBe(true);
+
+      expect(google_cloud_api_service_has_storage_bucket.length > 0).toBe(true);
+      expect(google_cloud_api_service_has_bigquery_dataset.length > 0).toBe(
+        true,
+      );
+      expect(google_cloud_api_service_has_kms_crypto_key.length > 0).toBe(true);
+      expect(google_cloud_api_service_has_kms_key_ring.length > 0).toBe(true);
+      expect(google_cloud_api_service_has_function.length > 0).toBe(true);
+
+      // Ensure google_cloud_api_service HAS any resource in the organization resource hierarchy relationships are NOT created
+      expect(google_cloud_api_service_has_project).toBeUndefined();
+      expect(google_cloud_api_service_has_folder).toBeUndefined();
+      expect(google_cloud_api_service_has_organization).toBeUndefined();
+      expect(google_cloud_api_service_has_service).toBeUndefined();
 
       // Mapped Relationships
       expect(google_iam_binding_assigned_user).toHaveOnlyMappedRelationships(
         'google_iam_binding_assigned_user',
       );
-      expect(google_iam_binding_assigned_domain).toHaveOnlyMappedRelationships(
-        'google_iam_binding_assigned_domain',
-      );
-      expect(google_domain_assigned_iam_role).toHaveOnlyMappedRelationships(
-        'google_domain_assigned_iam_role',
-      );
       expect(google_iam_binding_assigned_group).toHaveOnlyMappedRelationships(
         'google_iam_binding_assigned_group',
       );
-      expect(google_user_assigned_iam_role).toHaveOnlyMappedRelationships(
-        'google_user_assigned_iam_role',
-      );
-      expect(google_group_assigned_iam_role).toHaveOnlyMappedRelationships(
-        'google_group_assigned_iam_role',
+      expect(google_iam_binding_assigned_domain).toHaveOnlyMappedRelationships(
+        'google_iam_binding_assigned_domain',
       );
       expect(
-        google_iam_binding_allows_cloud_project,
-      ).toHaveOnlyMappedRelationships(
-        'google_iam_binding_allows_cloud_project',
-      );
+        google_iam_binding_assigned_everyone,
+      ).toHaveOnlyMappedRelationships('google_iam_binding_assigned_everyone');
+
+      // Ensure we do not assign principals directly to roles as in GCP a principal is only given a role for a specific resource, not for EVERY resource.
+      expect(google_iam_service_account_assigned_role).toBeUndefined();
+      expect(google_user_assigned_iam_role).toBeUndefined();
+      expect(google_group_assigned_iam_role).toBeUndefined();
+      expect(google_domain_assigned_iam_role).toBeUndefined();
+      expect(everyone_assigned_google_iam_role).toBeUndefined();
+
+      // Ensure there are never any group assigned group relationships created
+      expect(google_iam_role_assigned_role).toBeUndefined();
 
       // Direct Relationships
-      expect(
-        google_iam_binding_assigned_service_account,
-      ).toHaveOnlyDirectRelationships(
-        'google_iam_binding_assigned_service_account',
-      );
-      expect(
-        google_iam_service_account_assigned_role,
-      ).toHaveOnlyDirectRelationships(
-        'google_iam_service_account_assigned_role',
-      );
       expect(
         google_iam_binding_allows_cloud_organization,
       ).toHaveOnlyDirectRelationships(
@@ -363,6 +414,7 @@ describe('#fetchIamBindings', () => {
             },
             resource: { type: 'string' },
             projectId: { type: 'string' },
+            projectName: { type: 'string' },
             members: { type: 'array' },
             role: { type: 'string' },
             'condition.title': { type: 'string' },
@@ -370,6 +422,7 @@ describe('#fetchIamBindings', () => {
             'condition.expression': { type: 'string' },
             'condition.location': { type: 'string' },
             readonly: { type: 'boolean' },
+            permissions: { type: 'string' },
           },
         },
       });

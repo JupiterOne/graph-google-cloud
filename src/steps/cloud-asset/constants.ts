@@ -4,20 +4,26 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { ANY_RESOURCE } from '../../constants';
 import {
+  ALL_AUTHENTICATED_USERS_TYPE,
+  EVERYONE_TYPE,
   GOOGLE_DOMAIN_ENTITY_TYPE,
   GOOGLE_GROUP_ENTITY_TYPE,
   GOOGLE_USER_ENTITY_TYPE,
   IAM_ROLE_ENTITY_TYPE,
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
 } from '../iam';
+import { API_SERVICE_ENTITY_TYPE } from '../service-usage';
 
 export const STEP_IAM_BINDINGS = 'fetch-iam-bindings';
+export const STEP_CREATE_BASIC_ROLES = 'create-basic-roles';
 export const STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS =
   'create-binding-principal-relationships';
 export const STEP_CREATE_BINDING_ROLE_RELATIONSHIPS =
   'create-binding-role-relationships';
 export const STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS =
   'create-binding-any-resource-relationships';
+export const STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS =
+  'create-api-service-any-resource-relationships';
 
 export const bindingEntities = {
   BINDINGS: {
@@ -32,6 +38,9 @@ const IAM_PRINCIPAL_TYPES = [
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
   GOOGLE_GROUP_ENTITY_TYPE,
   GOOGLE_USER_ENTITY_TYPE,
+  ALL_AUTHENTICATED_USERS_TYPE,
+  EVERYONE_TYPE,
+  IAM_ROLE_ENTITY_TYPE, // bindings can have roles as principals for "convienence members"
 ];
 
 export const BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS = IAM_PRINCIPAL_TYPES.map(
@@ -49,21 +58,6 @@ export const BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS = IAM_PRINCIPAL_TYPES.map(
   },
 );
 
-export const PRINCIPAL_ASSIGNED_ROLE_RELATIONSHIPS = IAM_PRINCIPAL_TYPES.map(
-  (principalType) => {
-    return {
-      _type: generateRelationshipType(
-        RelationshipClass.ASSIGNED,
-        principalType,
-        IAM_ROLE_ENTITY_TYPE,
-      ),
-      sourceType: principalType,
-      _class: RelationshipClass.ASSIGNED,
-      targetType: IAM_ROLE_ENTITY_TYPE,
-    };
-  },
-);
-
 /**
  * IAM policies can target any resource in Google Cloud. Because we do not ingest every resource,
  * we have chosen, instead, to represent the relationship as IAM Binding assigned to ANY_RESOURCE.
@@ -76,5 +70,16 @@ export const BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP = {
   ),
   sourceType: bindingEntities.BINDINGS._type,
   _class: RelationshipClass.ALLOWS,
+  targetType: ANY_RESOURCE,
+};
+
+export const API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP = {
+  _class: RelationshipClass.HAS,
+  _type: generateRelationshipType(
+    RelationshipClass.HAS,
+    API_SERVICE_ENTITY_TYPE,
+    ANY_RESOURCE,
+  ),
+  sourceType: API_SERVICE_ENTITY_TYPE,
   targetType: ANY_RESOURCE,
 };

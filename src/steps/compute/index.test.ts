@@ -1,5 +1,3 @@
-jest.setTimeout(120000);
-
 import {
   Recording,
   createMockStepExecutionContext,

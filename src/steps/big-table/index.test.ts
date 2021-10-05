@@ -26,8 +26,6 @@ import {
   RELATIONSHIP_TYPE_TABLE_HAS_BACKUP,
 } from './constants';
 
-jest.setTimeout(50000);
-
 const tempNewAccountConfig = {
   ...integrationConfig,
   serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
