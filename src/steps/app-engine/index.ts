@@ -42,7 +42,6 @@ import {
   CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
   STEP_CLOUD_STORAGE_BUCKETS,
 } from '../storage';
-import { STEP_RESOURCE_MANAGER_IAM_POLICY } from '../resource-manager';
 import {
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
   GOOGLE_USER_ENTITY_TYPE,
@@ -419,11 +418,7 @@ export const appEngineSteps: IntegrationStep<IntegrationConfig>[] = [
         targetType: ENTITY_TYPE_APP_ENGINE_VERSION,
       },
     ],
-    dependsOn: [
-      STEP_APP_ENGINE_SERVICES,
-      STEP_RESOURCE_MANAGER_IAM_POLICY,
-      STEP_IAM_SERVICE_ACCOUNTS,
-    ],
+    dependsOn: [STEP_APP_ENGINE_SERVICES, STEP_IAM_SERVICE_ACCOUNTS],
     executionHandler: fetchAppEngineServiceVersions,
   },
   {

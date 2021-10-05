@@ -1,14 +1,5 @@
-import { cloudresourcemanager_v1, cloudresourcemanager_v3 } from 'googleapis';
-import {
-  Relationship,
-  RelationshipClass,
-  parseTimePropertyValue,
-  RelationshipDirection,
-  createMappedRelationship,
-  generateRelationshipType,
-  Entity,
-  PrimitiveEntity,
-} from '@jupiterone/integration-sdk-core';
+import { cloudresourcemanager_v3 } from 'googleapis';
+import { parseTimePropertyValue } from '@jupiterone/integration-sdk-core';
 import {
   PROJECT_ENTITY_TYPE,
   PROJECT_ENTITY_CLASS,
@@ -19,64 +10,6 @@ import {
 } from './constants';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import { getGoogleCloudConsoleWebLink } from '../../utils/url';
-
-export function getConditionRelationshipProperties(
-  condition: cloudresourcemanager_v1.Schema$Expr,
-) {
-  return {
-    conditionDescription: condition.description,
-    conditionExpression: condition.expression,
-    conditionLocation: condition.location,
-    conditionTitle: condition.title,
-  };
-}
-
-export function createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship({
-  iamEntity,
-  targetEntity,
-  relationshipDirection,
-  projectId,
-  condition,
-}: {
-  iamEntity: Entity;
-  targetEntity: Partial<PrimitiveEntity>;
-  relationshipDirection: RelationshipDirection;
-  projectId?: string;
-  condition?: cloudresourcemanager_v1.Schema$Expr;
-}): Relationship {
-  return createMappedRelationship({
-    _class: RelationshipClass.ASSIGNED,
-    _mapping: {
-      relationshipDirection,
-      sourceEntityKey: iamEntity._key,
-      targetFilterKeys: targetEntity._key // Not always able to determine a _key for google_users depending on how the binding is set up
-        ? [['_key', '_type']]
-        : [['_type', 'email']],
-      /**
-       * The mapper does not properly remove mapper-created entities at the moment. These
-       * entities will never be cleaned up which will causes duplicates.
-       *
-       * Until this is fixed, we should not create mapped relatioonships with target creation
-       * enabled, thus only creating iam entity relationships to targets that have already
-       * been ingested by other integrations.
-       */
-      targetEntity,
-    },
-    properties: {
-      _type: generateRelationshipType(
-        RelationshipClass.ASSIGNED,
-        relationshipDirection === RelationshipDirection.FORWARD
-          ? iamEntity._type
-          : targetEntity._type!,
-        relationshipDirection === RelationshipDirection.FORWARD
-          ? targetEntity._type!
-          : iamEntity._type,
-      ),
-      projectId,
-      ...(condition && getConditionRelationshipProperties(condition)),
-    },
-  });
-}
 
 export function createOrganizationEntity(
   data: cloudresourcemanager_v3.Schema$Organization,

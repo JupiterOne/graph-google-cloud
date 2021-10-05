@@ -82,40 +82,4 @@ export class ResourceManagerClient extends Client {
       },
     );
   }
-
-  async getServiceAccountPolicy() {
-    const auth = await this.getAuthenticatedServiceClient();
-
-    const result = await this.client.projects.getIamPolicy({
-      auth,
-      resource: `projects/${this.projectId}`,
-      requestBody: {
-        options: {
-          // Policies are versioned and specifying this version will return
-          // different data. The only way to fetch `conditions` on the
-          // policies is to specify "3".
-          //
-          // See: https://cloud.google.com/iam/docs/reference/rest/v1/Policy
-          requestedPolicyVersion: 3,
-        },
-      },
-    });
-
-    return result.data;
-  }
-
-  async iteratePolicyMemberBindings(
-    callback: (data: PolicyMemberBinding) => Promise<void>,
-  ) {
-    const policy = await this.getServiceAccountPolicy();
-
-    for (const binding of policy.bindings || []) {
-      for (const member of binding.members || []) {
-        await callback({
-          binding,
-          member,
-        });
-      }
-    }
-  }
 }

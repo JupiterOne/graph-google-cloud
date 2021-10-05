@@ -4,8 +4,6 @@ export const STEP_RESOURCE_MANAGER_FOLDERS = 'fetch-resource-manager-folders';
 export const STEP_RESOURCE_MANAGER_PROJECT = 'fetch-resource-manager-project';
 export const STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS =
   'fetch-resource-manager-org-project-relationships';
-export const STEP_RESOURCE_MANAGER_IAM_POLICY =
-  'fetch-resource-manager-iam-policy';
 
 export const ORGANIZATION_ENTITY_TYPE = 'google_cloud_organization';
 export const ORGANIZATION_ENTITY_CLASS = 'Organization';

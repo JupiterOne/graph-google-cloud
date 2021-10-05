@@ -12,6 +12,7 @@ export class CloudAssetClient extends Client {
     ) => Promise<void>,
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
+    const { organizationId, projectId } = context.instance.config;
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -19,7 +20,9 @@ export class CloudAssetClient extends Client {
           auth,
           pageSize: 500, // 500 is the max
           pageToken: nextPageToken,
-          scope: `organizations/${context.instance.config.organizationId}`,
+          scope: organizationId
+            ? `organizations/${organizationId}`
+            : `projects/${projectId}`,
         });
       },
       async (data: cloudasset_v1.Schema$SearchAllIamPoliciesResponse) => {
