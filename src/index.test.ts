@@ -32,7 +32,6 @@ import {
   STEP_IAM_SERVICE_ACCOUNTS,
 } from './steps/iam';
 import {
-  STEP_RESOURCE_MANAGER_IAM_POLICY,
   STEP_RESOURCE_MANAGER_PROJECT,
   STEP_RESOURCE_MANAGER_ORGANIZATION,
   STEP_RESOURCE_MANAGER_FOLDERS,
@@ -274,9 +273,6 @@ describe('#getStepStartStates success', () => {
       },
       [STEP_IAM_SERVICE_ACCOUNTS]: {
         disabled: false,
-      },
-      [STEP_RESOURCE_MANAGER_IAM_POLICY]: {
-        disabled: true,
       },
       [STEP_COMPUTE_DISKS]: {
         disabled: false,
@@ -574,9 +570,6 @@ describe('#getStepStartStates success', () => {
       [STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS]: {
         disabled: false,
       },
-      [STEP_RESOURCE_MANAGER_IAM_POLICY]: {
-        disabled: true,
-      },
       [STEP_IAM_BINDINGS]: {
         disabled: true,
       },
@@ -645,20 +638,17 @@ describe('#getStepStartStates success', () => {
       [STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS]: {
         disabled: true,
       },
-      [STEP_RESOURCE_MANAGER_IAM_POLICY]: {
+      [STEP_IAM_BINDINGS]: {
         disabled: false,
       },
-      [STEP_IAM_BINDINGS]: {
-        disabled: true,
-      },
       [STEP_CREATE_BASIC_ROLES]: {
-        disabled: true,
+        disabled: false,
       },
       [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: {
-        disabled: true,
+        disabled: false,
       },
       [STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS]: {
-        disabled: true,
+        disabled: false,
       },
       [STEP_BILLING_BUDGETS]: {
         disabled: false,

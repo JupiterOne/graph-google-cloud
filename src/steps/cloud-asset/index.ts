@@ -1,10 +1,12 @@
 import {
   createDirectRelationship,
   createMappedRelationship,
+  Entity,
   generateRelationshipType,
   getRawData,
   IntegrationStep,
   JobState,
+  Relationship,
   RelationshipClass,
   RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
@@ -15,13 +17,8 @@ import { publishMissingPermissionEvent } from '../../utils/events';
 import { getProjectIdFromName } from '../../utils/jobState';
 import { IAM_ROLE_ENTITY_CLASS, IAM_ROLE_ENTITY_TYPE } from '../iam';
 import {
-  buildIamTargetRelationship,
-  findOrCreateIamRoleEntity,
-  FOLDER_ENTITY_TYPE,
-  getPermissionsForManagedRole,
-  isConvienenceMember,
-  maybeFindIamUserEntityWithParsedMember,
   ORGANIZATION_ENTITY_TYPE,
+  FOLDER_ENTITY_TYPE,
   PROJECT_ENTITY_TYPE,
 } from '../resource-manager';
 import { CloudAssetClient } from './client';
@@ -53,10 +50,22 @@ import {
   basicRoles,
   BasicRoleType,
   ConvenienceMemberType,
+  getIamManagedRoleData,
   getRoleKeyFromConvienenceMember,
+  isConvienenceMember,
+  ParsedIamMember,
+  parseIamMember,
 } from '../../utils/iam';
-import { getConditionRelationshipProperties } from '../resource-manager/converters';
 import { API_SERVICE_ENTITY_TYPE } from '../service-usage';
+import { CREATE_IAM_ENTITY_MAP } from '../resource-manager/createIamEntities';
+
+export async function getPermissionsForManagedRole(
+  jobState: JobState,
+  roleName: string,
+): Promise<string[] | null | undefined> {
+  const iamManagedRoleData = await getIamManagedRoleData(jobState);
+  return iamManagedRoleData[roleName]?.includedPermissions;
+}
 
 export async function fetchIamBindings(
   context: IntegrationStepContext,
@@ -169,6 +178,39 @@ export async function fetchIamBindings(
 
 function createBasicRoleKey(orgHierarchyKey: string, roleIdentifier: string) {
   return orgHierarchyKey + '/' + roleIdentifier;
+}
+
+export async function findOrCreateIamRoleEntity({
+  jobState,
+  roleName,
+  roleKey = roleName,
+}: {
+  jobState: JobState;
+  roleName: string;
+  roleKey?: string;
+}) {
+  const roleEntity = await jobState.findEntity(roleKey);
+  if (roleEntity) {
+    return roleEntity;
+  }
+
+  const includedPermissions = await getPermissionsForManagedRole(
+    jobState,
+    roleKey,
+  );
+  return jobState.addEntity(
+    createIamRoleEntity(
+      {
+        name: roleName,
+        title: roleName,
+        includedPermissions,
+      },
+      {
+        custom: false,
+        key: roleKey,
+      },
+    ),
+  );
 }
 
 /**
@@ -292,6 +334,74 @@ export async function createBindingRoleRelationships(
   );
 }
 
+export function getConditionRelationshipProperties(
+  condition: cloudresourcemanager_v3.Schema$Expr,
+) {
+  return {
+    conditionDescription: condition.description,
+    conditionExpression: condition.expression,
+    conditionLocation: condition.location,
+    conditionTitle: condition.title,
+  };
+}
+
+export function buildIamTargetRelationship({
+  bindingEntity,
+  principalEntity,
+  parsedMember,
+  projectId,
+  condition,
+}: {
+  bindingEntity: BindingEntity;
+  principalEntity: Entity | null;
+  parsedMember: ParsedIamMember;
+  projectId?: string;
+  condition?: cloudresourcemanager_v3.Schema$Expr;
+}): Relationship {
+  if (principalEntity) {
+    return createDirectRelationship({
+      _class: RelationshipClass.ASSIGNED,
+      from: bindingEntity,
+      to: principalEntity,
+      properties: {
+        projectId,
+        ...(condition && getConditionRelationshipProperties(condition)),
+      },
+    });
+  } else {
+    const targetEntity = CREATE_IAM_ENTITY_MAP[parsedMember.type](parsedMember);
+    return createMappedRelationship({
+      _class: RelationshipClass.ASSIGNED,
+      _mapping: {
+        relationshipDirection: RelationshipDirection.FORWARD,
+        sourceEntityKey: bindingEntity._key,
+        targetFilterKeys: targetEntity._key // Not always able to determine a _key for google_users depending on how the binding is set up
+          ? [['_key', '_type']]
+          : [['_type', 'email']],
+        /**
+         * The mapper does not properly remove mapper-created entities at the moment. These
+         * entities will never be cleaned up which will causes duplicates.
+         *
+         * However, we should still create these entities as they are important for access
+         * analysis. Without these relationships, it will make is look like something is
+         * secure when it actually is not. We will just have to deal with the duplicates.
+         */
+        skipTargetCreation: false,
+        targetEntity,
+      },
+      properties: {
+        _type: generateRelationshipType(
+          RelationshipClass.ASSIGNED,
+          bindingEntity._type,
+          targetEntity._type!,
+        ),
+        projectId,
+        ...(condition && getConditionRelationshipProperties(condition)),
+      },
+    });
+  }
+}
+
 function getOrgHierarchyKeysForBinding(bindingEntity: BindingEntity) {
   return [
     bindingEntity.projectName,
@@ -352,19 +462,23 @@ export async function createPrincipalRelationships(
             condition,
           );
         } else {
-          const iamUserEntityWithParsedMember =
-            await maybeFindIamUserEntityWithParsedMember({
-              context,
-              member,
-            });
-          const relationship = buildIamTargetRelationship({
-            iamEntity: bindingEntity,
-            projectId: bindingEntity.projectId,
-            iamUserEntityWithParsedMember,
-            condition,
-            relationshipDirection: RelationshipDirection.FORWARD,
-          });
-          if (relationship) await jobState.addRelationship(relationship);
+          const parsedMember = parseIamMember(member);
+          const { identifier: parsedIdentifier, type: parsedMemberType } =
+            parsedMember;
+          let principalEntity: Entity | null = null;
+          if (parsedIdentifier && parsedMemberType === 'serviceAccount') {
+            principalEntity = await jobState.findEntity(parsedIdentifier);
+          }
+
+          await jobState.addRelationship(
+            buildIamTargetRelationship({
+              bindingEntity,
+              principalEntity,
+              parsedMember,
+              projectId: bindingEntity.projectId,
+              condition,
+            }),
+          );
         }
       }
     },

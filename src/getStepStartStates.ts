@@ -19,7 +19,6 @@ import {
   STEP_IAM_SERVICE_ACCOUNTS,
 } from './steps/iam';
 import {
-  STEP_RESOURCE_MANAGER_IAM_POLICY,
   STEP_RESOURCE_MANAGER_PROJECT,
   STEP_RESOURCE_MANAGER_ORGANIZATION,
   STEP_RESOURCE_MANAGER_FOLDERS,
@@ -209,13 +208,12 @@ export default async function getStepStartStates(
     }, configureOrganizationProjects=${!!config.configureOrganizationProjects})`,
   });
 
-  const organizationSteps = { disabled: !config.configureOrganizationProjects };
-
   const isMasterOrgInstance =
     config.configureOrganizationProjects && config.organizationId;
+  const isSingleProjectInstance = !config.configureOrganizationProjects;
+  const organizationSteps = { disabled: isSingleProjectInstance };
 
   let enabledServiceNames: string[];
-
   try {
     enabledServiceNames = await enablement.getEnabledServiceNames(config);
   } catch (err) {
@@ -247,7 +245,7 @@ export default async function getStepStartStates(
   ): StepStartState {
     return {
       disabled:
-        !config.configureOrganizationProjects ||
+        isSingleProjectInstance ||
         createStepStartState(primaryServiceName, ...additionalServiceNames)
           .disabled,
     };
@@ -269,24 +267,30 @@ export default async function getStepStartStates(
     // This API will be enabled otherwise fetching services names above would fail
     [STEP_RESOURCE_MANAGER_PROJECT]: { disabled: false },
     [STEP_API_SERVICES]: { disabled: false },
-    [STEP_IAM_BINDINGS]: isMasterOrgInstance
-      ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
-      : { disabled: true },
-    [STEP_CREATE_BASIC_ROLES]: isMasterOrgInstance
-      ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
-      : { disabled: true },
-    [STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS]: isMasterOrgInstance
-      ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
-      : { disabled: true },
-    [STEP_CREATE_BINDING_ROLE_RELATIONSHIPS]: isMasterOrgInstance
-      ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
-      : { disabled: true },
-    [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: isMasterOrgInstance
-      ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
-      : { disabled: true },
-    [STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS]: isMasterOrgInstance
-      ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
-      : { disabled: true },
+    [STEP_IAM_BINDINGS]:
+      isSingleProjectInstance || isMasterOrgInstance
+        ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
+        : { disabled: true },
+    [STEP_CREATE_BASIC_ROLES]:
+      isSingleProjectInstance || isMasterOrgInstance
+        ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
+        : { disabled: true },
+    [STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS]:
+      isSingleProjectInstance || isMasterOrgInstance
+        ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
+        : { disabled: true },
+    [STEP_CREATE_BINDING_ROLE_RELATIONSHIPS]:
+      isSingleProjectInstance || isMasterOrgInstance
+        ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
+        : { disabled: true },
+    [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]:
+      isSingleProjectInstance || isMasterOrgInstance
+        ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
+        : { disabled: true },
+    [STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS]:
+      isSingleProjectInstance || isMasterOrgInstance
+        ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
+        : { disabled: true },
     [STEP_CLOUD_FUNCTIONS]: createStepStartState(
       ServiceUsageName.CLOUD_FUNCTIONS,
     ),
@@ -301,9 +305,6 @@ export default async function getStepStartStates(
     [STEP_IAM_CUSTOM_ROLES]: createStepStartState(ServiceUsageName.IAM),
     [STEP_IAM_MANAGED_ROLES]: createStepStartState(ServiceUsageName.IAM),
     [STEP_IAM_SERVICE_ACCOUNTS]: createStepStartState(ServiceUsageName.IAM),
-    [STEP_RESOURCE_MANAGER_IAM_POLICY]: config.configureOrganizationProjects
-      ? { disabled: true }
-      : createStepStartState(ServiceUsageName.RESOURCE_MANAGER),
     [STEP_COMPUTE_DISKS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_REGION_DISKS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_IMAGES]: createStepStartState(ServiceUsageName.COMPUTE),
@@ -462,19 +463,19 @@ export default async function getStepStartStates(
     [STEP_BIG_TABLE_BACKUPS]: createStepStartState(ServiceUsageName.BIG_TABLE),
     [STEP_BIG_TABLE_TABLES]: createStepStartState(ServiceUsageName.BIG_TABLE),
     [STEP_BILLING_BUDGETS]:
-      !config.configureOrganizationProjects || isMasterOrgInstance
+      isSingleProjectInstance || isMasterOrgInstance
         ? createStepStartState(ServiceUsageName.BILLING_BUDGET)
         : { disabled: true },
     [STEP_BUILD_ACCOUNT_BUDGET]:
-      !config.configureOrganizationProjects || isMasterOrgInstance
+      isSingleProjectInstance || isMasterOrgInstance
         ? createStepStartState(ServiceUsageName.BILLING_BUDGET)
         : { disabled: true },
     [STEP_BUILD_PROJECT_BUDGET]:
-      !config.configureOrganizationProjects || isMasterOrgInstance
+      isSingleProjectInstance || isMasterOrgInstance
         ? createStepStartState(ServiceUsageName.BILLING_BUDGET)
         : { disabled: true },
     [STEP_BILLING_ACCOUNTS]:
-      !config.configureOrganizationProjects || isMasterOrgInstance
+      isSingleProjectInstance || isMasterOrgInstance
         ? createStepStartState(ServiceUsageName.CLOUD_BILLING)
         : { disabled: true },
     [STEP_BUILD_ADDITIONAL_PROJECT_BUDGET]: isMasterOrgInstance

@@ -48,22 +48,22 @@ export function buildIamBindingEntityKey({
 
 export function createIamBindingEntity({
   _key,
+  binding,
   projectId,
   projectName,
-  binding,
   resource,
   folders,
   organization,
   permissions,
 }: {
   _key: string;
-  projectId?: string;
-  projectName: string | undefined | null;
   binding: cloudasset_v1.Schema$Binding;
-  resource: string | undefined | null;
-  folders: string[] | undefined | null;
-  organization: string | undefined | null;
-  permissions: string[] | undefined | null;
+  projectId?: string;
+  projectName?: string | null;
+  resource?: string | null;
+  folders?: string[] | null;
+  organization?: string | null;
+  permissions?: string[] | null;
 }): BindingEntity {
   const namePrefix = 'Role Binding for Resource: ';
 
