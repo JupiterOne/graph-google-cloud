@@ -127,6 +127,7 @@ function createIamUser(parsedMember: ParsedIamMember) {
     email: email,
     username: email ? getUsername(email) : undefined,
     deleted: deleted ?? false,
+    emailDomain: email ? getDomain(email) : undefined,
   };
 }
 
@@ -134,6 +135,16 @@ function createIamUser(parsedMember: ParsedIamMember) {
 function getUsername(email: string): string | null {
   const usernameMatch = /(.*?)@.*/.exec(email);
   return usernameMatch && usernameMatch[1];
+}
+
+function last<T>(arr: T[] | undefined): T | undefined {
+  if (!arr || !arr.length) return undefined;
+  return arr[arr.length - 1];
+}
+
+// https://github.com/JupiterOne/graph-google/blob/ad4d88d0151cd7dc4ad93dc30d1aa40e6c97778e/src/steps/users/converters.ts#L166
+function getDomain(email: string): string | undefined {
+  return last(email.split('@'));
 }
 
 /**
