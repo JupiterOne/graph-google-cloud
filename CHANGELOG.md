@@ -8,6 +8,10 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Fixed
+
+- Basic `google_iam_roles` will now properly set the `permissions` property.
+
 ## 1.0.0 - 2021-10-08
 
 ### Removed

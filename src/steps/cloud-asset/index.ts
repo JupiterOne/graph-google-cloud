@@ -196,7 +196,7 @@ export async function findOrCreateIamRoleEntity({
 
   const includedPermissions = await getPermissionsForManagedRole(
     jobState,
-    roleKey,
+    roleName,
   );
   return jobState.addEntity(
     createIamRoleEntity(
