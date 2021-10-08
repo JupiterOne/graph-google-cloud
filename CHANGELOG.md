@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 1.0.0 - 2021-10-08
+
 ### Removed
 
 - **Breaking** Relationships between `google_iam_role`s and principal members.
