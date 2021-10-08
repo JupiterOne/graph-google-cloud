@@ -14,7 +14,7 @@ import {
 } from '../iam';
 import {
   ConvenienceMemberType,
-  getRoleKeyFromConvienenceType,
+  getRoleKeyFromConvienenceMember,
   ParsedIamMemberType,
 } from '../../utils/iam';
 import {
@@ -90,7 +90,7 @@ function createIamRole(
   iamUserEntityWithParsedMember: IamUserEntityWithParsedMember,
 ) {
   const projectId = iamUserEntityWithParsedMember.parsedMember.identifier;
-  const roleName = getRoleKeyFromConvienenceType(
+  const roleName = getRoleKeyFromConvienenceMember(
     iamUserEntityWithParsedMember.parsedMember.type as ConvenienceMemberType,
   );
   const deleted = iamUserEntityWithParsedMember.parsedMember.deleted;

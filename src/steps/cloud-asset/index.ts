@@ -4,7 +4,7 @@ import {
   generateRelationshipType,
   getRawData,
   IntegrationStep,
-  Relationship,
+  JobState,
   RelationshipClass,
   RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
@@ -19,6 +19,7 @@ import {
   findOrCreateIamRoleEntity,
   FOLDER_ENTITY_TYPE,
   getPermissionsForManagedRole,
+  isConvienenceMember,
   maybeFindIamUserEntityWithParsedMember,
   ORGANIZATION_ENTITY_TYPE,
   PROJECT_ENTITY_TYPE,
@@ -48,7 +49,13 @@ import {
 import { getEnabledServiceNames } from '../enablement';
 import { MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND } from '../../utils/iamBindings/resourceKindToTypeMap';
 import { createIamRoleEntity } from '../iam/converters';
-import { basicRoles, BasicRoleType } from '../../utils/iam';
+import {
+  basicRoles,
+  BasicRoleType,
+  ConvenienceMemberType,
+  getRoleKeyFromConvienenceMember,
+} from '../../utils/iam';
+import { getConditionRelationshipProperties } from '../resource-manager/converters';
 import { API_SERVICE_ENTITY_TYPE } from '../service-usage';
 
 export async function fetchIamBindings(
@@ -64,7 +71,8 @@ export async function fetchIamBindings(
   try {
     await client.iterateAllIamPolicies(context, async (policyResult) => {
       const resource = policyResult.resource;
-      const projectName = policyResult.project as string | undefined;
+      const projectName = policyResult.project;
+      const { organization, folders } = policyResult as any;
       const bindings = policyResult.policy?.bindings ?? [];
 
       for (const binding of bindings) {
@@ -115,6 +123,8 @@ export async function fetchIamBindings(
             projectName,
             binding,
             resource,
+            folders,
+            organization,
             permissions,
           }),
         );
@@ -157,6 +167,10 @@ export async function fetchIamBindings(
   }
 }
 
+function createBasicRoleKey(orgHierarchyKey: string, roleIdentifier: string) {
+  return orgHierarchyKey + '/' + roleIdentifier;
+}
+
 /**
  * Basic Roles roles exist at all levels of the organization resource hierarchy.
  * They are: roles/owner, roles/editor, roles/viewer and roles/browser
@@ -185,10 +199,11 @@ export async function createBasicRolesForBindings(
                 context,
               ),
             ) ?? {};
+          if (!key) return;
           await findOrCreateIamRoleEntity({
             jobState,
             roleName: bindingEntity.role,
-            roleKey: key + '/' + bindingEntity.role,
+            roleKey: createBasicRoleKey(key, bindingEntity.role),
           });
         }
       }
@@ -216,7 +231,8 @@ export async function createBindingRoleRelationships(
                 context,
               ),
             ) ?? {};
-          roleKey = key + '/' + bindingEntity.role;
+          if (!key) return;
+          roleKey = createBasicRoleKey(key, bindingEntity.role);
         }
 
         const roleEntity = await jobState.findEntity(roleKey);
@@ -276,49 +292,80 @@ export async function createBindingRoleRelationships(
   );
 }
 
+function getOrgHierarchyKeysForBinding(bindingEntity: BindingEntity) {
+  return [
+    bindingEntity.projectName,
+    ...(bindingEntity.folders ?? []),
+    bindingEntity.organization,
+  ].filter((identifier) => !!identifier);
+}
+
+async function createAndAddConvienceMemberTargetRelationships(
+  jobState: JobState,
+  member: string,
+  bindingEntity: BindingEntity,
+  condition?: cloudresourcemanager_v3.Schema$Expr,
+) {
+  const convenienceMember = member.split(':')[0] as ConvenienceMemberType; // 'projectOwner:PROJECT_ID' => 'projectOwner'
+  for (const orgHierarchyKey of getOrgHierarchyKeysForBinding(bindingEntity)) {
+    // Find the Basic Role that relates to this member.
+    const roleKey = createBasicRoleKey(
+      orgHierarchyKey!,
+      getRoleKeyFromConvienenceMember(convenienceMember),
+    );
+    const roleEntity = await jobState.findEntity(roleKey);
+    if (roleEntity) {
+      await jobState.addRelationship(
+        createDirectRelationship({
+          _class: RelationshipClass.ASSIGNED,
+          from: bindingEntity,
+          to: roleEntity,
+          properties: {
+            projectId: bindingEntity.projectId,
+            ...(condition && getConditionRelationshipProperties(condition)),
+          },
+        }),
+      );
+    }
+  }
+}
+
 export async function createPrincipalRelationships(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, logger } = context;
-  const memberRelationshipKeys = new Set<string>();
-
-  async function safeAddRelationship(relationship?: Relationship) {
-    if (relationship && !memberRelationshipKeys.has(relationship._key)) {
-      await jobState.addRelationship(relationship);
-      memberRelationshipKeys.add(String(relationship._key));
-    }
-  }
+  const { jobState } = context;
 
   await jobState.iterateEntities(
     { _type: bindingEntities.BINDINGS._type },
     async (bindingEntity: BindingEntity) => {
-      const condition: cloudresourcemanager_v3.Schema$Expr | undefined =
+      const condition =
         getRawData<cloudresourcemanager_v3.Schema$Binding>(
           bindingEntity,
         )?.condition;
-      if (!bindingEntity.role) {
-        logger.warn(
-          { binding: bindingEntity },
-          'Binding does not have an associated role.',
-        );
-      }
 
       for (const member of bindingEntity?.members ?? []) {
-        const iamUserEntityWithParsedMember =
-          await maybeFindIamUserEntityWithParsedMember({
-            context,
+        if (isConvienenceMember(member)) {
+          await createAndAddConvienceMemberTargetRelationships(
+            jobState,
             member,
-          });
-
-        await safeAddRelationship(
-          buildIamTargetRelationship({
+            bindingEntity,
+            condition,
+          );
+        } else {
+          const iamUserEntityWithParsedMember =
+            await maybeFindIamUserEntityWithParsedMember({
+              context,
+              member,
+            });
+          const relationship = buildIamTargetRelationship({
             iamEntity: bindingEntity,
             projectId: bindingEntity.projectId,
             iamUserEntityWithParsedMember,
             condition,
             relationshipDirection: RelationshipDirection.FORWARD,
-          }),
-        );
+          });
+          if (relationship) await jobState.addRelationship(relationship);
+        }
       }
     },
   );
@@ -467,9 +514,10 @@ export async function createApiServiceToAnyResourceRelationships(
       if (isOrganizationalHierarchyResource(resourceType!)) return;
       if (!googleResourceKind || !resourceKey) return;
 
+      const serviceIdentifier = googleResourceKind.split('/')[0]; // 'cloudfunctions.googleapis.com/CloudFunction' => 'cloudfunctions.googleapis.com'
       const serviceKey = buildServiceGraphObjectKey(
         bindingEntity,
-        googleResourceKind.split('/')[0],
+        serviceIdentifier,
       );
       const serviceEntity = await jobState.findEntity(serviceKey);
       const resourceEntity = await jobState.findEntity(resourceKey);
