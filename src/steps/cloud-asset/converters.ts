@@ -12,7 +12,9 @@ export interface BindingEntity extends Entity {
   role: string;
   members: string;
   projectId: string;
-  projectName: string;
+  projectName?: string;
+  folders?: string[];
+  organization?: string;
   'condition.title': string;
   'condition.description': string;
   'condition.expression': string;
@@ -38,24 +40,30 @@ export function buildIamBindingEntityKey({
   if (binding.role) keyBuilders.push('role:' + binding.role);
   if (binding.members)
     keyBuilders.push('members:' + hashArray(binding.members));
+  if (binding.condition?.expression)
+    keyBuilders.push('condition:' + binding.condition.expression);
 
   return keyBuilders.join('|');
 }
 
 export function createIamBindingEntity({
   _key,
+  binding,
   projectId,
   projectName,
-  binding,
   resource,
+  folders,
+  organization,
   permissions,
 }: {
   _key: string;
-  projectId?: string;
-  projectName?: string;
   binding: cloudasset_v1.Schema$Binding;
-  resource: string | undefined | null;
-  permissions: string[] | undefined | null;
+  projectId?: string;
+  projectName?: string | null;
+  resource?: string | null;
+  folders?: string[] | null;
+  organization?: string | null;
+  permissions?: string[] | null;
 }): BindingEntity {
   const namePrefix = 'Role Binding for Resource: ';
 
@@ -79,6 +87,8 @@ export function createIamBindingEntity({
         members: binding.members,
         projectId,
         projectName,
+        folders,
+        organization,
         'condition.title': binding.condition?.title,
         'condition.description': binding.condition?.description,
         'condition.expression': binding.condition?.expression,

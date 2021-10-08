@@ -20,8 +20,6 @@ import {
   RELATIONSHIP_TYPE_GOOGLE_USER_CREATED_VERSION,
 } from './constants';
 import { fetchStorageBuckets } from '../storage';
-import { fetchResourceManagerIamPolicy } from '../resource-manager';
-import { fetchIamManagedRoles } from '../iam';
 
 describe('#fetchAppEngineApplication', () => {
   let recording: Recording;
@@ -222,8 +220,7 @@ describe('#fetchAppEngineVersions', () => {
       },
     });
 
-    await fetchIamManagedRoles(context);
-    await fetchResourceManagerIamPolicy(context);
+    await fetchStorageBuckets(context);
     await fetchAppEngineApplication(context);
     await fetchAppEngineServices(context);
     await fetchAppEngineServiceVersions(context);

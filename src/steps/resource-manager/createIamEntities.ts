@@ -14,20 +14,17 @@ import {
 } from '../iam';
 import {
   ConvenienceMemberType,
-  getRoleKeyFromConvienenceType,
+  getRoleKeyFromConvienenceMember,
+  ParsedIamMember,
   ParsedIamMemberType,
 } from '../../utils/iam';
 import {
   IntegrationError,
   PrimitiveEntity,
 } from '@jupiterone/integration-sdk-core';
-import { IamUserEntityWithParsedMember } from '.';
-import { last } from 'lodash';
 
 // https://github.com/JupiterOne/jupiter-integration-aws/blob/84c3685ba9f4d54a134b00ba553cbb84fffb9d19/src/util/everyone.ts#L1
-function CreateIamAllUsers(
-  _iamUserEntityWithParsedMember: IamUserEntityWithParsedMember,
-) {
+function CreateIamAllUsers(_parsedMember: ParsedIamMember) {
   return {
     _class: ['UserGroup', 'Everyone'],
     _type: EVERYONE_TYPE,
@@ -38,9 +35,7 @@ function CreateIamAllUsers(
 }
 
 // https://github.com/JupiterOne/jupiter-integration-aws/blob/84c3685ba9f4d54a134b00ba553cbb84fffb9d19/src/util/everyone.ts#L10
-function CreateIamAllAuthenticatedUsers(
-  _iamUserEntityWithParsedMember: IamUserEntityWithParsedMember,
-) {
+function CreateIamAllAuthenticatedUsers(_parsedMember: ParsedIamMember) {
   return {
     _class: ['UserGroup', 'Everyone'],
     _type: ALL_AUTHENTICATED_USERS_TYPE,
@@ -51,10 +46,8 @@ function CreateIamAllAuthenticatedUsers(
 }
 
 // https://github.com/JupiterOne/graph-google/blob/ad4d88d0151cd7dc4ad93dc30d1aa40e6c97778e/src/steps/domains/converters.ts#L6
-function createIamDomain(
-  iamUserEntityWithParsedMember: IamUserEntityWithParsedMember,
-) {
-  const domainName = iamUserEntityWithParsedMember.parsedMember.identifier;
+function createIamDomain(parsedMember: ParsedIamMember) {
+  const domainName = parsedMember.identifier;
   return {
     _key: domainName
       ? generateIamEntityKey(GOOGLE_DOMAIN_ENTITY_TYPE, domainName)
@@ -69,12 +62,10 @@ function createIamDomain(
 }
 
 // https://github.com/JupiterOne/graph-google/blob/3e3d51e036d32f121374ae856cbdf5516711dc6d/src/steps/groups/converters.ts#L23
-function createIamGroup(
-  iamUserEntityWithParsedMember: IamUserEntityWithParsedMember,
-) {
-  const email = iamUserEntityWithParsedMember.parsedMember.identifier;
-  const groupId = iamUserEntityWithParsedMember.parsedMember.uniqueid;
-  const deleted = iamUserEntityWithParsedMember.parsedMember.deleted;
+function createIamGroup(parsedMember: ParsedIamMember) {
+  const email = parsedMember.identifier;
+  const groupId = parsedMember.uniqueid;
+  const deleted = parsedMember.deleted;
   return {
     _key: groupId
       ? generateIamEntityKey(GOOGLE_GROUP_ENTITY_TYPE, groupId)
@@ -87,14 +78,12 @@ function createIamGroup(
   };
 }
 
-function createIamRole(
-  iamUserEntityWithParsedMember: IamUserEntityWithParsedMember,
-) {
-  const projectId = iamUserEntityWithParsedMember.parsedMember.identifier;
-  const roleName = getRoleKeyFromConvienenceType(
-    iamUserEntityWithParsedMember.parsedMember.type as ConvenienceMemberType,
+function createIamRole(parsedMember: ParsedIamMember) {
+  const projectId = parsedMember.identifier;
+  const roleName = getRoleKeyFromConvienenceMember(
+    parsedMember.type as ConvenienceMemberType,
   );
-  const deleted = iamUserEntityWithParsedMember.parsedMember.deleted;
+  const deleted = parsedMember.deleted;
   return {
     _class: IAM_ROLE_ENTITY_CLASS,
     _type: IAM_ROLE_ENTITY_TYPE,
@@ -108,12 +97,10 @@ function createIamRole(
 }
 
 // https://github.com/JupiterOne/graph-google-cloud/blob/7b9af8f8193246fb8202ba7051da92d1f9f4b9be/src/steps/iam/converters.ts#L68
-function createIamServiceAccount(
-  iamUserEntityWithParsedMember: IamUserEntityWithParsedMember,
-) {
-  const email = iamUserEntityWithParsedMember.parsedMember.identifier;
-  const serviceAccountId = iamUserEntityWithParsedMember.parsedMember.uniqueid;
-  const deleted = iamUserEntityWithParsedMember.parsedMember.deleted;
+function createIamServiceAccount(parsedMember: ParsedIamMember) {
+  const email = parsedMember.identifier;
+  const serviceAccountId = parsedMember.uniqueid;
+  const deleted = parsedMember.deleted;
   return {
     _class: IAM_SERVICE_ACCOUNT_ENTITY_CLASS,
     _type: IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
@@ -126,12 +113,10 @@ function createIamServiceAccount(
 }
 
 // https://github.com/JupiterOne/graph-google/blob/ad4d88d0151cd7dc4ad93dc30d1aa40e6c97778e/src/steps/users/converters.ts#L44
-function createIamUser(
-  iamUserEntityWithParsedMember: IamUserEntityWithParsedMember,
-) {
-  const email = iamUserEntityWithParsedMember.parsedMember.identifier;
-  const userId = iamUserEntityWithParsedMember.parsedMember.uniqueid;
-  const deleted = iamUserEntityWithParsedMember.parsedMember.deleted;
+function createIamUser(parsedMember: ParsedIamMember) {
+  const email = parsedMember.identifier;
+  const userId = parsedMember.uniqueid;
+  const deleted = parsedMember.deleted;
   return {
     _type: GOOGLE_USER_ENTITY_TYPE,
     _class: GOOGLE_USER_ENTITY_CLASS,
@@ -152,8 +137,13 @@ function getUsername(email: string): string | null {
   return usernameMatch && usernameMatch[1];
 }
 
+function last<T>(arr: T[] | undefined): T | undefined {
+  if (!arr || !arr.length) return undefined;
+  return arr[arr.length - 1];
+}
+
 // https://github.com/JupiterOne/graph-google/blob/ad4d88d0151cd7dc4ad93dc30d1aa40e6c97778e/src/steps/users/converters.ts#L166
-function getDomain(email: string): string | null {
+function getDomain(email: string): string | undefined {
   return last(email.split('@'));
 }
 
@@ -175,7 +165,7 @@ function generateIamEntityKey(prefix: string, id: string | number) {
 
 export const CREATE_IAM_ENTITY_MAP: {
   [K in ParsedIamMemberType]: (
-    iamUserEntityWithParsedMember: IamUserEntityWithParsedMember,
+    parsedMember: ParsedIamMember,
   ) => Partial<PrimitiveEntity>;
 } = {
   ['domain']: createIamDomain,

@@ -1,6 +1,6 @@
 import {
   getFullServiceApiNameFromPermission,
-  getRoleKeyFromConvienenceType,
+  getRoleKeyFromConvienenceMember,
   getUniqueFullServiceApiNamesFromRole,
   isReadOnlyPermission,
   isReadOnlyRole,
@@ -258,12 +258,16 @@ describe('#getUniqueFullServiceApiNamesFromRole', () => {
 
 describe('getRoleKeyFromConvienenceType', () => {
   it('should parse projectEditor correctly', () => {
-    expect(getRoleKeyFromConvienenceType('projectEditor')).toBe('roles/editor');
+    expect(getRoleKeyFromConvienenceMember('projectEditor')).toBe(
+      'roles/editor',
+    );
   });
   it('should parse projectOwner correctly', () => {
-    expect(getRoleKeyFromConvienenceType('projectOwner')).toBe('roles/owner');
+    expect(getRoleKeyFromConvienenceMember('projectOwner')).toBe('roles/owner');
   });
   it('should parse projectViewer correctly', () => {
-    expect(getRoleKeyFromConvienenceType('projectViewer')).toBe('roles/viewer');
+    expect(getRoleKeyFromConvienenceMember('projectViewer')).toBe(
+      'roles/viewer',
+    );
   });
 });

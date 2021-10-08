@@ -388,8 +388,14 @@ export function isServiceAccountEmail(email: string): boolean {
 }
 
 // remove 'project' and lowercase - projectOwner, projectEditor, projectViewer
-export function getRoleKeyFromConvienenceType(
+export function getRoleKeyFromConvienenceMember(
   member: ConvenienceMemberType,
 ): string {
   return 'roles/' + member.substring(7).toLowerCase();
+}
+
+export function isConvienenceMember(member: string) {
+  return ConvenienceMembers.includes(
+    member.split(':')[0] as ConvenienceMemberType,
+  );
 }
