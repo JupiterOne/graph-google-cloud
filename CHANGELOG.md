@@ -8,6 +8,15 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 1.0.2 - 2021-10-11
+
+### Fixed
+
+- Managed questions that used `Find google_user ASSIGNED google_iam_role`
+  traversals to use
+  `Find google_user that ASSIGNED google_iam_binding that USES google_iam_role`
+  instead.
+
 ## 1.0.1 - 2021-10-08
 
 ### Fixed
