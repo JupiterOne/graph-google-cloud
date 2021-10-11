@@ -66,7 +66,8 @@ questions:
   - name: good
     query: |
       find google_iam_service_account as user
-        that ASSIGNED google_iam_role
+        that ASSIGNED google_iam_binding
+        that USES google_iam_role
         with name!~=(
           "admin" or
           "Admin"
@@ -82,7 +83,8 @@ questions:
   - name: bad
     query: |
       find google_iam_service_account as user
-        that ASSIGNED google_iam_role
+        that ASSIGNED google_iam_binding
+        that USES google_iam_role
         with name~=(
           "admin" or
           "Admin"
@@ -116,7 +118,8 @@ questions:
   - name: good
     query: |
       find google_iam_service_account as user
-        that ASSIGNED google_iam_role as role
+        that ASSIGNED google_iam_binding
+        that USES google_iam_role as role
         where
           role.name!="roles/iam.serviceAccountUser" and
           role.name!="roles/iam.serviceAccountTokenCreator"
@@ -126,7 +129,8 @@ questions:
   - name: bad
     query: |
       find google_iam_service_account as user
-        that ASSIGNED google_iam_role as role
+        that ASSIGNED google_iam_binding
+        that USES google_iam_role as role
         where
           role.name="roles/iam.serviceAccountUser" or
           role.name="roles/iam.serviceAccountTokenCreator"
