@@ -23,3 +23,7 @@ export const EVERYONE_TYPE = 'everyone';
 
 export const API_SERVICE_HAS_IAM_ROLE_RELATIONSHIP_TYPE =
   'google_cloud_api_service_has_iam_role';
+export const GOOGLE_GROUP_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE =
+  'google_group_assigned_iam_role';
+export const GOOGLE_USER_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE =
+  'google_user_assigned_iam_role';

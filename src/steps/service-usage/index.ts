@@ -24,7 +24,13 @@ import {
 } from '../../utils/iam';
 import { serviceusage_v1 } from 'googleapis';
 
-export * from './constants';
+// This was exported in this way to avoid module loading issues
+export {
+  API_SERVICE_ENTITY_TYPE,
+  STEP_API_SERVICES,
+  API_SERVICE_ENTITY_CLASS,
+  PROJECT_API_SERVICE_RELATIONSHIP_TYPE,
+};
 
 function getPermissionsForApiService(
   apiService: serviceusage_v1.Schema$GoogleApiServiceusageV1Service,

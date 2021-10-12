@@ -13,7 +13,7 @@ import {
   createApiServiceToAnyResourceRelationships,
   fetchIamBindings,
 } from '.';
-import { bindingEntities } from './constants';
+import { bindingEntities } from '.';
 import {
   buildOrgFolderProjectMappedRelationships,
   fetchResourceManagerFolders,

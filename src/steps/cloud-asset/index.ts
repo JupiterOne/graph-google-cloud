@@ -59,6 +59,8 @@ import {
 import { API_SERVICE_ENTITY_TYPE } from '../service-usage';
 import { CREATE_IAM_ENTITY_MAP } from '../resource-manager/createIamEntities';
 
+export * from './constants';
+
 export async function getPermissionsForManagedRole(
   jobState: JobState,
   roleName: string,

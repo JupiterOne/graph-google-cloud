@@ -4,11 +4,14 @@ import {
   createDirectRelationship,
   createMappedRelationship,
   RelationshipDirection,
+  Relationship,
+  StepRelationshipMetadata,
 } from '@jupiterone/integration-sdk-core';
 import { ResourceManagerClient } from './client';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
 import {
   createFolderEntity,
+  createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship,
   createOrganizationEntity,
   createProjectEntity,
 } from './converters';
@@ -26,10 +29,30 @@ import {
   STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
   ORGANIZATION_HAS_PROJECT_RELATIONSHIP_TYPE,
   FOLDER_HAS_PROJECT_RELATIONSHIP_TYPE,
+  IAM_SERVICE_ACCOUNT_ASSIGNED_ROLE_RELATIONSHIP_TYPE,
+  STEP_RESOURCE_MANAGER_IAM_POLICY,
 } from './constants';
 import { ParsedIamMember, parseIamMember } from '../../utils/iam';
 import { RelationshipClass } from '@jupiterone/data-model';
 import { cacheProjectNameAndId } from '../../utils/jobState';
+import {
+  IAM_ROLE_ENTITY_TYPE,
+  IAM_ROLE_ENTITY_CLASS,
+  GOOGLE_USER_ENTITY_TYPE,
+  IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
+  GOOGLE_GROUP_ENTITY_TYPE,
+  STEP_IAM_CUSTOM_ROLES,
+  STEP_IAM_SERVICE_ACCOUNTS,
+  STEP_IAM_MANAGED_ROLES,
+  GOOGLE_USER_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE,
+  GOOGLE_GROUP_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE,
+} from '../iam';
+import {
+  findOrCreateIamRoleEntity,
+  getConditionRelationshipProperties,
+} from '../cloud-asset';
+import { cloudresourcemanager_v3 } from 'googleapis';
+import { CREATE_IAM_ENTITY_MAP } from './createIamEntities';
 
 export * from './constants';
 
@@ -38,7 +61,7 @@ export interface IamUserEntityWithParsedMember {
   userEntity: Entity | null;
 }
 
-export async function maybeFindIamUserEntityWithParsedMember({
+async function maybeFindIamUserEntityWithParsedMember({
   context,
   member,
 }: {
@@ -233,6 +256,92 @@ export async function fetchResourceManagerProject(
   await jobState.addEntity(projectEntity);
 }
 
+export function buildRoleTargetRelationship({
+  roleEntity,
+  iamUserEntityWithParsedMember,
+  projectId,
+  condition,
+}: {
+  roleEntity: Entity;
+  iamUserEntityWithParsedMember: IamUserEntityWithParsedMember;
+  projectId?: string;
+  condition?: cloudresourcemanager_v3.Schema$Expr;
+}): Relationship | undefined {
+  if (iamUserEntityWithParsedMember.userEntity) {
+    // Create a direct relationship. This is a user entity that _only_ exists
+    // in the Google Cloud integration (e.g. a GCP service account)
+    return createDirectRelationship({
+      _class: RelationshipClass.ASSIGNED,
+      from: iamUserEntityWithParsedMember.userEntity,
+      to: roleEntity,
+      properties: {
+        projectId: projectId,
+        ...(condition && getConditionRelationshipProperties(condition)),
+        _deprecationDate: '01-01-2022',
+      },
+    });
+  } else {
+    // Create a mapped relationship where the target entity exists and is owned
+    // by the Google Workspace integration.
+    return createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship({
+      roleEntity,
+      targetEntity: CREATE_IAM_ENTITY_MAP[
+        iamUserEntityWithParsedMember.parsedMember.type
+      ](iamUserEntityWithParsedMember.parsedMember),
+      projectId,
+      condition,
+    });
+  }
+}
+
+// Will be deprecated on 01-01-2022
+export async function fetchResourceManagerIamPolicy(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const {
+    jobState,
+    instance: { config },
+    logger,
+  } = context;
+  const client = new ResourceManagerClient({ config });
+  const relationships = new Set<string>();
+
+  await client.iteratePolicyMemberBindings(async (data) => {
+    if (!data.binding.role) {
+      logger.warn(
+        { binding: data.binding },
+        'Unable to build relationships for binding. Binding does not have an associated role.',
+      );
+      return;
+    }
+
+    const iamUserEntityWithParsedMember =
+      await maybeFindIamUserEntityWithParsedMember({
+        context,
+        member: data.member,
+      });
+
+    const roleEntity = await findOrCreateIamRoleEntity({
+      jobState,
+      roleName: data.binding.role,
+    });
+
+    const relationship = buildRoleTargetRelationship({
+      iamUserEntityWithParsedMember,
+      roleEntity,
+      projectId: client.projectId,
+      condition: data.binding.condition,
+    });
+
+    if (!relationship || relationships.has(relationship._key)) {
+      return;
+    }
+
+    await jobState.addRelationship(relationship);
+    relationships.add(relationship._key);
+  });
+}
+
 export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_RESOURCE_MANAGER_ORGANIZATION,
@@ -312,5 +421,45 @@ export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchResourceManagerProject,
+  },
+  {
+    id: STEP_RESOURCE_MANAGER_IAM_POLICY,
+    name: 'Resource Manager IAM Policy',
+    entities: [
+      {
+        resourceName: 'IAM Role',
+        _type: IAM_ROLE_ENTITY_TYPE,
+        _class: IAM_ROLE_ENTITY_CLASS,
+      },
+    ],
+    relationships: [
+      {
+        _class: RelationshipClass.ASSIGNED,
+        _type: IAM_SERVICE_ACCOUNT_ASSIGNED_ROLE_RELATIONSHIP_TYPE,
+        sourceType: IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
+        targetType: IAM_ROLE_ENTITY_TYPE,
+        deprecationDate: '1-1-2022',
+      } as StepRelationshipMetadata,
+      {
+        _type: GOOGLE_GROUP_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE,
+        _class: RelationshipClass.ASSIGNED,
+        sourceType: GOOGLE_GROUP_ENTITY_TYPE,
+        targetType: IAM_ROLE_ENTITY_TYPE,
+        deprecationDate: '1-1-2022',
+      } as StepRelationshipMetadata,
+      {
+        _type: GOOGLE_USER_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE,
+        _class: RelationshipClass.ASSIGNED,
+        sourceType: GOOGLE_USER_ENTITY_TYPE,
+        targetType: IAM_ROLE_ENTITY_TYPE,
+        deprecationDate: '1-1-2022',
+      } as StepRelationshipMetadata,
+    ],
+    dependsOn: [
+      STEP_IAM_CUSTOM_ROLES,
+      STEP_IAM_SERVICE_ACCOUNTS,
+      STEP_IAM_MANAGED_ROLES,
+    ],
+    executionHandler: fetchResourceManagerIamPolicy,
   },
 ];

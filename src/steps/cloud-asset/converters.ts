@@ -1,11 +1,11 @@
 import { Entity } from '@jupiterone/integration-sdk-core';
 import { cloudasset_v1 } from 'googleapis';
 import { snakeCase } from 'lodash';
+import { bindingEntities } from '.';
 import { hashArray } from '../../utils/crypto';
 
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import { isReadOnlyPermission } from '../../utils/iam';
-import { bindingEntities } from './constants';
 
 export interface BindingEntity extends Entity {
   resource: string;

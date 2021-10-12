@@ -36,6 +36,7 @@ import {
   STEP_RESOURCE_MANAGER_ORGANIZATION,
   STEP_RESOURCE_MANAGER_FOLDERS,
   STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
+  STEP_RESOURCE_MANAGER_IAM_POLICY,
 } from './steps/resource-manager';
 import {
   STEP_COMPUTE_ADDRESSES,
@@ -273,6 +274,9 @@ describe('#getStepStartStates success', () => {
       },
       [STEP_IAM_SERVICE_ACCOUNTS]: {
         disabled: false,
+      },
+      [STEP_RESOURCE_MANAGER_IAM_POLICY]: {
+        disabled: true,
       },
       [STEP_COMPUTE_DISKS]: {
         disabled: false,
@@ -570,6 +574,9 @@ describe('#getStepStartStates success', () => {
       [STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS]: {
         disabled: false,
       },
+      [STEP_RESOURCE_MANAGER_IAM_POLICY]: {
+        disabled: true,
+      },
       [STEP_IAM_BINDINGS]: {
         disabled: true,
       },
@@ -637,6 +644,9 @@ describe('#getStepStartStates success', () => {
       },
       [STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS]: {
         disabled: true,
+      },
+      [STEP_RESOURCE_MANAGER_IAM_POLICY]: {
+        disabled: false,
       },
       [STEP_IAM_BINDINGS]: {
         disabled: false,

@@ -8,6 +8,23 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Changed
+
+- Reverting both breaking changes from the v1.0.0 release, opting instead to
+  continue generating principal ASSIGNED role from he project level IAM Policy
+  until 01-01-2022. Users will have until then to update their queries to the
+  new traversal path. The relationships that will continue to be made until
+  01-01-2022 are:
+
+| Source                             | class        | Target            |
+| ---------------------------------- | ------------ | ----------------- |
+| `google_user`                      | **ASSIGNED** | `google_iam_role` |
+| `google_group`                     | **ASSIGNED** | `google_iam_role` |
+| `google_domain`                    | **ASSIGNED** | `google_iam_role` |
+| `everyone`                         | **ASSIGNED** | `google_iam_role` |
+| `google_cloud_authenticated_users` | **ASSIGNED** | `google_iam_role` |
+| `google_iam_service_account`       | **ASSIGNED** | `google_iam_role` |
+
 ## 1.0.2 - 2021-10-11
 
 ### Fixed
