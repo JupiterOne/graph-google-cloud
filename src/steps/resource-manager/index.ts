@@ -46,6 +46,8 @@ import {
   STEP_IAM_MANAGED_ROLES,
   GOOGLE_USER_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE,
   GOOGLE_GROUP_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE,
+  GOOGLE_DOMAIN_ENTITY_TYPE,
+  GOOGLE_DOMAIN_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE,
 } from '../iam';
 import {
   findOrCreateIamRoleEntity,
@@ -451,6 +453,13 @@ export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
         _type: GOOGLE_USER_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE,
         _class: RelationshipClass.ASSIGNED,
         sourceType: GOOGLE_USER_ENTITY_TYPE,
+        targetType: IAM_ROLE_ENTITY_TYPE,
+        deprecationDate: '1-1-2022',
+      } as StepRelationshipMetadata,
+      {
+        _type: GOOGLE_DOMAIN_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE,
+        _class: RelationshipClass.ASSIGNED,
+        sourceType: GOOGLE_DOMAIN_ENTITY_TYPE,
         targetType: IAM_ROLE_ENTITY_TYPE,
         deprecationDate: '1-1-2022',
       } as StepRelationshipMetadata,

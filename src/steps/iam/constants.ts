@@ -27,3 +27,5 @@ export const GOOGLE_GROUP_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE =
   'google_group_assigned_iam_role';
 export const GOOGLE_USER_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE =
   'google_user_assigned_iam_role';
+export const GOOGLE_DOMAIN_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE =
+  'google_domain_assigned_iam_role';
