@@ -8,6 +8,13 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 1.0.4 - 2021-10-14
+
+### Fixed
+
+- Prevent an error in `getTablePolicy` from causing `fetch-big-query-tables` to
+  error out.
+
 ## 1.0.3 - 2021-10-11
 
 ### Fixed
