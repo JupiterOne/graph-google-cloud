@@ -171,7 +171,7 @@ export async function fetchBigQueryTables(
             try {
               tablePolicy = await client.getTablePolicy(table);
             } catch (error) {
-              logger.error(
+              logger.warn(
                 { tableId: table.id },
                 'Unable to fetch IAM policy for BigQuery table. Property `isPublic` will not be set.',
               );
