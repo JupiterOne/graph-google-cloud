@@ -8,6 +8,17 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 1.0.5 - 2021-10-14
+
+### Fixed
+
+- Only store the first 500 members in the rawData for `google_iam_binding`s to
+  prevent upload error.
+- Only store the first 500 permissions in the rawData for `google_iam_role`s to
+  prevent upload error.
+- Only store the first 500 characters of the role description in the rawData for
+  `google_iam_role`s to prevent upload error.
+
 ## 1.0.4 - 2021-10-14
 
 ### Fixed

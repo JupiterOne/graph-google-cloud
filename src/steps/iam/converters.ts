@@ -32,9 +32,16 @@ export function createIamRoleEntity(
     key?: string;
   },
 ) {
+  // Need to truncate the rawData to prevent Lambda error
+  const truncatedData = {
+    ...data,
+    includedPermissions: data.includedPermissions?.slice(0, 500),
+    description: (data.description ?? '').substring(0, 500),
+  };
+
   return createGoogleCloudIntegrationEntity(data, {
     entityData: {
-      source: data,
+      source: truncatedData,
       assign: {
         _class: IAM_ROLE_ENTITY_CLASS,
         _type: IAM_ROLE_ENTITY_TYPE,
