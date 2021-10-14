@@ -36,8 +36,11 @@ import {
 export * from './constants';
 
 function isBigQueryPolicyPublicAccess(
-  bigQueryPolicy: bigquery_v2.Schema$Policy,
-): boolean {
+  bigQueryPolicy: bigquery_v2.Schema$Policy | undefined,
+): boolean | undefined {
+  if (!bigQueryPolicy) {
+    return undefined;
+  }
   for (const binding of bigQueryPolicy.bindings || []) {
     for (const member of binding.members || []) {
       if (isMemberPublic(member)) {
@@ -150,6 +153,7 @@ export async function fetchBigQueryTables(
 ): Promise<void> {
   const {
     jobState,
+    logger,
     instance: { config },
   } = context;
   const client = new BigQueryClient({ config });
@@ -163,7 +167,15 @@ export async function fetchBigQueryTables(
         await client.iterateBigQueryTables(
           datasetEntity.name as string,
           async (table) => {
-            const tablePolicy = await client.getTablePolicy(table);
+            let tablePolicy: bigquery_v2.Schema$Policy | undefined = undefined;
+            try {
+              tablePolicy = await client.getTablePolicy(table);
+            } catch (error) {
+              logger.error(
+                { tableId: table.id },
+                'Unable to fetch IAM policy for BigQuery table. Property `isPublic` will not be set.',
+              );
+            }
             const tableResource = await client.getTableResource(table);
 
             const tableEntity = createBigQueryTableEntity({

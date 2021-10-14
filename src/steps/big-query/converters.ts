@@ -109,7 +109,7 @@ export function createBigQueryTableEntity({
 }: {
   data: BigQueryTable;
   projectId: string;
-  isPublic: boolean;
+  isPublic: boolean | undefined;
   kmsKeyName: string | undefined;
 }) {
   return createGoogleCloudIntegrationEntity(data, {

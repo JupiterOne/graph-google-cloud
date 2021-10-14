@@ -53,15 +53,17 @@ export class BigQueryClient extends Client {
 
   async getTablePolicy(
     data: BigQueryTable,
-  ): Promise<bigquery_v2.Schema$Policy> {
+  ): Promise<bigquery_v2.Schema$Policy | undefined> {
     const auth = await this.getAuthenticatedServiceClient();
-
-    const resp = await this.client.tables.getIamPolicy({
+    const { projectId, datasetId, tableId } = data.tableReference ?? {};
+    if (!projectId || !datasetId || !tableId) {
+      return undefined;
+    }
+    const policyResponse = await this.client.tables.getIamPolicy({
       auth,
-      resource: `projects/${data.tableReference?.projectId}/datasets/${data.tableReference?.datasetId}/tables/${data.tableReference?.tableId}`,
+      resource: `projects/${projectId}/datasets/${datasetId}/tables/${tableId}`,
     });
-
-    return resp.data;
+    return policyResponse?.data;
   }
 
   async getTableResource(
