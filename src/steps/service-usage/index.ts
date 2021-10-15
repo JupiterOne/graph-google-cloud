@@ -71,7 +71,7 @@ export async function fetchApiServices(
         projectId: client.projectId,
         data: service,
         permissions,
-        isAuditable: auditableServices.includes(service.config?.name as string),
+        auditable: auditableServices.includes(service.config?.name as string),
       }),
     );
 
