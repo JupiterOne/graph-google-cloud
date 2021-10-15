@@ -368,6 +368,7 @@ The following relationships are created:
 
 | Source Entity `_type`                                            | Relationship `_class` | Target Entity `_type`                                             |
 | ---------------------------------------------------------------- | --------------------- | ----------------------------------------------------------------- |
+| `google_cloud_api_service`                                       | **USES**              | `google_cloud_audit_config`                                       |
 | `google_access_context_manager_access_policy`                    | **HAS**               | `google_access_context_manager_access_level`                      |
 | `google_access_context_manager_access_policy`                    | **HAS**               | `google_access_context_manager_service_perimeter`                 |
 | `google_access_context_manager_service_perimeter_api_operation`  | **HAS**               | `google_access_context_manager_service_perimeter_method_selector` |

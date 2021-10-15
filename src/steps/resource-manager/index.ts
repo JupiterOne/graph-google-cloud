@@ -30,7 +30,7 @@ import {
   STEP_AUDIT_CONFIG_IAM_POLICY,
   AUDIT_CONFIG_ENTITY_CLASS,
   AUDIT_CONFIG_ENTITY_TYPE,
-  AUDIT_CONFIG_USES_SERVICE_RELATIONSHIP_TYPE,
+  SERVICE_USES_AUDIT_CONFIG_RELATIONSHIP_TYPE,
 } from './constants';
 import { ParsedIamMember, parseIamMember } from '../../utils/iam';
 import { RelationshipClass } from '@jupiterone/data-model';
@@ -267,8 +267,8 @@ export async function fetchIamPolicyAuditConfig(
             await jobState.addRelationship(
               createDirectRelationship({
                 _class: RelationshipClass.USES,
-                from: auditConfigEntity,
-                to: serviceEntity,
+                from: serviceEntity,
+                to: auditConfigEntity,
               }),
             );
           }
@@ -286,8 +286,8 @@ export async function fetchIamPolicyAuditConfig(
         await jobState.addRelationship(
           createDirectRelationship({
             _class: RelationshipClass.USES,
-            from: auditConfigEntity,
-            to: serviceEntity,
+            from: serviceEntity,
+            to: auditConfigEntity,
           }),
         );
       }
@@ -438,9 +438,9 @@ export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
     relationships: [
       {
         _class: RelationshipClass.USES,
-        _type: AUDIT_CONFIG_USES_SERVICE_RELATIONSHIP_TYPE,
-        sourceType: AUDIT_CONFIG_ENTITY_TYPE,
-        targetType: API_SERVICE_ENTITY_TYPE,
+        _type: SERVICE_USES_AUDIT_CONFIG_RELATIONSHIP_TYPE,
+        sourceType: API_SERVICE_ENTITY_TYPE,
+        targetType: AUDIT_CONFIG_ENTITY_TYPE,
       },
     ],
     executionHandler: fetchIamPolicyAuditConfig,
