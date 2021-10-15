@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Fixed
+
 ## 1.0.5 - 2021-10-14
 
 ### Fixed
@@ -18,6 +20,9 @@ and this project adheres to
   prevent upload error.
 - Only store the first 500 characters of the role description in the rawData for
   `google_iam_role`s to prevent upload error.
+- Prevent `DUPLICATE_KEY_ERROR`s in steps
+  `create-binding-principal-relationships` and
+  `create-binding-any-resource-relationships`.
 
 ## 1.0.4 - 2021-10-14
 
