@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 1.0.6 - 2021-10-15
+
 ### Removed
 
 - `rawData` on Basic `google_iam_role`s and `google_iam_bindings` to prevent
