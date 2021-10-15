@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Fixed
+
+- Prevent `DUPLICATE_KEY_ERROR`s in steps
+  `create-binding-principal-relationships` and
+  `create-binding-any-resource-relationships`.
+
 ## 1.0.4 - 2021-10-14
 
 ### Fixed

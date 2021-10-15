@@ -2,6 +2,7 @@ import {
   createDirectRelationship,
   createMappedRelationship,
   Entity,
+  ExplicitRelationship,
   generateRelationshipType,
   getRawData,
   IntegrationStep,
@@ -414,6 +415,7 @@ async function createAndAddConvienceMemberTargetRelationships(
   jobState: JobState,
   member: string,
   bindingEntity: BindingEntity,
+  safeAddRelationship: (relationship: ExplicitRelationship) => Promise<void>,
   condition?: cloudresourcemanager_v3.Schema$Expr,
 ) {
   const convenienceMember = member.split(':')[0] as ConvenienceMemberType; // 'projectOwner:PROJECT_ID' => 'projectOwner'
@@ -425,7 +427,7 @@ async function createAndAddConvienceMemberTargetRelationships(
     );
     const roleEntity = await jobState.findEntity(roleKey);
     if (roleEntity) {
-      await jobState.addRelationship(
+      await safeAddRelationship(
         createDirectRelationship({
           _class: RelationshipClass.ASSIGNED,
           from: bindingEntity,
@@ -445,6 +447,15 @@ export async function createPrincipalRelationships(
 ): Promise<void> {
   const { jobState } = context;
 
+  const principalRelationshipKeys = new Set<string>();
+
+  async function safeAddRelationship(relationship?: Relationship) {
+    if (relationship && !principalRelationshipKeys.has(relationship._key)) {
+      await jobState.addRelationship(relationship);
+      principalRelationshipKeys.add(String(relationship._key));
+    }
+  }
+
   await jobState.iterateEntities(
     { _type: bindingEntities.BINDINGS._type },
     async (bindingEntity: BindingEntity) => {
@@ -459,6 +470,7 @@ export async function createPrincipalRelationships(
             jobState,
             member,
             bindingEntity,
+            safeAddRelationship,
             condition,
           );
         } else {
@@ -470,7 +482,7 @@ export async function createPrincipalRelationships(
             principalEntity = await jobState.findEntity(parsedIdentifier);
           }
 
-          await jobState.addRelationship(
+          await safeAddRelationship(
             buildIamTargetRelationship({
               bindingEntity,
               principalEntity,
@@ -494,6 +506,15 @@ export async function createBindingToAnyResourceRelationships(
   context: IntegrationStepContext,
 ): Promise<void> {
   const { jobState, instance, logger } = context;
+  const relationshipKeys = new Set<string>();
+
+  async function safeAddRelationship(relationship?: Relationship) {
+    if (relationship && !relationshipKeys.has(relationship._key)) {
+      await jobState.addRelationship(relationship);
+      relationshipKeys.add(String(relationship._key));
+    }
+  }
+
   const enabledServiceNames = await getEnabledServiceNames(instance.config);
   await jobState.iterateEntities(
     { _type: bindingEntities.BINDINGS._type },
@@ -514,54 +535,53 @@ export async function createBindingToAnyResourceRelationships(
       const existingEntity = enabledServiceNames.includes(service)
         ? await jobState.findEntity(key)
         : undefined;
-      await jobState.addRelationship(
-        existingEntity
-          ? createDirectRelationship({
-              from: bindingEntity,
-              _class: RelationshipClass.ALLOWS,
-              to: existingEntity,
-            })
-          : createMappedRelationship({
-              _class: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP._class,
-              _type: generateRelationshipType(
-                RelationshipClass.ALLOWS,
-                bindingEntities.BINDINGS._type,
-                type,
-              ),
-              _mapping: {
-                relationshipDirection: RelationshipDirection.FORWARD,
-                sourceEntityKey: bindingEntity._key,
-                targetFilterKeys: [
-                  // Because there is no one-to-one-mapping from Google Resource Kind to J1 Type, only map on the `_key`.
+      const relationship = existingEntity
+        ? createDirectRelationship({
+            from: bindingEntity,
+            _class: RelationshipClass.ALLOWS,
+            to: existingEntity,
+          })
+        : createMappedRelationship({
+            _class: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP._class,
+            _type: generateRelationshipType(
+              RelationshipClass.ALLOWS,
+              bindingEntities.BINDINGS._type,
+              type,
+            ),
+            _mapping: {
+              relationshipDirection: RelationshipDirection.FORWARD,
+              sourceEntityKey: bindingEntity._key,
+              targetFilterKeys: [
+                // Because there is no one-to-one-mapping from Google Resource Kind to J1 Type, only map on the `_key`.
+                type === MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND
+                  ? ['_key']
+                  : ['_type', '_key'],
+              ],
+              /**
+               * The mapper does not properly remove mapper-created entities at the moment. These
+               * entities will never be cleaned up which will cause duplicates.
+               *
+               * Until this is fixed, we should not create mapped relationships with target creation
+               * enabled, thus only creating iam_binding relationships to resources that have already
+               * been ingested by other integrations.
+               *
+               * This is a BIG problem because we can no longer tell a customer with 100% confidence
+               * that they do not have any insecure resources if they have yet to have an integration
+               * ingest that resource.
+               */
+              skipTargetCreation: true,
+              targetEntity: {
+                // When there is no one-to-one-mapping from Google Resource Kind to J1 Type, do not set the _type on target entities.
+                _type:
                   type === MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND
-                    ? ['_key']
-                    : ['_type', '_key'],
-                ],
-                /**
-                 * The mapper does not properly remove mapper-created entities at the moment. These
-                 * entities will never be cleaned up which will cause duplicates.
-                 *
-                 * Until this is fixed, we should not create mapped relationships with target creation
-                 * enabled, thus only creating iam_binding relationships to resources that have already
-                 * been ingested by other integrations.
-                 *
-                 * This is a BIG problem because we can no longer tell a customer with 100% confidence
-                 * that they do not have any insecure resources if they have yet to have an integration
-                 * ingest that resource.
-                 */
-                skipTargetCreation: true,
-                targetEntity: {
-                  // When there is no one-to-one-mapping from Google Resource Kind to J1 Type, do not set the _type on target entities.
-                  _type:
-                    type === MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND
-                      ? undefined
-                      : type,
-                  _key: key,
-                  resourceIdentifier: bindingEntity.resource,
-                },
+                    ? undefined
+                    : type,
+                _key: key,
+                resourceIdentifier: bindingEntity.resource,
               },
-            }),
-      );
+            },
+          });
+      await safeAddRelationship(relationship);
     },
   );
 }
