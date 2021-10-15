@@ -17,7 +17,7 @@ import {
   ORGANIZATION_HAS_FOLDER_RELATIONSHIP_TYPE,
   FOLDER_HAS_FOLDER_RELATIONSHIP_TYPE,
   PROJECT_ENTITY_TYPE,
-  AUDIT_CONFIG_MONITORS_SERVICE_RELATIONSHIP_TYPE,
+  AUDIT_CONFIG_USES_SERVICE_RELATIONSHIP_TYPE,
 } from './constants';
 import {
   Entity,
@@ -181,14 +181,14 @@ describe('#fetchIamPolicyAuditConfig', () => {
 
     expect(
       context.jobState.collectedRelationships.filter(
-        (e) => e._type === AUDIT_CONFIG_MONITORS_SERVICE_RELATIONSHIP_TYPE,
+        (e) => e._type === AUDIT_CONFIG_USES_SERVICE_RELATIONSHIP_TYPE,
       ),
     ).toMatchDirectRelationshipSchema({
       schema: {
         properties: {
-          _class: { const: 'MONITORS' },
+          _class: { const: 'USES' },
           _type: {
-            const: 'google_cloud_audit_config_monitors_api_service',
+            const: 'google_cloud_audit_config_uses_api_service',
           },
         },
       },

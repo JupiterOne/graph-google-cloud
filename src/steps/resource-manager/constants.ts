@@ -29,5 +29,5 @@ export const FOLDER_HAS_FOLDER_RELATIONSHIP_TYPE =
 export const ORGANIZATION_HAS_PROJECT_RELATIONSHIP_TYPE =
   'google_organization_has_project';
 export const FOLDER_HAS_PROJECT_RELATIONSHIP_TYPE = 'google_folder_has_project';
-export const AUDIT_CONFIG_MONITORS_SERVICE_RELATIONSHIP_TYPE =
-  'google_cloud_audit_config_monitors_api_service';
+export const AUDIT_CONFIG_USES_SERVICE_RELATIONSHIP_TYPE =
+  'google_cloud_audit_config_uses_api_service';

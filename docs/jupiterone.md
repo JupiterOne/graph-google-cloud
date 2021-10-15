@@ -455,7 +455,7 @@ The following relationships are created:
 | `google_cloud_api_service`                                       | **HAS**               | `google_sql_postgres_instance`                                    |
 | `google_cloud_api_service`                                       | **HAS**               | `google_sql_sql_server_instance`                                  |
 | `google_cloud_api_service`                                       | **HAS**               | `google_storage_bucket`                                           |
-| `google_cloud_audit_config`                                      | **MONITORS**          | `google_cloud_api_service`                                        |
+| `google_cloud_audit_config`                                      | **USES**              | `google_cloud_api_service`                                        |
 | `internet`                                                       | **ALLOWS**            | `google_compute_firewall`                                         |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_folder`                                             |
 | `google_cloud_function`                                          | **USES**              | `google_iam_service_account`                                      |
