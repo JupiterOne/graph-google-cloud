@@ -8,7 +8,10 @@ and this project adheres to
 
 ## [Unreleased]
 
-### Fixed
+### Removed
+
+- `rawData` on Basic `google_iam_role`s and `google_iam_bindings` to prevent
+  upload errors.
 
 ## 1.0.5 - 2021-10-14
 

@@ -42,22 +42,7 @@ Object {
     "AccessRole",
   ],
   "_key": "projects/j1-gc-integration-dev-v2/roles/myrole",
-  "_rawData": Array [
-    Object {
-      "name": "default",
-      "rawData": Object {
-        "description": "Description",
-        "etag": "abc123",
-        "includedPermissions": Array [
-          "cloudfunctions.functions.get",
-          "cloudfunctions.functions.getIamPolicy",
-        ],
-        "name": "projects/j1-gc-integration-dev-v2/roles/myrole",
-        "stage": "GA",
-        "title": "Role",
-      },
-    },
-  ],
+  "_rawData": Array [],
   "_type": "google_iam_role",
   "createdOn": undefined,
   "custom": false,
