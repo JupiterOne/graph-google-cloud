@@ -67,17 +67,9 @@ export function createIamBindingEntity({
 }): BindingEntity {
   const namePrefix = 'Role Binding for Resource: ';
 
-  // My guess is that some organizations have IAM bindings with thousands of members.
-  // This is definately not Google Cloud's recomendation, but we shouldn't crash just
-  // because people aren't following reccomendations :P
-  const bindingWithTruncatedMembers = {
-    ...binding,
-    members: binding.members?.slice(0, 500),
-  };
-
   return createGoogleCloudIntegrationEntity(binding, {
     entityData: {
-      source: bindingWithTruncatedMembers,
+      source: {}, // rawData was removed to prevent `Request must be smaller than 6291456 bytes for the InvokeFunction operation` errors
       assign: {
         _class: bindingEntities.BINDINGS._class,
         _type: bindingEntities.BINDINGS._type,

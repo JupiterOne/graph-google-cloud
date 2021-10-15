@@ -32,16 +32,9 @@ export function createIamRoleEntity(
     key?: string;
   },
 ) {
-  // Need to truncate the rawData to prevent Lambda error
-  const truncatedData = {
-    ...data,
-    includedPermissions: data.includedPermissions?.slice(0, 500),
-    description: (data.description ?? '').substring(0, 500),
-  };
-
   return createGoogleCloudIntegrationEntity(data, {
     entityData: {
-      source: truncatedData,
+      source: custom ? data : {}, // rawData was removed for managed roles to prevent `Request must be smaller than 6291456 bytes for the InvokeFunction operation` errors
       assign: {
         _class: IAM_ROLE_ENTITY_CLASS,
         _type: IAM_ROLE_ENTITY_TYPE,
