@@ -137,7 +137,8 @@ the integration to be run. We recommend using the following roles managed by
 Google Cloud:
 
 - [`roles/iam.securityReviewer`](https://cloud.google.com/iam/docs/understanding-roles#iam.securityReviewer)
-- [`roles/iam.roleViewer`](https://cloud.google.com/iam/docs/understanding-roles#iam.roleViewer)
+- [`roles/iam.organizationRoleViewer`](https://cloud.google.com/iam/docs/understanding-roles#iam.organizationRoleViewer)
+- [`roles/bigquery.metadataViewer`](https://cloud.google.com/bigquery/docs/access-control#bigquery.metadataViewer)
 
 To bind integration execution roles, run the
 [`gcloud iam add-iam-policy-binding`](https://cloud.google.com/sdk/gcloud/reference/iam/service-accounts/add-iam-policy-binding)
@@ -150,7 +151,11 @@ gcloud projects add-iam-policy-binding PROJECT_ID \
 
 gcloud projects add-iam-policy-binding PROJECT_ID \
    --member serviceAccount:j1-gc-integration-dev-sa@PROJECT_ID.iam.gserviceaccount.com \
-   --role "roles/iam.roleViewer"
+   --role "roles/iam.organizationRoleViewer"
+
+gcloud projects add-iam-policy-binding PROJECT_ID \
+   --member serviceAccount:j1-gc-integration-dev-sa@PROJECT_ID.iam.gserviceaccount.com \
+   --role "roles/bigquery.metadataViewer"
 ```
 
 NOTE: You must update the values above to match your service account details.
