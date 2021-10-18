@@ -8,11 +8,16 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Removed
+
+- Members from contributing to the key of `google-iam-binding`s in order to
+  prevent the duplicate key tracker from filling up memory.
+
 ## 1.0.6 - 2021-10-15
 
 ### Removed
 
-- `rawData` on Basic `google_iam_role`s and `google_iam_bindings` to prevent
+- `rawData` on Basic `google_iam_role`s and `google_iam_binding`s to prevent
   upload errors.
 
 ## 1.0.5 - 2021-10-14

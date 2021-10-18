@@ -1,7 +1,6 @@
 import { Entity } from '@jupiterone/integration-sdk-core';
 import { cloudasset_v1 } from 'googleapis';
 import { snakeCase } from 'lodash';
-import { hashArray } from '../../utils/crypto';
 
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import { isReadOnlyPermission } from '../../utils/iam';
@@ -38,8 +37,6 @@ export function buildIamBindingEntityKey({
   if (projectName) keyBuilders.push('project:' + projectName);
   if (resource) keyBuilders.push('resource:' + resource);
   if (binding.role) keyBuilders.push('role:' + binding.role);
-  if (binding.members)
-    keyBuilders.push('members:' + hashArray(binding.members));
   if (binding.condition?.expression)
     keyBuilders.push('condition:' + binding.condition.expression);
 
