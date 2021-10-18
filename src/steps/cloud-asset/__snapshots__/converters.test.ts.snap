@@ -5,7 +5,7 @@ Object {
   "_class": Array [
     "AccessPolicy",
   ],
-  "_key": "binding|project:projects/123456789|resource:resource|role:projects/j1-gc-integration-dev-v3/roles/167984947943customroleconditions|members:d67596848eadce677215c99cb8d085373e61df54|condition:resource.name != \\"bogusunknownresourcename\\"",
+  "_key": "binding|project:projects/123456789|resource:resource|role:projects/j1-gc-integration-dev-v3/roles/167984947943customroleconditions|condition:resource.name != \\"bogusunknownresourcename\\"",
   "_rawData": Array [],
   "_type": "google_iam_binding",
   "condition.description": "Test condition description",
