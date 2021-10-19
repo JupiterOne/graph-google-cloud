@@ -89,7 +89,7 @@ export async function fetchMetrics(
           // Check if alertPolicy exists for this particular metric
           if (
             (alertPolicyEntity.conditionFilters as string[]).find((condition) =>
-              condition.includes(metricEntity.name),
+              condition?.includes(metricEntity.name),
             )
           ) {
             await jobState.addRelationship(
