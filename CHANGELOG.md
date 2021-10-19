@@ -8,6 +8,10 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Fixed
+
+- TypeError from when there is no condition in `fetch-logging-metrics`
+
 ## 1.0.6 - 2021-10-15
 
 ### Removed
