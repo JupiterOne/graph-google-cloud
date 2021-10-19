@@ -12,6 +12,7 @@ and this project adheres to
 
 - TypeError from when `CREATE_IAM_ENTITY_MAP` did not contain an entity creation
   function.
+- TypeError from when there is no condition in `fetch-logging-metrics`
 
 ## 1.0.6 - 2021-10-15
 
