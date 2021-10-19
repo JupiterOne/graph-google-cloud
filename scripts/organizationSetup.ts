@@ -742,6 +742,7 @@ async function updateOrgPolicy({
     },
     {
       delay: 500,
+      timeout: 300_000, // Need to set a timeout, otherwise we might wait for a response indefinitly.
       maxAttempts: 5,
       factor: 1.1,
       handleError(err, attemptContext) {
