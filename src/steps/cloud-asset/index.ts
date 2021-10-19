@@ -75,7 +75,6 @@ export async function fetchIamBindings(
   const client = new CloudAssetClient({ config: instance.config });
   let iamBindingsCount = 0;
 
-  const bindingGraphKeySet = new Set<string>();
   const duplicateBindingGraphKeys: string[] = [];
 
   try {
@@ -91,11 +90,6 @@ export async function fetchIamBindings(
           projectName,
           resource,
         });
-
-        if (bindingGraphKeySet.has(_key)) {
-          duplicateBindingGraphKeys.push(_key);
-          continue;
-        }
 
         let projectId: string | undefined;
         if (projectName) {
@@ -126,20 +120,27 @@ export async function fetchIamBindings(
             : await getPermissionsForManagedRole(jobState, binding.role)
           : [];
 
-        await jobState.addEntity(
-          createIamBindingEntity({
-            _key,
-            projectId,
-            projectName,
-            binding,
-            resource,
-            folders,
-            organization,
-            permissions,
-          }),
-        );
+        try {
+          await jobState.addEntity(
+            createIamBindingEntity({
+              _key,
+              projectId,
+              projectName,
+              binding,
+              resource,
+              folders,
+              organization,
+              permissions,
+            }),
+          );
+        } catch (error) {
+          if (error.code == 'DUPLICATE_KEY_DETECTED') {
+            duplicateBindingGraphKeys.push(_key);
+          } else {
+            throw error;
+          }
+        }
 
-        bindingGraphKeySet.add(_key);
         iamBindingsCount++;
       }
     });

@@ -8,11 +8,18 @@ and this project adheres to
 
 ## [Unreleased]
 
+### 1.1.0 - 2021-10-18
+
+### Changed
+
+- Duplicate key tracking in `google_iam_binding`s to be done in a slower way
+  that prevents memory issues.
+
 ## 1.0.6 - 2021-10-15
 
 ### Removed
 
-- `rawData` on Basic `google_iam_role`s and `google_iam_bindings` to prevent
+- `rawData` on Basic `google_iam_role`s and `google_iam_binding`s to prevent
   upload errors.
 
 ## 1.0.5 - 2021-10-14
