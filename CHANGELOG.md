@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- API calls will now have a `timeout` of one minute.
+- Organization setup will now have an api `timeout` of five minutes when
+  updating the organization IAM policy.
+
 ### Fixed
 
 - TypeError from when there is no condition in `fetch-logging-metrics`
