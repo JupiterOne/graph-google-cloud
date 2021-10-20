@@ -5,8 +5,10 @@ import {
   ExplicitRelationship,
   generateRelationshipType,
   getRawData,
+  IntegrationLogger,
   IntegrationStep,
   JobState,
+  PrimitiveEntity,
   Relationship,
   RelationshipClass,
   RelationshipDirection,
@@ -349,6 +351,7 @@ export function getConditionRelationshipProperties(
 export function buildIamTargetRelationship({
   bindingEntity,
   principalEntity,
+  logger,
   parsedMember,
   projectId,
   condition,
@@ -356,9 +359,10 @@ export function buildIamTargetRelationship({
   bindingEntity: BindingEntity;
   principalEntity: Entity | null;
   parsedMember: ParsedIamMember;
+  logger: IntegrationLogger;
   projectId?: string;
   condition?: cloudresourcemanager_v3.Schema$Expr;
-}): Relationship {
+}): Relationship | undefined {
   if (principalEntity) {
     return createDirectRelationship({
       _class: RelationshipClass.ASSIGNED,
@@ -370,36 +374,48 @@ export function buildIamTargetRelationship({
       },
     });
   } else {
-    const targetEntity = CREATE_IAM_ENTITY_MAP[parsedMember.type](parsedMember);
-    return createMappedRelationship({
-      _class: RelationshipClass.ASSIGNED,
-      _mapping: {
-        relationshipDirection: RelationshipDirection.FORWARD,
-        sourceEntityKey: bindingEntity._key,
-        targetFilterKeys: targetEntity._key // Not always able to determine a _key for google_users depending on how the binding is set up
-          ? [['_key', '_type']]
-          : [['_type', 'email']],
-        /**
-         * The mapper does not properly remove mapper-created entities at the moment. These
-         * entities will never be cleaned up which will causes duplicates.
-         *
-         * However, we should still create these entities as they are important for access
-         * analysis. Without these relationships, it will make is look like something is
-         * secure when it actually is not. We will just have to deal with the duplicates.
-         */
-        skipTargetCreation: false,
-        targetEntity,
-      },
-      properties: {
-        _type: generateRelationshipType(
-          RelationshipClass.ASSIGNED,
-          bindingEntity._type,
-          targetEntity._type!,
-        ),
-        projectId,
-        ...(condition && getConditionRelationshipProperties(condition)),
-      },
-    });
+    const targetEntityFunction = CREATE_IAM_ENTITY_MAP[parsedMember.type];
+    let targetEntity: Partial<PrimitiveEntity> | undefined = undefined;
+    if (typeof targetEntityFunction === 'function') {
+      targetEntity = targetEntityFunction(parsedMember);
+    } else {
+      logger.warn(
+        { parsedMemberType: parsedMember.type },
+        'Unable to find create entity function in CREATE_IAM_ENTITY_MAP',
+      );
+    }
+
+    return targetEntity
+      ? createMappedRelationship({
+          _class: RelationshipClass.ASSIGNED,
+          _mapping: {
+            relationshipDirection: RelationshipDirection.FORWARD,
+            sourceEntityKey: bindingEntity._key,
+            targetFilterKeys: targetEntity._key // Not always able to determine a _key for google_users depending on how the binding is set up
+              ? [['_key', '_type']]
+              : [['_type', 'email']],
+            /**
+             * The mapper does not properly remove mapper-created entities at the moment. These
+             * entities will never be cleaned up which will causes duplicates.
+             *
+             * However, we should still create these entities as they are important for access
+             * analysis. Without these relationships, it will make is look like something is
+             * secure when it actually is not. We will just have to deal with the duplicates.
+             */
+            skipTargetCreation: false,
+            targetEntity,
+          },
+          properties: {
+            _type: generateRelationshipType(
+              RelationshipClass.ASSIGNED,
+              bindingEntity._type,
+              targetEntity._type!,
+            ),
+            projectId,
+            ...(condition && getConditionRelationshipProperties(condition)),
+          },
+        })
+      : undefined;
   }
 }
 
@@ -445,7 +461,7 @@ async function createAndAddConvienceMemberTargetRelationships(
 export async function createPrincipalRelationships(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
+  const { jobState, logger } = context;
 
   const principalRelationshipKeys = new Set<string>();
 
@@ -487,6 +503,7 @@ export async function createPrincipalRelationships(
               bindingEntity,
               principalEntity,
               parsedMember,
+              logger,
               projectId: bindingEntity.projectId,
               condition,
             }),
