@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 1.0.7 - 2021-10-21
+
 ### Added
 
 - API calls will now have a `timeout` of one minute.
