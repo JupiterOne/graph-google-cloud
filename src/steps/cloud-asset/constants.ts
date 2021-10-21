@@ -54,6 +54,9 @@ export const BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS = IAM_PRINCIPAL_TYPES.map(
       sourceType: bindingEntities.BINDINGS._type,
       _class: RelationshipClass.ASSIGNED,
       targetType: principalType,
+      indexMetadata: {
+        enabled: false,
+      },
     };
   },
 );
@@ -71,6 +74,9 @@ export const BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP = {
   sourceType: bindingEntities.BINDINGS._type,
   _class: RelationshipClass.ALLOWS,
   targetType: ANY_RESOURCE,
+  indexMetadata: {
+    enabled: false,
+  },
 };
 
 export const API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP = {
@@ -82,4 +88,7 @@ export const API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP = {
   ),
   sourceType: API_SERVICE_ENTITY_TYPE,
   targetType: ANY_RESOURCE,
+  indexMetadata: {
+    enabled: false,
+  },
 };
