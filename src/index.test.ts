@@ -275,9 +275,6 @@ describe('#getStepStartStates success', () => {
       [STEP_IAM_SERVICE_ACCOUNTS]: {
         disabled: false,
       },
-      [STEP_RESOURCE_MANAGER_IAM_POLICY]: {
-        disabled: true,
-      },
       [STEP_AUDIT_CONFIG_IAM_POLICY]: {
         disabled: true,
       },

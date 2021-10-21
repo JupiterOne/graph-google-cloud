@@ -368,7 +368,6 @@ The following relationships are created:
 
 | Source Entity `_type`                                            | Relationship `_class` | Target Entity `_type`                                             |
 | ---------------------------------------------------------------- | --------------------- | ----------------------------------------------------------------- |
-| `google_cloud_api_service`                                       | **USES**              | `google_cloud_audit_config`                                       |
 | `google_access_context_manager_access_policy`                    | **HAS**               | `google_access_context_manager_access_level`                      |
 | `google_access_context_manager_access_policy`                    | **HAS**               | `google_access_context_manager_service_perimeter`                 |
 | `google_access_context_manager_service_perimeter_api_operation`  | **HAS**               | `google_access_context_manager_service_perimeter_method_selector` |
@@ -456,7 +455,7 @@ The following relationships are created:
 | `google_cloud_api_service`                                       | **HAS**               | `google_sql_postgres_instance`                                    |
 | `google_cloud_api_service`                                       | **HAS**               | `google_sql_sql_server_instance`                                  |
 | `google_cloud_api_service`                                       | **HAS**               | `google_storage_bucket`                                           |
-| `google_cloud_audit_config`                                      | **USES**              | `google_cloud_api_service`                                        |
+| `google_cloud_api_service`                                       | **USES**              | `google_cloud_audit_config`                                       |
 | `internet`                                                       | **ALLOWS**            | `google_compute_firewall`                                         |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_folder`                                             |
 | `google_cloud_function`                                          | **USES**              | `google_iam_service_account`                                      |

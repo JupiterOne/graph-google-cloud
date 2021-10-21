@@ -10,6 +10,7 @@ import {
   fetchResourceManagerProject,
   buildOrgFolderProjectMappedRelationships,
   fetchIamPolicyAuditConfig,
+  AUDIT_CONFIG_ENTITY_TYPE,
 } from '.';
 import { integrationConfig } from '../../../test/config';
 import {
@@ -27,14 +28,7 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { filterGraphObjects } from '../../../test/helpers/filterGraphObjects';
 import { fetchApiServices } from '../service-usage';
-
-async function executeIamSteps(
-  context: MockIntegrationStepExecutionContext<IntegrationConfig>,
-) {
-  for (const step of iamSteps) {
-    await step.executionHandler(context);
-  }
-}
+import { fetchIamManagedRoles } from '../iam';
 
 describe('#fetchIamPolicyAuditConfig', () => {
   let recording: Recording;
@@ -68,7 +62,7 @@ describe('#fetchIamPolicyAuditConfig', () => {
     });
 
     await fetchResourceManagerProject(context);
-    await executeIamSteps(context);
+    await fetchIamManagedRoles(context);
     await fetchApiServices(context);
     await fetchIamPolicyAuditConfig(context);
 
@@ -80,27 +74,11 @@ describe('#fetchIamPolicyAuditConfig', () => {
       encounteredTypes: context.jobState.encounteredTypes,
     }).toMatchSnapshot();
 
-    const userEntities = context.jobState.collectedEntities.filter(
-      (e) => e._type === GOOGLE_USER_ENTITY_TYPE,
+    const auditConfigEntities = context.jobState.collectedEntities.filter(
+      (e) => e._type === AUDIT_CONFIG_ENTITY_TYPE,
     );
-    const iamServiceAccountEntities = context.jobState.collectedEntities.filter(
-      (e) => e._type === 'google_iam_service_account',
-    );
-    const iamServiceAccountKeyEntities =
-      context.jobState.collectedEntities.filter(
-        (e) => e._type === 'google_iam_service_account_key',
-      );
-    const iamServiceAccountHasKeyRelationships =
-      context.jobState.collectedRelationships.filter(
-        (r) => r._type === 'google_iam_service_account_has_key',
-      );
 
-    expect(userEntities.length).toEqual(0);
-    expect(iamServiceAccountEntities.length).toBeGreaterThanOrEqual(1);
-    expect(iamServiceAccountKeyEntities.length).toBeGreaterThanOrEqual(1);
-    expect(iamServiceAccountHasKeyRelationships.length).toBeGreaterThanOrEqual(
-      1,
-    );
+    expect(auditConfigEntities.length).toBeGreaterThan(1);
 
     expect(
       context.jobState.collectedEntities.filter(
@@ -188,153 +166,11 @@ describe('#fetchIamPolicyAuditConfig', () => {
         properties: {
           _class: { const: 'USES' },
           _type: {
-            const: 'google_cloud_audit_config_uses_api_service',
+            const: 'google_cloud_api_service_uses_audit_config',
           },
         },
       },
     });
-  });
-});
-
-describe('#fetchResourceManagerIamPolicy', () => {
-  let recording: Recording;
-
-  beforeEach(() => {
-    recording = setupGoogleCloudRecording({
-      directory: __dirname,
-      name: 'fetchResourceManagerIamPolicy',
-    });
-  });
-
-  afterEach(async () => {
-    if (recording) {
-      await recording.stop();
-    }
-  });
-
-  test('should collect data', async () => {
-    const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: {
-        ...integrationConfig,
-        serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
-          'j1-gc-integration-dev-v2',
-          'j1-gc-integration-dev-v3',
-        ),
-        serviceAccountKeyConfig: {
-          ...integrationConfig.serviceAccountKeyConfig,
-          project_id: 'j1-gc-integration-dev-v3',
-        },
-      },
-    });
-
-    await executeIamSteps(context);
-    await fetchResourceManagerIamPolicy(context);
-
-    expect({
-      numCollectedEntities: context.jobState.collectedEntities.length,
-      numCollectedRelationships: context.jobState.collectedRelationships.length,
-      collectedEntities: context.jobState.collectedEntities,
-      collectedRelationships: context.jobState.collectedRelationships,
-      encounteredTypes: context.jobState.encounteredTypes,
-    }).toMatchSnapshot();
-
-    const userEntities = context.jobState.collectedEntities.filter(
-      (e) => e._type === GOOGLE_USER_ENTITY_TYPE,
-    );
-    const iamServiceAccountEntities = context.jobState.collectedEntities.filter(
-      (e) => e._type === 'google_iam_service_account',
-    );
-    const iamServiceAccountKeyEntities =
-      context.jobState.collectedEntities.filter(
-        (e) => e._type === 'google_iam_service_account_key',
-      );
-    const iamServiceAccountAssignedRoleRelationships =
-      context.jobState.collectedRelationships.filter(
-        (r) => r._type === 'google_iam_service_account_assigned_role',
-      );
-    const iamServiceAccountHasKeyRelationships =
-      context.jobState.collectedRelationships.filter(
-        (r) => r._type === 'google_iam_service_account_has_key',
-      );
-
-    expect(userEntities.length).toEqual(0);
-    expect(iamServiceAccountEntities.length).toBeGreaterThanOrEqual(1);
-    expect(iamServiceAccountKeyEntities.length).toBeGreaterThanOrEqual(1);
-    expect(
-      iamServiceAccountAssignedRoleRelationships.length,
-    ).toBeGreaterThanOrEqual(1);
-    expect(iamServiceAccountHasKeyRelationships.length).toBeGreaterThanOrEqual(
-      1,
-    );
-
-    expect(userEntities).toMatchGraphObjectSchema({
-      _class: ['User'],
-      schema: {
-        additionalProperties: false,
-        properties: {
-          _type: { const: 'google_user' },
-          type: { type: 'string' },
-          deleted: { type: 'boolean' },
-          uniqueid: { type: 'string' },
-          _rawData: {
-            type: 'array',
-            items: { type: 'object' },
-          },
-        },
-      },
-    });
-
-    expect(iamServiceAccountEntities).toMatchGraphObjectSchema({
-      _class: ['User'],
-      schema: {
-        additionalProperties: false,
-        properties: {
-          _type: { const: 'google_iam_service_account' },
-          _rawData: {
-            type: 'array',
-            items: { type: 'object' },
-          },
-          enabled: { type: 'boolean' },
-          projectId: { type: 'string' },
-          id: { type: 'string' },
-          oauth2ClientId: { type: 'string' },
-          etag: { type: 'string' },
-        },
-      },
-    });
-
-    expect(iamServiceAccountKeyEntities).toMatchGraphObjectSchema({
-      _class: ['AccessKey'],
-      schema: {
-        additionalProperties: false,
-        properties: {
-          _type: { const: 'google_iam_service_account_key' },
-          _rawData: {
-            type: 'array',
-            items: { type: 'object' },
-          },
-          origin: { type: 'string' },
-          type: { type: 'string' },
-          algorithm: { type: 'string' },
-        },
-      },
-    });
-
-    expect(iamServiceAccountAssignedRoleRelationships).toEqual(
-      iamServiceAccountAssignedRoleRelationships.map((r) =>
-        expect.objectContaining({
-          _class: 'ASSIGNED',
-        }),
-      ),
-    );
-
-    expect(iamServiceAccountHasKeyRelationships).toEqual(
-      iamServiceAccountHasKeyRelationships.map((r) =>
-        expect.objectContaining({
-          _class: 'HAS',
-        }),
-      ),
-    );
   });
 });
 

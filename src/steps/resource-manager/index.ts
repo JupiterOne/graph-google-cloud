@@ -35,9 +35,9 @@ import {
 import { ParsedIamMember, parseIamMember } from '../../utils/iam';
 import { RelationshipClass } from '@jupiterone/data-model';
 import { cacheProjectNameAndId } from '../../utils/jobState';
-import { CREATE_IAM_ENTITY_MAP } from './createIamEntities';
 import {
   API_SERVICE_ENTITY_TYPE,
+  API_SERVICE_ENTITY_CLASS,
   STEP_API_SERVICES,
 } from '../service-usage/constants';
 import { getServiceApiEntityKey } from '../service-usage/converters';
@@ -295,56 +295,6 @@ export async function fetchIamPolicyAuditConfig(
   });
 }
 
-export async function fetchResourceManagerIamPolicy(
-  context: IntegrationStepContext,
-): Promise<void> {
-  const {
-    jobState,
-    instance: { config },
-    logger,
-  } = context;
-  const client = new ResourceManagerClient({ config });
-  const relationships = new Set<string>();
-
-  await client.iteratePolicyMemberBindings(async (data) => {
-    if (!data.binding.role) {
-      logger.warn(
-        { binding: data.binding },
-        'Unable to build relationships for binding. Binding does not have an associated role.',
-      );
-      return;
-    }
-
-    const iamUserEntityWithParsedMember =
-      await maybeFindIamUserEntityWithParsedMember({
-        jobState,
-        member: data.member,
-      });
-
-    if (shouldMakeTargetIamRelationships(iamUserEntityWithParsedMember)) {
-      const iamRoleEntity = await findOrCreateIamRoleEntity({
-        jobState,
-        roleName: data.binding.role,
-      });
-
-      const relationship = buildIamTargetRelationship({
-        iamUserEntityWithParsedMember,
-        iamEntity: iamRoleEntity,
-        relationshipDirection: RelationshipDirection.REVERSE,
-        projectId: client.projectId,
-        condition: data.binding.condition,
-      });
-
-      if (!relationship || relationships.has(relationship._key)) {
-        return;
-      }
-
-      await jobState.addRelationship(relationship);
-      relationships.add(relationship._key);
-    }
-  });
-}
-
 export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_RESOURCE_MANAGER_ORGANIZATION,
@@ -445,47 +395,5 @@ export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
     ],
     executionHandler: fetchIamPolicyAuditConfig,
     dependsOn: [STEP_API_SERVICES],
-  },
-  {
-    id: STEP_RESOURCE_MANAGER_IAM_POLICY,
-    name: 'Resource Manager IAM Policy',
-    entities: [
-      {
-        resourceName: 'IAM Role',
-        _type: IAM_ROLE_ENTITY_TYPE,
-        _class: IAM_ROLE_ENTITY_CLASS,
-      },
-      {
-        resourceName: 'IAM User',
-        _type: GOOGLE_USER_ENTITY_TYPE,
-        _class: IAM_USER_ENTITY_CLASS,
-      },
-    ],
-    relationships: [
-      {
-        _class: RelationshipClass.ASSIGNED,
-        _type: IAM_SERVICE_ACCOUNT_ASSIGNED_ROLE_RELATIONSHIP_TYPE,
-        sourceType: IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
-        targetType: IAM_ROLE_ENTITY_TYPE,
-      },
-      {
-        _type: GOOGLE_GROUP_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE,
-        _class: RelationshipClass.ASSIGNED,
-        sourceType: GOOGLE_GROUP_ENTITY_TYPE,
-        targetType: IAM_ROLE_ENTITY_TYPE,
-      },
-      {
-        _type: GOOGLE_USER_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE,
-        _class: RelationshipClass.ASSIGNED,
-        sourceType: GOOGLE_USER_ENTITY_TYPE,
-        targetType: IAM_ROLE_ENTITY_TYPE,
-      },
-    ],
-    dependsOn: [
-      STEP_IAM_CUSTOM_ROLES,
-      STEP_IAM_SERVICE_ACCOUNTS,
-      STEP_IAM_MANAGED_ROLES,
-    ],
-    executionHandler: fetchResourceManagerIamPolicy,
   },
 ];

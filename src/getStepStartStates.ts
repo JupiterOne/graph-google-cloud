@@ -307,9 +307,6 @@ export default async function getStepStartStates(
     [STEP_IAM_CUSTOM_ROLES]: createStepStartState(ServiceUsageName.IAM),
     [STEP_IAM_MANAGED_ROLES]: createStepStartState(ServiceUsageName.IAM),
     [STEP_IAM_SERVICE_ACCOUNTS]: createStepStartState(ServiceUsageName.IAM),
-    [STEP_RESOURCE_MANAGER_IAM_POLICY]: config.configureOrganizationProjects
-      ? { disabled: true }
-      : createStepStartState(ServiceUsageName.RESOURCE_MANAGER),
     [STEP_AUDIT_CONFIG_IAM_POLICY]: config.configureOrganizationProjects
       ? { disabled: true }
       : createStepStartState(ServiceUsageName.RESOURCE_MANAGER),
