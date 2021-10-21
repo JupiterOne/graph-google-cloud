@@ -37,7 +37,6 @@ import { RelationshipClass } from '@jupiterone/data-model';
 import { cacheProjectNameAndId } from '../../utils/jobState';
 import {
   API_SERVICE_ENTITY_TYPE,
-  API_SERVICE_ENTITY_CLASS,
   STEP_API_SERVICES,
 } from '../service-usage/constants';
 import { getServiceApiEntityKey } from '../service-usage/converters';
