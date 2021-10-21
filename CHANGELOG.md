@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 1.0.8 - 2021-10-21
+
 ### Changed
 
 - Do not index relationships created in the `cloud-asset` steps to prevent out
