@@ -229,23 +229,23 @@ function createMockContext() {
   });
 }
 
-describe('#fetchIamBindings', () => {
-  function separateGraphObjectsByType<T extends Entity | Relationship>(
-    collected: T[],
-    encounteredTypes: string[],
-  ) {
-    const relationshipsByType: Record<string, T[]> = {};
-    let rest: T[] = collected;
-    if (rest) {
-      for (const type of encounteredTypes) {
-        const filterResult = filterGraphObjects(rest, (o) => o._type === type);
-        rest = filterResult.rest;
-        relationshipsByType[type] = filterResult.targets;
-      }
+function separateGraphObjectsByType<T extends Entity | Relationship>(
+  collected: T[],
+  encounteredTypes: string[],
+) {
+  const relationshipsByType: Record<string, T[]> = {};
+  let rest: T[] = collected;
+  if (rest) {
+    for (const type of encounteredTypes) {
+      const filterResult = filterGraphObjects(rest, (o) => o._type === type);
+      rest = filterResult.rest;
+      relationshipsByType[type] = filterResult.targets;
     }
-    return relationshipsByType;
   }
+  return relationshipsByType;
+}
 
+describe('#fetchIamBindings', () => {
   test('should create Binding and Role entities, Direct Relationships with resources and principals ingested, and Mapped Relationships with resources and principals not ingested.', async () => {
     await withRecording('fetchIamBindings', __dirname, async () => {
       const context = createMockContext();
@@ -269,8 +269,6 @@ describe('#fetchIamBindings', () => {
         numCollectedEntities: context.jobState.collectedEntities.length,
         numCollectedRelationships:
           context.jobState.collectedRelationships.length,
-        collectedEntities: context.jobState.collectedEntities.length,
-        collectedRelationships: context.jobState.collectedRelationships.length,
         encounteredTypes: context.jobState.encounteredTypes,
       }).toMatchSnapshot();
 
@@ -591,5 +589,29 @@ describe('#fetchIamBindings', () => {
         );
       },
     );
+  });
+});
+
+describe('#createBasicRolesForBindings', () => {
+  it('should create basic roles with basic:true', async () => {
+    await withRecording('createBasicRolesForBindings', __dirname, async () => {
+      const context = createMockContext();
+      await fetchIamManagedRoles(context);
+      await fetchIamBindings(context);
+      await createBasicRolesForBindings(context);
+
+      expect({
+        numCollectedEntities: context.jobState.collectedEntities.length,
+        numCollectedRelationships:
+          context.jobState.collectedRelationships.length,
+        encounteredTypes: context.jobState.encounteredTypes,
+      }).toMatchSnapshot();
+
+      const { google_iam_role } = separateGraphObjectsByType(
+        context.jobState.collectedRelationships,
+        context.jobState.encounteredTypes,
+      );
+      expect(google_iam_role).toMatchSnapshot();
+    });
   });
 });

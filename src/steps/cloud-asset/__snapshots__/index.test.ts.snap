@@ -1,9 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`#createBasicRolesForBindings should create basic roles with basic:true 1`] = `
+Object {
+  "encounteredTypes": Array [
+    "google_iam_binding",
+    "google_iam_role",
+  ],
+  "numCollectedEntities": 143,
+  "numCollectedRelationships": 0,
+}
+`;
+
+exports[`#createBasicRolesForBindings should create basic roles with basic:true 2`] = `Array []`;
+
 exports[`#fetchIamBindings should create Binding and Role entities, Direct Relationships with resources and principals ingested, and Mapped Relationships with resources and principals not ingested. 1`] = `
 Object {
-  "collectedEntities": 654,
-  "collectedRelationships": 958,
   "encounteredTypes": Array [
     "google_cloud_organization",
     "google_cloud_folder",

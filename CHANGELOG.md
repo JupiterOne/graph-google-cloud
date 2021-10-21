@@ -20,7 +20,7 @@ and this project adheres to
 
 - Removed the `permissions` property on Basic `google_iam_role`s;
   `roles/viewer`, `roles/editor`, `roles/owner`, and `roles/browser`. These can
-  instead be queried for vial the new `basic` property.
+  instead be queried for via the new `basic` property.
 
 ## 1.0.8 - 2021-10-21
 
