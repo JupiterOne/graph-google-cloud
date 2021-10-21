@@ -444,6 +444,7 @@ describe('#fetchIamBindings', () => {
             description: { type: 'string' },
             stage: { type: 'string' },
             custom: { type: 'boolean' },
+            basic: { type: 'boolean' },
             deleted: { type: 'boolean' },
             permissions: { type: 'string' },
             etag: { type: 'string' },

@@ -183,39 +183,6 @@ function createBasicRoleKey(orgHierarchyKey: string, roleIdentifier: string) {
   return orgHierarchyKey + '/' + roleIdentifier;
 }
 
-export async function findOrCreateIamRoleEntity({
-  jobState,
-  roleName,
-  roleKey = roleName,
-}: {
-  jobState: JobState;
-  roleName: string;
-  roleKey?: string;
-}) {
-  const roleEntity = await jobState.findEntity(roleKey);
-  if (roleEntity) {
-    return roleEntity;
-  }
-
-  const includedPermissions = await getPermissionsForManagedRole(
-    jobState,
-    roleName,
-  );
-  return jobState.addEntity(
-    createIamRoleEntity(
-      {
-        name: roleName,
-        title: roleName,
-        includedPermissions,
-      },
-      {
-        custom: false,
-        key: roleKey,
-      },
-    ),
-  );
-}
-
 /**
  * Basic Roles roles exist at all levels of the organization resource hierarchy.
  * They are: roles/owner, roles/editor, roles/viewer and roles/browser
@@ -245,11 +212,26 @@ export async function createBasicRolesForBindings(
               ),
             ) ?? {};
           if (!key) return;
-          await findOrCreateIamRoleEntity({
-            jobState,
-            roleName: bindingEntity.role,
-            roleKey: createBasicRoleKey(key, bindingEntity.role),
-          });
+
+          const roleKey = createBasicRoleKey(key, bindingEntity.role);
+          const roleName = bindingEntity.role;
+
+          const roleEntity = await jobState.findEntity(roleKey);
+          if (!roleEntity) {
+            await jobState.addEntity(
+              createIamRoleEntity(
+                {
+                  name: roleName,
+                  title: roleName,
+                },
+                {
+                  basic: true,
+                  custom: false,
+                  key: roleKey,
+                },
+              ),
+            );
+          }
         }
       }
     },

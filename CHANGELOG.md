@@ -8,6 +8,20 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- New properties added to resources:
+
+  | Entity            | Properties |
+  | ----------------- | ---------- |
+  | `google_iam_role` | `basic`    |
+
+### Removed
+
+- Removed the `permissions` property on Basic `google_iam_role`s;
+  `roles/viewer`, `roles/editor`, `roles/owner`, and `roles/browser`. These can
+  instead be queried for vial the new `basic` property.
+
 ## 1.0.8 - 2021-10-21
 
 ### Changed

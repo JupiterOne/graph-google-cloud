@@ -14,15 +14,21 @@ import {
   IAM_SERVICE_ACCOUNT_KEY_ENTITY_CLASS,
   IAM_SERVICE_ACCOUNT_KEY_ENTITY_TYPE,
 } from './constants';
-import { isReadOnlyRole } from '../../utils/iam';
+import { isReadOnlyRole, readOnlyBasicRoles } from '../../utils/iam';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 
 export function createIamRoleEntity(
   data: iam_v1.Schema$Role,
   {
+    basic,
     custom,
     key = data.name as string,
   }: {
+    /**
+     * If this role is one of the few special roles that get automatically generated for every project
+     * https://cloud.google.com/iam/docs/understanding-roles?_ga=2.17065465.-1526178294.1622832983#basic
+     */
+    basic?: boolean;
     /**
      * Google Cloud has managed roles and custom roles. There is no metadata
      * on the role itself that marks whether it's a custom role or managed role.
@@ -44,11 +50,14 @@ export function createIamRoleEntity(
         description: data.description,
         stage: data.stage,
         custom: custom === true,
+        basic: basic === true,
         deleted: data.deleted === true,
         permissions: data.includedPermissions
           ? data.includedPermissions?.join(',')
           : undefined, // This array can bee too large to be stored in Neptune. Strings have more storage space.
-        readonly: isReadOnlyRole(data),
+        readonly: basic
+          ? readOnlyBasicRoles.includes(data.name as any)
+          : isReadOnlyRole(data),
         etag: data.etag,
       },
     },

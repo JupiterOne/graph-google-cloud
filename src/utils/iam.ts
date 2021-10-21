@@ -46,6 +46,10 @@ export const basicRoles: BasicRoleType[] = [
   'roles/owner',
   'roles/browser',
 ];
+export const readOnlyBasicRoles: BasicRoleType[] = [
+  'roles/viewer',
+  'roles/browser',
+];
 
 // Google Storage buckets have extra "Convenience" members that need to be handled differently.
 // Each of these members maps up to thier corresponding Basic Role
@@ -288,7 +292,7 @@ export function isReadOnlyPermission(permission: string): boolean {
 }
 
 export function isReadOnlyRole(role: iam_v1.Schema$Role): boolean {
-  for (const permission of role.includedPermissions || []) {
+  for (const permission of role.includedPermissions ?? []) {
     if (!isReadOnlyPermission(permission)) {
       return false;
     }

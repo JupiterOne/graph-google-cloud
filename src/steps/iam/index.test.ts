@@ -82,6 +82,7 @@ describe('#fetchIamRoles', () => {
           description: { type: 'string' },
           stage: { type: 'string' },
           custom: { const: true },
+          basic: { type: 'boolean' },
           deleted: { type: 'boolean' },
           permissions: { type: 'string' },
           etag: { type: 'string' },
