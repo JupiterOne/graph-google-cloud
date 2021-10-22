@@ -2,7 +2,6 @@ import {
   generateRelationshipType,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
-import { ANY_RESOURCE } from '../../constants';
 import { J1_TYPE_TO_KEY_GENERATOR_MAP } from '../../utils/iamBindings/typeToKeyGeneratorMap';
 import {
   ALL_AUTHENTICATED_USERS_TYPE,

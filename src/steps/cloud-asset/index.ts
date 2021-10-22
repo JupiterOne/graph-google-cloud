@@ -27,10 +27,8 @@ import {
 } from '../resource-manager';
 import { CloudAssetClient } from './client';
 import {
-  API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP,
   API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIPS,
   bindingEntities,
-  BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP,
   BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIPS,
   BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS,
   STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS,
@@ -615,7 +613,7 @@ export async function createBindingToAnyResourceRelationships(
             to: existingEntity,
           })
         : createMappedRelationship({
-            _class: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP._class,
+            _class: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIPS[0]._class,
             _type: generateRelationshipType(
               RelationshipClass.ALLOWS,
               bindingEntities.BINDINGS._type,
