@@ -44,7 +44,6 @@ import {
 import { CLOUD_FUNCTION_ENTITY_TYPE, fetchCloudFunctions } from '../functions';
 import { IAM_MANAGED_ROLES_DATA_JOB_STATE_KEY } from '../../utils/iam';
 import { fetchApiServices } from '../service-usage';
-import { MAX_ENTITY_PROPERTY_VALUE } from '../../utils/trimEntityProperty';
 
 expect.extend({
   toHaveOnlyDirectRelationships(
@@ -593,6 +592,12 @@ describe('#fetchIamBindings', () => {
     );
   });
 });
+
+/**
+ * At the time of writing this, 4096 is the maximum value described in the
+ * JupiterOne search indexer system
+ */
+const MAX_ENTITY_PROPERTY_VALUE = 4096;
 
 describe('#createBasicRolesForBindings', () => {
   it('should truncate permission values for both bindings and roles', async () => {

@@ -5,6 +5,7 @@ import {
   Entity,
   createDirectRelationship,
   RelationshipClass,
+  truncateEntityPropertyValue,
 } from '@jupiterone/integration-sdk-core';
 import {
   IAM_ROLE_ENTITY_CLASS,
@@ -16,7 +17,6 @@ import {
 } from './constants';
 import { isReadOnlyRole } from '../../utils/iam';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
-import { trimEntityProperty } from '../../utils/trimEntityProperty';
 
 export function createIamRoleEntity(
   data: iam_v1.Schema$Role,
@@ -47,7 +47,7 @@ export function createIamRoleEntity(
         custom: custom === true,
         deleted: data.deleted === true,
         permissions: data.includedPermissions
-          ? trimEntityProperty(data.includedPermissions?.join(','))
+          ? truncateEntityPropertyValue(data.includedPermissions?.join(','))
           : undefined, // This array can bee too large to be stored in Neptune. Strings have more storage space.
         readonly: isReadOnlyRole(data),
         etag: data.etag,
