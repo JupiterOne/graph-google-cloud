@@ -27,9 +27,9 @@ import {
 } from '../resource-manager';
 import { CloudAssetClient } from './client';
 import {
-  API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP,
+  API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIPS,
   bindingEntities,
-  BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP,
+  BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIPS,
   BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS,
   STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS,
   STEP_CREATE_BASIC_ROLES,
@@ -613,7 +613,7 @@ export async function createBindingToAnyResourceRelationships(
             to: existingEntity,
           })
         : createMappedRelationship({
-            _class: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP._class,
+            _class: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIPS[0]._class,
             _type: generateRelationshipType(
               RelationshipClass.ALLOWS,
               bindingEntities.BINDINGS._type,
@@ -837,7 +837,7 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
     id: STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS,
     name: 'Role Binding to Any Resource Relationships',
     entities: [],
-    relationships: [BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP],
+    relationships: [...BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIPS],
     dependsOn: [STEP_IAM_BINDINGS],
     executionHandler: createBindingToAnyResourceRelationships,
     dependencyGraphId: 'last',
@@ -846,7 +846,7 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
     id: STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS,
     name: 'Api Service to Any Resource Relationships',
     entities: [],
-    relationships: [API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP],
+    relationships: [...API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIPS],
     dependsOn: [STEP_IAM_BINDINGS],
     executionHandler: createApiServiceToAnyResourceRelationships,
     dependencyGraphId: 'last',

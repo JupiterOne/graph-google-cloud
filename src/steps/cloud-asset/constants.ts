@@ -2,7 +2,8 @@ import {
   generateRelationshipType,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
-import { ANY_RESOURCE } from '../../constants';
+import { MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND } from '../../utils/iamBindings/resourceKindToTypeMap';
+import { J1_TYPE_TO_KEY_GENERATOR_MAP } from '../../utils/iamBindings/typeToKeyGeneratorMap';
 import {
   ALL_AUTHENTICATED_USERS_TYPE,
   EVERYONE_TYPE,
@@ -13,6 +14,11 @@ import {
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
 } from '../iam';
 import { API_SERVICE_ENTITY_TYPE } from '../service-usage';
+import {
+  SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
+  SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
+  SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
+} from '../sql-admin';
 
 export const STEP_IAM_BINDINGS = 'fetch-iam-bindings';
 export const STEP_CREATE_BASIC_ROLES = 'create-basic-roles';
@@ -61,28 +67,48 @@ export const BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS = IAM_PRINCIPAL_TYPES.map(
   },
 );
 
+const bindingResourceTargetTypes = Object.keys(J1_TYPE_TO_KEY_GENERATOR_MAP)
+  .filter((type) => type != MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND)
+  .concat([
+    SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
+    SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
+    SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
+  ]);
+
 /**
  * IAM policies can target any resource in Google Cloud. Because we do not ingest every resource,
  * we have chosen, instead, to represent the relationship as IAM Binding assigned to ANY_RESOURCE.
  */
-export const BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP = {
-  _type: generateRelationshipType(
-    RelationshipClass.ALLOWS,
-    bindingEntities.BINDINGS._type,
-    ANY_RESOURCE,
-  ),
-  sourceType: bindingEntities.BINDINGS._type,
-  _class: RelationshipClass.ALLOWS,
-  targetType: ANY_RESOURCE,
-};
+export const BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIPS =
+  bindingResourceTargetTypes.map((resourceType) => {
+    return {
+      _type: generateRelationshipType(
+        RelationshipClass.ALLOWS,
+        bindingEntities.BINDINGS._type,
+        resourceType,
+      ),
+      sourceType: bindingEntities.BINDINGS._type,
+      _class: RelationshipClass.ALLOWS,
+      targetType: resourceType,
+      indexMetadata: {
+        enabled: false,
+      },
+    };
+  });
 
-export const API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP = {
-  _class: RelationshipClass.HAS,
-  _type: generateRelationshipType(
-    RelationshipClass.HAS,
-    API_SERVICE_ENTITY_TYPE,
-    ANY_RESOURCE,
-  ),
-  sourceType: API_SERVICE_ENTITY_TYPE,
-  targetType: ANY_RESOURCE,
-};
+export const API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIPS =
+  bindingResourceTargetTypes.map((resourceType) => {
+    return {
+      _class: RelationshipClass.HAS,
+      _type: generateRelationshipType(
+        RelationshipClass.HAS,
+        API_SERVICE_ENTITY_TYPE,
+        resourceType,
+      ),
+      sourceType: API_SERVICE_ENTITY_TYPE,
+      targetType: resourceType,
+      indexMetadata: {
+        enabled: false,
+      },
+    };
+  });
