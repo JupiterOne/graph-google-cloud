@@ -79,6 +79,8 @@ export async function fetchIamBindings(
 
   const bindingGraphKeySet = new Set<string>();
   const duplicateBindingGraphKeys: string[] = [];
+  let maxPermissionLength = 0;
+  let maxConditionLength = 0;
 
   try {
     await client.iterateAllIamPolicies(context, async (policyResult) => {
@@ -128,6 +130,15 @@ export async function fetchIamBindings(
             : await getPermissionsForManagedRole(jobState, binding.role)
           : [];
 
+        if (permissions?.length ?? 0 > maxPermissionLength) {
+          maxPermissionLength = permissions?.length ?? 0;
+        }
+        const conditionLength =
+          (JSON.stringify(binding.condition) ?? '')?.length ?? 0;
+        if (conditionLength > maxConditionLength) {
+          maxConditionLength = conditionLength;
+        }
+
         await jobState.addEntity(
           createIamBindingEntity({
             _key,
@@ -167,7 +178,11 @@ export async function fetchIamBindings(
   }
 
   logger.info(
-    { numIamBindings: iamBindingsCount },
+    {
+      numIamBindings: iamBindingsCount,
+      maxConditionLength,
+      maxPermissionLength,
+    },
     'Created IAM binding entities',
   );
 
@@ -263,10 +278,17 @@ export async function createBindingRoleRelationships(
   await jobState.iterateEntities(
     { _type: bindingEntities.BINDINGS._type },
     async (bindingEntity: BindingEntity) => {
+      /**
+       * We need to handle Basic Roles different than others because we append an identifier
+       * to the key of the basic role relating to what that basic role is attached to.
+       * For example:
+       *   roles/editor can be attached at either an Organization, Folder, or Project which will have a key of projects/12345/roles/editor.
+       *
+       * We also need to handle basic roles differently because basic roles are not iterable in the jobState so
+       * if we call await `jobState.findEntity(bindingEntity.role)`, we will always not find the role and create
+       * a mapped relationship, even when a direct relationship should be made.
+       */
       if (bindingEntity.role) {
-        let roleKey: string = bindingEntity.role;
-        // Need to handle Basic Roles different than others as we need to add identifiers for what that basic role is attached to.
-        // For example: roles/editor can be attached at either an Organization, Folder, or Project which will have a key of projects/12345/roles/editor.
         if (basicRoles.includes(bindingEntity.role as BasicRoleType)) {
           const { key } =
             makeLogsForTypeAndKeyResponse(
@@ -277,60 +299,78 @@ export async function createBindingRoleRelationships(
               ),
             ) ?? {};
           if (!key) return;
-          roleKey = createBasicRoleKey(key, bindingEntity.role);
-        }
-
-        const roleEntity = await jobState.findEntity(roleKey);
-        if (roleEntity) {
+          /**
+           * We are not fetching the role from the JobState because we disabled disabled writing the basic
+           * roles to disc because the size of these roles was filling up the disc space of our execution
+           * containers. This was done in the stepMetadata with indexMetadata.enabled: false
+           */
           await jobState.addRelationship(
             createDirectRelationship({
               _class: RelationshipClass.USES,
-              from: bindingEntity,
-              to: roleEntity,
+              fromType: bindingEntity._type,
+              fromKey: bindingEntity._key,
+              toType: IAM_ROLE_ENTITY_TYPE,
+              toKey: createBasicRoleKey(key, bindingEntity.role),
             }),
           );
         } else {
-          const includedPermissions = await getPermissionsForManagedRole(
-            jobState,
-            bindingEntity.role,
-          );
-          const targetRoleEntitiy = createIamRoleEntity(
-            {
-              name: bindingEntity.role,
-              title: bindingEntity.role,
-              includedPermissions,
-            },
-            {
-              custom: false,
-            },
-          );
-          await jobState.addRelationship(
-            createMappedRelationship({
-              _class: RelationshipClass.USES,
-              _type: generateRelationshipType(
-                RelationshipClass.USES,
-                bindingEntities.BINDINGS._type,
-                IAM_ROLE_ENTITY_TYPE,
-              ),
-              _mapping: {
-                relationshipDirection: RelationshipDirection.FORWARD,
-                sourceEntityKey: bindingEntity._key,
-                targetFilterKeys: [['_type', '_key']],
-                /**
-                 * The mapper does not properly remove mapper-created entities at the moment. These
-                 * entities will never be cleaned up which will cause duplicates.
-                 *
-                 * However, we should still create these entities as they are important for access
-                 * analysis and having duplicates shouldn't matter too much with IAM roles.
-                 */
-                skipTargetCreation: false,
-                targetEntity: {
-                  ...targetRoleEntitiy,
-                  _rawData: undefined,
-                },
+          /**
+           * Check to see if the role is in the jobState
+           * if it is, that indicates that the role is Custom, so make a direct relationship
+           * if not, that indicates that the roles is Google Managed, so make a mapped relationship
+           */
+          const roleEntity = await jobState.findEntity(bindingEntity.role);
+          if (roleEntity) {
+            await jobState.addRelationship(
+              createDirectRelationship({
+                _class: RelationshipClass.USES,
+                from: bindingEntity,
+                to: roleEntity,
+              }),
+            );
+          } else {
+            const includedPermissions = await getPermissionsForManagedRole(
+              jobState,
+              bindingEntity.role,
+            );
+            const targetRoleEntitiy = createIamRoleEntity(
+              {
+                name: bindingEntity.role,
+                title: bindingEntity.role,
+                includedPermissions,
               },
-            }),
-          );
+              {
+                custom: false,
+              },
+            );
+            await jobState.addRelationship(
+              createMappedRelationship({
+                _class: RelationshipClass.USES,
+                _type: generateRelationshipType(
+                  RelationshipClass.USES,
+                  bindingEntities.BINDINGS._type,
+                  IAM_ROLE_ENTITY_TYPE,
+                ),
+                _mapping: {
+                  relationshipDirection: RelationshipDirection.FORWARD,
+                  sourceEntityKey: bindingEntity._key,
+                  targetFilterKeys: [['_type', '_key']],
+                  /**
+                   * The mapper does not properly remove mapper-created entities at the moment. These
+                   * entities will never be cleaned up which will cause duplicates.
+                   *
+                   * However, we should still create these entities as they are important for access
+                   * analysis and having duplicates shouldn't matter too much with IAM roles.
+                   */
+                  skipTargetCreation: false,
+                  targetEntity: {
+                    ...targetRoleEntitiy,
+                    _rawData: undefined,
+                  },
+                },
+              }),
+            );
+          }
         }
       }
     },
@@ -441,20 +481,24 @@ async function createAndAddConvienceMemberTargetRelationships(
       orgHierarchyKey!,
       getRoleKeyFromConvienenceMember(convenienceMember),
     );
-    const roleEntity = await jobState.findEntity(roleKey);
-    if (roleEntity) {
-      await safeAddRelationship(
-        createDirectRelationship({
-          _class: RelationshipClass.ASSIGNED,
-          from: bindingEntity,
-          to: roleEntity,
-          properties: {
-            projectId: bindingEntity.projectId,
-            ...(condition && getConditionRelationshipProperties(condition)),
-          },
-        }),
-      );
-    }
+    /**
+     * We are not fetching the role from the JobState because we disabled disabled writing the basic
+     * roles to disc because the size of these roles was filling up the disc space of our execution
+     * containers. This was done in the stepMetadata with indexMetadata.enabled: false
+     */
+    await jobState.addRelationship(
+      createDirectRelationship({
+        _class: RelationshipClass.ASSIGNED,
+        fromType: bindingEntity._type,
+        fromKey: bindingEntity._key,
+        toType: IAM_ROLE_ENTITY_TYPE,
+        toKey: roleKey,
+        properties: {
+          projectId: bindingEntity.projectId,
+          ...(condition && getConditionRelationshipProperties(condition)),
+        },
+      }),
+    );
   }
 }
 
@@ -737,6 +781,9 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
         resourceName: 'IAM Basic Role',
         _type: IAM_ROLE_ENTITY_TYPE,
         _class: IAM_ROLE_ENTITY_CLASS,
+        indexMetadata: {
+          enabled: false,
+        },
       },
     ],
     relationships: [],
@@ -767,6 +814,9 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
         ),
         sourceType: bindingEntities.BINDINGS._type,
         targetType: IAM_ROLE_ENTITY_TYPE,
+        indexMetadata: {
+          enabled: false,
+        },
       },
     ],
     dependsOn: [STEP_IAM_BINDINGS, STEP_CREATE_BASIC_ROLES],
