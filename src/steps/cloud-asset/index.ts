@@ -79,6 +79,8 @@ export async function fetchIamBindings(
 
   const bindingGraphKeySet = new Set<string>();
   const duplicateBindingGraphKeys: string[] = [];
+  let maxPermissionLength = 0;
+  let maxConditionLength = 0;
 
   try {
     await client.iterateAllIamPolicies(context, async (policyResult) => {
@@ -128,6 +130,15 @@ export async function fetchIamBindings(
             : await getPermissionsForManagedRole(jobState, binding.role)
           : [];
 
+        if (permissions?.length ?? 0 > maxPermissionLength) {
+          maxPermissionLength = permissions?.length ?? 0;
+        }
+        const conditionLength =
+          (JSON.stringify(binding.condition) ?? '')?.length ?? 0;
+        if (conditionLength > maxConditionLength) {
+          maxConditionLength = conditionLength;
+        }
+
         await jobState.addEntity(
           createIamBindingEntity({
             _key,
@@ -167,7 +178,11 @@ export async function fetchIamBindings(
   }
 
   logger.info(
-    { numIamBindings: iamBindingsCount },
+    {
+      numIamBindings: iamBindingsCount,
+      maxConditionLength,
+      maxPermissionLength,
+    },
     'Created IAM binding entities',
   );
 
