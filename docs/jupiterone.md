@@ -393,7 +393,6 @@ The following relationships are created:
 | `google_bigtable_instance`                                       | **HAS**               | `google_bigtable_table`                                           |
 | `google_bigtable_table`                                          | **HAS**               | `google_bigtable_backup`                                          |
 | `google_billing_account`                                         | **HAS**               | `google_billing_budget`                                           |
-| `google_cloud_api_service`                                       | **HAS**               | `MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND`                             |
 | `google_cloud_api_service`                                       | **HAS**               | `google_api_gateway_api`                                          |
 | `google_cloud_api_service`                                       | **HAS**               | `google_api_gateway_api_config`                                   |
 | `google_cloud_api_service`                                       | **HAS**               | `google_api_gateway_gateway`                                      |
@@ -451,6 +450,9 @@ The following relationships are created:
 | `google_cloud_api_service`                                       | **HAS**               | `google_cloud_api_service`                                        |
 | `google_cloud_api_service`                                       | **HAS**               | `google_spanner_database`                                         |
 | `google_cloud_api_service`                                       | **HAS**               | `google_spanner_instance`                                         |
+| `google_cloud_api_service`                                       | **HAS**               | `google_sql_mysql_instance`                                       |
+| `google_cloud_api_service`                                       | **HAS**               | `google_sql_postgres_instance`                                    |
+| `google_cloud_api_service`                                       | **HAS**               | `google_sql_sql_server_instance`                                  |
 | `google_cloud_api_service`                                       | **HAS**               | `google_storage_bucket`                                           |
 | `internet`                                                       | **ALLOWS**            | `google_compute_firewall`                                         |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_folder`                                             |
@@ -510,7 +512,6 @@ The following relationships are created:
 | `google_dataproc_cluster`                                        | **USES**              | `google_kms_crypto_key`                                           |
 | `google_dataproc_cluster`                                        | **USES**              | `google_storage_bucket`                                           |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_project`                                            |
-| `google_iam_binding`                                             | **ALLOWS**            | `MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND`                             |
 | `google_iam_binding`                                             | **ALLOWS**            | `google_api_gateway_api`                                          |
 | `google_iam_binding`                                             | **ALLOWS**            | `google_api_gateway_api_config`                                   |
 | `google_iam_binding`                                             | **ALLOWS**            | `google_api_gateway_gateway`                                      |
@@ -568,6 +569,9 @@ The following relationships are created:
 | `google_iam_binding`                                             | **ALLOWS**            | `google_iam_service_account_key`                                  |
 | `google_iam_binding`                                             | **ALLOWS**            | `google_spanner_database`                                         |
 | `google_iam_binding`                                             | **ALLOWS**            | `google_spanner_instance`                                         |
+| `google_iam_binding`                                             | **ALLOWS**            | `google_sql_mysql_instance`                                       |
+| `google_iam_binding`                                             | **ALLOWS**            | `google_sql_postgres_instance`                                    |
+| `google_iam_binding`                                             | **ALLOWS**            | `google_sql_sql_server_instance`                                  |
 | `google_iam_binding`                                             | **ALLOWS**            | `google_storage_bucket`                                           |
 | `google_iam_binding`                                             | **ASSIGNED**          | `google_cloud_authenticated_users`                                |
 | `google_iam_binding`                                             | **ASSIGNED**          | `google_domain`                                                   |
