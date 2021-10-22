@@ -14,8 +14,8 @@ and this project adheres to
 
 - The `permissions` property on `google_iam_binding`s and `google_iam_role`s
   will now be truncated to 4096 characters. This means that queries for
-  `permissions` on these entities might return false negitive results for
-  entities with large of permission sets.
+  `permissions` on these entities might return false negitive results for large
+  permission sets.
 
 ## 1.0.8 - 2021-10-21
 
