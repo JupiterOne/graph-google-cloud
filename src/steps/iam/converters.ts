@@ -16,6 +16,7 @@ import {
 } from './constants';
 import { isReadOnlyRole } from '../../utils/iam';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
+import { trimEntityProperty } from '../../trimEntityProperty';
 
 export function createIamRoleEntity(
   data: iam_v1.Schema$Role,
@@ -46,7 +47,7 @@ export function createIamRoleEntity(
         custom: custom === true,
         deleted: data.deleted === true,
         permissions: data.includedPermissions
-          ? data.includedPermissions?.join(',')
+          ? trimEntityProperty(data.includedPermissions?.join(','))
           : undefined, // This array can bee too large to be stored in Neptune. Strings have more storage space.
         readonly: isReadOnlyRole(data),
         etag: data.etag,

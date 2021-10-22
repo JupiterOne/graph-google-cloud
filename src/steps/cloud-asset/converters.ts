@@ -1,6 +1,7 @@
 import { Entity } from '@jupiterone/integration-sdk-core';
 import { cloudasset_v1 } from 'googleapis';
 import { snakeCase } from 'lodash';
+import { trimEntityProperty } from '../../trimEntityProperty';
 import { hashArray } from '../../utils/crypto';
 
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
@@ -93,7 +94,7 @@ export function createIamBindingEntity({
         'condition.description': binding.condition?.description,
         'condition.expression': binding.condition?.expression,
         'condition.location': binding.condition?.location,
-        permissions: permissions?.join(','),
+        permissions: trimEntityProperty(permissions?.join(',')),
         readonly: permissions?.some((p) => !isReadOnlyPermission(p)) ?? true, // default to true if there are no permissions
       },
     },
