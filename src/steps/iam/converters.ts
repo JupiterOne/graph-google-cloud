@@ -16,7 +16,7 @@ import {
 } from './constants';
 import { isReadOnlyRole } from '../../utils/iam';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
-import { trimEntityProperty } from '../../trimEntityProperty';
+import { trimEntityProperty } from '../../utils/trimEntityProperty';
 
 export function createIamRoleEntity(
   data: iam_v1.Schema$Role,

@@ -44,6 +44,7 @@ import {
 import { CLOUD_FUNCTION_ENTITY_TYPE, fetchCloudFunctions } from '../functions';
 import { IAM_MANAGED_ROLES_DATA_JOB_STATE_KEY } from '../../utils/iam';
 import { fetchApiServices } from '../service-usage';
+import { MAX_ENTITY_PROPERTY_VALUE } from '../../utils/trimEntityProperty';
 
 expect.extend({
   toHaveOnlyDirectRelationships(
@@ -229,23 +230,23 @@ function createMockContext() {
   });
 }
 
-describe('#fetchIamBindings', () => {
-  function separateGraphObjectsByType<T extends Entity | Relationship>(
-    collected: T[],
-    encounteredTypes: string[],
-  ) {
-    const relationshipsByType: Record<string, T[]> = {};
-    let rest: T[] = collected;
-    if (rest) {
-      for (const type of encounteredTypes) {
-        const filterResult = filterGraphObjects(rest, (o) => o._type === type);
-        rest = filterResult.rest;
-        relationshipsByType[type] = filterResult.targets;
-      }
+function separateGraphObjectsByType<T extends Entity | Relationship>(
+  collected: T[],
+  encounteredTypes: string[],
+) {
+  const relationshipsByType: Record<string, T[]> = {};
+  let rest: T[] = collected;
+  if (rest) {
+    for (const type of encounteredTypes) {
+      const filterResult = filterGraphObjects(rest, (o) => o._type === type);
+      rest = filterResult.rest;
+      relationshipsByType[type] = filterResult.targets;
     }
-    return relationshipsByType;
   }
+  return relationshipsByType;
+}
 
+describe('#fetchIamBindings', () => {
   test('should create Binding and Role entities, Direct Relationships with resources and principals ingested, and Mapped Relationships with resources and principals not ingested.', async () => {
     await withRecording('fetchIamBindings', __dirname, async () => {
       const context = createMockContext();
@@ -590,5 +591,50 @@ describe('#fetchIamBindings', () => {
         );
       },
     );
+  });
+});
+
+describe('#createBasicRolesForBindings', () => {
+  it('should truncate permission values for both bindings and roles', async () => {
+    await withRecording('createBasicRolesForBindings', __dirname, async () => {
+      const context = createMockContext();
+      await fetchIamManagedRoles(context);
+      await fetchIamBindings(context);
+      await createBasicRolesForBindings(context);
+
+      expect({
+        numCollectedEntities: context.jobState.collectedEntities.length,
+        numCollectedRelationships:
+          context.jobState.collectedRelationships.length,
+        encounteredTypes: context.jobState.encounteredTypes,
+      }).toMatchSnapshot();
+
+      const { google_iam_role, google_iam_binding } =
+        separateGraphObjectsByType(
+          context.jobState.collectedEntities,
+          context.jobState.encounteredTypes,
+        );
+
+      expect(google_iam_role.length).toBeGreaterThan(0);
+      expect(google_iam_role).toMatchSnapshot();
+
+      google_iam_role.forEach((role) => {
+        if (typeof role.permissions === 'string') {
+          expect(role.permissions.length).toBeLessThanOrEqual(
+            MAX_ENTITY_PROPERTY_VALUE,
+          );
+        }
+      });
+
+      expect(google_iam_binding.length).toBeGreaterThan(0);
+
+      google_iam_binding.forEach((binding) => {
+        if (typeof binding.permissions === 'string') {
+          expect(binding.permissions.length).toBeLessThanOrEqual(
+            MAX_ENTITY_PROPERTY_VALUE,
+          );
+        }
+      });
+    });
   });
 });

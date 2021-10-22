@@ -1,5 +1,5 @@
 // This maximum value is described inside of the `jupiter-search-indexer`
-const MAX_ENTITY_PROPERTY_VALUE = 4096;
+export const MAX_ENTITY_PROPERTY_VALUE = 4096;
 const TRIMMED_ENTITY_PROPERTY_SUFFIX = '...';
 
 /**

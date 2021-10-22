@@ -1,7 +1,7 @@
 import { Entity } from '@jupiterone/integration-sdk-core';
 import { cloudasset_v1 } from 'googleapis';
 import { snakeCase } from 'lodash';
-import { trimEntityProperty } from '../../trimEntityProperty';
+import { trimEntityProperty } from '../../utils/trimEntityProperty';
 import { hashArray } from '../../utils/crypto';
 
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
