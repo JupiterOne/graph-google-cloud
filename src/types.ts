@@ -26,4 +26,6 @@ export interface SerializedIntegrationConfig extends IntegrationInstanceConfig {
 
 export interface IntegrationConfig extends SerializedIntegrationConfig {
   serviceAccountKeyConfig: ParsedServiceAccountKeyFile;
+  // HACK - used to prevent binding step ingestion for large accounts. Think twice before using.
+  markBindingStepsAsPartial?: boolean;
 }

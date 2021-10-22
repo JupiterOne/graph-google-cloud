@@ -5,6 +5,7 @@ import {
   ExplicitRelationship,
   generateRelationshipType,
   getRawData,
+  IntegrationError,
   IntegrationLogger,
   IntegrationStep,
   JobState,
@@ -74,6 +75,15 @@ export async function fetchIamBindings(
   context: IntegrationStepContext,
 ): Promise<void> {
   const { jobState, instance, logger } = context;
+
+  if (instance.config.markBindingStepsAsPartial) {
+    throw new IntegrationError({
+      message:
+        'google_iam_binding entity and relationship ingestion is temporarily disabled.',
+      code: 'step_disabled',
+    });
+  }
+
   const client = new CloudAssetClient({ config: instance.config });
   let iamBindingsCount = 0;
 
