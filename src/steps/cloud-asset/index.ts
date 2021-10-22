@@ -293,15 +293,18 @@ export async function createBindingRoleRelationships(
             ) ?? {};
           if (!key) return;
           roleKey = createBasicRoleKey(key, bindingEntity.role);
-        }
-
-        const roleEntity = await jobState.findEntity(roleKey);
-        if (roleEntity) {
+          /**
+           * We are not fetching the role from the JobState because we disabled disabled writing the basic
+           * roles to disc because the size of these roles was filling up the disc space of our execution
+           * containers. This was done in the stepMetadata with indexMetadata.enabled: false
+           */
           await jobState.addRelationship(
             createDirectRelationship({
               _class: RelationshipClass.USES,
-              from: bindingEntity,
-              to: roleEntity,
+              fromType: bindingEntity._type,
+              fromKey: bindingEntity._key,
+              toType: IAM_ROLE_ENTITY_TYPE,
+              toKey: roleKey,
             }),
           );
         } else {
@@ -456,20 +459,24 @@ async function createAndAddConvienceMemberTargetRelationships(
       orgHierarchyKey!,
       getRoleKeyFromConvienenceMember(convenienceMember),
     );
-    const roleEntity = await jobState.findEntity(roleKey);
-    if (roleEntity) {
-      await safeAddRelationship(
-        createDirectRelationship({
-          _class: RelationshipClass.ASSIGNED,
-          from: bindingEntity,
-          to: roleEntity,
-          properties: {
-            projectId: bindingEntity.projectId,
-            ...(condition && getConditionRelationshipProperties(condition)),
-          },
-        }),
-      );
-    }
+    /**
+     * We are not fetching the role from the JobState because we disabled disabled writing the basic
+     * roles to disc because the size of these roles was filling up the disc space of our execution
+     * containers. This was done in the stepMetadata with indexMetadata.enabled: false
+     */
+    await jobState.addRelationship(
+      createDirectRelationship({
+        _class: RelationshipClass.ASSIGNED,
+        fromType: bindingEntity._type,
+        fromKey: bindingEntity._key,
+        toType: IAM_ROLE_ENTITY_TYPE,
+        toKey: roleKey,
+        properties: {
+          projectId: bindingEntity.projectId,
+          ...(condition && getConditionRelationshipProperties(condition)),
+        },
+      }),
+    );
   }
 }
 
@@ -752,6 +759,9 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
         resourceName: 'IAM Basic Role',
         _type: IAM_ROLE_ENTITY_TYPE,
         _class: IAM_ROLE_ENTITY_CLASS,
+        indexMetadata: {
+          enabled: false,
+        },
       },
     ],
     relationships: [],
@@ -782,6 +792,9 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
         ),
         sourceType: bindingEntities.BINDINGS._type,
         targetType: IAM_ROLE_ENTITY_TYPE,
+        indexMetadata: {
+          enabled: false,
+        },
       },
     ],
     dependsOn: [STEP_IAM_BINDINGS, STEP_CREATE_BASIC_ROLES],
