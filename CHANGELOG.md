@@ -8,6 +8,14 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 1.1.2 - 2021-10-22
+
+### Changed
+
+- Document every relationship type individually in the step metadata for
+  `google_iam_binding_allows_ANY_RESOURCE` and
+  `google_cloud_api_service_has_ANY_RESOURCE` relationships
+
 ## 1.1.1 - 2021-10-22
 
 ### Added
