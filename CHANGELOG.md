@@ -8,6 +8,13 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 1.1.1 - 2021-10-22
+
+### Added
+
+- The config variable `markBindingStepsAsPartial` that allows for disabling
+  binding steps.
+
 ## 1.1.0 - 2021-10-22
 
 ### Changed
