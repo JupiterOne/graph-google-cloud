@@ -141,6 +141,8 @@ import {
   STEP_BUILD_PROJECT_BUDGET,
 } from './steps/billing-budgets/constants';
 import { STEP_BILLING_ACCOUNTS } from './steps/cloud-billing/constants';
+import { isMasterOrganizationInstance } from './utils/isMasterOrganizationInstance';
+import { isSingleProjectInstance } from './utils/isSingleProjectInstance';
 
 function validateInvocationConfig(
   context: IntegrationExecutionContext<SerializedIntegrationConfig>,
@@ -208,10 +210,9 @@ export default async function getStepStartStates(
     }, configureOrganizationProjects=${!!config.configureOrganizationProjects})`,
   });
 
-  const isMasterOrgInstance =
-    config.configureOrganizationProjects && config.organizationId;
-  const isSingleProjectInstance = !config.configureOrganizationProjects;
-  const organizationSteps = { disabled: isSingleProjectInstance };
+  const masterOrgInstance = isMasterOrganizationInstance(config);
+  const singleProjectInstance = isSingleProjectInstance(config);
+  const organizationSteps = { disabled: singleProjectInstance };
 
   let enabledServiceNames: string[];
   try {
@@ -245,7 +246,7 @@ export default async function getStepStartStates(
   ): StepStartState {
     return {
       disabled:
-        isSingleProjectInstance ||
+        singleProjectInstance ||
         createStepStartState(primaryServiceName, ...additionalServiceNames)
           .disabled,
     };
@@ -268,27 +269,27 @@ export default async function getStepStartStates(
     [STEP_RESOURCE_MANAGER_PROJECT]: { disabled: false },
     [STEP_API_SERVICES]: { disabled: false },
     [STEP_IAM_BINDINGS]:
-      isSingleProjectInstance || isMasterOrgInstance
+      singleProjectInstance || masterOrgInstance
         ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
         : { disabled: true },
     [STEP_CREATE_BASIC_ROLES]:
-      isSingleProjectInstance || isMasterOrgInstance
+      singleProjectInstance || masterOrgInstance
         ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
         : { disabled: true },
     [STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS]:
-      isSingleProjectInstance || isMasterOrgInstance
+      singleProjectInstance || masterOrgInstance
         ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
         : { disabled: true },
     [STEP_CREATE_BINDING_ROLE_RELATIONSHIPS]:
-      isSingleProjectInstance || isMasterOrgInstance
+      singleProjectInstance || masterOrgInstance
         ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
         : { disabled: true },
     [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]:
-      isSingleProjectInstance || isMasterOrgInstance
+      singleProjectInstance || masterOrgInstance
         ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
         : { disabled: true },
     [STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS]:
-      isSingleProjectInstance || isMasterOrgInstance
+      singleProjectInstance || masterOrgInstance
         ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
         : { disabled: true },
     [STEP_CLOUD_FUNCTIONS]: createStepStartState(
@@ -463,22 +464,22 @@ export default async function getStepStartStates(
     [STEP_BIG_TABLE_BACKUPS]: createStepStartState(ServiceUsageName.BIG_TABLE),
     [STEP_BIG_TABLE_TABLES]: createStepStartState(ServiceUsageName.BIG_TABLE),
     [STEP_BILLING_BUDGETS]:
-      isSingleProjectInstance || isMasterOrgInstance
+      singleProjectInstance || masterOrgInstance
         ? createStepStartState(ServiceUsageName.BILLING_BUDGET)
         : { disabled: true },
     [STEP_BUILD_ACCOUNT_BUDGET]:
-      isSingleProjectInstance || isMasterOrgInstance
+      singleProjectInstance || masterOrgInstance
         ? createStepStartState(ServiceUsageName.BILLING_BUDGET)
         : { disabled: true },
     [STEP_BUILD_PROJECT_BUDGET]:
-      isSingleProjectInstance || isMasterOrgInstance
+      singleProjectInstance || masterOrgInstance
         ? createStepStartState(ServiceUsageName.BILLING_BUDGET)
         : { disabled: true },
     [STEP_BILLING_ACCOUNTS]:
-      isSingleProjectInstance || isMasterOrgInstance
+      singleProjectInstance || masterOrgInstance
         ? createStepStartState(ServiceUsageName.CLOUD_BILLING)
         : { disabled: true },
-    [STEP_BUILD_ADDITIONAL_PROJECT_BUDGET]: isMasterOrgInstance
+    [STEP_BUILD_ADDITIONAL_PROJECT_BUDGET]: masterOrgInstance
       ? createStepStartState(ServiceUsageName.BILLING_BUDGET)
       : { disabled: true },
   };
