@@ -74,9 +74,6 @@ export const BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP = {
   sourceType: bindingEntities.BINDINGS._type,
   _class: RelationshipClass.ALLOWS,
   targetType: ANY_RESOURCE,
-  indexMetadata: {
-    enabled: false,
-  },
 };
 
 export const API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP = {
@@ -88,7 +85,4 @@ export const API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP = {
   ),
   sourceType: API_SERVICE_ENTITY_TYPE,
   targetType: ANY_RESOURCE,
-  indexMetadata: {
-    enabled: false,
-  },
 };
