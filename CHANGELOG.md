@@ -8,6 +8,15 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 1.2.0 - 2021-10-22
+
+### Fixed
+
+- The logic for determining if an integration instance is ingesting only a
+  single non-auto-generated Google Cloud project was corrected. This means that
+  auto-configured integraiton instances will not run Cloud Asset steps and Cloud
+  Billing steps. Only the Master Integration Instance will run those steps.
+
 ## 1.1.2 - 2021-10-22
 
 ### Changed
