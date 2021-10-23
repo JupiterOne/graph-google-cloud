@@ -531,7 +531,7 @@ describe('#getStepStartStates success', () => {
     expect(stepStartStates).toEqual(expectedStepStartStates);
   });
 
-  test('configureOrganizationProjects: true and organizationId: undefined', async () => {
+  test('configureOrganizationProjects: true and organizationId: undefined: should disable binding and billing steps', async () => {
     const context = createMockExecutionContext<IntegrationConfig>({
       // Temporary tweak to make this test pass since its recording has been updated from the new organization/v3
       instanceConfig: {
@@ -600,11 +600,12 @@ describe('#getStepStartStates success', () => {
     });
   });
 
-  test('configureOrganizationProjects: false or undefined', async () => {
+  test('configureOrganizationProjects: false or undefined, and organizationId defined and projectId defined; should disable binding and billing steps', async () => {
     const context = createMockExecutionContext<IntegrationConfig>({
       // Temporary tweak to make this test pass since its recording has been updated from the new organization/v3
       instanceConfig: {
         ...integrationConfig,
+        configureOrganizationProjects: false,
         serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
           'j1-gc-integration-dev-v2',
           'j1-gc-integration-dev-v3',
@@ -613,7 +614,75 @@ describe('#getStepStartStates success', () => {
           ...integrationConfig.serviceAccountKeyConfig,
           project_id: 'j1-gc-integration-dev-v3',
         },
+      },
+    });
+
+    const stepStartStates = await getStepStartStates(context);
+
+    expect(stepStartStates).toMatchObject({
+      [STEP_RESOURCE_MANAGER_ORGANIZATION]: {
+        disabled: false,
+      },
+      [STEP_RESOURCE_MANAGER_FOLDERS]: {
+        disabled: false,
+      },
+      [STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS]: {
+        disabled: false,
+      },
+      [STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES]: {
+        disabled: false,
+      },
+      [STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS]: {
+        disabled: false,
+      },
+      [STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS]: {
+        disabled: false,
+      },
+      [STEP_IAM_BINDINGS]: {
+        disabled: true,
+      },
+      [STEP_CREATE_BASIC_ROLES]: {
+        disabled: true,
+      },
+      [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: {
+        disabled: true,
+      },
+      [STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS]: {
+        disabled: true,
+      },
+      [STEP_BILLING_BUDGETS]: {
+        disabled: true,
+      },
+      [STEP_BUILD_ACCOUNT_BUDGET]: {
+        disabled: true,
+      },
+      [STEP_BUILD_PROJECT_BUDGET]: {
+        disabled: true,
+      },
+      [STEP_BILLING_ACCOUNTS]: {
+        disabled: true,
+      },
+      [STEP_BUILD_ADDITIONAL_PROJECT_BUDGET]: {
+        disabled: true,
+      },
+    });
+  });
+
+  test('configureOrganizationProjects: false or undefined, organizationId: undefined and projectId defined; should enable binding and billing steps', async () => {
+    const context = createMockExecutionContext<IntegrationConfig>({
+      // Temporary tweak to make this test pass since its recording has been updated from the new organization/v3
+      instanceConfig: {
+        projectId: 'j1-gc-integration-dev-v3',
         configureOrganizationProjects: false,
+        organizationId: undefined,
+        serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+          'j1-gc-integration-dev-v2',
+          'j1-gc-integration-dev-v3',
+        ),
+        serviceAccountKeyConfig: {
+          ...integrationConfig.serviceAccountKeyConfig,
+          project_id: 'j1-gc-integration-dev-v3',
+        },
       },
     });
 
