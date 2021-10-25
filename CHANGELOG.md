@@ -8,6 +8,13 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Fixed
+
+- Only run `organizationSteps` if you are the Master Integration Instance for an
+  organization. These steps will no longer be run on instances that were
+  automatically generated via the "Configure Organization Projects"
+  configuration variable.
+
 ## 1.2.0 - 2021-10-22
 
 ### Fixed

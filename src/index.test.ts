@@ -531,7 +531,7 @@ describe('#getStepStartStates success', () => {
     expect(stepStartStates).toEqual(expectedStepStartStates);
   });
 
-  test('configureOrganizationProjects: true and organizationId: undefined: should disable binding and billing steps', async () => {
+  test('configureOrganizationProjects: true and organizationId: undefined: should disable binding, billing, and organization steps', async () => {
     const context = createMockExecutionContext<IntegrationConfig>({
       // Temporary tweak to make this test pass since its recording has been updated from the new organization/v3
       instanceConfig: {
@@ -553,13 +553,13 @@ describe('#getStepStartStates success', () => {
 
     expect(stepStartStates).toMatchObject({
       [STEP_RESOURCE_MANAGER_ORGANIZATION]: {
-        disabled: false,
+        disabled: true,
       },
       [STEP_RESOURCE_MANAGER_FOLDERS]: {
-        disabled: false,
+        disabled: true,
       },
       [STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS]: {
-        disabled: false,
+        disabled: true,
       },
       [STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES]: {
         disabled: false,
@@ -600,7 +600,7 @@ describe('#getStepStartStates success', () => {
     });
   });
 
-  test('configureOrganizationProjects: false or undefined, and organizationId defined and projectId defined; should disable binding and billing steps', async () => {
+  test('configureOrganizationProjects: false or undefined, organizationId defined and projectId defined; should disable binding, billing and organization steps', async () => {
     const context = createMockExecutionContext<IntegrationConfig>({
       // Temporary tweak to make this test pass since its recording has been updated from the new organization/v3
       instanceConfig: {
@@ -621,13 +621,13 @@ describe('#getStepStartStates success', () => {
 
     expect(stepStartStates).toMatchObject({
       [STEP_RESOURCE_MANAGER_ORGANIZATION]: {
-        disabled: false,
+        disabled: true,
       },
       [STEP_RESOURCE_MANAGER_FOLDERS]: {
-        disabled: false,
+        disabled: true,
       },
       [STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS]: {
-        disabled: false,
+        disabled: true,
       },
       [STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES]: {
         disabled: false,
@@ -668,7 +668,7 @@ describe('#getStepStartStates success', () => {
     });
   });
 
-  test('configureOrganizationProjects: false or undefined, organizationId: undefined and projectId defined; should enable binding and billing steps', async () => {
+  test('configureOrganizationProjects: false or undefined, organizationId: undefined and projectId defined; should enable binding and billing steps and disable organization steps.', async () => {
     const context = createMockExecutionContext<IntegrationConfig>({
       // Temporary tweak to make this test pass since its recording has been updated from the new organization/v3
       instanceConfig: {
