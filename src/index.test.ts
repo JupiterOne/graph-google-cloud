@@ -531,7 +531,7 @@ describe('#getStepStartStates success', () => {
     expect(stepStartStates).toEqual(expectedStepStartStates);
   });
 
-  test('configureOrganizationProjects: true and organizationId: undefined: should disable binding, billing, and organization steps', async () => {
+  test('configureOrganizationProjects: true and organizationId: undefined: should disable billing and organization steps', async () => {
     const context = createMockExecutionContext<IntegrationConfig>({
       // Temporary tweak to make this test pass since its recording has been updated from the new organization/v3
       instanceConfig: {
@@ -571,16 +571,16 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_IAM_BINDINGS]: {
-        disabled: true,
+        disabled: false,
       },
       [STEP_CREATE_BASIC_ROLES]: {
-        disabled: true,
+        disabled: false,
       },
       [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: {
-        disabled: true,
+        disabled: false,
       },
       [STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS]: {
-        disabled: true,
+        disabled: false,
       },
       [STEP_BILLING_BUDGETS]: {
         disabled: true,
@@ -600,7 +600,7 @@ describe('#getStepStartStates success', () => {
     });
   });
 
-  test('configureOrganizationProjects: false or undefined, organizationId defined and projectId defined; should disable binding, billing and organization steps', async () => {
+  test('configureOrganizationProjects: false or undefined, organizationId defined and projectId defined; should disable billing and organization steps', async () => {
     const context = createMockExecutionContext<IntegrationConfig>({
       // Temporary tweak to make this test pass since its recording has been updated from the new organization/v3
       instanceConfig: {
@@ -639,16 +639,16 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_IAM_BINDINGS]: {
-        disabled: true,
+        disabled: false,
       },
       [STEP_CREATE_BASIC_ROLES]: {
-        disabled: true,
+        disabled: false,
       },
       [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: {
-        disabled: true,
+        disabled: false,
       },
       [STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS]: {
-        disabled: true,
+        disabled: false,
       },
       [STEP_BILLING_BUDGETS]: {
         disabled: true,

@@ -268,30 +268,22 @@ export default async function getStepStartStates(
     // This API will be enabled otherwise fetching services names above would fail
     [STEP_RESOURCE_MANAGER_PROJECT]: { disabled: false },
     [STEP_API_SERVICES]: { disabled: false },
-    [STEP_IAM_BINDINGS]:
-      singleProjectInstance || masterOrgInstance
-        ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
-        : { disabled: true },
-    [STEP_CREATE_BASIC_ROLES]:
-      singleProjectInstance || masterOrgInstance
-        ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
-        : { disabled: true },
-    [STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS]:
-      singleProjectInstance || masterOrgInstance
-        ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
-        : { disabled: true },
-    [STEP_CREATE_BINDING_ROLE_RELATIONSHIPS]:
-      singleProjectInstance || masterOrgInstance
-        ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
-        : { disabled: true },
-    [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]:
-      singleProjectInstance || masterOrgInstance
-        ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
-        : { disabled: true },
-    [STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS]:
-      singleProjectInstance || masterOrgInstance
-        ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
-        : { disabled: true },
+    [STEP_IAM_BINDINGS]: createStepStartState(ServiceUsageName.CLOUD_ASSET),
+    [STEP_CREATE_BASIC_ROLES]: createStepStartState(
+      ServiceUsageName.CLOUD_ASSET,
+    ),
+    [STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS]: createStepStartState(
+      ServiceUsageName.CLOUD_ASSET,
+    ),
+    [STEP_CREATE_BINDING_ROLE_RELATIONSHIPS]: createStepStartState(
+      ServiceUsageName.CLOUD_ASSET,
+    ),
+    [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: createStepStartState(
+      ServiceUsageName.CLOUD_ASSET,
+    ),
+    [STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS]: createStepStartState(
+      ServiceUsageName.CLOUD_ASSET,
+    ),
     [STEP_CLOUD_FUNCTIONS]: createStepStartState(
       ServiceUsageName.CLOUD_FUNCTIONS,
     ),

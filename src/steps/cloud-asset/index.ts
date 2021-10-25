@@ -62,6 +62,7 @@ import {
 } from '../../utils/iam';
 import { API_SERVICE_ENTITY_TYPE } from '../service-usage';
 import { CREATE_IAM_ENTITY_MAP } from '../resource-manager/createIamEntities';
+import { isMasterOrganizationInstance } from '../../utils/isMasterOrganizationInstance';
 
 export async function getPermissionsForManagedRole(
   jobState: JobState,
@@ -92,80 +93,110 @@ export async function fetchIamBindings(
   let maxPermissionLength = 0;
   let maxConditionLength = 0;
 
-  try {
-    await client.iterateAllIamPolicies(context, async (policyResult) => {
-      const resource = policyResult.resource;
-      const projectName = policyResult.project;
-      const { organization, folders } = policyResult as any;
-      const bindings = policyResult.policy?.bindings ?? [];
+  async function handlePolicyResult(policyResult) {
+    const resource = policyResult.resource;
+    const projectName = policyResult.project;
+    const { organization, folders } = policyResult as any;
+    const bindings = policyResult.policy?.bindings ?? [];
 
-      for (const binding of bindings) {
-        const _key = buildIamBindingEntityKey({
-          binding,
-          projectName,
-          resource,
-        });
+    for (const binding of bindings) {
+      const _key = buildIamBindingEntityKey({
+        binding,
+        projectName,
+        resource,
+      });
 
-        if (bindingGraphKeySet.has(_key)) {
-          duplicateBindingGraphKeys.push(_key);
-          continue;
-        }
-
-        let projectId: string | undefined;
-        if (projectName) {
-          /**
-           * We can not pull the projectId from the resource identifier because the resource
-           * identifier does not gaurentee a projectId value.
-           *
-           * See https://cloud.google.com/asset-inventory/docs/resource-name-format and search
-           * for cloudresourcemanager.googleapis.com/Project to see that the identifier could
-           * either be for PROJECT_NUMBER or PROJECT_ID
-           *
-           * Because of this we have to pull the projectId from the jobState instead.
-           */
-          projectId = await getProjectIdFromName(jobState, projectName);
-        }
-
-        /**
-         * We need to denormalize the permissions onto the role binding because J1QL does not support
-         * baranching traversals, meaning that it is impossible to connect a resource, to a principle
-         * to a role with a specific permission. Having the role's permissions on the binding prevents
-         * any branching.
-         */
-        const roleEntity =
-          binding.role && (await jobState.findEntity(binding.role));
-        const permissions = binding.role
-          ? roleEntity
-            ? ((roleEntity.permissions as string) || '').split(',')
-            : await getPermissionsForManagedRole(jobState, binding.role)
-          : [];
-
-        if (permissions?.length ?? 0 > maxPermissionLength) {
-          maxPermissionLength = permissions?.length ?? 0;
-        }
-        const conditionLength =
-          (JSON.stringify(binding.condition) ?? '')?.length ?? 0;
-        if (conditionLength > maxConditionLength) {
-          maxConditionLength = conditionLength;
-        }
-
-        await jobState.addEntity(
-          createIamBindingEntity({
-            _key,
-            projectId,
-            projectName,
-            binding,
-            resource,
-            folders,
-            organization,
-            permissions,
-          }),
-        );
-
-        bindingGraphKeySet.add(_key);
-        iamBindingsCount++;
+      if (bindingGraphKeySet.has(_key)) {
+        duplicateBindingGraphKeys.push(_key);
+        continue;
       }
-    });
+
+      let projectId: string | undefined;
+      if (projectName) {
+        /**
+         * We can not pull the projectId from the resource identifier because the resource
+         * identifier does not gaurentee a projectId value.
+         *
+         * See https://cloud.google.com/asset-inventory/docs/resource-name-format and search
+         * for cloudresourcemanager.googleapis.com/Project to see that the identifier could
+         * either be for PROJECT_NUMBER or PROJECT_ID
+         *
+         * Because of this we have to pull the projectId from the jobState instead.
+         */
+        projectId = await getProjectIdFromName(jobState, projectName);
+      }
+
+      /**
+       * We need to denormalize the permissions onto the role binding because J1QL does not support
+       * baranching traversals, meaning that it is impossible to connect a resource, to a principle
+       * to a role with a specific permission. Having the role's permissions on the binding prevents
+       * any branching.
+       */
+      const roleEntity =
+        binding.role && (await jobState.findEntity(binding.role));
+      const permissions = binding.role
+        ? roleEntity
+          ? ((roleEntity.permissions as string) || '').split(',')
+          : await getPermissionsForManagedRole(jobState, binding.role)
+        : [];
+
+      if (permissions?.length ?? 0 > maxPermissionLength) {
+        maxPermissionLength = permissions?.length ?? 0;
+      }
+      const conditionLength =
+        (JSON.stringify(binding.condition) ?? '')?.length ?? 0;
+      if (conditionLength > maxConditionLength) {
+        maxConditionLength = conditionLength;
+      }
+
+      await jobState.addEntity(
+        createIamBindingEntity({
+          _key,
+          projectId,
+          projectName,
+          binding,
+          resource,
+          folders,
+          organization,
+          permissions,
+        }),
+      );
+
+      bindingGraphKeySet.add(_key);
+      iamBindingsCount++;
+    }
+  }
+
+  try {
+    // Project level bindings and all resource level bindings in that project
+    await client.iterateIamPoliciesForProjectAndResources(
+      context,
+      handlePolicyResult,
+    );
+    // Folder level bindings
+    await jobState.iterateEntities(
+      { _type: FOLDER_ENTITY_TYPE },
+      async (folderEntity: Entity) => {
+        await client.iterateIamPoliciesForResourceAtScope(
+          folderEntity._key,
+          handlePolicyResult,
+        );
+      },
+    );
+    // Organization level bindings
+    await jobState.iterateEntities(
+      { _type: ORGANIZATION_ENTITY_TYPE },
+      async (organizationEntity: Entity) => {
+        await client.iterateIamPoliciesForResourceAtScope(
+          organizationEntity._key,
+          handlePolicyResult,
+        );
+      },
+    );
+    await client.iterateIamPoliciesForProjectAndResources(
+      context,
+      handlePolicyResult,
+    );
   } catch (err) {
     if (err.status === 403) {
       logger.info(
