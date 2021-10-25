@@ -212,7 +212,7 @@ export default async function getStepStartStates(
 
   const masterOrgInstance = isMasterOrganizationInstance(config);
   const singleProjectInstance = isSingleProjectInstance(config);
-  const organizationSteps = { disabled: singleProjectInstance };
+  const organizationSteps = { disabled: !masterOrgInstance }; // Only run organization steps if you are the master organization.
 
   let enabledServiceNames: string[];
   try {
