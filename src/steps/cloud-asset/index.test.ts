@@ -310,7 +310,6 @@ describe('#fetchIamBindings', () => {
         google_iam_binding_allows_bigquery_dataset,
         google_iam_binding_allows_kms_crypto_key,
         google_iam_binding_allows_kms_key_ring,
-        google_iam_binding_allows_billing_account,
         google_iam_binding_allows_cloud_function,
       } = separateGraphObjectsByType(
         context.jobState.collectedRelationships,
@@ -323,11 +322,6 @@ describe('#fetchIamBindings', () => {
         google_iam_binding_assigned_service_account,
       ).toHaveBothDirectAndMappedRelationships(
         'google_iam_binding_assigned_service_account',
-      );
-      expect(
-        google_iam_binding_allows_cloud_project,
-      ).toHaveBothDirectAndMappedRelationships(
-        'google_iam_binding_allows_cloud_project',
       );
       expect(
         google_iam_binding_uses_role,
@@ -345,7 +339,6 @@ describe('#fetchIamBindings', () => {
       expect(google_iam_binding_allows_bigquery_dataset.length > 0).toBe(true);
       expect(google_iam_binding_allows_kms_crypto_key.length > 0).toBe(true);
       expect(google_iam_binding_allows_kms_key_ring.length > 0).toBe(true);
-      expect(google_iam_binding_allows_billing_account.length > 0).toBe(true);
       expect(google_iam_binding_allows_cloud_function.length > 0).toBe(true);
 
       expect(google_cloud_api_service_has_storage_bucket.length > 0).toBe(true);
@@ -395,6 +388,11 @@ describe('#fetchIamBindings', () => {
       expect(
         google_iam_binding_allows_cloud_folder,
       ).toHaveOnlyDirectRelationships('google_iam_binding_allows_cloud_folder');
+      expect(
+        google_iam_binding_allows_cloud_project,
+      ).toHaveOnlyDirectRelationships(
+        'google_iam_binding_allows_cloud_project',
+      );
 
       // Entities
       const { google_iam_binding, google_iam_role } =

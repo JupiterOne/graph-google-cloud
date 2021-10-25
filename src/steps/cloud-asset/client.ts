@@ -44,7 +44,7 @@ export class CloudAssetClient extends Client {
           auth,
           pageSize: 500, // 500 is the max
           pageToken: nextPageToken,
-          query: scopeAndResource,
+          query: 'resource:' + scopeAndResource, // https://cloud.google.com/asset-inventory/docs/searching-iam-policies search on specific resource
           scope: scopeAndResource,
         });
       },
