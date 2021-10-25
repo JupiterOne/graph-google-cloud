@@ -9,6 +9,7 @@ import {
   IntegrationLogger,
   IntegrationStep,
   JobState,
+  MappedRelationship,
   PrimitiveEntity,
   Relationship,
   RelationshipClass,
@@ -235,7 +236,7 @@ function createBasicRoleKey(orgHierarchyKey: string, roleIdentifier: string) {
   return orgHierarchyKey + '/' + roleIdentifier;
 }
 
-export async function findOrCreateIamRoleEntity({
+async function findOrCreateIamRoleEntity({
   jobState,
   roleName,
   roleKey = roleName,
@@ -308,6 +309,74 @@ export async function createBasicRolesForBindings(
   );
 }
 
+/**
+ * We only create google_iam_role entities for "Custom" roles. Therefore, we need
+ * to check to see if the role is in the jobState. If it is, the role is "Custom",
+ * so make a direct relationship. If not, the roles is "Google Managed", so make
+ * a mapped relationship and mark it as custom -> false.
+ *
+ * We also need to handle Basic Roles different than others because we append an
+ * identifier to the key of the basic role relating to what that basic role is
+ * attached to.
+ * For example:
+ *   roles/editor can be attached at either an Organization, Folder, or Project which will have a key of projects/12345/roles/editor.
+ *
+ * This is done by passing in a key with the "roleKey" parameter.
+ */
+async function createBindingRoleRelationship({
+  context,
+  bindingEntity,
+  roleKey,
+}) {
+  const { jobState } = context;
+  const roleEntity = await jobState.findEntity(roleKey);
+  if (roleEntity) {
+    await jobState.addRelationship(
+      createDirectRelationship({
+        _class: RelationshipClass.USES,
+        from: bindingEntity,
+        to: roleEntity,
+      }),
+    );
+  } else {
+    const includedPermissions = await getPermissionsForManagedRole(
+      jobState,
+      bindingEntity.role,
+    );
+    const targetRoleEntitiy = createIamRoleEntity(
+      {
+        name: bindingEntity.role,
+        title: bindingEntity.role,
+        includedPermissions,
+      },
+      {
+        custom: false,
+        key: roleKey,
+      },
+    );
+    await jobState.addRelationship(
+      createMappedRelationship({
+        _class: RelationshipClass.USES,
+        _type: generateRelationshipType(
+          RelationshipClass.USES,
+          bindingEntities.BINDINGS._type,
+          IAM_ROLE_ENTITY_TYPE,
+        ),
+        _mapping: {
+          relationshipDirection: RelationshipDirection.FORWARD,
+          sourceEntityKey: bindingEntity._key,
+          targetFilterKeys: [['_type', '_key']],
+          skipTargetCreation: false,
+          targetEntity: {
+            ...targetRoleEntitiy,
+            _rawData: undefined,
+          },
+        },
+      }),
+    );
+  }
+}
+
 export async function createBindingRoleRelationships(
   context: IntegrationStepContext,
 ): Promise<void> {
@@ -315,17 +384,9 @@ export async function createBindingRoleRelationships(
   await jobState.iterateEntities(
     { _type: bindingEntities.BINDINGS._type },
     async (bindingEntity: BindingEntity) => {
-      /**
-       * We need to handle Basic Roles different than others because we append an identifier
-       * to the key of the basic role relating to what that basic role is attached to.
-       * For example:
-       *   roles/editor can be attached at either an Organization, Folder, or Project which will have a key of projects/12345/roles/editor.
-       *
-       * We also need to handle basic roles differently because basic roles are not iterable in the jobState so
-       * if we call await `jobState.findEntity(bindingEntity.role)`, we will always not find the role and create
-       * a mapped relationship, even when a direct relationship should be made.
-       */
       if (bindingEntity.role) {
+        // Need to handle Basic Roles different than others as we need to add identifiers for what that basic role is attached to.
+        // For example: roles/editor can be attached at either an Organization, Folder, or Project which will have a key of projects/12345/roles/editor.
         if (basicRoles.includes(bindingEntity.role as BasicRoleType)) {
           const { key } =
             makeLogsForTypeAndKeyResponse(
@@ -336,79 +397,18 @@ export async function createBindingRoleRelationships(
               ),
             ) ?? {};
           if (!key) return;
-          // TODO: update this to allow for creating mapped relationships as well.
-          /**
-           * We are not fetching the role from the JobState because we disabled disabled writing the basic
-           * roles to disc because the size of these roles was filling up the disc space of our execution
-           * containers. This was done in the stepMetadata with indexMetadata.enabled: false
-           */
-          await jobState.addRelationship(
-            createDirectRelationship({
-              _class: RelationshipClass.USES,
-              fromType: bindingEntity._type,
-              fromKey: bindingEntity._key,
-              toType: IAM_ROLE_ENTITY_TYPE,
-              toKey: createBasicRoleKey(key, bindingEntity.role),
-            }),
-          );
+          const roleKey = createBasicRoleKey(key, bindingEntity.role);
+          await createBindingRoleRelationship({
+            context,
+            bindingEntity,
+            roleKey,
+          });
         } else {
-          /**
-           * Check to see if the role is in the jobState
-           * if it is, that indicates that the role is Custom, so make a direct relationship
-           * if not, that indicates that the roles is Google Managed, so make a mapped relationship
-           */
-          const roleEntity = await jobState.findEntity(bindingEntity.role);
-          if (roleEntity) {
-            await jobState.addRelationship(
-              createDirectRelationship({
-                _class: RelationshipClass.USES,
-                from: bindingEntity,
-                to: roleEntity,
-              }),
-            );
-          } else {
-            const includedPermissions = await getPermissionsForManagedRole(
-              jobState,
-              bindingEntity.role,
-            );
-            const targetRoleEntitiy = createIamRoleEntity(
-              {
-                name: bindingEntity.role,
-                title: bindingEntity.role,
-                includedPermissions,
-              },
-              {
-                custom: false,
-              },
-            );
-            await jobState.addRelationship(
-              createMappedRelationship({
-                _class: RelationshipClass.USES,
-                _type: generateRelationshipType(
-                  RelationshipClass.USES,
-                  bindingEntities.BINDINGS._type,
-                  IAM_ROLE_ENTITY_TYPE,
-                ),
-                _mapping: {
-                  relationshipDirection: RelationshipDirection.FORWARD,
-                  sourceEntityKey: bindingEntity._key,
-                  targetFilterKeys: [['_type', '_key']],
-                  /**
-                   * The mapper does not properly remove mapper-created entities at the moment. These
-                   * entities will never be cleaned up which will cause duplicates.
-                   *
-                   * However, we should still create these entities as they are important for access
-                   * analysis and having duplicates shouldn't matter too much with IAM roles.
-                   */
-                  skipTargetCreation: false,
-                  targetEntity: {
-                    ...targetRoleEntitiy,
-                    _rawData: undefined,
-                  },
-                },
-              }),
-            );
-          }
+          await createBindingRoleRelationship({
+            context,
+            bindingEntity,
+            roleKey: bindingEntity.role,
+          });
         }
       }
     },
@@ -466,6 +466,11 @@ export function buildIamTargetRelationship({
     return targetEntity
       ? createMappedRelationship({
           _class: RelationshipClass.ASSIGNED,
+          _type: generateRelationshipType(
+            RelationshipClass.ASSIGNED,
+            bindingEntity._type,
+            targetEntity._type!,
+          ),
           _mapping: {
             relationshipDirection: RelationshipDirection.FORWARD,
             sourceEntityKey: bindingEntity._key,
@@ -484,11 +489,6 @@ export function buildIamTargetRelationship({
             targetEntity,
           },
           properties: {
-            _type: generateRelationshipType(
-              RelationshipClass.ASSIGNED,
-              bindingEntity._type,
-              targetEntity._type!,
-            ),
             projectId,
             ...(condition && getConditionRelationshipProperties(condition)),
           },
@@ -502,40 +502,62 @@ function getOrgHierarchyKeysForBinding(bindingEntity: BindingEntity) {
     bindingEntity.projectName,
     ...(bindingEntity.folders ?? []),
     bindingEntity.organization,
-  ].filter((identifier) => !!identifier);
+  ].filter((identifier) => !!identifier) as string[];
 }
 
 async function createAndAddConvienceMemberTargetRelationships(
   jobState: JobState,
   member: string,
   bindingEntity: BindingEntity,
-  safeAddRelationship: (relationship: ExplicitRelationship) => Promise<void>,
+  safeAddRelationship: (
+    relationship: ExplicitRelationship | MappedRelationship,
+  ) => Promise<void>,
   condition?: cloudresourcemanager_v3.Schema$Expr,
 ) {
   const convenienceMember = member.split(':')[0] as ConvenienceMemberType; // 'projectOwner:PROJECT_ID' => 'projectOwner'
   for (const orgHierarchyKey of getOrgHierarchyKeysForBinding(bindingEntity)) {
     // Find the Basic Role that relates to this member.
     const roleKey = createBasicRoleKey(
-      orgHierarchyKey!,
+      orgHierarchyKey,
       getRoleKeyFromConvienenceMember(convenienceMember),
     );
-    /**
-     * We are not fetching the role from the JobState because we disabled disabled writing the basic
-     * roles to disc because the size of these roles was filling up the disc space of our execution
-     * containers. This was done in the stepMetadata with indexMetadata.enabled: false
-     */
+    const targetRoleEntitiy = await jobState.findEntity(roleKey);
     await safeAddRelationship(
-      createDirectRelationship({
-        _class: RelationshipClass.ASSIGNED,
-        fromType: bindingEntity._type,
-        fromKey: bindingEntity._key,
-        toType: IAM_ROLE_ENTITY_TYPE,
-        toKey: roleKey,
-        properties: {
-          projectId: bindingEntity.projectId,
-          ...(condition && getConditionRelationshipProperties(condition)),
-        },
-      }),
+      targetRoleEntitiy
+        ? createDirectRelationship({
+            _class: RelationshipClass.ASSIGNED,
+            from: bindingEntity,
+            to: targetRoleEntitiy,
+            properties: {
+              projectId: bindingEntity.projectId,
+              ...(condition && getConditionRelationshipProperties(condition)),
+            },
+          })
+        : createMappedRelationship({
+            _class: RelationshipClass.ASSIGNED,
+            _type: generateRelationshipType(
+              RelationshipClass.ASSIGNED,
+              bindingEntity._type,
+              IAM_ROLE_ENTITY_TYPE,
+            ),
+            _mapping: {
+              relationshipDirection: RelationshipDirection.FORWARD,
+              sourceEntityKey: bindingEntity._key,
+              targetFilterKeys: [['_key', '_type']],
+              skipTargetCreation: false,
+              // De do not need to make the whole role entity for thethe targetEntity here
+              // because we already did that in the `createBindingRoleRelationships`. We
+              // only need what is necessary to make the relationship.
+              targetEntity: {
+                _key: roleKey,
+                _type: IAM_ROLE_ENTITY_TYPE,
+              },
+            },
+            properties: {
+              projectId: bindingEntity.projectId,
+              ...(condition && getConditionRelationshipProperties(condition)),
+            },
+          }),
     );
   }
 }
@@ -755,7 +777,7 @@ export async function createApiServiceToAnyResourceRelationships(
       const serviceEntity = await jobState.findEntity(serviceKey);
       const resourceEntity = await jobState.findEntity(resourceKey);
 
-      // We can not make these relationships for sqladmin.googleapis.com/Instances
+      // WARNING! TODO: We can not make these relationships for sqladmin.googleapis.com/Instances
       // A Google Resource Type of sqladmin.googleapis.com/Instances could be a
       // google_sql_mysql_instance, a google_sql_postgres_instance, or a
       // google_sql_sql_server_instance. There is no way to tell at the moment.
@@ -819,9 +841,6 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
         resourceName: 'IAM Basic Role',
         _type: IAM_ROLE_ENTITY_TYPE,
         _class: IAM_ROLE_ENTITY_CLASS,
-        indexMetadata: {
-          enabled: false,
-        },
       },
     ],
     relationships: [],
