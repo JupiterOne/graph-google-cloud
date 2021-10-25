@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 1.2.1 - 2021-10-25
+
 ### Fixed
 
 - Only run `organizationSteps` if you are the Master Integration Instance for an
