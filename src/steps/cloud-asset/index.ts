@@ -62,7 +62,6 @@ import {
 } from '../../utils/iam';
 import { API_SERVICE_ENTITY_TYPE } from '../service-usage';
 import { CREATE_IAM_ENTITY_MAP } from '../resource-manager/createIamEntities';
-import { isMasterOrganizationInstance } from '../../utils/isMasterOrganizationInstance';
 
 export async function getPermissionsForManagedRole(
   jobState: JobState,
@@ -167,6 +166,7 @@ export async function fetchIamBindings(
     }
   }
 
+  // Need to get bindings for every level of the Resource Hierarchy.
   try {
     // Project level bindings and all resource level bindings in that project
     await client.iterateIamPoliciesForProjectAndResources(
@@ -192,10 +192,6 @@ export async function fetchIamBindings(
           handlePolicyResult,
         );
       },
-    );
-    await client.iterateIamPoliciesForProjectAndResources(
-      context,
-      handlePolicyResult,
     );
   } catch (err) {
     if (err.status === 403) {
@@ -340,6 +336,7 @@ export async function createBindingRoleRelationships(
               ),
             ) ?? {};
           if (!key) return;
+          // TODO: update this to allow for creating mapped relationships as well.
           /**
            * We are not fetching the role from the JobState because we disabled disabled writing the basic
            * roles to disc because the size of these roles was filling up the disc space of our execution
@@ -527,7 +524,7 @@ async function createAndAddConvienceMemberTargetRelationships(
      * roles to disc because the size of these roles was filling up the disc space of our execution
      * containers. This was done in the stepMetadata with indexMetadata.enabled: false
      */
-    await jobState.addRelationship(
+    await safeAddRelationship(
       createDirectRelationship({
         _class: RelationshipClass.ASSIGNED,
         fromType: bindingEntity._type,

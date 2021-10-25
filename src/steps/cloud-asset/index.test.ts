@@ -217,6 +217,7 @@ function createMockContext() {
     // Temporary tweak to make this test pass since its recording has been updated from the new organization/v3
     instanceConfig: {
       ...integrationConfig,
+      projectId: 'j1-gc-integration-dev-v3',
       serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
         'j1-gc-integration-dev-v2',
         'j1-gc-integration-dev-v3',
@@ -603,6 +604,11 @@ describe('#createBasicRolesForBindings', () => {
   it('should truncate permission values for both bindings and roles', async () => {
     await withRecording('createBasicRolesForBindings', __dirname, async () => {
       const context = createMockContext();
+
+      // Needed for gathering folder and organization level IAM bindings
+      await fetchResourceManagerOrganization(context);
+      await fetchResourceManagerFolders(context);
+
       await fetchIamManagedRoles(context);
       await fetchIamBindings(context);
       await createBasicRolesForBindings(context);
