@@ -7,9 +7,32 @@ import {
   ORGANIZATION_ENTITY_CLASS,
   FOLDER_ENTITY_TYPE,
   FOLDER_ENTITY_CLASS,
+  AUDIT_CONFIG_ENTITY_TYPE,
+  AUDIT_CONFIG_ENTITY_CLASS,
 } from './constants';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import { getGoogleCloudConsoleWebLink } from '../../utils/url';
+
+export function createAuditConfigEntity(
+  data: cloudresourcemanager_v3.Schema$AuditConfig,
+) {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _key: `auditConfig:${data.service}`,
+        _type: AUDIT_CONFIG_ENTITY_TYPE,
+        _class: AUDIT_CONFIG_ENTITY_CLASS,
+        name: `auditConfig:${data.service}`,
+        displayName: `auditConfig:${data.service}`,
+        service: data.service,
+        logTypes: data.auditLogConfigs?.map(
+          (logConfig) => logConfig.logType as string,
+        ),
+      },
+    },
+  });
+}
 
 export function createOrganizationEntity(
   data: cloudresourcemanager_v3.Schema$Organization,

@@ -2175,6 +2175,20 @@ export function getMockOrganization(
   };
 }
 
+export function getMockAuditConfig(
+  partial?: Partial<cloudresourcemanager_v3.Schema$AuditConfig>,
+): cloudresourcemanager_v3.Schema$AuditConfig {
+  return {
+    service: 'sample.service.com',
+    auditLogConfigs: [
+      {
+        logType: 'SAMPLE_LOG',
+      },
+    ],
+    ...partial,
+  };
+}
+
 export function getMockAccessPolicy(
   partial?: Partial<accesscontextmanager_v1.Schema$AccessPolicy>,
 ): accesscontextmanager_v1.Schema$AccessPolicy {

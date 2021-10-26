@@ -342,7 +342,7 @@ Array [
 
 exports[`#fetchIamBindings should create Binding and Role entities, Direct Relationships with resources and principals ingested, and Mapped Relationships with resources and principals not ingested. 1`] = `
 Object {
-  "collectedEntities": 654,
+  "collectedEntities": 680,
   "collectedRelationships": 1041,
   "encounteredTypes": Array [
     "google_cloud_organization",
@@ -359,8 +359,8 @@ Object {
     "google_iam_binding",
     "google_iam_binding_assigned_user",
     "google_iam_binding_assigned_service_account",
-    "google_iam_binding_assigned_role",
     "google_iam_binding_assigned_everyone",
+    "google_iam_binding_assigned_role",
     "google_iam_binding_assigned_group",
     "google_iam_binding_assigned_domain",
     "google_iam_binding_uses_role",
@@ -382,7 +382,7 @@ Object {
     "google_cloud_api_service_has_kms_key_ring",
     "google_cloud_api_service_has_function",
   ],
-  "numCollectedEntities": 654,
+  "numCollectedEntities": 680,
   "numCollectedRelationships": 1041,
 }
 `;
