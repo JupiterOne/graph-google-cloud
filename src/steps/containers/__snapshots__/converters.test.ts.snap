@@ -5,7 +5,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_key": "google_container_cluster:abc123",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -29,6 +29,7 @@ Object {
           "state": "DECRYPTED",
         },
         "endpoint": "34.69.222.23",
+        "id": "abc123",
         "initialClusterVersion": "1.17.14-gke.1600",
         "initialNodeCount": 1,
         "instanceGroupUrls": Array [
@@ -107,6 +108,7 @@ Object {
   "description": undefined,
   "displayName": "j1-gc-integration-dev-v2-gke-cluster",
   "endpoint": "34.69.222.23",
+  "id": "abc123",
   "initialClusterVersion": "1.17.14-gke.1600",
   "initialNodeCode": 1,
   "instanceGroupUrls": Array [
@@ -161,7 +163,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_key": "google_container_cluster:abc123",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -185,6 +187,7 @@ Object {
           "state": "DECRYPTED",
         },
         "endpoint": "34.69.222.23",
+        "id": "abc123",
         "initialClusterVersion": "1.17.14-gke.1600",
         "initialNodeCount": 1,
         "instanceGroupUrls": Array [
@@ -263,6 +266,7 @@ Object {
   "description": undefined,
   "displayName": "j1-gc-integration-dev-v2-gke-cluster",
   "endpoint": "34.69.222.23",
+  "id": "abc123",
   "initialClusterVersion": "1.17.14-gke.1600",
   "initialNodeCode": 1,
   "instanceGroupUrls": Array [
@@ -317,7 +321,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_key": "google_container_cluster:abc123",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -341,6 +345,7 @@ Object {
           "state": "DECRYPTED",
         },
         "endpoint": "34.69.222.23",
+        "id": "abc123",
         "initialClusterVersion": "1.17.14-gke.1600",
         "initialNodeCount": 1,
         "instanceGroupUrls": Array [
@@ -421,6 +426,7 @@ Object {
   "description": undefined,
   "displayName": "j1-gc-integration-dev-v2-gke-cluster",
   "endpoint": "34.69.222.23",
+  "id": "abc123",
   "initialClusterVersion": "1.17.14-gke.1600",
   "initialNodeCode": 1,
   "instanceGroupUrls": Array [
@@ -475,7 +481,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_key": "google_container_cluster:abc123",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -499,6 +505,7 @@ Object {
           "state": "DECRYPTED",
         },
         "endpoint": "34.69.222.23",
+        "id": "abc123",
         "initialClusterVersion": "1.17.14-gke.1600",
         "initialNodeCount": 1,
         "instanceGroupUrls": Array [
@@ -577,6 +584,7 @@ Object {
   "description": undefined,
   "displayName": "j1-gc-integration-dev-v2-gke-cluster",
   "endpoint": "34.69.222.23",
+  "id": "abc123",
   "initialClusterVersion": "1.17.14-gke.1600",
   "initialNodeCode": 1,
   "instanceGroupUrls": Array [
@@ -631,7 +639,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_key": "google_container_cluster:abc123",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -655,6 +663,7 @@ Object {
           "state": "DECRYPTED",
         },
         "endpoint": "34.69.222.23",
+        "id": "abc123",
         "initialClusterVersion": "1.17.14-gke.1600",
         "initialNodeCount": 1,
         "instanceGroupUrls": Array [
@@ -733,6 +742,7 @@ Object {
   "description": undefined,
   "displayName": "j1-gc-integration-dev-v2-gke-cluster",
   "endpoint": "34.69.222.23",
+  "id": "abc123",
   "initialClusterVersion": "1.17.14-gke.1600",
   "initialNodeCode": 1,
   "instanceGroupUrls": Array [
@@ -787,7 +797,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_key": "google_container_cluster:abc123",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -811,6 +821,7 @@ Object {
           "state": "DECRYPTED",
         },
         "endpoint": "34.69.222.23",
+        "id": "abc123",
         "initialClusterVersion": "1.17.14-gke.1600",
         "initialNodeCount": 1,
         "instanceGroupUrls": Array [
@@ -890,6 +901,7 @@ Object {
   "description": undefined,
   "displayName": "j1-gc-integration-dev-v2-gke-cluster",
   "endpoint": "34.69.222.23",
+  "id": "abc123",
   "initialClusterVersion": "1.17.14-gke.1600",
   "initialNodeCode": 1,
   "instanceGroupUrls": Array [
@@ -944,7 +956,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_key": "google_container_cluster:abc123",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -968,6 +980,7 @@ Object {
           "state": "DECRYPTED",
         },
         "endpoint": "34.69.222.23",
+        "id": "abc123",
         "initialClusterVersion": "1.17.14-gke.1600",
         "initialNodeCount": 1,
         "instanceGroupUrls": Array [
@@ -1046,6 +1059,7 @@ Object {
   "description": undefined,
   "displayName": "j1-gc-integration-dev-v2-gke-cluster",
   "endpoint": "34.69.222.23",
+  "id": "abc123",
   "initialClusterVersion": "1.17.14-gke.1600",
   "initialNodeCode": 1,
   "instanceGroupUrls": Array [
@@ -1100,7 +1114,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_key": "google_container_cluster:abc123",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -1126,6 +1140,7 @@ Object {
           "state": "DECRYPTED",
         },
         "endpoint": "34.69.222.23",
+        "id": "abc123",
         "initialClusterVersion": "1.17.14-gke.1600",
         "initialNodeCount": 1,
         "instanceGroupUrls": Array [
@@ -1204,6 +1219,7 @@ Object {
   "description": undefined,
   "displayName": "j1-gc-integration-dev-v2-gke-cluster",
   "endpoint": "34.69.222.23",
+  "id": "abc123",
   "initialClusterVersion": "1.17.14-gke.1600",
   "initialNodeCode": 1,
   "instanceGroupUrls": Array [
@@ -1258,7 +1274,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_key": "google_container_cluster:abc123",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -1282,6 +1298,7 @@ Object {
           "state": "DECRYPTED",
         },
         "endpoint": "34.69.222.23",
+        "id": "abc123",
         "initialClusterVersion": "1.17.14-gke.1600",
         "initialNodeCount": 1,
         "instanceGroupUrls": Array [
@@ -1360,6 +1377,7 @@ Object {
   "description": undefined,
   "displayName": "j1-gc-integration-dev-v2-gke-cluster",
   "endpoint": "34.69.222.23",
+  "id": "abc123",
   "initialClusterVersion": "1.17.14-gke.1600",
   "initialNodeCode": 1,
   "instanceGroupUrls": Array [
@@ -1414,7 +1432,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_key": "google_container_cluster:abc123",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -1438,6 +1456,7 @@ Object {
           "state": "DECRYPTED",
         },
         "endpoint": "34.69.222.23",
+        "id": "abc123",
         "initialClusterVersion": "1.17.14-gke.1600",
         "initialNodeCount": 1,
         "instanceGroupUrls": Array [
@@ -1516,6 +1535,7 @@ Object {
   "description": undefined,
   "displayName": "j1-gc-integration-dev-v2-gke-cluster",
   "endpoint": "34.69.222.23",
+  "id": "abc123",
   "initialClusterVersion": "1.17.14-gke.1600",
   "initialNodeCode": 1,
   "instanceGroupUrls": Array [
@@ -1570,7 +1590,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_key": "google_container_cluster:abc123",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -1595,6 +1615,7 @@ Object {
           "state": "ENCRYPTED",
         },
         "endpoint": "34.69.222.23",
+        "id": "abc123",
         "initialClusterVersion": "1.17.14-gke.1600",
         "initialNodeCount": 1,
         "instanceGroupUrls": Array [
@@ -1673,6 +1694,7 @@ Object {
   "description": undefined,
   "displayName": "j1-gc-integration-dev-v2-gke-cluster",
   "endpoint": "34.69.222.23",
+  "id": "abc123",
   "initialClusterVersion": "1.17.14-gke.1600",
   "initialNodeCode": 1,
   "instanceGroupUrls": Array [
@@ -1727,7 +1749,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_key": "google_container_cluster:abc123",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -1751,6 +1773,7 @@ Object {
           "state": "DECRYPTED",
         },
         "endpoint": "34.69.222.23",
+        "id": "abc123",
         "initialClusterVersion": "1.17.14-gke.1600",
         "initialNodeCount": 1,
         "instanceGroupUrls": Array [
@@ -1828,6 +1851,7 @@ Object {
   "description": undefined,
   "displayName": "j1-gc-integration-dev-v2-gke-cluster",
   "endpoint": "34.69.222.23",
+  "id": "abc123",
   "initialClusterVersion": "1.17.14-gke.1600",
   "initialNodeCode": 1,
   "instanceGroupUrls": Array [
@@ -1882,7 +1906,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_key": "google_container_cluster:abc123",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -1906,6 +1930,7 @@ Object {
           "state": "DECRYPTED",
         },
         "endpoint": "34.69.222.23",
+        "id": "abc123",
         "initialClusterVersion": "1.17.14-gke.1600",
         "initialNodeCount": 1,
         "instanceGroupUrls": Array [
@@ -1983,6 +2008,7 @@ Object {
   "description": undefined,
   "displayName": "j1-gc-integration-dev-v2-gke-cluster",
   "endpoint": "34.69.222.23",
+  "id": "abc123",
   "initialClusterVersion": "1.17.14-gke.1600",
   "initialNodeCode": 1,
   "instanceGroupUrls": Array [
@@ -2037,7 +2063,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_key": "google_container_cluster:abc123",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -2061,6 +2087,7 @@ Object {
           "state": "DECRYPTED",
         },
         "endpoint": "34.69.222.23",
+        "id": "abc123",
         "initialClusterVersion": "1.17.14-gke.1600",
         "initialNodeCount": 1,
         "instanceGroupUrls": Array [
@@ -2141,6 +2168,7 @@ Object {
   "description": undefined,
   "displayName": "j1-gc-integration-dev-v2-gke-cluster",
   "endpoint": "34.69.222.23",
+  "id": "abc123",
   "initialClusterVersion": "1.17.14-gke.1600",
   "initialNodeCode": 1,
   "instanceGroupUrls": Array [
@@ -2195,7 +2223,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_key": "google_container_cluster:abc123",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -2219,6 +2247,7 @@ Object {
           "state": "DECRYPTED",
         },
         "endpoint": "34.69.222.23",
+        "id": "abc123",
         "initialClusterVersion": "1.17.14-gke.1600",
         "initialNodeCount": 1,
         "instanceGroupUrls": Array [
@@ -2299,6 +2328,7 @@ Object {
   "description": undefined,
   "displayName": "j1-gc-integration-dev-v2-gke-cluster",
   "endpoint": "34.69.222.23",
+  "id": "abc123",
   "initialClusterVersion": "1.17.14-gke.1600",
   "initialNodeCode": 1,
   "instanceGroupUrls": Array [
@@ -2353,7 +2383,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_key": "google_container_cluster:abc123",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -2377,6 +2407,7 @@ Object {
           "state": "DECRYPTED",
         },
         "endpoint": "34.69.222.23",
+        "id": "abc123",
         "initialClusterVersion": "1.17.14-gke.1600",
         "initialNodeCount": 1,
         "instanceGroupUrls": Array [
@@ -2458,6 +2489,7 @@ Object {
   "description": undefined,
   "displayName": "j1-gc-integration-dev-v2-gke-cluster",
   "endpoint": "34.69.222.23",
+  "id": "abc123",
   "initialClusterVersion": "1.17.14-gke.1600",
   "initialNodeCode": 1,
   "instanceGroupUrls": Array [
@@ -2512,7 +2544,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_key": "google_container_cluster:abc123",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -2536,6 +2568,7 @@ Object {
           "state": "DECRYPTED",
         },
         "endpoint": "34.69.222.23",
+        "id": "abc123",
         "initialClusterVersion": "1.17.14-gke.1600",
         "initialNodeCount": 1,
         "instanceGroupUrls": Array [
@@ -2617,6 +2650,7 @@ Object {
   "description": undefined,
   "displayName": "j1-gc-integration-dev-v2-gke-cluster",
   "endpoint": "34.69.222.23",
+  "id": "abc123",
   "initialClusterVersion": "1.17.14-gke.1600",
   "initialNodeCode": 1,
   "instanceGroupUrls": Array [
@@ -2671,7 +2705,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_key": "google_container_cluster:abc123",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -2695,6 +2729,7 @@ Object {
           "state": "DECRYPTED",
         },
         "endpoint": "34.69.222.23",
+        "id": "abc123",
         "initialClusterVersion": "1.17.14-gke.1600",
         "initialNodeCount": 1,
         "instanceGroupUrls": Array [
@@ -2776,6 +2811,7 @@ Object {
   "description": undefined,
   "displayName": "j1-gc-integration-dev-v2-gke-cluster",
   "endpoint": "34.69.222.23",
+  "id": "abc123",
   "initialClusterVersion": "1.17.14-gke.1600",
   "initialNodeCode": 1,
   "instanceGroupUrls": Array [
@@ -2830,7 +2866,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_key": "google_container_cluster:abc123",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -2854,6 +2890,7 @@ Object {
           "state": "DECRYPTED",
         },
         "endpoint": "34.69.222.23",
+        "id": "abc123",
         "initialClusterVersion": "1.17.14-gke.1600",
         "initialNodeCount": 1,
         "instanceGroupUrls": Array [
@@ -2935,6 +2972,7 @@ Object {
   "description": undefined,
   "displayName": "j1-gc-integration-dev-v2-gke-cluster",
   "endpoint": "34.69.222.23",
+  "id": "abc123",
   "initialClusterVersion": "1.17.14-gke.1600",
   "initialNodeCode": 1,
   "instanceGroupUrls": Array [
@@ -2989,7 +3027,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_key": "google_container_cluster:abc123",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -3013,6 +3051,7 @@ Object {
           "state": "DECRYPTED",
         },
         "endpoint": "34.69.222.23",
+        "id": "abc123",
         "initialClusterVersion": "1.17.14-gke.1600",
         "initialNodeCount": 1,
         "instanceGroupUrls": Array [
@@ -3094,6 +3133,7 @@ Object {
   "description": undefined,
   "displayName": "j1-gc-integration-dev-v2-gke-cluster",
   "endpoint": "34.69.222.23",
+  "id": "abc123",
   "initialClusterVersion": "1.17.14-gke.1600",
   "initialNodeCode": 1,
   "instanceGroupUrls": Array [
@@ -3148,7 +3188,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_key": "google_container_cluster:abc123",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -3172,6 +3212,7 @@ Object {
           "state": "DECRYPTED",
         },
         "endpoint": "34.69.222.23",
+        "id": "abc123",
         "initialClusterVersion": "1.17.14-gke.1600",
         "initialNodeCount": 1,
         "instanceGroupUrls": Array [
@@ -3253,6 +3294,7 @@ Object {
   "description": undefined,
   "displayName": "j1-gc-integration-dev-v2-gke-cluster",
   "endpoint": "34.69.222.23",
+  "id": "abc123",
   "initialClusterVersion": "1.17.14-gke.1600",
   "initialNodeCode": 1,
   "instanceGroupUrls": Array [
@@ -3307,7 +3349,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_key": "google_container_cluster:abc123",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -3331,6 +3373,7 @@ Object {
           "state": "DECRYPTED",
         },
         "endpoint": "34.69.222.23",
+        "id": "abc123",
         "initialClusterVersion": "1.17.14-gke.1600",
         "initialNodeCount": 1,
         "instanceGroupUrls": Array [
@@ -3409,6 +3452,7 @@ Object {
   "description": undefined,
   "displayName": "j1-gc-integration-dev-v2-gke-cluster",
   "endpoint": "34.69.222.23",
+  "id": "abc123",
   "initialClusterVersion": "1.17.14-gke.1600",
   "initialNodeCode": 1,
   "instanceGroupUrls": Array [
@@ -3463,7 +3507,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_key": "google_container_cluster:abc123",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -3490,6 +3534,7 @@ Object {
           "state": "DECRYPTED",
         },
         "endpoint": "34.69.222.23",
+        "id": "abc123",
         "initialClusterVersion": "1.17.14-gke.1600",
         "initialNodeCount": 1,
         "instanceGroupUrls": Array [
@@ -3568,6 +3613,7 @@ Object {
   "description": undefined,
   "displayName": "j1-gc-integration-dev-v2-gke-cluster",
   "endpoint": "34.69.222.23",
+  "id": "abc123",
   "initialClusterVersion": "1.17.14-gke.1600",
   "initialNodeCode": 1,
   "instanceGroupUrls": Array [
@@ -3622,7 +3668,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_key": "google_container_cluster:abc123",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -3646,6 +3692,7 @@ Object {
           "state": "DECRYPTED",
         },
         "endpoint": "34.69.222.23",
+        "id": "abc123",
         "initialClusterVersion": "1.17.14-gke.1600",
         "initialNodeCount": 1,
         "instanceGroupUrls": Array [
@@ -3724,6 +3771,7 @@ Object {
   "description": undefined,
   "displayName": "j1-gc-integration-dev-v2-gke-cluster",
   "endpoint": "34.69.222.23",
+  "id": "abc123",
   "initialClusterVersion": "1.17.14-gke.1600",
   "initialNodeCode": 1,
   "instanceGroupUrls": Array [
@@ -3778,7 +3826,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_key": "google_container_cluster:abc123",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -3802,6 +3850,7 @@ Object {
           "state": "DECRYPTED",
         },
         "endpoint": "34.69.222.23",
+        "id": "abc123",
         "initialClusterVersion": "1.17.14-gke.1600",
         "initialNodeCount": 1,
         "instanceGroupUrls": Array [
@@ -3882,6 +3931,7 @@ Object {
   "description": undefined,
   "displayName": "j1-gc-integration-dev-v2-gke-cluster",
   "endpoint": "34.69.222.23",
+  "id": "abc123",
   "initialClusterVersion": "1.17.14-gke.1600",
   "initialNodeCode": 1,
   "instanceGroupUrls": Array [
@@ -3936,7 +3986,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_key": "google_container_cluster:abc123",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -3960,6 +4010,7 @@ Object {
           "state": "DECRYPTED",
         },
         "endpoint": "34.69.222.23",
+        "id": "abc123",
         "initialClusterVersion": "1.17.14-gke.1600",
         "initialNodeCount": 1,
         "instanceGroupUrls": Array [
@@ -4038,6 +4089,7 @@ Object {
   "description": undefined,
   "displayName": "j1-gc-integration-dev-v2-gke-cluster",
   "endpoint": "34.69.222.23",
+  "id": "abc123",
   "initialClusterVersion": "1.17.14-gke.1600",
   "initialNodeCode": 1,
   "instanceGroupUrls": Array [
@@ -4092,7 +4144,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_key": "google_container_cluster:abc123",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -4116,6 +4168,7 @@ Object {
           "state": "DECRYPTED",
         },
         "endpoint": "34.69.222.23",
+        "id": "abc123",
         "initialClusterVersion": "1.17.14-gke.1600",
         "initialNodeCount": 1,
         "instanceGroupUrls": Array [
@@ -4194,6 +4247,7 @@ Object {
   "description": undefined,
   "displayName": "j1-gc-integration-dev-v2-gke-cluster",
   "endpoint": "34.69.222.23",
+  "id": "abc123",
   "initialClusterVersion": "1.17.14-gke.1600",
   "initialNodeCode": 1,
   "instanceGroupUrls": Array [
@@ -4248,7 +4302,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_key": "google_container_cluster:abc123",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -4272,6 +4326,7 @@ Object {
           "state": "DECRYPTED",
         },
         "endpoint": "34.69.222.23",
+        "id": "abc123",
         "initialClusterVersion": "1.17.14-gke.1600",
         "initialNodeCount": 1,
         "instanceGroupUrls": Array [
@@ -4353,6 +4408,7 @@ Object {
   "description": undefined,
   "displayName": "j1-gc-integration-dev-v2-gke-cluster",
   "endpoint": "34.69.222.23",
+  "id": "abc123",
   "initialClusterVersion": "1.17.14-gke.1600",
   "initialNodeCode": 1,
   "instanceGroupUrls": Array [
@@ -4407,7 +4463,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v2/locations/us-central1/clusters/j1-gc-integration-dev-v2-gke-cluster",
+  "_key": "google_container_cluster:abc123",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -4431,6 +4487,7 @@ Object {
           "state": "DECRYPTED",
         },
         "endpoint": "34.69.222.23",
+        "id": "abc123",
         "initialClusterVersion": "1.17.14-gke.1600",
         "initialNodeCount": 1,
         "instanceGroupUrls": Array [
@@ -4509,6 +4566,7 @@ Object {
   "description": undefined,
   "displayName": "j1-gc-integration-dev-v2-gke-cluster",
   "endpoint": "34.69.222.23",
+  "id": "abc123",
   "initialClusterVersion": "1.17.14-gke.1600",
   "initialNodeCode": 1,
   "instanceGroupUrls": Array [
