@@ -30,7 +30,10 @@ Object {
   "displayName": "Role",
   "etag": "abc123",
   "name": "projects/j1-gc-integration-dev-v2/roles/myrole",
-  "permissions": "cloudfunctions.functions.get,cloudfunctions.functions.getIamPolicy",
+  "permissions": Array [
+    "cloudfunctions.functions.get",
+    "cloudfunctions.functions.getIamPolicy",
+  ],
   "readonly": true,
   "stage": "GA",
 }
@@ -51,7 +54,10 @@ Object {
   "displayName": "Role",
   "etag": "abc123",
   "name": "projects/j1-gc-integration-dev-v2/roles/myrole",
-  "permissions": "cloudfunctions.functions.get,cloudfunctions.functions.getIamPolicy",
+  "permissions": Array [
+    "cloudfunctions.functions.get",
+    "cloudfunctions.functions.getIamPolicy",
+  ],
   "readonly": true,
   "stage": "GA",
 }

@@ -5,7 +5,6 @@ import {
   Entity,
   createDirectRelationship,
   RelationshipClass,
-  truncateEntityPropertyValue,
 } from '@jupiterone/integration-sdk-core';
 import {
   IAM_ROLE_ENTITY_CLASS,
@@ -46,9 +45,7 @@ export function createIamRoleEntity(
         stage: data.stage,
         custom: custom === true,
         deleted: data.deleted === true,
-        permissions: data.includedPermissions
-          ? truncateEntityPropertyValue(data.includedPermissions?.join(','))
-          : undefined, // This array can bee too large to be stored in Neptune. Strings have more storage space.
+        permissions: data.includedPermissions,
         readonly: isReadOnlyRole(data),
         etag: data.etag,
       },

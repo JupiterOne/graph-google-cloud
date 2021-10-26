@@ -134,9 +134,9 @@ export async function fetchIamBindings(
          */
         const roleEntity =
           binding.role && (await jobState.findEntity(binding.role));
-        const permissions = binding.role
+        const permissions: string[] = binding.role
           ? roleEntity
-            ? ((roleEntity.permissions as string) || '').split(',')
+            ? (roleEntity.permissions as any) ?? []
             : await getPermissionsForManagedRole(jobState, binding.role)
           : [];
 

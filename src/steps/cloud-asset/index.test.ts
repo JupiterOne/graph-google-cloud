@@ -426,7 +426,10 @@ describe('#fetchIamBindings', () => {
             'condition.expression': { type: 'string' },
             'condition.location': { type: 'string' },
             readonly: { type: 'boolean' },
-            permissions: { type: 'string' },
+            permissions: {
+              type: 'array',
+              items: { type: 'string' },
+            },
           },
         },
       });
@@ -445,7 +448,10 @@ describe('#fetchIamBindings', () => {
             stage: { type: 'string' },
             custom: { type: 'boolean' },
             deleted: { type: 'boolean' },
-            permissions: { type: 'string' },
+            permissions: {
+              type: 'array',
+              items: { type: 'string' },
+            },
             etag: { type: 'string' },
             readonly: { type: 'boolean' },
           },
@@ -484,9 +490,11 @@ describe('#fetchIamBindings', () => {
       google_iam_binding_uses_role.forEach((relationship) => {
         if (relationship._mapping) {
           expect(
-            typeof (relationship as MappedRelationship)._mapping?.targetEntity
-              ?.permissions,
-          ).toBe('string');
+            Array.isArray(
+              (relationship as MappedRelationship)._mapping?.targetEntity
+                ?.permissions,
+            ),
+          ).toBe(true);
         }
       });
     });

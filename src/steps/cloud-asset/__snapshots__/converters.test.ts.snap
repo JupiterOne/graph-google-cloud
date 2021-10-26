@@ -23,7 +23,10 @@ Object {
   ],
   "name": "role_binding_for_resourceresource",
   "organization": "organizations/5656565656",
-  "permissions": "storage.admin,storage.objects.list",
+  "permissions": Array [
+    "storage.admin",
+    "storage.objects.list",
+  ],
   "projectId": "project-id",
   "projectName": "projects/123456789",
   "readonly": true,
