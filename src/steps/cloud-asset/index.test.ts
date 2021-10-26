@@ -609,6 +609,7 @@ describe('#createBasicRolesForBindings', () => {
       await fetchResourceManagerOrganization(context);
       await fetchResourceManagerFolders(context);
 
+      await fetchResourceManagerProject(context);
       await fetchIamManagedRoles(context);
       await fetchIamBindings(context);
       await createBasicRolesForBindings(context);
@@ -645,6 +646,13 @@ describe('#createBasicRolesForBindings', () => {
             MAX_ENTITY_PROPERTY_VALUE,
           );
         }
+      });
+
+      // Ensure that all Basic roles are for heirarchy members that we have ingested.
+      google_iam_role.forEach(async (role) => {
+        const orgHierarchyKey = role._key.split('/').slice(0, -2).join('/');
+        await context.jobState.hasKey(orgHierarchyKey);
+        expect(await context.jobState.hasKey(orgHierarchyKey)).toBe(true);
       });
     });
   });
