@@ -8,6 +8,7 @@ import {
 import { ResourceManagerClient } from './client';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
 import {
+  createAuditConfigEntity,
   createFolderEntity,
   createOrganizationEntity,
   createProjectEntity,
@@ -26,10 +27,19 @@ import {
   STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
   ORGANIZATION_HAS_PROJECT_RELATIONSHIP_TYPE,
   FOLDER_HAS_PROJECT_RELATIONSHIP_TYPE,
+  STEP_AUDIT_CONFIG_IAM_POLICY,
+  AUDIT_CONFIG_ENTITY_CLASS,
+  AUDIT_CONFIG_ENTITY_TYPE,
+  SERVICE_USES_AUDIT_CONFIG_RELATIONSHIP_TYPE,
 } from './constants';
 import { ParsedIamMember, parseIamMember } from '../../utils/iam';
 import { RelationshipClass } from '@jupiterone/data-model';
 import { cacheProjectNameAndId } from '../../utils/jobState';
+import {
+  API_SERVICE_ENTITY_TYPE,
+  STEP_API_SERVICES,
+} from '../service-usage/constants';
+import { getServiceApiEntityKey } from '../service-usage/converters';
 
 export * from './constants';
 
@@ -233,6 +243,57 @@ export async function fetchResourceManagerProject(
   await jobState.addEntity(projectEntity);
 }
 
+export async function fetchIamPolicyAuditConfig(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const {
+    instance: { config },
+    jobState,
+  } = context;
+  const client = new ResourceManagerClient({ config });
+
+  await client.iteratePolicyAuditConfigs(async (auditConfig) => {
+    const auditConfigEntity = createAuditConfigEntity(auditConfig);
+    await jobState.addEntity(auditConfigEntity);
+
+    if (auditConfig.service === 'allServices') {
+      await jobState.iterateEntities(
+        {
+          _type: API_SERVICE_ENTITY_TYPE,
+        },
+        async (serviceEntity) => {
+          if (serviceEntity.isAuditable) {
+            await jobState.addRelationship(
+              createDirectRelationship({
+                _class: RelationshipClass.USES,
+                from: serviceEntity,
+                to: auditConfigEntity,
+              }),
+            );
+          }
+        },
+      );
+    } else {
+      const serviceEntity = await jobState.findEntity(
+        getServiceApiEntityKey({
+          projectId: client.projectId,
+          serviceApiName: auditConfig.service as string,
+        }),
+      );
+
+      if (serviceEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.USES,
+            from: serviceEntity,
+            to: auditConfigEntity,
+          }),
+        );
+      }
+    }
+  });
+}
+
 export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_RESOURCE_MANAGER_ORGANIZATION,
@@ -312,5 +373,26 @@ export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchResourceManagerProject,
+  },
+  {
+    id: STEP_AUDIT_CONFIG_IAM_POLICY,
+    name: 'Audit Config IAM Policy',
+    entities: [
+      {
+        resourceName: 'Audit Config',
+        _type: AUDIT_CONFIG_ENTITY_TYPE,
+        _class: AUDIT_CONFIG_ENTITY_CLASS,
+      },
+    ],
+    relationships: [
+      {
+        _class: RelationshipClass.USES,
+        _type: SERVICE_USES_AUDIT_CONFIG_RELATIONSHIP_TYPE,
+        sourceType: API_SERVICE_ENTITY_TYPE,
+        targetType: AUDIT_CONFIG_ENTITY_TYPE,
+      },
+    ],
+    executionHandler: fetchIamPolicyAuditConfig,
+    dependsOn: [STEP_API_SERVICES],
   },
 ];

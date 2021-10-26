@@ -9,6 +9,8 @@ import {
   fetchResourceManagerOrganization,
   fetchResourceManagerProject,
   buildOrgFolderProjectMappedRelationships,
+  fetchIamPolicyAuditConfig,
+  AUDIT_CONFIG_ENTITY_TYPE,
 } from '.';
 import { integrationConfig } from '../../../test/config';
 import {
@@ -16,6 +18,7 @@ import {
   ORGANIZATION_HAS_FOLDER_RELATIONSHIP_TYPE,
   FOLDER_HAS_FOLDER_RELATIONSHIP_TYPE,
   PROJECT_ENTITY_TYPE,
+  SERVICE_USES_AUDIT_CONFIG_RELATIONSHIP_TYPE,
 } from './constants';
 import {
   Entity,
@@ -24,6 +27,152 @@ import {
   Relationship,
 } from '@jupiterone/integration-sdk-core';
 import { filterGraphObjects } from '../../../test/helpers/filterGraphObjects';
+import { fetchApiServices } from '../service-usage';
+import { fetchIamManagedRoles } from '../iam';
+
+describe('#fetchIamPolicyAuditConfig', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'fetchIamPolicyAuditConfig',
+    });
+  });
+
+  afterEach(async () => {
+    if (recording) {
+      await recording.stop();
+    }
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: {
+        ...integrationConfig,
+        serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+          'j1-gc-integration-dev-v2',
+          'j1-gc-integration-dev-v3',
+        ),
+        serviceAccountKeyConfig: {
+          ...integrationConfig.serviceAccountKeyConfig,
+          project_id: 'j1-gc-integration-dev-v3',
+        },
+      },
+    });
+
+    await fetchResourceManagerProject(context);
+    await fetchIamManagedRoles(context);
+    await fetchApiServices(context);
+    await fetchIamPolicyAuditConfig(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
+
+    const auditConfigEntities = context.jobState.collectedEntities.filter(
+      (e) => e._type === AUDIT_CONFIG_ENTITY_TYPE,
+    );
+
+    expect(auditConfigEntities.length).toBeGreaterThan(1);
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === 'google_cloud_project',
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: ['Account'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_cloud_project' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          projectId: { type: 'string' },
+          name: { type: 'string' },
+          displayName: { type: 'string' },
+          parent: { type: 'string' },
+          lifecycleState: { type: 'string' },
+          createdOn: { type: 'number' },
+          updatedOn: { type: 'number' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === 'google_cloud_api_service',
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: ['Service'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_cloud_api_service' },
+          category: { const: ['infrastructure'] },
+          state: {
+            type: 'string',
+            enum: ['STATE_UNSPECIFIED', 'DISABLED', 'ENABLED'],
+          },
+          enabled: { type: 'boolean' },
+          usageRequirements: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          hasIamPermissions: { type: 'boolean' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          auditable: { type: 'boolean' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === 'google_cloud_audit_config',
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: ['Configuration'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_cloud_audit_config' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          name: { type: 'string' },
+          displayName: { type: 'string' },
+          service: { type: 'string' },
+          logTypes: { type: 'array', items: { type: 'string' } },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === SERVICE_USES_AUDIT_CONFIG_RELATIONSHIP_TYPE,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'USES' },
+          _type: {
+            const: 'google_cloud_api_service_uses_audit_config',
+          },
+        },
+      },
+    });
+  });
+});
 
 describe('#fetchResourceManagerProject', () => {
   let recording: Recording;

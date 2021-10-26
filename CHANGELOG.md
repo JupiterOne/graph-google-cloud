@@ -68,6 +68,18 @@ and this project adheres to
 
 ### Added
 
+- Added support for ingesting the following **new** resources:
+
+  | Service      | Resource / Entity           |
+  | ------------ | --------------------------- |
+  | Audit Config | `google_cloud_audit_config` |
+
+- Added support for ingesting the following **new** relationships:
+
+  | Source                     | class    | Target                      |
+  | -------------------------- | -------- | --------------------------- |
+  | `google_cloud_api_service` | **USES** | `google_cloud_audit_config` |
+
 - API calls will now have a `timeout` of one minute.
 - Organization setup will now have an api `timeout` of five minutes when
   updating the organization IAM policy.

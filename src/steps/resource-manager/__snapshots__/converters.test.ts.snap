@@ -1,5 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`#createAuditConfigEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Configuration",
+  ],
+  "_key": "auditConfig:sample.service.com",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "auditLogConfigs": Array [
+          Object {
+            "logType": "SAMPLE_LOG",
+          },
+        ],
+        "service": "sample.service.com",
+      },
+    },
+  ],
+  "_type": "google_cloud_audit_config",
+  "createdOn": undefined,
+  "displayName": "auditConfig:sample.service.com",
+  "logTypes": Array [
+    "SAMPLE_LOG",
+  ],
+  "name": "auditConfig:sample.service.com",
+  "service": "sample.service.com",
+}
+`;
+
 exports[`#createOrganizationEntity should convert to entity 1`] = `
 Object {
   "_class": Array [
