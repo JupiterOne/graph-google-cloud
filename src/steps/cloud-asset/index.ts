@@ -64,6 +64,7 @@ import {
 } from '../../utils/iam';
 import { API_SERVICE_ENTITY_TYPE } from '../service-usage';
 import { CREATE_IAM_ENTITY_MAP } from '../resource-manager/createIamEntities';
+import { ANY_RESOURCE } from '../../constants';
 
 export async function getPermissionsForManagedRole(
   jobState: JobState,

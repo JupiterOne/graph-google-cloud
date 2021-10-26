@@ -394,7 +394,7 @@ The following relationships are created:
 | `google_bigtable_instance`                                       | **HAS**               | `google_bigtable_table`                                           |
 | `google_bigtable_table`                                          | **HAS**               | `google_bigtable_backup`                                          |
 | `google_billing_account`                                         | **HAS**               | `google_billing_budget`                                           |
-| `google_cloud_api_service`                                       | **HAS**               | `google_cloud_function`                                           |
+| `google_cloud_api_service`                                       | **HAS**               | `ANY_RESOURCE`                                                    |
 | `google_cloud_api_service`                                       | **HAS**               | `google_iam_role`                                                 |
 | `google_cloud_api_service`                                       | **USES**              | `google_cloud_audit_config`                                       |
 | `internet`                                                       | **ALLOWS**            | `google_compute_firewall`                                         |
@@ -455,7 +455,7 @@ The following relationships are created:
 | `google_dataproc_cluster`                                        | **USES**              | `google_kms_crypto_key`                                           |
 | `google_dataproc_cluster`                                        | **USES**              | `google_storage_bucket`                                           |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_project`                                            |
-| `google_iam_binding`                                             | **ALLOWS**            | `google_cloud_function`                                           |
+| `google_cloud_api_service`                                       | **HAS**               | `ANY_RESOURCE`                                                    |
 | `google_iam_binding`                                             | **ASSIGNED**          | `google_cloud_authenticated_users`                                |
 | `google_iam_binding`                                             | **ASSIGNED**          | `google_domain`                                                   |
 | `google_iam_binding`                                             | **ASSIGNED**          | `everyone`                                                        |

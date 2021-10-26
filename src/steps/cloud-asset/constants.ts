@@ -85,8 +85,18 @@ export const BINDING_ALLOWS_ANY_RESOURCE_TYPE = generateRelationshipType(
   bindingEntities.BINDINGS._type,
   ANY_RESOURCE,
 );
-export const BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIPS =
-  bindingResourceTargetTypes.map((resourceType) => {
+export const BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIPS = [
+  {
+    // Needed for documentation
+    _class: RelationshipClass.HAS,
+    _type: BINDING_ALLOWS_ANY_RESOURCE_TYPE,
+    sourceType: API_SERVICE_ENTITY_TYPE,
+    targetType: ANY_RESOURCE,
+    indexMetadata: {
+      enabled: false,
+    },
+  },
+  ...bindingResourceTargetTypes.map((resourceType) => {
     return {
       _type: BINDING_ALLOWS_ANY_RESOURCE_TYPE,
       sourceType: bindingEntities.BINDINGS._type,
@@ -96,15 +106,26 @@ export const BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIPS =
         enabled: false,
       },
     };
-  });
+  }),
+];
 
 export const API_SERVICE_HAS_ANY_RESOURCE_TYPE = generateRelationshipType(
   RelationshipClass.HAS,
   API_SERVICE_ENTITY_TYPE,
   ANY_RESOURCE,
 );
-export const API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIPS =
-  bindingResourceTargetTypes.map((resourceType) => {
+export const API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIPS = [
+  {
+    // Needed for documentation
+    _class: RelationshipClass.HAS,
+    _type: API_SERVICE_HAS_ANY_RESOURCE_TYPE,
+    sourceType: API_SERVICE_ENTITY_TYPE,
+    targetType: ANY_RESOURCE,
+    indexMetadata: {
+      enabled: false,
+    },
+  },
+  ...bindingResourceTargetTypes.map((resourceType) => {
     return {
       _class: RelationshipClass.HAS,
       _type: API_SERVICE_HAS_ANY_RESOURCE_TYPE,
@@ -114,4 +135,5 @@ export const API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIPS =
         enabled: false,
       },
     };
-  });
+  }),
+];
