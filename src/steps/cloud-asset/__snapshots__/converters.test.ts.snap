@@ -23,11 +23,16 @@ Object {
   ],
   "name": "role_binding_for_resourceresource",
   "organization": "organizations/5656565656",
-  "permissions": "storage.admin,storage.objects.list",
   "projectId": "project-id",
   "projectName": "projects/123456789",
   "readonly": true,
   "resource": "resource",
   "role": "projects/j1-gc-integration-dev-v3/roles/167984947943customroleconditions",
+  "storage": Array [
+    "admin",
+  ],
+  "storage.objects": Array [
+    "list",
+  ],
 }
 `;

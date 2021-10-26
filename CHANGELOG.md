@@ -8,6 +8,33 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Changed
+
+- **Breaking:** The `permissions` property on `google_iam_binding`s and
+  `google_iam_role`s will now be structured:
+
+  ```
+  storage: [read,write],
+  storage.objects: [read,delete],
+  ...
+  ```
+
+  instead of:
+
+  ```
+  permissions: 'storage.read,storage.write,storage.objects.read,storage.objects.delete,...'
+  ```
+
+  This was needed in order to avoid the 4096 characters property truncation
+  limit imposed in v1.1.0. To maintain functionality, querys for permissions
+  will need to change from:
+
+  `Find google_iam_role with permissions~='storage.objects.admin'`
+
+  to
+
+  `Find google_iam_role with storage.objects='admin'`.
+
 ## 1.2.1 - 2021-10-25
 
 ### Fixed

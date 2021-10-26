@@ -1,0 +1,2922 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#formatPermissions should format permissions properly 1`] = `
+Object {
+  "accessapproval.requests": Array [
+    "list",
+  ],
+  "accessapproval.settings": Array [
+    "get",
+  ],
+  "accesscontextmanager.accessLevels": Array [
+    "update",
+  ],
+  "accesscontextmanager.accessPolicies": Array [
+    "update",
+  ],
+  "accesscontextmanager.accessZones": Array [
+    "update",
+  ],
+  "accesscontextmanager.gcpUserAccessBindings": Array [
+    "update",
+  ],
+  "accesscontextmanager.policies": Array [
+    "update",
+  ],
+  "accesscontextmanager.servicePerimeters": Array [
+    "update",
+  ],
+  "actions.agent": Array [
+    "update",
+  ],
+  "actions.agentVersions": Array [
+    "list",
+  ],
+  "aiplatform.annotationSpecs": Array [
+    "update",
+  ],
+  "aiplatform.annotations": Array [
+    "update",
+  ],
+  "aiplatform.artifacts": Array [
+    "update",
+  ],
+  "aiplatform.batchPredictionJobs": Array [
+    "list",
+  ],
+  "aiplatform.contexts": Array [
+    "update",
+  ],
+  "aiplatform.customJobs": Array [
+    "list",
+  ],
+  "aiplatform.dataItems": Array [
+    "update",
+  ],
+  "aiplatform.dataLabelingJobs": Array [
+    "list",
+  ],
+  "aiplatform.datasets": Array [
+    "update",
+  ],
+  "aiplatform.edgeDeploymentJobs": Array [
+    "list",
+  ],
+  "aiplatform.edgeDeviceDebugInfo": Array [
+    "get",
+  ],
+  "aiplatform.edgeDevices": Array [
+    "update",
+  ],
+  "aiplatform.endpoints": Array [
+    "update",
+  ],
+  "aiplatform.entityTypes": Array [
+    "writeFeatureValues",
+  ],
+  "aiplatform.executions": Array [
+    "update",
+  ],
+  "aiplatform.features": Array [
+    "update",
+  ],
+  "aiplatform.featurestores": Array [
+    "writeFeatures",
+  ],
+  "aiplatform.humanInTheLoops": Array [
+    "update",
+  ],
+  "aiplatform.hyperparameterTuningJobs": Array [
+    "list",
+  ],
+  "aiplatform.indexEndpoints": Array [
+    "update",
+  ],
+  "aiplatform.indexes": Array [
+    "update",
+  ],
+  "aiplatform.locations": Array [
+    "list",
+  ],
+  "aiplatform.metadataSchemas": Array [
+    "list",
+  ],
+  "aiplatform.metadataStores": Array [
+    "list",
+  ],
+  "aiplatform.migratableResources": Array [
+    "search",
+  ],
+  "aiplatform.modelDeploymentMonitoringJobs": Array [
+    "update",
+  ],
+  "aiplatform.modelEvaluationSlices": Array [
+    "list",
+  ],
+  "aiplatform.modelEvaluations": Array [
+    "list",
+  ],
+  "aiplatform.models": Array [
+    "upload",
+  ],
+  "aiplatform.nasJobs": Array [
+    "list",
+  ],
+  "aiplatform.operations": Array [
+    "list",
+  ],
+  "aiplatform.pipelineJobs": Array [
+    "list",
+  ],
+  "aiplatform.specialistPools": Array [
+    "update",
+  ],
+  "aiplatform.studies": Array [
+    "update",
+  ],
+  "aiplatform.tensorboardExperiments": Array [
+    "write",
+  ],
+  "aiplatform.tensorboardRuns": Array [
+    "write",
+  ],
+  "aiplatform.tensorboardTimeSeries": Array [
+    "update",
+  ],
+  "aiplatform.tensorboards": Array [
+    "update",
+  ],
+  "aiplatform.trainingPipelines": Array [
+    "list",
+  ],
+  "aiplatform.trials": Array [
+    "update",
+  ],
+  "androidmanagement.enterprises": Array [
+    "manage",
+  ],
+  "apigateway.apiconfigs": Array [
+    "update",
+  ],
+  "apigateway.apis": Array [
+    "update",
+  ],
+  "apigateway.gateways": Array [
+    "update",
+  ],
+  "apigateway.locations": Array [
+    "list",
+  ],
+  "apigateway.operations": Array [
+    "list",
+  ],
+  "apigee.apiproductattributes": Array [
+    "update",
+  ],
+  "apigee.apiproducts": Array [
+    "update",
+  ],
+  "apigee.appkeys": Array [
+    "manage",
+  ],
+  "apigee.apps": Array [
+    "list",
+  ],
+  "apigee.archivedeployments": Array [
+    "upload",
+  ],
+  "apigee.caches": Array [
+    "list",
+  ],
+  "apigee.canaryevaluations": Array [
+    "get",
+  ],
+  "apigee.datacollectors": Array [
+    "update",
+  ],
+  "apigee.datastores": Array [
+    "update",
+  ],
+  "apigee.deployments": Array [
+    "update",
+  ],
+  "apigee.developerappattributes": Array [
+    "update",
+  ],
+  "apigee.developerapps": Array [
+    "manage",
+  ],
+  "apigee.developerattributes": Array [
+    "update",
+  ],
+  "apigee.developerbalances": Array [
+    "update",
+  ],
+  "apigee.developermonetizationconfigs": Array [
+    "update",
+  ],
+  "apigee.developers": Array [
+    "update",
+  ],
+  "apigee.developersubscriptions": Array [
+    "update",
+  ],
+  "apigee.envgroupattachments": Array [
+    "list",
+  ],
+  "apigee.envgroups": Array [
+    "update",
+  ],
+  "apigee.environments": Array [
+    "update",
+  ],
+  "apigee.exports": Array [
+    "list",
+  ],
+  "apigee.flowhooks": Array [
+    "list",
+  ],
+  "apigee.hostqueries": Array [
+    "list",
+  ],
+  "apigee.hostsecurityreports": Array [
+    "list",
+  ],
+  "apigee.hoststats": Array [
+    "get",
+  ],
+  "apigee.ingressconfigs": Array [
+    "get",
+  ],
+  "apigee.instanceattachments": Array [
+    "list",
+  ],
+  "apigee.instances": Array [
+    "reportStatus",
+  ],
+  "apigee.keystorealiases": Array [
+    "update",
+  ],
+  "apigee.keystores": Array [
+    "list",
+  ],
+  "apigee.keyvaluemaps": Array [
+    "list",
+  ],
+  "apigee.maskconfigs": Array [
+    "update",
+  ],
+  "apigee.operations": Array [
+    "list",
+  ],
+  "apigee.organizations": Array [
+    "update",
+  ],
+  "apigee.portals": Array [
+    "update",
+  ],
+  "apigee.projects": Array [
+    "update",
+  ],
+  "apigee.proxies": Array [
+    "update",
+  ],
+  "apigee.proxyrevisions": Array [
+    "update",
+  ],
+  "apigee.queries": Array [
+    "list",
+  ],
+  "apigee.rateplans": Array [
+    "update",
+  ],
+  "apigee.references": Array [
+    "update",
+  ],
+  "apigee.reports": Array [
+    "update",
+  ],
+  "apigee.resourcefiles": Array [
+    "update",
+  ],
+  "apigee.runtimeconfigs": Array [
+    "get",
+  ],
+  "apigee.securityreports": Array [
+    "list",
+  ],
+  "apigee.sharedflowrevisions": Array [
+    "update",
+  ],
+  "apigee.sharedflows": Array [
+    "list",
+  ],
+  "apigee.targetservers": Array [
+    "update",
+  ],
+  "apigee.tracesessions": Array [
+    "list",
+  ],
+  "apigeeconnect.connections": Array [
+    "list",
+  ],
+  "apigeeconnect.endpoints": Array [
+    "connect",
+  ],
+  "apikeys.keys": Array [
+    "update",
+  ],
+  "appengine.applications": Array [
+    "update",
+  ],
+  "appengine.instances": Array [
+    "list",
+  ],
+  "appengine.memcache": Array [
+    "update",
+  ],
+  "appengine.operations": Array [
+    "list",
+  ],
+  "appengine.runtimes": Array [
+    "actAsAdmin",
+  ],
+  "appengine.services": Array [
+    "update",
+  ],
+  "appengine.versions": Array [
+    "update",
+  ],
+  "artifactregistry.aptartifacts": Array [
+    "create",
+  ],
+  "artifactregistry.files": Array [
+    "list",
+  ],
+  "artifactregistry.packages": Array [
+    "list",
+  ],
+  "artifactregistry.repositories": Array [
+    "uploadArtifacts",
+  ],
+  "artifactregistry.tags": Array [
+    "update",
+  ],
+  "artifactregistry.versions": Array [
+    "list",
+  ],
+  "artifactregistry.yumartifacts": Array [
+    "create",
+  ],
+  "assuredworkloads.operations": Array [
+    "list",
+  ],
+  "assuredworkloads.workload": Array [
+    "update",
+  ],
+  "automl.annotationSpecs": Array [
+    "update",
+  ],
+  "automl.annotations": Array [
+    "reject",
+  ],
+  "automl.columnSpecs": Array [
+    "update",
+  ],
+  "automl.datasets": Array [
+    "update",
+  ],
+  "automl.examples": Array [
+    "list",
+  ],
+  "automl.humanAnnotationTasks": Array [
+    "list",
+  ],
+  "automl.locations": Array [
+    "list",
+  ],
+  "automl.modelEvaluations": Array [
+    "list",
+  ],
+  "automl.models": Array [
+    "undeploy",
+  ],
+  "automl.operations": Array [
+    "list",
+  ],
+  "automl.tableSpecs": Array [
+    "update",
+  ],
+  "automlrecommendations.apiKeys": Array [
+    "list",
+  ],
+  "automlrecommendations.catalogItems": Array [
+    "update",
+  ],
+  "automlrecommendations.catalogs": Array [
+    "update",
+  ],
+  "automlrecommendations.eventStores": Array [
+    "getStats",
+  ],
+  "automlrecommendations.events": Array [
+    "list",
+  ],
+  "automlrecommendations.placements": Array [
+    "list",
+  ],
+  "automlrecommendations.recommendations": Array [
+    "update",
+  ],
+  "autoscaling.sites": Array [
+    "writeState",
+  ],
+  "baremetalsolution.instances": Array [
+    "list",
+  ],
+  "bigquery.bireservations": Array [
+    "update",
+  ],
+  "bigquery.capacityCommitments": Array [
+    "update",
+  ],
+  "bigquery.config": Array [
+    "get",
+  ],
+  "bigquery.connections": Array [
+    "use",
+  ],
+  "bigquery.datasets": Array [
+    "updateTag",
+  ],
+  "bigquery.jobs": Array [
+    "list",
+  ],
+  "bigquery.models": Array [
+    "updateTag",
+  ],
+  "bigquery.readsessions": Array [
+    "update",
+  ],
+  "bigquery.reservationAssignments": Array [
+    "search",
+  ],
+  "bigquery.reservations": Array [
+    "update",
+  ],
+  "bigquery.routines": Array [
+    "updateTag",
+  ],
+  "bigquery.rowAccessPolicies": Array [
+    "update",
+  ],
+  "bigquery.savedqueries": Array [
+    "update",
+  ],
+  "bigquery.tables": Array [
+    "restoreSnapshot",
+  ],
+  "bigquery.transfers": Array [
+    "update",
+  ],
+  "bigtable.appProfiles": Array [
+    "update",
+  ],
+  "bigtable.backups": Array [
+    "update",
+  ],
+  "bigtable.clusters": Array [
+    "update",
+  ],
+  "bigtable.instances": Array [
+    "update",
+  ],
+  "bigtable.keyvisualizer": Array [
+    "list",
+  ],
+  "bigtable.locations": Array [
+    "list",
+  ],
+  "bigtable.tables": Array [
+    "update",
+  ],
+  "billing.resourceCosts": Array [
+    "get",
+  ],
+  "binaryauthorization.attestors": Array [
+    "verifyImageAttested",
+  ],
+  "binaryauthorization.continuousValidationConfig": Array [
+    "update",
+  ],
+  "binaryauthorization.policy": Array [
+    "update",
+  ],
+  "chat.bots": Array [
+    "update",
+  ],
+  "chroniclesm.gcpAssociations": Array [
+    "get",
+  ],
+  "chroniclesm.gcpSettings": Array [
+    "update",
+  ],
+  "clientauthconfig.brands": Array [
+    "update",
+  ],
+  "clientauthconfig.clients": Array [
+    "update",
+  ],
+  "cloudasset.assets": Array [
+    "searchAllResources",
+  ],
+  "cloudbuild.builds": Array [
+    "update",
+  ],
+  "cloudbuild.workerpools": Array [
+    "use",
+  ],
+  "cloudconfig.configs": Array [
+    "update",
+  ],
+  "clouddebugger.breakpoints": Array [
+    "update",
+  ],
+  "clouddebugger.debuggees": Array [
+    "list",
+  ],
+  "clouddeploy.config": Array [
+    "get",
+  ],
+  "clouddeploy.deliveryPipelines": Array [
+    "update",
+  ],
+  "clouddeploy.locations": Array [
+    "list",
+  ],
+  "clouddeploy.operations": Array [
+    "list",
+  ],
+  "clouddeploy.releases": Array [
+    "list",
+  ],
+  "clouddeploy.rollouts": Array [
+    "list",
+  ],
+  "clouddeploy.targets": Array [
+    "update",
+  ],
+  "cloudfunctions.functions": Array [
+    "update",
+  ],
+  "cloudfunctions.locations": Array [
+    "list",
+  ],
+  "cloudfunctions.operations": Array [
+    "list",
+  ],
+  "cloudiot.devices": Array [
+    "updateConfig",
+  ],
+  "cloudiot.registries": Array [
+    "update",
+  ],
+  "cloudiottoken.tokensettings": Array [
+    "update",
+  ],
+  "cloudjobdiscovery.companies": Array [
+    "update",
+  ],
+  "cloudjobdiscovery.events": Array [
+    "create",
+  ],
+  "cloudjobdiscovery.jobs": Array [
+    "update",
+  ],
+  "cloudjobdiscovery.profiles": Array [
+    "update",
+  ],
+  "cloudjobdiscovery.tenants": Array [
+    "update",
+  ],
+  "cloudjobdiscovery.tools": Array [
+    "access",
+  ],
+  "cloudkms.cryptoKeyVersions": Array [
+    "update",
+  ],
+  "cloudkms.cryptoKeys": Array [
+    "update",
+  ],
+  "cloudkms.importJobs": Array [
+    "useToImport",
+  ],
+  "cloudkms.keyRings": Array [
+    "listTagBindings",
+  ],
+  "cloudkms.locations": Array [
+    "list",
+  ],
+  "cloudmessaging.messages": Array [
+    "create",
+  ],
+  "cloudnotifications.activities": Array [
+    "list",
+  ],
+  "cloudonefs.isiloncloud.com.clusters": Array [
+    "updateAdvancedSettings",
+  ],
+  "cloudonefs.isiloncloud.com.fileshares": Array [
+    "update",
+  ],
+  "cloudprivatecatalog.targets": Array [
+    "get",
+  ],
+  "cloudprivatecatalogproducer.associations": Array [
+    "list",
+  ],
+  "cloudprivatecatalogproducer.catalogAssociations": Array [
+    "list",
+  ],
+  "cloudprivatecatalogproducer.catalogs": Array [
+    "update",
+  ],
+  "cloudprivatecatalogproducer.producerCatalogs": Array [
+    "update",
+  ],
+  "cloudprivatecatalogproducer.products": Array [
+    "update",
+  ],
+  "cloudprivatecatalogproducer.settings": Array [
+    "update",
+  ],
+  "cloudprivatecatalogproducer.targets": Array [
+    "unassociate",
+  ],
+  "cloudprofiler.profiles": Array [
+    "update",
+  ],
+  "cloudscheduler.jobs": Array [
+    "update",
+  ],
+  "cloudscheduler.locations": Array [
+    "list",
+  ],
+  "cloudsecurityscanner.crawledurls": Array [
+    "list",
+  ],
+  "cloudsecurityscanner.results": Array [
+    "list",
+  ],
+  "cloudsecurityscanner.scanruns": Array [
+    "stop",
+  ],
+  "cloudsecurityscanner.scans": Array [
+    "update",
+  ],
+  "cloudsql.backupRuns": Array [
+    "list",
+  ],
+  "cloudsql.databases": Array [
+    "update",
+  ],
+  "cloudsql.instances": Array [
+    "update",
+  ],
+  "cloudsql.sslCerts": Array [
+    "list",
+  ],
+  "cloudsql.users": Array [
+    "update",
+  ],
+  "cloudsupport.accounts": Array [
+    "updateUserRoles",
+  ],
+  "cloudsupport.operations": Array [
+    "get",
+  ],
+  "cloudsupport.properties": Array [
+    "get",
+  ],
+  "cloudsupport.techCases": Array [
+    "update",
+  ],
+  "cloudtasks.locations": Array [
+    "list",
+  ],
+  "cloudtasks.queues": Array [
+    "update",
+  ],
+  "cloudtasks.tasks": Array [
+    "run",
+  ],
+  "cloudtestservice.environmentcatalog": Array [
+    "get",
+  ],
+  "cloudtestservice.matrices": Array [
+    "update",
+  ],
+  "cloudtoolresults.executions": Array [
+    "update",
+  ],
+  "cloudtoolresults.histories": Array [
+    "list",
+  ],
+  "cloudtoolresults.settings": Array [
+    "update",
+  ],
+  "cloudtoolresults.steps": Array [
+    "update",
+  ],
+  "cloudtrace.insights": Array [
+    "list",
+  ],
+  "cloudtrace.stats": Array [
+    "get",
+  ],
+  "cloudtrace.tasks": Array [
+    "list",
+  ],
+  "cloudtrace.traces": Array [
+    "patch",
+  ],
+  "cloudtranslate.generalModels": Array [
+    "predict",
+  ],
+  "cloudtranslate.glossaries": Array [
+    "predict",
+  ],
+  "cloudtranslate.languageDetectionModels": Array [
+    "predict",
+  ],
+  "cloudtranslate.locations": Array [
+    "list",
+  ],
+  "cloudtranslate.operations": Array [
+    "wait",
+  ],
+  "cloudvolumesgcp-api.netapp.com.activeDirectories": Array [
+    "update",
+  ],
+  "cloudvolumesgcp-api.netapp.com.ipRanges": Array [
+    "list",
+  ],
+  "cloudvolumesgcp-api.netapp.com.jobs": Array [
+    "list",
+  ],
+  "cloudvolumesgcp-api.netapp.com.regions": Array [
+    "list",
+  ],
+  "cloudvolumesgcp-api.netapp.com.serviceLevels": Array [
+    "list",
+  ],
+  "cloudvolumesgcp-api.netapp.com.snapshots": Array [
+    "update",
+  ],
+  "cloudvolumesgcp-api.netapp.com.volumes": Array [
+    "update",
+  ],
+  "commerceoffercatalog.offers": Array [
+    "get",
+  ],
+  "commerceprice.privateoffers": Array [
+    "update",
+  ],
+  "composer.environments": Array [
+    "update",
+  ],
+  "composer.imageversions": Array [
+    "list",
+  ],
+  "composer.operations": Array [
+    "list",
+  ],
+  "compute.acceleratorTypes": Array [
+    "list",
+  ],
+  "compute.addresses": Array [
+    "useInternal",
+  ],
+  "compute.autoscalers": Array [
+    "update",
+  ],
+  "compute.backendBuckets": Array [
+    "use",
+  ],
+  "compute.backendServices": Array [
+    "use",
+  ],
+  "compute.commitments": Array [
+    "updateReservations",
+  ],
+  "compute.diskTypes": Array [
+    "list",
+  ],
+  "compute.disks": Array [
+    "useReadOnly",
+  ],
+  "compute.externalVpnGateways": Array [
+    "use",
+  ],
+  "compute.firewallPolicies": Array [
+    "use",
+  ],
+  "compute.firewalls": Array [
+    "update",
+  ],
+  "compute.forwardingRules": Array [
+    "use",
+  ],
+  "compute.globalAddresses": Array [
+    "use",
+  ],
+  "compute.globalForwardingRules": Array [
+    "update",
+  ],
+  "compute.globalNetworkEndpointGroups": Array [
+    "use",
+  ],
+  "compute.globalOperations": Array [
+    "list",
+  ],
+  "compute.globalPublicDelegatedPrefixes": Array [
+    "use",
+  ],
+  "compute.healthChecks": Array [
+    "useReadOnly",
+  ],
+  "compute.httpHealthChecks": Array [
+    "useReadOnly",
+  ],
+  "compute.httpsHealthChecks": Array [
+    "useReadOnly",
+  ],
+  "compute.images": Array [
+    "useReadOnly",
+  ],
+  "compute.instanceGroupManagers": Array [
+    "use",
+  ],
+  "compute.instanceGroups": Array [
+    "use",
+  ],
+  "compute.instanceTemplates": Array [
+    "useReadOnly",
+  ],
+  "compute.instances": Array [
+    "useReadOnly",
+  ],
+  "compute.interconnectAttachments": Array [
+    "use",
+  ],
+  "compute.interconnectLocations": Array [
+    "list",
+  ],
+  "compute.interconnects": Array [
+    "use",
+  ],
+  "compute.licenseCodes": Array [
+    "use",
+  ],
+  "compute.licenses": Array [
+    "list",
+  ],
+  "compute.machineImages": Array [
+    "useReadOnly",
+  ],
+  "compute.machineTypes": Array [
+    "list",
+  ],
+  "compute.maintenancePolicies": Array [
+    "use",
+  ],
+  "compute.networkEndpointGroups": Array [
+    "use",
+  ],
+  "compute.networks": Array [
+    "useExternalIp",
+  ],
+  "compute.nodeGroups": Array [
+    "update",
+  ],
+  "compute.nodeTemplates": Array [
+    "list",
+  ],
+  "compute.nodeTypes": Array [
+    "list",
+  ],
+  "compute.organizations": Array [
+    "setSecurityPolicy",
+  ],
+  "compute.packetMirrorings": Array [
+    "update",
+  ],
+  "compute.projects": Array [
+    "setUsageExportBucket",
+  ],
+  "compute.publicAdvertisedPrefixes": Array [
+    "use",
+  ],
+  "compute.publicDelegatedPrefixes": Array [
+    "use",
+  ],
+  "compute.regionBackendServices": Array [
+    "use",
+  ],
+  "compute.regionHealthCheckServices": Array [
+    "use",
+  ],
+  "compute.regionHealthChecks": Array [
+    "useReadOnly",
+  ],
+  "compute.regionNetworkEndpointGroups": Array [
+    "use",
+  ],
+  "compute.regionNotificationEndpoints": Array [
+    "use",
+  ],
+  "compute.regionOperations": Array [
+    "list",
+  ],
+  "compute.regionSslCertificates": Array [
+    "list",
+  ],
+  "compute.regionTargetHttpProxies": Array [
+    "use",
+  ],
+  "compute.regionTargetHttpsProxies": Array [
+    "use",
+  ],
+  "compute.regionUrlMaps": Array [
+    "validate",
+  ],
+  "compute.regions": Array [
+    "list",
+  ],
+  "compute.reservations": Array [
+    "resize",
+  ],
+  "compute.resourcePolicies": Array [
+    "use",
+  ],
+  "compute.routers": Array [
+    "use",
+  ],
+  "compute.routes": Array [
+    "list",
+  ],
+  "compute.securityPolicies": Array [
+    "use",
+  ],
+  "compute.serviceAttachments": Array [
+    "update",
+  ],
+  "compute.snapshots": Array [
+    "useReadOnly",
+  ],
+  "compute.sslCertificates": Array [
+    "list",
+  ],
+  "compute.sslPolicies": Array [
+    "use",
+  ],
+  "compute.subnetworks": Array [
+    "useExternalIp",
+  ],
+  "compute.targetGrpcProxies": Array [
+    "use",
+  ],
+  "compute.targetHttpProxies": Array [
+    "use",
+  ],
+  "compute.targetHttpsProxies": Array [
+    "use",
+  ],
+  "compute.targetInstances": Array [
+    "use",
+  ],
+  "compute.targetPools": Array [
+    "use",
+  ],
+  "compute.targetSslProxies": Array [
+    "use",
+  ],
+  "compute.targetTcpProxies": Array [
+    "use",
+  ],
+  "compute.targetVpnGateways": Array [
+    "use",
+  ],
+  "compute.urlMaps": Array [
+    "validate",
+  ],
+  "compute.vpnGateways": Array [
+    "use",
+  ],
+  "compute.vpnTunnels": Array [
+    "setLabels",
+  ],
+  "compute.zoneOperations": Array [
+    "list",
+  ],
+  "compute.zones": Array [
+    "list",
+  ],
+  "connectors.connections": Array [
+    "update",
+  ],
+  "connectors.connectors": Array [
+    "list",
+  ],
+  "connectors.locations": Array [
+    "list",
+  ],
+  "connectors.operations": Array [
+    "list",
+  ],
+  "connectors.providers": Array [
+    "list",
+  ],
+  "connectors.runtimeconfig": Array [
+    "get",
+  ],
+  "connectors.versions": Array [
+    "list",
+  ],
+  "consumerprocurement.accounts": Array [
+    "list",
+  ],
+  "consumerprocurement.entitlements": Array [
+    "list",
+  ],
+  "consumerprocurement.freeTrials": Array [
+    "list",
+  ],
+  "consumerprocurement.orders": Array [
+    "place",
+  ],
+  "contactcenterinsights.analyses": Array [
+    "list",
+  ],
+  "contactcenterinsights.conversations": Array [
+    "update",
+  ],
+  "contactcenterinsights.issueModels": Array [
+    "update",
+  ],
+  "contactcenterinsights.issues": Array [
+    "update",
+  ],
+  "contactcenterinsights.operations": Array [
+    "list",
+  ],
+  "contactcenterinsights.phraseMatchers": Array [
+    "update",
+  ],
+  "contactcenterinsights.settings": Array [
+    "update",
+  ],
+  "container.apiServices": Array [
+    "updateStatus",
+  ],
+  "container.auditSinks": Array [
+    "update",
+  ],
+  "container.backendConfigs": Array [
+    "update",
+  ],
+  "container.bindings": Array [
+    "update",
+  ],
+  "container.certificateSigningRequests": Array [
+    "updateStatus",
+  ],
+  "container.clusterRoleBindings": Array [
+    "list",
+  ],
+  "container.clusterRoles": Array [
+    "list",
+  ],
+  "container.clusters": Array [
+    "update",
+  ],
+  "container.componentStatuses": Array [
+    "list",
+  ],
+  "container.configMaps": Array [
+    "update",
+  ],
+  "container.controllerRevisions": Array [
+    "update",
+  ],
+  "container.cronJobs": Array [
+    "updateStatus",
+  ],
+  "container.csiDrivers": Array [
+    "update",
+  ],
+  "container.csiNodeInfos": Array [
+    "update",
+  ],
+  "container.csiNodes": Array [
+    "update",
+  ],
+  "container.customResourceDefinitions": Array [
+    "updateStatus",
+  ],
+  "container.daemonSets": Array [
+    "updateStatus",
+  ],
+  "container.deployments": Array [
+    "updateStatus",
+  ],
+  "container.endpointSlices": Array [
+    "update",
+  ],
+  "container.endpoints": Array [
+    "update",
+  ],
+  "container.events": Array [
+    "update",
+  ],
+  "container.frontendConfigs": Array [
+    "update",
+  ],
+  "container.horizontalPodAutoscalers": Array [
+    "updateStatus",
+  ],
+  "container.ingresses": Array [
+    "updateStatus",
+  ],
+  "container.initializerConfigurations": Array [
+    "update",
+  ],
+  "container.jobs": Array [
+    "updateStatus",
+  ],
+  "container.leases": Array [
+    "update",
+  ],
+  "container.limitRanges": Array [
+    "update",
+  ],
+  "container.localSubjectAccessReviews": Array [
+    "list",
+  ],
+  "container.managedCertificates": Array [
+    "update",
+  ],
+  "container.mutatingWebhookConfigurations": Array [
+    "update",
+  ],
+  "container.namespaces": Array [
+    "updateStatus",
+  ],
+  "container.networkPolicies": Array [
+    "update",
+  ],
+  "container.nodes": Array [
+    "updateStatus",
+  ],
+  "container.operations": Array [
+    "list",
+  ],
+  "container.persistentVolumeClaims": Array [
+    "updateStatus",
+  ],
+  "container.persistentVolumes": Array [
+    "updateStatus",
+  ],
+  "container.petSets": Array [
+    "updateStatus",
+  ],
+  "container.podDisruptionBudgets": Array [
+    "updateStatus",
+  ],
+  "container.podPresets": Array [
+    "update",
+  ],
+  "container.podSecurityPolicies": Array [
+    "use",
+  ],
+  "container.podTemplates": Array [
+    "update",
+  ],
+  "container.pods": Array [
+    "updateStatus",
+  ],
+  "container.priorityClasses": Array [
+    "update",
+  ],
+  "container.replicaSets": Array [
+    "updateStatus",
+  ],
+  "container.replicationControllers": Array [
+    "updateStatus",
+  ],
+  "container.resourceQuotas": Array [
+    "updateStatus",
+  ],
+  "container.roleBindings": Array [
+    "list",
+  ],
+  "container.roles": Array [
+    "list",
+  ],
+  "container.runtimeClasses": Array [
+    "update",
+  ],
+  "container.scheduledJobs": Array [
+    "updateStatus",
+  ],
+  "container.secrets": Array [
+    "update",
+  ],
+  "container.selfSubjectAccessReviews": Array [
+    "list",
+  ],
+  "container.selfSubjectRulesReviews": Array [
+    "create",
+  ],
+  "container.serviceAccounts": Array [
+    "update",
+  ],
+  "container.services": Array [
+    "updateStatus",
+  ],
+  "container.statefulSets": Array [
+    "updateStatus",
+  ],
+  "container.storageClasses": Array [
+    "update",
+  ],
+  "container.storageStates": Array [
+    "updateStatus",
+  ],
+  "container.storageVersionMigrations": Array [
+    "updateStatus",
+  ],
+  "container.subjectAccessReviews": Array [
+    "list",
+  ],
+  "container.thirdPartyObjects": Array [
+    "update",
+  ],
+  "container.thirdPartyResources": Array [
+    "update",
+  ],
+  "container.tokenReviews": Array [
+    "create",
+  ],
+  "container.updateInfos": Array [
+    "update",
+  ],
+  "container.validatingWebhookConfigurations": Array [
+    "update",
+  ],
+  "container.volumeAttachments": Array [
+    "updateStatus",
+  ],
+  "container.volumeSnapshotClasses": Array [
+    "update",
+  ],
+  "container.volumeSnapshotContents": Array [
+    "updateStatus",
+  ],
+  "container.volumeSnapshots": Array [
+    "updateStatus",
+  ],
+  "containeranalysis.notes": Array [
+    "update",
+  ],
+  "containeranalysis.occurrences": Array [
+    "update",
+  ],
+  "datacatalog.categories": Array [
+    "getIamPolicy",
+  ],
+  "datacatalog.entries": Array [
+    "updateTag",
+  ],
+  "datacatalog.entryGroups": Array [
+    "update",
+  ],
+  "datacatalog.tagTemplates": Array [
+    "use",
+  ],
+  "datacatalog.taxonomies": Array [
+    "list",
+  ],
+  "dataflow.jobs": Array [
+    "updateContents",
+  ],
+  "dataflow.messages": Array [
+    "list",
+  ],
+  "dataflow.metrics": Array [
+    "get",
+  ],
+  "dataflow.snapshots": Array [
+    "list",
+  ],
+  "datafusion.instances": Array [
+    "upgrade",
+  ],
+  "datafusion.locations": Array [
+    "list",
+  ],
+  "datafusion.operations": Array [
+    "list",
+  ],
+  "datalabeling.annotateddatasets": Array [
+    "list",
+  ],
+  "datalabeling.annotationspecsets": Array [
+    "list",
+  ],
+  "datalabeling.dataitems": Array [
+    "list",
+  ],
+  "datalabeling.datasets": Array [
+    "list",
+  ],
+  "datalabeling.examples": Array [
+    "list",
+  ],
+  "datalabeling.instructions": Array [
+    "list",
+  ],
+  "datalabeling.operations": Array [
+    "list",
+  ],
+  "datamigration.connectionprofiles": Array [
+    "update",
+  ],
+  "datamigration.locations": Array [
+    "list",
+  ],
+  "datamigration.migrationjobs": Array [
+    "verify",
+  ],
+  "datamigration.operations": Array [
+    "list",
+  ],
+  "datapipelines.pipelines": Array [
+    "update",
+  ],
+  "dataprep.projects": Array [
+    "use",
+  ],
+  "dataproc.agents": Array [
+    "update",
+  ],
+  "dataproc.autoscalingPolicies": Array [
+    "use",
+  ],
+  "dataproc.clusters": Array [
+    "use",
+  ],
+  "dataproc.jobs": Array [
+    "update",
+  ],
+  "dataproc.operations": Array [
+    "list",
+  ],
+  "dataproc.tasks": Array [
+    "reportStatus",
+  ],
+  "dataproc.workflowTemplates": Array [
+    "update",
+  ],
+  "dataprocessing.datasources": Array [
+    "update",
+  ],
+  "dataprocessing.featurecontrols": Array [
+    "list",
+  ],
+  "dataprocessing.groupcontrols": Array [
+    "list",
+  ],
+  "datastore.databases": Array [
+    "update",
+  ],
+  "datastore.entities": Array [
+    "update",
+  ],
+  "datastore.indexes": Array [
+    "update",
+  ],
+  "datastore.namespaces": Array [
+    "list",
+  ],
+  "datastore.statistics": Array [
+    "list",
+  ],
+  "datastream.connectionProfiles": Array [
+    "update",
+  ],
+  "datastream.locations": Array [
+    "list",
+  ],
+  "datastream.operations": Array [
+    "list",
+  ],
+  "datastream.privateConnections": Array [
+    "list",
+  ],
+  "datastream.routes": Array [
+    "list",
+  ],
+  "datastream.streams": Array [
+    "update",
+  ],
+  "deploymentmanager.compositeTypes": Array [
+    "update",
+  ],
+  "deploymentmanager.deployments": Array [
+    "update",
+  ],
+  "deploymentmanager.manifests": Array [
+    "list",
+  ],
+  "deploymentmanager.operations": Array [
+    "list",
+  ],
+  "deploymentmanager.resources": Array [
+    "list",
+  ],
+  "deploymentmanager.typeProviders": Array [
+    "update",
+  ],
+  "deploymentmanager.types": Array [
+    "update",
+  ],
+  "dialogflow.agents": Array [
+    "validate",
+  ],
+  "dialogflow.answerrecords": Array [
+    "update",
+  ],
+  "dialogflow.callMatchers": Array [
+    "list",
+  ],
+  "dialogflow.changelogs": Array [
+    "list",
+  ],
+  "dialogflow.contexts": Array [
+    "update",
+  ],
+  "dialogflow.conversationDatasets": Array [
+    "list",
+  ],
+  "dialogflow.conversationModels": Array [
+    "undeploy",
+  ],
+  "dialogflow.conversationProfiles": Array [
+    "update",
+  ],
+  "dialogflow.conversations": Array [
+    "update",
+  ],
+  "dialogflow.documents": Array [
+    "list",
+  ],
+  "dialogflow.entityTypes": Array [
+    "updateEntity",
+  ],
+  "dialogflow.environments": Array [
+    "update",
+  ],
+  "dialogflow.flows": Array [
+    "validate",
+  ],
+  "dialogflow.fulfillments": Array [
+    "update",
+  ],
+  "dialogflow.intents": Array [
+    "update",
+  ],
+  "dialogflow.knowledgeBases": Array [
+    "list",
+  ],
+  "dialogflow.messages": Array [
+    "list",
+  ],
+  "dialogflow.modelEvaluations": Array [
+    "list",
+  ],
+  "dialogflow.operations": Array [
+    "get",
+  ],
+  "dialogflow.pages": Array [
+    "update",
+  ],
+  "dialogflow.participants": Array [
+    "update",
+  ],
+  "dialogflow.phoneNumberOrders": Array [
+    "update",
+  ],
+  "dialogflow.phoneNumbers": Array [
+    "update",
+  ],
+  "dialogflow.securitySettings": Array [
+    "update",
+  ],
+  "dialogflow.sessionEntityTypes": Array [
+    "update",
+  ],
+  "dialogflow.sessions": Array [
+    "streamingDetectIntent",
+  ],
+  "dialogflow.smartMessagingEntries": Array [
+    "list",
+  ],
+  "dialogflow.transitionRouteGroups": Array [
+    "update",
+  ],
+  "dialogflow.versions": Array [
+    "update",
+  ],
+  "dialogflow.webhooks": Array [
+    "update",
+  ],
+  "dlp.analyzeRiskTemplates": Array [
+    "update",
+  ],
+  "dlp.columnDataProfiles": Array [
+    "list",
+  ],
+  "dlp.deidentifyTemplates": Array [
+    "update",
+  ],
+  "dlp.estimates": Array [
+    "list",
+  ],
+  "dlp.inspectFindings": Array [
+    "list",
+  ],
+  "dlp.inspectTemplates": Array [
+    "update",
+  ],
+  "dlp.jobTriggers": Array [
+    "update",
+  ],
+  "dlp.jobs": Array [
+    "list",
+  ],
+  "dlp.projectDataProfiles": Array [
+    "list",
+  ],
+  "dlp.storedInfoTypes": Array [
+    "update",
+  ],
+  "dlp.tableDataProfiles": Array [
+    "list",
+  ],
+  "dns.changes": Array [
+    "list",
+  ],
+  "dns.dnsKeys": Array [
+    "list",
+  ],
+  "dns.managedZoneOperations": Array [
+    "list",
+  ],
+  "dns.managedZones": Array [
+    "update",
+  ],
+  "dns.networks": Array [
+    "targetWithPeeringZone",
+  ],
+  "dns.policies": Array [
+    "update",
+  ],
+  "dns.projects": Array [
+    "get",
+  ],
+  "dns.resourceRecordSets": Array [
+    "update",
+  ],
+  "dns.responsePolicies": Array [
+    "update",
+  ],
+  "dns.responsePolicyRules": Array [
+    "update",
+  ],
+  "documentai.evaluations": Array [
+    "list",
+  ],
+  "documentai.humanReviewConfigs": Array [
+    "update",
+  ],
+  "documentai.labelerPools": Array [
+    "update",
+  ],
+  "documentai.locations": Array [
+    "list",
+  ],
+  "documentai.operations": Array [
+    "getLegacy",
+  ],
+  "documentai.processorTypes": Array [
+    "list",
+  ],
+  "documentai.processorVersions": Array [
+    "update",
+  ],
+  "documentai.processors": Array [
+    "update",
+  ],
+  "domains.locations": Array [
+    "list",
+  ],
+  "domains.operations": Array [
+    "list",
+  ],
+  "domains.registrations": Array [
+    "update",
+  ],
+  "earlyaccesscenter.campaigns": Array [
+    "list",
+  ],
+  "earlyaccesscenter.customerAllowlists": Array [
+    "list",
+  ],
+  "earthengine.assets": Array [
+    "update",
+  ],
+  "earthengine.computations": Array [
+    "create",
+  ],
+  "earthengine.exports": Array [
+    "create",
+  ],
+  "earthengine.filmstripthumbnails": Array [
+    "get",
+  ],
+  "earthengine.imports": Array [
+    "create",
+  ],
+  "earthengine.maps": Array [
+    "get",
+  ],
+  "earthengine.operations": Array [
+    "update",
+  ],
+  "earthengine.tables": Array [
+    "get",
+  ],
+  "earthengine.thumbnails": Array [
+    "get",
+  ],
+  "earthengine.videothumbnails": Array [
+    "get",
+  ],
+  "endpoints.portals": Array [
+    "update",
+  ],
+  "errorreporting.applications": Array [
+    "list",
+  ],
+  "errorreporting.errorEvents": Array [
+    "list",
+  ],
+  "errorreporting.groupMetadata": Array [
+    "update",
+  ],
+  "errorreporting.groups": Array [
+    "list",
+  ],
+  "essentialcontacts.contacts": Array [
+    "update",
+  ],
+  "eventarc.locations": Array [
+    "list",
+  ],
+  "eventarc.operations": Array [
+    "list",
+  ],
+  "eventarc.triggers": Array [
+    "update",
+  ],
+  "fcmdata.deliverydata": Array [
+    "list",
+  ],
+  "file.backups": Array [
+    "update",
+  ],
+  "file.instances": Array [
+    "update",
+  ],
+  "file.locations": Array [
+    "list",
+  ],
+  "file.operations": Array [
+    "list",
+  ],
+  "file.snapshots": Array [
+    "update",
+  ],
+  "firebase.billingPlans": Array [
+    "get",
+  ],
+  "firebase.clients": Array [
+    "update",
+  ],
+  "firebase.links": Array [
+    "list",
+  ],
+  "firebase.playLinks": Array [
+    "list",
+  ],
+  "firebase.projects": Array [
+    "update",
+  ],
+  "firebaseabt.experimentresults": Array [
+    "get",
+  ],
+  "firebaseabt.experiments": Array [
+    "update",
+  ],
+  "firebaseabt.projectmetadata": Array [
+    "get",
+  ],
+  "firebaseanalytics.resources": Array [
+    "googleAnalyticsReadAndAnalyze",
+  ],
+  "firebaseappcheck.appAttestConfig": Array [
+    "update",
+  ],
+  "firebaseappcheck.debugTokens": Array [
+    "update",
+  ],
+  "firebaseappcheck.deviceCheckConfig": Array [
+    "update",
+  ],
+  "firebaseappcheck.recaptchaConfig": Array [
+    "update",
+  ],
+  "firebaseappcheck.safetyNetConfig": Array [
+    "update",
+  ],
+  "firebaseappcheck.services": Array [
+    "update",
+  ],
+  "firebaseappdistro.groups": Array [
+    "update",
+  ],
+  "firebaseappdistro.releases": Array [
+    "update",
+  ],
+  "firebaseappdistro.testers": Array [
+    "update",
+  ],
+  "firebaseauth.configs": Array [
+    "update",
+  ],
+  "firebaseauth.users": Array [
+    "update",
+  ],
+  "firebasecrash.issues": Array [
+    "update",
+  ],
+  "firebasecrash.reports": Array [
+    "get",
+  ],
+  "firebasecrashlytics.config": Array [
+    "update",
+  ],
+  "firebasecrashlytics.data": Array [
+    "get",
+  ],
+  "firebasecrashlytics.issues": Array [
+    "update",
+  ],
+  "firebasecrashlytics.sessions": Array [
+    "get",
+  ],
+  "firebasedatabase.instances": Array [
+    "update",
+  ],
+  "firebasedynamiclinks.destinations": Array [
+    "list",
+  ],
+  "firebasedynamiclinks.domains": Array [
+    "update",
+  ],
+  "firebasedynamiclinks.links": Array [
+    "update",
+  ],
+  "firebasedynamiclinks.stats": Array [
+    "get",
+  ],
+  "firebaseextensions.configs": Array [
+    "list",
+  ],
+  "firebasehosting.sites": Array [
+    "update",
+  ],
+  "firebaseinappmessaging.campaigns": Array [
+    "update",
+  ],
+  "firebaseml.compressionjobs": Array [
+    "update",
+  ],
+  "firebaseml.models": Array [
+    "list",
+  ],
+  "firebaseml.modelversions": Array [
+    "update",
+  ],
+  "firebasenotifications.messages": Array [
+    "update",
+  ],
+  "firebaseperformance.config": Array [
+    "update",
+  ],
+  "firebaseperformance.data": Array [
+    "get",
+  ],
+  "firebasepredictions.predictions": Array [
+    "update",
+  ],
+  "firebaserules.releases": Array [
+    "update",
+  ],
+  "firebaserules.rulesets": Array [
+    "test",
+  ],
+  "firebasestorage.buckets": Array [
+    "removeFirebase",
+  ],
+  "fleetengine.trips": Array [
+    "updateState",
+  ],
+  "fleetengine.vehicles": Array [
+    "updateLocation",
+  ],
+  "gameservices.gameServerClusters": Array [
+    "update",
+  ],
+  "gameservices.gameServerConfigs": Array [
+    "list",
+  ],
+  "gameservices.gameServerDeployments": Array [
+    "update",
+  ],
+  "gameservices.locations": Array [
+    "list",
+  ],
+  "gameservices.operations": Array [
+    "list",
+  ],
+  "gameservices.realms": Array [
+    "update",
+  ],
+  "gcp.redisenterprise.com.databases": Array [
+    "update",
+  ],
+  "gcp.redisenterprise.com.subscriptions": Array [
+    "update",
+  ],
+  "genomics.datasets": Array [
+    "update",
+  ],
+  "genomics.operations": Array [
+    "list",
+  ],
+  "gkehub.features": Array [
+    "update",
+  ],
+  "gkehub.gateway": Array [
+    "put",
+  ],
+  "gkehub.locations": Array [
+    "list",
+  ],
+  "gkehub.memberships": Array [
+    "update",
+  ],
+  "gkehub.operations": Array [
+    "list",
+  ],
+  "gkemulticloud.awsClusters": Array [
+    "update",
+  ],
+  "gkemulticloud.awsNodePools": Array [
+    "update",
+  ],
+  "gkemulticloud.awsServerConfigs": Array [
+    "get",
+  ],
+  "gkemulticloud.azureClients": Array [
+    "list",
+  ],
+  "gkemulticloud.azureClusters": Array [
+    "update",
+  ],
+  "gkemulticloud.azureNodePools": Array [
+    "update",
+  ],
+  "gkemulticloud.azureServerConfigs": Array [
+    "get",
+  ],
+  "gkemulticloud.operations": Array [
+    "wait",
+  ],
+  "gsuiteaddons.authorizations": Array [
+    "get",
+  ],
+  "gsuiteaddons.deployments": Array [
+    "update",
+  ],
+  "healthcare.annotationStores": Array [
+    "update",
+  ],
+  "healthcare.annotations": Array [
+    "update",
+  ],
+  "healthcare.attributeDefinitions": Array [
+    "update",
+  ],
+  "healthcare.consentArtifacts": Array [
+    "list",
+  ],
+  "healthcare.consentStores": Array [
+    "update",
+  ],
+  "healthcare.consents": Array [
+    "update",
+  ],
+  "healthcare.datasets": Array [
+    "update",
+  ],
+  "healthcare.dicomStores": Array [
+    "update",
+  ],
+  "healthcare.fhirResources": Array [
+    "update",
+  ],
+  "healthcare.fhirStores": Array [
+    "update",
+  ],
+  "healthcare.hl7V2Messages": Array [
+    "update",
+  ],
+  "healthcare.hl7V2Stores": Array [
+    "update",
+  ],
+  "healthcare.locations": Array [
+    "list",
+  ],
+  "healthcare.operations": Array [
+    "list",
+  ],
+  "healthcare.userDataMappings": Array [
+    "update",
+  ],
+  "iam.googleapis.com.workloadIdentityPoolProviders": Array [
+    "list",
+  ],
+  "iam.googleapis.com.workloadIdentityPools": Array [
+    "list",
+  ],
+  "iam.roles": Array [
+    "list",
+  ],
+  "iam.serviceAccountKeys": Array [
+    "list",
+  ],
+  "iam.serviceAccounts": Array [
+    "update",
+  ],
+  "iap.projects": Array [
+    "updateSettings",
+  ],
+  "iap.web": Array [
+    "updateSettings",
+  ],
+  "iap.webServiceVersions": Array [
+    "updateSettings",
+  ],
+  "iap.webServices": Array [
+    "updateSettings",
+  ],
+  "iap.webTypes": Array [
+    "updateSettings",
+  ],
+  "integrations.apigeeAuthConfigs": Array [
+    "update",
+  ],
+  "integrations.apigeeCertificates": Array [
+    "update",
+  ],
+  "integrations.apigeeExecutions": Array [
+    "list",
+  ],
+  "integrations.apigeeIntegrationVers": Array [
+    "update",
+  ],
+  "integrations.apigeeIntegrations": Array [
+    "list",
+  ],
+  "integrations.apigeeSfdcChannels": Array [
+    "update",
+  ],
+  "integrations.apigeeSfdcInstances": Array [
+    "update",
+  ],
+  "integrations.apigeeSuspensions": Array [
+    "resolve",
+  ],
+  "integrations.securityAuthConfigs": Array [
+    "update",
+  ],
+  "integrations.securityExecutions": Array [
+    "list",
+  ],
+  "integrations.securityIntegTempVers": Array [
+    "list",
+  ],
+  "integrations.securityIntegrationVers": Array [
+    "update",
+  ],
+  "integrations.securityIntegrations": Array [
+    "list",
+  ],
+  "lifesciences.operations": Array [
+    "list",
+  ],
+  "lifesciences.workflows": Array [
+    "run",
+  ],
+  "livestream.channels": Array [
+    "update",
+  ],
+  "livestream.events": Array [
+    "list",
+  ],
+  "livestream.inputs": Array [
+    "update",
+  ],
+  "livestream.locations": Array [
+    "list",
+  ],
+  "livestream.operations": Array [
+    "list",
+  ],
+  "logging.buckets": Array [
+    "list",
+  ],
+  "logging.cmekSettings": Array [
+    "update",
+  ],
+  "logging.exclusions": Array [
+    "list",
+  ],
+  "logging.locations": Array [
+    "list",
+  ],
+  "logging.logEntries": Array [
+    "list",
+  ],
+  "logging.logMetrics": Array [
+    "update",
+  ],
+  "logging.logServiceIndexes": Array [
+    "list",
+  ],
+  "logging.logServices": Array [
+    "list",
+  ],
+  "logging.logs": Array [
+    "list",
+  ],
+  "logging.notificationRules": Array [
+    "update",
+  ],
+  "logging.operations": Array [
+    "list",
+  ],
+  "logging.queries": Array [
+    "update",
+  ],
+  "logging.sinks": Array [
+    "list",
+  ],
+  "logging.usage": Array [
+    "get",
+  ],
+  "logging.views": Array [
+    "update",
+  ],
+  "managedidentities.domains": Array [
+    "validateTrust",
+  ],
+  "managedidentities.locations": Array [
+    "list",
+  ],
+  "managedidentities.operations": Array [
+    "list",
+  ],
+  "managedidentities.peerings": Array [
+    "update",
+  ],
+  "managedidentities.sqlintegrations": Array [
+    "list",
+  ],
+  "memcache.instances": Array [
+    "updateParameters",
+  ],
+  "memcache.locations": Array [
+    "list",
+  ],
+  "memcache.operations": Array [
+    "list",
+  ],
+  "metastore.backups": Array [
+    "use",
+  ],
+  "metastore.imports": Array [
+    "update",
+  ],
+  "metastore.locations": Array [
+    "list",
+  ],
+  "metastore.operations": Array [
+    "list",
+  ],
+  "metastore.services": Array [
+    "update",
+  ],
+  "ml.jobs": Array [
+    "update",
+  ],
+  "ml.locations": Array [
+    "list",
+  ],
+  "ml.models": Array [
+    "update",
+  ],
+  "ml.operations": Array [
+    "list",
+  ],
+  "ml.projects": Array [
+    "getConfig",
+  ],
+  "ml.studies": Array [
+    "list",
+  ],
+  "ml.trials": Array [
+    "update",
+  ],
+  "ml.versions": Array [
+    "update",
+  ],
+  "monitoring.alertPolicies": Array [
+    "update",
+  ],
+  "monitoring.dashboards": Array [
+    "update",
+  ],
+  "monitoring.groups": Array [
+    "update",
+  ],
+  "monitoring.metricDescriptors": Array [
+    "list",
+  ],
+  "monitoring.monitoredResourceDescriptors": Array [
+    "list",
+  ],
+  "monitoring.notificationChannelDescriptors": Array [
+    "list",
+  ],
+  "monitoring.notificationChannels": Array [
+    "verify",
+  ],
+  "monitoring.publicWidgets": Array [
+    "update",
+  ],
+  "monitoring.services": Array [
+    "update",
+  ],
+  "monitoring.slos": Array [
+    "update",
+  ],
+  "monitoring.timeSeries": Array [
+    "list",
+  ],
+  "monitoring.uptimeCheckConfigs": Array [
+    "update",
+  ],
+  "networkconnectivity.hubs": Array [
+    "update",
+  ],
+  "networkconnectivity.locations": Array [
+    "list",
+  ],
+  "networkconnectivity.operations": Array [
+    "list",
+  ],
+  "networkconnectivity.spokes": Array [
+    "update",
+  ],
+  "networkmanagement.connectivitytests": Array [
+    "update",
+  ],
+  "networkmanagement.locations": Array [
+    "list",
+  ],
+  "networkmanagement.operations": Array [
+    "list",
+  ],
+  "networksecurity.authorizationPolicies": Array [
+    "use",
+  ],
+  "networksecurity.clientTlsPolicies": Array [
+    "use",
+  ],
+  "networksecurity.locations": Array [
+    "list",
+  ],
+  "networksecurity.operations": Array [
+    "list",
+  ],
+  "networksecurity.serverTlsPolicies": Array [
+    "use",
+  ],
+  "networkservices.endpointConfigSelectors": Array [
+    "use",
+  ],
+  "networkservices.endpointPolicies": Array [
+    "use",
+  ],
+  "networkservices.httpFilters": Array [
+    "use",
+  ],
+  "networkservices.httpfilters": Array [
+    "use",
+  ],
+  "networkservices.locations": Array [
+    "list",
+  ],
+  "networkservices.operations": Array [
+    "list",
+  ],
+  "notebooks.environments": Array [
+    "list",
+  ],
+  "notebooks.executions": Array [
+    "list",
+  ],
+  "notebooks.instances": Array [
+    "use",
+  ],
+  "notebooks.locations": Array [
+    "list",
+  ],
+  "notebooks.operations": Array [
+    "list",
+  ],
+  "notebooks.runtimes": Array [
+    "switch",
+  ],
+  "notebooks.schedules": Array [
+    "list",
+  ],
+  "oauthconfig.clientpolicy": Array [
+    "get",
+  ],
+  "oauthconfig.testusers": Array [
+    "update",
+  ],
+  "oauthconfig.verification": Array [
+    "update",
+  ],
+  "ondemandscanning.operations": Array [
+    "wait",
+  ],
+  "ondemandscanning.scans": Array [
+    "scan",
+  ],
+  "opsconfigmonitoring.resourceMetadata": Array [
+    "write",
+  ],
+  "orgpolicy.constraints": Array [
+    "list",
+  ],
+  "orgpolicy.policies": Array [
+    "list",
+  ],
+  "orgpolicy.policy": Array [
+    "get",
+  ],
+  "osconfig.guestPolicies": Array [
+    "update",
+  ],
+  "osconfig.instanceOSPoliciesCompliances": Array [
+    "list",
+  ],
+  "osconfig.inventories": Array [
+    "list",
+  ],
+  "osconfig.osPolicyAssignmentReports": Array [
+    "list",
+  ],
+  "osconfig.osPolicyAssignments": Array [
+    "update",
+  ],
+  "osconfig.patchDeployments": Array [
+    "update",
+  ],
+  "osconfig.patchJobs": Array [
+    "list",
+  ],
+  "osconfig.vulnerabilityReports": Array [
+    "list",
+  ],
+  "paymentsresellersubscription.products": Array [
+    "list",
+  ],
+  "paymentsresellersubscription.promotions": Array [
+    "list",
+  ],
+  "paymentsresellersubscription.subscriptions": Array [
+    "undoCancel",
+  ],
+  "policyanalyzer.serviceAccountKeyLastAuthenticationActivities": Array [
+    "query",
+  ],
+  "policyanalyzer.serviceAccountLastAuthenticationActivities": Array [
+    "query",
+  ],
+  "policysimulator.replayResults": Array [
+    "list",
+  ],
+  "policysimulator.replays": Array [
+    "list",
+  ],
+  "privateca.caPools": Array [
+    "update",
+  ],
+  "privateca.certificateAuthorities": Array [
+    "update",
+  ],
+  "privateca.certificateRevocationLists": Array [
+    "update",
+  ],
+  "privateca.certificateTemplates": Array [
+    "use",
+  ],
+  "privateca.certificates": Array [
+    "update",
+  ],
+  "privateca.locations": Array [
+    "list",
+  ],
+  "privateca.operations": Array [
+    "list",
+  ],
+  "privateca.reusableConfigs": Array [
+    "update",
+  ],
+  "proximitybeacon.attachments": Array [
+    "list",
+  ],
+  "proximitybeacon.beacons": Array [
+    "update",
+  ],
+  "proximitybeacon.namespaces": Array [
+    "update",
+  ],
+  "pubsub.schemas": Array [
+    "validate",
+  ],
+  "pubsub.snapshots": Array [
+    "update",
+  ],
+  "pubsub.subscriptions": Array [
+    "update",
+  ],
+  "pubsub.topics": Array [
+    "updateTag",
+  ],
+  "pubsublite.operations": Array [
+    "list",
+  ],
+  "pubsublite.reservations": Array [
+    "update",
+  ],
+  "pubsublite.subscriptions": Array [
+    "update",
+  ],
+  "pubsublite.topics": Array [
+    "update",
+  ],
+  "recaptchaenterprise.assessments": Array [
+    "create",
+  ],
+  "recaptchaenterprise.keys": Array [
+    "update",
+  ],
+  "recaptchaenterprise.metrics": Array [
+    "get",
+  ],
+  "recaptchaenterprise.projectmetadata": Array [
+    "update",
+  ],
+  "recommender.bigqueryCapacityCommitmentsInsights": Array [
+    "update",
+  ],
+  "recommender.bigqueryCapacityCommitmentsRecommendations": Array [
+    "update",
+  ],
+  "recommender.cloudAssetInsights": Array [
+    "update",
+  ],
+  "recommender.cloudsqlIdleInstanceRecommendations": Array [
+    "update",
+  ],
+  "recommender.cloudsqlInstanceActivityInsights": Array [
+    "update",
+  ],
+  "recommender.cloudsqlInstanceCpuUsageInsights": Array [
+    "update",
+  ],
+  "recommender.cloudsqlInstanceDiskUsageTrendInsights": Array [
+    "update",
+  ],
+  "recommender.cloudsqlInstanceMemoryUsageInsights": Array [
+    "update",
+  ],
+  "recommender.cloudsqlInstanceOutOfDiskRecommendations": Array [
+    "update",
+  ],
+  "recommender.cloudsqlOverprovisionedInstanceRecommendations": Array [
+    "update",
+  ],
+  "recommender.commitmentUtilizationInsights": Array [
+    "update",
+  ],
+  "recommender.computeAddressIdleResourceInsights": Array [
+    "update",
+  ],
+  "recommender.computeAddressIdleResourceRecommendations": Array [
+    "update",
+  ],
+  "recommender.computeDiskIdleResourceInsights": Array [
+    "update",
+  ],
+  "recommender.computeDiskIdleResourceRecommendations": Array [
+    "update",
+  ],
+  "recommender.computeFirewallInsights": Array [
+    "update",
+  ],
+  "recommender.computeImageIdleResourceInsights": Array [
+    "update",
+  ],
+  "recommender.computeImageIdleResourceRecommendations": Array [
+    "update",
+  ],
+  "recommender.computeInstanceGroupManagerMachineTypeRecommendations": Array [
+    "update",
+  ],
+  "recommender.computeInstanceIdleResourceRecommendations": Array [
+    "update",
+  ],
+  "recommender.computeInstanceMachineTypeRecommendations": Array [
+    "update",
+  ],
+  "recommender.iamPolicyInsights": Array [
+    "update",
+  ],
+  "recommender.iamPolicyLateralMovementInsights": Array [
+    "update",
+  ],
+  "recommender.iamPolicyRecommendations": Array [
+    "update",
+  ],
+  "recommender.iamServiceAccountInsights": Array [
+    "update",
+  ],
+  "recommender.locations": Array [
+    "list",
+  ],
+  "recommender.loggingProductSuggestionContainerInsights": Array [
+    "update",
+  ],
+  "recommender.loggingProductSuggestionContainerRecommendations": Array [
+    "update",
+  ],
+  "recommender.monitoringProductSuggestionComputeInsights": Array [
+    "update",
+  ],
+  "recommender.monitoringProductSuggestionComputeRecommendations": Array [
+    "update",
+  ],
+  "recommender.resourcemanagerProjectUtilizationInsights": Array [
+    "update",
+  ],
+  "recommender.resourcemanagerProjectUtilizationRecommendations": Array [
+    "update",
+  ],
+  "recommender.usageCommitmentRecommendations": Array [
+    "update",
+  ],
+  "redis.instances": Array [
+    "upgrade",
+  ],
+  "redis.locations": Array [
+    "list",
+  ],
+  "redis.operations": Array [
+    "list",
+  ],
+  "remotebuildexecution.actions": Array [
+    "update",
+  ],
+  "remotebuildexecution.blobs": Array [
+    "get",
+  ],
+  "remotebuildexecution.botsessions": Array [
+    "update",
+  ],
+  "remotebuildexecution.instances": Array [
+    "list",
+  ],
+  "remotebuildexecution.logstreams": Array [
+    "update",
+  ],
+  "remotebuildexecution.workerpools": Array [
+    "update",
+  ],
+  "resourcemanager.hierarchyNodes": Array [
+    "listTagBindings",
+  ],
+  "resourcemanager.projects": Array [
+    "update",
+  ],
+  "resourcemanager.tagKeys": Array [
+    "update",
+  ],
+  "resourcemanager.tagValueBindings": Array [
+    "delete",
+  ],
+  "resourcemanager.tagValues": Array [
+    "update",
+  ],
+  "resourcesettings.settings": Array [
+    "list",
+  ],
+  "retail.catalogs": Array [
+    "update",
+  ],
+  "retail.operations": Array [
+    "list",
+  ],
+  "retail.placements": Array [
+    "search",
+  ],
+  "retail.products": Array [
+    "update",
+  ],
+  "retail.userEvents": Array [
+    "rejoin",
+  ],
+  "riskmanager.operations": Array [
+    "list",
+  ],
+  "riskmanager.policies": Array [
+    "list",
+  ],
+  "riskmanager.reports": Array [
+    "share",
+  ],
+  "riskmanager.serviceAccount": Array [
+    "create",
+  ],
+  "riskmanager.settings": Array [
+    "update",
+  ],
+  "run.configurations": Array [
+    "list",
+  ],
+  "run.locations": Array [
+    "list",
+  ],
+  "run.revisions": Array [
+    "list",
+  ],
+  "run.routes": Array [
+    "list",
+  ],
+  "run.services": Array [
+    "update",
+  ],
+  "runtimeconfig.configs": Array [
+    "update",
+  ],
+  "runtimeconfig.operations": Array [
+    "list",
+  ],
+  "runtimeconfig.variables": Array [
+    "watch",
+  ],
+  "runtimeconfig.waiters": Array [
+    "update",
+  ],
+  "secretmanager.locations": Array [
+    "list",
+  ],
+  "secretmanager.secrets": Array [
+    "update",
+  ],
+  "secretmanager.versions": Array [
+    "list",
+  ],
+  "securitycenter.assets": Array [
+    "runDiscovery",
+  ],
+  "securitycenter.assetsecuritymarks": Array [
+    "update",
+  ],
+  "securitycenter.containerthreatdetectionsettings": Array [
+    "update",
+  ],
+  "securitycenter.eventthreatdetectionsettings": Array [
+    "update",
+  ],
+  "securitycenter.findings": Array [
+    "update",
+  ],
+  "securitycenter.findingsecuritymarks": Array [
+    "update",
+  ],
+  "securitycenter.notificationconfig": Array [
+    "update",
+  ],
+  "securitycenter.organizationsettings": Array [
+    "update",
+  ],
+  "securitycenter.securitycentersettings": Array [
+    "update",
+  ],
+  "securitycenter.securityhealthanalyticssettings": Array [
+    "update",
+  ],
+  "securitycenter.sources": Array [
+    "update",
+  ],
+  "securitycenter.subscription": Array [
+    "get",
+  ],
+  "securitycenter.userinterfacemetadata": Array [
+    "get",
+  ],
+  "securitycenter.websecurityscannersettings": Array [
+    "update",
+  ],
+  "servicebroker.bindingoperations": Array [
+    "list",
+  ],
+  "servicebroker.bindings": Array [
+    "list",
+  ],
+  "servicebroker.catalogs": Array [
+    "list",
+  ],
+  "servicebroker.instanceoperations": Array [
+    "list",
+  ],
+  "servicebroker.instances": Array [
+    "update",
+  ],
+  "serviceconsumermanagement.consumers": Array [
+    "get",
+  ],
+  "serviceconsumermanagement.quota": Array [
+    "update",
+  ],
+  "serviceconsumermanagement.tenancyu": Array [
+    "removeResource",
+  ],
+  "servicedirectory.endpoints": Array [
+    "update",
+  ],
+  "servicedirectory.locations": Array [
+    "list",
+  ],
+  "servicedirectory.namespaces": Array [
+    "update",
+  ],
+  "servicedirectory.services": Array [
+    "update",
+  ],
+  "servicemanagement.services": Array [
+    "update",
+  ],
+  "servicenetworking.operations": Array [
+    "list",
+  ],
+  "servicenetworking.services": Array [
+    "get",
+  ],
+  "serviceusage.apiKeys": Array [
+    "revert",
+  ],
+  "serviceusage.operations": Array [
+    "list",
+  ],
+  "serviceusage.quotas": Array [
+    "update",
+  ],
+  "serviceusage.services": Array [
+    "use",
+  ],
+  "source.repos": Array [
+    "update",
+  ],
+  "spanner.backupOperations": Array [
+    "list",
+  ],
+  "spanner.backups": Array [
+    "update",
+  ],
+  "spanner.databaseOperations": Array [
+    "list",
+  ],
+  "spanner.databases": Array [
+    "write",
+  ],
+  "spanner.instanceConfigs": Array [
+    "list",
+  ],
+  "spanner.instanceOperations": Array [
+    "list",
+  ],
+  "spanner.instances": Array [
+    "update",
+  ],
+  "spanner.sessions": Array [
+    "list",
+  ],
+  "speech.adaptations": Array [
+    "execute",
+  ],
+  "speech.customClasses": Array [
+    "update",
+  ],
+  "speech.phraseSets": Array [
+    "update",
+  ],
+  "stackdriver.projects": Array [
+    "get",
+  ],
+  "stackdriver.resourceMetadata": Array [
+    "write",
+  ],
+  "storage.buckets": Array [
+    "listTagBindings",
+  ],
+  "storage.hmacKeys": Array [
+    "update",
+  ],
+  "storagetransfer.agentpools": Array [
+    "update",
+  ],
+  "storagetransfer.jobs": Array [
+    "update",
+  ],
+  "storagetransfer.operations": Array [
+    "resume",
+  ],
+  "storagetransfer.projects": Array [
+    "getServiceAccount",
+  ],
+  "subscribewithgoogledeveloper.tools": Array [
+    "get",
+  ],
+  "tpu.acceleratortypes": Array [
+    "list",
+  ],
+  "tpu.locations": Array [
+    "list",
+  ],
+  "tpu.nodes": Array [
+    "stop",
+  ],
+  "tpu.operations": Array [
+    "list",
+  ],
+  "tpu.tensorflowversions": Array [
+    "list",
+  ],
+  "trafficdirector.networks": Array [
+    "reportMetrics",
+  ],
+  "transcoder.jobTemplates": Array [
+    "list",
+  ],
+  "transcoder.jobs": Array [
+    "list",
+  ],
+  "translationhub.portals": Array [
+    "update",
+  ],
+  "visualinspection.annotationSets": Array [
+    "update",
+  ],
+  "visualinspection.annotationSpecs": Array [
+    "list",
+  ],
+  "visualinspection.annotations": Array [
+    "update",
+  ],
+  "visualinspection.datasets": Array [
+    "update",
+  ],
+  "visualinspection.images": Array [
+    "update",
+  ],
+  "visualinspection.locations": Array [
+    "reportUsageMetrics",
+  ],
+  "visualinspection.modelEvaluations": Array [
+    "list",
+  ],
+  "visualinspection.models": Array [
+    "writePrediction",
+  ],
+  "visualinspection.modules": Array [
+    "update",
+  ],
+  "visualinspection.operations": Array [
+    "list",
+  ],
+  "visualinspection.solutionArtifacts": Array [
+    "update",
+  ],
+  "visualinspection.solutions": Array [
+    "list",
+  ],
+  "vmmigration.cloneJobs": Array [
+    "update",
+  ],
+  "vmmigration.cutoverJobs": Array [
+    "update",
+  ],
+  "vmmigration.datacenterConnectors": Array [
+    "list",
+  ],
+  "vmmigration.deployments": Array [
+    "list",
+  ],
+  "vmmigration.groups": Array [
+    "update",
+  ],
+  "vmmigration.locations": Array [
+    "list",
+  ],
+  "vmmigration.migratingVms": Array [
+    "update",
+  ],
+  "vmmigration.operations": Array [
+    "list",
+  ],
+  "vmmigration.sources": Array [
+    "update",
+  ],
+  "vmmigration.targets": Array [
+    "update",
+  ],
+  "vmmigration.utilizationReports": Array [
+    "list",
+  ],
+  "vmwareengine.services": Array [
+    "view",
+  ],
+  "vpcaccess.connectors": Array [
+    "use",
+  ],
+  "vpcaccess.locations": Array [
+    "list",
+  ],
+  "vpcaccess.operations": Array [
+    "list",
+  ],
+  "workflows.executions": Array [
+    "list",
+  ],
+  "workflows.locations": Array [
+    "list",
+  ],
+  "workflows.operations": Array [
+    "list",
+  ],
+  "workflows.workflows": Array [
+    "update",
+  ],
+}
+`;

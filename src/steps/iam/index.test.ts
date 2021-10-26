@@ -72,7 +72,7 @@ describe('#fetchIamRoles', () => {
     expect(customRoleEntitiesCollected).toMatchGraphObjectSchema({
       _class: ['AccessRole'],
       schema: {
-        additionalProperties: false,
+        additionalProperties: true, // This is to account for permissions
         properties: {
           _type: { const: 'google_iam_role' },
           _rawData: {

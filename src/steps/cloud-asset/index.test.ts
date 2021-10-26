@@ -404,7 +404,7 @@ describe('#fetchIamBindings', () => {
       expect(google_iam_binding).toMatchGraphObjectSchema({
         _class: bindingEntities.BINDINGS._class,
         schema: {
-          additionalProperties: false,
+          additionalProperties: true, // This is to account for permissions
           properties: {
             _type: { const: bindingEntities.BINDINGS._type },
             _rawData: {
@@ -426,7 +426,6 @@ describe('#fetchIamBindings', () => {
             'condition.expression': { type: 'string' },
             'condition.location': { type: 'string' },
             readonly: { type: 'boolean' },
-            permissions: { type: 'string' },
           },
         },
       });
@@ -434,7 +433,7 @@ describe('#fetchIamBindings', () => {
       const roleSchema = {
         _class: ['AccessRole'],
         schema: {
-          additionalProperties: false,
+          additionalProperties: true, // This is to account for permissions
           properties: {
             _type: { const: 'google_iam_role' },
             _rawData: {
@@ -479,16 +478,6 @@ describe('#fetchIamBindings', () => {
           ingestedIamRoleEntityKeys.includes(key as string),
         ),
       ).toBe(false);
-
-      // Ensure managed role target entities have permissions
-      google_iam_binding_uses_role.forEach((relationship) => {
-        if (relationship._mapping) {
-          expect(
-            typeof (relationship as MappedRelationship)._mapping?.targetEntity
-              ?.permissions,
-          ).toBe('string');
-        }
-      });
     });
   });
 

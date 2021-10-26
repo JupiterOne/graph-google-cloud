@@ -25,6 +25,9 @@ Object {
         },
       ],
       "_type": "google_iam_role",
+      "cloudfunctions.functions": Array [
+        "getIamPolicy",
+      ],
       "createdOn": undefined,
       "custom": true,
       "deleted": false,
@@ -32,7 +35,6 @@ Object {
       "displayName": "GA custom role",
       "etag": "BwXHvrMF22o=",
       "name": "projects/j1-gc-integration-dev-v3/roles/167984947943customrole",
-      "permissions": "cloudfunctions.functions.get,cloudfunctions.functions.getIamPolicy",
       "readonly": true,
       "stage": "GA",
     },
@@ -58,6 +60,9 @@ Object {
         },
       ],
       "_type": "google_iam_role",
+      "cloudfunctions.functions": Array [
+        "getIamPolicy",
+      ],
       "createdOn": undefined,
       "custom": true,
       "deleted": false,
@@ -65,7 +70,6 @@ Object {
       "displayName": "GA custom role 3",
       "etag": "BwXHoq6vd9I=",
       "name": "projects/j1-gc-integration-dev-v3/roles/167984947943customrole3",
-      "permissions": "cloudfunctions.functions.get,cloudfunctions.functions.getIamPolicy",
       "readonly": true,
       "stage": "GA",
     },
@@ -91,6 +95,9 @@ Object {
         },
       ],
       "_type": "google_iam_role",
+      "cloudfunctions.functions": Array [
+        "list",
+      ],
       "createdOn": undefined,
       "custom": true,
       "deleted": false,
@@ -98,7 +105,6 @@ Object {
       "displayName": "GA custom role conditions",
       "etag": "BwXDoq1scYM=",
       "name": "projects/j1-gc-integration-dev-v3/roles/167984947943customroleconditions",
-      "permissions": "cloudfunctions.functions.create,cloudfunctions.functions.list",
       "readonly": false,
       "stage": "GA",
     },
@@ -129,9 +135,11 @@ Object {
       "displayName": "Terrible Public Delete Bucket Rule",
       "etag": "BwXJeIPjhHY=",
       "name": "projects/j1-gc-integration-dev-v3/roles/TerriblePublicDeleteBucketRule",
-      "permissions": "storage.buckets.delete",
       "readonly": false,
       "stage": undefined,
+      "storage.buckets": Array [
+        "delete",
+      ],
     },
     Object {
       "_class": Array [
@@ -160,8 +168,10 @@ Object {
       "displayName": "CanCreateProject",
       "etag": "BwXHQVbRc0Q=",
       "name": "organizations/958457776463/roles/CanCreateProject",
-      "permissions": "resourcemanager.projects.create",
       "readonly": false,
+      "resourcemanager.projects": Array [
+        "create",
+      ],
       "stage": undefined,
     },
     Object {
@@ -194,6 +204,18 @@ Object {
         },
       ],
       "_type": "google_iam_role",
+      "appengine.applications": Array [
+        "get",
+      ],
+      "binaryauthorization.policy": Array [
+        "get",
+      ],
+      "cloudasset.assets": Array [
+        "searchAllIamPolicies",
+      ],
+      "compute.projects": Array [
+        "get",
+      ],
       "createdOn": undefined,
       "custom": true,
       "deleted": false,
@@ -201,8 +223,19 @@ Object {
       "displayName": "JupiterOneMainIntegration",
       "etag": "BwXEVB0XUtc=",
       "name": "organizations/958457776463/roles/JupiterOneMainIntegration",
-      "permissions": "appengine.applications.get,binaryauthorization.policy.get,cloudasset.assets.searchAllIamPolicies,compute.projects.get,resourcemanager.folders.get,resourcemanager.folders.list,resourcemanager.organizations.get,resourcemanager.organizations.getIamPolicy,resourcemanager.projects.get,resourcemanager.projects.list,serviceusage.services.list",
       "readonly": false,
+      "resourcemanager.folders": Array [
+        "list",
+      ],
+      "resourcemanager.organizations": Array [
+        "getIamPolicy",
+      ],
+      "resourcemanager.projects": Array [
+        "list",
+      ],
+      "serviceusage.services": Array [
+        "list",
+      ],
       "stage": undefined,
     },
     Object {
@@ -242,9 +275,17 @@ This is a test role. If you see this, delete it!",
       "displayName": "Delete Bucket Objects",
       "etag": "BwXL6Dk105I=",
       "name": "organizations/958457776463/roles/NothingToSeeHere",
-      "permissions": "resourcemanager.projects.get,resourcemanager.projects.list,storage.buckets.delete,storage.buckets.get,storage.buckets.list,storage.objects.delete,storage.objects.get,storage.objects.list",
       "readonly": false,
+      "resourcemanager.projects": Array [
+        "list",
+      ],
       "stage": "GA",
+      "storage.buckets": Array [
+        "list",
+      ],
+      "storage.objects": Array [
+        "list",
+      ],
     },
     Object {
       "_class": Array [
@@ -273,9 +314,11 @@ This is a test role. If you see this, delete it!",
       "displayName": "Terrible Public Role",
       "etag": "BwXJeHQwaZg=",
       "name": "organizations/958457776463/roles/TerriblePublicRole",
-      "permissions": "storage.buckets.delete",
       "readonly": false,
       "stage": undefined,
+      "storage.buckets": Array [
+        "delete",
+      ],
     },
   ],
   "collectedRelationships": Array [

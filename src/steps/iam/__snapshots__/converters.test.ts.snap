@@ -23,6 +23,9 @@ Object {
     },
   ],
   "_type": "google_iam_role",
+  "cloudfunctions.functions": Array [
+    "getIamPolicy",
+  ],
   "createdOn": undefined,
   "custom": true,
   "deleted": false,
@@ -30,7 +33,6 @@ Object {
   "displayName": "Role",
   "etag": "abc123",
   "name": "projects/j1-gc-integration-dev-v2/roles/myrole",
-  "permissions": "cloudfunctions.functions.get,cloudfunctions.functions.getIamPolicy",
   "readonly": true,
   "stage": "GA",
 }
@@ -44,6 +46,9 @@ Object {
   "_key": "projects/j1-gc-integration-dev-v2/roles/myrole",
   "_rawData": Array [],
   "_type": "google_iam_role",
+  "cloudfunctions.functions": Array [
+    "getIamPolicy",
+  ],
   "createdOn": undefined,
   "custom": false,
   "deleted": false,
@@ -51,7 +56,6 @@ Object {
   "displayName": "Role",
   "etag": "abc123",
   "name": "projects/j1-gc-integration-dev-v2/roles/myrole",
-  "permissions": "cloudfunctions.functions.get,cloudfunctions.functions.getIamPolicy",
   "readonly": true,
   "stage": "GA",
 }
