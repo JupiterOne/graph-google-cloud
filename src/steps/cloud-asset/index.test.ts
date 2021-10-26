@@ -212,7 +212,7 @@ declare global {
   }
 }
 
-function createMockContext() {
+function createMockContext(overrides: Partial<IntegrationConfig> = {}) {
   return createMockStepExecutionContext<IntegrationConfig>({
     // Temporary tweak to make this test pass since its recording has been updated from the new organization/v3
     instanceConfig: {
@@ -226,6 +226,7 @@ function createMockContext() {
         ...integrationConfig.serviceAccountKeyConfig,
         project_id: 'j1-gc-integration-dev-v3',
       },
+      ...overrides,
     },
   });
 }
@@ -247,248 +248,418 @@ function separateGraphObjectsByType<T extends Entity | Relationship>(
 }
 
 describe('#fetchIamBindings', () => {
-  test('should create Binding and Role entities, Direct Relationships with resources and principals ingested, and Mapped Relationships with resources and principals not ingested.', async () => {
-    await withRecording('fetchIamBindings', __dirname, async () => {
-      const context = createMockContext();
+  describe('Organization Instance', () => {
+    it('should create Binding and Role entities, Direct Relationships with resources and principals ingested, and Mapped Relationships with resources and principals not ingested.', async () => {
+      await withRecording('fetchIamBindings', __dirname, async () => {
+        const context = createMockContext();
 
-      await fetchResourceManagerOrganization(context);
-      await fetchResourceManagerFolders(context);
-      await fetchResourceManagerProject(context);
-      await buildOrgFolderProjectMappedRelationships(context);
-      await fetchIamCustomRoles(context);
-      await fetchIamManagedRoles(context);
-      await fetchIamServiceAccounts(context);
-      await fetchIamBindings(context);
-      await createBasicRolesForBindings(context);
-      await createPrincipalRelationships(context);
-      await createBindingRoleRelationships(context);
-      await createBindingToAnyResourceRelationships(context);
-      await fetchApiServices(context);
-      await createApiServiceToAnyResourceRelationships(context);
+        await fetchResourceManagerOrganization(context);
+        await fetchResourceManagerFolders(context);
+        await fetchResourceManagerProject(context);
+        await buildOrgFolderProjectMappedRelationships(context);
+        await fetchIamCustomRoles(context);
+        await fetchIamManagedRoles(context);
+        await fetchIamServiceAccounts(context);
+        await fetchIamBindings(context);
+        await createBasicRolesForBindings(context);
+        await createPrincipalRelationships(context);
+        await createBindingRoleRelationships(context);
+        await createBindingToAnyResourceRelationships(context);
+        await fetchApiServices(context);
+        await createApiServiceToAnyResourceRelationships(context);
 
-      expect({
-        numCollectedEntities: context.jobState.collectedEntities.length,
-        numCollectedRelationships:
-          context.jobState.collectedRelationships.length,
-        collectedEntities: context.jobState.collectedEntities.length,
-        collectedRelationships: context.jobState.collectedRelationships.length,
-        encounteredTypes: context.jobState.encounteredTypes,
-      }).toMatchSnapshot();
+        expect({
+          numCollectedEntities: context.jobState.collectedEntities.length,
+          numCollectedRelationships:
+            context.jobState.collectedRelationships.length,
+          collectedEntities: context.jobState.collectedEntities.length,
+          collectedRelationships:
+            context.jobState.collectedRelationships.length,
+          encounteredTypes: context.jobState.encounteredTypes,
+        }).toMatchSnapshot();
 
-      // Relationships
-      const {
-        google_iam_binding_uses_role,
+        // Relationships
+        const {
+          google_iam_binding_uses_role,
 
-        google_iam_binding_assigned_user,
-        google_iam_binding_assigned_group,
-        google_iam_binding_assigned_service_account,
-        google_iam_binding_assigned_domain,
-        google_iam_binding_assigned_role,
-        google_iam_binding_assigned_everyone,
+          google_iam_binding_assigned_user,
+          google_iam_binding_assigned_group,
+          google_iam_binding_assigned_service_account,
+          google_iam_binding_assigned_domain,
+          google_iam_binding_assigned_role,
+          google_iam_binding_assigned_everyone,
 
-        google_user_assigned_iam_role,
-        google_group_assigned_iam_role,
-        google_iam_service_account_assigned_role,
-        google_domain_assigned_iam_role,
-        everyone_assigned_google_iam_role,
-        google_iam_role_assigned_role,
+          google_user_assigned_iam_role,
+          google_group_assigned_iam_role,
+          google_iam_service_account_assigned_role,
+          google_domain_assigned_iam_role,
+          everyone_assigned_google_iam_role,
+          google_iam_role_assigned_role,
 
-        google_cloud_api_service_has_storage_bucket,
-        google_cloud_api_service_has_bigquery_dataset,
-        google_cloud_api_service_has_kms_crypto_key,
-        google_cloud_api_service_has_kms_key_ring,
-        google_cloud_api_service_has_function,
-        google_cloud_api_service_has_project,
-        google_cloud_api_service_has_folder,
-        google_cloud_api_service_has_organization,
-        google_cloud_api_service_has_service,
+          google_cloud_api_service_has_storage_bucket,
+          google_cloud_api_service_has_bigquery_dataset,
+          google_cloud_api_service_has_kms_crypto_key,
+          google_cloud_api_service_has_kms_key_ring,
+          google_cloud_api_service_has_function,
+          google_cloud_api_service_has_project,
+          google_cloud_api_service_has_folder,
+          google_cloud_api_service_has_organization,
+          google_cloud_api_service_has_service,
 
-        google_iam_binding_allows_cloud_organization,
-        google_iam_binding_allows_cloud_folder,
-        google_iam_binding_allows_cloud_project,
-        google_iam_binding_allows_storage_bucket,
-        google_iam_binding_allows_bigquery_dataset,
-        google_iam_binding_allows_kms_crypto_key,
-        google_iam_binding_allows_kms_key_ring,
-        google_iam_binding_allows_cloud_function,
-      } = separateGraphObjectsByType(
-        context.jobState.collectedRelationships,
-        context.jobState.encounteredTypes,
-      );
-
-      // Both Direct and Mapped Relationships
-      // Direct if target already ingested in this integration, mapped otherwise.
-      expect(
-        google_iam_binding_assigned_service_account,
-      ).toHaveBothDirectAndMappedRelationships(
-        'google_iam_binding_assigned_service_account',
-      );
-      expect(
-        google_iam_binding_uses_role,
-      ).toHaveBothDirectAndMappedRelationships('google_iam_binding_uses_role');
-      // These are for "Convienence Members"
-      expect(
-        google_iam_binding_assigned_role,
-      ).toHaveBothDirectAndMappedRelationships(
-        'google_iam_binding_assigned_role',
-      );
-
-      // Currently, do not have examples of some resources ingested in this integration and some in others
-      // For now, just check that we have some relationships
-      expect(google_iam_binding_allows_storage_bucket.length > 0).toBe(true);
-      expect(google_iam_binding_allows_bigquery_dataset.length > 0).toBe(true);
-      expect(google_iam_binding_allows_kms_crypto_key.length > 0).toBe(true);
-      expect(google_iam_binding_allows_kms_key_ring.length > 0).toBe(true);
-      expect(google_iam_binding_allows_cloud_function.length > 0).toBe(true);
-
-      expect(google_cloud_api_service_has_storage_bucket.length > 0).toBe(true);
-      expect(google_cloud_api_service_has_bigquery_dataset.length > 0).toBe(
-        true,
-      );
-      expect(google_cloud_api_service_has_kms_crypto_key.length > 0).toBe(true);
-      expect(google_cloud_api_service_has_kms_key_ring.length > 0).toBe(true);
-      expect(google_cloud_api_service_has_function.length > 0).toBe(true);
-
-      // Ensure google_cloud_api_service HAS any resource in the organization resource hierarchy relationships are NOT created
-      expect(google_cloud_api_service_has_project).toBeUndefined();
-      expect(google_cloud_api_service_has_folder).toBeUndefined();
-      expect(google_cloud_api_service_has_organization).toBeUndefined();
-      expect(google_cloud_api_service_has_service).toBeUndefined();
-
-      // Mapped Relationships
-      expect(google_iam_binding_assigned_user).toHaveOnlyMappedRelationships(
-        'google_iam_binding_assigned_user',
-      );
-      expect(google_iam_binding_assigned_group).toHaveOnlyMappedRelationships(
-        'google_iam_binding_assigned_group',
-      );
-      expect(google_iam_binding_assigned_domain).toHaveOnlyMappedRelationships(
-        'google_iam_binding_assigned_domain',
-      );
-      expect(
-        google_iam_binding_assigned_everyone,
-      ).toHaveOnlyMappedRelationships('google_iam_binding_assigned_everyone');
-
-      // Ensure we do not assign principals directly to roles as in GCP a principal is only given a role for a specific resource, not for EVERY resource.
-      expect(google_iam_service_account_assigned_role).toBeUndefined();
-      expect(google_user_assigned_iam_role).toBeUndefined();
-      expect(google_group_assigned_iam_role).toBeUndefined();
-      expect(google_domain_assigned_iam_role).toBeUndefined();
-      expect(everyone_assigned_google_iam_role).toBeUndefined();
-
-      // Ensure there are never any group assigned group relationships created
-      expect(google_iam_role_assigned_role).toBeUndefined();
-
-      // Direct Relationships
-      expect(
-        google_iam_binding_allows_cloud_organization,
-      ).toHaveOnlyDirectRelationships(
-        'google_iam_binding_allows_cloud_organization',
-      );
-      expect(
-        google_iam_binding_allows_cloud_folder,
-      ).toHaveOnlyDirectRelationships('google_iam_binding_allows_cloud_folder');
-      expect(
-        google_iam_binding_allows_cloud_project,
-      ).toHaveOnlyDirectRelationships(
-        'google_iam_binding_allows_cloud_project',
-      );
-
-      // Entities
-      const { google_iam_binding, google_iam_role } =
-        separateGraphObjectsByType(
-          context.jobState.collectedEntities,
+          google_iam_binding_allows_cloud_organization,
+          google_iam_binding_allows_cloud_folder,
+          google_iam_binding_allows_cloud_project,
+          google_iam_binding_allows_storage_bucket,
+          google_iam_binding_allows_bigquery_dataset,
+          google_iam_binding_allows_kms_crypto_key,
+          google_iam_binding_allows_kms_key_ring,
+          google_iam_binding_allows_cloud_function,
+        } = separateGraphObjectsByType(
+          context.jobState.collectedRelationships,
           context.jobState.encounteredTypes,
         );
 
-      expect(google_iam_binding.length).toBeGreaterThan(0);
-      expect(google_iam_binding).toMatchGraphObjectSchema({
-        _class: bindingEntities.BINDINGS._class,
-        schema: {
-          additionalProperties: false,
-          properties: {
-            _type: { const: bindingEntities.BINDINGS._type },
-            _rawData: {
-              type: 'array',
-              items: { type: 'object' },
-            },
-            resource: { type: 'string' },
-            projectId: { type: 'string' },
-            projectName: { type: 'string' },
-            folders: {
-              type: 'array',
-              items: { type: 'string' },
-            },
-            organization: { type: 'string' },
-            members: { type: 'array' },
-            role: { type: 'string' },
-            'condition.title': { type: 'string' },
-            'condition.description': { type: 'string' },
-            'condition.expression': { type: 'string' },
-            'condition.location': { type: 'string' },
-            readonly: { type: 'boolean' },
-            permissions: { type: 'string' },
-          },
-        },
-      });
-
-      const roleSchema = {
-        _class: ['AccessRole'],
-        schema: {
-          additionalProperties: false,
-          properties: {
-            _type: { const: 'google_iam_role' },
-            _rawData: {
-              type: 'array',
-              items: { type: 'object' },
-            },
-            description: { type: 'string' },
-            stage: { type: 'string' },
-            custom: { type: 'boolean' },
-            deleted: { type: 'boolean' },
-            permissions: { type: 'string' },
-            etag: { type: 'string' },
-            readonly: { type: 'boolean' },
-          },
-        },
-      };
-      expect(google_iam_role.length).toBeGreaterThan(0);
-      expect(google_iam_role).toMatchGraphObjectSchema(roleSchema);
-      const { targets: roleMappedRelationships } = filterGraphObjects(
-        google_iam_binding_uses_role,
-        (r) => !!r._mapping,
-      ) as {
-        targets: ExplicitRelationship[];
-        rest: MappedRelationship[];
-      };
-      roleMappedRelationships.forEach((relationship) => {
+        // Both Direct and Mapped Relationships
+        // Direct if target already ingested in this integration, mapped otherwise.
         expect(
-          (relationship as unknown as MappedRelationship)._mapping.targetEntity,
-        ).toMatchGraphObjectSchema(roleSchema);
-      });
+          google_iam_binding_assigned_service_account,
+        ).toHaveBothDirectAndMappedRelationships(
+          'google_iam_binding_assigned_service_account',
+        );
+        expect(
+          google_iam_binding_uses_role,
+        ).toHaveBothDirectAndMappedRelationships(
+          'google_iam_binding_uses_role',
+        );
+        // These are for "Convienence Members"
+        expect(
+          google_iam_binding_assigned_role,
+        ).toHaveBothDirectAndMappedRelationships(
+          'google_iam_binding_assigned_role',
+        );
 
-      // Ensure there are no mapped relationships to google_iam_roles that we are also ingesting
-      const iamRoleTargetEntityKeys = google_iam_binding_uses_role.map(
-        (relationship) =>
-          (relationship as MappedRelationship)._mapping?.targetEntity?._key,
-      );
-      const ingestedIamRoleEntityKeys = google_iam_role.map(
-        (entity) => entity._key,
-      );
-      expect(
-        iamRoleTargetEntityKeys.some((key) =>
-          ingestedIamRoleEntityKeys.includes(key as string),
-        ),
-      ).toBe(false);
+        // Currently, do not have examples of some resources ingested in this integration and some in others
+        // For now, just check that we have some relationships
+        expect(google_iam_binding_allows_storage_bucket.length > 0).toBe(true);
+        expect(google_iam_binding_allows_bigquery_dataset.length > 0).toBe(
+          true,
+        );
+        expect(google_iam_binding_allows_kms_crypto_key.length > 0).toBe(true);
+        expect(google_iam_binding_allows_kms_key_ring.length > 0).toBe(true);
+        expect(google_iam_binding_allows_cloud_function.length > 0).toBe(true);
 
-      // Ensure managed role target entities have permissions
-      google_iam_binding_uses_role.forEach((relationship) => {
-        if (relationship._mapping) {
+        expect(google_cloud_api_service_has_storage_bucket.length > 0).toBe(
+          true,
+        );
+        expect(google_cloud_api_service_has_bigquery_dataset.length > 0).toBe(
+          true,
+        );
+        expect(google_cloud_api_service_has_kms_crypto_key.length > 0).toBe(
+          true,
+        );
+        expect(google_cloud_api_service_has_kms_key_ring.length > 0).toBe(true);
+        expect(google_cloud_api_service_has_function.length > 0).toBe(true);
+
+        // Ensure google_cloud_api_service HAS any resource in the organization resource hierarchy relationships are NOT created
+        expect(google_cloud_api_service_has_project).toBeUndefined();
+        expect(google_cloud_api_service_has_folder).toBeUndefined();
+        expect(google_cloud_api_service_has_organization).toBeUndefined();
+        expect(google_cloud_api_service_has_service).toBeUndefined();
+
+        // Mapped Relationships
+        expect(google_iam_binding_assigned_user).toHaveOnlyMappedRelationships(
+          'google_iam_binding_assigned_user',
+        );
+        expect(google_iam_binding_assigned_group).toHaveOnlyMappedRelationships(
+          'google_iam_binding_assigned_group',
+        );
+        expect(
+          google_iam_binding_assigned_domain,
+        ).toHaveOnlyMappedRelationships('google_iam_binding_assigned_domain');
+        expect(
+          google_iam_binding_assigned_everyone,
+        ).toHaveOnlyMappedRelationships('google_iam_binding_assigned_everyone');
+
+        // Ensure we do not assign principals directly to roles as in GCP a principal is only given a role for a specific resource, not for EVERY resource.
+        expect(google_iam_service_account_assigned_role).toBeUndefined();
+        expect(google_user_assigned_iam_role).toBeUndefined();
+        expect(google_group_assigned_iam_role).toBeUndefined();
+        expect(google_domain_assigned_iam_role).toBeUndefined();
+        expect(everyone_assigned_google_iam_role).toBeUndefined();
+
+        // Ensure there are never any group assigned group relationships created
+        expect(google_iam_role_assigned_role).toBeUndefined();
+
+        // Direct Relationships
+        expect(
+          google_iam_binding_allows_cloud_organization,
+        ).toHaveOnlyDirectRelationships(
+          'google_iam_binding_allows_cloud_organization',
+        );
+        expect(
+          google_iam_binding_allows_cloud_folder,
+        ).toHaveOnlyDirectRelationships(
+          'google_iam_binding_allows_cloud_folder',
+        );
+        expect(
+          google_iam_binding_allows_cloud_project,
+        ).toHaveOnlyDirectRelationships(
+          'google_iam_binding_allows_cloud_project',
+        );
+
+        // Entities
+        const { google_iam_binding, google_iam_role } =
+          separateGraphObjectsByType(
+            context.jobState.collectedEntities,
+            context.jobState.encounteredTypes,
+          );
+
+        expect(google_iam_binding.length).toBeGreaterThan(0);
+        expect(google_iam_binding).toMatchGraphObjectSchema({
+          _class: bindingEntities.BINDINGS._class,
+          schema: {
+            additionalProperties: false,
+            properties: {
+              _type: { const: bindingEntities.BINDINGS._type },
+              _rawData: {
+                type: 'array',
+                items: { type: 'object' },
+              },
+              resource: { type: 'string' },
+              projectId: { type: 'string' },
+              projectName: { type: 'string' },
+              folders: {
+                type: 'array',
+                items: { type: 'string' },
+              },
+              organization: { type: 'string' },
+              members: { type: 'array' },
+              role: { type: 'string' },
+              'condition.title': { type: 'string' },
+              'condition.description': { type: 'string' },
+              'condition.expression': { type: 'string' },
+              'condition.location': { type: 'string' },
+              readonly: { type: 'boolean' },
+              permissions: { type: 'string' },
+            },
+          },
+        });
+
+        const roleSchema = {
+          _class: ['AccessRole'],
+          schema: {
+            additionalProperties: false,
+            properties: {
+              _type: { const: 'google_iam_role' },
+              _rawData: {
+                type: 'array',
+                items: { type: 'object' },
+              },
+              description: { type: 'string' },
+              stage: { type: 'string' },
+              custom: { type: 'boolean' },
+              deleted: { type: 'boolean' },
+              permissions: { type: 'string' },
+              etag: { type: 'string' },
+              readonly: { type: 'boolean' },
+            },
+          },
+        };
+        expect(google_iam_role.length).toBeGreaterThan(0);
+        expect(google_iam_role).toMatchGraphObjectSchema(roleSchema);
+        const { targets: roleMappedRelationships } = filterGraphObjects(
+          google_iam_binding_uses_role,
+          (r) => !!r._mapping,
+        ) as {
+          targets: ExplicitRelationship[];
+          rest: MappedRelationship[];
+        };
+        roleMappedRelationships.forEach((relationship) => {
           expect(
-            typeof (relationship as MappedRelationship)._mapping?.targetEntity
-              ?.permissions,
-          ).toBe('string');
-        }
+            (relationship as unknown as MappedRelationship)._mapping
+              .targetEntity,
+          ).toMatchGraphObjectSchema(roleSchema);
+        });
+
+        // Ensure there are no mapped relationships to google_iam_roles that we are also ingesting
+        const iamRoleTargetEntityKeys = google_iam_binding_uses_role.map(
+          (relationship) =>
+            (relationship as MappedRelationship)._mapping?.targetEntity?._key,
+        );
+        const ingestedIamRoleEntityKeys = google_iam_role.map(
+          (entity) => entity._key,
+        );
+        expect(
+          iamRoleTargetEntityKeys.some((key) =>
+            ingestedIamRoleEntityKeys.includes(key as string),
+          ),
+        ).toBe(false);
+
+        // Ensure managed role target entities have permissions
+        google_iam_binding_uses_role.forEach((relationship) => {
+          if (relationship._mapping) {
+            expect(
+              typeof (relationship as MappedRelationship)._mapping?.targetEntity
+                ?.permissions,
+            ).toBe('string');
+          }
+        });
+      });
+    });
+  });
+
+  describe('Project Instance', () => {
+    it('should create Binding and Role entities, Direct Relationships with resources and principals ingested, and Mapped Relationships with resources and principals not ingested.', async () => {
+      await withRecording('fetchIamBindingsProject', __dirname, async () => {
+        const context = createMockContext({
+          configureOrganizationProjects: false,
+        });
+
+        // The only difference between an Organization Instance and a Project Instance is the existance of Orgs and Folders in the JobState.
+
+        await fetchResourceManagerProject(context);
+        await buildOrgFolderProjectMappedRelationships(context);
+        await fetchIamCustomRoles(context);
+        await fetchIamManagedRoles(context);
+        await fetchIamServiceAccounts(context);
+        await fetchIamBindings(context);
+        await createBasicRolesForBindings(context);
+        await createPrincipalRelationships(context);
+        await createBindingRoleRelationships(context);
+        await createBindingToAnyResourceRelationships(context);
+        await fetchApiServices(context);
+        await createApiServiceToAnyResourceRelationships(context);
+
+        expect({
+          numCollectedEntities: context.jobState.collectedEntities.length,
+          numCollectedRelationships:
+            context.jobState.collectedRelationships.length,
+          collectedEntities: context.jobState.collectedEntities.length,
+          collectedRelationships:
+            context.jobState.collectedRelationships.length,
+          encounteredTypes: context.jobState.encounteredTypes,
+        }).toMatchSnapshot();
+
+        // Relationships
+        const {
+          google_iam_binding_uses_role,
+
+          google_iam_binding_assigned_user,
+          google_iam_binding_assigned_group,
+          google_iam_binding_assigned_service_account,
+          google_iam_binding_assigned_role,
+          google_iam_binding_assigned_everyone,
+
+          google_user_assigned_iam_role,
+          google_group_assigned_iam_role,
+          google_iam_service_account_assigned_role,
+          google_domain_assigned_iam_role,
+          everyone_assigned_google_iam_role,
+          google_iam_role_assigned_role,
+
+          google_cloud_api_service_has_storage_bucket,
+          google_cloud_api_service_has_bigquery_dataset,
+          google_cloud_api_service_has_kms_crypto_key,
+          google_cloud_api_service_has_kms_key_ring,
+          google_cloud_api_service_has_function,
+          google_cloud_api_service_has_project,
+          google_cloud_api_service_has_folder,
+          google_cloud_api_service_has_organization,
+          google_cloud_api_service_has_service,
+
+          // Shouldn't exist
+          google_iam_binding_allows_cloud_organization,
+          google_iam_binding_allows_cloud_folder,
+
+          google_iam_binding_allows_cloud_project,
+          google_iam_binding_allows_storage_bucket,
+          google_iam_binding_allows_bigquery_dataset,
+          google_iam_binding_allows_kms_crypto_key,
+          google_iam_binding_allows_kms_key_ring,
+          google_iam_binding_allows_cloud_function,
+        } = separateGraphObjectsByType(
+          context.jobState.collectedRelationships,
+          context.jobState.encounteredTypes,
+        );
+
+        // Both Direct and Mapped Relationships
+        // Direct if target already ingested in this integration, mapped otherwise.
+        expect(
+          google_iam_binding_assigned_service_account,
+        ).toHaveBothDirectAndMappedRelationships(
+          'google_iam_binding_assigned_service_account',
+        );
+        expect(
+          google_iam_binding_uses_role,
+        ).toHaveBothDirectAndMappedRelationships(
+          'google_iam_binding_uses_role',
+        );
+        // These are for "Convienence Members"
+        expect(
+          google_iam_binding_assigned_role,
+        ).toHaveBothDirectAndMappedRelationships(
+          'google_iam_binding_assigned_role',
+        );
+
+        // Currently, do not have examples of some resources ingested in this integration and some in others
+        // For now, just check that we have some relationships
+        expect(google_iam_binding_allows_storage_bucket.length > 0).toBe(true);
+        expect(google_iam_binding_allows_bigquery_dataset.length > 0).toBe(
+          true,
+        );
+        expect(google_iam_binding_allows_kms_crypto_key.length > 0).toBe(true);
+        expect(google_iam_binding_allows_kms_key_ring.length > 0).toBe(true);
+        expect(google_iam_binding_allows_cloud_function.length > 0).toBe(true);
+
+        expect(google_cloud_api_service_has_storage_bucket.length > 0).toBe(
+          true,
+        );
+        expect(google_cloud_api_service_has_bigquery_dataset.length > 0).toBe(
+          true,
+        );
+        expect(google_cloud_api_service_has_kms_crypto_key.length > 0).toBe(
+          true,
+        );
+        expect(google_cloud_api_service_has_kms_key_ring.length > 0).toBe(true);
+        expect(google_cloud_api_service_has_function.length > 0).toBe(true);
+
+        // Ensure google_cloud_api_service HAS any resource in the organization resource hierarchy relationships are NOT created
+        expect(google_cloud_api_service_has_project).toBeUndefined();
+        expect(google_cloud_api_service_has_folder).toBeUndefined();
+        expect(google_cloud_api_service_has_organization).toBeUndefined();
+        expect(google_cloud_api_service_has_service).toBeUndefined();
+
+        // Mapped Relationships
+        expect(google_iam_binding_assigned_user).toHaveOnlyMappedRelationships(
+          'google_iam_binding_assigned_user',
+        );
+        expect(google_iam_binding_assigned_group).toHaveOnlyMappedRelationships(
+          'google_iam_binding_assigned_group',
+        );
+        expect(
+          google_iam_binding_assigned_everyone,
+        ).toHaveOnlyMappedRelationships('google_iam_binding_assigned_everyone');
+
+        // Ensure we do not assign principals directly to roles as in GCP a principal is only given a role for a specific resource, not for EVERY resource.
+        expect(google_iam_service_account_assigned_role).toBeUndefined();
+        expect(google_user_assigned_iam_role).toBeUndefined();
+        expect(google_group_assigned_iam_role).toBeUndefined();
+        expect(google_domain_assigned_iam_role).toBeUndefined();
+        expect(everyone_assigned_google_iam_role).toBeUndefined();
+
+        // Ensure there are never any group assigned group relationships created
+        expect(google_iam_role_assigned_role).toBeUndefined();
+
+        // Direct Relationships
+        expect(
+          google_iam_binding_allows_cloud_project,
+        ).toHaveOnlyDirectRelationships(
+          'google_iam_binding_allows_cloud_project',
+        );
+
+        // Ensure no folder or organization relationships get created
+        expect(google_iam_binding_allows_cloud_organization).toBeUndefined();
+        expect(google_iam_binding_allows_cloud_folder).toBeUndefined();
       });
     });
   });
