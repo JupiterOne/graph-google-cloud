@@ -30,8 +30,9 @@ export class CloudAssetClient extends Client {
     );
   }
 
+  // https://cloud.google.com/asset-inventory/docs/searching-iam-policies
   async iterateIamPoliciesForResourceAtScope(
-    scopeAndResource: string, // TODO: document
+    scopeAndResource: string, // This function can only be used when the scope and the resource are the same. ex: projects/foo-bar
     callback: (
       data: cloudasset_v1.Schema$IamPolicySearchResult,
     ) => Promise<void>,
@@ -44,7 +45,7 @@ export class CloudAssetClient extends Client {
           auth,
           pageSize: 500, // 500 is the max
           pageToken: nextPageToken,
-          query: 'resource:' + scopeAndResource, // https://cloud.google.com/asset-inventory/docs/searching-iam-policies search on specific resource
+          query: 'resource:' + scopeAndResource, // Search on specific resource
           scope: scopeAndResource,
         });
       },

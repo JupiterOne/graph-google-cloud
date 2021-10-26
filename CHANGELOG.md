@@ -8,6 +8,13 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Changed
+
+- Every integration instance with a `projectId` will ingest Project Level
+  `google_iam_bindings` in the Cloud Asset steps. Previously, the Master
+  Integration Instance was ingesting all `google_iam_bindings` for the entire
+  organization. This spreads upload loads amongst more integration instances.
+
 ## 1.2.1 - 2021-10-25
 
 ### Fixed
