@@ -536,6 +536,7 @@ export function getMockContainerCluster(
   partial?: container_v1.Schema$Cluster,
 ): container_v1.Schema$Cluster {
   return {
+    id: 'abc123',
     name: 'j1-gc-integration-dev-v2-gke-cluster',
     initialNodeCount: 1,
     nodeConfig: {
