@@ -8,7 +8,21 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 1.3.0 - 2021-10-27
+
 ### Added
+
+- Added support for ingesting the following **new** resources:
+
+  | Service      | Resource / Entity           |
+  | ------------ | --------------------------- |
+  | Audit Config | `google_cloud_audit_config` |
+
+- Added support for ingesting the following **new** relationships:
+
+  | Source                     | class    | Target                      |
+  | -------------------------- | -------- | --------------------------- |
+  | `google_cloud_api_service` | **USES** | `google_cloud_audit_config` |
 
 - A test to ensure `GOOGLE_RESOURCE_KIND_TO_J1_TYPE_MAP` and
   `J1_TYPE_TO_KEY_GENERATOR_MAP` are kept up-to-date with new entitiy ingestion.
@@ -69,18 +83,6 @@ and this project adheres to
 ## 1.0.7 - 2021-10-21
 
 ### Added
-
-- Added support for ingesting the following **new** resources:
-
-  | Service      | Resource / Entity           |
-  | ------------ | --------------------------- |
-  | Audit Config | `google_cloud_audit_config` |
-
-- Added support for ingesting the following **new** relationships:
-
-  | Source                     | class    | Target                      |
-  | -------------------------- | -------- | --------------------------- |
-  | `google_cloud_api_service` | **USES** | `google_cloud_audit_config` |
 
 - API calls will now have a `timeout` of one minute.
 - Organization setup will now have an api `timeout` of five minutes when
