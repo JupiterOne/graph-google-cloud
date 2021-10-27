@@ -15,7 +15,7 @@ import {
   RelationshipClass,
   RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
-import { cloudresourcemanager_v3 } from 'googleapis';
+import { cloudasset_v1, cloudresourcemanager_v3 } from 'googleapis';
 import { IntegrationConfig } from '../..';
 import { IntegrationStepContext } from '../../types';
 import { publishMissingPermissionEvent } from '../../utils/events';
@@ -93,10 +93,15 @@ export async function fetchIamBindings(
   let maxPermissionLength = 0;
   let maxConditionLength = 0;
 
-  async function handlePolicyResult(policyResult) {
+  async function handlePolicyResult(
+    policyResult: cloudasset_v1.Schema$IamPolicySearchResult & {
+      organization?: string | null;
+      folders?: string[] | null;
+    },
+  ) {
     const resource = policyResult.resource;
     const projectName = policyResult.project;
-    const { organization, folders } = policyResult as any;
+    const { organization, folders } = policyResult;
     const bindings = policyResult.policy?.bindings ?? [];
 
     for (const binding of bindings) {
@@ -171,7 +176,7 @@ export async function fetchIamBindings(
   try {
     // Project level bindings and all resource level bindings in that project
     await client.iterateIamPoliciesForProjectAndResources(
-      context,
+      context.instance.config.projectId!,
       handlePolicyResult,
     );
     // Folder level bindings

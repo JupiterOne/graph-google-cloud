@@ -1,12 +1,11 @@
 import { google, cloudasset_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
-import { IntegrationStepContext } from '../../types';
 
 export class CloudAssetClient extends Client {
   private client = google.cloudasset('v1');
 
   async iterateIamPoliciesForProjectAndResources(
-    context: IntegrationStepContext,
+    projectId: string,
     callback: (
       data: cloudasset_v1.Schema$IamPolicySearchResult,
     ) => Promise<void>,
@@ -19,7 +18,7 @@ export class CloudAssetClient extends Client {
           auth,
           pageSize: 500, // 500 is the max
           pageToken: nextPageToken,
-          scope: `projects/${context.instance.config.projectId}`,
+          scope: `projects/${projectId}`,
         });
       },
       async (data: cloudasset_v1.Schema$SearchAllIamPoliciesResponse) => {
