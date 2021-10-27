@@ -32,6 +32,11 @@ Will now have a type of `google_iam_binding_allows_resource`
 
 Will now have a type of `google_cloud_api_service_has_resource`
 
+### Added
+
+- A test to ensure `GOOGLE_RESOURCE_KIND_TO_J1_TYPE_MAP` and
+  `J1_TYPE_TO_KEY_GENERATOR_MAP` are kept up-to-date with new entitiy ingestion.
+
 ## 1.2.1 - 2021-10-25
 
 ### Fixed
