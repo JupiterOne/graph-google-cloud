@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 2.0.0 - 2021-10-27
+
 ### Changed
 
 - **Breaking:** The `permissions` property on `google_iam_binding`s and
