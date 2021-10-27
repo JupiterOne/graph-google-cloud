@@ -42,6 +42,7 @@ import {
   CONTAINER_CLUSTER_ENTITY_TYPE,
   CONTAINER_NODE_POOL_ENTITY_TYPE,
 } from '../../steps/containers';
+import { getContainerClusterKey } from '../../steps/containers/converters';
 import {
   DNS_MANAGED_ZONE_ENTITY_TYPE,
   DNS_POLICY_ENTITY_TYPE,
@@ -150,7 +151,9 @@ export const J1_TYPE_TO_KEY_GENERATOR_MAP: {
   [ENTITY_TYPE_PUBSUB_SUBSCRIPTION]: fullPathKeyMap,
   [ENTITY_TYPE_KMS_KEY_RING]: fullPathKeyMap,
   [ENTITY_TYPE_KMS_KEY]: fullPathKeyMap,
-  [CONTAINER_CLUSTER_ENTITY_TYPE]: selfLinkKeyMap,
+  [CONTAINER_CLUSTER_ENTITY_TYPE]: customPrefixAndIdKeyMap(
+    getContainerClusterKey,
+  ),
   [CONTAINER_NODE_POOL_ENTITY_TYPE]: selfLinkKeyMap,
   [API_SERVICE_ENTITY_TYPE]: fullPathKeyMap,
   [LOGGING_PROJECT_SINK_ENTITY_TYPE]: customPrefixAndIdKeyMap(

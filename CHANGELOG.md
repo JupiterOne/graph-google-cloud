@@ -15,10 +15,52 @@ and this project adheres to
   Integration Instance was ingesting all `google_iam_bindings` for the entire
   organization. This spreads upload loads amongst more integration instances.
 
+### Changed
+
+- Relationships whose `_type` follows the pattern of:
+
+| Type                                           |
+| ---------------------------------------------- |
+| `google_iam_binding_allows_cloud_organization` |
+| `google_iam_binding_allows_kms_key_ring`       |
+| `google_iam_binding_allows_cloud_function`     |
+| ...                                            |
+
+Will now have a type of `google_iam_binding_allows_resource`
+
+- Relationships whose `_type` follows the pattern of:
+
+| Type                                            |
+| ----------------------------------------------- |
+| `google_cloud_api_service_has_storage_bucket`   |
+| `google_cloud_api_service_has_bigquery_dataset` |
+| `google_cloud_api_service_has_kms_crypto_key`   |
+| ...                                             |
+
+Will now have a type of `google_cloud_api_service_has_resource`
+
+## 1.3.0 - 2021-10-27
+
 ### Added
+
+- Added support for ingesting the following **new** resources:
+
+  | Service      | Resource / Entity           |
+  | ------------ | --------------------------- |
+  | Audit Config | `google_cloud_audit_config` |
+
+- Added support for ingesting the following **new** relationships:
+
+  | Source                     | class    | Target                      |
+  | -------------------------- | -------- | --------------------------- |
+  | `google_cloud_api_service` | **USES** | `google_cloud_audit_config` |
 
 - A test to ensure `GOOGLE_RESOURCE_KIND_TO_J1_TYPE_MAP` and
   `J1_TYPE_TO_KEY_GENERATOR_MAP` are kept up-to-date with new entitiy ingestion.
+
+### Changed
+
+- Updated `_key` of `google_container_cluster` to have a predictable mapping key
 
 ## 1.2.1 - 2021-10-25
 
@@ -72,18 +114,6 @@ and this project adheres to
 ## 1.0.7 - 2021-10-21
 
 ### Added
-
-- Added support for ingesting the following **new** resources:
-
-  | Service      | Resource / Entity           |
-  | ------------ | --------------------------- |
-  | Audit Config | `google_cloud_audit_config` |
-
-- Added support for ingesting the following **new** relationships:
-
-  | Source                     | class    | Target                      |
-  | -------------------------- | -------- | --------------------------- |
-  | `google_cloud_api_service` | **USES** | `google_cloud_audit_config` |
 
 - API calls will now have a `timeout` of one minute.
 - Organization setup will now have an api `timeout` of five minutes when
