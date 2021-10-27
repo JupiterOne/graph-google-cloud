@@ -28,8 +28,10 @@ import {
 import { CloudAssetClient } from './client';
 import {
   API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIPS,
+  API_SERVICE_HAS_ANY_RESOURCE_TYPE,
   bindingEntities,
   BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIPS,
+  BINDING_ALLOWS_ANY_RESOURCE_TYPE,
   BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS,
   STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS,
   STEP_CREATE_BASIC_ROLES,
@@ -611,14 +613,13 @@ export async function createBindingToAnyResourceRelationships(
             from: bindingEntity,
             _class: RelationshipClass.ALLOWS,
             to: existingEntity,
+            properties: {
+              _type: BINDING_ALLOWS_ANY_RESOURCE_TYPE,
+            },
           })
         : createMappedRelationship({
             _class: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIPS[0]._class,
-            _type: generateRelationshipType(
-              RelationshipClass.ALLOWS,
-              bindingEntities.BINDINGS._type,
-              type,
-            ),
+            _type: BINDING_ALLOWS_ANY_RESOURCE_TYPE,
             _mapping: {
               relationshipDirection: RelationshipDirection.FORWARD,
               sourceEntityKey: bindingEntity._key,
@@ -744,14 +745,13 @@ export async function createApiServiceToAnyResourceRelationships(
               _class: RelationshipClass.HAS,
               from: serviceEntity,
               to: resourceEntity,
+              properties: {
+                _type: API_SERVICE_HAS_ANY_RESOURCE_TYPE,
+              },
             })
           : createMappedRelationship({
               _class: RelationshipClass.HAS,
-              _type: generateRelationshipType(
-                RelationshipClass.HAS,
-                API_SERVICE_ENTITY_TYPE,
-                resourceType,
-              ),
+              _type: API_SERVICE_HAS_ANY_RESOURCE_TYPE,
               source: serviceEntity,
               /**
                * The mapper does not properly remove mapper-created entities at the moment. These

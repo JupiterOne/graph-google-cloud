@@ -8,6 +8,30 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Changed
+
+- Relationships whose `_type` follows the pattern of:
+
+| Type                                           |
+| ---------------------------------------------- |
+| `google_iam_binding_allows_cloud_organization` |
+| `google_iam_binding_allows_kms_key_ring`       |
+| `google_iam_binding_allows_cloud_function`     |
+| ...                                            |
+
+Will now have a type of `google_iam_binding_allows_resource`
+
+- Relationships whose `_type` follows the pattern of:
+
+| Type                                            |
+| ----------------------------------------------- |
+| `google_cloud_api_service_has_storage_bucket`   |
+| `google_cloud_api_service_has_bigquery_dataset` |
+| `google_cloud_api_service_has_kms_crypto_key`   |
+| ...                                             |
+
+Will now have a type of `google_cloud_api_service_has_resource`
+
 ## 1.3.0 - 2021-10-27
 
 ### Added

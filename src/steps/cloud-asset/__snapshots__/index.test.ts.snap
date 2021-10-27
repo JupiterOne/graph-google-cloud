@@ -3,52 +3,20 @@
 exports[`#createBasicRolesForBindings should truncate permission values for both bindings and roles 1`] = `
 Object {
   "encounteredTypes": Array [
+    "google_cloud_organization",
+    "google_cloud_folder",
+    "google_cloud_organization_has_folder",
+    "google_cloud_folder_has_folder",
     "google_iam_binding",
     "google_iam_role",
   ],
-  "numCollectedEntities": 143,
-  "numCollectedRelationships": 0,
+  "numCollectedEntities": 146,
+  "numCollectedRelationships": 4,
 }
 `;
 
 exports[`#createBasicRolesForBindings should truncate permission values for both bindings and roles 2`] = `
 Array [
-  Object {
-    "_class": Array [
-      "AccessRole",
-    ],
-    "_key": "j1-gc-integration-dev-rw/roles/owner",
-    "_rawData": Array [],
-    "_type": "google_iam_role",
-    "createdOn": undefined,
-    "custom": false,
-    "deleted": false,
-    "description": undefined,
-    "displayName": "roles/owner",
-    "etag": undefined,
-    "name": "roles/owner",
-    "permissions": "accessapproval.requests.approve,accessapproval.requests.dismiss,accessapproval.requests.get,accessapproval.requests.list,accessapproval.settings.delete,accessapproval.settings.get,accessapproval.settings.update,accesscontextmanager.accessLevels.create,accesscontextmanager.accessLevels.delete,accesscontextmanager.accessLevels.get,accesscontextmanager.accessLevels.list,accesscontextmanager.accessLevels.replaceAll,accesscontextmanager.accessLevels.update,accesscontextmanager.accessPolicies.create,accesscontextmanager.accessPolicies.delete,accesscontextmanager.accessPolicies.get,accesscontextmanager.accessPolicies.getIamPolicy,accesscontextmanager.accessPolicies.list,accesscontextmanager.accessPolicies.setIamPolicy,accesscontextmanager.accessPolicies.update,accesscontextmanager.accessZones.create,accesscontextmanager.accessZones.delete,accesscontextmanager.accessZones.get,accesscontextmanager.accessZones.list,accesscontextmanager.accessZones.update,accesscontextmanager.gcpUserAccessBindings.create,accesscontextmanager.gcpUserAccessBindings.delete,accesscontextmanager.gcpUserAccessBindings.get,accesscontextmanager.gcpUserAccessBindings.list,accesscontextmanager.gcpUserAccessBindings.update,accesscontextmanager.policies.create,accesscontextmanager.policies.delete,accesscontextmanager.policies.get,accesscontextmanager.policies.getIamPolicy,accesscontextmanager.policies.list,accesscontextmanager.policies.setIamPolicy,accesscontextmanager.policies.update,accesscontextmanager.servicePerimeters.commit,accesscontextmanager.servicePerimeters.create,accesscontextmanager.servicePerimeters.delete,accesscontextmanager.servicePerimeters.get,accesscontextmanager.servicePerimeters.list,accesscontextmanager.servicePerimeters.replaceAll,accesscontextmanager.servicePerimeters.update,actions.agent.claimContentProvider,actions.agent.get,actions.agent.update,actions.agentVersions.create,actions.agentVersions.delete,actions.agentVersions.deploy,actions.agentVersions.get,actions.agentVersions.list,aiplatform.annotationSpecs.create,aiplatform.annotationSpecs.delete,aiplatform.annotationSpecs.get,aiplatform.annotationSpecs.list,aiplatform.annotationSpecs.update,aiplatform.annotations.create,aiplatform.annotations.delete,aiplatform.annotations.get,aiplatform.annotations.list,aiplatform.annotations.update,aiplatform.artifacts.create,aiplatform.artifacts.delete,aiplatform.artifacts.get,aiplatform.artifacts.list,aiplatform.artifacts.update,aiplatform.batchPredictionJobs.cancel,aiplatform.batchPredictionJobs.create,aiplatform.batchPredictionJobs.delete,aiplatform.batchPredictionJobs.get,aiplatform.batchPredictionJobs.list,aiplatform.contexts.addContextArtifactsAndExecutions,aiplatform.contexts.addContextChildren,aiplatform.contexts.create,aiplatform.contexts.delete,aiplatform.contexts.get,aiplatform.contexts.list,aiplatform.contexts.queryContextLineageSubgraph,aiplatform.contexts.update,aiplatform.customJobs.cancel,aiplatform.customJobs.create,aiplatform.customJobs.delete,aiplatform.customJobs.get,aiplatform.customJobs.list,aiplatform.dataItems.create,aiplatform.dataItems.delete,aiplatform.dataItems.get,aiplatform.dataItems.list,aiplatform.dataItems.update,aiplatform.dataLabelingJobs.cancel,aiplatform.dataLabelingJobs.create,aiplatform.dataLabelingJobs.delete,aiplatform.dataLabelingJobs.get,aiplatform.dataLabelingJobs.list,aiplatform.datasets.create,aiplatform.datasets.delete,aiplatform.datasets.export,aiplatform.datasets.get,aiplatform.datasets.import,aiplatform.datasets.list,aiplatform.datasets.update,aiplatform.edgeDeploymentJobs.create,aiplatform.edgeDeploymentJobs.delete,aiplatform.edgeDeploymentJobs.get,aiplatform.edgeDeploymentJobs.list,aiplatform.edgeDeviceDebugInfo.get,aiplatform.edgeDevices.create,aiplatform.edgeDevices.delete,aiplatform.edgeDevices.get,aiplatform.edgeDevices.list,aiplatform.edgeDevices.update,aiplatform.endpoints.create,aiplatform.endpoints.delete,aiplatform.endpoints.deploy,aiplatform.endpoints.explain,aiplatform.endpoints.get,aiplatform.endpoints.list,aiplatform.endpoints.predict,aiplatform.endpoints.undeploy,aiplatform.en...",
-    "readonly": false,
-    "stage": undefined,
-  },
-  Object {
-    "_class": Array [
-      "AccessRole",
-    ],
-    "_key": "j1-gc-integration-dev-rick/roles/owner",
-    "_rawData": Array [],
-    "_type": "google_iam_role",
-    "createdOn": undefined,
-    "custom": false,
-    "deleted": false,
-    "description": undefined,
-    "displayName": "roles/owner",
-    "etag": undefined,
-    "name": "roles/owner",
-    "permissions": "accessapproval.requests.approve,accessapproval.requests.dismiss,accessapproval.requests.get,accessapproval.requests.list,accessapproval.settings.delete,accessapproval.settings.get,accessapproval.settings.update,accesscontextmanager.accessLevels.create,accesscontextmanager.accessLevels.delete,accesscontextmanager.accessLevels.get,accesscontextmanager.accessLevels.list,accesscontextmanager.accessLevels.replaceAll,accesscontextmanager.accessLevels.update,accesscontextmanager.accessPolicies.create,accesscontextmanager.accessPolicies.delete,accesscontextmanager.accessPolicies.get,accesscontextmanager.accessPolicies.getIamPolicy,accesscontextmanager.accessPolicies.list,accesscontextmanager.accessPolicies.setIamPolicy,accesscontextmanager.accessPolicies.update,accesscontextmanager.accessZones.create,accesscontextmanager.accessZones.delete,accesscontextmanager.accessZones.get,accesscontextmanager.accessZones.list,accesscontextmanager.accessZones.update,accesscontextmanager.gcpUserAccessBindings.create,accesscontextmanager.gcpUserAccessBindings.delete,accesscontextmanager.gcpUserAccessBindings.get,accesscontextmanager.gcpUserAccessBindings.list,accesscontextmanager.gcpUserAccessBindings.update,accesscontextmanager.policies.create,accesscontextmanager.policies.delete,accesscontextmanager.policies.get,accesscontextmanager.policies.getIamPolicy,accesscontextmanager.policies.list,accesscontextmanager.policies.setIamPolicy,accesscontextmanager.policies.update,accesscontextmanager.servicePerimeters.commit,accesscontextmanager.servicePerimeters.create,accesscontextmanager.servicePerimeters.delete,accesscontextmanager.servicePerimeters.get,accesscontextmanager.servicePerimeters.list,accesscontextmanager.servicePerimeters.replaceAll,accesscontextmanager.servicePerimeters.update,actions.agent.claimContentProvider,actions.agent.get,actions.agent.update,actions.agentVersions.create,actions.agentVersions.delete,actions.agentVersions.deploy,actions.agentVersions.get,actions.agentVersions.list,aiplatform.annotationSpecs.create,aiplatform.annotationSpecs.delete,aiplatform.annotationSpecs.get,aiplatform.annotationSpecs.list,aiplatform.annotationSpecs.update,aiplatform.annotations.create,aiplatform.annotations.delete,aiplatform.annotations.get,aiplatform.annotations.list,aiplatform.annotations.update,aiplatform.artifacts.create,aiplatform.artifacts.delete,aiplatform.artifacts.get,aiplatform.artifacts.list,aiplatform.artifacts.update,aiplatform.batchPredictionJobs.cancel,aiplatform.batchPredictionJobs.create,aiplatform.batchPredictionJobs.delete,aiplatform.batchPredictionJobs.get,aiplatform.batchPredictionJobs.list,aiplatform.contexts.addContextArtifactsAndExecutions,aiplatform.contexts.addContextChildren,aiplatform.contexts.create,aiplatform.contexts.delete,aiplatform.contexts.get,aiplatform.contexts.list,aiplatform.contexts.queryContextLineageSubgraph,aiplatform.contexts.update,aiplatform.customJobs.cancel,aiplatform.customJobs.create,aiplatform.customJobs.delete,aiplatform.customJobs.get,aiplatform.customJobs.list,aiplatform.dataItems.create,aiplatform.dataItems.delete,aiplatform.dataItems.get,aiplatform.dataItems.list,aiplatform.dataItems.update,aiplatform.dataLabelingJobs.cancel,aiplatform.dataLabelingJobs.create,aiplatform.dataLabelingJobs.delete,aiplatform.dataLabelingJobs.get,aiplatform.dataLabelingJobs.list,aiplatform.datasets.create,aiplatform.datasets.delete,aiplatform.datasets.export,aiplatform.datasets.get,aiplatform.datasets.import,aiplatform.datasets.list,aiplatform.datasets.update,aiplatform.edgeDeploymentJobs.create,aiplatform.edgeDeploymentJobs.delete,aiplatform.edgeDeploymentJobs.get,aiplatform.edgeDeploymentJobs.list,aiplatform.edgeDeviceDebugInfo.get,aiplatform.edgeDevices.create,aiplatform.edgeDevices.delete,aiplatform.edgeDevices.get,aiplatform.edgeDevices.list,aiplatform.edgeDevices.update,aiplatform.endpoints.create,aiplatform.endpoints.delete,aiplatform.endpoints.deploy,aiplatform.endpoints.explain,aiplatform.endpoints.get,aiplatform.endpoints.list,aiplatform.endpoints.predict,aiplatform.endpoints.undeploy,aiplatform.en...",
-    "readonly": false,
-    "stage": undefined,
-  },
   Object {
     "_class": Array [
       "AccessRole",
@@ -287,6 +255,24 @@ Array [
     "_class": Array [
       "AccessRole",
     ],
+    "_key": "folders/306329820365/roles/owner",
+    "_rawData": Array [],
+    "_type": "google_iam_role",
+    "createdOn": undefined,
+    "custom": false,
+    "deleted": false,
+    "description": undefined,
+    "displayName": "roles/owner",
+    "etag": undefined,
+    "name": "roles/owner",
+    "permissions": "accessapproval.requests.approve,accessapproval.requests.dismiss,accessapproval.requests.get,accessapproval.requests.list,accessapproval.settings.delete,accessapproval.settings.get,accessapproval.settings.update,accesscontextmanager.accessLevels.create,accesscontextmanager.accessLevels.delete,accesscontextmanager.accessLevels.get,accesscontextmanager.accessLevels.list,accesscontextmanager.accessLevels.replaceAll,accesscontextmanager.accessLevels.update,accesscontextmanager.accessPolicies.create,accesscontextmanager.accessPolicies.delete,accesscontextmanager.accessPolicies.get,accesscontextmanager.accessPolicies.getIamPolicy,accesscontextmanager.accessPolicies.list,accesscontextmanager.accessPolicies.setIamPolicy,accesscontextmanager.accessPolicies.update,accesscontextmanager.accessZones.create,accesscontextmanager.accessZones.delete,accesscontextmanager.accessZones.get,accesscontextmanager.accessZones.list,accesscontextmanager.accessZones.update,accesscontextmanager.gcpUserAccessBindings.create,accesscontextmanager.gcpUserAccessBindings.delete,accesscontextmanager.gcpUserAccessBindings.get,accesscontextmanager.gcpUserAccessBindings.list,accesscontextmanager.gcpUserAccessBindings.update,accesscontextmanager.policies.create,accesscontextmanager.policies.delete,accesscontextmanager.policies.get,accesscontextmanager.policies.getIamPolicy,accesscontextmanager.policies.list,accesscontextmanager.policies.setIamPolicy,accesscontextmanager.policies.update,accesscontextmanager.servicePerimeters.commit,accesscontextmanager.servicePerimeters.create,accesscontextmanager.servicePerimeters.delete,accesscontextmanager.servicePerimeters.get,accesscontextmanager.servicePerimeters.list,accesscontextmanager.servicePerimeters.replaceAll,accesscontextmanager.servicePerimeters.update,actions.agent.claimContentProvider,actions.agent.get,actions.agent.update,actions.agentVersions.create,actions.agentVersions.delete,actions.agentVersions.deploy,actions.agentVersions.get,actions.agentVersions.list,aiplatform.annotationSpecs.create,aiplatform.annotationSpecs.delete,aiplatform.annotationSpecs.get,aiplatform.annotationSpecs.list,aiplatform.annotationSpecs.update,aiplatform.annotations.create,aiplatform.annotations.delete,aiplatform.annotations.get,aiplatform.annotations.list,aiplatform.annotations.update,aiplatform.artifacts.create,aiplatform.artifacts.delete,aiplatform.artifacts.get,aiplatform.artifacts.list,aiplatform.artifacts.update,aiplatform.batchPredictionJobs.cancel,aiplatform.batchPredictionJobs.create,aiplatform.batchPredictionJobs.delete,aiplatform.batchPredictionJobs.get,aiplatform.batchPredictionJobs.list,aiplatform.contexts.addContextArtifactsAndExecutions,aiplatform.contexts.addContextChildren,aiplatform.contexts.create,aiplatform.contexts.delete,aiplatform.contexts.get,aiplatform.contexts.list,aiplatform.contexts.queryContextLineageSubgraph,aiplatform.contexts.update,aiplatform.customJobs.cancel,aiplatform.customJobs.create,aiplatform.customJobs.delete,aiplatform.customJobs.get,aiplatform.customJobs.list,aiplatform.dataItems.create,aiplatform.dataItems.delete,aiplatform.dataItems.get,aiplatform.dataItems.list,aiplatform.dataItems.update,aiplatform.dataLabelingJobs.cancel,aiplatform.dataLabelingJobs.create,aiplatform.dataLabelingJobs.delete,aiplatform.dataLabelingJobs.get,aiplatform.dataLabelingJobs.list,aiplatform.datasets.create,aiplatform.datasets.delete,aiplatform.datasets.export,aiplatform.datasets.get,aiplatform.datasets.import,aiplatform.datasets.list,aiplatform.datasets.update,aiplatform.edgeDeploymentJobs.create,aiplatform.edgeDeploymentJobs.delete,aiplatform.edgeDeploymentJobs.get,aiplatform.edgeDeploymentJobs.list,aiplatform.edgeDeviceDebugInfo.get,aiplatform.edgeDevices.create,aiplatform.edgeDevices.delete,aiplatform.edgeDevices.get,aiplatform.edgeDevices.list,aiplatform.edgeDevices.update,aiplatform.endpoints.create,aiplatform.endpoints.delete,aiplatform.endpoints.deploy,aiplatform.endpoints.explain,aiplatform.endpoints.get,aiplatform.endpoints.list,aiplatform.endpoints.predict,aiplatform.endpoints.undeploy,aiplatform.en...",
+    "readonly": false,
+    "stage": undefined,
+  },
+  Object {
+    "_class": Array [
+      "AccessRole",
+    ],
     "_key": "organizations/958457776463/roles/editor",
     "_rawData": Array [],
     "_type": "google_iam_role",
@@ -342,8 +328,8 @@ Array [
 
 exports[`#fetchIamBindings should create Binding and Role entities, Direct Relationships with resources and principals ingested, and Mapped Relationships with resources and principals not ingested. 1`] = `
 Object {
-  "collectedEntities": 680,
-  "collectedRelationships": 1080,
+  "collectedEntities": 690,
+  "collectedRelationships": 1077,
   "encounteredTypes": Array [
     "google_cloud_organization",
     "google_cloud_folder",
@@ -352,6 +338,7 @@ Object {
     "google_cloud_project",
     "google_organization_has_project",
     "google_folder_has_project",
+    "google_storage_bucket",
     "google_iam_role",
     "google_iam_service_account",
     "google_iam_service_account_key",
@@ -364,25 +351,12 @@ Object {
     "google_iam_binding_assigned_group",
     "google_iam_binding_assigned_domain",
     "google_iam_binding_uses_role",
-    "google_iam_binding_allows_cloud_project",
-    "google_iam_binding_allows_service_account",
-    "google_iam_binding_allows_storage_bucket",
-    "google_iam_binding_allows_kms_crypto_key",
-    "google_iam_binding_allows_cloud_folder",
-    "google_iam_binding_allows_bigquery_dataset",
-    "google_iam_binding_allows_kms_key_ring",
-    "google_iam_binding_allows_billing_account",
-    "google_iam_binding_allows_cloud_organization",
-    "google_iam_binding_allows_cloud_function",
+    "google_iam_binding_allows_resource",
     "google_cloud_api_service",
     "google_cloud_project_has_api_service",
-    "google_cloud_api_service_has_storage_bucket",
-    "google_cloud_api_service_has_bigquery_dataset",
-    "google_cloud_api_service_has_kms_crypto_key",
-    "google_cloud_api_service_has_kms_key_ring",
-    "google_cloud_api_service_has_function",
+    "google_cloud_api_service_has_resource",
   ],
-  "numCollectedEntities": 680,
-  "numCollectedRelationships": 1080,
+  "numCollectedEntities": 690,
+  "numCollectedRelationships": 1077,
 }
 `;
