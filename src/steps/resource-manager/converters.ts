@@ -34,27 +34,6 @@ export function createAuditConfigEntity(
   });
 }
 
-export function createAuditConfigEntity(
-  data: cloudresourcemanager_v3.Schema$AuditConfig,
-) {
-  return createGoogleCloudIntegrationEntity(data, {
-    entityData: {
-      source: data,
-      assign: {
-        _key: `auditConfig:${data.service}`,
-        _type: AUDIT_CONFIG_ENTITY_TYPE,
-        _class: AUDIT_CONFIG_ENTITY_CLASS,
-        name: `auditConfig:${data.service}`,
-        displayName: `auditConfig:${data.service}`,
-        service: data.service,
-        logTypes: data.auditLogConfigs?.map(
-          (logConfig) => logConfig.logType as string,
-        ),
-      },
-    },
-  });
-}
-
 export function createOrganizationEntity(
   data: cloudresourcemanager_v3.Schema$Organization,
 ) {
