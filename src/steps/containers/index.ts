@@ -39,6 +39,18 @@ export async function fetchContainerClusters(
       cluster,
       client.projectId,
     );
+
+    if (clusterEntity._key.startsWith('https://container.googleapis.com/')) {
+      // NOTE: This should be removed after giving a bit of time to validate
+      // whether every GKE cluster has an `id` property
+      context.logger.info(
+        {
+          _key: clusterEntity._key,
+        },
+        'GKE cluster key did not have an ID property',
+      );
+    }
+
     await jobState.addEntity(clusterEntity);
 
     const nodePools = cluster.nodePools || [];

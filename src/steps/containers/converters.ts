@@ -9,6 +9,10 @@ import {
 import { getGoogleCloudConsoleWebLink } from '../../utils/url';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 
+export function getContainerClusterKey(clusterId: string) {
+  return `${CONTAINER_CLUSTER_ENTITY_TYPE}:${clusterId}`;
+}
+
 export function createContainerClusterEntity(
   data: container_v1.Schema$Cluster,
   projectId: string,
@@ -19,9 +23,16 @@ export function createContainerClusterEntity(
     entityData: {
       source: withoutPools,
       assign: {
-        _key: withoutPools.selfLink as string,
+        _key: getContainerClusterKey(
+          // According to past recordings, there may have been a time where
+          // Google Container clusters did _not_ have an `id` property...
+          //
+          // We'll know soon whether this is the case via logs...
+          withoutPools.id! || withoutPools.selfLink!,
+        ),
         _type: CONTAINER_CLUSTER_ENTITY_TYPE,
         _class: CONTAINER_CLUSTER_ENTITY_CLASS,
+        id: withoutPools.id!,
         createdOn: parseTimePropertyValue(withoutPools.createTime),
         name: withoutPools.name,
         description: withoutPools.description,

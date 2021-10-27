@@ -667,7 +667,7 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 84`] = `
 Object {
   "identifier": "//container.googleapis.com/projects/12345/zones/us-east3/clusters/abcdef12345",
-  "key": "https://www.googleapis.com/container/projects/12345/zones/us-east3/clusters/abcdef12345",
+  "key": "google_container_cluster:abcdef12345",
   "type": "google_container_cluster",
 }
 `;
@@ -675,7 +675,7 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 85`] = `
 Object {
   "identifier": "//container.googleapis.com/projects/12345/locations/us-east1/clusters/abcdef12345",
-  "key": "https://www.googleapis.com/container/projects/12345/locations/us-east1/clusters/abcdef12345",
+  "key": "google_container_cluster:abcdef12345",
   "type": "google_container_cluster",
 }
 `;
