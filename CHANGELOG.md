@@ -19,7 +19,7 @@ and this project adheres to
 | `google_iam_binding_allows_cloud_function`     |
 | ...                                            |
 
-Will now have a type of `google_iam_binding_allows_ANY_RESOURCE`
+Will now have a type of `google_iam_binding_allows_resource`
 
 - Relationships whose `_type` follows the pattern of:
 
@@ -30,7 +30,7 @@ Will now have a type of `google_iam_binding_allows_ANY_RESOURCE`
 | `google_cloud_api_service_has_kms_crypto_key`   |
 | ...                                             |
 
-Will now have a type of `google_cloud_api_service_has_ANY_RESOURCE`
+Will now have a type of `google_cloud_api_service_has_resource`
 
 ## 1.2.1 - 2021-10-25
 

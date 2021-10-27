@@ -258,7 +258,7 @@ describe('#fetchIamBindings', () => {
       await fetchResourceManagerProject(context);
       await buildOrgFolderProjectMappedRelationships(context);
 
-      // Used for making direct relationships for google_cloud_api_service_has_ANY_RESOURCE
+      // Used for making direct relationships for google_cloud_api_service_has_resource
       await fetchStorageBuckets(context);
 
       await fetchIamCustomRoles(context);
@@ -299,8 +299,8 @@ describe('#fetchIamBindings', () => {
         everyone_assigned_google_iam_role,
         google_iam_role_assigned_role,
 
-        google_cloud_api_service_has_ANY_RESOURCE,
-        google_iam_binding_allows_ANY_RESOURCE,
+        google_cloud_api_service_has_resource,
+        google_iam_binding_allows_resource,
       } = separateGraphObjectsByType(
         context.jobState.collectedRelationships,
         context.jobState.encounteredTypes,
@@ -314,14 +314,14 @@ describe('#fetchIamBindings', () => {
         'google_iam_binding_assigned_service_account',
       );
       expect(
-        google_iam_binding_allows_ANY_RESOURCE,
+        google_iam_binding_allows_resource,
       ).toHaveBothDirectAndMappedRelationships(
-        'google_iam_binding_allows_ANY_RESOURCE',
+        'google_iam_binding_allows_resource',
       );
       expect(
-        google_cloud_api_service_has_ANY_RESOURCE,
+        google_cloud_api_service_has_resource,
       ).toHaveBothDirectAndMappedRelationships(
-        'google_cloud_api_service_has_ANY_RESOURCE',
+        'google_cloud_api_service_has_resource',
       );
       expect(
         google_iam_binding_uses_role,
@@ -329,12 +329,12 @@ describe('#fetchIamBindings', () => {
 
       // Ensure google_cloud_api_service HAS any resource in the organization resource hierarchy relationships are NOT created
       expect(
-        google_cloud_api_service_has_ANY_RESOURCE.filter((r: any) => {
+        google_cloud_api_service_has_resource.filter((r: any) => {
           r._toEntityKey?.startsWith('organizations/');
         }).length,
       ).toBe(0);
       expect(
-        google_cloud_api_service_has_ANY_RESOURCE.filter((r: any) => {
+        google_cloud_api_service_has_resource.filter((r: any) => {
           r._toEntityKey?.startsWith('folders/');
         }).length,
       ).toBe(0);
@@ -366,24 +366,24 @@ describe('#fetchIamBindings', () => {
       // Direct Relationships
       // Organization relationships
       expect(
-        google_iam_binding_allows_ANY_RESOURCE.filter((r: any) =>
+        google_iam_binding_allows_resource.filter((r: any) =>
           r._toEntityKey?.startsWith('organizations/'),
         ).length,
       ).toBeGreaterThan(0),
         expect(
-          google_iam_binding_allows_ANY_RESOURCE.filter(
+          google_iam_binding_allows_resource.filter(
             (r: any) =>
               r._mapping?.targetEntity?._type === ORGANIZATION_ENTITY_TYPE,
           ).length,
         ).toBe(0),
         // Folder relationships
         expect(
-          google_iam_binding_allows_ANY_RESOURCE.filter((r: any) =>
+          google_iam_binding_allows_resource.filter((r: any) =>
             r._toEntityKey?.startsWith('folders/'),
           ).length,
         ).toBeGreaterThan(0);
       expect(
-        google_iam_binding_allows_ANY_RESOURCE.filter(
+        google_iam_binding_allows_resource.filter(
           (r: any) => r._mapping?.targetEntity?._type === FOLDER_ENTITY_TYPE,
         ).length,
       ).toBe(0);
