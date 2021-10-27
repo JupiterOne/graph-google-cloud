@@ -1,7 +1,6 @@
 import {
   createDirectRelationship,
   createMappedRelationship,
-  Entity,
   IntegrationStep,
   RelationshipClass,
   RelationshipDirection,

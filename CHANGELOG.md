@@ -8,6 +8,56 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Changed
+
+- **Breaking:** The `google_sql_mysql_instance`, `google_sql_postgres_instance`,
+  and `google_sql_sql_server_instance` entities were all unified to the new
+  `google_sql_instance` entitiy type. You will still be able to tell the
+  difference between the database instances by using the new `database`
+  property, whose values can be `MYSQL` for `google_sql_mysql_instance`
+  entities, `POSTGRES` for `google_sql_postgres_instance` entities, and
+  `SQLSERVER` for `google_sql_sql_server_instance` entities. To maintain
+  functionality, querys for specific `google_sql_instance`s will need to change
+  from:
+
+  `Find google_sql_mysql_instance`
+
+  to
+
+  `Find google_sql_instance with database=''MYSQL`
+
+### Removed
+
+- Removed support for ingesting the following **old** resources: | Service |
+  Resource / Entity | | -------------- | --------------------------------- | |
+  SQL Admin | `google_sql_mysql_instance` | | SQL Admin |
+  `google_sql_postgres_instance` | | SQL Admin |
+  `google_sql_sql_server_instance` |
+
+- Removed support for ingesting the following **old** relationships:
+
+  | Source                           | class  | Target                  |
+  | -------------------------------- | ------ | ----------------------- |
+  | `google_sql_mysql_instance`      | `USES` | `google_kms_crypto_key` |
+  | `google_sql_postgres_instance`   | `USES` | `google_kms_crypto_key` |
+  | `google_sql_sql_server_instance` | `USES` | `google_kms_crypto_key` |
+
+### Added
+
+- Added support for ingesting the following **new** resources: | Service |
+  Resource / Entity | | -------------- | -------------------------- | | SQL
+  Admin | `google_sql_instance` |
+
+- Added support for ingesting the following **new** relationships:
+
+  | Source                | class  | Target                  |
+  | --------------------- | ------ | ----------------------- |
+  | `google_sql_instance` | `USES` | `google_kms_crypto_key` |
+
+- New properties added to resources: | Entity | Properties | |
+  ---------------------- | -------------- | | `google_sql_instance` |
+  `permissions` | | `google_sql_instance` | `organization` |
+
 ## 2.0.0 - 2021-10-27
 
 ### Changed
