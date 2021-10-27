@@ -432,7 +432,10 @@ describe('#fetchIamBindings', () => {
               'condition.expression': { type: 'string' },
               'condition.location': { type: 'string' },
               readonly: { type: 'boolean' },
-              permissions: { type: 'string' },
+              permissions: {
+                type: 'array',
+                items: { type: 'string' },
+              },
             },
           },
         });
@@ -451,7 +454,10 @@ describe('#fetchIamBindings', () => {
               stage: { type: 'string' },
               custom: { type: 'boolean' },
               deleted: { type: 'boolean' },
-              permissions: { type: 'string' },
+              permissions: {
+                type: 'array',
+                items: { type: 'string' },
+              },
               etag: { type: 'string' },
               readonly: { type: 'boolean' },
             },
@@ -491,9 +497,11 @@ describe('#fetchIamBindings', () => {
         google_iam_binding_uses_role.forEach((relationship) => {
           if (relationship._mapping) {
             expect(
-              typeof (relationship as MappedRelationship)._mapping?.targetEntity
-                ?.permissions,
-            ).toBe('string');
+              Array.isArray(
+                (relationship as MappedRelationship)._mapping?.targetEntity
+                  ?.permissions,
+              ),
+            ).toBe(true);
           }
         });
       });
@@ -639,7 +647,7 @@ describe('#fetchIamBindings', () => {
             google_iam_binding_allows_resource.filter(
               (r: any) =>
                 r._toEntityKey?.startsWith('folders/') ||
-                r._mapping?.targetEntity?._type === FOLDER_ENTITY_TYPE,
+                r._mapping?.targetEntity?._type === ORGANIZATION_ENTITY_TYPE,
             ).length,
           ).toBe(0);
       });
