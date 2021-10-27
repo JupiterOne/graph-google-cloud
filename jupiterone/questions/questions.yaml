@@ -279,9 +279,7 @@ questions:
         google_storage_bucket |
         google_bigquery_dataset |
         google_pubsub_topic |
-        google_sql_mysql_instance |
-        google_sql_postgres_instance |
-        google_sql_sql_server_instance
+        google_sql_instance |
       )
         WITH kmsKeyName !^="{{kms project reference}}"
         AND kmsKeyName != undefined AS result
@@ -797,10 +795,10 @@ questions:
   queries:
   - name: good
     query: |
-      find google_sql_mysql_instance with localInfile='off'
+      find google_sql_instance with database='MYSQL' and localInfile='off'
   - name: bad
     query: |
-      find google_sql_mysql_instance with localInfile!='off'
+      find google_sql_instance with database='MYSQL' and localInfile!='off'
   tags:
   - google-cloud
   - sql
@@ -818,10 +816,10 @@ questions:
   queries:
   - name: good
     query: |
-      find google_sql_postgres_instance with logCheckpoints='on'
+      find google_sql_instance with database='POSTGRES' and logCheckpoints='on'
   - name: bad
     query: |
-      find google_sql_postgres_instance with logCheckpoints!='on'
+      find google_sql_instance with database='POSTGRES' and logCheckpoints!='on'
   tags:
   - google-cloud
   - sql
@@ -839,10 +837,10 @@ questions:
   queries:
   - name: good
     query: |
-      find google_sql_postgres_instance with logConnections='on'
+      find google_sql_instance with database='POSTGRES' and logConnections='on'
   - name: bad
     query: |
-      find google_sql_postgres_instance with logConnections!='on'
+      find google_sql_instance with database='POSTGRES' and logConnections!='on'
   tags:
   - google-cloud
   - sql
@@ -860,10 +858,10 @@ questions:
   queries:
   - name: good
     query: |
-      find google_sql_postgres_instance with logDisconnections='on'
+      find google_sql_instance with database='POSTGRES' and logDisconnections='on'
   - name: bad
     query: |
-      find google_sql_postgres_instance with logDisconnections!='on'
+      find google_sql_instance with database='POSTGRES' and logDisconnections!='on'
   tags:
   - google-cloud
   - sql
@@ -881,10 +879,10 @@ questions:
   queries:
   - name: good
     query: |
-      find google_sql_postgres_instance with logLockWaits='on'
+      find google_sql_instance with database='POSTGRES' and logLockWaits='on'
   - name: bad
     query: |
-      find google_sql_postgres_instance with logLockWaits!='on'
+      find google_sql_instance with database='POSTGRES' and logLockWaits!='on'
   tags:
   - google-cloud
   - sql
@@ -906,10 +904,10 @@ questions:
   queries:
   - name: good
     query: |
-      find google_sql_postgres_instance with logMinErrorStatement='{{orgMinErrorStatementPolicy}}'
+      find google_sql_instance with database='POSTGRES' and logMinErrorStatement='{{orgMinErrorStatementPolicy}}'
   - name: bad
     query: |
-      find google_sql_postgres_instance with logMinErrorStatement!='{{orgMinErrorStatementPolicy}}'
+      find google_sql_instance with database='POSTGRES' and logMinErrorStatement!='{{orgMinErrorStatementPolicy}}'
   tags:
   - google-cloud
   - sql
@@ -933,10 +931,10 @@ questions:
   queries:
   - name: good
     query: |
-      find google_sql_postgres_instance with logTempFiles='0'
+      find google_sql_instance with database='POSTGRES' and logTempFiles='0'
   - name: bad
     query: |
-      find google_sql_postgres_instance with logTempFiles!='0'
+      find google_sql_instance with database='POSTGRES' and logTempFiles!='0'
   tags:
   - google-cloud
   - sql
@@ -954,10 +952,10 @@ questions:
   queries:
   - name: good
     query: |
-      find google_sql_postgres_instance with logMinDurationStatement='-1'
+      find google_sql_instance with database='POSTGRES' and logMinDurationStatement='-1'
   - name: bad
     query: |
-      find google_sql_postgres_instance with logMinDurationStatement!='-1'
+      find google_sql_instance with database='POSTGRES' and logMinDurationStatement!='-1'
   tags:
   - google-cloud
   - sql
@@ -975,10 +973,10 @@ questions:
   queries:
   - name: good
     query: |
-      find google_sql_sql_server_instance with crossDatabaseOwnershipChaining='off'
+      find google_sql_instance with database='SQLSERVER' and crossDatabaseOwnershipChaining='off'
   - name: bad
     query: |
-      find google_sql_sql_server_instance with crossDatabaseOwnershipChaining!='off'
+      find google_sql_instance with database='SQLSERVER' and crossDatabaseOwnershipChaining!='off'
   tags:
   - google-cloud
   - sql
@@ -996,10 +994,10 @@ questions:
   queries:
   - name: good
     query: |
-      find google_sql_sql_server_instance with containedDatabaseAuthentication='off'
+      find google_sql_instance with database='SQLSERVER' and containedDatabaseAuthentication='off'
   - name: bad
     query: |
-      find google_sql_sql_server_instance with containedDatabaseAuthentication!='off'
+      find google_sql_instance with database='SQLSERVER' and containedDatabaseAuthentication!='off'
   tags:
   - google-cloud
   - sql
@@ -1017,11 +1015,11 @@ questions:
   queries:
   - name: good
     query: |
-      find (google_sql_mysql_instance|google_sql_postgres_instance|google_sql_sql_server_instance)
+      find google_sql_instance
         with requireSSL=true
   - name: bad
     query: |
-      find (google_sql_mysql_instance|google_sql_postgres_instance|google_sql_sql_server_instance)
+      find google_sql_instance
         with requireSSL!=true
   tags:
   - google-cloud
@@ -1040,11 +1038,11 @@ questions:
   queries:
   - name: good
     query: |
-      find (google_sql_mysql_instance|google_sql_postgres_instance|google_sql_sql_server_instance)
+      find google_sql__instance
         with authorizedNetworks!="0.0.0.0/0"
   - name: bad
     query: |
-      find (google_sql_mysql_instance|google_sql_postgres_instance|google_sql_sql_server_instance)
+      find google_sql_instance
         with authorizedNetworks="0.0.0.0/0"
   tags:
   - google-cloud
@@ -1063,11 +1061,11 @@ questions:
   queries:
   - name: good
     query: |
-      find (google_sql_mysql_instance|google_sql_postgres_instance|google_sql_sql_server_instance)
+      find google_sql_instance
         with hasPublicIP!=true
   - name: bad
     query: |
-      find (google_sql_mysql_instance|google_sql_postgres_instance|google_sql_sql_server_instance)
+      find google_sql_instance
         with hasPublicIP=true
   tags:
   - google-cloud
@@ -1086,11 +1084,11 @@ questions:
   queries:
   - name: good
     query: |
-      find (google_sql_mysql_instance|google_sql_postgres_instance|google_sql_sql_server_instance)
+      find google_sql_instance
         with automatedBackupsEnabled=true
   - name: bad
     query: |
-      find (google_sql_mysql_instance|google_sql_postgres_instance|google_sql_sql_server_instance)
+      find google_sql_instance
         with automatedBackupsEnabled!=true
   tags:
   - google-cloud
