@@ -353,9 +353,6 @@ export default async function getStepStartStates(
     [STEP_AUDIT_CONFIG_IAM_POLICY]: config.configureOrganizationProjects
       ? { disabled: true }
       : createStepStartState(ServiceUsageName.RESOURCE_MANAGER),
-    [STEP_AUDIT_CONFIG_IAM_POLICY]: config.configureOrganizationProjects
-      ? { disabled: true }
-      : createStepStartState(ServiceUsageName.RESOURCE_MANAGER),
     [STEP_COMPUTE_DISKS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_REGION_DISKS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_IMAGES]: createStepStartState(ServiceUsageName.COMPUTE),

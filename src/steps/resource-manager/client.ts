@@ -114,18 +114,4 @@ export class ResourceManagerClient extends Client {
       await callback(auditConfig);
     }
   }
-
-  async iteratePolicyMemberBindings(
-    callback: (data: PolicyMemberBinding) => Promise<void>,
-  ) {
-    const policy = await this.getServiceAccountPolicy();
-    for (const binding of policy.bindings || []) {
-      for (const member of binding.members || []) {
-        await callback({
-          binding,
-          member,
-        });
-      }
-    }
-  }
 }
