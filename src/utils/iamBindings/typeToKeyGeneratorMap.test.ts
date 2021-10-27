@@ -1,10 +1,7 @@
-import * as path from 'path';
-import { getSortedJupiterOneTypes } from '@jupiterone/integration-sdk-cli/dist/src/utils/getSortedJupiterOneTypes';
 import {
-  generateRelationshipType,
-  RelationshipClass,
-} from '@jupiterone/integration-sdk-core';
-import { bindingEntities } from '../../steps/cloud-asset/constants';
+  bindingEntities,
+  BINDING_ALLOWS_ANY_RESOURCE_TYPE,
+} from '../../steps/cloud-asset/constants';
 import {
   ENTITY_TYPE_ACCESS_CONTEXT_MANAGER_ACCESS_LEVEL,
   ENTITY_TYPE_ACCESS_CONTEXT_MANAGER_ACCESS_POLICY,
@@ -40,6 +37,14 @@ import {
   SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
   SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
 } from '../../steps/sql-admin';
+import { invocationConfig } from '../..';
+import {
+  generateRelationshipType,
+  StepEntityMetadata,
+  StepMappedRelationshipMetadata,
+  StepMetadata,
+  StepRelationshipMetadata,
+} from '@jupiterone/integration-sdk-core';
 
 /**
  * If your JupiterOne entity can not be indentified in Google Cloud with a Google Cloud
@@ -91,25 +96,19 @@ const HACK_SKIP_UNTIL_SQL_INSTANCES_ARE_FIXED = [
 ]; // will be fixed with https://jupiterone.atlassian.net/browse/INT-1303
 
 describe('J1_TYPE_TO_KEY_GENERATOR_MAP', () => {
-  test('All resource entities that can be targeted by an IAM Binding should be documented in the stepMetadata', async () => {
-    const metadata = await getSortedJupiterOneTypes({
-      projectPath: path.resolve(process.cwd()),
-    });
+  test('All resource entities that can be targeted by an IAM Binding should be documented in the stepMetadata', () => {
+    const metadata = collectGraphObjectMetadataFromSteps(
+      invocationConfig.integrationSteps,
+    );
     const unmappedEntities: string[] = [];
+    const bindingRelationships = metadata.relationships.filter(
+      (r) => r._type === BINDING_ALLOWS_ANY_RESOURCE_TYPE,
+    );
 
     metadata.entities.forEach((entity) => {
       if (!entitiesTypesToSkip.includes(entity._type)) {
-        const generatedRelationshipType = generateRelationshipType(
-          RelationshipClass.ALLOWS,
-          bindingEntities.BINDINGS._type,
-          entity._type,
-        );
-        if (
-          !metadata.relationships.find(
-            (r) => r._type === generatedRelationshipType,
-          )
-        ) {
-          console.log(generatedRelationshipType);
+        if (!bindingRelationships.find((r) => r.targetType == entity._type)) {
+          console.log(entity._type);
           unmappedEntities.push(entity._type);
         }
       }
@@ -117,10 +116,10 @@ describe('J1_TYPE_TO_KEY_GENERATOR_MAP', () => {
     expect(unmappedEntities).toHaveLength(0);
   });
 
-  test('All resource entities that can be targeted by an IAM Binding should be in the J1_TYPE_TO_KEY_GENERATOR_MAP', async () => {
-    const metadata = await getSortedJupiterOneTypes({
-      projectPath: path.resolve(process.cwd()),
-    });
+  test('All resource entities that can be targeted by an IAM Binding should be in the J1_TYPE_TO_KEY_GENERATOR_MAP', () => {
+    const metadata = collectGraphObjectMetadataFromSteps(
+      invocationConfig.integrationSteps,
+    );
     const unmappedEntities: string[] = [];
 
     metadata.entities.forEach((entity) => {
@@ -140,10 +139,10 @@ describe('J1_TYPE_TO_KEY_GENERATOR_MAP', () => {
 });
 
 describe('GOOGLE_RESOURCE_KIND_TO_J1_TYPE_MAP', () => {
-  test('All resource entities that can be targeted by an IAM Binding should be targeted in the GOOGLE_RESOURCE_KIND_TO_J1_TYPE_MAP', async () => {
-    const metadata = await getSortedJupiterOneTypes({
-      projectPath: path.resolve(process.cwd()),
-    });
+  test('All resource entities that can be targeted by an IAM Binding should be targeted in the GOOGLE_RESOURCE_KIND_TO_J1_TYPE_MAP', () => {
+    const metadata = collectGraphObjectMetadataFromSteps(
+      invocationConfig.integrationSteps,
+    );
     const unmappedEntities: string[] = [];
 
     metadata.entities.forEach((entity) => {
@@ -165,3 +164,67 @@ describe('GOOGLE_RESOURCE_KIND_TO_J1_TYPE_MAP', () => {
     expect(unmappedEntities).toHaveLength(0);
   });
 });
+
+function integrationStepsToMap(integrationSteps) {
+  const integrationStepMap = new Map<string, StepMetadata>();
+  for (const step of integrationSteps) {
+    integrationStepMap.set(step.id, step);
+  }
+  return integrationStepMap;
+}
+
+function collectGraphObjectMetadataFromSteps(
+  steps: typeof invocationConfig.integrationSteps,
+) {
+  const integrationStepMap = integrationStepsToMap(steps);
+  const entities: StepEntityMetadata[] = [];
+  const relationships: StepRelationshipMetadata[] = [];
+  const mappedRelationships: StepMappedRelationshipMetadata[] = [];
+  // There could be multiple steps that ingest the same entity/relationship
+  // `_type`, so we need to deduplicate the data.
+  const entityTypeSet = new Set();
+  const relationshipTypeSet = new Set();
+  const mappedRelationshipTypeSet = new Set();
+  for (const stepName of steps.map((s) => s.name)) {
+    const step = integrationStepMap.get(stepName);
+    if (!step) continue;
+    for (const e of step.entities) {
+      if (entityTypeSet.has(e._type)) {
+        continue;
+      }
+      entityTypeSet.add(e._type);
+      entities.push(e);
+    }
+    for (const r of step.relationships) {
+      // We want to regenerate the type off of the composite types to get all ANY_RESOURCE relationships
+      const generatedType = generateRelationshipType(
+        r._class,
+        r.sourceType,
+        r.targetType,
+      );
+      if (relationshipTypeSet.has(generatedType)) {
+        continue;
+      }
+      relationshipTypeSet.add(generatedType);
+      relationships.push(r);
+    }
+    for (const r of step.mappedRelationships || []) {
+      // We want to regenerate the type off of the composite types to get all ANY_RESOURCE relationships
+      const generatedType = generateRelationshipType(
+        r._class,
+        r.sourceType,
+        r.targetType,
+      );
+      if (mappedRelationshipTypeSet.has(generatedType)) {
+        continue;
+      }
+      mappedRelationshipTypeSet.add(generatedType);
+      mappedRelationships.push(r);
+    }
+  }
+  return {
+    entities,
+    relationships,
+    mappedRelationships,
+  };
+}
