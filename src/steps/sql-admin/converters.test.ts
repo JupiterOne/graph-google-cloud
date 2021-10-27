@@ -1,15 +1,11 @@
-import {
-  createMySQLInstanceEntity,
-  createPostgresInstanceEntity,
-  createSQLServerInstanceEntity,
-} from './converters';
+import { createSQLInstanceEntity } from './converters';
 
 import { getMockSQLInstance } from '../../../test/mocks';
 
 describe('#createMySQLInstanceEntity', () => {
   test('should convert to entity', () => {
     expect(
-      createMySQLInstanceEntity(
+      createSQLInstanceEntity(
         getMockSQLInstance({
           databaseVersion: 'MYSQL_5_7',
           backendType: 'SECOND_GEN',
@@ -20,7 +16,7 @@ describe('#createMySQLInstanceEntity', () => {
 
   test('should convert to entity with localInfile param set to off', () => {
     expect(
-      createMySQLInstanceEntity(
+      createSQLInstanceEntity(
         getMockSQLInstance({
           databaseVersion: 'MYSQL_5_7',
           backendType: 'SECOND_GEN',
@@ -39,7 +35,7 @@ describe('#createMySQLInstanceEntity', () => {
 
   test('should convert to entity with requireSSL param set to true', () => {
     expect(
-      createMySQLInstanceEntity(
+      createSQLInstanceEntity(
         getMockSQLInstance({
           databaseVersion: 'MYSQL_5_7',
           backendType: 'SECOND_GEN',
@@ -57,7 +53,7 @@ describe('#createMySQLInstanceEntity', () => {
 describe('#createPostgresInstanceEntity', () => {
   test('should convert to entity', () => {
     expect(
-      createPostgresInstanceEntity(
+      createSQLInstanceEntity(
         getMockSQLInstance({
           databaseVersion: 'POSTGRES_12',
           backendType: 'SECOND_GEN',
@@ -68,7 +64,7 @@ describe('#createPostgresInstanceEntity', () => {
 
   test('should convert to entity with logCheckpoints param set to off', () => {
     expect(
-      createPostgresInstanceEntity(
+      createSQLInstanceEntity(
         getMockSQLInstance({
           databaseVersion: 'POSTGRES_12',
           backendType: 'SECOND_GEN',
@@ -89,7 +85,7 @@ describe('#createPostgresInstanceEntity', () => {
 describe('#createSQLServerInstanceEntity', () => {
   test('should convert to entity', () => {
     expect(
-      createSQLServerInstanceEntity(
+      createSQLInstanceEntity(
         getMockSQLInstance({
           databaseVersion: 'SQLSERVER_2017_STANDARD',
           backendType: 'SECOND_GEN',
@@ -100,7 +96,7 @@ describe('#createSQLServerInstanceEntity', () => {
 
   test('should convert to entity with crossDbOwnershipChaining param set to on', () => {
     expect(
-      createSQLServerInstanceEntity(
+      createSQLInstanceEntity(
         getMockSQLInstance({
           databaseVersion: 'SQLSERVER_2017_STANDARD',
           backendType: 'SECOND_GEN',

@@ -17,22 +17,11 @@ import { STEP_RESOURCE_MANAGER_PROJECT } from '../resource-manager';
 import { SQLAdminClient } from './client';
 import {
   STEP_SQL_ADMIN_INSTANCES,
-  DATABASE_TYPE,
-  SQL_ADMIN_MYSQL_INSTANCE_ENTITY_CLASS,
-  SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
-  SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
-  SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_CLASS,
-  SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
-  SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_CLASS,
-  SQL_POSTGRES_INSTANCE_USES_KMS_KEY_RELATIONSHIP,
-  SQL_MYSQL_INSTANCE_USES_KMS_KEY_RELATIONSHIP,
-  SQL_SQL_INSTANCE_USES_KMS_KEY_RELATIONSHIP,
+  SQL_INSTANCE_USES_KMS_KEY_RELATIONSHIP_TYPE,
+  SQL_ADMIN_INSTANCE_ENTITY_CLASS,
+  SQL_ADMIN_INSTANCE_ENTITY_TYPE,
 } from './constants';
-import {
-  createMySQLInstanceEntity,
-  createPostgresInstanceEntity,
-  createSQLServerInstanceEntity,
-} from './converters';
+import { createSQLInstanceEntity } from './converters';
 
 export * from './constants';
 
@@ -57,32 +46,8 @@ export async function fetchSQLAdminInstances(
       return;
     }
 
-    let instanceEntity: Entity;
-    let relationshipType: string;
-
-    if (instance.databaseVersion?.toUpperCase().includes(DATABASE_TYPE.MYSQL)) {
-      instanceEntity = await jobState.addEntity(
-        createMySQLInstanceEntity(instance),
-      );
-      relationshipType = SQL_MYSQL_INSTANCE_USES_KMS_KEY_RELATIONSHIP;
-    } else if (
-      instance.databaseVersion?.toUpperCase().includes(DATABASE_TYPE.POSTGRES)
-    ) {
-      instanceEntity = await jobState.addEntity(
-        createPostgresInstanceEntity(instance),
-      );
-      relationshipType = SQL_POSTGRES_INSTANCE_USES_KMS_KEY_RELATIONSHIP;
-    } else if (
-      instance.databaseVersion?.toUpperCase().includes(DATABASE_TYPE.SQL_SERVER)
-    ) {
-      instanceEntity = await jobState.addEntity(
-        createSQLServerInstanceEntity(instance),
-      );
-      relationshipType = SQL_SQL_INSTANCE_USES_KMS_KEY_RELATIONSHIP;
-    } else {
-      // NOTE: This could happen if Google Cloud introduces a new type of
-      // database under the SQL Admin offering. This log is intentially a `warn`,
-      // for greater visibility that we should support this new type.
+    const instanceEntity = createSQLInstanceEntity(instance);
+    if (!instanceEntity) {
       logger.warn(
         {
           selfLink: instance.selfLink,
@@ -92,6 +57,7 @@ export async function fetchSQLAdminInstances(
       return;
     }
 
+    await jobState.addEntity(instanceEntity);
     const kmsKeyName = instance.diskEncryptionConfiguration?.kmsKeyName;
 
     if (kmsKeyName) {
@@ -110,7 +76,7 @@ export async function fetchSQLAdminInstances(
         await jobState.addRelationship(
           createMappedRelationship({
             _class: RelationshipClass.USES,
-            _type: relationshipType,
+            _type: SQL_INSTANCE_USES_KMS_KEY_RELATIONSHIP_TYPE,
             _mapping: {
               relationshipDirection: RelationshipDirection.FORWARD,
               sourceEntityKey: instanceEntity._key,
@@ -134,38 +100,16 @@ export const sqlAdminSteps: IntegrationStep<IntegrationConfig>[] = [
     name: 'SQL Admin Instances',
     entities: [
       {
-        resourceName: 'SQL Admin MySQL Instance',
-        _type: SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
-        _class: SQL_ADMIN_MYSQL_INSTANCE_ENTITY_CLASS,
-      },
-      {
-        resourceName: 'SQL Admin Postgres Instance',
-        _type: SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
-        _class: SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_CLASS,
-      },
-      {
-        resourceName: 'SQL Admin SQL Server Instance',
-        _type: SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
-        _class: SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_CLASS,
+        resourceName: 'SQL Admin Instance',
+        _type: SQL_ADMIN_INSTANCE_ENTITY_CLASS,
+        _class: SQL_ADMIN_INSTANCE_ENTITY_TYPE,
       },
     ],
     relationships: [
       {
         _class: RelationshipClass.USES,
-        _type: SQL_POSTGRES_INSTANCE_USES_KMS_KEY_RELATIONSHIP,
-        sourceType: SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
-        targetType: ENTITY_TYPE_KMS_KEY,
-      },
-      {
-        _class: RelationshipClass.USES,
-        _type: SQL_MYSQL_INSTANCE_USES_KMS_KEY_RELATIONSHIP,
-        sourceType: SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
-        targetType: ENTITY_TYPE_KMS_KEY,
-      },
-      {
-        _class: RelationshipClass.USES,
-        _type: SQL_SQL_INSTANCE_USES_KMS_KEY_RELATIONSHIP,
-        sourceType: SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
+        _type: SQL_INSTANCE_USES_KMS_KEY_RELATIONSHIP_TYPE,
+        sourceType: SQL_ADMIN_INSTANCE_ENTITY_CLASS,
         targetType: ENTITY_TYPE_KMS_KEY,
       },
     ],

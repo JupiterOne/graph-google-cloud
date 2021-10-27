@@ -355,9 +355,7 @@ The following entities are created:
 | PubSub Subscription                                      | `google_pubsub_subscription`                                      | `Service`                          |
 | PubSub Topic                                             | `google_pubsub_topic`                                             | `Channel`                          |
 | Redis Instance                                           | `google_redis_instance`                                           | `Database`, `DataStore`, `Host`    |
-| SQL Admin MySQL Instance                                 | `google_sql_mysql_instance`                                       | `Database`                         |
-| SQL Admin Postgres Instance                              | `google_sql_postgres_instance`                                    | `Database`                         |
-| SQL Admin SQL Server Instance                            | `google_sql_sql_server_instance`                                  | `Database`                         |
+| SQL Admin Instance                                       | `Database`                                                        | `google_sql_instance`              |
 | Spanner Instance                                         | `google_spanner_instance`                                         | `Database`, `Cluster`              |
 | Spanner Instance Config                                  | `google_spanner_instance_config`                                  | `Configuration`                    |
 | Spanner Instance Database                                | `google_spanner_database`                                         | `Database`                         |
@@ -480,9 +478,7 @@ The following relationships are created:
 | `google_spanner_database`                                        | **USES**              | `google_kms_crypto_key`                                           |
 | `google_spanner_instance`                                        | **HAS**               | `google_spanner_database`                                         |
 | `google_spanner_instance`                                        | **USES**              | `google_spanner_instance_config`                                  |
-| `google_sql_mysql_instance`                                      | **USES**              | `google_kms_crypto_key`                                           |
-| `google_sql_postgres_instance`                                   | **USES**              | `google_kms_crypto_key`                                           |
-| `google_sql_sql_server_instance`                                 | **USES**              | `google_kms_crypto_key`                                           |
+| `Database`                                                       | **USES**              | `google_kms_crypto_key`                                           |
 | `google_user`                                                    | **CREATED**           | `google_app_engine_version`                                       |
 
 <!--

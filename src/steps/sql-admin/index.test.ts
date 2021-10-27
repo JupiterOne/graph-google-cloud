@@ -8,9 +8,9 @@ import { fetchKmsCryptoKeys, fetchKmsKeyRings } from '../kms';
 import { fetchResourceManagerProject } from '../resource-manager';
 
 import {
-  SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
-  SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
-  SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
+  DATABASE_TYPE,
+  SQL_ADMIN_INSTANCE_ENTITY_TYPE,
+  SQL_INSTANCE_USES_KMS_KEY_RELATIONSHIP_TYPE,
 } from './constants';
 
 describe('#fetchSQLInstances', () => {
@@ -55,14 +55,14 @@ describe('#fetchSQLInstances', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e._type === SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
+        (e) => e.database === DATABASE_TYPE.MYSQL,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['Database'],
       schema: {
         additionalProperties: false,
         properties: {
-          _type: { const: 'google_sql_mysql_instance' },
+          _type: { const: SQL_ADMIN_INSTANCE_ENTITY_TYPE },
           _rawData: {
             type: 'array',
             items: { type: 'object' },
@@ -71,6 +71,8 @@ describe('#fetchSQLInstances', () => {
           encrypted: { type: 'boolean' },
           location: { type: 'string' },
           displayName: { type: 'string' },
+          database: { type: 'string' },
+          databaseVersion: { type: 'string' },
           localInfile: { type: 'string' },
           requireSSL: { type: 'boolean' },
           authorizedNetworks: {
@@ -88,14 +90,14 @@ describe('#fetchSQLInstances', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e._type === SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
+        (e) => e.database === DATABASE_TYPE.POSTGRES,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['Database'],
       schema: {
         additionalProperties: false,
         properties: {
-          _type: { const: 'google_sql_postgres_instance' },
+          _type: { const: SQL_ADMIN_INSTANCE_ENTITY_TYPE },
           _rawData: {
             type: 'array',
             items: { type: 'object' },
@@ -104,6 +106,8 @@ describe('#fetchSQLInstances', () => {
           encrypted: { type: 'boolean' },
           location: { type: 'string' },
           displayName: { type: 'string' },
+          database: { type: 'string' },
+          databaseVersion: { type: 'string' },
           logCheckpoints: { type: 'string' },
           logConnections: { type: 'string' },
           logDisconnections: { type: 'string' },
@@ -135,14 +139,14 @@ describe('#fetchSQLInstances', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e._type === SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
+        (e) => e.database === DATABASE_TYPE.SQL_SERVER,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['Database'],
       schema: {
         additionalProperties: false,
         properties: {
-          _type: { const: 'google_sql_sql_server_instance' },
+          _type: { const: SQL_ADMIN_INSTANCE_ENTITY_TYPE },
           _rawData: {
             type: 'array',
             items: { type: 'object' },
@@ -151,6 +155,8 @@ describe('#fetchSQLInstances', () => {
           encrypted: { type: 'boolean' },
           location: { type: 'string' },
           displayName: { type: 'string' },
+          database: { type: 'string' },
+          databaseVersion: { type: 'string' },
           crossDatabaseOwnershipChaining: { type: 'string' },
           containedDatabaseAuthentication: { type: 'string' },
           requireSSL: { type: 'boolean' },
@@ -217,14 +223,14 @@ describe('#fetchSQLInstances encrypted', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e._type === SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
+        (e) => e.database === DATABASE_TYPE.MYSQL,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['Database'],
       schema: {
         additionalProperties: false,
         properties: {
-          _type: { const: 'google_sql_mysql_instance' },
+          _type: { const: SQL_ADMIN_INSTANCE_ENTITY_TYPE },
           _rawData: {
             type: 'array',
             items: { type: 'object' },
@@ -233,6 +239,8 @@ describe('#fetchSQLInstances encrypted', () => {
           encrypted: { type: 'boolean' },
           location: { type: 'string' },
           displayName: { type: 'string' },
+          database: { type: 'string' },
+          databaseVersion: { type: 'string' },
           localInfile: { type: 'string' },
           requireSSL: { type: 'boolean' },
           authorizedNetworks: {
@@ -250,14 +258,14 @@ describe('#fetchSQLInstances encrypted', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e._type === SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
+        (e) => e.database === DATABASE_TYPE.POSTGRES,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['Database'],
       schema: {
         additionalProperties: false,
         properties: {
-          _type: { const: 'google_sql_postgres_instance' },
+          _type: { const: SQL_ADMIN_INSTANCE_ENTITY_TYPE },
           _rawData: {
             type: 'array',
             items: { type: 'object' },
@@ -266,6 +274,8 @@ describe('#fetchSQLInstances encrypted', () => {
           encrypted: { type: 'boolean' },
           location: { type: 'string' },
           displayName: { type: 'string' },
+          database: { type: 'string' },
+          databaseVersion: { type: 'string' },
           logCheckpoints: { type: 'string' },
           logConnections: { type: 'string' },
           logDisconnections: { type: 'string' },
@@ -297,14 +307,14 @@ describe('#fetchSQLInstances encrypted', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e._type === SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
+        (e) => e.database === DATABASE_TYPE.SQL_SERVER,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['Database'],
       schema: {
         additionalProperties: false,
         properties: {
-          _type: { const: 'google_sql_sql_server_instance' },
+          _type: { const: SQL_ADMIN_INSTANCE_ENTITY_TYPE },
           _rawData: {
             type: 'array',
             items: { type: 'object' },
@@ -313,6 +323,8 @@ describe('#fetchSQLInstances encrypted', () => {
           encrypted: { type: 'boolean' },
           location: { type: 'string' },
           displayName: { type: 'string' },
+          database: { type: 'string' },
+          databaseVersion: { type: 'string' },
           crossDatabaseOwnershipChaining: { type: 'string' },
           containedDatabaseAuthentication: { type: 'string' },
           requireSSL: { type: 'boolean' },
@@ -339,7 +351,7 @@ describe('#fetchSQLInstances encrypted', () => {
       );
 
     const postgresInstanceUsesKmsKeyRelationships = directRelationships.filter(
-      (r) => r._type === 'google_sql_postgres_instance_uses_kms_crypto_key',
+      (r) => r._type === SQL_INSTANCE_USES_KMS_KEY_RELATIONSHIP_TYPE,
     );
 
     expect(postgresInstanceUsesKmsKeyRelationships.length).toBeGreaterThan(0);

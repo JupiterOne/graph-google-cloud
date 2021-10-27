@@ -1,12 +1,9 @@
 import { sqladmin_v1beta4 } from 'googleapis';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import {
-  SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
-  SQL_ADMIN_MYSQL_INSTANCE_ENTITY_CLASS,
-  SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
-  SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_CLASS,
-  SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
-  SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_CLASS,
+  SQL_ADMIN_INSTANCE_ENTITY_TYPE,
+  SQL_ADMIN_INSTANCE_ENTITY_CLASS,
+  DATABASE_TYPE,
 } from './constants';
 
 function getFlagValue(
@@ -143,61 +140,44 @@ function getCommonDatabaseInstanceProperties(
   };
 }
 
-export function createMySQLInstanceEntity(
+export function createSQLInstanceEntity(
   instance: sqladmin_v1beta4.Schema$DatabaseInstance,
 ) {
+  const getCommonDatabaseProperties =
+    getCommonDatabaseInstanceProperties(instance);
+  let databaseSpecificProperties = {};
+  let database: DATABASE_TYPE | undefined = undefined;
+  const databaseVersion = instance.databaseVersion?.toUpperCase();
+  if (databaseVersion?.includes(DATABASE_TYPE.MYSQL)) {
+    databaseSpecificProperties = getMySQLSpecificBenchmarkProperties(instance);
+    database = DATABASE_TYPE.MYSQL;
+  } else if (databaseVersion?.includes(DATABASE_TYPE.POSTGRES)) {
+    databaseSpecificProperties =
+      getPostgresSpecificBenchmarkProperties(instance);
+    database = DATABASE_TYPE.POSTGRES;
+  } else if (databaseVersion?.includes(DATABASE_TYPE.SQL_SERVER)) {
+    databaseSpecificProperties =
+      getSQLServerSpecificBenchmarkProperties(instance);
+    database = DATABASE_TYPE.SQL_SERVER;
+  } else {
+    // This could happen if Google Cloud introduces a new type of
+    // database under the SQL Admin offering.
+    return undefined;
+  }
   return createGoogleCloudIntegrationEntity(instance, {
     entityData: {
       source: instance,
       assign: {
         _key: instance.selfLink as string,
-        _type: SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
-        _class: SQL_ADMIN_MYSQL_INSTANCE_ENTITY_CLASS,
+        _type: SQL_ADMIN_INSTANCE_ENTITY_TYPE,
+        _class: SQL_ADMIN_INSTANCE_ENTITY_CLASS,
         name: instance.name,
         encrypted: true,
         location: instance.connectionName,
-        ...getMySQLSpecificBenchmarkProperties(instance),
-        ...getCommonDatabaseInstanceProperties(instance),
-      },
-    },
-  });
-}
-
-export function createPostgresInstanceEntity(
-  instance: sqladmin_v1beta4.Schema$DatabaseInstance,
-) {
-  return createGoogleCloudIntegrationEntity(instance, {
-    entityData: {
-      source: instance,
-      assign: {
-        _key: instance.selfLink as string,
-        _type: SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
-        _class: SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_CLASS,
-        name: instance.name,
-        encrypted: true,
-        location: instance.connectionName,
-        ...getPostgresSpecificBenchmarkProperties(instance),
-        ...getCommonDatabaseInstanceProperties(instance),
-      },
-    },
-  });
-}
-
-export function createSQLServerInstanceEntity(
-  instance: sqladmin_v1beta4.Schema$DatabaseInstance,
-) {
-  return createGoogleCloudIntegrationEntity(instance, {
-    entityData: {
-      source: instance,
-      assign: {
-        _key: instance.selfLink as string,
-        _type: SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
-        _class: SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_CLASS,
-        name: instance.name,
-        encrypted: true,
-        location: instance.connectionName,
-        ...getSQLServerSpecificBenchmarkProperties(instance),
-        ...getCommonDatabaseInstanceProperties(instance),
+        database,
+        databaseVersion,
+        ...databaseSpecificProperties,
+        ...getCommonDatabaseProperties,
       },
     },
   });
