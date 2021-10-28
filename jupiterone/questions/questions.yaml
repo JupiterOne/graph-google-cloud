@@ -279,7 +279,7 @@ questions:
         google_storage_bucket |
         google_bigquery_dataset |
         google_pubsub_topic |
-        google_sql_instance |
+        google_sql_instance
       )
         WITH kmsKeyName !^="{{kms project reference}}"
         AND kmsKeyName != undefined AS result
