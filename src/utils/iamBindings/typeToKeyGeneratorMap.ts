@@ -1,4 +1,3 @@
-import { MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND } from './resourceKindToTypeMap';
 import {
   ENTITY_TYPE_API_GATEWAY_API,
   ENTITY_TYPE_API_GATEWAY_API_CONFIG,
@@ -92,6 +91,11 @@ import {
   ENTITY_TYPE_BIG_TABLE_BACKUP,
 } from '../../steps/big-table/constants';
 import { ENTITY_TYPE_BILLING_ACCOUNT } from '../../steps/cloud-billing/constants';
+import {
+  SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
+  SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
+  SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
+} from '../../steps/sql-admin';
 
 /**
  * A map of JupiterOne types to a function which can generate their _key
@@ -167,7 +171,6 @@ export const J1_TYPE_TO_KEY_GENERATOR_MAP: {
   [ENTITY_TYPE_REDIS_INSTANCE]: customPrefixAndIdKeyMap(getRedisKey),
   [ENTITY_TYPE_MEMCACHE_INSTANCE]: customPrefixAndIdKeyMap(getMemcacheKey),
   [MONITORING_ALERT_POLICY_TYPE]: fullPathKeyMap,
-  [MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND]: selfLinkKeyMap,
   [ENTITY_TYPE_DATAPROC_CLUSTER]: fullPathKeyMap,
   [ENTITY_TYPE_BIG_TABLE_INSTANCE]: fullPathKeyMap,
   [ENTITY_TYPE_BIG_TABLE_CLUSTER]: fullPathKeyMap,
@@ -176,6 +179,9 @@ export const J1_TYPE_TO_KEY_GENERATOR_MAP: {
   [ENTITY_TYPE_BIG_TABLE_BACKUP]: fullPathKeyMap,
   [ENTITY_TYPE_BILLING_ACCOUNT]: fullPathKeyMap,
   [DNS_POLICY_ENTITY_TYPE]: fullPathKeyMap,
+  [SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE]: selfLinkKeyMap,
+  [SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE]: selfLinkKeyMap,
+  [SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE]: selfLinkKeyMap,
 };
 
 // ex: projects/j1-gc-integration-dev-v3/locations/us-central1/functions/j1-gc-integration-dev-v3testfunction
