@@ -16,6 +16,17 @@ questions:
   - google-cloud
   - service
   - api
+- id: integration-question-google-cloud-kubernetes-route-based-clusters
+  title: Which Kubernetes clusters use Google Cloud Routes for traffic routing between pods?
+  description:
+    Finds all Kubernetes clusters that are routes-based clusters
+  queries:
+  - query: |
+      FIND google_container_cluster WITH useRoutes = true
+  tags:
+  - google-cloud
+  - gke
+  - network
 ################################################################################
 # End generic non-compliance questions
 ################################################################################
