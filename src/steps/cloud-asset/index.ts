@@ -692,12 +692,15 @@ function buildBindingEntityResourceKey(bindingEntity: BindingEntity) {
 }
 
 function isOrganizationalHierarchyResource(resourceType?: string) {
-  return [
-    ORGANIZATION_ENTITY_TYPE,
-    FOLDER_ENTITY_TYPE,
-    PROJECT_ENTITY_TYPE,
-    API_SERVICE_ENTITY_TYPE,
-  ].includes(resourceType as any);
+  return (
+    !!resourceType &&
+    [
+      ORGANIZATION_ENTITY_TYPE,
+      FOLDER_ENTITY_TYPE,
+      PROJECT_ENTITY_TYPE,
+      API_SERVICE_ENTITY_TYPE,
+    ].includes(resourceType)
+  );
 }
 
 function buildServiceGraphObjectKey(
