@@ -177,10 +177,12 @@ export async function fetchIamBindings(
   // Need to get bindings for every level of the Resource Hierarchy.
   try {
     // Project level bindings and all resource level bindings in that project
-    await client.iterateIamPoliciesForProjectAndResources(
-      context.instance.config.projectId!,
-      handlePolicyResult,
-    );
+    if (context.instance.config.projectId) {
+      await client.iterateIamPoliciesForProjectAndResources(
+        context.instance.config.projectId,
+        handlePolicyResult,
+      );
+    }
     // Folder level bindings
     await jobState.iterateEntities(
       { _type: FOLDER_ENTITY_TYPE },
