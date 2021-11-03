@@ -668,12 +668,10 @@ export async function createBindingToAnyResourceRelationships(
               relationshipDirection: RelationshipDirection.FORWARD,
               sourceEntityKey: bindingEntity._key,
               targetFilterKeys: [type ? ['_type', '_key'] : ['_key']],
-              skipTargetCreation: type ? false : true, // If we have a type, create target entity, if not, adoption does not work so skip target entity creation
+              skipTargetCreation: true, // Each project should be in charge of ingesting its own resources
               targetEntity: {
                 _type: type,
                 _key: key,
-                name: bindingEntity.resource,
-                displayName: bindingEntity.resource,
                 resourceIdentifier: bindingEntity.resource,
               },
             },
@@ -775,12 +773,10 @@ export async function createApiServiceToAnyResourceRelationships(
                 relationshipDirection: RelationshipDirection.FORWARD,
                 sourceEntityKey: serviceEntity._key,
                 targetFilterKeys: [resourceType ? ['_type', '_key'] : ['_key']],
-                skipTargetCreation: false,
+                skipTargetCreation: true, // Each project should be in charge of ingesting its own resources.
                 targetEntity: {
                   _type: resourceType,
                   _key: resourceKey,
-                  name: bindingEntity.resource,
-                  displayName: bindingEntity.resource,
                   resourceIdentifier: bindingEntity.resource,
                 },
               },

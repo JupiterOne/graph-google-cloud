@@ -8,11 +8,6 @@ and this project adheres to
 
 ## [Unreleased]
 
-### Changed
-
-- Create target entities when making mapped `google_iam_binding_allows_resource`
-  and `google_cloud_api_service_has_resource` relationships.
-
 ### Fixed
 
 - When making mapped `google_iam_binding_allows_resource` and
