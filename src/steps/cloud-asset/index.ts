@@ -668,7 +668,7 @@ export async function createBindingToAnyResourceRelationships(
               relationshipDirection: RelationshipDirection.FORWARD,
               sourceEntityKey: bindingEntity._key,
               targetFilterKeys: [type ? ['_type', '_key'] : ['_key']],
-              skipTargetCreation: false,
+              skipTargetCreation: type ? false : true, // If we have a type, create target entity, if not, adoption does not work so skip target entity creation
               targetEntity: {
                 _type: type,
                 _key: key,
