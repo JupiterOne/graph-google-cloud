@@ -692,7 +692,7 @@ exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for al
 Object {
   "identifier": "//cloudsql.googleapis.com/projects/12345/instances/abcdef12345",
   "key": "https://www.googleapis.com/cloudsql/projects/12345/instances/abcdef12345",
-  "type": "MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND",
+  "type": undefined,
 }
 `;
 

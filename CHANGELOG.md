@@ -8,6 +8,14 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Fixed
+
+- When making mapped `google_iam_binding_allows_resource` and
+  `google_cloud_api_service_has_resource` relationships to
+  `google_sql_postgres_instance`, `google_sql_sql_server_instance`, and
+  `google_sql_mysql_instance`. Only map on the `_key` property and not the
+  `_type`.
+
 ## 2.0.0 - 2021-10-27
 
 ### Changed

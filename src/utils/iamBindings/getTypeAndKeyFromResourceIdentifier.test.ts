@@ -13,7 +13,7 @@ import {
   makeLogsForTypeAndKeyResponse,
   TypeAndKey,
 } from './getTypeAndKeyFromResourceIdentifier';
-import { NONE } from './resourceKindToTypeMap';
+import { J1_TYPES_WITHOUT_A_UNIQUE_KIND, NONE } from './resourceKindToTypeMap';
 import {
   impossible,
   J1_TYPE_TO_KEY_GENERATOR_MAP,
@@ -21,7 +21,7 @@ import {
 
 const jupiterOneTypesWithMappedGoogleResources = Object.keys(
   pickBy(J1_TYPE_TO_KEY_GENERATOR_MAP, (keyMethod) => keyMethod !== impossible),
-);
+).filter((type) => !J1_TYPES_WITHOUT_A_UNIQUE_KIND.includes(type));
 
 describe('getTypeAndKeyFromResourceIdentifier', () => {
   it(`should find the correct keys for all available resources`, async () => {
@@ -64,7 +64,7 @@ describe('makeLogsForTypeAndKeyResponse', () => {
     };
     const logger = getMockLogger<IntegrationLogger>();
     makeLogsForTypeAndKeyResponse(logger, typeAndKeyResponse);
-    expect(logger.warn).toHaveBeenCalledWith(
+    expect(logger.info).toHaveBeenCalledWith(
       typeAndKeyResponse,
       'Unable to find J1 type from google cloud resource.',
     );

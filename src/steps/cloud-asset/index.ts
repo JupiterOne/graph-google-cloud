@@ -51,7 +51,6 @@ import {
   makeLogsForTypeAndKeyResponse,
 } from '../../utils/iamBindings/getTypeAndKeyFromResourceIdentifier';
 import { getEnabledServiceNames } from '../enablement';
-import { MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND } from '../../utils/iamBindings/resourceKindToTypeMap';
 import { createIamRoleEntity } from '../iam/converters';
 import {
   basicRoles,
@@ -486,14 +485,6 @@ export function buildIamTargetRelationship({
             targetFilterKeys: targetEntity._key // Not always able to determine a _key for google_users depending on how the binding is set up
               ? [['_key', '_type']]
               : [['_type', 'email']],
-            /**
-             * The mapper does not properly remove mapper-created entities at the moment. These
-             * entities will never be cleaned up which will causes duplicates.
-             *
-             * However, we should still create these entities as they are important for access
-             * analysis. Without these relationships, it will make is look like something is
-             * secure when it actually is not. We will just have to deal with the duplicates.
-             */
             skipTargetCreation: false,
             targetEntity,
           },
@@ -657,9 +648,7 @@ export async function createBindingToAnyResourceRelationships(
             context,
           ),
         ) ?? {};
-      if (typeof type !== 'string' || typeof key !== 'string') {
-        return;
-      }
+      if (typeof key !== 'string') return;
       // Check to see if service is enabled prior to searching the jobState for an entity
       const service = getServiceFromResourceIdentifier(bindingEntity.resource);
       const existingEntity = enabledServiceNames.includes(service)
@@ -680,31 +669,10 @@ export async function createBindingToAnyResourceRelationships(
             _mapping: {
               relationshipDirection: RelationshipDirection.FORWARD,
               sourceEntityKey: bindingEntity._key,
-              targetFilterKeys: [
-                // Because there is no one-to-one-mapping from Google Resource Kind to J1 Type, only map on the `_key`.
-                type === MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND
-                  ? ['_key']
-                  : ['_type', '_key'],
-              ],
-              /**
-               * The mapper does not properly remove mapper-created entities at the moment. These
-               * entities will never be cleaned up which will cause duplicates.
-               *
-               * Until this is fixed, we should not create mapped relationships with target creation
-               * enabled, thus only creating iam_binding relationships to resources that have already
-               * been ingested by other integrations.
-               *
-               * This is a BIG problem because we can no longer tell a customer with 100% confidence
-               * that they do not have any insecure resources if they have yet to have an integration
-               * ingest that resource.
-               */
-              skipTargetCreation: true,
+              targetFilterKeys: [type ? ['_type', '_key'] : ['_key']],
+              skipTargetCreation: true, // Each project should be in charge of ingesting its own resources
               targetEntity: {
-                // When there is no one-to-one-mapping from Google Resource Kind to J1 Type, do not set the _type on target entities.
-                _type:
-                  type === MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND
-                    ? undefined
-                    : type,
+                _type: type,
                 _key: key,
                 resourceIdentifier: bindingEntity.resource,
               },
@@ -723,13 +691,16 @@ function buildBindingEntityResourceKey(bindingEntity: BindingEntity) {
   );
 }
 
-function isOrganizationalHierarchyResource(resourceType: string) {
-  return [
-    ORGANIZATION_ENTITY_TYPE,
-    FOLDER_ENTITY_TYPE,
-    PROJECT_ENTITY_TYPE,
-    API_SERVICE_ENTITY_TYPE,
-  ].includes(resourceType);
+function isOrganizationalHierarchyResource(resourceType?: string) {
+  return (
+    !!resourceType &&
+    [
+      ORGANIZATION_ENTITY_TYPE,
+      FOLDER_ENTITY_TYPE,
+      PROJECT_ENTITY_TYPE,
+      API_SERVICE_ENTITY_TYPE,
+    ].includes(resourceType)
+  );
 }
 
 function buildServiceGraphObjectKey(
@@ -774,7 +745,7 @@ export async function createApiServiceToAnyResourceRelationships(
       ) ?? {};
 
       // Do NOT make relationships for resources in the Organization Resource Heirarchy.
-      if (isOrganizationalHierarchyResource(resourceType!)) return;
+      if (isOrganizationalHierarchyResource(resourceType)) return;
       if (!googleResourceKind || !resourceKey) return;
 
       const serviceIdentifier = googleResourceKind.split('/')[0]; // 'cloudfunctions.googleapis.com/CloudFunction' => 'cloudfunctions.googleapis.com'
@@ -782,20 +753,11 @@ export async function createApiServiceToAnyResourceRelationships(
         bindingEntity,
         serviceIdentifier,
       );
+
       const serviceEntity = await jobState.findEntity(serviceKey);
+      if (!serviceEntity) return;
+
       const resourceEntity = await jobState.findEntity(resourceKey);
-
-      // WARNING! TODO: We can not make these relationships for sqladmin.googleapis.com/Instances
-      // A Google Resource Type of sqladmin.googleapis.com/Instances could be a
-      // google_sql_mysql_instance, a google_sql_postgres_instance, or a
-      // google_sql_sql_server_instance. There is no way to tell at the moment.
-      if (
-        !serviceEntity ||
-        !resourceType ||
-        resourceType === MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND
-      )
-        return;
-
       await jobState.addRelationship(
         resourceEntity
           ? createDirectRelationship({
@@ -809,20 +771,16 @@ export async function createApiServiceToAnyResourceRelationships(
           : createMappedRelationship({
               _class: RelationshipClass.HAS,
               _type: API_SERVICE_HAS_ANY_RESOURCE_TYPE,
-              source: serviceEntity,
-              /**
-               * The mapper does not properly remove mapper-created entities at the moment. These
-               * entities will never be cleaned up which will cause duplicates.
-               *
-               * Until this is fixed, we should not create mapped relationships with target creation
-               * enabled, thus only creating iam_binding relationships to resources that have already
-               * been ingested by other integrations.
-               */
-              skipTargetCreation: true,
-              target: {
-                _type: resourceType,
-                _key: resourceKey,
-                resourceIdentifier: bindingEntity.resource,
+              _mapping: {
+                relationshipDirection: RelationshipDirection.FORWARD,
+                sourceEntityKey: serviceEntity._key,
+                targetFilterKeys: [resourceType ? ['_type', '_key'] : ['_key']],
+                skipTargetCreation: true, // Each project should be in charge of ingesting its own resources.
+                targetEntity: {
+                  _type: resourceType,
+                  _key: resourceKey,
+                  resourceIdentifier: bindingEntity.resource,
+                },
               },
             }),
       );
