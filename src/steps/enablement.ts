@@ -48,6 +48,7 @@ export function getUniqueIntegrationConfigProjectsForStepEnablement(
  */
 export async function getEnabledServiceNames(
   config: IntegrationConfig,
+  onlyMainProjectEnabledService: boolean = false,
 ): Promise<string[]> {
   const [mainProjectId, targetProjectId] =
     getUniqueIntegrationConfigProjectsForStepEnablement(config);
@@ -57,7 +58,7 @@ export async function getEnabledServiceNames(
     mainProjectId,
   );
 
-  if (!targetProjectId) {
+  if (!targetProjectId || onlyMainProjectEnabledService) {
     return mainProjectEnabledServices;
   }
 

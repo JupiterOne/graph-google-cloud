@@ -4,6 +4,9 @@ import * as enablement from './enablement';
 import * as serviceUsage from './service-usage/client';
 
 describe('#getUniqueIntegrationConfigProjectsForStepEnablement', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
   test('should return only "main" integration project ID if no "target" project ID is supplied', () => {
     const config = getMockIntegrationConfig();
     expect(
@@ -163,13 +166,40 @@ describe('#getEnabledServiceNames', () => {
 
     const collectEnabledServicesForProjectSpy = jest
       .spyOn(serviceUsage, 'collectEnabledServicesForProject')
-      .mockResolvedValue(Promise.resolve(mainMockEnabledServiceNames))
-      .mockResolvedValue(Promise.resolve(targetMockEnabledServiceNames));
+      .mockResolvedValueOnce(Promise.resolve(mainMockEnabledServiceNames))
+      .mockResolvedValueOnce(Promise.resolve(targetMockEnabledServiceNames));
 
     expect(await enablement.getEnabledServiceNames(mockConfig)).toEqual([
       'appengine.googleapis.com',
     ]);
 
     expect(collectEnabledServicesForProjectSpy).toHaveBeenCalledTimes(2);
+  });
+
+  test('should return only main enabled service names when onlyMainProjectEnabledService is set to `true`', async () => {
+    const mockConfig = getMockIntegrationConfig({
+      projectId: 'my-target-project-id',
+    });
+
+    const mainMockEnabledServiceNames: string[] = [
+      'pubsub.googleapis.com',
+      'appengine.googleapis.com',
+      'dns.googleapis.com',
+    ];
+
+    const targetMockEnabledServiceNames: string[] = [
+      'appengine.googleapis.com',
+    ];
+
+    const collectEnabledServicesForProjectSpy = jest
+      .spyOn(serviceUsage, 'collectEnabledServicesForProject')
+      .mockResolvedValueOnce(Promise.resolve(mainMockEnabledServiceNames))
+      .mockResolvedValueOnce(Promise.resolve(targetMockEnabledServiceNames));
+
+    expect(await enablement.getEnabledServiceNames(mockConfig, true)).toEqual(
+      mainMockEnabledServiceNames,
+    );
+
+    expect(collectEnabledServicesForProjectSpy).toHaveBeenCalledTimes(1);
   });
 });
