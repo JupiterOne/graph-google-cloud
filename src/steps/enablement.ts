@@ -104,3 +104,22 @@ export function createStepStartState(
 
   return { disabled };
 }
+
+export function createStepStartStateWhereAllServicesMustBeEnabled(
+  enabledServiceNames: string[],
+  primaryServiceName: ServiceUsageName,
+  ...additionalServiceNames: ServiceUsageName[]
+): StepStartState {
+  const allServicesToEnableStep: ServiceUsageName[] = [
+    primaryServiceName,
+    ...additionalServiceNames,
+  ];
+
+  for (const serviceName of allServicesToEnableStep) {
+    if (!enabledServiceNames.includes(serviceName)) {
+      return { disabled: true };
+    }
+  }
+
+  return { disabled: false };
+}

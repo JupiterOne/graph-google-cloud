@@ -71,6 +71,37 @@ describe('#createStepStartState', () => {
   });
 });
 
+describe('#createStepStartStateWhereAllServicesMustBeEnabled', () => {
+  test('should enable if all service names are enabled', () => {
+    expect(
+      enablement.createStepStartStateWhereAllServicesMustBeEnabled(
+        [
+          'storage.googleapis.com',
+          'storage-component.googleapis.com',
+          'storage-api.googleapis.com',
+        ],
+        ServiceUsageName.STORAGE,
+        ServiceUsageName.STORAGE_COMPONENT,
+        ServiceUsageName.STORAGE_API,
+      ),
+    ).toEqual({
+      disabled: false,
+    });
+  });
+  test('should not enable if not all service names are enabled', () => {
+    expect(
+      enablement.createStepStartStateWhereAllServicesMustBeEnabled(
+        ['storage-component.googleapis.com'],
+        ServiceUsageName.STORAGE,
+        ServiceUsageName.STORAGE_COMPONENT,
+        ServiceUsageName.STORAGE_API,
+      ),
+    ).toEqual({
+      disabled: true,
+    });
+  });
+});
+
 describe('#getEnabledServiceNames', () => {
   beforeEach(() => {
     jest.resetAllMocks();
