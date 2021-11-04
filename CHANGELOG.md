@@ -8,13 +8,15 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 2.2.0 - 2021-11-04
+
 ### Fixed
 
 - Only enable `google_iam_binding` steps if the `iam.googleapis.com` service is
   enabled as the `permissions` property requires `google_iam_role`s to have been
   ingested already.
 
-## 2.1.0 - 2021-10-27
+## 2.1.0 - 2021-11-03
 
 ### Fixed
 
