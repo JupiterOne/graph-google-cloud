@@ -8,6 +8,16 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- `createStepStartStateWhereAllServicesMustBeEnabled` method to allow specifying
+  that a step requires more than one API to be enabled to run.
+
+### Fixed
+
+- Only enable `google_iam_binding` steps if both the `iam.googleapis.com` api
+  and the `cloudasset.googleapis.com` api is enabled.
+
 ## 2.2.0 - 2021-11-04
 
 ### Fixed
