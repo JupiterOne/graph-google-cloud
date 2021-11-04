@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 2.2.1 - 2021-11-04
+
 ### Added
 
 - `createStepStartStateWhereAllServicesMustBeEnabled` method to allow specifying
