@@ -4,32 +4,6 @@ import { IntegrationConfig } from '../types';
 import { collectEnabledServicesForProject } from './service-usage/client';
 
 /**
- * An integration can provide a service account key file for a service account
- * that exists in one project, but has permissions to ingest data from a
- * _different_ project. This function determines which unique projects should
- * be considered when calculating step enablement.
- *
- * The first index in the array is guaranteed to be the "main" project
- */
-export function getUniqueIntegrationConfigProjectsForStepEnablement(
-  config: IntegrationConfig,
-): string[] {
-  const uniqueProjectIds: string[] = [
-    // Main project ID
-    config.serviceAccountKeyConfig.project_id,
-  ];
-
-  if (
-    config.projectId &&
-    config.projectId !== config.serviceAccountKeyConfig.project_id
-  ) {
-    uniqueProjectIds.push(config.projectId);
-  }
-
-  return uniqueProjectIds;
-}
-
-/**
  * Determines the overall services that are enabled. The result information is
  * used to disable specific steps.
  *
@@ -48,17 +22,14 @@ export function getUniqueIntegrationConfigProjectsForStepEnablement(
  */
 export async function getEnabledServiceNames(
   config: IntegrationConfig,
-  onlyMainProjectEnabledService: boolean = false,
 ): Promise<string[]> {
-  const [mainProjectId, targetProjectId] =
-    getUniqueIntegrationConfigProjectsForStepEnablement(config);
+  const targetProjectId = config.projectId;
 
-  const mainProjectEnabledServices = await collectEnabledServicesForProject(
+  const mainProjectEnabledServices = await getMainProjectEnabledServices(
     config,
-    mainProjectId,
   );
 
-  if (!targetProjectId || onlyMainProjectEnabledService) {
+  if (!targetProjectId) {
     return mainProjectEnabledServices;
   }
 
@@ -82,6 +53,22 @@ export async function getEnabledServiceNames(
   }
 
   return enabledServicesIntersection;
+}
+
+// Cahceing this value so we don't have to fetch it twice
+let mainProjectEnabledServices: string[] | undefined = undefined;
+export function clearMainProjectEnabledServicesCache() {
+  mainProjectEnabledServices = undefined;
+}
+
+export async function getMainProjectEnabledServices(config: IntegrationConfig) {
+  mainProjectEnabledServices = mainProjectEnabledServices
+    ? mainProjectEnabledServices
+    : await collectEnabledServicesForProject(
+        config,
+        config.serviceAccountKeyConfig.project_id,
+      );
+  return mainProjectEnabledServices;
 }
 
 export function createStepStartState(
