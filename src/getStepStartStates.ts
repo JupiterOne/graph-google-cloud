@@ -218,9 +218,10 @@ export default async function getStepStartStates(
   let enabledServiceNames: string[];
   let serviceAccountProjectEnabledServiceNames: string[];
   try {
-    enabledServiceNames = await enablement.getEnabledServiceNames(config);
+    const enabledServiceData = await enablement.getEnabledServiceNames(config);
+    enabledServiceNames = enabledServiceData.intersectedEnabledServices ?? [];
     serviceAccountProjectEnabledServiceNames =
-      await enablement.getMainProjectEnabledServices(config);
+      enabledServiceData.mainProjectEnabledServices ?? [];
   } catch (err) {
     // NOTE: The `IntegrationValidationError` function does not currently support
     // a `cause` to be passed. We should update that.

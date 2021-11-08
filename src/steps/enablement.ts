@@ -3,6 +3,15 @@ import { ServiceUsageName } from '../google-cloud/types';
 import { IntegrationConfig } from '../types';
 import { collectEnabledServicesForProject } from './service-usage/client';
 
+export interface EnabledServiceData {
+  // Enabled APIs in the Google Cloud Project that the Service Account used to authenticate with resides.
+  mainProjectEnabledServices?: string[];
+  // Enabled APIs in the Google Cloud Project that is being ingested.
+  targetProjectEnabledServices?: string[];
+  // The intersection of mainProjectEnabledServices and mainProjectEnabledServices
+  intersectedEnabledServices?: string[];
+}
+
 /**
  * Determines the overall services that are enabled. The result information is
  * used to disable specific steps.
@@ -22,15 +31,19 @@ import { collectEnabledServicesForProject } from './service-usage/client';
  */
 export async function getEnabledServiceNames(
   config: IntegrationConfig,
-): Promise<string[]> {
+): Promise<EnabledServiceData> {
   const targetProjectId = config.projectId;
+  const mainProjectId = config.serviceAccountKeyConfig.project_id;
+  const enabledServiceData: EnabledServiceData = {};
 
   const mainProjectEnabledServices = await getMainProjectEnabledServices(
     config,
   );
+  enabledServiceData.mainProjectEnabledServices = mainProjectEnabledServices;
 
-  if (!targetProjectId) {
-    return mainProjectEnabledServices;
+  if (!targetProjectId || mainProjectId === targetProjectId) {
+    enabledServiceData.intersectedEnabledServices = mainProjectEnabledServices;
+    return enabledServiceData;
   }
 
   const mainProjectEnabledServicesSet = new Set<string>(
@@ -41,6 +54,8 @@ export async function getEnabledServiceNames(
     config,
     targetProjectId,
   );
+  enabledServiceData.targetProjectEnabledServices =
+    targetProjectEnabledServices;
 
   // Find the intersection between the main project enabled services and the
   // target project enabled services
@@ -51,24 +66,16 @@ export async function getEnabledServiceNames(
       enabledServicesIntersection.push(targetProjectEnabledService);
     }
   }
+  enabledServiceData.intersectedEnabledServices = enabledServicesIntersection;
 
-  return enabledServicesIntersection;
-}
-
-// Cahceing this value so we don't have to fetch it twice
-let mainProjectEnabledServices: string[] | undefined = undefined;
-export function clearMainProjectEnabledServicesCache() {
-  mainProjectEnabledServices = undefined;
+  return enabledServiceData;
 }
 
 export async function getMainProjectEnabledServices(config: IntegrationConfig) {
-  mainProjectEnabledServices = mainProjectEnabledServices
-    ? mainProjectEnabledServices
-    : await collectEnabledServicesForProject(
-        config,
-        config.serviceAccountKeyConfig.project_id,
-      );
-  return mainProjectEnabledServices;
+  return await collectEnabledServicesForProject(
+    config,
+    config.serviceAccountKeyConfig.project_id,
+  );
 }
 
 export function createStepStartState(
