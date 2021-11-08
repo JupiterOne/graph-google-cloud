@@ -636,7 +636,9 @@ export async function createBindingToAnyResourceRelationships(
     }
   }
 
-  const enabledServiceNames = await getEnabledServiceNames(instance.config);
+  const enabledServiceNames =
+    (await getEnabledServiceNames(instance.config))
+      .intersectedEnabledServices ?? [];
   await jobState.iterateEntities(
     { _type: bindingEntities.BINDINGS._type },
     async (bindingEntity: BindingEntity) => {

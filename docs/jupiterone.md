@@ -188,6 +188,8 @@ integration instances for each of the projects.
 1. Enable all service APIs in the "main" project and each "child" project that
    you'd like JupiterOne to access. Documentation for enabling service APIs is
    described in an earlier section of this document.
+   - **NOTE**: The "Cloud Asset" and "Identity and Access Management (IAM)" APIs
+     only need to be enabled in the "main" project.
 1. Switch to the organization that you'd like to create individual integration
    instances for each project
 1. [Create a new custom role](https://cloud.google.com/iam/docs/creating-custom-roles)

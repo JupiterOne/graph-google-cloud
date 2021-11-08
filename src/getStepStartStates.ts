@@ -216,8 +216,12 @@ export default async function getStepStartStates(
   const organizationSteps = { disabled: !masterOrgInstance }; // Only run organization steps if you are the master organization.
 
   let enabledServiceNames: string[];
+  let serviceAccountProjectEnabledServiceNames: string[];
   try {
-    enabledServiceNames = await enablement.getEnabledServiceNames(config);
+    const enabledServiceData = await enablement.getEnabledServiceNames(config);
+    enabledServiceNames = enabledServiceData.intersectedEnabledServices ?? [];
+    serviceAccountProjectEnabledServiceNames =
+      enabledServiceData.mainProjectEnabledServices ?? [];
   } catch (err) {
     // NOTE: The `IntegrationValidationError` function does not currently support
     // a `cause` to be passed. We should update that.
@@ -229,23 +233,40 @@ export default async function getStepStartStates(
   }
 
   logger.info({ enabledServiceNames }, 'Services enabled for project');
+  logger.info(
+    {
+      mainProjectEnabledServiceNames: serviceAccountProjectEnabledServiceNames,
+    },
+    'Services enabled for the main project',
+  );
+
+  /**
+   * Used to get the `google_iam_binding` and `google_iam_role` steps to run based on the service
+   * account's home project's (config.serviceAccountKeyConfig.project_id) API enablement instead
+   * of the API enablement of the project that is currently being ingested (config.projectId).
+   * This was done in order to maintain functionality for existing customers who have not enabled
+   * the Cloud Asset API in all their individual Google Cloud Projects, but have in the project
+   * that their service account lives.
+   *
+   * This likely should be removed once users have enabled the Cloud Asset and IAM APIs in all of
+   * their Google Cloud projects.
+   */
+  function createStartStatesBasedOnServiceAccountProject(
+    primaryServiceName: ServiceUsageName,
+    ...additionalServiceNames: ServiceUsageName[]
+  ): StepStartState {
+    return enablement.createStepStartStateWhereAllServicesMustBeEnabled(
+      serviceAccountProjectEnabledServiceNames, // using mainProjectEnabledServiceNames instead of enabledServiceNames
+      primaryServiceName,
+      ...additionalServiceNames,
+    );
+  }
 
   const createStepStartState = (
     primaryServiceName: ServiceUsageName,
     ...additionalServiceNames: ServiceUsageName[]
   ): StepStartState => {
     return enablement.createStepStartState(
-      enabledServiceNames,
-      primaryServiceName,
-      ...additionalServiceNames,
-    );
-  };
-
-  const createStepStartStateWhereAllServicesMustBeEnabled = (
-    primaryServiceName: ServiceUsageName,
-    ...additionalServiceNames: ServiceUsageName[]
-  ): StepStartState => {
-    return enablement.createStepStartStateWhereAllServicesMustBeEnabled(
       enabledServiceNames,
       primaryServiceName,
       ...additionalServiceNames,
@@ -280,32 +301,31 @@ export default async function getStepStartStates(
     // This API will be enabled otherwise fetching services names above would fail
     [STEP_RESOURCE_MANAGER_PROJECT]: { disabled: false },
     [STEP_API_SERVICES]: { disabled: false },
-    [STEP_IAM_BINDINGS]: createStepStartStateWhereAllServicesMustBeEnabled(
+    [STEP_IAM_BINDINGS]: createStartStatesBasedOnServiceAccountProject(
       ServiceUsageName.CLOUD_ASSET,
       ServiceUsageName.IAM,
     ),
-    [STEP_CREATE_BASIC_ROLES]:
-      createStepStartStateWhereAllServicesMustBeEnabled(
-        ServiceUsageName.CLOUD_ASSET,
-        ServiceUsageName.IAM,
-      ),
+    [STEP_CREATE_BASIC_ROLES]: createStartStatesBasedOnServiceAccountProject(
+      ServiceUsageName.CLOUD_ASSET,
+      ServiceUsageName.IAM,
+    ),
     [STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS]:
-      createStepStartStateWhereAllServicesMustBeEnabled(
+      createStartStatesBasedOnServiceAccountProject(
         ServiceUsageName.CLOUD_ASSET,
         ServiceUsageName.IAM,
       ),
     [STEP_CREATE_BINDING_ROLE_RELATIONSHIPS]:
-      createStepStartStateWhereAllServicesMustBeEnabled(
+      createStartStatesBasedOnServiceAccountProject(
         ServiceUsageName.CLOUD_ASSET,
         ServiceUsageName.IAM,
       ),
     [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]:
-      createStepStartStateWhereAllServicesMustBeEnabled(
+      createStartStatesBasedOnServiceAccountProject(
         ServiceUsageName.CLOUD_ASSET,
         ServiceUsageName.IAM,
       ),
     [STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS]:
-      createStepStartStateWhereAllServicesMustBeEnabled(
+      createStartStatesBasedOnServiceAccountProject(
         ServiceUsageName.CLOUD_ASSET,
         ServiceUsageName.IAM,
       ),
@@ -320,8 +340,12 @@ export default async function getStepStartStates(
       ServiceUsageName.STORAGE_COMPONENT,
       ServiceUsageName.STORAGE_API,
     ),
-    [STEP_IAM_CUSTOM_ROLES]: createStepStartState(ServiceUsageName.IAM),
-    [STEP_IAM_MANAGED_ROLES]: createStepStartState(ServiceUsageName.IAM),
+    [STEP_IAM_CUSTOM_ROLES]: createStartStatesBasedOnServiceAccountProject(
+      ServiceUsageName.IAM,
+    ),
+    [STEP_IAM_MANAGED_ROLES]: createStartStatesBasedOnServiceAccountProject(
+      ServiceUsageName.IAM,
+    ),
     [STEP_IAM_SERVICE_ACCOUNTS]: createStepStartState(ServiceUsageName.IAM),
     [STEP_AUDIT_CONFIG_IAM_POLICY]: config.configureOrganizationProjects
       ? { disabled: true }

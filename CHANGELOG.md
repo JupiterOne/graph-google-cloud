@@ -8,6 +8,20 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Changed
+
+- Steps that ingest `google_iam_binding`s and `google_iam_role`s (
+  `fetch-iam-bindings`, `create-basic-roles`,
+  `create-binding-principal-relationships`, `create-binding-role-relationships`,
+  `create-binding-any-resource-relationships`,
+  `create-api-service-any-resource-relationships`, `fetch-iam-custom-roles`, and
+  `fetch-iam-managed-roles`) are now enabled and disabled based exclusively on
+  the Service API enablement of the Google Cloud Project that the service
+  account is located in. Previously, these steps were enabled the same as all
+  other steps; based on the intersection for the API enablement of the Google
+  Cloud Project that the service account is located in, and the Google Cloud
+  Project that is being ingested in that integration.
+
 ## 2.2.1 - 2021-11-04
 
 ### Added
