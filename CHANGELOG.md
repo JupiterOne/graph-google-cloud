@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 2.3.0 - 2021-11-08
+
 ### Changed
 
 - Steps that ingest `google_iam_binding`s and `google_iam_role`s (
