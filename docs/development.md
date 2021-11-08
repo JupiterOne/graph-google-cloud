@@ -112,7 +112,23 @@ gcloud services enable \
   cloudresourcemanager.googleapis.com \
   compute.googleapis.com \
   cloudkms.googleapis.com \
-  container.googleapis.com
+  sqladmin.googleapis.com \
+  bigquery.googleapis.com \
+  container.googleapis.com \
+  dns.googleapis.com \
+  logging.googleapis.com \
+  monitoring.googleapis.com \
+  binaryauthorization.googleapis.com \
+  pubsub.googleapis.com \
+  appengine.googleapis.com \
+  run.googleapis.com \
+  redis.googleapis.com \
+  memcache.googleapis.com \
+  apigateway.googleapis.com \
+  spanner.googleapis.com \
+  privateca.googleapis.com \
+  cloudasset.googleapis.com \
+  accesscontextmanager.googleapis.com
 ```
 
 ### Creating Google Cloud project service account
