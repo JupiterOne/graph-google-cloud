@@ -605,7 +605,7 @@ questions:
       - '4.2'
 
 - id: integration-question-google-cloud-compute-instance-block-project-wide-ssh-keys
-  title: Is blocking of project-wide SSK keys enabled for my Google Cloud VM instances?
+  title: Is blocking of project-wide SSH keys enabled for my Google Cloud VM instances?
   description: >
     It is recommended to use Instance specific SSH key(s) instead of using common/shared project-wide SSH key(s) to access Instances.
   queries:
