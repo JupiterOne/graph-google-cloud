@@ -17,8 +17,6 @@ import {
   IAM_ROLE_ENTITY_TYPE,
 } from './constants';
 
-jest.setTimeout(50000);
-
 describe('#fetchIamRoles', () => {
   let recording: Recording;
 
