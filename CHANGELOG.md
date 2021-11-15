@@ -8,6 +8,11 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Fixed
+
+- `google_iam_binding_allows_resource` mapped relationships will now be created
+  with an `ALLOWS` class instead of `HAS`.
+
 ## 2.3.0 - 2021-11-08
 
 ### Changed

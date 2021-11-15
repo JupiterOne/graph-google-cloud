@@ -1,6 +1,6 @@
 import {
   bindingEntities,
-  BINDING_ALLOWS_ANY_RESOURCE_TYPE,
+  BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP,
 } from '../../steps/cloud-asset/constants';
 import {
   ENTITY_TYPE_ACCESS_CONTEXT_MANAGER_ACCESS_LEVEL,
@@ -82,7 +82,7 @@ describe('J1_TYPE_TO_KEY_GENERATOR_MAP', () => {
     );
     const unmappedEntities: string[] = [];
     const bindingRelationships = metadata.relationships.filter(
-      (r) => r._type === BINDING_ALLOWS_ANY_RESOURCE_TYPE,
+      (r) => r._type === BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP._type,
     );
 
     metadata.entities.forEach((entity) => {
