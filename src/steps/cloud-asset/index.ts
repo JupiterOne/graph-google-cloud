@@ -28,11 +28,9 @@ import {
 } from '../resource-manager';
 import { CloudAssetClient } from './client';
 import {
-  API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIPS,
-  API_SERVICE_HAS_ANY_RESOURCE_TYPE,
+  API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP,
   bindingEntities,
-  BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIPS,
-  BINDING_ALLOWS_ANY_RESOURCE_TYPE,
+  BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP,
   BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS,
   STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS,
   STEP_CREATE_BASIC_ROLES,
@@ -659,15 +657,15 @@ export async function createBindingToAnyResourceRelationships(
       const relationship = existingEntity
         ? createDirectRelationship({
             from: bindingEntity,
-            _class: RelationshipClass.ALLOWS,
+            _class: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP._class,
             to: existingEntity,
             properties: {
-              _type: BINDING_ALLOWS_ANY_RESOURCE_TYPE,
+              _type: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP._type,
             },
           })
         : createMappedRelationship({
-            _class: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIPS[0]._class,
-            _type: BINDING_ALLOWS_ANY_RESOURCE_TYPE,
+            _class: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP._class,
+            _type: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP._type,
             _mapping: {
               relationshipDirection: RelationshipDirection.FORWARD,
               sourceEntityKey: bindingEntity._key,
@@ -763,16 +761,16 @@ export async function createApiServiceToAnyResourceRelationships(
       await jobState.addRelationship(
         resourceEntity
           ? createDirectRelationship({
-              _class: RelationshipClass.HAS,
+              _class: API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP._class,
               from: serviceEntity,
               to: resourceEntity,
               properties: {
-                _type: API_SERVICE_HAS_ANY_RESOURCE_TYPE,
+                _type: API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP._type,
               },
             })
           : createMappedRelationship({
-              _class: RelationshipClass.HAS,
-              _type: API_SERVICE_HAS_ANY_RESOURCE_TYPE,
+              _class: API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP._class,
+              _type: API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP._type,
               _mapping: {
                 relationshipDirection: RelationshipDirection.FORWARD,
                 sourceEntityKey: serviceEntity._key,
@@ -851,7 +849,7 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
     id: STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS,
     name: 'Role Binding to Any Resource Relationships',
     entities: [],
-    relationships: [...BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIPS],
+    relationships: [BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP],
     dependsOn: [STEP_IAM_BINDINGS],
     executionHandler: createBindingToAnyResourceRelationships,
     dependencyGraphId: 'last',
@@ -860,7 +858,7 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
     id: STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS,
     name: 'Api Service to Any Resource Relationships',
     entities: [],
-    relationships: [...API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIPS],
+    relationships: [API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP],
     dependsOn: [STEP_IAM_BINDINGS],
     executionHandler: createApiServiceToAnyResourceRelationships,
     dependencyGraphId: 'last',

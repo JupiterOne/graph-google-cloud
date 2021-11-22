@@ -3,7 +3,6 @@ import {
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
 import { ANY_RESOURCE } from '../../constants';
-import { J1_TYPE_TO_KEY_GENERATOR_MAP } from '../../utils/iamBindings/typeToKeyGeneratorMap';
 import {
   ALL_AUTHENTICATED_USERS_TYPE,
   EVERYONE_TYPE,
@@ -62,66 +61,36 @@ export const BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS = IAM_PRINCIPAL_TYPES.map(
   },
 );
 
-const bindingResourceTargetTypes = Object.keys(J1_TYPE_TO_KEY_GENERATOR_MAP);
-
 /**
  * IAM policies can target any resource in Google Cloud. Because we do not ingest every resource,
  * we have chosen, instead, to represent the relationship as IAM Binding assigned to ANY_RESOURCE.
  */
-export const BINDING_ALLOWS_ANY_RESOURCE_TYPE = generateRelationshipType(
-  RelationshipClass.ALLOWS,
-  bindingEntities.BINDINGS._type,
-  ANY_RESOURCE,
-);
-export const BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIPS = [
-  {
-    // Needed for documentation
-    _class: RelationshipClass.HAS,
-    _type: BINDING_ALLOWS_ANY_RESOURCE_TYPE,
-    sourceType: API_SERVICE_ENTITY_TYPE,
-    targetType: ANY_RESOURCE,
-    indexMetadata: {
-      enabled: false,
-    },
+export const BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP = {
+  // Needed for documentation
+  _class: RelationshipClass.ALLOWS,
+  _type: generateRelationshipType(
+    RelationshipClass.ALLOWS,
+    bindingEntities.BINDINGS._type,
+    ANY_RESOURCE,
+  ),
+  sourceType: bindingEntities.BINDINGS._type,
+  targetType: ANY_RESOURCE,
+  indexMetadata: {
+    enabled: false,
   },
-  ...bindingResourceTargetTypes.map((resourceType) => {
-    return {
-      _type: BINDING_ALLOWS_ANY_RESOURCE_TYPE,
-      sourceType: bindingEntities.BINDINGS._type,
-      _class: RelationshipClass.ALLOWS,
-      targetType: resourceType,
-      indexMetadata: {
-        enabled: false,
-      },
-    };
-  }),
-];
+};
 
-export const API_SERVICE_HAS_ANY_RESOURCE_TYPE = generateRelationshipType(
-  RelationshipClass.HAS,
-  API_SERVICE_ENTITY_TYPE,
-  ANY_RESOURCE,
-);
-export const API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIPS = [
-  {
-    // Needed for documentation
-    _class: RelationshipClass.HAS,
-    _type: API_SERVICE_HAS_ANY_RESOURCE_TYPE,
-    sourceType: API_SERVICE_ENTITY_TYPE,
-    targetType: ANY_RESOURCE,
-    indexMetadata: {
-      enabled: false,
-    },
+export const API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP = {
+  // Needed for documentation
+  _class: RelationshipClass.HAS,
+  _type: generateRelationshipType(
+    RelationshipClass.HAS,
+    API_SERVICE_ENTITY_TYPE,
+    ANY_RESOURCE,
+  ),
+  sourceType: API_SERVICE_ENTITY_TYPE,
+  targetType: ANY_RESOURCE,
+  indexMetadata: {
+    enabled: false,
   },
-  ...bindingResourceTargetTypes.map((resourceType) => {
-    return {
-      _class: RelationshipClass.HAS,
-      _type: API_SERVICE_HAS_ANY_RESOURCE_TYPE,
-      sourceType: API_SERVICE_ENTITY_TYPE,
-      targetType: resourceType,
-      indexMetadata: {
-        enabled: false,
-      },
-    };
-  }),
-];
+};
