@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 2.4.0 - 2021-11-30
+
 ### Fixed
 
 - `google_iam_binding_allows_resource` mapped relationships will now be created
