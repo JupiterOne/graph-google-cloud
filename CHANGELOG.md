@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Fixed
+
+- When determining which project's `google_iam_binding`s to ingest, if a
+  `projectId` is not specified in the config, the service account's `projectId`
+  should be used instead.
+
 ## 2.4.0 - 2021-11-30
 
 ### Fixed
