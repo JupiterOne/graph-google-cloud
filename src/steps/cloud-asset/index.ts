@@ -691,6 +691,11 @@ function buildBindingEntityResourceKey(bindingEntity: BindingEntity) {
   );
 }
 
+/**
+ * Returns true if the passed in _type relates to an entity
+ * that is a part of the Google Cloud Resource Hierarchy.
+ * https://cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy
+ */
 function isOrganizationalHierarchyResource(resourceType?: string) {
   return (
     !!resourceType &&

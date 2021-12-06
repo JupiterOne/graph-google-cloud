@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+### Removed
+
+- Properties were removed from resources:
+
+  | Entity                            | Properties             |
+  | --------------------------------- | ---------------------- |
+  | `google_cloud_folder`             | `projectId`            |
+  | `google_cloud_organization`       | `projectId`, `folders` |
+  | folder level `google_iam_binding` | `projectId`            |
+  | org level `google_iam_binding`    | `projectId`, `folders` |
+
 ## 2.5.0 - 2021-12-06
 
 ### Added
