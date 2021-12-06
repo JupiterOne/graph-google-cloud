@@ -27,6 +27,16 @@ questions:
   - google-cloud
   - gke
   - network
+- id: integration-question-google-cloud-bucket-versioning-disabled
+  title: Which Google Cloud storage buckets have versioning disabled?
+  description:
+    Finds all Google Cloud storage buckets with versioning disabled
+  queries:
+  - query: |
+      FIND google_storage_bucket WITH versioningEnabled = false
+  tags:
+  - google-cloud
+  - storage
 ################################################################################
 # End generic non-compliance questions
 ################################################################################

@@ -55,6 +55,7 @@ Object {
   "storageClass": "STANDARD",
   "uniformBucketLevelAccess": false,
   "updatedOn": 1595963174033,
+  "versioningEnabled": false,
   "webLink": "https://console.cloud.google.com/storage/browser/customer-managed-encryption-key-bucket-1234;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v2",
 }
 `;
@@ -114,6 +115,7 @@ Object {
   "storageClass": "STANDARD",
   "uniformBucketLevelAccess": false,
   "updatedOn": 1595963174033,
+  "versioningEnabled": false,
   "webLink": "https://console.cloud.google.com/storage/browser/customer-managed-encryption-key-bucket-1234;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v2",
 }
 `;
@@ -173,6 +175,70 @@ Object {
   "storageClass": "STANDARD",
   "uniformBucketLevelAccess": true,
   "updatedOn": 1595963174033,
+  "versioningEnabled": false,
+  "webLink": "https://console.cloud.google.com/storage/browser/customer-managed-encryption-key-bucket-1234;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v2",
+}
+`;
+
+exports[`#createCloudStorageBucketEntity should convert to entity with versioning enabled 1`] = `
+Object {
+  "_class": Array [
+    "DataStore",
+  ],
+  "_key": "bucket:customer-managed-encryption-key-bucket-1234",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "encryption": Object {
+          "defaultKmsKeyName": "projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key",
+        },
+        "etag": "CAE=",
+        "iamConfiguration": Object {
+          "bucketPolicyOnly": Object {
+            "enabled": false,
+          },
+          "uniformBucketLevelAccess": Object {
+            "enabled": false,
+          },
+        },
+        "id": "customer-managed-encryption-key-bucket-1234",
+        "kind": "storage#bucket",
+        "location": "US",
+        "locationType": "multi-region",
+        "metageneration": "1",
+        "name": "customer-managed-encryption-key-bucket-1234",
+        "projectNumber": "1234",
+        "selfLink": "https://www.googleapis.com/storage/v1/b/customer-managed-encryption-key-bucket-1234",
+        "storageClass": "STANDARD",
+        "timeCreated": "2020-07-28T19:06:14.033Z",
+        "updated": "2020-07-28T19:06:14.033Z",
+        "versioning": Object {
+          "enabled": true,
+        },
+      },
+    },
+  ],
+  "_type": "google_storage_bucket",
+  "classification": null,
+  "createdOn": 1595963174033,
+  "displayName": "customer-managed-encryption-key-bucket-1234",
+  "encrypted": true,
+  "encryptionKeyRef": "projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key",
+  "etag": "CAE=",
+  "id": "customer-managed-encryption-key-bucket-1234",
+  "isSubjectToObjectAcls": true,
+  "kmsKeyName": "projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key",
+  "location": "US",
+  "name": "customer-managed-encryption-key-bucket-1234",
+  "public": true,
+  "retentionDate": undefined,
+  "retentionPeriod": undefined,
+  "retentionPolicyEnabled": undefined,
+  "storageClass": "STANDARD",
+  "uniformBucketLevelAccess": false,
+  "updatedOn": 1595963174033,
+  "versioningEnabled": true,
   "webLink": "https://console.cloud.google.com/storage/browser/customer-managed-encryption-key-bucket-1234;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v2",
 }
 `;
@@ -237,6 +303,7 @@ Object {
   "storageClass": "STANDARD",
   "uniformBucketLevelAccess": false,
   "updatedOn": 1595963174033,
+  "versioningEnabled": false,
   "webLink": "https://console.cloud.google.com/storage/browser/customer-managed-encryption-key-bucket-1234;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v2",
 }
 `;
@@ -289,6 +356,7 @@ Object {
   "storageClass": "STANDARD",
   "uniformBucketLevelAccess": false,
   "updatedOn": 1595963174033,
+  "versioningEnabled": false,
   "webLink": "https://console.cloud.google.com/storage/browser/customer-managed-encryption-key-bucket-1234;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v2",
 }
 `;
@@ -341,6 +409,7 @@ Object {
   "storageClass": "STANDARD",
   "uniformBucketLevelAccess": false,
   "updatedOn": 1595963174033,
+  "versioningEnabled": false,
   "webLink": "https://console.cloud.google.com/storage/browser/customer-managed-encryption-key-bucket-1234;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v2",
 }
 `;
