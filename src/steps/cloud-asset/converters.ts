@@ -69,7 +69,7 @@ export function createIamBindingEntity({
 
   return createGoogleCloudIntegrationEntity(binding, {
     entityData: {
-      source: {}, // rawData was removed to prevent `Request must be smaller than 6291456 bytes for the InvokeFunction operation` errors
+      source: binding,
       assign: {
         _class: bindingEntities.BINDINGS._class,
         _type: bindingEntities.BINDINGS._type,
