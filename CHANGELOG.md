@@ -8,6 +8,14 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- New properties added to resources:
+
+  | Entity                  | Properties          |
+  | ----------------------- | ------------------- |
+  | `google_storage_bucket` | `versioningEnabled` |
+
 ## 2.4.0 - 2021-11-30
 
 ### Fixed

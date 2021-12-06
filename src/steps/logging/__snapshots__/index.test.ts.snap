@@ -191,6 +191,7 @@ Object {
       "storageClass": "STANDARD",
       "uniformBucketLevelAccess": true,
       "updatedOn": 1613606670131,
+      "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/gcf-sources-711888229551-us-central1;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v2",
     },
     Object {
@@ -244,6 +245,7 @@ Object {
       "storageClass": "STANDARD",
       "uniformBucketLevelAccess": false,
       "updatedOn": 1613608290869,
+      "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/j1-gc-integration-dev-v2-sink-logging-bucket;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v2",
     },
     Object {
@@ -297,6 +299,7 @@ Object {
       "storageClass": "STANDARD",
       "uniformBucketLevelAccess": false,
       "updatedOn": 1613603105322,
+      "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/j1-gc-integration-dev-v2cloudfunctions;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v2",
     },
     Object {
@@ -350,6 +353,7 @@ Object {
       "storageClass": "STANDARD",
       "uniformBucketLevelAccess": false,
       "updatedOn": 1613607922127,
+      "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/us.artifacts.j1-gc-integration-dev-v2.appspot.com;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v2",
     },
     Object {

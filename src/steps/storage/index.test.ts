@@ -58,6 +58,7 @@ describe('#fetchCloudStorageBuckets', () => {
           isSubjectToObjectAcls: { type: 'boolean' },
           classification: { const: null },
           etag: { type: 'string' },
+          versioningEnabled: { type: 'boolean' },
         },
       },
     });

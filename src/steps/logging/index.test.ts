@@ -74,6 +74,7 @@ describe('#fetchProjectSinks', () => {
           classification: { const: null },
           etag: { type: 'string' },
           webLink: { type: 'string' },
+          versioningEnabled: { type: 'boolean' },
         },
       },
     });

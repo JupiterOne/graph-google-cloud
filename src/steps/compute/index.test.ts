@@ -1473,6 +1473,7 @@ describe('#fetchComputeBackendBuckets', () => {
           isSubjectToObjectAcls: { type: 'boolean' },
           classification: { const: null },
           etag: { type: 'string' },
+          versioningEnabled: { type: 'boolean' },
         },
       },
     });

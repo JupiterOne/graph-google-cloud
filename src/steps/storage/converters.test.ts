@@ -100,4 +100,18 @@ describe('#createCloudStorageBucketEntity', () => {
       isSubjectToObjectAcls: true,
     });
   });
+
+  test('should convert to entity with versioning enabled', () => {
+    expect(
+      createCloudStorageBucketEntity({
+        data: getMockStorageBucket({
+          versioning: {
+            enabled: true,
+          },
+        }),
+        projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
+        isPublic: false,
+      }),
+    ).toMatchSnapshot();
+  });
 });
