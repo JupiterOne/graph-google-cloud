@@ -837,9 +837,6 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
         ),
         sourceType: bindingEntities.BINDINGS._type,
         targetType: IAM_ROLE_ENTITY_TYPE,
-        indexMetadata: {
-          enabled: false,
-        },
       },
     ],
     dependsOn: [STEP_IAM_BINDINGS, STEP_CREATE_BASIC_ROLES],
