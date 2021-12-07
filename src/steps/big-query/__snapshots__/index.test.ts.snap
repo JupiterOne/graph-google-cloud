@@ -358,7 +358,7 @@ Object {
       "_class": Array [
         "Model",
       ],
-      "_key": "natality_model",
+      "_key": "j1-gc-integration-dev-v3:natality:natality_model",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -467,8 +467,8 @@ Object {
     Object {
       "_class": "HAS",
       "_fromEntityKey": "j1-gc-integration-dev-v3:natality",
-      "_key": "j1-gc-integration-dev-v3:natality|has|natality_model",
-      "_toEntityKey": "natality_model",
+      "_key": "j1-gc-integration-dev-v3:natality|has|j1-gc-integration-dev-v3:natality:natality_model",
+      "_toEntityKey": "j1-gc-integration-dev-v3:natality:natality_model",
       "_type": "google_bigquery_dataset_has_model",
       "displayName": "HAS",
     },
