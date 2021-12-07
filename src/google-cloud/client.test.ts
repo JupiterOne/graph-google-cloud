@@ -7,6 +7,7 @@ import {
   IntegrationProviderAPIError,
   IntegrationProviderAuthorizationError,
 } from '@jupiterone/integration-sdk-core';
+import { IntegrationConfig } from '..';
 
 describe('#getAuthenticatedServiceClient', () => {
   let googleAuthSpy: jest.SpyInstance<
@@ -168,5 +169,40 @@ describe('withErrorHandling', () => {
 
     expect(onRetry).toHaveBeenCalledTimes(1);
     expect(onRetry).toHaveBeenCalledWith(err);
+  });
+});
+
+describe('Client', () => {
+  test('should set projectId to the config projectId if provided', () => {
+    const configProjectId = 'projectId';
+    const serviceAccountProjectId = 'serviceAccountProjectId';
+    const config = {
+      projectId: configProjectId,
+      serviceAccountKeyConfig: { project_id: serviceAccountProjectId },
+    } as unknown as IntegrationConfig;
+    expect(new Client({ config }).projectId).toBe(configProjectId);
+  });
+
+  test('should set projectId to the service account projectId if the configprojectId is not provided', () => {
+    const configProjectId = undefined;
+    const serviceAccountProjectId = 'serviceAccountProjectId';
+    const config = {
+      projectId: configProjectId,
+      serviceAccountKeyConfig: { project_id: serviceAccountProjectId },
+    } as unknown as IntegrationConfig;
+    expect(new Client({ config }).projectId).toBe(serviceAccountProjectId);
+  });
+
+  test('should set projectId to the projectId override option reguardless on if the service account projectId and config projectIds are provided or not', () => {
+    const configProjectId = 'projectId';
+    const serviceAccountProjectId = 'serviceAccountProjectId';
+    const overrideProjectId = 'overrideProjectId';
+    const config = {
+      projectId: configProjectId,
+      serviceAccountKeyConfig: { project_id: serviceAccountProjectId },
+    } as unknown as IntegrationConfig;
+    expect(new Client({ config, projectId: overrideProjectId }).projectId).toBe(
+      overrideProjectId,
+    );
   });
 });
