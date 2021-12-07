@@ -284,7 +284,9 @@ describe('#fetchIamBindings', () => {
           encounteredTypes: context.jobState.encounteredTypes,
         }).toMatchSnapshot();
 
-        // Relationships
+        /////////////////////
+        /// Relationships ///
+        /////////////////////
         const {
           google_iam_binding_uses_role,
 
@@ -309,7 +311,7 @@ describe('#fetchIamBindings', () => {
           context.jobState.encounteredTypes,
         );
 
-        // Both Direct and Mapped Relationships
+        /// Both Direct and Mapped Relationships ///
         // Direct if target already ingested in this integration, mapped otherwise.
         expect(
           google_iam_binding_assigned_service_account,
@@ -350,7 +352,7 @@ describe('#fetchIamBindings', () => {
           }).length,
         ).toBe(0);
 
-        // Mapped Relationships
+        /// Mapped Relationships ///
         expect(google_iam_binding_assigned_user).toHaveOnlyMappedRelationships(
           'google_iam_binding_assigned_user',
         );
@@ -374,7 +376,7 @@ describe('#fetchIamBindings', () => {
         // Ensure there are never any group assigned group relationships created
         expect(google_iam_role_assigned_role).toBeUndefined();
 
-        // Direct Relationships
+        /// Direct Relationships ///
         // Organization relationships
         expect(
           google_iam_binding_allows_resource.filter((r: any) =>
@@ -399,13 +401,16 @@ describe('#fetchIamBindings', () => {
           ).length,
         ).toBe(0);
 
-        // Entities
+        ////////////////
+        /// Entities ///
+        ////////////////
         const { google_iam_binding, google_iam_role } =
           separateGraphObjectsByType(
             context.jobState.collectedEntities,
             context.jobState.encounteredTypes,
           );
 
+        /// Bindings ///
         expect(google_iam_binding.length).toBeGreaterThan(0);
         expect(google_iam_binding).toMatchGraphObjectSchema({
           _class: bindingEntities.BINDINGS._class,
@@ -440,6 +445,48 @@ describe('#fetchIamBindings', () => {
           },
         });
 
+        // Ensure organization-level bindings do not have `projectId` or `folders` properties
+        google_iam_binding
+          .filter((entity) =>
+            (entity.resource as string).startsWith(
+              '//cloudresourcemanager.googleapis.com/organizations/',
+            ),
+          )
+          .forEach((entity) => {
+            expect(entity.projectId).toBeUndefined();
+            expect(entity.folders).toBeUndefined();
+            expect(typeof entity.organization).toBe('string');
+          });
+        // Ensure folder-level bindings do not have a `projectId` property
+        google_iam_binding
+          .filter((entity) =>
+            (entity.resource as string).startsWith(
+              '//cloudresourcemanager.googleapis.com/folders',
+            ),
+          )
+          .forEach((entity) => {
+            expect(entity.projectId).toBeUndefined();
+            expect(Array.isArray(entity.folders)).toBe(true);
+            expect(typeof entity.organization).toBe('string');
+          });
+        // Ensure all other bindings have projectId, folders, and organization properties
+        google_iam_binding
+          .filter(
+            (entity) =>
+              (entity.resource as string).startsWith(
+                '//cloudresourcemanager.googleapis.com/folders',
+              ) &&
+              (entity.resource as string).startsWith(
+                '//cloudresourcemanager.googleapis.com/organizations/',
+              ),
+          )
+          .forEach((entity) => {
+            expect(typeof entity.projectId).toBe('string');
+            expect(Array.isArray(entity.folders)).toBe(true);
+            expect(typeof entity.organization).toBe('string');
+          });
+
+        /// Roles ///
         const roleSchema = {
           _class: ['AccessRole'],
           schema: {
