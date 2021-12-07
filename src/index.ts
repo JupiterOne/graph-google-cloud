@@ -1,7 +1,4 @@
-import {
-  Entity,
-  IntegrationInvocationConfig,
-} from '@jupiterone/integration-sdk-core';
+import { IntegrationInvocationConfig } from '@jupiterone/integration-sdk-core';
 import { deserializeIntegrationConfig } from './utils/integrationConfig';
 import { IntegrationConfig } from './types';
 import getStepStartStates from './getStepStartStates';
@@ -35,6 +32,7 @@ import { cloudBillingSteps } from './steps/cloud-billing';
 import { Client } from './google-cloud/client';
 import { cloudAssetSteps } from './steps/cloud-asset';
 import { bigTableSteps } from './steps/big-table';
+import { maybeDefaultProjectIdOnEntity } from './utils/maybeDefaultProjectIdOnEntity';
 
 export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> =
   {
@@ -86,16 +84,7 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> =
       ...cloudBillingSteps,
     ],
     dependencyGraphOrder: ['last'],
-    beforeAddEntity(context, entity: Entity): Entity {
-      const projectId =
-        context.instance.config.projectId ||
-        context.instance.config.serviceAccountKeyConfig.project_id;
-
-      return {
-        ...entity,
-        projectId: entity.projectId || projectId,
-      };
-    },
+    beforeAddEntity: maybeDefaultProjectIdOnEntity,
   };
 
 export {

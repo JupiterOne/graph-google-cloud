@@ -10,6 +10,23 @@ and this project adheres to
 
 - `rawData` will now be stored for `google_iam_binding`s.
 
+### Removed
+
+- Properties were removed from resources:
+
+  | Entity                            | Properties             |
+  | --------------------------------- | ---------------------- |
+  | `google_cloud_folder`             | `projectId`            |
+  | `google_cloud_organization`       | `projectId`, `folders` |
+  | folder level `google_iam_binding` | `projectId`            |
+  | org level `google_iam_binding`    | `projectId`, `folders` |
+
+### Fixed
+
+- When determining which project's `google_iam_binding`s to ingest, if a
+  `projectId` is not specified in the config, the service account's `projectId`
+  should be used instead.
+
 ## 2.5.0 - 2021-12-06
 
 ### Added

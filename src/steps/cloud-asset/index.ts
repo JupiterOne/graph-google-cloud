@@ -147,6 +147,7 @@ export async function fetchIamBindings(
       if (permissions?.length ?? 0 > maxPermissionLength) {
         maxPermissionLength = permissions?.length ?? 0;
       }
+
       const conditionLength =
         (JSON.stringify(binding.condition) ?? '')?.length ?? 0;
       if (conditionLength > maxConditionLength) {
@@ -174,12 +175,7 @@ export async function fetchIamBindings(
   // Need to get bindings for every level of the Resource Hierarchy.
   try {
     // Project level bindings and all resource level bindings in that project
-    if (context.instance.config.projectId) {
-      await client.iterateIamPoliciesForProjectAndResources(
-        context.instance.config.projectId,
-        handlePolicyResult,
-      );
-    }
+    await client.iterateIamPoliciesForProjectAndResources(handlePolicyResult);
     // Folder level bindings
     await jobState.iterateEntities(
       { _type: FOLDER_ENTITY_TYPE },
@@ -691,6 +687,11 @@ function buildBindingEntityResourceKey(bindingEntity: BindingEntity) {
   );
 }
 
+/**
+ * Returns true if the passed in _type relates to an entity
+ * that is a part of the Google Cloud Resource Hierarchy.
+ * https://cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy
+ */
 function isOrganizationalHierarchyResource(resourceType?: string) {
   return (
     !!resourceType &&
