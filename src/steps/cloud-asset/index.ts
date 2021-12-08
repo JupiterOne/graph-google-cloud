@@ -433,6 +433,7 @@ export function buildIamTargetRelationship({
   logger,
   parsedMember,
   projectId,
+  projectName,
   condition,
 }: {
   bindingEntity: BindingEntity;
@@ -440,6 +441,7 @@ export function buildIamTargetRelationship({
   parsedMember: ParsedIamMember;
   logger: IntegrationLogger;
   projectId?: string;
+  projectName?: string;
   condition?: cloudresourcemanager_v3.Schema$Expr;
 }): Relationship | undefined {
   if (principalEntity) {
@@ -449,6 +451,7 @@ export function buildIamTargetRelationship({
       to: principalEntity,
       properties: {
         projectId,
+        projectName,
         ...(condition && getConditionRelationshipProperties(condition)),
       },
     });
@@ -483,6 +486,7 @@ export function buildIamTargetRelationship({
           },
           properties: {
             projectId,
+            projectName,
             ...(condition && getConditionRelationshipProperties(condition)),
           },
         })
@@ -523,6 +527,7 @@ async function createAndAddConvienceMemberTargetRelationships(
             to: targetRoleEntitiy,
             properties: {
               projectId: bindingEntity.projectId,
+              projectName: bindingEntity.projectName,
               ...(condition && getConditionRelationshipProperties(condition)),
             },
           })
@@ -548,6 +553,7 @@ async function createAndAddConvienceMemberTargetRelationships(
             },
             properties: {
               projectId: bindingEntity.projectId,
+              projectName: bindingEntity.projectName,
               ...(condition && getConditionRelationshipProperties(condition)),
             },
           }),
@@ -602,6 +608,7 @@ export async function createPrincipalRelationships(
               parsedMember,
               logger,
               projectId: bindingEntity.projectId,
+              projectName: bindingEntity.projectName,
               condition,
             }),
           );

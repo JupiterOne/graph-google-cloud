@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+### Added
+
+- New properties added to relationships:
+
+  | Relationship                                            | Properties    |
+  | ------------------------------------------------------- | ------------- |
+  | `google_iam_binding_assigned_cloud_authenticated_users` | `projectName` |
+  | `google_iam_binding_assigned_domain`                    | `projectName` |
+  | `google_iam_binding_assigned_everyone`                  | `projectName` |
+  | `google_iam_binding_assigned_group`                     | `projectName` |
+  | `google_iam_binding_assigned_iam_role`                  | `projectName` |
+  | `google_iam_binding_assigned_iam_service_account`       | `projectName` |
+  | `google_iam_binding_assigned_user`                      | `projectName` |
+
 ### Fixed
 
 - When making `google_iam_binding_allows_resource` relationships, we no longer
