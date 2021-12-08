@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+### Fixed
+
+- When making `google_iam_binding_allows_resource` relationships, we no longer
+  check the if a service is enabled when determining if the relationship should
+  be mapped or direct. This is because for non-organization integration
+  instances, the Resource Manager API does not need to be enabled to ingest a
+  `google_cloud_project`.
+
 ## 2.5.3 - 2021-12-06
 
 ### Added
