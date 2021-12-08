@@ -20,6 +20,14 @@ and this project adheres to
   | `google_iam_binding_assigned_iam_service_account`       | `projectName` |
   | `google_iam_binding_assigned_user`                      | `projectName` |
 
+### Fixed
+
+- When making `google_iam_binding_allows_resource` relationships, we no longer
+  check the if a service is enabled when determining if the relationship should
+  be mapped or direct. This is because for non-organization integration
+  instances, the Resource Manager API does not need to be enabled to ingest a
+  `google_cloud_project`.
+
 ## 2.5.3 - 2021-12-06
 
 ### Added
