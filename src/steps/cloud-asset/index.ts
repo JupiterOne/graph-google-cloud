@@ -48,7 +48,6 @@ import {
   getTypeAndKeyFromResourceIdentifier,
   makeLogsForTypeAndKeyResponse,
 } from '../../utils/iamBindings/getTypeAndKeyFromResourceIdentifier';
-import { getEnabledServiceNames } from '../enablement';
 import { createIamRoleEntity } from '../iam/converters';
 import {
   basicRoles,
@@ -612,15 +611,10 @@ export async function createPrincipalRelationships(
   );
 }
 
-function getServiceFromResourceIdentifier(googleResourceIdentifier: string) {
-  const [_, __, service, ..._rest] = googleResourceIdentifier.split('/');
-  return service;
-}
-
 export async function createBindingToAnyResourceRelationships(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, instance, logger } = context;
+  const { jobState, logger } = context;
   const relationshipKeys = new Set<string>();
 
   async function safeAddRelationship(relationship?: Relationship) {
@@ -630,9 +624,6 @@ export async function createBindingToAnyResourceRelationships(
     }
   }
 
-  const enabledServiceNames =
-    (await getEnabledServiceNames(instance.config))
-      .intersectedEnabledServices ?? [];
   await jobState.iterateEntities(
     { _type: bindingEntities.BINDINGS._type },
     async (bindingEntity: BindingEntity) => {
@@ -645,11 +636,9 @@ export async function createBindingToAnyResourceRelationships(
           ),
         ) ?? {};
       if (typeof key !== 'string') return;
-      // Check to see if service is enabled prior to searching the jobState for an entity
-      const service = getServiceFromResourceIdentifier(bindingEntity.resource);
-      const existingEntity = enabledServiceNames.includes(service)
-        ? await jobState.findEntity(key)
-        : undefined;
+
+      const existingEntity = await jobState.findEntity(key);
+
       const relationship = existingEntity
         ? createDirectRelationship({
             from: bindingEntity,
