@@ -146,8 +146,8 @@ export const J1_TYPE_TO_KEY_GENERATOR_MAP: {
   [DNS_MANAGED_ZONE_ENTITY_TYPE]: finalIdentifierKeyMap,
   [ENTITY_TYPE_SPANNER_INSTANCE]: fullPathKeyMap,
   [ENTITY_TYPE_SPANNER_INSTANCE_DATABASE]: fullPathKeyMap,
-  [BIG_QUERY_DATASET_ENTITY_TYPE]: allUniqueIdentifiers,
-  [BIG_QUERY_TABLE_ENTITY_TYPE]: allUniqueIdentifiers,
+  [BIG_QUERY_DATASET_ENTITY_TYPE]: bigQueryIdentifier,
+  [BIG_QUERY_TABLE_ENTITY_TYPE]: bigQueryIdentifier,
   [IAM_ROLE_ENTITY_TYPE]: impossible, // Key is different depending on if it is a custom or managed Role. I'm pretty sure this can not be the target of a role binding.
   [IAM_SERVICE_ACCOUNT_ENTITY_TYPE]: finalIdentifierKeyMap,
   [IAM_SERVICE_ACCOUNT_KEY_ENTITY_TYPE]: fullPathKeyMap,
@@ -211,39 +211,29 @@ function selfLinkKeyMap(googleResourceIdentifier: string): string {
   );
 }
 
-// ex: j1-gc-integration-dev-v3
-// ex: j1-gc-integration-dev-v3:test_big_query_dataset
-// ex: j1-gc-integration-dev-v3:natality.Test Table
-function allUniqueIdentifiers(googleResourceIdentifier: string): string {
-  const [
-    _,
-    __,
-    _service,
-    _firstDivision,
-    idForFistDivision,
-    _secondDivision,
-    idForSecondDivision,
-    _thirdDivision,
-    idForThirdDivision,
-    _fourthDivision,
-    idForFourthDivision,
-  ] = googleResourceIdentifier.split('/');
-  return [
-    idForFistDivision,
-    idForSecondDivision,
-    idForThirdDivision,
-    idForFourthDivision,
-  ]
-    .filter((i) => !!i)
-    .join(':');
-}
-
 // ex: cloudrun_service:2fab1cb9-fb5c-4f22-b364-979cebdc2820
 function customPrefixAndIdKeyMap(
   customKeyPrefixFunction: (uid: string) => string,
 ): (googleResourceIdentifier: string) => string {
   return (googleResourceIdentifier: string) =>
     customKeyPrefixFunction(finalIdentifierKeyMap(googleResourceIdentifier));
+}
+
+// ex: DATASET - j1-gc-integration-dev-v3:test_big_query_dataset
+// ex: TABLE   - j1-gc-integration-dev-v3:test_big_query_dataset.Test Table
+function bigQueryIdentifier(googleResourceIdentifier: string): string {
+  const [
+    _,
+    __,
+    _service,
+    _literallyTheWordProjects,
+    project,
+    _literallyTheWordDatasets,
+    dataset,
+    _literallyTheWordTables,
+    table,
+  ] = googleResourceIdentifier.split('/');
+  return project + ':' + dataset + (table ? '.' + table : '');
 }
 
 // Used when there is no way to generate the J1 entity key given only the googleResourceIdentifier
