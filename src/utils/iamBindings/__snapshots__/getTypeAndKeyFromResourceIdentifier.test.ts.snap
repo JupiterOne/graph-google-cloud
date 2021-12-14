@@ -563,7 +563,7 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 71`] = `
 Object {
   "identifier": "//bigquery.googleapis.com/projects/12345/datasets/abcdef12345/tables/abcdef12345",
-  "key": "12345:abcdef12345:abcdef12345",
+  "key": "12345:abcdef12345.abcdef12345",
   "type": "google_bigquery_table",
 }
 `;
