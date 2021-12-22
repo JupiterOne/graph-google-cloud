@@ -211,13 +211,16 @@ gcloud iam service-accounts keys create ~/Desktop/service-account-key.json \
 
 ### Create .env file
 
-At the root of the project, create a `.env` file. The contents of the `.env`
+At the root of the project, create a `.env` file, or create a copy of the
+`.env.example` file and name the new file `.env`. The contents of the `.env`
 file are automatically loaded when running the integration locally. The
 following configuration properties are supported:
 
 ```
 SERVICE_ACCOUNT_KEY_FILE={...}
 PROJECT_ID="my-j1-proj"
+ORGANIZATION_ID=""
+CONFIGURE_ORGANIZATION_PROJECTS=false
 ```
 
 #### `SERVICE_ACCOUNT_KEY_FILE` {string}
