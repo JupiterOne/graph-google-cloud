@@ -155,6 +155,7 @@ import {
   STEP_BUILD_PROJECT_BUDGET,
 } from './steps/billing-budgets/constants';
 import { STEP_BILLING_ACCOUNTS } from './steps/cloud-billing/constants';
+import { Steps as CloudSchedulerSteps } from './steps/cloud-scheduler/constants';
 
 interface ValidateInvocationInvalidConfigTestParams {
   instanceConfig?: Partial<IntegrationConfig>;
@@ -699,6 +700,9 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_BUILD_ADDITIONAL_PROJECT_BUDGET]: {
+        disabled: false,
+      },
+      [CloudSchedulerSteps.CLOUD_SCHEDULER_JOBS]: {
         disabled: false,
       },
     };

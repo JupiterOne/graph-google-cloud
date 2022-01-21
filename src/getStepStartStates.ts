@@ -144,6 +144,7 @@ import {
 import { STEP_BILLING_ACCOUNTS } from './steps/cloud-billing/constants';
 import { isMasterOrganizationInstance } from './utils/isMasterOrganizationInstance';
 import { isSingleProjectInstance } from './utils/isSingleProjectInstance';
+import { Steps as CloudSchedulerSteps } from './steps/cloud-scheduler/constants';
 
 function validateInvocationConfig(
   context: IntegrationExecutionContext<SerializedIntegrationConfig>,
@@ -503,6 +504,9 @@ export default async function getStepStartStates(
     ),
     [STEP_BIG_TABLE_APP_PROFILES]: createStepStartState(
       ServiceUsageName.BIG_TABLE,
+    ),
+    [CloudSchedulerSteps.CLOUD_SCHEDULER_JOBS]: createStepStartState(
+      ServiceUsageName.CLOUD_SCHEDULER,
     ),
     [STEP_BIG_TABLE_CLUSTERS]: createStepStartState(ServiceUsageName.BIG_TABLE),
     [STEP_BIG_TABLE_BACKUPS]: createStepStartState(ServiceUsageName.BIG_TABLE),

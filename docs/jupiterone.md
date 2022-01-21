@@ -310,6 +310,7 @@ The following entities are created:
 | Cloud Run Configuration                                  | `google_cloud_run_configuration`                                  | `Configuration`                    |
 | Cloud Run Route                                          | `google_cloud_run_route`                                          | `Configuration`                    |
 | Cloud Run Service                                        | `google_cloud_run_service`                                        | `Service`                          |
+| Cloud Scheduler Job                                      | `google_cloud_scheduler_job`                                      | `Configuration`                    |
 | Cloud Storage Bucket                                     | `google_storage_bucket`                                           | `DataStore`                        |
 | Compute Address                                          | `google_compute_address`                                          | `IpAddress`                        |
 | Compute Backend Bucket                                   | `google_compute_backend_bucket`                                   | `Gateway`                          |
