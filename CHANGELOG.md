@@ -6,6 +6,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+### Added
+
+- New properties added to entities:
+
+  | Entity                       | Properties |
+  | ---------------------------- | ---------- |
+  | `google_iam_service_account` | `active`   |
+
+### Changed
+
+- Updated `@jupiterone/integration-sdk-*` packages
+
+### Fixed
+
+- Properly assign `_key` value to placeholder deleted `google_compute_image`
+  entities
+
 ## 2.6.1 - 2021-12-14
 
 ### Fixed

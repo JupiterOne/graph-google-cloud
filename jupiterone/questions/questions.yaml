@@ -37,6 +37,29 @@ questions:
   tags:
   - google-cloud
   - storage
+
+- id: integration-question-google-iam-inactive-service-account
+  title: Which Google Cloud service accounts are inactive?
+  description:
+    Finds all Google Cloud service accounts that are inactive
+  queries:
+  - query: |
+      FIND google_iam_service_account WITH active = false
+  tags:
+  - google-cloud
+  - iam
+
+- id: integration-question-google-iam-active-service-account
+  title: Which Google Cloud service accounts are active?
+  description:
+    Finds all Google Cloud service accounts that are active
+  queries:
+  - query: |
+      FIND google_iam_service_account WITH active = true
+  tags:
+  - google-cloud
+  - iam
+
 ################################################################################
 # End generic non-compliance questions
 ################################################################################

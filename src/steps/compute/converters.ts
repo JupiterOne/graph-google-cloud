@@ -101,7 +101,7 @@ export function createComputeImageEntity({
       assign: {
         _class: ENTITY_CLASS_COMPUTE_IMAGE,
         _type: ENTITY_TYPE_COMPUTE_IMAGE,
-        _key: data.selfLink as string,
+        _key: (data.selfLink || data.id) as string,
         id: data.id as string,
         name: data.name,
         displayName: data.name as string,
