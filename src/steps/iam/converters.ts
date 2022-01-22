@@ -84,6 +84,7 @@ export function createIamServiceAccountEntity(
         username: data.email,
         email: data.email,
         enabled: data.disabled !== true,
+        active: data.disabled !== true,
         description: data.description,
         etag: data.etag,
         webLink: getServiceAccountWebLink({
