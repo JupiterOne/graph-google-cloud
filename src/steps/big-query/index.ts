@@ -131,7 +131,10 @@ export async function fetchBigQueryModels(
         await client.iterateBigQueryModels(
           datasetEntity.name as string,
           async (model) => {
-            const modelEntity = createBigQueryModelEntity(model);
+            const modelEntity = createBigQueryModelEntity(
+              model,
+              datasetEntity.id as string,
+            );
             await jobState.addEntity(modelEntity);
 
             await jobState.addRelationship(

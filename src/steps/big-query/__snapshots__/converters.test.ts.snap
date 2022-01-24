@@ -133,7 +133,7 @@ Object {
   "_class": Array [
     "Model",
   ],
-  "_key": "natality_model",
+  "_key": "j1-gc-integration-dev-v2:test_big_query_dataset:natality_model",
   "_rawData": Array [
     Object {
       "name": "default",
