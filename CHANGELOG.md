@@ -8,6 +8,11 @@ and this project adheres to
 
 ## Unreleased
 
+### Changed
+
+- Update `@jupiterone/integration-sdk-*` to include updated support error
+  message.
+
 ### Added
 
 - New properties added to entities:
