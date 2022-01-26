@@ -3,6 +3,10 @@ export const STEP_COMPUTE_INSTANCES = 'fetch-compute-instances';
 export const STEP_COMPUTE_INSTANCE_SERVICE_ACCOUNT_RELATIONSHIPS =
   'build-compute-instance-service-account-relationships';
 export const STEP_COMPUTE_DISKS = 'fetch-compute-disks';
+export const STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS =
+  'build-compute-disk-image-relationships';
+export const STEP_COMPUTE_DISK_KMS_RELATIONSHIPS =
+  'build-compute-disk-kms-relationships';
 export const STEP_COMPUTE_REGION_DISKS = 'fetch-compute-region-disks';
 export const STEP_COMPUTE_SNAPSHOTS = 'fetch-compute-snapshots';
 export const STEP_COMPUTE_SNAPSHOT_DISK_RELATIONSHIPS =
