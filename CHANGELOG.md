@@ -8,10 +8,11 @@ and this project adheres to
 
 ## Unreleased
 
+## 2.6.2 - 2022-01-25
+
 ### Changed
 
-- Update `@jupiterone/integration-sdk-*` to include updated support error
-  message.
+- Update `@jupiterone/integration-sdk-*` packages.
 
 ### Added
 
@@ -20,10 +21,6 @@ and this project adheres to
   | Entity                       | Properties |
   | ---------------------------- | ---------- |
   | `google_iam_service_account` | `active`   |
-
-### Changed
-
-- Updated `@jupiterone/integration-sdk-*` packages
 
 ### Fixed
 
