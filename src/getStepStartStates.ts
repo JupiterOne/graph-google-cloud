@@ -200,6 +200,7 @@ export default async function getStepStartStates(
       organizationId: config.organizationId,
       serviceAccountKeyEmail: config.serviceAccountKeyConfig.client_email,
       serviceAccountKeyProjectId: config.serviceAccountKeyConfig.project_id,
+      folderId: config.folderId,
     },
     'Starting integration with config',
   );

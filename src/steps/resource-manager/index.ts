@@ -120,6 +120,10 @@ export async function fetchResourceManagerFolders(
     `organizations/${client.organizationId}`,
   );
   if (organizationEntity) {
+    let folderParent;
+    if (client.folderId) {
+      folderParent = 'folders/' + client.folderId;
+    }
     // Iterate organization's folders (starting point)
     await client.iterateFolders(async (folder) => {
       const folderEntity = createFolderEntity(folder);
@@ -135,7 +139,7 @@ export async function fetchResourceManagerFolders(
       );
 
       await getAllInnerFolders(client, folderEntity, folder.name!);
-    });
+    }, folderParent);
   }
 }
 
@@ -147,10 +151,16 @@ export async function buildOrgFolderProjectMappedRelationships(
     instance: { config },
   } = context;
   const client = new ResourceManagerClient({ config });
+
   const organizationEntity = await jobState.findEntity(
     `organizations/${client.organizationId}`,
   );
   // Organization -> HAS -> Projects
+  let folderParent;
+  if (config.folderId) {
+    folderParent = 'folders/' + config.folderId;
+  }
+
   if (organizationEntity) {
     await client.iterateProjects(async (project) => {
       const projectEntity = createProjectEntity(client.projectId, project);
@@ -171,7 +181,7 @@ export async function buildOrgFolderProjectMappedRelationships(
           },
         }),
       );
-    });
+    }, folderParent);
   }
 
   // Folder -> HAS (mappedRelationship) -> Projects

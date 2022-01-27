@@ -51,6 +51,9 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> =
         type: 'boolean',
         mask: false,
       },
+      folderId: {
+        type: 'string',
+      },
     },
     getStepStartStates,
     integrationSteps: [
