@@ -17,6 +17,21 @@ export function publishMissingPermissionEvent({
   });
 }
 
+interface PublishPublicImageNotFoundParams {
+  logger: IntegrationLogger;
+  sourceImageName: string;
+}
+
+export function publishPublicImageNotFound({
+  logger,
+  sourceImageName,
+}: PublishPublicImageNotFoundParams) {
+  logger.publishEvent({
+    name: 'missing_public_image',
+    description: `The public image ${sourceImageName} cannot be found, it's most likely deprecated`,
+  });
+}
+
 interface PublishUnprocessedBucketsEventParams {
   logger: IntegrationLogger;
   bucketIdsWithUnprocessedPolicies: string[];
