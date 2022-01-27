@@ -24,7 +24,7 @@
     "type-check": "tsc",
     "test:env": "LOAD_ENV=1 yarn test",
     "test": "yarn validate:questions:dry && yarn jest",
-    "test:ci": "yarn validate:questions && yarn lint && yarn type-check",
+    "test:ci": "yarn lint && yarn type-check && yarn test",
     "build": "./build.sh",
     "prepush": "yarn lint && yarn type-check && jest --changedSince main",
     "tf": "cd terraform && env `grep -v '^#' .env` terraform $1",
