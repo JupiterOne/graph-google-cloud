@@ -58,6 +58,8 @@ import {
   STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES,
   STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES,
   STEP_COMPUTE_GLOBAL_ADDRESSES,
+  STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS,
+  STEP_COMPUTE_DISK_KMS_RELATIONSHIPS,
 } from './steps/compute';
 import { STEP_CLOUD_KMS_KEYS, STEP_CLOUD_KMS_KEY_RINGS } from './steps/kms';
 import {
@@ -353,6 +355,12 @@ export default async function getStepStartStates(
     [STEP_COMPUTE_DISKS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_REGION_DISKS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_IMAGES]: createStepStartState(ServiceUsageName.COMPUTE),
+    [STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
+    [STEP_COMPUTE_DISK_KMS_RELATIONSHIPS]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
     [STEP_COMPUTE_SNAPSHOTS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_IMAGE_IMAGE_RELATIONSHIPS]: createStepStartState(
       ServiceUsageName.COMPUTE,

@@ -4,7 +4,6 @@ import {
 } from '@jupiterone/integration-sdk-testing';
 import {
   setupGoogleCloudRecording,
-  // withRecording,
 } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
 import {
@@ -36,15 +35,14 @@ import {
   fetchComputeGlobalForwardingRules,
   fetchComputeForwardingRules,
   fetchComputeGlobalAddresses,
+  buildDiskImageRelationships,
+  buildDiskUsesKmsRelationships,
 } from '.';
 import {
   CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
   fetchStorageBuckets,
 } from '../storage';
-import {
-  integrationConfig,
-  // setupErrorIntegrationConfig,
-} from '../../../test/config';
+import { integrationConfig } from '../../../test/config';
 import {
   ENTITY_TYPE_COMPUTE_DISK,
   ENTITY_TYPE_COMPUTE_FIREWALL,
@@ -105,7 +103,6 @@ import {
   ExplicitRelationship,
   MappedRelationship,
   Relationship,
-  // IntegrationProviderAuthorizationError,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
 import { fetchIamServiceAccounts } from '../iam';
@@ -148,9 +145,6 @@ describe('#fetchComputeDisks', () => {
       instanceConfig: tempNewAccountConfig,
     });
 
-    await fetchKmsKeyRings(context);
-    await fetchKmsCryptoKeys(context);
-    await fetchComputeImages(context);
     await fetchComputeDisks(context);
 
     expect({
@@ -210,6 +204,39 @@ describe('#fetchComputeDisks', () => {
         },
       },
     });
+  });
+});
+
+describe('#buildDiskImageRelationships', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'buildDiskImageRelationships',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: tempNewAccountConfig,
+    });
+
+    await fetchComputeImages(context);
+    await fetchComputeDisks(context);
+    await buildDiskImageRelationships(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
 
     const computeDiskUsesImageRelationships =
       context.jobState.collectedRelationships.filter(
@@ -223,6 +250,41 @@ describe('#fetchComputeDisks', () => {
         }),
       ),
     );
+  });
+});
+
+describe('#buildDiskUsesKmsRelationships', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'buildDiskUsesKmsRelationships',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: tempNewAccountConfig,
+    });
+
+    await fetchKmsKeyRings(context);
+    await fetchKmsCryptoKeys(context);
+    await fetchComputeDisks(context);
+    await fetchComputeRegionDisks(context);
+    await buildDiskUsesKmsRelationships(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
 
     const { directRelationships, mappedRelationships } =
       separateDirectMappedRelationships(
@@ -280,8 +342,6 @@ describe('#fetchComputeRegionDisks', () => {
       instanceConfig: tempNewAccountConfig,
     });
 
-    await fetchKmsKeyRings(context);
-    await fetchKmsCryptoKeys(context);
     await fetchComputeRegionDisks(context);
 
     expect({
@@ -340,19 +400,6 @@ describe('#fetchComputeRegionDisks', () => {
         },
       },
     });
-
-    const computeDiskUsesKmsKeyRelationships =
-      context.jobState.collectedRelationships.filter(
-        (r) => r._type === 'google_compute_disk_uses_kms_crypto_key',
-      );
-
-    expect(computeDiskUsesKmsKeyRelationships).toEqual(
-      computeDiskUsesKmsKeyRelationships.map((r) =>
-        expect.objectContaining({
-          _class: 'USES',
-        }),
-      ),
-    );
   });
 });
 
