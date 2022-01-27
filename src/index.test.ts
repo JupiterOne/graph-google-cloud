@@ -43,6 +43,8 @@ import {
   STEP_COMPUTE_BACKEND_BUCKETS,
   STEP_COMPUTE_BACKEND_SERVICES,
   STEP_COMPUTE_DISKS,
+  STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS,
+  STEP_COMPUTE_DISK_KMS_RELATIONSHIPS,
   STEP_COMPUTE_FIREWALLS,
   STEP_COMPUTE_FORWARDING_RULES,
   STEP_COMPUTE_GLOBAL_ADDRESSES,
@@ -450,6 +452,12 @@ describe('#getStepStartStates success', () => {
         disabled: true,
       },
       [STEP_COMPUTE_DISKS]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_DISK_KMS_RELATIONSHIPS]: {
         disabled: false,
       },
       [STEP_COMPUTE_REGION_DISKS]: {

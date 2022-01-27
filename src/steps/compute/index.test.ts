@@ -4,7 +4,6 @@ import {
 } from '@jupiterone/integration-sdk-testing';
 import {
   setupGoogleCloudRecording,
-  // withRecording,
 } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
 import {
@@ -308,8 +307,7 @@ describe('#buildDiskUsesKmsRelationships', () => {
       (r) => r._type === 'google_compute_disk_uses_kms_crypto_key',
     );
 
-    // TODO: create mapped KMS relationship example and uncomment this
-    // expect(mappedKmsRelationships.length).toBeGreaterThan(0);
+    expect(mappedKmsRelationships.length).toBeGreaterThan(0);
 
     expect(
       mappedKmsRelationships
