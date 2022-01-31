@@ -8,6 +8,14 @@ and this project adheres to
 
 ## Unreleased
 
+## 2.7.0 - 2022-01-31
+
+### Added
+
+- New optional parameter FOLDER_ID to allow restricting data ingestion to a
+  single folder and its children. If omitted, ingestion will still occur at the
+  organizational level.
+
 ## 2.6.2 - 2022-01-25
 
 ### Changed
