@@ -1,5 +1,6 @@
 import { JobState } from '@jupiterone/integration-sdk-core';
-import { cloudresourcemanager_v3, compute_v1 } from 'googleapis';
+import { cloudresourcemanager_v3, compute_v1, run_v1 } from 'googleapis';
+import { getCloudRunServiceKey } from '../steps/cloud-run/converters';
 
 export const PEERED_NETWORKS = 'network:all_peerings';
 
@@ -23,6 +24,32 @@ export async function getProjectNameFromId(
   projectId: string,
 ) {
   return jobState.getData<string>(`projectId:${projectId}`);
+}
+
+export async function cacheCloudRunServiceKeyAndUid(
+  jobState,
+  cloudRunService: run_v1.Schema$Service,
+  projectId: string,
+): Promise<string> {
+  const location = cloudRunService.metadata?.labels
+    ? cloudRunService.metadata?.labels['cloud.googleapis.com/location']
+    : '';
+  const name = cloudRunService.metadata?.name;
+
+  const uid = cloudRunService.metadata?.uid;
+  const key = getCloudRunServiceKey(projectId, location, name as string);
+
+  await jobState.setData(`cloudRunServiceKey:${key}`, uid);
+  await jobState.setData(`cloudRunServiceUid:${uid}`, key);
+
+  return key;
+}
+
+export async function getCloudRunServiceKeyFromUid(
+  jobState: JobState,
+  uid: string,
+) {
+  return jobState.getData<string>(`cloudRunServiceUid:${uid}`);
 }
 
 export async function getPeeredNetworks(jobState: JobState) {

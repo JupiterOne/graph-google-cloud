@@ -59,7 +59,7 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 8`] = `
 Object {
   "identifier": "//run.googleapis.com/projects/12345/locations/us-east1/services/abcdef12345",
-  "key": "cloudrun_service:abcdef12345",
+  "key": "projects/12345/locations/us-east1/services/abcdef12345",
   "type": "google_cloud_run_service",
 }
 `;
