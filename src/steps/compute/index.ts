@@ -181,10 +181,7 @@ import {
   STEP_CLOUD_STORAGE_BUCKETS,
 } from '../storage';
 import { getCloudStorageBucketKey } from '../storage/converters';
-import {
-  publishMissingPermissionEvent,
-  publishPublicImageNotFound,
-} from '../../utils/events';
+import { publishMissingPermissionEvent } from '../../utils/events';
 import { parseRegionNameFromRegionUrl } from '../../google-cloud/regions';
 import {
   ENTITY_TYPE_KMS_KEY,
@@ -486,15 +483,10 @@ export async function buildDiskImageRelationships(
 
               return;
             } else if (err.code === 404) {
-              logger.trace(
-                { err },
-                `The public image ${sourceImageName} cannot be found, it's most likely deprecated`,
+              logger.info(
+                { err, sourceImageName },
+                `The public image cannot be found, it's most likely deprecated`,
               );
-
-              publishPublicImageNotFound({
-                logger,
-                sourceImageName,
-              });
 
               return;
             } else {
