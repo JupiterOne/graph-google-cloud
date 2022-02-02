@@ -39,7 +39,6 @@ export async function cacheCloudRunServiceKeyAndUid(
   const uid = cloudRunService.metadata?.uid;
   const key = getCloudRunServiceKey(projectId, location, name as string);
 
-  await jobState.setData(`cloudRunServiceKey:${key}`, uid);
   await jobState.setData(`cloudRunServiceUid:${uid}`, key);
 
   return key;
