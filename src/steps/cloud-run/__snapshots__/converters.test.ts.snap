@@ -197,7 +197,7 @@ Object {
   "_class": Array [
     "Service",
   ],
-  "_key": "cloudrun_service:fce2d165-9ccb-4b6c-9204-67362d41aadd",
+  "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/services/example-cloud-run-service",
   "_rawData": Array [
     Object {
       "name": "default",

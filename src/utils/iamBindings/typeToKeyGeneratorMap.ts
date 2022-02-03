@@ -13,7 +13,6 @@ import {
   BIG_QUERY_TABLE_ENTITY_TYPE,
 } from '../../steps/big-query';
 import { ENTITY_TYPE_CLOUD_RUN_SERVICE } from '../../steps/cloud-run/constants';
-import { getCloudRunServiceKey } from '../../steps/cloud-run/converters';
 import {
   ENTITY_TYPE_COMPUTE_BACKEND_BUCKET,
   ENTITY_TYPE_COMPUTE_BACKEND_SERVICE,
@@ -115,9 +114,7 @@ export const J1_TYPE_TO_KEY_GENERATOR_MAP: {
       context!.jobState,
       finalIdentifierKeyMap(id),
     )) ?? finalIdentifierKeyMap(id),
-  [ENTITY_TYPE_CLOUD_RUN_SERVICE]: customPrefixAndIdKeyMap(
-    getCloudRunServiceKey,
-  ),
+  [ENTITY_TYPE_CLOUD_RUN_SERVICE]: fullPathKeyMap,
   [ENTITY_TYPE_COMPUTE_BACKEND_BUCKET]: selfLinkKeyMap,
   [ENTITY_TYPE_COMPUTE_BACKEND_SERVICE]: selfLinkKeyMap,
   [ENTITY_TYPE_COMPUTE_DISK]: customPrefixAndIdKeyMap(getComputeDiskKey),

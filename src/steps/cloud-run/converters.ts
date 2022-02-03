@@ -20,8 +20,12 @@ export interface MetadataComputedPropertyData {
   duplicateProperties: string[];
 }
 
-export function getCloudRunServiceKey(uid: string) {
-  return `cloudrun_service:${uid}`;
+export function getCloudRunServiceKey(
+  projectId: string,
+  location: string,
+  name: string,
+) {
+  return `projects/${projectId}/locations/${location}/services/${name}`;
 }
 
 export function getCloudRunRouteKey(uid: string) {
@@ -35,6 +39,7 @@ export function getCloudRunConfigurationKey(uid: string) {
 export function createCloudRunServiceEntity(
   data: run_v1.Schema$Service,
   projectId: string,
+  key: string,
 ) {
   // Build webLink
   let webLink = '';
@@ -54,7 +59,7 @@ export function createCloudRunServiceEntity(
       assign: {
         _class: ENTITY_CLASS_CLOUD_RUN_SERVICE,
         _type: ENTITY_TYPE_CLOUD_RUN_SERVICE,
-        _key: getCloudRunServiceKey(data.metadata?.uid as string),
+        _key: key,
         name: data.metadata?.name,
         function: ['workload-management'],
         displayName: data.metadata?.name as string,

@@ -16,6 +16,8 @@ describe('#createCloudRunServiceEntity', () => {
       createCloudRunServiceEntity(
         getMockCloudRunService(),
         DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
+        // This would otherwise be returned by cacheCloudRunServiceKeyAndUid()
+        `projects/${DEFAULT_INTEGRATION_CONFIG_PROJECT_ID}/locations/us-central1/services/example-cloud-run-service`,
       ),
     ).toMatchSnapshot();
   });
