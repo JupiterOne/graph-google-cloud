@@ -181,20 +181,18 @@ describe('#fetchIamPolicyAuditConfig', () => {
     });
 
     expect(
-      directRelationships.filter(
-        (e) =>
-          e._type === AUDIT_CONFIG_ALLOWS_SERVICE_ACCOUNT_RELATIONSHIP_TYPE,
-      ),
-    ).toMatchDirectRelationshipSchema({
-      schema: {
-        properties: {
-          _class: { const: 'ALLOWS' },
-          _type: {
-            const: 'google_cloud_audit_config_allows_iam_service_account',
-          },
-        },
-      },
-    });
+      directRelationships
+        .filter(
+          (e) =>
+            e._type === AUDIT_CONFIG_ALLOWS_SERVICE_ACCOUNT_RELATIONSHIP_TYPE,
+        )
+        .every(
+          (directRelationship) =>
+            directRelationship._type ===
+              'google_cloud_audit_config_allows_iam_service_account' &&
+            directRelationship._class === 'ALLOWS',
+        ),
+    ).toBe(true);
 
     expect(mappedRelationships.length).toBeGreaterThan(0);
 
