@@ -10,6 +10,8 @@ import {
 import { storage_v1 } from 'googleapis';
 import { isMemberPublic } from '../../utils/iam';
 import { publishUnprocessedBucketsEvent } from '../../utils/events';
+import { STEP_ORGANIZATION_POLICIES } from '../orgpolicy/constants';
+import { OrgPolicyResult } from '../orgpolicy';
 
 export * from './constants';
 
@@ -37,6 +39,9 @@ export async function fetchStorageBuckets(
   } = context;
 
   const client = new CloudStorageClient({ config });
+  const publicAccessPrevention = await jobState.getData<OrgPolicyResult>(
+    'organization_policy:public_access_prevention',
+  );
 
   const bucketIdsWithUnprocessedPolicies: string[] = [];
   await client.iterateCloudStorageBuckets(async (bucket) => {
@@ -56,13 +61,14 @@ export async function fetchStorageBuckets(
       }
     }
 
-    await jobState.addEntity(
-      createCloudStorageBucketEntity({
-        data: bucket,
-        projectId: config.serviceAccountKeyConfig.project_id,
-        isPublic: bucketPolicy && isBucketPolicyPublicAccess(bucketPolicy),
-      }),
-    );
+    const bucketEntity = createCloudStorageBucketEntity({
+      data: bucket,
+      projectId: config.serviceAccountKeyConfig.project_id,
+      isPublic: bucketPolicy && isBucketPolicyPublicAccess(bucketPolicy),
+      publicAccessPrevention,
+    });
+
+    await jobState.addEntity(bucketEntity);
   });
 
   // NOTE: Being unable to process "requestor pays" buckets is a non-fatal error,
@@ -96,6 +102,7 @@ export const storageSteps: IntegrationStep<IntegrationConfig>[] = [
       },
     ],
     relationships: [],
+    dependsOn: [STEP_ORGANIZATION_POLICIES],
     executionHandler: fetchStorageBuckets,
   },
 ];

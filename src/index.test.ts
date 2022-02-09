@@ -157,6 +157,7 @@ import {
   STEP_BUILD_PROJECT_BUDGET,
 } from './steps/billing-budgets/constants';
 import { STEP_BILLING_ACCOUNTS } from './steps/cloud-billing/constants';
+import { STEP_ORGANIZATION_POLICIES } from './steps/orgpolicy/constants';
 
 interface ValidateInvocationInvalidConfigTestParams {
   instanceConfig?: Partial<IntegrationConfig>;
@@ -410,6 +411,9 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_RESOURCE_MANAGER_FOLDERS]: {
+        disabled: false,
+      },
+      [STEP_ORGANIZATION_POLICIES]: {
         disabled: false,
       },
       [STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS]: {

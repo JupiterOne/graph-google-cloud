@@ -1,6 +1,7 @@
 import { getMockStorageBucket } from '../../../test/mocks';
 import { createCloudStorageBucketEntity } from './converters';
 import { DEFAULT_INTEGRATION_CONFIG_PROJECT_ID } from '../../../test/config';
+import { NearestOrgPolicyResult } from '../orgpolicy';
 
 describe('#createCloudStorageBucketEntity', () => {
   test('should convert to entity', () => {
@@ -9,6 +10,7 @@ describe('#createCloudStorageBucketEntity', () => {
         data: getMockStorageBucket(),
         projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
         isPublic: false,
+        publicAccessPrevention: undefined,
       }),
     ).toMatchSnapshot();
   });
@@ -19,6 +21,7 @@ describe('#createCloudStorageBucketEntity', () => {
         data: getMockStorageBucket(),
         projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
         isPublic: true,
+        publicAccessPrevention: undefined,
       }),
     ).toMatchSnapshot();
   });
@@ -38,6 +41,7 @@ describe('#createCloudStorageBucketEntity', () => {
         }),
         projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
         isPublic: false,
+        publicAccessPrevention: undefined,
       }),
     ).toMatchSnapshot();
   });
@@ -54,6 +58,7 @@ describe('#createCloudStorageBucketEntity', () => {
         }),
         projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
         isPublic: false,
+        publicAccessPrevention: undefined,
       }),
     ).toMatchSnapshot();
   });
@@ -66,6 +71,7 @@ describe('#createCloudStorageBucketEntity', () => {
         }),
         projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
         isPublic: false,
+        publicAccessPrevention: undefined,
       }),
     ).toMatchSnapshot();
   });
@@ -78,11 +84,31 @@ describe('#createCloudStorageBucketEntity', () => {
         }),
         projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
         isPublic: undefined,
+        publicAccessPrevention: undefined,
       }),
     ).toMatchSnapshot();
   });
 
-  test('should set "public" to "true" if "isPublic" is "false" but the bucket is subject to object ACLs', () => {
+  test('should set "public" to "undefined" if publicAccessPrevention is undefined', () => {
+    expect(
+      createCloudStorageBucketEntity({
+        data: getMockStorageBucket({
+          iamConfiguration: {
+            uniformBucketLevelAccess: {
+              enabled: false,
+            },
+          },
+        }),
+        projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
+        isPublic: true,
+        publicAccessPrevention: undefined,
+      }),
+    ).toMatchObject({
+      public: undefined,
+    });
+  });
+
+  test('should set "public" to "true" if "isPublic" is "false" but the bucket is subject to object ACLs and publicAccessPrevention does not exists', () => {
     expect(
       createCloudStorageBucketEntity({
         data: getMockStorageBucket({
@@ -94,6 +120,10 @@ describe('#createCloudStorageBucketEntity', () => {
         }),
         projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
         isPublic: false,
+        publicAccessPrevention: {
+          result: NearestOrgPolicyResult.NOT_FOUND,
+          organizationPolicy: undefined,
+        },
       }),
     ).toMatchObject({
       public: true,
@@ -111,6 +141,7 @@ describe('#createCloudStorageBucketEntity', () => {
         }),
         projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
         isPublic: false,
+        publicAccessPrevention: undefined,
       }),
     ).toMatchSnapshot();
   });
