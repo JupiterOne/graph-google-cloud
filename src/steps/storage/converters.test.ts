@@ -21,7 +21,10 @@ describe('#createCloudStorageBucketEntity', () => {
         data: getMockStorageBucket(),
         projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
         isPublic: true,
-        publicAccessPrevention: undefined,
+        publicAccessPrevention: {
+          organizationPolicy: undefined,
+          result: NearestOrgPolicyResult.NOT_FOUND,
+        },
       }),
     ).toMatchSnapshot();
   });

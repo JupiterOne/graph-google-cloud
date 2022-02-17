@@ -20,6 +20,19 @@ import {
   RELATIONSHIP_TYPE_GOOGLE_USER_CREATED_VERSION,
 } from './constants';
 import { fetchStorageBuckets } from '../storage';
+import { fetchOrganizationPolicies } from '../orgpolicy';
+
+const tempNewAccountConfig = {
+  ...integrationConfig,
+  serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+    'j1-gc-integration-dev-v2',
+    'j1-gc-integration-dev-v3',
+  ),
+  serviceAccountKeyConfig: {
+    ...integrationConfig.serviceAccountKeyConfig,
+    project_id: 'j1-gc-integration-dev-v3',
+  },
+};
 
 describe('#fetchAppEngineApplication', () => {
   let recording: Recording;
@@ -37,9 +50,10 @@ describe('#fetchAppEngineApplication', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: tempNewAccountConfig,
     });
 
+    await fetchOrganizationPolicies(context);
     await fetchStorageBuckets(context);
     await fetchAppEngineApplication(context);
 
@@ -207,19 +221,10 @@ describe('#fetchAppEngineVersions', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: {
-        ...integrationConfig,
-        serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
-          'j1-gc-integration-dev-v2',
-          'j1-gc-integration-dev-v3',
-        ),
-        serviceAccountKeyConfig: {
-          ...integrationConfig.serviceAccountKeyConfig,
-          project_id: 'j1-gc-integration-dev-v3',
-        },
-      },
+      instanceConfig: tempNewAccountConfig,
     });
 
+    await fetchOrganizationPolicies(context);
     await fetchStorageBuckets(context);
     await fetchAppEngineApplication(context);
     await fetchAppEngineServices(context);

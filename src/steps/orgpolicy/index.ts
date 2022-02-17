@@ -151,7 +151,7 @@ async function findNearestOrgPolicy(
   };
 }
 
-export async function fetchOrganizationOrgPolicies(
+export async function fetchOrganizationPolicies(
   context: IntegrationStepContext,
 ): Promise<void> {
   const {
@@ -203,6 +203,6 @@ export const orgPolicySteps: IntegrationStep<IntegrationConfig>[] = [
     name: 'Cloud Organization Policies',
     entities: [],
     relationships: [],
-    executionHandler: fetchOrganizationOrgPolicies,
+    executionHandler: fetchOrganizationPolicies,
   },
 ];

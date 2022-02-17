@@ -1,5 +1,3 @@
-jest.setTimeout(50000);
-
 import { flatten } from 'lodash';
 import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-testing';
 import { IntegrationConfig } from '../..';

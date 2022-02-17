@@ -13,6 +13,19 @@ import {
   RELATIONSHIP_TYPE_PRIVATE_CA_CERTIFICATE_AUTHORITY_USES_STORAGE_BUCKET,
   RELATIONSHIP_TYPE_PRIVATE_CA_CERTIFICATE_AUTHORITY_CREATED_CERTIFICATE,
 } from './constants';
+import { fetchOrganizationPolicies } from '../orgpolicy';
+
+const tempNewAccountConfig = {
+  ...integrationConfig,
+  serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+    'j1-gc-integration-dev-v2',
+    'j1-gc-integration-dev-v3',
+  ),
+  serviceAccountKeyConfig: {
+    ...integrationConfig.serviceAccountKeyConfig,
+    project_id: 'j1-gc-integration-dev-v3',
+  },
+};
 
 describe('#fetchCertificateAuthorities', () => {
   let recording: Recording;
@@ -30,9 +43,10 @@ describe('#fetchCertificateAuthorities', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: tempNewAccountConfig,
     });
 
+    await fetchOrganizationPolicies(context);
     await fetchStorageBuckets(context);
     await fetchCertificateAuthorities(context);
 

@@ -26,6 +26,7 @@ import {
   fetchStorageBuckets,
 } from '../storage';
 import { ENTITY_TYPE_COMPUTE_IMAGE, fetchComputeImages } from '../compute';
+import { fetchOrganizationPolicies } from '../orgpolicy';
 
 describe('#fetchDataprocClusters', () => {
   let recording: Recording;
@@ -375,6 +376,7 @@ describe('#createClusterStorageRelationships', () => {
     });
 
     await fetchDataprocClusters(context);
+    await fetchOrganizationPolicies(context);
     await fetchStorageBuckets(context);
     await createClusterStorageRelationships(context);
 
