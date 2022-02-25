@@ -29,7 +29,6 @@ import {
 import { CloudAssetClient } from './client';
 import {
   API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP,
-  bindingEntities,
   BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP,
   BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS,
   STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS,
@@ -38,6 +37,7 @@ import {
   STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS,
   STEP_CREATE_BINDING_ROLE_RELATIONSHIPS,
   STEP_IAM_BINDINGS,
+  bindingEntities,
 } from './constants';
 import {
   BindingEntity,
@@ -428,31 +428,36 @@ export function getConditionRelationshipProperties(
 }
 
 export function buildIamTargetRelationship({
-  bindingEntity,
+  fromEntity,
   principalEntity,
   logger,
   parsedMember,
   projectId,
   projectName,
   condition,
+  additionalProperties,
+  relationshipClass,
 }: {
-  bindingEntity: BindingEntity;
+  fromEntity: Entity;
   principalEntity: Entity | null;
   parsedMember: ParsedIamMember;
   logger: IntegrationLogger;
   projectId?: string;
   projectName?: string;
   condition?: cloudresourcemanager_v3.Schema$Expr;
+  additionalProperties?: any;
+  relationshipClass: RelationshipClass;
 }): Relationship | undefined {
   if (principalEntity) {
     return createDirectRelationship({
-      _class: RelationshipClass.ASSIGNED,
-      from: bindingEntity,
+      _class: relationshipClass,
+      from: fromEntity,
       to: principalEntity,
       properties: {
         projectId,
         projectName,
         ...(condition && getConditionRelationshipProperties(condition)),
+        ...additionalProperties,
       },
     });
   } else {
@@ -469,15 +474,10 @@ export function buildIamTargetRelationship({
 
     return targetEntity
       ? createMappedRelationship({
-          _class: RelationshipClass.ASSIGNED,
-          _type: generateRelationshipType(
-            RelationshipClass.ASSIGNED,
-            bindingEntity._type,
-            targetEntity._type!,
-          ),
+          _class: relationshipClass,
           _mapping: {
             relationshipDirection: RelationshipDirection.FORWARD,
-            sourceEntityKey: bindingEntity._key,
+            sourceEntityKey: fromEntity._key,
             targetFilterKeys: targetEntity._key // Not always able to determine a _key for google_users depending on how the binding is set up
               ? [['_key', '_type']]
               : [['_type', 'email']],
@@ -485,9 +485,15 @@ export function buildIamTargetRelationship({
             targetEntity,
           },
           properties: {
+            _type: generateRelationshipType(
+              relationshipClass,
+              fromEntity._type,
+              targetEntity._type!,
+            ),
             projectId,
             projectName,
             ...(condition && getConditionRelationshipProperties(condition)),
+            additionalProperties,
           },
         })
       : undefined;
@@ -603,13 +609,14 @@ export async function createPrincipalRelationships(
 
           await safeAddRelationship(
             buildIamTargetRelationship({
-              bindingEntity,
+              fromEntity: bindingEntity,
               principalEntity,
               parsedMember,
               logger,
               projectId: bindingEntity.projectId,
               projectName: bindingEntity.projectName,
               condition,
+              relationshipClass: RelationshipClass.ASSIGNED,
             }),
           );
         }

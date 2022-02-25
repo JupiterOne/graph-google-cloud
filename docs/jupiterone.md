@@ -399,6 +399,10 @@ The following relationships are created:
 | `google_cloud_api_service`                                       | **HAS**               | `google_iam_role`                                                 |
 | `google_cloud_api_service`                                       | **HAS**               | `resource`                                                        |
 | `google_cloud_api_service`                                       | **USES**              | `google_cloud_audit_config`                                       |
+| `google_cloud_audit_config`                                      | **ALLOWS**            | `google_domain`                                                   |
+| `google_cloud_audit_config`                                      | **ALLOWS**            | `google_group`                                                    |
+| `google_cloud_audit_config`                                      | **ALLOWS**            | `google_iam_service_account`                                      |
+| `google_cloud_audit_config`                                      | **ALLOWS**            | `google_user`                                                     |
 | `internet`                                                       | **ALLOWS**            | `google_compute_firewall`                                         |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_folder`                                             |
 | `google_cloud_function`                                          | **USES**              | `google_iam_service_account`                                      |

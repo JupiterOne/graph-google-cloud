@@ -113,6 +113,17 @@ and this project adheres to
 - `google_iam_binding_allows_resource` mapped relationships will now be created
   with an `ALLOWS` class instead of `HAS`.
 
+### Added
+
+- Added support for ingesting the following **new** relationships:
+
+  | Source                      | class      | Target                       |
+  | --------------------------- | ---------- | ---------------------------- |
+  | `google_cloud_audit_config` | **ALLOWS** | `google_iam_service_account` |
+  | `google_cloud_audit_config` | **ALLOWS** | `google_user`                |
+  | `google_cloud_audit_config` | **ALLOWS** | `google_domain`              |
+  | `google_cloud_audit_config` | **ALLOWS** | `google_group`               |
+
 ## 2.3.0 - 2021-11-08
 
 ### Changed
@@ -300,6 +311,18 @@ Will now have a type of `google_cloud_api_service_has_resource`
 ## 1.0.7 - 2021-10-21
 
 ### Added
+
+- Added support for ingesting the following **new** resources:
+
+  | Service      | Resource / Entity           |
+  | ------------ | --------------------------- |
+  | Audit Config | `google_cloud_audit_config` |
+
+- Added support for ingesting the following **new** relationships:
+
+  | Source                     | class    | Target                      |
+  | -------------------------- | -------- | --------------------------- |
+  | `google_cloud_api_service` | **USES** | `google_cloud_audit_config` |
 
 - API calls will now have a `timeout` of one minute.
 - Organization setup will now have an api `timeout` of five minutes when
@@ -536,11 +559,6 @@ Will now have a type of `google_cloud_api_service_has_resource`
   | `google_iam_binding` | **ASSIGNED** | `google_user`                |
   | `google_iam_binding` | **ASSIGNED** | `google_domain`              |
   | `google_user`        | **CREATED**  | `google_app_engine_version`  |
-
-- Separate the step to build `google_bigquery_dataset_uses_kms_crypto_key`
-  relationship
-- Modified `google_bigquery_dataset` step to be independent from
-  `google_kms_crypto_key` step
 
 ## 0.48.0 - 2021-08-27
 
