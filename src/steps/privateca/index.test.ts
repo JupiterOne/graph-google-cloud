@@ -13,7 +13,6 @@ import {
   RELATIONSHIP_TYPE_PRIVATE_CA_CERTIFICATE_AUTHORITY_USES_STORAGE_BUCKET,
   RELATIONSHIP_TYPE_PRIVATE_CA_CERTIFICATE_AUTHORITY_CREATED_CERTIFICATE,
 } from './constants';
-import { fetchOrganizationPolicies } from '../orgpolicy';
 
 const tempNewAccountConfig = {
   ...integrationConfig,
@@ -46,7 +45,6 @@ describe('#fetchCertificateAuthorities', () => {
       instanceConfig: tempNewAccountConfig,
     });
 
-    await fetchOrganizationPolicies(context);
     await fetchStorageBuckets(context);
     await fetchCertificateAuthorities(context);
 

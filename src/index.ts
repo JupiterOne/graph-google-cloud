@@ -33,7 +33,6 @@ import { Client } from './google-cloud/client';
 import { cloudAssetSteps } from './steps/cloud-asset';
 import { bigTableSteps } from './steps/big-table';
 import { maybeDefaultProjectIdOnEntity } from './utils/maybeDefaultProjectIdOnEntity';
-import { orgPolicySteps } from './steps/orgpolicy';
 
 export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> =
   {
@@ -86,7 +85,6 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> =
       ...bigTableSteps,
       ...billingBudgetsSteps,
       ...cloudBillingSteps,
-      ...orgPolicySteps,
     ],
     dependencyGraphOrder: ['last'],
     beforeAddEntity: maybeDefaultProjectIdOnEntity,

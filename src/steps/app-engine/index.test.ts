@@ -20,7 +20,6 @@ import {
   RELATIONSHIP_TYPE_GOOGLE_USER_CREATED_VERSION,
 } from './constants';
 import { fetchStorageBuckets } from '../storage';
-import { fetchOrganizationPolicies } from '../orgpolicy';
 
 const tempNewAccountConfig = {
   ...integrationConfig,
@@ -53,7 +52,6 @@ describe('#fetchAppEngineApplication', () => {
       instanceConfig: tempNewAccountConfig,
     });
 
-    await fetchOrganizationPolicies(context);
     await fetchStorageBuckets(context);
     await fetchAppEngineApplication(context);
 
@@ -224,7 +222,6 @@ describe('#fetchAppEngineVersions', () => {
       instanceConfig: tempNewAccountConfig,
     });
 
-    await fetchOrganizationPolicies(context);
     await fetchStorageBuckets(context);
     await fetchAppEngineApplication(context);
     await fetchAppEngineServices(context);

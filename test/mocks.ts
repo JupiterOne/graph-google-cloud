@@ -725,6 +725,19 @@ export function getMockKmsKeyRing(
   };
 }
 
+export function getMockStorageBucketPolicy(
+  partial?: Partial<storage_v1.Schema$Policy>,
+): storage_v1.Schema$Policy {
+  return {
+    kind: 'storage#policy',
+    resourceId:
+      'projects/_/buckets/dataproc-staging-us-central1-167984947943-okmnuod7',
+    version: 1,
+    etag: 'CAc=',
+    ...partial,
+  };
+}
+
 export function getMockStorageBucket(
   partial?: Partial<storage_v1.Schema$Bucket>,
 ): storage_v1.Schema$Bucket {

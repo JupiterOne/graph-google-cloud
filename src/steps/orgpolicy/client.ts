@@ -1,32 +1,20 @@
-import { google, orgpolicy_v2 } from 'googleapis';
+import { google } from 'googleapis';
 import { Client } from '../../google-cloud/client';
 
 export class OrgPolicyClient extends Client {
   private client = google.orgpolicy('v2');
 
-  async iterateOrganizationPolicies(
-    parent: string,
-    callback: (
-      data: orgpolicy_v2.Schema$GoogleCloudOrgpolicyV2Policy,
-    ) => Promise<void>,
-  ): Promise<void> {
+  async fetchOrganizationPublicAccessPreventionPolicy(): Promise<
+    boolean | undefined
+  > {
     const auth = await this.getAuthenticatedServiceClient();
+    const resp = await this.client.projects.policies.getEffectivePolicy({
+      name: `projects/${this.projectId}/policies/storage.publicAccessPrevention`,
+      auth,
+    });
 
-    await this.iterateApi(
-      async (nextPageToken) => {
-        return this.client.organizations.policies.list({
-          parent,
-          auth,
-          pageToken: nextPageToken,
-        });
-      },
-      async (
-        data: orgpolicy_v2.Schema$GoogleCloudOrgpolicyV2ListPoliciesResponse,
-      ) => {
-        for (const policy of data.policies || []) {
-          await callback(policy);
-        }
-      },
-    );
+    if (resp.data && resp.data.spec?.rules) {
+      return resp.data.spec?.rules[0].enforce as boolean;
+    }
   }
 }

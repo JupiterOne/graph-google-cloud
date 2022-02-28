@@ -5,7 +5,19 @@ import {
   CLOUD_STORAGE_BUCKET_ENTITY_CLASS,
 } from './constants';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
-import { NearestOrgPolicyResult, OrgPolicyResult } from '../orgpolicy';
+import { isMemberPublic } from '../../utils/iam';
+
+type iamConfiguration = {
+  bucketPolicyOnly?: {
+    enabled?: boolean;
+    lockedTime?: string;
+  };
+  publicAccessPrevention?: string;
+  uniformBucketLevelAccess?: {
+    enabled?: boolean;
+    lockedTime?: string;
+  };
+} | null;
 
 export function getCloudStorageBucketWebLink(
   data: storage_v1.Schema$Bucket,
@@ -18,52 +30,74 @@ export function getCloudStorageBucketKey(id: string) {
   return `bucket:${id}`;
 }
 
-function getPublicState(
-  accessPreventionPolicy: OrgPolicyResult | undefined,
-  isPublic: boolean | undefined,
-  isSubjectToObjectAcls: boolean,
-) {
-  if (accessPreventionPolicy === undefined) {
-    // The step responsible for fetching access prevention policies didn't run correctly so we can't know for sure
-    return undefined;
-  }
-
-  if (
-    accessPreventionPolicy.result === NearestOrgPolicyResult.FOUND &&
-    accessPreventionPolicy.organizationPolicy?.spec?.rules
-  ) {
-    if (
-      accessPreventionPolicy.organizationPolicy?.spec?.rules[0].enforce === true
-    ) {
-      // Prevention access policy is found, it's enforced, meaning no bucket is publicly accessible
-      return false;
-    } else {
-      // Prevention access policy is found, but it's not enforced, meaning we fallback to previous code for checking
-      return isPublic || isSubjectToObjectAcls;
+function isBucketPolicyPublicAccess(
+  bucketPolicy: storage_v1.Schema$Policy,
+): boolean {
+  for (const binding of bucketPolicy.bindings || []) {
+    for (const member of binding.members || []) {
+      if (isMemberPublic(member)) {
+        return true;
+      }
     }
   }
 
-  if (accessPreventionPolicy.result === NearestOrgPolicyResult.NOT_FOUND) {
-    // Prevention access policy wasn't found, meaning we fallback to previous code for checking
-    return isPublic || isSubjectToObjectAcls;
+  return false;
+}
+
+function isSubjectToObjectAcls(
+  iamConfiguration: iamConfiguration,
+  publicPolicy: boolean,
+) {
+  return (
+    iamConfiguration?.uniformBucketLevelAccess?.enabled !== true &&
+    !publicPolicy
+  );
+}
+
+function getPublicState({
+  bucketPolicy,
+  publicAccessPreventionPolicy,
+  iamConfiguration,
+}: {
+  bucketPolicy?: storage_v1.Schema$Policy;
+  publicAccessPreventionPolicy?: boolean;
+  iamConfiguration?: iamConfiguration;
+}): boolean | undefined {
+  // if publicAccessPreventionPolicy == undefined - we couldn't get the step to run, so we return undefined (it's unsafe to just guess)
+  if (publicAccessPreventionPolicy === undefined) {
+    return undefined;
   }
+
+  // if publicAccessPreventionPolicy == true, we can early exit and mark buckets as isPublic: false
+  if (publicAccessPreventionPolicy) {
+    return false;
+  }
+
+  // if it's false, we rely on the other properties
+  let publicPolicy = false;
+  if (bucketPolicy) {
+    publicPolicy = isBucketPolicyPublicAccess(bucketPolicy);
+  }
+
+  let subjectToObjectAcls = false;
+  if (iamConfiguration) {
+    subjectToObjectAcls = isSubjectToObjectAcls(iamConfiguration, publicPolicy);
+  }
+
+  return publicPolicy || subjectToObjectAcls;
 }
 
 export function createCloudStorageBucketEntity({
   data,
   projectId,
-  isPublic,
-  publicAccessPrevention,
+  bucketPolicy,
+  publicAccessPreventionPolicy,
 }: {
   data: storage_v1.Schema$Bucket;
   projectId: string;
-  isPublic?: boolean;
-  publicAccessPrevention: OrgPolicyResult | undefined;
+  bucketPolicy?: storage_v1.Schema$Policy;
+  publicAccessPreventionPolicy?: boolean;
 }) {
-  const isSubjectToObjectAcls =
-    data.iamConfiguration?.uniformBucketLevelAccess?.enabled !== true &&
-    !isPublic;
-
   return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
@@ -97,12 +131,11 @@ export function createCloudStorageBucketEntity({
          *
          * Ref: https://cloud.google.com/storage/docs/cloud-console?&_ga=2.84754521.-1526178294.1622832983&_gac=1.262728446.1626996208.CjwKCAjwruSHBhAtEiwA_qCppsTtaBT90RDQ-e9xjNnNQM0lwd2aI9wJfUhrVgFjQ0_SDu4kR1yUDhoCeRwQAvD_BwE#_sharingdata
          */
-        public: getPublicState(
-          publicAccessPrevention,
-          isPublic,
-          isSubjectToObjectAcls,
-        ),
-        isSubjectToObjectAcls,
+        public: getPublicState({
+          bucketPolicy,
+          publicAccessPreventionPolicy,
+          iamConfiguration: data.iamConfiguration,
+        }),
         versioningEnabled: data.versioning?.enabled === true,
         // Rely on the value of the classification tag
         classification: null,

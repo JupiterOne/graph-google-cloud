@@ -6,7 +6,6 @@ import { setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
 import { fetchStorageBuckets } from '.';
 import { integrationConfig } from '../../../test/config';
-import { fetchOrganizationPolicies } from '../orgpolicy';
 
 const tempNewAccountConfig = {
   ...integrationConfig,
@@ -39,7 +38,6 @@ describe('#fetchCloudStorageBuckets', () => {
       instanceConfig: tempNewAccountConfig,
     });
 
-    await fetchOrganizationPolicies(context);
     await fetchStorageBuckets(context);
 
     expect({

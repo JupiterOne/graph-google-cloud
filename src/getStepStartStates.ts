@@ -146,7 +146,6 @@ import {
 import { STEP_BILLING_ACCOUNTS } from './steps/cloud-billing/constants';
 import { isMasterOrganizationInstance } from './utils/isMasterOrganizationInstance';
 import { isSingleProjectInstance } from './utils/isSingleProjectInstance';
-import { STEP_ORGANIZATION_POLICIES } from './steps/orgpolicy/constants';
 
 function validateInvocationConfig(
   context: IntegrationExecutionContext<SerializedIntegrationConfig>,
@@ -305,7 +304,6 @@ export default async function getStepStartStates(
     // This API will be enabled otherwise fetching services names above would fail
     [STEP_RESOURCE_MANAGER_PROJECT]: { disabled: false },
     [STEP_API_SERVICES]: { disabled: false },
-    [STEP_ORGANIZATION_POLICIES]: { disabled: false },
     [STEP_IAM_BINDINGS]: createStartStatesBasedOnServiceAccountProject(
       ServiceUsageName.CLOUD_ASSET,
       ServiceUsageName.IAM,

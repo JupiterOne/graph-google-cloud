@@ -111,7 +111,6 @@ import {
 } from '../kms';
 import { filterGraphObjects } from '../../../test/helpers/filterGraphObjects';
 import { separateDirectMappedRelationships } from '../../../test/helpers/separateDirectMappedRelationships';
-import { fetchOrganizationPolicies } from '../orgpolicy';
 
 const tempNewAccountConfig = {
   ...integrationConfig,
@@ -1482,7 +1481,6 @@ describe('#fetchComputeBackendBuckets', () => {
       instanceConfig: tempNewAccountConfig,
     });
 
-    await fetchOrganizationPolicies(context);
     await fetchStorageBuckets(context);
     await fetchComputeBackendBuckets(context);
 

@@ -1,7 +1,9 @@
-import { getMockStorageBucket } from '../../../test/mocks';
+import {
+  getMockStorageBucket,
+  getMockStorageBucketPolicy,
+} from '../../../test/mocks';
 import { createCloudStorageBucketEntity } from './converters';
 import { DEFAULT_INTEGRATION_CONFIG_PROJECT_ID } from '../../../test/config';
-import { NearestOrgPolicyResult } from '../orgpolicy';
 
 describe('#createCloudStorageBucketEntity', () => {
   test('should convert to entity', () => {
@@ -9,8 +11,7 @@ describe('#createCloudStorageBucketEntity', () => {
       createCloudStorageBucketEntity({
         data: getMockStorageBucket(),
         projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
-        isPublic: false,
-        publicAccessPrevention: undefined,
+        publicAccessPreventionPolicy: false,
       }),
     ).toMatchSnapshot();
   });
@@ -20,11 +21,23 @@ describe('#createCloudStorageBucketEntity', () => {
       createCloudStorageBucketEntity({
         data: getMockStorageBucket(),
         projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
-        isPublic: true,
-        publicAccessPrevention: {
-          organizationPolicy: undefined,
-          result: NearestOrgPolicyResult.NOT_FOUND,
-        },
+        bucketPolicy: getMockStorageBucketPolicy({
+          bindings: [
+            {
+              role: 'roles/composer.environmentAndStorageObjectViewer',
+              members: ['user:example.user@test.com'],
+            },
+            {
+              role: 'roles/storage.legacyBucketOwner',
+              members: ['allUsers', 'user:example.user@test.com'],
+            },
+            {
+              role: 'roles/storage.legacyBucketReader',
+              members: ['projectViewer:j1-gc-integration-dev-v3'],
+            },
+          ],
+        }),
+        publicAccessPreventionPolicy: false,
       }),
     ).toMatchSnapshot();
   });
@@ -43,8 +56,15 @@ describe('#createCloudStorageBucketEntity', () => {
           },
         }),
         projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
-        isPublic: false,
-        publicAccessPrevention: undefined,
+        bucketPolicy: getMockStorageBucketPolicy({
+          bindings: [
+            {
+              role: 'roles/storage.legacyBucketReader',
+              members: ['projectViewer:j1-gc-integration-dev-v3'],
+            },
+          ],
+        }),
+        publicAccessPreventionPolicy: false,
       }),
     ).toMatchSnapshot();
   });
@@ -60,8 +80,15 @@ describe('#createCloudStorageBucketEntity', () => {
           },
         }),
         projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
-        isPublic: false,
-        publicAccessPrevention: undefined,
+        bucketPolicy: getMockStorageBucketPolicy({
+          bindings: [
+            {
+              role: 'roles/storage.legacyBucketReader',
+              members: ['projectViewer:j1-gc-integration-dev-v3'],
+            },
+          ],
+        }),
+        publicAccessPreventionPolicy: false,
       }),
     ).toMatchSnapshot();
   });
@@ -73,21 +100,15 @@ describe('#createCloudStorageBucketEntity', () => {
           iamConfiguration: undefined,
         }),
         projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
-        isPublic: false,
-        publicAccessPrevention: undefined,
-      }),
-    ).toMatchSnapshot();
-  });
-
-  test('should set "public" to "false" if "isPublic" is "undefined"', () => {
-    expect(
-      createCloudStorageBucketEntity({
-        data: getMockStorageBucket({
-          iamConfiguration: undefined,
+        bucketPolicy: getMockStorageBucketPolicy({
+          bindings: [
+            {
+              role: 'roles/storage.legacyBucketReader',
+              members: ['projectViewer:j1-gc-integration-dev-v3'],
+            },
+          ],
         }),
-        projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
-        isPublic: undefined,
-        publicAccessPrevention: undefined,
+        publicAccessPreventionPolicy: false,
       }),
     ).toMatchSnapshot();
   });
@@ -103,15 +124,22 @@ describe('#createCloudStorageBucketEntity', () => {
           },
         }),
         projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
-        isPublic: true,
-        publicAccessPrevention: undefined,
+        bucketPolicy: getMockStorageBucketPolicy({
+          bindings: [
+            {
+              role: 'roles/storage.legacyBucketReader',
+              members: ['projectViewer:j1-gc-integration-dev-v3'],
+            },
+          ],
+        }),
+        publicAccessPreventionPolicy: undefined,
       }),
     ).toMatchObject({
       public: undefined,
     });
   });
 
-  test('should set "public" to "true" if "isPublic" is "false" but the bucket is subject to object ACLs and publicAccessPrevention does not exists', () => {
+  test('should set "public" to "true" if "bucketPolicy" doesn\'t allow access but the bucket is subject to object ACLs and publicAccessPrevention does not exists', () => {
     expect(
       createCloudStorageBucketEntity({
         data: getMockStorageBucket({
@@ -122,15 +150,18 @@ describe('#createCloudStorageBucketEntity', () => {
           },
         }),
         projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
-        isPublic: false,
-        publicAccessPrevention: {
-          result: NearestOrgPolicyResult.NOT_FOUND,
-          organizationPolicy: undefined,
-        },
+        bucketPolicy: getMockStorageBucketPolicy({
+          bindings: [
+            {
+              role: 'roles/storage.legacyBucketReader',
+              members: ['projectViewer:j1-gc-integration-dev-v3'],
+            },
+          ],
+        }),
+        publicAccessPreventionPolicy: false,
       }),
     ).toMatchObject({
       public: true,
-      isSubjectToObjectAcls: true,
     });
   });
 
@@ -143,8 +174,15 @@ describe('#createCloudStorageBucketEntity', () => {
           },
         }),
         projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
-        isPublic: false,
-        publicAccessPrevention: undefined,
+        bucketPolicy: getMockStorageBucketPolicy({
+          bindings: [
+            {
+              role: 'roles/storage.legacyBucketReader',
+              members: ['projectViewer:j1-gc-integration-dev-v3'],
+            },
+          ],
+        }),
+        publicAccessPreventionPolicy: undefined,
       }),
     ).toMatchSnapshot();
   });
