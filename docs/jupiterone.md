@@ -149,6 +149,7 @@ integration by configuring a custom role with the following permissions:
 appengine.applications.get
 binaryauthorization.policy.get
 compute.projects.get
+orgpolicy.policies.get
 ```
 
 See the
@@ -204,6 +205,15 @@ resourcemanager.projects.list
 serviceusage.services.list
 resourcemanager.organizations.getIamPolicy
 cloudasset.assets.searchAllIamPolicies
+```
+
+The integration will also try to ingest organization policy for
+"storage.publicAccessPrevention" to precisely calculate storage buckets public
+access, it is therefore recommended that the following permission is also
+included in the custom role above:
+
+```
+orgpolicy.policies.get
 ```
 
 1. Navigate to the Cloud Resource Manager for that organization and
