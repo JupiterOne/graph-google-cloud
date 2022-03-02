@@ -8,24 +8,10 @@ import {
   CLOUD_STORAGE_BUCKET_ENTITY_CLASS,
 } from './constants';
 import { storage_v1 } from 'googleapis';
-import { isMemberPublic } from '../../utils/iam';
 import { publishUnprocessedBucketsEvent } from '../../utils/events';
+import { OrgPolicyClient } from '../orgpolicy/client';
 
 export * from './constants';
-
-function isBucketPolicyPublicAccess(
-  bucketPolicy: storage_v1.Schema$Policy,
-): boolean {
-  for (const binding of bucketPolicy.bindings || []) {
-    for (const member of binding.members || []) {
-      if (isMemberPublic(member)) {
-        return true;
-      }
-    }
-  }
-
-  return false;
-}
 
 export async function fetchStorageBuckets(
   context: IntegrationStepContext,
@@ -37,6 +23,20 @@ export async function fetchStorageBuckets(
   } = context;
 
   const client = new CloudStorageClient({ config });
+  const orgPolicyClient = new OrgPolicyClient({ config });
+
+  let publicAccessPreventionPolicy: boolean | undefined = undefined;
+
+  try {
+    publicAccessPreventionPolicy =
+      await orgPolicyClient.fetchOrganizationPublicAccessPreventionPolicy();
+  } catch (err) {
+    logger.publishEvent({
+      name: 'missing_permission',
+      description:
+        '"orgpolicy.policies.get" is not a required permission to run the Google Cloud integration, but is required for getting organization policy for "storage.publicAccessPrevention"',
+    });
+  }
 
   const bucketIdsWithUnprocessedPolicies: string[] = [];
   await client.iterateCloudStorageBuckets(async (bucket) => {
@@ -56,13 +56,14 @@ export async function fetchStorageBuckets(
       }
     }
 
-    await jobState.addEntity(
-      createCloudStorageBucketEntity({
-        data: bucket,
-        projectId: config.serviceAccountKeyConfig.project_id,
-        isPublic: bucketPolicy && isBucketPolicyPublicAccess(bucketPolicy),
-      }),
-    );
+    const bucketEntity = createCloudStorageBucketEntity({
+      data: bucket,
+      projectId: config.serviceAccountKeyConfig.project_id,
+      bucketPolicy,
+      publicAccessPreventionPolicy,
+    });
+
+    await jobState.addEntity(bucketEntity);
   });
 
   // NOTE: Being unable to process "requestor pays" buckets is a non-fatal error,
@@ -96,6 +97,7 @@ export const storageSteps: IntegrationStep<IntegrationConfig>[] = [
       },
     ],
     relationships: [],
+    dependsOn: [],
     executionHandler: fetchStorageBuckets,
   },
 ];

@@ -2,9 +2,7 @@ import {
   Recording,
   createMockStepExecutionContext,
 } from '@jupiterone/integration-sdk-testing';
-import {
-  setupGoogleCloudRecording,
-} from '../../../test/recording';
+import { setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
 import {
   fetchComputeDisks,
@@ -1480,7 +1478,7 @@ describe('#fetchComputeBackendBuckets', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: tempNewAccountConfig,
     });
 
     await fetchStorageBuckets(context);

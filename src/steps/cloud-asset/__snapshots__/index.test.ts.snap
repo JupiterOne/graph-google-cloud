@@ -27475,8 +27475,8 @@ Array [
 
 exports[`#fetchIamBindings Organization Instance should create Binding and Role entities, Direct Relationships with resources and principals ingested, and Mapped Relationships with resources and principals not ingested. 1`] = `
 Object {
-  "collectedEntities": 662,
-  "collectedRelationships": 945,
+  "collectedEntities": 858,
+  "collectedRelationships": 1184,
   "encounteredTypes": Array [
     "google_cloud_organization",
     "google_cloud_folder",
@@ -27492,26 +27492,26 @@ Object {
     "google_iam_service_account_has_key",
     "google_iam_binding",
     "google_iam_binding_assigned_everyone",
-    "google_iam_binding_assigned_domain",
     "google_iam_binding_assigned_role",
     "google_iam_binding_assigned_user",
     "google_iam_binding_assigned_service_account",
     "google_iam_binding_assigned_group",
+    "google_iam_binding_assigned_domain",
     "google_iam_binding_uses_role",
     "google_iam_binding_allows_resource",
     "google_cloud_api_service",
     "google_cloud_project_has_api_service",
     "google_cloud_api_service_has_resource",
   ],
-  "numCollectedEntities": 662,
-  "numCollectedRelationships": 945,
+  "numCollectedEntities": 858,
+  "numCollectedRelationships": 1184,
 }
 `;
 
 exports[`#fetchIamBindings Project Instance should create Binding and Role entities, Direct Relationships with resources and principals ingested, and Mapped Relationships with resources and principals not ingested. 1`] = `
 Object {
-  "collectedEntities": 627,
-  "collectedRelationships": 841,
+  "collectedEntities": 818,
+  "collectedRelationships": 1047,
   "encounteredTypes": Array [
     "google_cloud_project",
     "google_storage_bucket",
@@ -27532,7 +27532,7 @@ Object {
     "google_cloud_project_has_api_service",
     "google_cloud_api_service_has_resource",
   ],
-  "numCollectedEntities": 627,
-  "numCollectedRelationships": 841,
+  "numCollectedEntities": 818,
+  "numCollectedRelationships": 1047,
 }
 `;

@@ -7,6 +7,18 @@ import { IntegrationConfig } from '../../types';
 import { fetchStorageBuckets } from '.';
 import { integrationConfig } from '../../../test/config';
 
+const tempNewAccountConfig = {
+  ...integrationConfig,
+  serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+    'j1-gc-integration-dev-v2',
+    'j1-gc-integration-dev-v3',
+  ),
+  serviceAccountKeyConfig: {
+    ...integrationConfig.serviceAccountKeyConfig,
+    project_id: 'j1-gc-integration-dev-v3',
+  },
+};
+
 describe('#fetchCloudStorageBuckets', () => {
   let recording: Recording;
 
@@ -23,7 +35,7 @@ describe('#fetchCloudStorageBuckets', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: tempNewAccountConfig,
     });
 
     await fetchStorageBuckets(context);

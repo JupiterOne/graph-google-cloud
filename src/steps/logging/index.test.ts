@@ -17,6 +17,18 @@ import {
 } from './constants';
 import { MONITORING_ALERT_POLICY_TYPE } from '../monitoring/constants';
 
+const tempNewAccountConfig = {
+  ...integrationConfig,
+  serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+    'j1-gc-integration-dev-v2',
+    'j1-gc-integration-dev-v3',
+  ),
+  serviceAccountKeyConfig: {
+    ...integrationConfig.serviceAccountKeyConfig,
+    project_id: 'j1-gc-integration-dev-v3',
+  },
+};
+
 describe('#fetchProjectSinks', () => {
   let recording: Recording;
 
@@ -33,7 +45,7 @@ describe('#fetchProjectSinks', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: tempNewAccountConfig,
     });
 
     await fetchStorageBuckets(context);

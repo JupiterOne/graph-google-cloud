@@ -8,6 +8,11 @@ and this project adheres to
 
 ## Unreleased
 
+### Changed
+
+- Bucket property `public` is now affected by the organization policy
+  storage.publicAccessPrevention constraint.
+
 ## 2.7.0 - 2022-01-31
 
 ### Added
