@@ -8,6 +8,8 @@ and this project adheres to
 
 ## Unreleased
 
+## 2.8.0 - 2022-03-02
+
 ### Changed
 
 - Bucket property `public` is now affected by the organization policy
