@@ -1,6 +1,6 @@
 import {
   bindingEntities,
-  BINDING_ALLOWS_ANY_RESOURCE_TYPE,
+  BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP,
 } from '../../steps/cloud-asset/constants';
 import {
   ENTITY_TYPE_ACCESS_CONTEXT_MANAGER_ACCESS_LEVEL,
@@ -32,11 +32,6 @@ import { ENTITY_TYPE_PRIVATE_CA_CERTIFICATE } from '../../steps/privateca/consta
 import { ENTITY_TYPE_SPANNER_INSTANCE_CONFIG } from '../../steps/spanner/constants';
 import { J1_TYPE_TO_KEY_GENERATOR_MAP } from './typeToKeyGeneratorMap';
 import { GOOGLE_RESOURCE_KIND_TO_J1_TYPE_MAP } from './resourceKindToTypeMap';
-import {
-  SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
-  SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
-  SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
-} from '../../steps/sql-admin';
 import { invocationConfig } from '../..';
 import {
   generateRelationshipType,
@@ -80,21 +75,6 @@ const entitiesTypesToSkip = [
   ENTITY_TYPE_SPANNER_INSTANCE_CONFIG,
 ];
 
-/**
- * HACK: sqladmin.googleapis.com/Instances are currently mapped incorrectly.
- * A Google Resource Type of sqladmin.googleapis.com/Instances could be a
- * google_sql_mysql_instance, a google_sql_postgres_instance, or a
- * google_sql_sql_server_instance. There is no way to tell at the moment.
- *
- * These tests have value right now though, so adding this temporary hack
- * to skip sqladmin instances.
- */
-const HACK_SKIP_UNTIL_SQL_INSTANCES_ARE_FIXED = [
-  SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
-  SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
-  SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
-]; // will be fixed with https://jupiterone.atlassian.net/browse/INT-1303
-
 describe('J1_TYPE_TO_KEY_GENERATOR_MAP', () => {
   test('All resource entities that can be targeted by an IAM Binding should be documented in the stepMetadata', () => {
     const metadata = collectGraphObjectMetadataFromSteps(
@@ -102,13 +82,12 @@ describe('J1_TYPE_TO_KEY_GENERATOR_MAP', () => {
     );
     const unmappedEntities: string[] = [];
     const bindingRelationships = metadata.relationships.filter(
-      (r) => r._type === BINDING_ALLOWS_ANY_RESOURCE_TYPE,
+      (r) => r._type === BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP._type,
     );
 
     metadata.entities.forEach((entity) => {
       if (!entitiesTypesToSkip.includes(entity._type)) {
         if (!bindingRelationships.find((r) => r.targetType == entity._type)) {
-          console.log(entity._type);
           unmappedEntities.push(entity._type);
         }
       }
@@ -123,12 +102,7 @@ describe('J1_TYPE_TO_KEY_GENERATOR_MAP', () => {
     const unmappedEntities: string[] = [];
 
     metadata.entities.forEach((entity) => {
-      if (
-        ![
-          ...entitiesTypesToSkip,
-          ...HACK_SKIP_UNTIL_SQL_INSTANCES_ARE_FIXED,
-        ].includes(entity._type)
-      ) {
+      if (!entitiesTypesToSkip.includes(entity._type)) {
         if (typeof J1_TYPE_TO_KEY_GENERATOR_MAP[entity._type] != 'function') {
           unmappedEntities.push(entity._type);
         }
@@ -146,12 +120,7 @@ describe('GOOGLE_RESOURCE_KIND_TO_J1_TYPE_MAP', () => {
     const unmappedEntities: string[] = [];
 
     metadata.entities.forEach((entity) => {
-      if (
-        ![
-          ...entitiesTypesToSkip,
-          ...HACK_SKIP_UNTIL_SQL_INSTANCES_ARE_FIXED,
-        ].includes(entity._type)
-      ) {
+      if (!entitiesTypesToSkip.includes(entity._type)) {
         if (
           !Object.values(GOOGLE_RESOURCE_KIND_TO_J1_TYPE_MAP).includes(
             entity._type,

@@ -6,7 +6,211 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## Unreleased
+
+## 2.7.0 - 2022-01-31
+
+### Added
+
+- New optional parameter FOLDER_ID to allow restricting data ingestion to a
+  single folder and its children. If omitted, ingestion will still occur at the
+  organizational level.
+
+## 2.6.2 - 2022-01-25
+
+### Changed
+
+- Update `@jupiterone/integration-sdk-*` packages.
+
+### Added
+
+- New properties added to entities:
+
+  | Entity                       | Properties |
+  | ---------------------------- | ---------- |
+  | `google_iam_service_account` | `active`   |
+
+### Fixed
+
+- Properly assign `_key` value to placeholder deleted `google_compute_image`
+  entities
+
+## 2.6.1 - 2021-12-14
+
+### Fixed
+
+- `_key`s are now generated properly to allow for mapping `google_iam_binding`s
+  to `google_bigquery_table`s when making `google_iam_binding_allows_resource`
+  relationships.
+
+## 2.6.0 - 2021-12-07
+
+### Added
+
+- New properties added to relationships:
+
+  | Relationship                                            | Properties    |
+  | ------------------------------------------------------- | ------------- |
+  | `google_iam_binding_assigned_cloud_authenticated_users` | `projectName` |
+  | `google_iam_binding_assigned_domain`                    | `projectName` |
+  | `google_iam_binding_assigned_everyone`                  | `projectName` |
+  | `google_iam_binding_assigned_group`                     | `projectName` |
+  | `google_iam_binding_assigned_iam_role`                  | `projectName` |
+  | `google_iam_binding_assigned_iam_service_account`       | `projectName` |
+  | `google_iam_binding_assigned_user`                      | `projectName` |
+
+### Fixed
+
+- When making `google_iam_binding_allows_resource` relationships, we no longer
+  check the if a service is enabled when determining if the relationship should
+  be mapped or direct. This is because for non-organization integration
+  instances, the Resource Manager API does not need to be enabled to ingest a
+  `google_cloud_project`.
+
+## 2.5.3 - 2021-12-06
+
+### Added
+
+- Metadata indexing of `google_iam_binding` relationships.
+
+## 2.5.2 - 2021-12-06
+
+### Added
+
+- `rawData` will now be stored for `google_iam_binding`s.
+
+### Removed
+
+- Properties were removed from resources:
+
+  | Entity                            | Properties             |
+  | --------------------------------- | ---------------------- |
+  | `google_cloud_folder`             | `projectId`            |
+  | `google_cloud_organization`       | `projectId`, `folders` |
+  | folder level `google_iam_binding` | `projectId`            |
+  | org level `google_iam_binding`    | `projectId`, `folders` |
+
+### Fixed
+
+- When determining which project's `google_iam_binding`s to ingest, if a
+  `projectId` is not specified in the config, the service account's `projectId`
+  should be used instead.
+
+## 2.5.0 - 2021-12-06
+
+### Added
+
+- New properties added to resources:
+
+  | Entity                  | Properties          |
+  | ----------------------- | ------------------- |
+  | `google_storage_bucket` | `versioningEnabled` |
+
+## 2.4.0 - 2021-11-30
+
+### Fixed
+
+- `google_iam_binding_allows_resource` mapped relationships will now be created
+  with an `ALLOWS` class instead of `HAS`.
+
+### Added
+
+- Added support for ingesting the following **new** relationships:
+
+  | Source                      | class      | Target                       |
+  | --------------------------- | ---------- | ---------------------------- |
+  | `google_cloud_audit_config` | **ALLOWS** | `google_iam_service_account` |
+  | `google_cloud_audit_config` | **ALLOWS** | `google_user`                |
+  | `google_cloud_audit_config` | **ALLOWS** | `google_domain`              |
+  | `google_cloud_audit_config` | **ALLOWS** | `google_group`               |
+
+## 2.3.0 - 2021-11-08
+
+### Changed
+
+- Steps that ingest `google_iam_binding`s and `google_iam_role`s (
+  `fetch-iam-bindings`, `create-basic-roles`,
+  `create-binding-principal-relationships`, `create-binding-role-relationships`,
+  `create-binding-any-resource-relationships`,
+  `create-api-service-any-resource-relationships`, `fetch-iam-custom-roles`, and
+  `fetch-iam-managed-roles`) are now enabled and disabled based exclusively on
+  the Service API enablement of the Google Cloud Project that the service
+  account is located in. Previously, these steps were enabled the same as all
+  other steps; based on the intersection for the API enablement of the Google
+  Cloud Project that the service account is located in, and the Google Cloud
+  Project that is being ingested in that integration.
+
+## 2.2.1 - 2021-11-04
+
+### Added
+
+- `createStepStartStateWhereAllServicesMustBeEnabled` method to allow specifying
+  that a step requires more than one API to be enabled to run.
+
+### Fixed
+
+- Only enable `google_iam_binding` steps if both the `iam.googleapis.com` api
+  and the `cloudasset.googleapis.com` api is enabled.
+
+## 2.2.0 - 2021-11-04
+
+### Fixed
+
+- Only enable `google_iam_binding` steps if the `iam.googleapis.com` service is
+  enabled as the `permissions` property requires `google_iam_role`s to have been
+  ingested already.
+
+## 2.1.0 - 2021-11-03
+
+### Fixed
+
+- When making mapped `google_iam_binding_allows_resource` and
+  `google_cloud_api_service_has_resource` relationships to
+  `google_sql_postgres_instance`, `google_sql_sql_server_instance`, and
+  `google_sql_mysql_instance`. Only map on the `_key` property and not the
+  `_type`.
+- Only attempt to fetch project level IAM Policies if there is a project defined
+  in the integration config.
+
+## 2.0.0 - 2021-10-27
+
+### Changed
+
+- **Breaking:** The `permissions` property on `google_iam_binding`s and
+  `google_iam_role`s will now be structured:
+
+  ```
+  permissions: [
+    'storage.read',
+    'storage.write'
+    'storage.objects.read',
+    'storage.objects.delete',
+    ...
+  ],
+  ```
+
+  instead of:
+
+  ```
+  permissions: 'storage.read,storage.write,storage.objects.read,storage.objects.delete,...'
+  ```
+
+  This was needed in order to avoid the 4096 characters property truncation
+  limit imposed in v1.1.0. To maintain functionality, querys for permissions
+  will need to change from:
+
+  `Find google_iam_role with permissions~='storage.objects.admin'`
+
+  to
+
+  `Find google_iam_role with permissions='storage.objects.admin'`
+
+### Changed
+
+- Every integration instance with a `projectId` will ingest Project Level
+  `google_iam_bindings` in the Cloud Asset steps. Previously, the Master
+  Integration Instance was ingesting all `google_iam_bindings` for the entire
+  organization. This spreads upload loads amongst more integration instances.
 
 ### Changed
 
@@ -107,6 +311,18 @@ Will now have a type of `google_cloud_api_service_has_resource`
 ## 1.0.7 - 2021-10-21
 
 ### Added
+
+- Added support for ingesting the following **new** resources:
+
+  | Service      | Resource / Entity           |
+  | ------------ | --------------------------- |
+  | Audit Config | `google_cloud_audit_config` |
+
+- Added support for ingesting the following **new** relationships:
+
+  | Source                     | class    | Target                      |
+  | -------------------------- | -------- | --------------------------- |
+  | `google_cloud_api_service` | **USES** | `google_cloud_audit_config` |
 
 - API calls will now have a `timeout` of one minute.
 - Organization setup will now have an api `timeout` of five minutes when
@@ -343,11 +559,6 @@ Will now have a type of `google_cloud_api_service_has_resource`
   | `google_iam_binding` | **ASSIGNED** | `google_user`                |
   | `google_iam_binding` | **ASSIGNED** | `google_domain`              |
   | `google_user`        | **CREATED**  | `google_app_engine_version`  |
-
-- Separate the step to build `google_bigquery_dataset_uses_kms_crypto_key`
-  relationship
-- Modified `google_bigquery_dataset` step to be independent from
-  `google_kms_crypto_key` step
 
 ## 0.48.0 - 2021-08-27
 

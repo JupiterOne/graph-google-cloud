@@ -3,30 +3,13 @@ import { ServiceUsageName } from '../google-cloud/types';
 import { IntegrationConfig } from '../types';
 import { collectEnabledServicesForProject } from './service-usage/client';
 
-/**
- * An integration can provide a service account key file for a service account
- * that exists in one project, but has permissions to ingest data from a
- * _different_ project. This function determines which unique projects should
- * be considered when calculating step enablement.
- *
- * The first index in the array is guaranteed to be the "main" project
- */
-export function getUniqueIntegrationConfigProjectsForStepEnablement(
-  config: IntegrationConfig,
-): string[] {
-  const uniqueProjectIds: string[] = [
-    // Main project ID
-    config.serviceAccountKeyConfig.project_id,
-  ];
-
-  if (
-    config.projectId &&
-    config.projectId !== config.serviceAccountKeyConfig.project_id
-  ) {
-    uniqueProjectIds.push(config.projectId);
-  }
-
-  return uniqueProjectIds;
+export interface EnabledServiceData {
+  // Enabled APIs in the Google Cloud Project that the Service Account used to authenticate with resides.
+  mainProjectEnabledServices?: string[];
+  // Enabled APIs in the Google Cloud Project that is being ingested.
+  targetProjectEnabledServices?: string[];
+  // The intersection of mainProjectEnabledServices and mainProjectEnabledServices
+  intersectedEnabledServices?: string[];
 }
 
 /**
@@ -48,17 +31,19 @@ export function getUniqueIntegrationConfigProjectsForStepEnablement(
  */
 export async function getEnabledServiceNames(
   config: IntegrationConfig,
-): Promise<string[]> {
-  const [mainProjectId, targetProjectId] =
-    getUniqueIntegrationConfigProjectsForStepEnablement(config);
+): Promise<EnabledServiceData> {
+  const targetProjectId = config.projectId;
+  const mainProjectId = config.serviceAccountKeyConfig.project_id;
+  const enabledServiceData: EnabledServiceData = {};
 
-  const mainProjectEnabledServices = await collectEnabledServicesForProject(
+  const mainProjectEnabledServices = await getMainProjectEnabledServices(
     config,
-    mainProjectId,
   );
+  enabledServiceData.mainProjectEnabledServices = mainProjectEnabledServices;
 
-  if (!targetProjectId) {
-    return mainProjectEnabledServices;
+  if (!targetProjectId || mainProjectId === targetProjectId) {
+    enabledServiceData.intersectedEnabledServices = mainProjectEnabledServices;
+    return enabledServiceData;
   }
 
   const mainProjectEnabledServicesSet = new Set<string>(
@@ -69,6 +54,8 @@ export async function getEnabledServiceNames(
     config,
     targetProjectId,
   );
+  enabledServiceData.targetProjectEnabledServices =
+    targetProjectEnabledServices;
 
   // Find the intersection between the main project enabled services and the
   // target project enabled services
@@ -79,8 +66,16 @@ export async function getEnabledServiceNames(
       enabledServicesIntersection.push(targetProjectEnabledService);
     }
   }
+  enabledServiceData.intersectedEnabledServices = enabledServicesIntersection;
 
-  return enabledServicesIntersection;
+  return enabledServiceData;
+}
+
+export async function getMainProjectEnabledServices(config: IntegrationConfig) {
+  return await collectEnabledServicesForProject(
+    config,
+    config.serviceAccountKeyConfig.project_id,
+  );
 }
 
 export function createStepStartState(
@@ -103,4 +98,23 @@ export function createStepStartState(
   }
 
   return { disabled };
+}
+
+export function createStepStartStateWhereAllServicesMustBeEnabled(
+  enabledServiceNames: string[],
+  primaryServiceName: ServiceUsageName,
+  ...additionalServiceNames: ServiceUsageName[]
+): StepStartState {
+  const allServicesToEnableStep: ServiceUsageName[] = [
+    primaryServiceName,
+    ...additionalServiceNames,
+  ];
+
+  for (const serviceName of allServicesToEnableStep) {
+    if (!enabledServiceNames.includes(serviceName)) {
+      return { disabled: true };
+    }
+  }
+
+  return { disabled: false };
 }

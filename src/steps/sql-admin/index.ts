@@ -13,7 +13,7 @@ import {
   STEP_CLOUD_KMS_KEYS,
   STEP_CLOUD_KMS_KEY_RINGS,
 } from '../kms';
-import { STEP_RESOURCE_MANAGER_PROJECT } from '../resource-manager';
+import { STEP_RESOURCE_MANAGER_PROJECT } from '../resource-manager/constants';
 import { SQLAdminClient } from './client';
 import {
   STEP_SQL_ADMIN_INSTANCES,

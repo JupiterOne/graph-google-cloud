@@ -78,14 +78,30 @@ import {
   ENTITY_TYPE_SPANNER_INSTANCE,
   ENTITY_TYPE_SPANNER_INSTANCE_DATABASE,
 } from '../../steps/spanner/constants';
+import {
+  SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
+  SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
+  SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
+} from '../../steps/sql-admin';
 import { CLOUD_STORAGE_BUCKET_ENTITY_TYPE } from '../../steps/storage';
 
 // Indicates JupiterOne is not ingesting that resource yet.
 export const NONE = 'NO_DIRECT_J1_RESOURCE_YET';
 
-// Because the SQL_INSTANCE resource kind was split into 3 J1 resource _types, we need to treat it differently from all the others.
-export const MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND =
-  'MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND';
+/**
+ * NOTE: Because a kind of "sqladmin.googleapis.com/Instance" can be a
+ * "google_sql_mysql_instance", "google_sql_postgres_instance", or
+ * "google_sql_sql_server_instance", we assign it to
+ * "google_sql_sql_server_instance" because they all have the same
+ * key generation funciton.
+ */
+export const SQL_ENTITY_TYPE = SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE;
+
+export const J1_TYPES_WITHOUT_A_UNIQUE_KIND = [
+  SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
+  SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
+  SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
+];
 
 /**
  * A map of all existing Google Cloud resources to their associated JupiterOne type
@@ -211,7 +227,7 @@ export const GOOGLE_RESOURCE_KIND_TO_J1_TYPE_MAP: {
   'secretmanager.googleapis.com/SecretVersion': NONE,
   'tpu.googleapis.com/Node': NONE,
   'composer.googleapis.com/Environment': NONE,
-  'sqladmin.googleapis.com/Instance': MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND,
+  'sqladmin.googleapis.com/Instance': SQL_ENTITY_TYPE,
   'file.googleapis.com/Instance': NONE,
   'file.googleapis.com/Backup': NONE,
   'servicedirectory.googleapis.com/Namespace': NONE,

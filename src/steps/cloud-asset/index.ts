@@ -9,12 +9,13 @@ import {
   IntegrationLogger,
   IntegrationStep,
   JobState,
+  MappedRelationship,
   PrimitiveEntity,
   Relationship,
   RelationshipClass,
   RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
-import { cloudresourcemanager_v3 } from 'googleapis';
+import { cloudasset_v1, cloudresourcemanager_v3 } from 'googleapis';
 import { IntegrationConfig } from '../..';
 import { IntegrationStepContext } from '../../types';
 import { publishMissingPermissionEvent } from '../../utils/events';
@@ -27,11 +28,8 @@ import {
 } from '../resource-manager';
 import { CloudAssetClient } from './client';
 import {
-  API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIPS,
-  API_SERVICE_HAS_ANY_RESOURCE_TYPE,
-  bindingEntities,
-  BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIPS,
-  BINDING_ALLOWS_ANY_RESOURCE_TYPE,
+  API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP,
+  BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP,
   BINDING_ASSIGNED_PRINCIPAL_RELATIONSHIPS,
   STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS,
   STEP_CREATE_BASIC_ROLES,
@@ -39,6 +37,7 @@ import {
   STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS,
   STEP_CREATE_BINDING_ROLE_RELATIONSHIPS,
   STEP_IAM_BINDINGS,
+  bindingEntities,
 } from './constants';
 import {
   BindingEntity,
@@ -49,8 +48,6 @@ import {
   getTypeAndKeyFromResourceIdentifier,
   makeLogsForTypeAndKeyResponse,
 } from '../../utils/iamBindings/getTypeAndKeyFromResourceIdentifier';
-import { getEnabledServiceNames } from '../enablement';
-import { MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND } from '../../utils/iamBindings/resourceKindToTypeMap';
 import { createIamRoleEntity } from '../iam/converters';
 import {
   basicRoles,
@@ -94,80 +91,110 @@ export async function fetchIamBindings(
   let maxPermissionLength = 0;
   let maxConditionLength = 0;
 
-  try {
-    await client.iterateAllIamPolicies(context, async (policyResult) => {
-      const resource = policyResult.resource;
-      const projectName = policyResult.project;
-      const { organization, folders } = policyResult as any;
-      const bindings = policyResult.policy?.bindings ?? [];
+  async function handlePolicyResult(
+    policyResult: cloudasset_v1.Schema$IamPolicySearchResult & {
+      organization?: string | null;
+      folders?: string[] | null;
+    },
+  ) {
+    const resource = policyResult.resource;
+    const projectName = policyResult.project;
+    const { organization, folders } = policyResult;
+    const bindings = policyResult.policy?.bindings ?? [];
 
-      for (const binding of bindings) {
-        const _key = buildIamBindingEntityKey({
-          binding,
-          projectName,
-          resource,
-        });
+    for (const binding of bindings) {
+      const _key = buildIamBindingEntityKey({
+        binding,
+        projectName,
+        resource,
+      });
 
-        if (bindingGraphKeySet.has(_key)) {
-          duplicateBindingGraphKeys.push(_key);
-          continue;
-        }
-
-        let projectId: string | undefined;
-        if (projectName) {
-          /**
-           * We can not pull the projectId from the resource identifier because the resource
-           * identifier does not gaurentee a projectId value.
-           *
-           * See https://cloud.google.com/asset-inventory/docs/resource-name-format and search
-           * for cloudresourcemanager.googleapis.com/Project to see that the identifier could
-           * either be for PROJECT_NUMBER or PROJECT_ID
-           *
-           * Because of this we have to pull the projectId from the jobState instead.
-           */
-          projectId = await getProjectIdFromName(jobState, projectName);
-        }
-
-        /**
-         * We need to denormalize the permissions onto the role binding because J1QL does not support
-         * baranching traversals, meaning that it is impossible to connect a resource, to a principle
-         * to a role with a specific permission. Having the role's permissions on the binding prevents
-         * any branching.
-         */
-        const roleEntity =
-          binding.role && (await jobState.findEntity(binding.role));
-        const permissions = binding.role
-          ? roleEntity
-            ? ((roleEntity.permissions as string) || '').split(',')
-            : await getPermissionsForManagedRole(jobState, binding.role)
-          : [];
-
-        if (permissions?.length ?? 0 > maxPermissionLength) {
-          maxPermissionLength = permissions?.length ?? 0;
-        }
-        const conditionLength =
-          (JSON.stringify(binding.condition) ?? '')?.length ?? 0;
-        if (conditionLength > maxConditionLength) {
-          maxConditionLength = conditionLength;
-        }
-
-        await jobState.addEntity(
-          createIamBindingEntity({
-            _key,
-            projectId,
-            projectName,
-            binding,
-            resource,
-            folders,
-            organization,
-            permissions,
-          }),
-        );
-
-        bindingGraphKeySet.add(_key);
-        iamBindingsCount++;
+      if (bindingGraphKeySet.has(_key)) {
+        duplicateBindingGraphKeys.push(_key);
+        continue;
       }
-    });
+
+      let projectId: string | undefined;
+      if (projectName) {
+        /**
+         * We can not pull the projectId from the resource identifier because the resource
+         * identifier does not gaurentee a projectId value.
+         *
+         * See https://cloud.google.com/asset-inventory/docs/resource-name-format and search
+         * for cloudresourcemanager.googleapis.com/Project to see that the identifier could
+         * either be for PROJECT_NUMBER or PROJECT_ID
+         *
+         * Because of this we have to pull the projectId from the jobState instead.
+         */
+        projectId = await getProjectIdFromName(jobState, projectName);
+      }
+
+      /**
+       * We need to denormalize the permissions onto the role binding because J1QL does not support
+       * baranching traversals, meaning that it is impossible to connect a resource, to a principle
+       * to a role with a specific permission. Having the role's permissions on the binding prevents
+       * any branching.
+       */
+      const roleEntity =
+        binding.role && (await jobState.findEntity(binding.role));
+      const permissions: string[] = binding.role
+        ? roleEntity
+          ? (roleEntity.permissions as any) ?? []
+          : await getPermissionsForManagedRole(jobState, binding.role)
+        : [];
+
+      if (permissions?.length ?? 0 > maxPermissionLength) {
+        maxPermissionLength = permissions?.length ?? 0;
+      }
+
+      const conditionLength =
+        (JSON.stringify(binding.condition) ?? '')?.length ?? 0;
+      if (conditionLength > maxConditionLength) {
+        maxConditionLength = conditionLength;
+      }
+
+      await jobState.addEntity(
+        createIamBindingEntity({
+          _key,
+          projectId,
+          projectName,
+          binding,
+          resource,
+          folders,
+          organization,
+          permissions,
+        }),
+      );
+
+      bindingGraphKeySet.add(_key);
+      iamBindingsCount++;
+    }
+  }
+
+  // Need to get bindings for every level of the Resource Hierarchy.
+  try {
+    // Project level bindings and all resource level bindings in that project
+    await client.iterateIamPoliciesForProjectAndResources(handlePolicyResult);
+    // Folder level bindings
+    await jobState.iterateEntities(
+      { _type: FOLDER_ENTITY_TYPE },
+      async (folderEntity: Entity) => {
+        await client.iterateIamPoliciesForResourceAtScope(
+          folderEntity._key,
+          handlePolicyResult,
+        );
+      },
+    );
+    // Organization level bindings
+    await jobState.iterateEntities(
+      { _type: ORGANIZATION_ENTITY_TYPE },
+      async (organizationEntity: Entity) => {
+        await client.iterateIamPoliciesForResourceAtScope(
+          organizationEntity._key,
+          handlePolicyResult,
+        );
+      },
+    );
   } catch (err) {
     if (err.status === 403) {
       logger.info(
@@ -210,7 +237,7 @@ function createBasicRoleKey(orgHierarchyKey: string, roleIdentifier: string) {
   return orgHierarchyKey + '/' + roleIdentifier;
 }
 
-export async function findOrCreateIamRoleEntity({
+async function findOrCreateIamRoleEntity({
   jobState,
   roleName,
   roleKey = roleName,
@@ -283,6 +310,74 @@ export async function createBasicRolesForBindings(
   );
 }
 
+/**
+ * We only create google_iam_role entities for "Custom" roles. Therefore, we need
+ * to check to see if the role is in the jobState. If it is, the role is "Custom",
+ * so make a direct relationship. If not, the roles is "Google Managed", so make
+ * a mapped relationship and mark it as custom -> false.
+ *
+ * We also need to handle Basic Roles different than others because we append an
+ * identifier to the key of the basic role relating to what that basic role is
+ * attached to.
+ * For example:
+ *   roles/editor can be attached at either an Organization, Folder, or Project which will have a key of projects/12345/roles/editor.
+ *
+ * This is done by passing in a key with the "roleKey" parameter.
+ */
+async function createBindingRoleRelationship({
+  context,
+  bindingEntity,
+  roleKey,
+}) {
+  const { jobState } = context;
+  const roleEntity = await jobState.findEntity(roleKey);
+  if (roleEntity) {
+    await jobState.addRelationship(
+      createDirectRelationship({
+        _class: RelationshipClass.USES,
+        from: bindingEntity,
+        to: roleEntity,
+      }),
+    );
+  } else {
+    const includedPermissions = await getPermissionsForManagedRole(
+      jobState,
+      bindingEntity.role,
+    );
+    const targetRoleEntitiy = createIamRoleEntity(
+      {
+        name: bindingEntity.role,
+        title: bindingEntity.role,
+        includedPermissions,
+      },
+      {
+        custom: false,
+        key: roleKey,
+      },
+    );
+    await jobState.addRelationship(
+      createMappedRelationship({
+        _class: RelationshipClass.USES,
+        _type: generateRelationshipType(
+          RelationshipClass.USES,
+          bindingEntities.BINDINGS._type,
+          IAM_ROLE_ENTITY_TYPE,
+        ),
+        _mapping: {
+          relationshipDirection: RelationshipDirection.FORWARD,
+          sourceEntityKey: bindingEntity._key,
+          targetFilterKeys: [['_type', '_key']],
+          skipTargetCreation: false,
+          targetEntity: {
+            ...targetRoleEntitiy,
+            _rawData: undefined,
+          },
+        },
+      }),
+    );
+  }
+}
+
 export async function createBindingRoleRelationships(
   context: IntegrationStepContext,
 ): Promise<void> {
@@ -290,17 +385,9 @@ export async function createBindingRoleRelationships(
   await jobState.iterateEntities(
     { _type: bindingEntities.BINDINGS._type },
     async (bindingEntity: BindingEntity) => {
-      /**
-       * We need to handle Basic Roles different than others because we append an identifier
-       * to the key of the basic role relating to what that basic role is attached to.
-       * For example:
-       *   roles/editor can be attached at either an Organization, Folder, or Project which will have a key of projects/12345/roles/editor.
-       *
-       * We also need to handle basic roles differently because basic roles are not iterable in the jobState so
-       * if we call await `jobState.findEntity(bindingEntity.role)`, we will always not find the role and create
-       * a mapped relationship, even when a direct relationship should be made.
-       */
       if (bindingEntity.role) {
+        // Need to handle Basic Roles different than others as we need to add identifiers for what that basic role is attached to.
+        // For example: roles/editor can be attached at either an Organization, Folder, or Project which will have a key of projects/12345/roles/editor.
         if (basicRoles.includes(bindingEntity.role as BasicRoleType)) {
           const { key } =
             makeLogsForTypeAndKeyResponse(
@@ -311,78 +398,18 @@ export async function createBindingRoleRelationships(
               ),
             ) ?? {};
           if (!key) return;
-          /**
-           * We are not fetching the role from the JobState because we disabled disabled writing the basic
-           * roles to disc because the size of these roles was filling up the disc space of our execution
-           * containers. This was done in the stepMetadata with indexMetadata.enabled: false
-           */
-          await jobState.addRelationship(
-            createDirectRelationship({
-              _class: RelationshipClass.USES,
-              fromType: bindingEntity._type,
-              fromKey: bindingEntity._key,
-              toType: IAM_ROLE_ENTITY_TYPE,
-              toKey: createBasicRoleKey(key, bindingEntity.role),
-            }),
-          );
+          const roleKey = createBasicRoleKey(key, bindingEntity.role);
+          await createBindingRoleRelationship({
+            context,
+            bindingEntity,
+            roleKey,
+          });
         } else {
-          /**
-           * Check to see if the role is in the jobState
-           * if it is, that indicates that the role is Custom, so make a direct relationship
-           * if not, that indicates that the roles is Google Managed, so make a mapped relationship
-           */
-          const roleEntity = await jobState.findEntity(bindingEntity.role);
-          if (roleEntity) {
-            await jobState.addRelationship(
-              createDirectRelationship({
-                _class: RelationshipClass.USES,
-                from: bindingEntity,
-                to: roleEntity,
-              }),
-            );
-          } else {
-            const includedPermissions = await getPermissionsForManagedRole(
-              jobState,
-              bindingEntity.role,
-            );
-            const targetRoleEntitiy = createIamRoleEntity(
-              {
-                name: bindingEntity.role,
-                title: bindingEntity.role,
-                includedPermissions,
-              },
-              {
-                custom: false,
-              },
-            );
-            await jobState.addRelationship(
-              createMappedRelationship({
-                _class: RelationshipClass.USES,
-                _type: generateRelationshipType(
-                  RelationshipClass.USES,
-                  bindingEntities.BINDINGS._type,
-                  IAM_ROLE_ENTITY_TYPE,
-                ),
-                _mapping: {
-                  relationshipDirection: RelationshipDirection.FORWARD,
-                  sourceEntityKey: bindingEntity._key,
-                  targetFilterKeys: [['_type', '_key']],
-                  /**
-                   * The mapper does not properly remove mapper-created entities at the moment. These
-                   * entities will never be cleaned up which will cause duplicates.
-                   *
-                   * However, we should still create these entities as they are important for access
-                   * analysis and having duplicates shouldn't matter too much with IAM roles.
-                   */
-                  skipTargetCreation: false,
-                  targetEntity: {
-                    ...targetRoleEntitiy,
-                    _rawData: undefined,
-                  },
-                },
-              }),
-            );
-          }
+          await createBindingRoleRelationship({
+            context,
+            bindingEntity,
+            roleKey: bindingEntity.role,
+          });
         }
       }
     },
@@ -401,28 +428,36 @@ export function getConditionRelationshipProperties(
 }
 
 export function buildIamTargetRelationship({
-  bindingEntity,
+  fromEntity,
   principalEntity,
   logger,
   parsedMember,
   projectId,
+  projectName,
   condition,
+  additionalProperties,
+  relationshipClass,
 }: {
-  bindingEntity: BindingEntity;
+  fromEntity: Entity;
   principalEntity: Entity | null;
   parsedMember: ParsedIamMember;
   logger: IntegrationLogger;
   projectId?: string;
+  projectName?: string;
   condition?: cloudresourcemanager_v3.Schema$Expr;
+  additionalProperties?: any;
+  relationshipClass: RelationshipClass;
 }): Relationship | undefined {
   if (principalEntity) {
     return createDirectRelationship({
-      _class: RelationshipClass.ASSIGNED,
-      from: bindingEntity,
+      _class: relationshipClass,
+      from: fromEntity,
       to: principalEntity,
       properties: {
         projectId,
+        projectName,
         ...(condition && getConditionRelationshipProperties(condition)),
+        ...additionalProperties,
       },
     });
   } else {
@@ -439,32 +474,26 @@ export function buildIamTargetRelationship({
 
     return targetEntity
       ? createMappedRelationship({
-          _class: RelationshipClass.ASSIGNED,
+          _class: relationshipClass,
           _mapping: {
             relationshipDirection: RelationshipDirection.FORWARD,
-            sourceEntityKey: bindingEntity._key,
+            sourceEntityKey: fromEntity._key,
             targetFilterKeys: targetEntity._key // Not always able to determine a _key for google_users depending on how the binding is set up
               ? [['_key', '_type']]
               : [['_type', 'email']],
-            /**
-             * The mapper does not properly remove mapper-created entities at the moment. These
-             * entities will never be cleaned up which will causes duplicates.
-             *
-             * However, we should still create these entities as they are important for access
-             * analysis. Without these relationships, it will make is look like something is
-             * secure when it actually is not. We will just have to deal with the duplicates.
-             */
             skipTargetCreation: false,
             targetEntity,
           },
           properties: {
             _type: generateRelationshipType(
-              RelationshipClass.ASSIGNED,
-              bindingEntity._type,
+              relationshipClass,
+              fromEntity._type,
               targetEntity._type!,
             ),
             projectId,
+            projectName,
             ...(condition && getConditionRelationshipProperties(condition)),
+            additionalProperties,
           },
         })
       : undefined;
@@ -476,40 +505,64 @@ function getOrgHierarchyKeysForBinding(bindingEntity: BindingEntity) {
     bindingEntity.projectName,
     ...(bindingEntity.folders ?? []),
     bindingEntity.organization,
-  ].filter((identifier) => !!identifier);
+  ].filter((identifier) => !!identifier) as string[];
 }
 
 async function createAndAddConvienceMemberTargetRelationships(
   jobState: JobState,
   member: string,
   bindingEntity: BindingEntity,
-  safeAddRelationship: (relationship: ExplicitRelationship) => Promise<void>,
+  safeAddRelationship: (
+    relationship: ExplicitRelationship | MappedRelationship,
+  ) => Promise<void>,
   condition?: cloudresourcemanager_v3.Schema$Expr,
 ) {
   const convenienceMember = member.split(':')[0] as ConvenienceMemberType; // 'projectOwner:PROJECT_ID' => 'projectOwner'
   for (const orgHierarchyKey of getOrgHierarchyKeysForBinding(bindingEntity)) {
     // Find the Basic Role that relates to this member.
     const roleKey = createBasicRoleKey(
-      orgHierarchyKey!,
+      orgHierarchyKey,
       getRoleKeyFromConvienenceMember(convenienceMember),
     );
-    /**
-     * We are not fetching the role from the JobState because we disabled disabled writing the basic
-     * roles to disc because the size of these roles was filling up the disc space of our execution
-     * containers. This was done in the stepMetadata with indexMetadata.enabled: false
-     */
-    await jobState.addRelationship(
-      createDirectRelationship({
-        _class: RelationshipClass.ASSIGNED,
-        fromType: bindingEntity._type,
-        fromKey: bindingEntity._key,
-        toType: IAM_ROLE_ENTITY_TYPE,
-        toKey: roleKey,
-        properties: {
-          projectId: bindingEntity.projectId,
-          ...(condition && getConditionRelationshipProperties(condition)),
-        },
-      }),
+    const targetRoleEntitiy = await jobState.findEntity(roleKey);
+    await safeAddRelationship(
+      targetRoleEntitiy
+        ? createDirectRelationship({
+            _class: RelationshipClass.ASSIGNED,
+            from: bindingEntity,
+            to: targetRoleEntitiy,
+            properties: {
+              projectId: bindingEntity.projectId,
+              projectName: bindingEntity.projectName,
+              ...(condition && getConditionRelationshipProperties(condition)),
+            },
+          })
+        : createMappedRelationship({
+            _class: RelationshipClass.ASSIGNED,
+            _type: generateRelationshipType(
+              RelationshipClass.ASSIGNED,
+              bindingEntity._type,
+              IAM_ROLE_ENTITY_TYPE,
+            ),
+            _mapping: {
+              relationshipDirection: RelationshipDirection.FORWARD,
+              sourceEntityKey: bindingEntity._key,
+              targetFilterKeys: [['_key', '_type']],
+              skipTargetCreation: false,
+              // De do not need to make the whole role entity for thethe targetEntity here
+              // because we already did that in the `createBindingRoleRelationships`. We
+              // only need what is necessary to make the relationship.
+              targetEntity: {
+                _key: roleKey,
+                _type: IAM_ROLE_ENTITY_TYPE,
+              },
+            },
+            properties: {
+              projectId: bindingEntity.projectId,
+              projectName: bindingEntity.projectName,
+              ...(condition && getConditionRelationshipProperties(condition)),
+            },
+          }),
     );
   }
 }
@@ -556,12 +609,14 @@ export async function createPrincipalRelationships(
 
           await safeAddRelationship(
             buildIamTargetRelationship({
-              bindingEntity,
+              fromEntity: bindingEntity,
               principalEntity,
               parsedMember,
               logger,
               projectId: bindingEntity.projectId,
+              projectName: bindingEntity.projectName,
               condition,
+              relationshipClass: RelationshipClass.ASSIGNED,
             }),
           );
         }
@@ -570,15 +625,10 @@ export async function createPrincipalRelationships(
   );
 }
 
-function getServiceFromResourceIdentifier(googleResourceIdentifier: string) {
-  const [_, __, service, ..._rest] = googleResourceIdentifier.split('/');
-  return service;
-}
-
 export async function createBindingToAnyResourceRelationships(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, instance, logger } = context;
+  const { jobState, logger } = context;
   const relationshipKeys = new Set<string>();
 
   async function safeAddRelationship(relationship?: Relationship) {
@@ -588,7 +638,6 @@ export async function createBindingToAnyResourceRelationships(
     }
   }
 
-  const enabledServiceNames = await getEnabledServiceNames(instance.config);
   await jobState.iterateEntities(
     { _type: bindingEntities.BINDINGS._type },
     async (bindingEntity: BindingEntity) => {
@@ -600,54 +649,29 @@ export async function createBindingToAnyResourceRelationships(
             context,
           ),
         ) ?? {};
-      if (typeof type !== 'string' || typeof key !== 'string') {
-        return;
-      }
-      // Check to see if service is enabled prior to searching the jobState for an entity
-      const service = getServiceFromResourceIdentifier(bindingEntity.resource);
-      const existingEntity = enabledServiceNames.includes(service)
-        ? await jobState.findEntity(key)
-        : undefined;
+      if (typeof key !== 'string') return;
+
+      const existingEntity = await jobState.findEntity(key);
+
       const relationship = existingEntity
         ? createDirectRelationship({
             from: bindingEntity,
-            _class: RelationshipClass.ALLOWS,
+            _class: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP._class,
             to: existingEntity,
             properties: {
-              _type: BINDING_ALLOWS_ANY_RESOURCE_TYPE,
+              _type: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP._type,
             },
           })
         : createMappedRelationship({
-            _class: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIPS[0]._class,
-            _type: BINDING_ALLOWS_ANY_RESOURCE_TYPE,
+            _class: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP._class,
+            _type: BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP._type,
             _mapping: {
               relationshipDirection: RelationshipDirection.FORWARD,
               sourceEntityKey: bindingEntity._key,
-              targetFilterKeys: [
-                // Because there is no one-to-one-mapping from Google Resource Kind to J1 Type, only map on the `_key`.
-                type === MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND
-                  ? ['_key']
-                  : ['_type', '_key'],
-              ],
-              /**
-               * The mapper does not properly remove mapper-created entities at the moment. These
-               * entities will never be cleaned up which will cause duplicates.
-               *
-               * Until this is fixed, we should not create mapped relationships with target creation
-               * enabled, thus only creating iam_binding relationships to resources that have already
-               * been ingested by other integrations.
-               *
-               * This is a BIG problem because we can no longer tell a customer with 100% confidence
-               * that they do not have any insecure resources if they have yet to have an integration
-               * ingest that resource.
-               */
-              skipTargetCreation: true,
+              targetFilterKeys: [type ? ['_type', '_key'] : ['_key']],
+              skipTargetCreation: true, // Each project should be in charge of ingesting its own resources
               targetEntity: {
-                // When there is no one-to-one-mapping from Google Resource Kind to J1 Type, do not set the _type on target entities.
-                _type:
-                  type === MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND
-                    ? undefined
-                    : type,
+                _type: type,
                 _key: key,
                 resourceIdentifier: bindingEntity.resource,
               },
@@ -666,13 +690,21 @@ function buildBindingEntityResourceKey(bindingEntity: BindingEntity) {
   );
 }
 
-function isOrganizationalHierarchyResource(resourceType: string) {
-  return [
-    ORGANIZATION_ENTITY_TYPE,
-    FOLDER_ENTITY_TYPE,
-    PROJECT_ENTITY_TYPE,
-    API_SERVICE_ENTITY_TYPE,
-  ].includes(resourceType);
+/**
+ * Returns true if the passed in _type relates to an entity
+ * that is a part of the Google Cloud Resource Hierarchy.
+ * https://cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy
+ */
+function isOrganizationalHierarchyResource(resourceType?: string) {
+  return (
+    !!resourceType &&
+    [
+      ORGANIZATION_ENTITY_TYPE,
+      FOLDER_ENTITY_TYPE,
+      PROJECT_ENTITY_TYPE,
+      API_SERVICE_ENTITY_TYPE,
+    ].includes(resourceType)
+  );
 }
 
 function buildServiceGraphObjectKey(
@@ -717,7 +749,7 @@ export async function createApiServiceToAnyResourceRelationships(
       ) ?? {};
 
       // Do NOT make relationships for resources in the Organization Resource Heirarchy.
-      if (isOrganizationalHierarchyResource(resourceType!)) return;
+      if (isOrganizationalHierarchyResource(resourceType)) return;
       if (!googleResourceKind || !resourceKey) return;
 
       const serviceIdentifier = googleResourceKind.split('/')[0]; // 'cloudfunctions.googleapis.com/CloudFunction' => 'cloudfunctions.googleapis.com'
@@ -725,47 +757,34 @@ export async function createApiServiceToAnyResourceRelationships(
         bindingEntity,
         serviceIdentifier,
       );
+
       const serviceEntity = await jobState.findEntity(serviceKey);
+      if (!serviceEntity) return;
+
       const resourceEntity = await jobState.findEntity(resourceKey);
-
-      // We can not make these relationships for sqladmin.googleapis.com/Instances
-      // A Google Resource Type of sqladmin.googleapis.com/Instances could be a
-      // google_sql_mysql_instance, a google_sql_postgres_instance, or a
-      // google_sql_sql_server_instance. There is no way to tell at the moment.
-      if (
-        !serviceEntity ||
-        !resourceType ||
-        resourceType === MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND
-      )
-        return;
-
       await jobState.addRelationship(
         resourceEntity
           ? createDirectRelationship({
-              _class: RelationshipClass.HAS,
+              _class: API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP._class,
               from: serviceEntity,
               to: resourceEntity,
               properties: {
-                _type: API_SERVICE_HAS_ANY_RESOURCE_TYPE,
+                _type: API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP._type,
               },
             })
           : createMappedRelationship({
-              _class: RelationshipClass.HAS,
-              _type: API_SERVICE_HAS_ANY_RESOURCE_TYPE,
-              source: serviceEntity,
-              /**
-               * The mapper does not properly remove mapper-created entities at the moment. These
-               * entities will never be cleaned up which will cause duplicates.
-               *
-               * Until this is fixed, we should not create mapped relationships with target creation
-               * enabled, thus only creating iam_binding relationships to resources that have already
-               * been ingested by other integrations.
-               */
-              skipTargetCreation: true,
-              target: {
-                _type: resourceType,
-                _key: resourceKey,
-                resourceIdentifier: bindingEntity.resource,
+              _class: API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP._class,
+              _type: API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP._type,
+              _mapping: {
+                relationshipDirection: RelationshipDirection.FORWARD,
+                sourceEntityKey: serviceEntity._key,
+                targetFilterKeys: [resourceType ? ['_type', '_key'] : ['_key']],
+                skipTargetCreation: true, // Each project should be in charge of ingesting its own resources.
+                targetEntity: {
+                  _type: resourceType,
+                  _key: resourceKey,
+                  resourceIdentifier: bindingEntity.resource,
+                },
               },
             }),
       );
@@ -791,9 +810,6 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
         resourceName: 'IAM Basic Role',
         _type: IAM_ROLE_ENTITY_TYPE,
         _class: IAM_ROLE_ENTITY_CLASS,
-        indexMetadata: {
-          enabled: false,
-        },
       },
     ],
     relationships: [],
@@ -824,9 +840,6 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
         ),
         sourceType: bindingEntities.BINDINGS._type,
         targetType: IAM_ROLE_ENTITY_TYPE,
-        indexMetadata: {
-          enabled: false,
-        },
       },
     ],
     dependsOn: [STEP_IAM_BINDINGS, STEP_CREATE_BASIC_ROLES],
@@ -837,7 +850,7 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
     id: STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS,
     name: 'Role Binding to Any Resource Relationships',
     entities: [],
-    relationships: [...BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIPS],
+    relationships: [BINDING_ALLOWS_ANY_RESOURCE_RELATIONSHIP],
     dependsOn: [STEP_IAM_BINDINGS],
     executionHandler: createBindingToAnyResourceRelationships,
     dependencyGraphId: 'last',
@@ -846,7 +859,7 @@ export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
     id: STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS,
     name: 'Api Service to Any Resource Relationships',
     entities: [],
-    relationships: [...API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIPS],
+    relationships: [API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP],
     dependsOn: [STEP_IAM_BINDINGS],
     executionHandler: createApiServiceToAnyResourceRelationships,
     dependencyGraphId: 'last',

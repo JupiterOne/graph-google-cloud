@@ -1,5 +1,6 @@
 import {
   GOOGLE_RESOURCE_KIND_TO_J1_TYPE_MAP,
+  J1_TYPES_WITHOUT_A_UNIQUE_KIND,
   NONE,
 } from './resourceKindToTypeMap';
 import { findResourceKindFromCloudResourceIdentifier } from './findResourceKindFromCloudResourceIdentifier';
@@ -45,7 +46,10 @@ export async function getTypeAndKeyFromResourceIdentifier(
 
   const targetResourceType =
     GOOGLE_RESOURCE_KIND_TO_J1_TYPE_MAP[googleResourceKind];
-  response.type = targetResourceType;
+  // Do not set the type if the type can not be determined.
+  if (!J1_TYPES_WITHOUT_A_UNIQUE_KIND.includes(targetResourceType)) {
+    response.type = targetResourceType;
+  }
   if (!targetResourceType || targetResourceType === NONE) {
     return response;
   }
@@ -73,8 +77,13 @@ export function makeLogsForTypeAndKeyResponse(
   } = response;
   if (!googleResourceKind) {
     logger.warn(response, 'Unable to find google cloud resource identifier.');
+  } else if (J1_TYPES_WITHOUT_A_UNIQUE_KIND.includes(type as any)) {
+    logger.info(
+      response,
+      'There are multiple J1 Types for this Google Cloud resource.',
+    );
   } else if (!type) {
-    logger.warn(response, 'Unable to find J1 type from google cloud resource.');
+    logger.info(response, 'Unable to find J1 type from google cloud resource.');
   } else if (type === NONE) {
     logger.info(response, 'There is no JupiterOne entity for this resource.');
   } else if (typeof keyGenFunction !== 'function') {

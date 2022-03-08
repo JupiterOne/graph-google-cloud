@@ -37,7 +37,12 @@ describe('#createBigQueryDatasetEntity', () => {
 
 describe('#createBigQueryModelEntity', () => {
   test('should convert to entity', () => {
-    expect(createBigQueryModelEntity(getMockBigQueryModel())).toMatchSnapshot();
+    expect(
+      createBigQueryModelEntity(
+        getMockBigQueryModel(),
+        'j1-gc-integration-dev-v2:test_big_query_dataset',
+      ),
+    ).toMatchSnapshot();
   });
 });
 

@@ -1,4 +1,3 @@
-import { MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND } from './resourceKindToTypeMap';
 import {
   ENTITY_TYPE_API_GATEWAY_API,
   ENTITY_TYPE_API_GATEWAY_API_CONFIG,
@@ -14,7 +13,6 @@ import {
   BIG_QUERY_TABLE_ENTITY_TYPE,
 } from '../../steps/big-query';
 import { ENTITY_TYPE_CLOUD_RUN_SERVICE } from '../../steps/cloud-run/constants';
-import { getCloudRunServiceKey } from '../../steps/cloud-run/converters';
 import {
   ENTITY_TYPE_COMPUTE_BACKEND_BUCKET,
   ENTITY_TYPE_COMPUTE_BACKEND_SERVICE,
@@ -73,8 +71,8 @@ import {
   ORGANIZATION_ENTITY_TYPE,
   FOLDER_ENTITY_TYPE,
   PROJECT_ENTITY_TYPE,
-} from '../../steps/resource-manager';
-import { API_SERVICE_ENTITY_TYPE } from '../../steps/service-usage';
+} from '../../steps/resource-manager/constants';
+import { API_SERVICE_ENTITY_TYPE } from '../../steps/service-usage/constants';
 import {
   ENTITY_TYPE_SPANNER_INSTANCE,
   ENTITY_TYPE_SPANNER_INSTANCE_DATABASE,
@@ -92,6 +90,11 @@ import {
   ENTITY_TYPE_BIG_TABLE_BACKUP,
 } from '../../steps/big-table/constants';
 import { ENTITY_TYPE_BILLING_ACCOUNT } from '../../steps/cloud-billing/constants';
+import {
+  SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
+  SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
+  SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
+} from '../../steps/sql-admin';
 
 /**
  * A map of JupiterOne types to a function which can generate their _key
@@ -111,9 +114,7 @@ export const J1_TYPE_TO_KEY_GENERATOR_MAP: {
       context!.jobState,
       finalIdentifierKeyMap(id),
     )) ?? finalIdentifierKeyMap(id),
-  [ENTITY_TYPE_CLOUD_RUN_SERVICE]: customPrefixAndIdKeyMap(
-    getCloudRunServiceKey,
-  ),
+  [ENTITY_TYPE_CLOUD_RUN_SERVICE]: fullPathKeyMap,
   [ENTITY_TYPE_COMPUTE_BACKEND_BUCKET]: selfLinkKeyMap,
   [ENTITY_TYPE_COMPUTE_BACKEND_SERVICE]: selfLinkKeyMap,
   [ENTITY_TYPE_COMPUTE_DISK]: customPrefixAndIdKeyMap(getComputeDiskKey),
@@ -142,8 +143,8 @@ export const J1_TYPE_TO_KEY_GENERATOR_MAP: {
   [DNS_MANAGED_ZONE_ENTITY_TYPE]: finalIdentifierKeyMap,
   [ENTITY_TYPE_SPANNER_INSTANCE]: fullPathKeyMap,
   [ENTITY_TYPE_SPANNER_INSTANCE_DATABASE]: fullPathKeyMap,
-  [BIG_QUERY_DATASET_ENTITY_TYPE]: allUniqueIdentifiers,
-  [BIG_QUERY_TABLE_ENTITY_TYPE]: allUniqueIdentifiers,
+  [BIG_QUERY_DATASET_ENTITY_TYPE]: bigQueryIdentifier,
+  [BIG_QUERY_TABLE_ENTITY_TYPE]: bigQueryIdentifier,
   [IAM_ROLE_ENTITY_TYPE]: impossible, // Key is different depending on if it is a custom or managed Role. I'm pretty sure this can not be the target of a role binding.
   [IAM_SERVICE_ACCOUNT_ENTITY_TYPE]: finalIdentifierKeyMap,
   [IAM_SERVICE_ACCOUNT_KEY_ENTITY_TYPE]: fullPathKeyMap,
@@ -167,7 +168,6 @@ export const J1_TYPE_TO_KEY_GENERATOR_MAP: {
   [ENTITY_TYPE_REDIS_INSTANCE]: customPrefixAndIdKeyMap(getRedisKey),
   [ENTITY_TYPE_MEMCACHE_INSTANCE]: customPrefixAndIdKeyMap(getMemcacheKey),
   [MONITORING_ALERT_POLICY_TYPE]: fullPathKeyMap,
-  [MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND]: selfLinkKeyMap,
   [ENTITY_TYPE_DATAPROC_CLUSTER]: fullPathKeyMap,
   [ENTITY_TYPE_BIG_TABLE_INSTANCE]: fullPathKeyMap,
   [ENTITY_TYPE_BIG_TABLE_CLUSTER]: fullPathKeyMap,
@@ -176,6 +176,9 @@ export const J1_TYPE_TO_KEY_GENERATOR_MAP: {
   [ENTITY_TYPE_BIG_TABLE_BACKUP]: fullPathKeyMap,
   [ENTITY_TYPE_BILLING_ACCOUNT]: fullPathKeyMap,
   [DNS_POLICY_ENTITY_TYPE]: fullPathKeyMap,
+  [SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE]: selfLinkKeyMap,
+  [SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE]: selfLinkKeyMap,
+  [SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE]: selfLinkKeyMap,
 };
 
 // ex: projects/j1-gc-integration-dev-v3/locations/us-central1/functions/j1-gc-integration-dev-v3testfunction
@@ -205,39 +208,29 @@ function selfLinkKeyMap(googleResourceIdentifier: string): string {
   );
 }
 
-// ex: j1-gc-integration-dev-v3
-// ex: j1-gc-integration-dev-v3:test_big_query_dataset
-// ex: j1-gc-integration-dev-v3:natality.Test Table
-function allUniqueIdentifiers(googleResourceIdentifier: string): string {
-  const [
-    _,
-    __,
-    _service,
-    _firstDivision,
-    idForFistDivision,
-    _secondDivision,
-    idForSecondDivision,
-    _thirdDivision,
-    idForThirdDivision,
-    _fourthDivision,
-    idForFourthDivision,
-  ] = googleResourceIdentifier.split('/');
-  return [
-    idForFistDivision,
-    idForSecondDivision,
-    idForThirdDivision,
-    idForFourthDivision,
-  ]
-    .filter((i) => !!i)
-    .join(':');
-}
-
 // ex: cloudrun_service:2fab1cb9-fb5c-4f22-b364-979cebdc2820
 function customPrefixAndIdKeyMap(
   customKeyPrefixFunction: (uid: string) => string,
 ): (googleResourceIdentifier: string) => string {
   return (googleResourceIdentifier: string) =>
     customKeyPrefixFunction(finalIdentifierKeyMap(googleResourceIdentifier));
+}
+
+// ex: DATASET - j1-gc-integration-dev-v3:test_big_query_dataset
+// ex: TABLE   - j1-gc-integration-dev-v3:test_big_query_dataset.Test Table
+function bigQueryIdentifier(googleResourceIdentifier: string): string {
+  const [
+    _,
+    __,
+    _service,
+    _literallyTheWordProjects,
+    project,
+    _literallyTheWordDatasets,
+    dataset,
+    _literallyTheWordTables,
+    table,
+  ] = googleResourceIdentifier.split('/');
+  return project + ':' + dataset + (table ? '.' + table : '');
 }
 
 // Used when there is no way to generate the J1 entity key given only the googleResourceIdentifier

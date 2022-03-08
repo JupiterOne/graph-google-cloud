@@ -64,6 +64,7 @@ export function createCloudStorageBucketEntity({
          */
         public: isPublic || isSubjectToObjectAcls,
         isSubjectToObjectAcls,
+        versioningEnabled: data.versioning?.enabled === true,
         // Rely on the value of the classification tag
         classification: null,
         etag: data.etag,

@@ -16,6 +16,50 @@ questions:
   - google-cloud
   - service
   - api
+- id: integration-question-google-cloud-kubernetes-route-based-clusters
+  title: Which Kubernetes clusters use Google Cloud Routes for traffic routing between pods?
+  description:
+    Finds all Kubernetes clusters that are routes-based clusters
+  queries:
+  - query: |
+      FIND google_container_cluster WITH useRoutes = true
+  tags:
+  - google-cloud
+  - gke
+  - network
+- id: integration-question-google-cloud-bucket-versioning-disabled
+  title: Which Google Cloud storage buckets have versioning disabled?
+  description:
+    Finds all Google Cloud storage buckets with versioning disabled
+  queries:
+  - query: |
+      FIND google_storage_bucket WITH versioningEnabled = false
+  tags:
+  - google-cloud
+  - storage
+
+- id: integration-question-google-iam-inactive-service-account
+  title: Which Google Cloud service accounts are inactive?
+  description:
+    Finds all Google Cloud service accounts that are inactive
+  queries:
+  - query: |
+      FIND google_iam_service_account WITH active = false
+  tags:
+  - google-cloud
+  - iam
+
+- id: integration-question-google-iam-active-service-account
+  title: Which Google Cloud service accounts are active?
+  description:
+    Finds all Google Cloud service accounts that are active
+  queries:
+  - query: |
+      FIND google_iam_service_account WITH active = true
+  tags:
+  - google-cloud
+  - iam
+
 ################################################################################
 # End generic non-compliance questions
 ################################################################################
@@ -594,7 +638,7 @@ questions:
       - '4.2'
 
 - id: integration-question-google-cloud-compute-instance-block-project-wide-ssh-keys
-  title: Is blocking of project-wide SSK keys enabled for my Google Cloud VM instances?
+  title: Is blocking of project-wide SSH keys enabled for my Google Cloud VM instances?
   description: >
     It is recommended to use Instance specific SSH key(s) instead of using common/shared project-wide SSH key(s) to access Instances.
   queries:

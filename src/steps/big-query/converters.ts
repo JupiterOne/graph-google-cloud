@@ -69,12 +69,22 @@ export function createBigQueryDatasetEntity(data: bigquery_v2.Schema$Dataset) {
   });
 }
 
-export function createBigQueryModelEntity(data: bigquery_v2.Schema$Model) {
+function getBigQueryModelKey(datasetId: string, modelId: string) {
+  return `${datasetId}:${modelId}`;
+}
+
+export function createBigQueryModelEntity(
+  data: bigquery_v2.Schema$Model,
+  datasetId: string,
+) {
   return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {
-        _key: data.modelReference?.modelId as string,
+        _key: getBigQueryModelKey(
+          datasetId,
+          data.modelReference?.modelId as string,
+        ),
         _type: BIG_QUERY_MODEL_ENTITY_TYPE,
         _class: BIG_QUERY_MODEL_ENTITY_CLASS,
         name: data.modelReference?.modelId,

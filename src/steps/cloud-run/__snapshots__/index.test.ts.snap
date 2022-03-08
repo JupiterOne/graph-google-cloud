@@ -7,7 +7,7 @@ Object {
       "_class": Array [
         "Service",
       ],
-      "_key": "cloudrun_service:fce2d165-9ccb-4b6c-9204-67362d41aadd",
+      "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/services/example-cloud-run-service",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -231,8 +231,8 @@ Object {
   "collectedRelationships": Array [
     Object {
       "_class": "MANAGES",
-      "_fromEntityKey": "cloudrun_service:fce2d165-9ccb-4b6c-9204-67362d41aadd",
-      "_key": "cloudrun_service:fce2d165-9ccb-4b6c-9204-67362d41aadd|manages|cloudrun_configuration:f190d809-4de1-4eb3-80bb-ad0ac9954f85",
+      "_fromEntityKey": "projects/j1-gc-integration-dev-v2/locations/us-central1/services/example-cloud-run-service",
+      "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/services/example-cloud-run-service|manages|cloudrun_configuration:f190d809-4de1-4eb3-80bb-ad0ac9954f85",
       "_toEntityKey": "cloudrun_configuration:f190d809-4de1-4eb3-80bb-ad0ac9954f85",
       "_type": "google_cloud_run_service_manages_configuration",
       "displayName": "MANAGES",
@@ -255,7 +255,7 @@ Object {
       "_class": Array [
         "Service",
       ],
-      "_key": "cloudrun_service:fce2d165-9ccb-4b6c-9204-67362d41aadd",
+      "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/services/example-cloud-run-service",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -457,8 +457,8 @@ Object {
   "collectedRelationships": Array [
     Object {
       "_class": "MANAGES",
-      "_fromEntityKey": "cloudrun_service:fce2d165-9ccb-4b6c-9204-67362d41aadd",
-      "_key": "cloudrun_service:fce2d165-9ccb-4b6c-9204-67362d41aadd|manages|cloudrun_route:f538487c-6e93-4038-9f6a-b7936cc4dd04",
+      "_fromEntityKey": "projects/j1-gc-integration-dev-v2/locations/us-central1/services/example-cloud-run-service",
+      "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/services/example-cloud-run-service|manages|cloudrun_route:f538487c-6e93-4038-9f6a-b7936cc4dd04",
       "_toEntityKey": "cloudrun_route:f538487c-6e93-4038-9f6a-b7936cc4dd04",
       "_type": "google_cloud_run_service_manages_route",
       "displayName": "MANAGES",
@@ -481,7 +481,7 @@ Object {
       "_class": Array [
         "Service",
       ],
-      "_key": "cloudrun_service:fce2d165-9ccb-4b6c-9204-67362d41aadd",
+      "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/services/example-cloud-run-service",
       "_rawData": Array [
         Object {
           "name": "default",

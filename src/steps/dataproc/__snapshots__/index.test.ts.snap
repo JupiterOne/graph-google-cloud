@@ -1294,6 +1294,7 @@ Object {
       "storageClass": "STANDARD",
       "uniformBucketLevelAccess": false,
       "updatedOn": 1626785251280,
+      "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/dataproc-staging-europe-north1-167984947943-oqqo30p7;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
     Object {
@@ -1348,6 +1349,7 @@ Object {
       "storageClass": "STANDARD",
       "uniformBucketLevelAccess": false,
       "updatedOn": 1626785230911,
+      "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/dataproc-staging-us-central1-167984947943-okmnuod7;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
     Object {
@@ -1414,6 +1416,7 @@ Object {
       "storageClass": "STANDARD",
       "uniformBucketLevelAccess": false,
       "updatedOn": 1626785251407,
+      "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/dataproc-temp-europe-north1-167984947943-0quq0oz0;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
     Object {
@@ -1480,6 +1483,7 @@ Object {
       "storageClass": "STANDARD",
       "uniformBucketLevelAccess": false,
       "updatedOn": 1626785230793,
+      "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/dataproc-temp-us-central1-167984947943-c8nlqeyo;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
     Object {
@@ -1548,6 +1552,7 @@ Object {
       "storageClass": "STANDARD",
       "uniformBucketLevelAccess": true,
       "updatedOn": 1622478383272,
+      "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/gcf-sources-167984947943-us-central1;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
     Object {
@@ -1602,6 +1607,7 @@ Object {
       "storageClass": "STANDARD",
       "uniformBucketLevelAccess": false,
       "updatedOn": 1622478351614,
+      "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/j1-gc-integration-dev-v3-sink-logging-bucket;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
     Object {
@@ -1656,6 +1662,7 @@ Object {
       "storageClass": "STANDARD",
       "uniformBucketLevelAccess": false,
       "updatedOn": 1626959731543,
+      "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/j1-gc-integration-dev-v3-test-tf-bucket;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
     Object {
@@ -1710,6 +1717,7 @@ Object {
       "storageClass": "STANDARD",
       "uniformBucketLevelAccess": false,
       "updatedOn": 1622478344251,
+      "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/j1-gc-integration-dev-v3cloudfunctions;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
     Object {
@@ -1764,6 +1772,7 @@ Object {
       "storageClass": "STANDARD",
       "uniformBucketLevelAccess": false,
       "updatedOn": 1622478942461,
+      "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/us.artifacts.j1-gc-integration-dev-v3.appspot.com;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
   ],

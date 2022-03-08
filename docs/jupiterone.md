@@ -188,6 +188,8 @@ integration instances for each of the projects.
 1. Enable all service APIs in the "main" project and each "child" project that
    you'd like JupiterOne to access. Documentation for enabling service APIs is
    described in an earlier section of this document.
+   - **NOTE**: The "Cloud Asset" and "Identity and Access Management (IAM)" APIs
+     only need to be enabled in the "main" project.
 1. Switch to the organization that you'd like to create individual integration
    instances for each project
 1. [Create a new custom role](https://cloud.google.com/iam/docs/creating-custom-roles)
@@ -397,6 +399,10 @@ The following relationships are created:
 | `google_cloud_api_service`                                       | **HAS**               | `google_iam_role`                                                 |
 | `google_cloud_api_service`                                       | **HAS**               | `resource`                                                        |
 | `google_cloud_api_service`                                       | **USES**              | `google_cloud_audit_config`                                       |
+| `google_cloud_audit_config`                                      | **ALLOWS**            | `google_domain`                                                   |
+| `google_cloud_audit_config`                                      | **ALLOWS**            | `google_group`                                                    |
+| `google_cloud_audit_config`                                      | **ALLOWS**            | `google_iam_service_account`                                      |
+| `google_cloud_audit_config`                                      | **ALLOWS**            | `google_user`                                                     |
 | `internet`                                                       | **ALLOWS**            | `google_compute_firewall`                                         |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_folder`                                             |
 | `google_cloud_function`                                          | **USES**              | `google_iam_service_account`                                      |
@@ -455,7 +461,7 @@ The following relationships are created:
 | `google_dataproc_cluster`                                        | **USES**              | `google_kms_crypto_key`                                           |
 | `google_dataproc_cluster`                                        | **USES**              | `google_storage_bucket`                                           |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_project`                                            |
-| `google_cloud_api_service`                                       | **HAS**               | `resource`                                                        |
+| `google_iam_binding`                                             | **ALLOWS**            | `resource`                                                        |
 | `google_iam_binding`                                             | **ASSIGNED**          | `google_cloud_authenticated_users`                                |
 | `google_iam_binding`                                             | **ASSIGNED**          | `google_domain`                                                   |
 | `google_iam_binding`                                             | **ASSIGNED**          | `everyone`                                                        |

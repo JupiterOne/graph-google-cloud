@@ -56,6 +56,7 @@ export async function iterateApi<T>(
 export class Client {
   readonly projectId: string;
   readonly organizationId?: string;
+  readonly folderId?: string;
 
   private credentials: CredentialBody;
   private auth: BaseExternalAccountClient;
@@ -71,6 +72,7 @@ export class Client {
       client_email: config.serviceAccountKeyConfig.client_email,
       private_key: config.serviceAccountKeyConfig.private_key,
     };
+    this.folderId = config.folderId;
     this.onRetry = onRetry;
   }
 

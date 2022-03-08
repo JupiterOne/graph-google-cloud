@@ -112,8 +112,26 @@ gcloud services enable \
   cloudresourcemanager.googleapis.com \
   compute.googleapis.com \
   cloudkms.googleapis.com \
-  container.googleapis.com
+  sqladmin.googleapis.com \
+  bigquery.googleapis.com \
+  container.googleapis.com \
+  dns.googleapis.com \
+  logging.googleapis.com \
+  monitoring.googleapis.com \
+  binaryauthorization.googleapis.com \
+  pubsub.googleapis.com \
+  appengine.googleapis.com \
+  run.googleapis.com \
+  redis.googleapis.com \
+  memcache.googleapis.com \
+  apigateway.googleapis.com \
+  spanner.googleapis.com \
+  privateca.googleapis.com \
+  cloudasset.googleapis.com \
+  accesscontextmanager.googleapis.com
 ```
+
+NOTE: This may need broken up into multiple commands. The max batch size is 20.
 
 ### Creating Google Cloud project service account
 
@@ -195,13 +213,17 @@ gcloud iam service-accounts keys create ~/Desktop/service-account-key.json \
 
 ### Create .env file
 
-At the root of the project, create a `.env` file. The contents of the `.env`
+At the root of the project, create a `.env` file, or create a copy of the
+`.env.example` file and name the new file `.env`. The contents of the `.env`
 file are automatically loaded when running the integration locally. The
 following configuration properties are supported:
 
 ```
 SERVICE_ACCOUNT_KEY_FILE={...}
 PROJECT_ID="my-j1-proj"
+ORGANIZATION_ID=""
+CONFIGURE_ORGANIZATION_PROJECTS=false
+FOLDER_ID""
 ```
 
 #### `SERVICE_ACCOUNT_KEY_FILE` {string}
@@ -238,6 +260,19 @@ yarn create-env-file ~/SERVICE_ACCOUNT_FILE_PATH_HERE.json
 Optional Google Cloud project ID to target for ingestion. A service account key
 can be generated from a specific project, and the JupiterOne integration can use
 these credentials to target a different project.
+
+#### `FOLDER_ID` {string?}
+
+Optional Google Cloud folder to target for ingestion. If no folder is provided,
+ingestion will be performed at the org level.
+
+Currently, this only takes in a single folder ID. This integration has
+historically been designed such that it will have multiple integrations per
+overall organization. Similarly, for the case where ingestion should be
+restricted to a group of completely independent folders within an organization
+instead of just a single folder, multiple integration instances for each folder
+area should be utilized to create "main" integrations that then build out
+project integrations via the CONFIGURE_ORGANIZATION_PROJECTS flag.
 
 ### Run tests against Google Cloud project
 

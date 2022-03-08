@@ -31,7 +31,18 @@ import {
   AUDIT_CONFIG_ENTITY_CLASS,
   AUDIT_CONFIG_ENTITY_TYPE,
   SERVICE_USES_AUDIT_CONFIG_RELATIONSHIP_TYPE,
+  AUDIT_CONFIG_ALLOWS_SERVICE_ACCOUNT_RELATIONSHIP_TYPE,
+  AUDIT_CONFIG_ALLOWS_USER_RELATIONSHIP_TYPE,
+  AUDIT_CONFIG_ALLOWS_GROUP_RELATIONSHIP_TYPE,
+  AUDIT_CONFIG_ALLOWS_DOMAIN_RELATIONSHIP_TYPE,
 } from './constants';
+import {
+  IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
+  GOOGLE_USER_ENTITY_TYPE,
+  GOOGLE_GROUP_ENTITY_TYPE,
+  GOOGLE_DOMAIN_ENTITY_TYPE,
+  STEP_IAM_SERVICE_ACCOUNTS,
+} from '../iam';
 import { ParsedIamMember, parseIamMember } from '../../utils/iam';
 import { RelationshipClass } from '@jupiterone/data-model';
 import { cacheProjectNameAndId } from '../../utils/jobState';
@@ -40,6 +51,7 @@ import {
   STEP_API_SERVICES,
 } from '../service-usage/constants';
 import { getServiceApiEntityKey } from '../service-usage/converters';
+import { buildIamTargetRelationship } from '../cloud-asset';
 
 export * from './constants';
 
@@ -120,6 +132,10 @@ export async function fetchResourceManagerFolders(
     `organizations/${client.organizationId}`,
   );
   if (organizationEntity) {
+    let folderParent;
+    if (client.folderId) {
+      folderParent = 'folders/' + client.folderId;
+    }
     // Iterate organization's folders (starting point)
     await client.iterateFolders(async (folder) => {
       const folderEntity = createFolderEntity(folder);
@@ -135,7 +151,7 @@ export async function fetchResourceManagerFolders(
       );
 
       await getAllInnerFolders(client, folderEntity, folder.name!);
-    });
+    }, folderParent);
   }
 }
 
@@ -147,10 +163,16 @@ export async function buildOrgFolderProjectMappedRelationships(
     instance: { config },
   } = context;
   const client = new ResourceManagerClient({ config });
+
   const organizationEntity = await jobState.findEntity(
     `organizations/${client.organizationId}`,
   );
   // Organization -> HAS -> Projects
+  let folderParent;
+  if (config.folderId) {
+    folderParent = 'folders/' + config.folderId;
+  }
+
   if (organizationEntity) {
     await client.iterateProjects(async (project) => {
       const projectEntity = createProjectEntity(client.projectId, project);
@@ -171,7 +193,7 @@ export async function buildOrgFolderProjectMappedRelationships(
           },
         }),
       );
-    });
+    }, folderParent);
   }
 
   // Folder -> HAS (mappedRelationship) -> Projects
@@ -249,6 +271,7 @@ export async function fetchIamPolicyAuditConfig(
   const {
     instance: { config },
     jobState,
+    logger,
   } = context;
   const client = new ResourceManagerClient({ config });
 
@@ -289,6 +312,36 @@ export async function fetchIamPolicyAuditConfig(
             to: auditConfigEntity,
           }),
         );
+      }
+    }
+
+    for (const auditLogConfig of auditConfig.auditLogConfigs || []) {
+      const exemptedMembers = auditLogConfig.exemptedMembers;
+      const logType = auditLogConfig.logType;
+      if (exemptedMembers) {
+        for (const exemptedMember of exemptedMembers) {
+          const parsedMember = parseIamMember(exemptedMember);
+          const { identifier: parsedIdentifier, type: parsedMemberType } =
+            parsedMember;
+          let principalEntity: Entity | null = null;
+          if (parsedIdentifier && parsedMemberType === 'serviceAccount') {
+            principalEntity = await jobState.findEntity(parsedIdentifier);
+          }
+
+          const relationship = buildIamTargetRelationship({
+            fromEntity: auditConfigEntity,
+            principalEntity,
+            parsedMember,
+            logger,
+            projectId: client.projectId,
+            additionalProperties: { logType },
+            relationshipClass: RelationshipClass.ALLOWS,
+          });
+
+          if (relationship) {
+            await jobState.addRelationship(relationship);
+          }
+        }
       }
     }
   });
@@ -391,8 +444,32 @@ export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
         sourceType: API_SERVICE_ENTITY_TYPE,
         targetType: AUDIT_CONFIG_ENTITY_TYPE,
       },
+      {
+        _class: RelationshipClass.ALLOWS,
+        _type: AUDIT_CONFIG_ALLOWS_SERVICE_ACCOUNT_RELATIONSHIP_TYPE,
+        sourceType: AUDIT_CONFIG_ENTITY_TYPE,
+        targetType: IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
+      },
+      {
+        _class: RelationshipClass.ALLOWS,
+        _type: AUDIT_CONFIG_ALLOWS_USER_RELATIONSHIP_TYPE,
+        sourceType: AUDIT_CONFIG_ENTITY_TYPE,
+        targetType: GOOGLE_USER_ENTITY_TYPE,
+      },
+      {
+        _class: RelationshipClass.ALLOWS,
+        _type: AUDIT_CONFIG_ALLOWS_GROUP_RELATIONSHIP_TYPE,
+        sourceType: AUDIT_CONFIG_ENTITY_TYPE,
+        targetType: GOOGLE_GROUP_ENTITY_TYPE,
+      },
+      {
+        _class: RelationshipClass.ALLOWS,
+        _type: AUDIT_CONFIG_ALLOWS_DOMAIN_RELATIONSHIP_TYPE,
+        sourceType: AUDIT_CONFIG_ENTITY_TYPE,
+        targetType: GOOGLE_DOMAIN_ENTITY_TYPE,
+      },
     ],
     executionHandler: fetchIamPolicyAuditConfig,
-    dependsOn: [STEP_API_SERVICES],
+    dependsOn: [STEP_API_SERVICES, STEP_IAM_SERVICE_ACCOUNTS],
   },
 ];

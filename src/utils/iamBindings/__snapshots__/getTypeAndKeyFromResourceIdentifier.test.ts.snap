@@ -59,7 +59,7 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 8`] = `
 Object {
   "identifier": "//run.googleapis.com/projects/12345/locations/us-east1/services/abcdef12345",
-  "key": "cloudrun_service:abcdef12345",
+  "key": "projects/12345/locations/us-east1/services/abcdef12345",
   "type": "google_cloud_run_service",
 }
 `;
@@ -563,7 +563,7 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 71`] = `
 Object {
   "identifier": "//bigquery.googleapis.com/projects/12345/datasets/abcdef12345/tables/abcdef12345",
-  "key": "12345:abcdef12345:abcdef12345",
+  "key": "12345:abcdef12345.abcdef12345",
   "type": "google_bigquery_table",
 }
 `;
@@ -692,7 +692,7 @@ exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for al
 Object {
   "identifier": "//cloudsql.googleapis.com/projects/12345/instances/abcdef12345",
   "key": "https://www.googleapis.com/cloudsql/projects/12345/instances/abcdef12345",
-  "type": "MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND",
+  "type": undefined,
 }
 `;
 

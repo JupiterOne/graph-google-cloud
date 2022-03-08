@@ -1,7 +1,4 @@
-import {
-  Entity,
-  truncateEntityPropertyValue,
-} from '@jupiterone/integration-sdk-core';
+import { Entity } from '@jupiterone/integration-sdk-core';
 import { cloudasset_v1 } from 'googleapis';
 import { snakeCase } from 'lodash';
 import { hashArray } from '../../utils/crypto';
@@ -72,7 +69,7 @@ export function createIamBindingEntity({
 
   return createGoogleCloudIntegrationEntity(binding, {
     entityData: {
-      source: {}, // rawData was removed to prevent `Request must be smaller than 6291456 bytes for the InvokeFunction operation` errors
+      source: binding,
       assign: {
         _class: bindingEntities.BINDINGS._class,
         _type: bindingEntities.BINDINGS._type,
@@ -96,7 +93,7 @@ export function createIamBindingEntity({
         'condition.description': binding.condition?.description,
         'condition.expression': binding.condition?.expression,
         'condition.location': binding.condition?.location,
-        permissions: truncateEntityPropertyValue(permissions?.join(',')),
+        permissions: permissions,
         readonly: permissions?.some((p) => !isReadOnlyPermission(p)) ?? true, // default to true if there are no permissions
       },
     },

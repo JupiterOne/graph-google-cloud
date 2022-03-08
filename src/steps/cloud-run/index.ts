@@ -4,6 +4,10 @@ import {
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  cacheCloudRunServiceKeyAndUid,
+  getCloudRunServiceKeyFromUid,
+} from '../../utils/jobState';
 import { CloudRunClient } from './client';
 import {
   STEP_CLOUD_RUN_SERVICES,
@@ -22,7 +26,6 @@ import {
   createCloudRunConfigurationEntity,
   createCloudRunRouteEntity,
   createCloudRunServiceEntity,
-  getCloudRunServiceKey,
   MetadataComputedPropertyData,
 } from './converters';
 
@@ -37,10 +40,17 @@ export async function fetchCloudRunServices(
   const client = new CloudRunClient({ config });
 
   await client.iterateCloudRunServices(async (service) => {
-    const serviceEntity = createCloudRunServiceEntity(
+    const key = await cacheCloudRunServiceKeyAndUid(
+      jobState,
       service,
       client.projectId,
     );
+    const serviceEntity = createCloudRunServiceEntity(
+      service,
+      client.projectId,
+      key,
+    );
+
     await jobState.addEntity(serviceEntity);
   });
 }
@@ -63,9 +73,11 @@ export async function fetchCloudRunRoutes(
       (owner) => owner.kind === 'Service',
     );
     if (ownerService) {
-      const serviceEntity = await jobState.findEntity(
-        getCloudRunServiceKey(ownerService.uid as string),
+      const serviceKey = await getCloudRunServiceKeyFromUid(
+        jobState,
+        ownerService.uid as string,
       );
+      const serviceEntity = await jobState.findEntity(serviceKey);
       if (serviceEntity) {
         await jobState.addRelationship(
           createDirectRelationship({
@@ -115,9 +127,11 @@ export async function fetchCloudRunConfigurations(
       (owner) => owner.kind === 'Service',
     );
     if (ownerService) {
-      const serviceEntity = await jobState.findEntity(
-        getCloudRunServiceKey(ownerService.uid as string),
+      const serviceKey = await getCloudRunServiceKeyFromUid(
+        jobState,
+        ownerService.uid as string,
       );
+      const serviceEntity = await jobState.findEntity(serviceKey);
       if (serviceEntity) {
         await jobState.addRelationship(
           createDirectRelationship({

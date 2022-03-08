@@ -13,15 +13,19 @@ import {
   makeLogsForTypeAndKeyResponse,
   TypeAndKey,
 } from './getTypeAndKeyFromResourceIdentifier';
-import { NONE } from './resourceKindToTypeMap';
+import { J1_TYPES_WITHOUT_A_UNIQUE_KIND, NONE } from './resourceKindToTypeMap';
 import {
   impossible,
   J1_TYPE_TO_KEY_GENERATOR_MAP,
 } from './typeToKeyGeneratorMap';
+import {
+  BIG_QUERY_DATASET_ENTITY_TYPE,
+  BIG_QUERY_TABLE_ENTITY_TYPE,
+} from '../../steps/big-query';
 
 const jupiterOneTypesWithMappedGoogleResources = Object.keys(
   pickBy(J1_TYPE_TO_KEY_GENERATOR_MAP, (keyMethod) => keyMethod !== impossible),
-);
+).filter((type) => !J1_TYPES_WITHOUT_A_UNIQUE_KIND.includes(type));
 
 describe('getTypeAndKeyFromResourceIdentifier', () => {
   it(`should find the correct keys for all available resources`, async () => {
@@ -46,6 +50,34 @@ describe('getTypeAndKeyFromResourceIdentifier', () => {
       expect.arrayContaining(jupiterOneTypesWithMappedGoogleResources.sort()),
     );
   });
+
+  test('`google_bigquery_table`s should have their `_key` generated properly', async () => {
+    const context = createMockStepExecutionContext({
+      instanceConfig: integrationConfig,
+    });
+    const exampleBigQueryTableResourceIdentifier = `//bigquery.googleapis.com/projects/${TEST_PROJECT_ID}/datasets/test_big_query_dataset/tables/Test Table`;
+    const expectedKey = `${TEST_PROJECT_ID}:test_big_query_dataset.Test Table`;
+    const { key, type } = await getTypeAndKeyFromResourceIdentifier(
+      exampleBigQueryTableResourceIdentifier,
+      context,
+    );
+    expect(key).toBe(expectedKey);
+    expect(type).toBe(BIG_QUERY_TABLE_ENTITY_TYPE);
+  });
+
+  test('`google_bigquery_dataset`s should have their `_key` generated properly', async () => {
+    const context = createMockStepExecutionContext({
+      instanceConfig: integrationConfig,
+    });
+    const exampleBigQueryDatasetResourceIdentifier = `//bigquery.googleapis.com/projects/${TEST_PROJECT_ID}/datasets/test_big_query_dataset`;
+    const expectedKey = `${TEST_PROJECT_ID}:test_big_query_dataset`;
+    const { key, type } = await getTypeAndKeyFromResourceIdentifier(
+      exampleBigQueryDatasetResourceIdentifier,
+      context,
+    );
+    expect(key).toBe(expectedKey);
+    expect(type).toBe(BIG_QUERY_DATASET_ENTITY_TYPE);
+  });
 });
 
 describe('makeLogsForTypeAndKeyResponse', () => {
@@ -64,7 +96,7 @@ describe('makeLogsForTypeAndKeyResponse', () => {
     };
     const logger = getMockLogger<IntegrationLogger>();
     makeLogsForTypeAndKeyResponse(logger, typeAndKeyResponse);
-    expect(logger.warn).toHaveBeenCalledWith(
+    expect(logger.info).toHaveBeenCalledWith(
       typeAndKeyResponse,
       'Unable to find J1 type from google cloud resource.',
     );

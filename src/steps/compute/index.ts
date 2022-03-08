@@ -162,6 +162,8 @@ import {
   RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_BACKEND_SERVICE,
   RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_TARGET_HTTP_PROXY,
   RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_TARGET_HTTPS_PROXY,
+  STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS,
+  STEP_COMPUTE_DISK_KMS_RELATIONSHIPS,
 } from './constants';
 import { compute_v1 } from 'googleapis';
 import { INTERNET, RelationshipClass } from '@jupiterone/data-model';
@@ -348,52 +350,6 @@ export async function fetchComputeProject(
   }
 }
 
-async function buildComputeDiskUsesKmsKeyRelationship({
-  jobState,
-  diskEntity,
-  disk,
-}: {
-  jobState: JobState;
-  diskEntity: Entity;
-  disk: compute_v1.Schema$Disk;
-}) {
-  const kmsKeyName = disk.diskEncryptionKey?.kmsKeyName;
-
-  if (!kmsKeyName) {
-    return;
-  }
-
-  const kmsKey = getKmsGraphObjectKeyFromKmsKeyName(kmsKeyName);
-  const kmsKeyEntity = await jobState.findEntity(kmsKey);
-
-  if (kmsKeyEntity) {
-    await jobState.addRelationship(
-      createDirectRelationship({
-        _class: RelationshipClass.USES,
-        from: diskEntity,
-        to: kmsKeyEntity,
-      }),
-    );
-  } else {
-    await jobState.addRelationship(
-      createMappedRelationship({
-        _class: RelationshipClass.USES,
-        _type: RELATIONSHIP_TYPE_COMPUTE_DISK_USES_KMS_CRYPTO_KEY,
-        _mapping: {
-          relationshipDirection: RelationshipDirection.FORWARD,
-          sourceEntityKey: diskEntity._key,
-          targetFilterKeys: [['_type', '_key']],
-          skipTargetCreation: true,
-          targetEntity: {
-            _type: ENTITY_TYPE_KMS_KEY,
-            _key: kmsKey,
-          },
-        },
-      }),
-    );
-  }
-}
-
 // Region disks can't use image as source (only snapshots)
 export async function fetchComputeRegionDisks(
   context: IntegrationStepContext,
@@ -404,144 +360,167 @@ export async function fetchComputeRegionDisks(
   await client.iterateComputeRegionDisks(async (disk) => {
     const diskEntity = createComputeRegionDiskEntity(disk, client.projectId);
     await jobState.addEntity(diskEntity);
-
-    await buildComputeDiskUsesKmsKeyRelationship({
-      jobState,
-      disk,
-      diskEntity,
-    });
   });
 }
 
 export async function fetchComputeDisks(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, logger } = context;
+  const { jobState } = context;
   const client = createComputeClient(context);
 
   await client.iterateComputeDisks(async (disk) => {
     await jobState.setData(`disk:${disk.selfLink}`, `disk:${disk.id}`);
 
-    const diskEntity = await jobState.addEntity(
-      createComputeDiskEntity(disk, client.projectId),
-    );
+    await jobState.addEntity(createComputeDiskEntity(disk, client.projectId));
+  });
+}
 
-    if (disk.sourceImage) {
-      // disk.sourceImage looks like this:
-      // https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/my-custom-image
-      // https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/ubuntu-1804-bionic-v20210211
-      // ProjectId part can be good separator between public and custom images and is necessary for images.get API call
-      const sourceImageProjectId = disk.sourceImage?.split('/')[6];
-      const sourceImageName = disk.sourceImage?.split('/')[9];
+// Note: this builds relationships for both disk and region disk
+export async function buildDiskUsesKmsRelationships(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState } = context;
 
-      if (sourceImageProjectId === client.projectId) {
-        // Custom image case
-        const imageEntity = await jobState.findEntity(disk.sourceImage);
-        if (imageEntity) {
-          await jobState.addRelationship(
-            createDirectRelationship({
-              _class: RelationshipClass.USES,
-              from: diskEntity,
-              to: imageEntity,
-            }),
-          );
-        } else {
-          // The custom image no longer exist most likely because it got deleted
-          const placeholderImageEntity = await jobState.addEntity(
-            createComputeImageEntity({
-              data: {
-                // We need an unique id for the key
-                id: `${sourceImageProjectId}:${sourceImageName}:deleted`,
-                name: sourceImageName,
-                // Converter already knows how to handle this
-                deprecated: {
-                  state: 'DELETED',
-                },
-              } as compute_v1.Schema$Image,
-              // It doesn't exist anymore
-              isPublic: false,
-            }),
-          );
+  await jobState.iterateEntities(
+    { _type: ENTITY_TYPE_COMPUTE_DISK },
+    async (
+      diskEntity: {
+        kmsKeyName?: string | null | undefined;
+      } & Entity,
+    ) => {
+      if (!diskEntity.kmsKeyName) {
+        return;
+      }
 
-          await jobState.addRelationship(
-            createDirectRelationship({
-              _class: RelationshipClass.USES,
-              from: diskEntity,
-              to: placeholderImageEntity,
-            }),
-          );
-        }
+      const kmsKey = getKmsGraphObjectKeyFromKmsKeyName(diskEntity.kmsKeyName);
+      const kmsKeyEntity = await jobState.findEntity(kmsKey);
+
+      if (kmsKeyEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.USES,
+            from: diskEntity,
+            to: kmsKeyEntity,
+          }),
+        );
       } else {
-        // Public image case
-        let image: compute_v1.Schema$Image;
+        await jobState.addRelationship(
+          createMappedRelationship({
+            _class: RelationshipClass.USES,
+            _type: RELATIONSHIP_TYPE_COMPUTE_DISK_USES_KMS_CRYPTO_KEY,
+            _mapping: {
+              relationshipDirection: RelationshipDirection.FORWARD,
+              sourceEntityKey: diskEntity._key,
+              targetFilterKeys: [['_type', '_key']],
+              skipTargetCreation: true,
+              targetEntity: {
+                _type: ENTITY_TYPE_KMS_KEY,
+                _key: kmsKey,
+              },
+            },
+          }),
+        );
+      }
+    },
+  );
+}
 
-        try {
-          image = await client.fetchComputeImage(
-            sourceImageName as string,
-            sourceImageProjectId as string,
-          );
-        } catch (err) {
-          if (err.code === 403) {
-            logger.trace(
-              { err },
-              'Could not fetch compute image. Requires additional permission',
+export async function buildDiskImageRelationships(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, logger } = context;
+  const client = createComputeClient(context);
+
+  await jobState.iterateEntities(
+    { _type: ENTITY_TYPE_COMPUTE_DISK },
+    async (
+      diskEntity: {
+        sourceImage?: string | null;
+      } & Entity,
+    ) => {
+      if (diskEntity.sourceImage) {
+        // disk.sourceImage looks like this:
+        // https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/my-custom-image
+        // https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/ubuntu-1804-bionic-v20210211
+        // ProjectId part can be good separator between public and custom images and is necessary for images.get API call
+        const sourceImageProjectId = diskEntity.sourceImage?.split('/')[6];
+        const sourceImageName = diskEntity.sourceImage?.split('/')[9];
+
+        if (sourceImageProjectId === client.projectId) {
+          // Custom image case
+          const imageEntity = await jobState.findEntity(diskEntity.sourceImage);
+          if (imageEntity) {
+            await jobState.addRelationship(
+              createDirectRelationship({
+                _class: RelationshipClass.USES,
+                from: diskEntity,
+                to: imageEntity,
+              }),
             );
+          }
+        } else {
+          // Public image case
+          let image: compute_v1.Schema$Image;
 
-            publishMissingPermissionEvent({
-              logger,
-              permission: 'compute.images.get',
-              stepId: STEP_COMPUTE_DISKS,
+          try {
+            image = await client.fetchComputeImage(
+              sourceImageName as string,
+              sourceImageProjectId as string,
+            );
+          } catch (err) {
+            if (err.code === 403) {
+              logger.trace(
+                { err },
+                'Could not fetch compute image. Requires additional permission',
+              );
+
+              publishMissingPermissionEvent({
+                logger,
+                permission: 'compute.images.get',
+                stepId: STEP_COMPUTE_DISKS,
+              });
+
+              return;
+            } else if (err.code === 404) {
+              logger.info(
+                { err, sourceImageName },
+                `The public image cannot be found, it's most likely deprecated`,
+              );
+
+              return;
+            } else {
+              throw err;
+            }
+          }
+
+          if (image) {
+            // iamPolicy can't be fetched for public images/nor can it be changed (expected)
+            const imageEntity = createComputeImageEntity({
+              data: image,
+              isPublic: true,
             });
 
-            return;
-          } else if (err.code === 404) {
-            // Case where the wanted public image is deprecated and cannot be found
-            image = {
-              // We need an unique id for the key
-              id: `${sourceImageProjectId}:${sourceImageName}:deprecated`,
-              name: sourceImageName,
-              // Converter already knows how to handle this
-              deprecated: {
-                state: 'DEPRECATED',
-              },
-            } as compute_v1.Schema$Image;
-          } else {
-            throw err;
+            await jobState.addRelationship(
+              createMappedRelationship({
+                _class: RelationshipClass.USES,
+                _type: RELATIONSHIP_TYPE_DISK_USES_IMAGE,
+                _mapping: {
+                  relationshipDirection: RelationshipDirection.FORWARD,
+                  sourceEntityKey: diskEntity._key,
+                  targetFilterKeys: [['_type', '_key']],
+                  targetEntity: {
+                    ...imageEntity,
+                    _rawData: undefined,
+                  },
+                },
+              }),
+            );
           }
         }
-
-        if (image) {
-          // iamPolicy can't be fetched for public images/nor can it be changed (expected)
-          const imageEntity = createComputeImageEntity({
-            data: image,
-            isPublic: true,
-          });
-
-          await jobState.addRelationship(
-            createMappedRelationship({
-              _class: RelationshipClass.USES,
-              _type: RELATIONSHIP_TYPE_DISK_USES_IMAGE,
-              _mapping: {
-                relationshipDirection: RelationshipDirection.FORWARD,
-                sourceEntityKey: diskEntity._key,
-                targetFilterKeys: [['_type', '_key']],
-                targetEntity: {
-                  ...imageEntity,
-                  _rawData: undefined,
-                },
-              },
-            }),
-          );
-        }
       }
-    }
-
-    await buildComputeDiskUsesKmsKeyRelationship({
-      jobState,
-      disk,
-      diskEntity,
-    });
-  });
+    },
+  );
 }
 
 export async function fetchComputeSnapshots(
@@ -2112,6 +2091,14 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
         _class: ENTITY_CLASS_COMPUTE_DISK,
       },
     ],
+    relationships: [],
+    executionHandler: fetchComputeDisks,
+    dependsOn: [],
+  },
+  {
+    id: STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS,
+    name: 'Compute Disk Image Relationships',
+    entities: [],
     relationships: [
       {
         _class: RelationshipClass.USES,
@@ -2119,6 +2106,15 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
         sourceType: ENTITY_TYPE_COMPUTE_DISK,
         targetType: ENTITY_TYPE_COMPUTE_IMAGE,
       },
+    ],
+    executionHandler: buildDiskImageRelationships,
+    dependsOn: [STEP_COMPUTE_DISKS, STEP_COMPUTE_IMAGES],
+  },
+  {
+    id: STEP_COMPUTE_DISK_KMS_RELATIONSHIPS,
+    name: 'Compute Disk KMS Relationships',
+    entities: [],
+    relationships: [
       {
         _class: RelationshipClass.USES,
         _type: RELATIONSHIP_TYPE_COMPUTE_DISK_USES_KMS_CRYPTO_KEY,
@@ -2126,11 +2122,12 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
         targetType: ENTITY_TYPE_KMS_KEY,
       },
     ],
-    executionHandler: fetchComputeDisks,
+    executionHandler: buildDiskUsesKmsRelationships,
     dependsOn: [
+      STEP_COMPUTE_DISKS,
+      STEP_COMPUTE_REGION_DISKS,
       STEP_CLOUD_KMS_KEYS,
       STEP_CLOUD_KMS_KEY_RINGS,
-      STEP_COMPUTE_IMAGES,
     ],
   },
   {

@@ -2,6 +2,7 @@ node_modules/
 dist/
 .j1-integration/
 .env*
+!.env.example
 .eslintcache
 tsconfig.tsbuildinfo
 coverage/

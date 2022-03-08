@@ -58,6 +58,8 @@ import {
   STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES,
   STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES,
   STEP_COMPUTE_GLOBAL_ADDRESSES,
+  STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS,
+  STEP_COMPUTE_DISK_KMS_RELATIONSHIPS,
 } from './steps/compute';
 import { STEP_CLOUD_KMS_KEYS, STEP_CLOUD_KMS_KEY_RINGS } from './steps/kms';
 import {
@@ -200,6 +202,7 @@ export default async function getStepStartStates(
       organizationId: config.organizationId,
       serviceAccountKeyEmail: config.serviceAccountKeyConfig.client_email,
       serviceAccountKeyProjectId: config.serviceAccountKeyConfig.project_id,
+      folderId: config.folderId,
     },
     'Starting integration with config',
   );
@@ -216,8 +219,12 @@ export default async function getStepStartStates(
   const organizationSteps = { disabled: !masterOrgInstance }; // Only run organization steps if you are the master organization.
 
   let enabledServiceNames: string[];
+  let serviceAccountProjectEnabledServiceNames: string[];
   try {
-    enabledServiceNames = await enablement.getEnabledServiceNames(config);
+    const enabledServiceData = await enablement.getEnabledServiceNames(config);
+    enabledServiceNames = enabledServiceData.intersectedEnabledServices ?? [];
+    serviceAccountProjectEnabledServiceNames =
+      enabledServiceData.mainProjectEnabledServices ?? [];
   } catch (err) {
     // NOTE: The `IntegrationValidationError` function does not currently support
     // a `cause` to be passed. We should update that.
@@ -229,6 +236,34 @@ export default async function getStepStartStates(
   }
 
   logger.info({ enabledServiceNames }, 'Services enabled for project');
+  logger.info(
+    {
+      mainProjectEnabledServiceNames: serviceAccountProjectEnabledServiceNames,
+    },
+    'Services enabled for the main project',
+  );
+
+  /**
+   * Used to get the `google_iam_binding` and `google_iam_role` steps to run based on the service
+   * account's home project's (config.serviceAccountKeyConfig.project_id) API enablement instead
+   * of the API enablement of the project that is currently being ingested (config.projectId).
+   * This was done in order to maintain functionality for existing customers who have not enabled
+   * the Cloud Asset API in all their individual Google Cloud Projects, but have in the project
+   * that their service account lives.
+   *
+   * This likely should be removed once users have enabled the Cloud Asset and IAM APIs in all of
+   * their Google Cloud projects.
+   */
+  function createStartStatesBasedOnServiceAccountProject(
+    primaryServiceName: ServiceUsageName,
+    ...additionalServiceNames: ServiceUsageName[]
+  ): StepStartState {
+    return enablement.createStepStartStateWhereAllServicesMustBeEnabled(
+      serviceAccountProjectEnabledServiceNames, // using mainProjectEnabledServiceNames instead of enabledServiceNames
+      primaryServiceName,
+      ...additionalServiceNames,
+    );
+  }
 
   const createStepStartState = (
     primaryServiceName: ServiceUsageName,
@@ -269,30 +304,34 @@ export default async function getStepStartStates(
     // This API will be enabled otherwise fetching services names above would fail
     [STEP_RESOURCE_MANAGER_PROJECT]: { disabled: false },
     [STEP_API_SERVICES]: { disabled: false },
-    [STEP_IAM_BINDINGS]:
-      singleProjectInstance || masterOrgInstance
-        ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
-        : { disabled: true },
-    [STEP_CREATE_BASIC_ROLES]:
-      singleProjectInstance || masterOrgInstance
-        ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
-        : { disabled: true },
+    [STEP_IAM_BINDINGS]: createStartStatesBasedOnServiceAccountProject(
+      ServiceUsageName.CLOUD_ASSET,
+      ServiceUsageName.IAM,
+    ),
+    [STEP_CREATE_BASIC_ROLES]: createStartStatesBasedOnServiceAccountProject(
+      ServiceUsageName.CLOUD_ASSET,
+      ServiceUsageName.IAM,
+    ),
     [STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS]:
-      singleProjectInstance || masterOrgInstance
-        ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
-        : { disabled: true },
+      createStartStatesBasedOnServiceAccountProject(
+        ServiceUsageName.CLOUD_ASSET,
+        ServiceUsageName.IAM,
+      ),
     [STEP_CREATE_BINDING_ROLE_RELATIONSHIPS]:
-      singleProjectInstance || masterOrgInstance
-        ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
-        : { disabled: true },
+      createStartStatesBasedOnServiceAccountProject(
+        ServiceUsageName.CLOUD_ASSET,
+        ServiceUsageName.IAM,
+      ),
     [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]:
-      singleProjectInstance || masterOrgInstance
-        ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
-        : { disabled: true },
+      createStartStatesBasedOnServiceAccountProject(
+        ServiceUsageName.CLOUD_ASSET,
+        ServiceUsageName.IAM,
+      ),
     [STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS]:
-      singleProjectInstance || masterOrgInstance
-        ? createStepStartState(ServiceUsageName.CLOUD_ASSET)
-        : { disabled: true },
+      createStartStatesBasedOnServiceAccountProject(
+        ServiceUsageName.CLOUD_ASSET,
+        ServiceUsageName.IAM,
+      ),
     [STEP_CLOUD_FUNCTIONS]: createStepStartState(
       ServiceUsageName.CLOUD_FUNCTIONS,
     ),
@@ -304,8 +343,12 @@ export default async function getStepStartStates(
       ServiceUsageName.STORAGE_COMPONENT,
       ServiceUsageName.STORAGE_API,
     ),
-    [STEP_IAM_CUSTOM_ROLES]: createStepStartState(ServiceUsageName.IAM),
-    [STEP_IAM_MANAGED_ROLES]: createStepStartState(ServiceUsageName.IAM),
+    [STEP_IAM_CUSTOM_ROLES]: createStartStatesBasedOnServiceAccountProject(
+      ServiceUsageName.IAM,
+    ),
+    [STEP_IAM_MANAGED_ROLES]: createStartStatesBasedOnServiceAccountProject(
+      ServiceUsageName.IAM,
+    ),
     [STEP_IAM_SERVICE_ACCOUNTS]: createStepStartState(ServiceUsageName.IAM),
     [STEP_AUDIT_CONFIG_IAM_POLICY]: config.configureOrganizationProjects
       ? { disabled: true }
@@ -313,6 +356,12 @@ export default async function getStepStartStates(
     [STEP_COMPUTE_DISKS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_REGION_DISKS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_IMAGES]: createStepStartState(ServiceUsageName.COMPUTE),
+    [STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
+    [STEP_COMPUTE_DISK_KMS_RELATIONSHIPS]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
     [STEP_COMPUTE_SNAPSHOTS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_IMAGE_IMAGE_RELATIONSHIPS]: createStepStartState(
       ServiceUsageName.COMPUTE,
