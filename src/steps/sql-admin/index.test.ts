@@ -1,5 +1,8 @@
 import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-testing';
-import { fetchSQLAdminInstances } from '.';
+import {
+  buildSqlAdminInstanceKmsKeyRelationships,
+  fetchSQLAdminInstances,
+} from '.';
 import { integrationConfig } from '../../../test/config';
 import { separateDirectMappedRelationships } from '../../../test/helpers/separateDirectMappedRelationships';
 import { Recording, setupGoogleCloudRecording } from '../../../test/recording';
@@ -173,13 +176,13 @@ describe('#fetchSQLInstances', () => {
   });
 });
 
-describe('#fetchSQLInstances encrypted', () => {
+describe('buildSqlAdminInstanceKmsKeyRelationships', () => {
   let recording: Recording;
 
   beforeEach(() => {
     recording = setupGoogleCloudRecording({
       directory: __dirname,
-      name: 'fetchSQLInstances-encrypted',
+      name: 'buildSqlAdminInstanceKmsKeyRelationships',
     });
   });
 
@@ -206,6 +209,7 @@ describe('#fetchSQLInstances encrypted', () => {
     await fetchKmsCryptoKeys(context);
     await fetchResourceManagerProject(context);
     await fetchSQLAdminInstances(context);
+    await buildSqlAdminInstanceKmsKeyRelationships(context);
 
     expect({
       numCollectedEntities: context.jobState.collectedEntities.length,

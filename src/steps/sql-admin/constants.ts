@@ -18,6 +18,11 @@ export const SQL_SQL_INSTANCE_USES_KMS_KEY_RELATIONSHIP =
 
 export const STEP_SQL_ADMIN_INSTANCES = 'fetch-sql-admin-instances';
 
+export const SqlAdminSteps = {
+  BUILD_SQL_INSTANCE_KMS_KEY_RELATIONSHIPS:
+    'build-sql-admin-instance-kms-key-relationships',
+};
+
 export enum DATABASE_TYPE {
   MYSQL = 'MYSQL',
   POSTGRES = 'POSTGRES',
