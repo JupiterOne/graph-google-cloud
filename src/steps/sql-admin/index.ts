@@ -1,7 +1,8 @@
+import { sqladmin_v1beta4 } from 'googleapis';
 import {
   createDirectRelationship,
   createMappedRelationship,
-  Entity,
+  getRawData,
   IntegrationStep,
   RelationshipClass,
   RelationshipDirection,
@@ -27,6 +28,7 @@ import {
   SQL_POSTGRES_INSTANCE_USES_KMS_KEY_RELATIONSHIP,
   SQL_MYSQL_INSTANCE_USES_KMS_KEY_RELATIONSHIP,
   SQL_SQL_INSTANCE_USES_KMS_KEY_RELATIONSHIP,
+  SqlAdminSteps,
 } from './constants';
 import {
   createMySQLInstanceEntity,
@@ -57,28 +59,16 @@ export async function fetchSQLAdminInstances(
       return;
     }
 
-    let instanceEntity: Entity;
-    let relationshipType: string;
-
     if (instance.databaseVersion?.toUpperCase().includes(DATABASE_TYPE.MYSQL)) {
-      instanceEntity = await jobState.addEntity(
-        createMySQLInstanceEntity(instance),
-      );
-      relationshipType = SQL_MYSQL_INSTANCE_USES_KMS_KEY_RELATIONSHIP;
+      await jobState.addEntity(createMySQLInstanceEntity(instance));
     } else if (
       instance.databaseVersion?.toUpperCase().includes(DATABASE_TYPE.POSTGRES)
     ) {
-      instanceEntity = await jobState.addEntity(
-        createPostgresInstanceEntity(instance),
-      );
-      relationshipType = SQL_POSTGRES_INSTANCE_USES_KMS_KEY_RELATIONSHIP;
+      await jobState.addEntity(createPostgresInstanceEntity(instance));
     } else if (
       instance.databaseVersion?.toUpperCase().includes(DATABASE_TYPE.SQL_SERVER)
     ) {
-      instanceEntity = await jobState.addEntity(
-        createSQLServerInstanceEntity(instance),
-      );
-      relationshipType = SQL_SQL_INSTANCE_USES_KMS_KEY_RELATIONSHIP;
+      await jobState.addEntity(createSQLServerInstanceEntity(instance));
     } else {
       // NOTE: This could happen if Google Cloud introduces a new type of
       // database under the SQL Admin offering. This log is intentially a `warn`,
@@ -91,41 +81,77 @@ export async function fetchSQLAdminInstances(
       );
       return;
     }
-
-    const kmsKeyName = instance.diskEncryptionConfiguration?.kmsKeyName;
-
-    if (kmsKeyName) {
-      const kmsKey = getKmsGraphObjectKeyFromKmsKeyName(kmsKeyName);
-      const kmsKeyEntity = await jobState.findEntity(kmsKey);
-
-      if (kmsKeyEntity) {
-        await jobState.addRelationship(
-          createDirectRelationship({
-            _class: RelationshipClass.USES,
-            from: instanceEntity,
-            to: kmsKeyEntity,
-          }),
-        );
-      } else {
-        await jobState.addRelationship(
-          createMappedRelationship({
-            _class: RelationshipClass.USES,
-            _type: relationshipType,
-            _mapping: {
-              relationshipDirection: RelationshipDirection.FORWARD,
-              sourceEntityKey: instanceEntity._key,
-              targetFilterKeys: [['_type', '_key']],
-              skipTargetCreation: true,
-              targetEntity: {
-                _type: ENTITY_TYPE_KMS_KEY,
-                _key: kmsKey,
-              },
-            },
-          }),
-        );
-      }
-    }
   });
+}
+
+export async function buildSqlAdminInstanceKmsKeyRelationships(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, logger } = context;
+
+  for (const { _type, relationshipType } of [
+    {
+      _type: SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE,
+      relationshipType: SQL_MYSQL_INSTANCE_USES_KMS_KEY_RELATIONSHIP,
+    },
+    {
+      _type: SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
+      relationshipType: SQL_POSTGRES_INSTANCE_USES_KMS_KEY_RELATIONSHIP,
+    },
+    {
+      _type: SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
+      relationshipType: SQL_SQL_INSTANCE_USES_KMS_KEY_RELATIONSHIP,
+    },
+  ]) {
+    await jobState.iterateEntities({ _type }, async (instanceEntity) => {
+      const instance =
+        getRawData<sqladmin_v1beta4.Schema$DatabaseInstance>(instanceEntity);
+
+      if (!instance) {
+        logger.warn(
+          {
+            _key: instanceEntity._key,
+          },
+          'Could not find raw data on database instance entity',
+        );
+        return;
+      }
+
+      const kmsKeyName = instance.diskEncryptionConfiguration?.kmsKeyName;
+
+      if (kmsKeyName) {
+        const kmsKey = getKmsGraphObjectKeyFromKmsKeyName(kmsKeyName);
+        const kmsKeyEntity = await jobState.findEntity(kmsKey);
+
+        if (kmsKeyEntity) {
+          await jobState.addRelationship(
+            createDirectRelationship({
+              _class: RelationshipClass.USES,
+              from: instanceEntity,
+              to: kmsKeyEntity,
+            }),
+          );
+        } else {
+          await jobState.addRelationship(
+            createMappedRelationship({
+              _class: RelationshipClass.USES,
+              _type: relationshipType,
+              _mapping: {
+                relationshipDirection: RelationshipDirection.FORWARD,
+                sourceEntityKey: instanceEntity._key,
+                targetFilterKeys: [['_type', '_key']],
+                skipTargetCreation: true,
+                targetEntity: {
+                  _type: ENTITY_TYPE_KMS_KEY,
+                  _key: kmsKey,
+                },
+              },
+            }),
+          );
+        }
+      }
+    });
+  }
 }
 
 export const sqlAdminSteps: IntegrationStep<IntegrationConfig>[] = [
@@ -149,6 +175,14 @@ export const sqlAdminSteps: IntegrationStep<IntegrationConfig>[] = [
         _class: SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_CLASS,
       },
     ],
+    relationships: [],
+    dependsOn: [STEP_RESOURCE_MANAGER_PROJECT],
+    executionHandler: fetchSQLAdminInstances,
+  },
+  {
+    id: SqlAdminSteps.BUILD_SQL_INSTANCE_KMS_KEY_RELATIONSHIPS,
+    name: 'SQL Admin Instance -> KMS Key Relationships',
+    entities: [],
     relationships: [
       {
         _class: RelationshipClass.USES,
@@ -170,10 +204,10 @@ export const sqlAdminSteps: IntegrationStep<IntegrationConfig>[] = [
       },
     ],
     dependsOn: [
-      STEP_RESOURCE_MANAGER_PROJECT,
+      STEP_SQL_ADMIN_INSTANCES,
       STEP_CLOUD_KMS_KEY_RINGS,
       STEP_CLOUD_KMS_KEYS,
     ],
-    executionHandler: fetchSQLAdminInstances,
+    executionHandler: buildSqlAdminInstanceKmsKeyRelationships,
   },
 ];

@@ -81,7 +81,7 @@ import {
   STEP_BIG_QUERY_TABLES,
   STEP_BUILD_BIG_QUERY_DATASET_KMS_RELATIONSHIPS,
 } from './steps/big-query';
-import { STEP_SQL_ADMIN_INSTANCES } from './steps/sql-admin';
+import { SqlAdminSteps, STEP_SQL_ADMIN_INSTANCES } from './steps/sql-admin';
 import {
   STEP_DNS_MANAGED_ZONES,
   STEP_DNS_POLICIES,
@@ -566,6 +566,9 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_SQL_ADMIN_INSTANCES]: {
+        disabled: false,
+      },
+      [SqlAdminSteps.BUILD_SQL_INSTANCE_KMS_KEY_RELATIONSHIPS]: {
         disabled: false,
       },
       [STEP_CONTAINER_CLUSTERS]: {

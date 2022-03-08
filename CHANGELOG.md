@@ -8,6 +8,12 @@ and this project adheres to
 
 ## Unreleased
 
+### Changed
+
+- Decoupled `fetch-sql-admin-instances` step from key vault dependencies. This
+  allows the SQL admin step to execute successfully even if key vault steps are
+  disabled.
+
 ## 2.8.0 - 2022-03-02
 
 ### Changed
