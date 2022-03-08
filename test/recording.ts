@@ -166,6 +166,18 @@ function getRedactedOAuthResponse() {
   };
 }
 
+export async function withGoogleCloudRecording(
+  options: SetupParameters,
+  testFn: () => Promise<void>,
+) {
+  const recording = setupGoogleCloudRecording(options);
+  try {
+    await testFn();
+  } finally {
+    await recording.stop();
+  }
+}
+
 export function setupGoogleCloudRecording({
   name,
   directory,

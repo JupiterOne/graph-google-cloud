@@ -68,7 +68,7 @@ import {
   STEP_BIG_QUERY_TABLES,
   STEP_BUILD_BIG_QUERY_DATASET_KMS_RELATIONSHIPS,
 } from './steps/big-query';
-import { STEP_SQL_ADMIN_INSTANCES } from './steps/sql-admin';
+import { SqlAdminSteps, STEP_SQL_ADMIN_INSTANCES } from './steps/sql-admin';
 import {
   STEP_DNS_MANAGED_ZONES,
   STEP_DNS_POLICIES,
@@ -444,6 +444,8 @@ export default async function getStepStartStates(
     [STEP_SQL_ADMIN_INSTANCES]: createStepStartState(
       ServiceUsageName.SQL_ADMIN,
     ),
+    [SqlAdminSteps.BUILD_SQL_INSTANCE_KMS_KEY_RELATIONSHIPS]:
+      createStepStartState(ServiceUsageName.SQL_ADMIN, ServiceUsageName.KMS),
     [STEP_DNS_MANAGED_ZONES]: createStepStartState(ServiceUsageName.DNS),
     [STEP_DNS_POLICIES]: createStepStartState(ServiceUsageName.DNS),
     [STEP_CONTAINER_CLUSTERS]: createStepStartState(ServiceUsageName.CONTAINER),

@@ -2,9 +2,13 @@ import {
   createMockExecutionContext,
   Recording,
 } from '@jupiterone/integration-sdk-testing';
-import { IntegrationConfig } from '.';
+import { validateStepStartStates } from '@jupiterone/integration-sdk-runtime/dist/src/execution/validation';
+import { IntegrationConfig, invocationConfig } from '.';
 import { integrationConfig } from '../test/config';
-import { setupGoogleCloudRecording } from '../test/recording';
+import {
+  setupGoogleCloudRecording,
+  withGoogleCloudRecording,
+} from '../test/recording';
 import getStepStartStates from './getStepStartStates';
 import {
   STEP_IAM_BINDINGS,
@@ -71,4 +75,27 @@ describe('createStartStatesBasedOnServiceAccountProject', () => {
       },
     });
   });
+});
+
+test('should successfully validate stepStartStates', async () => {
+  await withGoogleCloudRecording(
+    {
+      directory: __dirname,
+      name: 'validateStepStartStates',
+    },
+    async () => {
+      expect(invocationConfig.getStepStartStates).not.toBeUndefined();
+      const stepStartStates = await invocationConfig.getStepStartStates?.(
+        createMockExecutionContext({
+          instanceConfig: integrationConfig,
+        }),
+      );
+      expect(() =>
+        validateStepStartStates(
+          invocationConfig.integrationSteps,
+          stepStartStates!,
+        ),
+      ).not.toThrow();
+    },
+  );
 });
