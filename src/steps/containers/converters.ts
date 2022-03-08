@@ -13,6 +13,20 @@ export function getContainerClusterKey(clusterId: string) {
   return `${CONTAINER_CLUSTER_ENTITY_TYPE}:${clusterId}`;
 }
 
+function prefixObjectKeys(
+  prefix: string,
+  labels: { [key: string]: string } | undefined | null,
+) {
+  if (!labels) {
+    return;
+  }
+  const prefixed = Object.entries(labels).map(([key, value]) => [
+    `${prefix}.${key}`,
+    value,
+  ]);
+  return prefixed.reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
+}
+
 export function createContainerClusterEntity(
   data: container_v1.Schema$Cluster,
   projectId: string,
@@ -112,6 +126,10 @@ export function createContainerClusterEntity(
         isAlphaCluster: withoutPools.enableKubernetesAlpha === true,
         // 6.2.2 Prefer using dedicated GCP Service Accounts and Workload Identity (Not Scored)
         workloadIdentity: withoutPools.workloadIdentityConfig?.workloadPool,
+        // The console has this under section Metadata > Description
+        'metadata.description': data.description,
+        // The console has these labels under section Metadata > Labels
+        ...prefixObjectKeys('metadata.labels', data.resourceLabels),
         webLink: getGoogleCloudConsoleWebLink(
           `/kubernetes/clusters/details/${withoutPools.location}/${withoutPools.name}/details?folder=&organizationId=&project=${projectId}`,
         ),
@@ -166,6 +184,12 @@ export function createContainerNodePoolEntity(
         serviceAccount: data.config?.serviceAccount,
         // 6.9.1 Enable Customer-Managed Encryption Keys (CMEK) for GKE Persistent Disks (PD) (Not Scored)
         bootDiskKmsKey: data.config?.bootDiskKmsKey,
+        // The console has these labels under section Metadata > GCE instance metadata
+        ...prefixObjectKeys('metadata.gce', data.config?.metadata),
+        // The console has these labels under section Metadata > Kubernetes labels
+        ...prefixObjectKeys('metadata.labels', data.config?.labels),
+        // The console has these labels under section Metadata > Network tags
+        'metadata.networkTags': data.config?.tags,
         webLink: getGoogleCloudConsoleWebLink(
           `/kubernetes/nodepool/${location}/${clusterName}/${data.name}?folder=&organizationId=&project=${projectId}`,
         ),
