@@ -9,10 +9,13 @@ import * as url from 'url';
 import * as querystring from 'querystring';
 import { integrationConfig } from './config';
 import { parseServiceAccountKeyFile } from '../src/utils/parseServiceAccountKeyFile';
+import { IntegrationConfig } from '../src';
 
 export { Recording } from '@jupiterone/integration-sdk-testing';
 
 type SetupParameters = Parameters<typeof setupRecording>[0];
+type MatchRequestsByFn =
+  Required<SetupParameters>['options']['matchRequestsBy'];
 
 enum GoogleHeaders {
   UPLOADER = 'x-guploader-uploadid',
@@ -176,6 +179,24 @@ export async function withGoogleCloudRecording(
   } finally {
     await recording.stop();
   }
+}
+
+export function getMatchRequestsBy(
+  instanceConfig: IntegrationConfig,
+): MatchRequestsByFn {
+  return {
+    headers: false,
+    body: false,
+    url: {
+      pathname: (pathname: string): string => {
+        pathname = pathname.replace(
+          instanceConfig.serviceAccountKeyConfig.project_id,
+          'project-id',
+        );
+        return pathname;
+      },
+    },
+  };
 }
 
 export function setupGoogleCloudRecording({

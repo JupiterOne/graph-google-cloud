@@ -6,6 +6,7 @@ import { validateStepStartStates } from '@jupiterone/integration-sdk-runtime/dis
 import { IntegrationConfig, invocationConfig } from '.';
 import { integrationConfig } from '../test/config';
 import {
+  getMatchRequestsBy,
   setupGoogleCloudRecording,
   withGoogleCloudRecording,
 } from '../test/recording';
@@ -82,6 +83,9 @@ test('should successfully validate stepStartStates', async () => {
     {
       directory: __dirname,
       name: 'validateStepStartStates',
+      options: {
+        matchRequestsBy: getMatchRequestsBy(integrationConfig),
+      },
     },
     async () => {
       expect(invocationConfig.getStepStartStates).not.toBeUndefined();
