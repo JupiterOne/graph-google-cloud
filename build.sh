@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 rm -rf ./dist
 yarn tsc -p tsconfig.dist.json --declaration
 cp README.md dist/README.md
