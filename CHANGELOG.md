@@ -8,6 +8,8 @@ and this project adheres to
 
 ## Unreleased
 
+## 2.8.1 - 2022-03-08
+
 ### Changed
 
 - Decoupled `fetch-sql-admin-instances` step from key vault dependencies. This
