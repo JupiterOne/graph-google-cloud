@@ -32,12 +32,12 @@
     "jupiterone-organization-setup": "yarn ts-node ./scripts/organizationSetupCli.ts"
   },
   "peerDependencies": {
-    "@jupiterone/integration-sdk-core": "^8.2.1"
+    "@jupiterone/integration-sdk-core": "^8.6.0"
   },
   "devDependencies": {
-    "@jupiterone/integration-sdk-core": "^8.2.1",
-    "@jupiterone/integration-sdk-dev-tools": "^8.2.1",
-    "@jupiterone/integration-sdk-testing": "^8.2.1",
+    "@jupiterone/integration-sdk-core": "^8.6.0",
+    "@jupiterone/integration-sdk-dev-tools": "^8.6.0",
+    "@jupiterone/integration-sdk-testing": "^8.6.0",
     "@types/bunyan": "^1.8.6",
     "@types/bunyan-format": "^0.2.3",
     "@types/node-fetch": "^2.5.10",
