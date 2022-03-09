@@ -45,7 +45,7 @@ describe('#fetchContainerClusters', () => {
       ).toMatchGraphObjectSchema({
         _class: ['Cluster'],
         schema: {
-          additionalProperties: false,
+          additionalProperties: true,
           properties: {
             _type: { const: 'google_container_cluster' },
             _rawData: {
@@ -106,6 +106,7 @@ describe('#fetchContainerClusters', () => {
             abacEnabled: { type: 'boolean' },
             isAlphaCluster: { type: 'boolean' },
             workloadIdentity: { type: 'string' },
+            'metadata.description': { type: 'string' },
             webLink: { type: 'string' },
           },
         },
@@ -118,7 +119,7 @@ describe('#fetchContainerClusters', () => {
       ).toMatchGraphObjectSchema({
         _class: ['Group'],
         schema: {
-          additionalProperties: false,
+          additionalProperties: true,
           properties: {
             _type: { const: 'google_container_node_pool' },
             _rawData: {
@@ -141,6 +142,11 @@ describe('#fetchContainerClusters', () => {
             gkeSandboxEnabled: { type: 'boolean' },
             serviceAccount: { type: 'string' },
             bootDiskKmsKey: { type: 'string' },
+            'metadata.networkTags': {
+              type: 'array',
+              items: { type: 'string' },
+            },
+            'metadata.gce.disable-legacy-endpoints': { type: 'string' },
             webLink: { type: 'string' },
           },
         },
