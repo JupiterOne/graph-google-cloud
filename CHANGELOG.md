@@ -12,11 +12,19 @@ and this project adheres to
 
 - Kubernetes clusters' and their node pools' labels/tags are now ingested. The
   `google_container_cluster` now has the following new properties:
-  metadata.description - string metadata.labels.\* - string
+
+  | Property               | Type     |
+  | ---------------------- | -------- |
+  | `metadata.description` | `string` |
+  | `metadata.labels.*`    | `string` |
 
   The `google_container_node_pool` now has the following new properties:
-  metadata.gce._ - string metadata.labels._ - string metadata.networkTags -
-  string[]
+
+  | Property               | Type       |
+  | ---------------------- | ---------- |
+  | `metadata.gce.*`       | `string`   |
+  | `metadata.labels.*`    | `string`   |
+  | `metadata.networkTags` | `string[]` |
 
 ## 2.8.1 - 2022-03-08
 
