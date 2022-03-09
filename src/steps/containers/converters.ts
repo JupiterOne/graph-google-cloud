@@ -20,11 +20,11 @@ function prefixObjectKeys(
   if (!labels) {
     return;
   }
-  const prefixed = Object.entries(labels).map(([key, value]) => [
-    `${prefix}.${key}`,
-    value,
-  ]);
-  return prefixed.reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
+
+  return Object.entries(labels).reduce(
+    (acc, [key, value]) => ({ ...acc, [`${prefix}.${key}`]: value }),
+    {},
+  );
 }
 
 export function createContainerClusterEntity(
