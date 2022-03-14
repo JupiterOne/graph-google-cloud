@@ -106,11 +106,7 @@ import {
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
 import { fetchIamServiceAccounts } from '../iam';
-import {
-  ENTITY_TYPE_KMS_KEY,
-  fetchKmsCryptoKeys,
-  fetchKmsKeyRings,
-} from '../kms';
+import { fetchKmsCryptoKeys, fetchKmsKeyRings } from '../kms';
 import { filterGraphObjects } from '../../../test/helpers/filterGraphObjects';
 import { separateDirectMappedRelationships } from '../../../test/helpers/separateDirectMappedRelationships';
 
