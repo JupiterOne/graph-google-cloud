@@ -5,6 +5,7 @@ import {
   createDirectRelationship,
   createMappedRelationship,
   RelationshipDirection,
+  getRawData,
 } from '@jupiterone/integration-sdk-core';
 import { ComputeClient } from './client';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
@@ -380,20 +381,28 @@ export async function fetchComputeDisks(
 export async function buildDiskUsesKmsRelationships(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
+  const { jobState, logger } = context;
 
   await jobState.iterateEntities(
     { _type: ENTITY_TYPE_COMPUTE_DISK },
-    async (
-      diskEntity: {
-        kmsKeyName?: string | null | undefined;
-      } & Entity,
-    ) => {
-      if (!diskEntity.kmsKeyName) {
+    async (diskEntity) => {
+      const instance = getRawData<compute_v1.Schema$Disk>(diskEntity);
+      if (!instance) {
+        logger.warn(
+          {
+            _key: diskEntity._key,
+          },
+          'Could not find raw data on disk instance entity',
+        );
         return;
       }
 
-      const kmsKey = getKmsGraphObjectKeyFromKmsKeyName(diskEntity.kmsKeyName);
+      const kmsKeyName = instance.diskEncryptionKey?.kmsKeyName;
+      if (!kmsKeyName) {
+        return;
+      }
+
+      const kmsKey = getKmsGraphObjectKeyFromKmsKeyName(kmsKeyName);
       const kmsKeyEntity = await jobState.findEntity(kmsKey);
 
       if (kmsKeyEntity) {
@@ -2140,16 +2149,9 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
         _class: ENTITY_CLASS_COMPUTE_DISK,
       },
     ],
-    relationships: [
-      {
-        _class: RelationshipClass.USES,
-        _type: RELATIONSHIP_TYPE_COMPUTE_DISK_USES_KMS_CRYPTO_KEY,
-        sourceType: ENTITY_TYPE_COMPUTE_DISK,
-        targetType: ENTITY_TYPE_KMS_KEY,
-      },
-    ],
+    relationships: [],
     executionHandler: fetchComputeRegionDisks,
-    dependsOn: [STEP_CLOUD_KMS_KEYS, STEP_CLOUD_KMS_KEY_RINGS],
+    dependsOn: [],
   },
   {
     id: STEP_COMPUTE_SNAPSHOTS,

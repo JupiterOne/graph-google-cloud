@@ -270,10 +270,10 @@ describe('#buildDiskUsesKmsRelationships', () => {
       instanceConfig: tempNewAccountConfig,
     });
 
-    await fetchKmsKeyRings(context);
-    await fetchKmsCryptoKeys(context);
     await fetchComputeDisks(context);
     await fetchComputeRegionDisks(context);
+    await fetchKmsKeyRings(context);
+    await fetchKmsCryptoKeys(context);
     await buildDiskUsesKmsRelationships(context);
 
     expect({
