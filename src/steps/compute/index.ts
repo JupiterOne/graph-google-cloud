@@ -166,6 +166,7 @@ import {
   STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS,
   STEP_COMPUTE_DISK_KMS_RELATIONSHIPS,
   STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS,
+  STEP_COMPUTE_IMAGE_KMS_RELATIONSHIPS,
 } from './constants';
 import { compute_v1 } from 'googleapis';
 import { INTERNET, RelationshipClass } from '@jupiterone/data-model';
@@ -580,6 +581,63 @@ export async function buildComputeSnapshotDiskRelationships(
   );
 }
 
+export async function buildImageUsesKmsRelationships(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, logger } = context;
+
+  await jobState.iterateEntities(
+    { _type: ENTITY_TYPE_COMPUTE_IMAGE },
+    async (imageEntity) => {
+      const instance = getRawData<compute_v1.Schema$Image>(imageEntity);
+      if (!instance) {
+        logger.warn(
+          {
+            _key: imageEntity._key,
+          },
+          'Could not find raw data on image instance entity',
+        );
+        return;
+      }
+
+      const kmsKeyName = instance.imageEncryptionKey?.kmsKeyName;
+      if (!kmsKeyName) {
+        return;
+      }
+
+      const kmsKey = getKmsGraphObjectKeyFromKmsKeyName(kmsKeyName);
+      const kmsKeyEntity = await jobState.findEntity(kmsKey);
+
+      if (kmsKeyEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.USES,
+            from: imageEntity,
+            to: kmsKeyEntity,
+          }),
+        );
+      } else {
+        await jobState.addRelationship(
+          createMappedRelationship({
+            _class: RelationshipClass.USES,
+            _type: RELATIONSHIP_TYPE_IMAGE_USES_KMS_KEY,
+            _mapping: {
+              relationshipDirection: RelationshipDirection.FORWARD,
+              sourceEntityKey: imageEntity._key,
+              targetFilterKeys: [['_type', '_key']],
+              skipTargetCreation: true,
+              targetEntity: {
+                _type: ENTITY_TYPE_KMS_KEY,
+                _key: kmsKey,
+              },
+            },
+          }),
+        );
+      }
+    },
+  );
+}
+
 export async function fetchComputeImages(
   context: IntegrationStepContext,
 ): Promise<void> {
@@ -595,41 +653,6 @@ export async function fetchComputeImages(
       isPublic: isComputeImagePublicAccess(imagePolicy),
     });
     await jobState.addEntity(imageEntity);
-
-    if (image.imageEncryptionKey?.kmsKeyName) {
-      const kmsNameWithoutVersion = getKmsGraphObjectKeyFromKmsKeyName(
-        image.imageEncryptionKey.kmsKeyName,
-      );
-
-      const cryptoKeyEntity = await jobState.findEntity(kmsNameWithoutVersion);
-
-      if (cryptoKeyEntity) {
-        await jobState.addRelationship(
-          createDirectRelationship({
-            _class: RelationshipClass.USES,
-            from: imageEntity,
-            to: cryptoKeyEntity,
-          }),
-        );
-      } else {
-        await jobState.addRelationship(
-          createMappedRelationship({
-            _class: RelationshipClass.USES,
-            _type: RELATIONSHIP_TYPE_IMAGE_USES_KMS_KEY,
-            _mapping: {
-              relationshipDirection: RelationshipDirection.FORWARD,
-              sourceEntityKey: imageEntity._key,
-              targetFilterKeys: [['_type', '_key']],
-              skipTargetCreation: true,
-              targetEntity: {
-                _type: ENTITY_TYPE_KMS_KEY,
-                _key: kmsNameWithoutVersion,
-              },
-            },
-          }),
-        );
-      }
-    }
 
     if (image.sourceSnapshotId) {
       const sourceSnapshotEntity = await jobState.findEntity(
@@ -2225,20 +2248,29 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
     ],
     relationships: [
       {
-        _class: RelationshipClass.USES,
-        _type: RELATIONSHIP_TYPE_IMAGE_USES_KMS_KEY,
-        sourceType: ENTITY_TYPE_COMPUTE_IMAGE,
-        targetType: ENTITY_TYPE_KMS_KEY,
-      },
-      {
         _class: RelationshipClass.CREATED,
         _type: RELATIONSHIP_TYPE_SNAPSHOT_CREATED_IMAGE,
         sourceType: ENTITY_TYPE_COMPUTE_SNAPSHOT,
         targetType: ENTITY_TYPE_COMPUTE_IMAGE,
       },
     ],
-    dependsOn: [STEP_CLOUD_KMS_KEYS],
+    dependsOn: [],
     executionHandler: fetchComputeImages,
+  },
+  {
+    id: STEP_COMPUTE_IMAGE_KMS_RELATIONSHIPS,
+    name: 'Build Compute Image KMS Relationships',
+    entities: [],
+    relationships: [
+      {
+        _class: RelationshipClass.USES,
+        _type: RELATIONSHIP_TYPE_IMAGE_USES_KMS_KEY,
+        sourceType: ENTITY_TYPE_COMPUTE_IMAGE,
+        targetType: ENTITY_TYPE_KMS_KEY,
+      },
+    ],
+    dependsOn: [STEP_COMPUTE_IMAGES, STEP_CLOUD_KMS_KEYS],
+    executionHandler: buildImageUsesKmsRelationships,
   },
   {
     id: STEP_COMPUTE_IMAGE_IMAGE_RELATIONSHIPS,
