@@ -1,4 +1,7 @@
 export const STEP_DATAPROC_CLUSTERS = 'fetch-dataproc-clusters';
+export const STEP_DATAPROC_CLUSTER_KMS_RELATIONSHIPS =
+  'build-dataproc-cluster-kms-relationships';
+
 export const STEP_CREATE_CLUSTER_STORAGE_RELATIONSHIPS =
   'create-cluster-storage-relationships';
 export const STEP_CREATE_CLUSTER_IMAGE_RELATIONSHIPS =

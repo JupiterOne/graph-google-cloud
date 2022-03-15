@@ -1,8 +1,12 @@
 import {
   createDirectRelationship,
+  createMappedRelationship,
+  getRawData,
   IntegrationStep,
   RelationshipClass,
+  RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
+import { dataproc_v1 } from 'googleapis';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
 import { getKmsGraphObjectKeyFromKmsKeyName } from '../../utils/kms';
 import { ENTITY_TYPE_COMPUTE_IMAGE, STEP_COMPUTE_IMAGES } from '../compute';
@@ -22,6 +26,7 @@ import {
   STEP_CREATE_CLUSTER_STORAGE_RELATIONSHIPS,
   STEP_CREATE_CLUSTER_IMAGE_RELATIONSHIPS,
   STEP_DATAPROC_CLUSTERS,
+  STEP_DATAPROC_CLUSTER_KMS_RELATIONSHIPS,
 } from './constants';
 import { createDataprocClusterEntity } from './converters';
 
@@ -37,12 +42,35 @@ export async function fetchDataprocClusters(
   await client.iterateClusters(async (cluster) => {
     const clusterEntity = createDataprocClusterEntity(cluster);
     await jobState.addEntity(clusterEntity);
+  });
+}
 
-    const kmsKey = cluster.config?.encryptionConfig?.gcePdKmsKeyName;
-    if (kmsKey) {
-      const kmsKeyEntity = await jobState.findEntity(
-        getKmsGraphObjectKeyFromKmsKeyName(kmsKey),
-      );
+export async function buildDataprocClusterUsesKmsRelationships(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, logger } = context;
+
+  await jobState.iterateEntities(
+    { _type: ENTITY_TYPE_DATAPROC_CLUSTER },
+    async (clusterEntity) => {
+      const instance = getRawData<dataproc_v1.Schema$Cluster>(clusterEntity);
+      if (!instance) {
+        logger.warn(
+          {
+            _key: clusterEntity._key,
+          },
+          'Could not find raw data on dataproc cluster instance entity',
+        );
+        return;
+      }
+
+      const kmsKeyName = instance.config?.encryptionConfig?.gcePdKmsKeyName;
+      if (!kmsKeyName) {
+        return;
+      }
+
+      const kmsKey = getKmsGraphObjectKeyFromKmsKeyName(kmsKeyName);
+      const kmsKeyEntity = await jobState.findEntity(kmsKey);
 
       if (kmsKeyEntity) {
         await jobState.addRelationship(
@@ -52,9 +80,26 @@ export async function fetchDataprocClusters(
             to: kmsKeyEntity,
           }),
         );
+      } else {
+        await jobState.addRelationship(
+          createMappedRelationship({
+            _class: RelationshipClass.USES,
+            _type: RELATIONSHIP_TYPE_DATAPROC_CLUSTER_USES_KMS_CRYPTO_KEY,
+            _mapping: {
+              relationshipDirection: RelationshipDirection.FORWARD,
+              sourceEntityKey: clusterEntity._key,
+              targetFilterKeys: [['_type', '_key']],
+              skipTargetCreation: true,
+              targetEntity: {
+                _type: ENTITY_TYPE_KMS_KEY,
+                _key: kmsKey,
+              },
+            },
+          }),
+        );
       }
-    }
-  });
+    },
+  );
 }
 
 export async function createClusterImageRelationships(
@@ -152,6 +197,14 @@ export const dataprocSteps: IntegrationStep<IntegrationConfig>[] = [
         _class: ENTITY_CLASS_DATAPROC_CLUSTER,
       },
     ],
+    relationships: [],
+    dependsOn: [],
+    executionHandler: fetchDataprocClusters,
+  },
+  {
+    id: STEP_DATAPROC_CLUSTER_KMS_RELATIONSHIPS,
+    name: 'Build Dataproc Cluster KMS Relationships',
+    entities: [],
     relationships: [
       {
         _class: RelationshipClass.USES,
@@ -160,8 +213,8 @@ export const dataprocSteps: IntegrationStep<IntegrationConfig>[] = [
         targetType: ENTITY_TYPE_KMS_KEY,
       },
     ],
-    dependsOn: [STEP_CLOUD_KMS_KEYS],
-    executionHandler: fetchDataprocClusters,
+    dependsOn: [STEP_DATAPROC_CLUSTERS, STEP_CLOUD_KMS_KEYS],
+    executionHandler: buildDataprocClusterUsesKmsRelationships,
   },
   {
     id: STEP_CREATE_CLUSTER_IMAGE_RELATIONSHIPS,
