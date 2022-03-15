@@ -26,6 +26,10 @@ and this project adheres to
   the PubSub Topics step to execute successfully even if kms keys steps are
   disabled.
 
+- Decoupled `fetch-redis-instances` step from compute network dependencies. This
+  allows the Redis Instances step to execute successfully even if compute
+  network steps are disabled.
+
 ## 2.9.0 - 2022-03-09
 
 ### Added
