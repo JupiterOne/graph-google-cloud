@@ -18,6 +18,10 @@ and this project adheres to
   This allows the Memcache Instances step to execute successfully even if
   compute network steps are disabled.
 
+- Decoupled `fetch-dataproc-clusters` step from kms keys dependencies. This
+  allows the Compute Dataproc Clusters step to execute successfully even if kms
+  keys steps are disabled.
+
 ## 2.9.0 - 2022-03-09
 
 ### Added
