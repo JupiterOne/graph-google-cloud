@@ -109,7 +109,10 @@ import {
   STEP_CLOUD_RUN_SERVICES,
 } from './steps/cloud-run/constants';
 import { STEP_REDIS_INSTANCES } from './steps/redis/constants';
-import { STEP_MEMCACHE_INSTANCES } from './steps/memcache/constants';
+import {
+  STEP_CREATE_MEMCACHE_INSTANCE_NETWORK_RELATIONSHIPS,
+  STEP_MEMCACHE_INSTANCES,
+} from './steps/memcache/constants';
 import {
   STEP_SPANNER_INSTANCES,
   STEP_SPANNER_INSTANCE_CONFIGS,
@@ -629,6 +632,9 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_MEMCACHE_INSTANCES]: {
+        disabled: false,
+      },
+      [STEP_CREATE_MEMCACHE_INSTANCE_NETWORK_RELATIONSHIPS]: {
         disabled: false,
       },
       [STEP_SPANNER_INSTANCE_CONFIGS]: {

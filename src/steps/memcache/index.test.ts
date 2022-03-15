@@ -2,7 +2,10 @@ import {
   createMockStepExecutionContext,
   Recording,
 } from '@jupiterone/integration-sdk-testing';
-import { fetchMemcacheInstances } from '.';
+import {
+  buildMemcacheInstancesUsesNetworkRelationships,
+  fetchMemcacheInstances,
+} from '.';
 import { integrationConfig } from '../../../test/config';
 import { setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
@@ -14,13 +17,25 @@ import {
   RELATIONSHIP_TYPE_MEMCACHE_INSTANCE_USES_NETWORK,
 } from './constants';
 
+const tempNewAccountConfig = {
+  ...integrationConfig,
+  serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+    'j1-gc-integration-dev-v2',
+    'j1-gc-integration-dev-v3',
+  ),
+  serviceAccountKeyConfig: {
+    ...integrationConfig.serviceAccountKeyConfig,
+    project_id: 'j1-gc-integration-dev-v3',
+  },
+};
+
 describe('#fetchMemcacheInstances', () => {
   let recording: Recording;
 
   beforeEach(() => {
     recording = setupGoogleCloudRecording({
       directory: __dirname,
-      name: 'fetchRedisInstances',
+      name: 'fetchMemcacheInstances',
     });
   });
 
@@ -30,10 +45,9 @@ describe('#fetchMemcacheInstances', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: tempNewAccountConfig,
     });
 
-    await fetchComputeNetworks(context);
     await fetchMemcacheInstances(context);
 
     expect({
@@ -106,19 +120,6 @@ describe('#fetchMemcacheInstances', () => {
 
     expect(
       context.jobState.collectedRelationships.filter(
-        (e) => e._type === RELATIONSHIP_TYPE_MEMCACHE_INSTANCE_USES_NETWORK,
-      ),
-    ).toMatchDirectRelationshipSchema({
-      schema: {
-        properties: {
-          _class: { const: 'USES' },
-          _type: { const: 'google_memcache_instance_uses_compute_network' },
-        },
-      },
-    });
-
-    expect(
-      context.jobState.collectedRelationships.filter(
         (e) => e._type === RELATIONSHIP_TYPE_MEMCACHE_INSTANCE_HAS_NODE,
       ),
     ).toMatchDirectRelationshipSchema({
@@ -126,6 +127,52 @@ describe('#fetchMemcacheInstances', () => {
         properties: {
           _class: { const: 'HAS' },
           _type: { const: 'google_memcache_instance_has_node' },
+        },
+      },
+    });
+  });
+});
+
+describe('#buildMemcacheInstancesUsesNetworkRelationships', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'buildMemcacheInstancesUsesNetworkRelationships',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: tempNewAccountConfig,
+    });
+
+    await fetchComputeNetworks(context);
+    await fetchMemcacheInstances(context);
+    await buildMemcacheInstancesUsesNetworkRelationships(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === RELATIONSHIP_TYPE_MEMCACHE_INSTANCE_USES_NETWORK,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'USES' },
+          _type: { const: 'google_memcache_instance_uses_compute_network' },
         },
       },
     });

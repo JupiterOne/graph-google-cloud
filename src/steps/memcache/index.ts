@@ -1,8 +1,10 @@
 import {
   createDirectRelationship,
+  getRawData,
   IntegrationStep,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
+import { memcache_v1 } from 'googleapis';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
 import { ENTITY_TYPE_COMPUTE_NETWORK, STEP_COMPUTE_NETWORKS } from '../compute';
 import { MemcacheClient } from './client';
@@ -14,6 +16,7 @@ import {
   ENTITY_CLASS_MEMCACHE_INSTANCE_NODE,
   RELATIONSHIP_TYPE_MEMCACHE_INSTANCE_USES_NETWORK,
   RELATIONSHIP_TYPE_MEMCACHE_INSTANCE_HAS_NODE,
+  STEP_CREATE_MEMCACHE_INSTANCE_NETWORK_RELATIONSHIPS,
 } from './constants';
 import {
   createMemcacheInstanceEntity,
@@ -37,19 +40,6 @@ export async function fetchMemcacheInstances(
     );
     await jobState.addEntity(memcacheInstanceEntity);
 
-    const networkEntity = await jobState.findEntity(
-      `https://www.googleapis.com/compute/v1/${instance.authorizedNetwork}`,
-    );
-    if (networkEntity) {
-      await jobState.addRelationship(
-        createDirectRelationship({
-          _class: RelationshipClass.USES,
-          from: memcacheInstanceEntity,
-          to: networkEntity,
-        }),
-      );
-    }
-
     const memcacheNodes = instance.memcacheNodes || [];
     for (const memcacheNode of memcacheNodes) {
       const memcacheNodeEntity = createMemcacheNodeEntity(
@@ -70,6 +60,50 @@ export async function fetchMemcacheInstances(
   });
 }
 
+export async function buildMemcacheInstancesUsesNetworkRelationships(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, logger } = context;
+
+  await jobState.iterateEntities(
+    { _type: ENTITY_TYPE_MEMCACHE_INSTANCE },
+    async (memcacheInstanceEntity) => {
+      const instance = getRawData<memcache_v1.Schema$Instance>(
+        memcacheInstanceEntity,
+      );
+      if (!instance) {
+        logger.warn(
+          {
+            _key: memcacheInstanceEntity._key,
+          },
+          'Could not find raw data on memcached instance entity',
+        );
+        return;
+      }
+
+      const authorizedNetwork = instance.authorizedNetwork;
+      if (!authorizedNetwork) {
+        return;
+      }
+
+      const authorizedNetworkEntity = await jobState.findEntity(
+        `https://www.googleapis.com/compute/v1/${authorizedNetwork}`,
+      );
+      if (!authorizedNetworkEntity) {
+        return;
+      }
+
+      await jobState.addRelationship(
+        createDirectRelationship({
+          _class: RelationshipClass.USES,
+          from: memcacheInstanceEntity,
+          to: authorizedNetworkEntity,
+        }),
+      );
+    },
+  );
+}
+
 export const memcacheSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_MEMCACHE_INSTANCES,
@@ -88,19 +122,28 @@ export const memcacheSteps: IntegrationStep<IntegrationConfig>[] = [
     ],
     relationships: [
       {
-        _class: RelationshipClass.USES,
-        _type: RELATIONSHIP_TYPE_MEMCACHE_INSTANCE_USES_NETWORK,
-        sourceType: ENTITY_TYPE_MEMCACHE_INSTANCE,
-        targetType: ENTITY_TYPE_COMPUTE_NETWORK,
-      },
-      {
         _class: RelationshipClass.HAS,
         _type: RELATIONSHIP_TYPE_MEMCACHE_INSTANCE_HAS_NODE,
         sourceType: ENTITY_TYPE_MEMCACHE_INSTANCE,
         targetType: ENTITY_TYPE_MEMCACHE_INSTANCE_NODE,
       },
     ],
-    dependsOn: [STEP_COMPUTE_NETWORKS],
+    dependsOn: [],
     executionHandler: fetchMemcacheInstances,
+  },
+  {
+    id: STEP_CREATE_MEMCACHE_INSTANCE_NETWORK_RELATIONSHIPS,
+    name: 'Build Memcache Instance Network Relationships',
+    entities: [],
+    relationships: [
+      {
+        _class: RelationshipClass.USES,
+        _type: RELATIONSHIP_TYPE_MEMCACHE_INSTANCE_USES_NETWORK,
+        sourceType: ENTITY_TYPE_MEMCACHE_INSTANCE,
+        targetType: ENTITY_TYPE_COMPUTE_NETWORK,
+      },
+    ],
+    dependsOn: [STEP_MEMCACHE_INSTANCES, STEP_COMPUTE_NETWORKS],
+    executionHandler: buildMemcacheInstancesUsesNetworkRelationships,
   },
 ];

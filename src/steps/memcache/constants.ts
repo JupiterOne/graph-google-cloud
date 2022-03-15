@@ -1,4 +1,6 @@
 export const STEP_MEMCACHE_INSTANCES = 'fetch-memcache-instances';
+export const STEP_CREATE_MEMCACHE_INSTANCE_NETWORK_RELATIONSHIPS =
+  'build-memcache-instance-network-relationships';
 
 export const ENTITY_TYPE_MEMCACHE_INSTANCE = 'google_memcache_instance';
 export const ENTITY_CLASS_MEMCACHE_INSTANCE = [
