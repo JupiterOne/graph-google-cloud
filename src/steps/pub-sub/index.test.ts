@@ -8,13 +8,25 @@ import {
   RELATIONSHIP_TYPE_PUBSUB_SUBSCRIPTION_USES_TOPIC,
   RELATIONSHIP_TYPE_PUBSUB_TOPIC_USES_KMS_KEY,
 } from './constants';
-import { fetchPubSubSubscriptions, fetchPubSubTopics } from '.';
 import {
-  ENTITY_TYPE_KMS_KEY,
-  fetchKmsCryptoKeys,
-  fetchKmsKeyRings,
-} from '../kms';
+  buildPubSubTopicKMSRelationships,
+  fetchPubSubSubscriptions,
+  fetchPubSubTopics,
+} from '.';
+import { fetchKmsCryptoKeys, fetchKmsKeyRings } from '../kms';
 import { separateDirectMappedRelationships } from '../../../test/helpers/separateDirectMappedRelationships';
+
+const tempNewAccountConfig = {
+  ...integrationConfig,
+  serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+    'j1-gc-integration-dev-v2',
+    'j1-gc-integration-dev-v3',
+  ),
+  serviceAccountKeyConfig: {
+    ...integrationConfig.serviceAccountKeyConfig,
+    project_id: 'j1-gc-integration-dev-v3',
+  },
+};
 
 describe('#fetchProjectTopics', () => {
   let recording: Recording;
@@ -32,21 +44,9 @@ describe('#fetchProjectTopics', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: {
-        ...integrationConfig,
-        serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
-          'j1-gc-integration-dev-v2',
-          'j1-gc-integration-dev-v3',
-        ),
-        serviceAccountKeyConfig: {
-          ...integrationConfig.serviceAccountKeyConfig,
-          project_id: 'j1-gc-integration-dev-v3',
-        },
-      },
+      instanceConfig: tempNewAccountConfig,
     });
 
-    await fetchKmsKeyRings(context);
-    await fetchKmsCryptoKeys(context);
     await fetchPubSubTopics(context);
 
     expect({
@@ -87,51 +87,51 @@ describe('#fetchProjectTopics', () => {
         },
       },
     });
+  });
+});
 
-    expect(
-      context.jobState.collectedEntities.filter(
-        (e) => e._type === ENTITY_TYPE_KMS_KEY,
-      ),
-    ).toMatchGraphObjectSchema({
-      _class: ['Key', 'CryptoKey'],
-      schema: {
-        additionalProperties: false,
-        properties: {
-          _type: { const: 'google_kms_crypto_key' },
-          _rawData: {
-            type: 'array',
-            items: { type: 'object' },
-          },
-          projectId: { type: 'string' },
-          location: { type: 'string' },
-          shortName: { type: 'string' },
-          purpose: { type: 'string' },
-          keyUsage: { type: 'string' },
-          nextRotationTime: { type: 'number' },
-          rotationPeriod: { type: 'number' },
-          protectionLevel: { type: 'string' },
-          algorithm: { type: 'string' },
-          public: { type: 'boolean' },
-          primaryName: { type: 'string' },
-          primaryState: { type: 'string' },
-          primaryCreateTime: { type: 'number' },
-          primaryProtectionLevel: { type: 'string' },
-          primaryAlgorithm: { type: 'string' },
-          primaryGenerateTime: { type: 'number' },
-        },
-      },
+describe('#buildPubSubTopicKMSRelationships', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'buildPubSubTopicKMSRelationships',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: tempNewAccountConfig,
     });
 
-    const { directRelationships, mappedRelationships: mappedKmsRelationships } =
+    await fetchKmsKeyRings(context);
+    await fetchKmsCryptoKeys(context);
+    await fetchPubSubTopics(context);
+    await buildPubSubTopicKMSRelationships(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
+
+    const { directRelationships, mappedRelationships } =
       separateDirectMappedRelationships(
         context.jobState.collectedRelationships,
       );
 
-    expect(
-      directRelationships.filter(
-        (e) => e._type === RELATIONSHIP_TYPE_PUBSUB_TOPIC_USES_KMS_KEY,
-      ),
-    ).toMatchDirectRelationshipSchema({
+    const topicUsesKMSDirectRelationships = directRelationships.filter(
+      (r) => r._type === RELATIONSHIP_TYPE_PUBSUB_TOPIC_USES_KMS_KEY,
+    );
+    expect(topicUsesKMSDirectRelationships.length).toBeGreaterThan(0);
+    expect(topicUsesKMSDirectRelationships).toMatchDirectRelationshipSchema({
       schema: {
         properties: {
           _class: { const: 'USES' },
@@ -140,19 +140,21 @@ describe('#fetchProjectTopics', () => {
       },
     });
 
-    expect(mappedKmsRelationships.length).toBeGreaterThan(0);
-
+    const topicUsesKMSMappedRelationships = mappedRelationships.filter(
+      (r) => r._type === RELATIONSHIP_TYPE_PUBSUB_TOPIC_USES_KMS_KEY,
+    );
+    expect(topicUsesKMSMappedRelationships.length).toBeGreaterThan(0);
     expect(
-      mappedKmsRelationships
+      topicUsesKMSMappedRelationships
         .filter(
           (e) =>
             e._mapping.sourceEntityKey ===
-            'projects/j1-gc-integration-dev-v3/topics/sample-topic-foreign-key',
+            'projects/j1-gc-integration-dev-v3/topics/foreign-kms-topic',
         )
         .every(
           (mappedRelationship) =>
             mappedRelationship._key ===
-            'projects/j1-gc-integration-dev-v3/topics/sample-topic-foreign-key|uses|projects/vmware-account/locations/global/keyRings/test-key-ring/cryptoKeys/foreign-key',
+            'projects/j1-gc-integration-dev-v3/topics/foreign-kms-topic|uses|projects/jupiterone-databricks-test/locations/global/keyRings/test-key-ring/cryptoKeys/foreign-key',
         ),
     ).toBe(true);
   });
@@ -174,7 +176,7 @@ describe('#fetchProjectSubscriptions', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: tempNewAccountConfig,
     });
 
     await fetchPubSubTopics(context);
