@@ -153,9 +153,9 @@ function validateInvocationConfig(
   const { instance } = context;
   const { config } = instance;
 
-  if (!config.serviceAccountKeyFile) {
+  if (!config.serviceAccountKeyFile && !config.accessToken) {
     throw new IntegrationValidationError(
-      'Missing a required integration config value {serviceAccountKeyFile}',
+      'Missing a required integration config value {serviceAccountKeyFile} or {accessToken}',
     );
   }
 }
@@ -200,8 +200,6 @@ export default async function getStepStartStates(
       projectId: config.projectId,
       configureOrganizationProjects: config.configureOrganizationProjects,
       organizationId: config.organizationId,
-      serviceAccountKeyEmail: config.serviceAccountKeyConfig.client_email,
-      serviceAccountKeyProjectId: config.serviceAccountKeyConfig.project_id,
       folderId: config.folderId,
     },
     'Starting integration with config',
@@ -209,9 +207,7 @@ export default async function getStepStartStates(
 
   logger.publishEvent({
     name: 'integration_config',
-    description: `Starting Google Cloud integration with service account (email=${
-      config.serviceAccountKeyConfig.client_email
-    }, configureOrganizationProjects=${!!config.configureOrganizationProjects})`,
+    description: `Starting Google Cloud integration (project=${config.projectId}, configureOrganizationProjects=${!!config.configureOrganizationProjects})`,
   });
 
   const masterOrgInstance = isMasterOrganizationInstance(config);

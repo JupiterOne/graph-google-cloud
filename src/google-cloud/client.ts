@@ -1,6 +1,6 @@
 import { IntegrationConfig } from '../types';
 import { google } from 'googleapis';
-import { CredentialBody, BaseExternalAccountClient } from 'google-auth-library';
+import { CredentialBody, BaseExternalAccountClient, OAuth2Client, UserRefreshClient } from 'google-auth-library';
 import { GaxiosResponse } from 'gaxios';
 import {
   IntegrationProviderAuthorizationError,
@@ -54,11 +54,14 @@ export async function iterateApi<T>(
 }
 
 export class Client {
-  readonly projectId: string;
+  sourceProjectId: string;
+  readonly projectId?: string;
   readonly organizationId?: string;
   readonly folderId?: string;
 
-  private credentials: CredentialBody;
+  private serviceAccountKeyConfig?: CredentialBody;
+  private accessTokenConfig?: string;
+
   private auth: BaseExternalAccountClient;
   private readonly onRetry?: (err: any) => void;
 
@@ -66,25 +69,68 @@ export class Client {
     this.projectId =
       projectId ||
       config.projectId ||
-      config.serviceAccountKeyConfig.project_id;
+      config.serviceAccountKeyConfig?.project_id;
     this.organizationId = organizationId || config.organizationId;
-    this.credentials = {
-      client_email: config.serviceAccountKeyConfig.client_email,
-      private_key: config.serviceAccountKeyConfig.private_key,
-    };
+    if (config.serviceAccountKeyConfig) {
+      this.serviceAccountKeyConfig = {
+          client_email: config.serviceAccountKeyConfig.client_email,
+          private_key: config.serviceAccountKeyConfig.private_key,
+      };
+      this.sourceProjectId = config.serviceAccountKeyConfig.project_id;
+    } else if (config.accessToken) {
+     this.accessTokenConfig = config.accessToken;
+    } else {
+      throw new Error(`Invalid credentials`);
+    }
     this.folderId = config.folderId;
     this.onRetry = onRetry;
   }
 
   private async getClient(): Promise<BaseExternalAccountClient> {
-    const auth = new google.auth.GoogleAuth({
-      credentials: this.credentials,
-      scopes: ['https://www.googleapis.com/auth/cloud-platform'],
-    });
+    if (this.serviceAccountKeyConfig) {
+      const auth = new google.auth.GoogleAuth({
+        credentials: this.serviceAccountKeyConfig,
+        scopes: ['https://www.googleapis.com/auth/cloud-platform'],
+      });
 
-    const client = (await auth.getClient()) as BaseExternalAccountClient;
-    await client.getAccessToken();
-    return client;
+      const client = (await auth.getClient()) as BaseExternalAccountClient;
+      await client.getAccessToken();
+      return client;
+    } else if (this.accessTokenConfig) {
+      const oAuth2Client = new OAuth2Client();
+      const token = this.accessTokenConfig;
+      oAuth2Client.credentials = {
+        access_token: token,
+      }
+
+      /*
+       * Users of the google-cloud Client sometimes require knowledge of the
+       * project ID that the service account belongs to. For example, the service
+       * usage step uses this to avoid scanning excess services when they are not
+       * enabled in the main project. With a service account key, the project ID
+       * is embedded in the JSON itself. With an access token, we must interrogate
+       * Google Cloud APIs to determine the project ID. Specifically we call:
+       *  - oauth2.googleapis.com/tokeninfo
+       *  - iam.googleapis.com/v1/projects/-/serviceAccounts/{serviceAccount}
+       *  - cloudresourcemanager.googleapis.com/v1/projects/{projectId}
+      */
+      const tokenInfo = await oAuth2Client.getTokenInfo(token);
+      const iam = google.iam('v1');
+      const crm = google.cloudresourcemanager('v1');
+
+      const sa = await iam.projects.serviceAccounts.get({ access_token: token, name: `projects/-/serviceAccounts/${tokenInfo.azp}` });
+      const project = await crm.projects.get({ access_token: token, projectId: sa.data.projectId || undefined });
+      if (!project.data.projectNumber) {
+        throw new Error(
+          `Could not find project number for service account ${tokenInfo.email}`,
+        );
+      }
+      this.sourceProjectId = project.data.projectNumber;
+
+      return oAuth2Client as UserRefreshClient;
+    } else {
+      throw new Error(`Invalid credentials`);
+    }
   }
 
   async getAuthenticatedServiceClient(): Promise<BaseExternalAccountClient> {

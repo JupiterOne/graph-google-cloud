@@ -189,7 +189,7 @@ async function validateInvocationInvalidConfigTest({
     expect(err instanceof IntegrationValidationError).toBe(true);
     expect(err.message).toEqual(
       expectedErrorMessage ||
-        'Missing a required integration config value {serviceAccountKeyFile}',
+        'Missing a required integration config value {serviceAccountKeyFile} or {accessToken}',
     );
     failed = true;
   }
