@@ -5,7 +5,11 @@ import {
 import { integrationConfig } from '../../../test/config';
 import { setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
-import { fetchAuthorityCertificates, fetchCertificateAuthorities } from '.';
+import {
+  buildCertificateAuthorityBucketRelationships,
+  fetchAuthorityCertificates,
+  fetchCertificateAuthorities,
+} from '.';
 import { fetchStorageBuckets } from '../storage';
 import {
   ENTITY_TYPE_PRIVATE_CA_CERTIFICATE_AUTHORITY,
@@ -45,7 +49,6 @@ describe('#fetchCertificateAuthorities', () => {
       instanceConfig: tempNewAccountConfig,
     });
 
-    await fetchStorageBuckets(context);
     await fetchCertificateAuthorities(context);
 
     expect({
@@ -130,6 +133,39 @@ describe('#fetchCertificateAuthorities', () => {
         },
       },
     });
+  });
+});
+
+describe('#buildCertificateAuthorityBucketRelationships', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'buildCertificateAuthorityBucketRelationships',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: tempNewAccountConfig,
+    });
+
+    await fetchStorageBuckets(context);
+    await fetchCertificateAuthorities(context);
+    await buildCertificateAuthorityBucketRelationships(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
 
     expect(
       context.jobState.collectedRelationships.filter(

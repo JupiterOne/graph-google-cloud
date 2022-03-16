@@ -117,6 +117,7 @@ import {
   STEP_API_GATEWAY_GATEWAYS,
 } from './steps/api-gateway/constants';
 import {
+  STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS,
   STEP_PRIVATE_CA_CERTIFICATES,
   STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES,
 } from './steps/privateca/constants';
@@ -521,6 +522,8 @@ export default async function getStepStartStates(
     [STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES]: createStepStartState(
       ServiceUsageName.PRIVATE_CA,
     ),
+    [STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS]:
+      createStepStartState(ServiceUsageName.PRIVATE_CA),
     [STEP_PRIVATE_CA_CERTIFICATES]: createStepStartState(
       ServiceUsageName.PRIVATE_CA,
     ),
