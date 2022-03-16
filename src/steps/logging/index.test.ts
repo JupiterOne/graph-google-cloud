@@ -1,5 +1,5 @@
 import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-testing';
-import { fetchSinks, fetchMetrics } from '.';
+import { fetchSinks, fetchMetrics, buildSinkUsesBucketRelationships } from '.';
 import { fetchAlertPolicies } from '../monitoring';
 import {
   CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
@@ -115,6 +115,39 @@ describe('#fetchProjectSinks', () => {
         },
       },
     });
+  });
+});
+
+describe('#buildSinkUsesBucketRelationships', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'buildSinkUsesBucketRelationships',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: tempNewAccountConfig,
+    });
+
+    await fetchStorageBuckets(context);
+    await fetchSinks(context);
+    await buildSinkUsesBucketRelationships(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
 
     expect(
       context.jobState.collectedRelationships.filter(

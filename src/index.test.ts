@@ -90,6 +90,7 @@ import {
 } from './steps/dns/constants';
 import { STEP_CONTAINER_CLUSTERS } from './steps/containers';
 import {
+  STEP_CREATE_LOGGING_PROJECT_SINK_BUCKET_RELATIONSHIPS,
   STEP_LOGGING_METRICS,
   STEP_LOGGING_PROJECT_SINKS,
 } from './steps/logging/constants';
@@ -608,6 +609,9 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_LOGGING_PROJECT_SINKS]: {
+        disabled: false,
+      },
+      [STEP_CREATE_LOGGING_PROJECT_SINK_BUCKET_RELATIONSHIPS]: {
         disabled: false,
       },
       [STEP_MONITORING_ALERT_POLICIES]: {

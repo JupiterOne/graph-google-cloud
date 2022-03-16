@@ -1,5 +1,6 @@
 import {
   createDirectRelationship,
+  getRawData,
   IntegrationStep,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
@@ -18,6 +19,7 @@ import {
   STEP_LOGGING_PROJECT_SINKS,
   RELATIONSHIP_TYPE_PROJECT_SINK_USES_STORAGE_BUCKET,
   RELATIONSHIP_TYPE_METRIC_HAS_ALERT_POLICY,
+  STEP_CREATE_LOGGING_PROJECT_SINK_BUCKET_RELATIONSHIPS,
 } from './constants';
 import {
   createLoggingProjectSinkEntity,
@@ -28,6 +30,7 @@ import {
   MONITORING_ALERT_POLICY_TYPE,
   STEP_MONITORING_ALERT_POLICIES,
 } from '../monitoring/constants';
+import { logging_v2 } from 'googleapis';
 
 export async function fetchSinks(
   context: IntegrationStepContext,
@@ -45,25 +48,54 @@ export async function fetchSinks(
       client.projectId,
     );
     await jobState.addEntity(projectSinkEntity);
+  });
+}
 
-    // If the logging sink is using bucket for destination we want to create relationship with it
-    if (projectSink.destination?.includes('storage.googleapis.com')) {
-      const bucketName = projectSink.destination?.split('/')[1];
+export async function buildSinkUsesBucketRelationships(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, logger } = context;
+
+  await jobState.iterateEntities(
+    { _type: LOGGING_PROJECT_SINK_ENTITY_TYPE },
+    async (projectSinkEntity) => {
+      const instance = getRawData<logging_v2.Schema$LogSink>(projectSinkEntity);
+      if (!instance) {
+        logger.warn(
+          {
+            _key: projectSinkEntity._key,
+          },
+          'Could not find raw data on logging project sink entity',
+        );
+        return;
+      }
+
+      const destination = instance.destination;
+      if (!destination) {
+        return;
+      }
+
+      const bucketName = destination.split('/')[1];
+      if (!bucketName) {
+        return;
+      }
+
       const bucketEntity = await jobState.findEntity(
         getCloudStorageBucketKey(bucketName),
       );
-
-      if (bucketEntity) {
-        await jobState.addRelationship(
-          createDirectRelationship({
-            _class: RelationshipClass.USES,
-            from: projectSinkEntity,
-            to: bucketEntity,
-          }),
-        );
+      if (!bucketEntity) {
+        return;
       }
-    }
-  });
+
+      await jobState.addRelationship(
+        createDirectRelationship({
+          _class: RelationshipClass.USES,
+          from: projectSinkEntity,
+          to: bucketEntity,
+        }),
+      );
+    },
+  );
 }
 
 export async function fetchMetrics(
@@ -117,6 +149,14 @@ export const loggingSteps: IntegrationStep<IntegrationConfig>[] = [
         _class: LOGGING_PROJECT_SINK_ENTITY_CLASS,
       },
     ],
+    relationships: [],
+    dependsOn: [],
+    executionHandler: fetchSinks,
+  },
+  {
+    id: STEP_CREATE_LOGGING_PROJECT_SINK_BUCKET_RELATIONSHIPS,
+    name: 'Build Logging Project Sink Bucket Relationships',
+    entities: [],
     relationships: [
       {
         _class: RelationshipClass.USES,
@@ -125,8 +165,8 @@ export const loggingSteps: IntegrationStep<IntegrationConfig>[] = [
         targetType: CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
       },
     ],
-    dependsOn: [STEP_CLOUD_STORAGE_BUCKETS],
-    executionHandler: fetchSinks,
+    dependsOn: [STEP_LOGGING_PROJECT_SINKS, STEP_CLOUD_STORAGE_BUCKETS],
+    executionHandler: buildSinkUsesBucketRelationships,
   },
   {
     id: STEP_LOGGING_METRICS,

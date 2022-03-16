@@ -77,6 +77,7 @@ import {
 } from './steps/dns/constants';
 import { STEP_CONTAINER_CLUSTERS } from './steps/containers';
 import {
+  STEP_CREATE_LOGGING_PROJECT_SINK_BUCKET_RELATIONSHIPS,
   STEP_LOGGING_METRICS,
   STEP_LOGGING_PROJECT_SINKS,
 } from './steps/logging/constants';
@@ -469,6 +470,8 @@ export default async function getStepStartStates(
     [STEP_LOGGING_PROJECT_SINKS]: createStepStartState(
       ServiceUsageName.LOGGING,
     ),
+    [STEP_CREATE_LOGGING_PROJECT_SINK_BUCKET_RELATIONSHIPS]:
+      createStepStartState(ServiceUsageName.LOGGING),
     [STEP_LOGGING_METRICS]: createStepStartState(ServiceUsageName.LOGGING),
     [STEP_MONITORING_ALERT_POLICIES]: createStepStartState(
       ServiceUsageName.MONITORING,
