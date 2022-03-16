@@ -103,6 +103,7 @@ import {
   STEP_APP_ENGINE_INSTANCES,
   STEP_APP_ENGINE_SERVICES,
   STEP_APP_ENGINE_VERSIONS,
+  STEP_CREATE_APP_ENGINE_BUCKET_RELATIONSHIPS,
 } from './steps/app-engine/constants';
 import {
   STEP_CLOUD_RUN_CONFIGURATIONS,
@@ -616,6 +617,9 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_APP_ENGINE_APPLICATION]: {
+        disabled: false,
+      },
+      [STEP_CREATE_APP_ENGINE_BUCKET_RELATIONSHIPS]: {
         disabled: false,
       },
       [STEP_APP_ENGINE_SERVICES]: {

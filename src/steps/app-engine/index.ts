@@ -2,6 +2,7 @@ import {
   createDirectRelationship,
   createMappedRelationship,
   Entity,
+  getRawData,
   IntegrationLogger,
   IntegrationStep,
   RelationshipClass,
@@ -30,6 +31,7 @@ import {
   RELATIONSHIP_TYPE_APP_ENGINE_APPLICATION_USES_BUCKET,
   RELATIONSHIP_TYPE_GOOGLE_USER_CREATED_VERSION,
   RELATIONSHIP_TYPE_SERVICE_ACCOUNT_CREATED_VERSION,
+  STEP_CREATE_APP_ENGINE_BUCKET_RELATIONSHIPS,
 } from './constants';
 import {
   createAppEngineApplicationEntity,
@@ -140,37 +142,65 @@ export async function fetchAppEngineApplication(
       applicationEntity,
     );
     await jobState.addEntity(applicationEntity);
-
-    if (application.defaultBucket) {
-      const defaultBucketEntity = await jobState.findEntity(
-        getCloudStorageBucketKey(application.defaultBucket),
-      );
-      if (defaultBucketEntity) {
-        await jobState.addRelationship(
-          createDirectRelationship({
-            _class: RelationshipClass.USES,
-            from: applicationEntity,
-            to: defaultBucketEntity,
-          }),
-        );
-      }
-    }
-
-    if (application.codeBucket) {
-      const codeBucketEntity = await jobState.findEntity(
-        getCloudStorageBucketKey(application.codeBucket),
-      );
-      if (codeBucketEntity) {
-        await jobState.addRelationship(
-          createDirectRelationship({
-            _class: RelationshipClass.USES,
-            from: applicationEntity,
-            to: codeBucketEntity,
-          }),
-        );
-      }
-    }
   }
+}
+
+export async function buildAppEngineApplicationUsesBucketRelationships(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, logger } = context;
+
+  await jobState.iterateEntities(
+    { _type: ENTITY_TYPE_APP_ENGINE_APPLICATION },
+    async (appEngineApplicationEntity) => {
+      const instance = getRawData<appengine_v1.Schema$Application>(
+        appEngineApplicationEntity,
+      );
+      if (!instance) {
+        logger.warn(
+          {
+            _key: appEngineApplicationEntity._key,
+          },
+          'Could not find raw data on app engine application instance entity',
+        );
+        return;
+      }
+
+      const defaultBucket = instance.defaultBucket;
+      if (defaultBucket) {
+        const defaultBucketEntity = await jobState.findEntity(
+          getCloudStorageBucketKey(defaultBucket),
+        );
+
+        if (defaultBucketEntity) {
+          await jobState.addRelationship(
+            createDirectRelationship({
+              _class: RelationshipClass.USES,
+              from: appEngineApplicationEntity,
+              to: defaultBucketEntity,
+            }),
+          );
+        }
+      }
+
+      const defaultCodeBucket = instance.codeBucket;
+      if (defaultCodeBucket) {
+        const defaultCodeBucketEntity = await jobState.findEntity(
+          getCloudStorageBucketKey(defaultCodeBucket),
+        );
+
+        if (defaultCodeBucketEntity) {
+          await jobState.addRelationship(
+            createDirectRelationship({
+              _class: RelationshipClass.USES,
+              from: appEngineApplicationEntity,
+              to: defaultCodeBucketEntity,
+            }),
+          );
+        }
+      }
+    },
+  );
 }
 
 export async function fetchAppEngineServices(
@@ -356,6 +386,14 @@ export const appEngineSteps: IntegrationStep<IntegrationConfig>[] = [
         _class: ENTITY_CLASS_APP_ENGINE_APPLICATION,
       },
     ],
+    relationships: [],
+    dependsOn: [],
+    executionHandler: fetchAppEngineApplication,
+  },
+  {
+    id: STEP_CREATE_APP_ENGINE_BUCKET_RELATIONSHIPS,
+    name: 'Build AppEngine Application Bucket Relationships',
+    entities: [],
     relationships: [
       {
         _class: RelationshipClass.USES,
@@ -364,8 +402,8 @@ export const appEngineSteps: IntegrationStep<IntegrationConfig>[] = [
         targetType: CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
       },
     ],
-    dependsOn: [STEP_CLOUD_STORAGE_BUCKETS],
-    executionHandler: fetchAppEngineApplication,
+    dependsOn: [STEP_APP_ENGINE_APPLICATION, STEP_CLOUD_STORAGE_BUCKETS],
+    executionHandler: buildAppEngineApplicationUsesBucketRelationships,
   },
   {
     id: STEP_APP_ENGINE_SERVICES,

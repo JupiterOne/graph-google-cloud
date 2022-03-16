@@ -1,5 +1,6 @@
 import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-testing';
 import {
+  buildAppEngineApplicationUsesBucketRelationships,
   fetchAppEngineApplication,
   fetchAppEngineServices,
   fetchAppEngineServiceVersions,
@@ -52,7 +53,6 @@ describe('#fetchAppEngineApplication', () => {
       instanceConfig: tempNewAccountConfig,
     });
 
-    await fetchStorageBuckets(context);
     await fetchAppEngineApplication(context);
 
     expect({
@@ -92,6 +92,39 @@ describe('#fetchAppEngineApplication', () => {
         },
       },
     });
+  });
+});
+
+describe('#buildAppEngineApplicationUsesBucketRelationships', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'buildAppEngineApplicationUsesBucketRelationships',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: tempNewAccountConfig,
+    });
+
+    await fetchStorageBuckets(context);
+    await fetchAppEngineApplication(context);
+    await buildAppEngineApplicationUsesBucketRelationships(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
 
     expect(
       context.jobState.collectedRelationships.filter(
