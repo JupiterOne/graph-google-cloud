@@ -73,6 +73,7 @@ import {
   STEP_COMPUTE_TARGET_HTTPS_PROXIES,
   STEP_COMPUTE_TARGET_HTTP_PROXIES,
   STEP_COMPUTE_TARGET_SSL_PROXIES,
+  STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS,
 } from './steps/compute';
 import { STEP_CLOUD_KMS_KEYS, STEP_CLOUD_KMS_KEY_RINGS } from './steps/kms';
 import {
@@ -542,6 +543,9 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_COMPUTE_BACKEND_BUCKETS]: {
+        disabled: false,
+      },
+      [STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS]: {
         disabled: false,
       },
       [STEP_COMPUTE_TARGET_SSL_PROXIES]: {

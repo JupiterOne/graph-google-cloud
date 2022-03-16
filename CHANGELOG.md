@@ -34,6 +34,10 @@ and this project adheres to
   allows the App Engine Applications step to execute successfully even if
   storage steps are disabled.
 
+- Decoupled `fetch-compute-backend-buckets` step from storage dependencies. This
+  allows the Compute Backend Buckets step to execute successfully even if
+  storage steps are disabled.
+
 ## 2.9.0 - 2022-03-09
 
 ### Added
