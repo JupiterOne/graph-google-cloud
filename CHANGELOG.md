@@ -38,6 +38,10 @@ and this project adheres to
   allows the Compute Backend Buckets step to execute successfully even if
   storage steps are disabled.
 
+- Decoupled `fetch-private-ca-certificate-authorities` step from storage
+  dependencies. This allows the CA Certificate Authorities step to execute
+  successfully even if storage steps are disabled.
+
 ## 2.9.0 - 2022-03-09
 
 ### Added

@@ -130,6 +130,7 @@ import {
   STEP_API_GATEWAY_GATEWAYS,
 } from './steps/api-gateway/constants';
 import {
+  STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS,
   STEP_PRIVATE_CA_CERTIFICATES,
   STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES,
 } from './steps/privateca/constants';
@@ -675,6 +676,9 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES]: {
+        disabled: false,
+      },
+      [STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS]: {
         disabled: false,
       },
       [STEP_PRIVATE_CA_CERTIFICATES]: {
