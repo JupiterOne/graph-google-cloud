@@ -96,7 +96,10 @@ import {
   STEP_CLOUD_RUN_SERVICES,
 } from './steps/cloud-run/constants';
 import { STEP_REDIS_INSTANCES } from './steps/redis/constants';
-import { STEP_MEMCACHE_INSTANCES } from './steps/memcache/constants';
+import {
+  STEP_CREATE_MEMCACHE_INSTANCE_NETWORK_RELATIONSHIPS,
+  STEP_MEMCACHE_INSTANCES,
+} from './steps/memcache/constants';
 import {
   STEP_SPANNER_INSTANCES,
   STEP_SPANNER_INSTANCE_CONFIGS,
@@ -480,6 +483,9 @@ export default async function getStepStartStates(
     ),
     [STEP_REDIS_INSTANCES]: createStepStartState(ServiceUsageName.REDIS),
     [STEP_MEMCACHE_INSTANCES]: createStepStartState(ServiceUsageName.MEMCACHE),
+    [STEP_CREATE_MEMCACHE_INSTANCE_NETWORK_RELATIONSHIPS]: createStepStartState(
+      ServiceUsageName.MEMCACHE,
+    ),
     [STEP_SPANNER_INSTANCES]: createStepStartState(ServiceUsageName.SPANNER),
     [STEP_SPANNER_INSTANCE_CONFIGS]: createStepStartState(
       ServiceUsageName.SPANNER,
