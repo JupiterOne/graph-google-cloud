@@ -81,6 +81,7 @@ import {
 import { STEP_MONITORING_ALERT_POLICIES } from './steps/monitoring/constants';
 import { STEP_BINARY_AUTHORIZATION_POLICY } from './steps/binary-authorization/constants';
 import {
+  STEP_CREATE_PUBSUB_TOPIC_KMS_RELATIONSHIPS,
   STEP_PUBSUB_SUBSCRIPTIONS,
   STEP_PUBSUB_TOPICS,
 } from './steps/pub-sub/constants';
@@ -464,6 +465,9 @@ export default async function getStepStartStates(
       ServiceUsageName.BINARY_AUTHORIZATION,
     ),
     [STEP_PUBSUB_TOPICS]: createStepStartState(ServiceUsageName.PUB_SUB),
+    [STEP_CREATE_PUBSUB_TOPIC_KMS_RELATIONSHIPS]: createStepStartState(
+      ServiceUsageName.PUB_SUB,
+    ),
     [STEP_PUBSUB_SUBSCRIPTIONS]: createStepStartState(ServiceUsageName.PUB_SUB),
     [STEP_APP_ENGINE_APPLICATION]: createStepStartState(
       ServiceUsageName.APP_ENGINE,

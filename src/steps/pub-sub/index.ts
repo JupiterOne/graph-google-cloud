@@ -1,6 +1,7 @@
 import {
   createDirectRelationship,
   createMappedRelationship,
+  getRawData,
   IntegrationStep,
   RelationshipClass,
   RelationshipDirection,
@@ -18,6 +19,7 @@ import {
   RELATIONSHIP_TYPE_PUBSUB_SUBSCRIPTION_USES_TOPIC,
   ENTITY_CLASS_PUBSUB_SUBSCRIPTION,
   ENTITY_TYPE_PUBSUB_SUBSCRIPTION,
+  STEP_CREATE_PUBSUB_TOPIC_KMS_RELATIONSHIPS,
 } from './constants';
 import {
   createPubSubSubscriptionEntity,
@@ -59,17 +61,41 @@ export async function fetchPubSubTopics(
       isPublic: isTopicPolicyPublicAccess(topicPolicy),
     });
     await jobState.addEntity(projectTopicEntity);
+  });
+}
 
-    if (projectTopic.kmsKeyName) {
-      const kmsKey = getKmsGraphObjectKeyFromKmsKeyName(
-        projectTopic.kmsKeyName,
-      );
+export async function buildPubSubTopicKMSRelationships(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, logger } = context;
+
+  await jobState.iterateEntities(
+    { _type: ENTITY_TYPE_PUBSUB_TOPIC },
+    async (topicEntity) => {
+      const instance = getRawData<pubsub_v1.Schema$Topic>(topicEntity);
+      if (!instance) {
+        logger.warn(
+          {
+            _key: topicEntity._key,
+          },
+          'Could not find raw data on pubsub topic entity',
+        );
+        return;
+      }
+
+      const kmsKeyName = instance.kmsKeyName;
+      if (!kmsKeyName) {
+        return;
+      }
+
+      const kmsKey = getKmsGraphObjectKeyFromKmsKeyName(kmsKeyName);
       const kmsKeyEntity = await jobState.findEntity(kmsKey);
+
       if (kmsKeyEntity) {
         await jobState.addRelationship(
           createDirectRelationship({
             _class: RelationshipClass.USES,
-            from: projectTopicEntity,
+            from: topicEntity,
             to: kmsKeyEntity,
           }),
         );
@@ -80,7 +106,7 @@ export async function fetchPubSubTopics(
             _type: RELATIONSHIP_TYPE_PUBSUB_TOPIC_USES_KMS_KEY,
             _mapping: {
               relationshipDirection: RelationshipDirection.FORWARD,
-              sourceEntityKey: projectTopicEntity._key,
+              sourceEntityKey: topicEntity._key,
               targetFilterKeys: [['_type', '_key']],
               skipTargetCreation: true,
               targetEntity: {
@@ -91,8 +117,8 @@ export async function fetchPubSubTopics(
           }),
         );
       }
-    }
-  });
+    },
+  );
 }
 
 export async function fetchPubSubSubscriptions(
@@ -147,6 +173,14 @@ export const pubSubSteps: IntegrationStep<IntegrationConfig>[] = [
         _class: ENTITY_CLASS_PUBSUB_TOPIC,
       },
     ],
+    relationships: [],
+    dependsOn: [],
+    executionHandler: fetchPubSubTopics,
+  },
+  {
+    id: STEP_CREATE_PUBSUB_TOPIC_KMS_RELATIONSHIPS,
+    name: 'Build PubSub Topic KMS Relationships',
+    entities: [],
     relationships: [
       {
         _class: RelationshipClass.USES,
@@ -155,8 +189,8 @@ export const pubSubSteps: IntegrationStep<IntegrationConfig>[] = [
         targetType: ENTITY_TYPE_KMS_KEY,
       },
     ],
-    dependsOn: [STEP_CLOUD_KMS_KEYS],
-    executionHandler: fetchPubSubTopics,
+    dependsOn: [STEP_PUBSUB_TOPICS, STEP_CLOUD_KMS_KEYS],
+    executionHandler: buildPubSubTopicKMSRelationships,
   },
   {
     id: STEP_PUBSUB_SUBSCRIPTIONS,

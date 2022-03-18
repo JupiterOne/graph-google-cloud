@@ -22,6 +22,10 @@ and this project adheres to
   allows the Compute Dataproc Clusters step to execute successfully even if kms
   keys steps are disabled.
 
+- Decoupled `fetch-pubsub-topics' step from kms keys dependencies. This allows
+  the PubSub Topics step to execute successfully even if kms keys steps are
+  disabled.
+
 ## 2.9.0 - 2022-03-09
 
 ### Added

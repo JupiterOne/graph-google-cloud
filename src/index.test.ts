@@ -94,6 +94,7 @@ import {
 import { STEP_MONITORING_ALERT_POLICIES } from './steps/monitoring/constants';
 import { STEP_BINARY_AUTHORIZATION_POLICY } from './steps/binary-authorization/constants';
 import {
+  STEP_CREATE_PUBSUB_TOPIC_KMS_RELATIONSHIPS,
   STEP_PUBSUB_SUBSCRIPTIONS,
   STEP_PUBSUB_TOPICS,
 } from './steps/pub-sub/constants';
@@ -603,6 +604,9 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_PUBSUB_TOPICS]: {
+        disabled: false,
+      },
+      [STEP_CREATE_PUBSUB_TOPIC_KMS_RELATIONSHIPS]: {
         disabled: false,
       },
       [STEP_PUBSUB_SUBSCRIPTIONS]: {

@@ -1,4 +1,6 @@
 export const STEP_PUBSUB_TOPICS = 'fetch-pubsub-topics';
+export const STEP_CREATE_PUBSUB_TOPIC_KMS_RELATIONSHIPS =
+  'build-pubsub-topic-kms-relationships';
 export const STEP_PUBSUB_SUBSCRIPTIONS = 'fetch-pubsub-subscriptions';
 
 export const ENTITY_TYPE_PUBSUB_TOPIC = 'google_pubsub_topic';
