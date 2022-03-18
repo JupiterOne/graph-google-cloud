@@ -1,5 +1,6 @@
 import {
   createDirectRelationship,
+  getRawData,
   IntegrationStep,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
@@ -11,9 +12,11 @@ import {
   ENTITY_TYPE_REDIS_INSTANCE,
   STEP_REDIS_INSTANCES,
   RELATIONSHIP_TYPE_REDIS_INSTANCE_USES_NETWORK,
+  STEP_CREATE_REDIS_INSTANCE_NETWORK_RELATIONSHIPS,
 } from './constants';
 import { ENTITY_TYPE_COMPUTE_NETWORK } from '../compute/constants';
 import { createRedisInstanceEntity } from './converter';
+import { redis_v1 } from 'googleapis';
 
 export async function fetchRedisInstances(
   context: IntegrationStepContext,
@@ -28,20 +31,51 @@ export async function fetchRedisInstances(
   await client.iterateRedisInstances(async (instance) => {
     const redisEntity = createRedisInstanceEntity(instance, client.projectId);
     await jobState.addEntity(redisEntity);
+  });
+}
 
-    const networkEntity = await jobState.findEntity(
-      `https://www.googleapis.com/compute/v1/${instance.authorizedNetwork}`,
-    );
-    if (networkEntity) {
+export async function buildRedisInstanceUsesNetworkRelationships(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, logger } = context;
+
+  await jobState.iterateEntities(
+    { _type: ENTITY_TYPE_REDIS_INSTANCE },
+    async (redisInstanceEntity) => {
+      const instance =
+        getRawData<redis_v1.Schema$Instance>(redisInstanceEntity);
+
+      if (!instance) {
+        logger.warn(
+          {
+            _key: redisInstanceEntity._key,
+          },
+          'Could not find raw data on redis instance entity',
+        );
+        return;
+      }
+
+      const authorizedNetwork = instance.authorizedNetwork;
+      if (!authorizedNetwork) {
+        return;
+      }
+
+      const authorizedNetworkEntity = await jobState.findEntity(
+        `https://www.googleapis.com/compute/v1/${authorizedNetwork}`,
+      );
+      if (!authorizedNetworkEntity) {
+        return;
+      }
+
       await jobState.addRelationship(
         createDirectRelationship({
           _class: RelationshipClass.USES,
-          from: redisEntity,
-          to: networkEntity,
+          from: redisInstanceEntity,
+          to: authorizedNetworkEntity,
         }),
       );
-    }
-  });
+    },
+  );
 }
 
 export const redisSteps: IntegrationStep<IntegrationConfig>[] = [
@@ -55,6 +89,14 @@ export const redisSteps: IntegrationStep<IntegrationConfig>[] = [
         _class: ENTITY_CLASS_REDIS_INSTANCE,
       },
     ],
+    relationships: [],
+    dependsOn: [],
+    executionHandler: fetchRedisInstances,
+  },
+  {
+    id: STEP_CREATE_REDIS_INSTANCE_NETWORK_RELATIONSHIPS,
+    name: 'Build Redis Instance Network Relationships',
+    entities: [],
     relationships: [
       {
         _class: RelationshipClass.USES,
@@ -63,7 +105,7 @@ export const redisSteps: IntegrationStep<IntegrationConfig>[] = [
         targetType: ENTITY_TYPE_COMPUTE_NETWORK,
       },
     ],
-    dependsOn: [STEP_COMPUTE_NETWORKS],
-    executionHandler: fetchRedisInstances,
+    dependsOn: [STEP_REDIS_INSTANCES, STEP_COMPUTE_NETWORKS],
+    executionHandler: buildRedisInstanceUsesNetworkRelationships,
   },
 ];

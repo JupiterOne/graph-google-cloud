@@ -1,5 +1,8 @@
 import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-testing';
-import { fetchRedisInstances } from '.';
+import {
+  buildRedisInstanceUsesNetworkRelationships,
+  fetchRedisInstances,
+} from '.';
 import { integrationConfig } from '../../../test/config';
 import { Recording, setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
@@ -8,6 +11,18 @@ import {
   ENTITY_TYPE_REDIS_INSTANCE,
   RELATIONSHIP_TYPE_REDIS_INSTANCE_USES_NETWORK,
 } from './constants';
+
+const tempNewAccountConfig = {
+  ...integrationConfig,
+  serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+    'j1-gc-integration-dev-v2',
+    'j1-gc-integration-dev-v3',
+  ),
+  serviceAccountKeyConfig: {
+    ...integrationConfig.serviceAccountKeyConfig,
+    project_id: 'j1-gc-integration-dev-v3',
+  },
+};
 
 describe('#fetchRedisInstances', () => {
   let recording: Recording;
@@ -25,10 +40,9 @@ describe('#fetchRedisInstances', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: tempNewAccountConfig,
     });
 
-    await fetchComputeNetworks(context);
     await fetchRedisInstances(context);
 
     expect({
@@ -76,6 +90,52 @@ describe('#fetchRedisInstances', () => {
         },
       },
     });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === RELATIONSHIP_TYPE_REDIS_INSTANCE_USES_NETWORK,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'USES' },
+          _type: { const: 'google_redis_instance_uses_compute_network' },
+        },
+      },
+    });
+  });
+});
+
+describe('#buildRedisInstanceUsesNetworkRelationships', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'buildRedisInstanceUsesNetworkRelationships',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: tempNewAccountConfig,
+    });
+
+    await fetchComputeNetworks(context);
+    await fetchRedisInstances(context);
+    await buildRedisInstanceUsesNetworkRelationships(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
 
     expect(
       context.jobState.collectedRelationships.filter(
