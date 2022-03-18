@@ -2254,7 +2254,7 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
         targetType: ENTITY_TYPE_COMPUTE_IMAGE,
       },
     ],
-    dependsOn: [],
+    dependsOn: [STEP_COMPUTE_SNAPSHOTS],
     executionHandler: fetchComputeImages,
   },
   {
