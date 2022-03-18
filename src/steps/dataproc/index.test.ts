@@ -9,6 +9,7 @@ import {
   createClusterStorageRelationships,
   createClusterImageRelationships,
   fetchDataprocClusters,
+  buildDataprocClusterUsesKmsRelationships,
 } from '.';
 import {
   ENTITY_TYPE_DATAPROC_CLUSTER,
@@ -16,16 +17,13 @@ import {
   RELATIONSHIP_TYPE_DATAPROC_CLUSTER_USES_KMS_CRYPTO_KEY,
   RELATIONSHIP_TYPE_DATAPROC_CLUSTER_USES_STORAGE_BUCKET,
 } from './constants';
-import {
-  ENTITY_TYPE_KMS_KEY,
-  fetchKmsCryptoKeys,
-  fetchKmsKeyRings,
-} from '../kms';
+import { fetchKmsCryptoKeys, fetchKmsKeyRings } from '../kms';
 import {
   CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
   fetchStorageBuckets,
 } from '../storage';
 import { ENTITY_TYPE_COMPUTE_IMAGE, fetchComputeImages } from '../compute';
+import { separateDirectMappedRelationships } from '../../../test/helpers/separateDirectMappedRelationships';
 
 describe('#fetchDataprocClusters', () => {
   let recording: Recording;
@@ -56,8 +54,6 @@ describe('#fetchDataprocClusters', () => {
       },
     });
 
-    await fetchKmsKeyRings(context);
-    await fetchKmsCryptoKeys(context);
     await fetchDataprocClusters(context);
 
     expect({
@@ -121,56 +117,85 @@ describe('#fetchDataprocClusters', () => {
         },
       },
     });
+  });
+});
 
-    expect(
-      context.jobState.collectedEntities.filter(
-        (e) => e._type === ENTITY_TYPE_KMS_KEY,
-      ),
-    ).toMatchGraphObjectSchema({
-      _class: ['Key', 'CryptoKey'],
-      schema: {
-        additionalProperties: false,
-        properties: {
-          _type: { const: 'google_kms_crypto_key' },
-          _rawData: {
-            type: 'array',
-            items: { type: 'object' },
-          },
-          projectId: { type: 'string' },
-          location: { type: 'string' },
-          shortName: { type: 'string' },
-          purpose: { type: 'string' },
-          keyUsage: { type: 'string' },
-          nextRotationTime: { type: 'number' },
-          rotationPeriod: { type: 'number' },
-          protectionLevel: { type: 'string' },
-          algorithm: { type: 'string' },
-          public: { type: 'boolean' },
-          primaryName: { type: 'string' },
-          primaryState: { type: 'string' },
-          primaryCreateTime: { type: 'number' },
-          primaryProtectionLevel: { type: 'string' },
-          primaryAlgorithm: { type: 'string' },
-          primaryGenerateTime: { type: 'number' },
+describe('#buildDataprocClusterUsesKmsRelationships', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'buildDataprocClusterUsesKmsRelationships',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: {
+        ...integrationConfig,
+        serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+          'j1-gc-integration-dev-v2',
+          'j1-gc-integration-dev-v3',
+        ),
+        serviceAccountKeyConfig: {
+          ...integrationConfig.serviceAccountKeyConfig,
+          project_id: 'j1-gc-integration-dev-v3',
         },
       },
     });
 
-    expect(
-      context.jobState.collectedRelationships.filter(
-        (e) =>
-          e._type === RELATIONSHIP_TYPE_DATAPROC_CLUSTER_USES_KMS_CRYPTO_KEY,
+    await fetchKmsKeyRings(context);
+    await fetchKmsCryptoKeys(context);
+    await fetchDataprocClusters(context);
+    await buildDataprocClusterUsesKmsRelationships(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
+
+    const { directRelationships, mappedRelationships } =
+      separateDirectMappedRelationships(
+        context.jobState.collectedRelationships,
+      );
+
+    const clusterUsesKMSDirectRelationships = directRelationships.filter(
+      (r) => r._type === RELATIONSHIP_TYPE_DATAPROC_CLUSTER_USES_KMS_CRYPTO_KEY,
+    );
+    expect(clusterUsesKMSDirectRelationships.length).toBeGreaterThan(0);
+    expect(clusterUsesKMSDirectRelationships).toEqual(
+      clusterUsesKMSDirectRelationships.map((r) =>
+        expect.objectContaining({
+          _class: 'USES',
+        }),
       ),
-    ).toMatchDirectRelationshipSchema({
-      schema: {
-        properties: {
-          _class: { const: 'USES' },
-          _type: {
-            const: 'google_dataproc_cluster_uses_kms_crypto_key',
-          },
-        },
-      },
-    });
+    );
+
+    const clusterUsesKMSMappedRelationships = mappedRelationships.filter(
+      (r) => r._type === RELATIONSHIP_TYPE_DATAPROC_CLUSTER_USES_KMS_CRYPTO_KEY,
+    );
+    expect(clusterUsesKMSMappedRelationships.length).toBeGreaterThan(0);
+    expect(
+      clusterUsesKMSMappedRelationships
+        .filter(
+          (e) =>
+            e._mapping.sourceEntityKey ===
+            'projects/j1-gc-integration-dev-v3/regions/us-central1/clusters/cluster-5697',
+        )
+        .every(
+          (mappedRelationship) =>
+            mappedRelationship._key ===
+            'projects/j1-gc-integration-dev-v3/regions/us-central1/clusters/cluster-5697|uses|projects/jupiterone-databricks-test/locations/us-central1/keyRings/test-key-ring/cryptoKeys/foreign-key',
+        ),
+    ).toBe(true);
   });
 });
 

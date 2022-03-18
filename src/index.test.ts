@@ -145,6 +145,7 @@ import {
   STEP_CREATE_CLUSTER_STORAGE_RELATIONSHIPS,
   STEP_CREATE_CLUSTER_IMAGE_RELATIONSHIPS,
   STEP_DATAPROC_CLUSTERS,
+  STEP_DATAPROC_CLUSTER_KMS_RELATIONSHIPS,
 } from './steps/dataproc/constants';
 import {
   STEP_BIG_TABLE_APP_PROFILES,
@@ -680,6 +681,9 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_DATAPROC_CLUSTERS]: {
+        disabled: false,
+      },
+      [STEP_DATAPROC_CLUSTER_KMS_RELATIONSHIPS]: {
         disabled: false,
       },
       [STEP_CREATE_CLUSTER_STORAGE_RELATIONSHIPS]: {
