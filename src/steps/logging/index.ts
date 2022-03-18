@@ -75,6 +75,10 @@ export async function buildSinkUsesBucketRelationships(
         return;
       }
 
+      if (!destination.includes('storage.googleapis.com')) {
+        return;
+      }
+
       const bucketName = destination.split('/')[1];
       if (!bucketName) {
         return;
