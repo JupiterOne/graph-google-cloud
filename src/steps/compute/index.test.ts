@@ -36,6 +36,7 @@ import {
   buildDiskImageRelationships,
   buildDiskUsesKmsRelationships,
   buildComputeBackendBucketHasBucketRelationships,
+  buildImageUsesKmsRelationships,
 } from '.';
 import {
   CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
@@ -105,11 +106,7 @@ import {
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
 import { fetchIamServiceAccounts } from '../iam';
-import {
-  ENTITY_TYPE_KMS_KEY,
-  fetchKmsCryptoKeys,
-  fetchKmsKeyRings,
-} from '../kms';
+import { fetchKmsCryptoKeys, fetchKmsKeyRings } from '../kms';
 import { filterGraphObjects } from '../../../test/helpers/filterGraphObjects';
 import { separateDirectMappedRelationships } from '../../../test/helpers/separateDirectMappedRelationships';
 
@@ -431,8 +428,6 @@ describe('#fetchComputeImages', () => {
       },
     });
 
-    await fetchKmsKeyRings(context);
-    await fetchKmsCryptoKeys(context);
     await fetchComputeImages(context);
 
     expect({
@@ -442,40 +437,6 @@ describe('#fetchComputeImages', () => {
       collectedRelationships: context.jobState.collectedRelationships,
       encounteredTypes: context.jobState.encounteredTypes,
     }).toMatchSnapshot();
-
-    expect(
-      context.jobState.collectedEntities.filter(
-        (e) => e._type === ENTITY_TYPE_KMS_KEY,
-      ),
-    ).toMatchGraphObjectSchema({
-      _class: ['Key', 'CryptoKey'],
-      schema: {
-        additionalProperties: false,
-        properties: {
-          _type: { const: 'google_kms_crypto_key' },
-          _rawData: {
-            type: 'array',
-            items: { type: 'object' },
-          },
-          projectId: { type: 'string' },
-          location: { type: 'string' },
-          shortName: { type: 'string' },
-          purpose: { type: 'string' },
-          keyUsage: { type: 'string' },
-          nextRotationTime: { type: 'number' },
-          rotationPeriod: { type: 'number' },
-          protectionLevel: { type: 'string' },
-          algorithm: { type: 'string' },
-          public: { type: 'boolean' },
-          primaryName: { type: 'string' },
-          primaryState: { type: 'string' },
-          primaryCreateTime: { type: 'number' },
-          primaryProtectionLevel: { type: 'string' },
-          primaryAlgorithm: { type: 'string' },
-          primaryGenerateTime: { type: 'number' },
-        },
-      },
-    });
 
     expect(
       context.jobState.collectedEntities.filter(
@@ -534,6 +495,50 @@ describe('#fetchComputeImages', () => {
         },
       },
     });
+  });
+});
+
+describe('#buildImageUsesKmsRelationships', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'buildImageUsesKmsRelationships',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: {
+        ...integrationConfig,
+        serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+          'j1-gc-integration-dev-v2',
+          'j1-gc-integration-dev-v3',
+        ),
+        serviceAccountKeyConfig: {
+          ...integrationConfig.serviceAccountKeyConfig,
+          project_id: 'j1-gc-integration-dev-v3',
+        },
+      },
+    });
+
+    await fetchKmsKeyRings(context);
+    await fetchKmsCryptoKeys(context);
+    await fetchComputeImages(context);
+    await buildImageUsesKmsRelationships(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
 
     const { directRelationships, mappedRelationships } =
       separateDirectMappedRelationships(
@@ -543,7 +548,7 @@ describe('#fetchComputeImages', () => {
     const computeImageUsesCryptoKeyRelationship = directRelationships.filter(
       (r) => r._type === 'google_compute_image_uses_kms_crypto_key',
     );
-
+    expect(computeImageUsesCryptoKeyRelationship.length).toBeGreaterThan(0);
     expect(computeImageUsesCryptoKeyRelationship).toEqual(
       computeImageUsesCryptoKeyRelationship.map((r) =>
         expect.objectContaining({
@@ -555,18 +560,19 @@ describe('#fetchComputeImages', () => {
     const mappedKmsRelationships = mappedRelationships.filter(
       (r) => r._type === 'google_compute_image_uses_kms_crypto_key',
     );
-
     expect(mappedKmsRelationships.length).toBeGreaterThan(0);
 
     expect(
       mappedKmsRelationships
         .filter(
-          (e) => e._mapping.sourceEntityKey === 'image:3010540488777795565',
+          (e) =>
+            e._mapping.sourceEntityKey ===
+            'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/images/mapped-kms-image-example',
         )
         .every(
           (mappedRelationship) =>
             mappedRelationship._key ===
-            'image:3010540488777795565|uses|projects/vmware-account/locations/global/keyRings/test-key-ring/cryptoKeys/foreign-key',
+            'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/images/mapped-kms-image-example|uses|projects/jupiterone-databricks-test/locations/global/keyRings/test-key-ring/cryptoKeys/foreign-key',
         ),
     ).toBe(true);
   });

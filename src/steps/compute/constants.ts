@@ -14,6 +14,8 @@ export const STEP_COMPUTE_SNAPSHOT_DISK_RELATIONSHIPS =
 export const STEP_COMPUTE_IMAGES = 'fetch-compute-images';
 export const STEP_COMPUTE_IMAGE_IMAGE_RELATIONSHIPS =
   'build-image-image-relationships';
+export const STEP_COMPUTE_IMAGE_KMS_RELATIONSHIPS =
+  'build-compute-image-kms-relationships';
 export const STEP_COMPUTE_NETWORKS = 'fetch-compute-networks';
 export const STEP_COMPUTE_NETWORK_PEERING_RELATIONSHIPS =
   'fetch-compute-networks-peering-relationships';

@@ -52,6 +52,7 @@ import {
   STEP_COMPUTE_HEALTH_CHECKS,
   STEP_COMPUTE_IMAGES,
   STEP_COMPUTE_IMAGE_IMAGE_RELATIONSHIPS,
+  STEP_COMPUTE_IMAGE_KMS_RELATIONSHIPS,
   STEP_COMPUTE_INSTANCES,
   STEP_COMPUTE_INSTANCE_GROUPS,
   STEP_COMPUTE_INSTANCE_SERVICE_ACCOUNT_RELATIONSHIPS,
@@ -484,6 +485,9 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_COMPUTE_IMAGES]: {
+        disabled: false,
+      },
+      [STEP_COMPUTE_IMAGE_KMS_RELATIONSHIPS]: {
         disabled: false,
       },
       [STEP_COMPUTE_NETWORKS]: {
