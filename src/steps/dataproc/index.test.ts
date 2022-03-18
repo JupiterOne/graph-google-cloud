@@ -245,7 +245,7 @@ describe('#createClusterImageRelationships', () => {
         (e) => e._type === ENTITY_TYPE_COMPUTE_IMAGE,
       ),
     ).toMatchGraphObjectSchema({
-      _class: 'Image',
+      _class: ['Image'],
       schema: {
         additionalProperties: false,
         properties: {

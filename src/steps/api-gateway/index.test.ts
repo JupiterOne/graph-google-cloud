@@ -54,7 +54,7 @@ describe('#fetchApiGatewayApis', () => {
         (e) => e._type === ENTITY_TYPE_API_GATEWAY_API,
       ),
     ).toMatchGraphObjectSchema({
-      _class: 'Service',
+      _class: ['Service'],
       schema: {
         additionalProperties: false,
         properties: {
@@ -117,7 +117,7 @@ describe('#fetchApiGatewayApiConfigs', () => {
         (e) => e._type === ENTITY_TYPE_API_GATEWAY_API,
       ),
     ).toMatchGraphObjectSchema({
-      _class: 'Service',
+      _class: ['Service'],
       schema: {
         additionalProperties: false,
         properties: {
@@ -147,7 +147,7 @@ describe('#fetchApiGatewayApiConfigs', () => {
         (e) => e._type === ENTITY_TYPE_API_GATEWAY_API_CONFIG,
       ),
     ).toMatchGraphObjectSchema({
-      _class: 'Configuration',
+      _class: ['Configuration'],
       schema: {
         additionalProperties: false,
         properties: {
@@ -235,7 +235,7 @@ describe('#fetchApiGatewayGateways', () => {
         (e) => e._type === ENTITY_TYPE_API_GATEWAY_API,
       ),
     ).toMatchGraphObjectSchema({
-      _class: 'Service',
+      _class: ['Service'],
       schema: {
         additionalProperties: false,
         properties: {
@@ -265,7 +265,7 @@ describe('#fetchApiGatewayGateways', () => {
         (e) => e._type === ENTITY_TYPE_API_GATEWAY_GATEWAY,
       ),
     ).toMatchGraphObjectSchema({
-      _class: 'Gateway',
+      _class: ['Gateway'],
       schema: {
         additionalProperties: false,
         properties: {
