@@ -1,4 +1,6 @@
 export const STEP_APP_ENGINE_APPLICATION = 'fetch-app-engine-application';
+export const STEP_CREATE_APP_ENGINE_BUCKET_RELATIONSHIPS =
+  'build-app-engine-application-bucket-relationships';
 export const STEP_APP_ENGINE_SERVICES = 'fetch-app-engine-services';
 export const STEP_APP_ENGINE_VERSIONS = 'fetch-app-engine-versions';
 export const STEP_APP_ENGINE_INSTANCES = 'fetch-app-engine-instances';

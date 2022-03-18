@@ -30,6 +30,10 @@ and this project adheres to
   allows the Redis Instances step to execute successfully even if compute
   network steps are disabled.
 
+- Decoupled `fetch-app-engine-application` step from storage dependencies. This
+  allows the App Engine Applications step to execute successfully even if
+  storage steps are disabled.
+
 ## 2.9.0 - 2022-03-09
 
 ### Added

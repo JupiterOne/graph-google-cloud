@@ -90,6 +90,7 @@ import {
   STEP_APP_ENGINE_INSTANCES,
   STEP_APP_ENGINE_SERVICES,
   STEP_APP_ENGINE_VERSIONS,
+  STEP_CREATE_APP_ENGINE_BUCKET_RELATIONSHIPS,
 } from './steps/app-engine/constants';
 import {
   STEP_CLOUD_RUN_CONFIGURATIONS,
@@ -473,6 +474,9 @@ export default async function getStepStartStates(
     ),
     [STEP_PUBSUB_SUBSCRIPTIONS]: createStepStartState(ServiceUsageName.PUB_SUB),
     [STEP_APP_ENGINE_APPLICATION]: createStepStartState(
+      ServiceUsageName.APP_ENGINE,
+    ),
+    [STEP_CREATE_APP_ENGINE_BUCKET_RELATIONSHIPS]: createOrgStepStartState(
       ServiceUsageName.APP_ENGINE,
     ),
     [STEP_APP_ENGINE_SERVICES]: createStepStartState(
