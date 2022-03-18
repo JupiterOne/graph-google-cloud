@@ -1,4 +1,6 @@
 export const STEP_LOGGING_PROJECT_SINKS = 'fetch-logging-project-sinks';
+export const STEP_CREATE_LOGGING_PROJECT_SINK_BUCKET_RELATIONSHIPS =
+  'build-logging-project-sink-bucket-relationships';
 export const STEP_LOGGING_METRICS = 'fetch-logging-metrics';
 
 export const LOGGING_PROJECT_SINK_ENTITY_TYPE = 'google_logging_project_sink';

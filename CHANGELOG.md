@@ -46,6 +46,10 @@ and this project adheres to
   the Compute Images step to execute successfully even if kms keys steps are
   disabled.
 
+- Decoupled `fetch-logging-project-sinks` step from storage dependencies. This
+  allows the Logging Project Sinks step to execute successfully even if storage
+  steps are disabled.
+
 ## 2.9.0 - 2022-03-09
 
 ### Added
