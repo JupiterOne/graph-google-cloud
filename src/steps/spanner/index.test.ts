@@ -55,7 +55,7 @@ describe('#fetchSpannerInstanceConfigs', () => {
         (e) => e._type === ENTITY_TYPE_SPANNER_INSTANCE_CONFIG,
       ),
     ).toMatchGraphObjectSchema({
-      _class: 'Configuration',
+      _class: ['Configuration'],
       schema: {
         additionalProperties: false,
         properties: {
@@ -107,7 +107,7 @@ describe('#fetchSpannerInstances', () => {
         (e) => e._type === ENTITY_TYPE_SPANNER_INSTANCE_CONFIG,
       ),
     ).toMatchGraphObjectSchema({
-      _class: 'Configuration',
+      _class: ['Configuration'],
       schema: {
         additionalProperties: false,
         properties: {
@@ -232,7 +232,7 @@ describe('#fetchSpannerInstanceDatabases', () => {
         (e) => e._type === ENTITY_TYPE_SPANNER_INSTANCE_DATABASE,
       ),
     ).toMatchGraphObjectSchema({
-      _class: 'Database',
+      _class: ['Database'],
       schema: {
         additionalProperties: false,
         properties: {

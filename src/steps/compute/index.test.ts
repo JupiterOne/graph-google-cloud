@@ -443,7 +443,7 @@ describe('#fetchComputeImages', () => {
         (e) => e._type === ENTITY_TYPE_COMPUTE_IMAGE,
       ),
     ).toMatchGraphObjectSchema({
-      _class: 'Image',
+      _class: ['Image'],
       schema: {
         additionalProperties: false,
         properties: {
@@ -616,7 +616,7 @@ describe('#fetchComputeAddresses', () => {
         (e) => e._type === ENTITY_TYPE_COMPUTE_ADDRESS,
       ),
     ).toMatchGraphObjectSchema({
-      _class: 'IpAddress',
+      _class: ['IpAddress'],
       schema: {
         additionalProperties: false,
         properties: {
@@ -736,7 +736,7 @@ describe('#fetchComputeGlobalAddresses', () => {
         (e) => e._type === ENTITY_TYPE_COMPUTE_GLOBAL_ADDRESS,
       ),
     ).toMatchGraphObjectSchema({
-      _class: 'IpAddress',
+      _class: ['IpAddress'],
       schema: {
         additionalProperties: false,
         properties: {
