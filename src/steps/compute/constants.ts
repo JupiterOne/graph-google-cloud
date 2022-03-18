@@ -38,6 +38,8 @@ export const STEP_COMPUTE_BACKEND_SERVICES = 'fetch-compute-backend-services';
 export const STEP_COMPUTE_REGION_BACKEND_SERVICES =
   'fetch-compute-region_backend-services';
 export const STEP_COMPUTE_BACKEND_BUCKETS = 'fetch-compute-backend-buckets';
+export const STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS =
+  'build-compute-backend-bucket-bucket-relationships';
 export const STEP_COMPUTE_TARGET_SSL_PROXIES =
   'fetch-compute-target-ssl-proxies';
 export const STEP_COMPUTE_TARGET_HTTPS_PROXIES =

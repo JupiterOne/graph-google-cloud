@@ -60,6 +60,7 @@ import {
   STEP_COMPUTE_GLOBAL_ADDRESSES,
   STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS,
   STEP_COMPUTE_DISK_KMS_RELATIONSHIPS,
+  STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS,
 } from './steps/compute';
 import { STEP_CLOUD_KMS_KEYS, STEP_CLOUD_KMS_KEY_RINGS } from './steps/kms';
 import {
@@ -426,6 +427,8 @@ export default async function getStepStartStates(
     [STEP_COMPUTE_BACKEND_BUCKETS]: createStepStartState(
       ServiceUsageName.COMPUTE,
     ),
+    [STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS]:
+      createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_TARGET_SSL_PROXIES]: createStepStartState(
       ServiceUsageName.COMPUTE,
     ),

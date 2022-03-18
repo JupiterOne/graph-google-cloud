@@ -35,6 +35,7 @@ import {
   fetchComputeGlobalAddresses,
   buildDiskImageRelationships,
   buildDiskUsesKmsRelationships,
+  buildComputeBackendBucketHasBucketRelationships,
 } from '.';
 import {
   CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
@@ -1481,7 +1482,6 @@ describe('#fetchComputeBackendBuckets', () => {
       instanceConfig: tempNewAccountConfig,
     });
 
-    await fetchStorageBuckets(context);
     await fetchComputeBackendBuckets(context);
 
     expect({
@@ -1555,6 +1555,39 @@ describe('#fetchComputeBackendBuckets', () => {
         },
       },
     });
+  });
+});
+
+describe('#buildComputeBackendBucketHasBucketRelationships', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'buildComputeBackendBucketHasBucketRelationships',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: tempNewAccountConfig,
+    });
+
+    await fetchStorageBuckets(context);
+    await fetchComputeBackendBuckets(context);
+    await buildComputeBackendBucketHasBucketRelationships(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
 
     expect(
       context.jobState.collectedRelationships.filter(

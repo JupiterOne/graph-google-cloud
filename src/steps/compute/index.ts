@@ -165,6 +165,7 @@ import {
   RELATIONSHIP_TYPE_COMPUTE_FORWARDING_RULE_CONNECTS_TARGET_HTTPS_PROXY,
   STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS,
   STEP_COMPUTE_DISK_KMS_RELATIONSHIPS,
+  STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS,
 } from './constants';
 import { compute_v1 } from 'googleapis';
 import { INTERNET, RelationshipClass } from '@jupiterone/data-model';
@@ -1627,20 +1628,50 @@ export async function fetchComputeBackendBuckets(
   await client.iterateBackendBuckets(async (backendBucket) => {
     const backendBucketEntity = createBackendBucketEntity(backendBucket);
     await jobState.addEntity(backendBucketEntity);
+  });
+}
 
-    const storageBucketEntity = await jobState.findEntity(
-      getCloudStorageBucketKey(backendBucket.bucketName as string),
-    );
-    if (storageBucketEntity) {
+export async function buildComputeBackendBucketHasBucketRelationships(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState, logger } = context;
+
+  await jobState.iterateEntities(
+    { _type: ENTITY_TYPE_COMPUTE_BACKEND_BUCKET },
+    async (backendBucketEntity) => {
+      const instance =
+        getRawData<compute_v1.Schema$BackendBucket>(backendBucketEntity);
+      if (!instance) {
+        logger.warn(
+          {
+            _key: backendBucketEntity._key,
+          },
+          'Could not find raw data on backend bucket instance entity',
+        );
+        return;
+      }
+
+      const bucketName = instance.bucketName;
+      if (!bucketName) {
+        return;
+      }
+
+      const bucketEntity = await jobState.findEntity(
+        getCloudStorageBucketKey(bucketName),
+      );
+      if (!bucketEntity) {
+        return;
+      }
+
       await jobState.addRelationship(
         createDirectRelationship({
           _class: RelationshipClass.HAS,
           from: backendBucketEntity,
-          to: storageBucketEntity,
+          to: bucketEntity,
         }),
       );
-    }
-  });
+    },
+  );
 }
 
 export async function fetchComputeTargetSslProxies(
@@ -2501,6 +2532,14 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
         _class: ENTITY_CLASS_COMPUTE_BACKEND_BUCKET,
       },
     ],
+    relationships: [],
+    dependsOn: [],
+    executionHandler: fetchComputeBackendBuckets,
+  },
+  {
+    id: STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS,
+    name: 'Build Compute Backend Bucket Bucket Relationships',
+    entities: [],
     relationships: [
       {
         _class: RelationshipClass.HAS,
@@ -2509,8 +2548,8 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
         targetType: CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
       },
     ],
-    dependsOn: [STEP_CLOUD_STORAGE_BUCKETS],
-    executionHandler: fetchComputeBackendBuckets,
+    dependsOn: [STEP_COMPUTE_BACKEND_BUCKETS, STEP_CLOUD_STORAGE_BUCKETS],
+    executionHandler: buildComputeBackendBucketHasBucketRelationships,
   },
   {
     id: STEP_COMPUTE_TARGET_SSL_PROXIES,
