@@ -12,6 +12,10 @@ and this project adheres to
 
 - Bumped `@jupiterone/integration-sdk-*@8.6.3`
 
+### Fixed
+
+- Started retrying 500 errors
+
 ## 2.9.1 - 2022-03-18
 
 ### Fixed
