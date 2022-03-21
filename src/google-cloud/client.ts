@@ -172,7 +172,7 @@ function handleApiClientError(error: any) {
     error.message.match(/billing/i)
   ) {
     err = new IntegrationProviderAuthorizationError(errorProps);
-  } else if (code === 429) {
+  } else if (code === 429 || code >= 500) {
     err = new IntegrationProviderAPIError(errorProps);
     (err as any).retryable = true;
   } else {
