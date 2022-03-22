@@ -2,7 +2,7 @@ import { google, sqladmin_v1beta4 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
 
 export class SQLAdminClient extends Client {
-  private client = google.sqladmin('v1beta4');
+  private client = google.sqladmin({ version: 'v1beta4', retry: false });
 
   async iterateCloudSQLInstances(
     callback: (data: sqladmin_v1beta4.Schema$DatabaseInstance) => Promise<void>,

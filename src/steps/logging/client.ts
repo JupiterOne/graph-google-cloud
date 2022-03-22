@@ -2,7 +2,7 @@ import { google, logging_v2 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
 
 export class LoggingClient extends Client {
-  private client = google.logging('v2');
+  private client = google.logging({ version: 'v2', retry: false });
 
   async iterateProjectSinks(
     callback: (data: logging_v2.Schema$LogSink) => Promise<void>,

@@ -2,7 +2,7 @@ import { bigtableadmin_v2, google } from 'googleapis';
 import { Client } from '../../google-cloud/client';
 
 export class BigTableClient extends Client {
-  private client = google.bigtableadmin('v2');
+  private client = google.bigtableadmin({ version: 'v2', retry: false });
 
   async iterateInstances(
     callback: (data: bigtableadmin_v2.Schema$Instance) => Promise<void>,

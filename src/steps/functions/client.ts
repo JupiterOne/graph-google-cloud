@@ -12,7 +12,7 @@ export function createCloudFunctionClientMapper(
 }
 
 export class CloudFunctionsClient extends Client {
-  private client = google.cloudfunctions('v1');
+  private client = google.cloudfunctions({ version: 'v1', retry: false });
 
   async iterateCloudFunctions(
     callback: (data: cloudfunctions_v1.Schema$CloudFunction) => Promise<void>,

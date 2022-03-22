@@ -11,7 +11,7 @@ function shouldSkipProject(projectId: string) {
 }
 
 export class ResourceManagerClient extends Client {
-  private client = google.cloudresourcemanager('v3');
+  private client = google.cloudresourcemanager({ version: 'v3', retry: false });
 
   async getProject() {
     const auth = await this.getAuthenticatedServiceClient();

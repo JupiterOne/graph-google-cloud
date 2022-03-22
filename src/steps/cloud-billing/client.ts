@@ -2,7 +2,7 @@ import { google, cloudbilling_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
 
 export class CloudBillingClient extends Client {
-  private client = google.cloudbilling('v1');
+  private client = google.cloudbilling({ version: 'v1', retry: false });
 
   async iterateBillingAccounts(
     callback: (data: cloudbilling_v1.Schema$BillingAccount) => Promise<void>,

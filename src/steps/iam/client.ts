@@ -6,7 +6,7 @@ function isManagedRole(data: iam_v1.Schema$Role): boolean {
 }
 
 export class IamClient extends Client {
-  private client = google.iam('v1');
+  private client = google.iam({ version: 'v1', retry: false });
 
   async iterateCustomRoles(
     callback: (data: iam_v1.Schema$Role) => Promise<void>,

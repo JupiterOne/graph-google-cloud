@@ -2,7 +2,7 @@ import { google, redis_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
 
 export class RedisClient extends Client {
-  private client = google.redis('v1');
+  private client = google.redis({ version: 'v1', retry: false });
 
   async iterateRedisInstances(
     callback: (data: redis_v1.Schema$Instance) => Promise<void>,

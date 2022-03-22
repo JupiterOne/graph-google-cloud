@@ -2,7 +2,7 @@ import { google, memcache_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
 
 export class MemcacheClient extends Client {
-  private client = google.memcache('v1');
+  private client = google.memcache({ version: 'v1', retry: false });
 
   async iterateMemcachedInstances(
     callback: (data: memcache_v1.Schema$Instance) => Promise<void>,

@@ -2,7 +2,7 @@ import { google, cloudkms_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
 
 export class CloudKmsClient extends Client {
-  private client = google.cloudkms('v1');
+  private client = google.cloudkms({ version: 'v1', retry: false });
 
   async iterateProjectLocations(
     callback: (data: cloudkms_v1.Schema$Location) => Promise<void>,

@@ -2,7 +2,7 @@ import { Client } from '../../google-cloud/client';
 import { appengine_v1, google } from 'googleapis';
 
 export class AppEngineClient extends Client {
-  private client = google.appengine('v1');
+  private client = google.appengine({ version: 'v1', retry: false });
 
   async getAppEngineApplication() {
     const auth = await this.getAuthenticatedServiceClient();

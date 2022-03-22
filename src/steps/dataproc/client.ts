@@ -3,7 +3,7 @@ import { Client } from '../../google-cloud/client';
 import { googleCloudRegions } from '../../google-cloud/regions';
 
 export class DataProcClient extends Client {
-  private client = google.dataproc('v1');
+  private client = google.dataproc({ version: 'v1', retry: false });
 
   async iterateClusters(
     callback: (data: dataproc_v1.Schema$Cluster) => Promise<void>,

@@ -2,7 +2,7 @@ import { Client } from '../../google-cloud/client';
 import { google, pubsub_v1 } from 'googleapis';
 
 export class PubSubClient extends Client {
-  private client = google.pubsub('v1');
+  private client = google.pubsub({ version: 'v1', retry: false });
 
   async getPolicy(topicPath: string): Promise<pubsub_v1.Schema$Policy> {
     const auth = await this.getAuthenticatedServiceClient();

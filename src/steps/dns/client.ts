@@ -2,7 +2,7 @@ import { google, dns_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
 
 export class DNSClient extends Client {
-  private client = google.dns('v1');
+  private client = google.dns({ version: 'v1', retry: false });
 
   async iterateDNSManagedZones(
     callback: (data: dns_v1.Schema$ManagedZone) => Promise<void>,

@@ -2,7 +2,7 @@ import { Client } from '../../google-cloud/client';
 import { google, run_v1 } from 'googleapis';
 
 export class CloudRunClient extends Client {
-  private client = google.run('v1');
+  private client = google.run({ version: 'v1', retry: false });
 
   async iterateCloudRunServices(
     callback: (data: run_v1.Schema$Service) => Promise<void>,

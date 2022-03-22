@@ -24,7 +24,7 @@ export type BigQueryTable = {
 };
 
 export class BigQueryClient extends Client {
-  private client = google.bigquery('v2');
+  private client = google.bigquery({ version: 'v2', retry: false });
 
   async iterateBigQueryTables(
     datasetId: string,
