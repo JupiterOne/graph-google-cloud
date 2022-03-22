@@ -8,6 +8,8 @@ and this project adheres to
 
 ## Unreleased
 
+## 2.9.4 - 2022-03-22
+
 ### Changed
 
 - Update retry `maxAttempts: 6` in `withErrorHandling`, increasing the total
