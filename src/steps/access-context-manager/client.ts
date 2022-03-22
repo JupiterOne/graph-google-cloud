@@ -2,7 +2,7 @@ import { accesscontextmanager_v1, google } from 'googleapis';
 import { Client } from '../../google-cloud/client';
 
 export class AccessContextManagerClient extends Client {
-  private client = google.accesscontextmanager('v1');
+  private client = google.accesscontextmanager({ version: 'v1', retry: false });
 
   async iterateAccessPolicies(
     callback: (

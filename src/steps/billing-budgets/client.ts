@@ -2,7 +2,7 @@ import { google, billingbudgets_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
 
 export class BillingBudgetClient extends Client {
-  private client = google.billingbudgets('v1');
+  private client = google.billingbudgets({ version: 'v1', retry: false });
 
   async iterateBudgets(
     billingAccountId: string,

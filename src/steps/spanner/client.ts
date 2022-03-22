@@ -2,7 +2,7 @@ import { google, spanner_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
 
 export class SpannerClient extends Client {
-  private client = google.spanner('v1');
+  private client = google.spanner({ version: 'v1', retry: false });
 
   async getInstancePolicy(
     instanceId: string,

@@ -2,7 +2,7 @@ import { google, cloudasset_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
 
 export class CloudAssetClient extends Client {
-  private client = google.cloudasset('v1');
+  private client = google.cloudasset({ version: 'v1', retry: false });
 
   async iterateIamPoliciesForProjectAndResources(
     callback: (

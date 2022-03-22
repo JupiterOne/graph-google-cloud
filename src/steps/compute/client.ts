@@ -8,7 +8,7 @@ import {
 import { BaseExternalAccountClient } from 'google-auth-library';
 
 export class ComputeClient extends Client {
-  private client = google.compute('v1');
+  private client = google.compute({ version: 'v1', retry: false });
 
   private async iterateComputeApi<T>(
     fn: (params: {

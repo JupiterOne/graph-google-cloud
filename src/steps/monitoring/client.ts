@@ -2,7 +2,7 @@ import { google, monitoring_v3 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
 
 export class MonitoringClient extends Client {
-  private client = google.monitoring('v3');
+  private client = google.monitoring({ version: 'v3', retry: false });
 
   async iterateAlertPolicies(
     callback: (data: monitoring_v3.Schema$AlertPolicy) => Promise<void>,

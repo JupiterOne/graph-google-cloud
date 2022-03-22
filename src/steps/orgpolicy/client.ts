@@ -2,7 +2,7 @@ import { google } from 'googleapis';
 import { Client } from '../../google-cloud/client';
 
 export class OrgPolicyClient extends Client {
-  private client = google.orgpolicy('v2');
+  private client = google.orgpolicy({ version: 'v2', retry: false });
 
   async fetchOrganizationPublicAccessPreventionPolicy(): Promise<
     boolean | undefined

@@ -2,7 +2,7 @@ import { google, privateca_v1beta1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
 
 export class PrivateCaClient extends Client {
-  private client = google.privateca('v1beta1');
+  private client = google.privateca({ version: 'v1beta1', retry: false });
 
   async getAuthorityPolicy(
     authorityId: string,

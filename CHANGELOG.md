@@ -8,6 +8,10 @@ and this project adheres to
 
 ## Unreleased
 
+### Changed
+
+- Set `retry: false` on all clients, reducing retried API calls by a factor of 4
+
 ## 2.9.2 - 2022-03-21
 
 ### Changed

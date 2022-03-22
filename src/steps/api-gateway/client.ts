@@ -2,7 +2,7 @@ import { apigateway_v1, google } from 'googleapis';
 import { Client } from '../../google-cloud/client';
 
 export class ApiGatewayClient extends Client {
-  private client = google.apigateway('v1');
+  private client = google.apigateway({ version: 'v1', retry: false });
 
   async getApiPolicy(
     apiId: string,

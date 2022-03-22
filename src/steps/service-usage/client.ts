@@ -4,7 +4,7 @@ import { google, serviceusage_v1 } from 'googleapis';
 import { IntegrationConfig } from '../..';
 
 export class ServiceUsageClient extends Client {
-  private client = google.serviceusage('v1');
+  private client = google.serviceusage({ version: 'v1', retry: false });
 
   async iterateServices(
     callback: (

@@ -12,7 +12,7 @@ export function createStorageBucketClientMapper(
 }
 
 export class CloudStorageClient extends Client {
-  private client = google.storage('v1');
+  private client = google.storage({ version: 'v1', retry: false });
 
   async iterateCloudStorageBuckets(
     callback: (data: storage_v1.Schema$Bucket) => Promise<void>,
