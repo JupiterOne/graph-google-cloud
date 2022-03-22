@@ -11,6 +11,8 @@ and this project adheres to
 ### Changed
 
 - Set `retry: false` on all clients, reducing retried API calls by a factor of 4
+- Update retry `maxAttempts: 5` in `withErrorHandling`, reducing retried API
+  calls by a factor of 2
 
 ## 2.9.2 - 2022-03-21
 

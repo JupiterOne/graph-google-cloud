@@ -119,10 +119,10 @@ export function withErrorHandling<T extends (...params: any) => any>(
         return await fn(...params);
       },
       {
-        delay: 1000,
-        timeout: 60_000, // Need to set a timeout, otherwise we might wait for a response indefinitly.
-        maxAttempts: 10,
-        factor: 1.5,
+        delay: 2_000,
+        timeout: 60_000, // Need to set a timeout, otherwise we might wait for a response indefinitely.
+        maxAttempts: 5,
+        factor: 2.25, // 2s, 4.5s, 10.125s, 22.78125s, 51.2578125 (90.6640652s)
         handleError(err, ctx) {
           const newError = handleApiClientError(err);
 
