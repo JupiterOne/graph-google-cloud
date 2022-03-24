@@ -47,8 +47,8 @@ import { ParsedIamMember, parseIamMember } from '../../utils/iam';
 import { RelationshipClass } from '@jupiterone/data-model';
 import { cacheProjectNameAndId } from '../../utils/jobState';
 import {
-  API_SERVICE_ENTITY_TYPE,
-  STEP_API_SERVICES,
+  ServiceUsageEntities,
+  ServiceUsageStepIds,
 } from '../service-usage/constants';
 import { getServiceApiEntityKey } from '../service-usage/converters';
 import { buildIamTargetRelationship } from '../cloud-asset';
@@ -282,7 +282,7 @@ export async function fetchIamPolicyAuditConfig(
     if (auditConfig.service === 'allServices') {
       await jobState.iterateEntities(
         {
-          _type: API_SERVICE_ENTITY_TYPE,
+          _type: ServiceUsageEntities.API_SERVICE._type,
         },
         async (serviceEntity) => {
           if (serviceEntity.isAuditable) {
@@ -441,7 +441,7 @@ export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
       {
         _class: RelationshipClass.USES,
         _type: SERVICE_USES_AUDIT_CONFIG_RELATIONSHIP_TYPE,
-        sourceType: API_SERVICE_ENTITY_TYPE,
+        sourceType: ServiceUsageEntities.API_SERVICE._type,
         targetType: AUDIT_CONFIG_ENTITY_TYPE,
       },
       {
@@ -470,6 +470,9 @@ export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
       },
     ],
     executionHandler: fetchIamPolicyAuditConfig,
-    dependsOn: [STEP_API_SERVICES, STEP_IAM_SERVICE_ACCOUNTS],
+    dependsOn: [
+      ServiceUsageStepIds.FETCH_API_SERVICES,
+      STEP_IAM_SERVICE_ACCOUNTS,
+    ],
   },
 ];

@@ -73,7 +73,7 @@ import {
   FOLDER_ENTITY_TYPE,
   PROJECT_ENTITY_TYPE,
 } from '../../steps/resource-manager/constants';
-import { API_SERVICE_ENTITY_TYPE } from '../../steps/service-usage';
+import { ServiceUsageEntities } from '../../steps/service-usage/constants';
 import {
   ENTITY_TYPE_SPANNER_INSTANCE,
   ENTITY_TYPE_SPANNER_INSTANCE_DATABASE,
@@ -205,7 +205,7 @@ export const GOOGLE_RESOURCE_KIND_TO_J1_TYPE_MAP: {
   'extensions.k8s.io/Ingress': NONE,
   'networking.k8s.io/Ingress': NONE,
   'networking.k8s.io/Networkpolicy': NONE,
-  'serviceusage.googleapis.com/Service': API_SERVICE_ENTITY_TYPE,
+  'serviceusage.googleapis.com/Service': ServiceUsageEntities.API_SERVICE._type,
   'datafusion.googleapis.com/Instance': NONE,
   'logging.googleapis.com/LogBucket': NONE,
   'logging.googleapis.com/LogSink': LOGGING_PROJECT_SINK_ENTITY_TYPE,

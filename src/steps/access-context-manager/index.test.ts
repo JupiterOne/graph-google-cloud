@@ -24,7 +24,8 @@ import {
   fetchResourceManagerProject,
   PROJECT_ENTITY_TYPE,
 } from '../resource-manager';
-import { API_SERVICE_ENTITY_TYPE, fetchApiServices } from '../service-usage';
+import { fetchApiServices } from '../service-usage';
+import { ServiceUsageEntities } from '../service-usage/constants';
 import {
   ENTITY_TYPE_ACCESS_CONTEXT_MANAGER_ACCESS_LEVEL,
   ENTITY_TYPE_ACCESS_CONTEXT_MANAGER_ACCESS_POLICY,
@@ -218,7 +219,8 @@ describe('#fetchAccessContextManagerServicePerimeters', () => {
       restAfterProtectsProjects,
       (r) =>
         r._class === 'LIMITS' &&
-        r._mapping.targetEntity._type === API_SERVICE_ENTITY_TYPE,
+        r._mapping.targetEntity._type ===
+          ServiceUsageEntities.API_SERVICE._type,
     );
 
     return {
@@ -529,7 +531,7 @@ describe('#fetchAccessContextManagerServicePerimeters', () => {
 
     const serviceEntities = context.jobState.collectedEntities.filter(
       (e) =>
-        e._type === API_SERVICE_ENTITY_TYPE &&
+        e._type === ServiceUsageEntities.API_SERVICE._type &&
         e._key ===
           'projects/j1-gc-integration-dev-v3/services/storage.googleapis.com',
     );

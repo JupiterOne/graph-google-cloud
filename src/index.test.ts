@@ -24,7 +24,7 @@ import {
   STEP_CLOUD_FUNCTIONS_SERVICE_ACCOUNT_RELATIONSHIPS,
 } from './steps/functions';
 import { STEP_CLOUD_STORAGE_BUCKETS } from './steps/storage';
-import { STEP_API_SERVICES } from './steps/service-usage';
+import { ServiceUsageStepIds } from './steps/service-usage/constants';
 import { parseServiceAccountKeyFile } from './utils/parseServiceAccountKeyFile';
 import {
   STEP_IAM_CUSTOM_ROLES,
@@ -440,7 +440,7 @@ describe('#getStepStartStates success', () => {
       [STEP_RESOURCE_MANAGER_PROJECT]: {
         disabled: false,
       },
-      [STEP_API_SERVICES]: {
+      [ServiceUsageStepIds.FETCH_API_SERVICES]: {
         disabled: false,
       },
       [STEP_CLOUD_FUNCTIONS]: {

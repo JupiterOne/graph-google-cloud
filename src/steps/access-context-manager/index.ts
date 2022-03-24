@@ -51,7 +51,7 @@ import {
   createServicePerimeterIngressPolicyEntity,
 } from './converters';
 import { getProjectIdFromName } from '../../utils/jobState';
-import { API_SERVICE_ENTITY_TYPE } from '../service-usage';
+import { ServiceUsageEntities } from '../service-usage/constants';
 import { accesscontextmanager_v1 } from 'googleapis';
 
 export async function fetchAccessPolicies(
@@ -314,7 +314,7 @@ async function buildServicePerimeterLimitsServices({
               targetFilterKeys: [['_type', '_key']],
               skipTargetCreation: true,
               targetEntity: {
-                _type: API_SERVICE_ENTITY_TYPE,
+                _type: ServiceUsageEntities.API_SERVICE._type,
                 _key: `projects/${projectId}/services/${service}`,
               },
             },
@@ -475,7 +475,7 @@ export const accessPoliciesSteps: IntegrationStep<IntegrationConfig>[] = [
         _class: RelationshipClass.LIMITS,
         _type: RELATIONSHIP_TYPE_SERVICE_PERIMETER_LIMITS_API_SERVICES,
         sourceType: ENTITY_TYPE_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETER,
-        targetType: API_SERVICE_ENTITY_TYPE,
+        targetType: ServiceUsageEntities.API_SERVICE._type,
       },
       {
         _class: RelationshipClass.HAS,

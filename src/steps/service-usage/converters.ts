@@ -1,6 +1,6 @@
 import { serviceusage_v1 } from 'googleapis';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
-import { API_SERVICE_ENTITY_CLASS, API_SERVICE_ENTITY_TYPE } from './constants';
+import { ServiceUsageEntities } from './constants';
 
 export function getServiceApiEntityKey({
   projectId,
@@ -36,8 +36,8 @@ export function createApiServiceEntity({
     entityData: {
       source: data,
       assign: {
-        _class: API_SERVICE_ENTITY_CLASS,
-        _type: API_SERVICE_ENTITY_TYPE,
+        _class: ServiceUsageEntities.API_SERVICE._class,
+        _type: ServiceUsageEntities.API_SERVICE._type,
         _key: getServiceApiEntityKey({
           projectId,
           serviceApiName: config.name as string,
