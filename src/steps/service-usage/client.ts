@@ -23,6 +23,7 @@ export class ServiceUsageClient extends Client {
         return this.client.services.list({
           parent: `projects/${this.projectId}`,
           auth,
+          pageSize: 200,
           pageToken: nextPageToken,
           ...paramOverrides,
         });

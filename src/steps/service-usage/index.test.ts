@@ -25,7 +25,7 @@ describe('#fetchApiServices', () => {
 
   test('should collect data', async () => {
     const projectEntity = {
-      _key: integrationConfig.serviceAccountKeyConfig.project_id,
+      _key: 'j1-gc-integration-dev-v3',
       _type: PROJECT_ENTITY_TYPE,
       _class: PROJECT_ENTITY_CLASS,
     };
@@ -83,5 +83,5 @@ describe('#fetchApiServices', () => {
         },
       },
     });
-  });
+  }, 30_000);
 });

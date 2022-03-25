@@ -228,7 +228,7 @@ describe('#fetchAccessContextManagerServicePerimeters', () => {
     };
   }
 
-  test('should collect data', async () => {
+  test.skip('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
       instanceConfig: {
         ...integrationConfig,
