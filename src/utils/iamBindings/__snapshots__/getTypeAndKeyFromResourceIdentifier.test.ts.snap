@@ -763,8 +763,8 @@ Object {
 exports[`getTypeAndKeyFromResourceIdentifier should find the correct keys for all available resources 96`] = `
 Object {
   "identifier": "//serviceusage.googleapis.com/projects/67890/services/abcdef12345",
-  "key": undefined,
-  "type": undefined,
+  "key": "projects/67890/services/abcdef12345",
+  "type": "google_cloud_api_service",
 }
 `;
 
