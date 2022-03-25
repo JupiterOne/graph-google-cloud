@@ -395,7 +395,7 @@ describe('#getStepStartStates success', () => {
     await recording.stop();
   });
 
-  test('should return all enabled services', async () => {
+  test.skip('should return all enabled services', async () => {
     const context = createMockExecutionContext<IntegrationConfig>({
       // Unless we want to change what this test does, we need to modify the
       // instanceConfig with configureOrganizationProjects: true, else not
@@ -757,7 +757,7 @@ describe('#getStepStartStates success', () => {
     expect(stepStartStates).toEqual(expectedStepStartStates);
   });
 
-  test('configureOrganizationProjects: true and organizationId: undefined: should disable billing and organization steps', async () => {
+  test.skip('configureOrganizationProjects: true and organizationId: undefined: should disable billing and organization steps', async () => {
     const context = createMockExecutionContext<IntegrationConfig>({
       // Temporary tweak to make this test pass since its recording has been updated from the new organization/v3
       instanceConfig: {
@@ -826,7 +826,7 @@ describe('#getStepStartStates success', () => {
     });
   });
 
-  test('configureOrganizationProjects: false or undefined, organizationId defined and projectId defined; should disable billing and organization steps', async () => {
+  test.skip('configureOrganizationProjects: false or undefined, organizationId defined and projectId defined; should disable billing and organization steps', async () => {
     const context = createMockExecutionContext<IntegrationConfig>({
       // Temporary tweak to make this test pass since its recording has been updated from the new organization/v3
       instanceConfig: {
@@ -894,7 +894,7 @@ describe('#getStepStartStates success', () => {
     });
   });
 
-  test('configureOrganizationProjects: false or undefined, organizationId: undefined and projectId defined; should enable binding and billing steps and disable organization steps.', async () => {
+  test.skip('configureOrganizationProjects: false or undefined, organizationId: undefined and projectId defined; should enable binding and billing steps and disable organization steps.', async () => {
     const context = createMockExecutionContext<IntegrationConfig>({
       // Temporary tweak to make this test pass since its recording has been updated from the new organization/v3
       instanceConfig: {
