@@ -17,10 +17,8 @@ import {
   fetchResourceManagerFolders,
   fetchResourceManagerOrganization,
   fetchResourceManagerProject,
-  FOLDER_ENTITY_TYPE,
-  ORGANIZATION_ENTITY_TYPE,
-  PROJECT_ENTITY_TYPE,
 } from '../resource-manager';
+import { ResourceManagerEntities } from '../resource-manager/constants';
 import {
   fetchIamCustomRoles,
   fetchIamManagedRoles,
@@ -384,7 +382,8 @@ describe('#fetchIamBindings', () => {
           expect(
             google_iam_binding_allows_resource.filter(
               (r: any) =>
-                r._mapping?.targetEntity?._type === ORGANIZATION_ENTITY_TYPE,
+                r._mapping?.targetEntity?._type ===
+                ResourceManagerEntities.ORGANIZATION._type,
             ).length,
           ).toBe(0),
           // Folder relationships
@@ -395,7 +394,9 @@ describe('#fetchIamBindings', () => {
           ).toBeGreaterThan(0);
         expect(
           google_iam_binding_allows_resource.filter(
-            (r: any) => r._mapping?.targetEntity?._type === FOLDER_ENTITY_TYPE,
+            (r: any) =>
+              r._mapping?.targetEntity?._type ===
+              ResourceManagerEntities.FOLDER._type,
           ).length,
         ).toBe(0);
 
@@ -684,7 +685,8 @@ describe('#fetchIamBindings', () => {
           google_iam_binding_allows_resource.filter(
             (r: any) =>
               r._toEntityKey?.startsWith('organizations/') ||
-              r._mapping?.targetEntity?._type === ORGANIZATION_ENTITY_TYPE,
+              r._mapping?.targetEntity?._type ===
+                ResourceManagerEntities.ORGANIZATION._type,
           ).length,
         ).toBe(0),
           // Folder relationships
@@ -692,7 +694,8 @@ describe('#fetchIamBindings', () => {
             google_iam_binding_allows_resource.filter(
               (r: any) =>
                 r._toEntityKey?.startsWith('folders/') ||
-                r._mapping?.targetEntity?._type === ORGANIZATION_ENTITY_TYPE,
+                r._mapping?.targetEntity?._type ===
+                  ResourceManagerEntities.ORGANIZATION._type,
             ).length,
           ).toBe(0);
       });
@@ -710,7 +713,7 @@ describe('#fetchIamBindings', () => {
 
     await fetchResourceManagerProject(context);
     const projects = context.jobState.collectedEntities.filter(
-      (e) => e._type === PROJECT_ENTITY_TYPE,
+      (e) => e._type === ResourceManagerEntities.PROJECT._type,
     );
     expect(projects.length).toBe(1);
 

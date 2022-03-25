@@ -11,7 +11,7 @@ import {
   BINARY_AUTHORIZATION_POLICY_ENTITY_TYPE,
   RELATIONSHIP_TYPE_PROJECT_HAS_BINARY_AUTHORIZATION_POLICY,
 } from './constants';
-import { PROJECT_ENTITY_TYPE } from '../resource-manager/constants';
+import { ResourceManagerEntities } from '../resource-manager/constants';
 
 describe('#fetchBinaryAuthorization', () => {
   let recording: Recording;
@@ -55,28 +55,9 @@ describe('#fetchBinaryAuthorization', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e._type === PROJECT_ENTITY_TYPE,
+        (e) => e._type === ResourceManagerEntities.PROJECT._type,
       ),
-    ).toMatchGraphObjectSchema({
-      _class: ['Account'],
-      schema: {
-        additionalProperties: false,
-        properties: {
-          _type: { const: 'google_cloud_project' },
-          _rawData: {
-            type: 'array',
-            items: { type: 'object' },
-          },
-          projectId: { type: 'string' },
-          name: { type: 'string' },
-          displayName: { type: 'string' },
-          parent: { type: 'string' },
-          lifecycleState: { type: 'string' },
-          createdOn: { type: 'number' },
-          updatedOn: { type: 'number' },
-        },
-      },
-    });
+    ).toMatchGraphObjectSchema(ResourceManagerEntities.PROJECT);
 
     expect(
       context.jobState.collectedEntities.filter(

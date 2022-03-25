@@ -12,7 +12,7 @@ import {
   ENTITY_TYPE_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETER_METHOD_SELECTOR,
 } from '../../steps/access-context-manager/constants';
 import { ENTITY_TYPE_APP_ENGINE_INSTANCE } from '../../steps/app-engine/constants';
-import { AUDIT_CONFIG_ENTITY_TYPE } from '../../steps/resource-manager';
+import { ResourceManagerEntities } from '../../steps/resource-manager/constants';
 import { BIG_QUERY_MODEL_ENTITY_TYPE } from '../../steps/big-query';
 import { ENTITY_TYPE_BILLING_BUDGET } from '../../steps/billing-budgets/constants';
 import {
@@ -58,7 +58,7 @@ const entitiesTypesToSkip = [
   ENTITY_TYPE_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETER_INGRESS_POLICY,
   ENTITY_TYPE_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETER_METHOD_SELECTOR,
   ENTITY_TYPE_APP_ENGINE_INSTANCE,
-  AUDIT_CONFIG_ENTITY_TYPE,
+  ResourceManagerEntities.AUDIT_CONFIG._type,
   BIG_QUERY_MODEL_ENTITY_TYPE,
   ENTITY_TYPE_BILLING_BUDGET,
   BINARY_AUTHORIZATION_POLICY_ENTITY_TYPE,

@@ -68,11 +68,7 @@ import {
   ENTITY_TYPE_PUBSUB_SUBSCRIPTION,
 } from '../../steps/pub-sub/constants';
 import { ENTITY_TYPE_REDIS_INSTANCE } from '../../steps/redis/constants';
-import {
-  ORGANIZATION_ENTITY_TYPE,
-  FOLDER_ENTITY_TYPE,
-  PROJECT_ENTITY_TYPE,
-} from '../../steps/resource-manager/constants';
+import { ResourceManagerEntities } from '../../steps/resource-manager/constants';
 import { ServiceUsageEntities } from '../../steps/service-usage/constants';
 import {
   ENTITY_TYPE_SPANNER_INSTANCE,
@@ -110,9 +106,12 @@ export const GOOGLE_RESOURCE_KIND_TO_J1_TYPE_MAP: {
   [key: string]: string;
 } = {
   'cloudfunctions.googleapis.com/CloudFunction': CLOUD_FUNCTION_ENTITY_TYPE,
-  'cloudresourcemanager.googleapis.com/Organization': ORGANIZATION_ENTITY_TYPE,
-  'cloudresourcemanager.googleapis.com/Folder': FOLDER_ENTITY_TYPE,
-  'cloudresourcemanager.googleapis.com/Project': PROJECT_ENTITY_TYPE,
+  'cloudresourcemanager.googleapis.com/Organization':
+    ResourceManagerEntities.ORGANIZATION._type,
+  'cloudresourcemanager.googleapis.com/Folder':
+    ResourceManagerEntities.FOLDER._type,
+  'cloudresourcemanager.googleapis.com/Project':
+    ResourceManagerEntities.PROJECT._type,
   'run.googleapis.com/DomainMapping': NONE,
   'run.googleapis.com/Revision': NONE,
   'run.googleapis.com/Service': ENTITY_TYPE_CLOUD_RUN_SERVICE,

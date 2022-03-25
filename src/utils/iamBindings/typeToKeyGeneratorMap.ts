@@ -67,11 +67,7 @@ import {
 } from '../../steps/pub-sub/constants';
 import { ENTITY_TYPE_REDIS_INSTANCE } from '../../steps/redis/constants';
 import { getRedisKey } from '../../steps/redis/converter';
-import {
-  ORGANIZATION_ENTITY_TYPE,
-  FOLDER_ENTITY_TYPE,
-  PROJECT_ENTITY_TYPE,
-} from '../../steps/resource-manager/constants';
+import { ResourceManagerEntities } from '../../steps/resource-manager/constants';
 import { ServiceUsageEntities } from '../../steps/service-usage/constants';
 import {
   ENTITY_TYPE_SPANNER_INSTANCE,
@@ -107,9 +103,12 @@ export const J1_TYPE_TO_KEY_GENERATOR_MAP: {
   ) => string | undefined | Promise<string | undefined>;
 } = {
   [CLOUD_FUNCTION_ENTITY_TYPE]: fullPathKeyMap,
-  [ORGANIZATION_ENTITY_TYPE]: fullPathKeyMap,
-  [FOLDER_ENTITY_TYPE]: fullPathKeyMap,
-  [PROJECT_ENTITY_TYPE]: async (id: string, context?: StepExecutionContext) =>
+  [ResourceManagerEntities.ORGANIZATION._type]: fullPathKeyMap,
+  [ResourceManagerEntities.FOLDER._type]: fullPathKeyMap,
+  [ResourceManagerEntities.PROJECT._type]: async (
+    id: string,
+    context?: StepExecutionContext,
+  ) =>
     (await getProjectNameFromId(
       context!.jobState,
       finalIdentifierKeyMap(id),

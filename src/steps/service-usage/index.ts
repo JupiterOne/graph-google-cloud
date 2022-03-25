@@ -11,7 +11,7 @@ import {
   ServiceUsageEntities,
   ServiceUsageRelationships,
 } from './constants';
-import { STEP_RESOURCE_MANAGER_PROJECT } from '../resource-manager';
+import { ResourceManagerStepIds } from '../resource-manager/constants';
 import { getProjectEntity } from '../../utils/project';
 import { STEP_IAM_MANAGED_ROLES } from '../iam/constants';
 import {
@@ -88,7 +88,7 @@ export const serviceUsageSteps: IntegrationStep<IntegrationConfig>[] = [
     name: 'API Services',
     entities: [ServiceUsageEntities.API_SERVICE],
     relationships: [ServiceUsageRelationships.PROJECT_HAS_API_SERVICE],
-    dependsOn: [STEP_RESOURCE_MANAGER_PROJECT, STEP_IAM_MANAGED_ROLES],
+    dependsOn: [ResourceManagerStepIds.FETCH_PROJECT, STEP_IAM_MANAGED_ROLES],
     executionHandler: fetchApiServices,
   },
 ];

@@ -18,13 +18,7 @@ import {
   STEP_IAM_MANAGED_ROLES,
   STEP_IAM_SERVICE_ACCOUNTS,
 } from './steps/iam';
-import {
-  STEP_RESOURCE_MANAGER_PROJECT,
-  STEP_RESOURCE_MANAGER_ORGANIZATION,
-  STEP_RESOURCE_MANAGER_FOLDERS,
-  STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
-  STEP_AUDIT_CONFIG_IAM_POLICY,
-} from './steps/resource-manager';
+import { ResourceManagerStepIds } from './steps/resource-manager/constants';
 import {
   STEP_COMPUTE_INSTANCES,
   STEP_COMPUTE_DISKS,
@@ -188,9 +182,9 @@ function makeStepStartStates(
 // when configureOrganizationProjects is set
 export function getOrganizationSteps() {
   return [
-    STEP_RESOURCE_MANAGER_ORGANIZATION,
-    STEP_RESOURCE_MANAGER_FOLDERS,
-    STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
+    ResourceManagerStepIds.FETCH_ORGANIZATION,
+    ResourceManagerStepIds.FETCH_FOLDERS,
+    ResourceManagerStepIds.BUILD_ORG_PROJECT_RELATIONSHIPS,
   ];
 }
 
@@ -315,7 +309,7 @@ export default async function getStepStartStates(
     ),
     // Rest of steps...
     // This API will be enabled otherwise fetching services names above would fail
-    [STEP_RESOURCE_MANAGER_PROJECT]: { disabled: false },
+    [ResourceManagerStepIds.FETCH_PROJECT]: { disabled: false },
     [ServiceUsageStepIds.FETCH_API_SERVICES]: { disabled: false },
     [STEP_IAM_BINDINGS]: createStartStatesBasedOnServiceAccountProject(
       ServiceUsageName.CLOUD_ASSET,
@@ -363,9 +357,10 @@ export default async function getStepStartStates(
       ServiceUsageName.IAM,
     ),
     [STEP_IAM_SERVICE_ACCOUNTS]: createStepStartState(ServiceUsageName.IAM),
-    [STEP_AUDIT_CONFIG_IAM_POLICY]: config.configureOrganizationProjects
-      ? { disabled: true }
-      : createStepStartState(ServiceUsageName.RESOURCE_MANAGER),
+    [ResourceManagerStepIds.FETCH_IAM_POLICY_AUDIT_CONFIG]:
+      config.configureOrganizationProjects
+        ? { disabled: true }
+        : createStepStartState(ServiceUsageName.RESOURCE_MANAGER),
     [STEP_COMPUTE_DISKS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_REGION_DISKS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_IMAGES]: createStepStartState(ServiceUsageName.COMPUTE),

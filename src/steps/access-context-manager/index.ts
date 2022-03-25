@@ -38,8 +38,8 @@ import {
   ENTITY_CLASS_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETER_INGRESS_POLICY,
 } from './constants';
 import {
-  PROJECT_ENTITY_TYPE,
-  STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
+  ResourceManagerEntities,
+  ResourceManagerStepIds,
 } from '../resource-manager/constants';
 import {
   createAccessLevelEntity,
@@ -277,7 +277,7 @@ async function buildServicePerimeterProtectsProjects({
           targetFilterKeys: [['_type', '_key']],
           skipTargetCreation: true,
           targetEntity: {
-            _type: PROJECT_ENTITY_TYPE,
+            _type: ResourceManagerEntities.PROJECT._type,
             _key: resource,
           },
         },
@@ -469,7 +469,7 @@ export const accessPoliciesSteps: IntegrationStep<IntegrationConfig>[] = [
         _class: RelationshipClass.PROTECTS,
         _type: RELATIONSHIP_TYPE_SERVICE_PERIMETER_PROTECTS_PROJECT,
         sourceType: ENTITY_TYPE_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETER,
-        targetType: PROJECT_ENTITY_TYPE,
+        targetType: ResourceManagerEntities.PROJECT._type,
       },
       {
         _class: RelationshipClass.LIMITS,
@@ -517,7 +517,7 @@ export const accessPoliciesSteps: IntegrationStep<IntegrationConfig>[] = [
       },
     ],
     dependsOn: [
-      STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
+      ResourceManagerStepIds.BUILD_ORG_PROJECT_RELATIONSHIPS,
       STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
     ],
     executionHandler: fetchServicePerimeters,

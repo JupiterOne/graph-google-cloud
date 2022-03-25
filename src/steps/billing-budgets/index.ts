@@ -7,11 +7,9 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
 import {
-  PROJECT_ENTITY_TYPE,
-  STEP_RESOURCE_MANAGER_ORGANIZATION,
-  STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
-  STEP_RESOURCE_MANAGER_PROJECT,
-} from '../resource-manager';
+  ResourceManagerEntities,
+  ResourceManagerStepIds,
+} from '../resource-manager/constants';
 import { BillingBudgetClient } from './client';
 import {
   ENTITY_CLASS_BILLING_BUDGET,
@@ -115,7 +113,7 @@ export async function buildProjectBudgetRelationships(
                   targetFilterKeys: [['_type', '_key']],
                   skipTargetCreation: true,
                   targetEntity: {
-                    _type: PROJECT_ENTITY_TYPE,
+                    _type: ResourceManagerEntities.PROJECT._type,
                     _key: project,
                   },
                 },
@@ -237,11 +235,11 @@ export const billingBudgetsSteps: IntegrationStep<IntegrationConfig>[] = [
       {
         _class: RelationshipClass.HAS,
         _type: RELATIONSHIP_TYPE_PROJECT_HAS_BUDGET,
-        sourceType: PROJECT_ENTITY_TYPE,
+        sourceType: ResourceManagerEntities.PROJECT._type,
         targetType: ENTITY_TYPE_BILLING_BUDGET,
       },
     ],
-    dependsOn: [STEP_BILLING_BUDGETS, STEP_RESOURCE_MANAGER_PROJECT],
+    dependsOn: [STEP_BILLING_BUDGETS, ResourceManagerStepIds.FETCH_PROJECT],
     executionHandler: buildProjectBudgetRelationships,
   },
   {
@@ -252,14 +250,14 @@ export const billingBudgetsSteps: IntegrationStep<IntegrationConfig>[] = [
       {
         _class: RelationshipClass.HAS,
         _type: RELATIONSHIP_TYPE_PROJECT_HAS_BUDGET,
-        sourceType: PROJECT_ENTITY_TYPE,
+        sourceType: ResourceManagerEntities.PROJECT._type,
         targetType: ENTITY_TYPE_BILLING_BUDGET,
       },
     ],
     dependsOn: [
-      STEP_RESOURCE_MANAGER_ORGANIZATION,
-      STEP_RESOURCE_MANAGER_PROJECT,
-      STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
+      ResourceManagerStepIds.FETCH_ORGANIZATION,
+      ResourceManagerStepIds.FETCH_PROJECT,
+      ResourceManagerStepIds.BUILD_ORG_PROJECT_RELATIONSHIPS,
       STEP_BILLING_BUDGETS,
     ],
     executionHandler: buildAdditionalProjectBudgetRelationships,

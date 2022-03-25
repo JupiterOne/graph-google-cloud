@@ -1,5 +1,4 @@
 import { RelationshipClass } from '@jupiterone/integration-sdk-core';
-import { PROJECT_ENTITY_TYPE } from '../resource-manager/constants';
 
 export const ServiceUsageStepIds = {
   FETCH_API_SERVICES: 'fetch-api-services',
@@ -38,7 +37,7 @@ export const ServiceUsageEntities = {
 export const ServiceUsageRelationships = {
   PROJECT_HAS_API_SERVICE: {
     _type: 'google_cloud_project_has_api_service',
-    sourceType: PROJECT_ENTITY_TYPE,
+    sourceType: 'google_cloud_project',
     _class: RelationshipClass.HAS,
     targetType: ServiceUsageEntities.API_SERVICE._type,
   },

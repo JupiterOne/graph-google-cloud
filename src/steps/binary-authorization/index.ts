@@ -6,9 +6,9 @@ import {
 import { binaryauthorization_v1 } from 'googleapis';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
 import {
-  PROJECT_ENTITY_TYPE,
-  STEP_RESOURCE_MANAGER_PROJECT,
-} from '../resource-manager';
+  ResourceManagerEntities,
+  ResourceManagerStepIds,
+} from '../resource-manager/constants';
 import { BinaryAuthorizationClient } from './client';
 import {
   BINARY_AUTHORIZATION_POLICY_ENTITY_CLASS,
@@ -87,11 +87,11 @@ export const binaryAuthorizationSteps: IntegrationStep<IntegrationConfig>[] = [
       {
         _class: RelationshipClass.HAS,
         _type: RELATIONSHIP_TYPE_PROJECT_HAS_BINARY_AUTHORIZATION_POLICY,
-        sourceType: PROJECT_ENTITY_TYPE,
+        sourceType: ResourceManagerEntities.PROJECT._type,
         targetType: BINARY_AUTHORIZATION_POLICY_ENTITY_TYPE,
       },
     ],
-    dependsOn: [STEP_RESOURCE_MANAGER_PROJECT],
+    dependsOn: [ResourceManagerStepIds.FETCH_PROJECT],
     executionHandler: fetchBinaryAuthorizationPolicy,
   },
 ];

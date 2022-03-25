@@ -3,10 +3,12 @@ import {
   IntegrationError,
   JobState,
 } from '@jupiterone/integration-sdk-core';
-import { PROJECT_ENTITY_TYPE } from '../steps/resource-manager';
+import { ResourceManagerEntities } from '../steps/resource-manager/constants';
 
 export async function getProjectEntity(jobState: JobState): Promise<Entity> {
-  const projectEntity = await jobState.getData<Entity>(PROJECT_ENTITY_TYPE);
+  const projectEntity = await jobState.getData<Entity>(
+    ResourceManagerEntities.PROJECT._type,
+  );
 
   if (!projectEntity) {
     throw new IntegrationError({

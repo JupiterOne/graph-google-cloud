@@ -10,16 +10,11 @@ import {
   fetchResourceManagerProject,
   buildOrgFolderProjectMappedRelationships,
   fetchIamPolicyAuditConfig,
-  AUDIT_CONFIG_ENTITY_TYPE,
 } from '.';
 import { integrationConfig } from '../../../test/config';
 import {
-  FOLDER_ENTITY_TYPE,
-  ORGANIZATION_HAS_FOLDER_RELATIONSHIP_TYPE,
-  FOLDER_HAS_FOLDER_RELATIONSHIP_TYPE,
-  PROJECT_ENTITY_TYPE,
-  SERVICE_USES_AUDIT_CONFIG_RELATIONSHIP_TYPE,
-  AUDIT_CONFIG_ALLOWS_SERVICE_ACCOUNT_RELATIONSHIP_TYPE,
+  ResourceManagerEntities,
+  ResourceManagerRelationships,
 } from './constants';
 import {
   Entity,
@@ -31,6 +26,7 @@ import { filterGraphObjects } from '../../../test/helpers/filterGraphObjects';
 import { fetchApiServices } from '../service-usage';
 import { fetchIamManagedRoles, fetchIamServiceAccounts } from '../iam';
 import { separateDirectMappedRelationships } from '../../../test/helpers/separateDirectMappedRelationships';
+import { ServiceUsageEntities } from '../service-usage/constants';
 
 describe('#fetchIamPolicyAuditConfig', () => {
   let recording: Recording;
@@ -78,7 +74,7 @@ describe('#fetchIamPolicyAuditConfig', () => {
     }).toMatchSnapshot();
 
     const auditConfigEntities = context.jobState.collectedEntities.filter(
-      (e) => e._type === AUDIT_CONFIG_ENTITY_TYPE,
+      (e) => e._type === ResourceManagerEntities.AUDIT_CONFIG._type,
     );
 
     expect(auditConfigEntities.length).toBeGreaterThan(1);
@@ -87,78 +83,19 @@ describe('#fetchIamPolicyAuditConfig', () => {
       context.jobState.collectedEntities.filter(
         (e) => e._type === 'google_cloud_project',
       ),
-    ).toMatchGraphObjectSchema({
-      _class: ['Account'],
-      schema: {
-        additionalProperties: false,
-        properties: {
-          _type: { const: 'google_cloud_project' },
-          _rawData: {
-            type: 'array',
-            items: { type: 'object' },
-          },
-          projectId: { type: 'string' },
-          name: { type: 'string' },
-          displayName: { type: 'string' },
-          parent: { type: 'string' },
-          lifecycleState: { type: 'string' },
-          createdOn: { type: 'number' },
-          updatedOn: { type: 'number' },
-        },
-      },
-    });
+    ).toMatchGraphObjectSchema(ResourceManagerEntities.PROJECT);
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e._type === 'google_cloud_api_service',
+        (e) => e._type === ServiceUsageEntities.API_SERVICE._type,
       ),
-    ).toMatchGraphObjectSchema({
-      _class: ['Service'],
-      schema: {
-        additionalProperties: false,
-        properties: {
-          _type: { const: 'google_cloud_api_service' },
-          category: { const: ['infrastructure'] },
-          state: {
-            type: 'string',
-            enum: ['STATE_UNSPECIFIED', 'DISABLED', 'ENABLED'],
-          },
-          enabled: { type: 'boolean' },
-          usageRequirements: {
-            type: 'array',
-            items: { type: 'string' },
-          },
-          hasIamPermissions: { type: 'boolean' },
-          _rawData: {
-            type: 'array',
-            items: { type: 'object' },
-          },
-          auditable: { type: 'boolean' },
-        },
-      },
-    });
+    ).toMatchGraphObjectSchema(ServiceUsageEntities.API_SERVICE);
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e._type === 'google_cloud_audit_config',
+        (e) => e._type === ResourceManagerEntities.AUDIT_CONFIG._type,
       ),
-    ).toMatchGraphObjectSchema({
-      _class: ['Configuration'],
-      schema: {
-        additionalProperties: false,
-        properties: {
-          _type: { const: 'google_cloud_audit_config' },
-          _rawData: {
-            type: 'array',
-            items: { type: 'object' },
-          },
-          name: { type: 'string' },
-          displayName: { type: 'string' },
-          service: { type: 'string' },
-          logTypes: { type: 'array', items: { type: 'string' } },
-        },
-      },
-    });
+    ).toMatchGraphObjectSchema(ResourceManagerEntities.AUDIT_CONFIG);
 
     const { directRelationships, mappedRelationships } =
       separateDirectMappedRelationships(
@@ -167,7 +104,9 @@ describe('#fetchIamPolicyAuditConfig', () => {
 
     expect(
       directRelationships.filter(
-        (e) => e._type === SERVICE_USES_AUDIT_CONFIG_RELATIONSHIP_TYPE,
+        (e) =>
+          e._type ===
+          ResourceManagerRelationships.API_SERVICE_USES_AUDIT_CONFIG._type,
       ),
     ).toMatchDirectRelationshipSchema({
       schema: {
@@ -184,7 +123,9 @@ describe('#fetchIamPolicyAuditConfig', () => {
       directRelationships
         .filter(
           (e) =>
-            e._type === AUDIT_CONFIG_ALLOWS_SERVICE_ACCOUNT_RELATIONSHIP_TYPE,
+            e._type ===
+            ResourceManagerRelationships.AUDIT_CONFIG_ALLOWS_SERVICE_ACCOUNT
+              ._type,
         )
         .every(
           (directRelationship) =>
@@ -208,7 +149,7 @@ describe('#fetchIamPolicyAuditConfig', () => {
             'auditConfig:binaryauthorization.googleapis.com|allows|j1-gc-integration-dev-org@my-j1-test-proj-test.iam.gserviceaccount.com',
         ),
     ).toBe(true);
-  });
+  }, 30_000);
 });
 
 describe('#fetchResourceManagerProject', () => {
@@ -250,26 +191,9 @@ describe('#fetchResourceManagerProject', () => {
       encounteredTypes: context.jobState.encounteredTypes,
     }).toMatchSnapshot();
 
-    expect(context.jobState.collectedEntities).toMatchGraphObjectSchema({
-      _class: ['Account'],
-      schema: {
-        additionalProperties: false,
-        properties: {
-          _type: { const: 'google_cloud_project' },
-          _rawData: {
-            type: 'array',
-            items: { type: 'object' },
-          },
-          projectId: { type: 'string' },
-          name: { type: 'string' },
-          displayName: { type: 'string' },
-          parent: { type: 'string' },
-          lifecycleState: { type: 'string' },
-          createdOn: { type: 'number' },
-          updatedOn: { type: 'number' },
-        },
-      },
-    });
+    expect(context.jobState.collectedEntities).toMatchGraphObjectSchema(
+      ResourceManagerEntities.PROJECT,
+    );
   });
 
   test('should log & return Account entity if client.getProject() fails', async () => {
@@ -303,26 +227,9 @@ describe('#fetchResourceManagerProject', () => {
       encounteredTypes: context.jobState.encounteredTypes,
     }).toMatchSnapshot();
 
-    expect(context.jobState.collectedEntities).toMatchGraphObjectSchema({
-      _class: ['Account'],
-      schema: {
-        additionalProperties: false,
-        properties: {
-          _type: { const: 'google_cloud_project' },
-          _rawData: {
-            type: 'array',
-            items: { type: 'object' },
-          },
-          projectId: { type: 'string' },
-          name: { type: 'string' },
-          displayName: { type: 'string' },
-          parent: { type: 'string' },
-          lifecycleState: { type: 'string' },
-          createdOn: { type: 'number' },
-          updatedOn: { type: 'number' },
-        },
-      },
-    });
+    expect(context.jobState.collectedEntities).toMatchGraphObjectSchema(
+      ResourceManagerEntities.PROJECT,
+    );
   });
 });
 
@@ -354,26 +261,9 @@ describe('#fetchResourceManagerOrganization', () => {
       encounteredTypes: context.jobState.encounteredTypes,
     }).toMatchSnapshot();
 
-    expect(context.jobState.collectedEntities).toMatchGraphObjectSchema({
-      _class: ['Organization'],
-      schema: {
-        additionalProperties: false,
-        properties: {
-          _type: { const: 'google_cloud_organization' },
-          _rawData: {
-            type: 'array',
-            items: { type: 'object' },
-          },
-          name: { type: 'string' },
-          displayName: { type: 'string' },
-          directoryCustomerId: { type: 'string' },
-          etag: { type: 'string' },
-          lifecycleState: { type: 'string' },
-          createdOn: { type: 'number' },
-          updatedOn: { type: 'number' },
-        },
-      },
-    });
+    expect(context.jobState.collectedEntities).toMatchGraphObjectSchema(
+      ResourceManagerEntities.ORGANIZATION,
+    );
   });
 });
 
@@ -419,32 +309,15 @@ describe('#fetchResourceManagerFolders', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e._type === FOLDER_ENTITY_TYPE,
+        (e) => e._type === ResourceManagerEntities.FOLDER._type,
       ),
-    ).toMatchGraphObjectSchema({
-      _class: ['Group'],
-      schema: {
-        additionalProperties: false,
-        properties: {
-          _type: { const: 'google_cloud_folder' },
-          _rawData: {
-            type: 'array',
-            items: { type: 'object' },
-          },
-          name: { type: 'string' },
-          displayName: { type: 'string' },
-          etag: { type: 'string' },
-          lifecycleState: { type: 'string' },
-          parent: { type: 'string' },
-          createdOn: { type: 'number' },
-          updatedOn: { type: 'number' },
-        },
-      },
-    });
+    ).toMatchGraphObjectSchema(ResourceManagerEntities.FOLDER);
 
     expect(
       context.jobState.collectedRelationships.filter(
-        (e) => e._type === ORGANIZATION_HAS_FOLDER_RELATIONSHIP_TYPE,
+        (e) =>
+          e._type ===
+          ResourceManagerRelationships.ORGANIZATION_HAS_FOLDER._type,
       ),
     ).toMatchDirectRelationshipSchema({
       schema: {
@@ -459,7 +332,7 @@ describe('#fetchResourceManagerFolders', () => {
 
     expect(
       context.jobState.collectedRelationships.filter(
-        (e) => e._type === FOLDER_HAS_FOLDER_RELATIONSHIP_TYPE,
+        (e) => e._type === ResourceManagerRelationships.FOLDER_HAS_FOLDER._type,
       ),
     ).toMatchDirectRelationshipSchema({
       schema: {
@@ -535,7 +408,7 @@ describe('#buildOrgFolderProjectMappedRelationships', () => {
     }).toMatchSnapshot();
 
     const projectEntities = context.jobState.collectedEntities.filter(
-      (e) => e._type === PROJECT_ENTITY_TYPE,
+      (e) => e._type === ResourceManagerEntities.PROJECT._type,
     );
     const { directRelationships, mappedProjectRelationships } =
       separateProjectsRelationships(context.jobState.collectedRelationships);

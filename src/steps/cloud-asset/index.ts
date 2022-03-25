@@ -21,11 +21,7 @@ import { IntegrationStepContext } from '../../types';
 import { publishMissingPermissionEvent } from '../../utils/events';
 import { getProjectIdFromName } from '../../utils/jobState';
 import { IAM_ROLE_ENTITY_CLASS, IAM_ROLE_ENTITY_TYPE } from '../iam';
-import {
-  ORGANIZATION_ENTITY_TYPE,
-  FOLDER_ENTITY_TYPE,
-  PROJECT_ENTITY_TYPE,
-} from '../resource-manager';
+import { ResourceManagerEntities } from '../resource-manager/constants';
 import { CloudAssetClient } from './client';
 import {
   API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP,
@@ -177,7 +173,7 @@ export async function fetchIamBindings(
     await client.iterateIamPoliciesForProjectAndResources(handlePolicyResult);
     // Folder level bindings
     await jobState.iterateEntities(
-      { _type: FOLDER_ENTITY_TYPE },
+      { _type: ResourceManagerEntities.FOLDER._type },
       async (folderEntity: Entity) => {
         await client.iterateIamPoliciesForResourceAtScope(
           folderEntity._key,
@@ -187,7 +183,7 @@ export async function fetchIamBindings(
     );
     // Organization level bindings
     await jobState.iterateEntities(
-      { _type: ORGANIZATION_ENTITY_TYPE },
+      { _type: ResourceManagerEntities.ORGANIZATION._type },
       async (organizationEntity: Entity) => {
         await client.iterateIamPoliciesForResourceAtScope(
           organizationEntity._key,
@@ -699,9 +695,9 @@ function isOrganizationalHierarchyResource(resourceType?: string) {
   return (
     !!resourceType &&
     [
-      ORGANIZATION_ENTITY_TYPE,
-      FOLDER_ENTITY_TYPE,
-      PROJECT_ENTITY_TYPE,
+      ResourceManagerEntities.ORGANIZATION._type,
+      ResourceManagerEntities.FOLDER._type,
+      ResourceManagerEntities.PROJECT._type,
       ServiceUsageEntities.API_SERVICE._type,
     ].includes(resourceType)
   );

@@ -6,8 +6,9 @@ import { setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
 import { fetchApiServices } from '.';
 import { integrationConfig } from '../../../test/config';
-import { PROJECT_ENTITY_TYPE, PROJECT_ENTITY_CLASS } from '../resource-manager';
+import { ResourceManagerEntities } from '../resource-manager/constants';
 import { fetchIamManagedRoles } from '../iam';
+import { ServiceUsageEntities } from './constants';
 
 describe('#fetchApiServices', () => {
   let recording: Recording;
@@ -26,8 +27,8 @@ describe('#fetchApiServices', () => {
   test('should collect data', async () => {
     const projectEntity = {
       _key: 'j1-gc-integration-dev-v3',
-      _type: PROJECT_ENTITY_TYPE,
-      _class: PROJECT_ENTITY_CLASS,
+      _type: ResourceManagerEntities.PROJECT._type,
+      _class: ResourceManagerEntities.PROJECT._class,
     };
 
     const context = createMockStepExecutionContext<IntegrationConfig>({
@@ -43,7 +44,7 @@ describe('#fetchApiServices', () => {
         },
       },
       setData: {
-        [PROJECT_ENTITY_TYPE]: projectEntity,
+        [ResourceManagerEntities.PROJECT._type]: projectEntity,
       },
     });
 
@@ -58,30 +59,8 @@ describe('#fetchApiServices', () => {
       encounteredTypes: context.jobState.encounteredTypes,
     }).toMatchSnapshot();
 
-    expect(context.jobState.collectedEntities).toMatchGraphObjectSchema({
-      _class: ['Service'],
-      schema: {
-        additionalProperties: false,
-        properties: {
-          _type: { const: 'google_cloud_api_service' },
-          category: { const: ['infrastructure'] },
-          state: {
-            type: 'string',
-            enum: ['STATE_UNSPECIFIED', 'DISABLED', 'ENABLED'],
-          },
-          enabled: { type: 'boolean' },
-          usageRequirements: {
-            type: 'array',
-            items: { type: 'string' },
-          },
-          hasIamPermissions: { type: 'boolean' },
-          _rawData: {
-            type: 'array',
-            items: { type: 'object' },
-          },
-          auditable: { type: 'boolean' },
-        },
-      },
-    });
+    expect(context.jobState.collectedEntities).toMatchGraphObjectSchema(
+      ServiceUsageEntities.API_SERVICE,
+    );
   }, 30_000);
 });

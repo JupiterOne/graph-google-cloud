@@ -22,8 +22,8 @@ import {
   buildOrgFolderProjectMappedRelationships,
   fetchResourceManagerOrganization,
   fetchResourceManagerProject,
-  PROJECT_ENTITY_TYPE,
 } from '../resource-manager';
+import { ResourceManagerEntities } from '../resource-manager/constants';
 import { fetchApiServices } from '../service-usage';
 import { ServiceUsageEntities } from '../service-usage/constants';
 import {
@@ -212,7 +212,7 @@ describe('#fetchAccessContextManagerServicePerimeters', () => {
       mappedProjectRelationships,
       (r) =>
         r._class === 'PROTECTS' &&
-        r._mapping.targetEntity._type === PROJECT_ENTITY_TYPE,
+        r._mapping.targetEntity._type === ResourceManagerEntities.PROJECT._type,
     );
 
     const { targets: mappedLimitsServicesRelationships } = filterGraphObjects(
@@ -536,7 +536,7 @@ describe('#fetchAccessContextManagerServicePerimeters', () => {
           'projects/j1-gc-integration-dev-v3/services/storage.googleapis.com',
     );
     const projectEntities = context.jobState.collectedEntities.filter(
-      (e) => e._type === PROJECT_ENTITY_TYPE,
+      (e) => e._type === ResourceManagerEntities.PROJECT._type,
     );
 
     expect(mappedProtectsProjectsRelationships.length).toBeGreaterThan(0);

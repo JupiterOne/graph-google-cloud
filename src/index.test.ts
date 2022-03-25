@@ -31,13 +31,7 @@ import {
   STEP_IAM_MANAGED_ROLES,
   STEP_IAM_SERVICE_ACCOUNTS,
 } from './steps/iam';
-import {
-  STEP_RESOURCE_MANAGER_PROJECT,
-  STEP_RESOURCE_MANAGER_ORGANIZATION,
-  STEP_RESOURCE_MANAGER_FOLDERS,
-  STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
-  STEP_AUDIT_CONFIG_IAM_POLICY,
-} from './steps/resource-manager';
+import { ResourceManagerStepIds } from './steps/resource-manager/constants';
 import {
   STEP_COMPUTE_ADDRESSES,
   STEP_COMPUTE_BACKEND_BUCKETS,
@@ -419,13 +413,13 @@ describe('#getStepStartStates success', () => {
 
     const stepStartStates = await getStepStartStates(context);
     const expectedStepStartStates: StepStartStates = {
-      [STEP_RESOURCE_MANAGER_ORGANIZATION]: {
+      [ResourceManagerStepIds.FETCH_ORGANIZATION]: {
         disabled: false,
       },
-      [STEP_RESOURCE_MANAGER_FOLDERS]: {
+      [ResourceManagerStepIds.FETCH_FOLDERS]: {
         disabled: false,
       },
-      [STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS]: {
+      [ResourceManagerStepIds.BUILD_ORG_PROJECT_RELATIONSHIPS]: {
         disabled: false,
       },
       [STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES]: {
@@ -437,7 +431,7 @@ describe('#getStepStartStates success', () => {
       [STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS]: {
         disabled: false,
       },
-      [STEP_RESOURCE_MANAGER_PROJECT]: {
+      [ResourceManagerStepIds.FETCH_PROJECT]: {
         disabled: false,
       },
       [ServiceUsageStepIds.FETCH_API_SERVICES]: {
@@ -461,7 +455,7 @@ describe('#getStepStartStates success', () => {
       [STEP_IAM_SERVICE_ACCOUNTS]: {
         disabled: false,
       },
-      [STEP_AUDIT_CONFIG_IAM_POLICY]: {
+      [ResourceManagerStepIds.FETCH_IAM_POLICY_AUDIT_CONFIG]: {
         disabled: true,
       },
       [STEP_COMPUTE_DISKS]: {
@@ -778,13 +772,13 @@ describe('#getStepStartStates success', () => {
     const stepStartStates = await getStepStartStates(context);
 
     expect(stepStartStates).toMatchObject({
-      [STEP_RESOURCE_MANAGER_ORGANIZATION]: {
+      [ResourceManagerStepIds.FETCH_ORGANIZATION]: {
         disabled: true,
       },
-      [STEP_RESOURCE_MANAGER_FOLDERS]: {
+      [ResourceManagerStepIds.FETCH_FOLDERS]: {
         disabled: true,
       },
-      [STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS]: {
+      [ResourceManagerStepIds.BUILD_ORG_PROJECT_RELATIONSHIPS]: {
         disabled: true,
       },
       [STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES]: {
@@ -846,13 +840,13 @@ describe('#getStepStartStates success', () => {
     const stepStartStates = await getStepStartStates(context);
 
     expect(stepStartStates).toMatchObject({
-      [STEP_RESOURCE_MANAGER_ORGANIZATION]: {
+      [ResourceManagerStepIds.FETCH_ORGANIZATION]: {
         disabled: true,
       },
-      [STEP_RESOURCE_MANAGER_FOLDERS]: {
+      [ResourceManagerStepIds.FETCH_FOLDERS]: {
         disabled: true,
       },
-      [STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS]: {
+      [ResourceManagerStepIds.BUILD_ORG_PROJECT_RELATIONSHIPS]: {
         disabled: true,
       },
       [STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES]: {
@@ -915,13 +909,13 @@ describe('#getStepStartStates success', () => {
     const stepStartStates = await getStepStartStates(context);
 
     expect(stepStartStates).toMatchObject({
-      [STEP_RESOURCE_MANAGER_ORGANIZATION]: {
+      [ResourceManagerStepIds.FETCH_ORGANIZATION]: {
         disabled: true,
       },
-      [STEP_RESOURCE_MANAGER_FOLDERS]: {
+      [ResourceManagerStepIds.FETCH_FOLDERS]: {
         disabled: true,
       },
-      [STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS]: {
+      [ResourceManagerStepIds.BUILD_ORG_PROJECT_RELATIONSHIPS]: {
         disabled: true,
       },
       [STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES]: {

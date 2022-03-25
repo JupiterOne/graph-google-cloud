@@ -3,16 +3,13 @@ import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-test
 import { IntegrationConfig } from '..';
 import { integrationConfig } from '../../test/config';
 import { bindingEntities } from '../steps/cloud-asset/constants';
-import {
-  ORGANIZATION_ENTITY_TYPE,
-  FOLDER_ENTITY_TYPE,
-} from '../steps/resource-manager';
+import { ResourceManagerEntities } from '../steps/resource-manager/constants';
 import { maybeDefaultProjectIdOnEntity } from './maybeDefaultProjectIdOnEntity';
 
 describe('maybeDefaultProjectIdOnEntity', () => {
   test.each([
-    ORGANIZATION_ENTITY_TYPE,
-    FOLDER_ENTITY_TYPE,
+    ResourceManagerEntities.ORGANIZATION._type,
+    ResourceManagerEntities.FOLDER._type,
     bindingEntities.BINDINGS._type,
   ])(`should not default a projectId on %s entities`, (entityType) => {
     const context = createMockStepExecutionContext<IntegrationConfig>({

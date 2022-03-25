@@ -14,35 +14,11 @@ import {
   createProjectEntity,
 } from './converters';
 import {
-  STEP_RESOURCE_MANAGER_PROJECT,
-  PROJECT_ENTITY_TYPE,
-  STEP_RESOURCE_MANAGER_ORGANIZATION,
-  ORGANIZATION_ENTITY_TYPE,
-  ORGANIZATION_ENTITY_CLASS,
-  STEP_RESOURCE_MANAGER_FOLDERS,
-  FOLDER_ENTITY_TYPE,
-  FOLDER_ENTITY_CLASS,
-  ORGANIZATION_HAS_FOLDER_RELATIONSHIP_TYPE,
-  FOLDER_HAS_FOLDER_RELATIONSHIP_TYPE,
-  STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
-  ORGANIZATION_HAS_PROJECT_RELATIONSHIP_TYPE,
-  FOLDER_HAS_PROJECT_RELATIONSHIP_TYPE,
-  STEP_AUDIT_CONFIG_IAM_POLICY,
-  AUDIT_CONFIG_ENTITY_CLASS,
-  AUDIT_CONFIG_ENTITY_TYPE,
-  SERVICE_USES_AUDIT_CONFIG_RELATIONSHIP_TYPE,
-  AUDIT_CONFIG_ALLOWS_SERVICE_ACCOUNT_RELATIONSHIP_TYPE,
-  AUDIT_CONFIG_ALLOWS_USER_RELATIONSHIP_TYPE,
-  AUDIT_CONFIG_ALLOWS_GROUP_RELATIONSHIP_TYPE,
-  AUDIT_CONFIG_ALLOWS_DOMAIN_RELATIONSHIP_TYPE,
+  ResourceManagerStepIds,
+  ResourceManagerEntities,
+  ResourceManagerRelationships,
 } from './constants';
-import {
-  IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
-  GOOGLE_USER_ENTITY_TYPE,
-  GOOGLE_GROUP_ENTITY_TYPE,
-  GOOGLE_DOMAIN_ENTITY_TYPE,
-  STEP_IAM_SERVICE_ACCOUNTS,
-} from '../iam';
+import { STEP_IAM_SERVICE_ACCOUNTS } from '../iam';
 import { ParsedIamMember, parseIamMember } from '../../utils/iam';
 import { RelationshipClass } from '@jupiterone/data-model';
 import { cacheProjectNameAndId } from '../../utils/jobState';
@@ -52,8 +28,6 @@ import {
 } from '../service-usage/constants';
 import { getServiceApiEntityKey } from '../service-usage/converters';
 import { buildIamTargetRelationship } from '../cloud-asset';
-
-export * from './constants';
 
 export interface IamUserEntityWithParsedMember {
   parsedMember: ParsedIamMember;
@@ -181,7 +155,7 @@ export async function buildOrgFolderProjectMappedRelationships(
       await jobState.addRelationship(
         createMappedRelationship({
           _class: RelationshipClass.HAS,
-          _type: ORGANIZATION_HAS_PROJECT_RELATIONSHIP_TYPE,
+          _type: ResourceManagerRelationships.ORGANIZATION_HAS_PROJECT._type,
           _mapping: {
             relationshipDirection: RelationshipDirection.FORWARD,
             sourceEntityKey: organizationEntity._key,
@@ -199,7 +173,7 @@ export async function buildOrgFolderProjectMappedRelationships(
   // Folder -> HAS (mappedRelationship) -> Projects
   await jobState.iterateEntities(
     {
-      _type: FOLDER_ENTITY_TYPE,
+      _type: ResourceManagerEntities.FOLDER._type,
     },
     async (folderEntity) => {
       await client.iterateProjects(async (project) => {
@@ -209,7 +183,7 @@ export async function buildOrgFolderProjectMappedRelationships(
         await jobState.addRelationship(
           createMappedRelationship({
             _class: RelationshipClass.HAS,
-            _type: FOLDER_HAS_PROJECT_RELATIONSHIP_TYPE,
+            _type: ResourceManagerRelationships.FOLDER_HAS_PROJECT._type,
             _mapping: {
               relationshipDirection: RelationshipDirection.FORWARD,
               sourceEntityKey: folderEntity._key,
@@ -261,7 +235,7 @@ export async function fetchResourceManagerProject(
 
   const projectEntity = createProjectEntity(client.projectId, project);
 
-  await jobState.setData(PROJECT_ENTITY_TYPE, projectEntity);
+  await jobState.setData(ResourceManagerEntities.PROJECT._type, projectEntity);
   await jobState.addEntity(projectEntity);
 }
 
@@ -349,125 +323,56 @@ export async function fetchIamPolicyAuditConfig(
 
 export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
   {
-    id: STEP_RESOURCE_MANAGER_ORGANIZATION,
+    id: ResourceManagerStepIds.FETCH_ORGANIZATION,
     name: 'Resource Manager Organization',
-    entities: [
-      {
-        resourceName: 'Organization',
-        _type: ORGANIZATION_ENTITY_TYPE,
-        _class: ORGANIZATION_ENTITY_CLASS,
-      },
-    ],
+    entities: [ResourceManagerEntities.ORGANIZATION],
     relationships: [],
     dependsOn: [],
     executionHandler: fetchResourceManagerOrganization,
   },
   {
-    id: STEP_RESOURCE_MANAGER_FOLDERS,
+    id: ResourceManagerStepIds.FETCH_FOLDERS,
     name: 'Resource Manager Folders',
-    entities: [
-      {
-        resourceName: 'Folder',
-        _type: FOLDER_ENTITY_TYPE,
-        _class: FOLDER_ENTITY_CLASS,
-      },
-    ],
+    entities: [ResourceManagerEntities.FOLDER],
     relationships: [
-      {
-        _class: RelationshipClass.HAS,
-        _type: ORGANIZATION_HAS_FOLDER_RELATIONSHIP_TYPE,
-        sourceType: ORGANIZATION_ENTITY_TYPE,
-        targetType: FOLDER_ENTITY_TYPE,
-      },
-      {
-        _class: RelationshipClass.HAS,
-        _type: FOLDER_HAS_FOLDER_RELATIONSHIP_TYPE,
-        sourceType: FOLDER_ENTITY_TYPE,
-        targetType: FOLDER_ENTITY_TYPE,
-      },
+      ResourceManagerRelationships.ORGANIZATION_HAS_FOLDER,
+      ResourceManagerRelationships.FOLDER_HAS_FOLDER,
     ],
-    dependsOn: [STEP_RESOURCE_MANAGER_ORGANIZATION],
+    dependsOn: [ResourceManagerStepIds.FETCH_ORGANIZATION],
     executionHandler: fetchResourceManagerFolders,
   },
   {
-    id: STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
+    id: ResourceManagerStepIds.BUILD_ORG_PROJECT_RELATIONSHIPS,
     name: 'Resource Manager Projects',
     entities: [],
     relationships: [
-      {
-        _class: RelationshipClass.HAS,
-        _type: ORGANIZATION_HAS_PROJECT_RELATIONSHIP_TYPE,
-        sourceType: ORGANIZATION_ENTITY_TYPE,
-        targetType: PROJECT_ENTITY_TYPE,
-      },
-      {
-        _class: RelationshipClass.HAS,
-        _type: FOLDER_HAS_PROJECT_RELATIONSHIP_TYPE,
-        sourceType: FOLDER_ENTITY_TYPE,
-        targetType: PROJECT_ENTITY_TYPE,
-      },
+      ResourceManagerRelationships.ORGANIZATION_HAS_PROJECT,
+      ResourceManagerRelationships.FOLDER_HAS_PROJECT,
     ],
     dependsOn: [
-      STEP_RESOURCE_MANAGER_ORGANIZATION,
-      STEP_RESOURCE_MANAGER_FOLDERS,
+      ResourceManagerStepIds.FETCH_ORGANIZATION,
+      ResourceManagerStepIds.FETCH_FOLDERS,
     ],
     executionHandler: buildOrgFolderProjectMappedRelationships,
   },
   {
-    id: STEP_RESOURCE_MANAGER_PROJECT,
+    id: ResourceManagerStepIds.FETCH_PROJECT,
     name: 'Resource Manager Project',
-    entities: [
-      {
-        resourceName: 'Project',
-        _type: 'google_cloud_project',
-        _class: 'Account',
-      },
-    ],
+    entities: [ResourceManagerEntities.PROJECT],
     relationships: [],
     dependsOn: [],
     executionHandler: fetchResourceManagerProject,
   },
   {
-    id: STEP_AUDIT_CONFIG_IAM_POLICY,
+    id: ResourceManagerStepIds.FETCH_IAM_POLICY_AUDIT_CONFIG,
     name: 'Audit Config IAM Policy',
-    entities: [
-      {
-        resourceName: 'Audit Config',
-        _type: AUDIT_CONFIG_ENTITY_TYPE,
-        _class: AUDIT_CONFIG_ENTITY_CLASS,
-      },
-    ],
+    entities: [ResourceManagerEntities.AUDIT_CONFIG],
     relationships: [
-      {
-        _class: RelationshipClass.USES,
-        _type: SERVICE_USES_AUDIT_CONFIG_RELATIONSHIP_TYPE,
-        sourceType: ServiceUsageEntities.API_SERVICE._type,
-        targetType: AUDIT_CONFIG_ENTITY_TYPE,
-      },
-      {
-        _class: RelationshipClass.ALLOWS,
-        _type: AUDIT_CONFIG_ALLOWS_SERVICE_ACCOUNT_RELATIONSHIP_TYPE,
-        sourceType: AUDIT_CONFIG_ENTITY_TYPE,
-        targetType: IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
-      },
-      {
-        _class: RelationshipClass.ALLOWS,
-        _type: AUDIT_CONFIG_ALLOWS_USER_RELATIONSHIP_TYPE,
-        sourceType: AUDIT_CONFIG_ENTITY_TYPE,
-        targetType: GOOGLE_USER_ENTITY_TYPE,
-      },
-      {
-        _class: RelationshipClass.ALLOWS,
-        _type: AUDIT_CONFIG_ALLOWS_GROUP_RELATIONSHIP_TYPE,
-        sourceType: AUDIT_CONFIG_ENTITY_TYPE,
-        targetType: GOOGLE_GROUP_ENTITY_TYPE,
-      },
-      {
-        _class: RelationshipClass.ALLOWS,
-        _type: AUDIT_CONFIG_ALLOWS_DOMAIN_RELATIONSHIP_TYPE,
-        sourceType: AUDIT_CONFIG_ENTITY_TYPE,
-        targetType: GOOGLE_DOMAIN_ENTITY_TYPE,
-      },
+      ResourceManagerRelationships.API_SERVICE_USES_AUDIT_CONFIG,
+      ResourceManagerRelationships.AUDIT_CONFIG_ALLOWS_SERVICE_ACCOUNT,
+      ResourceManagerRelationships.AUDIT_CONFIG_ALLOWS_USER,
+      ResourceManagerRelationships.AUDIT_CONFIG_ALLOWS_GROUP,
+      ResourceManagerRelationships.AUDIT_CONFIG_ALLOWS_DOMAIN,
     ],
     executionHandler: fetchIamPolicyAuditConfig,
     dependsOn: [

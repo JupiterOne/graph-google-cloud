@@ -1,15 +1,6 @@
 import { cloudresourcemanager_v3 } from 'googleapis';
 import { parseTimePropertyValue } from '@jupiterone/integration-sdk-core';
-import {
-  PROJECT_ENTITY_TYPE,
-  PROJECT_ENTITY_CLASS,
-  ORGANIZATION_ENTITY_TYPE,
-  ORGANIZATION_ENTITY_CLASS,
-  FOLDER_ENTITY_TYPE,
-  FOLDER_ENTITY_CLASS,
-  AUDIT_CONFIG_ENTITY_TYPE,
-  AUDIT_CONFIG_ENTITY_CLASS,
-} from './constants';
+import { ResourceManagerEntities } from './constants';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import { getGoogleCloudConsoleWebLink } from '../../utils/url';
 
@@ -21,8 +12,8 @@ export function createAuditConfigEntity(
       source: data,
       assign: {
         _key: `auditConfig:${data.service}`,
-        _type: AUDIT_CONFIG_ENTITY_TYPE,
-        _class: AUDIT_CONFIG_ENTITY_CLASS,
+        _type: ResourceManagerEntities.AUDIT_CONFIG._type,
+        _class: ResourceManagerEntities.AUDIT_CONFIG._class,
         name: `auditConfig:${data.service}`,
         displayName: `auditConfig:${data.service}`,
         service: data.service,
@@ -42,8 +33,8 @@ export function createOrganizationEntity(
       source: data,
       assign: {
         _key: data.name as string,
-        _type: ORGANIZATION_ENTITY_TYPE,
-        _class: ORGANIZATION_ENTITY_CLASS,
+        _type: ResourceManagerEntities.ORGANIZATION._type,
+        _class: ResourceManagerEntities.ORGANIZATION._class,
         name: data.name,
         displayName: data.displayName as string,
         directoryCustomerId: data.directoryCustomerId,
@@ -64,8 +55,8 @@ export function createFolderEntity(
       source: data,
       assign: {
         _key: data.name as string,
-        _type: FOLDER_ENTITY_TYPE,
-        _class: FOLDER_ENTITY_CLASS,
+        _type: ResourceManagerEntities.FOLDER._type,
+        _class: ResourceManagerEntities.FOLDER._class,
         name: data.name,
         parent: data.parent,
         displayName: data.displayName as string,
@@ -89,8 +80,8 @@ export function createProjectEntity(
       source: project,
       assign: {
         _key: project.name || primaryProjectId,
-        _type: PROJECT_ENTITY_TYPE,
-        _class: PROJECT_ENTITY_CLASS,
+        _type: ResourceManagerEntities.PROJECT._type,
+        _class: ResourceManagerEntities.PROJECT._class,
         id: primaryProjectId,
         projectId: primaryProjectId,
         name: project.name || primaryProjectId,

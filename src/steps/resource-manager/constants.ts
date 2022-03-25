@@ -1,40 +1,162 @@
-export const STEP_RESOURCE_MANAGER_ORGANIZATION =
-  'fetch-resource-manager-organization';
-export const STEP_RESOURCE_MANAGER_FOLDERS = 'fetch-resource-manager-folders';
-export const STEP_RESOURCE_MANAGER_PROJECT = 'fetch-resource-manager-project';
-export const STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS =
-  'fetch-resource-manager-org-project-relationships';
-export const STEP_AUDIT_CONFIG_IAM_POLICY = 'fetch-iam-policy-audit-config';
+import { RelationshipClass } from '@jupiterone/integration-sdk-core';
+import {
+  GOOGLE_DOMAIN_ENTITY_TYPE,
+  GOOGLE_GROUP_ENTITY_TYPE,
+  GOOGLE_USER_ENTITY_TYPE,
+  IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
+} from '../iam/constants';
+import { ServiceUsageEntities } from '../service-usage/constants';
 
-export const ORGANIZATION_ENTITY_TYPE = 'google_cloud_organization';
-export const ORGANIZATION_ENTITY_CLASS = 'Organization';
+export const ResourceManagerStepIds = {
+  FETCH_IAM_POLICY_AUDIT_CONFIG: 'fetch-iam-policy-audit-config',
+  FETCH_ORGANIZATION: 'fetch-resource-manager-organization',
+  FETCH_FOLDERS: 'fetch-resource-manager-folders',
+  FETCH_PROJECT: 'fetch-resource-manager-project',
+  BUILD_ORG_PROJECT_RELATIONSHIPS:
+    'fetch-resource-manager-org-project-relationships',
+};
 
-export const FOLDER_ENTITY_TYPE = 'google_cloud_folder';
-export const FOLDER_ENTITY_CLASS = 'Group';
+export const ResourceManagerEntities = {
+  ORGANIZATION: {
+    _type: 'google_cloud_organization',
+    _class: ['Organization'],
+    resourceName: 'Organization',
+    schema: {
+      additionalProperties: false,
+      properties: {
+        _type: { const: 'google_cloud_organization' },
+        _rawData: {
+          type: 'array',
+          items: { type: 'object' },
+        },
+        name: { type: 'string' },
+        displayName: { type: 'string' },
+        directoryCustomerId: { type: 'string' },
+        etag: { type: 'string' },
+        lifecycleState: { type: 'string' },
+        createdOn: { type: 'number' },
+        updatedOn: { type: 'number' },
+      },
+    },
+  },
+  FOLDER: {
+    _type: 'google_cloud_folder',
+    _class: ['Group'],
+    resourceName: 'Folder',
+    schema: {
+      additionalProperties: false,
+      properties: {
+        _type: { const: 'google_cloud_folder' },
+        _rawData: {
+          type: 'array',
+          items: { type: 'object' },
+        },
+        name: { type: 'string' },
+        displayName: { type: 'string' },
+        etag: { type: 'string' },
+        lifecycleState: { type: 'string' },
+        parent: { type: 'string' },
+        createdOn: { type: 'number' },
+        updatedOn: { type: 'number' },
+      },
+    },
+  },
+  PROJECT: {
+    _type: 'google_cloud_project',
+    _class: ['Account'],
+    resourceName: 'Project',
+    schema: {
+      additionalProperties: false,
+      properties: {
+        _type: { const: 'google_cloud_project' },
+        _rawData: {
+          type: 'array',
+          items: { type: 'object' },
+        },
+        projectId: { type: 'string' },
+        name: { type: 'string' },
+        displayName: { type: 'string' },
+        parent: { type: 'string' },
+        lifecycleState: { type: 'string' },
+        createdOn: { type: 'number' },
+        updatedOn: { type: 'number' },
+      },
+    },
+  },
+  AUDIT_CONFIG: {
+    _type: 'google_cloud_audit_config',
+    _class: ['Configuration'],
+    resourceName: 'Audit Config',
+    schema: {
+      additionalProperties: false,
+      properties: {
+        _type: { const: 'google_cloud_audit_config' },
+        _rawData: {
+          type: 'array',
+          items: { type: 'object' },
+        },
+        name: { type: 'string' },
+        displayName: { type: 'string' },
+        service: { type: 'string' },
+        logTypes: { type: 'array', items: { type: 'string' } },
+      },
+    },
+  },
+};
 
-export const PROJECT_ENTITY_TYPE = 'google_cloud_project';
-export const PROJECT_ENTITY_CLASS = 'Account';
-
-export const AUDIT_CONFIG_ENTITY_TYPE = 'google_cloud_audit_config';
-export const AUDIT_CONFIG_ENTITY_CLASS = 'Configuration';
-
-export const IAM_SERVICE_ACCOUNT_ASSIGNED_ROLE_RELATIONSHIP_TYPE =
-  'google_iam_service_account_assigned_role';
-export const ORGANIZATION_HAS_FOLDER_RELATIONSHIP_TYPE =
-  'google_cloud_organization_has_folder';
-export const FOLDER_HAS_FOLDER_RELATIONSHIP_TYPE =
-  'google_cloud_folder_has_folder';
-export const ORGANIZATION_HAS_PROJECT_RELATIONSHIP_TYPE =
-  'google_organization_has_project';
-export const FOLDER_HAS_PROJECT_RELATIONSHIP_TYPE = 'google_folder_has_project';
-export const SERVICE_USES_AUDIT_CONFIG_RELATIONSHIP_TYPE =
-  'google_cloud_api_service_uses_audit_config';
-
-export const AUDIT_CONFIG_ALLOWS_SERVICE_ACCOUNT_RELATIONSHIP_TYPE =
-  'google_cloud_audit_config_allows_iam_service_account';
-export const AUDIT_CONFIG_ALLOWS_USER_RELATIONSHIP_TYPE =
-  'google_cloud_audit_config_allows_user';
-export const AUDIT_CONFIG_ALLOWS_GROUP_RELATIONSHIP_TYPE =
-  'google_cloud_audit_config_allows_group';
-export const AUDIT_CONFIG_ALLOWS_DOMAIN_RELATIONSHIP_TYPE =
-  'google_cloud_audit_config_allows_domain';
+export const ResourceManagerRelationships = {
+  ORGANIZATION_HAS_FOLDER: {
+    _type: 'google_cloud_organization_has_folder',
+    sourceType: ResourceManagerEntities.ORGANIZATION._type,
+    _class: RelationshipClass.HAS,
+    targetType: ResourceManagerEntities.FOLDER._type,
+  },
+  FOLDER_HAS_FOLDER: {
+    _type: 'google_cloud_folder_has_folder',
+    sourceType: ResourceManagerEntities.FOLDER._type,
+    _class: RelationshipClass.HAS,
+    targetType: ResourceManagerEntities.FOLDER._type,
+  },
+  ORGANIZATION_HAS_PROJECT: {
+    _type: 'google_organization_has_project',
+    sourceType: ResourceManagerEntities.ORGANIZATION._type,
+    _class: RelationshipClass.HAS,
+    targetType: ResourceManagerEntities.PROJECT._type,
+  },
+  FOLDER_HAS_PROJECT: {
+    _type: 'google_folder_has_project',
+    sourceType: ResourceManagerEntities.FOLDER._type,
+    _class: RelationshipClass.HAS,
+    targetType: ResourceManagerEntities.PROJECT._type,
+  },
+  API_SERVICE_USES_AUDIT_CONFIG: {
+    _type: 'google_cloud_api_service_uses_audit_config',
+    sourceType: ServiceUsageEntities.API_SERVICE._type,
+    _class: RelationshipClass.USES,
+    targetType: ResourceManagerEntities.AUDIT_CONFIG._type,
+  },
+  AUDIT_CONFIG_ALLOWS_SERVICE_ACCOUNT: {
+    _type: 'google_cloud_audit_config_allows_iam_service_account',
+    sourceType: ResourceManagerEntities.AUDIT_CONFIG._type,
+    _class: RelationshipClass.ALLOWS,
+    targetType: IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
+  },
+  AUDIT_CONFIG_ALLOWS_USER: {
+    _type: 'google_cloud_audit_config_allows_user',
+    sourceType: ResourceManagerEntities.AUDIT_CONFIG._type,
+    _class: RelationshipClass.ALLOWS,
+    targetType: GOOGLE_USER_ENTITY_TYPE,
+  },
+  AUDIT_CONFIG_ALLOWS_GROUP: {
+    _type: 'google_cloud_audit_config_allows_group',
+    sourceType: ResourceManagerEntities.AUDIT_CONFIG._type,
+    _class: RelationshipClass.ALLOWS,
+    targetType: GOOGLE_GROUP_ENTITY_TYPE,
+  },
+  AUDIT_CONFIG_ALLOWS_DOMAIN: {
+    _type: 'google_cloud_audit_config_allows_domain',
+    sourceType: ResourceManagerEntities.AUDIT_CONFIG._type,
+    _class: RelationshipClass.ALLOWS,
+    targetType: GOOGLE_DOMAIN_ENTITY_TYPE,
+  },
+};
