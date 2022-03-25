@@ -59,7 +59,7 @@ import {
   ParsedIamMember,
   parseIamMember,
 } from '../../utils/iam';
-import { API_SERVICE_ENTITY_TYPE } from '../service-usage';
+import { ServiceUsageEntities } from '../service-usage/constants';
 import { CREATE_IAM_ENTITY_MAP } from '../resource-manager/createIamEntities';
 
 export async function getPermissionsForManagedRole(
@@ -702,7 +702,7 @@ function isOrganizationalHierarchyResource(resourceType?: string) {
       ORGANIZATION_ENTITY_TYPE,
       FOLDER_ENTITY_TYPE,
       PROJECT_ENTITY_TYPE,
-      API_SERVICE_ENTITY_TYPE,
+      ServiceUsageEntities.API_SERVICE._type,
     ].includes(resourceType)
   );
 }

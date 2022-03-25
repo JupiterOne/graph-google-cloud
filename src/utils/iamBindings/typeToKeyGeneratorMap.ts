@@ -72,7 +72,7 @@ import {
   FOLDER_ENTITY_TYPE,
   PROJECT_ENTITY_TYPE,
 } from '../../steps/resource-manager/constants';
-import { API_SERVICE_ENTITY_TYPE } from '../../steps/service-usage/constants';
+import { ServiceUsageEntities } from '../../steps/service-usage/constants';
 import {
   ENTITY_TYPE_SPANNER_INSTANCE,
   ENTITY_TYPE_SPANNER_INSTANCE_DATABASE,
@@ -156,7 +156,7 @@ export const J1_TYPE_TO_KEY_GENERATOR_MAP: {
     getContainerClusterKey,
   ),
   [CONTAINER_NODE_POOL_ENTITY_TYPE]: selfLinkKeyMap,
-  [API_SERVICE_ENTITY_TYPE]: fullPathKeyMap,
+  [ServiceUsageEntities.API_SERVICE._type]: fullPathKeyMap,
   [LOGGING_PROJECT_SINK_ENTITY_TYPE]: customPrefixAndIdKeyMap(
     getLogingProjectSinkId,
   ),

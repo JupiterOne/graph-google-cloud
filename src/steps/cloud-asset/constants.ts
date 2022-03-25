@@ -12,7 +12,7 @@ import {
   IAM_ROLE_ENTITY_TYPE,
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
 } from '../iam';
-import { API_SERVICE_ENTITY_TYPE } from '../service-usage/constants';
+import { ServiceUsageEntities } from '../service-usage/constants';
 
 export const STEP_IAM_BINDINGS = 'fetch-iam-bindings';
 export const STEP_CREATE_BASIC_ROLES = 'create-basic-roles';
@@ -79,9 +79,9 @@ export const API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP = {
   _class: RelationshipClass.HAS,
   _type: generateRelationshipType(
     RelationshipClass.HAS,
-    API_SERVICE_ENTITY_TYPE,
+    ServiceUsageEntities.API_SERVICE._type,
     ANY_RESOURCE,
   ),
-  sourceType: API_SERVICE_ENTITY_TYPE,
+  sourceType: ServiceUsageEntities.API_SERVICE._type,
   targetType: ANY_RESOURCE,
 };

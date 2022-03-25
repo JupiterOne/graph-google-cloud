@@ -33,8 +33,8 @@ import {
   IAM_MANAGED_ROLES_DATA_JOB_STATE_KEY,
 } from '../../utils/iam';
 import {
-  API_SERVICE_ENTITY_TYPE,
-  STEP_API_SERVICES,
+  ServiceUsageEntities,
+  ServiceUsageStepIds,
 } from '../service-usage/constants';
 import { getServiceApiEntityKey } from '../service-usage/converters';
 
@@ -96,7 +96,7 @@ async function createApiServiceEntityHasIamRoleRelationships({
     await jobState.addRelationship(
       createDirectRelationship({
         _class: RelationshipClass.HAS,
-        fromType: API_SERVICE_ENTITY_TYPE,
+        fromType: ServiceUsageEntities.API_SERVICE._type,
         fromKey: serviceApiEntityKey,
         toType: IAM_ROLE_ENTITY_TYPE,
         toKey: iamRoleEntity._key,
@@ -207,12 +207,12 @@ export const iamSteps: IntegrationStep<IntegrationConfig>[] = [
       {
         _class: RelationshipClass.HAS,
         _type: API_SERVICE_HAS_IAM_ROLE_RELATIONSHIP_TYPE,
-        sourceType: API_SERVICE_ENTITY_TYPE,
+        sourceType: ServiceUsageEntities.API_SERVICE._type,
         targetType: IAM_ROLE_ENTITY_TYPE,
       },
     ],
     executionHandler: fetchIamCustomRoles,
-    dependsOn: [STEP_API_SERVICES],
+    dependsOn: [ServiceUsageStepIds.FETCH_API_SERVICES],
   },
   {
     id: STEP_IAM_MANAGED_ROLES,
