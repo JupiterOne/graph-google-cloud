@@ -37,7 +37,7 @@ describe('createStartStatesBasedOnServiceAccountProject', () => {
     await recording.stop();
   });
 
-  test.skip('When the config.projectId is different from the config.serviceAccountKeyConfig.project_id, the Service Account Project will be used in determining `google_iam_binding` and `google_iam_role` steps.', async () => {
+  test('When the config.projectId is different from the config.serviceAccountKeyConfig.project_id, the Service Account Project will be used in determining `google_iam_binding` and `google_iam_role` steps.', async () => {
     const context = createMockExecutionContext<IntegrationConfig>({
       instanceConfig: {
         projectId: 'j1-gc-integration-dev-nested', // Project that doesn't have Cloud Asset API enabled and is in the same org as j1-gc-integration-dev-v3
@@ -78,7 +78,7 @@ describe('createStartStatesBasedOnServiceAccountProject', () => {
   });
 });
 
-test.skip('should successfully validate stepStartStates', async () => {
+test('should successfully validate stepStartStates', async () => {
   await withGoogleCloudRecording(
     {
       directory: __dirname,
