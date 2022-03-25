@@ -8,6 +8,8 @@ and this project adheres to
 
 ## Unreleased
 
+## 2.9.5 - 2022-03-25
+
 ### Changed
 
 - Increase `serviceusage.services.list` page size from 50 -> 200
