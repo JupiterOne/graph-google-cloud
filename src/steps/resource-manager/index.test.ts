@@ -48,7 +48,7 @@ describe('#fetchIamPolicyAuditConfig', () => {
     }
   });
 
-  test.skip('should collect data', async () => {
+  test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
       instanceConfig: {
         ...integrationConfig,
@@ -208,7 +208,7 @@ describe('#fetchIamPolicyAuditConfig', () => {
             'auditConfig:binaryauthorization.googleapis.com|allows|j1-gc-integration-dev-org@my-j1-test-proj-test.iam.gserviceaccount.com',
         ),
     ).toBe(true);
-  });
+  }, 30_000);
 });
 
 describe('#fetchResourceManagerProject', () => {

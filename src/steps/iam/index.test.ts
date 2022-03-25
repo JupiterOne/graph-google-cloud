@@ -31,7 +31,7 @@ describe('#fetchIamRoles', () => {
     await recording.stop();
   });
 
-  test.skip('should collect data', async () => {
+  test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
       instanceConfig: {
         ...integrationConfig,
@@ -92,7 +92,7 @@ describe('#fetchIamRoles', () => {
         },
       },
     });
-  });
+  }, 30_000);
 });
 
 describe('#fetchIamServiceAccounts', () => {

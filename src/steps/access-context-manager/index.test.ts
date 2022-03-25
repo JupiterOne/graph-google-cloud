@@ -228,7 +228,7 @@ describe('#fetchAccessContextManagerServicePerimeters', () => {
     };
   }
 
-  test.skip('should collect data', async () => {
+  test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
       instanceConfig: {
         ...integrationConfig,
@@ -554,7 +554,7 @@ describe('#fetchAccessContextManagerServicePerimeters', () => {
           'projects/j1-gc-integration-dev-v3/services/storage.googleapis.com',
       ),
     ).toCreateValidRelationshipsToEntities(serviceEntities);
-  });
+  }, 30_000);
 });
 
 declare global {
