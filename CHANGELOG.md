@@ -8,6 +8,8 @@ and this project adheres to
 
 ## Unreleased
 
+## 2.9.6 - 2022-03-29
+
 ### Fixed
 
 - Calculate correct value of `blockProjectSSHKeys`
