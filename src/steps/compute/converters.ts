@@ -384,27 +384,17 @@ function getDefaultServiceAccountUsage(
 }
 
 // 4.3 Ensure "Block Project-wide SSH keys" is enabled for VM instances (Scored)
-function getBlockProjectSSHKeysValue(
-  name: string,
+export function getBlockProjectSSHKeysValue(
   metadata?: compute_v1.Schema$Metadata,
 ): boolean | undefined {
-  /*
-    Exception:
-    VMs created by GKE should be excluded. These VMs have names that start with gke- and are labeled goog-gke-node
-  */
-  if (name.startsWith('gke-') || !metadata) {
-    return undefined;
-  }
+  if (!metadata) return false;
 
-  /*
-    We usually don't want to map original values, however this one returns true/false as a string
-    It might be confusing if JupiterOne contained fields where true/false can be found in both string and boolean forms?
-   */
   const value = metadata.items?.find(
     (item) => item.key === 'block-project-ssh-keys',
   )?.value;
 
-  return value ? value === 'true' : undefined;
+  // Handle both `TRUE` and `true`
+  return value ? value.toLowerCase() === 'true' : false;
 }
 
 // 4.5 Ensure 'Enable connecting to serial ports' is not enabled for VM Instance
@@ -490,10 +480,7 @@ export function createComputeInstanceEntity(
           data.name as string,
           data.serviceAccounts,
         ),
-        blockProjectSSHKeys: getBlockProjectSSHKeysValue(
-          data.name as string,
-          data.metadata,
-        ),
+        blockProjectSSHKeys: getBlockProjectSSHKeysValue(data.metadata),
         connectedNetworksCount: data.networkInterfaces?.length,
         isSerialPortEnabled: isSerialPortEnabled(data.metadata),
 
