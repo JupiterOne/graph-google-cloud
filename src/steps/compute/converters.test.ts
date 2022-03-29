@@ -27,6 +27,7 @@ import {
   createTargetHttpProxyEntity,
   createTargetHttpsProxyEntity,
   createTargetSslProxyEntity,
+  getBlockProjectSSHKeysValue,
   getIpAddressesForComputeInstance,
 } from './converters';
 import {
@@ -551,5 +552,70 @@ describe('#createTargetSslProxyEntity', () => {
 describe('#createSslPolicyEntity', () => {
   test('should convert to entity', () => {
     expect(createSslPolicyEntity(getMockSslPolicy())).toMatchSnapshot();
+  });
+});
+
+describe('#getBlockProjectSSHKeysValue', () => {
+  test('should return `true` if value of `block-project-ssh-keys` value is `TRUE`', () => {
+    expect(
+      getBlockProjectSSHKeysValue({
+        kind: 'compute#metadata',
+        fingerprint: 'abc123',
+        items: [
+          {
+            key: 'block-project-ssh-keys',
+            value: 'TRUE',
+          },
+        ],
+      }),
+    ).toEqual(true);
+  });
+
+  test('should return `true` if value of `block-project-ssh-keys` value is `true`', () => {
+    expect(
+      getBlockProjectSSHKeysValue({
+        kind: 'compute#metadata',
+        fingerprint: 'abc123',
+        items: [
+          {
+            key: 'block-project-ssh-keys',
+            value: 'true',
+          },
+        ],
+      }),
+    ).toEqual(true);
+  });
+
+  test('should return `false` if `metadata` is `undefined`', () => {
+    expect(getBlockProjectSSHKeysValue(undefined)).toEqual(false);
+  });
+
+  test('should return `false` if value of `block-project-ssh-keys` value `undefined`', () => {
+    expect(
+      getBlockProjectSSHKeysValue({
+        kind: 'compute#metadata',
+        fingerprint: 'abc123',
+        items: [
+          {
+            key: 'block-project-ssh-keys',
+          },
+        ],
+      }),
+    ).toEqual(false);
+  });
+
+  test('should return `false` if value of `block-project-ssh-keys` value is invalid', () => {
+    expect(
+      getBlockProjectSSHKeysValue({
+        kind: 'compute#metadata',
+        fingerprint: 'abc123',
+        items: [
+          {
+            key: 'block-project-ssh-keys',
+            value: 'abc123',
+          },
+        ],
+      }),
+    ).toEqual(false);
   });
 });
