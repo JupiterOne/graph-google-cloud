@@ -8,6 +8,23 @@ and this project adheres to
 
 ## Unreleased
 
+### Fixed
+
+- Calculate correct value of `blockProjectSSHKeys`
+
+  Properly calcualte the value of `blockProjectSSHKeys` on
+  `google_compute_instance` entities. According to the GCP documentation,
+  `block-project-ssh-keys` generally has the value `TRUE` instead of `true`. The
+  new implementation considers both cases.
+
+  For more information, see:
+  https://cloud.google.com/compute/docs/connect/restrict-ssh-keys#during-vm-creation
+
+  Additionally, the logic that was considering compute instances that have names
+  beginning with `gke-` has been removed. We should maintain the original value
+  of the compute metadata on the `google_compute_instance` entity and let the
+  managed question handle the CIS benchmark logic.
+
 ## 2.9.5 - 2022-03-25
 
 ### Changed
