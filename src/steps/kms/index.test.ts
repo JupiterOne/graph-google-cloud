@@ -2,10 +2,7 @@ import {
   Recording,
   createMockStepExecutionContext,
 } from '@jupiterone/integration-sdk-testing';
-import {
-  setupGoogleCloudRecording,
-  withRecording,
-} from '../../../test/recording';
+import { setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
 import { fetchKmsKeyRings, fetchKmsCryptoKeys } from '.';
 import { integrationConfig } from '../../../test/config';
@@ -13,7 +10,18 @@ import {
   ENTITY_TYPE_KMS_KEY,
   RELATIONSHIP_TYPE_KMS_KEY_RING_HAS_KMS_KEY,
 } from './constants';
-import { IntegrationProviderAuthorizationError } from '@jupiterone/integration-sdk-core';
+
+const tempNewAccountConfig = {
+  ...integrationConfig,
+  serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+    'j1-gc-integration-dev-v2',
+    'j1-gc-integration-dev-v3',
+  ),
+  serviceAccountKeyConfig: {
+    ...integrationConfig.serviceAccountKeyConfig,
+    project_id: 'j1-gc-integration-dev-v3',
+  },
+};
 
 describe('#fetchKmsKeyRings', () => {
   let recording: Recording;
@@ -31,7 +39,7 @@ describe('#fetchKmsKeyRings', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: tempNewAccountConfig,
     });
 
     await fetchKmsKeyRings(context);
@@ -79,7 +87,7 @@ describe('#fetchKmsCryptoKeys', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: tempNewAccountConfig,
     });
 
     await fetchKmsKeyRings(context);
@@ -144,30 +152,30 @@ describe('#fetchKmsCryptoKeys', () => {
   });
 });
 
-describe('#errorHandling', () => {
-  [fetchKmsKeyRings].forEach((method) => {
-    it('should handle billing errors correctly', async () => {
-      const customConfig = {
-        ...integrationConfig,
-        serviceAccountKeyConfig: {
-          ...integrationConfig.serviceAccountKeyConfig,
-          project_id: 'j1-gc-integration-dev',
-        },
-      };
-      const context = createMockStepExecutionContext<IntegrationConfig>({
-        instanceConfig: customConfig,
-      });
-      try {
-        await withRecording(
-          `${method.name}BillingError`,
-          __dirname,
-          async () => await method(context),
-        );
-        fail(`${method.name} was successful when it should have failed`);
-      } catch (error) {
-        expect(error).toBeInstanceOf(IntegrationProviderAuthorizationError);
-        expect(error.message).toMatch(/billing/i);
-      }
-    });
-  });
-});
+// describe('#errorHandling', () => {
+//   [fetchKmsKeyRings].forEach((method) => {
+//     it('should handle billing errors correctly', async () => {
+//       const customConfig = {
+//         ...integrationConfig,
+//         serviceAccountKeyConfig: {
+//           ...integrationConfig.serviceAccountKeyConfig,
+//           project_id: 'j1-gc-integration-dev',
+//         },
+//       };
+//       const context = createMockStepExecutionContext<IntegrationConfig>({
+//         instanceConfig: customConfig,
+//       });
+//       try {
+//         await withRecording(
+//           `${method.name}BillingError`,
+//           __dirname,
+//           async () => await method(context),
+//         );
+//         fail(`${method.name} was successful when it should have failed`);
+//       } catch (error) {
+//         expect(error).toBeInstanceOf(IntegrationProviderAuthorizationError);
+//         expect(error.message).toMatch(/billing/i);
+//       }
+//     });
+//   });
+// });

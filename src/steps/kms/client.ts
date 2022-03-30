@@ -27,25 +27,51 @@ export class CloudKmsClient extends Client {
 
   async iterateKeyRings(
     callback: (data: cloudkms_v1.Schema$KeyRing) => Promise<void>,
+    onComplete?: (data: {
+      totalRequestsMade: number;
+      totalResourcesReturned: number;
+      maximumResourcesPerPage: number;
+    }) => void,
   ) {
     const auth = await this.getAuthenticatedServiceClient();
+    let totalRequestsMade = 0;
+    let totalResourcesReturned = 0;
+    let maximumResourcesPerPage = 0;
 
-    await this.iterateProjectLocations(async (location) => {
-      await this.iterateApi(
-        async (nextPageToken) => {
-          return this.client.projects.locations.keyRings.list({
-            auth,
-            pageToken: nextPageToken,
-            parent: `projects/${this.projectId}/locations/${location.locationId}`,
-          });
-        },
-        async (data: cloudkms_v1.Schema$ListKeyRingsResponse) => {
-          for (const item of data.keyRings || []) {
-            await callback(item);
-          }
-        },
-      );
-    });
+    try {
+      await this.iterateProjectLocations(async (location) => {
+        await this.iterateApi(
+          async (nextPageToken) => {
+            return this.client.projects.locations.keyRings.list({
+              auth,
+              pageToken: nextPageToken,
+              pageSize: 200,
+              parent: `projects/${this.projectId}/locations/${location.locationId}`,
+            });
+          },
+          async (data: cloudkms_v1.Schema$ListKeyRingsResponse) => {
+            totalRequestsMade++;
+            if (data.keyRings) {
+              totalResourcesReturned += data.keyRings.length;
+              if (data.keyRings.length > maximumResourcesPerPage) {
+                maximumResourcesPerPage = data.keyRings.length;
+              }
+            }
+            for (const item of data.keyRings || []) {
+              await callback(item);
+            }
+          },
+        );
+      });
+    } finally {
+      if (onComplete) {
+        onComplete({
+          totalRequestsMade,
+          totalResourcesReturned,
+          maximumResourcesPerPage,
+        });
+      }
+    }
   }
 
   async iterateCryptoKeys(

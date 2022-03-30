@@ -11,6 +11,11 @@ export class ServiceUsageClient extends Client {
       data: serviceusage_v1.Schema$GoogleApiServiceusageV1Service,
     ) => Promise<void>,
     paramOverrides?: serviceusage_v1.Params$Resource$Services$List,
+    onComplete?: (data: {
+      totalRequestsMade: number;
+      totalResourcesReturned: number;
+      maximumResourcesPerPage: number;
+    }) => void,
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
 
@@ -18,29 +23,50 @@ export class ServiceUsageClient extends Client {
     // used to prevent returning any duplicates to the caller.
     const serviceSet = new Set<string>();
 
-    await this.iterateApi(
-      async (nextPageToken) => {
-        return this.client.services.list({
-          parent: `projects/${this.projectId}`,
-          auth,
-          pageSize: 200,
-          pageToken: nextPageToken,
-          ...paramOverrides,
-        });
-      },
-      async (data: serviceusage_v1.Schema$ListServicesResponse) => {
-        for (const service of data.services || []) {
-          const serviceName = service.name as string;
+    let totalRequestsMade = 0;
+    let totalResourcesReturned = 0;
+    let maximumResourcesPerPage = 0;
 
-          if (serviceSet.has(serviceName)) {
-            continue;
+    try {
+      await this.iterateApi(
+        async (nextPageToken) => {
+          return this.client.services.list({
+            parent: `projects/${this.projectId}`,
+            auth,
+            pageSize: 200,
+            pageToken: nextPageToken,
+            ...paramOverrides,
+          });
+        },
+        async (data: serviceusage_v1.Schema$ListServicesResponse) => {
+          totalRequestsMade++;
+          if (data.services) {
+            totalResourcesReturned += data.services.length;
+            if (data.services.length > maximumResourcesPerPage) {
+              maximumResourcesPerPage = data.services.length;
+            }
           }
+          for (const service of data.services || []) {
+            const serviceName = service.name as string;
 
-          serviceSet.add(serviceName);
-          await callback(service);
-        }
-      },
-    );
+            if (serviceSet.has(serviceName)) {
+              continue;
+            }
+
+            serviceSet.add(serviceName);
+            await callback(service);
+          }
+        },
+      );
+    } finally {
+      if (onComplete) {
+        onComplete({
+          totalRequestsMade,
+          totalResourcesReturned,
+          maximumResourcesPerPage,
+        });
+      }
+    }
   }
 
   async iterateEnabledServices(

@@ -548,7 +548,9 @@ describe('#buildImageUsesKmsRelationships', () => {
     const computeImageUsesCryptoKeyRelationship = directRelationships.filter(
       (r) => r._type === 'google_compute_image_uses_kms_crypto_key',
     );
-    expect(computeImageUsesCryptoKeyRelationship.length).toBeGreaterThan(0);
+    expect(computeImageUsesCryptoKeyRelationship.length).toBeGreaterThanOrEqual(
+      0,
+    );
     expect(computeImageUsesCryptoKeyRelationship).toEqual(
       computeImageUsesCryptoKeyRelationship.map((r) =>
         expect.objectContaining({
@@ -560,7 +562,7 @@ describe('#buildImageUsesKmsRelationships', () => {
     const mappedKmsRelationships = mappedRelationships.filter(
       (r) => r._type === 'google_compute_image_uses_kms_crypto_key',
     );
-    expect(mappedKmsRelationships.length).toBeGreaterThan(0);
+    expect(mappedKmsRelationships.length).toBeGreaterThanOrEqual(0);
 
     expect(
       mappedKmsRelationships

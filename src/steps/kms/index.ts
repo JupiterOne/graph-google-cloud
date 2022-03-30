@@ -21,11 +21,24 @@ export * from './constants';
 export async function fetchKmsKeyRings(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, instance } = context;
+  const { jobState, instance, logger } = context;
   const client = new CloudKmsClient({ config: instance.config });
 
   await client.iterateKeyRings(async (keyRing) => {
     await jobState.addEntity(createKmsKeyRingEntity(keyRing));
+  }, ({ 
+    totalRequestsMade,
+    totalResourcesReturned,
+    maximumResourcesPerPage
+   }) => {
+    logger.info(
+      {
+        totalRequestsMade,
+        totalResourcesReturned,
+        maximumResourcesPerPage
+      },
+      'KMS Key Rings API Requests summary',
+    );
   });
 }
 

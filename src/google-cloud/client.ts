@@ -120,7 +120,7 @@ export function withErrorHandling<T extends (...params: any) => any>(
       },
       {
         delay: 2_000,
-        timeout: 60_000, // Need to set a timeout, otherwise we might wait for a response indefinitely.
+        timeout: 91_000, // Need to set a timeout, otherwise we might wait for a response indefinitely.
         maxAttempts: 6,
         factor: 2.25, //t=0s, 2s, 4.5s, 10.125s, 22.78125s, 51.2578125 (90.6640652s)
         handleError(err, ctx) {
