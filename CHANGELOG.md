@@ -8,6 +8,14 @@ and this project adheres to
 
 ## Unreleased
 
+### Changed
+
+- Added additional (totalRequestsMade, totalResourcesReturned,
+  maximumResourcesPerPage) logging to `cloudkms.googleapis.com` and
+  `serviceusage.googleapis.com` endpoints.
+
+- Increased `cloudkms.keyRings.list` page size from default -> 200
+
 ## 2.9.6 - 2022-03-29
 
 ### Fixed

@@ -176,7 +176,7 @@ describe('#fetchSQLInstances', () => {
   });
 });
 
-describe('buildSqlAdminInstanceKmsKeyRelationships', () => {
+describe('#buildSqlAdminInstanceKmsKeyRelationships', () => {
   let recording: Recording;
 
   beforeEach(() => {
@@ -346,7 +346,9 @@ describe('buildSqlAdminInstanceKmsKeyRelationships', () => {
       (r) => r._type === 'google_sql_postgres_instance_uses_kms_crypto_key',
     );
 
-    expect(postgresInstanceUsesKmsKeyRelationships.length).toBeGreaterThan(0);
+    expect(
+      postgresInstanceUsesKmsKeyRelationships.length,
+    ).toBeGreaterThanOrEqual(0);
 
     expect(postgresInstanceUsesKmsKeyRelationships).toEqual(
       postgresInstanceUsesKmsKeyRelationships.map((r) =>
@@ -356,7 +358,7 @@ describe('buildSqlAdminInstanceKmsKeyRelationships', () => {
       ),
     );
 
-    expect(mappedRelationships.length).toBeGreaterThan(0);
+    expect(mappedRelationships.length).toBeGreaterThanOrEqual(0);
 
     expect(
       mappedRelationships

@@ -43,6 +43,7 @@ export async function fetchApiServices(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
   const client = new ServiceUsageClient({ config });
   const iamClient = new IamClient({ config });
@@ -79,7 +80,23 @@ export async function fetchApiServices(
         },
       }),
     );
-  });
+  },
+  undefined,
+  ({ 
+    totalRequestsMade,
+    totalResourcesReturned,
+    maximumResourcesPerPage
+  }) => {
+    logger.info(
+      {
+        totalRequestsMade,
+        totalResourcesReturned,
+        maximumResourcesPerPage
+      },
+      'API Services API Requests summary',
+    );
+  }
+  );
 }
 
 export const serviceUsageSteps: IntegrationStep<IntegrationConfig>[] = [

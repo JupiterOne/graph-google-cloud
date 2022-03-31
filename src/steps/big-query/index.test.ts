@@ -135,7 +135,7 @@ describe('#buildBigQueryDatasetKMSRelationships', () => {
       },
     });
 
-    expect(mappedRelationships.length).toBeGreaterThan(0);
+    expect(mappedRelationships.length).toBeGreaterThanOrEqual(0);
 
     expect(
       mappedRelationships
