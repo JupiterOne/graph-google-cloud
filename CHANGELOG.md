@@ -8,6 +8,8 @@ and this project adheres to
 
 ## Unreleased
 
+## 2.10.0 - 2022-03-31
+
 ### Changed
 
 - Added additional (totalRequestsMade, totalResourcesReturned,
