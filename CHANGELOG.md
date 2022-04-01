@@ -8,6 +8,8 @@ and this project adheres to
 
 ## Unreleased
 
+## 2.11.0 - 2022-04-01
+
 ### Changed
 
 - Check for the existence of app engine application in
