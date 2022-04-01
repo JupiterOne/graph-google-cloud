@@ -212,8 +212,12 @@ export async function fetchAppEngineServices(
     logger,
   } = context;
 
-  const appEngine = await jobState.getData(ENTITY_TYPE_APP_ENGINE_APPLICATION);
-  if (!appEngine) {
+  // There's 1:1 mapping of GCloud project to AppEngine application
+  // So we can safely map these to the only one existing app engine application
+  const appEngineEntity = await jobState.getData(
+    ENTITY_TYPE_APP_ENGINE_APPLICATION,
+  );
+  if (!appEngineEntity) {
     logger.info(
       "Could not fetch app engine services because the app engine application doesn't exist",
     );
@@ -228,20 +232,13 @@ export async function fetchAppEngineServices(
       const serviceEntity = createAppEngineServiceEntity(service);
       await jobState.addEntity(serviceEntity);
 
-      // There's 1:1 mapping of GCloud project to AppEngine application
-      // So we can safely map these to the only one existing app engine application
-      const applicationEntity = await jobState.getData<Entity>(
-        ENTITY_TYPE_APP_ENGINE_APPLICATION,
+      await jobState.addRelationship(
+        createDirectRelationship({
+          _class: RelationshipClass.HAS,
+          from: appEngineEntity as Entity,
+          to: serviceEntity,
+        }),
       );
-      if (applicationEntity) {
-        await jobState.addRelationship(
-          createDirectRelationship({
-            _class: RelationshipClass.HAS,
-            from: applicationEntity,
-            to: serviceEntity,
-          }),
-        );
-      }
     });
   });
 }
