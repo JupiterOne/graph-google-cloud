@@ -212,6 +212,14 @@ export async function fetchAppEngineServices(
     logger,
   } = context;
 
+  const appEngine = await jobState.getData(ENTITY_TYPE_APP_ENGINE_APPLICATION);
+  if (!appEngine) {
+    logger.info(
+      "Could not fetch app engine services because the app engine application doesn't exist",
+    );
+    return;
+  }
+
   const client = new AppEngineClient({ config });
   const { projectId } = client;
 

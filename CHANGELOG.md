@@ -8,6 +8,12 @@ and this project adheres to
 
 ## Unreleased
 
+### Changed
+
+- Check for the existence of app engine application in
+  `fetch-app-engine-services` to better handle app engine services not found
+  issue.
+
 ## 2.10.0 - 2022-03-31
 
 ### Changed
