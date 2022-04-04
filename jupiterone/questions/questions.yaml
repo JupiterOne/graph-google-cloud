@@ -81,7 +81,7 @@ questions:
   - user
   - access
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '1.1'
 - id: integration-question-google-cloud-managed-service-account-keys
@@ -99,7 +99,7 @@ questions:
   - access
   - iam
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '1.4'
 - id: integration-question-google-cloud-service-account-non-admin
@@ -148,7 +148,7 @@ questions:
   - access
   - iam
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '1.5'
 - id: integration-question-google-cloud-iam-not-assigned-user-token-roles-project-level
@@ -187,7 +187,7 @@ questions:
   - access
   - iam
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '1.6'
 - id: integration-question-google-cloud-user-managed-external-keys-service-account-rotation-period
@@ -219,7 +219,7 @@ questions:
   - access
   - iam
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '1.7'
 
@@ -238,7 +238,7 @@ questions:
   - google-cloud
   - kms
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '1.9'
 
@@ -283,7 +283,7 @@ questions:
   - google-cloud
   - kms
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '1.10'
 
@@ -393,7 +393,7 @@ questions:
   - compute
   - network
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '3.1'
 
@@ -411,7 +411,7 @@ questions:
   - domain
   - dns
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '3.3'
 
@@ -429,7 +429,7 @@ questions:
   - domain
   - dns
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '3.4'
 
@@ -447,7 +447,7 @@ questions:
   - domain
   - dns
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '3.5'
 
@@ -484,7 +484,7 @@ questions:
   - compute
   - network
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '3.6'
 
@@ -521,7 +521,7 @@ questions:
   - compute
   - network
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '3.7'
 
@@ -612,7 +612,7 @@ questions:
   - instance
   - service-account
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '4.1'
 
@@ -633,7 +633,7 @@ questions:
   - instance
   - service-account
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '4.2'
 
@@ -656,7 +656,7 @@ questions:
   - compute
   - instance
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '4.3'
 
@@ -690,7 +690,7 @@ questions:
   - compute
   - project
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '4.4'
 
@@ -715,7 +715,7 @@ questions:
   - google-cloud
   - compute
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '4.5'
 
@@ -742,7 +742,7 @@ questions:
   - compute
   - network
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '4.6'
 
@@ -762,7 +762,7 @@ questions:
   - compute
   - encryption
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '4.7'
 
@@ -781,7 +781,7 @@ questions:
   - google-cloud
   - compute
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '4.8'
 ################################################################################
@@ -806,7 +806,7 @@ questions:
   - storage
   - access
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '5.1'
 - id: integration-question-google-cloud-storage-bucket-uniform-bucket-access-enabled
@@ -824,7 +824,7 @@ questions:
   - storage
   - access
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '5.2'
 ################################################################################
@@ -851,7 +851,7 @@ questions:
   - mysql
   - datastore
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '6.1.2'
 
@@ -872,7 +872,7 @@ questions:
   - postgresql
   - datastore
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '6.2.1'
 
@@ -893,7 +893,7 @@ questions:
   - postgresql
   - datastore
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '6.2.2'
 
@@ -914,7 +914,7 @@ questions:
   - postgresql
   - datastore
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '6.2.3'
 
@@ -935,7 +935,7 @@ questions:
   - postgresql
   - datastore
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '6.2.4'
 
@@ -960,7 +960,7 @@ questions:
   - postgresql
   - datastore
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '6.2.5'
 
@@ -987,7 +987,7 @@ questions:
   - postgresql
   - datastore
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '6.2.6'
 
@@ -1008,7 +1008,7 @@ questions:
   - postgresql
   - datastore
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '6.2.7'
 
@@ -1029,7 +1029,7 @@ questions:
   - sql-server
   - datastore
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '6.3.1'
 
@@ -1050,7 +1050,7 @@ questions:
   - sql-server
   - datastore
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '6.3.2'
 
@@ -1073,7 +1073,7 @@ questions:
   - datastore
   - network
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '6.4'
 
@@ -1096,7 +1096,7 @@ questions:
   - datastore
   - network
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '6.5'
 
@@ -1119,7 +1119,7 @@ questions:
   - datastore
   - network
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '6.6'
 
@@ -1142,7 +1142,7 @@ questions:
   - datastore
   - network
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '6.7'
 ################################################################################
@@ -1168,7 +1168,7 @@ questions:
   - big-query
   - datastore
   compliance:
-  - standard: CIS Google Cloud Foundations
+  - standard: CIS GCP Foundations v1.1.0
     requirements:
       - '7.1'
 ################################################################################
