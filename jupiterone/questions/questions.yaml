@@ -60,6 +60,22 @@ questions:
   - google-cloud
   - iam
 
+- id: integration-question-google-iam-service-account-permissions
+  title: Which permissions do my Google Cloud service accounts have?
+  description:
+    Finds all permissions for Google Cloud service accounts
+  queries:
+  - query: |
+      FIND google_iam_service_account WITH email $= "gserviceaccount.com" as s
+        (THAT ASSIGNED << AccessPolicy)?
+        (THAT USES AccessRole)?
+        THAT ASSIGNED << AccessPolicy AS p
+        THAT ALLOWS >> *
+      RETURN s.email, p.name, p.permissions, p.organization, p.folders, p.project
+  tags:
+  - google-cloud
+  - iam
+
 ################################################################################
 # End generic non-compliance questions
 ################################################################################
