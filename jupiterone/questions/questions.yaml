@@ -1171,6 +1171,33 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '7.1'
+
+- id: integration-question-google-big-query-dataset-audit
+  title: Are any of my BigQuery datasets compromised based on cloud API access?
+  description: >
+    Allow a security reviewer with read-only access to audit a bigquery dataset with cloud API permissions.
+  queries:
+  - name: good
+    query: |
+      FIND google_bigquery_dataset AS t
+        THAT HAS google_cloud_api_service WITH auditable = true
+        THAT HAS AccessRole AS a
+      RETURN
+        a.displayName,a.permission,a.readonly,a.name,
+        t.displayName,t.id,t.projectId,t.etag
+  - name: bad
+    query: |
+      FIND google_bigquery_dataset AS t
+        THAT HAS google_cloud_api_service WITH auditable != true
+        THAT HAS AccessRole AS a
+      RETURN
+        a.displayName,a.permission,a.readonly,a.name,
+        t.displayName,t.id,t.projectId,t.etag
+  tags:
+  - google-cloud
+  - big-query
+  - datastore
+  
 ################################################################################
 # End Section 7: Big Query
 ################################################################################
