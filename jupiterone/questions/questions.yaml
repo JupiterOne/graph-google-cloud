@@ -97,7 +97,6 @@ questions:
       google_iam_service_account_key.type,
       google_iam_service_account_key.createdOn,
       google_iam_service_account_key.expiresOn
-
   tags:
   - google-cloud
   - service-account
