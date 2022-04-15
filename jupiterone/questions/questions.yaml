@@ -76,14 +76,12 @@ questions:
   - google-cloud
   - iam
 
-  - id: integration-question-google-cloud-service-account-key-expires-before-date
+- id: integration-question-google-cloud-service-account-key-expires-before-date
   title: Which user-managed/external keys for service accounts are set to expire before or on a certain date?
   description:
-    Service Account keys consist of a key ID (Private_key_Id) and Private key, which are used to sign
-     programmatic requests users make to Google cloud services accessible to that particular service 
-     account. Input a date in ISO 8601 format to assess which keys will expire before or on that date.
+   Input a date in ISO 8601 format to assess which keys will expire before or on that date.
   queries:
-    query: |
+  - query: |
       FIND google_iam_service_account AS serviceAccount
         THAT HAS google_iam_service_account_key
         WITH expiresOn <= date({{ISO8601.date}})
