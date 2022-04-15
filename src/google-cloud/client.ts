@@ -109,6 +109,19 @@ export type WithErrorHandlingOptions = {
   onRetry?: (err: any) => void;
 };
 
+function redactHelpToken(message?: string) {
+  if (!message) {
+    return '';
+  }
+
+  if (message.indexOf('Help Token') >= 0) {
+    const parts = message.split('Help Token:');
+    return parts[0] + 'Help Token: [REDACTED]';
+  }
+
+  return message;
+}
+
 export function withErrorHandling<T extends (...params: any) => any>(
   fn: T,
   options?: WithErrorHandlingOptions,
@@ -173,7 +186,15 @@ function handleApiClientError(error: any) {
   ) {
     err = new IntegrationProviderAuthorizationError(errorProps);
   } else if (code === 429 || code >= 500) {
-    err = new IntegrationProviderAPIError(errorProps);
+    err = new IntegrationProviderAPIError({
+      ...errorProps,
+      message: redactHelpToken(errorProps.message),
+      cause: {
+        ...errorProps.cause,
+        name: errorProps.cause?.name || '',
+        message: redactHelpToken(errorProps.cause?.message),
+      },
+    });
     (err as any).retryable = true;
   } else {
     err = new IntegrationProviderAPIError(errorProps);
@@ -182,6 +203,8 @@ function handleApiClientError(error: any) {
   if (shouldKeepErrorMessage(error)) {
     err.message = error.message;
   }
+
+  err.message = redactHelpToken(err.message);
 
   return err;
 }
@@ -192,6 +215,7 @@ function shouldKeepErrorMessage(error: any) {
     'requires billing to be enabled',
     'it is disabled',
     'is not a workspace',
+    'is exhausted',
   ];
   return (
     error?.message?.match &&

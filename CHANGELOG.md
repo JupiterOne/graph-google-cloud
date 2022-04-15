@@ -8,6 +8,10 @@ and this project adheres to
 
 ## Unreleased
 
+### Changed
+
+- Redacted help token value from `The metric quota for X is exhausted` errors.
+
 ## 2.11.0 - 2022-04-01
 
 ### Changed
