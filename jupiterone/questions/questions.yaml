@@ -78,7 +78,7 @@ questions:
 
 - id: integration-question-google-cloud-function-deprecated-runtime
   title: Which Google Cloud Functions have runtime that are deprecated?
-  description: 
+  description:
     Returns Google functions that are not using a supported runtime.
   queries:
   - name: bad
@@ -204,7 +204,7 @@ questions:
   queries:
   - name: good
     query: |
-      find google_iam_service_account as user
+      find google_user as user
         that ASSIGNED google_iam_binding
         that USES google_iam_role as role
         where
@@ -1347,6 +1347,3 @@ questions:
 ################################################################################
 # End Section 7: Kubernetes
 ################################################################################
-
-
-  
