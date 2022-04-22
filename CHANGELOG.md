@@ -8,6 +8,18 @@ and this project adheres to
 
 ## Unreleased
 
+## 2.13.0 - 2022-04-22
+
+### Added
+
+- Added new managed question
+
+  > Which Google Cloud Functions have runtime that are deprecated?
+
+### Fixed
+
+- Fix CIS Google Cloud Foundations requirement 1.6 managed question
+
 ## 2.12.0 - 2022-04-21
 
 ### Added
