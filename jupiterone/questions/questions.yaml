@@ -76,6 +76,33 @@ questions:
   - google-cloud
   - iam
 
+- id: integration-question-google-cloud-function-deprecated-runtime
+  title: Which Google Cloud Functions have runtime that are deprecated?
+  description: 
+    Returns Google functions that are not using a supported runtime.
+  queries:
+  - name: bad
+    query: |
+       FIND google_cloud_function WITH runtime != (
+        "nodejs16" OR
+        "nodejs14" OR
+        "nodejs12" OR
+        "python39" OR
+        "python38" OR
+        "python37" OR
+        "go116" OR
+        "go113" OR
+        "go111" OR
+        "java17" OR
+        "java11" OR
+        "ruby30" OR
+        "ruby27" OR
+        "ruby26" OR
+        "php74" OR
+        "dotnet3")
+  tags:
+  - google-cloud
+  - function
 ################################################################################
 # End generic non-compliance questions
 ################################################################################
@@ -1321,38 +1348,5 @@ questions:
 # End Section 7: Kubernetes
 ################################################################################
 
-################################################################################
-# Section 8: Function
-################################################################################
-- id: integration-question-google-cloud-function-deprecated-runtime
-  title: Which Google Cloud Functions have runtime that are deprecated?
-  description: >
-    Returns Google functions that are not using a supported runtime.
-  queries:
-  - name: bad
-    query: |
-       FIND google_cloud_function WITH runtime != (
-        "nodejs16" OR
-        "nodejs14" OR
-        "nodejs12" OR
-        "python39" OR
-        "python38" OR
-        "python37" OR
-        "go116" OR
-        "go113" OR
-        "go111" OR
-        "java17" OR
-        "java11" OR
-        "ruby30" OR
-        "ruby27" OR
-        "ruby26" OR
-        "php74" OR
-        "dotnet3")
-  tags:
-  - google-cloud
-  - function
-################################################################################
-# End Section 8: Function
-################################################################################
 
   
