@@ -8,6 +8,16 @@ and this project adheres to
 
 ## Unreleased
 
+## 2.12.0 - 2022-04-21
+
+### Added
+
+- Added additional questions for service account permissions.
+
+### Fixed
+
+- Fixed question mappings to CIS Google Cloud Foundations 1.1.
+
 ## 2.11.0 - 2022-04-01
 
 ### Changed
