@@ -8,6 +8,23 @@ and this project adheres to
 
 ## Unreleased
 
+## 2.13.1 - 2022-04-23
+
+### Fixed
+
+- Fix managed question to use correct `_type` query
+
+  > Ensure that IAM users are not assigned the Service Account User or Service
+  > Account Token Creator roles at project level
+
+  The managed question `good` query is using the correct `_type`, while the
+  `bad` query is not. Both queries should be using `google_user` instead of
+  `google_iam_service_account`.
+
+  Additionally, both `good` and `bad` queries have been optimized to use `WITH`
+  query filters instead of `WHERE`, since `WITH` performs post-traversal
+  filtering.
+
 ## 2.13.0 - 2022-04-22
 
 ### Added
