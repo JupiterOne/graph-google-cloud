@@ -208,8 +208,8 @@ questions:
         THAT ASSIGNED google_iam_binding
         THAT USES google_iam_role
           WITH (
-            role.name != "roles/iam.serviceAccountUser" AND
-            role.name != "roles/iam.serviceAccountTokenCreator"
+            name != "roles/iam.serviceAccountUser" AND
+            name != "roles/iam.serviceAccountTokenCreator"
           ) AS role
       RETURN
         user.username,
@@ -220,8 +220,8 @@ questions:
         THAT ASSIGNED google_iam_binding
         THAT USES google_iam_role
           WITH (
-            role.name ="roles/iam.serviceAccountUser" OR
-            role.name ="roles/iam.serviceAccountTokenCreator"
+            name ="roles/iam.serviceAccountUser" OR
+            name ="roles/iam.serviceAccountTokenCreator"
           ) AS role
       RETURN
         user.username,
