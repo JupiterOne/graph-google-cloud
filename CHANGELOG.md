@@ -8,6 +8,15 @@ and this project adheres to
 
 ## Unreleased
 
+## 2.13.2 - 2022-04-24
+
+### Fixed
+
+- Fix incorrect managed question query
+
+  > Ensure that IAM users are not assigned the Service Account User or Service
+  > Account Token Creator roles at project level
+
 ## 2.13.1 - 2022-04-23
 
 ### Fixed
