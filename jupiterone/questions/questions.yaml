@@ -1181,7 +1181,7 @@ questions:
     query: |
       FIND google_bigquery_dataset AS t
         THAT HAS google_cloud_api_service WITH auditable = true
-        THAT HAS AccessRole AS a
+        THAT HAS >> AccessRole AS a
       RETURN
         a.displayName,a.permission,a.readonly,a.name,
         t.displayName,t.id,t.projectId,t.etag
