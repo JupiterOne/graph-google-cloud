@@ -75,7 +75,19 @@ questions:
   tags:
   - google-cloud
   - iam
-
+- id: integration-question-google-publish-subscribe-dead-letter-topic
+  title: How to forward and publish undelivered messages using a dead letter topic?
+  description:
+    Deliver a Google Cloud dead letter message using acknowledgement and retry settings.
+  queries:
+  - query: |
+      FIND google_pubsub_topic 
+        THAT USES google_pubsub_subscription AS p
+      RETURN           
+        p.deadLetter,p.ackDeadlineSeconds,p.isDefaultRetryPolicy
+  tags:   
+    - google-cloud
+    - pubsub
 ################################################################################
 # End generic non-compliance questions
 ################################################################################
