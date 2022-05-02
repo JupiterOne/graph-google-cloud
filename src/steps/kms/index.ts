@@ -24,22 +24,25 @@ export async function fetchKmsKeyRings(
   const { jobState, instance, logger } = context;
   const client = new CloudKmsClient({ config: instance.config });
 
-  await client.iterateKeyRings(async (keyRing) => {
-    await jobState.addEntity(createKmsKeyRingEntity(keyRing));
-  }, ({ 
-    totalRequestsMade,
-    totalResourcesReturned,
-    maximumResourcesPerPage
-   }) => {
-    logger.info(
-      {
-        totalRequestsMade,
-        totalResourcesReturned,
-        maximumResourcesPerPage
-      },
-      'KMS Key Rings API Requests summary',
-    );
-  });
+  await client.iterateKeyRings(
+    async (keyRing) => {
+      await jobState.addEntity(createKmsKeyRingEntity(keyRing));
+    },
+    ({
+      totalRequestsMade,
+      totalResourcesReturned,
+      maximumResourcesPerPage,
+    }) => {
+      logger.info(
+        {
+          totalRequestsMade,
+          totalResourcesReturned,
+          maximumResourcesPerPage,
+        },
+        'KMS Key Rings API Requests summary',
+      );
+    },
+  );
 }
 
 export async function fetchKmsCryptoKeys(

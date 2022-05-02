@@ -1,4 +1,6 @@
+dist
 coverage/
 work/
-dist/
 .j1-integration
+.j1-integration-cache
+.gitleaks.yml
