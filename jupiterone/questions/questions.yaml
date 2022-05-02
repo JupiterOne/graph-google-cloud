@@ -75,6 +75,7 @@ questions:
   tags:
   - google-cloud
   - iam
+
 - id: integration-question-google-publish-subscribe-dead-letter-topic
   title: How to forward and publish undelivered messages using a dead letter topic?
   description:
@@ -88,6 +89,34 @@ questions:
   tags:   
     - google-cloud
     - pubsub
+
+- id: integration-question-google-cloud-function-deprecated-runtime
+  title: Which Google Cloud Functions have runtime that are deprecated?
+  description:
+    Returns Google functions that are not using a supported runtime.
+  queries:
+  - name: bad
+    query: |
+       FIND google_cloud_function WITH runtime != (
+        "nodejs16" OR
+        "nodejs14" OR
+        "nodejs12" OR
+        "python39" OR
+        "python38" OR
+        "python37" OR
+        "go116" OR
+        "go113" OR
+        "go111" OR
+        "java17" OR
+        "java11" OR
+        "ruby30" OR
+        "ruby27" OR
+        "ruby26" OR
+        "php74" OR
+        "dotnet3")
+  tags:
+  - google-cloud
+  - function
 ################################################################################
 # End generic non-compliance questions
 ################################################################################
@@ -189,25 +218,27 @@ questions:
   queries:
   - name: good
     query: |
-      find google_iam_service_account as user
-        that ASSIGNED google_iam_binding
-        that USES google_iam_role as role
-        where
-          role.name!="roles/iam.serviceAccountUser" and
-          role.name!="roles/iam.serviceAccountTokenCreator"
-      return
-        user.name,
+      FIND google_user AS user
+        THAT ASSIGNED google_iam_binding
+        THAT USES google_iam_role
+          WITH (
+            name != "roles/iam.serviceAccountUser" AND
+            name != "roles/iam.serviceAccountTokenCreator"
+          ) AS role
+      RETURN
+        user.username,
         role.name
   - name: bad
     query: |
-      find google_iam_service_account as user
-        that ASSIGNED google_iam_binding
-        that USES google_iam_role as role
-        where
-          role.name="roles/iam.serviceAccountUser" or
-          role.name="roles/iam.serviceAccountTokenCreator"
-      return
-        user.name,
+      FIND google_user AS user
+        THAT ASSIGNED google_iam_binding
+        THAT USES google_iam_role
+          WITH (
+            name ="roles/iam.serviceAccountUser" OR
+            name ="roles/iam.serviceAccountTokenCreator"
+          ) AS role
+      RETURN
+        user.username,
         role.name
   tags:
   - google-cloud
