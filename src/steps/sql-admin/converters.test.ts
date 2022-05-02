@@ -52,6 +52,22 @@ describe('#createMySQLInstanceEntity', () => {
       ),
     ).toMatchSnapshot();
   });
+
+  test('should parse/store the ip addresses values', () => {
+    expect(
+      createMySQLInstanceEntity(
+        getMockSQLInstance({
+          databaseVersion: 'MYSQL_5_7',
+          backendType: 'SECOND_GEN',
+          ipAddresses: [
+            { type: 'PRIMARY', ipAddress: '1.2.3.4' },
+            { type: 'PRIVATE', ipAddress: '10.0.0.1' },
+            { type: 'OUTGOING', ipAddress: '20.0.0.1' },
+          ],
+        }),
+      ),
+    ).toMatchSnapshot();
+  });
 });
 
 describe('#createPostgresInstanceEntity', () => {
@@ -84,6 +100,22 @@ describe('#createPostgresInstanceEntity', () => {
       ),
     ).toMatchSnapshot();
   });
+
+  test('should parse/store the ip addresses values', () => {
+    expect(
+      createPostgresInstanceEntity(
+        getMockSQLInstance({
+          databaseVersion: 'POSTGRES_12',
+          backendType: 'SECOND_GEN',
+          ipAddresses: [
+            { type: 'PRIMARY', ipAddress: '1.2.3.4' },
+            { type: 'PRIVATE', ipAddress: '10.0.0.1' },
+            { type: 'OUTGOING', ipAddress: '20.0.0.1' },
+          ],
+        }),
+      ),
+    ).toMatchSnapshot();
+  });
 });
 
 describe('#createSQLServerInstanceEntity', () => {
@@ -112,6 +144,22 @@ describe('#createSQLServerInstanceEntity', () => {
               },
             ],
           },
+        }),
+      ),
+    ).toMatchSnapshot();
+  });
+
+  test('should parse/store the ip addresses values', () => {
+    expect(
+      createPostgresInstanceEntity(
+        getMockSQLInstance({
+          databaseVersion: 'SQLSERVER_2017_STANDARD',
+          backendType: 'SECOND_GEN',
+          ipAddresses: [
+            { type: 'PRIMARY', ipAddress: '1.2.3.4' },
+            { type: 'PRIVATE', ipAddress: '10.0.0.1' },
+            { type: 'OUTGOING', ipAddress: '20.0.0.1' },
+          ],
         }),
       ),
     ).toMatchSnapshot();
