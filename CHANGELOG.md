@@ -8,6 +8,54 @@ and this project adheres to
 
 ## Unreleased
 
+## 2.13.2 - 2022-04-24
+
+### Fixed
+
+- Fix incorrect managed question query
+
+  > Ensure that IAM users are not assigned the Service Account User or Service
+  > Account Token Creator roles at project level
+
+## 2.13.1 - 2022-04-23
+
+### Fixed
+
+- Fix managed question to use correct `_type` query
+
+  > Ensure that IAM users are not assigned the Service Account User or Service
+  > Account Token Creator roles at project level
+
+  The managed question `good` query is using the correct `_type`, while the
+  `bad` query is not. Both queries should be using `google_user` instead of
+  `google_iam_service_account`.
+
+  Additionally, both `good` and `bad` queries have been optimized to use `WITH`
+  query filters instead of `WHERE`, since `WITH` performs post-traversal
+  filtering.
+
+## 2.13.0 - 2022-04-22
+
+### Added
+
+- Added new managed question
+
+  > Which Google Cloud Functions have runtime that are deprecated?
+
+### Fixed
+
+- Fix CIS Google Cloud Foundations requirement 1.6 managed question
+
+## 2.12.0 - 2022-04-21
+
+### Added
+
+- Added additional questions for service account permissions.
+
+### Fixed
+
+- Fixed question mappings to CIS Google Cloud Foundations 1.1.
+
 ## 2.11.0 - 2022-04-01
 
 ### Changed
