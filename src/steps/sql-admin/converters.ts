@@ -129,6 +129,15 @@ function getCommonDatabaseInstanceProperties(
     .map((network: sqladmin_v1beta4.Schema$AclEntry) => network.value || '')
     .filter((value) => value);
 
+  const ipAddresses =
+    instance.ipAddresses?.filter((e) => typeof e.ipAddress === 'string') || [];
+  const primaryIpAddresses =
+    ipAddresses.filter((e) => e.type?.toUpperCase() === 'PRIMARY') || [];
+  const privateIpAddresses =
+    ipAddresses.filter((e) => e.type?.toUpperCase() === 'PRIVATE') || [];
+  const outgoingIpAddresses =
+    ipAddresses.filter((e) => e.type?.toUpperCase() === 'OUTGOING') || [];
+
   return {
     // 6.4 Ensure that the Cloud SQL database instance requires all incoming connections to use SSL (Scored)
     requireSSL: instance.settings?.ipConfiguration?.requireSsl,
@@ -136,6 +145,22 @@ function getCommonDatabaseInstanceProperties(
     authorizedNetworks: authorizedNetworks,
     // 6.6 Ensure that Cloud SQL database instances do not have public IPs (Scored)
     hasPublicIP: hasPublicIP(instance),
+
+    ipAddresses:
+      ipAddresses.length > 0 ? ipAddresses.map((e) => e.ipAddress!) : undefined,
+    primaryIpAddresses:
+      primaryIpAddresses.length > 0
+        ? primaryIpAddresses.map((e) => e.ipAddress!)
+        : undefined,
+    privateIpAddresses:
+      privateIpAddresses.length > 0
+        ? privateIpAddresses.map((e) => e.ipAddress!)
+        : undefined,
+    outgoingIpAddresses:
+      outgoingIpAddresses.length > 0
+        ? outgoingIpAddresses.map((e) => e.ipAddress!)
+        : undefined,
+
     // 6.7 Ensure that Cloud SQL database instances are configured with automated backups (Scored)
     automatedBackupsEnabled: instance.settings?.backupConfiguration?.enabled,
     connectionName: instance.connectionName,

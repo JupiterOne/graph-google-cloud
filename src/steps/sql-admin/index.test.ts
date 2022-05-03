@@ -85,6 +85,22 @@ describe('#fetchSQLInstances', () => {
           kmsKeyName: { type: 'string' },
           connectionName: { type: 'string' },
           skipShowDatabase: { type: 'string' },
+          ipAddresses: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          primaryIpAddresses: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          privateIpAddresses: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          outgoingIpAddresses: {
+            type: 'array',
+            items: { type: 'string' },
+          },
         },
       },
     });
@@ -132,6 +148,22 @@ describe('#fetchSQLInstances', () => {
           automatedBackupsEnabled: { type: 'boolean' },
           kmsKeyName: { type: 'string' },
           connectionName: { type: 'string' },
+          ipAddresses: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          primaryIpAddresses: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          privateIpAddresses: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          outgoingIpAddresses: {
+            type: 'array',
+            items: { type: 'string' },
+          },
         },
       },
     });
@@ -170,6 +202,22 @@ describe('#fetchSQLInstances', () => {
           userOptions: { type: 'number' },
           remoteAccess: { type: 'string' },
           traceFlag: { type: 'string' },
+          ipAddresses: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          primaryIpAddresses: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          privateIpAddresses: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          outgoingIpAddresses: {
+            type: 'array',
+            items: { type: 'string' },
+          },
         },
       },
     });
@@ -248,6 +296,22 @@ describe('#buildSqlAdminInstanceKmsKeyRelationships', () => {
           kmsKeyName: { type: 'string' },
           connectionName: { type: 'string' },
           skipShowDatabase: { type: 'string' },
+          ipAddresses: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          primaryIpAddresses: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          privateIpAddresses: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          outgoingIpAddresses: {
+            type: 'array',
+            items: { type: 'string' },
+          },
         },
       },
     });
@@ -295,6 +359,22 @@ describe('#buildSqlAdminInstanceKmsKeyRelationships', () => {
           automatedBackupsEnabled: { type: 'boolean' },
           kmsKeyName: { type: 'string' },
           connectionName: { type: 'string' },
+          ipAddresses: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          primaryIpAddresses: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          privateIpAddresses: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          outgoingIpAddresses: {
+            type: 'array',
+            items: { type: 'string' },
+          },
         },
       },
     });
@@ -333,6 +413,22 @@ describe('#buildSqlAdminInstanceKmsKeyRelationships', () => {
           userOptions: { type: 'number' },
           remoteAccess: { type: 'string' },
           traceFlag: { type: 'string' },
+          ipAddresses: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          primaryIpAddresses: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          privateIpAddresses: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          outgoingIpAddresses: {
+            type: 'array',
+            items: { type: 'string' },
+          },
         },
       },
     });

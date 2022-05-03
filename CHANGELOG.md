@@ -8,6 +8,18 @@ and this project adheres to
 
 ## Unreleased
 
+### Added
+
+- SQL entities (`google_sql_mysql_instance`, `google_sql_postgres_instance` and
+  `google_sql_sql_server_instance`) now have the following new properties:
+
+  | Property              | Type       |
+  | --------------------- | ---------- |
+  | `ipAddresses`         | `string[]` |
+  | `primaryIpAddresses`  | `string[]` |
+  | `privateIpAddresses`  | `string[]` |
+  | `outgoingIpAddresses` | `string[]` |
+
 ## 2.13.2 - 2022-04-24
 
 ### Fixed
