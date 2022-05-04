@@ -69,30 +69,21 @@ export class ServiceUsageClient extends Client {
     }
   }
 
-  async iterateEnabledServices(
-    callback: (
-      data: serviceusage_v1.Schema$GoogleApiServiceusageV1Service,
-    ) => void | Promise<void>,
-  ): Promise<void> {
-    return this.iterateServices(
-      async (result) => {
-        await callback(result);
-      },
-      {
-        filter: ServiceUsageListFilter.ENABLED,
-      },
-    );
-  }
-
   async collectEnabledServices(): Promise<
     serviceusage_v1.Schema$GoogleApiServiceusageV1Service[]
   > {
     const enabledServices: serviceusage_v1.Schema$GoogleApiServiceusageV1Service[] =
       [];
 
-    await this.iterateEnabledServices((data) => {
-      enabledServices.push(data);
-    });
+    await this.iterateServices(
+      async (result) => {
+        enabledServices.push(result);
+        return Promise.resolve();
+      },
+      {
+        filter: ServiceUsageListFilter.ENABLED,
+      },
+    );
 
     return enabledServices;
   }

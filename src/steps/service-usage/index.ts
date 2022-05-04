@@ -20,6 +20,7 @@ import {
 } from '../../utils/iam';
 import { serviceusage_v1 } from 'googleapis';
 import { IamClient } from '../iam/client';
+import { ServiceUsageListFilter } from '../../google-cloud/types';
 
 function getPermissionsForApiService(
   apiService: serviceusage_v1.Schema$GoogleApiServiceusageV1Service,
@@ -55,47 +56,50 @@ export async function fetchApiServices(
 
   const auditableServices = await iamClient.collectAuditableServices();
 
-  await client.iterateServices(async (service) => {
-    const permissions = getPermissionsForApiService(
-      service,
-      permissionsByApiServiceMap,
-    );
+  await client.iterateServices(
+    async (service) => {
+      const permissions = getPermissionsForApiService(
+        service,
+        permissionsByApiServiceMap,
+      );
 
-    const serviceEntity = await jobState.addEntity(
-      createApiServiceEntity({
-        projectId: client.projectId,
-        data: service,
-        permissions,
-        auditable: auditableServices.includes(service.config?.name as string),
-      }),
-    );
+      const serviceEntity = await jobState.addEntity(
+        createApiServiceEntity({
+          projectId: client.projectId,
+          data: service,
+          permissions,
+          auditable: auditableServices.includes(service.config?.name as string),
+        }),
+      );
 
-    await jobState.addRelationship(
-      createDirectRelationship({
-        _class: RelationshipClass.HAS,
-        from: projectEntity,
-        to: serviceEntity,
-        properties: {
-          _type: ServiceUsageRelationships.PROJECT_HAS_API_SERVICE._type,
+      await jobState.addRelationship(
+        createDirectRelationship({
+          _class: RelationshipClass.HAS,
+          from: projectEntity,
+          to: serviceEntity,
+          properties: {
+            _type: ServiceUsageRelationships.PROJECT_HAS_API_SERVICE._type,
+          },
+        }),
+      );
+    },
+    {
+      filter: ServiceUsageListFilter.ENABLED,
+    },
+    ({
+      totalRequestsMade,
+      totalResourcesReturned,
+      maximumResourcesPerPage,
+    }) => {
+      logger.info(
+        {
+          totalRequestsMade,
+          totalResourcesReturned,
+          maximumResourcesPerPage,
         },
-      }),
-    );
-  },
-  undefined,
-  ({ 
-    totalRequestsMade,
-    totalResourcesReturned,
-    maximumResourcesPerPage
-  }) => {
-    logger.info(
-      {
-        totalRequestsMade,
-        totalResourcesReturned,
-        maximumResourcesPerPage
-      },
-      'API Services API Requests summary',
-    );
-  }
+        'API Services API Requests summary',
+      );
+    },
   );
 }
 
