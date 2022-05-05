@@ -8,6 +8,8 @@ and this project adheres to
 
 ## Unreleased
 
+## 2.14.0 - 2022-05-03
+
 ### Added
 
 - SQL entities (`google_sql_mysql_instance`, `google_sql_postgres_instance` and
