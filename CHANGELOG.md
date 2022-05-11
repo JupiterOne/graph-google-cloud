@@ -8,6 +8,8 @@ and this project adheres to
 
 ## Unreleased
 
+## 2.15.0 - 2022-05-11
+
 ### Changed
 
 - Changed the `fetch-api-services` step to only fetch enabled services. This
