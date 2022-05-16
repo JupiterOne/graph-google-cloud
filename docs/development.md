@@ -167,7 +167,7 @@ gcloud projects add-iam-policy-binding PROJECT_ID \
    --member serviceAccount:j1-gc-integration-dev-sa@PROJECT_ID.iam.gserviceaccount.com \
    --role "roles/iam.securityReviewer"
 
-gcloud projects add-iam-policy-binding PROJECT_ID \
+gcloud organizations add-iam-policy-binding ORGANIZATION_ID \
    --member serviceAccount:j1-gc-integration-dev-sa@PROJECT_ID.iam.gserviceaccount.com \
    --role "roles/iam.organizationRoleViewer"
 
