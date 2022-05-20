@@ -92,6 +92,29 @@ questions:
   tags:
   - google-cloud
   - function
+- id: integration-question-google-cloud-user-managed-external-keys-service-account-expiring-30-days
+  title: Which user-managed/external keys for service accounts are expiring in the next 30 days?
+  description: >
+    Returns service account keys that are set to expire within the next 30 days
+  queries:
+    query: |
+      find google_iam_service_account as serviceAccount
+        that HAS google_iam_service_account_key
+        with expiresOn < date.now+30days
+      return
+        serviceAccount.id,
+        serviceAccount.email,
+        serviceAccount.description,
+        serviceAccount.enabled,
+        serviceAccount.webLink,
+        google_iam_service_account_key.name,
+        google_iam_service_account_key.type,
+        google_iam_service_account_key.createdOn,
+        google_iam_service_account_key.expiresOn
+  tags:
+  - google-cloud
+  - service-account
+  - access
 ################################################################################
 # End generic non-compliance questions
 ################################################################################
