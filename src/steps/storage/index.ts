@@ -34,7 +34,7 @@ export async function fetchStorageBuckets(
     logger.publishEvent({
       name: 'missing_permission',
       description:
-        '"orgpolicy.policies.get" is not a required permission to run the Google Cloud integration, but is required for getting organization policy for "storage.publicAccessPrevention"',
+        '"orgpolicy.policy.get" is not a required permission to run the Google Cloud integration, but is required for getting organization policy for "storage.publicAccessPrevention"',
     });
   }
 
