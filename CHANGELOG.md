@@ -8,6 +8,8 @@ and this project adheres to
 
 ## Unreleased
 
+## 2.15.1 - 2022-05-23
+
 ### Fixed
 
 - Fixed user messaging about optional `orgpolicy.policy.get` permission
