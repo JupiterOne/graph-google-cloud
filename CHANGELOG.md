@@ -8,12 +8,17 @@ and this project adheres to
 
 ## Unreleased
 
+### Fixed
+
+- Fixed user messaging about optional `orgpolicy.policy.get` permission
+
 ## 2.15.0 - 2022-05-11
 
 ### Changed
 
 - Changed the `fetch-api-services` step to only fetch enabled services. This
   lowers the number of service requests made by approximately 40 times.
+
 ## 2.14.0 - 2022-05-03
 
 ### Added

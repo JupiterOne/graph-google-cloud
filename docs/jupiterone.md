@@ -150,7 +150,7 @@ appengine.applications.get
 binaryauthorization.policy.get
 cloudasset.assets.searchAllIamPolicies
 compute.projects.get
-orgpolicy.policies.get
+orgpolicy.policy.get
 ```
 
 See the
@@ -214,7 +214,7 @@ access, it is therefore recommended that the following permission is also
 included in the custom role above:
 
 ```
-orgpolicy.policies.get
+orgpolicy.policy.get
 ```
 
 1. Navigate to the Cloud Resource Manager for that organization and
