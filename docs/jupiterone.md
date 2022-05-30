@@ -153,6 +153,16 @@ compute.projects.get
 orgpolicy.policy.get
 ```
 
+For BigQuery, the following permissions are recommended:
+
+```
+bigquery.datasets.get
+bigquery.models.getMetadata
+bigquery.tables.get
+```
+
+This allows integration to properly ingest BigQuery datasets, models and tables.
+
 See the
 [Google Cloud custom role documentation](https://cloud.google.com/iam/docs/creating-custom-roles#creating_a_custom_role)
 for additional information on how custom roles can be configured and assigned.
