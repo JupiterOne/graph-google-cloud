@@ -65,6 +65,20 @@ questions:
   - google-cloud
   - iam
 
+- id: integration-question-google-publish-subscribe-dead-letter-topic
+  title: What settings are used to publish Google Cloud dead letter messages?
+  description:
+    Deliver a Google Cloud dead letter message using acknowledgement and retry settings.
+  queries:
+  - query: |
+      FIND google_pubsub_topic 
+        THAT USES google_pubsub_subscription AS p
+      RETURN           
+        p.deadLetter,p.ackDeadlineSeconds,p.isDefaultRetryPolicy
+  tags:   
+    - google-cloud
+    - pubsub
+
 - id: integration-question-google-cloud-function-deprecated-runtime
   title: Which Google Cloud Functions have runtime that are deprecated?
   description:
