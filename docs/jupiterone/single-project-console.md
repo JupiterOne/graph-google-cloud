@@ -75,6 +75,15 @@ binaryauthorization.policy.get
 compute.projects.get
 ```
 
+For BigQuery, the following _additional_ permissions are needed to ingest
+BigQuery datasets, models, and tables respectively:
+
+```
+bigquery.datasets.get
+bigquery.models.getMetadata
+bigquery.tables.get
+```
+
 The integration will also try to ingest organization policy for
 "storage.publicAccessPrevention" to precisely calculate storage buckets public
 access, it is therefore recommended that the following permission is also
