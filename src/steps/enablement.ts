@@ -1,7 +1,7 @@
 import { StepStartState } from '@jupiterone/integration-sdk-core';
 import { ServiceUsageName } from '../google-cloud/types';
 import { IntegrationConfig } from '../types';
-import { collectEnabledServicesForProject } from './service-usage/client';
+import { collectEnabledServicesForProject, ServiceUsageClient } from './service-usage/client';
 
 export interface EnabledServiceData {
   // Enabled APIs in the Google Cloud Project that the Service Account used to authenticate with resides.
@@ -32,12 +32,18 @@ export interface EnabledServiceData {
 export async function getEnabledServiceNames(
   config: IntegrationConfig,
 ): Promise<EnabledServiceData> {
+
+  // look up main project ID from authenticated client
+  const client = new ServiceUsageClient({ config });
+  await client.getAuthenticatedServiceClient();
+  const mainProjectId = client.sourceProjectId;
+
   const targetProjectId = config.projectId;
-  const mainProjectId = config.serviceAccountKeyConfig.project_id;
   const enabledServiceData: EnabledServiceData = {};
 
-  const mainProjectEnabledServices = await getMainProjectEnabledServices(
+  const mainProjectEnabledServices = await collectEnabledServicesForProject(
     config,
+    mainProjectId,
   );
   enabledServiceData.mainProjectEnabledServices = mainProjectEnabledServices;
 
@@ -69,13 +75,6 @@ export async function getEnabledServiceNames(
   enabledServiceData.intersectedEnabledServices = enabledServicesIntersection;
 
   return enabledServiceData;
-}
-
-export async function getMainProjectEnabledServices(config: IntegrationConfig) {
-  return await collectEnabledServicesForProject(
-    config,
-    config.serviceAccountKeyConfig.project_id,
-  );
 }
 
 export function createStepStartState(

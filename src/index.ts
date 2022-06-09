@@ -41,6 +41,10 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> =
         type: 'string',
         mask: true,
       },
+      accessToken: {
+        type: 'string',
+        mask: true,
+      },
       projectId: {
         type: 'string',
       },

@@ -8,7 +8,8 @@ export type IntegrationStepContext =
   IntegrationStepExecutionContext<IntegrationConfig>;
 
 export interface SerializedIntegrationConfig extends IntegrationInstanceConfig {
-  serviceAccountKeyFile: string;
+  serviceAccountKeyFile?: string;
+  accessToken?: string;
   organizationId?: string;
   /**
    * The project ID that this integration should target for ingestion. This
@@ -26,7 +27,7 @@ export interface SerializedIntegrationConfig extends IntegrationInstanceConfig {
 }
 
 export interface IntegrationConfig extends SerializedIntegrationConfig {
-  serviceAccountKeyConfig: ParsedServiceAccountKeyFile;
+  serviceAccountKeyConfig?: ParsedServiceAccountKeyFile;
   // HACK - used to prevent binding step ingestion for large accounts. Think twice before using.
   markBindingStepsAsPartial?: boolean;
 }

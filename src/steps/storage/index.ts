@@ -58,7 +58,7 @@ export async function fetchStorageBuckets(
 
     const bucketEntity = createCloudStorageBucketEntity({
       data: bucket,
-      projectId: config.serviceAccountKeyConfig.project_id,
+      projectId: bucket.projectNumber || client.sourceProjectId,
       bucketPolicy,
       publicAccessPreventionPolicy,
     });

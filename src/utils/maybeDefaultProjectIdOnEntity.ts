@@ -25,6 +25,6 @@ export function maybeDefaultProjectIdOnEntity(context, entity: Entity): Entity {
     projectId:
       entity.projectId ??
       context.instance.config.projectId ??
-      context.instance.config.serviceAccountKeyConfig.project_id,
+      context.instance.config.serviceAccountKeyConfig?.project_id,
   };
 }
