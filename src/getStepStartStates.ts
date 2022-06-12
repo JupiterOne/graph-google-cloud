@@ -13,6 +13,7 @@ import { STEP_CLOUD_STORAGE_BUCKETS } from './steps/storage';
 import { ServiceUsageStepIds } from './steps/service-usage/constants';
 import {
   STEP_IAM_CUSTOM_ROLES,
+  STEP_IAM_CUSTOM_ROLE_SERVICE_API_RELATIONSHIPS,
   STEP_IAM_MANAGED_ROLES,
   STEP_IAM_SERVICE_ACCOUNTS,
 } from './steps/iam';
@@ -260,6 +261,7 @@ export default async function getStepStartStates(
     [STEP_CLOUD_FUNCTIONS_SERVICE_ACCOUNT_RELATIONSHIPS]: { disabled: false },
     [STEP_CLOUD_STORAGE_BUCKETS]: { disabled: false },
     [STEP_IAM_CUSTOM_ROLES]: { disabled: false },
+    [STEP_IAM_CUSTOM_ROLE_SERVICE_API_RELATIONSHIPS]: { disabled: false },
     [STEP_IAM_MANAGED_ROLES]: { disabled: false },
     [STEP_IAM_SERVICE_ACCOUNTS]: { disabled: false },
     [STEP_AUDIT_CONFIG_IAM_POLICY]: {

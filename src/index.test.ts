@@ -26,6 +26,7 @@ import { STEP_CLOUD_STORAGE_BUCKETS } from './steps/storage';
 import { ServiceUsageStepIds } from './steps/service-usage/constants';
 import {
   STEP_IAM_CUSTOM_ROLES,
+  STEP_IAM_CUSTOM_ROLE_SERVICE_API_RELATIONSHIPS,
   STEP_IAM_MANAGED_ROLES,
   STEP_IAM_SERVICE_ACCOUNTS,
 } from './steps/iam';
@@ -588,6 +589,9 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_DATAPROC_CLUSTER_KMS_RELATIONSHIPS]: {
+        disabled: false,
+      },
+      [STEP_IAM_CUSTOM_ROLE_SERVICE_API_RELATIONSHIPS]: {
         disabled: false,
       },
       [STEP_CREATE_CLUSTER_STORAGE_RELATIONSHIPS]: {

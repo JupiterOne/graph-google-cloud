@@ -238,16 +238,12 @@ describe('#getFullServiceApiNameFromPermission', () => {
 describe('#getUniqueFullServiceApiNamesFromRole', () => {
   test('should generate unique set service API names from permission', () => {
     expect(
-      getUniqueFullServiceApiNamesFromRole(
-        getMockIamRole({
-          includedPermissions: [
-            'binaryauthorization.policy.get',
-            'resourcemanager.projects.get',
-            'bigtable.tables.delete',
-            'binaryauthorization.attestors.update',
-          ],
-        }),
-      ),
+      getUniqueFullServiceApiNamesFromRole([
+        'binaryauthorization.policy.get',
+        'resourcemanager.projects.get',
+        'bigtable.tables.delete',
+        'binaryauthorization.attestors.update',
+      ]),
     ).toEqual([
       'binaryauthorization.googleapis.com',
       'cloudresourcemanager.googleapis.com',
