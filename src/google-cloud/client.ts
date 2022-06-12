@@ -9,6 +9,7 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { createErrorProps } from './utils/createErrorProps';
 import { retry } from '@lifeomic/attempt';
+// import { GoogleCloudServiceApiDisabledError } from './errors';
 
 export interface ClientOptions {
   config: IntegrationConfig;
@@ -192,6 +193,8 @@ function shouldKeepErrorMessage(error: any) {
     'requires billing to be enabled',
     'it is disabled',
     'is not a workspace',
+    // Example: Cloud Text-to-Speech API has not been used in project 123456789 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/texttospeech.googleapis.com/overview?project=123456789 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+    'If you enabled this API recently',
   ];
   return (
     error?.message?.match &&

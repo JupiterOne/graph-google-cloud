@@ -12,7 +12,6 @@ import {
   Step,
   StepStartStates,
 } from '@jupiterone/integration-sdk-core';
-import { getMockIntegrationConfig } from '../test/config';
 import { setupGoogleCloudRecording } from '../test/recording';
 import {
   integrationConfig,
@@ -25,7 +24,6 @@ import {
 } from './steps/functions';
 import { STEP_CLOUD_STORAGE_BUCKETS } from './steps/storage';
 import { ServiceUsageStepIds } from './steps/service-usage/constants';
-import { parseServiceAccountKeyFile } from './utils/parseServiceAccountKeyFile';
 import {
   STEP_IAM_CUSTOM_ROLES,
   STEP_IAM_MANAGED_ROLES,
@@ -222,130 +220,6 @@ describe('#getStepStartStates failures', () => {
 
   afterEach(() => {
     jest.resetAllMocks();
-  });
-
-  test('should throw if call to GoogleAuth.prototype.getClient rejects', async () => {
-    const mockGetClient = jest
-      .fn()
-      .mockRejectedValueOnce(new Error('expected error'));
-
-    const mockGetAccessToken = jest
-      .fn()
-      .mockRejectedValueOnce(new Error('should not call!'));
-
-    const mockGoogleAuthClient = {
-      getClient: mockGetClient,
-      getAccessToken: mockGetAccessToken,
-    } as unknown as GoogleAuth;
-
-    googleAuthSpy.mockReturnValueOnce(mockGoogleAuthClient);
-
-    const context = createMockExecutionContext<IntegrationConfig>({
-      instanceConfig: getMockIntegrationConfig(),
-    });
-
-    const { getStepStartStates } = invocationConfig;
-
-    if (!getStepStartStates) {
-      throw new Error('Missing "getStepStartStates" in index');
-    }
-
-    let failed = false;
-
-    try {
-      await getStepStartStates(context);
-    } catch (err) {
-      expect(err instanceof IntegrationValidationError).toBe(true);
-      expect(err.message).toEqual(
-        'Failed to fetch enabled service names. Ability to list services is required to run the Google Cloud integration. (error=expected error)',
-      );
-      failed = true;
-    }
-
-    expect(failed).toEqual(true);
-
-    const parsedServiceAccountKey = parseServiceAccountKeyFile(
-      context.instance.config.serviceAccountKeyFile,
-    );
-
-    const expectedGoogleAuthCallOptions: GoogleAuthOptions = {
-      credentials: {
-        client_email: parsedServiceAccountKey.client_email,
-        private_key: parsedServiceAccountKey.private_key,
-      },
-      scopes: ['https://www.googleapis.com/auth/cloud-platform'],
-    };
-
-    expect(googleAuthSpy).toHaveBeenCalledTimes(1);
-    expect(googleAuthSpy).toHaveBeenLastCalledWith(
-      expectedGoogleAuthCallOptions,
-    );
-    expect(mockGetClient).toHaveBeenCalledTimes(1);
-    expect(mockGetAccessToken).toHaveBeenCalledTimes(0);
-  });
-
-  test('should throw if call to GoogleAuth.prototype.getAccessToken rejects', async () => {
-    const mockGetAccessToken = jest
-      .fn()
-      .mockRejectedValueOnce(new Error('expected error'));
-
-    const mockGetClient = jest.fn().mockResolvedValueOnce(
-      Promise.resolve({
-        getAccessToken: mockGetAccessToken,
-      }),
-    );
-
-    const mockGoogleAuthClient = {
-      getClient: mockGetClient,
-      getAccessToken: mockGetAccessToken,
-    } as unknown as GoogleAuth;
-
-    googleAuthSpy.mockReturnValueOnce(mockGoogleAuthClient);
-
-    const context = createMockExecutionContext<IntegrationConfig>({
-      instanceConfig: getMockIntegrationConfig(),
-    });
-
-    const { getStepStartStates } = invocationConfig;
-
-    if (!getStepStartStates) {
-      throw new Error('Missing "getStepStartStates" in index');
-    }
-
-    let failed = false;
-
-    try {
-      await getStepStartStates(context);
-    } catch (err) {
-      expect(err instanceof IntegrationValidationError).toBe(true);
-      expect(err.message).toEqual(
-        'Failed to fetch enabled service names. Ability to list services is required to run the Google Cloud integration. (error=expected error)',
-      );
-      failed = true;
-    }
-
-    expect(failed).toEqual(true);
-
-    const parsedServiceAccountKey = parseServiceAccountKeyFile(
-      context.instance.config.serviceAccountKeyFile,
-    );
-
-    const expectedGoogleAuthCallOptions: GoogleAuthOptions = {
-      credentials: {
-        client_email: parsedServiceAccountKey.client_email,
-        private_key: parsedServiceAccountKey.private_key,
-      },
-      scopes: ['https://www.googleapis.com/auth/cloud-platform'],
-    };
-
-    expect(googleAuthSpy).toHaveBeenCalledTimes(1);
-    expect(googleAuthSpy).toHaveBeenLastCalledWith(
-      expectedGoogleAuthCallOptions,
-    );
-    expect(mockGetClient).toHaveBeenCalledTimes(1);
-    expect(mockGetClient).toHaveBeenCalledWith();
-    expect(mockGetAccessToken).toHaveBeenCalledTimes(1);
-    expect(mockGetAccessToken).toHaveBeenCalledWith();
   });
 
   test('should throw if missing serviceAccountKeyFile property in config', async () => {
