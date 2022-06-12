@@ -10,9 +10,14 @@ and this project adheres to
 
 ### Changed
 
-Rely on the individual steps to call service APIs instead of pre-calculating
-which service APIs are enabled in `getStepStartStates`. This should help
-drastically reduce the number of API calls to `serviceusage.googleapis.com`.
+- Rely on the individual steps to call service APIs instead of pre-calculating
+  which service APIs are enabled in `getStepStartStates`. This should help
+  drastically reduce the number of API calls to `serviceusage.googleapis.com`.
+
+### Fixed
+
+- Split service API to role relationship creation into separate step. If
+  collecting service API data fails, we should still ingest custom IAM roles.
 
 ## 2.15.1 - 2022-05-23
 

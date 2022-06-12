@@ -1,5 +1,7 @@
 export const STEP_IAM_CUSTOM_ROLES = 'fetch-iam-custom-roles';
 export const STEP_IAM_MANAGED_ROLES = 'fetch-iam-managed-roles';
+export const STEP_IAM_CUSTOM_ROLE_SERVICE_API_RELATIONSHIPS =
+  'build-iam-custom-role-service-api-relationships';
 export const IAM_ROLE_ENTITY_CLASS = 'AccessRole';
 export const IAM_ROLE_ENTITY_TYPE = 'google_iam_role';
 

@@ -372,11 +372,11 @@ export function getFullServiceApiNameFromPermission(
 }
 
 export function getUniqueFullServiceApiNamesFromRole(
-  role: iam_v1.Schema$Role,
+  iamRoleIncludedPermissions: string[] | null | undefined,
 ): string[] {
   const serviceApiNameSet: Set<string> = new Set();
 
-  for (const permission of role.includedPermissions || []) {
+  for (const permission of iamRoleIncludedPermissions || []) {
     serviceApiNameSet.add(getFullServiceApiNameFromPermission(permission));
   }
 
