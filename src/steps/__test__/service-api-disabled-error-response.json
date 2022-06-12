@@ -1,0 +1,161 @@
+{
+  "response": {
+    "config": {
+      "url": "https://texttospeech.googleapis.com/v1/voices",
+      "method": "GET",
+      "userAgentDirectives": [
+        {
+          "product": "google-api-nodejs-client",
+          "version": "5.0.2",
+          "comment": "gzip"
+        }
+      ],
+      "headers": {
+        "x-goog-api-client": "gdcl/5.0.2 gl-node/14.19.0 auth/7.1.1",
+        "Accept-Encoding": "gzip",
+        "User-Agent": "google-api-nodejs-client/5.0.2 (gzip)",
+        "Authorization": "[REDACTED]",
+        "Accept": "application/json"
+      },
+      "params": {},
+      "retry": true,
+      "responseType": "json",
+      "retryConfig": {
+        "currentRetryAttempt": 0,
+        "retry": 3,
+        "httpMethodsToRetry": [
+          "GET",
+          "HEAD",
+          "PUT",
+          "OPTIONS",
+          "DELETE"
+        ],
+        "noResponseRetries": 2,
+        "statusCodesToRetry": [
+          [
+            100,
+            199
+          ],
+          [
+            429,
+            429
+          ],
+          [
+            500,
+            599
+          ]
+        ]
+      }
+    },
+    "data": {
+      "error": {
+        "code": 403,
+        "message": "Cloud Text-to-Speech API has not been used in project 123456789 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/texttospeech.googleapis.com/overview?project=123456789 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.",
+        "errors": [
+          {
+            "message": "Cloud Text-to-Speech API has not been used in project 123456789 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/texttospeech.googleapis.com/overview?project=123456789 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.",
+            "domain": "usageLimits",
+            "reason": "accessNotConfigured",
+            "extendedHelp": "https://console.developers.google.com"
+          }
+        ],
+        "status": "PERMISSION_DENIED",
+        "details": [
+          {
+            "@type": "type.googleapis.com/google.rpc.Help",
+            "links": [
+              {
+                "description": "Google developers console API activation",
+                "url": "https://console.developers.google.com/apis/api/texttospeech.googleapis.com/overview?project=123456789"
+              }
+            ]
+          },
+          {
+            "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+            "reason": "SERVICE_DISABLED",
+            "domain": "googleapis.com",
+            "metadata": {
+              "consumer": "projects/123456789",
+              "service": "texttospeech.googleapis.com"
+            }
+          }
+        ]
+      }
+    },
+    "headers": {
+      "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"",
+      "cache-control": "private",
+      "connection": "close",
+      "content-encoding": "gzip",
+      "content-type": "application/json; charset=UTF-8",
+      "date": "Sun, 12 Jun 2022 13:35:42 GMT",
+      "server": "ESF",
+      "transfer-encoding": "chunked",
+      "vary": "Origin, X-Origin, Referer",
+      "x-content-type-options": "nosniff",
+      "x-frame-options": "SAMEORIGIN",
+      "x-xss-protection": "0"
+    },
+    "status": 403,
+    "statusText": "Forbidden",
+    "request": {
+      "responseURL": "https://texttospeech.googleapis.com/v1/voices"
+    }
+  },
+  "config": {
+    "url": "https://texttospeech.googleapis.com/v1/voices",
+    "method": "GET",
+    "userAgentDirectives": [
+      {
+        "product": "google-api-nodejs-client",
+        "version": "5.0.2",
+        "comment": "gzip"
+      }
+    ],
+    "headers": {
+      "x-goog-api-client": "gdcl/5.0.2 gl-node/14.19.0 auth/7.1.1",
+      "Accept-Encoding": "gzip",
+      "User-Agent": "google-api-nodejs-client/5.0.2 (gzip)",
+      "Authorization": "[REDACTED]",
+      "Accept": "application/json"
+    },
+    "params": {},
+    "retry": true,
+    "responseType": "json",
+    "retryConfig": {
+      "currentRetryAttempt": 0,
+      "retry": 3,
+      "httpMethodsToRetry": [
+        "GET",
+        "HEAD",
+        "PUT",
+        "OPTIONS",
+        "DELETE"
+      ],
+      "noResponseRetries": 2,
+      "statusCodesToRetry": [
+        [
+          100,
+          199
+        ],
+        [
+          429,
+          429
+        ],
+        [
+          500,
+          599
+        ]
+      ]
+    }
+  },
+  "code": 403,
+  "errors": [
+    {
+      "message": "Cloud Text-to-Speech API has not been used in project 123456789 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/texttospeech.googleapis.com/overview?project=123456789 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.",
+      "domain": "usageLimits",
+      "reason": "accessNotConfigured",
+      "extendedHelp": "https://console.developers.google.com"
+    }
+  ]
+}
