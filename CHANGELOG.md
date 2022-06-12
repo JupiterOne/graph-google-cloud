@@ -8,6 +8,12 @@ and this project adheres to
 
 ## Unreleased
 
+### Changed
+
+Rely on the individual steps to call service APIs instead of pre-calculating
+which service APIs are enabled in `getStepStartStates`. This should help
+drastically reduce the number of API calls to `serviceusage.googleapis.com`.
+
 ## 2.15.1 - 2022-05-23
 
 ### Fixed
