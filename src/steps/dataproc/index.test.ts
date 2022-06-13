@@ -120,7 +120,7 @@ describe('#fetchDataprocClusters', () => {
   });
 });
 
-describe('#buildDataprocClusterUsesKmsRelationships', () => {
+describe.skip('#buildDataprocClusterUsesKmsRelationships', () => {
   let recording: Recording;
 
   beforeEach(() => {

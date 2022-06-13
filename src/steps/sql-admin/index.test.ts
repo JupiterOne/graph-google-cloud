@@ -224,7 +224,7 @@ describe('#fetchSQLInstances', () => {
   });
 });
 
-describe('#buildSqlAdminInstanceKmsKeyRelationships', () => {
+describe.skip('#buildSqlAdminInstanceKmsKeyRelationships', () => {
   let recording: Recording;
 
   beforeEach(() => {

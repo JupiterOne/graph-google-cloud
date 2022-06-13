@@ -249,7 +249,7 @@ describe('#buildDiskImageRelationships', () => {
   });
 });
 
-describe('#buildDiskUsesKmsRelationships', () => {
+describe.skip('#buildDiskUsesKmsRelationships', () => {
   let recording: Recording;
 
   beforeEach(() => {
@@ -498,7 +498,7 @@ describe('#fetchComputeImages', () => {
   });
 });
 
-describe('#buildImageUsesKmsRelationships', () => {
+describe.skip('#buildImageUsesKmsRelationships', () => {
   let recording: Recording;
 
   beforeEach(() => {

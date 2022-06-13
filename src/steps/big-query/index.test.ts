@@ -91,7 +91,7 @@ describe('#fetchBigQueryDatasets', () => {
   });
 });
 
-describe('#buildBigQueryDatasetKMSRelationships', () => {
+describe.skip('#buildBigQueryDatasetKMSRelationships', () => {
   let recording: Recording;
 
   beforeEach(() => {
