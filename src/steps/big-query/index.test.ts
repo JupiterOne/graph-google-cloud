@@ -91,6 +91,37 @@ describe('#fetchBigQueryDatasets', () => {
   });
 });
 
+describe('#fetchBigQueryDatasets - GoogleCloudServiceApiDisabledError', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'fetchBigQueryDatasets:serviceApiDisabled',
+      options: {
+        recordFailedRequests: true,
+      },
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should not throw if the project has not enabled BigQuery', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: {
+        ...integrationConfig,
+        projectId: 'jupiter-dev-326616',
+      },
+    });
+
+    await expect(fetchBigQueryDatasets(context)).resolves.toBeUndefined();
+
+    expect(context.jobState.collectedEntities).toHaveLength(0);
+  });
+});
+
 describe.skip('#buildBigQueryDatasetKMSRelationships', () => {
   let recording: Recording;
 
