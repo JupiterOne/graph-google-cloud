@@ -14,6 +14,10 @@ and this project adheres to
   which service APIs are enabled in `getStepStartStates`. This should help
   drastically reduce the number of API calls to `serviceusage.googleapis.com`.
 
+- Change KMS key ring client request code to iterate hardcoded list of project
+  locations instead of hitting the KMS project location API. The KMS project
+  location API was being hammered and could cause API quota issues.
+
 ### Fixed
 
 - Split service API to role relationship creation into separate step. If

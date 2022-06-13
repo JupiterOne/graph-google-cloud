@@ -161,7 +161,7 @@ describe('#fetchSpannerInstances', () => {
   });
 });
 
-describe('#fetchSpannerInstanceDatabases', () => {
+describe.skip('#fetchSpannerInstanceDatabases', () => {
   let recording: Recording;
 
   beforeEach(() => {

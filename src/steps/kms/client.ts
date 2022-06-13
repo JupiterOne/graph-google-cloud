@@ -1,28 +1,16 @@
 import { google, cloudkms_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
+import { KMS_SERVICE_LOCATIONS } from './constants';
 
 export class CloudKmsClient extends Client {
   private client = google.cloudkms({ version: 'v1', retry: false });
 
   async iterateProjectLocations(
-    callback: (data: cloudkms_v1.Schema$Location) => Promise<void>,
+    callback: (locationId: string) => Promise<void>,
   ) {
-    const auth = await this.getAuthenticatedServiceClient();
-
-    await this.iterateApi(
-      async (nextPageToken) => {
-        return this.client.projects.locations.list({
-          auth,
-          pageToken: nextPageToken,
-          name: `projects/${this.projectId}`,
-        });
-      },
-      async (data: cloudkms_v1.Schema$ListLocationsResponse) => {
-        for (const item of data.locations || []) {
-          await callback(item);
-        }
-      },
-    );
+    for (const location of KMS_SERVICE_LOCATIONS) {
+      await callback(location);
+    }
   }
 
   async iterateKeyRings(
@@ -39,14 +27,14 @@ export class CloudKmsClient extends Client {
     let maximumResourcesPerPage = 0;
 
     try {
-      await this.iterateProjectLocations(async (location) => {
+      await this.iterateProjectLocations(async (locationId) => {
         await this.iterateApi(
           async (nextPageToken) => {
             return this.client.projects.locations.keyRings.list({
               auth,
               pageToken: nextPageToken,
               pageSize: 200,
-              parent: `projects/${this.projectId}/locations/${location.locationId}`,
+              parent: `projects/${this.projectId}/locations/${locationId}`,
             });
           },
           async (data: cloudkms_v1.Schema$ListKeyRingsResponse) => {

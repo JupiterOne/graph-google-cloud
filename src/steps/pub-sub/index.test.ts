@@ -90,7 +90,7 @@ describe('#fetchProjectTopics', () => {
   });
 });
 
-describe('#buildPubSubTopicKMSRelationships', () => {
+describe.skip('#buildPubSubTopicKMSRelationships', () => {
   let recording: Recording;
 
   beforeEach(() => {
