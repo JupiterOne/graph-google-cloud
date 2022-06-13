@@ -61,9 +61,24 @@ export async function fetchBigQueryDatasets(
   } = context;
   const client = new BigQueryClient({ config });
 
-  await client.iterateBigQueryDatasets(async (dataset) => {
-    await jobState.addEntity(createBigQueryDatasetEntity(dataset));
-  });
+  try {
+    await client.iterateBigQueryDatasets(async (dataset) => {
+      await jobState.addEntity(createBigQueryDatasetEntity(dataset));
+    });
+  } catch (err) {
+    const originalError = err._cause?.errors?.[0];
+    if (
+      originalError?.message ===
+      `The project ${config.projectId} has not enabled BigQuery.`
+    ) {
+      /**
+       * The BigQuery service is disabled in this account, so there can be no
+       * BigQuery resources in this Google Cloud Project.
+       */
+      return;
+    }
+    throw err;
+  }
 }
 
 export async function buildBigQueryDatasetKMSRelationships(
