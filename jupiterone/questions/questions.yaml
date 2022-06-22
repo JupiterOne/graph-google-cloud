@@ -1173,7 +1173,7 @@ questions:
       - '7.1'
 
 - id: integration-question-google-big-query-dataset-audit
-  title: Are any of my BigQuery datasets compromised based on cloud API access?
+  title: Are any of my BigQuery datasets vulnerable based on cloud API access?
   description: >
     Allow a security reviewer with read-only access to audit a bigquery dataset with cloud API permissions.
   queries:
