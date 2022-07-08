@@ -39,10 +39,8 @@ and providing the service account key to JupiterOne.
 
 ### In Google Cloud
 
-A
-[Google Cloud service account](https://cloud.google.com/iam/docs/creating-managing-service-accounts)
-and a
-[Google Cloud service account key](https://cloud.google.com/iam/docs/creating-managing-service-account-keys)
+A [Google Cloud service account](https://cloud.google.com/iam/docs/creating-managing-service-accounts)
+and a [Google Cloud service account key](https://cloud.google.com/iam/docs/creating-managing-service-account-keys)
 must be created in order to run the integration. The service account key is used
 to authenticate on behalf of the integration's Google Cloud project and ingest
 data into JupiterOne.
