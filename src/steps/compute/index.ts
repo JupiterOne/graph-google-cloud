@@ -1027,8 +1027,9 @@ export async function fetchComputeAddresses(
   const client = createComputeClient(context);
 
   await client.iterateComputeAddresses(async (address) => {
-    const addressEntity = createComputeAddressEntity(address, client.projectId);
-    await jobState.addEntity(addressEntity);
+    const addressEntity = await jobState.addEntity(
+      createComputeAddressEntity(address, client.projectId)
+    );
 
     // Subnetwork -> HAS -> Compute Address
     if (address.subnetwork) {

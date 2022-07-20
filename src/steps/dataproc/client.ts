@@ -1,6 +1,6 @@
 import { google, dataproc_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
-import { googleCloudRegions } from '../../google-cloud/regions';
+import { iterateRegions } from '../../google-cloud/regions';
 
 export class DataProcClient extends Client {
   private client = google.dataproc({ version: 'v1', retry: false });
@@ -10,13 +10,13 @@ export class DataProcClient extends Client {
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
 
-    for (const region of googleCloudRegions) {
+    await iterateRegions(async (region) => {
       await this.iterateApi(
         async (nextPageToken) => {
           return this.client.projects.regions.clusters.list({
             auth,
             projectId: this.projectId,
-            region: region.name,
+            region: region,
             pageToken: nextPageToken,
           });
         },
@@ -26,6 +26,6 @@ export class DataProcClient extends Client {
           }
         },
       );
-    }
+    });
   }
 }

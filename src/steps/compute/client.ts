@@ -1,10 +1,6 @@
 import { google, compute_v1 } from 'googleapis';
 import { Client, PageableGaxiosResponse } from '../../google-cloud/client';
-import {
-  googleCloudRegions,
-  iterateRegions,
-  iterateRegionZones,
-} from '../../google-cloud/regions';
+import { iterateRegions, iterateRegionZones } from '../../google-cloud/regions';
 import { BaseExternalAccountClient } from 'google-auth-library';
 
 export class ComputeClient extends Client {
@@ -292,14 +288,14 @@ export class ComputeClient extends Client {
     callback: (data: compute_v1.Schema$Subnetwork) => Promise<void>,
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
-    for (const region of googleCloudRegions) {
+    await iterateRegions(async (region) => {
       await this.iterateApi(
         async (nextPageToken) => {
           return this.client.subnetworks.list({
             auth,
             pageToken: nextPageToken,
             project: this.projectId,
-            region: region.name,
+            region: region,
           });
         },
         async (data: compute_v1.Schema$NetworkList) => {
@@ -308,7 +304,7 @@ export class ComputeClient extends Client {
           }
         },
       );
-    }
+    });
   }
 
   async iterateNetworks(

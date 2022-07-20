@@ -4,6 +4,8 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { ParsedServiceAccountKeyFile } from '../src/utils/parseServiceAccountKeyFile';
 import { deserializeIntegrationConfig } from '../src/utils/integrationConfig';
+import { omitNewRegionsFromTests } from './regions';
+omitNewRegionsFromTests();
 
 if (process.env.LOAD_ENV) {
   dotenv.config({
