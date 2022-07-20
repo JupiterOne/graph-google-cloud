@@ -8,6 +8,10 @@ and this project adheres to
 
 ## Unreleased
 
+### Added
+
+- Support for new GCP compute regions
+
 ### Changed
 
 - Do not throw if bigquery API returns

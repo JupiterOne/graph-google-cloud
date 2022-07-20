@@ -35,6 +35,10 @@ export const googleCloudRegions: GoogleCloudRegion[] = [
     zones: ['a', 'b', 'c'],
   },
   {
+    name: 'asia-south2',
+    zones: ['a', 'b', 'c'],
+  },
+  {
     name: 'asia-southeast1',
     zones: ['a', 'b', 'c'],
   },
@@ -47,7 +51,19 @@ export const googleCloudRegions: GoogleCloudRegion[] = [
     zones: ['a', 'b', 'c'],
   },
   {
+    name: 'australia-southeast2',
+    zones: ['a', 'b', 'c'],
+  },
+  {
+    name: 'europe-central2',
+    zones: ['a', 'b', 'c'],
+  },
+  {
     name: 'europe-north1',
+    zones: ['a', 'b', 'c'],
+  },
+  {
+    name: 'europe-southwest1',
     zones: ['a', 'b', 'c'],
   },
   {
@@ -71,11 +87,27 @@ export const googleCloudRegions: GoogleCloudRegion[] = [
     zones: ['a', 'b', 'c'],
   },
   {
+    name: 'europe-west8',
+    zones: ['a', 'b', 'c'],
+  },
+  {
+    name: 'europe-west9',
+    zones: ['a', 'b', 'c'],
+  },
+  {
     name: 'northamerica-northeast1',
     zones: ['a', 'b', 'c'],
   },
   {
+    name: 'northamerica-northeast2',
+    zones: ['a', 'b', 'c'],
+  },
+  {
     name: 'southamerica-east1',
+    zones: ['a', 'b', 'c'],
+  },
+  {
+    name: 'southamerica-west1',
     zones: ['a', 'b', 'c'],
   },
   {
@@ -88,6 +120,14 @@ export const googleCloudRegions: GoogleCloudRegion[] = [
   },
   {
     name: 'us-east4',
+    zones: ['a', 'b', 'c'],
+  },
+  {
+    name: 'us-east5',
+    zones: ['a', 'b', 'c'],
+  },
+  {
+    name: 'us-south1',
     zones: ['a', 'b', 'c'],
   },
   {
