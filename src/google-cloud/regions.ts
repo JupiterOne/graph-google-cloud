@@ -167,7 +167,7 @@ export async function iterateRegionZones(
  * need to be invoked for just all the regions but not zones.
  */
 export async function iterateRegions(
-  callback: (zone: string) => Promise<void>,
+  callback: (region: string) => Promise<void>,
 ) {
   for (const region of googleCloudRegions) {
     await callback(region.name); // e.g. us-central1

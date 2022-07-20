@@ -24,6 +24,9 @@ import {
 } from '../storage';
 import { ENTITY_TYPE_COMPUTE_IMAGE, fetchComputeImages } from '../compute';
 import { separateDirectMappedRelationships } from '../../../test/helpers/separateDirectMappedRelationships';
+import { omitNewRegionsFromTests } from '../../../test/regions';
+
+beforeAll(() => omitNewRegionsFromTests());
 
 describe('#fetchDataprocClusters', () => {
   let recording: Recording;
