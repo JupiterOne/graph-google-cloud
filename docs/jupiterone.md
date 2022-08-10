@@ -381,6 +381,7 @@ The following entities are created:
 | SQL Admin Postgres Instance                              | `google_sql_postgres_instance`                                    | `Database`                         |
 | SQL Admin SQL Server Instance                            | `google_sql_sql_server_instance`                                  | `Database`                         |
 | Secret                                                   | `google_secret_manager_secret`                                    | `Group`                            |
+| Secrets                                                  | `google_secret_manager_secret_version`                            | `Secret`                           |
 | Spanner Instance                                         | `google_spanner_instance`                                         | `Database`, `Cluster`              |
 | Spanner Instance Config                                  | `google_spanner_instance_config`                                  | `Configuration`                    |
 | Spanner Instance Database                                | `google_spanner_database`                                         | `Database`                         |
@@ -504,6 +505,7 @@ The following relationships are created:
 | `google_pubsub_subscription`                                     | **USES**              | `google_pubsub_topic`                                             |
 | `google_pubsub_topic`                                            | **USES**              | `google_kms_crypto_key`                                           |
 | `google_redis_instance`                                          | **USES**              | `google_compute_network`                                          |
+| `google_secret_manager_secret`                                   | **HAS**               | `google_secret_manager_secret_version`                            |
 | `google_spanner_database`                                        | **USES**              | `google_kms_crypto_key`                                           |
 | `google_spanner_instance`                                        | **HAS**               | `google_spanner_database`                                         |
 | `google_spanner_instance`                                        | **USES**              | `google_spanner_instance_config`                                  |
