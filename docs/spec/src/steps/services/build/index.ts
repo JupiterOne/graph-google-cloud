@@ -1,6 +1,7 @@
 import {
   IntegrationInstanceConfig,
   RelationshipClass,
+  RelationshipDirection,
   StepSpec,
 } from '@jupiterone/integration-sdk-core';
 
@@ -26,6 +27,44 @@ export const buildSteps: StepSpec<IntegrationInstanceConfig>[] = [
   },
   {
     /**
+     * PROPERTY: google_cloud_build.source.storageSource
+     * PATTERN: Build Child Relationships
+     */
+    id: 'build-cloud-build-storage-bucket-relationships',
+    name: 'Build Cloud Build -> Storage Bucket Relationships',
+    entities: [],
+    relationships: [
+      {
+        _type: 'google_cloud_build_uses_storage_bucket',
+        _class: RelationshipClass.USES,
+        sourceType: 'google_cloud_build',
+        targetType: 'google_storage_bucket',
+      },
+    ],
+    dependsOn: ['fetch-cloud-builds', 'fetch-cloud-storage-buckets'],
+    implemented: false,
+  },
+  {
+    /**
+     * PROPERTY: google_cloud_build.source.repoSource
+     * PATTERN: Build Child Relationships
+     */
+    id: 'build-cloud-build-source-repo-relationships',
+    name: 'Build Cloud Build -> Source Repository Relationships',
+    entities: [],
+    relationships: [
+      {
+        _type: 'google_cloud_build_uses_source_repository',
+        _class: RelationshipClass.USES,
+        sourceType: 'google_cloud_build',
+        targetType: 'google_cloud_source_repository',
+      },
+    ],
+    dependsOn: ['fetch-cloud-builds', 'fetch-cloud-source-repositories'],
+    implemented: false,
+  },
+  {
+    /**
      * ENDPOINT: https://cloud.google.com/build/docs/api/reference/rest/v1/projects.githubEnterpriseConfigs/list
      * PATTERN: Fetch Entities
      * REQUIRED PERMISSIONS: cloudbuild.integrations.list
@@ -41,6 +80,27 @@ export const buildSteps: StepSpec<IntegrationInstanceConfig>[] = [
     ],
     relationships: [],
     dependsOn: [],
+    implemented: false,
+  },
+  {
+    /**
+     * PROPERTY: google_cloud_github_enterprise_config.hostUrl
+     * PATTERN: Build Child Relationships
+     */
+    id: 'build-cloud-build-ghe-config-account-relationships',
+    name: 'Build Cloud Build GitHub Enterprise Config -> GitHub Relationships',
+    entities: [],
+    relationships: [],
+    mappedRelationships: [
+      {
+        _type: 'google_cloud_github_enterprise_config_connects_github_account',
+        sourceType: 'google_cloud_github_enterprise_config',
+        _class: RelationshipClass.CONNECTS,
+        targetType: 'github_account',
+        direction: RelationshipDirection.FORWARD,
+      },
+    ],
+    dependsOn: ['fetch-cloud-build-ghe-configs'],
     implemented: false,
   },
   {
@@ -61,6 +121,28 @@ export const buildSteps: StepSpec<IntegrationInstanceConfig>[] = [
     ],
     relationships: [],
     dependsOn: [],
+    implemented: false,
+  },
+  {
+    /**
+     * PROPERTY: google_cloud_bitbucket_server_config.hostUri
+     * PATTERN: Build Child Relationships
+     */
+    id: 'build-cloud-build-bb-config-account-relationships',
+    name: 'Build Cloud Build BitBucket Config -> BitBucket Relationships',
+    entities: [],
+    relationships: [],
+    mappedRelationships: [
+      {
+        _type:
+          'google_cloud_bitbucket_server_config_connects_bitbucket_project',
+        sourceType: 'google_cloud_bitbucket_server_config',
+        _class: RelationshipClass.CONNECTS,
+        targetType: 'bitbucket_project',
+        direction: RelationshipDirection.FORWARD,
+      },
+    ],
+    dependsOn: ['fetch-cloud-build-bb-configs'],
     implemented: false,
   },
   {
@@ -91,6 +173,27 @@ export const buildSteps: StepSpec<IntegrationInstanceConfig>[] = [
   },
   {
     /**
+     * PROPERTY: google_cloud_bitbucket_server_repo.repoId
+     * PATTERN: Build Child Relationships
+     */
+    id: 'fetch-cloud-build-bb-repos-relationships',
+    name: 'Cloud Build BitBucket Repo -> BitBucket Relationships',
+    entities: [],
+    relationships: [],
+    mappedRelationships: [
+      {
+        _type: 'google_cloud_bitbucket_server_repo_watches_bitbucket_repo',
+        sourceType: 'google_cloud_bitbucket_server_repo',
+        _class: RelationshipClass.MONITORS,
+        targetType: 'bitbucket_repo',
+        direction: RelationshipDirection.FORWARD,
+      },
+    ],
+    dependsOn: ['fetch-cloud-build-bb-repos'],
+    implemented: false,
+  },
+  {
+    /**
      * ENDPOINT: https://cloud.google.com/build/docs/api/reference/rest/v1/projects.locations.triggers/list
      * PATTERN: Fetch Entities
      * REQUIRED PERMISSIONS: cloudbuilds.builds.list
@@ -106,6 +209,25 @@ export const buildSteps: StepSpec<IntegrationInstanceConfig>[] = [
     ],
     relationships: [],
     dependsOn: [],
+    implemented: false,
+  },
+  {
+    /**
+     * ENDPOINT: google_cloud_build_trigger.build
+     * PATTERN: Build Child Relationships
+     */
+    id: 'build-cloud-build-trigger-triggers-build-relationships',
+    name: 'Build Cloud Build Trigger -> Build Relationships',
+    entities: [],
+    relationships: [
+      {
+        _type: 'google_cloud_build_trigger_triggers_build',
+        sourceType: 'google_cloud_build_trigger',
+        _class: RelationshipClass.TRIGGERS,
+        targetType: 'google_cloud_build',
+      },
+    ],
+    dependsOn: ['fetch-cloud-build-triggers', 'fetch-cloud-builds'],
     implemented: false,
   },
   {
