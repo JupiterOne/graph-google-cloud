@@ -1,37 +1,45 @@
-import { secretmanager_v1beta1 } from 'googleapis';
+import { parseTimePropertyValue } from '@jupiterone/integration-sdk-core';
+import { secretmanager_v1 } from 'googleapis';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
-import {
-  ENTITY_CLASS_SECRET_MANAGER_SECRET,
-  ENTITY_CLASS_SECRET_MANAGER_SECRET_VERSION,
-  ENTITY_TYPE_SECRET_MANAGER_SECRET,
-  ENTITY_TYPE_SECRET_MANAGER_SECRET_VERSION,
-} from './constants';
+import { SecretManagerEntities } from './constants';
 
-export function createSecretEntity(data: secretmanager_v1beta1.Schema$Secret) {
+export function createSecretEntity(data: secretmanager_v1.Schema$Secret) {
   return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {
-        _class: ENTITY_CLASS_SECRET_MANAGER_SECRET,
-        _type: ENTITY_TYPE_SECRET_MANAGER_SECRET,
+        _class: SecretManagerEntities.SECRET._class,
+        _type: SecretManagerEntities.SECRET._type,
         _key: data.name as string,
         name: data.name,
+        createdAt: parseTimePropertyValue(data.createTime),
+        expiresAt: parseTimePropertyValue(data.expireTime),
+        automaticReplicationKmsKeyName:
+          data.replication?.automatic?.customerManagedEncryption?.kmsKeyName,
+        nextRotationTime: parseTimePropertyValue(
+          data.rotation?.nextRotationTime,
+        ),
+        rotationPeriod: data.rotation?.rotationPeriod,
+        topicNames: data.topics?.map((t) => t.name!),
+        ttl: data.ttl,
       },
     },
   });
 }
 
 export function createSecretVersionEntity(
-  data: secretmanager_v1beta1.Schema$SecretVersion,
+  data: secretmanager_v1.Schema$SecretVersion,
 ) {
   return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {
-        _class: ENTITY_CLASS_SECRET_MANAGER_SECRET_VERSION,
-        _type: ENTITY_TYPE_SECRET_MANAGER_SECRET_VERSION,
+        _class: SecretManagerEntities.SECRET_VERSION._class,
+        _type: SecretManagerEntities.SECRET_VERSION._type,
         _key: data.name as string,
         name: data.name,
+        createdAt: parseTimePropertyValue(data.createTime),
+        destroyTime: parseTimePropertyValue(data.destroyTime),
       },
     },
   });

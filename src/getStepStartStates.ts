@@ -146,10 +146,7 @@ import {
   STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
   STEP_RESOURCE_MANAGER_PROJECT,
 } from './steps/resource-manager';
-import {
-  STEP_SECRET_MANAGER_FETCH_SECRETS,
-  STEP_SECRET_MANAGER_FETCH_SECRET_VERSION,
-} from './steps/secret-manager/constants';
+import { SecretManagerSteps } from './steps/secret-manager/constants';
 import { ServiceUsageStepIds } from './steps/service-usage/constants';
 import {
   STEP_SPANNER_INSTANCES,
@@ -376,8 +373,8 @@ export default async function getStepStartStates(
       disabled: !(singleProjectInstance || masterOrgInstance),
     },
     [STEP_BUILD_ADDITIONAL_PROJECT_BUDGET]: { disabled: !masterOrgInstance },
-    [STEP_SECRET_MANAGER_FETCH_SECRETS]: { disabled: false },
-    [STEP_SECRET_MANAGER_FETCH_SECRET_VERSION]: { disabled: false },
+    [SecretManagerSteps.FETCH_SECRETS.id]: { disabled: false },
+    [SecretManagerSteps.FETCH_SECRET_VERSIONS.id]: { disabled: false },
   };
 
   logger.info(

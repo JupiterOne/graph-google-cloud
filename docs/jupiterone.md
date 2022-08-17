@@ -78,6 +78,7 @@ all of the supported data into JupiterOne:
 | [Kubernetes Engine](https://console.developers.google.com/apis/library/container.googleapis.com)                 | container.googleapis.com            |
 | [Service Usage](https://console.developers.google.com/apis/library/serviceusage.googleapis.com)                  | serviceusage.googleapis.com         |
 | [Stackdriver Monitoring](https://console.developers.google.com/apis/library/monitoring.googleapis.com)           | monitoring.googleapis.com           |
+| [Secret Manager](https://console.cloud.google.com/apis/library/secretmanager.googleapis.com)                     | secretmanager.googleapis.com        |
 
 Google Cloud service APIs can be enabled using one of the following methods:
 
@@ -124,7 +125,8 @@ gcloud services enable \
   iam.googleapis.com \
   container.googleapis.com \
   serviceusage.googleapis.com \
-  monitoring.googleapis.com
+  monitoring.googleapis.com \
+  secretmanager.googleapis.com
 ```
 
 #### Creating Google Cloud project service account
@@ -381,7 +383,7 @@ The following entities are created:
 | SQL Admin Postgres Instance                              | `google_sql_postgres_instance`                                    | `Database`                         |
 | SQL Admin SQL Server Instance                            | `google_sql_sql_server_instance`                                  | `Database`                         |
 | Secret                                                   | `google_secret_manager_secret`                                    | `Group`                            |
-| Secrets                                                  | `google_secret_manager_secret_version`                            | `Secret`                           |
+| Secret Version                                           | `google_secret_manager_secret_version`                            | `Secret`                           |
 | Spanner Instance                                         | `google_spanner_instance`                                         | `Database`, `Cluster`              |
 | Spanner Instance Config                                  | `google_spanner_instance_config`                                  | `Configuration`                    |
 | Spanner Instance Database                                | `google_spanner_database`                                         | `Database`                         |

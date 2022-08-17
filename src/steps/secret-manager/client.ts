@@ -1,14 +1,12 @@
-import { google, secretmanager_v1beta1 } from 'googleapis';
+import { google, secretmanager_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
 
 export class SecretManagerClient extends Client {
   private client = google.secretmanager({ version: 'v1beta1' });
 
   async iterateSecretVersions(
-    secret: secretmanager_v1beta1.Schema$Secret,
-    callback: (
-      data: secretmanager_v1beta1.Schema$SecretVersion,
-    ) => Promise<void>,
+    secret: secretmanager_v1.Schema$Secret,
+    callback: (data: secretmanager_v1.Schema$SecretVersion) => Promise<void>,
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
 
@@ -20,7 +18,7 @@ export class SecretManagerClient extends Client {
           parent: secret.name?.toString(),
         });
       },
-      async (data: secretmanager_v1beta1.Schema$ListSecretVersionsResponse) => {
+      async (data: secretmanager_v1.Schema$ListSecretVersionsResponse) => {
         for (const version of data.versions || []) {
           await callback(version);
         }
@@ -29,7 +27,7 @@ export class SecretManagerClient extends Client {
   }
 
   async iterateSecrets(
-    callback: (data: secretmanager_v1beta1.Schema$Secret) => Promise<void>,
+    callback: (data: secretmanager_v1.Schema$Secret) => Promise<void>,
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
 
@@ -41,7 +39,7 @@ export class SecretManagerClient extends Client {
           parent: `projects/${this.projectId}`,
         });
       },
-      async (data: secretmanager_v1beta1.Schema$ListSecretsResponse) => {
+      async (data: secretmanager_v1.Schema$ListSecretsResponse) => {
         for (const secret of data.secrets || []) {
           await callback(secret);
         }

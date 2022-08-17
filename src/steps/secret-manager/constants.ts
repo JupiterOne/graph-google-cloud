@@ -1,13 +1,34 @@
-// https://cloud.google.com/secret-manager/docs/reference/rest/v1beta1/projects.secrets
-export const STEP_SECRET_MANAGER_FETCH_SECRETS = 'fetch-secrets';
-export const ENTITY_CLASS_SECRET_MANAGER_SECRET = 'Group';
-export const ENTITY_TYPE_SECRET_MANAGER_SECRET = 'google_secret_manager_secret';
+import { RelationshipClass } from '@jupiterone/integration-sdk-core';
 
-// https://cloud.google.com/secret-manager/docs/reference/rest/v1beta1/projects.secrets.versions
-export const STEP_SECRET_MANAGER_FETCH_SECRET_VERSION = 'fetch-secret-versions';
-export const ENTITY_CLASS_SECRET_MANAGER_SECRET_VERSION = 'Secret';
-export const ENTITY_TYPE_SECRET_MANAGER_SECRET_VERSION =
-  'google_secret_manager_secret_version';
+export const SecretManagerSteps = {
+  FETCH_SECRETS: {
+    id: 'fetch-secrets',
+    name: 'Fetch Secret Manager secrets',
+  },
+  FETCH_SECRET_VERSIONS: {
+    id: 'fetch-secret-versions',
+    name: 'Fetch Secret Manager secret versions',
+  },
+};
 
-export const RELATIONSHIP_TYPE_SECRET_HAS_VERSION =
-  'google_secret_manager_secret_has_version';
+export const SecretManagerEntities = {
+  SECRET: {
+    resourceName: 'Secret',
+    _type: 'google_secret_manager_secret',
+    _class: 'Group',
+  },
+  SECRET_VERSION: {
+    resourceName: 'Secret Version',
+    _type: 'google_secret_manager_secret_version',
+    _class: 'Secret',
+  },
+};
+
+export const SecretManagerRelationships = {
+  SECRET_HAS_VERSION: {
+    _type: 'google_secret_manager_secret_has_version',
+    sourceType: SecretManagerEntities.SECRET._type,
+    _class: RelationshipClass.HAS,
+    targetType: SecretManagerEntities.SECRET_VERSION._type,
+  },
+};
