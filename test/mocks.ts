@@ -8,6 +8,7 @@ import {
   binaryauthorization_v1,
   cloudasset_v1,
   cloudbilling_v1,
+  cloudbuild_v1,
   cloudfunctions_v1,
   cloudkms_v1,
   cloudresourcemanager_v3,
@@ -2635,4 +2636,8 @@ export function getMockSecretVersionEntity(): secretmanager_v1.Schema$SecretVers
     name: 'projects/j1-gc-integration-dev-v3/secrets/sample-secret-name/versions/1',
     state: 'ENABLED',
   };
+}
+
+export function getMockCloudBuild(): cloudbuild_v1.Schema$Build {
+  return {};
 }
