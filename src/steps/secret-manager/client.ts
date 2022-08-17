@@ -2,7 +2,7 @@ import { google, secretmanager_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
 
 export class SecretManagerClient extends Client {
-  private client = google.secretmanager({ version: 'v1beta1' });
+  private client = google.secretmanager({ version: 'v1' });
 
   async iterateSecretVersions(
     secret: secretmanager_v1.Schema$Secret,
