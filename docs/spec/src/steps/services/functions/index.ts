@@ -25,41 +25,6 @@ export const functionSteps: StepSpec<IntegrationInstanceConfig>[] = [
     implemented: true,
   },
   {
-    id: 'fetch-iam-service-accounts',
-    name: '',
-    entities: [],
-    relationships: [],
-    implemented: false,
-  },
-  {
-    id: 'fetch-cloud-storage-buckets',
-    name: '',
-    entities: [],
-    relationships: [],
-    implemented: false,
-  },
-  {
-    id: 'fetch-cloud-source-repositories',
-    name: '',
-    entities: [],
-    relationships: [],
-    implemented: false,
-  },
-  {
-    id: 'fetch-cloud-custom-worker-pools',
-    name: '',
-    entities: [],
-    relationships: [],
-    implemented: false,
-  },
-  {
-    id: 'fetch-cloud-docker-repositories',
-    name: '',
-    entities: [],
-    relationships: [],
-    implemented: false,
-  },
-  {
     /**
      * PROPERTY: google_cloud_function.eventTrigger.serviceAccountEmail
      * PATTERN: Build Child Relationships
