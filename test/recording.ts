@@ -3,13 +3,13 @@ import {
   setupRecording,
   SetupRecordingInput,
 } from '@jupiterone/integration-sdk-testing';
-import { gunzipSync } from 'zlib';
 import { cloudfunctions_v1, iam_v1, privateca_v1beta1 } from 'googleapis';
-import * as url from 'url';
 import * as querystring from 'querystring';
-import { integrationConfig } from './config';
-import { parseServiceAccountKeyFile } from '../src/utils/parseServiceAccountKeyFile';
+import * as url from 'url';
+import { gunzipSync } from 'zlib';
 import { IntegrationConfig } from '../src';
+import { parseServiceAccountKeyFile } from '../src/utils/parseServiceAccountKeyFile';
+import { integrationConfig } from './config';
 
 export { Recording } from '@jupiterone/integration-sdk-testing';
 

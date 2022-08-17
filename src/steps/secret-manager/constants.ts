@@ -15,7 +15,7 @@ export const SecretManagerEntities = {
   SECRET: {
     resourceName: 'Secret',
     _type: 'google_secret_manager_secret',
-    _class: 'Group',
+    _class: ['Group'],
   },
   SECRET_VERSION: {
     resourceName: 'Secret Version',
