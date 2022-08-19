@@ -3,10 +3,10 @@ import { memcache_v1 } from 'googleapis';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import { getGoogleCloudConsoleWebLink } from '../../utils/url';
 import {
-  ENTITY_TYPE_MEMCACHE_INSTANCE,
   ENTITY_CLASS_MEMCACHE_INSTANCE,
-  ENTITY_TYPE_MEMCACHE_INSTANCE_NODE,
   ENTITY_CLASS_MEMCACHE_INSTANCE_NODE,
+  ENTITY_TYPE_MEMCACHE_INSTANCE,
+  ENTITY_TYPE_MEMCACHE_INSTANCE_NODE,
 } from './constants';
 
 export function getMemcacheKey(uid: string) {
@@ -44,6 +44,7 @@ export function createMemcacheInstanceEntity(
             data.name?.split('/')[3]
           }/instances/${data.name?.split('/')[5]}/details?project=${projectId}`,
         ),
+        hostname: null,
       },
     },
   });
@@ -95,6 +96,7 @@ export function createMemcacheNodeEntity(
             instanceKey.split('/')[5]
           }/details?project=${projectId}`,
         ),
+        hostname: null,
       },
     },
   });

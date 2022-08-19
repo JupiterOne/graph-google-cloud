@@ -29,7 +29,7 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> =
     },
     getStepStartStates,
     integrationSteps: steps,
-    // dependencyGraphOrder: ['last'],
+    dependencyGraphOrder: ['last'],
     beforeAddEntity: maybeDefaultProjectIdOnEntity,
   };
 
