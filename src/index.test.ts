@@ -1,42 +1,73 @@
-import { invocationConfig } from './index';
-import {
-  createMockExecutionContext,
-  Recording,
-} from '@jupiterone/integration-sdk-testing';
-import { IntegrationConfig } from './types';
-import { google } from 'googleapis';
-import { GoogleAuth, GoogleAuthOptions } from 'google-auth-library';
 import {
   Entity,
   IntegrationValidationError,
   Step,
   StepStartStates,
 } from '@jupiterone/integration-sdk-core';
-import { setupGoogleCloudRecording } from '../test/recording';
 import {
-  integrationConfig,
+  createMockExecutionContext,
+  Recording,
+} from '@jupiterone/integration-sdk-testing';
+import { GoogleAuth, GoogleAuthOptions } from 'google-auth-library';
+import { google } from 'googleapis';
+import {
   DEFAULT_INTEGRATION_CONFIG_SERVICE_ACCOUNT_KEY_FILE,
+  integrationConfig,
 } from '../test/config';
-import getStepStartStates from './getStepStartStates';
+import { setupGoogleCloudRecording } from '../test/recording';
+import getStepStartStates, { getOrganizationSteps } from './getStepStartStates';
+import { invocationConfig } from './index';
 import {
-  STEP_CLOUD_FUNCTIONS,
-  STEP_CLOUD_FUNCTIONS_SERVICE_ACCOUNT_RELATIONSHIPS,
-} from './steps/functions';
-import { STEP_CLOUD_STORAGE_BUCKETS } from './steps/storage';
-import { ServiceUsageStepIds } from './steps/service-usage/constants';
+  STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS,
+  STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
+  STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS,
+} from './steps/access-context-manager/constants';
 import {
-  STEP_IAM_CUSTOM_ROLES,
-  STEP_IAM_CUSTOM_ROLE_SERVICE_API_RELATIONSHIPS,
-  STEP_IAM_MANAGED_ROLES,
-  STEP_IAM_SERVICE_ACCOUNTS,
-} from './steps/iam';
+  STEP_API_GATEWAY_APIS,
+  STEP_API_GATEWAY_API_CONFIGS,
+  STEP_API_GATEWAY_GATEWAYS,
+} from './steps/api-gateway/constants';
 import {
-  STEP_RESOURCE_MANAGER_PROJECT,
-  STEP_RESOURCE_MANAGER_ORGANIZATION,
-  STEP_RESOURCE_MANAGER_FOLDERS,
-  STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
-  STEP_AUDIT_CONFIG_IAM_POLICY,
-} from './steps/resource-manager';
+  STEP_APP_ENGINE_APPLICATION,
+  STEP_APP_ENGINE_INSTANCES,
+  STEP_APP_ENGINE_SERVICES,
+  STEP_APP_ENGINE_VERSIONS,
+  STEP_CREATE_APP_ENGINE_BUCKET_RELATIONSHIPS,
+} from './steps/app-engine/constants';
+import {
+  STEP_BIG_QUERY_DATASETS,
+  STEP_BIG_QUERY_MODELS,
+  STEP_BIG_QUERY_TABLES,
+  STEP_BUILD_BIG_QUERY_DATASET_KMS_RELATIONSHIPS,
+} from './steps/big-query';
+import {
+  STEP_BIG_TABLE_APP_PROFILES,
+  STEP_BIG_TABLE_BACKUPS,
+  STEP_BIG_TABLE_CLUSTERS,
+  STEP_BIG_TABLE_INSTANCES,
+  STEP_BIG_TABLE_TABLES,
+} from './steps/big-table/constants';
+import {
+  STEP_BILLING_BUDGETS,
+  STEP_BUILD_ACCOUNT_BUDGET,
+  STEP_BUILD_ADDITIONAL_PROJECT_BUDGET,
+  STEP_BUILD_PROJECT_BUDGET,
+} from './steps/billing-budgets/constants';
+import { STEP_BINARY_AUTHORIZATION_POLICY } from './steps/binary-authorization/constants';
+import {
+  STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS,
+  STEP_CREATE_BASIC_ROLES,
+  STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS,
+  STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS,
+  STEP_CREATE_BINDING_ROLE_RELATIONSHIPS,
+  STEP_IAM_BINDINGS,
+} from './steps/cloud-asset/constants';
+import { STEP_BILLING_ACCOUNTS } from './steps/cloud-billing/constants';
+import {
+  STEP_CLOUD_RUN_CONFIGURATIONS,
+  STEP_CLOUD_RUN_ROUTES,
+  STEP_CLOUD_RUN_SERVICES,
+} from './steps/cloud-run/constants';
 import {
   STEP_COMPUTE_ADDRESSES,
   STEP_COMPUTE_BACKEND_BUCKETS,
@@ -75,100 +106,69 @@ import {
   STEP_COMPUTE_TARGET_SSL_PROXIES,
   STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS,
 } from './steps/compute';
-import { STEP_CLOUD_KMS_KEYS, STEP_CLOUD_KMS_KEY_RINGS } from './steps/kms';
+import { STEP_CONTAINER_CLUSTERS } from './steps/containers';
 import {
-  STEP_BIG_QUERY_DATASETS,
-  STEP_BIG_QUERY_MODELS,
-  STEP_BIG_QUERY_TABLES,
-  STEP_BUILD_BIG_QUERY_DATASET_KMS_RELATIONSHIPS,
-} from './steps/big-query';
-import { SqlAdminSteps, STEP_SQL_ADMIN_INSTANCES } from './steps/sql-admin';
+  STEP_CREATE_CLUSTER_IMAGE_RELATIONSHIPS,
+  STEP_CREATE_CLUSTER_STORAGE_RELATIONSHIPS,
+  STEP_DATAPROC_CLUSTERS,
+  STEP_DATAPROC_CLUSTER_KMS_RELATIONSHIPS,
+} from './steps/dataproc/constants';
 import {
   STEP_DNS_MANAGED_ZONES,
   STEP_DNS_POLICIES,
 } from './steps/dns/constants';
-import { STEP_CONTAINER_CLUSTERS } from './steps/containers';
+import {
+  STEP_CLOUD_FUNCTIONS,
+  STEP_CLOUD_FUNCTIONS_SERVICE_ACCOUNT_RELATIONSHIPS,
+} from './steps/functions';
+import {
+  STEP_IAM_CUSTOM_ROLES,
+  STEP_IAM_CUSTOM_ROLE_SERVICE_API_RELATIONSHIPS,
+  STEP_IAM_MANAGED_ROLES,
+  STEP_IAM_SERVICE_ACCOUNTS,
+} from './steps/iam';
+import { STEP_CLOUD_KMS_KEYS, STEP_CLOUD_KMS_KEY_RINGS } from './steps/kms';
 import {
   STEP_CREATE_LOGGING_PROJECT_SINK_BUCKET_RELATIONSHIPS,
   STEP_LOGGING_METRICS,
   STEP_LOGGING_PROJECT_SINKS,
 } from './steps/logging/constants';
+import {
+  STEP_CREATE_MEMCACHE_INSTANCE_NETWORK_RELATIONSHIPS,
+  STEP_MEMCACHE_INSTANCES,
+} from './steps/memcache/constants';
 import { STEP_MONITORING_ALERT_POLICIES } from './steps/monitoring/constants';
-import { STEP_BINARY_AUTHORIZATION_POLICY } from './steps/binary-authorization/constants';
+import {
+  STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS,
+  STEP_PRIVATE_CA_CERTIFICATES,
+  STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES,
+} from './steps/privateca/constants';
 import {
   STEP_CREATE_PUBSUB_TOPIC_KMS_RELATIONSHIPS,
   STEP_PUBSUB_SUBSCRIPTIONS,
   STEP_PUBSUB_TOPICS,
 } from './steps/pub-sub/constants';
 import {
-  STEP_APP_ENGINE_APPLICATION,
-  STEP_APP_ENGINE_INSTANCES,
-  STEP_APP_ENGINE_SERVICES,
-  STEP_APP_ENGINE_VERSIONS,
-  STEP_CREATE_APP_ENGINE_BUCKET_RELATIONSHIPS,
-} from './steps/app-engine/constants';
-import {
-  STEP_CLOUD_RUN_CONFIGURATIONS,
-  STEP_CLOUD_RUN_ROUTES,
-  STEP_CLOUD_RUN_SERVICES,
-} from './steps/cloud-run/constants';
-import {
-  STEP_CREATE_MEMCACHE_INSTANCE_NETWORK_RELATIONSHIPS,
-  STEP_MEMCACHE_INSTANCES,
-} from './steps/memcache/constants';
-import {
   STEP_CREATE_REDIS_INSTANCE_NETWORK_RELATIONSHIPS,
   STEP_REDIS_INSTANCES,
 } from './steps/redis/constants';
+import {
+  STEP_AUDIT_CONFIG_IAM_POLICY,
+  STEP_RESOURCE_MANAGER_FOLDERS,
+  STEP_RESOURCE_MANAGER_ORGANIZATION,
+  STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
+  STEP_RESOURCE_MANAGER_PROJECT,
+} from './steps/resource-manager';
+import { SecretManagerSteps } from './steps/secret-manager/constants';
+import { ServiceUsageStepIds } from './steps/service-usage/constants';
 import {
   STEP_SPANNER_INSTANCES,
   STEP_SPANNER_INSTANCE_CONFIGS,
   STEP_SPANNER_INSTANCE_DATABASES,
 } from './steps/spanner/constants';
-import {
-  STEP_API_GATEWAY_APIS,
-  STEP_API_GATEWAY_API_CONFIGS,
-  STEP_API_GATEWAY_GATEWAYS,
-} from './steps/api-gateway/constants';
-import {
-  STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS,
-  STEP_PRIVATE_CA_CERTIFICATES,
-  STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES,
-} from './steps/privateca/constants';
-import { getOrganizationSteps } from './getStepStartStates';
-import {
-  STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS,
-  STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS,
-  STEP_CREATE_BINDING_ROLE_RELATIONSHIPS,
-  STEP_CREATE_BASIC_ROLES,
-  STEP_IAM_BINDINGS,
-  STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS,
-} from './steps/cloud-asset/constants';
-import {
-  STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS,
-  STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
-  STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS,
-} from './steps/access-context-manager/constants';
-import {
-  STEP_CREATE_CLUSTER_STORAGE_RELATIONSHIPS,
-  STEP_CREATE_CLUSTER_IMAGE_RELATIONSHIPS,
-  STEP_DATAPROC_CLUSTERS,
-  STEP_DATAPROC_CLUSTER_KMS_RELATIONSHIPS,
-} from './steps/dataproc/constants';
-import {
-  STEP_BIG_TABLE_APP_PROFILES,
-  STEP_BIG_TABLE_BACKUPS,
-  STEP_BIG_TABLE_CLUSTERS,
-  STEP_BIG_TABLE_INSTANCES,
-  STEP_BIG_TABLE_TABLES,
-} from './steps/big-table/constants';
-import {
-  STEP_BILLING_BUDGETS,
-  STEP_BUILD_ACCOUNT_BUDGET,
-  STEP_BUILD_ADDITIONAL_PROJECT_BUDGET,
-  STEP_BUILD_PROJECT_BUDGET,
-} from './steps/billing-budgets/constants';
-import { STEP_BILLING_ACCOUNTS } from './steps/cloud-billing/constants';
+import { SqlAdminSteps, STEP_SQL_ADMIN_INSTANCES } from './steps/sql-admin';
+import { STEP_CLOUD_STORAGE_BUCKETS } from './steps/storage';
+import { IntegrationConfig } from './types';
 
 interface ValidateInvocationInvalidConfigTestParams {
   instanceConfig?: Partial<IntegrationConfig>;
@@ -628,6 +628,12 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_BUILD_ADDITIONAL_PROJECT_BUDGET]: {
+        disabled: false,
+      },
+      [SecretManagerSteps.FETCH_SECRETS.id]: {
+        disabled: false,
+      },
+      [SecretManagerSteps.FETCH_SECRET_VERSIONS.id]: {
         disabled: false,
       },
     };

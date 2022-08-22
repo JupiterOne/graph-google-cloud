@@ -3,13 +3,13 @@ import {
   setupRecording,
   SetupRecordingInput,
 } from '@jupiterone/integration-sdk-testing';
-import { gunzipSync } from 'zlib';
 import { cloudfunctions_v1, iam_v1, privateca_v1beta1 } from 'googleapis';
-import * as url from 'url';
 import * as querystring from 'querystring';
-import { integrationConfig } from './config';
-import { parseServiceAccountKeyFile } from '../src/utils/parseServiceAccountKeyFile';
+import * as url from 'url';
+import { gunzipSync } from 'zlib';
 import { IntegrationConfig } from '../src';
+import { parseServiceAccountKeyFile } from '../src/utils/parseServiceAccountKeyFile';
+import { integrationConfig } from './config';
 
 export { Recording } from '@jupiterone/integration-sdk-testing';
 
@@ -149,12 +149,12 @@ function sanitizeListCertificatesResponse(
   };
 }
 
-function gzipStringToUtf8(str: string) {
+function gzipStringToUtf8(str: string, encoding: BufferEncoding = 'hex') {
   const chunkBuffers: Buffer[] = [];
   const hexChunks = JSON.parse(str) as string[];
 
   hexChunks.forEach((chunk) => {
-    const chunkBuffer = Buffer.from(chunk, 'hex');
+    const chunkBuffer = Buffer.from(chunk, encoding);
     chunkBuffers.push(chunkBuffer);
   });
 
@@ -244,11 +244,17 @@ function redact(entry): void {
     delete (entry.response.content as any)._isBinary;
 
     if (requestUrl === 'https://www.googleapis.com/oauth2/v4/token') {
+      entry.response.content.encoding = 'utf-8';
       entry.response.content.text = JSON.stringify(getRedactedOAuthResponse());
       return;
     }
 
-    responseText = gzipStringToUtf8(responseText);
+    responseText = gzipStringToUtf8(
+      responseText,
+      entry.response.content.encoding,
+    );
+    entry.response.content.encoding = 'utf-8';
+
     let parsedResponseText = JSON.parse(responseText.replace(/\r?\n|\r/g, ''));
 
     if (requestUrl === isListFunctionsUrl(requestUrl)) {

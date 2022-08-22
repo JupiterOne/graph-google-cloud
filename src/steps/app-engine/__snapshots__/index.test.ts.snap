@@ -1078,6 +1078,7 @@ Object {
       "averageLatency": undefined,
       "createdOn": 1616781220236,
       "displayName": "apps/j1-gc-integration-dev-v2/services/default/versions/20210319t163820/instances/aef-default-20210319t163820-mlt8",
+      "hostname": null,
       "id": "aef-default-20210319t163820-mlt8",
       "memoryUsage": undefined,
       "name": "apps/j1-gc-integration-dev-v2/services/default/versions/20210319t163820/instances/aef-default-20210319t163820-mlt8",
