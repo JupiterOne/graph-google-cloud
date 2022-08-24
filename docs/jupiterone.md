@@ -78,6 +78,7 @@ all of the supported data into JupiterOne:
 | [Kubernetes Engine](https://console.developers.google.com/apis/library/container.googleapis.com)                 | container.googleapis.com            |
 | [Service Usage](https://console.developers.google.com/apis/library/serviceusage.googleapis.com)                  | serviceusage.googleapis.com         |
 | [Stackdriver Monitoring](https://console.developers.google.com/apis/library/monitoring.googleapis.com)           | monitoring.googleapis.com           |
+| [Secret Manager](https://console.cloud.google.com/apis/library/secretmanager.googleapis.com)                     | secretmanager.googleapis.com        |
 
 Google Cloud service APIs can be enabled using one of the following methods:
 
@@ -124,7 +125,8 @@ gcloud services enable \
   iam.googleapis.com \
   container.googleapis.com \
   serviceusage.googleapis.com \
-  monitoring.googleapis.com
+  monitoring.googleapis.com \
+  secretmanager.googleapis.com
 ```
 
 #### Creating Google Cloud project service account
@@ -141,6 +143,7 @@ Google Cloud:
 - [`roles/iam.securityReviewer`](https://cloud.google.com/iam/docs/understanding-roles#iam.securityReviewer)
 - [`roles/iam.organizationRoleViewer`](https://cloud.google.com/iam/docs/understanding-roles#iam.organizationRoleViewer)
 - [`roles/bigquery.metadataViewer`](https://cloud.google.com/bigquery/docs/access-control#bigquery.metadataViewer)
+- [`roles/secretmanager.secretAccessor`](https://cloud.google.com/secret-manager/docs/creating-and-accessing-secrets#access)
 
 Some additional data may be optionally ingested by the JupiterOne Google Cloud
 integration by configuring a custom role with the following permissions:
@@ -326,6 +329,7 @@ The following entities are created:
 | Billing Budget                                           | `google_billing_budget`                                           | `Ruleset`                          |
 | Binary Authorization Policy                              | `google_binary_authorization_policy`                              | `AccessPolicy`                     |
 | Cloud API Service                                        | `google_cloud_api_service`                                        | `Service`                          |
+| Cloud Build                                              | `google_cloud_build`                                              | `Secret`                           |
 | Cloud Function                                           | `google_cloud_function`                                           | `Function`                         |
 | Cloud Run Configuration                                  | `google_cloud_run_configuration`                                  | `Configuration`                    |
 | Cloud Run Route                                          | `google_cloud_run_route`                                          | `Configuration`                    |
@@ -380,6 +384,8 @@ The following entities are created:
 | SQL Admin MySQL Instance                                 | `google_sql_mysql_instance`                                       | `Database`                         |
 | SQL Admin Postgres Instance                              | `google_sql_postgres_instance`                                    | `Database`                         |
 | SQL Admin SQL Server Instance                            | `google_sql_sql_server_instance`                                  | `Database`                         |
+| Secret                                                   | `google_secret_manager_secret`                                    | `Group`                            |
+| Secret Version                                           | `google_secret_manager_secret_version`                            | `Secret`                           |
 | Spanner Instance                                         | `google_spanner_instance`                                         | `Database`, `Cluster`              |
 | Spanner Instance Config                                  | `google_spanner_instance_config`                                  | `Configuration`                    |
 | Spanner Instance Database                                | `google_spanner_database`                                         | `Database`                         |
@@ -503,6 +509,7 @@ The following relationships are created:
 | `google_pubsub_subscription`                                     | **USES**              | `google_pubsub_topic`                                             |
 | `google_pubsub_topic`                                            | **USES**              | `google_kms_crypto_key`                                           |
 | `google_redis_instance`                                          | **USES**              | `google_compute_network`                                          |
+| `google_secret_manager_secret`                                   | **HAS**               | `google_secret_manager_secret_version`                            |
 | `google_spanner_database`                                        | **USES**              | `google_kms_crypto_key`                                           |
 | `google_spanner_instance`                                        | **HAS**               | `google_spanner_database`                                         |
 | `google_spanner_instance`                                        | **USES**              | `google_spanner_instance_config`                                  |

@@ -1,32 +1,33 @@
 import {
-  iam_v1,
-  cloudasset_v1,
-  compute_v1,
-  bigquery_v2,
-  sqladmin_v1beta4,
-  dns_v1,
-  container_v1,
-  cloudkms_v1,
-  logging_v2,
-  storage_v1,
-  monitoring_v3,
-  binaryauthorization_v1,
-  cloudfunctions_v1,
-  serviceusage_v1,
-  pubsub_v1,
-  run_v1,
-  appengine_v1,
-  redis_v1,
-  memcache_v1,
-  spanner_v1,
-  apigateway_v1,
-  privateca_v1beta1,
-  cloudresourcemanager_v3,
   accesscontextmanager_v1,
-  dataproc_v1,
+  apigateway_v1,
+  appengine_v1,
+  bigquery_v2,
   bigtableadmin_v2,
   billingbudgets_v1,
+  binaryauthorization_v1,
+  cloudasset_v1,
   cloudbilling_v1,
+  cloudfunctions_v1,
+  cloudkms_v1,
+  cloudresourcemanager_v3,
+  compute_v1,
+  container_v1,
+  dataproc_v1,
+  dns_v1,
+  iam_v1,
+  logging_v2,
+  memcache_v1,
+  monitoring_v3,
+  privateca_v1beta1,
+  pubsub_v1,
+  redis_v1,
+  run_v1,
+  secretmanager_v1,
+  serviceusage_v1,
+  spanner_v1,
+  sqladmin_v1beta4,
+  storage_v1,
 } from 'googleapis';
 import { BigQueryTable } from '../src/steps/big-query/client';
 
@@ -2618,5 +2619,20 @@ export function getMockBillingBudget(
       disableDefaultIamRecipients: true,
     },
     ...partial,
+  };
+}
+
+export function getMockSecretEntity(): secretmanager_v1.Schema$Secret {
+  return {
+    createTime: '2022-08-10T13:39:10.097472Z',
+    name: 'sample-secret-name',
+  };
+}
+
+export function getMockSecretVersionEntity(): secretmanager_v1.Schema$SecretVersion {
+  return {
+    createTime: '2022-08-10T14:19:20.840979Z',
+    name: 'projects/j1-gc-integration-dev-v3/secrets/sample-secret-name/versions/1',
+    state: 'ENABLED',
   };
 }

@@ -4,36 +4,38 @@ import {
   IntegrationStep,
   StepExecutionContext,
 } from '@jupiterone/integration-sdk-core';
-import { IntegrationConfig } from '../types';
-import { functionsSteps } from './functions';
-import { storageSteps } from './storage';
-import { serviceUsageSteps } from './service-usage';
-import { iamSteps } from './iam';
-import { resourceManagerSteps } from './resource-manager';
-import { computeSteps } from './compute';
-import { kmsSteps } from './kms';
-import { sqlAdminSteps } from './sql-admin';
-import { bigQuerySteps } from './big-query';
-import { dnsManagedZonesSteps } from './dns';
-import { containerSteps } from './containers';
-import { loggingSteps } from './logging';
-import { monitoringSteps } from './monitoring';
-import { binaryAuthorizationSteps } from './binary-authorization';
-import { pubSubSteps } from './pub-sub';
-import { appEngineSteps } from './app-engine';
-import { cloudRunSteps } from './cloud-run';
-import { redisSteps } from './redis';
-import { memcacheSteps } from './memcache';
-import { spannerSteps } from './spanner';
-import { apiGatewaySteps } from './api-gateway';
-import { privateCaSteps } from './privateca';
-import { accessPoliciesSteps } from './access-context-manager';
-import { dataprocSteps } from './dataproc';
-import { billingBudgetsSteps } from './billing-budgets';
-import { cloudBillingSteps } from './cloud-billing';
-import { cloudAssetSteps } from './cloud-asset';
-import { bigTableSteps } from './big-table';
 import { createErrorProps } from '../google-cloud/utils/createErrorProps';
+import { IntegrationConfig } from '../types';
+import { accessPoliciesSteps } from './access-context-manager';
+import { apiGatewaySteps } from './api-gateway';
+import { appEngineSteps } from './app-engine';
+import { bigQuerySteps } from './big-query';
+import { bigTableSteps } from './big-table';
+import { billingBudgetsSteps } from './billing-budgets';
+import { binaryAuthorizationSteps } from './binary-authorization';
+import { cloudAssetSteps } from './cloud-asset';
+import { cloudBillingSteps } from './cloud-billing';
+import { cloudBuildSteps } from './cloud-build';
+import { cloudRunSteps } from './cloud-run';
+import { computeSteps } from './compute';
+import { containerSteps } from './containers';
+import { dataprocSteps } from './dataproc';
+import { dnsManagedZonesSteps } from './dns';
+import { functionsSteps } from './functions';
+import { iamSteps } from './iam';
+import { kmsSteps } from './kms';
+import { loggingSteps } from './logging';
+import { memcacheSteps } from './memcache';
+import { monitoringSteps } from './monitoring';
+import { privateCaSteps } from './privateca';
+import { pubSubSteps } from './pub-sub';
+import { redisSteps } from './redis';
+import { resourceManagerSteps } from './resource-manager';
+import { secretManagerSteps } from './secret-manager';
+import { serviceUsageSteps } from './service-usage';
+import { spannerSteps } from './spanner';
+import { sqlAdminSteps } from './sql-admin';
+import { storageSteps } from './storage';
 
 const steps: IntegrationStep<IntegrationConfig>[] = wrapStepExecutionHandlers([
   ...functionsSteps,
@@ -64,6 +66,8 @@ const steps: IntegrationStep<IntegrationConfig>[] = wrapStepExecutionHandlers([
   ...bigTableSteps,
   ...billingBudgetsSteps,
   ...cloudBillingSteps,
+  ...secretManagerSteps,
+  ...cloudBuildSteps,
 ]);
 
 function wrapStepExecutionHandlers(
