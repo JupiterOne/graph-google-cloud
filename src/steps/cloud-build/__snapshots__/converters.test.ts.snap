@@ -1,0 +1,263 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createBuildEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Secret",
+  ],
+  "_key": "projects/167984947943/locations/global/builds/58991a72-f158-481d-ad66-771b90ce3e65",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "createTime": "2022-08-17T20:44:37.573002899Z",
+        "failureInfo": Object {
+          "detail": "Build step failure: build step 0 \\"gcr.io/cloud-builders/gsutil\\" failed: step exited with non-zero status: 1",
+          "type": "USER_BUILD_STEP",
+        },
+        "finishTime": "2022-08-17T20:44:46.243182675Z",
+        "id": "58991a72-f158-481d-ad66-771b90ce3e65",
+        "logUrl": "https://console.cloud.google.com/cloud-build/builds/58991a72-f158-481d-ad66-771b90ce3e65?project=167984947943",
+        "logsBucket": "gs://167984947943.cloudbuild-logs.googleusercontent.com",
+        "name": "projects/167984947943/locations/global/builds/58991a72-f158-481d-ad66-771b90ce3e65",
+        "options": Object {
+          "logging": "LEGACY",
+          "pool": Object {},
+        },
+        "projectId": "j1-gc-integration-dev-v3",
+        "queueTtl": "3600s",
+        "results": Object {
+          "buildStepImages": Array [
+            "sha256:0229d2fde1be1a278c6bb73fbfd98b2df63c30cb9012c882bdfa228e738afdf5",
+            "",
+            "",
+            "",
+            "",
+          ],
+          "buildStepOutputs": Array [
+            "",
+            "",
+            "",
+            "",
+            "",
+          ],
+        },
+        "source": Object {
+          "storageSource": Object {
+            "bucket": "j1-gc-integration-dev-v3_cloudbuild",
+            "generation": "1660769077096260",
+            "object": "source/1660769074.865182-d160c8803b704c60b50e68d2b3b97d73.tgz",
+          },
+        },
+        "sourceProvenance": Object {
+          "fileHashes": Object {
+            "gs://j1-gc-integration-dev-v3_cloudbuild/source/1660769074.865182-d160c8803b704c60b50e68d2b3b97d73.tgz#1660769077096260": Object {
+              "fileHash": Array [
+                Object {
+                  "type": "MD5",
+                  "value": "eg9jmTQDqknuC0oat864jA==",
+                },
+              ],
+            },
+          },
+          "resolvedStorageSource": Object {
+            "bucket": "j1-gc-integration-dev-v3_cloudbuild",
+            "generation": "1660769077096260",
+            "object": "source/1660769074.865182-d160c8803b704c60b50e68d2b3b97d73.tgz",
+          },
+        },
+        "startTime": "2022-08-17T20:44:38.421413511Z",
+        "status": "FAILURE",
+        "steps": Array [
+          Object {
+            "args": Array [
+              "-c",
+              "gsutil ls -b gs://<some bucket for caching gradle file> || gsutil mb -l gs://<some bucket for caching gradle file>
+
+(
+  gsutil cp gs://<some bucket for caching gradle file>/<file to hold cached content>.tar.gz /tmp/gradle-cache.tar.gz &&
+  tar -xzf /tmp/gradle-cache.tar.gz
+) || echo 'Cache not found'
+",
+            ],
+            "dir": "/cachinghome",
+            "entrypoint": "bash",
+            "name": "gcr.io/cloud-builders/gsutil",
+            "pullTiming": Object {
+              "endTime": "2022-08-17T20:44:45.023016172Z",
+              "startTime": "2022-08-17T20:44:45.021642025Z",
+            },
+            "status": "FAILURE",
+            "timing": Object {
+              "endTime": "2022-08-17T20:44:45.676265144Z",
+              "startTime": "2022-08-17T20:44:45.021642025Z",
+            },
+            "volumes": Array [
+              Object {
+                "name": "caching.home",
+                "path": "/cachinghome",
+              },
+            ],
+            "waitFor": Array [
+              "-",
+            ],
+          },
+          Object {
+            "args": Array [
+              "-c",
+              "set -x
+export CACHING_HOME=\\"/cachinghome\\"
+USER_HOME=\\"/root\\"
+M2_HOME=\\"\${USER_HOME}/.m2\\"
+M2_CACHE=\\"\${CACHING_HOME}/maven\\"
+GRADLE_HOME=\\"\${USER_HOME}/.gradle\\"
+GRADLE_CACHE=\\"\${CACHING_HOME}/gradle\\"
+
+echo \\"Generating symbolic links for caches\\"
+mkdir -p \${M2_CACHE}
+mkdir -p \${GRADLE_CACHE}
+
+[[ -d \\"\${M2_CACHE}\\" && ! -d \\"\${M2_HOME}\\" ]] && ln -s \\"\${M2_CACHE}\\" \\"\${M2_HOME}\\"
+[[ -d \\"\${GRADLE_CACHE}\\" && ! -d \\"\${GRADLE_HOME}\\" ]] && ln -s \\"\${GRADLE_CACHE}\\" \\"\${GRADLE_HOME}\\"
+./gradlew check",
+            ],
+            "entrypoint": "/bin/bash",
+            "id": "test",
+            "name": "openjdk:11",
+            "status": "QUEUED",
+            "volumes": Array [
+              Object {
+                "name": "caching.home",
+                "path": "/cachinghome",
+              },
+            ],
+          },
+          Object {
+            "args": Array [
+              "-c",
+              "set -x
+export CACHING_HOME=\\"/cachinghome\\"
+USER_HOME=\\"/root\\"
+M2_HOME=\\"\${USER_HOME}/.m2\\"
+M2_CACHE=\\"\${CACHING_HOME}/maven\\"
+GRADLE_HOME=\\"\${USER_HOME}/.gradle\\"
+GRADLE_CACHE=\\"\${CACHING_HOME}/gradle\\"
+
+echo \\"Generating symbolic links for caches\\"
+mkdir -p \${M2_CACHE}
+mkdir -p \${GRADLE_CACHE}
+
+[[ -d \\"\${M2_CACHE}\\" && ! -d \\"\${M2_HOME}\\" ]] && ln -s \\"\${M2_CACHE}\\" \\"\${M2_HOME}\\"
+[[ -d \\"\${GRADLE_CACHE}\\" && ! -d \\"\${GRADLE_HOME}\\" ]] && ln -s \\"\${GRADLE_CACHE}\\" \\"\${GRADLE_HOME}\\"
+./gradlew jib --image=gcr.io/j1-gc-integration-dev-v3/hello-cloud-build:",
+            ],
+            "entrypoint": "/bin/bash",
+            "id": "build-image",
+            "name": "openjdk:11",
+            "status": "QUEUED",
+            "volumes": Array [
+              Object {
+                "name": "caching.home",
+                "path": "/cachinghome",
+              },
+            ],
+          },
+          Object {
+            "args": Array [
+              "run",
+              "deploy",
+              "--image=gcr.io/j1-gc-integration-dev-v3/hello-cloud-build:",
+              "--platform=managed",
+              "--project=j1-gc-integration-dev-v3",
+              "--region=us-central1",
+              "--allow-unauthenticated",
+              "--memory=256Mi",
+              "--set-env-vars=SPRING_PROFILES_ACTIVE=gcp",
+              "hello-cloud-build",
+            ],
+            "id": "deploy",
+            "name": "gcr.io/cloud-builders/gcloud",
+            "status": "QUEUED",
+            "volumes": Array [
+              Object {
+                "name": "caching.home",
+                "path": "/cachinghome",
+              },
+            ],
+          },
+          Object {
+            "args": Array [
+              "-c",
+              "tar -czf /tmp/gradle-cache.tar.gz gradle/ &&
+gsutil cp /tmp/gradle-cache.tar.gz gs://<some bucket for caching gradle file>/<file to hold cached content>.tar.gz
+",
+            ],
+            "dir": "/cachinghome",
+            "entrypoint": "bash",
+            "name": "gcr.io/cloud-builders/gsutil",
+            "status": "QUEUED",
+            "volumes": Array [
+              Object {
+                "name": "caching.home",
+                "path": "/cachinghome",
+              },
+            ],
+            "waitFor": Array [
+              "deploy",
+            ],
+          },
+        ],
+        "substitutions": Object {
+          "_GCS_CACHE_BUCKET": "<some bucket for caching gradle file>",
+          "_GCS_CACHE_FILE": "<file to hold cached content>",
+        },
+        "timeout": "600s",
+        "timing": Object {
+          "BUILD": Object {
+            "endTime": "2022-08-17T20:44:45.676362304Z",
+            "startTime": "2022-08-17T20:44:44.385497769Z",
+          },
+          "FETCHSOURCE": Object {
+            "endTime": "2022-08-17T20:44:44.385391800Z",
+            "startTime": "2022-08-17T20:44:38.927319156Z",
+          },
+        },
+      },
+    },
+  ],
+  "_type": "google_cloud_build",
+  "active": undefined,
+  "createTime": 1660769077573,
+  "createdOn": undefined,
+  "displayName": "projects/167984947943/locations/global/builds/58991a72-f158-481d-ad66-771b90ce3e65",
+  "finishTime": 1660769086243,
+  "id": "58991a72-f158-481d-ad66-771b90ce3e65",
+  "logUrl": "https://console.cloud.google.com/cloud-build/builds/58991a72-f158-481d-ad66-771b90ce3e65?project=167984947943",
+  "logsBucket": "gs://167984947943.cloudbuild-logs.googleusercontent.com",
+  "name": "projects/167984947943/locations/global/builds/58991a72-f158-481d-ad66-771b90ce3e65",
+  "options.logging": "LEGACY",
+  "options.pool": undefined,
+  "projectId": "j1-gc-integration-dev-v3",
+  "queueTtl": "3600s",
+  "results.buildStepImages": Array [
+    "sha256:0229d2fde1be1a278c6bb73fbfd98b2df63c30cb9012c882bdfa228e738afdf5",
+    "",
+    "",
+    "",
+    "",
+  ],
+  "results.buildStepOutputs": Array [
+    "",
+    "",
+    "",
+    "",
+    "",
+  ],
+  "source.storageSource.bucket": "j1-gc-integration-dev-v3_cloudbuild",
+  "source.storageSource.generation": "1660769077096260",
+  "source.storageSource.object": "source/1660769074.865182-d160c8803b704c60b50e68d2b3b97d73.tgz",
+  "startTime": 1660769078421,
+  "status": "FAILURE",
+  "timeout": "600s",
+}
+`;
