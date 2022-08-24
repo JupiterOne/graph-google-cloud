@@ -18,7 +18,6 @@ export class CloudBuildClient extends Client {
         });
       },
       async (data: cloudbuild_v1.Schema$ListBuildsResponse) => {
-        console.log(data);
         for (const build of data.builds || []) {
           await callback(build);
         }
