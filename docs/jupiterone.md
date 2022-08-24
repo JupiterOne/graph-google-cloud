@@ -329,6 +329,7 @@ The following entities are created:
 | Billing Budget                                           | `google_billing_budget`                                           | `Ruleset`                          |
 | Binary Authorization Policy                              | `google_binary_authorization_policy`                              | `AccessPolicy`                     |
 | Cloud API Service                                        | `google_cloud_api_service`                                        | `Service`                          |
+| Cloud Build                                              | `google_cloud_build`                                              | `Secret`                           |
 | Cloud Function                                           | `google_cloud_function`                                           | `Function`                         |
 | Cloud Run Configuration                                  | `google_cloud_run_configuration`                                  | `Configuration`                    |
 | Cloud Run Route                                          | `google_cloud_run_route`                                          | `Configuration`                    |
