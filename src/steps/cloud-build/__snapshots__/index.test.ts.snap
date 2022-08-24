@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`#createBuildEntity should convert to entity 1`] = `
+exports[`#cloud-build entities google_cloud_build 1`] = `
 Object {
   "_class": Array [
     "Secret",
@@ -259,5 +259,40 @@ gsutil cp /tmp/gradle-cache.tar.gz gs://<some bucket for caching gradle file>/<f
   "startTime": 1660769078421,
   "status": "FAILURE",
   "timeout": "600s",
+}
+`;
+
+exports[`#cloud-build entities google_cloud_build_trigger 1`] = `
+Object {
+  "_class": Array [
+    "Rule",
+  ],
+  "_key": "0f5d9ec8-f7d7-4067-8912-baf2133be725",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "createTime": "2022-08-24T22:09:57.281610382Z",
+        "gitFileSource": Object {
+          "path": "cloudbuild.yaml",
+          "repoType": "GITHUB",
+          "revision": "refs/heads/master",
+          "uri": "https://github.com/sample-user/sample-repo",
+        },
+        "id": "0f5d9ec8-f7d7-4067-8912-baf2133be725",
+        "name": "testing",
+        "sourceToBuild": Object {
+          "ref": "refs/heads/master",
+          "repoType": "GITHUB",
+          "uri": "https://github.com/sample-user/sample-repo",
+        },
+      },
+    },
+  ],
+  "_type": "google_cloud_build_trigger",
+  "createdOn": undefined,
+  "displayName": "testing",
+  "id": "0f5d9ec8-f7d7-4067-8912-baf2133be725",
+  "name": "testing",
 }
 `;

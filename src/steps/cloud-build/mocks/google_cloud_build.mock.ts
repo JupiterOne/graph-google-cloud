@@ -1,6 +1,4 @@
-import { createBuildEntity } from './converters';
-
-const buildMock = {
+export default {
   id: '58991a72-f158-481d-ad66-771b90ce3e65',
   status: 'FAILURE',
   source: {
@@ -171,9 +169,3 @@ const buildMock = {
       'Build step failure: build step 0 "gcr.io/cloud-builders/gsutil" failed: step exited with non-zero status: 1',
   },
 };
-
-describe('#createBuildEntity', () => {
-  test('should convert to entity', () => {
-    expect(createBuildEntity(buildMock)).toMatchSnapshot();
-  });
-});

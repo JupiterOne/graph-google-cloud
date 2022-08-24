@@ -1,9 +1,9 @@
 import { parseTimePropertyValue } from '@jupiterone/integration-sdk-core';
 import { cloudbuild_v1 } from 'googleapis';
-import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
-import { CloudBuildEntities } from './constants';
+import { createGoogleCloudIntegrationEntity } from '../../../utils/entity';
+import { CloudBuildEntitiesSpec } from '../constants';
 
-export function createBuildEntity(source: cloudbuild_v1.Schema$Build) {
+export default (source: cloudbuild_v1.Schema$Build) => {
   const data = {
     ...source,
     labels: source.tags,
@@ -14,8 +14,8 @@ export function createBuildEntity(source: cloudbuild_v1.Schema$Build) {
     entityData: {
       source: source,
       assign: {
-        _class: CloudBuildEntities.BUILD._class,
-        _type: CloudBuildEntities.BUILD._type,
+        _class: CloudBuildEntitiesSpec.BUILD._class,
+        _type: CloudBuildEntitiesSpec.BUILD._type,
         _key: data.name as string,
         name: data.name,
         id: data.id as string,
@@ -39,4 +39,4 @@ export function createBuildEntity(source: cloudbuild_v1.Schema$Build) {
       },
     },
   });
-}
+};

@@ -330,6 +330,7 @@ The following entities are created:
 | Binary Authorization Policy                              | `google_binary_authorization_policy`                              | `AccessPolicy`                     |
 | Cloud API Service                                        | `google_cloud_api_service`                                        | `Service`                          |
 | Cloud Build                                              | `google_cloud_build`                                              | `Secret`                           |
+| Cloud Build Trigger                                      | `google_cloud_build_trigger`                                      | `Rule`                             |
 | Cloud Function                                           | `google_cloud_function`                                           | `Function`                         |
 | Cloud Run Configuration                                  | `google_cloud_run_configuration`                                  | `Configuration`                    |
 | Cloud Run Route                                          | `google_cloud_run_route`                                          | `Configuration`                    |

@@ -1,39 +1,52 @@
 import {
   executeStepWithDependencies,
+  Recording,
   StepTestConfig,
 } from '@jupiterone/integration-sdk-testing';
 import { invocationConfig } from '../..';
 import { integrationConfig } from '../../../test/config';
 import {
   getMatchRequestsBy,
-  Recording,
   setupGoogleCloudRecording,
 } from '../../../test/recording';
-import { CloudBuildSteps } from './constants';
+import { CloudBuildEntitiesSpec, CloudBuildStepsSpec } from './constants';
+import converters from './converters';
+import mocks from './mocks';
 
 describe('#cloud-build', () => {
-  let recording: Recording;
-
-  afterEach(async () => {
-    if (recording) await recording.stop();
-  });
-
-  test('fetch-cloud-builds', async () => {
-    recording = setupGoogleCloudRecording({
-      name: 'fetch-cloud-builds',
-      directory: __dirname,
-      options: {
-        matchRequestsBy: getMatchRequestsBy(integrationConfig),
-      },
+  describe('steps', () => {
+    let recording: Recording;
+    afterEach(async () => {
+      if (recording) await recording.stop();
     });
 
-    const stepTestConfig: StepTestConfig = {
-      stepId: CloudBuildSteps.FETCH_BUILDS.id,
-      instanceConfig: integrationConfig,
-      invocationConfig: invocationConfig as any,
-    };
+    for (const step of Object.values(CloudBuildStepsSpec)) {
+      test(step.id, async () => {
+        recording = setupGoogleCloudRecording({
+          name: step.id,
+          directory: __dirname,
+          options: {
+            matchRequestsBy: getMatchRequestsBy(integrationConfig),
+          },
+        });
 
-    const result = await executeStepWithDependencies(stepTestConfig);
-    expect(result).toMatchStepMetadata(stepTestConfig);
+        const stepTestConfig: StepTestConfig = {
+          stepId: step.id,
+          instanceConfig: integrationConfig,
+          invocationConfig: invocationConfig as any,
+        };
+
+        const result = await executeStepWithDependencies(stepTestConfig);
+        expect(result).toMatchStepMetadata(stepTestConfig);
+      });
+    }
+  });
+
+  describe('entities', () => {
+    for (const entity of Object.values(CloudBuildEntitiesSpec)) {
+      test(entity._type, () => {
+        expect(converters[entity._type](mocks[entity._type])).toMatchSnapshot();
+      });
+    }
   });
 });
