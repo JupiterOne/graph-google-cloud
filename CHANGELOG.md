@@ -8,9 +8,17 @@ and this project adheres to
 
 ## Unreleased
 
+## 2.16.0 - 2022-08-25
+
 ### Added
 
 - Support for new GCP compute regions
+- Support optional `config.useEnablementsForStepStartStates` to call
+  listEnablements API before attempting to make API calls for all services
+- Support the following new entities:
+  - `google_cloud_secret`
+  - `google_cloud_secret_version`
+  - `google_cloud_build`
 
 ### Changed
 
