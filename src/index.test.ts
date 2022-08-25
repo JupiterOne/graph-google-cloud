@@ -14,7 +14,10 @@ import {
   DEFAULT_INTEGRATION_CONFIG_SERVICE_ACCOUNT_KEY_FILE,
   integrationConfig,
 } from '../test/config';
-import { setupGoogleCloudRecording } from '../test/recording';
+import {
+  getMatchRequestsBy,
+  setupGoogleCloudRecording,
+} from '../test/recording';
 import getStepStartStates, { getOrganizationSteps } from './getStepStartStates';
 import { invocationConfig } from './index';
 import {
@@ -39,7 +42,7 @@ import {
   STEP_BIG_QUERY_MODELS,
   STEP_BIG_QUERY_TABLES,
   STEP_BUILD_BIG_QUERY_DATASET_KMS_RELATIONSHIPS,
-} from './steps/big-query';
+} from './steps/big-query/constants';
 import {
   STEP_BIG_TABLE_APP_PROFILES,
   STEP_BIG_TABLE_BACKUPS,
@@ -264,6 +267,9 @@ describe('#getStepStartStates success', () => {
     recording = setupGoogleCloudRecording({
       directory: __dirname,
       name: 'getStepStartStates',
+      options: {
+        matchRequestsBy: getMatchRequestsBy(integrationConfig),
+      },
     });
   });
 
@@ -271,379 +277,373 @@ describe('#getStepStartStates success', () => {
     await recording.stop();
   });
 
-  test('should return all enabled services', async () => {
-    const context = createMockExecutionContext<IntegrationConfig>({
-      // Unless we want to change what this test does, we need to modify the
-      // instanceConfig with configureOrganizationProjects: true, else not
-      // all steps will be enabled it'll be disabled
+  test.each([true, false])(
+    'should return all enabled services when getStepStartStatesUsingServiceEnablements = %p',
+    async (useEnablementsForStepStartStates) => {
+      const context = createMockExecutionContext<IntegrationConfig>({
+        // Unless we want to change what this test does, we need to modify the
+        // instanceConfig with configureOrganizationProjects: true, else not
+        // all steps will be enabled it'll be disabled
 
-      // Temporary tweak to make this test pass since its recording has been updated from the new organization/v3
-      instanceConfig: {
-        ...integrationConfig,
-        serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
-          'j1-gc-integration-dev-v2',
-          'j1-gc-integration-dev-v3',
-        ),
-        serviceAccountKeyConfig: {
-          ...integrationConfig.serviceAccountKeyConfig,
-          project_id: 'j1-gc-integration-dev-v3',
+        // Temporary tweak to make this test pass since its recording has been updated from the new organization/v3
+        instanceConfig: {
+          ...integrationConfig,
+          useEnablementsForStepStartStates,
         },
-        configureOrganizationProjects: true,
-        organizationId: '958457776463',
-      },
-    });
+      });
 
-    const stepStartStates = await getStepStartStates(context);
-    const expectedStepStartStates: StepStartStates = {
-      [STEP_RESOURCE_MANAGER_ORGANIZATION]: {
-        disabled: false,
-      },
-      [STEP_RESOURCE_MANAGER_FOLDERS]: {
-        disabled: false,
-      },
-      [STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS]: {
-        disabled: false,
-      },
-      [STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES]: {
-        disabled: false,
-      },
-      [STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS]: {
-        disabled: false,
-      },
-      [STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS]: {
-        disabled: false,
-      },
-      [STEP_RESOURCE_MANAGER_PROJECT]: {
-        disabled: false,
-      },
-      [ServiceUsageStepIds.FETCH_API_SERVICES]: {
-        disabled: false,
-      },
-      [STEP_CLOUD_FUNCTIONS]: {
-        disabled: false,
-      },
-      [STEP_CLOUD_FUNCTIONS_SERVICE_ACCOUNT_RELATIONSHIPS]: {
-        disabled: false,
-      },
-      [STEP_CLOUD_STORAGE_BUCKETS]: {
-        disabled: false,
-      },
-      [STEP_IAM_CUSTOM_ROLES]: {
-        disabled: false,
-      },
-      [STEP_IAM_MANAGED_ROLES]: {
-        disabled: false,
-      },
-      [STEP_IAM_SERVICE_ACCOUNTS]: {
-        disabled: false,
-      },
-      [STEP_AUDIT_CONFIG_IAM_POLICY]: {
-        disabled: true,
-      },
-      [STEP_COMPUTE_DISKS]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_DISK_KMS_RELATIONSHIPS]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_REGION_DISKS]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_IMAGE_IMAGE_RELATIONSHIPS]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_SNAPSHOT_DISK_RELATIONSHIPS]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_SNAPSHOTS]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_IMAGES]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_IMAGE_KMS_RELATIONSHIPS]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_NETWORKS]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_NETWORK_PEERING_RELATIONSHIPS]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_ADDRESSES]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_GLOBAL_ADDRESSES]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_FIREWALLS]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_FORWARDING_RULES]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_GLOBAL_FORWARDING_RULES]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_REGION_INSTANCE_GROUPS]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_REGION_BACKEND_SERVICES]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_SUBNETWORKS]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_PROJECT]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_HEALTH_CHECKS]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_REGION_HEALTH_CHECKS]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_INSTANCES]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_INSTANCE_SERVICE_ACCOUNT_RELATIONSHIPS]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_INSTANCE_GROUPS]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_LOADBALANCERS]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_REGION_LOADBALANCERS]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_BACKEND_SERVICES]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_BACKEND_BUCKETS]: {
-        disabled: false,
-      },
-      [STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_TARGET_SSL_PROXIES]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_TARGET_HTTPS_PROXIES]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_TARGET_HTTP_PROXIES]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES]: {
-        disabled: false,
-      },
-      [STEP_COMPUTE_SSL_POLICIES]: {
-        disabled: false,
-      },
-      [STEP_DNS_MANAGED_ZONES]: {
-        disabled: false,
-      },
-      [STEP_DNS_POLICIES]: {
-        disabled: false,
-      },
-      [STEP_CLOUD_KMS_KEY_RINGS]: {
-        disabled: false,
-      },
-      [STEP_CLOUD_KMS_KEYS]: {
-        disabled: false,
-      },
-      [STEP_SQL_ADMIN_INSTANCES]: {
-        disabled: false,
-      },
-      [SqlAdminSteps.BUILD_SQL_INSTANCE_KMS_KEY_RELATIONSHIPS]: {
-        disabled: false,
-      },
-      [STEP_CONTAINER_CLUSTERS]: {
-        disabled: false,
-      },
-      [STEP_BIG_QUERY_DATASETS]: {
-        disabled: false,
-      },
-      [STEP_BUILD_BIG_QUERY_DATASET_KMS_RELATIONSHIPS]: {
-        disabled: false,
-      },
-      [STEP_BIG_QUERY_MODELS]: {
-        disabled: false,
-      },
-      [STEP_BIG_QUERY_TABLES]: {
-        disabled: false,
-      },
-      [STEP_LOGGING_METRICS]: {
-        disabled: false,
-      },
-      [STEP_LOGGING_PROJECT_SINKS]: {
-        disabled: false,
-      },
-      [STEP_CREATE_LOGGING_PROJECT_SINK_BUCKET_RELATIONSHIPS]: {
-        disabled: false,
-      },
-      [STEP_MONITORING_ALERT_POLICIES]: {
-        disabled: false,
-      },
-      [STEP_BINARY_AUTHORIZATION_POLICY]: {
-        disabled: false,
-      },
-      [STEP_PUBSUB_TOPICS]: {
-        disabled: false,
-      },
-      [STEP_CREATE_PUBSUB_TOPIC_KMS_RELATIONSHIPS]: {
-        disabled: false,
-      },
-      [STEP_PUBSUB_SUBSCRIPTIONS]: {
-        disabled: false,
-      },
-      [STEP_APP_ENGINE_APPLICATION]: {
-        disabled: false,
-      },
-      [STEP_CREATE_APP_ENGINE_BUCKET_RELATIONSHIPS]: {
-        disabled: false,
-      },
-      [STEP_APP_ENGINE_SERVICES]: {
-        disabled: false,
-      },
-      [STEP_APP_ENGINE_VERSIONS]: {
-        disabled: false,
-      },
-      [STEP_APP_ENGINE_INSTANCES]: {
-        disabled: false,
-      },
-      [STEP_CLOUD_RUN_SERVICES]: {
-        disabled: false,
-      },
-      [STEP_CLOUD_RUN_ROUTES]: {
-        disabled: false,
-      },
-      [STEP_CLOUD_RUN_CONFIGURATIONS]: {
-        disabled: false,
-      },
-      [STEP_REDIS_INSTANCES]: {
-        disabled: false,
-      },
-      [STEP_CREATE_REDIS_INSTANCE_NETWORK_RELATIONSHIPS]: {
-        disabled: false,
-      },
-      [STEP_MEMCACHE_INSTANCES]: {
-        disabled: false,
-      },
-      [STEP_CREATE_MEMCACHE_INSTANCE_NETWORK_RELATIONSHIPS]: {
-        disabled: false,
-      },
-      [STEP_SPANNER_INSTANCE_CONFIGS]: {
-        disabled: false,
-      },
-      [STEP_SPANNER_INSTANCES]: {
-        disabled: false,
-      },
-      [STEP_SPANNER_INSTANCE_DATABASES]: {
-        disabled: false,
-      },
-      [STEP_API_GATEWAY_APIS]: {
-        disabled: false,
-      },
-      [STEP_API_GATEWAY_API_CONFIGS]: {
-        disabled: false,
-      },
-      [STEP_API_GATEWAY_GATEWAYS]: {
-        disabled: false,
-      },
-      [STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES]: {
-        disabled: false,
-      },
-      [STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS]: {
-        disabled: false,
-      },
-      [STEP_PRIVATE_CA_CERTIFICATES]: {
-        disabled: false,
-      },
-      [STEP_IAM_BINDINGS]: {
-        disabled: false,
-      },
-      [STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS]: {
-        disabled: false,
-      },
-      [STEP_CREATE_BASIC_ROLES]: {
-        disabled: false,
-      },
-      [STEP_CREATE_BINDING_ROLE_RELATIONSHIPS]: {
-        disabled: false,
-      },
-      [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: {
-        disabled: false,
-      },
-      [STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS]: {
-        disabled: false,
-      },
-      [STEP_DATAPROC_CLUSTERS]: {
-        disabled: false,
-      },
-      [STEP_DATAPROC_CLUSTER_KMS_RELATIONSHIPS]: {
-        disabled: false,
-      },
-      [STEP_IAM_CUSTOM_ROLE_SERVICE_API_RELATIONSHIPS]: {
-        disabled: false,
-      },
-      [STEP_CREATE_CLUSTER_STORAGE_RELATIONSHIPS]: {
-        disabled: false,
-      },
-      [STEP_CREATE_CLUSTER_IMAGE_RELATIONSHIPS]: {
-        disabled: false,
-      },
-      [STEP_BIG_TABLE_INSTANCES]: {
-        disabled: false,
-      },
-      [STEP_BIG_TABLE_APP_PROFILES]: {
-        disabled: false,
-      },
-      [STEP_BIG_TABLE_CLUSTERS]: {
-        disabled: false,
-      },
-      [STEP_BIG_TABLE_BACKUPS]: {
-        disabled: false,
-      },
-      [STEP_BIG_TABLE_TABLES]: {
-        disabled: false,
-      },
-      [STEP_BILLING_ACCOUNTS]: {
-        disabled: false,
-      },
-      [STEP_BILLING_BUDGETS]: {
-        disabled: false,
-      },
-      [STEP_BUILD_ACCOUNT_BUDGET]: {
-        disabled: false,
-      },
-      [STEP_BUILD_PROJECT_BUDGET]: {
-        disabled: false,
-      },
-      [STEP_BUILD_ADDITIONAL_PROJECT_BUDGET]: {
-        disabled: false,
-      },
-      [SecretManagerSteps.FETCH_SECRETS.id]: {
-        disabled: false,
-      },
-      [SecretManagerSteps.FETCH_SECRET_VERSIONS.id]: {
-        disabled: false,
-      },
-      [CloudBuildSteps.FETCH_BUILDS.id]: {
-        disabled: false,
-      },
-    };
+      const stepStartStates = await getStepStartStates(context);
+      const expectedStepStartStates: StepStartStates = {
+        [STEP_RESOURCE_MANAGER_ORGANIZATION]: {
+          disabled: false,
+        },
+        [STEP_RESOURCE_MANAGER_FOLDERS]: {
+          disabled: false,
+        },
+        [STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES]: {
+          disabled: false,
+        },
+        [STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS]: {
+          disabled: false,
+        },
+        [STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS]: {
+          disabled: false,
+        },
+        [STEP_RESOURCE_MANAGER_PROJECT]: {
+          disabled: false,
+        },
+        [ServiceUsageStepIds.FETCH_API_SERVICES]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_FUNCTIONS]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_FUNCTIONS_SERVICE_ACCOUNT_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_STORAGE_BUCKETS]: {
+          disabled: false,
+        },
+        [STEP_IAM_CUSTOM_ROLES]: {
+          disabled: false,
+        },
+        [STEP_IAM_MANAGED_ROLES]: {
+          disabled: false,
+        },
+        [STEP_IAM_SERVICE_ACCOUNTS]: {
+          disabled: false,
+        },
+        [STEP_AUDIT_CONFIG_IAM_POLICY]: {
+          disabled: true,
+        },
+        [STEP_COMPUTE_DISKS]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_DISK_KMS_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_REGION_DISKS]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_IMAGE_IMAGE_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_SNAPSHOT_DISK_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_SNAPSHOTS]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_IMAGES]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_IMAGE_KMS_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_NETWORKS]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_NETWORK_PEERING_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_ADDRESSES]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_GLOBAL_ADDRESSES]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_FIREWALLS]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_FORWARDING_RULES]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_GLOBAL_FORWARDING_RULES]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_REGION_INSTANCE_GROUPS]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_REGION_BACKEND_SERVICES]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_SUBNETWORKS]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_PROJECT]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_HEALTH_CHECKS]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_REGION_HEALTH_CHECKS]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_INSTANCES]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_INSTANCE_SERVICE_ACCOUNT_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_INSTANCE_GROUPS]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_LOADBALANCERS]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_REGION_LOADBALANCERS]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_BACKEND_SERVICES]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_BACKEND_BUCKETS]: {
+          disabled: false,
+        },
+        [STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_TARGET_SSL_PROXIES]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_TARGET_HTTPS_PROXIES]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_TARGET_HTTP_PROXIES]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_SSL_POLICIES]: {
+          disabled: false,
+        },
+        [STEP_DNS_MANAGED_ZONES]: {
+          disabled: false,
+        },
+        [STEP_DNS_POLICIES]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_KMS_KEY_RINGS]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_KMS_KEYS]: {
+          disabled: false,
+        },
+        [STEP_SQL_ADMIN_INSTANCES]: {
+          disabled: false,
+        },
+        [SqlAdminSteps.BUILD_SQL_INSTANCE_KMS_KEY_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_CONTAINER_CLUSTERS]: {
+          disabled: false,
+        },
+        [STEP_BIG_QUERY_DATASETS]: {
+          disabled: false,
+        },
+        [STEP_BUILD_BIG_QUERY_DATASET_KMS_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_BIG_QUERY_MODELS]: {
+          disabled: false,
+        },
+        [STEP_BIG_QUERY_TABLES]: {
+          disabled: false,
+        },
+        [STEP_LOGGING_METRICS]: {
+          disabled: false,
+        },
+        [STEP_LOGGING_PROJECT_SINKS]: {
+          disabled: false,
+        },
+        [STEP_CREATE_LOGGING_PROJECT_SINK_BUCKET_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_MONITORING_ALERT_POLICIES]: {
+          disabled: false,
+        },
+        [STEP_BINARY_AUTHORIZATION_POLICY]: {
+          disabled: false,
+        },
+        [STEP_PUBSUB_TOPICS]: {
+          disabled: false,
+        },
+        [STEP_CREATE_PUBSUB_TOPIC_KMS_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_PUBSUB_SUBSCRIPTIONS]: {
+          disabled: false,
+        },
+        [STEP_APP_ENGINE_APPLICATION]: {
+          disabled: false,
+        },
+        [STEP_CREATE_APP_ENGINE_BUCKET_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_APP_ENGINE_SERVICES]: {
+          disabled: false,
+        },
+        [STEP_APP_ENGINE_VERSIONS]: {
+          disabled: false,
+        },
+        [STEP_APP_ENGINE_INSTANCES]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_RUN_SERVICES]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_RUN_ROUTES]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_RUN_CONFIGURATIONS]: {
+          disabled: false,
+        },
+        [STEP_REDIS_INSTANCES]: {
+          disabled: false,
+        },
+        [STEP_CREATE_REDIS_INSTANCE_NETWORK_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_MEMCACHE_INSTANCES]: {
+          disabled: false,
+        },
+        [STEP_CREATE_MEMCACHE_INSTANCE_NETWORK_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_SPANNER_INSTANCE_CONFIGS]: {
+          disabled: false,
+        },
+        [STEP_SPANNER_INSTANCES]: {
+          disabled: false,
+        },
+        [STEP_SPANNER_INSTANCE_DATABASES]: {
+          disabled: false,
+        },
+        [STEP_API_GATEWAY_APIS]: {
+          disabled: false,
+        },
+        [STEP_API_GATEWAY_API_CONFIGS]: {
+          disabled: false,
+        },
+        [STEP_API_GATEWAY_GATEWAYS]: {
+          disabled: false,
+        },
+        [STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES]: {
+          disabled: false,
+        },
+        [STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_PRIVATE_CA_CERTIFICATES]: {
+          disabled: false,
+        },
+        [STEP_IAM_BINDINGS]: {
+          disabled: false,
+        },
+        [STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_CREATE_BASIC_ROLES]: {
+          disabled: false,
+        },
+        [STEP_CREATE_BINDING_ROLE_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_DATAPROC_CLUSTERS]: {
+          disabled: false,
+        },
+        [STEP_DATAPROC_CLUSTER_KMS_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_IAM_CUSTOM_ROLE_SERVICE_API_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_CREATE_CLUSTER_STORAGE_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_CREATE_CLUSTER_IMAGE_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_BIG_TABLE_INSTANCES]: {
+          disabled: false,
+        },
+        [STEP_BIG_TABLE_APP_PROFILES]: {
+          disabled: false,
+        },
+        [STEP_BIG_TABLE_CLUSTERS]: {
+          disabled: false,
+        },
+        [STEP_BIG_TABLE_BACKUPS]: {
+          disabled: false,
+        },
+        [STEP_BIG_TABLE_TABLES]: {
+          disabled: false,
+        },
+        [STEP_BILLING_ACCOUNTS]: {
+          disabled: false,
+        },
+        [STEP_BILLING_BUDGETS]: {
+          disabled: false,
+        },
+        [STEP_BUILD_ACCOUNT_BUDGET]: {
+          disabled: false,
+        },
+        [STEP_BUILD_PROJECT_BUDGET]: {
+          disabled: false,
+        },
+        [STEP_BUILD_ADDITIONAL_PROJECT_BUDGET]: {
+          disabled: false,
+        },
+        [SecretManagerSteps.FETCH_SECRETS.id]: {
+          disabled: false,
+        },
+        [SecretManagerSteps.FETCH_SECRET_VERSIONS.id]: {
+          disabled: false,
+        },
+        [CloudBuildSteps.FETCH_BUILDS.id]: {
+          disabled: false,
+        },
+      };
 
-    expect(stepStartStates).toEqual(expectedStepStartStates);
-  });
+      expect(stepStartStates).toEqual(expectedStepStartStates);
+    },
+  );
 
   test('configureOrganizationProjects: true and organizationId: undefined: should disable billing and organization steps', async () => {
     const context = createMockExecutionContext<IntegrationConfig>({
