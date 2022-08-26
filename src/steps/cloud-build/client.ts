@@ -24,4 +24,25 @@ export class CloudBuildClient extends Client {
       },
     );
   }
+
+  async iterateBuildTriggers(
+    callback: (data: cloudbuild_v1.Schema$BuildTrigger) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.projects.triggers.list({
+          auth,
+          pageToken: nextPageToken,
+          projectId: this.projectId,
+        });
+      },
+      async (data: cloudbuild_v1.Schema$ListBuildTriggersResponse) => {
+        for (const trigger of data.triggers || []) {
+          await callback(trigger);
+        }
+      },
+    );
+  }
 }

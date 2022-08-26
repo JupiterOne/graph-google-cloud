@@ -1,12 +1,11 @@
 import {
   IntegrationExecutionContext,
+  IntegrationLogger,
   IntegrationValidationError,
   StepStartState,
   StepStartStates,
-  IntegrationLogger,
 } from '@jupiterone/integration-sdk-core';
-import * as enablement from './steps/enablement';
-import { IntegrationConfig, SerializedIntegrationConfig } from './types';
+import { ServiceUsageName } from './google-cloud/types';
 import {
   STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS,
   STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
@@ -53,7 +52,7 @@ import {
   STEP_IAM_BINDINGS,
 } from './steps/cloud-asset/constants';
 import { STEP_BILLING_ACCOUNTS } from './steps/cloud-billing/constants';
-import { CloudBuildSteps } from './steps/cloud-build/constants';
+import { CloudBuildStepsSpec } from './steps/cloud-build/constants';
 import {
   STEP_CLOUD_RUN_CONFIGURATIONS,
   STEP_CLOUD_RUN_ROUTES,
@@ -108,6 +107,7 @@ import {
   STEP_DNS_MANAGED_ZONES,
   STEP_DNS_POLICIES,
 } from './steps/dns/constants';
+import * as enablement from './steps/enablement';
 import {
   STEP_CLOUD_FUNCTIONS,
   STEP_CLOUD_FUNCTIONS_SERVICE_ACCOUNT_RELATIONSHIPS,
@@ -159,10 +159,10 @@ import {
 } from './steps/spanner/constants';
 import { SqlAdminSteps, STEP_SQL_ADMIN_INSTANCES } from './steps/sql-admin';
 import { STEP_CLOUD_STORAGE_BUCKETS } from './steps/storage';
+import { IntegrationConfig, SerializedIntegrationConfig } from './types';
 import { deserializeIntegrationConfig } from './utils/integrationConfig';
 import { isMasterOrganizationInstance } from './utils/isMasterOrganizationInstance';
 import { isSingleProjectInstance } from './utils/isSingleProjectInstance';
-import { ServiceUsageName } from './google-cloud/types';
 
 function makeStepStartStates(
   stepIds: string[],
@@ -415,7 +415,8 @@ function getDefaultStepStartStates(params: {
     [STEP_BUILD_ADDITIONAL_PROJECT_BUDGET]: { disabled: !masterOrgInstance },
     [SecretManagerSteps.FETCH_SECRETS.id]: { disabled: false },
     [SecretManagerSteps.FETCH_SECRET_VERSIONS.id]: { disabled: false },
-    [CloudBuildSteps.FETCH_BUILDS.id]: { disabled: false },
+    [CloudBuildStepsSpec.FETCH_BUILDS.id]: { disabled: false },
+    [CloudBuildStepsSpec.FETCH_BUILD_TRIGGERS.id]: { disabled: false },
   };
 
   logger.info(
@@ -791,7 +792,10 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [SecretManagerSteps.FETCH_SECRET_VERSIONS.id]: createStepStartState(
       ServiceUsageName.SECRET_MANAGER,
     ),
-    [CloudBuildSteps.FETCH_BUILDS.id]: createStepStartState(
+    [CloudBuildStepsSpec.FETCH_BUILDS.id]: createStepStartState(
+      ServiceUsageName.CLOUD_BUILD,
+    ),
+    [CloudBuildStepsSpec.FETCH_BUILD_TRIGGERS.id]: createStepStartState(
       ServiceUsageName.CLOUD_BUILD,
     ),
   };

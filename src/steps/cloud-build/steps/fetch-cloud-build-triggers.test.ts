@@ -1,26 +1,25 @@
 import {
   executeStepWithDependencies,
+  Recording,
   StepTestConfig,
 } from '@jupiterone/integration-sdk-testing';
-import { invocationConfig } from '../..';
-import { integrationConfig } from '../../../test/config';
+import { invocationConfig } from '../../..';
+import { integrationConfig } from '../../../../test/config';
 import {
   getMatchRequestsBy,
-  Recording,
   setupGoogleCloudRecording,
-} from '../../../test/recording';
-import { CloudBuildSteps } from './constants';
+} from '../../../../test/recording';
+import { CloudBuildStepsSpec } from '../constants';
 
-describe('#cloud-build', () => {
+describe(`cloud-build#${CloudBuildStepsSpec.FETCH_BUILD_TRIGGERS.id}`, () => {
   let recording: Recording;
-
   afterEach(async () => {
     if (recording) await recording.stop();
   });
 
-  test('fetch-cloud-builds', async () => {
+  test(CloudBuildStepsSpec.FETCH_BUILD_TRIGGERS.id, async () => {
     recording = setupGoogleCloudRecording({
-      name: 'fetch-cloud-builds',
+      name: CloudBuildStepsSpec.FETCH_BUILD_TRIGGERS.id,
       directory: __dirname,
       options: {
         matchRequestsBy: getMatchRequestsBy(integrationConfig),
@@ -28,7 +27,7 @@ describe('#cloud-build', () => {
     });
 
     const stepTestConfig: StepTestConfig = {
-      stepId: CloudBuildSteps.FETCH_BUILDS.id,
+      stepId: CloudBuildStepsSpec.FETCH_BUILD_TRIGGERS.id,
       instanceConfig: integrationConfig,
       invocationConfig: invocationConfig as any,
     };

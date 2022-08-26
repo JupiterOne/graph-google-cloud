@@ -66,7 +66,7 @@ import {
   STEP_IAM_BINDINGS,
 } from './steps/cloud-asset/constants';
 import { STEP_BILLING_ACCOUNTS } from './steps/cloud-billing/constants';
-import { CloudBuildSteps } from './steps/cloud-build/constants';
+import { CloudBuildStepsSpec } from './steps/cloud-build/constants';
 import {
   STEP_CLOUD_RUN_CONFIGURATIONS,
   STEP_CLOUD_RUN_ROUTES,
@@ -636,7 +636,10 @@ describe('#getStepStartStates success', () => {
         [SecretManagerSteps.FETCH_SECRET_VERSIONS.id]: {
           disabled: false,
         },
-        [CloudBuildSteps.FETCH_BUILDS.id]: {
+        [CloudBuildStepsSpec.FETCH_BUILDS.id]: {
+          disabled: false,
+        },
+        [CloudBuildStepsSpec.FETCH_BUILD_TRIGGERS.id]: {
           disabled: false,
         },
       };
