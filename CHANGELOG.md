@@ -8,6 +8,13 @@ and this project adheres to
 
 ## Unreleased
 
+## 2.17.0 - 2022-08-26
+
+### Added
+
+- Support the following new entities:
+  - `google_cloud_build_trigger`
+
 ## 2.16.0 - 2022-08-25
 
 ### Added
