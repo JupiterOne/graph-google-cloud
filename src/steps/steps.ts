@@ -15,7 +15,7 @@ import { billingBudgetsSteps } from './billing-budgets';
 import { binaryAuthorizationSteps } from './binary-authorization';
 import { cloudAssetSteps } from './cloud-asset';
 import { cloudBillingSteps } from './cloud-billing';
-import { CloudBuildSteps } from './cloud-build';
+import { cloudBuildSteps } from './cloud-build';
 import { cloudRunSteps } from './cloud-run';
 import { computeSteps } from './compute';
 import { containerSteps } from './containers';
@@ -67,7 +67,7 @@ const steps: IntegrationStep<IntegrationConfig>[] = wrapStepExecutionHandlers([
   ...billingBudgetsSteps,
   ...cloudBillingSteps,
   ...secretManagerSteps,
-  ...CloudBuildSteps,
+  ...cloudBuildSteps,
 ]);
 
 function wrapStepExecutionHandlers(

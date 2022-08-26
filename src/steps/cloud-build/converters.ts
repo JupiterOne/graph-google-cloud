@@ -1,9 +1,11 @@
 import { parseTimePropertyValue } from '@jupiterone/integration-sdk-core';
 import { cloudbuild_v1 } from 'googleapis';
-import { createGoogleCloudIntegrationEntity } from '../../../utils/entity';
-import { CloudBuildEntitiesSpec } from '../constants';
+import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
+import { CloudBuildEntitiesSpec } from './constants';
 
-export default (source: cloudbuild_v1.Schema$Build) => {
+export const createGoogleCloudBuildEntity = (
+  source: cloudbuild_v1.Schema$Build,
+) => {
   const data = {
     ...source,
     labels: source.tags,
@@ -36,6 +38,29 @@ export default (source: cloudbuild_v1.Schema$Build) => {
         'options.pool': data.options?.workerPool,
         logUrl: data.logUrl,
         queueTtl: data.queueTtl,
+      },
+    },
+  });
+};
+
+export const createGoogleCloudBuildTriggerEntity = (
+  source: cloudbuild_v1.Schema$BuildTrigger,
+) => {
+  const data = {
+    ...source,
+    labels: source.tags,
+    tags: undefined,
+  };
+
+  return createGoogleCloudIntegrationEntity(source, {
+    entityData: {
+      source: source,
+      assign: {
+        _class: CloudBuildEntitiesSpec.TRIGGER._class,
+        _type: CloudBuildEntitiesSpec.TRIGGER._type,
+        _key: data.id as string,
+        name: data.name,
+        id: data.id as string,
       },
     },
   });

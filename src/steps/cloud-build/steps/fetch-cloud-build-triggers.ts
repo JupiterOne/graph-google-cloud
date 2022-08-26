@@ -2,7 +2,7 @@ import { IntegrationStep } from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig, IntegrationStepContext } from '../../../types';
 import { CloudBuildClient } from '../client';
 import { CloudBuildEntitiesSpec, CloudBuildStepsSpec } from '../constants';
-import converters from '../converters';
+import { createGoogleCloudBuildTriggerEntity } from '../converters';
 
 const fetchCloudBuildTriggerStep: IntegrationStep<IntegrationConfig> = {
   ...CloudBuildStepsSpec.FETCH_BUILD_TRIGGERS,
@@ -18,7 +18,7 @@ const fetchCloudBuildTriggerStep: IntegrationStep<IntegrationConfig> = {
     const client = new CloudBuildClient({ config });
 
     await client.iterateBuildTriggers(async (data) => {
-      await jobState.addEntity(converters.google_cloud_build_trigger(data));
+      await jobState.addEntity(createGoogleCloudBuildTriggerEntity(data));
     });
   },
 };
