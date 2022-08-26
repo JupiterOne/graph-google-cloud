@@ -4,7 +4,7 @@ import { CloudBuildClient } from '../client';
 import { CloudBuildEntitiesSpec, CloudBuildStepsSpec } from '../constants';
 import { createGoogleCloudBuildTriggerEntity } from '../converters';
 
-const fetchCloudBuildTriggerStep: IntegrationStep<IntegrationConfig> = {
+export const fetchCloudBuildTriggerStep: IntegrationStep<IntegrationConfig> = {
   ...CloudBuildStepsSpec.FETCH_BUILD_TRIGGERS,
   entities: [CloudBuildEntitiesSpec.TRIGGER],
   relationships: [],
@@ -22,5 +22,3 @@ const fetchCloudBuildTriggerStep: IntegrationStep<IntegrationConfig> = {
     });
   },
 };
-
-export default fetchCloudBuildTriggerStep;

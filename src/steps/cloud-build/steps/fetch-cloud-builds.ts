@@ -4,7 +4,7 @@ import { CloudBuildClient } from '../client';
 import { CloudBuildEntitiesSpec, CloudBuildStepsSpec } from '../constants';
 import { createGoogleCloudBuildEntity } from '../converters';
 
-const fetchCloudBuildStep: IntegrationStep<IntegrationConfig> = {
+export const fetchCloudBuildStep: IntegrationStep<IntegrationConfig> = {
   ...CloudBuildStepsSpec.FETCH_BUILDS,
   entities: [CloudBuildEntitiesSpec.BUILD],
   relationships: [],
@@ -22,5 +22,3 @@ const fetchCloudBuildStep: IntegrationStep<IntegrationConfig> = {
     });
   },
 };
-
-export default fetchCloudBuildStep;
