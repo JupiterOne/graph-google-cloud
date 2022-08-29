@@ -53,7 +53,7 @@
     "@lifeomic/attempt": "^3.0.0",
     "gaxios": "^4.2.1",
     "google-auth-library": "^7.1.0",
-    "googleapis": "^74.2.0",
+    "googleapis": "80.2.0",
     "lodash.get": "^4.4.2"
   }
 }
