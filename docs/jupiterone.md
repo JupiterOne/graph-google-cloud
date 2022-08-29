@@ -140,10 +140,10 @@ We must assign the correct permissions to the newly created service account for
 the integration to be run. We recommend using the following roles managed by
 Google Cloud:
 
-- [`roles/iam.securityReviewer`](https://cloud.google.com/iam/docs/understanding-roles#iam.securityReviewer)
-- [`roles/iam.organizationRoleViewer`](https://cloud.google.com/iam/docs/understanding-roles#iam.organizationRoleViewer)
-- [`roles/bigquery.metadataViewer`](https://cloud.google.com/bigquery/docs/access-control#bigquery.metadataViewer)
-- [`roles/secretmanager.secretAccessor`](https://cloud.google.com/secret-manager/docs/creating-and-accessing-secrets#access)
+- [Security Reviewer](https://cloud.google.com/iam/docs/understanding-roles#iam.securityReviewer)
+- [Organization Role Viewer](https://cloud.google.com/iam/docs/understanding-roles#iam.organizationRoleViewer)
+- [BigQuery Metadata Viewer](https://cloud.google.com/bigquery/docs/access-control#bigquery.metadataViewer)
+- [SecretManager Secret Accessor](https://cloud.google.com/secret-manager/docs/creating-and-accessing-secrets#access)
 
 Some additional data may be optionally ingested by the JupiterOne Google Cloud
 integration by configuring a custom role with the following permissions:
@@ -277,7 +277,7 @@ on the JupiterOne Google Cloud integration list page.
 
 ## How to Uninstall
 
-1. From the configuration **Gear Icon**, select **Integrations**.
+1. From the top navigation of the J1 Search homepage, select **Integrations**.
 2. Scroll to the **Google Cloud** integration tile and click it.
 3. Identify and click the **integration to delete**.
 4. Click the **trash can** icon.
