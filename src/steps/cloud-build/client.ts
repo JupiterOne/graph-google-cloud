@@ -75,4 +75,23 @@ export class CloudBuildClient extends Client {
       );
     });
   }
+
+  async iterateBuildsGheConfigs(
+    callback: (
+      data: cloudbuild_v1.Schema$GitHubEnterpriseConfig,
+    ) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    const res = await this.client.projects.githubEnterpriseConfigs.list({
+      auth,
+      parent: `projects/${this.projectId}`,
+    });
+
+    if (res.data?.configs) {
+      for (const config of res.data.configs) {
+        await callback(config);
+      }
+    }
+  }
 }

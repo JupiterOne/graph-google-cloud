@@ -330,6 +330,7 @@ The following entities are created:
 | Binary Authorization Policy                              | `google_binary_authorization_policy`                              | `AccessPolicy`                     |
 | Cloud API Service                                        | `google_cloud_api_service`                                        | `Service`                          |
 | Cloud Build                                              | `google_cloud_build`                                              | `Secret`                           |
+| Cloud Build GitHub Enterprise Config                     | `google_cloud_github_enterprise_config`                           | `Configuration`                    |
 | Cloud Build Trigger                                      | `google_cloud_build_trigger`                                      | `Rule`                             |
 | Cloud Build Worker Pool                                  | `google_cloud_build_worker_pool`                                  | `Cluster`                          |
 | Cloud Function                                           | `google_cloud_function`                                           | `Function`                         |

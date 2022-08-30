@@ -645,6 +645,9 @@ describe('#getStepStartStates success', () => {
         [CloudBuildStepsSpec.FETCH_BUILD_WORKER_POOLS.id]: {
           disabled: false,
         },
+        [CloudBuildStepsSpec.FETCH_BUILD_GITHUB_ENTERPRISE_CONFIG.id]: {
+          disabled: false,
+        },
       };
 
       expect(stepStartStates).toEqual(expectedStepStartStates);
