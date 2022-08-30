@@ -1,8 +1,15 @@
 import { cloudbuild_v1, google } from 'googleapis';
 import { Client } from '../../google-cloud/client';
+import { CloudBuildLocations } from './constants';
 
 export class CloudBuildClient extends Client {
   private client = google.cloudbuild({ version: 'v1' });
+
+  private async iterateLocations(callback: (region: string) => Promise<void>) {
+    for (const region of CloudBuildLocations) {
+      await callback(region);
+    }
+  }
 
   async iterateBuilds(
     callback: (data: cloudbuild_v1.Schema$Build) => Promise<void>,
@@ -10,7 +17,7 @@ export class CloudBuildClient extends Client {
     const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
-      async (nextPageToken) => {
+      (nextPageToken) => {
         return this.client.projects.builds.list({
           auth,
           pageToken: nextPageToken,
@@ -31,7 +38,7 @@ export class CloudBuildClient extends Client {
     const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
-      async (nextPageToken) => {
+      (nextPageToken) => {
         return this.client.projects.triggers.list({
           auth,
           pageToken: nextPageToken,
@@ -44,5 +51,28 @@ export class CloudBuildClient extends Client {
         }
       },
     );
+  }
+
+  async iterateBuildWorkerPools(
+    callback: (data: cloudbuild_v1.Schema$WorkerPool) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateLocations(async (region) => {
+      await this.iterateApi(
+        (nextPageToken) => {
+          return this.client.projects.locations.workerPools.list({
+            auth,
+            pageToken: nextPageToken,
+            parent: `projects/${this.projectId}/locations/${region}`,
+          });
+        },
+        async (data: cloudbuild_v1.Schema$ListWorkerPoolsResponse) => {
+          for (const pool of data.workerPools || []) {
+            await callback(pool);
+          }
+        },
+      );
+    });
   }
 }

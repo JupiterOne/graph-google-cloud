@@ -6,7 +6,7 @@ import { createGoogleCloudBuildTriggerEntity } from '../converters';
 
 export const fetchCloudBuildTriggerStep: IntegrationStep<IntegrationConfig> = {
   ...CloudBuildStepsSpec.FETCH_BUILD_TRIGGERS,
-  entities: [CloudBuildEntitiesSpec.TRIGGER],
+  entities: [CloudBuildEntitiesSpec.BUILD_TRIGGER],
   relationships: [],
   executionHandler: async function (
     context: IntegrationStepContext,

@@ -642,6 +642,9 @@ describe('#getStepStartStates success', () => {
         [CloudBuildStepsSpec.FETCH_BUILD_TRIGGERS.id]: {
           disabled: false,
         },
+        [CloudBuildStepsSpec.FETCH_BUILD_WORKER_POOLS.id]: {
+          disabled: false,
+        },
       };
 
       expect(stepStartStates).toEqual(expectedStepStartStates);
