@@ -11,7 +11,7 @@ import {
 } from '../../../../test/recording';
 import { CloudBuildStepsSpec } from '../constants';
 
-describe(`cloud-build#${CloudBuildStepsSpec.FETCH_BUILD_GITHUB_ENTERPRISE_CONFIG.id}`, () => {
+describe.skip(`cloud-build#${CloudBuildStepsSpec.FETCH_BUILD_GITHUB_ENTERPRISE_CONFIG.id}`, () => {
   let recording: Recording;
   afterEach(async () => {
     if (recording) await recording.stop();
