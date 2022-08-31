@@ -115,3 +115,30 @@ export const createGoogleCloudBuildGithubEnterpriseConfigEntity = (
     },
   });
 };
+
+export const createGoogleCloudBuildBitbucketServerConfigEntity = (
+  data: cloudbuild_v1.Schema$BitbucketServerConfig,
+) => {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _class: CloudBuildEntitiesSpec.BUILD_BITBUCKET_SERVER_CONFIG._class,
+        _type: CloudBuildEntitiesSpec.BUILD_BITBUCKET_SERVER_CONFIG._type,
+        _key: data.name as string,
+        name: data.name,
+        hostUri: data.hostUri,
+        createTime: parseTimePropertyValue(data.createTime),
+        username: data.username,
+        webhookKey: data.webhookKey,
+        apiKey: data.apiKey,
+        'secrets.adminAccessTokenVersionName':
+          data?.secrets?.adminAccessTokenVersionName,
+        'secrets.readAccessTokenVersionName':
+          data?.secrets?.readAccessTokenVersionName,
+        'secrets.webhookSecretVersionName':
+          data?.secrets?.webhookSecretVersionName,
+      },
+    },
+  });
+};

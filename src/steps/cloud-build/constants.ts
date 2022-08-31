@@ -15,6 +15,10 @@ export const CloudBuildStepsSpec = {
     id: 'fetch-cloud-build-ghe-configs',
     name: 'Fetch Cloud Build GitHub Enterprise Configs',
   },
+  FETCH_BUILD_BITBUCKET_SERVER_CONFIG: {
+    id: 'fetch-cloud-build-bb-configs',
+    name: 'Fetch Cloud Build BitBucket Server Configs',
+  },
 };
 
 export const CloudBuildEntitiesSpec = {
@@ -36,6 +40,11 @@ export const CloudBuildEntitiesSpec = {
   BUILD_GITHUB_ENTERPRISE_CONFIG: {
     resourceName: 'Cloud Build GitHub Enterprise Config',
     _type: 'google_cloud_github_enterprise_config',
+    _class: ['Configuration'],
+  },
+  BUILD_BITBUCKET_SERVER_CONFIG: {
+    resourceName: 'Cloud Build BitBucket Server Config',
+    _type: 'google_cloud_bitbucket_server_config',
     _class: ['Configuration'],
   },
 };

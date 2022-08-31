@@ -421,6 +421,9 @@ function getDefaultStepStartStates(params: {
     [CloudBuildStepsSpec.FETCH_BUILD_GITHUB_ENTERPRISE_CONFIG.id]: {
       disabled: false,
     },
+    [CloudBuildStepsSpec.FETCH_BUILD_BITBUCKET_SERVER_CONFIG.id]: {
+      disabled: false,
+    },
   };
 
   logger.info(
@@ -806,6 +809,8 @@ async function getStepStartStatesUsingServiceEnablements(params: {
       ServiceUsageName.CLOUD_BUILD,
     ),
     [CloudBuildStepsSpec.FETCH_BUILD_GITHUB_ENTERPRISE_CONFIG.id]:
+      createStepStartState(ServiceUsageName.CLOUD_BUILD),
+    [CloudBuildStepsSpec.FETCH_BUILD_BITBUCKET_SERVER_CONFIG.id]:
       createStepStartState(ServiceUsageName.CLOUD_BUILD),
   };
 
