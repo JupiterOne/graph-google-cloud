@@ -1,9 +1,11 @@
 import { parseTimePropertyValue } from '@jupiterone/integration-sdk-core';
 import { cloudbuild_v1 } from 'googleapis';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
-import { CloudBuildEntities } from './constants';
+import { CloudBuildEntitiesSpec } from './constants';
 
-export function createBuildEntity(source: cloudbuild_v1.Schema$Build) {
+export const createGoogleCloudBuildEntity = (
+  source: cloudbuild_v1.Schema$Build,
+) => {
   const data = {
     ...source,
     labels: source.tags,
@@ -14,8 +16,8 @@ export function createBuildEntity(source: cloudbuild_v1.Schema$Build) {
     entityData: {
       source: source,
       assign: {
-        _class: CloudBuildEntities.BUILD._class,
-        _type: CloudBuildEntities.BUILD._type,
+        _class: CloudBuildEntitiesSpec.BUILD._class,
+        _type: CloudBuildEntitiesSpec.BUILD._type,
         _key: data.name as string,
         name: data.name,
         id: data.id as string,
@@ -39,4 +41,27 @@ export function createBuildEntity(source: cloudbuild_v1.Schema$Build) {
       },
     },
   });
-}
+};
+
+export const createGoogleCloudBuildTriggerEntity = (
+  source: cloudbuild_v1.Schema$BuildTrigger,
+) => {
+  const data = {
+    ...source,
+    labels: source.tags,
+    tags: undefined,
+  };
+
+  return createGoogleCloudIntegrationEntity(source, {
+    entityData: {
+      source: source,
+      assign: {
+        _class: CloudBuildEntitiesSpec.TRIGGER._class,
+        _type: CloudBuildEntitiesSpec.TRIGGER._type,
+        _key: data.id as string,
+        name: data.name,
+        id: data.id as string,
+      },
+    },
+  });
+};
