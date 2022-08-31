@@ -41,6 +41,7 @@
     "@types/bunyan": "^1.8.6",
     "@types/bunyan-format": "^0.2.3",
     "@types/node-fetch": "^2.5.10",
+    "auto": "^10.37.4",
     "bunyan": "^1.8.15",
     "bunyan-format": "^0.2.1",
     "cac": "^6.7.3",
@@ -55,5 +56,21 @@
     "google-auth-library": "^7.1.0",
     "googleapis": "^74.2.0",
     "lodash.get": "^4.4.2"
+  },
+  "auto": {
+    "plugins": [
+      [
+        "npm",
+        {
+          "setRcToken": false,
+          "publishFolder": "./dist"
+        }
+      ],
+      "released"
+    ],
+    "onlyPublishWithReleaseLabel": true,
+    "shipit": {
+      "prerelease": false
+    }
   }
 }
