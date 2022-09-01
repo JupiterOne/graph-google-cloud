@@ -117,7 +117,8 @@ to enable all services that the JupiterOne integration supports:
       iam.googleapis.com \
       container.googleapis.com \
       serviceusage.googleapis.com \
-      monitoring.googleapis.com
+      monitoring.googleapis.com \
+      secretmanager.googleapis.com
 
 #### Creating Google Cloud project service account
 
