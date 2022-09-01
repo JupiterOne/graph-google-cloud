@@ -131,7 +131,7 @@ Google Cloud:
 *   [`Security Reviewer`](https://cloud.google.com/iam/docs/understanding-roles#iam.securityReviewer)
 *   [`Organization Role Viewer`](https://cloud.google.com/iam/docs/understanding-roles#iam.organizationRoleViewer)
 *   [`BigQuery Metadata Viewer`](https://cloud.google.com/bigquery/docs/access-control#bigquery.metadataViewer)
-*   [`Secret Manager Secret Accessor`]([https://cloud.google.com/secret-manager/docs/creating-and-accessing-secrets#access)
+*   [`Secret Manager Secret Accessor`](https://cloud.google.com/secret-manager/docs/creating-and-accessing-secrets#access)
 
 Some additional data may be optionally ingested by the JupiterOne Google Cloud
 integration by configuring a custom role with the following permissions:
