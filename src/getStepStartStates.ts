@@ -424,6 +424,9 @@ function getDefaultStepStartStates(params: {
     [CloudBuildStepsSpec.FETCH_BUILD_BITBUCKET_SERVER_CONFIG.id]: {
       disabled: false,
     },
+    [CloudBuildStepsSpec.FETCH_BUILD_BITBUCKET_REPOS.id]: {
+      disabled: false,
+    },
   };
 
   logger.info(
@@ -812,6 +815,9 @@ async function getStepStartStatesUsingServiceEnablements(params: {
       createStepStartState(ServiceUsageName.CLOUD_BUILD),
     [CloudBuildStepsSpec.FETCH_BUILD_BITBUCKET_SERVER_CONFIG.id]:
       createStepStartState(ServiceUsageName.CLOUD_BUILD),
+    [CloudBuildStepsSpec.FETCH_BUILD_BITBUCKET_REPOS.id]: createStepStartState(
+      ServiceUsageName.CLOUD_BUILD,
+    ),
   };
 
   logger.info(

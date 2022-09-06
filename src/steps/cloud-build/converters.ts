@@ -142,3 +142,25 @@ export const createGoogleCloudBuildBitbucketServerConfigEntity = (
     },
   });
 };
+
+export const createGoogleCloudBuildBitbucketRepoEntity = (
+  data: cloudbuild_v1.Schema$BitbucketServerRepository,
+) => {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _class: CloudBuildEntitiesSpec.BUILD_BITBUCKET_REPO._class,
+        _type: CloudBuildEntitiesSpec.BUILD_BITBUCKET_REPO._type,
+        _key: data.name as string,
+        name: data.name,
+        browseUri: data.browseUri,
+        description: data.description,
+        displayName: data.displayName as string,
+        'repoId.projectKey': data.repoId?.projectKey,
+        'repoId.repoSlug': data.repoId?.repoSlug,
+        'repoId.webhookId': data.repoId?.webhookId,
+      },
+    },
+  });
+};
