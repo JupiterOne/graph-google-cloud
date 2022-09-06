@@ -3,7 +3,12 @@ import {
   setupRecording,
   SetupRecordingInput,
 } from '@jupiterone/integration-sdk-testing';
-import { cloudfunctions_v1, iam_v1, privateca_v1beta1 } from 'googleapis';
+import {
+  cloudbuild_v1,
+  cloudfunctions_v1,
+  iam_v1,
+  privateca_v1beta1,
+} from 'googleapis';
 import * as querystring from 'querystring';
 import * as url from 'url';
 import { gunzipSync } from 'zlib';
@@ -85,6 +90,12 @@ function isListCertificatesUrl(url: string) {
   ).test(url);
 }
 
+function isListCloudBuildTriggersListUrl(url: string) {
+  return new RegExp(
+    /https:\/\/cloudbuild.googleapis.com\/v1\/projects\/(.*?)\/triggers/,
+  ).test(url);
+}
+
 /**
  * The response from creating a service account key contains the private key
  * data, which we need to redact.
@@ -146,6 +157,28 @@ function sanitizeListCertificatesResponse(
         },
         pemCertificateChain: [],
       })),
+  };
+}
+
+function sanitizeCloudBuildTriggerListResponse(
+  response: cloudbuild_v1.Schema$ListBuildTriggersResponse,
+) {
+  return {
+    ...response,
+    triggers: response.triggers?.map((trigger) => {
+      if (trigger.bitbucketServerTriggerConfig) {
+        trigger.bitbucketServerTriggerConfig = {
+          ...trigger.bitbucketServerTriggerConfig,
+          bitbucketServerConfig: {
+            ...trigger.bitbucketServerTriggerConfig?.bitbucketServerConfig,
+            apiKey: '[REDACTED]',
+            webhookKey: '[REDACTED]',
+          },
+        };
+      }
+
+      return trigger;
+    }),
   };
 }
 
@@ -274,6 +307,11 @@ function redact(entry): void {
 
     if (isListCertificatesUrl(requestUrl)) {
       parsedResponseText = sanitizeListCertificatesResponse(parsedResponseText);
+    }
+
+    if (isListCloudBuildTriggersListUrl(requestUrl)) {
+      parsedResponseText =
+        sanitizeCloudBuildTriggerListResponse(parsedResponseText);
     }
 
     entry.response.content.text = JSON.stringify(parsedResponseText);
