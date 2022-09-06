@@ -8,6 +8,13 @@ and this project adheres to
 
 ## Unreleased
 
+- New properties added to resources:
+
+  | Entity                          | Properties |
+  | ------------------------------- | ---------- |
+  | `google_compute_global_address` | `users`    |
+  | `google_compute_address`        | `users`    |
+
 ## 2.17.0 - 2022-08-26
 
 ### Added
