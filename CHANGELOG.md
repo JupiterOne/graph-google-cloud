@@ -1,3 +1,17 @@
+# v2.17.1 (Wed Sep 07 2022)
+
+#### 🐛 Bug Fix
+
+- Add auto versioning [#529](https://github.com/JupiterOne/graph-google-cloud/pull/529) ([@Nick-NCSU](https://github.com/Nick-NCSU))
+- INT-4507 - Add `users` property to compute address entities [#535](https://github.com/JupiterOne/graph-google-cloud/pull/535) ([@austinkelleher](https://github.com/austinkelleher))
+
+#### Authors: 2
+
+- Austin Kelleher ([@austinkelleher](https://github.com/austinkelleher))
+- Nick Thompson ([@Nick-NCSU](https://github.com/Nick-NCSU))
+
+---
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
