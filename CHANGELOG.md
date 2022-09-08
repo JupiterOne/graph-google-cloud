@@ -5,29 +5,19 @@
 - Add auto versioning [#529](https://github.com/JupiterOne/graph-google-cloud/pull/529) ([@Nick-NCSU](https://github.com/Nick-NCSU))
 - INT-4507 - Add `users` property to compute address entities [#535](https://github.com/JupiterOne/graph-google-cloud/pull/535) ([@austinkelleher](https://github.com/austinkelleher))
 
+- New properties added to resources:
+
+  | Entity                          | Properties |
+  | ------------------------------- | -----------|
+  | `google_compute_global_address` | `users`    |
+  | `google_compute_address`        | `users`    |
+
 #### Authors: 2
 
 - Austin Kelleher ([@austinkelleher](https://github.com/austinkelleher))
 - Nick Thompson ([@Nick-NCSU](https://github.com/Nick-NCSU))
 
 ---
-
-# Changelog
-
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to
-[Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
-## Unreleased
-
-- New properties added to resources:
-
-  | Entity                          | Properties |
-  | ------------------------------- | ---------- |
-  | `google_compute_global_address` | `users`    |
-  | `google_compute_address`        | `users`    |
 
 ## 2.17.0 - 2022-08-26
 
