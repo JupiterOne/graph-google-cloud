@@ -5,13 +5,6 @@
 - Add auto versioning [#529](https://github.com/JupiterOne/graph-google-cloud/pull/529) ([@Nick-NCSU](https://github.com/Nick-NCSU))
 - INT-4507 - Add `users` property to compute address entities [#535](https://github.com/JupiterOne/graph-google-cloud/pull/535) ([@austinkelleher](https://github.com/austinkelleher))
 
-- New properties added to resources:
-
-  | Entity                          | Properties |
-  | ------------------------------- | -----------|
-  | `google_compute_global_address` | `users`    |
-  | `google_compute_address`        | `users`    |
-
 #### Authors: 2
 
 - Austin Kelleher ([@austinkelleher](https://github.com/austinkelleher))
