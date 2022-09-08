@@ -1,4 +1,8 @@
 import { RelationshipClass } from '@jupiterone/integration-sdk-core';
+import {
+  CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
+  STEP_CLOUD_STORAGE_BUCKETS,
+} from '../storage';
 
 export const CloudBuildEntitiesSpec = {
   BUILD: {
@@ -46,6 +50,12 @@ export const CloudBuildRelationshipsSpec = {
     _class: RelationshipClass.TRIGGERS,
     targetType: CloudBuildEntitiesSpec.BUILD._type,
   },
+  BUILD_USES_STORAGE_BUCKET: {
+    _type: 'google_cloud_build_uses_storage_bucket',
+    _class: RelationshipClass.USES,
+    sourceType: CloudBuildEntitiesSpec.BUILD._type,
+    targetType: CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
+  },
 };
 
 export const CloudBuildStepsSpec = {
@@ -92,6 +102,13 @@ export const CloudBuildStepsSpec = {
     entities: [],
     relationships: [CloudBuildRelationshipsSpec.BUILD_TRIGGER_TRIGGERS_BUILD],
     dependsOn: ['fetch-cloud-build-triggers', 'fetch-cloud-builds'],
+  },
+  BUILD_CLOUD_BUILD_USES_STORAGE_BUCKET_RELATIONSHIPS: {
+    id: 'build-cloud-build-uses-storage-bucket-relationships',
+    name: 'Build Cloud Build -> Storage Bucket Relationships',
+    entities: [],
+    relationships: [CloudBuildRelationshipsSpec.BUILD_USES_STORAGE_BUCKET],
+    dependsOn: ['fetch-cloud-builds', STEP_CLOUD_STORAGE_BUCKETS],
   },
 };
 
