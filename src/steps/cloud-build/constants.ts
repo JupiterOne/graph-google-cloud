@@ -40,6 +40,12 @@ export const CloudBuildRelationshipsSpec = {
     _class: RelationshipClass.HAS,
     targetType: CloudBuildEntitiesSpec.BUILD_BITBUCKET_REPO._type,
   },
+  BUILD_TRIGGER_TRIGGERS_BUILD: {
+    _type: 'google_cloud_build_trigger_triggers_build',
+    sourceType: CloudBuildEntitiesSpec.BUILD_TRIGGER._type,
+    _class: RelationshipClass.TRIGGERS,
+    targetType: CloudBuildEntitiesSpec.BUILD._type,
+  },
 };
 
 export const CloudBuildStepsSpec = {
@@ -79,6 +85,13 @@ export const CloudBuildStepsSpec = {
     entities: [CloudBuildEntitiesSpec.BUILD_BITBUCKET_REPO],
     dependsOn: ['fetch-cloud-build-bb-configs'],
     relationships: [CloudBuildRelationshipsSpec.BITBUCKET_SERVER_HAS_REPO],
+  },
+  BUILD_CLOUD_BUILD_TRIGGER_TRIGGERS_BUILD_RELATIONSHIPS: {
+    id: 'build-cloud-build-trigger-triggers-build-relationships',
+    name: 'Build Cloud Build Trigger -> Cloud Build Relationships',
+    entities: [],
+    relationships: [CloudBuildRelationshipsSpec.BUILD_TRIGGER_TRIGGERS_BUILD],
+    dependsOn: ['fetch-cloud-build-triggers', 'fetch-cloud-builds'],
   },
 };
 

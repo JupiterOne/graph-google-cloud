@@ -329,7 +329,7 @@ The following entities are created:
 | Billing Budget                                           | `google_billing_budget`                                           | `Ruleset`                          |
 | Binary Authorization Policy                              | `google_binary_authorization_policy`                              | `AccessPolicy`                     |
 | Cloud API Service                                        | `google_cloud_api_service`                                        | `Service`                          |
-| Cloud Build                                              | `google_cloud_build`                                              | `Secret`                           |
+| Cloud Build                                              | `google_cloud_build`                                              | `Workflow`                         |
 | Cloud Build BitBucket Server Config                      | `google_cloud_bitbucket_server_config`                            | `Configuration`                    |
 | Cloud Build BitBucket Server Repo                        | `google_cloud_bitbucket_server_repo`                              | `CodeRepo`                         |
 | Cloud Build GitHub Enterprise Config                     | `google_cloud_github_enterprise_config`                           | `Configuration`                    |
@@ -435,6 +435,7 @@ The following relationships are created:
 | `google_cloud_audit_config`                                      | **ALLOWS**            | `google_iam_service_account`                                      |
 | `google_cloud_audit_config`                                      | **ALLOWS**            | `google_user`                                                     |
 | `google_cloud_bitbucket_server_config`                           | **HAS**               | `google_cloud_bitbucket_server_repo`                              |
+| `google_cloud_build_trigger`                                     | **TRIGGERS**          | `google_cloud_build`                                              |
 | `internet`                                                       | **ALLOWS**            | `google_compute_firewall`                                         |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_folder`                                             |
 | `google_cloud_function`                                          | **USES**              | `google_iam_service_account`                                      |

@@ -427,6 +427,10 @@ function getDefaultStepStartStates(params: {
     [CloudBuildStepsSpec.FETCH_BUILD_BITBUCKET_REPOS.id]: {
       disabled: false,
     },
+    [CloudBuildStepsSpec.BUILD_CLOUD_BUILD_TRIGGER_TRIGGERS_BUILD_RELATIONSHIPS
+      .id]: {
+      disabled: false,
+    },
   };
 
   logger.info(
@@ -818,6 +822,8 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [CloudBuildStepsSpec.FETCH_BUILD_BITBUCKET_REPOS.id]: createStepStartState(
       ServiceUsageName.CLOUD_BUILD,
     ),
+    [CloudBuildStepsSpec.BUILD_CLOUD_BUILD_TRIGGER_TRIGGERS_BUILD_RELATIONSHIPS
+      .id]: createStepStartState(ServiceUsageName.CLOUD_BUILD),
   };
 
   logger.info(
