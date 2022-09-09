@@ -757,6 +757,7 @@ function getCommonGlobalAddressProps(
     network: data.network,
     networkTier: data.networkTier,
     subnetwork: data.subnetwork,
+    users: data.users,
     createdOn: parseTimePropertyValue(data.creationTimestamp),
     webLink: getGoogleCloudConsoleWebLink(
       `/networking/addresses/list?project=${projectId}`,
