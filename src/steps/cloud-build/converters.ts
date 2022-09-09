@@ -18,8 +18,8 @@ export const createGoogleCloudBuildEntity = (
       assign: {
         _class: CloudBuildEntitiesSpec.BUILD._class,
         _type: CloudBuildEntitiesSpec.BUILD._type,
-        _key: data.name as string,
-        name: data.name,
+        _key: data.id as string,
+        name: data.id as string,
         id: data.id as string,
         status: data.status,
         'source.storageSource.bucket': data.source?.storageSource?.bucket,
