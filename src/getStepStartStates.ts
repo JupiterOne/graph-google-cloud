@@ -417,6 +417,7 @@ function getDefaultStepStartStates(params: {
     [SecretManagerSteps.FETCH_SECRET_VERSIONS.id]: { disabled: false },
     [CloudBuildStepsSpec.FETCH_BUILDS.id]: { disabled: false },
     [CloudBuildStepsSpec.FETCH_BUILD_TRIGGERS.id]: { disabled: false },
+    [CloudBuildStepsSpec.FETCH_BUILD_WORKER_POOLS.id]: { disabled: false },
   };
 
   logger.info(
@@ -796,6 +797,9 @@ async function getStepStartStatesUsingServiceEnablements(params: {
       ServiceUsageName.CLOUD_BUILD,
     ),
     [CloudBuildStepsSpec.FETCH_BUILD_TRIGGERS.id]: createStepStartState(
+      ServiceUsageName.CLOUD_BUILD,
+    ),
+    [CloudBuildStepsSpec.FETCH_BUILD_WORKER_POOLS.id]: createStepStartState(
       ServiceUsageName.CLOUD_BUILD,
     ),
   };

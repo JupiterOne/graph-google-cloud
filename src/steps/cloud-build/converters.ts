@@ -56,11 +56,37 @@ export const createGoogleCloudBuildTriggerEntity = (
     entityData: {
       source: source,
       assign: {
-        _class: CloudBuildEntitiesSpec.TRIGGER._class,
-        _type: CloudBuildEntitiesSpec.TRIGGER._type,
+        _class: CloudBuildEntitiesSpec.BUILD_TRIGGER._class,
+        _type: CloudBuildEntitiesSpec.BUILD_TRIGGER._type,
         _key: data.id as string,
         name: data.name,
         id: data.id as string,
+        createdOn: parseTimePropertyValue(source.createTime),
+      },
+    },
+  });
+};
+
+export const createGoogleCloudBuildWorkerPoolEntity = (
+  data: cloudbuild_v1.Schema$WorkerPool,
+) => {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: {
+        ...data,
+        tags: data.annotations,
+      },
+      assign: {
+        _class: CloudBuildEntitiesSpec.BUILD_WORKER_POOL._class,
+        _type: CloudBuildEntitiesSpec.BUILD_WORKER_POOL._type,
+        _key: data.uid as string,
+        name: data.name,
+        displayName: data.displayName as string,
+        createdOn: parseTimePropertyValue(data.createTime),
+        updatedOn: parseTimePropertyValue(data.updateTime),
+        deletedOn: parseTimePropertyValue(data.deleteTime),
+        state: data.state,
+        uid: data.uid,
       },
     },
   });
