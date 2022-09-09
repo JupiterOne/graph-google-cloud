@@ -72,16 +72,21 @@ export const createGoogleCloudBuildWorkerPoolEntity = (
 ) => {
   return createGoogleCloudIntegrationEntity(data, {
     entityData: {
-      source: data,
+      source: {
+        ...data,
+        tags: data.annotations,
+      },
       assign: {
         _class: CloudBuildEntitiesSpec.BUILD_WORKER_POOL._class,
         _type: CloudBuildEntitiesSpec.BUILD_WORKER_POOL._type,
-        _key: data.name as string,
+        _key: data.uid as string,
         name: data.name,
         displayName: data.displayName as string,
         createdOn: parseTimePropertyValue(data.createTime),
         updatedOn: parseTimePropertyValue(data.updateTime),
         deletedOn: parseTimePropertyValue(data.deleteTime),
+        state: data.state,
+        uid: data.uid,
       },
     },
   });
