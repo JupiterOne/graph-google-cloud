@@ -58,6 +58,7 @@ import {
   STEP_CLOUD_RUN_ROUTES,
   STEP_CLOUD_RUN_SERVICES,
 } from './steps/cloud-run/constants';
+import { CloudSourceRepositoriesStepsSpec } from './steps/cloud-source-repositories/constants';
 import {
   STEP_COMPUTE_ADDRESSES,
   STEP_COMPUTE_BACKEND_BUCKETS,
@@ -433,6 +434,9 @@ function getDefaultStepStartStates(params: {
     },
     [CloudBuildStepsSpec.BUILD_CLOUD_BUILD_USES_STORAGE_BUCKET_RELATIONSHIPS
       .id]: {
+      disabled: false,
+    },
+    [CloudSourceRepositoriesStepsSpec.FETCH_REPOSITORIES.id]: {
       disabled: false,
     },
   };
@@ -830,6 +834,11 @@ async function getStepStartStatesUsingServiceEnablements(params: {
       .id]: createStepStartState(ServiceUsageName.CLOUD_BUILD),
     [CloudBuildStepsSpec.BUILD_CLOUD_BUILD_USES_STORAGE_BUCKET_RELATIONSHIPS
       .id]: createStepStartState(ServiceUsageName.CLOUD_BUILD),
+    [CloudSourceRepositoriesStepsSpec.FETCH_REPOSITORIES.id]:
+      createStepStartState(
+        ServiceUsageName.CLOUD_SOURCE_REPOSITORIES,
+        ServiceUsageName.CLOUD_BUILD,
+      ),
   };
 
   logger.info(
