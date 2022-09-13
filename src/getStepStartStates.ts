@@ -435,6 +435,10 @@ function getDefaultStepStartStates(params: {
       .id]: {
       disabled: false,
     },
+    [CloudBuildStepsSpec.BUILD_CLOUD_BUILD_USES_SOURCE_REPOSITORY_RELATIONSHIPS
+      .id]: {
+      disabled: false,
+    },
   };
 
   logger.info(
@@ -829,6 +833,8 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [CloudBuildStepsSpec.BUILD_CLOUD_BUILD_TRIGGER_TRIGGERS_BUILD_RELATIONSHIPS
       .id]: createStepStartState(ServiceUsageName.CLOUD_BUILD),
     [CloudBuildStepsSpec.BUILD_CLOUD_BUILD_USES_STORAGE_BUCKET_RELATIONSHIPS
+      .id]: createStepStartState(ServiceUsageName.CLOUD_BUILD),
+    [CloudBuildStepsSpec.BUILD_CLOUD_BUILD_USES_SOURCE_REPOSITORY_RELATIONSHIPS
       .id]: createStepStartState(ServiceUsageName.CLOUD_BUILD),
   };
 

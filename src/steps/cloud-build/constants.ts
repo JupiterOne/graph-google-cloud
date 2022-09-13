@@ -56,6 +56,12 @@ export const CloudBuildRelationshipsSpec = {
     sourceType: CloudBuildEntitiesSpec.BUILD._type,
     targetType: CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
   },
+  BUILD_USES_SOURCE_REPOSITORY: {
+    _type: 'google_cloud_build_uses_source_repository',
+    _class: RelationshipClass.USES,
+    sourceType: CloudBuildEntitiesSpec.BUILD._type,
+    targetType: 'google_cloud_source_repository',
+  },
 };
 
 export const CloudBuildStepsSpec = {
@@ -109,6 +115,13 @@ export const CloudBuildStepsSpec = {
     entities: [],
     relationships: [CloudBuildRelationshipsSpec.BUILD_USES_STORAGE_BUCKET],
     dependsOn: ['fetch-cloud-builds', STEP_CLOUD_STORAGE_BUCKETS],
+  },
+  BUILD_CLOUD_BUILD_USES_SOURCE_REPOSITORY_RELATIONSHIPS: {
+    id: 'build-cloud-build-uses-source-repo-relationships',
+    name: 'Build Cloud Build -> Source Repository Relationships',
+    entities: [],
+    relationships: [CloudBuildRelationshipsSpec.BUILD_USES_SOURCE_REPOSITORY],
+    dependsOn: ['fetch-cloud-builds'], // 'fetch-cloud-storage-buckets'],
   },
 };
 
