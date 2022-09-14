@@ -3,7 +3,12 @@ import {
   setupRecording,
   SetupRecordingInput,
 } from '@jupiterone/integration-sdk-testing';
-import { cloudfunctions_v1, iam_v1, privateca_v1beta1 } from 'googleapis';
+import {
+  cloudbuild_v1,
+  cloudfunctions_v1,
+  iam_v1,
+  privateca_v1beta1,
+} from 'googleapis';
 import * as querystring from 'querystring';
 import * as url from 'url';
 import { gunzipSync } from 'zlib';
@@ -85,6 +90,12 @@ function isListCertificatesUrl(url: string) {
   ).test(url);
 }
 
+function isListGithubEnterpriseServerConfigUrl(url: string) {
+  return new RegExp(
+    /https:\/\/cloudbuild.googleapis.com\/v1\/projects\/(.*?)\/githubEnterpriseConfigs/,
+  ).test(url);
+}
+
 /**
  * The response from creating a service account key contains the private key
  * data, which we need to redact.
@@ -146,6 +157,20 @@ function sanitizeListCertificatesResponse(
         },
         pemCertificateChain: [],
       })),
+  };
+}
+
+function sanitizeGithubEnterpriseServerConfig(
+  response: cloudbuild_v1.Schema$ListGithubEnterpriseConfigsResponse,
+) {
+  return {
+    ...response,
+    configs: response.configs?.map((config) => {
+      return {
+        ...config,
+        webhookKey: '[REDACTED]',
+      };
+    }),
   };
 }
 
@@ -274,6 +299,11 @@ function redact(entry): void {
 
     if (isListCertificatesUrl(requestUrl)) {
       parsedResponseText = sanitizeListCertificatesResponse(parsedResponseText);
+    }
+
+    if (isListGithubEnterpriseServerConfigUrl(requestUrl)) {
+      parsedResponseText =
+        sanitizeGithubEnterpriseServerConfig(parsedResponseText);
     }
 
     entry.response.content.text = JSON.stringify(parsedResponseText);
