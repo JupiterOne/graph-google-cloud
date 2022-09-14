@@ -79,6 +79,7 @@ all of the supported data into JupiterOne:
 | [Service Usage](https://console.developers.google.com/apis/library/serviceusage.googleapis.com)                  | serviceusage.googleapis.com         |
 | [Stackdriver Monitoring](https://console.developers.google.com/apis/library/monitoring.googleapis.com)           | monitoring.googleapis.com           |
 | [Secret Manager](https://console.cloud.google.com/apis/library/secretmanager.googleapis.com)                     | secretmanager.googleapis.com        |
+| [Cloud Source Repositories](https://console.cloud.google.com/apis/library/sourcerepo.googleapis.com)             | sourcerepo.googleapis.com           |
 
 Google Cloud service APIs can be enabled using one of the following methods:
 
@@ -126,7 +127,8 @@ gcloud services enable \
   container.googleapis.com \
   serviceusage.googleapis.com \
   monitoring.googleapis.com \
-  secretmanager.googleapis.com
+  secretmanager.googleapis.com \
+  sourcerepo.googleapis.com
 ```
 
 #### Creating Google Cloud project service account
