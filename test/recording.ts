@@ -93,6 +93,7 @@ function isListCertificatesUrl(url: string) {
 function isListBitbucketServerConfigUrl(url: string) {
   return new RegExp(
     /https:\/\/cloudbuild.googleapis.com\/v1\/projects\/(.*?)\/locations\/(.*?)\/bitbucketServerConfigs/,
+  ).test(url);
 }
 
 function isListGithubEnterpriseServerConfigUrl(url: string) {
