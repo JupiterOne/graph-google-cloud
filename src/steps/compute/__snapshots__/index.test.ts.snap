@@ -6005,6 +6005,9 @@ Object {
       "purpose": "GCE_ENDPOINT",
       "status": "IN_USE",
       "subnetwork": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/subnetworks/forwarding-rule-example-subnetwork-internal",
+      "users": Array [
+        "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/forwardingRules/forwarding-rule-example-internal",
+      ],
       "webLink": "https://console.cloud.google.com/networking/addresses/list?project=j1-gc-integration-dev-v3",
     },
     Object {
@@ -6046,6 +6049,7 @@ Object {
       "purpose": undefined,
       "status": "RESERVED",
       "subnetwork": undefined,
+      "users": undefined,
       "webLink": "https://console.cloud.google.com/networking/addresses/list?project=j1-gc-integration-dev-v3",
     },
   ],
@@ -14463,6 +14467,7 @@ Object {
       "purpose": "PRIVATE_SERVICE_CONNECT",
       "status": "RESERVED",
       "subnetwork": undefined,
+      "users": undefined,
       "webLink": "https://console.cloud.google.com/networking/addresses/list?project=j1-gc-integration-dev-v3",
     },
   ],

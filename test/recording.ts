@@ -93,6 +93,11 @@ function isListCertificatesUrl(url: string) {
 function isListBitbucketServerConfigUrl(url: string) {
   return new RegExp(
     /https:\/\/cloudbuild.googleapis.com\/v1\/projects\/(.*?)\/locations\/(.*?)\/bitbucketServerConfigs/,
+}
+
+function isListGithubEnterpriseServerConfigUrl(url: string) {
+  return new RegExp(
+    /https:\/\/cloudbuild.googleapis.com\/v1\/projects\/(.*?)\/githubEnterpriseConfigs/,
   ).test(url);
 }
 
@@ -169,6 +174,19 @@ function sanitizeBitbucketServerConfigResponse(
       return {
         ...config,
         apiKey: '[REDACTED]',
+      };
+    }),
+  };
+}
+
+function sanitizeGithubEnterpriseServerConfig(
+  response: cloudbuild_v1.Schema$ListGithubEnterpriseConfigsResponse,
+) {
+  return {
+    ...response,
+    configs: response.configs?.map((config) => {
+      return {
+        ...config,
         webhookKey: '[REDACTED]',
       };
     }),
@@ -305,6 +323,11 @@ function redact(entry): void {
     if (isListBitbucketServerConfigUrl(requestUrl)) {
       parsedResponseText =
         sanitizeBitbucketServerConfigResponse(parsedResponseText);
+    }
+
+    if (isListGithubEnterpriseServerConfigUrl(requestUrl)) {
+      parsedResponseText =
+        sanitizeGithubEnterpriseServerConfig(parsedResponseText);
     }
 
     entry.response.content.text = JSON.stringify(parsedResponseText);
