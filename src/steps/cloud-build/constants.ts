@@ -21,7 +21,7 @@ export const CloudBuildEntitiesSpec = {
   BUILD: {
     resourceName: 'Cloud Build',
     _type: 'google_cloud_build',
-    _class: ['Secret'],
+    _class: ['Workflow'],
   },
   BUILD_TRIGGER: {
     resourceName: 'Cloud Build Trigger',
