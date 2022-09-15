@@ -91,3 +91,32 @@ export const createGoogleCloudBuildWorkerPoolEntity = (
     },
   });
 };
+
+export const createGoogleCloudBuildGithubEnterpriseConfigEntity = (
+  data: cloudbuild_v1.Schema$GitHubEnterpriseConfig,
+) => {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _class: CloudBuildEntitiesSpec.BUILD_GITHUB_ENTERPRISE_CONFIG._class,
+        _type: CloudBuildEntitiesSpec.BUILD_GITHUB_ENTERPRISE_CONFIG._type,
+        _key: data.name as string,
+        name: data.name,
+        displayName: data.displayName as string,
+        appId: data.appId,
+        createdOn: parseTimePropertyValue(data.createTime),
+        hostUrl: data.hostUrl,
+        peeredNetwork: data.peeredNetwork,
+        'secrets.oauthClientIdVersionName':
+          data.secrets?.oauthClientIdVersionName,
+        'secrets.oauthSecretVersionName': data.secrets?.oauthSecretVersionName,
+        'secrets.privateKeyVersionName': data.secrets?.privateKeyVersionName,
+        'secrets.webhookSecretVersionName':
+          data.secrets?.webhookSecretVersionName,
+        sslCa: data.sslCa,
+        webhookKey: data.webhookKey,
+      },
+    },
+  });
+};

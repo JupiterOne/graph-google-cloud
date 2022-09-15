@@ -418,6 +418,9 @@ function getDefaultStepStartStates(params: {
     [CloudBuildStepsSpec.FETCH_BUILDS.id]: { disabled: false },
     [CloudBuildStepsSpec.FETCH_BUILD_TRIGGERS.id]: { disabled: false },
     [CloudBuildStepsSpec.FETCH_BUILD_WORKER_POOLS.id]: { disabled: false },
+    [CloudBuildStepsSpec.FETCH_BUILD_GITHUB_ENTERPRISE_CONFIG.id]: {
+      disabled: false,
+    },
   };
 
   logger.info(
@@ -802,6 +805,8 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [CloudBuildStepsSpec.FETCH_BUILD_WORKER_POOLS.id]: createStepStartState(
       ServiceUsageName.CLOUD_BUILD,
     ),
+    [CloudBuildStepsSpec.FETCH_BUILD_GITHUB_ENTERPRISE_CONFIG.id]:
+      createStepStartState(ServiceUsageName.CLOUD_BUILD),
   };
 
   logger.info(

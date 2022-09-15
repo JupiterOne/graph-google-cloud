@@ -11,6 +11,10 @@ export const CloudBuildStepsSpec = {
     id: 'fetch-cloud-build-worker-pools',
     name: 'Fetch Cloud Build Worker Pools',
   },
+  FETCH_BUILD_GITHUB_ENTERPRISE_CONFIG: {
+    id: 'fetch-cloud-build-ghe-configs',
+    name: 'Fetch Cloud Build GitHub Enterprise Configs',
+  },
 };
 
 export const CloudBuildEntitiesSpec = {
@@ -28,6 +32,11 @@ export const CloudBuildEntitiesSpec = {
     resourceName: 'Cloud Build Worker Pool',
     _type: 'google_cloud_build_worker_pool',
     _class: ['Cluster'],
+  },
+  BUILD_GITHUB_ENTERPRISE_CONFIG: {
+    resourceName: 'Cloud Build GitHub Enterprise Config',
+    _type: 'google_cloud_github_enterprise_config',
+    _class: ['Configuration'],
   },
 };
 

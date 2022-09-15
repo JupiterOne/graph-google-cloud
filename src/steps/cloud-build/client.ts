@@ -1,5 +1,6 @@
 import { cloudbuild_v1, google } from 'googleapis';
 import { Client } from '../../google-cloud/client';
+import { IntegrationStepContext } from '../../types';
 import { CloudBuildLocations } from './constants';
 
 export class CloudBuildClient extends Client {
@@ -74,5 +75,32 @@ export class CloudBuildClient extends Client {
         },
       );
     });
+  }
+
+  async iterateBuildsGheConfigs(
+    callback: (
+      data: cloudbuild_v1.Schema$GitHubEnterpriseConfig,
+    ) => Promise<void>,
+    context: IntegrationStepContext,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    try {
+      const res = await this.client.projects.githubEnterpriseConfigs.list({
+        auth,
+        parent: `projects/${this.projectId}`,
+      });
+
+      if (res.data?.configs) {
+        for (const config of res.data.configs) {
+          await callback(config);
+        }
+      }
+    } catch (err) {
+      context.logger.error(
+        { err },
+        'Error getting the Github Enterprise Configs for Cloud Build.',
+      );
+    }
   }
 }
