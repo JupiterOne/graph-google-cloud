@@ -233,10 +233,17 @@ export function getMatchRequestsBy(
     headers: false,
     body: false,
     url: {
+      query: (query) => {
+        if (query['project']) {
+          query['project'] = 'project-id';
+        }
+
+        return query;
+      },
       pathname: (pathname: string): string => {
         pathname = pathname.replace(
-          instanceConfig.serviceAccountKeyConfig.project_id,
-          'project-id',
+          `/projects/${instanceConfig.serviceAccountKeyConfig.project_id}/`,
+          '/projects/project-id/',
         );
         return pathname;
       },
