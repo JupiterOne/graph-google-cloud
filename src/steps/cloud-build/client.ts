@@ -126,4 +126,32 @@ export class CloudBuildClient extends Client {
       },
     );
   }
+
+  async iterateBuildBitbucketRepositories(
+    serverConfig: cloudbuild_v1.Schema$BitbucketServerConfig,
+    callback: (
+      data: cloudbuild_v1.Schema$BitbucketServerRepository,
+    ) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      (nextPageToken) => {
+        return this.client.projects.locations.bitbucketServerConfigs.repos.list(
+          {
+            auth,
+            pageToken: nextPageToken,
+            parent: serverConfig.name!,
+          },
+        );
+      },
+      async (
+        data: cloudbuild_v1.Schema$ListBitbucketServerRepositoriesResponse,
+      ) => {
+        for (const config of data.bitbucketServerRepositories || []) {
+          await callback(config);
+        }
+      },
+    );
+  }
 }

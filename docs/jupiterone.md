@@ -323,6 +323,7 @@ The following entities are created:
 | Cloud API Service                                        | `google_cloud_api_service`                                        | `Service`                          |
 | Cloud Build                                              | `google_cloud_build`                                              | `Workflow`                         |
 | Cloud Build BitBucket Server Config                      | `google_cloud_bitbucket_server_config`                            | `Configuration`                    |
+| Cloud Build BitBucket Server Repo                        | `google_cloud_bitbucket_server_repo`                              | `CodeRepo`                         |
 | Cloud Build GitHub Enterprise Config                     | `google_cloud_github_enterprise_config`                           | `Configuration`                    |
 | Cloud Build Trigger                                      | `google_cloud_build_trigger`                                      | `Rule`                             |
 | Cloud Build Worker Pool                                  | `google_cloud_build_worker_pool`                                  | `Cluster`                          |
@@ -425,6 +426,7 @@ The following relationships are created:
 | `google_cloud_audit_config`                                      | **ALLOWS**            | `google_group`                                                    |
 | `google_cloud_audit_config`                                      | **ALLOWS**            | `google_iam_service_account`                                      |
 | `google_cloud_audit_config`                                      | **ALLOWS**            | `google_user`                                                     |
+| `google_cloud_bitbucket_server_config`                           | **HAS**               | `google_cloud_bitbucket_server_repo`                              |
 | `internet`                                                       | **ALLOWS**            | `google_compute_firewall`                                         |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_folder`                                             |
 | `google_cloud_function`                                          | **USES**              | `google_iam_service_account`                                      |

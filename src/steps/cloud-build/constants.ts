@@ -1,25 +1,4 @@
-export const CloudBuildStepsSpec = {
-  FETCH_BUILDS: {
-    id: 'fetch-cloud-builds',
-    name: 'Fetch Cloud Builds',
-  },
-  FETCH_BUILD_TRIGGERS: {
-    id: 'fetch-cloud-build-triggers',
-    name: 'Fetch Cloud Build Triggers',
-  },
-  FETCH_BUILD_WORKER_POOLS: {
-    id: 'fetch-cloud-build-worker-pools',
-    name: 'Fetch Cloud Build Worker Pools',
-  },
-  FETCH_BUILD_GITHUB_ENTERPRISE_CONFIG: {
-    id: 'fetch-cloud-build-ghe-configs',
-    name: 'Fetch Cloud Build GitHub Enterprise Configs',
-  },
-  FETCH_BUILD_BITBUCKET_SERVER_CONFIG: {
-    id: 'fetch-cloud-build-bb-configs',
-    name: 'Fetch Cloud Build BitBucket Server Configs',
-  },
-};
+import { RelationshipClass } from '@jupiterone/integration-sdk-core';
 
 export const CloudBuildEntitiesSpec = {
   BUILD: {
@@ -47,9 +26,61 @@ export const CloudBuildEntitiesSpec = {
     _type: 'google_cloud_bitbucket_server_config',
     _class: ['Configuration'],
   },
+  BUILD_BITBUCKET_REPO: {
+    resourceName: 'Cloud Build BitBucket Server Repo',
+    _type: 'google_cloud_bitbucket_server_repo',
+    _class: ['CodeRepo'],
+  },
 };
 
-export const CloudBuildRelationshipsSpec = {};
+export const CloudBuildRelationshipsSpec = {
+  BITBUCKET_SERVER_HAS_REPO: {
+    _type: 'google_cloud_bitbucket_server_config_has_repo',
+    sourceType: CloudBuildEntitiesSpec.BUILD_BITBUCKET_SERVER_CONFIG._type,
+    _class: RelationshipClass.HAS,
+    targetType: CloudBuildEntitiesSpec.BUILD_BITBUCKET_REPO._type,
+  },
+};
+
+export const CloudBuildStepsSpec = {
+  FETCH_BUILDS: {
+    id: 'fetch-cloud-builds',
+    name: 'Fetch Cloud Builds',
+    entities: [CloudBuildEntitiesSpec.BUILD],
+    relationships: [],
+  },
+  FETCH_BUILD_TRIGGERS: {
+    id: 'fetch-cloud-build-triggers',
+    name: 'Fetch Cloud Build Triggers',
+    entities: [CloudBuildEntitiesSpec.BUILD_TRIGGER],
+    relationships: [],
+  },
+  FETCH_BUILD_WORKER_POOLS: {
+    id: 'fetch-cloud-build-worker-pools',
+    name: 'Fetch Cloud Build Worker Pools',
+    entities: [CloudBuildEntitiesSpec.BUILD_WORKER_POOL],
+    relationships: [],
+  },
+  FETCH_BUILD_GITHUB_ENTERPRISE_CONFIG: {
+    id: 'fetch-cloud-build-ghe-configs',
+    name: 'Fetch Cloud Build GitHub Enterprise Configs',
+    entities: [CloudBuildEntitiesSpec.BUILD_GITHUB_ENTERPRISE_CONFIG],
+    relationships: [],
+  },
+  FETCH_BUILD_BITBUCKET_SERVER_CONFIG: {
+    id: 'fetch-cloud-build-bb-configs',
+    name: 'Fetch Cloud Build BitBucket Server Configs',
+    entities: [CloudBuildEntitiesSpec.BUILD_BITBUCKET_SERVER_CONFIG],
+    relationships: [],
+  },
+  FETCH_BUILD_BITBUCKET_REPOS: {
+    id: 'fetch-cloud-build-bb-repos',
+    name: 'Fetch Cloud Build BitBucket Server Repos',
+    entities: [CloudBuildEntitiesSpec.BUILD_BITBUCKET_REPO],
+    dependsOn: ['fetch-cloud-build-bb-configs'],
+    relationships: [CloudBuildRelationshipsSpec.BITBUCKET_SERVER_HAS_REPO],
+  },
+};
 
 // https://cloud.google.com/build/docs/locations
 export const CloudBuildLocations = [

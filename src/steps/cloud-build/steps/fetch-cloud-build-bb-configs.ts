@@ -1,14 +1,12 @@
 import { IntegrationStep } from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig, IntegrationStepContext } from '../../../types';
 import { CloudBuildClient } from '../client';
-import { CloudBuildEntitiesSpec, CloudBuildStepsSpec } from '../constants';
+import { CloudBuildStepsSpec } from '../constants';
 import { createGoogleCloudBuildBitbucketServerConfigEntity } from '../converters';
 
 export const fetchCloudBuildBitbucketServerConfigStep: IntegrationStep<IntegrationConfig> =
   {
     ...CloudBuildStepsSpec.FETCH_BUILD_BITBUCKET_SERVER_CONFIG,
-    entities: [CloudBuildEntitiesSpec.BUILD_BITBUCKET_SERVER_CONFIG],
-    relationships: [],
     executionHandler: async function (
       context: IntegrationStepContext,
     ): Promise<void> {

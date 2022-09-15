@@ -651,6 +651,9 @@ describe('#getStepStartStates success', () => {
         [CloudBuildStepsSpec.FETCH_BUILD_BITBUCKET_SERVER_CONFIG.id]: {
           disabled: false,
         },
+        [CloudBuildStepsSpec.FETCH_BUILD_BITBUCKET_REPOS.id]: {
+          disabled: false,
+        },
       };
 
       expect(stepStartStates).toEqual(expectedStepStartStates);
