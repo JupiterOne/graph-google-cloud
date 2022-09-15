@@ -103,4 +103,27 @@ export class CloudBuildClient extends Client {
       );
     }
   }
+
+  async iterateBuildsBitbucketServerConfigs(
+    callback: (
+      data: cloudbuild_v1.Schema$BitbucketServerConfig,
+    ) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      (nextPageToken) => {
+        return this.client.projects.locations.bitbucketServerConfigs.list({
+          auth,
+          pageToken: nextPageToken,
+          parent: `projects/${this.projectId}/locations/global`,
+        });
+      },
+      async (data: cloudbuild_v1.Schema$ListBitbucketServerConfigsResponse) => {
+        for (const config of data.bitbucketServerConfigs || []) {
+          await callback(config);
+        }
+      },
+    );
+  }
 }

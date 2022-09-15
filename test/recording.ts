@@ -90,6 +90,12 @@ function isListCertificatesUrl(url: string) {
   ).test(url);
 }
 
+function isListBitbucketServerConfigUrl(url: string) {
+  return new RegExp(
+    /https:\/\/cloudbuild.googleapis.com\/v1\/projects\/(.*?)\/locations\/(.*?)\/bitbucketServerConfigs/,
+  ).test(url);
+}
+
 function isListGithubEnterpriseServerConfigUrl(url: string) {
   return new RegExp(
     /https:\/\/cloudbuild.googleapis.com\/v1\/projects\/(.*?)\/githubEnterpriseConfigs/,
@@ -157,6 +163,20 @@ function sanitizeListCertificatesResponse(
         },
         pemCertificateChain: [],
       })),
+  };
+}
+
+function sanitizeBitbucketServerConfigResponse(
+  response: cloudbuild_v1.Schema$ListBitbucketServerConfigsResponse,
+) {
+  return {
+    ...response,
+    bitbucketServerConfigs: response.bitbucketServerConfigs?.map((config) => {
+      return {
+        ...config,
+        apiKey: '[REDACTED]',
+      };
+    }),
   };
 }
 
@@ -299,6 +319,11 @@ function redact(entry): void {
 
     if (isListCertificatesUrl(requestUrl)) {
       parsedResponseText = sanitizeListCertificatesResponse(parsedResponseText);
+    }
+
+    if (isListBitbucketServerConfigUrl(requestUrl)) {
+      parsedResponseText =
+        sanitizeBitbucketServerConfigResponse(parsedResponseText);
     }
 
     if (isListGithubEnterpriseServerConfigUrl(requestUrl)) {
