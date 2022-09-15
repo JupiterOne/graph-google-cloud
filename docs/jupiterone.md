@@ -427,6 +427,7 @@ The following relationships are created:
 | `google_cloud_audit_config`                                      | **ALLOWS**            | `google_iam_service_account`                                      |
 | `google_cloud_audit_config`                                      | **ALLOWS**            | `google_user`                                                     |
 | `google_cloud_bitbucket_server_config`                           | **HAS**               | `google_cloud_bitbucket_server_repo`                              |
+| `google_cloud_build_trigger`                                     | **TRIGGERS**          | `google_cloud_build`                                              |
 | `internet`                                                       | **ALLOWS**            | `google_compute_firewall`                                         |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_folder`                                             |
 | `google_cloud_function`                                          | **USES**              | `google_iam_service_account`                                      |

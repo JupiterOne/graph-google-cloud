@@ -654,6 +654,10 @@ describe('#getStepStartStates success', () => {
         [CloudBuildStepsSpec.FETCH_BUILD_BITBUCKET_REPOS.id]: {
           disabled: false,
         },
+        [CloudBuildStepsSpec
+          .BUILD_CLOUD_BUILD_TRIGGER_TRIGGERS_BUILD_RELATIONSHIPS.id]: {
+          disabled: false,
+        },
       };
 
       expect(stepStartStates).toEqual(expectedStepStartStates);

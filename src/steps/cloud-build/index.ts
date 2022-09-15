@@ -1,5 +1,6 @@
 import { IntegrationStep } from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig } from '../../types';
+import { buildCloudBuildTriggerTriggersBuildRelationshipsStep } from './steps/build-cloud-build-trigger-triggers-build-relationships';
 import { fetchCloudBuildBitbucketServerConfigStep } from './steps/fetch-cloud-build-bb-configs';
 import { fetchCloudBuildBitbucketRepositoriesStep } from './steps/fetch-cloud-build-bb-repos';
 import { fetchCloudBuildGithubEnterpriseConfigStep } from './steps/fetch-cloud-build-ghe-configs';
@@ -14,4 +15,6 @@ export const cloudBuildSteps: IntegrationStep<IntegrationConfig>[] = [
   fetchCloudBuildGithubEnterpriseConfigStep,
   fetchCloudBuildBitbucketServerConfigStep,
   fetchCloudBuildBitbucketRepositoriesStep,
+
+  buildCloudBuildTriggerTriggersBuildRelationshipsStep,
 ];
