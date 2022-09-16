@@ -96,6 +96,12 @@ function isListBitbucketServerConfigUrl(url: string) {
   ).test(url);
 }
 
+function isListGithubEnterpriseServerConfigUrl(url: string) {
+  return new RegExp(
+    /https:\/\/cloudbuild.googleapis.com\/v1\/projects\/(.*?)\/githubEnterpriseConfigs/,
+  ).test(url);
+}
+
 /**
  * The response from creating a service account key contains the private key
  * data, which we need to redact.
@@ -169,6 +175,19 @@ function sanitizeBitbucketServerConfigResponse(
       return {
         ...config,
         apiKey: '[REDACTED]',
+      };
+    }),
+  };
+}
+
+function sanitizeGithubEnterpriseServerConfig(
+  response: cloudbuild_v1.Schema$ListGithubEnterpriseConfigsResponse,
+) {
+  return {
+    ...response,
+    configs: response.configs?.map((config) => {
+      return {
+        ...config,
         webhookKey: '[REDACTED]',
       };
     }),
@@ -312,6 +331,11 @@ function redact(entry): void {
     if (isListBitbucketServerConfigUrl(requestUrl)) {
       parsedResponseText =
         sanitizeBitbucketServerConfigResponse(parsedResponseText);
+    }
+
+    if (isListGithubEnterpriseServerConfigUrl(requestUrl)) {
+      parsedResponseText =
+        sanitizeGithubEnterpriseServerConfig(parsedResponseText);
     }
 
     entry.response.content.text = JSON.stringify(parsedResponseText);

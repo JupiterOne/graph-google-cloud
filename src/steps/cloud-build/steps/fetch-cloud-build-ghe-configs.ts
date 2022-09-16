@@ -20,6 +20,6 @@ export const fetchCloudBuildGithubEnterpriseConfigStep: IntegrationStep<Integrat
         await jobState.addEntity(
           createGoogleCloudBuildGithubEnterpriseConfigEntity(data),
         );
-      });
+      }, context);
     },
   };
