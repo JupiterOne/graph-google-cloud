@@ -1,6 +1,6 @@
 {
   "name": "@jupiterone/graph-google-cloud",
-  "version": "2.17.0",
+  "version": "2.17.1",
   "description": "A graph conversion tool for https://cloud.google.com/",
   "license": "MPL-2.0",
   "main": "src/index.js",
@@ -27,6 +27,7 @@
     "test:ci": "yarn lint && yarn type-check && yarn test",
     "build": "./build.sh",
     "prepush": "yarn lint && yarn type-check && jest --changedSince main",
+    "postversion": "cp package.json ./dist/package.json",
     "tf": "cd terraform && env `grep -v '^#' .env` terraform $1",
     "create-env-file": "yarn ts-node ./scripts/createEnvFile $1",
     "jupiterone-organization-setup": "yarn ts-node ./scripts/organizationSetupCli.ts"
@@ -41,6 +42,7 @@
     "@types/bunyan": "^1.8.6",
     "@types/bunyan-format": "^0.2.3",
     "@types/node-fetch": "^2.5.10",
+    "auto": "^10.37.4",
     "bunyan": "^1.8.15",
     "bunyan-format": "^0.2.1",
     "cac": "^6.7.3",
@@ -55,5 +57,21 @@
     "google-auth-library": "^7.1.0",
     "googleapis": "94.0.0",
     "lodash.get": "^4.4.2"
+  },
+  "auto": {
+    "plugins": [
+      [
+        "npm",
+        {
+          "setRcToken": false,
+          "publishFolder": "./dist"
+        }
+      ],
+      "released"
+    ],
+    "onlyPublishWithReleaseLabel": true,
+    "shipit": {
+      "prerelease": false
+    }
   }
 }
