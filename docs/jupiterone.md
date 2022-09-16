@@ -432,6 +432,7 @@ The following relationships are created:
 | `google_cloud_audit_config`                                      | **ALLOWS**            | `google_user`                                                     |
 | `google_cloud_bitbucket_server_config`                           | **HAS**               | `google_cloud_bitbucket_server_repo`                              |
 | `google_cloud_build_trigger`                                     | **TRIGGERS**          | `google_cloud_build`                                              |
+| `google_cloud_build`                                             | **USES**              | `google_cloud_source_repository`                                  |
 | `google_cloud_build`                                             | **USES**              | `google_storage_bucket`                                           |
 | `internet`                                                       | **ALLOWS**            | `google_compute_firewall`                                         |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_folder`                                             |

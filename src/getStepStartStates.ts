@@ -439,6 +439,10 @@ function getDefaultStepStartStates(params: {
     [CloudSourceRepositoriesStepsSpec.FETCH_REPOSITORIES.id]: {
       disabled: false,
     },
+    [CloudBuildStepsSpec.BUILD_CLOUD_BUILD_USES_SOURCE_REPOSITORY_RELATIONSHIPS
+      .id]: {
+      disabled: false,
+    },
   };
 
   logger.info(
@@ -839,6 +843,11 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     ),
     [CloudSourceRepositoriesStepsSpec.FETCH_REPOSITORIES.id]:
       createStepStartState(ServiceUsageName.CLOUD_SOURCE_REPOSITORIES),
+    [CloudBuildStepsSpec.BUILD_CLOUD_BUILD_USES_SOURCE_REPOSITORY_RELATIONSHIPS
+      .id]: createStepStartState(
+      ServiceUsageName.CLOUD_BUILD,
+      ServiceUsageName.CLOUD_SOURCE_REPOSITORIES,
+    ),
   };
 
   logger.info(

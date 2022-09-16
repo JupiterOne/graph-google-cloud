@@ -666,6 +666,10 @@ describe('#getStepStartStates success', () => {
         [CloudSourceRepositoriesStepsSpec.FETCH_REPOSITORIES.id]: {
           disabled: false,
         },
+        [CloudBuildStepsSpec
+          .BUILD_CLOUD_BUILD_USES_SOURCE_REPOSITORY_RELATIONSHIPS.id]: {
+          disabled: false,
+        },
       };
 
       expect(stepStartStates).toEqual(expectedStepStartStates);
