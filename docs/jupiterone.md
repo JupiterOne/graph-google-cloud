@@ -102,35 +102,33 @@ integration supports:
 
 **NOTE** You can only enable 20 services at a time
 
-```
-gcloud services enable \
-  accesscontextmanager.googleapis.com \
-  apigateway.googleapis.com \
-  appengine.googleapis.com \
-  bigquery.googleapis.com \
-  binaryauthorization.googleapis.com \
-  privateca.googleapis.com \
-  cloudasset.googleapis.com \
-  dns.googleapis.com \
-  cloudfunctions.googleapis.com \
-  cloudkms.googleapis.com \
-  logging.googleapis.com \
-  memcache.googleapis.com \
-  pubsub.googleapis.com \
-  cloudresourcemanager.googleapis.com \
-  run.googleapis.com \
-  spanner.googleapis.com \
-  sqladmin.googleapis.com \
-  storage.googleapis.com \
-  compute.googleapis.com \
-  redis.googleapis.com \
-  iam.googleapis.com \
-  container.googleapis.com \
-  serviceusage.googleapis.com \
-  monitoring.googleapis.com \
-  secretmanager.googleapis.com \
-  sourcerepo.googleapis.com
-```
+    gcloud services enable \
+      accesscontextmanager.googleapis.com \
+      apigateway.googleapis.com \
+      appengine.googleapis.com \
+      bigquery.googleapis.com \
+      binaryauthorization.googleapis.com \
+      privateca.googleapis.com \
+      cloudasset.googleapis.com \
+      dns.googleapis.com \
+      cloudfunctions.googleapis.com \
+      cloudkms.googleapis.com \
+      logging.googleapis.com \
+      memcache.googleapis.com \
+      pubsub.googleapis.com \
+      cloudresourcemanager.googleapis.com \
+      run.googleapis.com \
+      spanner.googleapis.com \
+      sqladmin.googleapis.com \
+      storage.googleapis.com \
+      compute.googleapis.com \
+      redis.googleapis.com \
+      iam.googleapis.com \
+      container.googleapis.com \
+      serviceusage.googleapis.com \
+      monitoring.googleapis.com \
+      secretmanager.googleapis.com \
+      sourcerepo.googleapis.com
 
 #### Creating Google Cloud project service account
 
