@@ -78,6 +78,8 @@ all of the supported data into JupiterOne:
 | [Kubernetes Engine](https://console.developers.google.com/apis/library/container.googleapis.com)                 | container.googleapis.com            |
 | [Service Usage](https://console.developers.google.com/apis/library/serviceusage.googleapis.com)                  | serviceusage.googleapis.com         |
 | [Stackdriver Monitoring](https://console.developers.google.com/apis/library/monitoring.googleapis.com)           | monitoring.googleapis.com           |
+| [Secret Manager](https://console.cloud.google.com/apis/library/secretmanager.googleapis.com)                     | secretmanager.googleapis.com        |
+| [Cloud Source Repositories](https://console.cloud.google.com/apis/library/sourcerepo.googleapis.com)             | sourcerepo.googleapis.com           |
 
 Google Cloud service APIs can be enabled using one of the following methods:
 
@@ -125,7 +127,8 @@ integration supports:
       container.googleapis.com \
       serviceusage.googleapis.com \
       monitoring.googleapis.com \
-      secretmanager.googleapis.com
+      secretmanager.googleapis.com \
+      sourcerepo.googleapis.com
 
 #### Creating Google Cloud project service account
 
@@ -331,6 +334,7 @@ The following entities are created:
 | Cloud Run Configuration                                  | `google_cloud_run_configuration`                                  | `Configuration`                    |
 | Cloud Run Route                                          | `google_cloud_run_route`                                          | `Configuration`                    |
 | Cloud Run Service                                        | `google_cloud_run_service`                                        | `Service`                          |
+| Cloud Source Repository                                  | `google_cloud_source_repository`                                  | `CodeRepo`                         |
 | Cloud Storage Bucket                                     | `google_storage_bucket`                                           | `DataStore`                        |
 | Compute Address                                          | `google_compute_address`                                          | `IpAddress`                        |
 | Compute Backend Bucket                                   | `google_compute_backend_bucket`                                   | `Gateway`                          |

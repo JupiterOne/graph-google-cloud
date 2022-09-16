@@ -36,4 +36,5 @@ export enum ServiceUsageName {
   CLOUD_BILLING = 'cloudbilling.googleapis.com',
   CLOUD_BUILD = 'cloudbuild.googleapis.com',
   SECRET_MANAGER = 'secretmanager.googleapis.com',
+  CLOUD_SOURCE_REPOSITORIES = 'sourcerepo.googleapis.com',
 }
