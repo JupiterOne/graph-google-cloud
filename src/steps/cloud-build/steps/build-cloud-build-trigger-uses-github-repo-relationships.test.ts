@@ -47,10 +47,14 @@ describe(`cloud-build#${CloudBuildStepsSpec.BUILD_CLOUD_BUILD_TRIGGER_USES_GITHU
       expect(collectedRelationships.length).toBe(1);
       expect(collectedRelationships).toTargetEntities([
         {
-          _class: '',
-          _key: '',
+          _class: ['CodeRepo'],
           _type: 'github_repo',
+          _key: 'MDEwOlJlcG9zaXRvcnky',
           webLink: 'https://ghe.fosfori.to/tomy/gato',
+          name: 'gato',
+          displayName: 'gato',
+          fullName: 'tomy/gato',
+          owner: 'tomy',
         },
       ]);
     },

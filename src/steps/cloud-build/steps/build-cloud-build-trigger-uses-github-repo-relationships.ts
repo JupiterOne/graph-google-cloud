@@ -1,5 +1,6 @@
 import {
   createMappedRelationship,
+  Entity,
   getRawData,
   IntegrationStep,
   RelationshipClass,
@@ -25,17 +26,33 @@ export const buildCloudBuildTriggerUsesGithubRepositoryStep: IntegrationStep<Int
     executionHandler: async function (context: IntegrationStepContext) {
       const { jobState } = context;
 
+      const gheConfigEntityCache: {
+        [enterpriseConfigResourceName: string]: Entity | null;
+      } = {};
+
+      await jobState.iterateEntities(
+        {
+          _type: CloudBuildEntitiesSpec.BUILD_GITHUB_ENTERPRISE_CONFIG._type,
+        },
+        (gheConfigEntity) => {
+          gheConfigEntityCache[gheConfigEntity._key] = gheConfigEntity;
+        },
+      );
+
       await jobState.iterateEntities(
         { _type: CloudBuildEntitiesSpec.BUILD_TRIGGER._type },
         async (buildTriggerEntity) => {
           const rawBuild =
             getRawData<cloudbuild_v1.Schema$BuildTrigger>(buildTriggerEntity);
 
-          if (rawBuild?.github) {
-            const gheConfigEntity = await jobState.findEntity(
-              rawBuild.github.enterpriseConfigResourceName!,
-            );
-
+          if (
+            rawBuild?.github &&
+            rawBuild?.github.enterpriseConfigResourceName
+          ) {
+            const gheConfigEntity =
+              gheConfigEntityCache[
+                rawBuild.github.enterpriseConfigResourceName!
+              ];
             if (!gheConfigEntity) return;
 
             await jobState.addRelationship(
