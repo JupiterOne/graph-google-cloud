@@ -29,23 +29,6 @@ jobs:
 
   # Publishing is done in a separate job to allow
   # for all matrix builds to complete.
-  release:
-    needs: test
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - name: Setup Node
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
-
-      - name: Check out repo
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 2
-
-  # Publishing is done in a separate job to allow
-  # for all matrix builds to complete.
   BuildRelease:
     needs: test
     runs-on: ubuntu-latest
