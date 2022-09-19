@@ -1,3 +1,16 @@
+# v2.17.2 (Mon Sep 19 2022)
+
+#### 🐛 Bug Fix
+
+- Add step: build-cloud-build-trigger-uses-github-repo-relationships [#542](https://github.com/JupiterOne/graph-google-cloud/pull/542) ([@i5o](https://github.com/i5o))
+- INT-5289 step: build-cloud-build-uses-source-repo-relationships [#541](https://github.com/JupiterOne/graph-google-cloud/pull/541) ([@i5o](https://github.com/i5o))
+
+#### Authors: 1
+
+- Ignacio Rodríguez ([@i5o](https://github.com/i5o))
+
+---
+
 # v2.17.1 (Wed Sep 07 2022)
 
 #### 🐛 Bug Fix
