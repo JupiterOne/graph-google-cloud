@@ -443,6 +443,10 @@ function getDefaultStepStartStates(params: {
       .id]: {
       disabled: false,
     },
+    [CloudBuildStepsSpec
+      .BUILD_CLOUD_BUILD_TRIGGER_USES_GITHUB_REPO_RELATIONSHIPS.id]: {
+      disabled: false,
+    },
   };
 
   logger.info(
@@ -848,6 +852,9 @@ async function getStepStartStatesUsingServiceEnablements(params: {
       ServiceUsageName.CLOUD_BUILD,
       ServiceUsageName.CLOUD_SOURCE_REPOSITORIES,
     ),
+    [CloudBuildStepsSpec
+      .BUILD_CLOUD_BUILD_TRIGGER_USES_GITHUB_REPO_RELATIONSHIPS.id]:
+      createStepStartState(ServiceUsageName.CLOUD_BUILD),
   };
 
   logger.info(

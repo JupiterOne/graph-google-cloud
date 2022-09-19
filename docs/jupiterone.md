@@ -523,6 +523,14 @@ The following relationships are created:
 | `google_sql_sql_server_instance`                                 | **USES**              | `google_kms_crypto_key`                                           |
 | `google_user`                                                    | **CREATED**           | `google_app_engine_version`                                       |
 
+### Mapped Relationships
+
+The following mapped relationships are created:
+
+| Source Entity `_type`        | Relationship `_class` | Target Entity `_type` | Direction |
+| ---------------------------- | --------------------- | --------------------- | --------- |
+| `google_cloud_build_trigger` | **USES**              | `*github_repo*`       | FORWARD   |
+
 <!--
 ********************************************************************************
 END OF GENERATED DOCUMENTATION AFTER BELOW MARKER

@@ -130,6 +130,12 @@ export const CloudBuildStepsSpec = {
       CloudSourceRepositoriesStepsSpec.FETCH_REPOSITORIES.id,
     ],
   },
+  BUILD_CLOUD_BUILD_TRIGGER_USES_GITHUB_REPO_RELATIONSHIPS: {
+    id: 'build-cloud-build-trigger-uses-github-repo',
+    name: 'Build Cloud Build Trigger -> Github Repository Relationships',
+    entities: [],
+    dependsOn: ['fetch-cloud-build-triggers', 'fetch-cloud-build-ghe-configs'],
+  },
 };
 
 // https://cloud.google.com/build/docs/locations
