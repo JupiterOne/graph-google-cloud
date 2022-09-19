@@ -1,3 +1,15 @@
+# v2.18.0 (Mon Sep 19 2022)
+
+#### 🚀 Enhancement
+
+- Remove checkout code from old versioning method [#543](https://github.com/JupiterOne/graph-google-cloud/pull/543) ([@Nick-NCSU](https://github.com/Nick-NCSU))
+
+#### Authors: 1
+
+- Nick Thompson ([@Nick-NCSU](https://github.com/Nick-NCSU))
+
+---
+
 # v2.17.2 (Mon Sep 19 2022)
 
 #### 🐛 Bug Fix
