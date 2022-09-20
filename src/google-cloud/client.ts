@@ -1,14 +1,14 @@
-import { IntegrationConfig } from '../types';
-import { google } from 'googleapis';
-import { CredentialBody, BaseExternalAccountClient } from 'google-auth-library';
-import { GaxiosResponse } from 'gaxios';
 import {
-  IntegrationProviderAuthorizationError,
-  IntegrationProviderAPIError,
   IntegrationError,
+  IntegrationProviderAPIError,
+  IntegrationProviderAuthorizationError,
 } from '@jupiterone/integration-sdk-core';
-import { createErrorProps } from './utils/createErrorProps';
 import { retry } from '@lifeomic/attempt';
+import { GaxiosResponse } from 'gaxios';
+import { BaseExternalAccountClient, CredentialBody } from 'google-auth-library';
+import { google } from 'googleapis';
+import { IntegrationConfig } from '../types';
+import { createErrorProps } from './utils/createErrorProps';
 // import { GoogleCloudServiceApiDisabledError } from './errors';
 
 export interface ClientOptions {
@@ -38,21 +38,6 @@ export type PageableGaxiosResponse<T> = GaxiosResponse<
 export type IterateApiOptions = {
   onRetry?: (err: any) => void;
 };
-
-export async function iterateApi<T>(
-  fn: (nextPageToken?: string) => Promise<PageableGaxiosResponse<T>>,
-  callback: (data: T) => Promise<void>,
-  options?: IterateApiOptions,
-) {
-  let nextPageToken: string | undefined;
-
-  do {
-    const wrappedFn = withErrorHandling(fn, options);
-    const result = await wrappedFn(nextPageToken);
-    nextPageToken = result.data.nextPageToken || undefined;
-    await callback(result.data);
-  } while (nextPageToken);
-}
 
 export class Client {
   readonly projectId: string;
@@ -96,48 +81,65 @@ export class Client {
     return this.auth;
   }
 
-  async iterateApi<T>(
+  async iterateApi<T extends { nextPageToken?: string | null }>(
     fn: (nextPageToken?: string) => Promise<PageableGaxiosResponse<T>>,
     callback: (data: T) => Promise<void>,
+    options?: IterateApiOptions,
   ) {
-    return iterateApi(fn, callback, {
-      onRetry: this.onRetry,
+    return this.forEachPage(async (nextPageToken) => {
+      const wrappedFn = this.withErrorHandling(fn, options);
+      const result = await wrappedFn(nextPageToken);
+      await callback(result.data);
+
+      return result;
     });
+  }
+
+  async forEachPage<T extends { data: { nextPageToken?: string | null } }>(
+    cb: (nextToken: string | undefined) => Promise<T>,
+  ): Promise<any> {
+    let nextToken: string | undefined;
+    do {
+      const response = await cb(nextToken);
+      nextToken = response.data.nextPageToken
+        ? response.data.nextPageToken
+        : undefined;
+    } while (nextToken);
+  }
+
+  withErrorHandling<T extends (...params: any) => any>(
+    fn: T,
+    options?: WithErrorHandlingOptions,
+  ) {
+    return (...params: any) => {
+      return retry(
+        async () => {
+          return await fn(...params);
+        },
+        {
+          delay: 2_000,
+          timeout: 91_000, // Need to set a timeout, otherwise we might wait for a response indefinitely.
+          maxAttempts: 6,
+          factor: 2.25, //t=0s, 2s, 4.5s, 10.125s, 22.78125s, 51.2578125 (90.6640652s)
+          handleError(err, ctx) {
+            const newError = handleApiClientError(err);
+
+            if (!newError.retryable) {
+              ctx.abort();
+              throw newError;
+            } else if (options?.onRetry) {
+              options.onRetry(err);
+            }
+          },
+        },
+      );
+    };
   }
 }
 
 export type WithErrorHandlingOptions = {
   onRetry?: (err: any) => void;
 };
-
-export function withErrorHandling<T extends (...params: any) => any>(
-  fn: T,
-  options?: WithErrorHandlingOptions,
-) {
-  return async (...params: any) => {
-    return retry(
-      async () => {
-        return await fn(...params);
-      },
-      {
-        delay: 2_000,
-        timeout: 91_000, // Need to set a timeout, otherwise we might wait for a response indefinitely.
-        maxAttempts: 6,
-        factor: 2.25, //t=0s, 2s, 4.5s, 10.125s, 22.78125s, 51.2578125 (90.6640652s)
-        handleError(err, ctx) {
-          const newError = handleApiClientError(err);
-
-          if (!newError.retryable) {
-            ctx.abort();
-            throw newError;
-          } else if (options?.onRetry) {
-            options.onRetry(err);
-          }
-        },
-      },
-    );
-  };
-}
 
 /**
  * Codes unknown error into JupiterOne errors

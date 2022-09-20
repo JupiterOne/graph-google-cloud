@@ -1,13 +1,13 @@
-import { google } from 'googleapis';
-import { GoogleAuth, GoogleAuthOptions } from 'google-auth-library';
-import { getMockIntegrationConfig } from '../../test/config';
-import { Client, withErrorHandling } from './client';
-import { parseServiceAccountKeyFile } from '../utils/parseServiceAccountKeyFile';
 import {
   IntegrationProviderAPIError,
   IntegrationProviderAuthorizationError,
 } from '@jupiterone/integration-sdk-core';
+import { GoogleAuth, GoogleAuthOptions } from 'google-auth-library';
+import { google } from 'googleapis';
 import { IntegrationConfig } from '..';
+import { getMockIntegrationConfig } from '../../test/config';
+import { parseServiceAccountKeyFile } from '../utils/parseServiceAccountKeyFile';
+import { Client } from './client';
 
 describe('#getAuthenticatedServiceClient', () => {
   let googleAuthSpy: jest.SpyInstance<
@@ -75,6 +75,12 @@ describe('#getAuthenticatedServiceClient', () => {
 describe('withErrorHandling', () => {
   // Specific error handling for this method is tested in the index.test.ts files where the errors were seen. Ex: src/steps/compute/index.test.ts
 
+  const config = {
+    projectId: 'projectId',
+    serviceAccountKeyConfig: { project_id: 'serviceAccountProjectId' },
+  } as unknown as IntegrationConfig;
+  const client = new Client({ config });
+
   [IntegrationProviderAuthorizationError, IntegrationProviderAPIError].forEach(
     (J1Error) => {
       test('should forward on errors that have already been handled', async () => {
@@ -86,7 +92,7 @@ describe('withErrorHandling', () => {
         const executionHandler = jest
           .fn()
           .mockRejectedValue(mockForbiddenError);
-        const handledFunction = withErrorHandling(executionHandler);
+        const handledFunction = client.withErrorHandling(executionHandler);
         await expect(handledFunction()).rejects.toThrow(J1Error);
       });
     },
@@ -95,7 +101,7 @@ describe('withErrorHandling', () => {
   test('should handle errors of unknown format', async () => {
     const mockUnknownError = new Error() as any;
     const executionHandler = jest.fn().mockRejectedValue(mockUnknownError);
-    const handledFunction = withErrorHandling(executionHandler);
+    const handledFunction = client.withErrorHandling(executionHandler);
     await expect(handledFunction()).rejects.toThrow(
       IntegrationProviderAPIError,
     );
@@ -107,7 +113,9 @@ describe('withErrorHandling', () => {
       .mockRejectedValue(new Error('Something esploded'));
 
     const onRetry = jest.fn();
-    const handledFunction = withErrorHandling(executionHandler, { onRetry });
+    const handledFunction = client.withErrorHandling(executionHandler, {
+      onRetry,
+    });
 
     await expect(handledFunction()).rejects.toThrow(
       IntegrationProviderAPIError,
@@ -120,7 +128,7 @@ describe('withErrorHandling', () => {
     const executionHandler = jest
       .fn()
       .mockImplementation((...params) => Promise.resolve(params));
-    const handledFunction = withErrorHandling(executionHandler);
+    const handledFunction = client.withErrorHandling(executionHandler);
     await expect(handledFunction('param1', 'param2')).resolves.toEqual([
       'param1',
       'param2',
@@ -139,7 +147,9 @@ describe('withErrorHandling', () => {
       .mockImplementationOnce((...params) => Promise.resolve(params));
 
     const onRetry = jest.fn();
-    const handledFunction = withErrorHandling(executionHandler, { onRetry });
+    const handledFunction = client.withErrorHandling(executionHandler, {
+      onRetry,
+    });
 
     await expect(handledFunction('param1', 'param2')).resolves.toEqual([
       'param1',
@@ -160,7 +170,9 @@ describe('withErrorHandling', () => {
       .mockImplementationOnce((...params) => Promise.resolve(params));
 
     const onRetry = jest.fn();
-    const handledFunction = withErrorHandling(executionHandler, { onRetry });
+    const handledFunction = client.withErrorHandling(executionHandler, {
+      onRetry,
+    });
 
     await expect(handledFunction('param1', 'param2')).resolves.toEqual([
       'param1',
