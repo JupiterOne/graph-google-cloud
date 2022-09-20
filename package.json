@@ -29,8 +29,7 @@
     "prepush": "yarn lint && yarn type-check && jest --changedSince main",
     "postversion": "cp package.json ./dist/package.json",
     "tf": "cd terraform && env `grep -v '^#' .env` terraform $1",
-    "create-env-file": "yarn ts-node ./scripts/createEnvFile $1",
-    "jupiterone-organization-setup": "yarn ts-node ./scripts/organizationSetupCli.ts"
+    "create-env-file": "yarn ts-node ./scripts/createEnvFile $1"
   },
   "peerDependencies": {
     "@jupiterone/integration-sdk-core": "^8.22.2"
