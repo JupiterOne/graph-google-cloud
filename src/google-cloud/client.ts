@@ -131,10 +131,6 @@ export class Client {
   }
 }
 
-export type WithErrorHandlingOptions = {
-  onRetry?: (err: any) => void;
-};
-
 /**
  * Codes unknown error into JupiterOne errors
  */
