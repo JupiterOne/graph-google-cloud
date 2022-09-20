@@ -10,7 +10,5 @@ export const CloudSourceRepositoriesStepsSpec = {
   FETCH_REPOSITORIES: {
     id: 'fetch-cloud-source-repositories',
     name: 'Fetch Cloud Source Repositories',
-    entities: [CloudSourceRepositoriesEntitiesSpec.REPOSITORY],
-    relationships: [],
   },
 };

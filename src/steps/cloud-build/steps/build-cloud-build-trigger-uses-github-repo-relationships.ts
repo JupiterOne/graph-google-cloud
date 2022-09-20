@@ -13,6 +13,11 @@ import { CloudBuildEntitiesSpec, CloudBuildStepsSpec } from '../constants';
 export const buildCloudBuildTriggerUsesGithubRepositoryStep: IntegrationStep<IntegrationConfig> =
   {
     ...CloudBuildStepsSpec.BUILD_CLOUD_BUILD_TRIGGER_USES_GITHUB_REPO_RELATIONSHIPS,
+    entities: [],
+    dependsOn: [
+      CloudBuildStepsSpec.FETCH_BUILD_TRIGGERS.id,
+      CloudBuildStepsSpec.FETCH_BUILD_GITHUB_ENTERPRISE_CONFIG.id,
+    ],
     relationships: [],
     mappedRelationships: [
       {

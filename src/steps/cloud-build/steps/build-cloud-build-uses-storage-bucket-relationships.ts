@@ -6,11 +6,22 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { cloudbuild_v1 } from 'googleapis';
 import { IntegrationConfig, IntegrationStepContext } from '../../../types';
-import { CloudBuildEntitiesSpec, CloudBuildStepsSpec } from '../constants';
+import { STEP_CLOUD_STORAGE_BUCKETS } from '../../storage';
+import {
+  CloudBuildEntitiesSpec,
+  CloudBuildRelationshipsSpec,
+  CloudBuildStepsSpec,
+} from '../constants';
 
 export const buildCloudBuildUsesStorageBucketRelationshipsStep: IntegrationStep<IntegrationConfig> =
   {
     ...CloudBuildStepsSpec.BUILD_CLOUD_BUILD_USES_STORAGE_BUCKET_RELATIONSHIPS,
+    entities: [],
+    relationships: [CloudBuildRelationshipsSpec.BUILD_USES_STORAGE_BUCKET],
+    dependsOn: [
+      CloudBuildStepsSpec.FETCH_BUILDS.id,
+      STEP_CLOUD_STORAGE_BUCKETS,
+    ],
     executionHandler: async function (context: IntegrationStepContext) {
       const { jobState } = context;
 
