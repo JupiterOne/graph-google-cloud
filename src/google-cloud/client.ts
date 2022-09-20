@@ -46,7 +46,6 @@ export class Client {
 
   private credentials: CredentialBody;
   private auth: BaseExternalAccountClient;
-  private readonly onRetry?: (err: any) => void;
 
   constructor({ config, projectId, organizationId, onRetry }: ClientOptions) {
     this.projectId =
@@ -59,7 +58,6 @@ export class Client {
       private_key: config.serviceAccountKeyConfig.private_key,
     };
     this.folderId = config.folderId;
-    this.onRetry = onRetry;
   }
 
   private async getClient(): Promise<BaseExternalAccountClient> {
@@ -84,11 +82,9 @@ export class Client {
   async iterateApi<T extends { nextPageToken?: string | null }>(
     fn: (nextPageToken?: string) => Promise<PageableGaxiosResponse<T>>,
     callback: (data: T) => Promise<void>,
-    options?: IterateApiOptions,
   ) {
     return this.forEachPage(async (nextPageToken) => {
-      const wrappedFn = this.withErrorHandling(fn, options);
-      const result = await wrappedFn(nextPageToken);
+      const result = await this.withErrorHandling(fn);
       await callback(result.data);
 
       return result;
@@ -107,33 +103,31 @@ export class Client {
     } while (nextToken);
   }
 
-  withErrorHandling<T extends (...params: any) => any>(
-    fn: T,
-    options?: WithErrorHandlingOptions,
+  withErrorHandling<TResponse>(
+    fn: () => Promise<TResponse>,
+    options?: { onRetry: Function },
   ) {
-    return (...params: any) => {
-      return retry(
-        async () => {
-          return await fn(...params);
-        },
-        {
-          delay: 2_000,
-          timeout: 91_000, // Need to set a timeout, otherwise we might wait for a response indefinitely.
-          maxAttempts: 6,
-          factor: 2.25, //t=0s, 2s, 4.5s, 10.125s, 22.78125s, 51.2578125 (90.6640652s)
-          handleError(err, ctx) {
-            const newError = handleApiClientError(err);
+    return retry(
+      async () => {
+        return await fn();
+      },
+      {
+        delay: 2_000,
+        timeout: 91_000, // Need to set a timeout, otherwise we might wait for a response indefinitely.
+        maxAttempts: 6,
+        factor: 2.25, //t=0s, 2s, 4.5s, 10.125s, 22.78125s, 51.2578125 (90.6640652s)
+        handleError(err, ctx) {
+          const newError = handleApiClientError(err);
 
-            if (!newError.retryable) {
-              ctx.abort();
-              throw newError;
-            } else if (options?.onRetry) {
-              options.onRetry(err);
-            }
-          },
+          if (!newError.retryable) {
+            ctx.abort();
+            throw newError;
+          } else if (options?.onRetry) {
+            options.onRetry(err);
+          }
         },
-      );
-    };
+      },
+    );
   }
 }
 

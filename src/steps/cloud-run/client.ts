@@ -1,5 +1,5 @@
-import { Client } from '../../google-cloud/client';
 import { google, run_v1 } from 'googleapis';
+import { Client } from '../../google-cloud/client';
 
 export class CloudRunClient extends Client {
   private client = google.run({ version: 'v1', retry: false });
@@ -9,20 +9,16 @@ export class CloudRunClient extends Client {
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
 
-    await this.iterateApi(
-      async () => {
-        // Doesn't support pageToken
-        return this.client.namespaces.services.list({
-          parent: `namespaces/${this.projectId}`,
-          auth,
-        });
-      },
-      async (data: run_v1.Schema$ListServicesResponse) => {
-        for (const service of data.items || []) {
-          await callback(service);
-        }
-      },
+    const response = await this.withErrorHandling(async () =>
+      this.client.namespaces.services.list({
+        parent: `namespaces/${this.projectId}`,
+        auth,
+      }),
     );
+
+    for (const service of response.data.items || []) {
+      await callback(service);
+    }
   }
 
   async iterateCloudRunRoutes(
@@ -30,20 +26,17 @@ export class CloudRunClient extends Client {
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
 
-    await this.iterateApi(
-      async () => {
-        // Doesn't support pageToken
-        return this.client.namespaces.routes.list({
+    const response = await this.withErrorHandling(
+      async () =>
+        await this.client.namespaces.routes.list({
           parent: `namespaces/${this.projectId}`,
           auth,
-        });
-      },
-      async (data: run_v1.Schema$ListRoutesResponse) => {
-        for (const route of data.items || []) {
-          await callback(route);
-        }
-      },
+        }),
     );
+
+    for (const route of response.data.items || []) {
+      await callback(route);
+    }
   }
 
   async iterateCloudRunConfigurations(
@@ -51,19 +44,16 @@ export class CloudRunClient extends Client {
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
 
-    await this.iterateApi(
-      async () => {
-        // Doesn't support pageToken
-        return this.client.namespaces.configurations.list({
+    const response = await this.withErrorHandling(
+      async () =>
+        await this.client.namespaces.configurations.list({
           parent: `namespaces/${this.projectId}`,
           auth,
-        });
-      },
-      async (data: run_v1.Schema$ListConfigurationsResponse) => {
-        for (const configuration of data.items || []) {
-          await callback(configuration);
-        }
-      },
+        }),
     );
+
+    for (const configuration of response.data.items || []) {
+      await callback(configuration);
+    }
   }
 }

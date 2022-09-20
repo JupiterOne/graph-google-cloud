@@ -93,7 +93,7 @@ describe('withErrorHandling', () => {
           .fn()
           .mockRejectedValue(mockForbiddenError);
         const handledFunction = client.withErrorHandling(executionHandler);
-        await expect(handledFunction()).rejects.toThrow(J1Error);
+        await expect(handledFunction).rejects.toThrow(J1Error);
       });
     },
   );
@@ -102,9 +102,7 @@ describe('withErrorHandling', () => {
     const mockUnknownError = new Error() as any;
     const executionHandler = jest.fn().mockRejectedValue(mockUnknownError);
     const handledFunction = client.withErrorHandling(executionHandler);
-    await expect(handledFunction()).rejects.toThrow(
-      IntegrationProviderAPIError,
-    );
+    await expect(handledFunction).rejects.toThrow(IntegrationProviderAPIError);
   });
 
   test('should throw an IntegrationProviderAPIError on all unknown errors', async () => {
@@ -117,9 +115,7 @@ describe('withErrorHandling', () => {
       onRetry,
     });
 
-    await expect(handledFunction()).rejects.toThrow(
-      IntegrationProviderAPIError,
-    );
+    await expect(handledFunction).rejects.toThrow(IntegrationProviderAPIError);
 
     expect(onRetry).toHaveBeenCalledTimes(0);
   });
@@ -127,12 +123,9 @@ describe('withErrorHandling', () => {
   test('should pass parameters to the wrapped function return the result if no errors', async () => {
     const executionHandler = jest
       .fn()
-      .mockImplementation((...params) => Promise.resolve(params));
-    const handledFunction = client.withErrorHandling(executionHandler);
-    await expect(handledFunction('param1', 'param2')).resolves.toEqual([
-      'param1',
-      'param2',
-    ]);
+      .mockImplementation(() => Promise.resolve(['param1', 'param2']));
+    const response = await client.withErrorHandling(executionHandler);
+    expect(response).toEqual(['param1', 'param2']);
   });
 
   test('should retry if quota error received with 403 status code', async () => {
@@ -144,17 +137,14 @@ describe('withErrorHandling', () => {
     const executionHandler = jest
       .fn()
       .mockRejectedValueOnce(err)
-      .mockImplementationOnce((...params) => Promise.resolve(params));
+      .mockImplementationOnce(() => Promise.resolve(['param1', 'param2']));
 
     const onRetry = jest.fn();
-    const handledFunction = client.withErrorHandling(executionHandler, {
+    const response = await client.withErrorHandling(executionHandler, {
       onRetry,
     });
 
-    await expect(handledFunction('param1', 'param2')).resolves.toEqual([
-      'param1',
-      'param2',
-    ]);
+    expect(response).toEqual(['param1', 'param2']);
 
     expect(onRetry).toHaveBeenCalledTimes(1);
     expect(onRetry).toHaveBeenCalledWith(err);
@@ -167,17 +157,14 @@ describe('withErrorHandling', () => {
     const executionHandler = jest
       .fn()
       .mockRejectedValueOnce(err)
-      .mockImplementationOnce((...params) => Promise.resolve(params));
+      .mockImplementationOnce(() => Promise.resolve(['param1', 'param2']));
 
     const onRetry = jest.fn();
-    const handledFunction = client.withErrorHandling(executionHandler, {
+    const response = await client.withErrorHandling(executionHandler, {
       onRetry,
     });
 
-    await expect(handledFunction('param1', 'param2')).resolves.toEqual([
-      'param1',
-      'param2',
-    ]);
+    expect(response).toEqual(['param1', 'param2']);
 
     expect(onRetry).toHaveBeenCalledTimes(1);
     expect(onRetry).toHaveBeenCalledWith(err);
