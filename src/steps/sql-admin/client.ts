@@ -9,19 +9,15 @@ export class SQLAdminClient extends Client {
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
 
-    await this.iterateApi(
-      async (nextPageToken) => {
-        return this.client.instances.list({
-          project: this.projectId,
-          auth,
-          pageToken: nextPageToken,
-        });
-      },
-      async (data: sqladmin_v1beta4.Schema$DatabasesListResponse) => {
-        for (const sqlInstance of data.items || []) {
-          await callback(sqlInstance);
-        }
-      },
+    const response = await this.withErrorHandling(async () =>
+      this.client.instances.list({
+        project: this.projectId,
+        auth,
+      }),
     );
+
+    for (const sqlInstance of response.data.items || []) {
+      await callback(sqlInstance);
+    }
   }
 }
