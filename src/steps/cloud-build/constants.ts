@@ -1,12 +1,6 @@
 import { RelationshipClass } from '@jupiterone/integration-sdk-core';
-import {
-  CloudSourceRepositoriesEntitiesSpec,
-  CloudSourceRepositoriesStepsSpec,
-} from '../cloud-source-repositories/constants';
-import {
-  CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
-  STEP_CLOUD_STORAGE_BUCKETS,
-} from '../storage';
+import { CloudSourceRepositoriesEntitiesSpec } from '../cloud-source-repositories/constants';
+import { CLOUD_STORAGE_BUCKET_ENTITY_TYPE } from '../storage';
 
 export const CloudBuildEntitiesSpec = {
   BUILD: {
@@ -72,69 +66,42 @@ export const CloudBuildStepsSpec = {
   FETCH_BUILDS: {
     id: 'fetch-cloud-builds',
     name: 'Fetch Cloud Builds',
-    entities: [CloudBuildEntitiesSpec.BUILD],
-    relationships: [],
   },
   FETCH_BUILD_TRIGGERS: {
     id: 'fetch-cloud-build-triggers',
     name: 'Fetch Cloud Build Triggers',
-    entities: [CloudBuildEntitiesSpec.BUILD_TRIGGER],
-    relationships: [],
   },
   FETCH_BUILD_WORKER_POOLS: {
     id: 'fetch-cloud-build-worker-pools',
     name: 'Fetch Cloud Build Worker Pools',
-    entities: [CloudBuildEntitiesSpec.BUILD_WORKER_POOL],
-    relationships: [],
   },
   FETCH_BUILD_GITHUB_ENTERPRISE_CONFIG: {
     id: 'fetch-cloud-build-ghe-configs',
     name: 'Fetch Cloud Build GitHub Enterprise Configs',
-    entities: [CloudBuildEntitiesSpec.BUILD_GITHUB_ENTERPRISE_CONFIG],
-    relationships: [],
   },
   FETCH_BUILD_BITBUCKET_SERVER_CONFIG: {
     id: 'fetch-cloud-build-bb-configs',
     name: 'Fetch Cloud Build BitBucket Server Configs',
-    entities: [CloudBuildEntitiesSpec.BUILD_BITBUCKET_SERVER_CONFIG],
-    relationships: [],
   },
   FETCH_BUILD_BITBUCKET_REPOS: {
     id: 'fetch-cloud-build-bb-repos',
     name: 'Fetch Cloud Build BitBucket Server Repos',
-    entities: [CloudBuildEntitiesSpec.BUILD_BITBUCKET_REPO],
-    dependsOn: ['fetch-cloud-build-bb-configs'],
-    relationships: [CloudBuildRelationshipsSpec.BITBUCKET_SERVER_HAS_REPO],
   },
   BUILD_CLOUD_BUILD_TRIGGER_TRIGGERS_BUILD_RELATIONSHIPS: {
     id: 'build-cloud-build-trigger-triggers-build-relationships',
     name: 'Build Cloud Build Trigger -> Cloud Build Relationships',
-    entities: [],
-    relationships: [CloudBuildRelationshipsSpec.BUILD_TRIGGER_TRIGGERS_BUILD],
-    dependsOn: ['fetch-cloud-build-triggers', 'fetch-cloud-builds'],
   },
   BUILD_CLOUD_BUILD_USES_STORAGE_BUCKET_RELATIONSHIPS: {
     id: 'build-cloud-build-uses-storage-bucket-relationships',
     name: 'Build Cloud Build -> Storage Bucket Relationships',
-    entities: [],
-    relationships: [CloudBuildRelationshipsSpec.BUILD_USES_STORAGE_BUCKET],
-    dependsOn: ['fetch-cloud-builds', STEP_CLOUD_STORAGE_BUCKETS],
   },
   BUILD_CLOUD_BUILD_USES_SOURCE_REPOSITORY_RELATIONSHIPS: {
     id: 'build-cloud-build-uses-source-repo-relationships',
     name: 'Build Cloud Build -> Source Repository Relationships',
-    entities: [],
-    relationships: [CloudBuildRelationshipsSpec.BUILD_USES_SOURCE_REPOSITORY],
-    dependsOn: [
-      'fetch-cloud-builds',
-      CloudSourceRepositoriesStepsSpec.FETCH_REPOSITORIES.id,
-    ],
   },
   BUILD_CLOUD_BUILD_TRIGGER_USES_GITHUB_REPO_RELATIONSHIPS: {
     id: 'build-cloud-build-trigger-uses-github-repo',
     name: 'Build Cloud Build Trigger -> Github Repository Relationships',
-    entities: [],
-    dependsOn: ['fetch-cloud-build-triggers', 'fetch-cloud-build-ghe-configs'],
   },
 };
 

@@ -5,7 +5,11 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig, IntegrationStepContext } from '../../../types';
 import { CloudBuildClient } from '../client';
-import { CloudBuildEntitiesSpec, CloudBuildStepsSpec } from '../constants';
+import {
+  CloudBuildEntitiesSpec,
+  CloudBuildRelationshipsSpec,
+  CloudBuildStepsSpec,
+} from '../constants';
 import { createGoogleCloudBuildBitbucketRepoEntity } from '../converters';
 
 import { getRawData } from '@jupiterone/integration-sdk-core';
@@ -14,6 +18,9 @@ import { cloudbuild_v1 } from 'googleapis';
 export const fetchCloudBuildBitbucketRepositoriesStep: IntegrationStep<IntegrationConfig> =
   {
     ...CloudBuildStepsSpec.FETCH_BUILD_BITBUCKET_REPOS,
+    entities: [CloudBuildEntitiesSpec.BUILD_BITBUCKET_REPO],
+    dependsOn: [CloudBuildStepsSpec.FETCH_BUILD_BITBUCKET_SERVER_CONFIG.id],
+    relationships: [CloudBuildRelationshipsSpec.BITBUCKET_SERVER_HAS_REPO],
     executionHandler: async function (
       context: IntegrationStepContext,
     ): Promise<void> {
