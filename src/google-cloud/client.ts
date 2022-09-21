@@ -84,7 +84,7 @@ export class Client {
     callback: (data: T) => Promise<void>,
   ) {
     return this.forEachPage(async (nextPageToken) => {
-      const result = await this.withErrorHandling(fn);
+      const result = await this.withErrorHandling(() => fn(nextPageToken));
       await callback(result.data);
 
       return result;
