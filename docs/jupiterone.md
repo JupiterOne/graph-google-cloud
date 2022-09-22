@@ -100,7 +100,7 @@ After setting up the [`gcloud` CLI](https://cloud.google.com/sdk/gcloud), you
 can run the following command to enable all services that the JupiterOne
 integration supports:
 
-**NOTE** You can only enable 20 services at a time
+**NOTE**: You can only enable 20 services at a time.
 
     gcloud services enable \
       accesscontextmanager.googleapis.com \
@@ -166,8 +166,7 @@ See the
 [Google Cloud custom role documentation](https://cloud.google.com/iam/docs/creating-custom-roles#creating_a_custom_role)
 for additional information on how custom roles can be configured and assigned.
 
-NOTE: You may also create a service account using the
-[`gcloud` CLI](https://cloud.google.com/sdk/gcloud). There is documentation on
+NOTE: You may also create a service account using the [`gcloud` CLI](https://cloud.google.com/sdk/gcloud). There is documentation on 
 how to leverage the CLI in the
 [JupiterOne Google Cloud integration developer documentation](https://github.com/JupiterOne/graph-google-cloud/blob/master/docs/development.md).
 
@@ -194,13 +193,14 @@ integration instances for each of the projects.
 1.  Select one Google Cloud project to configure a service account for
     JupiterOne.
 2.  Create the service account without a role. Copy the email address of the new
-    service account (e.g. `my-sa@my-j1-project.iam.gserviceaccount.com`)
-3.  Generate and copy a new service account key
+    service account (e.g. `my-sa@my-j1-project.iam.gserviceaccount.com`).
+3.  Generate and copy a new service account key.
 4.  Enable all service APIs in the "main" project and each "child" project that
     you'd like JupiterOne to access. Documentation for enabling service APIs is
     described in an earlier section of this document.
-    - **NOTE**: The "Cloud Asset" and "Identity and Access Management (IAM)"
-      APIs only need to be enabled in the "main" project.
+    
+    **NOTE**: The "Cloud Asset" and "Identity and Access Management (IAM)"
+    APIs only need to be enabled in the "main" project.
 5.  Switch to the organization that you'd like to create individual integration
     instances for each project
 6.  [Create a new custom role](https://cloud.google.com/iam/docs/creating-custom-roles)
@@ -239,13 +239,13 @@ Use the generated service account key as the value for the "Service Account Key
 File" field.
 
 **NOTE**: The "Polling Interval" that is selected for the "main" integration
-instances, will be the same polling interval that is used for each of the child
+instances will be the same polling interval that is used for each of the child
 integration instances.
 
 1.  Check the "Configure Organization Projects" checkbox
 2.  Place the numerical value of the Google Cloud organization into the
     "Organization ID" text field (e.g. "1234567890")
-3.  Click the `CREATE CONFIGURATION` button
+3.  Click `CREATE CONFIGURATION`.
 
 **NOTE**: Depending on how many projects exist under a Google Cloud
 organization, the auto-configuration process may take a few minutes to complete.
@@ -254,21 +254,32 @@ on the JupiterOne Google Cloud integration list page.
 
 ### In JupiterOne
 
-1.  From the top navigation of the J1 Search homepage, select **Integrations**.
-2.  Scroll to the **Google Cloud** integration tile and click it.
-3.  Click the **Add Configuration** button and configure the following settings:
+1. From the top navigation of the J1 Search homepage, select **Integrations**.
+2. Scroll to the **Google Cloud** integration tile and click it.
+3. Click the **Add Configuration** button and configure the following settings:
 
-- Enter the **Account Name** by which you'd like to identify this Google Cloud
-  account in JupiterOne. Ingested entities will have this value stored in
-  `tag.AccountName` when **Tag with Account Name** is checked.
-- Enter a **Description** that will further assist your team when identifying
-  the integration instance.
-- Select a **Polling Interval** that you feel is sufficient for your monitoring
-  needs. You may leave this as `DISABLED` and manually execute the integration.
-- Enter the **Servce Account Key File** contents of the Google Cloud service
-  account.
+   - Enter the **Account Name** by which you'd like to identify this Google Cloud
+     account in JupiterOne. Ingested entities will have this value stored in
+     `tag.AccountName` when **Tag with Account Name** is checked.
 
-4.  Click **Create Configuration** once all values are provided.
+   - Enter a **Description** that will further assist your team when identifying
+     the integration instance.
+
+   - Select a **Polling Interval** that you feel is sufficient for your monitoring
+     needs. You may leave this as `DISABLED` and manually execute the integration.
+
+   - Enter the **Service Account Key File** contents of the Google Cloud service
+     account.
+
+   - Add any tags you want to use to simplify data management and queries.
+
+4. Optionally, enter a project ID to target for data ingestion. The default is the project ID specified in the service account key file. 
+
+5. Select **Configure Organization Projects** if you want J1 to auto-configure sub-accounts in your organization. J1 applies the configuration to all other instances that do not have optional `j1-integration: SKIP` tag applied to the sub-account in your infrastructure-as-code. Do not use the optional project ID if you want to use this feature. 
+
+6. Optionally, enter a numerical folder ID if you want to specify that J1 is to only ingest projects and subfolders in a specific folder. If you have enabled **Configure Organization Projects**, J1 only auto-configures projects in this specified folder.
+
+4.  Click **Create** after you have provided all the configuration values.
 
 ## How to Uninstall
 
