@@ -416,6 +416,7 @@ declare global {
   }
 }
 
+/* eslint-disable no-console */
 expect.extend({
   toCreateValidRelationshipsToEntities(
     mappedRelationships: MappedRelationship[],

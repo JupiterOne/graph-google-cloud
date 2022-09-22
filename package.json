@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@jupiterone/integration-sdk-core": "^8.22.2",
-    "@jupiterone/integration-sdk-dev-tools": "^8.22.2",
+    "@jupiterone/integration-sdk-dev-tools": "^8.24.1",
     "@jupiterone/integration-sdk-testing": "^8.22.2",
     "@types/bunyan": "^1.8.6",
     "@types/bunyan-format": "^0.2.3",
