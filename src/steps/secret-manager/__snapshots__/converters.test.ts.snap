@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createSecretEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Group",
+  ],
+  "_key": "sample-secret-name",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "createTime": "2022-08-10T13:39:10.097472Z",
+        "name": "sample-secret-name",
+      },
+    },
+  ],
+  "_type": "google_secret_manager_secret",
+  "automaticReplicationKmsKeyName": undefined,
+  "createdAt": 1660138750097,
+  "createdOn": undefined,
+  "displayName": "sample-secret-name",
+  "expiresAt": undefined,
+  "name": "sample-secret-name",
+  "nextRotationTime": undefined,
+  "rotationPeriod": undefined,
+  "topicNames": undefined,
+  "ttl": undefined,
+}
+`;
+
+exports[`#createSecretVersionEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Group",
+  ],
+  "_key": "projects/j1-gc-integration-dev-v3/secrets/sample-secret-name/versions/1",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "createTime": "2022-08-10T14:19:20.840979Z",
+        "name": "projects/j1-gc-integration-dev-v3/secrets/sample-secret-name/versions/1",
+        "state": "ENABLED",
+      },
+    },
+  ],
+  "_type": "google_secret_manager_secret",
+  "automaticReplicationKmsKeyName": undefined,
+  "createdAt": 1660141160840,
+  "createdOn": undefined,
+  "displayName": "projects/j1-gc-integration-dev-v3/secrets/sample-secret-name/versions/1",
+  "expiresAt": undefined,
+  "name": "projects/j1-gc-integration-dev-v3/secrets/sample-secret-name/versions/1",
+  "nextRotationTime": undefined,
+  "rotationPeriod": undefined,
+  "topicNames": undefined,
+  "ttl": undefined,
+}
+`;

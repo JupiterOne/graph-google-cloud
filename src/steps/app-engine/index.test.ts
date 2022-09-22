@@ -9,6 +9,7 @@ import {
 import { integrationConfig } from '../../../test/config';
 import { Recording, setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
+import { fetchStorageBuckets } from '../storage';
 import {
   ENTITY_TYPE_APP_ENGINE_APPLICATION,
   ENTITY_TYPE_APP_ENGINE_INSTANCE,
@@ -20,7 +21,6 @@ import {
   RELATIONSHIP_TYPE_APP_ENGINE_VERSION_HAS_INSTANCE,
   RELATIONSHIP_TYPE_GOOGLE_USER_CREATED_VERSION,
 } from './constants';
-import { fetchStorageBuckets } from '../storage';
 
 const tempNewAccountConfig = {
   ...integrationConfig,
@@ -89,6 +89,7 @@ describe('#fetchAppEngineApplication', () => {
           splitHealthChecks: { type: 'boolean' },
           useContainerOptimizedOs: { type: 'boolean' },
           webLink: { type: 'string' },
+          hostname: { type: ['string', 'null'] },
         },
       },
     });
@@ -197,6 +198,7 @@ describe('#fetchAppEngineServices', () => {
           splitHealthChecks: { type: 'boolean' },
           useContainerOptimizedOs: { type: 'boolean' },
           webLink: { type: 'string' },
+          hostname: { type: ['string', 'null'] },
         },
       },
     });
@@ -470,6 +472,7 @@ describe('#fetchAppEngineInstances', () => {
           vmIp: { type: 'string' },
           vmLiveness: { type: 'string' },
           createdOn: { type: 'number' },
+          hostname: { type: ['string', 'null'] },
         },
       },
     });

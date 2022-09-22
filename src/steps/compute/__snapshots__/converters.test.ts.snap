@@ -146,6 +146,7 @@ Object {
   "purpose": undefined,
   "status": "RESERVED",
   "subnetwork": undefined,
+  "users": undefined,
   "webLink": "https://console.cloud.google.com/networking/addresses/list?project=j1-gc-integration-dev-v2",
 }
 `;
@@ -191,6 +192,7 @@ Object {
   "purpose": "PRIVATE_SERVICE_CONNECT",
   "status": "RESERVED",
   "subnetwork": undefined,
+  "users": undefined,
   "webLink": "https://console.cloud.google.com/networking/addresses/list?project=j1-gc-integration-dev-v2",
 }
 `;
@@ -238,6 +240,9 @@ Object {
   "purpose": undefined,
   "status": "RESERVED",
   "subnetwork": undefined,
+  "users": Array [
+    "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/instance-custom-image",
+  ],
   "webLink": "https://console.cloud.google.com/networking/addresses/list?project=j1-gc-integration-dev-v2",
 }
 `;
@@ -285,6 +290,9 @@ Object {
   "purpose": undefined,
   "status": "RESERVED",
   "subnetwork": undefined,
+  "users": Array [
+    "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/instance-custom-image",
+  ],
   "webLink": "https://console.cloud.google.com/networking/addresses/list?project=j1-gc-integration-dev-v2",
 }
 `;
@@ -832,7 +840,7 @@ Object {
   "deletionProtection": false,
   "displayName": "testvm",
   "fingerprint": "4gmEF7tlfn8=",
-  "hostname": undefined,
+  "hostname": null,
   "id": "2248191918776890954",
   "integrityMonitoringEnabled": false,
   "isOSLoginEnabled": false,
@@ -891,7 +899,7 @@ Object {
   "deletionProtection": false,
   "displayName": "testvm",
   "fingerprint": "4gmEF7tlfn8=",
-  "hostname": undefined,
+  "hostname": null,
   "id": "2248191918776890954",
   "integrityMonitoringEnabled": false,
   "isOSLoginEnabled": false,
@@ -950,7 +958,7 @@ Object {
   "deletionProtection": false,
   "displayName": "testvm",
   "fingerprint": "4gmEF7tlfn8=",
-  "hostname": undefined,
+  "hostname": null,
   "id": "2248191918776890954",
   "integrityMonitoringEnabled": false,
   "isOSLoginEnabled": false,
@@ -1010,7 +1018,7 @@ Object {
   "deletionProtection": false,
   "displayName": "testvm",
   "fingerprint": "4gmEF7tlfn8=",
-  "hostname": undefined,
+  "hostname": null,
   "id": "2248191918776890954",
   "integrityMonitoringEnabled": false,
   "isOSLoginEnabled": true,
