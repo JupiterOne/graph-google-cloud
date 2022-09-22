@@ -262,11 +262,11 @@ on the JupiterOne Google Cloud integration list page.
      account in JupiterOne. Ingested entities will have this value stored in
      `tag.AccountName` when **Add AccountName Tag** is enabled.
 
-   - Enter a **Description** that will further assist your team when identifying
+   - Enter a **Description** that will assist your team to identify
      the integration instance.
 
    - Select a **Polling Interval** that you feel is sufficient for your monitoring
-     needs. You may leave this as `DISABLED` and manually execute the integration.
+     needs. You can leave this as `DISABLED` and manually execute the integration.
 
    - Enter the **Service Account Key File** contents of the Google Cloud service
      account.
@@ -275,9 +275,9 @@ on the JupiterOne Google Cloud integration list page.
 
 4. Optionally, enter a project ID to target for data ingestion. The default is the project ID specified in the service account key file. 
 
-5. Select **Configure Organization Projects** if you want J1 to auto-configure sub-accounts in your organization. J1 applies the configuration to all other instances that do not have optional `j1-integration: SKIP` tag applied to the sub-account in your infrastructure-as-code. Do not use the optional project ID if you want to use this feature. 
+5. Select **Configure Organization Projects** if you want J1 to auto-configure all projects in your organization. J1 applies the configuration to all other projects that do not have optional `j1-integration: SKIP` tag applied to the project in your infrastructure-as-code. Do not use the optional project ID if you want to use this feature. 
 
-6. Optionally, enter a numerical folder ID if you want to specify that J1 is to only ingest projects and subfolders in a specific folder. If you have enabled **Configure Organization Projects**, J1 only auto-configures projects in this specified folder.
+6. Optionally, enter a numerical folder ID if you want to specify that J1 is to only ingest projects in a specific folder and any of its subfolders. If you have enabled **Configure Organization Projects**, J1 only auto-configures projects in this specified folder.
 
 4.  Click **Create** after you have provided all the configuration values.
 
