@@ -860,15 +860,6 @@
     upath "^1.2.0"
     vis "^4.21.0-EOL"
 
-"@jupiterone/integration-sdk-core@^8.22.2":
-  version "8.22.2"
-  resolved "https://registry.yarnpkg.com/@jupiterone/integration-sdk-core/-/integration-sdk-core-8.22.2.tgz#b355e583374ffef0001891269788482d4f5eabcf"
-  integrity sha512-EmTTawsTThjYgnGYDstSXp6i87o/Hlr+hIT/zvPdWfYQBvGLbQ/SLNd6DaGlZjjpdxPvFlXHnkE8ZweOT/1JZg==
-  dependencies:
-    "@jupiterone/data-model" "^0.51.0"
-    lodash "^4.17.21"
-    uuid "^8.3.2"
-
 "@jupiterone/integration-sdk-core@^8.24.1":
   version "8.24.1"
   resolved "https://registry.yarnpkg.com/@jupiterone/integration-sdk-core/-/integration-sdk-core-8.24.1.tgz#4b2c634dd2bebdc8357f91c839decee22c3d4aee"
@@ -900,29 +891,6 @@
     ts-node "^9.1.1"
     typescript "^4.2.4"
 
-"@jupiterone/integration-sdk-runtime@^8.22.2":
-  version "8.22.2"
-  resolved "https://registry.yarnpkg.com/@jupiterone/integration-sdk-runtime/-/integration-sdk-runtime-8.22.2.tgz#535ac36f993f9fc5be05fc4dad178a48d5160ad1"
-  integrity sha512-raZEfF6AWaVxp7UokqeJbp+xBj0X5fOWKE8gx5uew6jdN+HhqHMk1OvRSKc12vAHvP1mJLd8FQqCliEbw/Nnlg==
-  dependencies:
-    "@jupiterone/integration-sdk-core" "^8.22.2"
-    "@lifeomic/alpha" "^1.4.0"
-    "@lifeomic/attempt" "^3.0.3"
-    async-sema "^3.1.0"
-    axios "^0.21.1"
-    bunyan "^1.8.12"
-    bunyan-format "^0.2.1"
-    dependency-graph "^0.9.0"
-    dotenv "^8.2.0"
-    dotenv-expand "^5.1.0"
-    get-folder-size "^2.0.1"
-    globby "^11.0.0"
-    lodash "^4.17.15"
-    p-map "^4.0.0"
-    p-queue "^6.3.0"
-    rimraf "^3.0.2"
-    uuid "^7.0.3"
-
 "@jupiterone/integration-sdk-runtime@^8.24.1":
   version "8.24.1"
   resolved "https://registry.yarnpkg.com/@jupiterone/integration-sdk-runtime/-/integration-sdk-runtime-8.24.1.tgz#1173ca57f12617d66b4937f3fd42a6bbfbfb96d9"
@@ -945,19 +913,6 @@
     p-queue "^6.3.0"
     rimraf "^3.0.2"
     uuid "^7.0.3"
-
-"@jupiterone/integration-sdk-testing@^8.22.2":
-  version "8.22.2"
-  resolved "https://registry.yarnpkg.com/@jupiterone/integration-sdk-testing/-/integration-sdk-testing-8.22.2.tgz#fa2487ebbe7515f6dbe74e1a6d519faa8b614b87"
-  integrity sha512-mHZpH3kJc2m/R1dRt0Rfj9o5mzVg/6nCx2AlYnxX3TEC0Vr3R917a8KOCkg1tk46B/1ccyVToy+iCePJz58gbw==
-  dependencies:
-    "@jupiterone/integration-sdk-core" "^8.22.2"
-    "@jupiterone/integration-sdk-runtime" "^8.22.2"
-    "@pollyjs/adapter-node-http" "^6.0.5"
-    "@pollyjs/core" "^6.0.5"
-    "@pollyjs/persister-fs" "^6.0.5"
-    deepmerge "^4.2.2"
-    lodash "^4.17.15"
 
 "@jupiterone/integration-sdk-testing@^8.24.1":
   version "8.24.1"
