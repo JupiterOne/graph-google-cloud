@@ -6,7 +6,7 @@ import { iterateRegions, iterateRegionZones } from '../../google-cloud/regions';
 export class ComputeClient extends Client {
   private client = google.compute({ version: 'v1', retry: false });
 
-  private async iterateComputeApi<T extends { nextPageToken?: string | null }>(
+  private async iterateComputeApi<T>(
     fn: (params: {
       auth: BaseExternalAccountClient;
       zone: string;

@@ -79,7 +79,14 @@ describe('withErrorHandling', () => {
     projectId: 'projectId',
     serviceAccountKeyConfig: { project_id: 'serviceAccountProjectId' },
   } as unknown as IntegrationConfig;
-  const client = new Client({ config });
+
+  let client;
+  let onRetry;
+
+  beforeEach(() => {
+    onRetry = jest.fn();
+    client = new Client({ config, onRetry: onRetry });
+  });
 
   [IntegrationProviderAuthorizationError, IntegrationProviderAPIError].forEach(
     (J1Error) => {
@@ -110,10 +117,7 @@ describe('withErrorHandling', () => {
       .fn()
       .mockRejectedValue(new Error('Something esploded'));
 
-    const onRetry = jest.fn();
-    const handledFunction = client.withErrorHandling(executionHandler, {
-      onRetry,
-    });
+    const handledFunction = client.withErrorHandling(executionHandler);
 
     await expect(handledFunction).rejects.toThrow(IntegrationProviderAPIError);
 
@@ -139,10 +143,7 @@ describe('withErrorHandling', () => {
       .mockRejectedValueOnce(err)
       .mockImplementationOnce(() => Promise.resolve(['param1', 'param2']));
 
-    const onRetry = jest.fn();
-    const response = await client.withErrorHandling(executionHandler, {
-      onRetry,
-    });
+    const response = await client.withErrorHandling(executionHandler);
 
     expect(response).toEqual(['param1', 'param2']);
 
@@ -159,10 +160,7 @@ describe('withErrorHandling', () => {
       .mockRejectedValueOnce(err)
       .mockImplementationOnce(() => Promise.resolve(['param1', 'param2']));
 
-    const onRetry = jest.fn();
-    const response = await client.withErrorHandling(executionHandler, {
-      onRetry,
-    });
+    const response = await client.withErrorHandling(executionHandler);
 
     expect(response).toEqual(['param1', 'param2']);
 

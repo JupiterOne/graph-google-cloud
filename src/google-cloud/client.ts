@@ -46,6 +46,7 @@ export class Client {
 
   private credentials: CredentialBody;
   private auth: BaseExternalAccountClient;
+  private readonly onRetry?: (err: any) => void;
 
   constructor({ config, projectId, organizationId, onRetry }: ClientOptions) {
     this.projectId =
@@ -58,6 +59,7 @@ export class Client {
       private_key: config.serviceAccountKeyConfig.private_key,
     };
     this.folderId = config.folderId;
+    this.onRetry = onRetry;
   }
 
   private async getClient(): Promise<BaseExternalAccountClient> {
@@ -79,7 +81,7 @@ export class Client {
     return this.auth;
   }
 
-  async iterateApi<T extends { nextPageToken?: string | null }>(
+  async iterateApi<T>(
     fn: (nextPageToken?: string) => Promise<PageableGaxiosResponse<T>>,
     callback: (data: T) => Promise<void>,
   ) {
@@ -91,8 +93,8 @@ export class Client {
     });
   }
 
-  async forEachPage<T extends { data: { nextPageToken?: string | null } }>(
-    cb: (nextToken: string | undefined) => Promise<T>,
+  async forEachPage<T>(
+    cb: (nextToken: string | undefined) => Promise<PageableGaxiosResponse<T>>,
   ): Promise<any> {
     let nextToken: string | undefined;
     do {
@@ -103,10 +105,8 @@ export class Client {
     } while (nextToken);
   }
 
-  withErrorHandling<TResponse>(
-    fn: () => Promise<TResponse>,
-    options?: { onRetry: Function },
-  ) {
+  withErrorHandling<T>(fn: () => Promise<T>) {
+    const onRetry = this.onRetry;
     return retry(
       async () => {
         return await fn();
@@ -122,8 +122,8 @@ export class Client {
           if (!newError.retryable) {
             ctx.abort();
             throw newError;
-          } else if (options?.onRetry) {
-            options.onRetry(err);
+          } else if (onRetry) {
+            onRetry(err);
           }
         },
       },
