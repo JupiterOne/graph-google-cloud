@@ -26,7 +26,7 @@ export const buildSteps: StepSpec<IntegrationInstanceConfig>[] = [
   },
   {
     /**
-     * PROPERTY: google_cloud_build.source.storageSource
+     * PROPERTY: google_cloud_build.source.storageSource.bucket
      * PATTERN: Build Child Relationships
      */
     id: 'build-cloud-build-uses-storage-bucket-relationships',
@@ -45,7 +45,7 @@ export const buildSteps: StepSpec<IntegrationInstanceConfig>[] = [
   },
   {
     /**
-     * PROPERTY: google_cloud_build.source.repoSource
+     * PROPERTY: google_cloud_build.source.repoSource.repoName
      * PATTERN: Build Child Relationships
      */
     id: 'build-cloud-build-uses-source-repo-relationships',
