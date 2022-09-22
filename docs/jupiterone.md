@@ -279,7 +279,7 @@ on the JupiterOne Google Cloud integration list page.
 
 6. Optionally, enter a numerical folder ID if you want to specify that J1 is to only ingest projects in a specific folder and any of its subfolders. If you have enabled **Configure Organization Projects**, J1 only auto-configures projects in this specified folder.
 
-4.  Click **Create** after you have provided all the configuration values.
+7.  Click **Create** after you have provided all the configuration values.
 
 ## How to Uninstall
 
