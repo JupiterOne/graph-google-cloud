@@ -242,9 +242,9 @@ File" field.
 instances will be the same polling interval that is used for each of the child
 integration instances.
 
-1.  Check the "Configure Organization Projects" checkbox
+1.  Select the "Configure Organization Projects" checkbox.
 2.  Place the numerical value of the Google Cloud organization into the
-    "Organization ID" text field (e.g. "1234567890")
+    "Organization ID" text field (e.g. "1234567890").
 3.  Click `CREATE CONFIGURATION`.
 
 **NOTE**: Depending on how many projects exist under a Google Cloud
@@ -260,7 +260,7 @@ on the JupiterOne Google Cloud integration list page.
 
    - Enter the **Account Name** by which you'd like to identify this Google Cloud
      account in JupiterOne. Ingested entities will have this value stored in
-     `tag.AccountName` when **Tag with Account Name** is checked.
+     `tag.AccountName` when **Add AccountName Tag** is enabled.
 
    - Enter a **Description** that will further assist your team when identifying
      the integration instance.
