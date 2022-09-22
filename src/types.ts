@@ -23,6 +23,7 @@ export interface SerializedIntegrationConfig extends IntegrationInstanceConfig {
   projectId?: string;
   configureOrganizationProjects?: boolean;
   folderId?: string;
+  useEnablementsForStepStartStates?: boolean;
 }
 
 export interface IntegrationConfig extends SerializedIntegrationConfig {

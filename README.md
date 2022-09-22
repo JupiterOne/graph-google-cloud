@@ -76,6 +76,27 @@ More information about the resources covered by this integration and how to
 setup the integration in JupiterOne can be found in
 [docs/jupiterone.md](docs/jupiterone.md).
 
+### Versioning this project
+
+This project is versioned using [auto](https://intuit.github.io/auto/).
+
+Versioning and publishing to NPM are now handled via adding GitHub labels to
+pull requests. The following labels should be used for this process:
+
+- patch
+- minor
+- major
+- release
+
+For each pull request, the degree of change should be registered by applying the
+appropriate label of patch, minor, or major. This allows the repository to keep
+track of the highest degree of change since the last release. When ready to
+publish to NPM, the PR should have both its appropriate patch, minor, or major
+label applied as well as a release label. The release label will denote to the
+system that we need to publish to NPM and will correctly version based on the
+highest degree of change since the last release, package the project, and
+publish it to NPM.
+
 ### Changelog
 
 The history of this integration's development can be viewed at

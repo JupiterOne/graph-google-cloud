@@ -1,16 +1,60 @@
-# Changelog
+# v2.18.0 (Mon Sep 19 2022)
 
-All notable changes to this project will be documented in this file.
+#### 🚀 Enhancement
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to
-[Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+- Remove checkout code from old versioning method [#543](https://github.com/JupiterOne/graph-google-cloud/pull/543) ([@Nick-NCSU](https://github.com/Nick-NCSU))
 
-## Unreleased
+#### Authors: 1
+
+- Nick Thompson ([@Nick-NCSU](https://github.com/Nick-NCSU))
+
+---
+
+# v2.17.2 (Mon Sep 19 2022)
+
+#### 🐛 Bug Fix
+
+- Add step: build-cloud-build-trigger-uses-github-repo-relationships [#542](https://github.com/JupiterOne/graph-google-cloud/pull/542) ([@i5o](https://github.com/i5o))
+- INT-5289 step: build-cloud-build-uses-source-repo-relationships [#541](https://github.com/JupiterOne/graph-google-cloud/pull/541) ([@i5o](https://github.com/i5o))
+
+#### Authors: 1
+
+- Ignacio Rodríguez ([@i5o](https://github.com/i5o))
+
+---
+
+# v2.17.1 (Wed Sep 07 2022)
+
+#### 🐛 Bug Fix
+
+- Add auto versioning [#529](https://github.com/JupiterOne/graph-google-cloud/pull/529) ([@Nick-NCSU](https://github.com/Nick-NCSU))
+- INT-4507 - Add `users` property to compute address entities [#535](https://github.com/JupiterOne/graph-google-cloud/pull/535) ([@austinkelleher](https://github.com/austinkelleher))
+
+#### Authors: 2
+
+- Austin Kelleher ([@austinkelleher](https://github.com/austinkelleher))
+- Nick Thompson ([@Nick-NCSU](https://github.com/Nick-NCSU))
+
+---
+
+## 2.17.0 - 2022-08-26
+
+### Added
+
+- Support the following new entities:
+  - `google_cloud_build_trigger`
+
+## 2.16.0 - 2022-08-25
 
 ### Added
 
 - Support for new GCP compute regions
+- Support optional `config.useEnablementsForStepStartStates` to call
+  listEnablements API before attempting to make API calls for all services
+- Support the following new entities:
+  - `google_cloud_secret`
+  - `google_cloud_secret_version`
+  - `google_cloud_build`
 
 ### Changed
 

@@ -641,6 +641,10 @@ describe('#fetchComputeAddresses', () => {
           network: { type: 'string' },
           networkTier: { type: 'string' },
           subnetwork: { type: 'string' },
+          users: {
+            type: 'array',
+            items: { type: 'string' },
+          },
           createdOn: { type: 'number' },
           webLink: { type: 'string' },
         },
@@ -760,6 +764,10 @@ describe('#fetchComputeGlobalAddresses', () => {
           network: { type: 'string' },
           networkTier: { type: 'string' },
           subnetwork: { type: 'string' },
+          users: {
+            type: 'array',
+            items: { type: 'string' },
+          },
           createdOn: { type: 'number' },
           webLink: { type: 'string' },
         },
