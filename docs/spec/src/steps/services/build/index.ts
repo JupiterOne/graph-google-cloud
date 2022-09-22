@@ -122,28 +122,6 @@ export const buildSteps: StepSpec<IntegrationInstanceConfig>[] = [
   },
   {
     /**
-     * PROPERTY: google_cloud_bitbucket_server_config.hostUri
-     * PATTERN: Build Child Relationships
-     */
-    id: 'build-cloud-build-bb-config-account-relationships',
-    name: 'Build Cloud Build BitBucket Config -> BitBucket Relationships',
-    entities: [],
-    relationships: [],
-    mappedRelationships: [
-      {
-        _type:
-          'google_cloud_bitbucket_server_config_connects_bitbucket_project',
-        sourceType: 'google_cloud_bitbucket_server_config',
-        _class: RelationshipClass.CONNECTS,
-        targetType: 'bitbucket_project',
-        direction: RelationshipDirection.FORWARD,
-      },
-    ],
-    dependsOn: ['fetch-cloud-build-bb-configs'],
-    implemented: false,
-  },
-  {
-    /**
      * ENDPOINT: https://cloud.google.com/build/docs/api/reference/rest/v1/projects.locations.bitbucketServerConfigs.repos/list
      * PATTERN: Fetch Child Entities
      * REQUIRED PERMISSIONS: ???
@@ -167,27 +145,6 @@ export const buildSteps: StepSpec<IntegrationInstanceConfig>[] = [
     ],
     dependsOn: ['fetch-cloud-build-bb-configs'],
     implemented: true,
-  },
-  {
-    /**
-     * PROPERTY: google_cloud_bitbucket_server_repo.repoId
-     * PATTERN: Build Child Relationships
-     */
-    id: 'fetch-cloud-build-bb-repos-relationships',
-    name: 'Cloud Build BitBucket Repo -> BitBucket Relationships',
-    entities: [],
-    relationships: [],
-    mappedRelationships: [
-      {
-        _type: 'google_cloud_bitbucket_server_repo_watches_bitbucket_repo',
-        sourceType: 'google_cloud_bitbucket_server_repo',
-        _class: RelationshipClass.MONITORS,
-        targetType: 'bitbucket_repo',
-        direction: RelationshipDirection.FORWARD,
-      },
-    ],
-    dependsOn: ['fetch-cloud-build-bb-repos'],
-    implemented: false,
   },
   {
     /**
