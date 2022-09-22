@@ -166,7 +166,8 @@ See the
 [Google Cloud custom role documentation](https://cloud.google.com/iam/docs/creating-custom-roles#creating_a_custom_role)
 for additional information on how custom roles can be configured and assigned.
 
-NOTE: You may also create a service account using the [`gcloud` CLI](https://cloud.google.com/sdk/gcloud). There is documentation on 
+NOTE: You may also create a service account using the
+[`gcloud` CLI](https://cloud.google.com/sdk/gcloud). There is documentation on
 how to leverage the CLI in the
 [JupiterOne Google Cloud integration developer documentation](https://github.com/JupiterOne/graph-google-cloud/blob/master/docs/development.md).
 
@@ -198,9 +199,10 @@ integration instances for each of the projects.
 4.  Enable all service APIs in the "main" project and each "child" project that
     you'd like JupiterOne to access. Documentation for enabling service APIs is
     described in an earlier section of this document.
-    
-    **NOTE**: The "Cloud Asset" and "Identity and Access Management (IAM)"
-    APIs only need to be enabled in the "main" project.
+
+    **NOTE**: The "Cloud Asset" and "Identity and Access Management (IAM)" APIs
+    only need to be enabled in the "main" project.
+
 5.  Switch to the organization that you'd like to create individual integration
     instances for each project
 6.  [Create a new custom role](https://cloud.google.com/iam/docs/creating-custom-roles)
@@ -258,28 +260,37 @@ on the JupiterOne Google Cloud integration list page.
 2. Scroll to the **Google Cloud** integration tile and click it.
 3. Click the **Add Configuration** button and configure the following settings:
 
-   - Enter the **Account Name** by which you'd like to identify this Google Cloud
-     account in JupiterOne. Ingested entities will have this value stored in
-     `tag.AccountName` when **Add AccountName Tag** is enabled.
+   - Enter the **Account Name** by which you'd like to identify this Google
+     Cloud account in JupiterOne. Ingested entities will have this value stored
+     in `tag.AccountName` when **Add AccountName Tag** is enabled.
 
-   - Enter a **Description** that will assist your team to identify
-     the integration instance.
+   - Enter a **Description** that will assist your team to identify the
+     integration instance.
 
-   - Select a **Polling Interval** that you feel is sufficient for your monitoring
-     needs. You can leave this as `DISABLED` and manually execute the integration.
+   - Select a **Polling Interval** that you feel is sufficient for your
+     monitoring needs. You can leave this as `DISABLED` and manually execute the
+     integration.
 
    - Enter the **Service Account Key File** contents of the Google Cloud service
      account.
 
    - Add any tags you want to use to simplify data management and queries.
 
-4. Optionally, enter a project ID to target for data ingestion. The default is the project ID specified in the service account key file. 
+4. Optionally, enter a project ID to target for data ingestion. The default is
+   the project ID specified in the service account key file.
 
-5. Select **Configure Organization Projects** if you want J1 to auto-configure all projects in your organization. J1 applies the configuration to all other projects that do not have optional `j1-integration: SKIP` tag applied to the project in your infrastructure-as-code. Do not use the optional project ID if you want to use this feature. 
+5. Select **Configure Organization Projects** if you want J1 to auto-configure
+   all projects in your organization. J1 applies the configuration to all other
+   projects that do not have optional `j1-integration: SKIP` tag applied to the
+   project in your infrastructure-as-code. Do not use the optional project ID if
+   you want to use this feature.
 
-6. Optionally, enter a numerical folder ID if you want to specify that J1 is to only ingest projects in a specific folder and any of its subfolders. If you have enabled **Configure Organization Projects**, J1 only auto-configures projects in this specified folder.
+6. Optionally, enter a numerical folder ID if you want to specify that J1 is to
+   only ingest projects in a specific folder and any of its subfolders. If you
+   have enabled **Configure Organization Projects**, J1 only auto-configures
+   projects in this specified folder.
 
-7.  Click **Create** after you have provided all the configuration values.
+7. Click **Create** after you have provided all the configuration values.
 
 ## How to Uninstall
 

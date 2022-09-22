@@ -1,3 +1,4 @@
+import { invocationConfig as specConfig } from '../docs/spec/src/index';
 import {
   Entity,
   IntegrationValidationError,
@@ -975,4 +976,8 @@ expect.extend({
       pass: true,
     };
   },
+});
+
+test('implemented integration should match spec', () => {
+  expect(invocationConfig).toImplementSpec(specConfig);
 });
