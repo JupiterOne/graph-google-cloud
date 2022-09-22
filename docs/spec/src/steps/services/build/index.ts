@@ -12,17 +12,16 @@ export const buildSteps: StepSpec<IntegrationInstanceConfig>[] = [
      * REQUIRED PERMISSIONS: cloudbuild.builds.list
      */
     id: 'fetch-cloud-builds',
-    name: 'Cloud Builds',
+    name: 'Fetch Cloud Builds',
     entities: [
       {
         resourceName: 'Cloud Build',
         _type: 'google_cloud_build',
-        _class: 'Workflow',
+        _class: ['Workflow'],
       },
     ],
     relationships: [],
-    dependsOn: [],
-    implemented: false,
+    implemented: true,
   },
   {
     /**
@@ -31,17 +30,16 @@ export const buildSteps: StepSpec<IntegrationInstanceConfig>[] = [
      * REQUIRED PERMISSIONS: cloudbuild.integrations.list
      */
     id: 'fetch-cloud-build-ghe-configs',
-    name: 'Cloud Build GitHub Enterprise Configs',
+    name: 'Fetch Cloud Build GitHub Enterprise Configs',
     entities: [
       {
         resourceName: 'Cloud Build GitHub Enterprise Config',
         _type: 'google_cloud_github_enterprise_config',
-        _class: 'Configuration',
+        _class: ['Configuration'],
       },
     ],
     relationships: [],
-    dependsOn: [],
-    implemented: false,
+    implemented: true,
   },
   {
     /**
@@ -51,17 +49,16 @@ export const buildSteps: StepSpec<IntegrationInstanceConfig>[] = [
      * NOTE: Make sure to redact `apiKey` and `webhookKey`
      */
     id: 'fetch-cloud-build-bb-configs',
-    name: 'Cloud Build BitBucket Server Configs',
+    name: 'Fetch Cloud Build BitBucket Server Configs',
     entities: [
       {
         resourceName: 'Cloud Build BitBucket Server Config',
         _type: 'google_cloud_bitbucket_server_config',
-        _class: 'Configuration',
+        _class: ['Configuration'],
       },
     ],
     relationships: [],
-    dependsOn: [],
-    implemented: false,
+    implemented: true,
   },
   {
     /**
@@ -70,12 +67,12 @@ export const buildSteps: StepSpec<IntegrationInstanceConfig>[] = [
      * REQUIRED PERMISSIONS: ???
      */
     id: 'fetch-cloud-build-bb-repos',
-    name: 'Cloud Build BitBucket Server Repos',
+    name: 'Fetch Cloud Build BitBucket Server Repos',
     entities: [
       {
         resourceName: 'Cloud Build BitBucket Server Repo',
         _type: 'google_cloud_bitbucket_server_repo',
-        _class: 'CodeRepo',
+        _class: ['CodeRepo'],
       },
     ],
     relationships: [
@@ -87,7 +84,7 @@ export const buildSteps: StepSpec<IntegrationInstanceConfig>[] = [
       },
     ],
     dependsOn: ['fetch-cloud-build-bb-configs'],
-    implemented: false,
+    implemented: true,
   },
   {
     /**
@@ -96,17 +93,16 @@ export const buildSteps: StepSpec<IntegrationInstanceConfig>[] = [
      * REQUIRED PERMISSIONS: cloudbuilds.builds.list
      */
     id: 'fetch-cloud-build-triggers',
-    name: 'Cloud Build Triggers',
+    name: 'Fetch Cloud Build Triggers',
     entities: [
       {
         resourceName: 'Cloud Build Trigger',
         _type: 'google_cloud_build_trigger',
-        _class: 'Rule',
+        _class: ['Rule'],
       },
     ],
     relationships: [],
-    dependsOn: [],
-    implemented: false,
+    implemented: true,
   },
   {
     /**
@@ -115,16 +111,15 @@ export const buildSteps: StepSpec<IntegrationInstanceConfig>[] = [
      * REQUIRED PERMISSIONS: cloudbuild.workerpools.list
      */
     id: 'fetch-cloud-build-worker-pools',
-    name: 'Cloud Build Worker Pools',
+    name: 'Fetch Cloud Build Worker Pools',
     entities: [
       {
         resourceName: 'Cloud Build Worker Pool',
         _type: 'google_cloud_build_worker_pool',
-        _class: 'Cluster',
+        _class: ['Cluster'],
       },
     ],
     relationships: [],
-    dependsOn: [],
-    implemented: false,
+    implemented: true,
   },
 ];
