@@ -140,6 +140,7 @@ export function createAppEngineInstanceEntity(
         vmIp: data.vmIp,
         vmLiveness: data.vmLiveness,
         createdOn: parseTimePropertyValue(data.startTime),
+        hostname: null,
       },
     },
   });

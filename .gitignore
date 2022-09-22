@@ -10,3 +10,4 @@ main.remote.tf
 .DS_Store
 .idea/
 .j1-integration-cache
+.npmrc

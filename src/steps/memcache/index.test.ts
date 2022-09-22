@@ -86,6 +86,7 @@ describe('#fetchMemcacheInstances', () => {
           createdOn: { type: 'number' },
           updatedOn: { type: 'number' },
           webLink: { type: 'string' },
+          hostname: { type: ['string', 'null'] },
         },
       },
     });
