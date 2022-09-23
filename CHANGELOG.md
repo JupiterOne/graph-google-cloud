@@ -1,3 +1,17 @@
+# v2.18.1 (Fri Sep 23 2022)
+
+#### 🐛 Bug Fix
+
+- INT-5579 Decouple `iterateApi` into `forEachPage` and `withErrorHandling` [#546](https://github.com/JupiterOne/graph-google-cloud/pull/546) ([@i5o](https://github.com/i5o))
+- Fix build spec properties [#549](https://github.com/JupiterOne/graph-google-cloud/pull/549) ([@ndowmon](https://github.com/ndowmon))
+
+#### Authors: 2
+
+- Ignacio Rodríguez ([@i5o](https://github.com/i5o))
+- Nick Dowmon ([@ndowmon](https://github.com/ndowmon))
+
+---
+
 # v2.18.0 (Mon Sep 19 2022)
 
 #### 🚀 Enhancement
