@@ -11,6 +11,7 @@ import {
   ParsedServiceAccountKeyFile,
 } from '../src/utils/parseServiceAccountKeyFile';
 
+/* eslint-disable no-console */
 async function writeEnvFile(parsed: ParsedServiceAccountKeyFile) {
   const serialized = `SERVICE_ACCOUNT_KEY_FILE=${JSON.stringify(parsed)}`;
 

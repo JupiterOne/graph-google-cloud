@@ -45,6 +45,7 @@ import { CLOUD_FUNCTION_ENTITY_TYPE, fetchCloudFunctions } from '../functions';
 import { IAM_MANAGED_ROLES_DATA_JOB_STATE_KEY } from '../../utils/iam';
 import { fetchApiServices } from '../service-usage';
 
+/* eslint-disable no-console */
 expect.extend({
   toHaveOnlyDirectRelationships(
     collectedRelationships: Relationship[],
