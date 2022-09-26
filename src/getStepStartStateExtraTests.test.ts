@@ -2,6 +2,7 @@ import {
   createMockExecutionContext,
   Recording,
 } from '@jupiterone/integration-sdk-testing';
+import { validateStepStartStates } from '@jupiterone/integration-sdk-runtime/dist/src/execution/validation';
 import { IntegrationConfig, invocationConfig } from '.';
 import { integrationConfig } from '../test/config';
 import {
@@ -17,49 +18,6 @@ import {
   STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS,
 } from './steps/cloud-asset/constants';
 import { STEP_IAM_CUSTOM_ROLES, STEP_IAM_MANAGED_ROLES } from './steps/iam';
-import {
-  Step,
-  StepExecutionContext,
-  StepStartStates,
-  StepStartStateUnknownStepIdsError,
-  UnaccountedStepStartStatesError,
-} from '@jupiterone/integration-sdk-core';
-
-export function validateStepStartStates<
-  TStepExecutionContext extends StepExecutionContext,
->(steps: Step<TStepExecutionContext>[], stepStartStates: StepStartStates) {
-  const stepSet = new Set<string>(steps.map((step) => step.id));
-
-  const unknownStepIds: string[] = [];
-
-  Object.keys(stepStartStates).forEach((stepId) => {
-    if (!stepSet.has(stepId)) {
-      unknownStepIds.push(stepId);
-    }
-
-    stepSet.delete(stepId);
-  });
-
-  if (unknownStepIds.length) {
-    const unknownStepIdsString = unknownStepIds
-      .map((stepId) => `"${stepId}"`)
-      .join(', ');
-
-    throw new StepStartStateUnknownStepIdsError(
-      `Unknown steps found in start states: ${unknownStepIdsString}`,
-    );
-  }
-
-  if (stepSet.size > 0) {
-    const unaccountedStepIdsString = [...stepSet]
-      .map((stepId) => `"${stepId}"`)
-      .join(', ');
-
-    throw new UnaccountedStepStartStatesError(
-      `Start states not found for: ${unaccountedStepIdsString}`,
-    );
-  }
-}
 
 /**
  * NOTE: This test needs to be seperated from the other getStepStartState tests it needs to run with another project context.
