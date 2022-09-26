@@ -32,5 +32,5 @@ async function writeEnvFile(parsed: ParsedServiceAccountKeyFile) {
 
   await writeEnvFile(parseServiceAccountKeyFile(serviceAccountKeyFile));
 })().catch((err) => {
-  console.error(err, 'Error creating .env file');
+  console.error(err, 'Error creating .env file'); // eslint-disable-line no-console
 });
