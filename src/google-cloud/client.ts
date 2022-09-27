@@ -1,14 +1,14 @@
-import { IntegrationConfig } from '../types';
-import { google } from 'googleapis';
-import { CredentialBody, BaseExternalAccountClient } from 'google-auth-library';
-import { GaxiosResponse } from 'gaxios';
 import {
-  IntegrationProviderAuthorizationError,
-  IntegrationProviderAPIError,
   IntegrationError,
+  IntegrationProviderAPIError,
+  IntegrationProviderAuthorizationError,
 } from '@jupiterone/integration-sdk-core';
-import { createErrorProps } from './utils/createErrorProps';
 import { retry } from '@lifeomic/attempt';
+import { GaxiosResponse } from 'gaxios';
+import { BaseExternalAccountClient, CredentialBody } from 'google-auth-library';
+import { google } from 'googleapis';
+import { IntegrationConfig } from '../types';
+import { createErrorProps } from './utils/createErrorProps';
 // import { GoogleCloudServiceApiDisabledError } from './errors';
 
 export interface ClientOptions {
@@ -38,21 +38,6 @@ export type PageableGaxiosResponse<T> = GaxiosResponse<
 export type IterateApiOptions = {
   onRetry?: (err: any) => void;
 };
-
-export async function iterateApi<T>(
-  fn: (nextPageToken?: string) => Promise<PageableGaxiosResponse<T>>,
-  callback: (data: T) => Promise<void>,
-  options?: IterateApiOptions,
-) {
-  let nextPageToken: string | undefined;
-
-  do {
-    const wrappedFn = withErrorHandling(fn, options);
-    const result = await wrappedFn(nextPageToken);
-    nextPageToken = result.data.nextPageToken || undefined;
-    await callback(result.data);
-  } while (nextPageToken);
-}
 
 export class Client {
   readonly projectId: string;
@@ -100,24 +85,31 @@ export class Client {
     fn: (nextPageToken?: string) => Promise<PageableGaxiosResponse<T>>,
     callback: (data: T) => Promise<void>,
   ) {
-    return iterateApi(fn, callback, {
-      onRetry: this.onRetry,
+    return this.forEachPage(async (nextPageToken) => {
+      const result = await this.withErrorHandling(() => fn(nextPageToken));
+      await callback(result.data);
+
+      return result;
     });
   }
-}
 
-export type WithErrorHandlingOptions = {
-  onRetry?: (err: any) => void;
-};
+  async forEachPage<T>(
+    cb: (nextToken: string | undefined) => Promise<PageableGaxiosResponse<T>>,
+  ): Promise<any> {
+    let nextToken: string | undefined;
+    do {
+      const response = await cb(nextToken);
+      nextToken = response.data.nextPageToken
+        ? response.data.nextPageToken
+        : undefined;
+    } while (nextToken);
+  }
 
-export function withErrorHandling<T extends (...params: any) => any>(
-  fn: T,
-  options?: WithErrorHandlingOptions,
-) {
-  return async (...params: any) => {
+  withErrorHandling<T>(fn: () => Promise<T>) {
+    const onRetry = this.onRetry;
     return retry(
       async () => {
-        return await fn(...params);
+        return await fn();
       },
       {
         delay: 2_000,
@@ -130,13 +122,13 @@ export function withErrorHandling<T extends (...params: any) => any>(
           if (!newError.retryable) {
             ctx.abort();
             throw newError;
-          } else if (options?.onRetry) {
-            options.onRetry(err);
+          } else if (onRetry) {
+            onRetry(err);
           }
         },
       },
     );
-  };
+  }
 }
 
 /**

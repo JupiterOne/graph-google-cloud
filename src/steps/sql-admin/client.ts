@@ -17,7 +17,7 @@ export class SQLAdminClient extends Client {
           pageToken: nextPageToken,
         });
       },
-      async (data: sqladmin_v1beta4.Schema$DatabasesListResponse) => {
+      async (data: sqladmin_v1beta4.Schema$InstancesListResponse) => {
         for (const sqlInstance of data.items || []) {
           await callback(sqlInstance);
         }
