@@ -52,7 +52,7 @@ export class IamClient extends Client {
   }
 
   async iterateManagedRoles(
-    callback: (data: iam_v1.Schema$Role) => Promise<void>,
+    callback: (data: iam_v1.Schema$Role) => void | Promise<void>,
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
 
