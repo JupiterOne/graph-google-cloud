@@ -23,7 +23,7 @@
     "format": "prettier --write '**/*.{ts,js,json,css,md,yml}'",
     "type-check": "tsc",
     "test:env": "LOAD_ENV=1 yarn test",
-    "test": "yarn validate:questions:dry && yarn jest",
+    "test": "yarn validate:questions:dry && NODE_OPTIONS='--max-old-space-size=2048' yarn jest",
     "test:ci": "yarn lint && yarn type-check && yarn test",
     "build": "./build.sh",
     "prepush": "yarn lint && yarn type-check && jest --changedSince main",
