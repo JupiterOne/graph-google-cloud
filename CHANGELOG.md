@@ -1,3 +1,18 @@
+# v2.18.2 (Fri Sep 30 2022)
+
+#### 🐛 Bug Fix
+
+- Account for non-deterministic basic role permissions [#551](https://github.com/JupiterOne/graph-google-cloud/pull/551) ([@ndowmon](https://github.com/ndowmon) [@philidem](https://github.com/philidem))
+- Int 5556 dev tools 8.24.1 [#548](https://github.com/JupiterOne/graph-google-cloud/pull/548) ([@edreyer1](https://github.com/edreyer1))
+
+#### Authors: 3
+
+- Emily Dreyer ([@edreyer1](https://github.com/edreyer1))
+- Nick Dowmon ([@ndowmon](https://github.com/ndowmon))
+- Phillip Gates-Idem ([@philidem](https://github.com/philidem))
+
+---
+
 # v2.18.1 (Fri Sep 23 2022)
 
 #### 🐛 Bug Fix
