@@ -37,6 +37,9 @@ import {
   ServiceUsageStepIds,
 } from '../service-usage/constants';
 import { getServiceApiEntityKey } from '../service-usage/converters';
+import { ownerPermissions } from './basic-permissions/owner';
+import { viewerPermissions } from './basic-permissions/viewer';
+import { editorPermissions } from './basic-permissions/editor';
 
 export * from './constants';
 
@@ -168,49 +171,23 @@ export async function fetchIamManagedRoles(
   const client = new IamClient({ config: instance.config });
   const managedRoles: { [k: string]: iam_v1.Schema$Role } = {};
 
-  let ownerPermissions: string[] = [];
-  let editorPermissions: string[] = [];
-  let viewerPermissions: string[] = [];
   await client.iterateManagedRoles((role) => {
     if (role?.name) {
       managedRoles[role.name] = role;
+
+      /**
+       * We have learned that GCP basic roles have non-deterministic behavior on
+       * their listed permissions. We hard-code the permission set based on
+       * previously determined data
+       */
       if (role.name === 'roles/owner')
-        ownerPermissions = role.includedPermissions!;
+        role.includedPermissions = ownerPermissions;
       else if (role.name === 'roles/editor')
-        editorPermissions = role.includedPermissions!;
+        role.includedPermissions = editorPermissions;
       else if (role.name === 'roles/viewer')
-        viewerPermissions = role.includedPermissions!;
+        role.includedPermissions = viewerPermissions;
     }
   });
-
-  /**
-   * We have learned that GCP basic roles have non-deterministic behavior on
-   * their listed permissions. We hit the same endpoint multiple times to see if
-   * the response includes _additional_ permissions, always choosing the larger set.
-   */
-  for (let i = 0; i < (context.instance.config.isDev ? 0 : 5); i++) {
-    await client.iterateManagedRoles((role) => {
-      if (role.name === 'roles/owner') {
-        if (role.includedPermissions!.length > ownerPermissions.length) {
-          managedRoles[role.name].includedPermissions =
-            role.includedPermissions!;
-          ownerPermissions = role.includedPermissions!;
-        }
-      } else if (role.name === 'roles/editor') {
-        if (role.includedPermissions!.length > editorPermissions.length) {
-          managedRoles[role.name].includedPermissions =
-            role.includedPermissions!;
-          editorPermissions = role.includedPermissions!;
-        }
-      } else if (role.name === 'roles/viewer') {
-        if (role.includedPermissions!.length > viewerPermissions.length) {
-          managedRoles[role.name].includedPermissions =
-            role.includedPermissions!;
-          viewerPermissions = role.includedPermissions!;
-        }
-      }
-    });
-  }
 
   await jobState.setData(IAM_MANAGED_ROLES_DATA_JOB_STATE_KEY, managedRoles);
 }
