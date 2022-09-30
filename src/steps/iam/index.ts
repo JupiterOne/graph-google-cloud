@@ -37,6 +37,9 @@ import {
   ServiceUsageStepIds,
 } from '../service-usage/constants';
 import { getServiceApiEntityKey } from '../service-usage/converters';
+import { ownerPermissions } from './basic-permissions/owner';
+import { viewerPermissions } from './basic-permissions/viewer';
+import { editorPermissions } from './basic-permissions/editor';
 
 export * from './constants';
 
@@ -168,11 +171,22 @@ export async function fetchIamManagedRoles(
   const client = new IamClient({ config: instance.config });
   const managedRoles: { [k: string]: iam_v1.Schema$Role } = {};
 
-  await client.iterateManagedRoles(async (role) => {
+  await client.iterateManagedRoles((role) => {
     if (role?.name) {
       managedRoles[role.name] = role;
+
+      /**
+       * We have learned that GCP basic roles have non-deterministic behavior on
+       * their listed permissions. We hard-code the permission set based on
+       * previously determined data
+       */
+      if (role.name === 'roles/owner')
+        role.includedPermissions = ownerPermissions;
+      else if (role.name === 'roles/editor')
+        role.includedPermissions = editorPermissions;
+      else if (role.name === 'roles/viewer')
+        role.includedPermissions = viewerPermissions;
     }
-    return Promise.resolve();
   });
 
   await jobState.setData(IAM_MANAGED_ROLES_DATA_JOB_STATE_KEY, managedRoles);
