@@ -1,3 +1,20 @@
+# v2.19.0 (Wed Nov 02 2022)
+
+#### 🚀 Enhancement
+
+- feat(INT-5918): add cloud function source repo relationship [#553](https://github.com/JupiterOne/graph-google-cloud/pull/553) (gastonyelmini@MBP-de-Gaston.fibertel.com.ar)
+
+#### 🐛 Bug Fix
+
+- Int 5632 replace toCreateValidRelationshipsToEntities [#550](https://github.com/JupiterOne/graph-google-cloud/pull/550) ([@edreyer1](https://github.com/edreyer1))
+
+#### Authors: 2
+
+- Emily Dreyer ([@edreyer1](https://github.com/edreyer1))
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
 # v2.18.2 (Fri Sep 30 2022)
 
 #### 🐛 Bug Fix
