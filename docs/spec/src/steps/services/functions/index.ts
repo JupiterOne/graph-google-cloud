@@ -82,7 +82,7 @@ export const functionSteps: StepSpec<IntegrationInstanceConfig>[] = [
       },
     ],
     dependsOn: ['fetch-cloud-functions', 'fetch-cloud-source-repositories'],
-    implemented: false,
+    implemented: true,
   },
   {
     /**

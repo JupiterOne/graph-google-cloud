@@ -1287,6 +1287,9 @@ export function getMockCloudFunction(
     httpsTrigger: {
       url: 'https://us-central1-j1-gc-integration-dev-v2.cloudfunctions.net/j1-gc-integration-dev-v2testfunction',
     },
+    sourceRepository: {
+      url: 'https://source.developers.google.com/projects/j1-gc-integration-dev-v3/repos/gaston/moveable-aliases/master/paths/',
+    },
     status: 'ACTIVE',
     entryPoint: 'handler',
     timeout: '60s',

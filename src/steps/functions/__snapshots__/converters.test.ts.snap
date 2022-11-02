@@ -24,6 +24,9 @@ Object {
         "runtime": "nodejs10",
         "serviceAccountEmail": "j1-gc-integration-dev-v2@appspot.gserviceaccount.com",
         "sourceArchiveUrl": "gs://j1-gc-integration-dev-v2cloudfunctions/http_trigger.zip",
+        "sourceRepository": Object {
+          "url": "https://source.developers.google.com/projects/j1-gc-integration-dev-v3/repos/gaston/moveable-aliases/master/paths/",
+        },
         "status": "ACTIVE",
         "timeout": "60s",
         "updateTime": "2020-07-28T18:35:52.821Z",
@@ -43,6 +46,7 @@ Object {
   "name": "projects/j1-gc-integration-dev-v2/locations/us-central1/functions/j1-gc-integration-dev-v2testfunction",
   "runtime": "nodejs10",
   "serviceAccountEmail": "j1-gc-integration-dev-v2@appspot.gserviceaccount.com",
+  "sourceRepoUrl": "https://source.developers.google.com/projects/j1-gc-integration-dev-v3/repos/gaston/moveable-aliases/master/paths/",
   "status": "ACTIVE",
   "timeout": "60s",
   "updatedOn": 1595961352821,

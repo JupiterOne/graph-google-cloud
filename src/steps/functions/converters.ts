@@ -37,6 +37,7 @@ export function createCloudFunctionEntity(
         status: cloudFunction.status,
         active: cloudFunction.status === 'ACTIVE',
         serviceAccountEmail: cloudFunction.serviceAccountEmail,
+        sourceRepoUrl: cloudFunction.sourceRepository?.url,
       },
     },
   });

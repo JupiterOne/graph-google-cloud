@@ -1,31 +1,36 @@
 import {
   Recording,
   createMockStepExecutionContext,
+  StepTestConfig,
+  executeStepWithDependencies,
 } from '@jupiterone/integration-sdk-testing';
-import { setupGoogleCloudRecording } from '../../../test/recording';
+import {
+  setupGoogleCloudRecording,
+  getMatchRequestsBy,
+} from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
 import { fetchCloudFunctions } from '.';
 import { integrationConfig } from '../../../test/config';
 import {
   CLOUD_FUNCTION_ENTITY_CLASS,
   CLOUD_FUNCTION_ENTITY_TYPE,
+  FunctionStepsSpec,
 } from './constants';
+import { invocationConfig } from '../..';
 
 describe('#fetchCloudFunctions', () => {
   let recording: Recording;
-
-  beforeEach(() => {
-    recording = setupGoogleCloudRecording({
-      directory: __dirname,
-      name: 'fetchCloudFunctions',
-    });
-  });
 
   afterEach(async () => {
     await recording.stop();
   });
 
   test('should collect data', async () => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'fetchCloudFunctions',
+    });
+
     const context = createMockStepExecutionContext<IntegrationConfig>({
       instanceConfig: integrationConfig,
     });
@@ -56,4 +61,26 @@ describe('#fetchCloudFunctions', () => {
       ),
     );
   });
+
+  test(
+    FunctionStepsSpec.CLOUD_FUNCTIONS_SOURCE_REPO_RELATIONSHIP.id,
+    async () => {
+      recording = setupGoogleCloudRecording({
+        name: FunctionStepsSpec.CLOUD_FUNCTIONS_SOURCE_REPO_RELATIONSHIP.id,
+        directory: __dirname,
+        options: {
+          matchRequestsBy: getMatchRequestsBy(integrationConfig),
+        },
+      });
+
+      const stepTestConfig: StepTestConfig = {
+        stepId: FunctionStepsSpec.CLOUD_FUNCTIONS_SOURCE_REPO_RELATIONSHIP.id,
+        instanceConfig: integrationConfig,
+        invocationConfig: invocationConfig as any,
+      };
+
+      const result = await executeStepWithDependencies(stepTestConfig);
+      expect(result).toMatchStepMetadata(stepTestConfig);
+    },
+  );
 });
