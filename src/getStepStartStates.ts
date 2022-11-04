@@ -113,6 +113,7 @@ import {
   STEP_CLOUD_FUNCTIONS,
   STEP_CLOUD_FUNCTIONS_SERVICE_ACCOUNT_RELATIONSHIPS,
   STEP_CLOUD_FUNCTIONS_SOURCE_REPO_RELATIONSHIPS,
+  STEP_CLOUD_FUNCTIONS_STORAGE_BUCKET_RELATIONSHIPS,
 } from './steps/functions';
 import {
   STEP_IAM_CUSTOM_ROLES,
@@ -303,6 +304,7 @@ function getDefaultStepStartStates(params: {
     [STEP_CLOUD_FUNCTIONS]: { disabled: false },
     [STEP_CLOUD_FUNCTIONS_SERVICE_ACCOUNT_RELATIONSHIPS]: { disabled: false },
     [STEP_CLOUD_FUNCTIONS_SOURCE_REPO_RELATIONSHIPS]: { disabled: false },
+    [STEP_CLOUD_FUNCTIONS_STORAGE_BUCKET_RELATIONSHIPS]: { disabled: false },
     [STEP_CLOUD_STORAGE_BUCKETS]: { disabled: false },
     [STEP_IAM_CUSTOM_ROLES]: { disabled: false },
     [STEP_IAM_CUSTOM_ROLE_SERVICE_API_RELATIONSHIPS]: { disabled: false },
@@ -594,6 +596,9 @@ async function getStepStartStatesUsingServiceEnablements(params: {
       ServiceUsageName.CLOUD_FUNCTIONS,
     ),
     [STEP_CLOUD_FUNCTIONS_SOURCE_REPO_RELATIONSHIPS]: createStepStartState(
+      ServiceUsageName.CLOUD_FUNCTIONS,
+    ),
+    [STEP_CLOUD_FUNCTIONS_STORAGE_BUCKET_RELATIONSHIPS]: createStepStartState(
       ServiceUsageName.CLOUD_FUNCTIONS,
     ),
     [STEP_CLOUD_STORAGE_BUCKETS]: createStepStartState(

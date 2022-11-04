@@ -460,6 +460,7 @@ The following relationships are created:
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_folder`                                             |
 | `google_cloud_function`                                          | **USES**              | `google_iam_service_account`                                      |
 | `google_cloud_function`                                          | **USES**              | `google_cloud_source_repository`                                  |
+| `google_cloud_function`                                          | **USES**              | `google_storage_bucket`                                           |
 | `google_cloud_organization`                                      | **HAS**               | `google_cloud_folder`                                             |
 | `google_cloud_project`                                           | **HAS**               | `google_cloud_api_service`                                        |
 | `google_cloud_project`                                           | **HAS**               | `google_billing_budget`                                           |

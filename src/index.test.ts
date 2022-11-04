@@ -175,6 +175,7 @@ import {
   STEP_CLOUD_FUNCTIONS,
   STEP_CLOUD_FUNCTIONS_SERVICE_ACCOUNT_RELATIONSHIPS,
   STEP_CLOUD_FUNCTIONS_SOURCE_REPO_RELATIONSHIPS,
+  STEP_CLOUD_FUNCTIONS_STORAGE_BUCKET_RELATIONSHIPS,
 } from './steps/functions';
 
 interface ValidateInvocationInvalidConfigTestParams {
@@ -328,6 +329,9 @@ describe('#getStepStartStates success', () => {
           disabled: false,
         },
         [STEP_CLOUD_FUNCTIONS_SOURCE_REPO_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_FUNCTIONS_STORAGE_BUCKET_RELATIONSHIPS]: {
           disabled: false,
         },
         [STEP_CLOUD_STORAGE_BUCKETS]: {
