@@ -7,7 +7,7 @@ import { IntegrationConfig } from '../../types';
 import { fetchStorageBuckets } from '.';
 import { integrationConfig } from '../../../test/config';
 
-const tempNewAccountConfig = {
+export const storageTempNewAccountConfig = {
   ...integrationConfig,
   serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
     'j1-gc-integration-dev-v2',
@@ -35,7 +35,7 @@ describe('#fetchCloudStorageBuckets', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: tempNewAccountConfig,
+      instanceConfig: storageTempNewAccountConfig,
     });
 
     await fetchStorageBuckets(context);
