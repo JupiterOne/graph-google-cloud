@@ -83,7 +83,7 @@ import {
   SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
   SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
 } from '../../steps/sql-admin';
-import { CLOUD_STORAGE_BUCKET_ENTITY_TYPE } from '../../steps/storage';
+import { StorageEntitiesSpec } from '../../steps/storage/constants';
 
 // Indicates JupiterOne is not ingesting that resource yet.
 export const NONE = 'NO_DIRECT_J1_RESOURCE_YET';
@@ -169,7 +169,7 @@ export const GOOGLE_RESOURCE_KIND_TO_J1_TYPE_MAP: {
   'appengine.googleapis.com/Service': ENTITY_TYPE_APP_ENGINE_SERVICE,
   'appengine.googleapis.com/Version': ENTITY_TYPE_APP_ENGINE_VERSION,
   'cloudbilling.googleapis.com/BillingAccount': ENTITY_TYPE_BILLING_ACCOUNT,
-  'storage.googleapis.com/Bucket': CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
+  'storage.googleapis.com/Bucket': StorageEntitiesSpec.STORAGE_BUCKET._type,
   'osconfig.googleapis.com/PatchDeployment': NONE,
   'dns.googleapis.com/ManagedZone': DNS_MANAGED_ZONE_ENTITY_TYPE,
   'dns.googleapis.com/Policy': DNS_POLICY_ENTITY_TYPE,

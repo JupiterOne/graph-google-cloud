@@ -161,7 +161,7 @@ import {
   STEP_SPANNER_INSTANCE_DATABASES,
 } from './steps/spanner/constants';
 import { SqlAdminSteps, STEP_SQL_ADMIN_INSTANCES } from './steps/sql-admin';
-import { STEP_CLOUD_STORAGE_BUCKETS } from './steps/storage';
+import { StorageStepsSpec } from './steps/storage/constants';
 import { IntegrationConfig, SerializedIntegrationConfig } from './types';
 import { deserializeIntegrationConfig } from './utils/integrationConfig';
 import { isMasterOrganizationInstance } from './utils/isMasterOrganizationInstance';
@@ -305,7 +305,7 @@ function getDefaultStepStartStates(params: {
     [STEP_CLOUD_FUNCTIONS_SERVICE_ACCOUNT_RELATIONSHIPS]: { disabled: false },
     [STEP_CLOUD_FUNCTIONS_SOURCE_REPO_RELATIONSHIPS]: { disabled: false },
     [STEP_CLOUD_FUNCTIONS_STORAGE_BUCKET_RELATIONSHIPS]: { disabled: false },
-    [STEP_CLOUD_STORAGE_BUCKETS]: { disabled: false },
+    [StorageStepsSpec.FETCH_STORAGE_BUCKETS.id]: { disabled: false },
     [STEP_IAM_CUSTOM_ROLES]: { disabled: false },
     [STEP_IAM_CUSTOM_ROLE_SERVICE_API_RELATIONSHIPS]: { disabled: false },
     [STEP_IAM_MANAGED_ROLES]: { disabled: false },
@@ -601,7 +601,7 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [STEP_CLOUD_FUNCTIONS_STORAGE_BUCKET_RELATIONSHIPS]: createStepStartState(
       ServiceUsageName.CLOUD_FUNCTIONS,
     ),
-    [STEP_CLOUD_STORAGE_BUCKETS]: createStepStartState(
+    [StorageStepsSpec.FETCH_STORAGE_BUCKETS.id]: createStepStartState(
       ServiceUsageName.STORAGE,
       ServiceUsageName.STORAGE_COMPONENT,
       ServiceUsageName.STORAGE_API,
