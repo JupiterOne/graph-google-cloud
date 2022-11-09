@@ -1,3 +1,20 @@
+# v2.20.0 (Wed Nov 09 2022)
+
+#### 🚀 Enhancement
+
+- feat(INT-5917): add cloud function storage bucket relationship [#554](https://github.com/JupiterOne/graph-google-cloud/pull/554) (gastonyelmini@MBP-de-Gaston.fibertel.com.ar)
+
+#### 🐛 Bug Fix
+
+- Update fetch-depth for Auto [#555](https://github.com/JupiterOne/graph-google-cloud/pull/555) ([@Nick-NCSU](https://github.com/Nick-NCSU))
+
+#### Authors: 2
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+- Nick Thompson ([@Nick-NCSU](https://github.com/Nick-NCSU))
+
+---
+
 # v2.19.0 (Wed Nov 02 2022)
 
 #### 🚀 Enhancement
