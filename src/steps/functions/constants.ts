@@ -37,7 +37,7 @@ export const FunctionEntitiesSpec = {
   CLOUD_FUNCTION: {
     resourceName: 'Cloud Function',
     _type: 'google_cloud_function',
-    _class: 'Function',
+    _class: ['Function'],
   },
 };
 

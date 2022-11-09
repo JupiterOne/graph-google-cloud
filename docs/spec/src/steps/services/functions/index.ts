@@ -17,7 +17,7 @@ export const functionSteps: StepSpec<IntegrationInstanceConfig>[] = [
       {
         resourceName: 'Cloud Function',
         _type: 'google_cloud_function',
-        _class: 'Function',
+        _class: ['Function'],
       },
     ],
     relationships: [],
