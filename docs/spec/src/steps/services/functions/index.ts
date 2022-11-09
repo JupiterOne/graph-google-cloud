@@ -62,7 +62,7 @@ export const functionSteps: StepSpec<IntegrationInstanceConfig>[] = [
       },
     ],
     dependsOn: ['fetch-cloud-functions', 'fetch-cloud-storage-buckets'],
-    implemented: false,
+    implemented: true,
   },
   {
     /**

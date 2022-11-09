@@ -25,6 +25,8 @@ describe('#fetchCloudFunctions', () => {
     await recording.stop();
   });
 
+  jest.setTimeout(45000);
+
   test('should collect data', async () => {
     recording = setupGoogleCloudRecording({
       directory: __dirname,
@@ -75,6 +77,29 @@ describe('#fetchCloudFunctions', () => {
 
       const stepTestConfig: StepTestConfig = {
         stepId: FunctionStepsSpec.CLOUD_FUNCTIONS_SOURCE_REPO_RELATIONSHIP.id,
+        instanceConfig: integrationConfig,
+        invocationConfig: invocationConfig as any,
+      };
+
+      const result = await executeStepWithDependencies(stepTestConfig);
+      expect(result).toMatchStepMetadata(stepTestConfig);
+    },
+  );
+
+  test(
+    FunctionStepsSpec.CLOUD_FUNCTIONS_STORAGE_BUCKET_RELATIONSHIP.id,
+    async () => {
+      recording = setupGoogleCloudRecording({
+        name: FunctionStepsSpec.CLOUD_FUNCTIONS_STORAGE_BUCKET_RELATIONSHIP.id,
+        directory: __dirname,
+        options: {
+          matchRequestsBy: getMatchRequestsBy(integrationConfig),
+        },
+      });
+
+      const stepTestConfig: StepTestConfig = {
+        stepId:
+          FunctionStepsSpec.CLOUD_FUNCTIONS_STORAGE_BUCKET_RELATIONSHIP.id,
         instanceConfig: integrationConfig,
         invocationConfig: invocationConfig as any,
       };
