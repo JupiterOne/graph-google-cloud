@@ -24,8 +24,7 @@ import {
   createCertificateEntity,
 } from './converters';
 import { getCloudStorageBucketKey } from '../storage/converters';
-import { STEP_CLOUD_STORAGE_BUCKETS } from '../storage';
-import { CLOUD_STORAGE_BUCKET_ENTITY_TYPE } from '../storage/constants';
+import { StorageEntitiesSpec, StorageStepsSpec } from '../storage/constants';
 
 function isCertificateAuthorityPolicyPublicAccess(
   caPolicy: privateca_v1beta1.Schema$Policy,
@@ -184,12 +183,12 @@ export const privateCaSteps: IntegrationStep<IntegrationConfig>[] = [
         _type:
           RELATIONSHIP_TYPE_PRIVATE_CA_CERTIFICATE_AUTHORITY_USES_STORAGE_BUCKET,
         sourceType: ENTITY_TYPE_PRIVATE_CA_CERTIFICATE_AUTHORITY,
-        targetType: CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
+        targetType: StorageEntitiesSpec.STORAGE_BUCKET._type,
       },
     ],
     dependsOn: [
       STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES,
-      STEP_CLOUD_STORAGE_BUCKETS,
+      StorageStepsSpec.FETCH_STORAGE_BUCKETS.id,
     ],
     executionHandler: buildCertificateAuthorityBucketRelationships,
   },

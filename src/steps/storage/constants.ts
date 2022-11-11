@@ -1,4 +1,14 @@
-export const CLOUD_STORAGE_BUCKET_ENTITY_CLASS = 'DataStore';
-export const CLOUD_STORAGE_BUCKET_ENTITY_TYPE = 'google_storage_bucket';
+export const StorageStepsSpec = {
+  FETCH_STORAGE_BUCKETS: {
+    id: 'fetch-cloud-storage-buckets',
+    name: 'Cloud Storage Buckets',
+  },
+};
 
-export const STEP_CLOUD_STORAGE_BUCKETS = 'fetch-cloud-storage-buckets';
+export const StorageEntitiesSpec = {
+  STORAGE_BUCKET: {
+    resourceName: 'Cloud Storage Bucket',
+    _type: 'google_storage_bucket',
+    _class: 'DataStore',
+  },
+};

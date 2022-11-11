@@ -11,10 +11,7 @@ import { IntegrationConfig, IntegrationStepContext } from '../../types';
 import { getKmsGraphObjectKeyFromKmsKeyName } from '../../utils/kms';
 import { ENTITY_TYPE_COMPUTE_IMAGE, STEP_COMPUTE_IMAGES } from '../compute';
 import { ENTITY_TYPE_KMS_KEY, STEP_CLOUD_KMS_KEYS } from '../kms';
-import {
-  CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
-  STEP_CLOUD_STORAGE_BUCKETS,
-} from '../storage';
+import { StorageEntitiesSpec, StorageStepsSpec } from '../storage/constants';
 import { getCloudStorageBucketKey } from '../storage/converters';
 import { DataProcClient } from './client';
 import {
@@ -240,10 +237,13 @@ export const dataprocSteps: IntegrationStep<IntegrationConfig>[] = [
         _class: RelationshipClass.USES,
         _type: RELATIONSHIP_TYPE_DATAPROC_CLUSTER_USES_STORAGE_BUCKET,
         sourceType: ENTITY_TYPE_DATAPROC_CLUSTER,
-        targetType: CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
+        targetType: StorageEntitiesSpec.STORAGE_BUCKET._type,
       },
     ],
-    dependsOn: [STEP_DATAPROC_CLUSTERS, STEP_CLOUD_STORAGE_BUCKETS],
+    dependsOn: [
+      STEP_DATAPROC_CLUSTERS,
+      StorageStepsSpec.FETCH_STORAGE_BUCKETS.id,
+    ],
     executionHandler: createClusterStorageRelationships,
   },
 ];

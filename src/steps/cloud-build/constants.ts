@@ -1,6 +1,6 @@
 import { RelationshipClass } from '@jupiterone/integration-sdk-core';
 import { CloudSourceRepositoriesEntitiesSpec } from '../cloud-source-repositories/constants';
-import { CLOUD_STORAGE_BUCKET_ENTITY_TYPE } from '../storage';
+import { StorageEntitiesSpec } from '../storage/constants';
 
 export const CloudBuildEntitiesSpec = {
   BUILD: {
@@ -52,7 +52,7 @@ export const CloudBuildRelationshipsSpec = {
     _type: 'google_cloud_build_uses_storage_bucket',
     _class: RelationshipClass.USES,
     sourceType: CloudBuildEntitiesSpec.BUILD._type,
-    targetType: CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
+    targetType: StorageEntitiesSpec.STORAGE_BUCKET._type,
   },
   BUILD_USES_SOURCE_REPOSITORY: {
     _type: 'google_cloud_build_uses_source_repository',

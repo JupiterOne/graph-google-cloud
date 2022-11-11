@@ -5,10 +5,6 @@ import {
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
-import {
-  CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
-  STEP_CLOUD_STORAGE_BUCKETS,
-} from '../storage';
 import { LoggingClient } from './client';
 import {
   LOGGING_METRIC_ENTITY_CLASS,
@@ -31,6 +27,7 @@ import {
   STEP_MONITORING_ALERT_POLICIES,
 } from '../monitoring/constants';
 import { logging_v2 } from 'googleapis';
+import { StorageEntitiesSpec, StorageStepsSpec } from '../storage/constants';
 
 export async function fetchSinks(
   context: IntegrationStepContext,
@@ -166,10 +163,13 @@ export const loggingSteps: IntegrationStep<IntegrationConfig>[] = [
         _class: RelationshipClass.USES,
         _type: RELATIONSHIP_TYPE_PROJECT_SINK_USES_STORAGE_BUCKET,
         sourceType: LOGGING_PROJECT_SINK_ENTITY_TYPE,
-        targetType: CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
+        targetType: StorageEntitiesSpec.STORAGE_BUCKET._type,
       },
     ],
-    dependsOn: [STEP_LOGGING_PROJECT_SINKS, STEP_CLOUD_STORAGE_BUCKETS],
+    dependsOn: [
+      STEP_LOGGING_PROJECT_SINKS,
+      StorageStepsSpec.FETCH_STORAGE_BUCKETS.id,
+    ],
     executionHandler: buildSinkUsesBucketRelationships,
   },
   {

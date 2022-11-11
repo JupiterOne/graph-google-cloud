@@ -169,7 +169,6 @@ import {
   STEP_SPANNER_INSTANCE_DATABASES,
 } from './steps/spanner/constants';
 import { SqlAdminSteps, STEP_SQL_ADMIN_INSTANCES } from './steps/sql-admin';
-import { STEP_CLOUD_STORAGE_BUCKETS } from './steps/storage';
 import { IntegrationConfig } from './types';
 import {
   STEP_CLOUD_FUNCTIONS,
@@ -177,6 +176,7 @@ import {
   STEP_CLOUD_FUNCTIONS_SOURCE_REPO_RELATIONSHIPS,
   STEP_CLOUD_FUNCTIONS_STORAGE_BUCKET_RELATIONSHIPS,
 } from './steps/functions';
+import { StorageStepsSpec } from './steps/storage/constants';
 
 interface ValidateInvocationInvalidConfigTestParams {
   instanceConfig?: Partial<IntegrationConfig>;
@@ -334,7 +334,7 @@ describe('#getStepStartStates success', () => {
         [STEP_CLOUD_FUNCTIONS_STORAGE_BUCKET_RELATIONSHIPS]: {
           disabled: false,
         },
-        [STEP_CLOUD_STORAGE_BUCKETS]: {
+        [StorageStepsSpec.FETCH_STORAGE_BUCKETS.id]: {
           disabled: false,
         },
         [STEP_IAM_CUSTOM_ROLES]: {

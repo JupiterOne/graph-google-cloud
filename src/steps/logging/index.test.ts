@@ -1,10 +1,7 @@
 import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-testing';
 import { fetchSinks, fetchMetrics, buildSinkUsesBucketRelationships } from '.';
 import { fetchAlertPolicies } from '../monitoring';
-import {
-  CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
-  fetchStorageBuckets,
-} from '../storage';
+import { fetchStorageBuckets } from '../storage';
 import { integrationConfig } from '../../../test/config';
 import { Recording, setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
@@ -16,6 +13,7 @@ import {
   RELATIONSHIP_TYPE_PROJECT_SINK_USES_STORAGE_BUCKET,
 } from './constants';
 import { MONITORING_ALERT_POLICY_TYPE } from '../monitoring/constants';
+import { StorageEntitiesSpec } from '../storage/constants';
 
 const tempNewAccountConfig = {
   ...integrationConfig,
@@ -61,7 +59,7 @@ describe('#fetchProjectSinks', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e._type === CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
+        (e) => e._type === StorageEntitiesSpec.STORAGE_BUCKET._type,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['DataStore'],

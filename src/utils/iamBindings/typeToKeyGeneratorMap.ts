@@ -77,7 +77,6 @@ import {
   ENTITY_TYPE_SPANNER_INSTANCE,
   ENTITY_TYPE_SPANNER_INSTANCE_DATABASE,
 } from '../../steps/spanner/constants';
-import { CLOUD_STORAGE_BUCKET_ENTITY_TYPE } from '../../steps/storage';
 import { getCloudStorageBucketKey } from '../../steps/storage/converters';
 import { StepExecutionContext } from '@jupiterone/integration-sdk-core';
 import { getProjectNameFromId } from '../jobState';
@@ -95,6 +94,7 @@ import {
   SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE,
   SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
 } from '../../steps/sql-admin';
+import { StorageEntitiesSpec } from '../../steps/storage/constants';
 
 /**
  * A map of JupiterOne types to a function which can generate their _key
@@ -137,7 +137,7 @@ export const J1_TYPE_TO_KEY_GENERATOR_MAP: {
   [ENTITY_TYPE_APP_ENGINE_APPLICATION]: fullPathKeyMap,
   [ENTITY_TYPE_APP_ENGINE_SERVICE]: fullPathKeyMap,
   [ENTITY_TYPE_APP_ENGINE_VERSION]: fullPathKeyMap,
-  [CLOUD_STORAGE_BUCKET_ENTITY_TYPE]: customPrefixAndIdKeyMap(
+  [StorageEntitiesSpec.STORAGE_BUCKET._type]: customPrefixAndIdKeyMap(
     getCloudStorageBucketKey,
   ),
   [DNS_MANAGED_ZONE_ENTITY_TYPE]: finalIdentifierKeyMap,

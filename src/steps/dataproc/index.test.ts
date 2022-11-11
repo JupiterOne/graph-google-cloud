@@ -18,13 +18,11 @@ import {
   RELATIONSHIP_TYPE_DATAPROC_CLUSTER_USES_STORAGE_BUCKET,
 } from './constants';
 import { fetchKmsCryptoKeys, fetchKmsKeyRings } from '../kms';
-import {
-  CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
-  fetchStorageBuckets,
-} from '../storage';
+import { fetchStorageBuckets } from '../storage';
 import { ENTITY_TYPE_COMPUTE_IMAGE, fetchComputeImages } from '../compute';
 import { separateDirectMappedRelationships } from '../../../test/helpers/separateDirectMappedRelationships';
 import { omitNewRegionsFromTests } from '../../../test/regions';
+import { StorageEntitiesSpec } from '../storage/constants';
 
 beforeAll(() => omitNewRegionsFromTests());
 
@@ -416,7 +414,7 @@ describe('#createClusterStorageRelationships', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e._type === CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
+        (e) => e._type === StorageEntitiesSpec.STORAGE_BUCKET._type,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['DataStore'],

@@ -1,7 +1,7 @@
 import { RelationshipClass } from '@jupiterone/integration-sdk-core';
 import { CloudSourceRepositoriesEntitiesSpec } from '../cloud-source-repositories/constants';
 import { IAM_SERVICE_ACCOUNT_ENTITY_TYPE } from '../iam';
-import { CLOUD_STORAGE_BUCKET_ENTITY_TYPE } from '../storage/constants';
+import { StorageEntitiesSpec } from '../storage/constants';
 
 export const CLOUD_FUNCTION_ENTITY_CLASS = 'Function';
 export const CLOUD_FUNCTION_ENTITY_TYPE = 'google_cloud_function';
@@ -58,6 +58,6 @@ export const FunctionsRelationshipsSpec = {
     _type: 'google_cloud_function_uses_storage_bucket',
     _class: RelationshipClass.USES,
     sourceType: FunctionEntitiesSpec.CLOUD_FUNCTION._type,
-    targetType: CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
+    targetType: StorageEntitiesSpec.STORAGE_BUCKET._type,
   },
 };

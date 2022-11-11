@@ -1,10 +1,7 @@
 import { parseTimePropertyValue } from '@jupiterone/integration-sdk-core';
 import { storage_v1 } from 'googleapis';
 import { getMockStorageBucket } from '../../test/mocks';
-import {
-  CLOUD_STORAGE_BUCKET_ENTITY_CLASS,
-  CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
-} from '../steps/storage';
+import { StorageEntitiesSpec } from '../steps/storage/constants';
 import {
   getCloudStorageBucketKey,
   getCloudStorageBucketWebLink,
@@ -19,8 +16,8 @@ function getMockStorageBucketEntityBuilderInput(
     entityData: {
       source: data,
       assign: {
-        _class: CLOUD_STORAGE_BUCKET_ENTITY_CLASS,
-        _type: CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
+        _class: StorageEntitiesSpec.STORAGE_BUCKET._class,
+        _type: StorageEntitiesSpec.STORAGE_BUCKET._type,
         _key: getCloudStorageBucketKey(data.id as string),
         id: data.id as string,
         name: data.name,

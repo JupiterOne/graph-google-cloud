@@ -179,10 +179,6 @@ import {
   getFirewallRelationshipDirection,
   processFirewallRuleRelationshipTargets,
 } from '../../utils/firewall';
-import {
-  CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
-  STEP_CLOUD_STORAGE_BUCKETS,
-} from '../storage';
 import { getCloudStorageBucketKey } from '../storage/converters';
 import { publishMissingPermissionEvent } from '../../utils/events';
 import { parseRegionNameFromRegionUrl } from '../../google-cloud/regions';
@@ -201,6 +197,7 @@ import {
   setNetworkPeerings,
   setPeeredNetworks,
 } from '../../utils/jobState';
+import { StorageEntitiesSpec, StorageStepsSpec } from '../storage/constants';
 
 export * from './constants';
 
@@ -1028,7 +1025,7 @@ export async function fetchComputeAddresses(
 
   await client.iterateComputeAddresses(async (address) => {
     const addressEntity = await jobState.addEntity(
-      createComputeAddressEntity(address, client.projectId)
+      createComputeAddressEntity(address, client.projectId),
     );
 
     // Subnetwork -> HAS -> Compute Address
@@ -2578,10 +2575,13 @@ export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
         _class: RelationshipClass.HAS,
         _type: RELATIONSHIP_TYPE_BACKEND_BUCKET_HAS_STORAGE_BUCKET,
         sourceType: ENTITY_TYPE_COMPUTE_BACKEND_BUCKET,
-        targetType: CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
+        targetType: StorageEntitiesSpec.STORAGE_BUCKET._type,
       },
     ],
-    dependsOn: [STEP_COMPUTE_BACKEND_BUCKETS, STEP_CLOUD_STORAGE_BUCKETS],
+    dependsOn: [
+      STEP_COMPUTE_BACKEND_BUCKETS,
+      StorageStepsSpec.FETCH_STORAGE_BUCKETS.id,
+    ],
     executionHandler: buildComputeBackendBucketHasBucketRelationships,
   },
   {

@@ -15,8 +15,8 @@ import {
 } from './constants';
 import { CloudSourceRepositoriesStepsSpec } from '../cloud-source-repositories/constants';
 import { cloudfunctions_v1 } from 'googleapis';
-import { STEP_CLOUD_STORAGE_BUCKETS } from '../storage';
 import { getCloudStorageBucketKey } from '../storage/converters';
+import { StorageStepsSpec } from '../storage/constants';
 
 export * from './constants';
 
@@ -185,7 +185,7 @@ export const functionsSteps: IntegrationStep<IntegrationConfig>[] = [
     name: FunctionStepsSpec.CLOUD_FUNCTIONS_STORAGE_BUCKET_RELATIONSHIP.name,
     dependsOn: [
       FunctionStepsSpec.FETCH_CLOUD_FUNCTIONS.id,
-      STEP_CLOUD_STORAGE_BUCKETS,
+      StorageStepsSpec.FETCH_STORAGE_BUCKETS.id,
     ],
     entities: [],
     relationships: [

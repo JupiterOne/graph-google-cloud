@@ -2,16 +2,10 @@ import { IntegrationStep } from '@jupiterone/integration-sdk-core';
 import { CloudStorageClient } from './client';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
 import { createCloudStorageBucketEntity } from './converters';
-import {
-  CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
-  STEP_CLOUD_STORAGE_BUCKETS,
-  CLOUD_STORAGE_BUCKET_ENTITY_CLASS,
-} from './constants';
+import { StorageStepsSpec, StorageEntitiesSpec } from './constants';
 import { storage_v1 } from 'googleapis';
 import { publishUnprocessedBucketsEvent } from '../../utils/events';
 import { OrgPolicyClient } from '../orgpolicy/client';
-
-export * from './constants';
 
 export async function fetchStorageBuckets(
   context: IntegrationStepContext,
@@ -87,15 +81,9 @@ export async function fetchStorageBuckets(
 
 export const storageSteps: IntegrationStep<IntegrationConfig>[] = [
   {
-    id: STEP_CLOUD_STORAGE_BUCKETS,
-    name: 'Cloud Storage Buckets',
-    entities: [
-      {
-        resourceName: 'Cloud Storage Bucket',
-        _type: CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
-        _class: CLOUD_STORAGE_BUCKET_ENTITY_CLASS,
-      },
-    ],
+    id: StorageStepsSpec.FETCH_STORAGE_BUCKETS.id,
+    name: StorageStepsSpec.FETCH_STORAGE_BUCKETS.name,
+    entities: [StorageEntitiesSpec.STORAGE_BUCKET],
     relationships: [],
     dependsOn: [],
     executionHandler: fetchStorageBuckets,
