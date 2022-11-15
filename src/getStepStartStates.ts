@@ -621,6 +621,10 @@ async function getStepStartStatesUsingServiceEnablements(params: {
       stepId: STEP_CLOUD_FUNCTIONS_SOURCE_REPO_RELATIONSHIPS,
       primaryServiceName: ServiceUsageName.CLOUD_FUNCTIONS,
     }),
+    [STEP_CLOUD_FUNCTIONS_STORAGE_BUCKET_RELATIONSHIPS]: createStepStartState({
+      stepId: STEP_CLOUD_FUNCTIONS_STORAGE_BUCKET_RELATIONSHIPS,
+      primaryServiceName: ServiceUsageName.CLOUD_FUNCTIONS,
+    }),
     [StorageStepsSpec.FETCH_STORAGE_BUCKETS.id]: createStepStartState({
       stepId: StorageStepsSpec.FETCH_STORAGE_BUCKETS.id,
       primaryServiceName: ServiceUsageName.STORAGE,
