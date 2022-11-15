@@ -498,6 +498,12 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     'Services enabled for the main project',
   );
 
+  interface createStepStartStateParams {
+    stepId: string;
+    primaryServiceName: ServiceUsageName;
+    additionalServiceNames?: ServiceUsageName[];
+  }
+
   /**
    * Used to get the `google_iam_binding` and `google_iam_role` steps to run based on the service
    * account's home project's (config.serviceAccountKeyConfig.project_id) API enablement instead
@@ -509,36 +515,41 @@ async function getStepStartStatesUsingServiceEnablements(params: {
    * This likely should be removed once users have enabled the Cloud Asset and IAM APIs in all of
    * their Google Cloud projects.
    */
-  function createStartStatesBasedOnServiceAccountProject(
-    primaryServiceName: ServiceUsageName,
-    ...additionalServiceNames: ServiceUsageName[]
-  ): StepStartState {
-    return enablement.createStepStartStateWhereAllServicesMustBeEnabled(
-      serviceAccountProjectEnabledServiceNames, // using mainProjectEnabledServiceNames instead of enabledServiceNames
+  function createStartStatesBasedOnServiceAccountProject({
+    stepId,
+    primaryServiceName,
+    additionalServiceNames
+  }: createStepStartStateParams): StepStartState {
+    return enablement.createStepStartStateWhereAllServicesMustBeEnabled({
+      stepId,
+      enabledServiceNames: serviceAccountProjectEnabledServiceNames, // using mainProjectEnabledServiceNames instead of enabledServiceNames
       primaryServiceName,
-      ...additionalServiceNames,
-    );
+      additionalServiceNames,
+    });
   }
 
-  const createStepStartState = (
-    primaryServiceName: ServiceUsageName,
-    ...additionalServiceNames: ServiceUsageName[]
-  ): StepStartState => {
-    return enablement.createStepStartState(
+  const createStepStartState = ({
+    stepId,
+    primaryServiceName,
+    additionalServiceNames
+  }: createStepStartStateParams): StepStartState => {
+    return enablement.createStepStartState({
+      stepId,
       enabledServiceNames,
       primaryServiceName,
       ...additionalServiceNames,
-    );
+    });
   };
 
-  function createOrgStepStartState(
-    primaryServiceName: ServiceUsageName,
-    ...additionalServiceNames: ServiceUsageName[]
-  ): StepStartState {
+  function createOrgStepStartState({
+    stepId,
+    primaryServiceName,
+    additionalServiceNames
+  }: createStepStartStateParams): StepStartState {
     return {
       disabled:
         singleProjectInstance ||
-        createStepStartState(primaryServiceName, ...additionalServiceNames)
+        createStepStartState({ stepId, primaryServiceName, additionalServiceNames })
           .disabled,
     };
   }
@@ -546,325 +557,549 @@ async function getStepStartStatesUsingServiceEnablements(params: {
   const stepStartStates: StepStartStates = {
     // Organization-required steps
     ...makeStepStartStates([...getOrganizationSteps()], organizationSteps),
-    [STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES]: createOrgStepStartState(
-      ServiceUsageName.ACCESS_CONTEXT_MANAGER,
-    ),
-    [STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS]: createOrgStepStartState(
-      ServiceUsageName.ACCESS_CONTEXT_MANAGER,
-    ),
-    [STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS]: createOrgStepStartState(
-      ServiceUsageName.ACCESS_CONTEXT_MANAGER,
-    ),
+    [STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES]: createOrgStepStartState({
+      stepId: STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
+      primaryServiceName: ServiceUsageName.ACCESS_CONTEXT_MANAGER,
+    }),
+    [STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS]: createOrgStepStartState({
+      stepId: STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS,
+      primaryServiceName: ServiceUsageName.ACCESS_CONTEXT_MANAGER,
+    }),
+    [STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS]: createOrgStepStartState({
+      stepId: STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS,
+      primaryServiceName: ServiceUsageName.ACCESS_CONTEXT_MANAGER,
+    }),
     // Rest of steps...
     // This API will be enabled otherwise fetching services names above would fail
     [STEP_RESOURCE_MANAGER_PROJECT]: { disabled: false },
     [ServiceUsageStepIds.FETCH_API_SERVICES]: { disabled: false },
-    [STEP_IAM_BINDINGS]: createStartStatesBasedOnServiceAccountProject(
-      ServiceUsageName.CLOUD_ASSET,
-      ServiceUsageName.IAM,
-    ),
-    [STEP_CREATE_BASIC_ROLES]: createStartStatesBasedOnServiceAccountProject(
-      ServiceUsageName.CLOUD_ASSET,
-      ServiceUsageName.IAM,
-    ),
+    [STEP_IAM_BINDINGS]: createStartStatesBasedOnServiceAccountProject({
+      stepId: STEP_IAM_BINDINGS,
+      primaryServiceName: ServiceUsageName.CLOUD_ASSET,
+      additionalServiceNames: [ServiceUsageName.IAM],
+    }),
+    [STEP_CREATE_BASIC_ROLES]: createStartStatesBasedOnServiceAccountProject({
+      stepId: STEP_CREATE_BASIC_ROLES,
+      primaryServiceName: ServiceUsageName.CLOUD_ASSET,
+      additionalServiceNames: [ServiceUsageName.IAM],
+    }),
     [STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS]:
-      createStartStatesBasedOnServiceAccountProject(
-        ServiceUsageName.CLOUD_ASSET,
-        ServiceUsageName.IAM,
-      ),
+      createStartStatesBasedOnServiceAccountProject({
+        stepId: STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS,
+        primaryServiceName: ServiceUsageName.CLOUD_ASSET,
+        additionalServiceNames: [ServiceUsageName.IAM],
+      }),
     [STEP_CREATE_BINDING_ROLE_RELATIONSHIPS]:
-      createStartStatesBasedOnServiceAccountProject(
-        ServiceUsageName.CLOUD_ASSET,
-        ServiceUsageName.IAM,
-      ),
+      createStartStatesBasedOnServiceAccountProject({
+        stepId: STEP_CREATE_BINDING_ROLE_RELATIONSHIPS,
+        primaryServiceName: ServiceUsageName.CLOUD_ASSET,
+        additionalServiceNames: [ServiceUsageName.IAM],
+      }),
     [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]:
-      createStartStatesBasedOnServiceAccountProject(
-        ServiceUsageName.CLOUD_ASSET,
-        ServiceUsageName.IAM,
-      ),
+      createStartStatesBasedOnServiceAccountProject({
+        stepId: STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS,
+        primaryServiceName: ServiceUsageName.CLOUD_ASSET,
+        additionalServiceNames: [ServiceUsageName.IAM],
+      }),
     [STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS]:
-      createStartStatesBasedOnServiceAccountProject(
-        ServiceUsageName.CLOUD_ASSET,
-        ServiceUsageName.IAM,
-      ),
-    [STEP_CLOUD_FUNCTIONS]: createStepStartState(
-      ServiceUsageName.CLOUD_FUNCTIONS,
-    ),
-    [STEP_CLOUD_FUNCTIONS_SERVICE_ACCOUNT_RELATIONSHIPS]: createStepStartState(
-      ServiceUsageName.CLOUD_FUNCTIONS,
-    ),
-    [STEP_CLOUD_FUNCTIONS_SOURCE_REPO_RELATIONSHIPS]: createStepStartState(
-      ServiceUsageName.CLOUD_FUNCTIONS,
-    ),
-    [STEP_CLOUD_STORAGE_BUCKETS]: createStepStartState(
-      ServiceUsageName.STORAGE,
-      ServiceUsageName.STORAGE_COMPONENT,
-      ServiceUsageName.STORAGE_API,
-    ),
-    [STEP_IAM_CUSTOM_ROLES]: createStartStatesBasedOnServiceAccountProject(
-      ServiceUsageName.IAM,
-    ),
+      createStartStatesBasedOnServiceAccountProject({
+        stepId: STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS,
+        primaryServiceName: ServiceUsageName.CLOUD_ASSET,
+        additionalServiceNames: [ServiceUsageName.IAM],
+      }),
+    [STEP_CLOUD_FUNCTIONS]: createStepStartState({
+      stepId: STEP_CLOUD_FUNCTIONS,
+      primaryServiceName: ServiceUsageName.CLOUD_FUNCTIONS,
+    }),
+    [STEP_CLOUD_FUNCTIONS_SERVICE_ACCOUNT_RELATIONSHIPS]: createStepStartState({
+      stepId: STEP_CLOUD_FUNCTIONS_SERVICE_ACCOUNT_RELATIONSHIPS,
+      primaryServiceName: ServiceUsageName.CLOUD_FUNCTIONS,
+    }),
+    [STEP_CLOUD_FUNCTIONS_SOURCE_REPO_RELATIONSHIPS]: createStepStartState({
+      stepId: STEP_CLOUD_FUNCTIONS_SOURCE_REPO_RELATIONSHIPS,
+      primaryServiceName: ServiceUsageName.CLOUD_FUNCTIONS,
+    }),
+    [STEP_CLOUD_STORAGE_BUCKETS]: createStepStartState({
+      stepId: STEP_CLOUD_STORAGE_BUCKETS,
+      primaryServiceName: ServiceUsageName.STORAGE,
+      additionalServiceNames: [ServiceUsageName.STORAGE_COMPONENT, ServiceUsageName.STORAGE_API]
+    }),
+    [STEP_IAM_CUSTOM_ROLES]: createStartStatesBasedOnServiceAccountProject({
+      stepId: STEP_IAM_CUSTOM_ROLES,
+      primaryServiceName: ServiceUsageName.IAM,
+    }),
     [STEP_IAM_CUSTOM_ROLE_SERVICE_API_RELATIONSHIPS]:
-      createStartStatesBasedOnServiceAccountProject(ServiceUsageName.IAM),
-    [STEP_IAM_MANAGED_ROLES]: createStartStatesBasedOnServiceAccountProject(
-      ServiceUsageName.IAM,
-    ),
-    [STEP_IAM_SERVICE_ACCOUNTS]: createStepStartState(ServiceUsageName.IAM),
+      createStartStatesBasedOnServiceAccountProject({
+        stepId: STEP_IAM_CUSTOM_ROLE_SERVICE_API_RELATIONSHIPS,
+        primaryServiceName: ServiceUsageName.IAM
+      }),
+    [STEP_IAM_MANAGED_ROLES]: createStartStatesBasedOnServiceAccountProject({
+      stepId: STEP_IAM_MANAGED_ROLES,
+      primaryServiceName: ServiceUsageName.IAM,
+    }),
+    [STEP_IAM_SERVICE_ACCOUNTS]: createStepStartState({
+      stepId: STEP_IAM_SERVICE_ACCOUNTS,
+      primaryServiceName: ServiceUsageName.IAM
+    }),
     [STEP_AUDIT_CONFIG_IAM_POLICY]: config.configureOrganizationProjects
       ? { disabled: true }
-      : createStepStartState(ServiceUsageName.RESOURCE_MANAGER),
-    [STEP_COMPUTE_DISKS]: createStepStartState(ServiceUsageName.COMPUTE),
-    [STEP_COMPUTE_REGION_DISKS]: createStepStartState(ServiceUsageName.COMPUTE),
-    [STEP_COMPUTE_IMAGES]: createStepStartState(ServiceUsageName.COMPUTE),
-    [STEP_COMPUTE_IMAGE_KMS_RELATIONSHIPS]: createStepStartState(
-      ServiceUsageName.COMPUTE,
-    ),
-    [STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS]: createStepStartState(
-      ServiceUsageName.COMPUTE,
-    ),
-    [STEP_COMPUTE_DISK_KMS_RELATIONSHIPS]: createStepStartState(
-      ServiceUsageName.COMPUTE,
-    ),
-    [STEP_COMPUTE_SNAPSHOTS]: createStepStartState(ServiceUsageName.COMPUTE),
-    [STEP_COMPUTE_IMAGE_IMAGE_RELATIONSHIPS]: createStepStartState(
-      ServiceUsageName.COMPUTE,
-    ),
-    [STEP_COMPUTE_SNAPSHOT_DISK_RELATIONSHIPS]: createStepStartState(
-      ServiceUsageName.COMPUTE,
-    ),
-    [STEP_COMPUTE_NETWORKS]: createStepStartState(ServiceUsageName.COMPUTE),
-    [STEP_COMPUTE_NETWORK_PEERING_RELATIONSHIPS]: createStepStartState(
-      ServiceUsageName.COMPUTE,
-    ),
-    [STEP_COMPUTE_ADDRESSES]: createStepStartState(ServiceUsageName.COMPUTE),
-    [STEP_COMPUTE_GLOBAL_ADDRESSES]: createStepStartState(
-      ServiceUsageName.COMPUTE,
-    ),
-    [STEP_COMPUTE_FORWARDING_RULES]: createStepStartState(
-      ServiceUsageName.COMPUTE,
-    ),
-    [STEP_COMPUTE_GLOBAL_FORWARDING_RULES]: createStepStartState(
-      ServiceUsageName.COMPUTE,
-    ),
-    [STEP_COMPUTE_FIREWALLS]: createStepStartState(ServiceUsageName.COMPUTE),
-    [STEP_COMPUTE_SUBNETWORKS]: createStepStartState(ServiceUsageName.COMPUTE),
-    [STEP_COMPUTE_PROJECT]: createStepStartState(ServiceUsageName.COMPUTE),
-    [STEP_COMPUTE_HEALTH_CHECKS]: createStepStartState(
-      ServiceUsageName.COMPUTE,
-    ),
-    [STEP_COMPUTE_REGION_HEALTH_CHECKS]: createStepStartState(
-      ServiceUsageName.COMPUTE,
-    ),
-    [STEP_COMPUTE_INSTANCES]: createStepStartState(ServiceUsageName.COMPUTE),
-    [STEP_COMPUTE_INSTANCE_SERVICE_ACCOUNT_RELATIONSHIPS]: createStepStartState(
-      ServiceUsageName.COMPUTE,
-    ),
-    [STEP_COMPUTE_INSTANCE_GROUPS]: createStepStartState(
-      ServiceUsageName.COMPUTE,
-    ),
-    [STEP_COMPUTE_REGION_INSTANCE_GROUPS]: createStepStartState(
-      ServiceUsageName.COMPUTE,
-    ),
-    [STEP_COMPUTE_LOADBALANCERS]: createStepStartState(
-      ServiceUsageName.COMPUTE,
-    ),
-    [STEP_COMPUTE_REGION_LOADBALANCERS]: createStepStartState(
-      ServiceUsageName.COMPUTE,
-    ),
-    [STEP_COMPUTE_BACKEND_SERVICES]: createStepStartState(
-      ServiceUsageName.COMPUTE,
-    ),
-    [STEP_COMPUTE_REGION_BACKEND_SERVICES]: createStepStartState(
-      ServiceUsageName.COMPUTE,
-    ),
-    [STEP_COMPUTE_BACKEND_BUCKETS]: createStepStartState(
-      ServiceUsageName.COMPUTE,
-    ),
+      : createStepStartState({
+        stepId: STEP_AUDIT_CONFIG_IAM_POLICY,
+        primaryServiceName: ServiceUsageName.RESOURCE_MANAGER
+      }),
+    [STEP_COMPUTE_DISKS]: createStepStartState({
+      stepId: STEP_COMPUTE_DISKS,
+      primaryServiceName: ServiceUsageName.COMPUTE
+    }),
+    [STEP_COMPUTE_REGION_DISKS]: createStepStartState({
+      stepId: STEP_COMPUTE_REGION_DISKS,
+      primaryServiceName: ServiceUsageName.COMPUTE
+    }),
+    [STEP_COMPUTE_IMAGES]: createStepStartState({
+      stepId: STEP_COMPUTE_IMAGES,
+      primaryServiceName: ServiceUsageName.COMPUTE
+    }),
+    [STEP_COMPUTE_IMAGE_KMS_RELATIONSHIPS]: createStepStartState({
+      stepId: STEP_COMPUTE_IMAGE_KMS_RELATIONSHIPS,
+      primaryServiceName: ServiceUsageName.COMPUTE,
+    }),
+    [STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS]: createStepStartState({
+      stepId: STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS,
+      primaryServiceName: ServiceUsageName.COMPUTE,
+    }),
+    [STEP_COMPUTE_DISK_KMS_RELATIONSHIPS]: createStepStartState({
+      stepId: STEP_COMPUTE_DISK_KMS_RELATIONSHIPS,
+      primaryServiceName: ServiceUsageName.COMPUTE,
+    }),
+    [STEP_COMPUTE_SNAPSHOTS]: createStepStartState({
+      stepId: STEP_COMPUTE_SNAPSHOTS,
+      primaryServiceName: ServiceUsageName.COMPUTE
+    }),
+    [STEP_COMPUTE_IMAGE_IMAGE_RELATIONSHIPS]: createStepStartState({
+      stepId: STEP_COMPUTE_IMAGE_IMAGE_RELATIONSHIPS,
+      primaryServiceName: ServiceUsageName.COMPUTE,
+    }),
+    [STEP_COMPUTE_SNAPSHOT_DISK_RELATIONSHIPS]: createStepStartState({
+      stepId: STEP_COMPUTE_SNAPSHOT_DISK_RELATIONSHIPS,
+      primaryServiceName: ServiceUsageName.COMPUTE,
+    }),
+    [STEP_COMPUTE_NETWORKS]: createStepStartState({
+      stepId: STEP_COMPUTE_NETWORKS,
+      primaryServiceName: ServiceUsageName.COMPUTE
+    }),
+    [STEP_COMPUTE_NETWORK_PEERING_RELATIONSHIPS]: createStepStartState({
+      stepId: STEP_COMPUTE_NETWORK_PEERING_RELATIONSHIPS,
+      primaryServiceName: ServiceUsageName.COMPUTE,
+    }),
+    [STEP_COMPUTE_ADDRESSES]: createStepStartState({
+      stepId: STEP_COMPUTE_ADDRESSES,
+      primaryServiceName: ServiceUsageName.COMPUTE
+    }),
+    [STEP_COMPUTE_GLOBAL_ADDRESSES]: createStepStartState({
+      stepId: STEP_COMPUTE_GLOBAL_ADDRESSES,
+      primaryServiceName: ServiceUsageName.COMPUTE,
+    }),
+    [STEP_COMPUTE_FORWARDING_RULES]: createStepStartState({
+      stepId: STEP_COMPUTE_FORWARDING_RULES,
+      primaryServiceName: ServiceUsageName.COMPUTE,
+    }),
+    [STEP_COMPUTE_GLOBAL_FORWARDING_RULES]: createStepStartState({
+      stepId: STEP_COMPUTE_GLOBAL_FORWARDING_RULES,
+      primaryServiceName: ServiceUsageName.COMPUTE,
+    }),
+    [STEP_COMPUTE_FIREWALLS]: createStepStartState({
+      stepId: STEP_COMPUTE_FIREWALLS,
+      primaryServiceName: ServiceUsageName.COMPUTE
+    }),
+    [STEP_COMPUTE_SUBNETWORKS]: createStepStartState({
+      stepId: STEP_COMPUTE_SUBNETWORKS,
+      primaryServiceName: ServiceUsageName.COMPUTE
+    }),
+    [STEP_COMPUTE_PROJECT]: createStepStartState({
+      stepId: STEP_COMPUTE_PROJECT,
+      primaryServiceName: ServiceUsageName.COMPUTE
+    }),
+    [STEP_COMPUTE_HEALTH_CHECKS]: createStepStartState({
+      stepId: STEP_COMPUTE_HEALTH_CHECKS,
+      primaryServiceName: ServiceUsageName.COMPUTE,
+    }),
+    [STEP_COMPUTE_REGION_HEALTH_CHECKS]: createStepStartState({
+      stepId: STEP_COMPUTE_REGION_HEALTH_CHECKS,
+      primaryServiceName: ServiceUsageName.COMPUTE,
+    }),
+    [STEP_COMPUTE_INSTANCES]: createStepStartState({
+      stepId: STEP_COMPUTE_INSTANCES,
+      primaryServiceName: ServiceUsageName.COMPUTE
+    }),
+    [STEP_COMPUTE_INSTANCE_SERVICE_ACCOUNT_RELATIONSHIPS]: createStepStartState({
+      stepId: STEP_COMPUTE_INSTANCE_SERVICE_ACCOUNT_RELATIONSHIPS,
+      primaryServiceName: ServiceUsageName.COMPUTE,
+    }),
+    [STEP_COMPUTE_INSTANCE_GROUPS]: createStepStartState({
+      stepId: STEP_COMPUTE_INSTANCE_GROUPS,
+      primaryServiceName: ServiceUsageName.COMPUTE,
+    }),
+    [STEP_COMPUTE_REGION_INSTANCE_GROUPS]: createStepStartState({
+      stepId: STEP_COMPUTE_REGION_INSTANCE_GROUPS,
+      primaryServiceName: ServiceUsageName.COMPUTE,
+    }),
+    [STEP_COMPUTE_LOADBALANCERS]: createStepStartState({
+      stepId: STEP_COMPUTE_LOADBALANCERS,
+      primaryServiceName: ServiceUsageName.COMPUTE,
+    }),
+    [STEP_COMPUTE_REGION_LOADBALANCERS]: createStepStartState({
+      stepId: STEP_COMPUTE_REGION_LOADBALANCERS,
+      primaryServiceName: ServiceUsageName.COMPUTE,
+    }),
+    [STEP_COMPUTE_BACKEND_SERVICES]: createStepStartState({
+      stepId: STEP_COMPUTE_BACKEND_SERVICES,
+      primaryServiceName: ServiceUsageName.COMPUTE,
+    }),
+    [STEP_COMPUTE_REGION_BACKEND_SERVICES]: createStepStartState({
+      stepId: STEP_COMPUTE_REGION_BACKEND_SERVICES,
+      primaryServiceName: ServiceUsageName.COMPUTE,
+    }),
+    [STEP_COMPUTE_BACKEND_BUCKETS]: createStepStartState({
+      stepId: STEP_COMPUTE_BACKEND_BUCKETS,
+      primaryServiceName: ServiceUsageName.COMPUTE,
+    }),
     [STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS]:
-      createStepStartState(ServiceUsageName.COMPUTE),
-    [STEP_COMPUTE_TARGET_SSL_PROXIES]: createStepStartState(
-      ServiceUsageName.COMPUTE,
-    ),
-    [STEP_COMPUTE_TARGET_HTTPS_PROXIES]: createStepStartState(
-      ServiceUsageName.COMPUTE,
-    ),
-    [STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES]: createStepStartState(
-      ServiceUsageName.COMPUTE,
-    ),
-    [STEP_COMPUTE_TARGET_HTTP_PROXIES]: createStepStartState(
-      ServiceUsageName.COMPUTE,
-    ),
-    [STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES]: createStepStartState(
-      ServiceUsageName.COMPUTE,
-    ),
-    [STEP_COMPUTE_SSL_POLICIES]: createStepStartState(ServiceUsageName.COMPUTE),
-    [STEP_CLOUD_KMS_KEY_RINGS]: createStepStartState(ServiceUsageName.KMS),
-    [STEP_CLOUD_KMS_KEYS]: createStepStartState(ServiceUsageName.KMS),
-    [STEP_BIG_QUERY_DATASETS]: createStepStartState(ServiceUsageName.BIG_QUERY),
-    [STEP_BUILD_BIG_QUERY_DATASET_KMS_RELATIONSHIPS]: createStepStartState(
-      ServiceUsageName.BIG_QUERY,
-    ),
-    [STEP_BIG_QUERY_MODELS]: createStepStartState(ServiceUsageName.BIG_QUERY),
-    [STEP_BIG_QUERY_TABLES]: createStepStartState(ServiceUsageName.BIG_QUERY),
-    [STEP_SQL_ADMIN_INSTANCES]: createStepStartState(
-      ServiceUsageName.SQL_ADMIN,
-    ),
+      createStepStartState({
+        stepId: STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS,
+        primaryServiceName: ServiceUsageName.COMPUTE
+      }),
+    [STEP_COMPUTE_TARGET_SSL_PROXIES]: createStepStartState({
+      stepId: STEP_COMPUTE_TARGET_SSL_PROXIES,
+      primaryServiceName: ServiceUsageName.COMPUTE,
+    }),
+    [STEP_COMPUTE_TARGET_HTTPS_PROXIES]: createStepStartState({
+      stepId: STEP_COMPUTE_TARGET_HTTPS_PROXIES,
+      primaryServiceName: ServiceUsageName.COMPUTE,
+    }),
+    [STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES]: createStepStartState({
+      stepId: STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES,
+      primaryServiceName: ServiceUsageName.COMPUTE,
+    }),
+    [STEP_COMPUTE_TARGET_HTTP_PROXIES]: createStepStartState({
+      stepId: STEP_COMPUTE_TARGET_HTTP_PROXIES,
+      primaryServiceName: ServiceUsageName.COMPUTE,
+    }),
+    [STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES]: createStepStartState({
+      stepId: STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES,
+      primaryServiceName: ServiceUsageName.COMPUTE,
+    }),
+    [STEP_COMPUTE_SSL_POLICIES]: createStepStartState({
+      stepId: STEP_COMPUTE_SSL_POLICIES,
+      primaryServiceName: ServiceUsageName.COMPUTE
+    }),
+    [STEP_CLOUD_KMS_KEY_RINGS]: createStepStartState({
+      stepId: STEP_CLOUD_KMS_KEY_RINGS,
+      primaryServiceName: ServiceUsageName.KMS
+    }),
+    [STEP_CLOUD_KMS_KEYS]: createStepStartState({
+      stepId: STEP_CLOUD_KMS_KEYS,
+      primaryServiceName: ServiceUsageName.KMS
+    }),
+    [STEP_BIG_QUERY_DATASETS]: createStepStartState({
+      stepId: STEP_BIG_QUERY_DATASETS,
+      primaryServiceName: ServiceUsageName.BIG_QUERY
+    }),
+    [STEP_BUILD_BIG_QUERY_DATASET_KMS_RELATIONSHIPS]: createStepStartState({
+      stepId: STEP_BUILD_BIG_QUERY_DATASET_KMS_RELATIONSHIPS,
+      primaryServiceName: ServiceUsageName.BIG_QUERY,
+    }),
+    [STEP_BIG_QUERY_MODELS]: createStepStartState({
+      stepId: STEP_BIG_QUERY_MODELS,
+      primaryServiceName: ServiceUsageName.BIG_QUERY
+    }),
+    [STEP_BIG_QUERY_TABLES]: createStepStartState({
+      stepId: STEP_BIG_QUERY_TABLES,
+      primaryServiceName: ServiceUsageName.BIG_QUERY
+    }),
+    [STEP_SQL_ADMIN_INSTANCES]: createStepStartState({
+      stepId: STEP_SQL_ADMIN_INSTANCES,
+      primaryServiceName: ServiceUsageName.SQL_ADMIN,
+    }),
     [SqlAdminSteps.BUILD_SQL_INSTANCE_KMS_KEY_RELATIONSHIPS]:
-      createStepStartState(ServiceUsageName.SQL_ADMIN, ServiceUsageName.KMS),
-    [STEP_DNS_MANAGED_ZONES]: createStepStartState(ServiceUsageName.DNS),
-    [STEP_DNS_POLICIES]: createStepStartState(ServiceUsageName.DNS),
-    [STEP_CONTAINER_CLUSTERS]: createStepStartState(ServiceUsageName.CONTAINER),
-    [STEP_LOGGING_PROJECT_SINKS]: createStepStartState(
-      ServiceUsageName.LOGGING,
-    ),
+      createStepStartState({
+        stepId: SqlAdminSteps.BUILD_SQL_INSTANCE_KMS_KEY_RELATIONSHIPS,
+        primaryServiceName: ServiceUsageName.SQL_ADMIN,
+        additionalServiceNames: [ServiceUsageName.KMS]
+      }),
+    [STEP_DNS_MANAGED_ZONES]: createStepStartState({
+      stepId: STEP_DNS_MANAGED_ZONES,
+      primaryServiceName: ServiceUsageName.DNS
+    }),
+    [STEP_DNS_POLICIES]: createStepStartState({
+      stepId: STEP_DNS_POLICIES,
+      primaryServiceName: ServiceUsageName.DNS
+    }),
+    [STEP_CONTAINER_CLUSTERS]: createStepStartState({
+      stepId: STEP_CONTAINER_CLUSTERS,
+      primaryServiceName: ServiceUsageName.CONTAINER
+    }),
+    [STEP_LOGGING_PROJECT_SINKS]: createStepStartState({
+      stepId: STEP_LOGGING_PROJECT_SINKS,
+      primaryServiceName: ServiceUsageName.LOGGING,
+    }),
     [STEP_CREATE_LOGGING_PROJECT_SINK_BUCKET_RELATIONSHIPS]:
-      createStepStartState(ServiceUsageName.LOGGING),
-    [STEP_LOGGING_METRICS]: createStepStartState(ServiceUsageName.LOGGING),
-    [STEP_MONITORING_ALERT_POLICIES]: createStepStartState(
-      ServiceUsageName.MONITORING,
-    ),
-    [STEP_BINARY_AUTHORIZATION_POLICY]: createStepStartState(
-      ServiceUsageName.BINARY_AUTHORIZATION,
-    ),
-    [STEP_PUBSUB_TOPICS]: createStepStartState(ServiceUsageName.PUB_SUB),
-    [STEP_CREATE_PUBSUB_TOPIC_KMS_RELATIONSHIPS]: createStepStartState(
-      ServiceUsageName.PUB_SUB,
-    ),
-    [STEP_PUBSUB_SUBSCRIPTIONS]: createStepStartState(ServiceUsageName.PUB_SUB),
-    [STEP_APP_ENGINE_APPLICATION]: createStepStartState(
-      ServiceUsageName.APP_ENGINE,
-    ),
-    [STEP_CREATE_APP_ENGINE_BUCKET_RELATIONSHIPS]: createOrgStepStartState(
-      ServiceUsageName.APP_ENGINE,
-    ),
-    [STEP_APP_ENGINE_SERVICES]: createStepStartState(
-      ServiceUsageName.APP_ENGINE,
-    ),
-    [STEP_APP_ENGINE_VERSIONS]: createStepStartState(
-      ServiceUsageName.APP_ENGINE,
-    ),
-    [STEP_APP_ENGINE_INSTANCES]: createStepStartState(
-      ServiceUsageName.APP_ENGINE,
-    ),
-    [STEP_CLOUD_RUN_SERVICES]: createStepStartState(ServiceUsageName.CLOUD_RUN),
-    [STEP_CLOUD_RUN_ROUTES]: createStepStartState(ServiceUsageName.CLOUD_RUN),
-    [STEP_CLOUD_RUN_CONFIGURATIONS]: createStepStartState(
-      ServiceUsageName.CLOUD_RUN,
-    ),
-    [STEP_REDIS_INSTANCES]: createStepStartState(ServiceUsageName.REDIS),
-    [STEP_CREATE_REDIS_INSTANCE_NETWORK_RELATIONSHIPS]: createStepStartState(
-      ServiceUsageName.REDIS,
-    ),
-    [STEP_MEMCACHE_INSTANCES]: createStepStartState(ServiceUsageName.MEMCACHE),
-    [STEP_CREATE_MEMCACHE_INSTANCE_NETWORK_RELATIONSHIPS]: createStepStartState(
-      ServiceUsageName.MEMCACHE,
-    ),
-    [STEP_SPANNER_INSTANCES]: createStepStartState(ServiceUsageName.SPANNER),
-    [STEP_SPANNER_INSTANCE_CONFIGS]: createStepStartState(
-      ServiceUsageName.SPANNER,
-    ),
-    [STEP_SPANNER_INSTANCE_DATABASES]: createStepStartState(
-      ServiceUsageName.SPANNER,
-    ),
-    [STEP_API_GATEWAY_APIS]: createStepStartState(ServiceUsageName.API_GATEWAY),
-    [STEP_API_GATEWAY_API_CONFIGS]: createStepStartState(
-      ServiceUsageName.API_GATEWAY,
-    ),
-    [STEP_API_GATEWAY_GATEWAYS]: createStepStartState(
-      ServiceUsageName.API_GATEWAY,
-    ),
-    [STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES]: createStepStartState(
-      ServiceUsageName.PRIVATE_CA,
-    ),
+      createStepStartState({
+        stepId: STEP_CREATE_LOGGING_PROJECT_SINK_BUCKET_RELATIONSHIPS,
+        primaryServiceName: ServiceUsageName.LOGGING
+      }),
+    [STEP_LOGGING_METRICS]: createStepStartState({
+      stepId: STEP_LOGGING_METRICS,
+      primaryServiceName: ServiceUsageName.LOGGING
+    }),
+    [STEP_MONITORING_ALERT_POLICIES]: createStepStartState({
+      stepId: STEP_MONITORING_ALERT_POLICIES,
+      primaryServiceName: ServiceUsageName.MONITORING,
+    }),
+    [STEP_BINARY_AUTHORIZATION_POLICY]: createStepStartState({
+      stepId: STEP_BINARY_AUTHORIZATION_POLICY,
+      primaryServiceName: ServiceUsageName.BINARY_AUTHORIZATION,
+    }),
+    [STEP_PUBSUB_TOPICS]: createStepStartState({
+      stepId: STEP_PUBSUB_TOPICS,
+      primaryServiceName: ServiceUsageName.PUB_SUB
+    }),
+    [STEP_CREATE_PUBSUB_TOPIC_KMS_RELATIONSHIPS]: createStepStartState({
+      stepId: STEP_CREATE_PUBSUB_TOPIC_KMS_RELATIONSHIPS,
+      primaryServiceName: ServiceUsageName.PUB_SUB,
+    }),
+    [STEP_PUBSUB_SUBSCRIPTIONS]: createStepStartState({
+      stepId: STEP_PUBSUB_SUBSCRIPTIONS,
+      primaryServiceName: ServiceUsageName.PUB_SUB
+    }),
+    [STEP_APP_ENGINE_APPLICATION]: createStepStartState({
+      stepId: STEP_APP_ENGINE_APPLICATION,
+      primaryServiceName: ServiceUsageName.APP_ENGINE,
+    }),
+    [STEP_CREATE_APP_ENGINE_BUCKET_RELATIONSHIPS]: createOrgStepStartState({
+      stepId: STEP_CREATE_APP_ENGINE_BUCKET_RELATIONSHIPS,
+      primaryServiceName: ServiceUsageName.APP_ENGINE,
+    }),
+    [STEP_APP_ENGINE_SERVICES]: createStepStartState({
+      stepId: STEP_APP_ENGINE_SERVICES,
+      primaryServiceName: ServiceUsageName.APP_ENGINE,
+    }),
+    [STEP_APP_ENGINE_VERSIONS]: createStepStartState({
+      stepId: STEP_APP_ENGINE_VERSIONS,
+      primaryServiceName: ServiceUsageName.APP_ENGINE,
+    }),
+    [STEP_APP_ENGINE_INSTANCES]: createStepStartState({
+      stepId: STEP_APP_ENGINE_INSTANCES,
+      primaryServiceName: ServiceUsageName.APP_ENGINE,
+    }),
+    [STEP_CLOUD_RUN_SERVICES]: createStepStartState({
+      stepId: STEP_CLOUD_RUN_SERVICES,
+      primaryServiceName: ServiceUsageName.CLOUD_RUN
+    }),
+    [STEP_CLOUD_RUN_ROUTES]: createStepStartState({
+      stepId: STEP_CLOUD_RUN_ROUTES,
+      primaryServiceName: ServiceUsageName.CLOUD_RUN
+    }),
+    [STEP_CLOUD_RUN_CONFIGURATIONS]: createStepStartState({
+      stepId: STEP_CLOUD_RUN_CONFIGURATIONS,
+      primaryServiceName: ServiceUsageName.CLOUD_RUN,
+    }),
+    [STEP_REDIS_INSTANCES]: createStepStartState({
+      stepId: STEP_REDIS_INSTANCES,
+      primaryServiceName: ServiceUsageName.REDIS
+    }),
+    [STEP_CREATE_REDIS_INSTANCE_NETWORK_RELATIONSHIPS]: createStepStartState({
+      stepId: STEP_CREATE_REDIS_INSTANCE_NETWORK_RELATIONSHIPS,
+      primaryServiceName: ServiceUsageName.REDIS,
+    }),
+    [STEP_MEMCACHE_INSTANCES]: createStepStartState({
+      stepId: STEP_MEMCACHE_INSTANCES,
+      primaryServiceName: ServiceUsageName.MEMCACHE
+    }),
+    [STEP_CREATE_MEMCACHE_INSTANCE_NETWORK_RELATIONSHIPS]: createStepStartState({
+      stepId: STEP_CREATE_MEMCACHE_INSTANCE_NETWORK_RELATIONSHIPS,
+      primaryServiceName: ServiceUsageName.MEMCACHE,
+    }),
+    [STEP_SPANNER_INSTANCES]: createStepStartState({
+      stepId: STEP_SPANNER_INSTANCES,
+      primaryServiceName: ServiceUsageName.SPANNER
+    }),
+    [STEP_SPANNER_INSTANCE_CONFIGS]: createStepStartState({
+      stepId: STEP_SPANNER_INSTANCE_CONFIGS,
+      primaryServiceName: ServiceUsageName.SPANNER,
+    }),
+    [STEP_SPANNER_INSTANCE_DATABASES]: createStepStartState({
+      stepId: STEP_SPANNER_INSTANCE_DATABASES,
+      primaryServiceName: ServiceUsageName.SPANNER,
+    }),
+    [STEP_API_GATEWAY_APIS]: createStepStartState({
+      stepId: STEP_API_GATEWAY_APIS,
+      primaryServiceName: ServiceUsageName.API_GATEWAY
+    }),
+    [STEP_API_GATEWAY_API_CONFIGS]: createStepStartState({
+      stepId: STEP_API_GATEWAY_API_CONFIGS,
+      primaryServiceName: ServiceUsageName.API_GATEWAY,
+    }),
+    [STEP_API_GATEWAY_GATEWAYS]: createStepStartState({
+      stepId: STEP_API_GATEWAY_GATEWAYS,
+      primaryServiceName: ServiceUsageName.API_GATEWAY,
+    }),
+    [STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES]: createStepStartState({
+      stepId: STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES,
+      primaryServiceName: ServiceUsageName.PRIVATE_CA,
+    }),
     [STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS]:
-      createStepStartState(ServiceUsageName.PRIVATE_CA),
-    [STEP_PRIVATE_CA_CERTIFICATES]: createStepStartState(
-      ServiceUsageName.PRIVATE_CA,
-    ),
-    [STEP_DATAPROC_CLUSTERS]: createStepStartState(
-      ServiceUsageName.DATAPROC_CLUSTERS,
-    ),
-    [STEP_DATAPROC_CLUSTER_KMS_RELATIONSHIPS]: createStepStartState(
-      ServiceUsageName.DATAPROC_CLUSTERS,
-    ),
-    [STEP_CREATE_CLUSTER_STORAGE_RELATIONSHIPS]: createStepStartState(
-      ServiceUsageName.DATAPROC_CLUSTERS,
-    ),
-    [STEP_CREATE_CLUSTER_IMAGE_RELATIONSHIPS]: createStepStartState(
-      ServiceUsageName.DATAPROC_CLUSTERS,
-    ),
-    [STEP_BIG_TABLE_INSTANCES]: createStepStartState(
-      ServiceUsageName.BIG_TABLE,
-    ),
-    [STEP_BIG_TABLE_APP_PROFILES]: createStepStartState(
-      ServiceUsageName.BIG_TABLE,
-    ),
-    [STEP_BIG_TABLE_CLUSTERS]: createStepStartState(ServiceUsageName.BIG_TABLE),
-    [STEP_BIG_TABLE_BACKUPS]: createStepStartState(ServiceUsageName.BIG_TABLE),
-    [STEP_BIG_TABLE_TABLES]: createStepStartState(ServiceUsageName.BIG_TABLE),
+      createStepStartState({
+        stepId: STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS,
+        primaryServiceName: ServiceUsageName.PRIVATE_CA
+      }),
+    [STEP_PRIVATE_CA_CERTIFICATES]: createStepStartState({
+      stepId: STEP_PRIVATE_CA_CERTIFICATES,
+      primaryServiceName: ServiceUsageName.PRIVATE_CA,
+    }),
+    [STEP_DATAPROC_CLUSTERS]: createStepStartState({
+      stepId: STEP_DATAPROC_CLUSTERS,
+      primaryServiceName: ServiceUsageName.DATAPROC_CLUSTERS,
+    }),
+    [STEP_DATAPROC_CLUSTER_KMS_RELATIONSHIPS]: createStepStartState({
+      stepId: STEP_DATAPROC_CLUSTER_KMS_RELATIONSHIPS,
+      primaryServiceName: ServiceUsageName.DATAPROC_CLUSTERS,
+    }),
+    [STEP_CREATE_CLUSTER_STORAGE_RELATIONSHIPS]: createStepStartState({
+      stepId: STEP_CREATE_CLUSTER_STORAGE_RELATIONSHIPS,
+      primaryServiceName: ServiceUsageName.DATAPROC_CLUSTERS,
+    }),
+    [STEP_CREATE_CLUSTER_IMAGE_RELATIONSHIPS]: createStepStartState({
+      stepId: STEP_CREATE_CLUSTER_IMAGE_RELATIONSHIPS,
+      primaryServiceName: ServiceUsageName.DATAPROC_CLUSTERS,
+    }),
+    [STEP_BIG_TABLE_INSTANCES]: createStepStartState({
+      stepId: STEP_BIG_TABLE_INSTANCES,
+      primaryServiceName: ServiceUsageName.BIG_TABLE,
+    }),
+    [STEP_BIG_TABLE_APP_PROFILES]: createStepStartState({
+      stepId: STEP_BIG_TABLE_APP_PROFILES,
+      primaryServiceName: ServiceUsageName.BIG_TABLE,
+    }),
+    [STEP_BIG_TABLE_CLUSTERS]: createStepStartState({
+      stepId: STEP_BIG_TABLE_CLUSTERS,
+      primaryServiceName: ServiceUsageName.BIG_TABLE
+    }),
+    [STEP_BIG_TABLE_BACKUPS]: createStepStartState({
+      stepId: STEP_BIG_TABLE_BACKUPS,
+      primaryServiceName: ServiceUsageName.BIG_TABLE
+    }),
+    [STEP_BIG_TABLE_TABLES]: createStepStartState({
+      stepId: STEP_BIG_TABLE_TABLES,
+      primaryServiceName: ServiceUsageName.BIG_TABLE
+    }),
     [STEP_BILLING_BUDGETS]:
       singleProjectInstance || masterOrgInstance
-        ? createStepStartState(ServiceUsageName.BILLING_BUDGET)
+        ? createStepStartState({
+          stepId: STEP_BILLING_BUDGETS,
+          primaryServiceName: ServiceUsageName.BILLING_BUDGET
+        })
         : { disabled: true },
     [STEP_BUILD_ACCOUNT_BUDGET]:
       singleProjectInstance || masterOrgInstance
-        ? createStepStartState(ServiceUsageName.BILLING_BUDGET)
+        ? createStepStartState({
+          stepId: STEP_BUILD_ACCOUNT_BUDGET,
+          primaryServiceName: ServiceUsageName.BILLING_BUDGET
+        })
         : { disabled: true },
     [STEP_BUILD_PROJECT_BUDGET]:
       singleProjectInstance || masterOrgInstance
-        ? createStepStartState(ServiceUsageName.BILLING_BUDGET)
+        ? createStepStartState({
+          stepId: STEP_BUILD_PROJECT_BUDGET,
+          primaryServiceName: ServiceUsageName.BILLING_BUDGET
+        })
         : { disabled: true },
     [STEP_BILLING_ACCOUNTS]:
       singleProjectInstance || masterOrgInstance
-        ? createStepStartState(ServiceUsageName.CLOUD_BILLING)
+        ? createStepStartState({
+          stepId: STEP_BILLING_ACCOUNTS,
+          primaryServiceName: ServiceUsageName.CLOUD_BILLING
+        })
         : { disabled: true },
     [STEP_BUILD_ADDITIONAL_PROJECT_BUDGET]: masterOrgInstance
-      ? createStepStartState(ServiceUsageName.BILLING_BUDGET)
+      ? createStepStartState({
+        stepId: STEP_BUILD_ADDITIONAL_PROJECT_BUDGET,
+        primaryServiceName: ServiceUsageName.BILLING_BUDGET
+      })
       : { disabled: true },
-    [SecretManagerSteps.FETCH_SECRETS.id]: createStepStartState(
-      ServiceUsageName.SECRET_MANAGER,
-    ),
-    [SecretManagerSteps.FETCH_SECRET_VERSIONS.id]: createStepStartState(
-      ServiceUsageName.SECRET_MANAGER,
-    ),
-    [CloudBuildStepsSpec.FETCH_BUILDS.id]: createStepStartState(
-      ServiceUsageName.CLOUD_BUILD,
-    ),
-    [CloudBuildStepsSpec.FETCH_BUILD_TRIGGERS.id]: createStepStartState(
-      ServiceUsageName.CLOUD_BUILD,
-    ),
-    [CloudBuildStepsSpec.FETCH_BUILD_WORKER_POOLS.id]: createStepStartState(
-      ServiceUsageName.CLOUD_BUILD,
-    ),
+    [SecretManagerSteps.FETCH_SECRETS.id]: createStepStartState({
+      stepId: SecretManagerSteps.FETCH_SECRETS.id,
+      primaryServiceName: ServiceUsageName.SECRET_MANAGER,
+    }),
+    [SecretManagerSteps.FETCH_SECRET_VERSIONS.id]: createStepStartState({
+      stepId: SecretManagerSteps.FETCH_SECRET_VERSIONS.id,
+      primaryServiceName: ServiceUsageName.SECRET_MANAGER,
+    }),
+    [CloudBuildStepsSpec.FETCH_BUILDS.id]: createStepStartState({
+      stepId: CloudBuildStepsSpec.FETCH_BUILDS.id,
+      primaryServiceName: ServiceUsageName.CLOUD_BUILD,
+    }),
+    [CloudBuildStepsSpec.FETCH_BUILD_TRIGGERS.id]: createStepStartState({
+      stepId: CloudBuildStepsSpec.FETCH_BUILD_TRIGGERS.id,
+      primaryServiceName: ServiceUsageName.CLOUD_BUILD,
+    }),
+    [CloudBuildStepsSpec.FETCH_BUILD_WORKER_POOLS.id]: createStepStartState({
+      stepId: CloudBuildStepsSpec.FETCH_BUILD_WORKER_POOLS.id,
+      primaryServiceName: ServiceUsageName.CLOUD_BUILD,
+    }),
     [CloudBuildStepsSpec.FETCH_BUILD_GITHUB_ENTERPRISE_CONFIG.id]:
-      createStepStartState(ServiceUsageName.CLOUD_BUILD),
+      createStepStartState({
+        stepId: CloudBuildStepsSpec.FETCH_BUILD_GITHUB_ENTERPRISE_CONFIG.id,
+        primaryServiceName: ServiceUsageName.CLOUD_BUILD
+      }),
     [CloudBuildStepsSpec.FETCH_BUILD_BITBUCKET_SERVER_CONFIG.id]:
-      createStepStartState(ServiceUsageName.CLOUD_BUILD),
-    [CloudBuildStepsSpec.FETCH_BUILD_BITBUCKET_REPOS.id]: createStepStartState(
-      ServiceUsageName.CLOUD_BUILD,
-    ),
+      createStepStartState({
+        stepId: CloudBuildStepsSpec.FETCH_BUILD_BITBUCKET_SERVER_CONFIG.id,
+        primaryServiceName: ServiceUsageName.CLOUD_BUILD
+      }),
+    [CloudBuildStepsSpec.FETCH_BUILD_BITBUCKET_REPOS.id]: createStepStartState({
+      stepId: CloudBuildStepsSpec.FETCH_BUILD_BITBUCKET_REPOS.id,
+      primaryServiceName: ServiceUsageName.CLOUD_BUILD,
+    }),
     [CloudBuildStepsSpec.BUILD_CLOUD_BUILD_TRIGGER_TRIGGERS_BUILD_RELATIONSHIPS
-      .id]: createStepStartState(ServiceUsageName.CLOUD_BUILD),
-    [CloudBuildStepsSpec.BUILD_CLOUD_BUILD_USES_STORAGE_BUCKET_RELATIONSHIPS
-      .id]: createStepStartState(
-      ServiceUsageName.CLOUD_BUILD,
-      ServiceUsageName.STORAGE,
-    ),
+      .id]: createStepStartState({
+        stepId: CloudBuildStepsSpec.BUILD_CLOUD_BUILD_TRIGGER_TRIGGERS_BUILD_RELATIONSHIPS.id,
+        primaryServiceName: ServiceUsageName.CLOUD_BUILD
+      }),
+    [CloudBuildStepsSpec.BUILD_CLOUD_BUILD_USES_STORAGE_BUCKET_RELATIONSHIPS.id]: createStepStartState({
+      stepId: CloudBuildStepsSpec.BUILD_CLOUD_BUILD_USES_STORAGE_BUCKET_RELATIONSHIPS.id,
+      primaryServiceName: ServiceUsageName.CLOUD_BUILD,
+      additionalServiceNames: [ServiceUsageName.STORAGE],
+    }),
     [CloudSourceRepositoriesStepsSpec.FETCH_REPOSITORIES.id]:
-      createStepStartState(ServiceUsageName.CLOUD_SOURCE_REPOSITORIES),
-    [CloudBuildStepsSpec.BUILD_CLOUD_BUILD_USES_SOURCE_REPOSITORY_RELATIONSHIPS
-      .id]: createStepStartState(
-      ServiceUsageName.CLOUD_BUILD,
-      ServiceUsageName.CLOUD_SOURCE_REPOSITORIES,
-    ),
+      createStepStartState({
+        stepId: CloudSourceRepositoriesStepsSpec.FETCH_REPOSITORIES.id,
+        primaryServiceName: ServiceUsageName.CLOUD_SOURCE_REPOSITORIES
+      }),
+    [CloudBuildStepsSpec.BUILD_CLOUD_BUILD_USES_SOURCE_REPOSITORY_RELATIONSHIPS.id]: createStepStartState({
+      stepId: CloudBuildStepsSpec.BUILD_CLOUD_BUILD_USES_SOURCE_REPOSITORY_RELATIONSHIPS.id,
+      primaryServiceName: ServiceUsageName.CLOUD_BUILD,
+      additionalServiceNames: [ServiceUsageName.CLOUD_SOURCE_REPOSITORIES],
+    }),
     [CloudBuildStepsSpec
       .BUILD_CLOUD_BUILD_TRIGGER_USES_GITHUB_REPO_RELATIONSHIPS.id]:
-      createStepStartState(ServiceUsageName.CLOUD_BUILD),
+      createStepStartState({
+        stepId: CloudBuildStepsSpec.BUILD_CLOUD_BUILD_TRIGGER_USES_GITHUB_REPO_RELATIONSHIPS.id,
+        primaryServiceName: ServiceUsageName.CLOUD_BUILD
+      }),
   };
 
   logger.info(
     { stepStartStates: JSON.stringify(stepStartStates) },
     'Step start states',
   );
+
+  const disabledServiceToStepMap = enablement.getDisabledServiceToStepMap();
+  for (const service of Object.keys(disabledServiceToStepMap)) {
+    logger.publishEvent({
+      name: 'service_disabled',
+      description: `The API Service ${service} is disabled in this account. As a result, the following steps are disabled: ${disabledServiceToStepMap[service]}`,
+    });
+  }
+
   return stepStartStates;
 }
