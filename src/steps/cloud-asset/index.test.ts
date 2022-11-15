@@ -37,13 +37,11 @@ import {
   fetchBigQueryDatasets,
   BIG_QUERY_DATASET_ENTITY_TYPE,
 } from '../big-query';
-import {
-  fetchStorageBuckets,
-  CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
-} from '../storage';
+import { fetchStorageBuckets } from '../storage';
 import { CLOUD_FUNCTION_ENTITY_TYPE, fetchCloudFunctions } from '../functions';
 import { IAM_MANAGED_ROLES_DATA_JOB_STATE_KEY } from '../../utils/iam';
 import { fetchApiServices } from '../service-usage';
+import { StorageEntitiesSpec } from '../storage/constants';
 
 /* eslint-disable no-console */
 expect.extend({
@@ -660,7 +658,7 @@ describe('#fetchIamBindings', () => {
 
     await fetchStorageBuckets(context);
     const storageBuckets = context.jobState.collectedEntities.filter(
-      (e) => e._type === CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
+      (e) => e._type === StorageEntitiesSpec.STORAGE_BUCKET._type,
     );
     expect(storageBuckets.length).toBeGreaterThan(0);
 

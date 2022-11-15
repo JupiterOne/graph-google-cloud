@@ -113,6 +113,7 @@ import {
   STEP_CLOUD_FUNCTIONS,
   STEP_CLOUD_FUNCTIONS_SERVICE_ACCOUNT_RELATIONSHIPS,
   STEP_CLOUD_FUNCTIONS_SOURCE_REPO_RELATIONSHIPS,
+  STEP_CLOUD_FUNCTIONS_STORAGE_BUCKET_RELATIONSHIPS,
 } from './steps/functions';
 import {
   STEP_IAM_CUSTOM_ROLES,
@@ -160,7 +161,7 @@ import {
   STEP_SPANNER_INSTANCE_DATABASES,
 } from './steps/spanner/constants';
 import { SqlAdminSteps, STEP_SQL_ADMIN_INSTANCES } from './steps/sql-admin';
-import { STEP_CLOUD_STORAGE_BUCKETS } from './steps/storage';
+import { StorageStepsSpec } from './steps/storage/constants';
 import { IntegrationConfig, SerializedIntegrationConfig } from './types';
 import { deserializeIntegrationConfig } from './utils/integrationConfig';
 import { isMasterOrganizationInstance } from './utils/isMasterOrganizationInstance';
@@ -303,7 +304,8 @@ function getDefaultStepStartStates(params: {
     [STEP_CLOUD_FUNCTIONS]: { disabled: false },
     [STEP_CLOUD_FUNCTIONS_SERVICE_ACCOUNT_RELATIONSHIPS]: { disabled: false },
     [STEP_CLOUD_FUNCTIONS_SOURCE_REPO_RELATIONSHIPS]: { disabled: false },
-    [STEP_CLOUD_STORAGE_BUCKETS]: { disabled: false },
+    [STEP_CLOUD_FUNCTIONS_STORAGE_BUCKET_RELATIONSHIPS]: { disabled: false },
+    [StorageStepsSpec.FETCH_STORAGE_BUCKETS.id]: { disabled: false },
     [STEP_IAM_CUSTOM_ROLES]: { disabled: false },
     [STEP_IAM_CUSTOM_ROLE_SERVICE_API_RELATIONSHIPS]: { disabled: false },
     [STEP_IAM_MANAGED_ROLES]: { disabled: false },
@@ -619,8 +621,8 @@ async function getStepStartStatesUsingServiceEnablements(params: {
       stepId: STEP_CLOUD_FUNCTIONS_SOURCE_REPO_RELATIONSHIPS,
       primaryServiceName: ServiceUsageName.CLOUD_FUNCTIONS,
     }),
-    [STEP_CLOUD_STORAGE_BUCKETS]: createStepStartState({
-      stepId: STEP_CLOUD_STORAGE_BUCKETS,
+    [StorageStepsSpec.FETCH_STORAGE_BUCKETS.id]: createStepStartState({
+      stepId: StorageStepsSpec.FETCH_STORAGE_BUCKETS.id,
       primaryServiceName: ServiceUsageName.STORAGE,
       additionalServiceNames: [ServiceUsageName.STORAGE_COMPONENT, ServiceUsageName.STORAGE_API]
     }),

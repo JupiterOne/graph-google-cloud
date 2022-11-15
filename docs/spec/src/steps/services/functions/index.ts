@@ -17,7 +17,7 @@ export const functionSteps: StepSpec<IntegrationInstanceConfig>[] = [
       {
         resourceName: 'Cloud Function',
         _type: 'google_cloud_function',
-        _class: 'Function',
+        _class: ['Function'],
       },
     ],
     relationships: [],
@@ -62,7 +62,7 @@ export const functionSteps: StepSpec<IntegrationInstanceConfig>[] = [
       },
     ],
     dependsOn: ['fetch-cloud-functions', 'fetch-cloud-storage-buckets'],
-    implemented: false,
+    implemented: true,
   },
   {
     /**

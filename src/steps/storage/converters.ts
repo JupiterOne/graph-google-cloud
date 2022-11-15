@@ -1,9 +1,6 @@
 import { storage_v1 } from 'googleapis';
 import { parseTimePropertyValue } from '@jupiterone/integration-sdk-core';
-import {
-  CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
-  CLOUD_STORAGE_BUCKET_ENTITY_CLASS,
-} from './constants';
+import { StorageEntitiesSpec } from './constants';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import { isMemberPublic } from '../../utils/iam';
 
@@ -102,8 +99,8 @@ export function createCloudStorageBucketEntity({
     entityData: {
       source: data,
       assign: {
-        _class: CLOUD_STORAGE_BUCKET_ENTITY_CLASS,
-        _type: CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
+        _class: StorageEntitiesSpec.STORAGE_BUCKET._class,
+        _type: StorageEntitiesSpec.STORAGE_BUCKET._type,
         _key: getCloudStorageBucketKey(data.id as string),
         id: data.id as string,
         name: data.name,

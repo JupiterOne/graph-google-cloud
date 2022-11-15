@@ -15,6 +15,8 @@ import {
 } from './constants';
 import { CloudSourceRepositoriesStepsSpec } from '../cloud-source-repositories/constants';
 import { cloudfunctions_v1 } from 'googleapis';
+import { getCloudStorageBucketKey } from '../storage/converters';
+import { StorageStepsSpec } from '../storage/constants';
 
 export * from './constants';
 
@@ -95,9 +97,47 @@ export async function buildCloudFunctionSourceRepoRelationships(
       if (sourceRepoEntity) {
         await jobState.addRelationship(
           createDirectRelationship({
-            _class: RelationshipClass.USES,
+            _class:
+              FunctionsRelationshipsSpec
+                .GOOGLE_CLOUD_FUNCTION_USES_SOURCE_REPOSITORY._class,
             from: cloudFunctionEntity,
             to: sourceRepoEntity,
+          }),
+        );
+      }
+    },
+  );
+}
+
+export async function buildCloudFunctionStorageBucketRelationships(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState } = context;
+
+  await jobState.iterateEntities(
+    {
+      _type: FunctionEntitiesSpec.CLOUD_FUNCTION._type,
+    },
+    async (cloudFunctionEntity) => {
+      const cloudFunction =
+        getRawData<cloudfunctions_v1.Schema$CloudFunction>(cloudFunctionEntity);
+
+      const storageBucketKey = cloudFunction?.sourceArchiveUrl?.split('/')[2];
+
+      if (!storageBucketKey) return;
+
+      const storageBucketEntity = await jobState.findEntity(
+        getCloudStorageBucketKey(storageBucketKey),
+      );
+
+      if (storageBucketEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class:
+              FunctionsRelationshipsSpec
+                .GOOGLE_CLOUD_FUNCTION_USES_STORAGE_BUCKET._class,
+            from: cloudFunctionEntity,
+            to: storageBucketEntity,
           }),
         );
       }
@@ -139,5 +179,18 @@ export const functionsSteps: IntegrationStep<IntegrationConfig>[] = [
       FunctionsRelationshipsSpec.GOOGLE_CLOUD_FUNCTION_USES_SOURCE_REPOSITORY,
     ],
     executionHandler: buildCloudFunctionSourceRepoRelationships,
+  },
+  {
+    id: FunctionStepsSpec.CLOUD_FUNCTIONS_STORAGE_BUCKET_RELATIONSHIP.id,
+    name: FunctionStepsSpec.CLOUD_FUNCTIONS_STORAGE_BUCKET_RELATIONSHIP.name,
+    dependsOn: [
+      FunctionStepsSpec.FETCH_CLOUD_FUNCTIONS.id,
+      StorageStepsSpec.FETCH_STORAGE_BUCKETS.id,
+    ],
+    entities: [],
+    relationships: [
+      FunctionsRelationshipsSpec.GOOGLE_CLOUD_FUNCTION_USES_STORAGE_BUCKET,
+    ],
+    executionHandler: buildCloudFunctionStorageBucketRelationships,
   },
 ];

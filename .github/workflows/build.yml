@@ -42,7 +42,7 @@ jobs:
       - name: Check out repo
         uses: actions/checkout@v2
         with:
-          fetch-depth: 2
+          fetch-depth: 0
           token: ${{ secrets.AUTO_GITHUB_PAT_TOKEN }}
       - name: Build and Release
         uses: jupiterone/action-npm-build-release@v1

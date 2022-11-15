@@ -38,10 +38,7 @@ import {
   buildComputeBackendBucketHasBucketRelationships,
   buildImageUsesKmsRelationships,
 } from '.';
-import {
-  CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
-  fetchStorageBuckets,
-} from '../storage';
+import { fetchStorageBuckets } from '../storage';
 import { integrationConfig } from '../../../test/config';
 import {
   ENTITY_TYPE_COMPUTE_DISK,
@@ -109,6 +106,7 @@ import { fetchIamServiceAccounts } from '../iam';
 import { fetchKmsCryptoKeys, fetchKmsKeyRings } from '../kms';
 import { filterGraphObjects } from '../../../test/helpers/filterGraphObjects';
 import { separateDirectMappedRelationships } from '../../../test/helpers/separateDirectMappedRelationships';
+import { StorageEntitiesSpec } from '../storage/constants';
 
 const tempNewAccountConfig = {
   ...integrationConfig,
@@ -1510,7 +1508,7 @@ describe('#fetchComputeBackendBuckets', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e._type === CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
+        (e) => e._type === StorageEntitiesSpec.STORAGE_BUCKET._type,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['DataStore'],

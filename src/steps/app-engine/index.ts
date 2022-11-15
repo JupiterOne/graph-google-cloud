@@ -41,15 +41,12 @@ import {
 } from './converters';
 import { getCloudStorageBucketKey } from '../storage/converters';
 import {
-  CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
-  STEP_CLOUD_STORAGE_BUCKETS,
-} from '../storage';
-import {
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
   GOOGLE_USER_ENTITY_TYPE,
   STEP_IAM_SERVICE_ACCOUNTS,
 } from '../iam/constants';
 import { isServiceAccountEmail } from '../../utils/iam';
+import { StorageEntitiesSpec, StorageStepsSpec } from '../storage/constants';
 
 async function withAppEngineErrorHandling<T>(
   logger: IntegrationLogger,
@@ -404,10 +401,13 @@ export const appEngineSteps: IntegrationStep<IntegrationConfig>[] = [
         _class: RelationshipClass.USES,
         _type: RELATIONSHIP_TYPE_APP_ENGINE_APPLICATION_USES_BUCKET,
         sourceType: ENTITY_TYPE_APP_ENGINE_APPLICATION,
-        targetType: CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
+        targetType: StorageEntitiesSpec.STORAGE_BUCKET._type,
       },
     ],
-    dependsOn: [STEP_APP_ENGINE_APPLICATION, STEP_CLOUD_STORAGE_BUCKETS],
+    dependsOn: [
+      STEP_APP_ENGINE_APPLICATION,
+      StorageStepsSpec.FETCH_STORAGE_BUCKETS.id,
+    ],
     executionHandler: buildAppEngineApplicationUsesBucketRelationships,
   },
   {
