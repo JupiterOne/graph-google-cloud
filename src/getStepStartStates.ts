@@ -1103,7 +1103,7 @@ async function getStepStartStatesUsingServiceEnablements(params: {
   for (const service of Object.keys(disabledServiceToStepMap)) {
     logger.publishEvent({
       name: 'service_disabled',
-      description: `The API Service ${service} is disabled in this account. As a result, the following steps are disabled: ${disabledServiceToStepMap[service]}`,
+      description: `The API Service ${service} is disabled in this account. As a result, the following steps are disabled: ${new Array(...disabledServiceToStepMap[service]).join(', ')}`,
     });
   }
 

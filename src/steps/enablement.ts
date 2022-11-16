@@ -111,8 +111,9 @@ export function createStepStartState(
   for (const serviceName of allServicesToEnableStep) {
     if (enabledServiceNames.includes(serviceName)) {
       disabled = false;
+    } else {
+      disabledServices.push(serviceName);
     }
-    disabledServices.push(serviceName);
   }
 
   buildDisabledServicesToStepMap(stepId, disabledServices);
