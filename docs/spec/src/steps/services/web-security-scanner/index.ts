@@ -4,7 +4,7 @@ import {
   StepSpec,
 } from '@jupiterone/integration-sdk-core';
 
-export const functionSteps: StepSpec<IntegrationInstanceConfig>[] = [
+export const webSecurityScannerSteps: StepSpec<IntegrationInstanceConfig>[] = [
   {
     /**
      * ENDPOINT: https://cloud.google.com/security-command-center/docs/reference/web-security-scanner/rest/v1/projects.scanConfigs/list
