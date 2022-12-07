@@ -25,6 +25,7 @@ export async function fetchStorageBuckets(
     publicAccessPreventionPolicy =
       await orgPolicyClient.fetchOrganizationPublicAccessPreventionPolicy();
   } catch (err) {
+    logger.warn({ err }, 'Error fetching organization public access prevention policy', err);
     logger.publishEvent({
       name: 'missing_permission',
       description:
