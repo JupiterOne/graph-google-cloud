@@ -1,3 +1,18 @@
+# v2.20.1 (Wed Dec 07 2022)
+
+#### 🐛 Bug Fix
+
+- INT-5867 Log fetch org public access prevention policy errors [#561](https://github.com/JupiterOne/graph-google-cloud/pull/561) ([@JakeFerrero](https://github.com/JakeFerrero))
+- feat(INT-5754): modernize fetch cloud functions test [#557](https://github.com/JupiterOne/graph-google-cloud/pull/557) (gastonyelmini@MBP-de-Gaston.fibertel.com.ar)
+- Refactor storage bucket constants [#556](https://github.com/JupiterOne/graph-google-cloud/pull/556) (gastonyelmini@MBP-de-Gaston.fibertel.com.ar)
+
+#### Authors: 2
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+- Jake Ferrero ([@JakeFerrero](https://github.com/JakeFerrero))
+
+---
+
 # v2.20.0 (Wed Nov 09 2022)
 
 #### 🚀 Enhancement
