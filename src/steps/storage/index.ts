@@ -26,11 +26,14 @@ export async function fetchStorageBuckets(
       await orgPolicyClient.fetchOrganizationPublicAccessPreventionPolicy();
   } catch (err) {
     logger.warn({ err }, 'Error fetching organization public access prevention policy');
-    logger.publishEvent({
-      name: 'missing_permission',
-      description:
-        '"orgpolicy.policy.get" is not a required permission to run the Google Cloud integration, but is required for getting organization policy for "storage.publicAccessPrevention"',
-    });
+    
+    if (err.code === 403 && (err.message as string).includes(`Permission 'orgpolicy.policy.get' denied on resource`)) {
+      logger.publishEvent({
+        name: 'missing_permission',
+        description:
+          '"orgpolicy.policy.get" is not a required permission to run the Google Cloud integration, but is required for getting organization policy for "storage.publicAccessPrevention"',
+      });
+    }
   }
 
   const bucketIdsWithUnprocessedPolicies: string[] = [];
