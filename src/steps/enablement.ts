@@ -3,6 +3,14 @@ import { ServiceUsageName } from '../google-cloud/types';
 import { IntegrationConfig } from '../types';
 import { collectEnabledServicesForProject } from './service-usage/client';
 
+const disabledServiceToStepMap: {
+  [key in ServiceUsageName]?: Set<string>;
+} = {};
+
+export function getDisabledServiceToStepMap() {
+  return disabledServiceToStepMap;
+}
+
 export interface EnabledServiceData {
   // Enabled APIs in the Google Cloud Project that the Service Account used to authenticate with resides.
   mainProjectEnabledServices?: string[];
@@ -79,42 +87,79 @@ export async function getMainProjectEnabledServices(config: IntegrationConfig) {
 }
 
 export function createStepStartState(
-  enabledServiceNames: string[],
-  primaryServiceName: ServiceUsageName,
-  ...additionalServiceNames: ServiceUsageName[]
+  {
+    stepId,
+    enabledServiceNames, 
+    primaryServiceName,
+    additionalServiceNames
+  }:
+  {
+    stepId: string
+    enabledServiceNames: string[];
+    primaryServiceName: ServiceUsageName;
+    additionalServiceNames?: ServiceUsageName[];
+  }
 ): StepStartState {
   const allServicesToEnableStep: ServiceUsageName[] = [
     primaryServiceName,
-    ...additionalServiceNames,
+    ...(additionalServiceNames || []),
   ];
 
   let disabled = true;
+  const disabledServices: ServiceUsageName[] = [];
 
   for (const serviceName of allServicesToEnableStep) {
     if (enabledServiceNames.includes(serviceName)) {
       disabled = false;
-      break;
+    } else {
+      disabledServices.push(serviceName);
     }
   }
+
+  buildDisabledServicesToStepMap(stepId, disabledServices);
 
   return { disabled };
 }
 
 export function createStepStartStateWhereAllServicesMustBeEnabled(
-  enabledServiceNames: string[],
-  primaryServiceName: ServiceUsageName,
-  ...additionalServiceNames: ServiceUsageName[]
+  {
+    stepId,
+    enabledServiceNames, 
+    primaryServiceName,
+    additionalServiceNames
+  }:
+  {
+    stepId: string
+    enabledServiceNames: string[];
+    primaryServiceName: ServiceUsageName;
+    additionalServiceNames?: ServiceUsageName[];
+  }
 ): StepStartState {
   const allServicesToEnableStep: ServiceUsageName[] = [
     primaryServiceName,
-    ...additionalServiceNames,
+    ...(additionalServiceNames || []),
   ];
+
+  let disabled = false;
+  const disabledServices: ServiceUsageName[] = [];
 
   for (const serviceName of allServicesToEnableStep) {
     if (!enabledServiceNames.includes(serviceName)) {
-      return { disabled: true };
+      disabled = true;
+      disabledServices.push(serviceName);
     }
   }
 
-  return { disabled: false };
+  buildDisabledServicesToStepMap(stepId, disabledServices);
+
+  return { disabled };
+}
+
+function buildDisabledServicesToStepMap(stepId: string, disabledServices: ServiceUsageName[]): void {
+  disabledServices.forEach((serviceName) => {
+    if (!disabledServiceToStepMap[serviceName]) {
+      disabledServiceToStepMap[serviceName] = new Set<string>();
+    }
+    disabledServiceToStepMap[serviceName]!.add(stepId)
+  });
 }

@@ -6,14 +6,15 @@ import * as serviceUsage from './service-usage/client';
 describe('#createStepStartState', () => {
   test('should not mark step start state as disabled when the service is enabled', () => {
     expect(
-      enablement.createStepStartState(
-        [
+      enablement.createStepStartState({
+        stepId: 'test-step',
+        enabledServiceNames: [
           'pubsub.googleapis.com',
           'appengine.googleapis.com',
           'dns.googleapis.com',
         ],
-        ServiceUsageName.APP_ENGINE,
-      ),
+        primaryServiceName: ServiceUsageName.APP_ENGINE,
+      }),
     ).toEqual({
       disabled: false,
     });
@@ -21,14 +22,15 @@ describe('#createStepStartState', () => {
 
   test('should mark step start state as disabled when the service is not enabled', () => {
     expect(
-      enablement.createStepStartState(
-        [
+      enablement.createStepStartState({
+        stepId: 'test-step',
+        enabledServiceNames: [
           'pubsub.googleapis.com',
           'appengine.googleapis.com',
           'dns.googleapis.com',
         ],
-        ServiceUsageName.CLOUD_FUNCTIONS,
-      ),
+        primaryServiceName: ServiceUsageName.CLOUD_FUNCTIONS,
+      }),
     ).toEqual({
       disabled: true,
     });
@@ -36,16 +38,16 @@ describe('#createStepStartState', () => {
 
   test('should allow alternative service names to be supplied', () => {
     expect(
-      enablement.createStepStartState(
-        [
+      enablement.createStepStartState({
+        stepId: 'test-step',
+        enabledServiceNames: [
           'pubsub.googleapis.com',
           'storage-component.googleapis.com',
           'dns.googleapis.com',
         ],
-        ServiceUsageName.STORAGE,
-        ServiceUsageName.STORAGE_COMPONENT,
-        ServiceUsageName.STORAGE_API,
-      ),
+        primaryServiceName: ServiceUsageName.STORAGE,
+        additionalServiceNames: [ServiceUsageName.STORAGE_COMPONENT, ServiceUsageName.STORAGE_API]
+      }),
     ).toEqual({
       disabled: false,
     });
@@ -55,28 +57,28 @@ describe('#createStepStartState', () => {
 describe('#createStepStartStateWhereAllServicesMustBeEnabled', () => {
   test('should enable if all service names are enabled', () => {
     expect(
-      enablement.createStepStartStateWhereAllServicesMustBeEnabled(
-        [
+      enablement.createStepStartStateWhereAllServicesMustBeEnabled({
+        stepId: 'test-step',
+        enabledServiceNames: [
           'storage.googleapis.com',
           'storage-component.googleapis.com',
           'storage-api.googleapis.com',
         ],
-        ServiceUsageName.STORAGE,
-        ServiceUsageName.STORAGE_COMPONENT,
-        ServiceUsageName.STORAGE_API,
-      ),
+        primaryServiceName: ServiceUsageName.STORAGE,
+        additionalServiceNames: [ServiceUsageName.STORAGE_COMPONENT, ServiceUsageName.STORAGE_API]
+      }),
     ).toEqual({
       disabled: false,
     });
   });
   test('should not enable if not all service names are enabled', () => {
     expect(
-      enablement.createStepStartStateWhereAllServicesMustBeEnabled(
-        ['storage-component.googleapis.com'],
-        ServiceUsageName.STORAGE,
-        ServiceUsageName.STORAGE_COMPONENT,
-        ServiceUsageName.STORAGE_API,
-      ),
+      enablement.createStepStartStateWhereAllServicesMustBeEnabled({
+        stepId: 'test-step',
+        enabledServiceNames: ['storage-component.googleapis.com'],
+        primaryServiceName: ServiceUsageName.STORAGE,
+        additionalServiceNames: [ServiceUsageName.STORAGE_COMPONENT, ServiceUsageName.STORAGE_API]
+      }),
     ).toEqual({
       disabled: true,
     });
