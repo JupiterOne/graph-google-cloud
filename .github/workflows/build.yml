@@ -9,17 +9,18 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - name: Check out code repository source code
+        uses: actions/checkout@v3
+
       - id: setup-node
         name: Setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: 14.x
-
-      - name: Check out code repository source code
-        uses: actions/checkout@v2
+          cache: 'yarn'
 
       - name: Install dependencies
-        run: yarn
+        run: yarn --frozen-lockfile
 
       - name: Run tests
         run: yarn test:ci
@@ -36,11 +37,12 @@ jobs:
     name: Checkout Code
     steps:
       - name: Setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: 14.x
+          cache: 'yarn'
       - name: Check out repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
           token: ${{ secrets.AUTO_GITHUB_PAT_TOKEN }}
