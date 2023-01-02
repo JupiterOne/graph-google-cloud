@@ -1,3 +1,11 @@
+/* 
+<!-- {J1_PERMISSIONS_MARKER_START} -->
+permission3,
+permission4,
+permission5,
+<!-- {J1_PERMISSIONS_MARKER_END} -->
+*/
+
 import { apigateway_v1, google } from 'googleapis';
 import { Client } from '../../google-cloud/client';
 

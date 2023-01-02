@@ -1,3 +1,11 @@
+/* 
+<!-- {J1_PERMISSIONS_MARKER_START} -->
+permission1,
+permission2,
+permission3,
+<!-- {J1_PERMISSIONS_MARKER_END} -->
+*/
+
 import { accesscontextmanager_v1, google } from 'googleapis';
 import { Client } from '../../google-cloud/client';
 

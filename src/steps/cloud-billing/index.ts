@@ -36,5 +36,6 @@ export const cloudBillingSteps: IntegrationStep<IntegrationConfig>[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchBillingAccounts,
+    permissions: ['samplePermission1'],
   },
 ];

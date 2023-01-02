@@ -52,6 +52,7 @@
   },
   "dependencies": {
     "@lifeomic/attempt": "^3.0.0",
+    "commander": "^9.4.1",
     "gaxios": "^4.2.1",
     "google-auth-library": "^7.1.0",
     "googleapis": "94.0.0",

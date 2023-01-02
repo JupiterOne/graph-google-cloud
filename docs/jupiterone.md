@@ -562,4 +562,14 @@ END OF GENERATED DOCUMENTATION AFTER BELOW MARKER
 -->
 <!-- {J1_DOCUMENTATION_MARKER_END} -->
 
+<!-- {J1_PERMISSIONS_DOCUMENTATION_MARKER_START} -->
+
+| Service       | Permissions                                                     |
+| ------------- | --------------------------------------------------------------- |
+| cloud-billing | `samplePermission1`                                             |
+| cloud-build   | `cloudBuild1,cloudbuild2,cloudBuildTrigger1,cloudBuildTrigger2` |
+| functions     | `permissions1,permission2,permissions3,permission4`             |
+
+<!-- {J1_PERMISSIONS_DOCUMENTATION_MARKER_END} -->
+
 <!--  jupiterOneDocVersion=2-15-2-beta-4 -->

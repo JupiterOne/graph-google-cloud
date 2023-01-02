@@ -21,4 +21,5 @@ export const fetchCloudBuildStep: IntegrationStep<IntegrationConfig> = {
       await jobState.addEntity(createGoogleCloudBuildEntity(data));
     });
   },
+  permissions: ['cloudBuild1', 'cloudbuild2'],
 };

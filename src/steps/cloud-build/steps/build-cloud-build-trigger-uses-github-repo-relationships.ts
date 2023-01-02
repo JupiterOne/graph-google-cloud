@@ -80,4 +80,5 @@ export const buildCloudBuildTriggerUsesGithubRepositoryStep: IntegrationStep<Int
         },
       );
     },
+    permissions: ['cloudBuildTrigger1', 'cloudBuildTrigger2'],
   };

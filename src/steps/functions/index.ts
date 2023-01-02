@@ -153,6 +153,7 @@ export const functionsSteps: IntegrationStep<IntegrationConfig>[] = [
     entities: [FunctionEntitiesSpec.CLOUD_FUNCTION],
     relationships: [],
     executionHandler: fetchCloudFunctions,
+    permissions: ['permissions1', 'permission2'],
   },
   {
     id: FunctionStepsSpec.CLOUD_FUNCTIONS_SERVICE_ACCOUNT_RELATIONSHIPS.id,
@@ -166,6 +167,7 @@ export const functionsSteps: IntegrationStep<IntegrationConfig>[] = [
       FunctionsRelationshipsSpec.GOOGLE_CLOUD_FUNCTION_USES_IAM_SERVICE_ACCOUNT,
     ],
     executionHandler: buildCloudFunctionServiceAccountRelationships,
+    permissions: ['permissions3', 'permission4'],
   },
   {
     id: FunctionStepsSpec.CLOUD_FUNCTIONS_SOURCE_REPO_RELATIONSHIP.id,
