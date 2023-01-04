@@ -36,7 +36,7 @@ export async function fetchBinaryAuthorizationPolicy(
     policy = await client.fetchPolicy();
   } catch (err) {
     if (err.code === 403) {
-      logger.trace(
+      logger.warn(
         { err },
         'Could not fetch binary authorization policy. Requires additional permission',
       );
