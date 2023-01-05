@@ -37,6 +37,7 @@ import { serviceUsageSteps } from './service-usage';
 import { spannerSteps } from './spanner';
 import { sqlAdminSteps } from './sql-admin';
 import { storageSteps } from './storage';
+import { webSecurityScannerSteps } from './web-security-scanner';
 
 const steps: IntegrationStep<IntegrationConfig>[] = wrapStepExecutionHandlers([
   ...functionsSteps,
@@ -70,6 +71,7 @@ const steps: IntegrationStep<IntegrationConfig>[] = wrapStepExecutionHandlers([
   ...secretManagerSteps,
   ...cloudBuildSteps,
   ...cloudSourceRepositoriesSteps,
+  ...webSecurityScannerSteps,
 ]);
 
 function wrapStepExecutionHandlers(

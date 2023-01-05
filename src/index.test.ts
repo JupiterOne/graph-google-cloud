@@ -177,6 +177,7 @@ import {
   STEP_CLOUD_FUNCTIONS_STORAGE_BUCKET_RELATIONSHIPS,
 } from './steps/functions';
 import { StorageStepsSpec } from './steps/storage/constants';
+import { WebSecurityScannerSteps } from './steps/web-security-scanner/constants';
 
 interface ValidateInvocationInvalidConfigTestParams {
   instanceConfig?: Partial<IntegrationConfig>;
@@ -681,6 +682,12 @@ describe('#getStepStartStates success', () => {
         },
         [CloudBuildStepsSpec
           .BUILD_CLOUD_BUILD_TRIGGER_USES_GITHUB_REPO_RELATIONSHIPS.id]: {
+          disabled: false,
+        },
+        [WebSecurityScannerSteps.FETCH_SCAN_CONFIGS.id]: {
+          disabled: false,
+        },
+        [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: {
           disabled: false,
         },
       };
