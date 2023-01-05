@@ -22,7 +22,7 @@ export const webSecurityScannerSteps: StepSpec<IntegrationInstanceConfig>[] = [
     ],
     relationships: [],
     dependsOn: [],
-    implemented: false,
+    implemented: true,
   },
   {
     /**
@@ -38,19 +38,19 @@ export const webSecurityScannerSteps: StepSpec<IntegrationInstanceConfig>[] = [
       {
         resourceName: 'Scan Run',
         _type: 'google_cloud_scan_run',
-        _class: ['Finding'],
+        _class: ['Process', 'Task'],
       },
     ],
     relationships: [
       {
-        _type: 'google_cloud_scan_config_performed_scan_run',
+        _type: 'google_cloud_scan_config_performed_run',
         sourceType: 'google_cloud_scan_config',
         _class: RelationshipClass.PERFORMED,
         targetType: 'google_cloud_scan_run',
       },
     ],
     dependsOn: ['fetch-scan-configs'],
-    implemented: false,
+    implemented: true,
   },
   {
     /**

@@ -37,4 +37,5 @@ export enum ServiceUsageName {
   CLOUD_BUILD = 'cloudbuild.googleapis.com',
   SECRET_MANAGER = 'secretmanager.googleapis.com',
   CLOUD_SOURCE_REPOSITORIES = 'sourcerepo.googleapis.com',
+  WEB_SECURITY_SCANNER = 'websecurityscanner.googleapis.com',
 }

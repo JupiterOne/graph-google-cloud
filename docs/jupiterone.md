@@ -407,6 +407,8 @@ The following entities are created:
 | SQL Admin MySQL Instance                                 | `google_sql_mysql_instance`                                       | `Database`                         |
 | SQL Admin Postgres Instance                              | `google_sql_postgres_instance`                                    | `Database`                         |
 | SQL Admin SQL Server Instance                            | `google_sql_sql_server_instance`                                  | `Database`                         |
+| Scan Config                                              | `google_cloud_scan_config`                                        | `Configuration`                    |
+| Scan Run                                                 | `google_cloud_scan_run`                                           | `Process`, `Task`                  |
 | Secret                                                   | `google_secret_manager_secret`                                    | `Group`                            |
 | Secret Version                                           | `google_secret_manager_secret_version`                            | `Secret`                           |
 | Spanner Instance                                         | `google_spanner_instance`                                         | `Database`, `Cluster`              |
@@ -467,6 +469,7 @@ The following relationships are created:
 | `google_cloud_project`                                           | **HAS**               | `google_binary_authorization_policy`                              |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_configuration`                                  |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_route`                                          |
+| `google_cloud_scan_config`                                       | **PERFORMED**         | `google_cloud_scan_run`                                           |
 | `google_compute_backend_bucket`                                  | **HAS**               | `google_storage_bucket`                                           |
 | `google_compute_backend_service`                                 | **HAS**               | `google_compute_health_check`                                     |
 | `google_compute_backend_service`                                 | **HAS**               | `google_compute_instance_group`                                   |
