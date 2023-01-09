@@ -1,9 +1,11 @@
 import {
   createDirectRelationship,
-  IntegrationStep,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
-import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../types';
 import { getKmsGraphObjectKeyFromKmsKeyName } from '../../utils/kms';
 import { ENTITY_TYPE_KMS_KEY, STEP_CLOUD_KMS_KEYS } from '../kms';
 import { BigTableClient } from './client';
@@ -219,7 +221,7 @@ export async function fetchTables(
   );
 }
 
-export const bigTableSteps: IntegrationStep<IntegrationConfig>[] = [
+export const bigTableSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_BIG_TABLE_INSTANCES,
     name: 'Bigtable Instances',

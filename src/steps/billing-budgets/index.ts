@@ -1,11 +1,13 @@
 import {
   createDirectRelationship,
   createMappedRelationship,
-  IntegrationStep,
   RelationshipClass,
   RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
-import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../types';
 import {
   PROJECT_ENTITY_TYPE,
   STEP_RESOURCE_MANAGER_ORGANIZATION,
@@ -199,7 +201,7 @@ export async function buildAdditionalProjectBudgetRelationships(
   );
 }
 
-export const billingBudgetsSteps: IntegrationStep<IntegrationConfig>[] = [
+export const billingBudgetsSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_BILLING_BUDGETS,
     name: 'Billing Budgets',

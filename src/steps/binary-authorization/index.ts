@@ -1,10 +1,12 @@
 import {
   createDirectRelationship,
-  IntegrationStep,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
 import { binaryauthorization_v1 } from 'googleapis';
-import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../types';
 import {
   PROJECT_ENTITY_TYPE,
   STEP_RESOURCE_MANAGER_PROJECT,
@@ -72,7 +74,7 @@ export async function fetchBinaryAuthorizationPolicy(
   }
 }
 
-export const binaryAuthorizationSteps: IntegrationStep<IntegrationConfig>[] = [
+export const binaryAuthorizationSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_BINARY_AUTHORIZATION_POLICY,
     name: 'Binary Authorization Policy',

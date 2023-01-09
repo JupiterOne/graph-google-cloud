@@ -7,7 +7,6 @@ import {
   getRawData,
   IntegrationError,
   IntegrationLogger,
-  IntegrationStep,
   JobState,
   MappedRelationship,
   PrimitiveEntity,
@@ -16,8 +15,10 @@ import {
   RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
 import { cloudasset_v1, cloudresourcemanager_v3 } from 'googleapis';
-import { IntegrationConfig } from '../..';
-import { IntegrationStepContext } from '../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../types';
 import { publishMissingPermissionEvent } from '../../utils/events';
 import { getProjectIdFromName } from '../../utils/jobState';
 import { IAM_ROLE_ENTITY_CLASS, IAM_ROLE_ENTITY_TYPE } from '../iam';
@@ -792,7 +793,7 @@ export async function createApiServiceToAnyResourceRelationships(
   );
 }
 
-export const cloudAssetSteps: IntegrationStep<IntegrationConfig>[] = [
+export const cloudAssetSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_IAM_BINDINGS,
     name: 'IAM Bindings',

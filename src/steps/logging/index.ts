@@ -1,10 +1,12 @@
 import {
   createDirectRelationship,
   getRawData,
-  IntegrationStep,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
-import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../types';
 import { LoggingClient } from './client';
 import {
   LOGGING_METRIC_ENTITY_CLASS,
@@ -139,7 +141,7 @@ export async function fetchMetrics(
   });
 }
 
-export const loggingSteps: IntegrationStep<IntegrationConfig>[] = [
+export const loggingSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_LOGGING_PROJECT_SINKS,
     name: 'Logging Project Sinks',

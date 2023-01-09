@@ -2,12 +2,14 @@ import {
   createDirectRelationship,
   createMappedRelationship,
   Entity,
-  IntegrationStep,
   JobState,
   RelationshipClass,
   RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
-import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../types';
 import { AccessContextManagerClient } from './client';
 import {
   STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
@@ -383,7 +385,7 @@ export async function fetchServicePerimeters(
   );
 }
 
-export const accessPoliciesSteps: IntegrationStep<IntegrationConfig>[] = [
+export const accessPoliciesSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
     name: 'Access Context Manager Access Policies',

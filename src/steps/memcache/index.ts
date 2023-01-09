@@ -1,11 +1,13 @@
 import {
   createDirectRelationship,
   getRawData,
-  IntegrationStep,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
 import { memcache_v1 } from 'googleapis';
-import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../types';
 import { ENTITY_TYPE_COMPUTE_NETWORK, STEP_COMPUTE_NETWORKS } from '../compute';
 import { MemcacheClient } from './client';
 import {
@@ -104,7 +106,7 @@ export async function buildMemcacheInstancesUsesNetworkRelationships(
   );
 }
 
-export const memcacheSteps: IntegrationStep<IntegrationConfig>[] = [
+export const memcacheSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_MEMCACHE_INSTANCES,
     name: 'Memcache Instances',

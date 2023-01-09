@@ -1,5 +1,6 @@
 import {
   IntegrationInstanceConfig,
+  IntegrationStep,
   IntegrationStepExecutionContext,
 } from '@jupiterone/integration-sdk-core';
 import { ParsedServiceAccountKeyFile } from './utils/parseServiceAccountKeyFile';
@@ -30,4 +31,9 @@ export interface IntegrationConfig extends SerializedIntegrationConfig {
   serviceAccountKeyConfig: ParsedServiceAccountKeyFile;
   // HACK - used to prevent binding step ingestion for large accounts. Think twice before using.
   markBindingStepsAsPartial?: boolean;
+}
+
+export interface GoogleCloudIntegrationStep
+  extends IntegrationStep<IntegrationConfig> {
+  permissions?: Array<string>;
 }

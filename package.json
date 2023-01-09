@@ -29,7 +29,8 @@
     "prepush": "yarn lint && yarn type-check && jest --changedSince main",
     "postversion": "cp package.json ./dist/package.json",
     "tf": "cd terraform && env `grep -v '^#' .env` terraform $1",
-    "create-env-file": "yarn ts-node ./scripts/createEnvFile $1"
+    "create-env-file": "yarn ts-node ./scripts/createEnvFile $1",
+    "document:permissions": " yarn ts-node commands/documentPermissions.ts documentPermissions"
   },
   "peerDependencies": {
     "@jupiterone/integration-sdk-core": "^8.24.1"
@@ -55,7 +56,8 @@
     "gaxios": "^4.2.1",
     "google-auth-library": "^7.1.0",
     "googleapis": "94.0.0",
-    "lodash.get": "^4.4.2"
+    "lodash.get": "^4.4.2",
+    "commander": "^9.4.1"
   },
   "auto": {
     "plugins": [

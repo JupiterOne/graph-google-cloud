@@ -3,11 +3,13 @@ import {
   createDirectRelationship,
   createMappedRelationship,
   getRawData,
-  IntegrationStep,
   RelationshipClass,
   RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
-import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../types';
 import { getKmsGraphObjectKeyFromKmsKeyName } from '../../utils/kms';
 import {
   ENTITY_TYPE_KMS_KEY,
@@ -154,7 +156,7 @@ export async function buildSqlAdminInstanceKmsKeyRelationships(
   }
 }
 
-export const sqlAdminSteps: IntegrationStep<IntegrationConfig>[] = [
+export const sqlAdminSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_SQL_ADMIN_INSTANCES,
     name: 'SQL Admin Instances',

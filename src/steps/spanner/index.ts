@@ -1,12 +1,14 @@
 import {
   createDirectRelationship,
   createMappedRelationship,
-  IntegrationStep,
   RelationshipClass,
   RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
 import { spanner_v1 } from 'googleapis';
-import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../types';
 import { isMemberPublic } from '../../utils/iam';
 import { getKmsGraphObjectKeyFromKmsKeyName } from '../../utils/kms';
 import { RELATIONSHIP_TYPE_DATASET_USES_KMS_CRYPTO_KEY } from '../big-query';
@@ -174,7 +176,7 @@ export async function fetchSpannerInstanceDatabases(
   );
 }
 
-export const spannerSteps: IntegrationStep<IntegrationConfig>[] = [
+export const spannerSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_SPANNER_INSTANCE_CONFIGS,
     name: 'Spanner Instance Configs',

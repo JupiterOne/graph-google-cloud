@@ -1,10 +1,12 @@
 import {
   createDirectRelationship,
-  IntegrationStep,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
 import { CloudKmsClient } from './client';
-import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../types';
 import {
   ENTITY_CLASS_KMS_KEY,
   ENTITY_CLASS_KMS_KEY_RING,
@@ -24,22 +26,25 @@ export async function fetchKmsKeyRings(
   const { jobState, instance, logger } = context;
   const client = new CloudKmsClient({ config: instance.config });
 
-  await client.iterateKeyRings(async (keyRing) => {
-    await jobState.addEntity(createKmsKeyRingEntity(keyRing));
-  }, ({ 
-    totalRequestsMade,
-    totalResourcesReturned,
-    maximumResourcesPerPage
-   }) => {
-    logger.info(
-      {
-        totalRequestsMade,
-        totalResourcesReturned,
-        maximumResourcesPerPage
-      },
-      'KMS Key Rings API Requests summary',
-    );
-  });
+  await client.iterateKeyRings(
+    async (keyRing) => {
+      await jobState.addEntity(createKmsKeyRingEntity(keyRing));
+    },
+    ({
+      totalRequestsMade,
+      totalResourcesReturned,
+      maximumResourcesPerPage,
+    }) => {
+      logger.info(
+        {
+          totalRequestsMade,
+          totalResourcesReturned,
+          maximumResourcesPerPage,
+        },
+        'KMS Key Rings API Requests summary',
+      );
+    },
+  );
 }
 
 export async function fetchKmsCryptoKeys(
@@ -90,7 +95,7 @@ export async function fetchKmsCryptoKeys(
   );
 }
 
-export const kmsSteps: IntegrationStep<IntegrationConfig>[] = [
+export const kmsSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_CLOUD_KMS_KEY_RINGS,
     name: 'KMS Key Rings',

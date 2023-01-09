@@ -1,11 +1,13 @@
 import {
   createDirectRelationship,
   getRawData,
-  IntegrationStep,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
 import { CloudFunctionsClient } from './client';
-import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../types';
 import { createCloudFunctionEntity } from './converters';
 import { STEP_IAM_SERVICE_ACCOUNTS } from '../iam';
 import {
@@ -145,7 +147,7 @@ export async function buildCloudFunctionStorageBucketRelationships(
   );
 }
 
-export const functionsSteps: IntegrationStep<IntegrationConfig>[] = [
+export const functionsSteps: GoogleCloudIntegrationStep[] = [
   {
     id: FunctionStepsSpec.FETCH_CLOUD_FUNCTIONS.id,
     name: FunctionStepsSpec.FETCH_CLOUD_FUNCTIONS.name,
