@@ -1,3 +1,24 @@
+# v2.20.2 (Mon Jan 09 2023)
+
+#### 🐛 Bug Fix
+
+- fix(INT-6619): fix GH action issue [#569](https://github.com/JupiterOne/graph-google-cloud/pull/569) (gastonyelmini@MacBook-Pro-de-Gaston.local)
+- feat(INT-6165): change permissions logs to warnings [#566](https://github.com/JupiterOne/graph-google-cloud/pull/566) (gastonyelmini@MacBook-Pro-de-Gaston.local)
+- INT-5629 - Cache packages in `actions/setup-node` [#565](https://github.com/JupiterOne/graph-google-cloud/pull/565) ([@austinkelleher](https://github.com/austinkelleher))
+- Create data model for Web Security Scanner [#559](https://github.com/JupiterOne/graph-google-cloud/pull/559) ([@Nick-NCSU](https://github.com/Nick-NCSU))
+- Merging CodeQL [#564](https://github.com/JupiterOne/graph-google-cloud/pull/564) ([@electricgull](https://github.com/electricgull))
+- INT-5687 Limit when we print missing_permission job log for org policy [#563](https://github.com/JupiterOne/graph-google-cloud/pull/563) ([@JakeFerrero](https://github.com/JakeFerrero))
+
+#### Authors: 5
+
+- Austin Kelleher ([@austinkelleher](https://github.com/austinkelleher))
+- Cameron Griffin ([@electricgull](https://github.com/electricgull))
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+- Jake Ferrero ([@JakeFerrero](https://github.com/JakeFerrero))
+- Nick Thompson ([@Nick-NCSU](https://github.com/Nick-NCSU))
+
+---
+
 # v2.20.1 (Wed Dec 07 2022)
 
 #### 🐛 Bug Fix
