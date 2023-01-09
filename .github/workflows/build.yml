@@ -36,16 +36,16 @@ jobs:
     if: github.ref == 'refs/heads/main'
     name: Checkout Code
     steps:
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 14.x
-          cache: 'yarn'
       - name: Check out repo
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
           token: ${{ secrets.AUTO_GITHUB_PAT_TOKEN }}
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14.x
+          cache: 'yarn'
       - name: Build and Release
         uses: jupiterone/action-npm-build-release@v1
         with:
