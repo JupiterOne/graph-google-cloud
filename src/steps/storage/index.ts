@@ -4,7 +4,10 @@ import { IntegrationConfig, IntegrationStepContext } from '../../types';
 import { createCloudStorageBucketEntity } from './converters';
 import { StorageStepsSpec, StorageEntitiesSpec } from './constants';
 import { storage_v1 } from 'googleapis';
-import { publishUnprocessedBucketsEvent } from '../../utils/events';
+import {
+  publishMissingPermissionEvent,
+  publishUnprocessedBucketsEvent,
+} from '../../utils/events';
 import { OrgPolicyClient } from '../orgpolicy/client';
 
 export async function fetchStorageBuckets(
@@ -25,13 +28,21 @@ export async function fetchStorageBuckets(
     publicAccessPreventionPolicy =
       await orgPolicyClient.fetchOrganizationPublicAccessPreventionPolicy();
   } catch (err) {
-    logger.warn({ err }, 'Error fetching organization public access prevention policy');
-    
-    if (err.code === 403 && (err.message as string).includes(`Permission 'orgpolicy.policy.get' denied on resource`)) {
-      logger.publishEvent({
-        name: 'missing_permission',
-        description:
-          '"orgpolicy.policy.get" is not a required permission to run the Google Cloud integration, but is required for getting organization policy for "storage.publicAccessPrevention"',
+    logger.warn(
+      { err },
+      'Error fetching organization public access prevention policy',
+    );
+
+    if (
+      err.code === 403 &&
+      (err.message as string).includes(
+        `Permission 'orgpolicy.policy.get' denied on resource`,
+      )
+    ) {
+      publishMissingPermissionEvent({
+        logger,
+        permission: 'orgpolicy.policy.get',
+        stepId: StorageStepsSpec.FETCH_STORAGE_BUCKETS.id,
       });
     }
   }

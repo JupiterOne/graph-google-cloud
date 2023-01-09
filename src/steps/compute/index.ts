@@ -309,7 +309,7 @@ export async function fetchComputeProject(
     computeProject = await client.fetchComputeProject();
   } catch (err) {
     if (err.code === 403) {
-      logger.trace(
+      logger.warn(
         { err },
         'Could not fetch compute project. Requires additional permission',
       );
@@ -478,7 +478,7 @@ export async function buildDiskImageRelationships(
             );
           } catch (err) {
             if (err.code === 403) {
-              logger.trace(
+              logger.warn(
                 { err },
                 'Could not fetch compute image. Requires additional permission',
               );

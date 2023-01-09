@@ -197,7 +197,7 @@ export async function fetchIamBindings(
     );
   } catch (err) {
     if (err.status === 403) {
-      logger.info(
+      logger.warn(
         {
           err,
         },

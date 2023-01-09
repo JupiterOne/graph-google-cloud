@@ -103,7 +103,7 @@ export async function fetchAppEngineApplication(
     );
   } catch (err) {
     if (err.code === 403) {
-      logger.info(
+      logger.warn(
         { err },
         'Could not fetch app engine application. Requires additional permission',
       );
