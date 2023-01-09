@@ -23,11 +23,11 @@ async function fetchScanRuns(context: IntegrationStepContext): Promise<void> {
   await jobState.iterateEntities(
     { _type: WebSecurityScannerEntities.SCAN_CONFIG._type },
     async (scanConfigEntity) => {
-      const scanRun =
+      const scanConfig =
         getRawData<websecurityscanner_v1.Schema$ScanConfig>(scanConfigEntity);
 
-      if (scanRun?.name) {
-        await client.iterateScanRuns(scanRun.name, async (data) => {
+      if (scanConfig?.name) {
+        await client.iterateScanRuns(scanConfig.name, async (data) => {
           const scanRunEntity = createScanRunEntity(data);
           await jobState.addEntity(scanRunEntity);
           await jobState.addRelationship(

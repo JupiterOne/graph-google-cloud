@@ -690,6 +690,9 @@ describe('#getStepStartStates success', () => {
         [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: {
           disabled: false,
         },
+        [WebSecurityScannerSteps.FETCH_SCAN_RUNS_FINDINGS.id]: {
+          disabled: false,
+        },
       };
 
       expect(stepStartStates).toEqual(expectedStepStartStates);

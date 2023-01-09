@@ -53,3 +53,18 @@ export const createScanRunEntity = (
     },
   });
 };
+
+export const createScanRunFindingEntity = (
+  scanRun: websecurityscanner_v1.Schema$Finding,
+) => {
+  return createGoogleCloudIntegrationEntity(scanRun, {
+    entityData: {
+      source: scanRun,
+      assign: {
+        _class: WebSecurityScannerEntities.SCAN_RUN._class,
+        _type: WebSecurityScannerEntities.SCAN_RUN._type,
+        _key: scanRun.name as string,
+      },
+    },
+  });
+};

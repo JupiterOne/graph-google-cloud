@@ -46,4 +46,27 @@ export class WebSecurityScannerClient extends Client {
       },
     );
   }
+
+  async iterateScanRunFindings(
+    parentScanRunName: string,
+    callback: (data: websecurityscanner_v1.Schema$Finding) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      (nextPageToken) => {
+        return this.client.projects.scanConfigs.scanRuns.findings.list({
+          auth,
+          pageToken: nextPageToken,
+          parent: parentScanRunName,
+          filter: 'findingType=XSS',
+        });
+      },
+      async (data: websecurityscanner_v1.Schema$ListFindingsResponse) => {
+        for (const scanRun of data.findings || []) {
+          await callback(scanRun);
+        }
+      },
+    );
+  }
 }

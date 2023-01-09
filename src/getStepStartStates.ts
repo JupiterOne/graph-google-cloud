@@ -458,6 +458,9 @@ function getDefaultStepStartStates(params: {
     [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: {
       disabled: false,
     },
+    [WebSecurityScannerSteps.FETCH_SCAN_RUNS_FINDINGS.id]: {
+      disabled: false,
+    },
   };
 
   logger.info(
@@ -876,6 +879,9 @@ async function getStepStartStatesUsingServiceEnablements(params: {
       ServiceUsageName.WEB_SECURITY_SCANNER,
     ),
     [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: createStepStartState(
+      ServiceUsageName.WEB_SECURITY_SCANNER,
+    ),
+    [WebSecurityScannerSteps.FETCH_SCAN_RUNS_FINDINGS.id]: createStepStartState(
       ServiceUsageName.WEB_SECURITY_SCANNER,
     ),
   };
