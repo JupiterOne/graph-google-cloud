@@ -24,6 +24,7 @@ jobs:
         with:
           node-version: 14.x
           cache: 'yarn'
+          cache-dependency-path: source/yarn.lock
 
       - name: Install dependencies for `main` branch
         run: yarn install --cwd source --frozen-lockfile
