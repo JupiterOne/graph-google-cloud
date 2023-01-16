@@ -1,10 +1,12 @@
-import { IntegrationStep } from '@jupiterone/integration-sdk-core';
-import { IntegrationConfig, IntegrationStepContext } from '../../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../../types';
 import { CloudBuildClient } from '../client';
 import { CloudBuildEntitiesSpec, CloudBuildStepsSpec } from '../constants';
 import { createGoogleCloudBuildEntity } from '../converters';
 
-export const fetchCloudBuildStep: IntegrationStep<IntegrationConfig> = {
+export const fetchCloudBuildStep: GoogleCloudIntegrationStep = {
   ...CloudBuildStepsSpec.FETCH_BUILDS,
   entities: [CloudBuildEntitiesSpec.BUILD],
   relationships: [],
@@ -21,4 +23,5 @@ export const fetchCloudBuildStep: IntegrationStep<IntegrationConfig> = {
       await jobState.addEntity(createGoogleCloudBuildEntity(data));
     });
   },
+  permissions: ['cloudbuild.builds.list', 'cloudbuild.builds.get'],
 };

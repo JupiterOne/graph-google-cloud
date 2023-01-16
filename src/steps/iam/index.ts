@@ -244,6 +244,7 @@ export const iamSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     executionHandler: fetchIamCustomRoles,
     dependsOn: [],
+    permissions: ['iam.roles.list'],
   },
   {
     id: STEP_IAM_CUSTOM_ROLE_SERVICE_API_RELATIONSHIPS,
@@ -266,6 +267,7 @@ export const iamSteps: GoogleCloudIntegrationStep[] = [
     entities: [],
     relationships: [],
     executionHandler: fetchIamManagedRoles,
+    permissions: ['iam.roles.list'],
   },
   {
     id: STEP_IAM_SERVICE_ACCOUNTS,
@@ -291,5 +293,6 @@ export const iamSteps: GoogleCloudIntegrationStep[] = [
       },
     ],
     executionHandler: fetchIamServiceAccounts,
+    permissions: ['iam.serviceAccounts.list', 'iam.serviceAccountKeys.list'],
   },
 ];

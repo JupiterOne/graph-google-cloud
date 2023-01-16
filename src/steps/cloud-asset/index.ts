@@ -802,6 +802,7 @@ export const cloudAssetSteps: GoogleCloudIntegrationStep[] = [
     dependsOn: [],
     executionHandler: fetchIamBindings,
     dependencyGraphId: 'last',
+    permissions: ['cloudasset.assets.searchAllIamPolicies'],
   },
   {
     id: STEP_CREATE_BASIC_ROLES,
