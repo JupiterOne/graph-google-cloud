@@ -295,7 +295,10 @@ function redact(entry): void {
     // Remove recording binary marker
     delete (entry.response.content as any)._isBinary;
 
-    if (requestUrl === 'https://www.googleapis.com/oauth2/v4/token') {
+    if (
+      requestUrl === 'https://www.googleapis.com/oauth2/v4/token' &&
+      entry.response.status === 200
+    ) {
       entry.response.content.encoding = 'utf-8';
       entry.response.content.text = JSON.stringify(getRedactedOAuthResponse());
       return;

@@ -1,4 +1,5 @@
 import { IntegrationInvocationConfig } from '@jupiterone/integration-sdk-core';
+import { validateInvocation } from './config';
 import getStepStartStates from './getStepStartStates';
 import { Client } from './google-cloud/client';
 import { steps } from './steps/steps';
@@ -31,6 +32,7 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> =
     integrationSteps: steps,
     dependencyGraphOrder: ['last'],
     beforeAddEntity: maybeDefaultProjectIdOnEntity,
+    validateInvocation,
   };
 
 export {
