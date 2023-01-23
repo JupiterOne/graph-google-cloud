@@ -751,6 +751,7 @@ function getCommonGlobalAddressProps(
     description: data.description,
     ipAddress: data.address,
     ipVersion: data.ipVersion,
+    publicIpAddress: data.addressType === 'EXTERNAL' ? data.address : undefined,
     addressType: data.addressType,
     status: data.status,
     purpose: data.purpose,
