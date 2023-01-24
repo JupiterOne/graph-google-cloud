@@ -1,3 +1,15 @@
+# v2.20.3 (Tue Jan 24 2023)
+
+#### 🐛 Bug Fix
+
+- feat(INT-4506): add publicIpAddress field to compute entity [#572](https://github.com/JupiterOne/graph-google-cloud/pull/572) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### Authors: 1
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
 # v2.20.2 (Mon Jan 09 2023)
 
 #### 🐛 Bug Fix
