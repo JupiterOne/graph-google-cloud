@@ -162,6 +162,7 @@ import {
 } from './steps/spanner/constants';
 import { SqlAdminSteps, STEP_SQL_ADMIN_INSTANCES } from './steps/sql-admin';
 import { StorageStepsSpec } from './steps/storage/constants';
+import { WebSecurityScannerSteps } from './steps/web-security-scanner/constants';
 import { IntegrationConfig, SerializedIntegrationConfig } from './types';
 import { deserializeIntegrationConfig } from './utils/integrationConfig';
 import { isMasterOrganizationInstance } from './utils/isMasterOrganizationInstance';
@@ -449,6 +450,12 @@ function getDefaultStepStartStates(params: {
     },
     [CloudBuildStepsSpec
       .BUILD_CLOUD_BUILD_TRIGGER_USES_GITHUB_REPO_RELATIONSHIPS.id]: {
+      disabled: false,
+    },
+    [WebSecurityScannerSteps.FETCH_SCAN_CONFIGS.id]: {
+      disabled: false,
+    },
+    [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: {
       disabled: false,
     },
   };
@@ -865,6 +872,12 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [CloudBuildStepsSpec
       .BUILD_CLOUD_BUILD_TRIGGER_USES_GITHUB_REPO_RELATIONSHIPS.id]:
       createStepStartState(ServiceUsageName.CLOUD_BUILD),
+    [WebSecurityScannerSteps.FETCH_SCAN_CONFIGS.id]: createStepStartState(
+      ServiceUsageName.WEB_SECURITY_SCANNER,
+    ),
+    [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: createStepStartState(
+      ServiceUsageName.WEB_SECURITY_SCANNER,
+    ),
   };
 
   logger.info(
