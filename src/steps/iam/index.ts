@@ -1,11 +1,13 @@
 import {
   createDirectRelationship,
   IntegrationLogger,
-  IntegrationStep,
   JobState,
 } from '@jupiterone/integration-sdk-core';
 import { IamClient } from './client';
-import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../types';
 import {
   createIamRoleEntity,
   createIamServiceAccountEntity,
@@ -228,7 +230,7 @@ export async function fetchIamServiceAccounts(
   });
 }
 
-export const iamSteps: IntegrationStep<IntegrationConfig>[] = [
+export const iamSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_IAM_CUSTOM_ROLES,
     name: 'Identity and Access Management (IAM) Custom Roles',

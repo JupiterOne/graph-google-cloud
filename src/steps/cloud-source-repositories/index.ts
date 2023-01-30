@@ -1,6 +1,6 @@
-import { IntegrationStep } from '@jupiterone/integration-sdk-core';
-import { IntegrationConfig } from '../../types';
+import { GoogleCloudIntegrationStep } from '../../types';
 import { fetchCloudSourceRepositoriesStep } from './steps/fetch-cloud-source-repositories';
 
-export const cloudSourceRepositoriesSteps: IntegrationStep<IntegrationConfig>[] =
-  [fetchCloudSourceRepositoriesStep];
+export const cloudSourceRepositoriesSteps: GoogleCloudIntegrationStep[] = [
+  fetchCloudSourceRepositoriesStep,
+];

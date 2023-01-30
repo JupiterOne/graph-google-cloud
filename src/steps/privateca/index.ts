@@ -1,11 +1,13 @@
 import {
   createDirectRelationship,
   getRawData,
-  IntegrationStep,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
 import { privateca_v1beta1 } from 'googleapis';
-import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../types';
 import { isMemberPublic } from '../../utils/iam';
 import { PrivateCaClient } from './client';
 import {
@@ -158,7 +160,7 @@ export async function fetchAuthorityCertificates(
   );
 }
 
-export const privateCaSteps: IntegrationStep<IntegrationConfig>[] = [
+export const privateCaSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES,
     name: 'Private CA Certificate Authorities',

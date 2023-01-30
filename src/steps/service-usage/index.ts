@@ -1,10 +1,12 @@
 import {
-  IntegrationStep,
   createDirectRelationship,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
 import { ServiceUsageClient } from './client';
-import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../types';
 import { createApiServiceEntity } from './converters';
 import {
   ServiceUsageStepIds,
@@ -103,7 +105,7 @@ export async function fetchApiServices(
   );
 }
 
-export const serviceUsageSteps: IntegrationStep<IntegrationConfig>[] = [
+export const serviceUsageSteps: GoogleCloudIntegrationStep[] = [
   {
     id: ServiceUsageStepIds.FETCH_API_SERVICES,
     name: 'API Services',

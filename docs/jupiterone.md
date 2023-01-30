@@ -567,3 +567,12 @@ END OF GENERATED DOCUMENTATION AFTER BELOW MARKER
 <!-- {J1_DOCUMENTATION_MARKER_END} -->
 
 <!--  jupiterOneDocVersion=2-15-2-beta-4 -->
+
+#### Google Cloud Specific Permissions List
+
+If you prefer not to use Google managed roles, the following list of specific
+permissions can be used to provision only the required ones:
+
+<!-- {J1_PERMISSIONS_DOCUMENTATION_MARKER_START} -->
+
+<!-- {J1_PERMISSIONS_DOCUMENTATION_MARKER_END} -->

@@ -2,12 +2,14 @@ import {
   createDirectRelationship,
   createMappedRelationship,
   getRawData,
-  IntegrationStep,
   RelationshipClass,
   RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
 import { dataproc_v1 } from 'googleapis';
-import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../types';
 import { getKmsGraphObjectKeyFromKmsKeyName } from '../../utils/kms';
 import { ENTITY_TYPE_COMPUTE_IMAGE, STEP_COMPUTE_IMAGES } from '../compute';
 import { ENTITY_TYPE_KMS_KEY, STEP_CLOUD_KMS_KEYS } from '../kms';
@@ -183,7 +185,7 @@ export async function createClusterStorageRelationships(
   );
 }
 
-export const dataprocSteps: IntegrationStep<IntegrationConfig>[] = [
+export const dataprocSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_DATAPROC_CLUSTERS,
     name: 'Dataproc Clusters',

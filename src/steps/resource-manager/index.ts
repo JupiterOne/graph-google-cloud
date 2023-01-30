@@ -1,12 +1,14 @@
 import {
-  IntegrationStep,
   Entity,
   createDirectRelationship,
   createMappedRelationship,
   RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
 import { ResourceManagerClient } from './client';
-import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../types';
 import {
   createAuditConfigEntity,
   createFolderEntity,
@@ -347,7 +349,7 @@ export async function fetchIamPolicyAuditConfig(
   });
 }
 
-export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
+export const resourceManagerSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_RESOURCE_MANAGER_ORGANIZATION,
     name: 'Resource Manager Organization',

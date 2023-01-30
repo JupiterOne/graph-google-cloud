@@ -1,9 +1,11 @@
 import {
   createDirectRelationship,
-  IntegrationStep,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
-import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../types';
 import {
   ENTITY_TYPE_COMPUTE_INSTANCE_GROUP,
   STEP_COMPUTE_INSTANCE_GROUPS,
@@ -96,7 +98,7 @@ export async function fetchContainerClusters(
   });
 }
 
-export const containerSteps: IntegrationStep<IntegrationConfig>[] = [
+export const containerSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_CONTAINER_CLUSTERS,
     name: 'Container Clusters',

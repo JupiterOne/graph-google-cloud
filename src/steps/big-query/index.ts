@@ -1,12 +1,14 @@
 import {
   createDirectRelationship,
   createMappedRelationship,
-  IntegrationStep,
   RelationshipClass,
   RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
 import { bigquery_v2 } from 'googleapis';
-import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../types';
 import { isMemberPublic } from '../../utils/iam';
 import { getKmsGraphObjectKeyFromKmsKeyName } from '../../utils/kms';
 import { ENTITY_TYPE_KMS_KEY, STEP_CLOUD_KMS_KEYS } from '../kms';
@@ -220,7 +222,7 @@ export async function fetchBigQueryTables(
   );
 }
 
-export const bigQuerySteps: IntegrationStep<IntegrationConfig>[] = [
+export const bigQuerySteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_BIG_QUERY_DATASETS,
     name: 'Big Query Datasets',

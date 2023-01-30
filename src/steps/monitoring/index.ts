@@ -1,5 +1,7 @@
-import { IntegrationStep } from '@jupiterone/integration-sdk-core';
-import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../types';
 import { publishUnsupportedConfigEvent } from '../../utils/events';
 import { MonitoringClient } from './client';
 import {
@@ -39,7 +41,7 @@ export async function fetchAlertPolicies(
   }
 }
 
-export const monitoringSteps: IntegrationStep<IntegrationConfig>[] = [
+export const monitoringSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_MONITORING_ALERT_POLICIES,
     name: 'Monitoring Alert Policies',

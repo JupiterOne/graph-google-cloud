@@ -1,10 +1,12 @@
 import {
   createDirectRelationship,
-  IntegrationStep,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
 import { apigateway_v1 } from 'googleapis';
-import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../types';
 import { isMemberPublic } from '../../utils/iam';
 import { ApiGatewayClient } from './client';
 import {
@@ -181,7 +183,7 @@ export async function fetchApiGatewayGateways(
   });
 }
 
-export const apiGatewaySteps: IntegrationStep<IntegrationConfig>[] = [
+export const apiGatewaySteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_API_GATEWAY_APIS,
     name: 'Api Gateway APIs',

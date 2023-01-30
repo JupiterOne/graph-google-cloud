@@ -1,11 +1,10 @@
 import {
   ExecutionHandlerFunction,
   IntegrationProviderAuthorizationError,
-  IntegrationStep,
   StepExecutionContext,
 } from '@jupiterone/integration-sdk-core';
 import { createErrorProps } from '../google-cloud/utils/createErrorProps';
-import { IntegrationConfig } from '../types';
+import { GoogleCloudIntegrationStep } from '../types';
 import { accessPoliciesSteps } from './access-context-manager';
 import { apiGatewaySteps } from './api-gateway';
 import { appEngineSteps } from './app-engine';
@@ -39,7 +38,7 @@ import { sqlAdminSteps } from './sql-admin';
 import { storageSteps } from './storage';
 import { webSecurityScannerSteps } from './web-security-scanner';
 
-const steps: IntegrationStep<IntegrationConfig>[] = wrapStepExecutionHandlers([
+const steps: GoogleCloudIntegrationStep[] = wrapStepExecutionHandlers([
   ...functionsSteps,
   ...storageSteps,
   ...serviceUsageSteps,
@@ -75,8 +74,8 @@ const steps: IntegrationStep<IntegrationConfig>[] = wrapStepExecutionHandlers([
 ]);
 
 function wrapStepExecutionHandlers(
-  steps: IntegrationStep<IntegrationConfig>[],
-): IntegrationStep<IntegrationConfig>[] {
+  steps: GoogleCloudIntegrationStep[],
+): GoogleCloudIntegrationStep[] {
   return steps.map((step) => {
     step.executionHandler;
     return {

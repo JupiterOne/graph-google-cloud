@@ -1,10 +1,12 @@
 import {
   createDirectRelationship,
   getRawData,
-  IntegrationStep,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
-import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../types';
 import { STEP_COMPUTE_NETWORKS } from '../compute';
 import { RedisClient } from './client';
 import {
@@ -78,7 +80,7 @@ export async function buildRedisInstanceUsesNetworkRelationships(
   );
 }
 
-export const redisSteps: IntegrationStep<IntegrationConfig>[] = [
+export const redisSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_REDIS_INSTANCES,
     name: 'Redis Instances',

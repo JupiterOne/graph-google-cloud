@@ -1,11 +1,13 @@
 import {
   createDirectRelationship,
   getRawData,
-  IntegrationStep,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
 import { secretmanager_v1 } from 'googleapis';
-import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../types';
 import { SecretManagerClient } from './client';
 import {
   SecretManagerEntities,
@@ -58,7 +60,7 @@ export async function fetchSecretVersions(
   );
 }
 
-export const secretManagerSteps: IntegrationStep<IntegrationConfig>[] = [
+export const secretManagerSteps: GoogleCloudIntegrationStep[] = [
   {
     ...SecretManagerSteps.FETCH_SECRETS,
     entities: [SecretManagerEntities.SECRET],

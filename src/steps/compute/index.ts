@@ -1,5 +1,4 @@
 import {
-  IntegrationStep,
   JobState,
   Entity,
   createDirectRelationship,
@@ -8,7 +7,10 @@ import {
   getRawData,
 } from '@jupiterone/integration-sdk-core';
 import { ComputeClient } from './client';
-import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../types';
 import {
   createComputeDiskEntity,
   createComputeInstanceEntity,
@@ -1877,7 +1879,7 @@ export async function fetchComputeSslPolicies(
   });
 }
 
-export const computeSteps: IntegrationStep<IntegrationConfig>[] = [
+export const computeSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_COMPUTE_NETWORKS,
     name: 'Compute Networks',

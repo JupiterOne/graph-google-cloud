@@ -2,12 +2,14 @@ import {
   createDirectRelationship,
   createMappedRelationship,
   getRawData,
-  IntegrationStep,
   RelationshipClass,
   RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
 import { pubsub_v1 } from 'googleapis';
-import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../types';
 import { ENTITY_TYPE_KMS_KEY, STEP_CLOUD_KMS_KEYS } from '../kms';
 import { PubSubClient } from './client';
 import {
@@ -162,7 +164,7 @@ export async function fetchPubSubSubscriptions(
   });
 }
 
-export const pubSubSteps: IntegrationStep<IntegrationConfig>[] = [
+export const pubSubSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_PUBSUB_TOPICS,
     name: 'PubSub Topics',

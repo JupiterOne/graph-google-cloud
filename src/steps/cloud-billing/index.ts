@@ -1,5 +1,7 @@
-import { IntegrationStep } from '@jupiterone/integration-sdk-core';
-import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../types';
 import { CloudBillingClient } from './client';
 import {
   STEP_BILLING_ACCOUNTS,
@@ -22,7 +24,7 @@ export async function fetchBillingAccounts(
   });
 }
 
-export const cloudBillingSteps: IntegrationStep<IntegrationConfig>[] = [
+export const cloudBillingSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_BILLING_ACCOUNTS,
     name: 'Billing Accounts',

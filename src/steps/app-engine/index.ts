@@ -4,12 +4,14 @@ import {
   Entity,
   getRawData,
   IntegrationLogger,
-  IntegrationStep,
   RelationshipClass,
   RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
 import { appengine_v1 } from 'googleapis';
-import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../types';
 import { publishMissingPermissionEvent } from '../../utils/events';
 import { AppEngineClient } from './client';
 import {
@@ -377,7 +379,7 @@ export async function fetchAppEngineVersionInstances(
   );
 }
 
-export const appEngineSteps: IntegrationStep<IntegrationConfig>[] = [
+export const appEngineSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_APP_ENGINE_APPLICATION,
     name: 'AppEngine Application',

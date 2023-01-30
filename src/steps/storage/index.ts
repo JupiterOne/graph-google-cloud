@@ -1,6 +1,8 @@
-import { IntegrationStep } from '@jupiterone/integration-sdk-core';
 import { CloudStorageClient } from './client';
-import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../types';
 import { createCloudStorageBucketEntity } from './converters';
 import { StorageStepsSpec, StorageEntitiesSpec } from './constants';
 import { storage_v1 } from 'googleapis';
@@ -94,7 +96,7 @@ export async function fetchStorageBuckets(
   }
 }
 
-export const storageSteps: IntegrationStep<IntegrationConfig>[] = [
+export const storageSteps: GoogleCloudIntegrationStep[] = [
   {
     id: StorageStepsSpec.FETCH_STORAGE_BUCKETS.id,
     name: StorageStepsSpec.FETCH_STORAGE_BUCKETS.name,

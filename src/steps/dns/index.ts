@@ -1,9 +1,11 @@
 import {
   createDirectRelationship,
-  IntegrationStep,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
-import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../types';
 import { ENTITY_TYPE_COMPUTE_NETWORK, STEP_COMPUTE_NETWORKS } from '../compute';
 import { DNSClient } from './client';
 import {
@@ -71,7 +73,7 @@ export async function fetchDNSPolicies(
   });
 }
 
-export const dnsManagedZonesSteps: IntegrationStep<IntegrationConfig>[] = [
+export const dnsManagedZonesSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_DNS_MANAGED_ZONES,
     name: 'DNS Managed Zones',

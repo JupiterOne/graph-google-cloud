@@ -1,9 +1,11 @@
 import {
   createDirectRelationship,
-  IntegrationStep,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
-import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../types';
 import {
   cacheCloudRunServiceKeyAndUid,
   getCloudRunServiceKeyFromUid,
@@ -145,7 +147,7 @@ export async function fetchCloudRunConfigurations(
   });
 }
 
-export const cloudRunSteps: IntegrationStep<IntegrationConfig>[] = [
+export const cloudRunSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_CLOUD_RUN_SERVICES,
     name: 'Cloud Run Services',
