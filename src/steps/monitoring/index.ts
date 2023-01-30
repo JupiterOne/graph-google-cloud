@@ -55,5 +55,6 @@ export const monitoringSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchAlertPolicies,
+    permissions: ['monitoring.alertPolicies.list'],
   },
 ];

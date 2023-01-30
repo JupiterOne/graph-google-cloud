@@ -113,5 +113,6 @@ export const serviceUsageSteps: GoogleCloudIntegrationStep[] = [
     relationships: [ServiceUsageRelationships.PROJECT_HAS_API_SERVICE],
     dependsOn: [STEP_RESOURCE_MANAGER_PROJECT, STEP_IAM_MANAGED_ROLES],
     executionHandler: fetchApiServices,
+    permissions: ['serviceusage.services.list'],
   },
 ];

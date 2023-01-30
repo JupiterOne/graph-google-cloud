@@ -95,5 +95,6 @@ export const binaryAuthorizationSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_RESOURCE_MANAGER_PROJECT],
     executionHandler: fetchBinaryAuthorizationPolicy,
+    permissions: ['binaryauthorization.policy.get'],
   },
 ];

@@ -94,6 +94,7 @@ export const redisSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchRedisInstances,
+    permissions: ['redis.instances.list'],
   },
   {
     id: STEP_CREATE_REDIS_INSTANCE_NETWORK_RELATIONSHIPS,

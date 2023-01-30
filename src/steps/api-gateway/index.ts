@@ -197,6 +197,7 @@ export const apiGatewaySteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchApiGatewayApis,
+    permissions: ['apigateway.apis.getIamPolicy', 'apigateway.apis.list'],
   },
   {
     id: STEP_API_GATEWAY_API_CONFIGS,
@@ -224,6 +225,10 @@ export const apiGatewaySteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_API_GATEWAY_APIS, STEP_IAM_SERVICE_ACCOUNTS],
     executionHandler: fetchApiGatewayApiConfigs,
+    permissions: [
+      'apigateway.apiconfigs.list',
+      'apigateway.apiconfigs.getIamPolicy',
+    ],
   },
   {
     id: STEP_API_GATEWAY_GATEWAYS,
@@ -245,5 +250,9 @@ export const apiGatewaySteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_API_GATEWAY_APIS],
     executionHandler: fetchApiGatewayGateways,
+    permissions: [
+      'apigateway.gateways.list',
+      'apigateway.gateways.getIamPolicy',
+    ],
   },
 ];

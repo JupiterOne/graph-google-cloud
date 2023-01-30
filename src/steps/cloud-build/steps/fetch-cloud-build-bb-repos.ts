@@ -1,9 +1,11 @@
 import {
   createDirectRelationship,
-  IntegrationStep,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
-import { IntegrationConfig, IntegrationStepContext } from '../../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../../types';
 import { CloudBuildClient } from '../client';
 import {
   CloudBuildEntitiesSpec,
@@ -15,7 +17,7 @@ import { createGoogleCloudBuildBitbucketRepoEntity } from '../converters';
 import { getRawData } from '@jupiterone/integration-sdk-core';
 import { cloudbuild_v1 } from 'googleapis';
 
-export const fetchCloudBuildBitbucketRepositoriesStep: IntegrationStep<IntegrationConfig> =
+export const fetchCloudBuildBitbucketRepositoriesStep: GoogleCloudIntegrationStep =
   {
     ...CloudBuildStepsSpec.FETCH_BUILD_BITBUCKET_REPOS,
     entities: [CloudBuildEntitiesSpec.BUILD_BITBUCKET_REPO],
@@ -57,4 +59,8 @@ export const fetchCloudBuildBitbucketRepositoriesStep: IntegrationStep<Integrati
         },
       );
     },
+    permissions: [
+      'cloudbuild.repositories.list',
+      'cloudbuild.repositories.get',
+    ],
   };

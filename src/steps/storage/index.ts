@@ -104,5 +104,11 @@ export const storageSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchStorageBuckets,
+    permissions: [
+      'orgpolicy.policies.list',
+      'orgpolicy.policy.get',
+      'storage.buckets.list',
+      'storage.buckets.getIamPolicy',
+    ],
   },
 ];

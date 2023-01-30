@@ -235,6 +235,7 @@ export const bigTableSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchInstances,
+    permissions: ['bigtable.instances.list'],
   },
   {
     id: STEP_BIG_TABLE_APP_PROFILES,
@@ -256,6 +257,7 @@ export const bigTableSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_BIG_TABLE_INSTANCES],
     executionHandler: fetchAppProfiles,
+    permissions: ['bigtable.appProfiles.list'],
   },
   {
     id: STEP_BIG_TABLE_CLUSTERS,
@@ -283,6 +285,7 @@ export const bigTableSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_BIG_TABLE_INSTANCES],
     executionHandler: fetchClusters,
+    permissions: ['bigtable.clusters.list'],
   },
   {
     id: STEP_BIG_TABLE_BACKUPS,
@@ -315,6 +318,7 @@ export const bigTableSteps: GoogleCloudIntegrationStep[] = [
       STEP_CLOUD_KMS_KEYS,
     ],
     executionHandler: fetchBackups,
+    permissions: ['bigtable.backups.list'],
   },
   {
     id: STEP_BIG_TABLE_TABLES,
@@ -336,5 +340,6 @@ export const bigTableSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_BIG_TABLE_INSTANCES],
     executionHandler: fetchTables,
+    permissions: ['bigtable.tables.list'],
   },
 ];

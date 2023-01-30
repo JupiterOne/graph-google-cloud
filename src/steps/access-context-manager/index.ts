@@ -399,6 +399,7 @@ export const accessPoliciesSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchAccessPolicies,
+    permissions: ['accesscontextmanager.accessPolicies.list'],
   },
   {
     id: STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS,
@@ -420,6 +421,7 @@ export const accessPoliciesSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES],
     executionHandler: fetchAccessLevels,
+    permissions: ['accesscontextmanager.accessLevels.list'],
   },
   {
     id: STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS,
@@ -523,5 +525,6 @@ export const accessPoliciesSteps: GoogleCloudIntegrationStep[] = [
       STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
     ],
     executionHandler: fetchServicePerimeters,
+    permissions: ['accesscontextmanager.servicePerimeters.list'],
   },
 ];

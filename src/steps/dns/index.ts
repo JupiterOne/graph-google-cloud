@@ -87,6 +87,7 @@ export const dnsManagedZonesSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchDNSManagedZones,
+    permissions: ['dns.managedZones.list'],
   },
   {
     id: STEP_DNS_POLICIES,
@@ -108,5 +109,6 @@ export const dnsManagedZonesSteps: GoogleCloudIntegrationStep[] = [
     ],
     executionHandler: fetchDNSPolicies,
     dependsOn: [STEP_COMPUTE_NETWORKS],
+    permissions: ['dns.policies.list'],
   },
 ];

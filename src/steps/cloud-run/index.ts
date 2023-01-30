@@ -161,6 +161,7 @@ export const cloudRunSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchCloudRunServices,
+    permissions: ['run.services.list'],
   },
   {
     id: STEP_CLOUD_RUN_ROUTES,
@@ -182,6 +183,7 @@ export const cloudRunSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_CLOUD_RUN_SERVICES],
     executionHandler: fetchCloudRunRoutes,
+    permissions: ['run.routes.list'],
   },
   {
     id: STEP_CLOUD_RUN_CONFIGURATIONS,
@@ -203,5 +205,6 @@ export const cloudRunSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_CLOUD_RUN_SERVICES],
     executionHandler: fetchCloudRunConfigurations,
+    permissions: ['run.configurations.list'],
   },
 ];

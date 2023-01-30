@@ -1892,6 +1892,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
     ],
     relationships: [],
     executionHandler: fetchComputeNetworks,
+    permissions: ['compute.networks.list'],
   },
   {
     id: STEP_COMPUTE_NETWORK_PEERING_RELATIONSHIPS,
@@ -1951,6 +1952,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
       STEP_COMPUTE_FORWARDING_RULES,
     ],
     executionHandler: fetchComputeAddresses,
+    permissions: ['compute.addresses.list'],
   },
   {
     id: STEP_COMPUTE_GLOBAL_ADDRESSES,
@@ -1978,6 +1980,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_COMPUTE_NETWORKS, STEP_COMPUTE_SUBNETWORKS],
     executionHandler: fetchComputeGlobalAddresses,
+    permissions: ['compute.globalAddresses.list'],
   },
   {
     id: STEP_COMPUTE_FORWARDING_RULES,
@@ -2032,6 +2035,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
       STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES,
     ],
     executionHandler: fetchComputeForwardingRules,
+    permissions: ['compute.forwardingRules.list'],
   },
   {
     id: STEP_COMPUTE_GLOBAL_FORWARDING_RULES,
@@ -2088,6 +2092,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
       STEP_COMPUTE_TARGET_HTTPS_PROXIES,
     ],
     executionHandler: fetchComputeGlobalForwardingRules,
+    permissions: ['compute.globalForwardingRules.list'],
   },
   {
     id: STEP_COMPUTE_FIREWALLS,
@@ -2121,6 +2126,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
     ],
     executionHandler: fetchComputeFirewalls,
     dependsOn: [STEP_COMPUTE_NETWORKS],
+    permissions: ['compute.firewalls.list'],
   },
   {
     id: STEP_COMPUTE_SUBNETWORKS,
@@ -2143,6 +2149,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
     ],
     executionHandler: fetchComputeSubnetworks,
     dependsOn: [STEP_COMPUTE_NETWORKS],
+    permissions: ['compute.subnetworks.list'],
   },
   {
     id: STEP_COMPUTE_DISKS,
@@ -2157,6 +2164,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     executionHandler: fetchComputeDisks,
     dependsOn: [],
+    permissions: ['compute.disks.list'],
   },
   {
     id: STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS,
@@ -2172,6 +2180,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
     ],
     executionHandler: buildDiskImageRelationships,
     dependsOn: [STEP_COMPUTE_DISKS, STEP_COMPUTE_IMAGES],
+    permissions: ['compute.images.get'],
   },
   {
     id: STEP_COMPUTE_DISK_KMS_RELATIONSHIPS,
@@ -2206,6 +2215,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     executionHandler: fetchComputeRegionDisks,
     dependsOn: [],
+    permissions: ['compute.disks.list'],
   },
   {
     id: STEP_COMPUTE_SNAPSHOTS,
@@ -2220,6 +2230,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     executionHandler: fetchComputeSnapshots,
     dependsOn: [],
+    permissions: ['compute.snapshots.list'],
   },
   {
     id: STEP_COMPUTE_SNAPSHOT_DISK_RELATIONSHIPS,
@@ -2256,6 +2267,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_COMPUTE_SNAPSHOTS],
     executionHandler: fetchComputeImages,
+    permissions: ['compute.images.list', 'compute.images.getIamPolicy'],
   },
   {
     id: STEP_COMPUTE_IMAGE_KMS_RELATIONSHIPS,
@@ -2331,6 +2343,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
       STEP_COMPUTE_INSTANCE_GROUPS,
     ],
     executionHandler: fetchComputeInstances,
+    permissions: ['compute.instances.list'],
   },
   {
     id: STEP_COMPUTE_INSTANCE_SERVICE_ACCOUNT_RELATIONSHIPS,
@@ -2368,6 +2381,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_COMPUTE_INSTANCES],
     executionHandler: fetchComputeProject,
+    permissions: ['compute.projects.get'],
   },
   {
     id: STEP_COMPUTE_HEALTH_CHECKS,
@@ -2382,6 +2396,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchComputeHealthChecks,
+    permissions: ['compute.healthChecks.list'],
   },
   {
     id: STEP_COMPUTE_REGION_HEALTH_CHECKS,
@@ -2396,6 +2411,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchComputeRegionHealthChecks,
+    permissions: ['compute.regionHealthChecks.list'],
   },
   {
     id: STEP_COMPUTE_REGION_INSTANCE_GROUPS,
@@ -2422,6 +2438,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [],
     executionHandler: fetchComputeRegionInstanceGroups,
+    permissions: ['compute.instanceGroups.list'],
   },
   {
     id: STEP_COMPUTE_INSTANCE_GROUPS,
@@ -2448,6 +2465,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [],
     executionHandler: fetchComputeInstanceGroups,
+    permissions: ['compute.instanceGroups.list'],
   },
   {
     id: STEP_COMPUTE_LOADBALANCERS,
@@ -2475,6 +2493,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_COMPUTE_BACKEND_SERVICES, STEP_COMPUTE_BACKEND_BUCKETS],
     executionHandler: fetchComputeLoadBalancers,
+    permissions: ['compute.urlMaps.list'],
   },
   {
     id: STEP_COMPUTE_REGION_LOADBALANCERS,
@@ -2496,6 +2515,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_COMPUTE_REGION_BACKEND_SERVICES],
     executionHandler: fetchComputeRegionLoadBalancers,
+    permissions: ['compute.regionUrlMaps.list'],
   },
   {
     id: STEP_COMPUTE_BACKEND_SERVICES,
@@ -2523,6 +2543,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_COMPUTE_INSTANCE_GROUPS, STEP_COMPUTE_HEALTH_CHECKS],
     executionHandler: fetchComputeBackendServices,
+    permissions: ['compute.backendServices.list'],
   },
   {
     id: STEP_COMPUTE_REGION_BACKEND_SERVICES,
@@ -2553,6 +2574,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
       STEP_COMPUTE_REGION_HEALTH_CHECKS,
     ],
     executionHandler: fetchComputeRegionBackendServices,
+    permissions: ['compute.regionBackendServices.list'],
   },
   {
     id: STEP_COMPUTE_BACKEND_BUCKETS,
@@ -2567,6 +2589,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchComputeBackendBuckets,
+    permissions: ['compute.backendBuckets.list'],
   },
   {
     id: STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS,
@@ -2606,6 +2629,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_COMPUTE_BACKEND_SERVICES],
     executionHandler: fetchComputeTargetSslProxies,
+    permissions: ['compute.targetSslProxies.list'],
   },
   {
     id: STEP_COMPUTE_TARGET_HTTPS_PROXIES,
@@ -2627,6 +2651,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_COMPUTE_LOADBALANCERS],
     executionHandler: fetchComputeTargetHttpsProxies,
+    permissions: ['compute.targetHttpsProxies.list'],
   },
   {
     id: STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES,
@@ -2648,6 +2673,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_COMPUTE_REGION_LOADBALANCERS],
     executionHandler: fetchComputeRegionTargetHttpsProxies,
+    permissions: ['compute.regionTargetHttpsProxies.list'],
   },
   {
     id: STEP_COMPUTE_TARGET_HTTP_PROXIES,
@@ -2669,6 +2695,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_COMPUTE_LOADBALANCERS],
     executionHandler: fetchComputeTargetHttpProxies,
+    permissions: ['compute.targetHttpProxies.list'],
   },
   {
     id: STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES,
@@ -2690,6 +2717,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_COMPUTE_REGION_LOADBALANCERS],
     executionHandler: fetchComputeRegionTargetHttpProxies,
+    permissions: ['compute.regionTargetHttpProxies.list'],
   },
   {
     id: STEP_COMPUTE_SSL_POLICIES,
@@ -2720,5 +2748,6 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
       STEP_COMPUTE_TARGET_SSL_PROXIES,
     ],
     executionHandler: fetchComputeSslPolicies,
+    permissions: ['compute.sslPolicies.list'],
   },
 ];

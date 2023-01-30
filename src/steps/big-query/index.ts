@@ -236,6 +236,7 @@ export const bigQuerySteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchBigQueryDatasets,
+    permissions: ['bigquery.datasets.get'],
   },
   {
     id: STEP_BUILD_BIG_QUERY_DATASET_KMS_RELATIONSHIPS,
@@ -272,6 +273,11 @@ export const bigQuerySteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_BIG_QUERY_DATASETS],
     executionHandler: fetchBigQueryModels,
+    permissions: [
+      'bigquery.models.list',
+      'bigquery.models.getData',
+      'bigquery.models.getMetadata',
+    ],
   },
   {
     id: STEP_BIG_QUERY_TABLES,
@@ -293,5 +299,10 @@ export const bigQuerySteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_BIG_QUERY_DATASETS],
     executionHandler: fetchBigQueryTables,
+    permissions: [
+      'bigquery.tables.list',
+      'bigquery.tables.getIamPolicy',
+      'bigquery.tables.get',
+    ],
   },
 ];

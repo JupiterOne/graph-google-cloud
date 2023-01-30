@@ -199,6 +199,7 @@ export const dataprocSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchDataprocClusters,
+    permissions: ['dataproc.clusters.list'],
   },
   {
     id: STEP_DATAPROC_CLUSTER_KMS_RELATIONSHIPS,
