@@ -129,7 +129,8 @@ integration supports:
       monitoring.googleapis.com \
       secretmanager.googleapis.com \
       sourcerepo.googleapis.com \
-      websecurityscanner.googleapis.com
+      websecurityscanner.googleapis.com \
+      orgpolicy.googleapis.com
 
 #### Creating Google Cloud project service account
 
@@ -574,6 +575,7 @@ If you prefer not to use Google managed roles, the following list of specific
 permissions can be used to provision only the required ones:
 
 <!-- {J1_PERMISSIONS_DOCUMENTATION_MARKER_START} -->
+
 | Permissions List (108)                                  |
 | ------------------------------------------------------- |
 | `accesscontextmanager.accessLevels.list`                |
@@ -684,4 +686,5 @@ permissions can be used to provision only the required ones:
 | `spanner.instances.list`                                |
 | `storage.buckets.getIamPolicy`                          |
 | `storage.buckets.list`                                  |
+
 <!-- {J1_PERMISSIONS_DOCUMENTATION_MARKER_END} -->

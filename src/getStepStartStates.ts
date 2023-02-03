@@ -1,21 +1,25 @@
 import {
   IntegrationExecutionContext,
+  IntegrationInfoEventName,
   IntegrationLogger,
   IntegrationValidationError,
   StepStartState,
   StepStartStates,
 } from '@jupiterone/integration-sdk-core';
 import { ServiceUsageName } from './google-cloud/types';
+import { accessPoliciesSteps } from './steps/access-context-manager';
 import {
   STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS,
   STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
   STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS,
 } from './steps/access-context-manager/constants';
+import { apiGatewaySteps } from './steps/api-gateway';
 import {
   STEP_API_GATEWAY_APIS,
   STEP_API_GATEWAY_API_CONFIGS,
   STEP_API_GATEWAY_GATEWAYS,
 } from './steps/api-gateway/constants';
+import { appEngineSteps } from './steps/app-engine';
 import {
   STEP_APP_ENGINE_APPLICATION,
   STEP_APP_ENGINE_INSTANCES,
@@ -24,11 +28,13 @@ import {
   STEP_CREATE_APP_ENGINE_BUCKET_RELATIONSHIPS,
 } from './steps/app-engine/constants';
 import {
+  bigQuerySteps,
   STEP_BIG_QUERY_DATASETS,
   STEP_BIG_QUERY_MODELS,
   STEP_BIG_QUERY_TABLES,
   STEP_BUILD_BIG_QUERY_DATASET_KMS_RELATIONSHIPS,
 } from './steps/big-query';
+import { bigTableSteps } from './steps/big-table';
 import {
   STEP_BIG_TABLE_APP_PROFILES,
   STEP_BIG_TABLE_BACKUPS,
@@ -36,13 +42,16 @@ import {
   STEP_BIG_TABLE_INSTANCES,
   STEP_BIG_TABLE_TABLES,
 } from './steps/big-table/constants';
+import { billingBudgetsSteps } from './steps/billing-budgets';
 import {
   STEP_BILLING_BUDGETS,
   STEP_BUILD_ACCOUNT_BUDGET,
   STEP_BUILD_ADDITIONAL_PROJECT_BUDGET,
   STEP_BUILD_PROJECT_BUDGET,
 } from './steps/billing-budgets/constants';
+import { binaryAuthorizationSteps } from './steps/binary-authorization';
 import { STEP_BINARY_AUTHORIZATION_POLICY } from './steps/binary-authorization/constants';
+import { cloudAssetSteps } from './steps/cloud-asset';
 import {
   STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS,
   STEP_CREATE_BASIC_ROLES,
@@ -51,15 +60,20 @@ import {
   STEP_CREATE_BINDING_ROLE_RELATIONSHIPS,
   STEP_IAM_BINDINGS,
 } from './steps/cloud-asset/constants';
+import { cloudBillingSteps } from './steps/cloud-billing';
 import { STEP_BILLING_ACCOUNTS } from './steps/cloud-billing/constants';
+import { cloudBuildSteps } from './steps/cloud-build';
 import { CloudBuildStepsSpec } from './steps/cloud-build/constants';
+import { cloudRunSteps } from './steps/cloud-run';
 import {
   STEP_CLOUD_RUN_CONFIGURATIONS,
   STEP_CLOUD_RUN_ROUTES,
   STEP_CLOUD_RUN_SERVICES,
 } from './steps/cloud-run/constants';
+import { cloudSourceRepositoriesSteps } from './steps/cloud-source-repositories';
 import { CloudSourceRepositoriesStepsSpec } from './steps/cloud-source-repositories/constants';
 import {
+  computeSteps,
   STEP_COMPUTE_ADDRESSES,
   STEP_COMPUTE_BACKEND_BUCKETS,
   STEP_COMPUTE_BACKEND_SERVICES,
@@ -97,71 +111,95 @@ import {
   STEP_COMPUTE_TARGET_SSL_PROXIES,
   STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS,
 } from './steps/compute';
-import { STEP_CONTAINER_CLUSTERS } from './steps/containers';
+import { containerSteps, STEP_CONTAINER_CLUSTERS } from './steps/containers';
+import { dataprocSteps } from './steps/dataproc';
 import {
   STEP_CREATE_CLUSTER_IMAGE_RELATIONSHIPS,
   STEP_CREATE_CLUSTER_STORAGE_RELATIONSHIPS,
   STEP_DATAPROC_CLUSTERS,
   STEP_DATAPROC_CLUSTER_KMS_RELATIONSHIPS,
 } from './steps/dataproc/constants';
+import { dnsManagedZonesSteps } from './steps/dns';
 import {
   STEP_DNS_MANAGED_ZONES,
   STEP_DNS_POLICIES,
 } from './steps/dns/constants';
 import * as enablement from './steps/enablement';
 import {
+  functionsSteps,
   STEP_CLOUD_FUNCTIONS,
   STEP_CLOUD_FUNCTIONS_SERVICE_ACCOUNT_RELATIONSHIPS,
   STEP_CLOUD_FUNCTIONS_SOURCE_REPO_RELATIONSHIPS,
   STEP_CLOUD_FUNCTIONS_STORAGE_BUCKET_RELATIONSHIPS,
 } from './steps/functions';
 import {
+  iamSteps,
   STEP_IAM_CUSTOM_ROLES,
   STEP_IAM_CUSTOM_ROLE_SERVICE_API_RELATIONSHIPS,
   STEP_IAM_MANAGED_ROLES,
   STEP_IAM_SERVICE_ACCOUNTS,
 } from './steps/iam';
-import { STEP_CLOUD_KMS_KEYS, STEP_CLOUD_KMS_KEY_RINGS } from './steps/kms';
+import {
+  kmsSteps,
+  STEP_CLOUD_KMS_KEYS,
+  STEP_CLOUD_KMS_KEY_RINGS,
+} from './steps/kms';
+import { loggingSteps } from './steps/logging';
 import {
   STEP_CREATE_LOGGING_PROJECT_SINK_BUCKET_RELATIONSHIPS,
   STEP_LOGGING_METRICS,
   STEP_LOGGING_PROJECT_SINKS,
 } from './steps/logging/constants';
+import { memcacheSteps } from './steps/memcache';
 import {
   STEP_CREATE_MEMCACHE_INSTANCE_NETWORK_RELATIONSHIPS,
   STEP_MEMCACHE_INSTANCES,
 } from './steps/memcache/constants';
+import { monitoringSteps } from './steps/monitoring';
 import { STEP_MONITORING_ALERT_POLICIES } from './steps/monitoring/constants';
+import { privateCaSteps } from './steps/privateca';
 import {
   STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS,
   STEP_PRIVATE_CA_CERTIFICATES,
   STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES,
 } from './steps/privateca/constants';
+import { pubSubSteps } from './steps/pub-sub';
 import {
   STEP_CREATE_PUBSUB_TOPIC_KMS_RELATIONSHIPS,
   STEP_PUBSUB_SUBSCRIPTIONS,
   STEP_PUBSUB_TOPICS,
 } from './steps/pub-sub/constants';
+import { redisSteps } from './steps/redis';
 import {
   STEP_CREATE_REDIS_INSTANCE_NETWORK_RELATIONSHIPS,
   STEP_REDIS_INSTANCES,
 } from './steps/redis/constants';
 import {
+  resourceManagerSteps,
   STEP_AUDIT_CONFIG_IAM_POLICY,
   STEP_RESOURCE_MANAGER_FOLDERS,
   STEP_RESOURCE_MANAGER_ORGANIZATION,
   STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
   STEP_RESOURCE_MANAGER_PROJECT,
 } from './steps/resource-manager';
+import { secretManagerSteps } from './steps/secret-manager';
 import { SecretManagerSteps } from './steps/secret-manager/constants';
+import { serviceUsageSteps } from './steps/service-usage';
 import { ServiceUsageStepIds } from './steps/service-usage/constants';
+import { spannerSteps } from './steps/spanner';
 import {
   STEP_SPANNER_INSTANCES,
   STEP_SPANNER_INSTANCE_CONFIGS,
   STEP_SPANNER_INSTANCE_DATABASES,
 } from './steps/spanner/constants';
-import { SqlAdminSteps, STEP_SQL_ADMIN_INSTANCES } from './steps/sql-admin';
+import {
+  sqlAdminSteps,
+  SqlAdminSteps,
+  STEP_SQL_ADMIN_INSTANCES,
+} from './steps/sql-admin';
+import { storageSteps } from './steps/storage';
 import { StorageStepsSpec } from './steps/storage/constants';
+import { webSecurityScannerSteps } from './steps/web-security-scanner';
 import { WebSecurityScannerSteps } from './steps/web-security-scanner/constants';
 import { IntegrationConfig, SerializedIntegrationConfig } from './types';
 import { deserializeIntegrationConfig } from './utils/integrationConfig';
@@ -879,6 +917,57 @@ async function getStepStartStatesUsingServiceEnablements(params: {
       ServiceUsageName.WEB_SECURITY_SCANNER,
     ),
   };
+
+  const apiServiceToStepIdsMap: { [apiService: string]: string[] } = {
+    [ServiceUsageName.ACCESS_CONTEXT_MANAGER]: accessPoliciesSteps.map(
+      (s) => s.id,
+    ),
+    [ServiceUsageName.API_GATEWAY]: apiGatewaySteps.map((s) => s.id),
+    [ServiceUsageName.APP_ENGINE]: appEngineSteps.map((s) => s.id),
+    [ServiceUsageName.BIG_QUERY]: bigQuerySteps.map((s) => s.id),
+    [ServiceUsageName.BIG_TABLE]: bigTableSteps.map((s) => s.id),
+    [ServiceUsageName.BILLING_BUDGET]: billingBudgetsSteps.map((s) => s.id),
+    [ServiceUsageName.BINARY_AUTHORIZATION]: binaryAuthorizationSteps.map(
+      (s) => s.id,
+    ),
+    [ServiceUsageName.CLOUD_ASSET]: cloudAssetSteps.map((s) => s.id),
+    [ServiceUsageName.CLOUD_BILLING]: cloudBillingSteps.map((s) => s.id),
+    [ServiceUsageName.CLOUD_BUILD]: cloudBuildSteps.map((s) => s.id),
+    [ServiceUsageName.CLOUD_FUNCTIONS]: functionsSteps.map((s) => s.id),
+    [ServiceUsageName.CLOUD_RUN]: cloudRunSteps.map((s) => s.id),
+    [ServiceUsageName.CLOUD_SOURCE_REPOSITORIES]:
+      cloudSourceRepositoriesSteps.map((s) => s.id),
+    [ServiceUsageName.COMPUTE]: computeSteps.map((s) => s.id),
+    [ServiceUsageName.CONTAINER]: containerSteps.map((s) => s.id),
+    [ServiceUsageName.DATAPROC_CLUSTERS]: dataprocSteps.map((s) => s.id),
+    [ServiceUsageName.DNS]: dnsManagedZonesSteps.map((s) => s.id),
+    [ServiceUsageName.IAM]: iamSteps.map((s) => s.id),
+    [ServiceUsageName.KMS]: kmsSteps.map((s) => s.id),
+    [ServiceUsageName.LOGGING]: loggingSteps.map((s) => s.id),
+    [ServiceUsageName.MEMCACHE]: memcacheSteps.map((s) => s.id),
+    [ServiceUsageName.MONITORING]: monitoringSteps.map((s) => s.id),
+    [ServiceUsageName.PRIVATE_CA]: privateCaSteps.map((s) => s.id),
+    [ServiceUsageName.PUB_SUB]: pubSubSteps.map((s) => s.id),
+    [ServiceUsageName.REDIS]: redisSteps.map((s) => s.id),
+    [ServiceUsageName.RESOURCE_MANAGER]: resourceManagerSteps.map((s) => s.id),
+    [ServiceUsageName.SECRET_MANAGER]: secretManagerSteps.map((s) => s.id),
+    [ServiceUsageName.SERVICE_USAGE]: serviceUsageSteps.map((s) => s.id),
+    [ServiceUsageName.SPANNER]: spannerSteps.map((s) => s.id),
+    [ServiceUsageName.SQL_ADMIN]: sqlAdminSteps.map((s) => s.id),
+    [ServiceUsageName.STORAGE]: storageSteps.map((s) => s.id),
+    [ServiceUsageName.WEB_SECURITY_SCANNER]: webSecurityScannerSteps.map(
+      (s) => s.id,
+    ),
+  };
+
+  for (const serviceName of Object.keys(apiServiceToStepIdsMap)) {
+    if (!enabledServiceNames.includes(serviceName)) {
+      logger.publishInfoEvent({
+        name: '[service_disabled]' as IntegrationInfoEventName,
+        description: `The API Service ${serviceName} is disabled in this account. As a result, the following steps are disabled: ${apiServiceToStepIdsMap[serviceName]}`,
+      });
+    }
+  }
 
   logger.info(
     { stepStartStates: JSON.stringify(stepStartStates) },
