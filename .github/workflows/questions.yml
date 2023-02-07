@@ -37,6 +37,6 @@ jobs:
             ${{ secrets.MANAGED_QUESTIONS_JUPITERONE_API_KEY }}
         run:
           yarn --cwd source j1-integration validate-question-file -a
-          --frozen-lockfile $MANAGED_QUESTIONS_JUPITERONE_ACCOUNT_ID -k
+          $MANAGED_QUESTIONS_JUPITERONE_ACCOUNT_ID -k
           $MANAGED_QUESTIONS_JUPITERONE_API_KEY -p
           ../target/jupiterone/questions/questions.yaml
