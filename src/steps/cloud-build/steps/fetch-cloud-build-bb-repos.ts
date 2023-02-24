@@ -27,7 +27,6 @@ export const fetchCloudBuildBitbucketRepositoriesStep: GoogleCloudIntegrationSte
       context: IntegrationStepContext,
     ): Promise<void> {
       const {
-        logger,
         jobState,
         instance: { config },
       } = context;
@@ -41,31 +40,22 @@ export const fetchCloudBuildBitbucketRepositoriesStep: GoogleCloudIntegrationSte
               serverConfigEntity,
             );
 
-          try {
-            await client.iterateBuildBitbucketRepositories(
-              serverConfig!,
-              async (repository) => {
-                const repositoryEntity =
-                  createGoogleCloudBuildBitbucketRepoEntity(repository);
-                await jobState.addEntity(repositoryEntity);
-                await jobState.addRelationship(
-                  createDirectRelationship({
-                    _class: RelationshipClass.HAS,
-                    from: serverConfigEntity,
-                    to: repositoryEntity,
-                  }),
-                );
-              },
-            );
-          } catch (err) {
-            if (err.code === 'ATTEMPT_TIMEOUT') {
-              logger.warn(
-                `${CloudBuildEntitiesSpec.BUILD_BITBUCKET_SERVER_CONFIG._type} - Unable to fetch BitBucket repositories. This might be caused by expired credentials in the GCP console (Cloud Build).`,
+          await client.iterateBuildBitbucketRepositories(
+            serverConfig!,
+            context,
+            async (repository) => {
+              const repositoryEntity =
+                createGoogleCloudBuildBitbucketRepoEntity(repository);
+              await jobState.addEntity(repositoryEntity);
+              await jobState.addRelationship(
+                createDirectRelationship({
+                  _class: RelationshipClass.HAS,
+                  from: serverConfigEntity,
+                  to: repositoryEntity,
+                }),
               );
-            }
-
-            throw err;
-          }
+            },
+          );
         },
       );
     },
