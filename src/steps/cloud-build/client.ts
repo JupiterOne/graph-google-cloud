@@ -161,9 +161,9 @@ export class CloudBuildClient extends Client {
           { err },
           `${CloudBuildEntitiesSpec.BUILD_BITBUCKET_SERVER_CONFIG._type} - Unable to fetch BitBucket repositories. This might be caused by expired credentials in the GCP console (Cloud Build).`,
         );
+      } else {
+        throw err;
       }
-
-      throw err;
     }
   }
 }
