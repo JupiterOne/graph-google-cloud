@@ -42,8 +42,13 @@ function collectInvalidKeysFromParsedServiceAccountKeyFile(
 }
 
 export function parseServiceAccountKeyFile(
-  serviceAccountKeyFile: string,
+  serviceAccountKeyFile: string | undefined,
 ): ParsedServiceAccountKeyFile {
+  if (!serviceAccountKeyFile) {
+    throw new IntegrationValidationError(
+      'Missing a required integration config value {serviceAccountKeyFile}',
+    );
+  }
   if (typeof serviceAccountKeyFile !== 'string') {
     // JSON.parse can take other types besides just strings. This should never
     // happen, but if it does, we do not want to continue.

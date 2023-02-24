@@ -4,7 +4,7 @@ import {
   IntegrationProviderAuthorizationError,
 } from '@jupiterone/integration-sdk-core';
 import { retry } from '@lifeomic/attempt';
-import { GaxiosResponse } from 'gaxios';
+import { GaxiosError, GaxiosResponse } from 'gaxios';
 import { BaseExternalAccountClient, CredentialBody } from 'google-auth-library';
 import { google } from 'googleapis';
 import { IntegrationConfig } from '../types';
@@ -75,7 +75,11 @@ export class Client {
 
   async getAuthenticatedServiceClient(): Promise<BaseExternalAccountClient> {
     if (!this.auth) {
-      this.auth = await this.getClient();
+      try {
+        this.auth = await this.getClient();
+      } catch (err) {
+        throw handleApiClientError(err);
+      }
     }
 
     return this.auth;
@@ -134,7 +138,7 @@ export class Client {
 /**
  * Codes unknown error into JupiterOne errors
  */
-function handleApiClientError(error: any) {
+function handleApiClientError(error: GaxiosError) {
   // If the error was already handled, forward it on
   if (error instanceof IntegrationError) {
     return error;
@@ -142,7 +146,7 @@ function handleApiClientError(error: any) {
 
   let err;
   const errorProps = createErrorProps(error);
-  const code = error.response?.status;
+  const code = error.response?.status as number;
 
   // Per these two sets of docs, and depending on the api, gcloud
   // will return a 403 or 429 error to signify rate limiting:
@@ -157,13 +161,15 @@ function handleApiClientError(error: any) {
       // retry this case.
       error.message.match(/Quota exceeded/i)
     ) {
-      (err as any).retryable = true;
+      err.retryable = true;
     }
   } else if (
     code == 400 &&
     error.message?.match &&
     error.message.match(/billing/i)
   ) {
+    err = new IntegrationProviderAuthorizationError(errorProps);
+  } else if (code == 401) {
     err = new IntegrationProviderAuthorizationError(errorProps);
   } else if (code === 429 || code >= 500) {
     err = new IntegrationProviderAPIError(errorProps);

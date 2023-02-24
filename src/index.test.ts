@@ -1,7 +1,6 @@
 import { invocationConfig as specConfig } from '../docs/spec/src/index';
 import {
   Entity,
-  IntegrationValidationError,
   Step,
   StepStartStates,
 } from '@jupiterone/integration-sdk-core';
@@ -9,17 +8,12 @@ import {
   createMockExecutionContext,
   Recording,
 } from '@jupiterone/integration-sdk-testing';
-import { GoogleAuth, GoogleAuthOptions } from 'google-auth-library';
-import { google } from 'googleapis';
-import {
-  DEFAULT_INTEGRATION_CONFIG_SERVICE_ACCOUNT_KEY_FILE,
-  integrationConfig,
-} from '../test/config';
+import { integrationConfig } from '../test/config';
 import {
   getMatchRequestsBy,
   setupGoogleCloudRecording,
 } from '../test/recording';
-import getStepStartStates, { getOrganizationSteps } from './getStepStartStates';
+import { getOrganizationSteps } from './getStepStartStates';
 import { invocationConfig } from './index';
 import {
   STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS,
@@ -179,92 +173,6 @@ import {
 import { StorageStepsSpec } from './steps/storage/constants';
 import { WebSecurityScannerSteps } from './steps/web-security-scanner/constants';
 
-interface ValidateInvocationInvalidConfigTestParams {
-  instanceConfig?: Partial<IntegrationConfig>;
-  expectedErrorMessage?: string;
-}
-
-async function validateInvocationInvalidConfigTest({
-  instanceConfig,
-  expectedErrorMessage,
-}: ValidateInvocationInvalidConfigTestParams = {}) {
-  const context = createMockExecutionContext<IntegrationConfig>(
-    instanceConfig
-      ? {
-          instanceConfig: instanceConfig as IntegrationConfig,
-        }
-      : undefined,
-  );
-
-  const { getStepStartStates } = invocationConfig;
-
-  if (!getStepStartStates) {
-    throw new Error('Missing "getStepStartStates" in index');
-  }
-
-  let failed = false;
-
-  try {
-    await getStepStartStates(context);
-  } catch (err) {
-    expect(err instanceof IntegrationValidationError).toBe(true);
-    expect(err.message).toEqual(
-      expectedErrorMessage ||
-        'Missing a required integration config value {serviceAccountKeyFile}',
-    );
-    failed = true;
-  }
-
-  expect(failed).toEqual(true);
-}
-
-describe('#getStepStartStates failures', () => {
-  let googleAuthSpy: jest.SpyInstance<
-    GoogleAuth,
-    [(GoogleAuthOptions | undefined)?]
-  >;
-
-  beforeEach(() => {
-    googleAuthSpy = jest.spyOn(google.auth, 'GoogleAuth');
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
-
-  test('should throw if missing serviceAccountKeyFile property in config', async () => {
-    await validateInvocationInvalidConfigTest();
-    expect(googleAuthSpy.mock.calls.length).toEqual(0);
-  });
-
-  [
-    'type',
-    'project_id',
-    'private_key_id',
-    'private_key',
-    'client_email',
-    'client_id',
-    'auth_uri',
-    'token_uri',
-    'auth_provider_x509_cert_url',
-    'client_x509_cert_url',
-  ].forEach((k) => {
-    test(`should throw if missing "${k}" from serviceAccountKeyFile`, async () => {
-      await validateInvocationInvalidConfigTest({
-        instanceConfig: {
-          serviceAccountKeyFile: JSON.stringify({
-            ...DEFAULT_INTEGRATION_CONFIG_SERVICE_ACCOUNT_KEY_FILE,
-            [k]: undefined,
-          }),
-        },
-        expectedErrorMessage: `Invalid contents of "serviceAccountKeyFile" passed to integration (invalidFileKeys=${k})`,
-      });
-
-      expect(googleAuthSpy.mock.calls.length).toEqual(0);
-    });
-  });
-});
-
 describe('#getStepStartStates success', () => {
   let recording: Recording;
 
@@ -284,20 +192,20 @@ describe('#getStepStartStates success', () => {
 
   test.each([true, false])(
     'should return all enabled services when getStepStartStatesUsingServiceEnablements = %p',
+
     async (useEnablementsForStepStartStates) => {
-      const context = createMockExecutionContext<IntegrationConfig>({
+      const stepStartStates = await invocationConfig.getStepStartStates?.(
         // Unless we want to change what this test does, we need to modify the
         // instanceConfig with configureOrganizationProjects: true, else not
         // all steps will be enabled it'll be disabled
+        createMockExecutionContext({
+          instanceConfig: {
+            ...integrationConfig,
+            useEnablementsForStepStartStates,
+          },
+        }),
+      );
 
-        // Temporary tweak to make this test pass since its recording has been updated from the new organization/v3
-        instanceConfig: {
-          ...integrationConfig,
-          useEnablementsForStepStartStates,
-        },
-      });
-
-      const stepStartStates = await getStepStartStates(context);
       const expectedStepStartStates: StepStartStates = {
         [STEP_RESOURCE_MANAGER_ORGANIZATION]: {
           disabled: false,
@@ -697,24 +605,15 @@ describe('#getStepStartStates success', () => {
   );
 
   test('configureOrganizationProjects: true and organizationId: undefined: should disable billing and organization steps', async () => {
-    const context = createMockExecutionContext<IntegrationConfig>({
-      // Temporary tweak to make this test pass since its recording has been updated from the new organization/v3
-      instanceConfig: {
-        ...integrationConfig,
-        serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
-          'j1-gc-integration-dev-v2',
-          'j1-gc-integration-dev-v3',
-        ),
-        serviceAccountKeyConfig: {
-          ...integrationConfig.serviceAccountKeyConfig,
-          project_id: 'j1-gc-integration-dev-v3',
+    const stepStartStates = await invocationConfig.getStepStartStates?.(
+      createMockExecutionContext({
+        instanceConfig: {
+          ...integrationConfig,
+          organizationId: undefined,
+          configureOrganizationProjects: true,
         },
-        configureOrganizationProjects: true,
-        organizationId: undefined,
-      },
-    });
-
-    const stepStartStates = await getStepStartStates(context);
+      }),
+    );
 
     expect(stepStartStates).toMatchObject({
       [STEP_RESOURCE_MANAGER_ORGANIZATION]: {
@@ -766,23 +665,14 @@ describe('#getStepStartStates success', () => {
   });
 
   test('configureOrganizationProjects: false or undefined, organizationId defined and projectId defined; should disable billing and organization steps', async () => {
-    const context = createMockExecutionContext<IntegrationConfig>({
-      // Temporary tweak to make this test pass since its recording has been updated from the new organization/v3
-      instanceConfig: {
-        ...integrationConfig,
-        configureOrganizationProjects: false,
-        serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
-          'j1-gc-integration-dev-v2',
-          'j1-gc-integration-dev-v3',
-        ),
-        serviceAccountKeyConfig: {
-          ...integrationConfig.serviceAccountKeyConfig,
-          project_id: 'j1-gc-integration-dev-v3',
+    const stepStartStates = await invocationConfig.getStepStartStates?.(
+      createMockExecutionContext({
+        instanceConfig: {
+          ...integrationConfig,
+          configureOrganizationProjects: false,
         },
-      },
-    });
-
-    const stepStartStates = await getStepStartStates(context);
+      }),
+    );
 
     expect(stepStartStates).toMatchObject({
       [STEP_RESOURCE_MANAGER_ORGANIZATION]: {
@@ -834,24 +724,16 @@ describe('#getStepStartStates success', () => {
   });
 
   test('configureOrganizationProjects: false or undefined, organizationId: undefined and projectId defined; should enable binding and billing steps and disable organization steps.', async () => {
-    const context = createMockExecutionContext<IntegrationConfig>({
-      // Temporary tweak to make this test pass since its recording has been updated from the new organization/v3
-      instanceConfig: {
-        projectId: 'j1-gc-integration-dev-v3',
-        configureOrganizationProjects: false,
-        organizationId: undefined,
-        serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
-          'j1-gc-integration-dev-v2',
-          'j1-gc-integration-dev-v3',
-        ),
-        serviceAccountKeyConfig: {
-          ...integrationConfig.serviceAccountKeyConfig,
-          project_id: 'j1-gc-integration-dev-v3',
+    const stepStartStates = await invocationConfig.getStepStartStates?.(
+      createMockExecutionContext({
+        instanceConfig: {
+          ...integrationConfig,
+          projectId: integrationConfig.serviceAccountKeyConfig.project_id,
+          configureOrganizationProjects: false,
+          organizationId: undefined,
         },
-      },
-    });
-
-    const stepStartStates = await getStepStartStates(context);
+      }),
+    );
 
     expect(stepStartStates).toMatchObject({
       [STEP_RESOURCE_MANAGER_ORGANIZATION]: {

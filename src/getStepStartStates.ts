@@ -201,8 +201,7 @@ import { storageSteps } from './steps/storage';
 import { StorageStepsSpec } from './steps/storage/constants';
 import { webSecurityScannerSteps } from './steps/web-security-scanner';
 import { WebSecurityScannerSteps } from './steps/web-security-scanner/constants';
-import { IntegrationConfig, SerializedIntegrationConfig } from './types';
-import { deserializeIntegrationConfig } from './utils/integrationConfig';
+import { IntegrationConfig } from './types';
 import { isMasterOrganizationInstance } from './utils/isMasterOrganizationInstance';
 import { isSingleProjectInstance } from './utils/isSingleProjectInstance';
 
@@ -227,27 +226,11 @@ export function getOrganizationSteps() {
   ];
 }
 
-function validateInvocationConfig(config: SerializedIntegrationConfig) {
-  if (!config.serviceAccountKeyFile) {
-    throw new IntegrationValidationError(
-      'Missing a required integration config value {serviceAccountKeyFile}',
-    );
-  }
-}
-
 export default async function getStepStartStates(
-  context: IntegrationExecutionContext<SerializedIntegrationConfig>,
+  context: IntegrationExecutionContext<IntegrationConfig>,
 ): Promise<StepStartStates> {
   const { instance, logger } = context;
-  const { config: serializedIntegrationConfig } = instance;
-
-  validateInvocationConfig(serializedIntegrationConfig);
-
-  // Override the incoming config with the new config that has parsed service
-  // account data
-  const config = (context.instance.config = deserializeIntegrationConfig(
-    serializedIntegrationConfig,
-  ));
+  const { config } = instance;
 
   logger.info(
     {

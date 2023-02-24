@@ -2,10 +2,15 @@ import {
   IntegrationProviderAPIError,
   IntegrationProviderAuthorizationError,
 } from '@jupiterone/integration-sdk-core';
+import { createMockExecutionContext } from '@jupiterone/integration-sdk-testing';
 import { GoogleAuth, GoogleAuthOptions } from 'google-auth-library';
 import { google } from 'googleapis';
-import { IntegrationConfig } from '..';
-import { getMockIntegrationConfig } from '../../test/config';
+import { IntegrationConfig, invocationConfig } from '..';
+import { getMockIntegrationConfig, integrationConfig } from '../../test/config';
+import {
+  withGoogleCloudRecording,
+  getMatchRequestsBy,
+} from '../../test/recording';
 import { parseServiceAccountKeyFile } from '../utils/parseServiceAccountKeyFile';
 import { Client } from './client';
 
@@ -200,6 +205,68 @@ describe('Client', () => {
     } as unknown as IntegrationConfig;
     expect(new Client({ config, projectId: overrideProjectId }).projectId).toBe(
       overrideProjectId,
+    );
+  });
+});
+
+describe('Client - getAuthenticatedServiceClient tests', () => {
+  test('When service account key file is complete but with an incorrect client_email or service account is disabled, error should be instance of IntegrationProviderAuthenticationError and thorow a specific message.', async () => {
+    await withGoogleCloudRecording(
+      {
+        directory: __dirname,
+        name: 'validateInvocation:failure:accountNotFound',
+        options: {
+          matchRequestsBy: getMatchRequestsBy(integrationConfig),
+          recordFailedRequests: true,
+        },
+      },
+      async () => {
+        let error;
+        try {
+          await invocationConfig.validateInvocation?.(
+            createMockExecutionContext({
+              instanceConfig: integrationConfig,
+            }),
+          );
+        } catch (err) {
+          error = err;
+        }
+        expect(error).not.toBeUndefined();
+        expect(error.message).toEqual(
+          'Provider API failed at https://www.googleapis.com/oauth2/v4/token: 400 invalid_grant: Invalid grant: account not found',
+        );
+        expect(error).toBeInstanceOf(IntegrationProviderAPIError);
+      },
+    );
+  });
+
+  test('When service account key file is complete but service account key was deleted from Google Cloud or expired, error should be instance of IntegrationProviderAuthenticationError and thorow a specific message.', async () => {
+    await withGoogleCloudRecording(
+      {
+        directory: __dirname,
+        name: 'validateInvocation:failure:invalidJWT',
+        options: {
+          matchRequestsBy: getMatchRequestsBy(integrationConfig),
+          recordFailedRequests: true,
+        },
+      },
+      async () => {
+        let error;
+        try {
+          await invocationConfig.validateInvocation?.(
+            createMockExecutionContext({
+              instanceConfig: integrationConfig,
+            }),
+          );
+        } catch (err) {
+          error = err;
+        }
+        expect(error).not.toBeUndefined();
+        expect(error.message).toEqual(
+          'Provider API failed at https://www.googleapis.com/oauth2/v4/token: 400 invalid_grant: Invalid JWT Signature.',
+        );
+        expect(error).toBeInstanceOf(IntegrationProviderAPIError);
+      },
     );
   });
 });

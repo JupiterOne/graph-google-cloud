@@ -14,7 +14,7 @@ export function createErrorProps(error: Error | GaxiosError): J1ApiErrorProps {
       cause: error,
       endpoint: error.response?.config?.url || UNKNOWN_VALUE,
       status: error.response?.status,
-      statusText: error.response?.statusText,
+      statusText: error.message,
     };
   } else {
     return {
@@ -22,7 +22,7 @@ export function createErrorProps(error: Error | GaxiosError): J1ApiErrorProps {
       cause: error,
       endpoint: UNKNOWN_VALUE,
       status: UNKNOWN_VALUE,
-      statusText: UNKNOWN_VALUE,
+      statusText: error.message || UNKNOWN_VALUE,
     };
   }
 }
