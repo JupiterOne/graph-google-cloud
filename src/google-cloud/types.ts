@@ -38,4 +38,5 @@ export enum ServiceUsageName {
   SECRET_MANAGER = 'secretmanager.googleapis.com',
   CLOUD_SOURCE_REPOSITORIES = 'sourcerepo.googleapis.com',
   WEB_SECURITY_SCANNER = 'websecurityscanner.googleapis.com',
+  ORG_POLICY = 'orgpolicy.googleapis.com',
 }
