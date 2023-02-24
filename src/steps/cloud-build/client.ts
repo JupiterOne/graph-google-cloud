@@ -1,7 +1,7 @@
 import { cloudbuild_v1, google } from 'googleapis';
 import { Client } from '../../google-cloud/client';
 import { IntegrationStepContext } from '../../types';
-import { CloudBuildLocations } from './constants';
+import { CloudBuildEntitiesSpec, CloudBuildLocations } from './constants';
 
 export class CloudBuildClient extends Client {
   private client = google.cloudbuild({ version: 'v1' });
@@ -129,29 +129,41 @@ export class CloudBuildClient extends Client {
 
   async iterateBuildBitbucketRepositories(
     serverConfig: cloudbuild_v1.Schema$BitbucketServerConfig,
+    context: IntegrationStepContext,
     callback: (
       data: cloudbuild_v1.Schema$BitbucketServerRepository,
     ) => Promise<void>,
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
 
-    await this.iterateApi(
-      (nextPageToken) => {
-        return this.client.projects.locations.bitbucketServerConfigs.repos.list(
-          {
-            auth,
-            pageToken: nextPageToken,
-            parent: serverConfig.name!,
-          },
+    try {
+      await this.iterateApi(
+        (nextPageToken) => {
+          return this.client.projects.locations.bitbucketServerConfigs.repos.list(
+            {
+              auth,
+              pageToken: nextPageToken,
+              parent: serverConfig.name!,
+            },
+          );
+        },
+        async (
+          data: cloudbuild_v1.Schema$ListBitbucketServerRepositoriesResponse,
+        ) => {
+          for (const config of data.bitbucketServerRepositories || []) {
+            await callback(config);
+          }
+        },
+      );
+    } catch (err) {
+      if (err.code === 'ATTEMPT_TIMEOUT') {
+        context.logger.warn(
+          { err },
+          `${CloudBuildEntitiesSpec.BUILD_BITBUCKET_SERVER_CONFIG._type} - Unable to fetch BitBucket repositories. This might be caused by expired credentials in the GCP console (Cloud Build).`,
         );
-      },
-      async (
-        data: cloudbuild_v1.Schema$ListBitbucketServerRepositoriesResponse,
-      ) => {
-        for (const config of data.bitbucketServerRepositories || []) {
-          await callback(config);
-        }
-      },
-    );
+      } else {
+        throw err;
+      }
+    }
   }
 }

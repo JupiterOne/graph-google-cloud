@@ -42,11 +42,11 @@ export const fetchCloudBuildBitbucketRepositoriesStep: GoogleCloudIntegrationSte
 
           await client.iterateBuildBitbucketRepositories(
             serverConfig!,
+            context,
             async (repository) => {
               const repositoryEntity =
                 createGoogleCloudBuildBitbucketRepoEntity(repository);
               await jobState.addEntity(repositoryEntity);
-
               await jobState.addRelationship(
                 createDirectRelationship({
                   _class: RelationshipClass.HAS,
