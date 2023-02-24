@@ -147,6 +147,12 @@ questions:
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
+      - '1.4' 
+  - standard: CIS Google Cloud Foundations 1.3
+    requirements:
+      - '1.4'
+  - standard: CIS Google Cloud Foundations 2.0
+    requirements:
       - '1.4'
 - id: integration-question-google-cloud-service-account-non-admin
   title: Ensure that Service Account has no Admin privileges
