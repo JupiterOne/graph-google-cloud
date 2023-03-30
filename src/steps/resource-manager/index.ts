@@ -3,6 +3,7 @@ import {
   createDirectRelationship,
   createMappedRelationship,
   RelationshipDirection,
+  Relationship,
 } from '@jupiterone/integration-sdk-core';
 import { ResourceManagerClient } from './client';
 import {
@@ -317,6 +318,8 @@ export async function fetchIamPolicyAuditConfig(
       }
     }
 
+    let iamTargetRelationships: Relationship[] = [];
+
     for (const auditLogConfig of auditConfig.auditLogConfigs || []) {
       const exemptedMembers = auditLogConfig.exemptedMembers;
       const logType = auditLogConfig.logType;
@@ -340,12 +343,32 @@ export async function fetchIamPolicyAuditConfig(
             relationshipClass: RelationshipClass.ALLOWS,
           });
 
-          if (relationship) {
-            await jobState.addRelationship(relationship);
+          const foundIndex = iamTargetRelationships.findIndex(
+            (relationship) => relationship._key === relationship._key,
+          );
+
+          if (relationship && foundIndex === -1) {
+            iamTargetRelationships = [...iamTargetRelationships, relationship];
+          }
+
+          if (relationship && foundIndex > -1) {
+            const currentLogType =
+              iamTargetRelationships[foundIndex].additionalProperties![
+                'logType'
+              ];
+            iamTargetRelationships[foundIndex].additionalProperties![
+              'logType'
+            ] = `${currentLogType}, ${logType}`;
           }
         }
       }
     }
+
+    await Promise.all(
+      iamTargetRelationships.map((iamTargetRelationship) =>
+        jobState.addRelationship(iamTargetRelationship),
+      ),
+    );
   });
 }
 
