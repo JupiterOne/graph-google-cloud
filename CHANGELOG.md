@@ -1,3 +1,26 @@
+# v2.21.0 (Fri Mar 31 2023)
+
+#### 🚀 Enhancement
+
+- Speed up buckets and tables [#580](https://github.com/JupiterOne/graph-google-cloud/pull/580) ([@ndowmon](https://github.com/ndowmon))
+- feat(web-security-scanner): ingest Google Web Security Scanner service [#567](https://github.com/JupiterOne/graph-google-cloud/pull/567) (gastonyelmini@MacBook-Pro-de-Gaston.local)
+
+#### 🐛 Bug Fix
+
+- fix(INT-6744): add debug log if timeout error [#576](https://github.com/JupiterOne/graph-google-cloud/pull/576) (gastonyelmini@MacBook-Pro-de-Gaston.local)
+- fix(INT-6706): check service account key in validateInvocationConfig [#571](https://github.com/JupiterOne/graph-google-cloud/pull/571) (gastonyelmini@MacBook-Pro-de-Gaston.local)
+- feat(INT-5712): log disabled steps by API Service [#574](https://github.com/JupiterOne/graph-google-cloud/pull/574) (gastonyelmini@MacBook-Pro-de-Gaston.local)
+- fix(INT-7041): fix broken validate questions action [#575](https://github.com/JupiterOne/graph-google-cloud/pull/575) (gastonyelmini@MacBook-Pro-de-Gaston.local)
+- feat(INT-6665): review GCP permissions [#570](https://github.com/JupiterOne/graph-google-cloud/pull/570) (gastonyelmini@MacBook-Pro-de-Gaston.local)
+- feat(INT-6599): create document permissions script [#568](https://github.com/JupiterOne/graph-google-cloud/pull/568) (gastonyelmini@MacBook-Pro-de-Gaston.local)
+
+#### Authors: 2
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+- Nick Dowmon ([@ndowmon](https://github.com/ndowmon))
+
+---
+
 # v2.20.3 (Tue Jan 24 2023)
 
 #### 🐛 Bug Fix
