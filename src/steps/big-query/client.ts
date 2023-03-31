@@ -43,9 +43,7 @@ export class BigQueryClient extends Client {
       },
       async (data: bigquery_v2.Schema$TableList) => {
         if (data.tables) {
-          for (const table of data.tables) {
-            await callback(table);
-          }
+          await this.executeConcurrently(data.tables, callback);
         }
       },
     );

@@ -1,5 +1,4 @@
 import { storage_v1 } from 'googleapis';
-import { createStorageBucketClientMapper } from './client';
 
 describe('#createCloudFunctionClientMapper', () => {
   test('should call callback for each function returned in iteration', async () => {
@@ -7,7 +6,11 @@ describe('#createCloudFunctionClientMapper', () => {
     const bucket1: storage_v1.Schema$Bucket = { name: 'b1' };
     const bucket2: storage_v1.Schema$Bucket = { name: 'b2' };
 
-    const map = createStorageBucketClientMapper(callbackFn);
+    const map = async (data: storage_v1.Schema$Buckets) => {
+      for (const bucket of data.items || []) {
+        await callbackFn(bucket);
+      }
+    };
     await map({
       items: [bucket1, bucket2],
     } as storage_v1.Schema$Buckets);
@@ -20,7 +23,11 @@ describe('#createCloudFunctionClientMapper', () => {
   test('should allow for undefined "functions" to be returned in the list', async () => {
     const callbackFn = jest.fn().mockResolvedValue(Promise.resolve());
 
-    const map = createStorageBucketClientMapper(callbackFn);
+    const map = async (data: storage_v1.Schema$Buckets) => {
+      for (const bucket of data.items || []) {
+        await callbackFn(bucket);
+      }
+    };
     await map({} as storage_v1.Schema$Buckets);
 
     expect(callbackFn).not.toHaveBeenCalled();
