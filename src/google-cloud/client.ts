@@ -7,6 +7,7 @@ import { retry } from '@lifeomic/attempt';
 import { GaxiosError, GaxiosResponse } from 'gaxios';
 import { BaseExternalAccountClient, CredentialBody } from 'google-auth-library';
 import { google } from 'googleapis';
+import pMap from 'p-map';
 import { IntegrationConfig } from '../types';
 import { createErrorProps } from './utils/createErrorProps';
 // import { GoogleCloudServiceApiDisabledError } from './errors';
@@ -107,6 +108,18 @@ export class Client {
         ? response.data.nextPageToken
         : undefined;
     } while (nextToken);
+  }
+
+  /**
+   * Executes a map of asynchronous callbacks concurrently
+   * @param options.concurrency default: 5
+   */
+  protected async executeConcurrently<T>(
+    resources: T[] | undefined,
+    cb: (resource: T) => Promise<void>,
+    options: { concurrency?: number } = { concurrency: 5 },
+  ) {
+    await pMap(resources || [], cb, { concurrency: options.concurrency });
   }
 
   withErrorHandling<T>(fn: () => Promise<T>) {
