@@ -179,6 +179,7 @@ export const pubSubSteps: GoogleCloudIntegrationStep[] = [
     dependsOn: [],
     executionHandler: fetchPubSubTopics,
     permissions: ['pubsub.topics.getIamPolicy', 'pubsub.topics.list'],
+    apis: ['pubsub.googleapis.com'],
   },
   {
     id: STEP_CREATE_PUBSUB_TOPIC_KMS_RELATIONSHIPS,
@@ -216,5 +217,6 @@ export const pubSubSteps: GoogleCloudIntegrationStep[] = [
     dependsOn: [STEP_PUBSUB_TOPICS],
     executionHandler: fetchPubSubSubscriptions,
     permissions: ['pubsub.subscriptions.list'],
+    apis: ['pubsub.googleapis.com'],
   },
 ];

@@ -1,5 +1,7 @@
-import { IntegrationStep } from '@jupiterone/integration-sdk-core';
-import { IntegrationConfig, IntegrationStepContext } from '../../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../../types';
 import { WebSecurityScannerClient } from '../client';
 import {
   WebSecurityScannerEntities,
@@ -21,11 +23,13 @@ async function fetchScanConfigs(
   });
 }
 
-export const fetchScanConfigsStepMap: IntegrationStep<IntegrationConfig> = {
+export const fetchScanConfigsStepMap: GoogleCloudIntegrationStep = {
   id: WebSecurityScannerSteps.FETCH_SCAN_CONFIGS.id,
   name: WebSecurityScannerSteps.FETCH_SCAN_CONFIGS.name,
   entities: [WebSecurityScannerEntities.SCAN_CONFIG],
   relationships: [],
   dependsOn: [],
   executionHandler: fetchScanConfigs,
+  permissions: ['cloudsecurityscanner.scans.list'],
+  apis: ['websecurityscanner.googleapis.com'],
 };

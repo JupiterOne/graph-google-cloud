@@ -216,6 +216,7 @@ export const billingBudgetsSteps: GoogleCloudIntegrationStep[] = [
     dependsOn: [STEP_BILLING_ACCOUNTS],
     executionHandler: fetchBillingBudgets,
     permissions: ['billing.budgets.list'],
+    apis: ['cloudbilling.googleapis.com'],
   },
   {
     id: STEP_BUILD_ACCOUNT_BUDGET,
@@ -267,5 +268,6 @@ export const billingBudgetsSteps: GoogleCloudIntegrationStep[] = [
     ],
     executionHandler: buildAdditionalProjectBudgetRelationships,
     permissions: ['cloudasset.assets.listCloudbillingProjectBillingInfos'],
+    apis: ['cloudbilling.googleapis.com'],
   },
 ];

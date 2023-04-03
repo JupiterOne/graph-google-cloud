@@ -27,4 +27,5 @@ export const fetchCloudSourceRepositoriesStep: GoogleCloudIntegrationStep = {
     });
   },
   permissions: ['source.repos.list'],
+  apis: ['source.googleapis.com'],
 };

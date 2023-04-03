@@ -178,6 +178,7 @@ export const privateCaSteps: GoogleCloudIntegrationStep[] = [
       'privateca.certificateAuthorities.getIamPolicy',
       'privateca.certificateAuthorities.list',
     ],
+    apis: ['privateca.googleapis.com'],
   },
   {
     id: STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS,
@@ -220,5 +221,6 @@ export const privateCaSteps: GoogleCloudIntegrationStep[] = [
     dependsOn: [STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES],
     executionHandler: fetchAuthorityCertificates,
     permissions: ['privateca.certificates.list'],
+    apis: ['privateca.googleapis.com'],
   },
 ];

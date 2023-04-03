@@ -131,5 +131,6 @@ export const containerSteps: GoogleCloudIntegrationStep[] = [
     dependsOn: [STEP_COMPUTE_INSTANCE_GROUPS],
     executionHandler: fetchContainerClusters,
     permissions: ['container.clusters.list'],
+    apis: ['container.googleapis.com'],
   },
 ];

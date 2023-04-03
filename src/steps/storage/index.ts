@@ -110,5 +110,6 @@ export const storageSteps: GoogleCloudIntegrationStep[] = [
       'storage.buckets.list',
       'storage.buckets.getIamPolicy',
     ],
+    apis: ['orgpolicy.googleapis.com', 'storage.googleapis.com'],
   },
 ];

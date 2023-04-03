@@ -39,5 +39,6 @@ export const cloudBillingSteps: GoogleCloudIntegrationStep[] = [
     dependsOn: [],
     executionHandler: fetchBillingAccounts,
     permissions: ['cloudasset.assets.listCloudbillingBillingAccounts'],
+    apis: ['cloudasset.googleapis.com'],
   },
 ];

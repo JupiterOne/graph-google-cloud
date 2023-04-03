@@ -27,4 +27,5 @@ export const fetchCloudBuildGithubEnterpriseConfigStep: GoogleCloudIntegrationSt
       }, context);
     },
     permissions: ['cloudbuild.integrations.list'],
+    apis: ['cloudbuild.googleapis.com'],
   };

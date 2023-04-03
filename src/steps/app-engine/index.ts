@@ -394,6 +394,7 @@ export const appEngineSteps: GoogleCloudIntegrationStep[] = [
     dependsOn: [],
     executionHandler: fetchAppEngineApplication,
     permissions: ['appengine.applications.get'],
+    apis: ['appengine.googleapis.com'],
   },
   {
     id: STEP_CREATE_APP_ENGINE_BUCKET_RELATIONSHIPS,
@@ -434,6 +435,7 @@ export const appEngineSteps: GoogleCloudIntegrationStep[] = [
     dependsOn: [STEP_APP_ENGINE_APPLICATION],
     executionHandler: fetchAppEngineServices,
     permissions: ['appengine.services.list'],
+    apis: ['appengine.googleapis.com'],
   },
   {
     id: STEP_APP_ENGINE_VERSIONS,
@@ -490,5 +492,6 @@ export const appEngineSteps: GoogleCloudIntegrationStep[] = [
     dependsOn: [STEP_APP_ENGINE_VERSIONS],
     executionHandler: fetchAppEngineVersionInstances,
     permissions: ['appengine.instances.list'],
+    apis: ['appengine.googleapis.com'],
   },
 ];

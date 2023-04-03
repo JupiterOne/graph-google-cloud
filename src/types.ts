@@ -36,4 +36,5 @@ export interface IntegrationConfig extends SerializedIntegrationConfig {
 export interface GoogleCloudIntegrationStep
   extends IntegrationStep<IntegrationConfig> {
   permissions?: Array<string>;
+  apis?: Array<string>;
 }

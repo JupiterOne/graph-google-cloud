@@ -67,6 +67,7 @@ export const secretManagerSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     executionHandler: fetchSecrets,
     permissions: ['secretmanager.secrets.list'],
+    apis: ['secretmanager.googleapis.com'],
   },
   {
     ...SecretManagerSteps.FETCH_SECRET_VERSIONS,
@@ -75,5 +76,6 @@ export const secretManagerSteps: GoogleCloudIntegrationStep[] = [
     dependsOn: [SecretManagerSteps.FETCH_SECRETS.id],
     executionHandler: fetchSecretVersions,
     permissions: ['secretmanager.versions.list'],
+    apis: ['secretmanager.googleapis.com'],
   },
 ];

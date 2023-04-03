@@ -109,6 +109,7 @@ export const kmsSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     executionHandler: fetchKmsKeyRings,
     permissions: ['cloudkms.keyRings.list'],
+    apis: ['cloudkms.googleapis.com'],
   },
   {
     id: STEP_CLOUD_KMS_KEYS,
@@ -134,5 +135,6 @@ export const kmsSteps: GoogleCloudIntegrationStep[] = [
       'cloudkms.cryptoKeys.list',
       'cloudkms.cryptoKeys.getIamPolicy',
     ],
+    apis: ['cloudkms.googleapis.com'],
   },
 ];

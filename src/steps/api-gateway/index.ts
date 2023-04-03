@@ -229,6 +229,7 @@ export const apiGatewaySteps: GoogleCloudIntegrationStep[] = [
       'apigateway.apiconfigs.list',
       'apigateway.apiconfigs.getIamPolicy',
     ],
+    apis: ['apigateway.googleapis.com'],
   },
   {
     id: STEP_API_GATEWAY_GATEWAYS,
@@ -254,5 +255,6 @@ export const apiGatewaySteps: GoogleCloudIntegrationStep[] = [
       'apigateway.gateways.list',
       'apigateway.gateways.getIamPolicy',
     ],
+    apis: ['apigateway.googleapis.com'],
   },
 ];

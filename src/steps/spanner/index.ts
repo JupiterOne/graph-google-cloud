@@ -191,6 +191,7 @@ export const spannerSteps: GoogleCloudIntegrationStep[] = [
     dependsOn: [],
     executionHandler: fetchSpannerInstanceConfigs,
     permissions: ['spanner.instanceConfigs.list'],
+    apis: ['spanner.googleapis.com'],
   },
   {
     id: STEP_SPANNER_INSTANCES,
@@ -213,6 +214,7 @@ export const spannerSteps: GoogleCloudIntegrationStep[] = [
     dependsOn: [STEP_SPANNER_INSTANCE_CONFIGS],
     executionHandler: fetchSpannerInstances,
     permissions: ['spanner.instances.list', 'spanner.databases.getIamPolicy'],
+    apis: ['spanner.googleapis.com'],
   },
   {
     id: STEP_SPANNER_INSTANCE_DATABASES,
@@ -241,5 +243,6 @@ export const spannerSteps: GoogleCloudIntegrationStep[] = [
     dependsOn: [STEP_SPANNER_INSTANCES, STEP_CLOUD_KMS_KEYS],
     executionHandler: fetchSpannerInstanceDatabases,
     permissions: ['spanner.databases.list'],
+    apis: ['spanner.googleapis.com'],
   },
 ];
