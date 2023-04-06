@@ -1,3 +1,16 @@
+# v2.21.1 (Thu Apr 06 2023)
+
+#### 🐛 Bug Fix
+
+- INT-7619: fix duplicated Audit Config IAM Policy relationship key [#579](https://github.com/JupiterOne/graph-google-cloud/pull/579) ([@gastonyelmini](https://github.com/gastonyelmini) [@ndowmon](https://github.com/ndowmon))
+
+#### Authors: 2
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+- Nick Dowmon ([@ndowmon](https://github.com/ndowmon))
+
+---
+
 # v2.21.0 (Fri Mar 31 2023)
 
 #### 🚀 Enhancement
