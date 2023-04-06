@@ -156,6 +156,7 @@ export const functionsSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     executionHandler: fetchCloudFunctions,
     permissions: ['cloudfunctions.functions.list'],
+    apis: ['cloudfunctions.googleapis.com'],
   },
   {
     id: FunctionStepsSpec.CLOUD_FUNCTIONS_SERVICE_ACCOUNT_RELATIONSHIPS.id,

@@ -403,6 +403,7 @@ export const resourceManagerSteps: GoogleCloudIntegrationStep[] = [
     dependsOn: [],
     executionHandler: fetchResourceManagerOrganization,
     permissions: ['resourcemanager.organizations.get'],
+    apis: ['resourcemanager.googleapis.com'],
   },
   {
     id: STEP_RESOURCE_MANAGER_FOLDERS,
@@ -431,6 +432,7 @@ export const resourceManagerSteps: GoogleCloudIntegrationStep[] = [
     dependsOn: [STEP_RESOURCE_MANAGER_ORGANIZATION],
     executionHandler: fetchResourceManagerFolders,
     permissions: ['resourcemanager.folders.list'],
+    apis: ['resourcemanager.googleapis.com'],
   },
   {
     id: STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
@@ -456,6 +458,7 @@ export const resourceManagerSteps: GoogleCloudIntegrationStep[] = [
     ],
     executionHandler: buildOrgFolderProjectMappedRelationships,
     permissions: ['resourcemanager.projects.list'],
+    apis: ['resourcemanager.googleapis.com'],
   },
   {
     id: STEP_RESOURCE_MANAGER_PROJECT,
@@ -471,6 +474,7 @@ export const resourceManagerSteps: GoogleCloudIntegrationStep[] = [
     dependsOn: [],
     executionHandler: fetchResourceManagerProject,
     permissions: ['resourcemanager.projects.get'],
+    apis: ['resourcemanager.googleapis.com'],
   },
   {
     id: STEP_AUDIT_CONFIG_IAM_POLICY,
@@ -520,5 +524,6 @@ export const resourceManagerSteps: GoogleCloudIntegrationStep[] = [
       STEP_IAM_SERVICE_ACCOUNTS,
     ],
     permissions: ['resourcemanager.projects.getIamPolicy'],
+    apis: ['resourcemanager.googleapis.com'],
   },
 ];

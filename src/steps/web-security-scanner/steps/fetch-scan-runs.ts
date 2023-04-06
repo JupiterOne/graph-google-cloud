@@ -1,10 +1,12 @@
 import {
   createDirectRelationship,
   getRawData,
-  IntegrationStep,
 } from '@jupiterone/integration-sdk-core';
 import { websecurityscanner_v1 } from 'googleapis';
-import { IntegrationConfig, IntegrationStepContext } from '../../../types';
+import {
+  GoogleCloudIntegrationStep,
+  IntegrationStepContext,
+} from '../../../types';
 import { WebSecurityScannerClient } from '../client';
 import {
   WebSecurityScannerEntities,
@@ -45,7 +47,7 @@ async function fetchScanRuns(context: IntegrationStepContext): Promise<void> {
   );
 }
 
-export const fetchScanRunsStepMap: IntegrationStep<IntegrationConfig> = {
+export const fetchScanRunsStepMap: GoogleCloudIntegrationStep = {
   id: WebSecurityScannerSteps.FETCH_SCAN_RUNS.id,
   name: WebSecurityScannerSteps.FETCH_SCAN_RUNS.name,
   entities: [WebSecurityScannerEntities.SCAN_RUN],
@@ -54,4 +56,6 @@ export const fetchScanRunsStepMap: IntegrationStep<IntegrationConfig> = {
   ],
   dependsOn: [WebSecurityScannerSteps.FETCH_SCAN_CONFIGS.id],
   executionHandler: fetchScanRuns,
+  permissions: ['cloudsecurityscanner.scanruns.list'],
+  apis: ['websecurityscanner.googleapis.com'],
 };

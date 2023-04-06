@@ -156,6 +156,7 @@ export const loggingSteps: GoogleCloudIntegrationStep[] = [
     dependsOn: [],
     executionHandler: fetchSinks,
     permissions: ['logging.sinks.list'],
+    apis: ['logging.googleapis.com'],
   },
   {
     id: STEP_CREATE_LOGGING_PROJECT_SINK_BUCKET_RELATIONSHIPS,
@@ -196,5 +197,6 @@ export const loggingSteps: GoogleCloudIntegrationStep[] = [
     dependsOn: [STEP_MONITORING_ALERT_POLICIES],
     executionHandler: fetchMetrics,
     permissions: ['logging.logMetrics.list'],
+    apis: ['logging.googleapis.com'],
   },
 ];

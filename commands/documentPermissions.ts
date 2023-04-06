@@ -18,6 +18,14 @@ const J1_PERMISSIONS_DOCUMENTATION_MARKER_START =
   '<!-- {J1_PERMISSIONS_DOCUMENTATION_MARKER_START} -->';
 const J1_PERMISSIONS_DOCUMENTATION_MARKER_END =
   '<!-- {J1_PERMISSIONS_DOCUMENTATION_MARKER_END} -->';
+const J1_APIS_DOCUMENTATION_MARKER_START =
+  '<!-- {J1_APIS_DOCUMENTATION_MARKER_START} -->';
+const J1_APIS_DOCUMENTATION_MARKER_END =
+  '<!-- {J1_APIS_DOCUMENTATION_MARKER_END} -->';
+const J1_APIS_DOCUMENTATION_LINKS_MARKER_START =
+  '<!-- {J1_APIS_DOCUMENTATION_LINKS_MARKER_START} -->';
+const J1_APIS_DOCUMENTATION_LINKS_MARKER_END =
+  '<!-- {J1_APIS_DOCUMENTATION_LINKS_MARKER_END} -->';
 
 documentPermissionsCommand
   .command('documentPermissions')
@@ -49,19 +57,63 @@ async function executeDocumentPermissionsAction(options: DocumentCommandArgs) {
     return;
   }
 
-  const newGeneratedDocumentationSection = getNewDocumentationVersion();
+  const { integrationSteps } = invocationConfig;
 
-  console.log(chalk.gray(newGeneratedDocumentationSection));
+  const permissionsList = new Set<string>();
+  const apisList = new Set<string>();
 
-  if (!newGeneratedDocumentationSection) return;
+  integrationSteps.map((integrationStep) => {
+    const googleCloudIntegrationStep =
+      integrationStep as GoogleCloudIntegrationStep;
+    if (googleCloudIntegrationStep.permissions) {
+      googleCloudIntegrationStep.permissions.map((permission) =>
+        permissionsList.add(permission),
+      );
+    }
 
-  const newDocumentationFile = replaceBetweenDocumentMarkers(
-    oldDocumentationFile,
-    newGeneratedDocumentationSection,
-  );
+    if (googleCloudIntegrationStep.apis) {
+      googleCloudIntegrationStep.apis.map((api) => apisList.add(api));
+    }
+  });
+
+  const { permissionsMarkdown, apisListMarkdown, apisLinksMarkdown } =
+    getNewDocumentationVersions({ apisList, permissionsList });
+
+  console.log(chalk.gray(permissionsMarkdown));
+  console.log(chalk.gray(apisListMarkdown));
+  console.log(chalk.gray(apisLinksMarkdown));
+
+  let newDocumentationFile: string;
+
+  if (permissionsMarkdown) {
+    newDocumentationFile = replaceBetweenDocumentMarkers(
+      oldDocumentationFile,
+      permissionsMarkdown,
+      J1_PERMISSIONS_DOCUMENTATION_MARKER_START,
+      J1_PERMISSIONS_DOCUMENTATION_MARKER_END,
+    );
+  }
+
+  if (apisListMarkdown) {
+    newDocumentationFile = replaceBetweenDocumentMarkers(
+      newDocumentationFile!,
+      apisListMarkdown,
+      J1_APIS_DOCUMENTATION_MARKER_START,
+      J1_APIS_DOCUMENTATION_MARKER_END,
+    );
+  }
+
+  if (apisLinksMarkdown) {
+    newDocumentationFile = replaceBetweenDocumentMarkers(
+      newDocumentationFile!,
+      apisLinksMarkdown,
+      J1_APIS_DOCUMENTATION_LINKS_MARKER_START,
+      J1_APIS_DOCUMENTATION_LINKS_MARKER_END,
+    );
+  }
 
   try {
-    await fs.writeFile(documentationFilePath, newDocumentationFile, {
+    await fs.writeFile(documentationFilePath, newDocumentationFile!, {
       encoding: 'utf-8',
     });
   } catch (error) {
@@ -94,55 +146,83 @@ function getDocumentationFile(documentationFilePath: string) {
   }
 }
 
-function getNewDocumentationVersion(): string | undefined {
-  const { integrationSteps } = invocationConfig;
-
-  const permissionsList = new Set<string>();
-
-  integrationSteps.map((integrationStep) => {
-    const googleCloudIntegrationStep =
-      integrationStep as GoogleCloudIntegrationStep;
-    if (googleCloudIntegrationStep.permissions)
-      googleCloudIntegrationStep.permissions.map((permission) =>
-        permissionsList.add(permission),
-      );
-  });
-
-  const tableMarkdown = getTableMarkdown(
+function getNewDocumentationVersions({
+  permissionsList,
+  apisList,
+}: {
+  permissionsList: Set<string>;
+  apisList: Set<string>;
+}): {
+  permissionsMarkdown: string | undefined;
+  apisListMarkdown: string | undefined;
+  apisLinksMarkdown: string | undefined;
+} {
+  const tableMarkdown = getPermissionsTableMarkdown(
     Array.from(permissionsList).sort((a, b) => a.localeCompare(b)) as string[],
   );
+  const apisMarkdown = getApisListMarkdown(
+    Array.from(apisList).sort((a, b) => a.localeCompare(b)) as string[],
+  );
+  const apisLinksMarkdown = getApisListTableMarkdown(
+    Array.from(apisList).sort((a, b) => a.localeCompare(b)) as string[],
+  );
 
-  return `${J1_PERMISSIONS_DOCUMENTATION_MARKER_START}\n${tableMarkdown}\n${J1_PERMISSIONS_DOCUMENTATION_MARKER_END}`;
+  const codeBlockMarkdown = '```';
+
+  return {
+    permissionsMarkdown: `${J1_PERMISSIONS_DOCUMENTATION_MARKER_START}\n\n${tableMarkdown}\n${J1_PERMISSIONS_DOCUMENTATION_MARKER_END}`,
+    apisListMarkdown: `${J1_APIS_DOCUMENTATION_MARKER_START}
+    \n${codeBlockMarkdown}${apisMarkdown}${codeBlockMarkdown}\n${J1_APIS_DOCUMENTATION_MARKER_END}`,
+    apisLinksMarkdown: `${J1_APIS_DOCUMENTATION_LINKS_MARKER_START}\n\n${apisLinksMarkdown}\n${J1_APIS_DOCUMENTATION_LINKS_MARKER_END}`,
+  };
 }
 
-function getTableMarkdown(permissionsList: string[]): string {
+function getPermissionsTableMarkdown(permissionsList: string[]): string {
   return table([
     [`Permissions List (${permissionsList.length})`],
     ...permissionsList.map((permission) => [`\`${permission}\``]),
   ]);
 }
 
+function getApisListMarkdown(apisList: string[]): string {
+  const backSlashChar = '\\';
+
+  return `
+gcloud services enable ${backSlashChar}\n${apisList
+    .map((api) => ` ${api}`)
+    .join(` ${backSlashChar}\n`)}
+  `;
+}
+
+function getApisListTableMarkdown(apisList: string[]): string {
+  return table([
+    ['Service Name', 'Service API'],
+    ...apisList.map((api) => [
+      `[${
+        api.split('.')[0]
+      }](https://console.developers.google.com/apis/library/${api})`,
+      api,
+    ]),
+  ]);
+}
+
 function replaceBetweenDocumentMarkers(
   oldDocumentationFile: string,
   newGeneratedDocumentationSection: string,
+  startMarker: string,
+  endMarker: string,
 ): string {
-  const startIndex = oldDocumentationFile.indexOf(
-    J1_PERMISSIONS_DOCUMENTATION_MARKER_START,
-  );
+  const startIndex = oldDocumentationFile.indexOf(startMarker);
 
   if (startIndex === -1) {
     return `${oldDocumentationFile}\n\n${newGeneratedDocumentationSection}`;
   }
 
-  const endIndex = oldDocumentationFile.indexOf(
-    J1_PERMISSIONS_DOCUMENTATION_MARKER_END,
-  );
+  const endIndex = oldDocumentationFile.indexOf(endMarker);
 
   return (
     oldDocumentationFile.substring(0, startIndex) +
     newGeneratedDocumentationSection +
-    oldDocumentationFile.substring(
-      endIndex + J1_PERMISSIONS_DOCUMENTATION_MARKER_END.length,
-    )
+    oldDocumentationFile.substring(endIndex + endMarker.length)
   );
 }

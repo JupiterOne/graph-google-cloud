@@ -133,6 +133,7 @@ export const memcacheSteps: GoogleCloudIntegrationStep[] = [
     dependsOn: [],
     executionHandler: fetchMemcacheInstances,
     permissions: ['memcache.instances.list'],
+    apis: ['memcache.googleapis.com'],
   },
   {
     id: STEP_CREATE_MEMCACHE_INSTANCE_NETWORK_RELATIONSHIPS,

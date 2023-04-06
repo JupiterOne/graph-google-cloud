@@ -24,4 +24,5 @@ export const fetchCloudBuildWorkerPoolsStep: GoogleCloudIntegrationStep = {
     });
   },
   permissions: ['cloudbuild.workerpools.list'],
+  apis: ['cloudbuild.googleapis.com'],
 };

@@ -206,5 +206,6 @@ export const cloudRunSteps: GoogleCloudIntegrationStep[] = [
     dependsOn: [STEP_CLOUD_RUN_SERVICES],
     executionHandler: fetchCloudRunConfigurations,
     permissions: ['run.configurations.list'],
+    apis: ['run.googleapis.com'],
   },
 ];

@@ -52,34 +52,44 @@ service API is disabled, the JupiterOne integration will not ingest the data
 from that API. The following Google Cloud service APIs must be enabled to ingest
 all of the supported data into JupiterOne:
 
-| Service Name                                                                                                     | Service API                         |
-| ---------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
-| [Access Context Manager](https://console.developers.google.com/apis/library/accesscontextmanager.googleapis.com) | accesscontextmanager.googleapis.com |
-| [API Gateway](https://console.developers.google.com/apis/library/apigateway.googleapis.com)                      | apigateway.googleapis.com           |
-| [App Engine Admin](https://console.developers.google.com/apis/library/appengine.googleapis.com)                  | appengine.googleapis.com            |
-| [BigQuery](https://console.developers.google.com/apis/library/bigquery.googleapis.com)                           | bigquery.googleapis.com             |
-| [Binary Authorization](https://console.developers.google.com/apis/library/binaryauthorization.googleapis.com)    | binaryauthorization.googleapis.com  |
-| [Certificate Authority Service](https://console.developers.google.com/apis/library/privateca.googleapis.com)     | privateca.googleapis.com            |
-| [Cloud Asset](https://console.developers.google.com/apis/library/cloudasset.googleapis.com)                      | cloudasset.googleapis.com           |
-| [Cloud DNS](https://console.developers.google.com/apis/library/dns.googleapis.com)                               | dns.googleapis.com                  |
-| [Cloud Functions](https://console.developers.google.com/apis/library/cloudfunctions.googleapis.com)              | cloudfunctions.googleapis.com       |
-| [Cloud Key Management Service (KMS)](https://console.developers.google.com/apis/library/cloudkms.googleapis.com) | cloudkms.googleapis.com             |
-| [Cloud Logging](https://console.developers.google.com/apis/library/logging.googleapis.com)                       | logging.googleapis.com              |
-| [Cloud Memorystore for Memcached](https://console.developers.google.com/apis/library/memcache.googleapis.com)    | memcache.googleapis.com             |
-| [Cloud Pub/Sub](https://console.developers.google.com/apis/library/pubsub.googleapis.com)                        | pubsub.googleapis.com               |
-| [Cloud Resource Manager](https://console.developers.google.com/apis/library/cloudresourcemanager.googleapis.com) | cloudresourcemanager.googleapis.com |
-| [Cloud Run](https://console.developers.google.com/apis/library/run.googleapis.com)                               | run.googleapis.com                  |
-| [Cloud Spanner](https://console.developers.google.com/apis/library/spanner.googleapis.com)                       | spanner.googleapis.com              |
-| [Cloud SQL Admin](https://console.developers.google.com/apis/library/sqladmin.googleapis.com)                    | sqladmin.googleapis.com             |
-| [Cloud Storage](https://console.developers.google.com/apis/library/storage.googleapis.com)                       | storage.googleapis.com              |
-| [Compute Engine](https://console.developers.google.com/apis/library/compute.googleapis.com)                      | compute.googleapis.com              |
-| [Google Cloud Memorystore for Redis](https://console.developers.google.com/apis/library/redis.googleapis.com)    | redis.googleapis.com                |
-| [Identity and Access Management (IAM)](https://console.developers.google.com/apis/library/iam.googleapis.com)    | iam.googleapis.com                  |
-| [Kubernetes Engine](https://console.developers.google.com/apis/library/container.googleapis.com)                 | container.googleapis.com            |
-| [Service Usage](https://console.developers.google.com/apis/library/serviceusage.googleapis.com)                  | serviceusage.googleapis.com         |
-| [Stackdriver Monitoring](https://console.developers.google.com/apis/library/monitoring.googleapis.com)           | monitoring.googleapis.com           |
-| [Secret Manager](https://console.cloud.google.com/apis/library/secretmanager.googleapis.com)                     | secretmanager.googleapis.com        |
-| [Cloud Source Repositories](https://console.cloud.google.com/apis/library/sourcerepo.googleapis.com)             | sourcerepo.googleapis.com           |
+<!-- {J1_APIS_DOCUMENTATION_LINKS_MARKER_START} -->
+
+| Service Name                                                                                                   | Service API                         |
+| -------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| [accesscontextmanager](https://console.developers.google.com/apis/library/accesscontextmanager.googleapis.com) | accesscontextmanager.googleapis.com |
+| [apigateway](https://console.developers.google.com/apis/library/apigateway.googleapis.com)                     | apigateway.googleapis.com           |
+| [appengine](https://console.developers.google.com/apis/library/appengine.googleapis.com)                       | appengine.googleapis.com            |
+| [bigquery](https://console.developers.google.com/apis/library/bigquery.googleapis.com)                         | bigquery.googleapis.com             |
+| [bigtable](https://console.developers.google.com/apis/library/bigtable.googleapis.com)                         | bigtable.googleapis.com             |
+| [binaryauthorization](https://console.developers.google.com/apis/library/binaryauthorization.googleapis.com)   | binaryauthorization.googleapis.com  |
+| [cloudasset](https://console.developers.google.com/apis/library/cloudasset.googleapis.com)                     | cloudasset.googleapis.com           |
+| [cloudbilling](https://console.developers.google.com/apis/library/cloudbilling.googleapis.com)                 | cloudbilling.googleapis.com         |
+| [cloudbuild](https://console.developers.google.com/apis/library/cloudbuild.googleapis.com)                     | cloudbuild.googleapis.com           |
+| [cloudfunctions](https://console.developers.google.com/apis/library/cloudfunctions.googleapis.com)             | cloudfunctions.googleapis.com       |
+| [cloudkms](https://console.developers.google.com/apis/library/cloudkms.googleapis.com)                         | cloudkms.googleapis.com             |
+| [cloudsql](https://console.developers.google.com/apis/library/cloudsql.googleapis.com)                         | cloudsql.googleapis.com             |
+| [compute](https://console.developers.google.com/apis/library/compute.googleapis.com)                           | compute.googleapis.com              |
+| [container](https://console.developers.google.com/apis/library/container.googleapis.com)                       | container.googleapis.com            |
+| [dataproc](https://console.developers.google.com/apis/library/dataproc.googleapis.com)                         | dataproc.googleapis.com             |
+| [dns](https://console.developers.google.com/apis/library/dns.googleapis.com)                                   | dns.googleapis.com                  |
+| [iam](https://console.developers.google.com/apis/library/iam.googleapis.com)                                   | iam.googleapis.com                  |
+| [logging](https://console.developers.google.com/apis/library/logging.googleapis.com)                           | logging.googleapis.com              |
+| [memcache](https://console.developers.google.com/apis/library/memcache.googleapis.com)                         | memcache.googleapis.com             |
+| [monitoring](https://console.developers.google.com/apis/library/monitoring.googleapis.com)                     | monitoring.googleapis.com           |
+| [orgpolicy](https://console.developers.google.com/apis/library/orgpolicy.googleapis.com)                       | orgpolicy.googleapis.com            |
+| [privateca](https://console.developers.google.com/apis/library/privateca.googleapis.com)                       | privateca.googleapis.com            |
+| [pubsub](https://console.developers.google.com/apis/library/pubsub.googleapis.com)                             | pubsub.googleapis.com               |
+| [redis](https://console.developers.google.com/apis/library/redis.googleapis.com)                               | redis.googleapis.com                |
+| [resourcemanager](https://console.developers.google.com/apis/library/resourcemanager.googleapis.com)           | resourcemanager.googleapis.com      |
+| [run](https://console.developers.google.com/apis/library/run.googleapis.com)                                   | run.googleapis.com                  |
+| [secretmanager](https://console.developers.google.com/apis/library/secretmanager.googleapis.com)               | secretmanager.googleapis.com        |
+| [serviceusage](https://console.developers.google.com/apis/library/serviceusage.googleapis.com)                 | serviceusage.googleapis.com         |
+| [source](https://console.developers.google.com/apis/library/source.googleapis.com)                             | source.googleapis.com               |
+| [spanner](https://console.developers.google.com/apis/library/spanner.googleapis.com)                           | spanner.googleapis.com              |
+| [storage](https://console.developers.google.com/apis/library/storage.googleapis.com)                           | storage.googleapis.com              |
+| [websecurityscanner](https://console.developers.google.com/apis/library/websecurityscanner.googleapis.com)     | websecurityscanner.googleapis.com   |
+
+<!-- {J1_APIS_DOCUMENTATION_LINKS_MARKER_END} -->
 
 Google Cloud service APIs can be enabled using one of the following methods:
 
@@ -102,35 +112,45 @@ integration supports:
 
 **NOTE**: You can only enable 20 services at a time.
 
-    gcloud services enable \
-      accesscontextmanager.googleapis.com \
-      apigateway.googleapis.com \
-      appengine.googleapis.com \
-      bigquery.googleapis.com \
-      binaryauthorization.googleapis.com \
-      privateca.googleapis.com \
-      cloudasset.googleapis.com \
-      dns.googleapis.com \
-      cloudfunctions.googleapis.com \
-      cloudkms.googleapis.com \
-      logging.googleapis.com \
-      memcache.googleapis.com \
-      pubsub.googleapis.com \
-      cloudresourcemanager.googleapis.com \
-      run.googleapis.com \
-      spanner.googleapis.com \
-      sqladmin.googleapis.com \
-      storage.googleapis.com \
-      compute.googleapis.com \
-      redis.googleapis.com \
-      iam.googleapis.com \
-      container.googleapis.com \
-      serviceusage.googleapis.com \
-      monitoring.googleapis.com \
-      secretmanager.googleapis.com \
-      sourcerepo.googleapis.com \
-      websecurityscanner.googleapis.com \
-      orgpolicy.googleapis.com
+<!-- {J1_APIS_DOCUMENTATION_MARKER_START} -->
+
+```
+gcloud services enable \
+ accesscontextmanager.googleapis.com \
+ apigateway.googleapis.com \
+ appengine.googleapis.com \
+ bigquery.googleapis.com \
+ bigtable.googleapis.com \
+ binaryauthorization.googleapis.com \
+ cloudasset.googleapis.com \
+ cloudbilling.googleapis.com \
+ cloudbuild.googleapis.com \
+ cloudfunctions.googleapis.com \
+ cloudkms.googleapis.com \
+ cloudsql.googleapis.com \
+ compute.googleapis.com \
+ container.googleapis.com \
+ dataproc.googleapis.com \
+ dns.googleapis.com \
+ iam.googleapis.com \
+ logging.googleapis.com \
+ memcache.googleapis.com \
+ monitoring.googleapis.com \
+ orgpolicy.googleapis.com \
+ privateca.googleapis.com \
+ pubsub.googleapis.com \
+ redis.googleapis.com \
+ resourcemanager.googleapis.com \
+ run.googleapis.com \
+ secretmanager.googleapis.com \
+ serviceusage.googleapis.com \
+ source.googleapis.com \
+ spanner.googleapis.com \
+ storage.googleapis.com \
+ websecurityscanner.googleapis.com
+```
+
+<!-- {J1_APIS_DOCUMENTATION_MARKER_END} -->
 
 #### Creating Google Cloud project service account
 
@@ -576,7 +596,7 @@ permissions can be used to provision only the required ones:
 
 <!-- {J1_PERMISSIONS_DOCUMENTATION_MARKER_START} -->
 
-| Permissions List (108)                                  |
+| Permissions List (110)                                  |
 | ------------------------------------------------------- |
 | `accesscontextmanager.accessLevels.list`                |
 | `accesscontextmanager.accessPolicies.list`              |
@@ -619,6 +639,8 @@ permissions can be used to provision only the required ones:
 | `cloudkms.cryptoKeys.getIamPolicy`                      |
 | `cloudkms.cryptoKeys.list`                              |
 | `cloudkms.keyRings.list`                                |
+| `cloudsecurityscanner.scanruns.list`                    |
+| `cloudsecurityscanner.scans.list`                       |
 | `cloudsql.instances.list`                               |
 | `compute.addresses.list`                                |
 | `compute.backendBuckets.list`                           |

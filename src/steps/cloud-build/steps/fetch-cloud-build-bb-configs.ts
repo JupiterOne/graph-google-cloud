@@ -30,4 +30,5 @@ export const fetchCloudBuildBitbucketServerConfigStep: GoogleCloudIntegrationSte
       'cloudbuild.integrations.list',
       'cloudbuild.integrations.get',
     ],
+    apis: ['cloudbuild.googleapis.com'],
   };

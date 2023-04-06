@@ -63,4 +63,5 @@ export const fetchCloudBuildBitbucketRepositoriesStep: GoogleCloudIntegrationSte
       'cloudbuild.repositories.list',
       'cloudbuild.repositories.get',
     ],
+    apis: ['cloudbuild.googleapis.com'],
   };

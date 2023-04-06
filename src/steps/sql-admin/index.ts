@@ -181,6 +181,7 @@ export const sqlAdminSteps: GoogleCloudIntegrationStep[] = [
     dependsOn: [STEP_RESOURCE_MANAGER_PROJECT],
     executionHandler: fetchSQLAdminInstances,
     permissions: ['cloudsql.instances.list'],
+    apis: ['cloudsql.googleapis.com'],
   },
   {
     id: SqlAdminSteps.BUILD_SQL_INSTANCE_KMS_KEY_RELATIONSHIPS,

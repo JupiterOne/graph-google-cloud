@@ -24,4 +24,5 @@ export const fetchCloudBuildStep: GoogleCloudIntegrationStep = {
     });
   },
   permissions: ['cloudbuild.builds.list', 'cloudbuild.builds.get'],
+  apis: ['cloudbuild.googleapis.com'],
 };
