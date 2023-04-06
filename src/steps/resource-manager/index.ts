@@ -3,7 +3,6 @@ import {
   createDirectRelationship,
   createMappedRelationship,
   RelationshipDirection,
-  Relationship,
 } from '@jupiterone/integration-sdk-core';
 import { ResourceManagerClient } from './client';
 import {
@@ -55,6 +54,7 @@ import {
 } from '../service-usage/constants';
 import { getServiceApiEntityKey } from '../service-usage/converters';
 import { buildIamTargetRelationship } from '../cloud-asset';
+import { cloudresourcemanager_v3 } from 'googleapis';
 
 export * from './constants';
 
@@ -318,58 +318,74 @@ export async function fetchIamPolicyAuditConfig(
       }
     }
 
-    let iamTargetRelationships: Relationship[] = [];
+    for (const { exemptedMember, logTypes } of flattenAuditLogConfigs(
+      auditConfig.auditLogConfigs || [],
+    )) {
+      const parsedMember = parseIamMember(exemptedMember);
+      const { identifier: parsedIdentifier, type: parsedMemberType } =
+        parsedMember;
+      let principalEntity: Entity | null = null;
+      if (parsedIdentifier && parsedMemberType === 'serviceAccount') {
+        principalEntity = await jobState.findEntity(parsedIdentifier);
+      }
+      const relationship = buildIamTargetRelationship({
+        fromEntity: auditConfigEntity,
+        principalEntity,
+        parsedMember,
+        logger,
+        projectId: client.projectId,
+        additionalProperties: { logTypes },
+        relationshipClass: RelationshipClass.ALLOWS,
+      });
 
-    for (const auditLogConfig of auditConfig.auditLogConfigs || []) {
-      const exemptedMembers = auditLogConfig.exemptedMembers;
-      const logType = auditLogConfig.logType;
-      if (exemptedMembers) {
-        for (const exemptedMember of exemptedMembers) {
-          const parsedMember = parseIamMember(exemptedMember);
-          const { identifier: parsedIdentifier, type: parsedMemberType } =
-            parsedMember;
-          let principalEntity: Entity | null = null;
-          if (parsedIdentifier && parsedMemberType === 'serviceAccount') {
-            principalEntity = await jobState.findEntity(parsedIdentifier);
-          }
+      if (relationship) {
+        await jobState.addRelationship(relationship);
+      }
+    }
+  });
+}
 
-          const relationship = buildIamTargetRelationship({
-            fromEntity: auditConfigEntity,
-            principalEntity,
-            parsedMember,
-            logger,
-            projectId: client.projectId,
-            additionalProperties: { logType },
-            relationshipClass: RelationshipClass.ALLOWS,
-          });
+/**
+ * Reorganizes from objects with an array of exemptedMembers and a single
+ * logType to a single exemptedMember and an array of logTypes
+ *
+ * [
+ *   { exemptedMembers: ['dev@j1.io'], logType: 'type1' }
+ *   { exemptedMembers: ['dev@j1.io'], logType: 'type2' },
+ * ]
+ *
+ * =>
+ *
+ * [
+ *   { exemptedMember: ['dev@j1.io'], logTypes: ['type1', 'type2' ] }
+ * ]
+ *
+ */
+export function flattenAuditLogConfigs(
+  auditLogConfigs: cloudresourcemanager_v3.Schema$AuditLogConfig[],
+): {
+  exemptedMember: string;
+  logTypes: string[];
+}[] {
+  const exemptedMemberToLogTypesMap: { [exemptedMember: string]: string[] } =
+    {};
+  for (const { exemptedMembers, logType } of auditLogConfigs) {
+    for (const exemptedMember of exemptedMembers || []) {
+      if (exemptedMember) {
+        if (!exemptedMemberToLogTypesMap[exemptedMember]) {
+          exemptedMemberToLogTypesMap[exemptedMember] = [];
+        }
 
-          const foundIndex = iamTargetRelationships.findIndex(
-            (relationship) => relationship._key === relationship._key,
-          );
-
-          if (relationship && foundIndex === -1) {
-            iamTargetRelationships = [...iamTargetRelationships, relationship];
-          }
-
-          if (relationship && foundIndex > -1) {
-            const currentLogType =
-              iamTargetRelationships[foundIndex].additionalProperties![
-                'logType'
-              ];
-            iamTargetRelationships[foundIndex].additionalProperties![
-              'logType'
-            ] = `${currentLogType}, ${logType}`;
-          }
+        if (logType) {
+          exemptedMemberToLogTypesMap[exemptedMember].push(logType);
         }
       }
     }
+  }
 
-    await Promise.all(
-      iamTargetRelationships.map((iamTargetRelationship) =>
-        jobState.addRelationship(iamTargetRelationship),
-      ),
-    );
-  });
+  return Object.entries(exemptedMemberToLogTypesMap).map(
+    ([exemptedMember, logTypes]) => ({ exemptedMember, logTypes }),
+  );
 }
 
 export const resourceManagerSteps: GoogleCloudIntegrationStep[] = [

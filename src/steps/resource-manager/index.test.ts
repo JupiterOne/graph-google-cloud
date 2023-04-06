@@ -11,6 +11,7 @@ import {
   buildOrgFolderProjectMappedRelationships,
   fetchIamPolicyAuditConfig,
   AUDIT_CONFIG_ENTITY_TYPE,
+  flattenAuditLogConfigs,
 } from '.';
 import { integrationConfig } from '../../../test/config';
 import {
@@ -30,6 +31,48 @@ import { filterGraphObjects } from '../../../test/helpers/filterGraphObjects';
 import { fetchApiServices } from '../service-usage';
 import { fetchIamManagedRoles, fetchIamServiceAccounts } from '../iam';
 import { separateDirectMappedRelationships } from '../../../test/helpers/separateDirectMappedRelationships';
+
+describe('flattenAuditLogConfigs', () => {
+  test('should flatten multiple log types onto the same exempted member', () => {
+    expect(
+      flattenAuditLogConfigs([
+        { exemptedMembers: ['dev@j1.co', 'prod@j1.co'], logType: 'type1' },
+        { exemptedMembers: ['dev@j1.co', 'prod@j1.co'], logType: 'type2' },
+      ]),
+    ).toEqual([
+      { exemptedMember: 'dev@j1.co', logTypes: ['type1', 'type2'] },
+      { exemptedMember: 'prod@j1.co', logTypes: ['type1', 'type2'] },
+    ]);
+  });
+
+  test('should return empty array for `null` logType', () => {
+    expect(
+      flattenAuditLogConfigs([
+        { exemptedMembers: ['dev@j1.co'], logType: null },
+      ]),
+    ).toEqual([{ exemptedMember: 'dev@j1.co', logTypes: [] }]);
+  });
+
+  test('should return empty array for `undefined` logType', () => {
+    expect(
+      flattenAuditLogConfigs([
+        { exemptedMembers: ['dev@j1.co'], logType: undefined },
+      ]),
+    ).toEqual([{ exemptedMember: 'dev@j1.co', logTypes: [] }]);
+  });
+
+  test('should skip `null` exemptedMembers', () => {
+    expect(
+      flattenAuditLogConfigs([{ exemptedMembers: null, logType: 'type1' }]),
+    ).toEqual([]);
+  });
+
+  test('should skip `undefined` exemptedMembers', () => {
+    expect(
+      flattenAuditLogConfigs([{ exemptedMembers: null, logType: 'type1' }]),
+    ).toEqual([]);
+  });
+});
 
 describe('#fetchIamPolicyAuditConfig', () => {
   let recording: Recording;
