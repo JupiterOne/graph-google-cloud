@@ -6,9 +6,5 @@ import { SerializedIntegrationConfig } from '../types';
 export function isSingleProjectInstance(
   config: SerializedIntegrationConfig,
 ): boolean {
-  return (
-    Boolean(config.projectId) &&
-    !config.configureOrganizationProjects &&
-    !config.organizationId
-  );
+  return !config.configureOrganizationProjects && !config.organizationId;
 }
