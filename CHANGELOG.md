@@ -1,3 +1,19 @@
+# v2.22.0 (Fri Apr 14 2023)
+
+#### 🚀 Enhancement
+
+- INT-7798: fix org steps running with undefined project id [#582](https://github.com/JupiterOne/graph-google-cloud/pull/582) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### 🐛 Bug Fix
+
+- INT-6970: document Google apis automatically [#581](https://github.com/JupiterOne/graph-google-cloud/pull/581) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### Authors: 1
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
 # v2.21.1 (Thu Apr 06 2023)
 
 #### 🐛 Bug Fix
