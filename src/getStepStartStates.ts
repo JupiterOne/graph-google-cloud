@@ -1,8 +1,8 @@
 import {
   IntegrationExecutionContext,
-  IntegrationInfoEventName,
   IntegrationLogger,
   IntegrationValidationError,
+  IntegrationWarnEventName,
   StepStartState,
   StepStartStates,
 } from '@jupiterone/integration-sdk-core';
@@ -15,8 +15,8 @@ import {
 } from './steps/access-context-manager/constants';
 import { apiGatewaySteps } from './steps/api-gateway';
 import {
-  STEP_API_GATEWAY_APIS,
   STEP_API_GATEWAY_API_CONFIGS,
+  STEP_API_GATEWAY_APIS,
   STEP_API_GATEWAY_GATEWAYS,
 } from './steps/api-gateway/constants';
 import { appEngineSteps } from './steps/app-engine';
@@ -77,37 +77,37 @@ import {
   STEP_COMPUTE_ADDRESSES,
   STEP_COMPUTE_BACKEND_BUCKETS,
   STEP_COMPUTE_BACKEND_SERVICES,
-  STEP_COMPUTE_DISKS,
   STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS,
   STEP_COMPUTE_DISK_KMS_RELATIONSHIPS,
+  STEP_COMPUTE_DISKS,
   STEP_COMPUTE_FIREWALLS,
   STEP_COMPUTE_FORWARDING_RULES,
   STEP_COMPUTE_GLOBAL_ADDRESSES,
   STEP_COMPUTE_GLOBAL_FORWARDING_RULES,
   STEP_COMPUTE_HEALTH_CHECKS,
-  STEP_COMPUTE_IMAGES,
   STEP_COMPUTE_IMAGE_IMAGE_RELATIONSHIPS,
   STEP_COMPUTE_IMAGE_KMS_RELATIONSHIPS,
-  STEP_COMPUTE_INSTANCES,
+  STEP_COMPUTE_IMAGES,
   STEP_COMPUTE_INSTANCE_GROUPS,
   STEP_COMPUTE_INSTANCE_SERVICE_ACCOUNT_RELATIONSHIPS,
+  STEP_COMPUTE_INSTANCES,
   STEP_COMPUTE_LOADBALANCERS,
-  STEP_COMPUTE_NETWORKS,
   STEP_COMPUTE_NETWORK_PEERING_RELATIONSHIPS,
+  STEP_COMPUTE_NETWORKS,
   STEP_COMPUTE_PROJECT,
   STEP_COMPUTE_REGION_BACKEND_SERVICES,
   STEP_COMPUTE_REGION_DISKS,
   STEP_COMPUTE_REGION_HEALTH_CHECKS,
   STEP_COMPUTE_REGION_INSTANCE_GROUPS,
   STEP_COMPUTE_REGION_LOADBALANCERS,
-  STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES,
   STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES,
-  STEP_COMPUTE_SNAPSHOTS,
+  STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES,
   STEP_COMPUTE_SNAPSHOT_DISK_RELATIONSHIPS,
+  STEP_COMPUTE_SNAPSHOTS,
   STEP_COMPUTE_SSL_POLICIES,
   STEP_COMPUTE_SUBNETWORKS,
-  STEP_COMPUTE_TARGET_HTTPS_PROXIES,
   STEP_COMPUTE_TARGET_HTTP_PROXIES,
+  STEP_COMPUTE_TARGET_HTTPS_PROXIES,
   STEP_COMPUTE_TARGET_SSL_PROXIES,
   STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS,
 } from './steps/compute';
@@ -116,8 +116,8 @@ import { dataprocSteps } from './steps/dataproc';
 import {
   STEP_CREATE_CLUSTER_IMAGE_RELATIONSHIPS,
   STEP_CREATE_CLUSTER_STORAGE_RELATIONSHIPS,
-  STEP_DATAPROC_CLUSTERS,
   STEP_DATAPROC_CLUSTER_KMS_RELATIONSHIPS,
+  STEP_DATAPROC_CLUSTERS,
 } from './steps/dataproc/constants';
 import { dnsManagedZonesSteps } from './steps/dns';
 import {
@@ -134,15 +134,15 @@ import {
 } from './steps/functions';
 import {
   iamSteps,
-  STEP_IAM_CUSTOM_ROLES,
   STEP_IAM_CUSTOM_ROLE_SERVICE_API_RELATIONSHIPS,
+  STEP_IAM_CUSTOM_ROLES,
   STEP_IAM_MANAGED_ROLES,
   STEP_IAM_SERVICE_ACCOUNTS,
 } from './steps/iam';
 import {
   kmsSteps,
-  STEP_CLOUD_KMS_KEYS,
   STEP_CLOUD_KMS_KEY_RINGS,
+  STEP_CLOUD_KMS_KEYS,
 } from './steps/kms';
 import { loggingSteps } from './steps/logging';
 import {
@@ -160,8 +160,8 @@ import { STEP_MONITORING_ALERT_POLICIES } from './steps/monitoring/constants';
 import { privateCaSteps } from './steps/privateca';
 import {
   STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS,
-  STEP_PRIVATE_CA_CERTIFICATES,
   STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES,
+  STEP_PRIVATE_CA_CERTIFICATES,
 } from './steps/privateca/constants';
 import { pubSubSteps } from './steps/pub-sub';
 import {
@@ -178,8 +178,8 @@ import {
   resourceManagerSteps,
   STEP_AUDIT_CONFIG_IAM_POLICY,
   STEP_RESOURCE_MANAGER_FOLDERS,
-  STEP_RESOURCE_MANAGER_ORGANIZATION,
   STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
+  STEP_RESOURCE_MANAGER_ORGANIZATION,
   STEP_RESOURCE_MANAGER_PROJECT,
 } from './steps/resource-manager';
 import { secretManagerSteps } from './steps/secret-manager';
@@ -188,9 +188,9 @@ import { serviceUsageSteps } from './steps/service-usage';
 import { ServiceUsageStepIds } from './steps/service-usage/constants';
 import { spannerSteps } from './steps/spanner';
 import {
-  STEP_SPANNER_INSTANCES,
   STEP_SPANNER_INSTANCE_CONFIGS,
   STEP_SPANNER_INSTANCE_DATABASES,
+  STEP_SPANNER_INSTANCES,
 } from './steps/spanner/constants';
 import {
   sqlAdminSteps,
@@ -945,8 +945,8 @@ async function getStepStartStatesUsingServiceEnablements(params: {
 
   for (const serviceName of Object.keys(apiServiceToStepIdsMap)) {
     if (!enabledServiceNames.includes(serviceName)) {
-      logger.publishInfoEvent({
-        name: '[service_disabled]' as IntegrationInfoEventName,
+      logger.publishWarnEvent({
+        name: 'step_skip' as IntegrationWarnEventName,
         description: `The API Service ${serviceName} is disabled in this account. As a result, the following steps are disabled: ${apiServiceToStepIdsMap[serviceName]}`,
       });
     }
