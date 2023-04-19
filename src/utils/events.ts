@@ -14,7 +14,7 @@ export function publishMissingPermissionEvent({
   permission,
   stepId,
 }: PublishMissingPermissionEventParams) {
-  logger.publishEvent({
+  logger.publishWarnEvent({
     name: IntegrationWarnEventName.MissingPermission,
     description: `"${permission}" is not a required permission to run the Google Cloud integration, but is required for step "${stepId}"`,
   });
