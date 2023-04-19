@@ -134,11 +134,7 @@ import {
   STEP_MEMCACHE_INSTANCES,
 } from './steps/memcache/constants';
 import { STEP_MONITORING_ALERT_POLICIES } from './steps/monitoring/constants';
-import {
-  STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS,
-  STEP_PRIVATE_CA_CERTIFICATES,
-  STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES,
-} from './steps/privateca/constants';
+import { PrivatecaSteps } from './steps/privateca/constants';
 import {
   STEP_CREATE_PUBSUB_TOPIC_KMS_RELATIONSHIPS,
   STEP_PUBSUB_SUBSCRIPTIONS,
@@ -477,15 +473,26 @@ describe('#getStepStartStates success', () => {
         [STEP_API_GATEWAY_GATEWAYS]: {
           disabled: false,
         },
-        [STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES]: {
+        [PrivatecaSteps.STEP_PRIVATE_CA_POOLS.id]: { disabled: false },
+        [PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES.id]: {
           disabled: false,
         },
-        [STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS]: {
+        [PrivatecaSteps
+          .STEP_CREATE_PRIVATE_CA_POOL_CERTIFICATE_AUTHORITY_RELATIONSHIPS.id]:
+          {
+            disabled: false,
+          },
+        [PrivatecaSteps
+          .STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS
+          .id]: {
           disabled: false,
         },
-        [STEP_PRIVATE_CA_CERTIFICATES]: {
+        [PrivatecaSteps
+          .STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_CERTIFICATE_RELATIONSHIPS
+          .id]: {
           disabled: false,
         },
+        [PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATES.id]: { disabled: false },
         [STEP_IAM_BINDINGS]: {
           disabled: false,
         },

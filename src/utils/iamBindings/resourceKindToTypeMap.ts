@@ -62,7 +62,7 @@ import {
 } from '../../steps/logging/constants';
 import { ENTITY_TYPE_MEMCACHE_INSTANCE } from '../../steps/memcache/constants';
 import { MONITORING_ALERT_POLICY_TYPE } from '../../steps/monitoring/constants';
-import { ENTITY_TYPE_PRIVATE_CA_CERTIFICATE_AUTHORITY } from '../../steps/privateca/constants';
+import { PrivatecaEntities } from '../../steps/privateca/constants';
 import {
   ENTITY_TYPE_PUBSUB_TOPIC,
   ENTITY_TYPE_PUBSUB_SUBSCRIPTION,
@@ -214,7 +214,7 @@ export const GOOGLE_RESOURCE_KIND_TO_J1_TYPE_MAP: {
   'managedidentities.googleapis.com/Domain': NONE,
   'privateca.googleapis.com/CaPool': NONE,
   'privateca.googleapis.com/CertificateAuthority':
-    ENTITY_TYPE_PRIVATE_CA_CERTIFICATE_AUTHORITY,
+    PrivatecaEntities.PRIVATE_CA_CERTIFICATE_AUTHORITY._type,
   'privateca.googleapis.com/CertificateRevocationList': NONE,
   'privateca.googleapis.com/CertificateTemplate': NONE,
   'dataflow.googleapis.com/Job': NONE,
