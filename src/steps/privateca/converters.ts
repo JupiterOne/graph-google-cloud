@@ -27,7 +27,7 @@ export function createCertificateAuthorityEntity({
       assign: {
         _type: PrivatecaEntities.PRIVATE_CA_CERTIFICATE_AUTHORITY._type,
         _class: PrivatecaEntities.PRIVATE_CA_CERTIFICATE_AUTHORITY._class,
-        _key: data.name as string,
+        _key: data.name?.split('/')[7] as string,
         name: data.name,
         displayName: data.name as string,
         function: ['certificate-management'],
@@ -137,7 +137,6 @@ export function createCertificateEntity({
           data.certificateDescription?.subjectDescription?.hexSerialNumber,
         lifetime: data.certificateDescription?.subjectDescription?.lifetime,
         keyAlgorithm: keyAlgorithm,
-        // publicKeyType: data.certificateDescription?.x509Description?,
         notBeforeTime: parseTimePropertyValue(
           data.certificateDescription?.subjectDescription?.notBeforeTime,
         ),
@@ -257,18 +256,4 @@ export function getCaPoolEntityKey({
   caPoolId: string;
 }) {
   return `projects/${projectId}/locations/${location}/caPools/${caPoolId}`;
-}
-
-export function getCaAuthorityEntityKey({
-  projectId,
-  location,
-  caPoolId,
-  certificateAuthorityId,
-}: {
-  projectId: string;
-  location: string;
-  caPoolId: string;
-  certificateAuthorityId: string;
-}) {
-  return `projects/${projectId}/locations/${location}/caPools/${caPoolId}/certificateAuthorities/${certificateAuthorityId}`;
 }

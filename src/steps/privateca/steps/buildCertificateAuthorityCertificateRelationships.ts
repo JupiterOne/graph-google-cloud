@@ -12,23 +12,16 @@ import {
   PrivatecaRelationships,
   PrivatecaSteps,
 } from '../constants';
-import { getCaAuthorityEntityKey } from '../converters';
 import { privateca_v1 } from 'googleapis';
-import { PrivateCaClient } from '../client';
 
 async function buildCertificateAuthorityCertificateRelationships(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const {
-    jobState,
-    logger,
-    instance: { config },
-  } = context;
+  const { jobState, logger } = context;
 
   await jobState.iterateEntities(
     { _type: PrivatecaEntities.PRIVATE_CA_CERTIFICATE._type },
     async (caCertificate) => {
-      const client = new PrivateCaClient({ config });
       const caCertificateEntity =
         getRawData<privateca_v1.Schema$Certificate>(caCertificate);
       const certificateIssuer = caCertificateEntity?.issuerCertificateAuthority;
@@ -36,12 +29,7 @@ async function buildCertificateAuthorityCertificateRelationships(
       if (!certificateIssuer) return;
 
       const certificateAuthorityEntity = await jobState.findEntity(
-        getCaAuthorityEntityKey({
-          projectId: client.projectId,
-          location: certificateIssuer?.split('/')[3],
-          caPoolId: certificateIssuer?.split('/')[5],
-          certificateAuthorityId: certificateIssuer?.split('/')[7],
-        }),
+        certificateIssuer.split('/')[7],
       );
 
       if (!certificateAuthorityEntity) {
