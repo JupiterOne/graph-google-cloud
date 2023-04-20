@@ -1,3 +1,15 @@
+# v2.23.0 (Thu Apr 20 2023)
+
+#### 🚀 Enhancement
+
+- INT-7797: refactor private ca [#587](https://github.com/JupiterOne/graph-google-cloud/pull/587) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### Authors: 1
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
 # v2.22.0 (Fri Apr 14 2023)
 
 #### 🚀 Enhancement
