@@ -1,3 +1,15 @@
+# v2.23.1 (Thu Apr 20 2023)
+
+#### 🐛 Bug Fix
+
+- FIX(int-7914) Added error handling in case dataset/tables returns 404 [#588](https://github.com/JupiterOne/graph-google-cloud/pull/588) (gonzaloavalosribas@Gonzalos-MacBook-Pro.local)
+
+#### Authors: 1
+
+- Gonzalo Avalos Ribas ([@Gonzalo-Avalos-Ribas](https://github.com/Gonzalo-Avalos-Ribas))
+
+---
+
 # v2.23.0 (Thu Apr 20 2023)
 
 #### 🚀 Enhancement
