@@ -4,9 +4,17 @@ import {
   IntegrationStepContext,
 } from '../../../types';
 import { PrivateCaClient } from '../client';
-import { PrivatecaEntities, PrivatecaSteps } from '../constants';
+import {
+  PrivatecaEntities,
+  PrivatecaRelationships,
+  PrivatecaSteps,
+} from '../constants';
 import { createCertificateAuthorityEntity } from '../converters';
 import { isMemberPublic } from '../../../utils/iam';
+import {
+  RelationshipClass,
+  createDirectRelationship,
+} from '@jupiterone/integration-sdk-core';
 
 function isCertificateAuthorityPolicyPublicAccess(
   caPolicy: privateca_v1.Schema$Policy,
@@ -63,11 +71,19 @@ async function fetchCertificateAuthorities(
             location as string,
           );
 
-          await jobState.addEntity(
-            createCertificateAuthorityEntity({
-              data: certificateAuthority,
-              projectId: client.projectId,
-              isPublic: isCertificateAuthorityPolicyPublicAccess(policy),
+          const certificateAuthorityEntity = createCertificateAuthorityEntity({
+            data: certificateAuthority,
+            projectId: client.projectId,
+            isPublic: isCertificateAuthorityPolicyPublicAccess(policy),
+          });
+
+          await jobState.addEntity(certificateAuthorityEntity);
+
+          await jobState.addRelationship(
+            createDirectRelationship({
+              _class: RelationshipClass.HAS,
+              from: caPool,
+              to: certificateAuthorityEntity,
             }),
           );
         },
@@ -80,7 +96,7 @@ export const fetchCertificateAuthoritiesStepMap: GoogleCloudIntegrationStep = {
   id: PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES.id,
   name: PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES.name,
   entities: [PrivatecaEntities.PRIVATE_CA_CERTIFICATE_AUTHORITY],
-  relationships: [],
+  relationships: [PrivatecaRelationships.PRIVATE_CA_POOL_CERTIFICATE_AUTHORITY],
   dependsOn: [PrivatecaSteps.STEP_PRIVATE_CA_POOLS.id],
   executionHandler: fetchCertificateAuthorities,
   permissions: [

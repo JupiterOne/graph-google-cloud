@@ -1,9 +1,17 @@
 import {
+  RelationshipClass,
+  createDirectRelationship,
+} from '@jupiterone/integration-sdk-core';
+import {
   GoogleCloudIntegrationStep,
   IntegrationStepContext,
 } from '../../../types';
 import { PrivateCaClient } from '../client';
-import { PrivatecaEntities, PrivatecaSteps } from '../constants';
+import {
+  PrivatecaEntities,
+  PrivatecaRelationships,
+  PrivatecaSteps,
+} from '../constants';
 import { createCertificateEntity } from '../converters';
 
 async function fetchAuthorityCertificates(
@@ -32,11 +40,19 @@ async function fetchAuthorityCertificates(
         caPoolId,
         caLocation,
         async (certificate) => {
-          await jobState.addEntity(
-            createCertificateEntity({
-              data: certificate,
-              keyAlgorithm: certificateAuthorityEntity.keyAlgorithm as string,
-              projectId: client.projectId,
+          const certificateEntity = createCertificateEntity({
+            data: certificate,
+            keyAlgorithm: certificateAuthorityEntity.keyAlgorithm as string,
+            projectId: client.projectId,
+          });
+
+          await jobState.addEntity(certificateEntity);
+
+          await jobState.addRelationship(
+            createDirectRelationship({
+              _class: RelationshipClass.CREATED,
+              from: certificateAuthorityEntity,
+              to: certificateEntity,
             }),
           );
         },
@@ -49,7 +65,9 @@ export const fetchAuthorityCertificatesStepMap: GoogleCloudIntegrationStep = {
   id: PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATES.id,
   name: PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATES.name,
   entities: [PrivatecaEntities.PRIVATE_CA_CERTIFICATE],
-  relationships: [],
+  relationships: [
+    PrivatecaRelationships.PRIVATE_CA_CERTIFICATE_AUTHORITY_CERTIFICATE,
+  ],
   dependsOn: [PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES.id],
   executionHandler: fetchAuthorityCertificates,
   permissions: ['privateca.certificates.list'],

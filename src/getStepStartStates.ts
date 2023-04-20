@@ -414,16 +414,7 @@ function getDefaultStepStartStates(params: {
       disabled: false,
     },
     [PrivatecaSteps
-      .STEP_CREATE_PRIVATE_CA_POOL_CERTIFICATE_AUTHORITY_RELATIONSHIPS.id]: {
-      disabled: false,
-    },
-    [PrivatecaSteps
       .STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS.id]: {
-      disabled: false,
-    },
-    [PrivatecaSteps
-      .STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_CERTIFICATE_RELATIONSHIPS
-      .id]: {
       disabled: false,
     },
     [PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATES.id]: { disabled: false },
@@ -821,14 +812,8 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES.id]:
       createStepStartState(ServiceUsageName.PRIVATE_CA),
     [PrivatecaSteps
-      .STEP_CREATE_PRIVATE_CA_POOL_CERTIFICATE_AUTHORITY_RELATIONSHIPS.id]:
-      createStepStartState(ServiceUsageName.PRIVATE_CA),
-    [PrivatecaSteps
       .STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS.id]:
       createStepStartState(ServiceUsageName.PRIVATE_CA),
-    [PrivatecaSteps
-      .STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_CERTIFICATE_RELATIONSHIPS
-      .id]: createStepStartState(ServiceUsageName.PRIVATE_CA),
     [PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATES.id]: createStepStartState(
       ServiceUsageName.PRIVATE_CA,
     ),

@@ -478,17 +478,7 @@ describe('#getStepStartStates success', () => {
           disabled: false,
         },
         [PrivatecaSteps
-          .STEP_CREATE_PRIVATE_CA_POOL_CERTIFICATE_AUTHORITY_RELATIONSHIPS.id]:
-          {
-            disabled: false,
-          },
-        [PrivatecaSteps
           .STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS
-          .id]: {
-          disabled: false,
-        },
-        [PrivatecaSteps
-          .STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_CERTIFICATE_RELATIONSHIPS
           .id]: {
           disabled: false,
         },

@@ -10,10 +10,6 @@ export const PrivatecaSteps = {
     id: 'fetch-private-ca-certificate-authorities',
     name: 'Private CA Certificate Authorities',
   },
-  STEP_CREATE_PRIVATE_CA_POOL_CERTIFICATE_AUTHORITY_RELATIONSHIPS: {
-    id: 'build-private-ca-pool-certificate-authority-relationships',
-    name: 'Build Private CA Pool Certificate Authoritity Relationship',
-  },
   STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS: {
     id: 'build-private-ca-certificate-authority-bucket-relationships',
     name: 'Build Private CA Certificate Authoritity Bucket Relationships',
@@ -21,10 +17,6 @@ export const PrivatecaSteps = {
   STEP_PRIVATE_CA_CERTIFICATES: {
     id: 'fetch-private-ca-certificates',
     name: 'Private CA Certificates',
-  },
-  STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_CERTIFICATE_RELATIONSHIPS: {
-    id: 'build-private-ca-certificate-authority-certificate-relationships',
-    name: 'Build Private CA Certificate Authoritity Certificate Relationships',
   },
 };
 
