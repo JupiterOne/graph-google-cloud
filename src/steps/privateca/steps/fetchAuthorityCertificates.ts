@@ -88,9 +88,6 @@ async function buildCertificateAuthorityBucketRelationships(
       const bucketName = caAuthority.gcsBucket;
 
       if (!bucketName) {
-        logger.warn(
-          `${PrivatecaSteps.STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS.id} - Missing bucketName.`,
-        );
         return;
       }
 
