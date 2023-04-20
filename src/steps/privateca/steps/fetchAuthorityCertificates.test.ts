@@ -12,7 +12,7 @@ import {
 import { PrivatecaSteps } from '../constants';
 
 describe(`privateca#${PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATES.id}`, () => {
-  let recording: Recording;
+  let recording: Recording | undefined;
   afterEach(async () => {
     if (recording) await recording.stop();
   });
@@ -37,4 +37,40 @@ describe(`privateca#${PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATES.id}`, () => {
     const result = await executeStepWithDependencies(stepTestConfig);
     expect(result).toMatchStepMetadata(stepTestConfig);
   });
+});
+
+describe(`privateca#${PrivatecaSteps.STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS.id}`, () => {
+  let recording: Recording | undefined;
+  afterEach(async () => {
+    if (recording) await recording.stop();
+  });
+
+  jest.setTimeout(45000);
+
+  test(
+    PrivatecaSteps
+      .STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS.id,
+    async () => {
+      recording = setupGoogleCloudRecording({
+        name: PrivatecaSteps
+          .STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS.id,
+        directory: __dirname,
+        options: {
+          matchRequestsBy: getMatchRequestsBy(integrationConfig),
+        },
+      });
+
+      const stepTestConfig: StepTestConfig = {
+        stepId:
+          PrivatecaSteps
+            .STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS
+            .id,
+        instanceConfig: integrationConfig,
+        invocationConfig: invocationConfig as any,
+      };
+
+      const result = await executeStepWithDependencies(stepTestConfig);
+      expect(result).toMatchStepMetadata(stepTestConfig);
+    },
+  );
 });

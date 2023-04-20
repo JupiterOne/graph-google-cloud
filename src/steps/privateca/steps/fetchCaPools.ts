@@ -12,19 +12,11 @@ export async function fetchCaPools(
   const {
     jobState,
     instance: { config },
-    logger,
   } = context;
 
   const client = new PrivateCaClient({ config });
 
   await client.iterateCaPools(async (caPool) => {
-    if (!caPool) {
-      logger.warn(
-        `${PrivatecaSteps.STEP_PRIVATE_CA_POOLS.id} - Found undefined caPool entity in iterateCaPools.`,
-      );
-
-      return;
-    }
     await jobState.addEntity(createCaPoolEntity(caPool));
   });
 }

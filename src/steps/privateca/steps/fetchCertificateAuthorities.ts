@@ -51,7 +51,8 @@ async function fetchCertificateAuthorities(
 
       if (!location || !caPool) {
         logger.warn(
-          `${PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES.id} - Unable to fetch CA due to missing parameters. location: ${location}, caPoolId: ${caPoolId}.`,
+          { location, caPoolId },
+          `${PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES.id} - Unable to fetch CA due to missing parameters.`,
         );
 
         return;

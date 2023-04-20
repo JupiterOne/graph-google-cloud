@@ -12,7 +12,7 @@ import {
 import { PrivatecaSteps } from '../constants';
 
 describe(`privateca#${PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES.id}`, () => {
-  let recording: Recording;
+  let recording: Recording | undefined;
   afterEach(async () => {
     if (recording) await recording.stop();
   });
