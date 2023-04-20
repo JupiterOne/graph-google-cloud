@@ -1,6 +1,8 @@
 import {
   createDirectRelationship,
   createMappedRelationship,
+  IntegrationLogger,
+  IntegrationProviderAPIError,
   RelationshipClass,
   RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
@@ -136,6 +138,7 @@ export async function fetchBigQueryModels(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
   const client = new BigQueryClient({ config });
 
@@ -145,24 +148,28 @@ export async function fetchBigQueryModels(
     },
     async (datasetEntity) => {
       if (datasetEntity.name) {
-        await client.iterateBigQueryModels(
-          datasetEntity.name as string,
-          async (model) => {
-            const modelEntity = createBigQueryModelEntity(
-              model,
-              datasetEntity.id as string,
-            );
-            await jobState.addEntity(modelEntity);
+        try {
+          await client.iterateBigQueryModels(
+            datasetEntity.name as string,
+            async (model) => {
+              const modelEntity = createBigQueryModelEntity(
+                model,
+                datasetEntity.id as string,
+              );
+              await jobState.addEntity(modelEntity);
 
-            await jobState.addRelationship(
-              createDirectRelationship({
-                _class: RelationshipClass.HAS,
-                from: datasetEntity,
-                to: modelEntity,
-              }),
-            );
-          },
-        );
+              await jobState.addRelationship(
+                createDirectRelationship({
+                  _class: RelationshipClass.HAS,
+                  from: datasetEntity,
+                  to: modelEntity,
+                }),
+              );
+            },
+          );
+        } catch (error) {
+          handleDatasetError(error, 'models', datasetEntity.name, logger);
+        }
       }
     },
   );
@@ -184,42 +191,66 @@ export async function fetchBigQueryTables(
     },
     async (datasetEntity) => {
       if (datasetEntity.name) {
-        await client.iterateBigQueryTables(
-          datasetEntity.name as string,
-          async (table) => {
-            let tablePolicy: bigquery_v2.Schema$Policy | undefined = undefined;
-            try {
-              tablePolicy = await client.getTablePolicy(table);
-            } catch (error) {
-              logger.warn(
-                { tableId: table.id },
-                'Unable to fetch IAM policy for BigQuery table. Property `isPublic` will not be set.',
+        try {
+          await client.iterateBigQueryTables(
+            datasetEntity.name as string,
+            async (table) => {
+              let tablePolicy: bigquery_v2.Schema$Policy | undefined =
+                undefined;
+              try {
+                tablePolicy = await client.getTablePolicy(table);
+              } catch (error) {
+                logger.warn(
+                  { tableId: table.id },
+                  'Unable to fetch IAM policy for BigQuery table. Property `isPublic` will not be set.',
+                );
+              }
+              const tableResource = await client.getTableResource(table);
+
+              const tableEntity = createBigQueryTableEntity({
+                data: table,
+                projectId: client.projectId,
+                isPublic: isBigQueryPolicyPublicAccess(tablePolicy),
+                kmsKeyName: tableResource.encryptionConfiguration?.kmsKeyName
+                  ? tableResource.encryptionConfiguration?.kmsKeyName
+                  : undefined,
+              });
+
+              await jobState.addEntity(tableEntity);
+              await jobState.addRelationship(
+                createDirectRelationship({
+                  _class: RelationshipClass.HAS,
+                  from: datasetEntity,
+                  to: tableEntity,
+                }),
               );
-            }
-            const tableResource = await client.getTableResource(table);
-
-            const tableEntity = createBigQueryTableEntity({
-              data: table,
-              projectId: client.projectId,
-              isPublic: isBigQueryPolicyPublicAccess(tablePolicy),
-              kmsKeyName: tableResource.encryptionConfiguration?.kmsKeyName
-                ? tableResource.encryptionConfiguration?.kmsKeyName
-                : undefined,
-            });
-
-            await jobState.addEntity(tableEntity);
-            await jobState.addRelationship(
-              createDirectRelationship({
-                _class: RelationshipClass.HAS,
-                from: datasetEntity,
-                to: tableEntity,
-              }),
-            );
-          },
-        );
+            },
+          );
+        } catch (error) {
+          handleDatasetError(error, 'tables', datasetEntity.name, logger);
+        }
       }
     },
   );
+}
+export function handleDatasetError(
+  error,
+  resourceDescription,
+  datasetName,
+  logger: IntegrationLogger,
+) {
+  if (
+    error &&
+    error instanceof IntegrationProviderAPIError &&
+    error.status.toString() === '404'
+  ) {
+    logger.warn(
+      { error: error, dataset: datasetName },
+      `Unable to fetch ${resourceDescription} for dataset.`,
+    );
+  } else {
+    throw error;
+  }
 }
 
 export const bigQuerySteps: GoogleCloudIntegrationStep[] = [
