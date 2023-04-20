@@ -36,6 +36,6 @@ export const fetchCaPoolsStepMap: GoogleCloudIntegrationStep = {
   relationships: [],
   dependsOn: [],
   executionHandler: fetchCaPools,
-  permissions: [],
+  permissions: ['privateca.caPools.list'],
   apis: ['privateca.googleapis.com'],
 };

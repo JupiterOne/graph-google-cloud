@@ -598,7 +598,7 @@ permissions can be used to provision only the required ones:
 
 <!-- {J1_PERMISSIONS_DOCUMENTATION_MARKER_START} -->
 
-| Permissions List (110)                                  |
+| Permissions List (111)                                  |
 | ------------------------------------------------------- |
 | `accesscontextmanager.accessLevels.list`                |
 | `accesscontextmanager.accessPolicies.list`              |
@@ -685,6 +685,7 @@ permissions can be used to provision only the required ones:
 | `monitoring.alertPolicies.list`                         |
 | `orgpolicy.policies.list`                               |
 | `orgpolicy.policy.get`                                  |
+| `privateca.caPools.list`                                |
 | `privateca.certificateAuthorities.getIamPolicy`         |
 | `privateca.certificateAuthorities.list`                 |
 | `privateca.certificates.list`                           |
