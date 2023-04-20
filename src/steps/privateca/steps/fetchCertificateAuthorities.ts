@@ -50,13 +50,11 @@ async function fetchCertificateAuthorities(
       const location = caPool._key.split('/')[3];
 
       if (!location || !caPool) {
-        if (!caPool) {
-          logger.warn(
-            `${PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES.id} - Unable to fetch CA due to missing parameters. location: ${location}, caPoolId: ${caPoolId}.`,
-          );
+        logger.warn(
+          `${PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES.id} - Unable to fetch CA due to missing parameters. location: ${location}, caPoolId: ${caPoolId}.`,
+        );
 
-          return;
-        }
+        return;
       }
 
       await client.iterateCertificateAuthorities(
