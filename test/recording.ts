@@ -7,7 +7,7 @@ import {
   cloudbuild_v1,
   cloudfunctions_v1,
   iam_v1,
-  privateca_v1beta1,
+  privateca_v1,
 } from 'googleapis';
 import * as querystring from 'querystring';
 import * as url from 'url';
@@ -116,7 +116,7 @@ function sanitizeCreateServiceAccountKeyResponse(
 }
 
 function sanitizeListCertificateAuthoritiesResponse(
-  response: privateca_v1beta1.Schema$ListCertificateAuthoritiesResponse,
+  response: privateca_v1.Schema$ListCertificateAuthoritiesResponse,
 ) {
   return {
     certificateAuthorities:
@@ -129,7 +129,6 @@ function sanitizeListCertificateAuthoritiesResponse(
             (description) => ({
               ...description,
               publicKey: {
-                type: description.publicKey?.type,
                 key: '[REDACTED]',
               },
             }),
@@ -139,7 +138,7 @@ function sanitizeListCertificateAuthoritiesResponse(
 }
 
 function sanitizeListCertificatesResponse(
-  response: privateca_v1beta1.Schema$ListCertificatesResponse,
+  response: privateca_v1.Schema$ListCertificatesResponse,
 ) {
   return {
     certificates:
@@ -149,7 +148,6 @@ function sanitizeListCertificatesResponse(
         config: {
           ...certificate.config,
           publicKey: {
-            type: certificate.config?.publicKey?.type,
             key: '[REDACTED]',
           },
         },
@@ -157,7 +155,6 @@ function sanitizeListCertificatesResponse(
         certificateDescription: {
           ...certificate.certificateDescription,
           publicKey: {
-            type: certificate.certificateDescription?.publicKey?.type,
             key: '[REDACTED]',
           },
         },

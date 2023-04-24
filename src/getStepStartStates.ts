@@ -158,11 +158,7 @@ import {
 import { monitoringSteps } from './steps/monitoring';
 import { STEP_MONITORING_ALERT_POLICIES } from './steps/monitoring/constants';
 import { privateCaSteps } from './steps/privateca';
-import {
-  STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS,
-  STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES,
-  STEP_PRIVATE_CA_CERTIFICATES,
-} from './steps/privateca/constants';
+import { PrivatecaSteps } from './steps/privateca/constants';
 import { pubSubSteps } from './steps/pub-sub';
 import {
   STEP_CREATE_PUBSUB_TOPIC_KMS_RELATIONSHIPS,
@@ -413,11 +409,15 @@ function getDefaultStepStartStates(params: {
     [STEP_API_GATEWAY_APIS]: { disabled: false },
     [STEP_API_GATEWAY_API_CONFIGS]: { disabled: false },
     [STEP_API_GATEWAY_GATEWAYS]: { disabled: false },
-    [STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES]: { disabled: false },
-    [STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS]: {
+    [PrivatecaSteps.STEP_PRIVATE_CA_POOLS.id]: { disabled: false },
+    [PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES.id]: {
       disabled: false,
     },
-    [STEP_PRIVATE_CA_CERTIFICATES]: { disabled: false },
+    [PrivatecaSteps
+      .STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS.id]: {
+      disabled: false,
+    },
+    [PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATES.id]: { disabled: false },
     [STEP_DATAPROC_CLUSTERS]: { disabled: false },
     [STEP_DATAPROC_CLUSTER_KMS_RELATIONSHIPS]: { disabled: false },
     [STEP_CREATE_CLUSTER_STORAGE_RELATIONSHIPS]: { disabled: false },
@@ -806,12 +806,15 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [STEP_API_GATEWAY_GATEWAYS]: createStepStartState(
       ServiceUsageName.API_GATEWAY,
     ),
-    [STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES]: createStepStartState(
+    [PrivatecaSteps.STEP_PRIVATE_CA_POOLS.id]: createStepStartState(
       ServiceUsageName.PRIVATE_CA,
     ),
-    [STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS]:
+    [PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES.id]:
       createStepStartState(ServiceUsageName.PRIVATE_CA),
-    [STEP_PRIVATE_CA_CERTIFICATES]: createStepStartState(
+    [PrivatecaSteps
+      .STEP_CREATE_PRIVATE_CA_CERTIFICATE_AUTHORITY_BUCKET_RELATIONSHIPS.id]:
+      createStepStartState(ServiceUsageName.PRIVATE_CA),
+    [PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATES.id]: createStepStartState(
       ServiceUsageName.PRIVATE_CA,
     ),
     [STEP_DATAPROC_CLUSTERS]: createStepStartState(

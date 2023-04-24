@@ -60,7 +60,6 @@ import { getLogingProjectSinkId } from '../../steps/logging/converters';
 import { ENTITY_TYPE_MEMCACHE_INSTANCE } from '../../steps/memcache/constants';
 import { getMemcacheKey } from '../../steps/memcache/converter';
 import { MONITORING_ALERT_POLICY_TYPE } from '../../steps/monitoring/constants';
-import { ENTITY_TYPE_PRIVATE_CA_CERTIFICATE_AUTHORITY } from '../../steps/privateca/constants';
 import {
   ENTITY_TYPE_PUBSUB_TOPIC,
   ENTITY_TYPE_PUBSUB_SUBSCRIPTION,
@@ -95,6 +94,7 @@ import {
   SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
 } from '../../steps/sql-admin';
 import { StorageEntitiesSpec } from '../../steps/storage/constants';
+import { PrivatecaEntities } from '../../steps/privateca/constants';
 
 /**
  * A map of JupiterOne types to a function which can generate their _key
@@ -161,7 +161,7 @@ export const J1_TYPE_TO_KEY_GENERATOR_MAP: {
     getLogingProjectSinkId,
   ),
   [LOGGING_METRIC_ENTITY_TYPE]: finalIdentifierKeyMap, // I'm pretty sure this can not be the target of a role binding.
-  [ENTITY_TYPE_PRIVATE_CA_CERTIFICATE_AUTHORITY]: fullPathKeyMap,
+  [PrivatecaEntities.PRIVATE_CA_CERTIFICATE_AUTHORITY._type]: fullPathKeyMap,
   [ENTITY_TYPE_API_GATEWAY_API]: fullPathKeyMap,
   [ENTITY_TYPE_API_GATEWAY_API_CONFIG]: fullPathKeyMap,
   [ENTITY_TYPE_API_GATEWAY_GATEWAY]: fullPathKeyMap,

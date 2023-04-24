@@ -422,6 +422,7 @@ The following entities are created:
 | Organization                                             | `google_cloud_organization`                                       | `Organization`                     |
 | Private CA Certificate                                   | `google_privateca_certificate`                                    | `Certificate`                      |
 | Private CA Certificate Authority                         | `google_privateca_certificate_authority`                          | `Service`                          |
+| Private CA Pool                                          | `google_privateca_pool`                                           | `Group`                            |
 | Project                                                  | `google_cloud_project`                                            | `Account`                          |
 | PubSub Subscription                                      | `google_pubsub_subscription`                                      | `Service`                          |
 | PubSub Topic                                             | `google_pubsub_topic`                                             | `Channel`                          |
@@ -560,6 +561,7 @@ The following relationships are created:
 | `google_cloud_organization`                                      | **HAS**               | `google_cloud_project`                                            |
 | `google_privateca_certificate_authority`                         | **CREATED**           | `google_privateca_certificate`                                    |
 | `google_privateca_certificate_authority`                         | **USES**              | `google_storage_bucket`                                           |
+| `google_privateca_pool`                                          | **HAS**               | `google_privateca_certificate_authority`                          |
 | `google_pubsub_subscription`                                     | **USES**              | `google_pubsub_topic`                                             |
 | `google_pubsub_topic`                                            | **USES**              | `google_kms_crypto_key`                                           |
 | `google_redis_instance`                                          | **USES**              | `google_compute_network`                                          |
@@ -596,7 +598,7 @@ permissions can be used to provision only the required ones:
 
 <!-- {J1_PERMISSIONS_DOCUMENTATION_MARKER_START} -->
 
-| Permissions List (110)                                  |
+| Permissions List (111)                                  |
 | ------------------------------------------------------- |
 | `accesscontextmanager.accessLevels.list`                |
 | `accesscontextmanager.accessPolicies.list`              |
@@ -683,6 +685,7 @@ permissions can be used to provision only the required ones:
 | `monitoring.alertPolicies.list`                         |
 | `orgpolicy.policies.list`                               |
 | `orgpolicy.policy.get`                                  |
+| `privateca.caPools.list`                                |
 | `privateca.certificateAuthorities.getIamPolicy`         |
 | `privateca.certificateAuthorities.list`                 |
 | `privateca.certificates.list`                           |

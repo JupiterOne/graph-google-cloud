@@ -4,6 +4,7 @@ import {
   fetchBigQueryDatasets,
   fetchBigQueryModels,
   fetchBigQueryTables,
+  handleDatasetError,
 } from '.';
 import { integrationConfig } from '../../../test/config';
 import { separateDirectMappedRelationships } from '../../../test/helpers/separateDirectMappedRelationships';
@@ -18,6 +19,7 @@ import {
   BIG_QUERY_MODEL_ENTITY_TYPE,
   RELATIONSHIP_TYPE_DATASET_HAS_MODEL,
 } from './constants';
+import { IntegrationProviderAPIError } from '@jupiterone/integration-sdk-core';
 
 const tempNewAccountConfig = {
   ...integrationConfig,
@@ -357,5 +359,58 @@ describe('#fetchBigQueryTables', () => {
         },
       },
     });
+  });
+});
+describe('handleDatasetError', () => {
+  const context = createMockStepExecutionContext<IntegrationConfig>({
+    instanceConfig: tempNewAccountConfig,
+  });
+
+  test('Should throw if error is not 404', () => {
+    const method = () => {
+      try {
+        throw new IntegrationProviderAPIError({
+          endpoint: 'tables',
+          status: '403',
+          statusText: 'Forbidden',
+        });
+      } catch (error) {
+        handleDatasetError(error, 'resource', 'dataset', context.logger);
+      }
+    };
+    expect(method).toThrow(IntegrationProviderAPIError);
+  });
+  test('Should throw if error is not IntegrationProviderAPIError', () => {
+    const method = () => {
+      try {
+        throw new Error('Error');
+      } catch (error) {
+        handleDatasetError(error, 'resource', 'dataset', context.logger);
+      }
+    };
+    expect(method).toThrow(Error);
+  });
+  test('Should not throw if error is 404', () => {
+    const spy = jest.spyOn(context.logger, 'warn');
+    const err = new IntegrationProviderAPIError({
+      endpoint: 'tables',
+      status: '404',
+      statusText: 'Forbidden',
+    });
+    const datasetName = 'dataset';
+    const resourceDescription = 'resource';
+    const method = () => {
+      try {
+        throw err;
+      } catch (error) {
+        handleDatasetError(error, 'resource', datasetName, context.logger);
+      }
+    };
+    method();
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith(
+      { error: err, dataset: datasetName },
+      `Unable to fetch ${resourceDescription} for dataset.`,
+    );
   });
 });

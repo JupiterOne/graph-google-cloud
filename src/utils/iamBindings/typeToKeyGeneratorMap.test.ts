@@ -28,7 +28,6 @@ import {
   ENTITY_TYPE_CLOUD_RUN_ROUTE,
 } from '../../steps/cloud-run/constants';
 import { ENTITY_TYPE_MEMCACHE_INSTANCE_NODE } from '../../steps/memcache/constants';
-import { ENTITY_TYPE_PRIVATE_CA_CERTIFICATE } from '../../steps/privateca/constants';
 import { ENTITY_TYPE_SPANNER_INSTANCE_CONFIG } from '../../steps/spanner/constants';
 import { J1_TYPE_TO_KEY_GENERATOR_MAP } from './typeToKeyGeneratorMap';
 import { GOOGLE_RESOURCE_KIND_TO_J1_TYPE_MAP } from './resourceKindToTypeMap';
@@ -40,6 +39,7 @@ import {
   StepMetadata,
   StepRelationshipMetadata,
 } from '@jupiterone/integration-sdk-core';
+import { PrivatecaEntities } from '../../steps/privateca/constants';
 
 /**
  * If your JupiterOne entity can not be indentified in Google Cloud with a Google Cloud
@@ -71,7 +71,7 @@ const entitiesTypesToSkip = [
   ENTITY_TYPE_COMPUTE_INSTANCE_GROUP_NAMED_PORT,
   bindingEntities.BINDINGS._type,
   ENTITY_TYPE_MEMCACHE_INSTANCE_NODE,
-  ENTITY_TYPE_PRIVATE_CA_CERTIFICATE,
+  PrivatecaEntities.PRIVATE_CA_CERTIFICATE._type,
   ENTITY_TYPE_SPANNER_INSTANCE_CONFIG,
 ];
 

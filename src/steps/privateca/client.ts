@@ -1,42 +1,62 @@
-import { google, privateca_v1beta1 } from 'googleapis';
+import { google, privateca_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
 
 export class PrivateCaClient extends Client {
-  private client = google.privateca({ version: 'v1beta1', retry: false });
+  private client = google.privateca({ version: 'v1', retry: false });
 
   async getAuthorityPolicy(
-    authorityId: string,
+    caPoolId: string,
     location: string,
-  ): Promise<privateca_v1beta1.Schema$Policy> {
+  ): Promise<privateca_v1.Schema$Policy> {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const result =
-      await this.client.projects.locations.certificateAuthorities.getIamPolicy({
-        resource: `projects/${this.projectId}/locations/${location}/certificateAuthorities/${authorityId}`,
-        auth,
-      });
+    const result = await this.client.projects.locations.caPools.getIamPolicy({
+      resource: `projects/${this.projectId}/locations/${location}/caPools/${caPoolId}`,
+      auth,
+    });
 
     return result.data;
   }
 
-  async iterateCertificateAuthorities(
-    callback: (
-      data: privateca_v1beta1.Schema$CertificateAuthority,
-    ) => Promise<void>,
+  async iterateCaPools(
+    callback: (data: privateca_v1.Schema$CaPool) => Promise<void>,
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
       async (nextPageToken) => {
-        return this.client.projects.locations.certificateAuthorities.list({
+        return this.client.projects.locations.caPools.list({
           parent: `projects/${this.projectId}/locations/-`,
           auth,
           pageToken: nextPageToken,
         });
       },
-      async (
-        data: privateca_v1beta1.Schema$ListCertificateAuthoritiesResponse,
-      ) => {
+      async (data: privateca_v1.Schema$ListCaPoolsResponse) => {
+        for (const certificateAuthority of data.caPools || []) {
+          await callback(certificateAuthority);
+        }
+      },
+    );
+  }
+
+  async iterateCertificateAuthorities(
+    caPoolId: string,
+    location: string,
+    callback: (data: privateca_v1.Schema$CertificateAuthority) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.projects.locations.caPools.certificateAuthorities.list(
+          {
+            parent: `projects/${this.projectId}/locations/${location}/caPools/${caPoolId}`,
+            auth,
+            pageToken: nextPageToken,
+          },
+        );
+      },
+      async (data: privateca_v1.Schema$ListCertificateAuthoritiesResponse) => {
         for (const certificateAuthority of data.certificateAuthorities || []) {
           await callback(certificateAuthority);
         }
@@ -45,23 +65,21 @@ export class PrivateCaClient extends Client {
   }
 
   async iterateAuthorityCertificates(
-    caId: string,
+    caPoolId: string,
     caLocation: string,
-    callback: (data: privateca_v1beta1.Schema$Certificate) => Promise<void>,
+    callback: (data: privateca_v1.Schema$Certificate) => Promise<void>,
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
       async (nextPageToken) => {
-        return this.client.projects.locations.certificateAuthorities.certificates.list(
-          {
-            parent: `projects/${this.projectId}/locations/${caLocation}/certificateAuthorities/${caId}`,
-            auth,
-            pageToken: nextPageToken,
-          },
-        );
+        return this.client.projects.locations.caPools.certificates.list({
+          parent: `projects/${this.projectId}/locations/${caLocation}/caPools/${caPoolId}`,
+          auth,
+          pageToken: nextPageToken,
+        });
       },
-      async (data: privateca_v1beta1.Schema$ListCertificatesResponse) => {
+      async (data: privateca_v1.Schema$ListCertificatesResponse) => {
         for (const certificate of data.certificates || []) {
           await callback(certificate);
         }
