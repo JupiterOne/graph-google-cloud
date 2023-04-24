@@ -334,7 +334,7 @@ export async function fetchIamPolicyAuditConfig(
         parsedMember,
         logger,
         projectId: client.projectId,
-        additionalProperties: { logTypes },
+        additionalProperties: { ...logTypes },
         relationshipClass: RelationshipClass.ALLOWS,
       });
 
