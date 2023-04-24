@@ -357,7 +357,7 @@ export async function fetchIamPolicyAuditConfig(
  * =>
  *
  * [
- *   { exemptedMember: ['dev@j1.io'], logTypes: ['type1', 'type2' ] }
+ *   { exemptedMember: ['dev@j1.io'], logTypes: { 'logType.type1': true, 'logType.type2': true } }
  * ]
  *
  */
@@ -365,7 +365,7 @@ export function flattenAuditLogConfigs(
   auditLogConfigs: cloudresourcemanager_v3.Schema$AuditLogConfig[],
 ): {
   exemptedMember: string;
-  logTypes: string[];
+  logTypes: { [key: string]: boolean };
 }[] {
   const exemptedMemberToLogTypesMap: { [exemptedMember: string]: string[] } =
     {};
@@ -384,7 +384,15 @@ export function flattenAuditLogConfigs(
   }
 
   return Object.entries(exemptedMemberToLogTypesMap).map(
-    ([exemptedMember, logTypes]) => ({ exemptedMember, logTypes }),
+    ([exemptedMember, logTypes]) => {
+      const parsedLogtype = {};
+
+      for (const logType of logTypes) {
+        parsedLogtype[`logType.${logType}`] = true;
+      }
+
+      return { exemptedMember, logTypes: parsedLogtype };
+    },
   );
 }
 
