@@ -40,8 +40,14 @@ describe('flattenAuditLogConfigs', () => {
         { exemptedMembers: ['dev@j1.co', 'prod@j1.co'], logType: 'type2' },
       ]),
     ).toEqual([
-      { exemptedMember: 'dev@j1.co', logTypes: ['type1', 'type2'] },
-      { exemptedMember: 'prod@j1.co', logTypes: ['type1', 'type2'] },
+      {
+        exemptedMember: 'dev@j1.co',
+        logTypes: { 'logType.type1': true, 'logType.type2': true },
+      },
+      {
+        exemptedMember: 'prod@j1.co',
+        logTypes: { 'logType.type1': true, 'logType.type2': true },
+      },
     ]);
   });
 
@@ -50,7 +56,7 @@ describe('flattenAuditLogConfigs', () => {
       flattenAuditLogConfigs([
         { exemptedMembers: ['dev@j1.co'], logType: null },
       ]),
-    ).toEqual([{ exemptedMember: 'dev@j1.co', logTypes: [] }]);
+    ).toEqual([{ exemptedMember: 'dev@j1.co', logTypes: {} }]);
   });
 
   test('should return empty array for `undefined` logType', () => {
@@ -58,7 +64,7 @@ describe('flattenAuditLogConfigs', () => {
       flattenAuditLogConfigs([
         { exemptedMembers: ['dev@j1.co'], logType: undefined },
       ]),
-    ).toEqual([{ exemptedMember: 'dev@j1.co', logTypes: [] }]);
+    ).toEqual([{ exemptedMember: 'dev@j1.co', logTypes: {} }]);
   });
 
   test('should skip `null` exemptedMembers', () => {
