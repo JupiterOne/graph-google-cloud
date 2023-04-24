@@ -1,3 +1,15 @@
+# v2.24.0 (Mon Apr 24 2023)
+
+#### 🚀 Enhancement
+
+- INT-7913: fix Audit Config log type additional property [#589](https://github.com/JupiterOne/graph-google-cloud/pull/589) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### Authors: 1
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
 # v2.23.1 (Thu Apr 20 2023)
 
 #### 🐛 Bug Fix
