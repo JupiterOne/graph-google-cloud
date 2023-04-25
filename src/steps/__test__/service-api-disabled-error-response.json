@@ -23,27 +23,12 @@
       "retryConfig": {
         "currentRetryAttempt": 0,
         "retry": 3,
-        "httpMethodsToRetry": [
-          "GET",
-          "HEAD",
-          "PUT",
-          "OPTIONS",
-          "DELETE"
-        ],
+        "httpMethodsToRetry": ["GET", "HEAD", "PUT", "OPTIONS", "DELETE"],
         "noResponseRetries": 2,
         "statusCodesToRetry": [
-          [
-            100,
-            199
-          ],
-          [
-            429,
-            429
-          ],
-          [
-            500,
-            599
-          ]
+          [100, 199],
+          [429, 429],
+          [500, 599]
         ]
       }
     },
@@ -125,27 +110,12 @@
     "retryConfig": {
       "currentRetryAttempt": 0,
       "retry": 3,
-      "httpMethodsToRetry": [
-        "GET",
-        "HEAD",
-        "PUT",
-        "OPTIONS",
-        "DELETE"
-      ],
+      "httpMethodsToRetry": ["GET", "HEAD", "PUT", "OPTIONS", "DELETE"],
       "noResponseRetries": 2,
       "statusCodesToRetry": [
-        [
-          100,
-          199
-        ],
-        [
-          429,
-          429
-        ],
-        [
-          500,
-          599
-        ]
+        [100, 199],
+        [429, 429],
+        [500, 599]
       ]
     }
   },

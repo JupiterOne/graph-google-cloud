@@ -7,7 +7,7 @@ import { fetchComputeNetworks } from '../compute';
 import {
   DNS_MANAGED_ZONE_ENTITY_TYPE,
   DNS_POLICY_ENTITY_TYPE,
-  RELATIONSHIP_TYPE_COMPUTE_NETWORK_HAS_DNS_POLICY
+  RELATIONSHIP_TYPE_COMPUTE_NETWORK_HAS_DNS_POLICY,
 } from './constants';
 
 const tempNewAccountConfig = {
