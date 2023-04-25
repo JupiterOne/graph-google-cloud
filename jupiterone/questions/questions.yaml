@@ -113,6 +113,7 @@ questions:
 ################################################################################
 # Section 1: Identity and Access Management (IAM)
 ################################################################################
+#1.1
 - id: integration-question-google-cloud-corporate-login-credentials
   title: Ensure that corporate login credentials are used
   description:
@@ -130,6 +131,55 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '1.1'
+#1.2
+- id: integration-question-google-mfa-enabled-non-service-accounts
+  title: Ensure that Multi-Factor Authentication is 'Enabled' for All Non-Service Accounts
+  description:
+    Setup multi-factor authentication for Google Cloud Platform accounts.
+  queries:
+  - name: good
+    query: FIND google_user WITH mfaEnabled=true or isEnrolledIn2Sv=true
+  - name: bad
+    query: FIND google_user WITH mfaEnabled!=true AND isEnrolledIn2Sv!=true
+  tags:
+  - google-cloud
+  - service-account
+  - mfa
+  compliance:
+  - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '1.2'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '1.2'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '1.2'
+#1.3
+- id: integration-question-google-ske-enabled-for-admin-accounts
+  title: Ensure that Security Key Enforcement is Enabled for All Admin Accounts
+  description:
+    Setup Security Key Enforcement for Google Cloud Platform admin accounts.
+  queries:
+  - name: good
+    query: FIND google_user WITH admin = true OR isAdmin = true OR isDelegatedAdmin = true AND isEnforcedIn2Sv = true
+  - name: bad
+    query: FIND google_user WITH admin = true OR isAdmin = true OR isDelegatedAdmin = true AND isEnforcedIn2Sv = true
+  tags:
+  - google-cloud
+  - admin-account
+  - security-key-enforcement
+  compliance:
+  - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '1.3'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '1.3'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '1.3' 
+#1.4
 - id: integration-question-google-cloud-managed-service-account-keys
   title: Ensure that there are only GCP-managed service account keys for each service account
   description:
@@ -148,6 +198,7 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '1.4'
+#1.5
 - id: integration-question-google-cloud-service-account-non-admin
   title: Ensure that Service Account has no Admin privileges
   description:
@@ -197,6 +248,7 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '1.5'
+#1.6
 - id: integration-question-google-cloud-iam-not-assigned-user-token-roles-project-level
   title: Ensure that IAM users are not assigned the Service Account User or Service Account Token Creator roles at project level
   description: >
@@ -238,6 +290,7 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '1.6'
+#1.7
 - id: integration-question-google-cloud-user-managed-external-keys-service-account-rotation-period
   title: Ensure user-managed/external keys for service accounts are rotated every 90 days or less
   description: >
@@ -270,7 +323,8 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '1.7'
-
+#1.8 TBD
+#1.9
 - id: integration-question-google-cloud-encryption-keys-publicly-accessible
   title: Are there Cloud KMS crypto keys that are publicly accessible?
   description: >
@@ -289,7 +343,7 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '1.9'
-
+#1.10
 - id: integration-question-google-cloud-encryption-keys-rotation-period
   title: Ensure encryption keys are rotated within a period of 365 days
   description: >
@@ -334,7 +388,83 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '1.10'
-
+#1.11 TBD
+#1.12
+- id: integration-question-google-api-keys-for-active-services
+  title: Ensure API Keys Only Exist for Active Services
+  description:
+    API Keys should only be used for services in cases where other authentication methods are unavailable. Unused keys with their permissions in tact may still exist within a project. Keys are insecure because they can be viewed publicly, such as from within a browser, or they can be accessed on a device where the key resides. It is recommended to use standard authentication flow instead.
+  queries:
+  - name: good
+    query: 
+  - name: bad
+    query: 
+  tags:
+  - API-keys
+  - authentication
+  - permissions
+  compliance:
+  - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '1.12'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '1.12'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '1.12'
+#1.13 TBD 
+#1.14 TBD
+#1.15 TBD
+#1.16 TBD
+#1.17
+- id: integration-question-google-
+  title: Ensure that Dataproc Cluster is encrypted using Customer-Managed Encryption Key
+  description: 
+    When you use Dataproc, cluster and job data is stored on Persistent Disks (PDs) associated with the Compute Engine VMs in your cluster and in a Cloud Storage staging bucket. This PD and bucket data is encrypted using a Google-generated data encryption key (DEK) and key encryption key (KEK). The CMEK feature allows you to create, use, and revoke the key encryption key (KEK). Google still controls the data encryption key (DEK).
+  queries:
+  - name: good
+    query: FIND google_dataproc_cluster WITH encrypted = true AND kmsKeyName ~= "cmek"
+  - name: bad
+    query: FIND google_dataproc_cluster WITH encrypted != true OR kmsKeyName !~= "cmek"
+  tags:
+  - dataproc-cluster
+  - CMEK
+  - Encryption
+  compliance:
+  - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '1.17'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '1.17'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '1.17'
+#1.18
+- id: integration-question-google-secret-manager
+  title: Ensure Secrets are Not Stored in Cloud Functions Environment Variables by Using Secret Manager
+  description:
+    Google Cloud Functions allow you to host serverless code that is executed when an event is triggered, without the requiring the management a host operating system. These functions can also store environment variables to be used by the code that may contain authentication or other information that needs to remain confidential.
+  queries:
+  - name: good
+    query: find google_cloud_project /* google_cloud_project THAT HAS google_secret_manager_secret */
+  - name: bad
+    query: 
+  tags:
+  - secret-manager
+  - cloud-functions
+  - secrets
+  compliance:
+  - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '1.18'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '1.18'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '1.18'
 - id: integration-question-google-cloud-iam-all-user-policies
   title: Which policies are bound to “allUsers” or “allAuthenticatedUsers”?
   description: >
