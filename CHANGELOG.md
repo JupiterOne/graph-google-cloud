@@ -1,3 +1,15 @@
+# v2.25.0 (Tue Apr 25 2023)
+
+#### 🚀 Enhancement
+
+- Consolidate event log names for better user experience [#583](https://github.com/JupiterOne/graph-google-cloud/pull/583) ([@VDubber](https://github.com/VDubber))
+
+#### Authors: 1
+
+- Samuel Poulton ([@VDubber](https://github.com/VDubber))
+
+---
+
 # v2.24.0 (Mon Apr 24 2023)
 
 #### 🚀 Enhancement
