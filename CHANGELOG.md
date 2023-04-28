@@ -1,3 +1,20 @@
+# v2.26.0 (Fri Apr 28 2023)
+
+#### 🚀 Enhancement
+
+- Bump SDK Version [#594](https://github.com/JupiterOne/graph-google-cloud/pull/594) ([@Nick-NCSU](https://github.com/Nick-NCSU))
+
+#### 🐛 Bug Fix
+
+- changes to questions [#590](https://github.com/JupiterOne/graph-google-cloud/pull/590) ([@mikiodehartj1](https://github.com/mikiodehartj1))
+
+#### Authors: 2
+
+- [@mikiodehartj1](https://github.com/mikiodehartj1)
+- Nick Thompson ([@Nick-NCSU](https://github.com/Nick-NCSU))
+
+---
+
 # v2.25.0 (Tue Apr 25 2023)
 
 #### 🚀 Enhancement
