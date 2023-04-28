@@ -2846,6 +2846,11 @@ Object {
       "tag.cluster-metadata-test-2": "",
       "tag.goog-gke-node": "",
       "tag.goog-gke-volume": "",
+      "tags": Array [
+        "cluster-metadata-test-1",
+        "goog-gke-node",
+        "goog-gke-volume",
+      ],
       "type": "pd-standard",
       "webLink": "https://console.cloud.google.com/compute/disksDetail/zones/us-central1-c/disks/gke-cluster-new-example-default-pool-bdda069a-viuf?project=j1-gc-integration-dev-v3",
       "zone": "us-central1-c",
@@ -19668,6 +19673,9 @@ Object {
       "startRestricted": false,
       "status": "RUNNING",
       "tag.goog-gke-node": "",
+      "tags": Array [
+        "goog-gke-node",
+      ],
       "usesDefaultServiceAccount": undefined,
       "usesFullAccessDefaultServiceAccount": undefined,
       "vtpmEnabled": true,
@@ -19724,6 +19732,9 @@ Object {
       "startRestricted": false,
       "status": "RUNNING",
       "tag.goog-gke-node": "",
+      "tags": Array [
+        "goog-gke-node",
+      ],
       "usesDefaultServiceAccount": undefined,
       "usesFullAccessDefaultServiceAccount": undefined,
       "vtpmEnabled": true,
@@ -19780,6 +19791,9 @@ Object {
       "startRestricted": false,
       "status": "RUNNING",
       "tag.goog-gke-node": "",
+      "tags": Array [
+        "goog-gke-node",
+      ],
       "usesDefaultServiceAccount": undefined,
       "usesFullAccessDefaultServiceAccount": undefined,
       "vtpmEnabled": true,
