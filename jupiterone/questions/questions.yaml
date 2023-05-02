@@ -1171,7 +1171,7 @@ questions:
       find google_compute_subnetwork WITH flowLogsEnabled != true
   tags:
   - google-cloud
-  - VPC-flowlogs
+  - VPC-flow-logs
   - logging
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
