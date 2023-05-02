@@ -582,7 +582,7 @@ questions:
 #3.8
 - id: integration-question-google-vpc-flow-logs-for-every-VPC-subnet
   title: Ensure that VPC Flow Logs is Enabled for Every Subnet in a VPC Network
-  description:
+  description: >
     Flow Logs is a feature that enables users to capture information about the IP traffic going to and from network interfaces in the organization's VPC Subnets. Once a flow log is created, the user can view and retrieve its data in Stackdriver Logging. It is recommended that Flow Logs be enabled for every business-critical VPC subnet.
   queries:
   - name: good
@@ -591,40 +591,12 @@ questions:
     query: find google_compute_subnetwork WITH flowLogsEnabled != true
   tags:
   - google-cloud
-  - VPC-flowlogs
+  - VPC-flow-logs
   - logging
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '3.8'
-  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
-    requirements:
-      - '3.8'
-  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
-    requirements:
-      - '3.8'
-
-#3.10
-- id: integration-question-google-IAP-allow-google-IP-addresses
-  title: Use Identity Aware Proxy (IAP) to Ensure Only Traffic From Google IP Addresses are 'Allowed'
-  description:
-    IAP authenticates the user requests to your apps via a Google single sign in. You can then manage these users with permissions to control access. It is recommended to use both IAP permissions and firewalls to restrict this access to your apps with sensitive information.
-  queries:
-  - name: good
-    query: 
-  - name: bad
-    query: 
-  tags:
-  - google-cloud
-  - google-IAP
-  - Networking
-  compliance:
-  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
-    requirements:
-      - '3.10'
-  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
-    requirements:
-      - '3.10'
 
 - id: integration-question-google-cloud-firewall-deny-all
   title: Which Google Cloud networks do not have a default Deny All egress rule for firewalls?
