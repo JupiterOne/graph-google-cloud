@@ -500,6 +500,273 @@ questions:
 ################################################################################
 # Section 2: Account Management
 ################################################################################
+#2.1
+- id: integration-question-google-correct-cloud-audit-logging-config
+  title: Ensure That Cloud Audit Logging Is Configured Properly
+  description: >
+    It is recommended that Cloud Audit Logging is configured to track all admin activities and read, write access to user data.
+  queries:
+  - name: good
+    query: |
+      FIND google_cloud_audit_config WITH logTypes = ('ADMIN_READ' AND 'DATA_READ' AND 'DATA_WRITE')
+  - name: bad
+    query: |
+      FIND google_cloud_audit_config WITH logTypes != ('ADMIN_READ' AND 'DATA_READ' AND 'DATA_WRITE')
+  tags:
+  - cloud-audit-logging
+  - google-logging
+  - google-cloud
+  compliance:
+  - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '2.1'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '2.1'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '2.1'
+
+#2.4
+- id: integration-question-google-log-metric-alert-project-ownership-changes
+  title: Ensure Log Metric Filter and Alerts Exist for Project Ownership Assignments/Changes
+  description: >
+    In order to prevent unnecessary project ownership assignments to users/service-accounts and further misuses of projects and resources, all `roles/Owner` assignments should be monitored. Members (users/Service-Accounts) with a role assignment to primitive role `roles/Owner` are project owners. The project owner has all the privileges on the project the role belongs to. These are summarized below - All viewer permissions on all GCP Services within the project - Permissions for actions that modify the state of all GCP services within the project - Manage roles and permissions for a project and all resources within the project - Set up billing for a project Granting the owner role to a member (user/Service-Account) will allow that member to modify the Identity and Access Management (IAM) policy. Therefore, grant the owner role only if the member has a legitimate purpose to manage the IAM policy. This is because the project IAM policy contains sensitive access control data. Having a minimal set of users allowed to manage IAM policy will simplify any auditing that may be necessary.
+  queries:
+  - name: good
+    query: |
+      FIND google_logging_metric as metric THAT HAS google_monitoring_alert_policy as alert WHERE metric.filter = '(protoPayload.serviceName="cloudresourcemanager.googleapis.com") AND (ProjectOwnership OR projectOwnerInvitee) OR (protoPayload.serviceData.policyDelta.bindingDeltas.action="REMOVE" AND protoPayload.serviceData.policyDelta.bindingDeltas.role="roles/owner") OR (protoPayload.serviceData.policyDelta.bindingDeltas.action="ADD" AND protoPayload.serviceData.policyDelta.bindingDeltas.role="roles/owner")'
+  - name: bad
+    query: |
+      FIND google_logging_metric as metric THAT !HAS google_monitoring_alert_policy
+  tags:
+  - google-logging
+  - google-cloud
+  - google-alerting
+  compliance:
+  - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '2.4'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '2.4'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '2.4'
+
+#2.5
+- id: integration-question-google-log-metric-alert-audit-config
+  title: Ensure That the Log Metric Filter and Alerts Exist for Audit Configuration Changes
+  description: >
+    Google Cloud Platform (GCP) services write audit log entries to the Admin Activity and Data Access logs to help answer the questions of, "who did what, where, and when?" within GCP projects. Cloud audit logging records information includes the identity of the API caller, the time of the API call, the source IP address of the API caller, the request parameters, and the response elements returned by GCP services. Cloud audit logging provides a history of GCP API calls for an account, including API calls made via the console, SDKs, command-line tools, and other GCP services.
+  queries:
+  - name: good
+    query: |
+      FIND google_logging_metric as metric THAT HAS google_monitoring_alert_policy as alert WHERE metric.filter = 'protoPayload.methodName="SetIamPolicy" AND protoPayload.serviceData.policyDelta.auditConfigDeltas:*'
+  - name: bad
+    query: |
+      FIND google_logging_metric as metric THAT !HAS google_monitoring_alert_policy
+  tags:
+  - google-logging
+  - google-cloud
+  - google-alerting
+  compliance:
+  - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '2.5'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '2.5'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '2.5'
+
+#2.6
+- id: integration-question-google-log-metric-alert-custom-role-changes
+  title: Ensure That the Log Metric Filter and Alerts Exist for Custom Role Changes
+  description: >
+    It is recommended that a metric filter and alarm be established for changes to Identity and Access Management (IAM) role creation, deletion and updating activities.
+  queries:
+  - name: good
+    query: |
+      FIND google_logging_metric as metric THAT HAS google_monitoring_alert_policy as alert WHERE metric.filter = 'resource.type="iam_role" AND protoPayload.methodName = "google.iam.admin.v1.CreateRole" OR protoPayload.methodName="google.iam.admin.v1.DeleteRole" OR protoPayload.methodName="google.iam.admin.v1.UpdateRole"'
+  - name: bad
+    query: |
+      FIND google_logging_metric as metric THAT !HAS google_monitoring_alert_policy
+  tags:
+  - google-logging
+  - google-cloud
+  - google-alerting
+  compliance:
+  - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '2.6'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '2.6'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '2.6'
+
+#2.7
+- id: integration-question-google-log-metric-alert-VPC-firewall-rule-changes
+  title: Ensure That the Log Metric Filter and Alerts Exist for VPC Network Firewall Rule Changes
+  description: >
+    It is recommended that a metric filter and alarm be established for Virtual Private Cloud (VPC) Network Firewall rule changes.
+  queries:
+  - name: good
+    query: |
+      FIND google_logging_metric as metric THAT HAS google_monitoring_alert_policy as alert WHERE metric.filter = 'resource.type="gce_firewall_rule" AND protoPayload.methodName:"compute.firewalls.patch" OR protoPayload.methodName:"compute.firewalls.insert"'
+  - name: bad
+    query: |
+      FIND google_logging_metric as metric THAT !HAS google_monitoring_alert_policy
+  tags:
+  - google-logging
+  - google-cloud
+  - google-alerting
+  compliance:
+  - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '2.7'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '2.7'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '2.7'
+
+#2.8
+- id: integration-question-google-log-metric-alert-VPC-route-changes
+  title: Ensure That the Log Metric Filter and Alerts Exist for VPC Network Route Changes
+  description: >
+    It is recommended that a metric filter and alarm be established for Virtual Private Cloud (VPC) network route changes.
+  queries:
+  - name: good
+    query: |
+      FIND google_logging_metric as metric THAT HAS google_monitoring_alert_policy as alert WHERE metric.filter = 'resource.type="gce_route" AND (protoPayload.methodName:"compute.routes.delete" OR protoPayload.methodName:"compute.routes.insert")'
+  - name: bad
+    query: |
+      FIND google_logging_metric as metric THAT !HAS google_monitoring_alert_policy
+  tags:
+  - google-logging
+  - google-cloud
+  - google-alerting
+  compliance:
+  - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '2.8'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '2.8'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '2.8'
+
+#2.9
+- id: integration-question-google-log-metric-alert-VPC-network-changes
+  title: Ensure That the Log Metric Filter and Alerts Exist for VPC Network Changes
+  description: >
+    It is recommended that a metric filter and alarm be established for Virtual Private Cloud (VPC) network changes.
+  queries:
+  - name: good
+    query: |
+      FIND google_logging_metric as metric THAT HAS google_monitoring_alert_policy as alert WHERE metric.filter = 'resource.type=gce_network AND (protoPayload.methodName:"compute.networks.insert" OR protoPayload.methodName:"compute.networks.patch" OR protoPayload.methodName:"compute.networks.delete" OR protoPayload.methodName:"compute.networks.removePeering" OR protoPayload.methodName:"compute.networks.addPeering")'
+  - name: bad
+    query: |
+      FIND google_logging_metric as metric THAT !HAS google_monitoring_alert_policy
+  tags:
+  - google-logging
+  - google-cloud
+  - google-alerting
+  compliance:
+  - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '2.9'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '2.9'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '2.9'
+
+#2.10
+- id: integration-question-google-log-metric-alert-IAM-permission-changes
+  title: Ensure That the Log Metric Filter and Alerts Exist for Cloud Storage IAM Permission Changes
+  description: >
+    It is recommended that a metric filter and alarm be established for Cloud Storage Bucket IAM changes.
+  queries:
+  - name: good
+    query: |
+      FIND google_logging_metric as metric THAT HAS google_monitoring_alert_policy as alert WHERE metric.filter = 'resource.type=gcs_bucket AND protoPayload.methodName="storage.setIamPermissions"'
+  - name: bad
+    query: |
+      FIND google_logging_metric as metric THAT !HAS google_monitoring_alert_policy
+  tags:
+  - google-logging
+  - google-cloud
+  - google-alerting
+  compliance:
+  - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '2.10'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '2.10'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '2.10'
+
+2.11
+- id: integration-question-google-log-metric-alert-SQL-config-changes
+  title: Ensure That the Log Metric Filter and Alerts Exist for SQL Instance Configuration Changes
+  description: >
+    It is recommended that a metric filter and alarm be established for SQL instance configuration changes.
+  queries:
+  - name: good
+    query: |
+      FIND google_logging_metric as metric THAT HAS google_monitoring_alert_policy as alert WHERE metric.filter = 'protoPayload.methodName="cloudsql.instances.update"' 
+  - name: bad
+    query: |
+    FIND google_logging_metric as metric THAT !HAS google_monitoring_alert_policy
+  tags:
+  - google-logging
+  - google-cloud
+  - google-alerting
+  compliance:
+  - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '2.11'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '2.11'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '2.11'
+
+#2.13
+- id: integration-question-google-cloud-asset-inventory
+  title: Ensure Cloud Asset Inventory Is Enabled
+  description: >
+    GCP Cloud Asset Inventory is services that provides a historical view of GCP resources and IAM policies through a time-series database. The information recorded includes metadata on Google Cloud resources, metadata on policies set on Google Cloud projects or resources, and runtime information gathered within a Google Cloud resource.
+  queries:
+  - name: good
+    query: |
+      FIND google_cloud_api_service WITH name = "cloudasset.googleapis.com" and enabled=true
+  - name: bad
+    query: |
+      FIND google_cloud_api_service WITH name = "cloudasset.googleapis.com" and enabled!=true
+  tags:
+  - google-asset-inventory
+  - google-cloud
+  - google-apis
+  compliance:
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '2.13'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '2.13'
+
 - id: integration-question-google-cloud-account-service-perimeter
   title: Which Google Cloud projects are not protected by a service perimeter?
   description: >
