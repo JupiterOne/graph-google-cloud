@@ -61,7 +61,7 @@ function isBucketPolicyPublicAccess(
   return false;
 }
 
-function getPublicState({
+export function getPublicState({
   bucketPolicy,
   publicAccessPreventionPolicy,
   iamConfiguration,
@@ -81,17 +81,20 @@ function getPublicState({
     };
   }
 
-  let isPublic = false;
+  let hasOpenBucketPolicies = false;
   let isObjectAcl = false;
   let usesEnforcedPublicAccessPrevention = false;
   let access: BucketAccess;
 
   if (bucketPolicy) {
-    isPublic = isBucketPolicyPublicAccess(bucketPolicy);
+    hasOpenBucketPolicies = isBucketPolicyPublicAccess(bucketPolicy);
   }
 
   if (iamConfiguration) {
-    isObjectAcl = isSubjectToObjectAcls(iamConfiguration, isPublic);
+    isObjectAcl = isSubjectToObjectAcls(
+      iamConfiguration,
+      hasOpenBucketPolicies,
+    );
     usesEnforcedPublicAccessPrevention =
       getUsesEnforcedPublicAccessPrevention(iamConfiguration);
   }
@@ -102,7 +105,7 @@ function getPublicState({
    * - Not public means the bucket’s policy controls all objects uniformly, and no permissions have been granted to allUsers or allAuthenticatedUsers.
    */
 
-  if (isPublic && !publicAccessPreventionPolicy) {
+  if (hasOpenBucketPolicies && !publicAccessPreventionPolicy) {
     access = BucketAccess.PUBLIC_TO_INTERNET;
   } else if (isObjectAcl && !usesEnforcedPublicAccessPrevention) {
     access = BucketAccess.SUBJECT_TO_OBJECT_ACLS;
@@ -110,8 +113,12 @@ function getPublicState({
     access = BucketAccess.NOT_PUBLIC;
   }
 
+  const isPublicBucket =
+    (hasOpenBucketPolicies || isObjectAcl) &&
+    !usesEnforcedPublicAccessPrevention;
+
   return {
-    isPublicBucket: isPublic || isObjectAcl,
+    isPublicBucket,
     access,
   };
 }
