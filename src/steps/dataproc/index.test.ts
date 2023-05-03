@@ -435,6 +435,7 @@ describe('#createClusterStorageRelationships', () => {
           retentionPeriod: { type: 'string' },
           retentionDate: { type: 'string' },
           public: { type: 'boolean' },
+          access: { type: 'string' },
           isSubjectToObjectAcls: { type: 'boolean' },
           classification: { const: null },
           etag: { type: 'string' },

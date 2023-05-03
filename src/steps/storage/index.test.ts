@@ -1,78 +1,40 @@
 import {
+  executeStepWithDependencies,
   Recording,
-  createMockStepExecutionContext,
+  StepTestConfig,
 } from '@jupiterone/integration-sdk-testing';
-import { setupGoogleCloudRecording } from '../../../test/recording';
-import { IntegrationConfig } from '../../types';
-import { fetchStorageBuckets } from '.';
+import { StorageStepsSpec } from '../storage/constants';
+import {
+  setupGoogleCloudRecording,
+  getMatchRequestsBy,
+} from '../../../test/recording';
 import { integrationConfig } from '../../../test/config';
+import { invocationConfig } from '../..';
 
-const tempNewAccountConfig = {
-  ...integrationConfig,
-  serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
-    'j1-gc-integration-dev-v2',
-    'j1-gc-integration-dev-v3',
-  ),
-  serviceAccountKeyConfig: {
-    ...integrationConfig.serviceAccountKeyConfig,
-    project_id: 'j1-gc-integration-dev-v3',
-  },
-};
-
-describe('#fetchCloudStorageBuckets', () => {
+describe(`storage#${StorageStepsSpec.FETCH_STORAGE_BUCKETS.id}`, () => {
   let recording: Recording;
-
-  beforeEach(() => {
-    recording = setupGoogleCloudRecording({
-      directory: __dirname,
-      name: 'fetchCloudStorageBuckets',
-    });
-  });
-
   afterEach(async () => {
-    await recording.stop();
+    if (recording) await recording.stop();
   });
 
-  test('should collect data', async () => {
-    const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: tempNewAccountConfig,
-    });
+  jest.setTimeout(45000);
 
-    await fetchStorageBuckets(context);
-
-    expect({
-      numCollectedEntities: context.jobState.collectedEntities.length,
-      numCollectedRelationships: context.jobState.collectedRelationships.length,
-      collectedEntities: context.jobState.collectedEntities,
-      collectedRelationships: context.jobState.collectedRelationships,
-      encounteredTypes: context.jobState.encounteredTypes,
-    }).toMatchSnapshot();
-
-    expect(context.jobState.collectedEntities).toMatchGraphObjectSchema({
-      _class: ['DataStore'],
-      schema: {
-        additionalProperties: false,
-        properties: {
-          _type: { const: 'google_storage_bucket' },
-          _rawData: {
-            type: 'array',
-            items: { type: 'object' },
-          },
-          storageClass: { type: 'string' },
-          encrypted: { const: true },
-          encryptionKeyRef: { type: 'string' },
-          kmsKeyName: { type: 'string' },
-          uniformBucketLevelAccess: { type: 'boolean' },
-          retentionPolicyEnabled: { type: 'boolean' },
-          retentionPeriod: { type: 'string' },
-          retentionDate: { type: 'string' },
-          public: { type: 'boolean' },
-          isSubjectToObjectAcls: { type: 'boolean' },
-          classification: { const: null },
-          etag: { type: 'string' },
-          versioningEnabled: { type: 'boolean' },
-        },
+  test(StorageStepsSpec.FETCH_STORAGE_BUCKETS.id, async () => {
+    recording = setupGoogleCloudRecording({
+      name: StorageStepsSpec.FETCH_STORAGE_BUCKETS.id,
+      directory: __dirname,
+      options: {
+        matchRequestsBy: getMatchRequestsBy(integrationConfig),
       },
     });
+
+    const stepTestConfig: StepTestConfig = {
+      stepId: StorageStepsSpec.FETCH_STORAGE_BUCKETS.id,
+      instanceConfig: integrationConfig,
+      invocationConfig: invocationConfig as any,
+    };
+
+    const result = await executeStepWithDependencies(stepTestConfig);
+    expect(result).toMatchStepMetadata(stepTestConfig);
   });
 });

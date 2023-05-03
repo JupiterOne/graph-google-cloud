@@ -111,7 +111,7 @@ function getPublicState({
   }
 
   return {
-    isPublicBucket: isPublic,
+    isPublicBucket: isPublic || isObjectAcl,
     access,
   };
 }
