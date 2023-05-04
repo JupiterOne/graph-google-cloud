@@ -101,8 +101,12 @@ export function getPublicState({
 
   /*
    * - Public to internet means one or more bucket-level permissions grant access to allUsers or allAuthenticatedUsers.
-   * - Subject to object ACLs means fine-grained, object-level access control lists (ACLs) are enabled. Objects may be public if they grant access to allUsers or allAuthenticatedUsers.
-   * - Not public means the bucket’s policy controls all objects uniformly, and no permissions have been granted to allUsers or allAuthenticatedUsers.
+   *
+   * - Subject to object ACLs means fine-grained, object-level access control lists (ACLs) are enabled. Objects may be
+   *   public if they grant access to allUsers or allAuthenticatedUsers.
+   *
+   * - Not public means the bucket’s policy controls all objects uniformly, and no permissions have been granted to allUsers
+   *   or allAuthenticatedUsers.
    */
 
   if (hasOpenBucketPolicies && !publicAccessPreventionPolicy) {
