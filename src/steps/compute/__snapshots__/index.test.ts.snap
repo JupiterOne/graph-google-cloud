@@ -19686,6 +19686,9 @@ Object {
       "startRestricted": false,
       "status": "RUNNING",
       "tag.goog-gke-node": "",
+      "tags": Array [
+        "goog-gke-node",
+      ],
       "usesDefaultServiceAccount": undefined,
       "usesFullAccessDefaultServiceAccount": undefined,
       "vtpmEnabled": true,
@@ -19742,6 +19745,9 @@ Object {
       "startRestricted": false,
       "status": "RUNNING",
       "tag.goog-gke-node": "",
+      "tags": Array [
+        "goog-gke-node",
+      ],
       "usesDefaultServiceAccount": undefined,
       "usesFullAccessDefaultServiceAccount": undefined,
       "vtpmEnabled": true,
@@ -19798,6 +19804,9 @@ Object {
       "startRestricted": false,
       "status": "RUNNING",
       "tag.goog-gke-node": "",
+      "tags": Array [
+        "goog-gke-node",
+      ],
       "usesDefaultServiceAccount": undefined,
       "usesFullAccessDefaultServiceAccount": undefined,
       "vtpmEnabled": true,
