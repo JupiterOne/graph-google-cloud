@@ -205,4 +205,53 @@ describe(`storage#${StorageStepsSpec.FETCH_STORAGE_BUCKETS.id}`, () => {
       access: BucketAccess.NOT_PUBLIC,
     });
   });
+
+  test('getPublicState - should return isPublicBucket false and access (Not Public) if publicAccessPreventionPolicy is true.', () => {
+    expect(
+      getPublicState({
+        bucketPolicy: {
+          kind: 'storage#policy',
+          resourceId:
+            'projects/_/buckets/j1-gc-integration-dev-v3-super-secret-stuff',
+          version: 1,
+          etag: 'CBQ=',
+          bindings: [
+            {
+              role: 'organizations/958457776463/roles/NothingToSeeHere',
+              members: ['allUsers', 'projectViewer:j1-gc-integration-dev-v3'],
+            },
+            {
+              role: 'roles/storage.legacyBucketOwner',
+              members: [
+                'projectEditor:j1-gc-integration-dev-v3',
+                'projectOwner:j1-gc-integration-dev-v3',
+              ],
+            },
+            {
+              role: 'roles/storage.legacyBucketReader',
+              members: [
+                'projectViewer:j1-gc-integration-dev-v3',
+                'serviceAccount:service-167984947943@gcp-sa-privateca.iam.gserviceaccount.com',
+              ],
+            },
+            {
+              role: 'roles/storage.objectAdmin',
+              members: [
+                'serviceAccount:service-167984947943@gcp-sa-privateca.iam.gserviceaccount.com',
+              ],
+            },
+          ],
+        },
+        publicAccessPreventionPolicy: true,
+        iamConfiguration: {
+          bucketPolicyOnly: { enabled: false },
+          uniformBucketLevelAccess: { enabled: false },
+          publicAccessPrevention: 'inherited',
+        },
+      }),
+    ).toMatchObject({
+      isPublicBucket: false,
+      access: BucketAccess.NOT_PUBLIC,
+    });
+  });
 });
