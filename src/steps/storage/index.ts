@@ -111,7 +111,11 @@ export function getPublicState({
 
   if (hasOpenBucketPolicies && !publicAccessPreventionPolicy) {
     access = BucketAccess.PUBLIC_TO_INTERNET;
-  } else if (isObjectAcl && !usesEnforcedPublicAccessPrevention) {
+  } else if (
+    isObjectAcl &&
+    !usesEnforcedPublicAccessPrevention &&
+    !publicAccessPreventionPolicy
+  ) {
     access = BucketAccess.SUBJECT_TO_OBJECT_ACLS;
   } else {
     access = BucketAccess.NOT_PUBLIC;
@@ -119,7 +123,8 @@ export function getPublicState({
 
   const isPublicBucket =
     (hasOpenBucketPolicies || isObjectAcl) &&
-    !usesEnforcedPublicAccessPrevention;
+    !usesEnforcedPublicAccessPrevention &&
+    !publicAccessPreventionPolicy;
 
   return {
     isPublicBucket,
