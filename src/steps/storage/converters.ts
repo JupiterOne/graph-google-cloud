@@ -2,19 +2,7 @@ import { storage_v1 } from 'googleapis';
 import { parseTimePropertyValue } from '@jupiterone/integration-sdk-core';
 import { StorageEntitiesSpec } from './constants';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
-import { isMemberPublic } from '../../utils/iam';
-
-type iamConfiguration = {
-  bucketPolicyOnly?: {
-    enabled?: boolean;
-    lockedTime?: string;
-  };
-  publicAccessPrevention?: string;
-  uniformBucketLevelAccess?: {
-    enabled?: boolean;
-    lockedTime?: string;
-  };
-} | null;
+import { BucketAccess } from '.';
 
 export function getCloudStorageBucketWebLink(
   data: storage_v1.Schema$Bucket,
@@ -27,73 +15,16 @@ export function getCloudStorageBucketKey(id: string) {
   return `bucket:${id}`;
 }
 
-function isBucketPolicyPublicAccess(
-  bucketPolicy: storage_v1.Schema$Policy,
-): boolean {
-  for (const binding of bucketPolicy.bindings || []) {
-    for (const member of binding.members || []) {
-      if (isMemberPublic(member)) {
-        return true;
-      }
-    }
-  }
-
-  return false;
-}
-
-function isSubjectToObjectAcls(
-  iamConfiguration: iamConfiguration,
-  publicPolicy: boolean,
-) {
-  return (
-    iamConfiguration?.uniformBucketLevelAccess?.enabled !== true &&
-    !publicPolicy
-  );
-}
-
-function getPublicState({
-  bucketPolicy,
-  publicAccessPreventionPolicy,
-  iamConfiguration,
-}: {
-  bucketPolicy?: storage_v1.Schema$Policy;
-  publicAccessPreventionPolicy?: boolean;
-  iamConfiguration?: iamConfiguration;
-}): boolean | undefined {
-  // if publicAccessPreventionPolicy == undefined - we couldn't get the step to run, so we return undefined (it's unsafe to just guess)
-  if (publicAccessPreventionPolicy === undefined) {
-    return undefined;
-  }
-
-  // if publicAccessPreventionPolicy == true, we can early exit and mark buckets as isPublic: false
-  if (publicAccessPreventionPolicy) {
-    return false;
-  }
-
-  // if it's false, we rely on the other properties
-  let publicPolicy = false;
-  if (bucketPolicy) {
-    publicPolicy = isBucketPolicyPublicAccess(bucketPolicy);
-  }
-
-  let subjectToObjectAcls = false;
-  if (iamConfiguration) {
-    subjectToObjectAcls = isSubjectToObjectAcls(iamConfiguration, publicPolicy);
-  }
-
-  return publicPolicy || subjectToObjectAcls;
-}
-
 export function createCloudStorageBucketEntity({
   data,
   projectId,
-  bucketPolicy,
-  publicAccessPreventionPolicy,
+  access,
+  isPublicBucket,
 }: {
   data: storage_v1.Schema$Bucket;
   projectId: string;
-  bucketPolicy?: storage_v1.Schema$Policy;
-  publicAccessPreventionPolicy?: boolean;
+  access: BucketAccess | undefined;
+  isPublicBucket: boolean | undefined;
 }) {
   return createGoogleCloudIntegrationEntity(data, {
     entityData: {
@@ -128,11 +59,8 @@ export function createCloudStorageBucketEntity({
          *
          * Ref: https://cloud.google.com/storage/docs/cloud-console?&_ga=2.84754521.-1526178294.1622832983&_gac=1.262728446.1626996208.CjwKCAjwruSHBhAtEiwA_qCppsTtaBT90RDQ-e9xjNnNQM0lwd2aI9wJfUhrVgFjQ0_SDu4kR1yUDhoCeRwQAvD_BwE#_sharingdata
          */
-        public: getPublicState({
-          bucketPolicy,
-          publicAccessPreventionPolicy,
-          iamConfiguration: data.iamConfiguration,
-        }),
+        public: isPublicBucket,
+        access,
         versioningEnabled: data.versioning?.enabled === true,
         // Rely on the value of the classification tag
         classification: null,

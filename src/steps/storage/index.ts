@@ -11,6 +11,126 @@ import {
   publishUnprocessedBucketsEvent,
 } from '../../utils/events';
 import { OrgPolicyClient } from '../orgpolicy/client';
+import { isMemberPublic } from '../../utils/iam';
+
+type iamConfiguration = {
+  bucketPolicyOnly?: {
+    enabled?: boolean;
+    lockedTime?: string;
+  };
+  publicAccessPrevention?: string;
+  uniformBucketLevelAccess?: {
+    enabled?: boolean;
+    lockedTime?: string;
+  };
+} | null;
+
+export enum BucketAccess {
+  NOT_PUBLIC = 'Not public',
+  SUBJECT_TO_OBJECT_ACLS = 'Subject to object ACLs',
+  PUBLIC_TO_INTERNET = 'Public to internet',
+}
+
+function isSubjectToObjectAcls(
+  iamConfiguration: iamConfiguration,
+  publicPolicy: boolean,
+) {
+  return (
+    iamConfiguration?.uniformBucketLevelAccess?.enabled !== true &&
+    !publicPolicy
+  );
+}
+
+function getUsesEnforcedPublicAccessPrevention(
+  iamConfiguration: iamConfiguration,
+) {
+  return iamConfiguration?.publicAccessPrevention === 'enforced';
+}
+
+function isBucketPolicyPublicAccess(
+  bucketPolicy: storage_v1.Schema$Policy,
+): boolean {
+  for (const binding of bucketPolicy.bindings || []) {
+    for (const member of binding.members || []) {
+      if (isMemberPublic(member)) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+export function getPublicState({
+  bucketPolicy,
+  publicAccessPreventionPolicy,
+  iamConfiguration,
+}: {
+  bucketPolicy?: storage_v1.Schema$Policy;
+  publicAccessPreventionPolicy?: boolean;
+  iamConfiguration?: iamConfiguration;
+}): {
+  isPublicBucket: boolean | undefined;
+  access: BucketAccess | undefined;
+} {
+  // if publicAccessPreventionPolicy == undefined - we couldn't get the step to run, so we return undefined (it's unsafe to just guess)
+  if (publicAccessPreventionPolicy === undefined) {
+    return {
+      access: undefined,
+      isPublicBucket: undefined,
+    };
+  }
+
+  let hasOpenBucketPolicies = false;
+  let isObjectAcl = false;
+  let usesEnforcedPublicAccessPrevention = false;
+  let access: BucketAccess;
+
+  if (bucketPolicy) {
+    hasOpenBucketPolicies = isBucketPolicyPublicAccess(bucketPolicy);
+  }
+
+  if (iamConfiguration) {
+    isObjectAcl = isSubjectToObjectAcls(
+      iamConfiguration,
+      hasOpenBucketPolicies,
+    );
+    usesEnforcedPublicAccessPrevention =
+      getUsesEnforcedPublicAccessPrevention(iamConfiguration);
+  }
+
+  /*
+   * - Public to internet means one or more bucket-level permissions grant access to allUsers or allAuthenticatedUsers.
+   *
+   * - Subject to object ACLs means fine-grained, object-level access control lists (ACLs) are enabled. Objects may be
+   *   public if they grant access to allUsers or allAuthenticatedUsers.
+   *
+   * - Not public means the bucket’s policy controls all objects uniformly, and no permissions have been granted to allUsers
+   *   or allAuthenticatedUsers.
+   */
+
+  if (hasOpenBucketPolicies && !publicAccessPreventionPolicy) {
+    access = BucketAccess.PUBLIC_TO_INTERNET;
+  } else if (
+    isObjectAcl &&
+    !usesEnforcedPublicAccessPrevention &&
+    !publicAccessPreventionPolicy
+  ) {
+    access = BucketAccess.SUBJECT_TO_OBJECT_ACLS;
+  } else {
+    access = BucketAccess.NOT_PUBLIC;
+  }
+
+  const isPublicBucket =
+    (hasOpenBucketPolicies || isObjectAcl) &&
+    !usesEnforcedPublicAccessPrevention &&
+    !publicAccessPreventionPolicy;
+
+  return {
+    isPublicBucket,
+    access,
+  };
+}
 
 export async function fetchStorageBuckets(
   context: IntegrationStepContext,
@@ -67,11 +187,17 @@ export async function fetchStorageBuckets(
       }
     }
 
+    const { access, isPublicBucket } = getPublicState({
+      bucketPolicy,
+      publicAccessPreventionPolicy,
+      iamConfiguration: bucket.iamConfiguration,
+    });
+
     const bucketEntity = createCloudStorageBucketEntity({
       data: bucket,
       projectId: config.serviceAccountKeyConfig.project_id,
-      bucketPolicy,
-      publicAccessPreventionPolicy,
+      isPublicBucket,
+      access,
     });
 
     await jobState.addEntity(bucketEntity);
