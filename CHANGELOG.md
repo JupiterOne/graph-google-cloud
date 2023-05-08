@@ -1,3 +1,15 @@
+# v2.27.0 (Mon May 08 2023)
+
+#### 🚀 Enhancement
+
+- refactor(INT-7898): refactor Google Cloud Storage Bucket public property [#596](https://github.com/JupiterOne/graph-google-cloud/pull/596) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### Authors: 1
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
 # v2.26.0 (Fri Apr 28 2023)
 
 #### 🚀 Enhancement
