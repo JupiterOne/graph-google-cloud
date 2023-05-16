@@ -29,45 +29,45 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.AUTO_GITHUB_PAT_TOKEN }}
-          repository: JupiterOne/${{ $IntegrationName }}
+          repository: JupiterOne/${{ env.IntegrationName }}
           ref: main
-          path: './${{ $IntegrationName }}'
+          path: './${{ env.IntegrationName }}'
       - name: Set git config
         shell: bash
-        working-directory: ./${{ $IntegrationName }}
+        working-directory: ./${{ env.IntegrationName }}
         run: |
             git config --local user.email "internal-automation.bot@jupiterone.com"
             git config --local user.name "j1-internal-automation"
       - name: Clean up and create branch 
         shell: bash
-        working-directory: ./${{ $IntegrationName }}
+        working-directory: ./${{ env.IntegrationName }}
         run: |
             git reset --hard
-            git checkout -b deploy-${{ $IntegrationName }}-${{ steps.set_constants.outputs.versionNumber }}
-            git push origin deploy-${{ $IntegrationName }}-${{ steps.set_constants.outputs.versionNumber }}
+            git checkout -b deploy-${{ env.IntegrationName }}-${{ steps.set_constants.outputs.versionNumber }}
+            git push origin deploy-${{ env.IntegrationName }}-${{ steps.set_constants.outputs.versionNumber }}
       - name: Bump version in package.json and commit changes
         shell: bash
-        working-directory: ./${{ $IntegrationName }}
+        working-directory: ./${{ env.IntegrationName }}
         run: |
             echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" > .npmrc
             yarn
-            yarn upgrade @jupiterone/graph-${{ $GraphProjectName || $IntegrationName }}@^${{ steps.set_constants.outputs.versionNumber }}
+            yarn upgrade @jupiterone/graph-${{ env.GraphProjectName || env.IntegrationName }}@^${{ steps.set_constants.outputs.versionNumber }}
             git add .
-            git commit -m "bump ${{ $IntegrationName }} to version ${{ steps.set_constants.outputs.versionNumber }} deploy2dev"
+            git commit -m "bump ${{ env.IntegrationName }} to version ${{ steps.set_constants.outputs.versionNumber }} deploy2dev"
       - name: Create Pull Request
         id: create_pull_request
         uses: peter-evans/create-pull-request@v4
         with:
           token: ${{ secrets.AUTO_GITHUB_PAT_TOKEN }}
-          path: ./${{ $IntegrationName }}
-          branch: deploy-${{ $IntegrationName }}-${{ steps.set_constants.outputs.versionNumber }}
+          path: ./${{ env.IntegrationName }}
+          branch: deploy-${{ env.IntegrationName }}-${{ steps.set_constants.outputs.versionNumber }}
           base: main
-          title: "[Github Action][${{ $IntegrationName }}] - Deploy graph-${{ $GraphProjectName || $IntegrationName }} v${{ steps.set_constants.outputs.versionNumber }}"
+          title: "[Github Action][${{ env.IntegrationName }}] - Deploy graph-${{ env.GraphProjectName || env.IntegrationName }} v${{ steps.set_constants.outputs.versionNumber }}"
           body: |
             ## Summary
             ${{ github.event.release.body }}
             Pull request created by [Github action](integration-deployment.yml).
-            PR to bump the version ${{ steps.set_constants.outputs.versionNumber }} for the integration ${{ $IntegrationName }}
+            PR to bump the version ${{ steps.set_constants.outputs.versionNumber }} for the integration ${{ env.IntegrationName }}
       - name: Enable Automerge
         if: steps.create_pull_request.outputs.pull-request-operation == 'created'
         shell: bash
