@@ -422,6 +422,32 @@ questions:
   - google-cloud
   - account
   - api
+
+- id: integration-question-google-correct-cloud-audit-logging-config
+  title: Ensure That Cloud Audit Logging Is Configured Properly
+  description: >
+    It is recommended that Cloud Audit Logging is configured to track all admin activities and read, write access to user data.
+  queries:
+  - name: good
+    query: |
+      FIND google_cloud_audit_config WITH logTypes = ('ADMIN_READ' AND 'DATA_READ' AND 'DATA_WRITE')
+  - name: bad
+    query: |
+      FIND google_cloud_audit_config WITH logTypes != ('ADMIN_READ' AND 'DATA_READ' AND 'DATA_WRITE')
+  tags:
+  - cloud-audit-logging
+  - google-logging
+  - google-cloud
+  compliance:
+  - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '2.1'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '2.1'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '2.1'
 ################################################################################
 # End section 2: Account Management
 ################################################################################
