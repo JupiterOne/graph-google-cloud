@@ -1,3 +1,15 @@
+# v2.27.1 (Wed May 17 2023)
+
+#### 🐛 Bug Fix
+
+- INT-8299: adding integration project support for `auto` [#599](https://github.com/JupiterOne/graph-google-cloud/pull/599) ([@sl45082](https://github.com/sl45082))
+
+#### Authors: 1
+
+- bob bisantz ([@sl45082](https://github.com/sl45082))
+
+---
+
 # v2.27.0 (Mon May 08 2023)
 
 #### 🚀 Enhancement
