@@ -881,6 +881,58 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '4.8'
+
+- id: integration-question-google-compute-instances-do-not-have-public-ips
+  title: Ensure That Compute Instances Do Not Have Public IP Addresses
+  description: >
+    Compute instances should not be configured to have external IP addresses.
+  queries:
+  - name: good
+    query: |
+      FIND google_compute_instance with publicIpAddress = undefined
+  - name: bad
+    query: |
+      FIND google_compute_instance with publicIpAddress != undefined
+  tags:
+  - google-cloud
+  - virtual-machines
+  - google-compute-instances
+  compliance:
+  - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '4.9'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '4.9'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '4.9'
+
+- id: integration-question-google-app-engine-enforce-https
+  title: Ensure That App Engine Applications Enforce HTTPS Connections
+  description: >
+    In order to maintain the highest level of security all connections to an application should be secure by default.
+  queries:
+  - name: good
+    query: |
+      FIND google_app_engine_instance with encrypted = true
+  - name: bad
+    query: |
+      FIND google_app_engine_instance with encrypted != true
+  tags:
+  - google-cloud
+  - google-app-engine
+  - https
+  compliance:
+  - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '4.10'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '4.10'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '4.10'
 ################################################################################
 # End Section 4: Virtual Machines
 ################################################################################
