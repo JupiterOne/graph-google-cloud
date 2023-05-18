@@ -1164,6 +1164,30 @@ questions:
     requirements:
       - '6.2.4'
 
+- id: integration-question-google-database-flag-logstatement
+  title: Ensure Log_statement Database Flag for Cloud SQL PostgreSQL Instance Is Set Appropriately
+  description: >
+    The value of `log_statement` flag determined the SQL statements that are logged. Valid values are - `none` - `ddl` - `mod` - `all` The value `ddl` logs all data definition statements. The value `mod` logs all ddl statements, plus data-modifying statements. The statements are logged after a basic parsing is done and statement type is determined, thus this does not logs statements with errors. When using extended query protocol, logging occurs after an Execute message is received and values of the Bind parameters are included. A value of 'ddl' is recommended unless otherwise directed by your organization's logging policy.
+  queries:
+  - name: good
+    query: |
+      find google_sql_postgres_instance with logStatement = ('none' or 'mod' or 'ddl' or 'all')
+  - name: bad
+    query: |
+      find google_sql_postgres_instance with logStatement != ('none' or 'mod' or 'ddl' or 'all')
+  tags:
+  - google-cloud
+  - database-flags
+  - postgresql
+  compliance:
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.2.4'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '6.2.4'
+
+
 - id: integration-question-google-postgresql-log-min-messages-flag-on
   title: Are my Cloud PostgreSQL instances configured with the "log_min_messages" database flag set to an accetable value?
   description: >
