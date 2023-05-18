@@ -1246,6 +1246,29 @@ questions:
     requirements:
       - '6.2.6'
 
+- id: integration-question-google-database-flag-logminerrorstatement
+  title: Ensure Log_min_error_statement Database Flag for Cloud SQL PostgreSQL Instance Is Set to Error or Stricter
+  description: >
+    The `log_min_error_statement` flag defines the minimum message severity level that are considered as an error statement. Messages for error statements are logged with the SQL statement. Valid values include `DEBUG5`, `DEBUG4`, `DEBUG3`, `DEBUG2`, `DEBUG1`, `INFO`, `NOTICE`, `WARNING`, `ERROR`, `LOG`, `FATAL`, and `PANIC`. Each severity level includes the subsequent levels mentioned above. Ensure a value of `ERROR` or stricter is set.
+  queries:
+  - name: good
+    query: |
+      find google_sql_postgres_instance with logMinErrorStatement = ('debug5' or 'debug4' or 'debug3' or 'debug2' or 'debug1' or 'info' or 'notice' or 'warning' or 'error' or 'log' or 'fatal' or 'panic')
+  - name: bad
+    query: |
+      find google_sql_postgres_instance with logMinErrorStatement != ('debug5' or 'debug4' or 'debug3' or 'debug2' or 'debug1' or 'info' or 'notice' or 'warning' or 'error' or 'log' or 'fatal' or 'panic')
+  tags:
+  - google-cloud
+  - database-flags
+  - postgresql
+  compliance:
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.2.7'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '6.2.6'
+
 - id: integration-question-google-postgresql-log-min-duration-statement-flag
   title: Are my Cloud SQL MySQL instances configured with the "log_min_duration_statement" database flag set to "-1"?
   description: >
@@ -1266,6 +1289,36 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '6.2.7'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.2.8'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '6.2.7'
+
+- id: integration-question-google-database-flag-cloudsql.enablepgaudit
+  title: Ensure That 'cloudsql.enable_pgaudit' Database Flag for each Cloud Sql Postgresql Instance Is Set to 'on' For Centralized Logging
+  description: >
+    Ensure `cloudsql.enable_pgaudit` database flag for Cloud SQL PostgreSQL instance is set to `on` to allow for centralized logging.
+  queries:
+  - name: good
+    query: |
+      find google_sql_postgres_instance WITH cloudsql.enable_pgaudit = "on"
+  - name: bad
+    query: |
+      find google_sql_postgres_instance WITH cloudsql.enable_pgaudit != "on"
+  tags:
+  - google-cloud
+  - database-flags
+  - postgresql
+  compliance:
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.2.9'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '6.2.9'
+
 
 - id: integration-question-google-sql-server-cross-db-ownership-chaining-flag
   title: Are my Cloud SQL Server instances configured with the "cross db ownership chaining" database flag set to "off"?
