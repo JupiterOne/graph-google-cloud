@@ -1003,6 +1003,29 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '6.1.2'
+#6.1.2 GCP v 1.3 and later
+- id: integration-question-google-database-flag-skipshowdatabase
+  title: Ensure "Skip_show_database" Database Flag for Cloud SQL MySQL Instance Is Set to "On"
+  description: >
+    It is recommended to set "skip_show_database" database flag for Cloud SQL Mysql instance to "on"
+  queries:
+  - name: good
+    query: |
+      find google_sql_mysql_instance WITH skipShowDatabase = 'on'
+  - name: bad
+    query: |
+      find google_sql_mysql_instance WITH skipShowDatabase != 'on'
+  tags:
+  - google-cloud
+  - database-flags
+  - mysql
+  compliance:
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.1.2'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '6.1.2'
 
 - id: integration-question-google-postgresql-log-checkpoints-flag-on
   title: Are my Cloud PostgreSQL instances configured with the "log_checkpoints" database flag set to "on"?
