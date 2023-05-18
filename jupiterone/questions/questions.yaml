@@ -1199,10 +1199,10 @@ questions:
   queries:
   - name: good
     query: |
-      find google_sql_postgres_instance with logMinErrorStatement='{{orgMinErrorStatementPolicy}}'
+      find google_sql_postgres_instance with logMinErrorStatement=(/*'debug5' or 'debug4' or 'debug3' or 'debug2' or 'debug1' or 'info' or 'notice' or */ 'warning' or 'error' or 'log' or 'fatal' or 'panic')
   - name: bad
     query: |
-      find google_sql_postgres_instance with logMinErrorStatement!='{{orgMinErrorStatementPolicy}}'
+      find google_sql_postgres_instance with logMinErrorStatement!='(/*'debug5' or 'debug4' or 'debug3' or 'debug2' or 'debug1' or 'info' or 'notice' or */ 'warning' or 'error' or 'log' or 'fatal' or 'panic')
   tags:
   - google-cloud
   - sql
