@@ -1212,6 +1212,12 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '6.2.5'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.2.6'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '6.2.5'
 
 - id: integration-question-google-postgresql-log-temp-files-flag
   title: Are my Cloud PostgreSQL instances configured with the "log_temp_files" database flag set to "0"?
