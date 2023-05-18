@@ -130,6 +130,34 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '1.1'
+
+- id: integration-question-google-mfa-enabled-non-service-accounts
+  title: Ensure that Multi-Factor Authentication is 'Enabled' for All Non-Service Accounts
+  description: >
+    Setup multi-factor authentication for Google Cloud Platform accounts.
+  queries:
+  - name: good
+    query: |
+      FIND google_user WITH mfaEnabled=true or isEnrolledIn2Sv=true
+  - name: bad
+    query: |
+      FIND google_user WITH mfaEnabled!=true AND isEnrolledIn2Sv!=true
+  tags:
+  - google-cloud
+  - service-account
+  - mfa
+  compliance:
+  - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '1.2'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '1.2'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '1.2'
+
+
 - id: integration-question-google-cloud-managed-service-account-keys
   title: Ensure that there are only GCP-managed service account keys for each service account
   description:
