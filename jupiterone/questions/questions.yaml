@@ -1399,10 +1399,10 @@ questions:
   queries:
   - name: good
     query: |
-      find google_sql_sql_server_instance WITH userConnections <= "@{{value}}"
+      find google_sql_sql_server_instance WITH userConnections <= 0
   - name: bad
     query: |
-      find google_sql_sql_server_instance WITH userConnections > "@{{domain}}"
+      find google_sql_sql_server_instance WITH userConnections > 0
   tags:
   - google-cloud
   - database-flags
