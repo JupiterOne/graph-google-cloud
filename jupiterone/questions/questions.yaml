@@ -1091,7 +1091,6 @@ questions:
       - '6.1.3'
 
 ##PostgreSQL
-
 #6.2.1
 - id: integration-question-google-postgresql-log-checkpoints-flag-on
   title: Are my Cloud PostgreSQL instances configured with the "log_checkpoints" database flag set to "on"?
