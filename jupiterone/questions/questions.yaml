@@ -1425,7 +1425,7 @@ questions:
       
   - name: bad
     query: |
-      find google_sql_sql_server_instance WITH userOptions != undefined 
+      find google_sql_sql_server_instance WITH userOptions != "undefined" 
   tags:
   - google-cloud
   - database-flags
