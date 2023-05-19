@@ -1298,6 +1298,29 @@ questions:
 
 ##sqlserver
 
+- id: integration-question-google-database-flag-externalscriptsenabled
+  title: Ensure 'external scripts enabled' database flag for Cloud SQL SQL Server instance is set to 'off'
+  description: >
+    It is recommended to set 'external scripts enabled' database flag for Cloud SQL SQL Server instance to 'off'
+  queries:
+  - name: good
+    query: |
+      find google_sql_sql_server_instance WITH externalScriptsEnabled = "off"
+  - name: bad
+    query: |
+      find google_sql_sql_server_instance WITH externalScriptsEnabled != "off"
+  tags:
+  - google-cloud
+  - database-flags
+  - sqlserver
+  compliance:
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.3.1'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '6.3.1'
+
 - id: integration-question-google-sql-server-cross-db-ownership-chaining-flag
   title: Are my Cloud SQL Server instances configured with the "cross db ownership chaining" database flag set to "off"?
   description: >
