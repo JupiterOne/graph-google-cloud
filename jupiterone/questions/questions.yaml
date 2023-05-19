@@ -1246,29 +1246,6 @@ questions:
     requirements:
       - '6.2.6'
 
-- id: integration-question-google-database-flag-logminerrorstatement
-  title: Ensure Log_min_error_statement Database Flag for Cloud SQL PostgreSQL Instance Is Set to Error or Stricter
-  description: >
-    The `log_min_error_statement` flag defines the minimum message severity level that are considered as an error statement. Messages for error statements are logged with the SQL statement. Valid values include `DEBUG5`, `DEBUG4`, `DEBUG3`, `DEBUG2`, `DEBUG1`, `INFO`, `NOTICE`, `WARNING`, `ERROR`, `LOG`, `FATAL`, and `PANIC`. Each severity level includes the subsequent levels mentioned above. Ensure a value of `ERROR` or stricter is set.
-  queries:
-  - name: good
-    query: |
-      find google_sql_postgres_instance with logMinErrorStatement = ('debug5' or 'debug4' or 'debug3' or 'debug2' or 'debug1' or 'info' or 'notice' or 'warning' or 'error' or 'log' or 'fatal' or 'panic')
-  - name: bad
-    query: |
-      find google_sql_postgres_instance with logMinErrorStatement != ('debug5' or 'debug4' or 'debug3' or 'debug2' or 'debug1' or 'info' or 'notice' or 'warning' or 'error' or 'log' or 'fatal' or 'panic')
-  tags:
-  - google-cloud
-  - database-flags
-  - postgresql
-  compliance:
-  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
-    requirements:
-      - '6.2.7'
-  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
-    requirements:
-      - '6.2.6'
-
 - id: integration-question-google-postgresql-log-min-duration-statement-flag
   title: Are my Cloud SQL MySQL instances configured with the "log_min_duration_statement" database flag set to "-1"?
   description: >
@@ -1297,9 +1274,9 @@ questions:
       - '6.2.7'
 
 - id: integration-question-google-database-flag-cloudsql.enablepgaudit
-  title: Ensure That 'cloudsql.enable_pgaudit' Database Flag for each Cloud Sql Postgresql Instance Is Set to 'on' For Centralized Logging
+  title: Ensure That "cloudsql.enable_pgaudit" Database Flag for each Cloud Sql Postgresql Instance Is Set to "on" For Centralized Logging
   description: >
-    Ensure `cloudsql.enable_pgaudit` database flag for Cloud SQL PostgreSQL instance is set to `on` to allow for centralized logging.
+    Ensure "cloudsql.enable_pgaudit" database flag for Cloud SQL PostgreSQL instance is set to "on" to allow for centralized logging.
   queries:
   - name: good
     query: |
@@ -1317,7 +1294,7 @@ questions:
       - '6.2.9'
   - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
     requirements:
-      - '6.2.9'
+      - '6.2.8'
 
 ##sqlserver
 
@@ -1347,168 +1324,6 @@ questions:
   - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
     requirements:
       - '6.3.2'
-
-- id: integration-question-google-database-flag-externalscriptsenabled
-  title: Ensure 'external scripts enabled' database flag for Cloud SQL SQL Server instance is set to 'off'
-  description: >
-    It is recommended to set `external scripts enabled` database flag for Cloud SQL SQL Server instance to `off`
-  queries:
-  - name: good
-    query: |
-      find google_sql_sql_server_instance WITH externalScriptsEnabled = "off"
-  - name: bad
-    query: |
-      find google_sql_sql_server_instance WITH externalScriptsEnabled != "off"
-  tags:
-  - google-cloud
-  - database-flags
-  - sqlserver
-  compliance:
-  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
-    requirements:
-      - '6.3.1'
-  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
-    requirements:
-      - '6.3.1'
-
-- id: integration-question-google-sql-server-contained-database-authentication-flag
-  title: Are my Cloud SQL Server instances configured with the "contained database authentication" database flag set to "off"?
-  description: >
-    It is recommended to set contained database authentication database flag for Cloud SQL on the SQL Server instance is set to off.
-  queries:
-  - name: good
-    query: |
-      find google_sql_sql_server_instance with containedDatabaseAuthentication='off'
-  - name: bad
-    query: |
-      find google_sql_sql_server_instance with containedDatabaseAuthentication!='off'
-  tags:
-  - google-cloud
-  - sql
-  - sql-server
-  - datastore
-  compliance:
-  - standard: CIS Google Cloud Foundations 1.1
-    requirements:
-      - '6.3.2'
-
-- id: integration-question-google-database-flag-userconnections
-  title: Ensure 'user Connections' Database Flag for Cloud Sql Sql Server Instance Is Set to a Non-limiting Value
-  description: >
-    It is recommended to check the `user connections` for a Cloud SQL SQL Server instance to ensure that it is not artificially limiting connections. Set number of connections to 1 or more, or set to 0 as default.
-  queries:
-  - name: good
-    query: |
-      find google_sql_sql_server_instance WITH userConnections <= 0
-  - name: bad
-    query: |
-      find google_sql_sql_server_instance WITH userConnections > 0
-  tags:
-  - google-cloud
-  - database-flags
-  - sqlserver
-  compliance:
-  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
-    requirements:
-      - '6.3.3'
-  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
-    requirements:
-      - '6.3.3'
-
-- id: integration-question-google-database-flag-useroptions
-  title: Ensure 'user options' database flag for Cloud SQL SQL Server instance is not configured
-  description: >
-    It is recommended that, `user options` database flag for Cloud SQL SQL Server instance should not be configured.
-  queries:
-  - name: good
-    query: |
-      
-  - name: bad
-    query: |
-      find google_sql_sql_server_instance WITH userOptions != "undefined" 
-  tags:
-  - google-cloud
-  - database-flags
-  - sqlserver
-  compliance:
-  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
-    requirements:
-      - '6.3.4'
-  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
-    requirements:
-      - '6.3.4'
-
-- id: integration-question-google-database-flag-remoteaccess
-  title: Ensure 'remote access' database flag for Cloud SQL SQL Server instance is set to 'off'
-  description: >
-    It is recommended to set `remote access` database flag for Cloud SQL SQL Server instance to `off`.
-  queries:
-  - name: good
-    query: |
-      find google_sql_sql_server_instance WITH remoteAccess = "off" 
-  - name: bad
-    query: |
-      find google_sql_sql_server_instance WITH remoteAccess != "off" 
-  tags:
-  - google-cloud
-  - database-flags
-  - sqlserver
-  compliance:
-  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
-    requirements:
-      - '6.3.5'
-  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
-    requirements:
-      - '6.3.5'
-
-- id: integration-question-google-database-flag-traceflag
-  title: Ensure '3625 (trace flag)' database flag for all Cloud SQL Server instances is set to 'on'
-  description: >
-    It is recommended to set `3625 (trace flag)` database flag for Cloud SQL SQL Server instance to `on`.
-  queries:
-  - name: good
-    query: |
-      find google_sql_sql_server_instance WITH traceFlag = "on"
-  - name: bad
-    query: |
-      find google_sql_sql_server_instance WITH traceFlag != "on"
-  tags:
-  - google-cloud
-  - database-flags
-  - sqlserver
-  compliance:
-  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
-    requirements:
-      - '6.3.6'
-  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
-    requirements:
-      - '6.3.6'
-
-- id: integration-question-google-database-flag-containeddatabaseauthentication
-  title: Ensure that the 'contained database authentication' database flag for Cloud SQL on the SQL Server instance is set to 'off'
-  description: >
-    It is recommended to set `contained database authentication` database flag for Cloud SQL on the SQL Server instance to `off`.
-  queries:
-  - name: good
-    query: |
-      find google_sql_sql_server_instance WITH containedDatabaseAuthentication = "off" 
-  - name: bad
-    query: |
-      find google_sql_sql_server_instance WITH containedDatabaseAuthentication != "off" 
-  tags:
-  - google-cloud
-  - database-flags
-  - sqlserver
-  compliance:
-  - standard: CIS Google Cloud Foundations 1.1
-    requirements:
-      - '6.3.2'
-  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
-    requirements:
-      - '6.3.7'
-  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
-    requirements:
-      - '6.3.7'
 
 
 - id: integration-question-google-sql-require-ssl-incoming
