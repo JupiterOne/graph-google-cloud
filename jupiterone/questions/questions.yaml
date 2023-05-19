@@ -1376,17 +1376,13 @@ questions:
   description: >
     It is recommended that, 'user options' database flag for Cloud SQL SQL Server instance should not be configured.
   queries:
-  - name: good
-    query: |
-      
   - name: bad
     query: |
       find google_sql_sql_server_instance WITH userOptions != undefined 
   tags:
   - google-cloud
-  - compute
-  - instance
-  - service-account
+  - database-flags
+  - sqlserver
   compliance:
   - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
     requirements:
