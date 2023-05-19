@@ -1391,6 +1391,80 @@ questions:
     requirements:
       - '6.3.4'
 
+- id: integration-question-google-database-flag-remoteaccess
+  title: Ensure "remote access" database flag for Cloud SQL SQL Server instance is set to "off"
+  description: >
+    It is recommended to set "remote access" database flag for Cloud SQL SQL Server instance to "off".
+  queries:
+  - name: good
+    query: |
+      find google_sql_sql_server_instance WITH remoteAccess = "off" 
+  - name: bad
+    query: |
+      find google_sql_sql_server_instance WITH remoteAccess != "off" 
+  tags:
+  - google-cloud
+  - database-flags
+  - sqlserver
+  compliance:
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.3.5'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '6.3.5'
+
+- id: integration-question-google-database-flag-traceflag
+  title: Ensure "3625 (trace flag)" database flag for all Cloud SQL Server instances is set to "on"
+  description: >
+    It is recommended to set "3625 (trace flag)" database flag for Cloud SQL SQL Server instance to ON.
+  queries:
+  - name: good
+    query: |
+      find google_sql_sql_server_instance WITH traceFlag = "on"
+  - name: bad
+    query: |
+      find google_sql_sql_server_instance WITH traceFlag != "on"
+  tags:
+  - google-cloud
+  - database-flags
+  - sqlserver
+  compliance:
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.3.6'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '6.3.6'
+
+- id: integration-question-google-database-flag-containeddatabaseauthentication
+  title: Ensure that the "contained database authentication" database flag for Cloud SQL on the SQL Server instance is set to "off"
+  description: >
+    It is recommended to set "contained database authentication" database flag for Cloud SQL on the SQL Server instance to OFF.
+  queries:
+  - name: good
+    query: |
+      find google_sql_sql_server_instance WITH containedDatabaseAuthentication = "off"
+  - name: bad
+    query: |
+      find google_sql_sql_server_instance WITH containedDatabaseAuthentication != "off"
+  tags:
+  - google-cloud
+  - database-flags
+  - sqlserver
+  compliance:
+  - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '6.3.2'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.3.7'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '6.3.7'
+
+##cloudsql
+
 - id: integration-question-google-sql-require-ssl-incoming
   title: Are my Cloud SQL instances requiring SSL on all incoming connections?
   description: >
