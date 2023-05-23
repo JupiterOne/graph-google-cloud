@@ -145,6 +145,8 @@ export function createBigQueryTableEntity({
         expirationTime: data.expirationTime
           ? parseInt(data.expirationTime, 10)
           : undefined,
+        numBytes: data.numBytes && parseInt(data.numBytes, 10),
+        numRows: data.numRows && parseInt(data.numRows, 10),
       },
     },
   });

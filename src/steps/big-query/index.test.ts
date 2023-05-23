@@ -341,6 +341,8 @@ describe('#fetchBigQueryTables', () => {
           createdOn: { type: 'number' },
           expirationTime: { type: 'number' },
           kmsKeyName: { type: 'string' },
+          numBytes: { type: 'number' },
+          numRows: { type: 'number' },
         },
       },
     });

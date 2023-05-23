@@ -270,6 +270,8 @@ Object {
   "id": "j1-gc-integration-dev-v2:new_dataset_test.mascots",
   "kmsKeyName": "example-kms-key-name",
   "name": "mascots",
+  "numBytes": undefined,
+  "numRows": undefined,
   "public": false,
   "type": "TABLE",
   "webLink": "https://console.cloud.google.com/bigquery?project=j1-gc-integration-dev-v2&d=new_dataset_test&p=j1-gc-integration-dev-v2&t=mascots&page=table",

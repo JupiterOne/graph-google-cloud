@@ -14,6 +14,8 @@ export type BigQueryTable = {
   labels?: {
     [key: string]: string;
   };
+  numBytes?: string;
+  numRows?: string;
   rangePartitioning?: bigquery_v2.Schema$RangePartitioning;
   tableReference?: bigquery_v2.Schema$TableReference;
   timePartitioning?: bigquery_v2.Schema$TimePartitioning;
