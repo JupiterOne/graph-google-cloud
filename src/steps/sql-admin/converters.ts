@@ -181,6 +181,8 @@ export function createMySQLInstanceEntity(
         name: instance.name,
         encrypted: true,
         location: instance.connectionName,
+        hasRootPassword:
+          instance.rootPassword !== null && instance.rootPassword !== undefined,
         ...getMySQLSpecificBenchmarkProperties(instance),
         ...getCommonDatabaseInstanceProperties(instance),
       },
