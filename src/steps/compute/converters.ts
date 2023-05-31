@@ -458,6 +458,8 @@ export function createComputeInstanceEntity(
         _key: data.selfLink as string,
         id: data.id as string,
         displayName: data.name as string,
+        enableConfidentialCompute:
+          data.confidentialInstanceConfig?.enableConfidentialCompute,
         name: data.name,
         createdOn: getTime(data.creationTimestamp),
         machineType: data.machineType && getLastUrlPart(data.machineType),
