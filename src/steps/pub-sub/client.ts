@@ -5,7 +5,7 @@ export class PubSubClient extends Client {
   private client = google.pubsub({ version: 'v1', retry: false });
 
   async getPolicy(topicPath: string): Promise<pubsub_v1.Schema$Policy> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
     const topicName = topicPath.split('/')[3];
 
     const response = await this.client.projects.topics.getIamPolicy({
@@ -19,7 +19,7 @@ export class PubSubClient extends Client {
   async iterateProjectTopics(
     callback: (data: pubsub_v1.Schema$Topic) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -40,7 +40,7 @@ export class PubSubClient extends Client {
   async iterateProjectSubscriptions(
     callback: (data: pubsub_v1.Schema$Subscription) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       async (nextPageToken) => {

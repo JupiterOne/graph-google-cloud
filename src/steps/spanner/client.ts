@@ -7,7 +7,7 @@ export class SpannerClient extends Client {
   async getInstancePolicy(
     instanceId: string,
   ): Promise<spanner_v1.Schema$Policy> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     const result = await this.client.projects.instances.getIamPolicy({
       resource: `projects/${this.projectId}/instances/${instanceId}`,
@@ -21,7 +21,7 @@ export class SpannerClient extends Client {
     instanceId: string,
     databaseId: string,
   ): Promise<spanner_v1.Schema$Policy> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     const result = await this.client.projects.instances.databases.getIamPolicy({
       resource: `projects/${this.projectId}/instances/${instanceId}/databases/${databaseId}`,
@@ -34,7 +34,7 @@ export class SpannerClient extends Client {
   async iterateInstances(
     callback: (data: spanner_v1.Schema$Instance) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -55,7 +55,7 @@ export class SpannerClient extends Client {
   async iterateInstanceConfigs(
     callback: (data: spanner_v1.Schema$InstanceConfig) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -77,7 +77,7 @@ export class SpannerClient extends Client {
     spannerId: string,
     callback: (data: spanner_v1.Schema$Database) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       async (nextPageToken) => {

@@ -7,7 +7,7 @@ export class SQLAdminClient extends Client {
   async iterateCloudSQLInstances(
     callback: (data: sqladmin_v1beta4.Schema$DatabaseInstance) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       async (nextPageToken) => {

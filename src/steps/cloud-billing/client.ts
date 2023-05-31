@@ -7,7 +7,7 @@ export class CloudBillingClient extends Client {
   async iterateBillingAccounts(
     callback: (data: cloudbilling_v1.Schema$BillingAccount) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -30,7 +30,7 @@ export class CloudBillingClient extends Client {
       data: cloudbilling_v1.Schema$ProjectBillingInfo,
     ) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       async (nextPageToken) => {

@@ -7,7 +7,7 @@ export class ContainerClient extends Client {
   async iterateClusters(
     callback: (data: container_v1.Schema$Cluster) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     const result = await this.client.projects.locations.clusters.list({
       auth,

@@ -10,7 +10,7 @@ export class BillingBudgetClient extends Client {
       data: billingbudgets_v1.Schema$GoogleCloudBillingBudgetsV1Budget,
     ) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       async (nextPageToken) => {

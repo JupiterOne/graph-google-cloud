@@ -69,7 +69,8 @@ export class Client {
       scopes: ['https://www.googleapis.com/auth/cloud-platform'],
     });
 
-    const client = (await auth.getClient()) as BaseExternalAccountClient;
+    const client =
+      (await auth.getClient()) as unknown as BaseExternalAccountClient;
     await client.getAccessToken();
     return client;
   }

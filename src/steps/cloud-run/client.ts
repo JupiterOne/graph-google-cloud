@@ -7,7 +7,7 @@ export class CloudRunClient extends Client {
   async iterateCloudRunServices(
     callback: (data: run_v1.Schema$Service) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     const response = await this.withErrorHandling(async () =>
       this.client.namespaces.services.list({
@@ -24,7 +24,7 @@ export class CloudRunClient extends Client {
   async iterateCloudRunRoutes(
     callback: (data: run_v1.Schema$Route) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     const response = await this.withErrorHandling(
       async () =>
@@ -42,7 +42,7 @@ export class CloudRunClient extends Client {
   async iterateCloudRunConfigurations(
     callback: (data: run_v1.Schema$Configuration) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     const response = await this.withErrorHandling(
       async () =>

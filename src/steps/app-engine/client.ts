@@ -5,7 +5,7 @@ export class AppEngineClient extends Client {
   private client = google.appengine({ version: 'v1', retry: false });
 
   async getAppEngineApplication() {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     const response = await this.client.apps.get({
       appsId: this.projectId,
@@ -18,7 +18,7 @@ export class AppEngineClient extends Client {
   async iterateAppEngineServices(
     callback: (data: appengine_v1.Schema$Service) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -40,7 +40,7 @@ export class AppEngineClient extends Client {
     serviceId: string,
     callback: (data: appengine_v1.Schema$Version) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -64,7 +64,7 @@ export class AppEngineClient extends Client {
     versionId: string,
     callback: (data: appengine_v1.Schema$Instance) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       async (nextPageToken) => {

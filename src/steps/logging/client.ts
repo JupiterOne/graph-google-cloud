@@ -7,7 +7,7 @@ export class LoggingClient extends Client {
   async iterateProjectSinks(
     callback: (data: logging_v2.Schema$LogSink) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -28,7 +28,7 @@ export class LoggingClient extends Client {
   async iterateMetrics(
     callback: (data: logging_v2.Schema$LogMetric) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       async (nextPageToken) => {

@@ -14,7 +14,7 @@ export class ComputeClient extends Client {
     }) => Promise<PageableGaxiosResponse<T>>,
     callback: (data: T) => Promise<void>,
   ) {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await iterateRegionZones(async (zone) => {
       await this.iterateApi(
@@ -27,7 +27,7 @@ export class ComputeClient extends Client {
   async iterateComputeRegionDisks(
     callback: (data: compute_v1.Schema$Disk) => Promise<void>,
   ) {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await iterateRegions(async (region) => {
       await this.iterateApi(
@@ -54,7 +54,7 @@ export class ComputeClient extends Client {
     await this.iterateComputeApi(
       async ({ auth, zone, nextPageToken }) => {
         return this.client.disks.list({
-          auth,
+          auth: auth as any,
           pageToken: nextPageToken,
           project: this.projectId,
           zone,
@@ -71,7 +71,7 @@ export class ComputeClient extends Client {
   async iterateComputeSnapshots(
     callback: (data: compute_v1.Schema$Snapshot) => Promise<void>,
   ) {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -92,7 +92,7 @@ export class ComputeClient extends Client {
   async iterateComputeGlobalAddresses(
     callback: (data: compute_v1.Schema$Address) => Promise<void>,
   ) {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -116,7 +116,7 @@ export class ComputeClient extends Client {
   async iterateComputeAddresses(
     callback: (data: compute_v1.Schema$Address) => Promise<void>,
   ) {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await iterateRegions(async (region) => {
       await this.iterateApi(
@@ -138,7 +138,7 @@ export class ComputeClient extends Client {
   }
 
   async fetchComputeImagePolicy(name: string) {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     const resp = await this.client.images.getIamPolicy({
       auth,
@@ -150,7 +150,7 @@ export class ComputeClient extends Client {
   }
 
   async fetchComputeImage(name: string, projectId: string) {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     const resp = await this.client.images.get({
       auth,
@@ -165,7 +165,7 @@ export class ComputeClient extends Client {
   async iterateGlobalForwardingRules(
     callback: (data: compute_v1.Schema$ForwardingRule) => Promise<void>,
   ) {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
     await this.iterateApi(
       async (nextPageToken) => {
         return this.client.globalForwardingRules.list({
@@ -185,7 +185,7 @@ export class ComputeClient extends Client {
   async iterateForwardingRules(
     callback: (data: compute_v1.Schema$ForwardingRule) => Promise<void>,
   ) {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await iterateRegions(async (region) => {
       await this.iterateApi(
@@ -209,7 +209,7 @@ export class ComputeClient extends Client {
   async iterateCustomComputeImages(
     callback: (data: compute_v1.Schema$Image) => Promise<void>,
   ) {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -228,7 +228,7 @@ export class ComputeClient extends Client {
   }
 
   async fetchComputeProject(): Promise<compute_v1.Schema$Project> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     const computeProjectResponse = await this.client.projects.get({
       auth: auth,
@@ -249,7 +249,7 @@ export class ComputeClient extends Client {
     await this.iterateComputeApi(
       async ({ auth, zone, nextPageToken }) => {
         return this.client.instances.list({
-          auth,
+          auth: auth as any,
           pageToken: nextPageToken,
           project: this.projectId,
           zone,
@@ -266,7 +266,7 @@ export class ComputeClient extends Client {
   async iterateFirewalls(
     callback: (data: compute_v1.Schema$Firewall) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -287,7 +287,7 @@ export class ComputeClient extends Client {
   async iterateSubnetworks(
     callback: (data: compute_v1.Schema$Subnetwork) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
     await iterateRegions(async (region) => {
       await this.iterateApi(
         async (nextPageToken) => {
@@ -310,7 +310,7 @@ export class ComputeClient extends Client {
   async iterateNetworks(
     callback: (data: compute_v1.Schema$Network) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
     await this.iterateApi(
       async (nextPageToken) => {
         return this.client.networks.list({
@@ -330,7 +330,7 @@ export class ComputeClient extends Client {
   async iterateRegionHealthChecks(
     callback: (data: compute_v1.Schema$HealthCheck) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await iterateRegions(async (region) => {
       await this.iterateApi(
@@ -354,7 +354,7 @@ export class ComputeClient extends Client {
   async iterateHealthChecks(
     callback: (data: compute_v1.Schema$HealthCheck) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
     await this.iterateApi(
       async (nextPageToken) => {
         return this.client.healthChecks.list({
@@ -374,7 +374,7 @@ export class ComputeClient extends Client {
   async iterateRegionInstanceGroups(
     callback: (data: compute_v1.Schema$InstanceGroup) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await iterateRegions(async (region) => {
       await this.iterateApi(
@@ -401,7 +401,7 @@ export class ComputeClient extends Client {
     await this.iterateComputeApi(
       async ({ auth, zone, nextPageToken }) => {
         return this.client.instanceGroups.list({
-          auth,
+          auth: auth as any,
           pageToken: nextPageToken,
           project: this.projectId,
           zone,
@@ -418,7 +418,7 @@ export class ComputeClient extends Client {
   async iterateRegionLoadBalancers(
     callback: (data: compute_v1.Schema$UrlMap) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await iterateRegions(async (region) => {
       await this.iterateApi(
@@ -442,7 +442,7 @@ export class ComputeClient extends Client {
   async iterateLoadBalancers(
     callback: (data: compute_v1.Schema$UrlMap) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
     await this.iterateApi(
       async (nextPageToken) => {
         return this.client.urlMaps.list({
@@ -462,7 +462,7 @@ export class ComputeClient extends Client {
   async iterateRegionBackendServices(
     callback: (data: compute_v1.Schema$BackendService) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await iterateRegions(async (region) => {
       await this.iterateApi(
@@ -486,7 +486,7 @@ export class ComputeClient extends Client {
   async iterateBackendServices(
     callback: (data: compute_v1.Schema$BackendService) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -507,7 +507,7 @@ export class ComputeClient extends Client {
   async iterateBackendBuckets(
     callback: (data: compute_v1.Schema$BackendBucket) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
     await this.iterateApi(
       async (nextPageToken) => {
         return this.client.backendBuckets.list({
@@ -527,7 +527,7 @@ export class ComputeClient extends Client {
   async iterateTargetSslProxies(
     callback: (data: compute_v1.Schema$TargetSslProxy) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
     await this.iterateApi(
       async (nextPageToken) => {
         return this.client.targetSslProxies.list({
@@ -547,7 +547,7 @@ export class ComputeClient extends Client {
   async iterateRegionTargetHttpsProxies(
     callback: (data: compute_v1.Schema$TargetHttpsProxy) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await iterateRegions(async (region) => {
       await this.iterateApi(
@@ -571,7 +571,7 @@ export class ComputeClient extends Client {
   async iterateTargetHttpsProxies(
     callback: (data: compute_v1.Schema$TargetHttpsProxy) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -592,7 +592,7 @@ export class ComputeClient extends Client {
   async iterateRegionTargetHttpProxies(
     callback: (data: compute_v1.Schema$TargetHttpProxy) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await iterateRegions(async (region) => {
       await this.iterateApi(
@@ -616,7 +616,7 @@ export class ComputeClient extends Client {
   async iterateTargetHttpProxies(
     callback: (data: compute_v1.Schema$TargetHttpProxy) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
     await this.iterateApi(
       async (nextPageToken) => {
         return this.client.targetHttpProxies.list({
@@ -636,7 +636,7 @@ export class ComputeClient extends Client {
   async iterateSslPolicies(
     callback: (data: compute_v1.Schema$SslPolicy) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
     await this.iterateApi(
       async (nextPageToken) => {
         return this.client.sslPolicies.list({

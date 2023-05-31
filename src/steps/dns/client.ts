@@ -7,7 +7,7 @@ export class DNSClient extends Client {
   async iterateDNSManagedZones(
     callback: (data: dns_v1.Schema$ManagedZone) => Promise<void>,
   ) {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -28,7 +28,7 @@ export class DNSClient extends Client {
   async iterateDNSPolicies(
     callback: (data: dns_v1.Schema$Policy) => Promise<void>,
   ) {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       async (nextPageToken) => {

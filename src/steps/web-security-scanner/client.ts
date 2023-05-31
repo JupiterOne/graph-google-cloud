@@ -7,7 +7,7 @@ export class WebSecurityScannerClient extends Client {
   async iterateScanConfigs(
     callback: (data: websecurityscanner_v1.Schema$ScanConfig) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       (nextPageToken) => {
@@ -29,7 +29,7 @@ export class WebSecurityScannerClient extends Client {
     parentScanConfigName: string,
     callback: (data: websecurityscanner_v1.Schema$ScanRun) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       (nextPageToken) => {

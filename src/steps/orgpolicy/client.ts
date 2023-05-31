@@ -7,7 +7,7 @@ export class OrgPolicyClient extends Client {
   async fetchOrganizationPublicAccessPreventionPolicy(): Promise<
     boolean | undefined
   > {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
     const resp = await this.client.projects.policies.getEffectivePolicy({
       name: `projects/${this.projectId}/policies/storage.publicAccessPrevention`,
       auth,

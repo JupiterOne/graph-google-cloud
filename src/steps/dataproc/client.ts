@@ -8,7 +8,7 @@ export class DataProcClient extends Client {
   async iterateClusters(
     callback: (data: dataproc_v1.Schema$Cluster) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await iterateRegions(async (region) => {
       await this.iterateApi(

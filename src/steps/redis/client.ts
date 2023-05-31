@@ -7,7 +7,7 @@ export class RedisClient extends Client {
   async iterateRedisInstances(
     callback: (data: redis_v1.Schema$Instance) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       async (nextPageToken) => {

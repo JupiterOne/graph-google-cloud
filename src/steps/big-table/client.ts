@@ -7,7 +7,7 @@ export class BigTableClient extends Client {
   async iterateInstances(
     callback: (data: bigtableadmin_v2.Schema$Instance) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -29,7 +29,7 @@ export class BigTableClient extends Client {
     instanceId: string,
     callback: (data: bigtableadmin_v2.Schema$AppProfile) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -51,7 +51,7 @@ export class BigTableClient extends Client {
     instanceId: string,
     callback: (data: bigtableadmin_v2.Schema$Cluster) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -73,7 +73,7 @@ export class BigTableClient extends Client {
     clusterId: string,
     callback: (data: bigtableadmin_v2.Schema$Backup) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -95,7 +95,7 @@ export class BigTableClient extends Client {
     instanceId: string,
     callback: (data: bigtableadmin_v2.Schema$Table) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       async (nextPageToken) => {

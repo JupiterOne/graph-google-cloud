@@ -7,7 +7,7 @@ export class CloudStorageClient extends Client {
   async iterateCloudStorageBuckets(
     callback: (data: storage_v1.Schema$Bucket) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -24,7 +24,7 @@ export class CloudStorageClient extends Client {
   }
 
   async getPolicy(bucket: string): Promise<storage_v1.Schema$Policy> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     const result = await this.client.buckets.getIamPolicy({
       auth,

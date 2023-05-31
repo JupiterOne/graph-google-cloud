@@ -17,7 +17,7 @@ export class ServiceUsageClient extends Client {
       maximumResourcesPerPage: number;
     }) => void,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     // Sometimes the service list API returns duplicate services...This set is
     // used to prevent returning any duplicates to the caller.
@@ -32,9 +32,9 @@ export class ServiceUsageClient extends Client {
         async (nextPageToken) => {
           return this.client.services.list({
             parent: `projects/${this.projectId}`,
-            auth,
             pageSize: 200,
             pageToken: nextPageToken,
+            auth,
             ...paramOverrides,
           });
         },

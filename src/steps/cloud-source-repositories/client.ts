@@ -6,7 +6,7 @@ export class CloudSourceRepositoriesClient extends Client {
   async iterateRepositories(
     callback: (data: sourcerepo_v1.Schema$Repo) => Promise<void>,
   ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
+    const auth = (await this.getAuthenticatedServiceClient()) as any;
 
     await this.iterateApi(
       (nextPageToken) => {
