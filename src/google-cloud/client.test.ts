@@ -21,7 +21,7 @@ describe('#getAuthenticatedServiceClient', () => {
   >;
 
   beforeEach(() => {
-    googleAuthSpy = jest.spyOn(google.auth, 'GoogleAuth');
+    googleAuthSpy = jest.spyOn(google.auth, 'GoogleAuth') as any;
   });
 
   afterEach(() => {
