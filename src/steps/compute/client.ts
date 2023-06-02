@@ -54,7 +54,7 @@ export class ComputeClient extends Client {
     await this.iterateComputeApi(
       async ({ auth, zone, nextPageToken }) => {
         return this.client.disks.list({
-          auth: auth as any,
+          auth,
           pageToken: nextPageToken,
           project: this.projectId,
           zone,
@@ -249,7 +249,7 @@ export class ComputeClient extends Client {
     await this.iterateComputeApi(
       async ({ auth, zone, nextPageToken }) => {
         return this.client.instances.list({
-          auth: auth as any,
+          auth,
           pageToken: nextPageToken,
           project: this.projectId,
           zone,
@@ -401,7 +401,7 @@ export class ComputeClient extends Client {
     await this.iterateComputeApi(
       async ({ auth, zone, nextPageToken }) => {
         return this.client.instanceGroups.list({
-          auth: auth as any,
+          auth,
           pageToken: nextPageToken,
           project: this.projectId,
           zone,

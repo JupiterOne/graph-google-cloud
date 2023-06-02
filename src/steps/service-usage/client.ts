@@ -32,9 +32,9 @@ export class ServiceUsageClient extends Client {
         async (nextPageToken) => {
           return this.client.services.list({
             parent: `projects/${this.projectId}`,
+            auth,
             pageSize: 200,
             pageToken: nextPageToken,
-            auth,
             ...paramOverrides,
           });
         },
