@@ -19,7 +19,7 @@ import {
   logging_v2,
   memcache_v1,
   monitoring_v3,
-  // privateca_v1beta1,
+  privateca_v1beta1,
   pubsub_v1,
   redis_v1,
   run_v1,
@@ -1836,7 +1836,9 @@ export function getMockSpannerInstanceConfiguration(
   };
 }
 
-export function getMockCertificateAuthority(partial?: any): any {
+export function getMockCertificateAuthority(
+  partial?: privateca_v1beta1.Schema$CertificateAuthority,
+): privateca_v1beta1.Schema$CertificateAuthority {
   return {
     name: 'projects/j1-gc-integration-dev-v2/locations/us-central1/certificateAuthorities/acmeName',
     type: 'SELF_SIGNED',
