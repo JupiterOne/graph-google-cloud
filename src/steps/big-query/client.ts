@@ -30,7 +30,7 @@ export class BigQueryClient extends Client {
     datasetId: string,
     callback: (data: BigQueryTable) => Promise<void>,
   ) {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -52,7 +52,7 @@ export class BigQueryClient extends Client {
   async getTablePolicy(
     data: BigQueryTable,
   ): Promise<bigquery_v2.Schema$Policy | undefined> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
     const { projectId, datasetId, tableId } = data.tableReference ?? {};
     if (!projectId || !datasetId || !tableId) {
       return undefined;
@@ -67,7 +67,7 @@ export class BigQueryClient extends Client {
   async getTableResource(
     data: BigQueryTable,
   ): Promise<bigquery_v2.Schema$Table> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     const resp = await this.client.tables.get({
       auth,
@@ -82,7 +82,7 @@ export class BigQueryClient extends Client {
   async iterateBigQueryDatasets(
     callback: (data: bigquery_v2.Schema$Dataset) => Promise<void>,
   ): Promise<void> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -112,7 +112,7 @@ export class BigQueryClient extends Client {
     datasetId: string,
     callback: (data: bigquery_v2.Schema$Model) => Promise<void>,
   ): Promise<void> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
       async (nextPageToken) => {

@@ -7,7 +7,7 @@ export class MemcacheClient extends Client {
   async iterateMemcachedInstances(
     callback: (data: memcache_v1.Schema$Instance) => Promise<void>,
   ) {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
       async (nextPageToken) => {

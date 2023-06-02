@@ -8,7 +8,7 @@ export class PrivateCaClient extends Client {
     caPoolId: string,
     location: string,
   ): Promise<privateca_v1.Schema$Policy> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     const result = await this.client.projects.locations.caPools.getIamPolicy({
       resource: `projects/${this.projectId}/locations/${location}/caPools/${caPoolId}`,
@@ -21,7 +21,7 @@ export class PrivateCaClient extends Client {
   async iterateCaPools(
     callback: (data: privateca_v1.Schema$CaPool) => Promise<void>,
   ): Promise<void> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -44,7 +44,7 @@ export class PrivateCaClient extends Client {
     location: string,
     callback: (data: privateca_v1.Schema$CertificateAuthority) => Promise<void>,
   ): Promise<void> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -69,7 +69,7 @@ export class PrivateCaClient extends Client {
     caLocation: string,
     callback: (data: privateca_v1.Schema$Certificate) => Promise<void>,
   ): Promise<void> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
       async (nextPageToken) => {

@@ -9,7 +9,7 @@ export class AccessContextManagerClient extends Client {
       data: accesscontextmanager_v1.Schema$AccessPolicy,
     ) => Promise<void>,
   ) {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -35,7 +35,7 @@ export class AccessContextManagerClient extends Client {
       data: accesscontextmanager_v1.Schema$AccessLevel,
     ) => Promise<void>,
   ) {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -59,7 +59,7 @@ export class AccessContextManagerClient extends Client {
       data: accesscontextmanager_v1.Schema$ServicePerimeter,
     ) => Promise<void>,
   ) {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
       async (nextPageToken) => {

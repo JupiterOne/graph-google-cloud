@@ -7,7 +7,7 @@ export class ApiGatewayClient extends Client {
   async getApiPolicy(
     apiId: string,
   ): Promise<apigateway_v1.Schema$ApigatewayPolicy> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     const result = await this.client.projects.locations.apis.getIamPolicy({
       resource: `projects/${this.projectId}/locations/global/apis/${apiId}`,
@@ -21,7 +21,7 @@ export class ApiGatewayClient extends Client {
     apiId: string,
     configId: string,
   ): Promise<apigateway_v1.Schema$ApigatewayPolicy> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     const result =
       await this.client.projects.locations.apis.configs.getIamPolicy({
@@ -35,7 +35,7 @@ export class ApiGatewayClient extends Client {
   async getGatewayPolicy(
     gatewayId: string,
   ): Promise<apigateway_v1.Schema$ApigatewayPolicy> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     const result = await this.client.projects.locations.gateways.getIamPolicy({
       resource: `projects/${this.projectId}/locations/global/gateways/${gatewayId}`,
@@ -48,7 +48,7 @@ export class ApiGatewayClient extends Client {
   async iterateGateways(
     callback: (data: apigateway_v1.Schema$ApigatewayGateway) => Promise<void>,
   ): Promise<void> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -69,7 +69,7 @@ export class ApiGatewayClient extends Client {
   async iterateApis(
     callback: (data: apigateway_v1.Schema$ApigatewayApi) => Promise<void>,
   ): Promise<void> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -91,7 +91,7 @@ export class ApiGatewayClient extends Client {
     apiId: string,
     callback: (data: apigateway_v1.Schema$ApigatewayApiConfig) => Promise<void>,
   ): Promise<void> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
       async (nextPageToken) => {

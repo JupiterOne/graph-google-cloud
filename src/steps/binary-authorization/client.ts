@@ -9,7 +9,7 @@ export class BinaryAuthorizationClient extends Client {
   private client = google.binaryauthorization({ version: 'v1', retry: false });
 
   async fetchPolicy(): Promise<binaryauthorization_v1.Schema$Policy> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     const result: PolicyResponse = await this.client.projects.getPolicy({
       auth,

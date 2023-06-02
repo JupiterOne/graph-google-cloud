@@ -11,7 +11,7 @@ export class IamClient extends Client {
   async iterateCustomRoles(
     callback: (data: iam_v1.Schema$Role) => Promise<void>,
   ): Promise<void> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -54,7 +54,7 @@ export class IamClient extends Client {
   async iterateManagedRoles(
     callback: (data: iam_v1.Schema$Role) => void | Promise<void>,
   ): Promise<void> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -78,7 +78,7 @@ export class IamClient extends Client {
   async iterateServiceAccounts(
     callback: (data: iam_v1.Schema$ServiceAccount) => Promise<void>,
   ): Promise<void> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -100,7 +100,7 @@ export class IamClient extends Client {
     serviceAccountName: string,
     callback: (data: iam_v1.Schema$ServiceAccountKey) => Promise<void>,
   ): Promise<void> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
     const response = await this.client.projects.serviceAccounts.keys.list({
       auth,
       name: serviceAccountName,
@@ -114,7 +114,7 @@ export class IamClient extends Client {
   async iterateAuditableServices(
     callback: (data: string) => Promise<void> | void,
   ): Promise<void> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     const response = await this.client.iamPolicies.queryAuditableServices({
       auth,

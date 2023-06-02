@@ -9,7 +9,7 @@ export class CloudAssetClient extends Client {
       data: cloudasset_v1.Schema$IamPolicySearchResult,
     ) => Promise<void>,
   ): Promise<void> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     if (this.projectId) {
       await this.iterateApi(
@@ -37,7 +37,7 @@ export class CloudAssetClient extends Client {
       data: cloudasset_v1.Schema$IamPolicySearchResult,
     ) => Promise<void>,
   ): Promise<void> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
       async (nextPageToken) => {

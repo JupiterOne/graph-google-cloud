@@ -14,7 +14,7 @@ export class ResourceManagerClient extends Client {
   private client = google.cloudresourcemanager({ version: 'v3', retry: false });
 
   async getProject() {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     const result = await this.client.projects.get({
       auth,
@@ -25,7 +25,7 @@ export class ResourceManagerClient extends Client {
   }
 
   async getOrganization() {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     const result = await this.client.organizations.get({
       auth,
@@ -39,7 +39,7 @@ export class ResourceManagerClient extends Client {
     callback: (data: cloudresourcemanager_v3.Schema$Folder) => Promise<void>,
     folderName?: string,
   ) {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -61,7 +61,7 @@ export class ResourceManagerClient extends Client {
     callback: (data: cloudresourcemanager_v3.Schema$Project) => Promise<void>,
     folderName?: string,
   ) {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -84,7 +84,7 @@ export class ResourceManagerClient extends Client {
   }
 
   async getServiceAccountPolicy() {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     const result = await this.client.projects.getIamPolicy({
       auth,

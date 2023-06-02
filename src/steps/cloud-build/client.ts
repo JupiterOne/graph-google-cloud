@@ -15,7 +15,7 @@ export class CloudBuildClient extends Client {
   async iterateBuilds(
     callback: (data: cloudbuild_v1.Schema$Build) => Promise<void>,
   ): Promise<void> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
       (nextPageToken) => {
@@ -36,7 +36,7 @@ export class CloudBuildClient extends Client {
   async iterateBuildTriggers(
     callback: (data: cloudbuild_v1.Schema$BuildTrigger) => Promise<void>,
   ): Promise<void> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
       (nextPageToken) => {
@@ -57,7 +57,7 @@ export class CloudBuildClient extends Client {
   async iterateBuildWorkerPools(
     callback: (data: cloudbuild_v1.Schema$WorkerPool) => Promise<void>,
   ): Promise<void> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateLocations(async (region) => {
       await this.iterateApi(
@@ -83,7 +83,7 @@ export class CloudBuildClient extends Client {
     ) => Promise<void>,
     context: IntegrationStepContext,
   ): Promise<void> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     try {
       const res = await this.client.projects.githubEnterpriseConfigs.list({
@@ -109,7 +109,7 @@ export class CloudBuildClient extends Client {
       data: cloudbuild_v1.Schema$BitbucketServerConfig,
     ) => Promise<void>,
   ): Promise<void> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
       (nextPageToken) => {
@@ -134,7 +134,7 @@ export class CloudBuildClient extends Client {
       data: cloudbuild_v1.Schema$BitbucketServerRepository,
     ) => Promise<void>,
   ): Promise<void> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     try {
       await this.iterateApi(

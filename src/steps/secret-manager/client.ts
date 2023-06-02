@@ -8,7 +8,7 @@ export class SecretManagerClient extends Client {
     secret: secretmanager_v1.Schema$Secret,
     callback: (data: secretmanager_v1.Schema$SecretVersion) => Promise<void>,
   ): Promise<void> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -29,7 +29,7 @@ export class SecretManagerClient extends Client {
   async iterateSecrets(
     callback: (data: secretmanager_v1.Schema$Secret) => Promise<void>,
   ): Promise<void> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
       async (nextPageToken) => {

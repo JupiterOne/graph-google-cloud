@@ -7,7 +7,7 @@ export class MonitoringClient extends Client {
   async iterateAlertPolicies(
     callback: (data: monitoring_v3.Schema$AlertPolicy) => Promise<void>,
   ): Promise<void> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
       async (nextPageToken) => {

@@ -17,7 +17,7 @@ export class ServiceUsageClient extends Client {
       maximumResourcesPerPage: number;
     }) => void,
   ): Promise<void> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     // Sometimes the service list API returns duplicate services...This set is
     // used to prevent returning any duplicates to the caller.

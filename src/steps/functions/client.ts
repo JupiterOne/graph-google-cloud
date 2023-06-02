@@ -17,7 +17,7 @@ export class CloudFunctionsClient extends Client {
   async iterateCloudFunctions(
     callback: (data: cloudfunctions_v1.Schema$CloudFunction) => Promise<void>,
   ): Promise<void> {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(async (nextPageToken) => {
       return this.client.projects.locations.functions.list({

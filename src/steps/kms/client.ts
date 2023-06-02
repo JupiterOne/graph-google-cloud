@@ -21,7 +21,7 @@ export class CloudKmsClient extends Client {
       maximumResourcesPerPage: number;
     }) => void,
   ) {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
     let totalRequestsMade = 0;
     let totalResourcesReturned = 0;
     let maximumResourcesPerPage = 0;
@@ -72,7 +72,7 @@ export class CloudKmsClient extends Client {
     },
     callback: (data: cloudkms_v1.Schema$CryptoKey) => Promise<void>,
   ) {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
       async (nextPageToken) => {
@@ -91,7 +91,7 @@ export class CloudKmsClient extends Client {
   }
 
   async fetchCryptoKeyPolicy(resource: string) {
-    const auth = (await this.getAuthenticatedServiceClient()) as any;
+    const auth = await this.getAuthenticatedServiceClient();
 
     const result =
       await this.client.projects.locations.keyRings.cryptoKeys.getIamPolicy({
