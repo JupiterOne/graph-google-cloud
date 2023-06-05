@@ -3,8 +3,9 @@ import {
   IntegrationProviderAuthorizationError,
 } from '@jupiterone/integration-sdk-core';
 import { createMockExecutionContext } from '@jupiterone/integration-sdk-testing';
-import { GoogleAuth, GoogleAuthOptions } from 'google-auth-library';
+import { AuthClient, GoogleAuth, GoogleAuthOptions } from 'google-auth-library';
 import { google } from 'googleapis';
+import { JSONClient } from 'google-auth-library/build/src/auth/googleauth';
 import { IntegrationConfig, invocationConfig } from '..';
 import { getMockIntegrationConfig, integrationConfig } from '../../test/config';
 import {
@@ -16,12 +17,15 @@ import { Client } from './client';
 
 describe('#getAuthenticatedServiceClient', () => {
   let googleAuthSpy: jest.SpyInstance<
-    GoogleAuth,
-    [(GoogleAuthOptions | undefined)?]
+    GoogleAuth<AuthClient>,
+    [opts?: GoogleAuthOptions<JSONClient>]
   >;
 
   beforeEach(() => {
-    googleAuthSpy = jest.spyOn(google.auth, 'GoogleAuth');
+    googleAuthSpy = jest.spyOn(google.auth, 'GoogleAuth') as jest.SpyInstance<
+      GoogleAuth<AuthClient>,
+      [opts?: GoogleAuthOptions<JSONClient>]
+    >;
   });
 
   afterEach(() => {
