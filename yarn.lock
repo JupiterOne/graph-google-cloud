@@ -1570,9 +1570,9 @@ await-to-js@^3.0.0:
   integrity sha512-zJAaP9zxTcvTHRlejau3ZOY4V7SRpiByf3/dxx2uyKxxor19tpmpV2QRsTKikckwhaPmr2dVpxxMr7jOCYVp5g==
 
 aws-sdk@^2.184.0:
-  version "2.1389.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1389.0.tgz#dffc00454ed56974929db201632f826632693219"
-  integrity sha512-H+Q1oZ4bWi5xOp2EabZpbHcQjz55luvn6cUCHtgmMFJPQQGEWlJ9siWTi+6C+/0VyrGambup7aXILhF6prU+Zg==
+  version "2.1390.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1390.0.tgz#bf23194e859d2d5779fbecfc0a8044bd047b3b63"
+  integrity sha512-oY1kbL0eeOVIc2dBbzQpjdQ6H1frY2d/9fprC1Z5DWHmsq6f8AeB94/B8a8t8k/X0u+W7ZMuEwEDrndef9KwCw==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
@@ -1872,9 +1872,9 @@ camelcase@^6.2.0:
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
 caniuse-lite@^1.0.30001489:
-  version "1.0.30001492"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001492.tgz#4a06861788a52b4c81fd3344573b68cc87fe062b"
-  integrity sha512-2efF8SAZwgAX1FJr87KWhvuJxnGJKOnctQa8xLOskAXNXq8oiuqgl6u1kk3fFpsp3GgvzlRjiK1sl63hNtFADw==
+  version "1.0.30001494"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001494.tgz#3e56e04a48da7a79eae994559eb1ec02aaac862f"
+  integrity sha512-sY2B5Qyl46ZzfYDegrl8GBCzdawSLT4ThM9b9F+aDYUrAG2zCOyMbd2Tq34mS1g4ZKBfjRlzOohQMxx28x6wJg==
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -2342,9 +2342,9 @@ ee-first@1.1.1:
   integrity sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==
 
 electron-to-chromium@^1.4.411:
-  version "1.4.417"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.417.tgz#a0c7eb992e68287fa50c8da5a5238b01f20b9a82"
-  integrity sha512-8rY8HdCxuSVY8wku3i/eDac4g1b4cSbruzocenrqBlzqruAZYHjQCHIjC66dLR9DXhEHTojsC4EjhZ8KmzwXqA==
+  version "1.4.419"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.419.tgz#6fbea1f3abb65bf46e8ad874b5c1f0816ce2f8ce"
+  integrity sha512-jdie3RiEgygvDTyS2sgjq71B36q2cDSBfPlwzUyuOrfYTNoYWyBxxjGJV/HAu3A2hB0Y+HesvCVkVAFoCKwCSw==
 
 emitter-component@^1.1.1:
   version "1.1.1"
@@ -3152,10 +3152,10 @@ googleapis-common@^6.0.0:
     url-template "^2.0.8"
     uuid "^9.0.0"
 
-googleapis@^101.0.0:
-  version "101.0.0"
-  resolved "https://registry.yarnpkg.com/googleapis/-/googleapis-101.0.0.tgz#91273b4bca6743fba9511586930cebbf7155bdf3"
-  integrity sha512-FxsepzOwg28H0ggJSs3kpFIrgZLw0pdCB6ZjNfMH4vNtUyey/6US5zHQx1LCER1Bnjnfw58EVzzWeMTK7BUJ9w==
+googleapis@^102.0.0:
+  version "102.0.0"
+  resolved "https://registry.yarnpkg.com/googleapis/-/googleapis-102.0.0.tgz#3e7c2832e2754601fc998b7e1443ba1c3ef97cc6"
+  integrity sha512-XmTsfnC9PZsmkkzjVA/cTX/37D3VHTq/qZdmsyvKsZr4CcJ7JdZs4WUkwcAxkmWQ0tLXRfo7z6w+xdP/U2QAsA==
   dependencies:
     google-auth-library "^8.0.2"
     googleapis-common "^6.0.0"
@@ -4452,9 +4452,9 @@ mkdirp@~0.5.1:
     minimist "^1.2.6"
 
 module-alias@^2.2.2:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/module-alias/-/module-alias-2.2.2.tgz#151cdcecc24e25739ff0aa6e51e1c5716974c0e0"
-  integrity sha512-A/78XjoX2EmNvppVWEhM2oGk3x4lLxnkEA4jTbaK97QKSDjkIoOsKQlfylt/d3kKKi596Qy3NP5XrXJ6fZIC9Q==
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/module-alias/-/module-alias-2.2.3.tgz#ec2e85c68973bda6ab71ce7c93b763ec96053221"
+  integrity sha512-23g5BFj4zdQL/b6tor7Ji+QY4pEfNH784BMslY9Qb0UnJWRAt+lQGLYmRaM0KDBwIG23ffEBELhZDP2rhi9f/Q==
 
 moment@^2.18.1, moment@^2.19.3:
   version "2.29.4"
@@ -5823,9 +5823,9 @@ tslib@^1.8.1, tslib@^1.9.0:
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
 
 tslib@^2, tslib@^2.1.0, tslib@^2.5.0:
-  version "2.5.2"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.5.2.tgz#1b6f07185c881557b0ffa84b111a0106989e8338"
-  integrity sha512-5svOrSA2w3iGFDs1HibEVBGbDrAY82bFQ3HZ3ixB+88nsbsWQoKqDRb5UBYAUPEzbBn6dAp5gRNXglySbx1MlA==
+  version "2.5.3"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.5.3.tgz#24944ba2d990940e6e982c4bea147aba80209913"
+  integrity sha512-mSxlJJwl3BMEQCUNnxXBU9jP4JBktcEGhURcPR6VQVlnP0FdDEsIaz0C35dXNGLyRfrATNofF0F5p2KPxQgB+w==
 
 tsutils@^3.17.1, tsutils@^3.21.0:
   version "3.21.0"
