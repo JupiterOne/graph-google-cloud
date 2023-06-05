@@ -5,7 +5,7 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { retry } from '@lifeomic/attempt';
 import { GaxiosError, GaxiosResponse } from 'gaxios';
-import { BaseExternalAccountClient, CredentialBody } from 'google-auth-library';
+import { CredentialBody } from 'google-auth-library';
 import { accesscontextmanager_v1, google } from 'googleapis';
 import pMap from 'p-map';
 import { IntegrationConfig } from '../types';
@@ -69,10 +69,9 @@ export class Client {
       scopes: ['https://www.googleapis.com/auth/cloud-platform'],
     });
 
-    const client =
-      (await auth.getClient()) as unknown as BaseExternalAccountClient;
+    const client = await auth.getClient();
     await client.getAccessToken();
-    return client as unknown as accesscontextmanager_v1.Options['auth'];
+    return client as accesscontextmanager_v1.Options['auth'];
   }
 
   async getAuthenticatedServiceClient(): Promise<
