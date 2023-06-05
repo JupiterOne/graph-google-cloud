@@ -12,7 +12,7 @@ export class AccessContextManagerClient extends Client {
     const auth = await this.getAuthenticatedServiceClient();
 
     await this.iterateApi(
-      async (nextPageToken) => {
+      async (nextPageToken: string | undefined) => {
         return this.client.accessPolicies.list({
           auth,
           parent: `organizations/${this.organizationId}`,

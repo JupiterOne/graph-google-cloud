@@ -6,7 +6,7 @@ import {
 import { retry } from '@lifeomic/attempt';
 import { GaxiosError, GaxiosResponse } from 'gaxios';
 import { BaseExternalAccountClient, CredentialBody } from 'google-auth-library';
-import { google } from 'googleapis';
+import { accesscontextmanager_v1, google } from 'googleapis';
 import pMap from 'p-map';
 import { IntegrationConfig } from '../types';
 import { createErrorProps } from './utils/createErrorProps';
@@ -46,7 +46,7 @@ export class Client {
   readonly folderId?: string;
 
   private credentials: CredentialBody;
-  private auth: BaseExternalAccountClient;
+  private auth: accesscontextmanager_v1.Options['auth'];
   private readonly onRetry?: (err: any) => void;
 
   constructor({ config, projectId, organizationId, onRetry }: ClientOptions) {
@@ -63,7 +63,7 @@ export class Client {
     this.onRetry = onRetry;
   }
 
-  private async getClient(): Promise<BaseExternalAccountClient> {
+  private async getClient(): Promise<accesscontextmanager_v1.Options['auth']> {
     const auth = new google.auth.GoogleAuth({
       credentials: this.credentials,
       scopes: ['https://www.googleapis.com/auth/cloud-platform'],
@@ -72,10 +72,12 @@ export class Client {
     const client =
       (await auth.getClient()) as unknown as BaseExternalAccountClient;
     await client.getAccessToken();
-    return client;
+    return client as unknown as accesscontextmanager_v1.Options['auth'];
   }
 
-  async getAuthenticatedServiceClient(): Promise<BaseExternalAccountClient> {
+  async getAuthenticatedServiceClient(): Promise<
+    accesscontextmanager_v1.Options['auth']
+  > {
     if (!this.auth) {
       try {
         this.auth = await this.getClient();
