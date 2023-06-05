@@ -49,7 +49,7 @@
     "dotenv": "^9.0.2",
     "mutton": "^0.5.1",
     "node-fetch": "^2.6.1",
-    "ts-node": "^9.1.1"
+    "ts-node": "^10.9.1"
   },
   "dependencies": {
     "@lifeomic/attempt": "^3.0.0",
