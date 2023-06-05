@@ -1836,9 +1836,7 @@ export function getMockSpannerInstanceConfiguration(
   };
 }
 
-export function getMockCertificateAuthority(
-  partial?: privateca_v1beta1.Schema$CertificateAuthority,
-): privateca_v1beta1.Schema$CertificateAuthority {
+export function getMockCertificateAuthority(partial) {
   return {
     name: 'projects/j1-gc-integration-dev-v2/locations/us-central1/certificateAuthorities/acmeName',
     type: 'SELF_SIGNED',
