@@ -19,7 +19,6 @@ import {
   logging_v2,
   memcache_v1,
   monitoring_v3,
-  privateca_v1beta1,
   pubsub_v1,
   redis_v1,
   run_v1,
