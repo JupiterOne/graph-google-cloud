@@ -17,11 +17,17 @@ import { Client } from './client';
 describe('#getAuthenticatedServiceClient', () => {
   let googleAuthSpy: jest.SpyInstance<
     GoogleAuth<AuthClient>,
-    [opts?: GoogleAuthOptions<AuthClient> | undefined]
+    [opts?: GoogleAuthOptions<AuthClient>]
   >;
 
   beforeEach(() => {
-    googleAuthSpy = jest.spyOn(google.auth, 'GoogleAuth');
+    googleAuthSpy = jest.spyOn(
+      google.auth,
+      'GoogleAuth',
+    ) as unknown as jest.SpyInstance<
+      GoogleAuth<AuthClient>,
+      [opts?: GoogleAuthOptions<AuthClient>]
+    >;
   });
 
   afterEach(() => {
