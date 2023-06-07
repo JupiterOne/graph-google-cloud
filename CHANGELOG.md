@@ -1,3 +1,15 @@
+# v2.29.0 (Wed Jun 07 2023)
+
+#### 🚀 Enhancement
+
+- INT-8141: ingest compute instance Inventory data [#613](https://github.com/JupiterOne/graph-google-cloud/pull/613) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### Authors: 1
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
 # v2.28.0 (Tue Jun 06 2023)
 
 #### 🚀 Enhancement
