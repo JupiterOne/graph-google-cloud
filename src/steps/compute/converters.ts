@@ -507,15 +507,14 @@ export function createComputeInstanceEntity(
         webLink: getGoogleCloudConsoleWebLink(
           `/compute/instancesDetail/zones/${zone}/instances/${data.name}?project=${projectId}`,
         ),
-        inventoryOsHostname: instanceInventory?.osInfo?.hostname,
-        inventoryOsLongName: instanceInventory?.osInfo?.longName,
-        inventoryOsShortName: instanceInventory?.osInfo?.shortName,
-        inventoryOsKernelVersion: instanceInventory?.osInfo?.kernelVersion,
-        inventoryOsArchitecture: instanceInventory?.osInfo?.architecture,
-        inventoryOsVersion: instanceInventory?.osInfo?.version,
-        inventoryOsconfigAgentVersion:
-          instanceInventory?.osInfo?.osconfigAgentVersion,
-        inventoryUpdateTime: instanceInventory?.updateTime,
+        osHostname: instanceInventory?.osInfo?.hostname,
+        osLongName: instanceInventory?.osInfo?.longName,
+        osShortName: instanceInventory?.osInfo?.shortName,
+        osKernelVersion: instanceInventory?.osInfo?.kernelVersion,
+        osArchitecture: instanceInventory?.osInfo?.architecture,
+        osVersion: instanceInventory?.osInfo?.version,
+        osconfigAgentVersion: instanceInventory?.osInfo?.osconfigAgentVersion,
+        updateTime: instanceInventory?.updateTime,
       },
     },
   });
