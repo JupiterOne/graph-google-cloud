@@ -55,7 +55,7 @@ export const STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES =
 export const STEP_COMPUTE_SSL_POLICIES = 'fetch-compute-ssl-policies';
 
 // Entities
-export const ENTITY_CLASS_COMPUTE_INSTANCE = 'Host';
+export const ENTITY_CLASS_COMPUTE_INSTANCE = ['Host'];
 export const ENTITY_TYPE_COMPUTE_INSTANCE = 'google_compute_instance';
 
 export const ENTITY_CLASS_COMPUTE_DISK = ['DataStore', 'Disk'];
@@ -71,7 +71,7 @@ export const ENTITY_TYPE_COMPUTE_NETWORK = 'google_compute_network';
 export const ENTITY_CLASS_COMPUTE_NETWORK = 'Network';
 
 export const ENTITY_TYPE_COMPUTE_ADDRESS = 'google_compute_address';
-export const ENTITY_CLASS_COMPUTE_ADDRESS = 'IpAddress';
+export const ENTITY_CLASS_COMPUTE_ADDRESS = ['IpAddress'];
 
 export const ENTITY_TYPE_COMPUTE_GLOBAL_ADDRESS =
   'google_compute_global_address';
@@ -95,7 +95,7 @@ export const ENTITY_TYPE_COMPUTE_HEALTH_CHECK = 'google_compute_health_check';
 export const ENTITY_CLASS_COMPUTE_HEALTH_CHECK = 'Service';
 
 export const ENTITY_TYPE_COMPUTE_PROJECT = 'google_compute_project';
-export const ENTITY_CLASS_COMPUTE_PROJECT = 'Project';
+export const ENTITY_CLASS_COMPUTE_PROJECT = ['Project'];
 
 export const ENTITY_TYPE_COMPUTE_INSTANCE_GROUP =
   'google_compute_instance_group';

@@ -170,7 +170,7 @@ import {
   STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS,
   STEP_COMPUTE_IMAGE_KMS_RELATIONSHIPS,
 } from './constants';
-import { compute_v1 } from 'googleapis';
+import { compute_v1, osconfig_v1 } from 'googleapis';
 import { INTERNET, RelationshipClass } from '@jupiterone/data-model';
 import {
   STEP_IAM_SERVICE_ACCOUNTS,
@@ -733,9 +733,34 @@ export async function fetchComputeInstances(
     compute_v1.Schema$ServiceAccount[]
   >();
 
-  await client.iterateComputeInstances(async (computeInstance, projectId) => {
+  await client.iterateComputeInstances(async (computeInstance) => {
+    let instanceInventory: osconfig_v1.Schema$Inventory | undefined;
+
+    try {
+      if (computeInstance.zone) {
+        instanceInventory = await client.fetchComputeInstanceInventory(
+          computeInstance.zone?.split('/')[8],
+          computeInstance.id!,
+        );
+      }
+    } catch (e) {
+      if (e.response.status === 404) {
+        context.logger.debug(
+          `Compute instance ${computeInstance.name} inventory entity not found.`,
+        );
+      } else {
+        context.logger.warn(
+          { e },
+          `Error fetching compute instance ${computeInstance.name} inventory.`,
+        );
+      }
+    }
     const computeInstanceEntity = await jobState.addEntity(
-      createComputeInstanceEntity(computeInstance, client.projectId),
+      createComputeInstanceEntity(
+        computeInstance,
+        instanceInventory,
+        client.projectId,
+      ),
     );
 
     /**
@@ -791,9 +816,11 @@ export async function fetchComputeInstances(
       */
       const zone = createdBy.split('/')[3];
       const instanceGroupName = createdBy.split('/')[5];
+      const projectId = computeInstance.zone?.split('/')[6];
       const instanceGroupKey = `https://www.googleapis.com/compute/v1/projects/${projectId}/zones/${zone}/instanceGroups/${instanceGroupName}`;
 
       const instanceGroupEntity = await jobState.findEntity(instanceGroupKey);
+
       if (instanceGroupEntity) {
         await jobState.addRelationship(
           createDirectRelationship({
@@ -2329,13 +2356,6 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
         targetType: ENTITY_TYPE_COMPUTE_DISK,
       },
       {
-        _class: RelationshipClass.TRUSTS,
-        _type:
-          RELATIONSHIP_TYPE_GOOGLE_COMPUTE_INSTANCE_TRUSTS_IAM_SERVICE_ACCOUNT,
-        sourceType: ENTITY_TYPE_COMPUTE_INSTANCE,
-        targetType: IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
-      },
-      {
         _class: RelationshipClass.HAS,
         _type: RELATIONSHIP_TYPE_SUBNET_HAS_COMPUTE_INSTANCE,
         sourceType: ENTITY_TYPE_COMPUTE_SUBNETWORK,
@@ -2355,8 +2375,8 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
       STEP_COMPUTE_INSTANCE_GROUPS,
     ],
     executionHandler: fetchComputeInstances,
-    permissions: ['compute.instances.list'],
-    apis: ['compute.googleapis.com'],
+    permissions: ['compute.instances.list', 'osconfig.inventories.get'],
+    apis: ['compute.googleapis.com', 'osconfig.googleapis.com'],
   },
   {
     id: STEP_COMPUTE_INSTANCE_SERVICE_ACCOUNT_RELATIONSHIPS,
