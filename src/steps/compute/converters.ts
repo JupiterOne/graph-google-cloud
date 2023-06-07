@@ -514,7 +514,7 @@ export function createComputeInstanceEntity(
         osArchitecture: instanceInventory?.osInfo?.architecture,
         osVersion: instanceInventory?.osInfo?.version,
         osconfigAgentVersion: instanceInventory?.osInfo?.osconfigAgentVersion,
-        updateTime: instanceInventory?.updateTime,
+        updateTime: parseTimePropertyValue(instanceInventory?.updateTime),
       },
     },
   });
