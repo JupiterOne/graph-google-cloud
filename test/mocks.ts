@@ -19,6 +19,7 @@ import {
   logging_v2,
   memcache_v1,
   monitoring_v3,
+  osconfig_v1,
   privateca_v1beta1,
   pubsub_v1,
   redis_v1,
@@ -265,6 +266,26 @@ export function getMockComputeInstance(
     deletionProtection: false,
     fingerprint: '4gmEF7tlfn8=',
     kind: 'compute#instance',
+    ...partial,
+  };
+}
+
+export function getMockComputeInstanceInventory(
+  partial?: Partial<osconfig_v1.Schema$Inventory>,
+): osconfig_v1.Schema$Inventory {
+  return {
+    osInfo: {
+      longName: 'Debian GNU/Linux 11 (bullseye)',
+      shortName: 'debian',
+      version: '11',
+      architecture: 'x86_64',
+      kernelVersion: '#1 SMP Debian 5.10.149-2 (2022-10-21)',
+      kernelRelease: '5.10.0-19-cloud-amd64',
+      osconfigAgentVersion: '20221013.01-g1',
+      hostname: 'sonarqube',
+    },
+    name: 'projects/167984947943/locations/us-central1-a/instances/4356273881400950770/inventory',
+    updateTime: '2023-06-05T22:26:42.714873Z',
     ...partial,
   };
 }

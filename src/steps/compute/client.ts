@@ -1,10 +1,11 @@
 import { BaseExternalAccountClient } from 'google-auth-library';
-import { compute_v1, google } from 'googleapis';
+import { compute_v1, google, osconfig_v1 } from 'googleapis';
 import { Client, PageableGaxiosResponse } from '../../google-cloud/client';
 import { iterateRegions, iterateRegionZones } from '../../google-cloud/regions';
 
 export class ComputeClient extends Client {
   private client = google.compute({ version: 'v1', retry: false });
+  private osConfigClient = google.osconfig({ version: 'v1', retry: false });
 
   private async iterateComputeApi<T>(
     fn: (params: {
@@ -261,6 +262,21 @@ export class ComputeClient extends Client {
         }
       },
     );
+  }
+
+  async fetchComputeInstanceInventory(
+    location: string,
+    instanceId: string,
+  ): Promise<osconfig_v1.Schema$Inventory> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    const resp =
+      await this.osConfigClient.projects.locations.instances.inventories.get({
+        auth,
+        name: `projects/${this.projectId}/locations/${location}/instances/${instanceId}/inventory`,
+      });
+
+    return resp.data;
   }
 
   async iterateFirewalls(

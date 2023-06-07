@@ -10,7 +10,7 @@ import {
   RelationshipDirection,
   TargetFilterKey,
 } from '@jupiterone/integration-sdk-core';
-import { compute_v1 } from 'googleapis';
+import { compute_v1, osconfig_v1 } from 'googleapis';
 import { parseRegionNameFromRegionUrl } from '../../google-cloud/regions';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import { FirewallRuleRelationshipTargetProperties } from '../../utils/firewall';
@@ -442,6 +442,7 @@ function isShieldedVM(
 
 export function createComputeInstanceEntity(
   data: compute_v1.Schema$Instance,
+  instanceInventory: osconfig_v1.Schema$Inventory | undefined,
   projectId: string,
 ) {
   const ipAddresses = getIpAddressesForComputeInstance(data);
@@ -506,6 +507,15 @@ export function createComputeInstanceEntity(
         webLink: getGoogleCloudConsoleWebLink(
           `/compute/instancesDetail/zones/${zone}/instances/${data.name}?project=${projectId}`,
         ),
+        inventoryOsHostname: instanceInventory?.osInfo?.hostname,
+        inventoryOsLongName: instanceInventory?.osInfo?.longName,
+        inventoryOsShortName: instanceInventory?.osInfo?.shortName,
+        inventoryOsKernelVersion: instanceInventory?.osInfo?.kernelVersion,
+        inventoryOsArchitecture: instanceInventory?.osInfo?.architecture,
+        inventoryOsVersion: instanceInventory?.osInfo?.version,
+        inventoryOsconfigAgentVersion:
+          instanceInventory?.osInfo?.osconfigAgentVersion,
+        inventoryUpdateTime: instanceInventory?.updateTime,
       },
     },
   });
@@ -740,6 +750,15 @@ export function createComputeNetworkEntity(
   });
 }
 
+function getIpAddressVersion(
+  ipAddressVersion: string | undefined | null,
+): number | undefined {
+  if (ipAddressVersion === 'IPV4') return 4;
+  if (ipAddressVersion === 'IPV6') return 6;
+
+  return undefined;
+}
+
 function getCommonGlobalAddressProps(
   data: compute_v1.Schema$Address,
   projectId: string,
@@ -752,7 +771,7 @@ function getCommonGlobalAddressProps(
     name: data.name,
     description: data.description,
     ipAddress: data.address,
-    ipVersion: data.ipVersion,
+    ipVersion: getIpAddressVersion(data.ipVersion),
     publicIpAddress: data.addressType === 'EXTERNAL' ? data.address : undefined,
     addressType: data.addressType,
     status: data.status,
