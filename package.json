@@ -55,7 +55,7 @@
     "@lifeomic/attempt": "^3.0.0",
     "commander": "^9.4.1",
     "gaxios": "^4.2.1",
-    "google-auth-library": "^7.1.0",
+    "google-auth-library": "^8.8.0",
     "googleapis": "^118.0.0",
     "lodash.get": "^4.4.2",
     "p-map": "^4.0.0"

@@ -1,13 +1,14 @@
-import { accesscontextmanager_v1, compute_v1, google } from 'googleapis';
+import { compute_v1, google } from 'googleapis';
 import { Client, PageableGaxiosResponse } from '../../google-cloud/client';
 import { iterateRegions, iterateRegionZones } from '../../google-cloud/regions';
+import { BaseExternalAccountClient } from 'google-auth-library';
 
 export class ComputeClient extends Client {
   private client = google.compute({ version: 'v1', retry: false });
 
   private async iterateComputeApi<T>(
     fn: (params: {
-      auth: accesscontextmanager_v1.Options['auth'];
+      auth: BaseExternalAccountClient;
       zone: string;
       nextPageToken?: string;
     }) => Promise<PageableGaxiosResponse<T>>,

@@ -5,8 +5,8 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { retry } from '@lifeomic/attempt';
 import { GaxiosError, GaxiosResponse } from 'gaxios';
-import { CredentialBody } from 'google-auth-library';
-import { accesscontextmanager_v1, google } from 'googleapis';
+import { BaseExternalAccountClient, CredentialBody } from 'google-auth-library';
+import { google } from 'googleapis';
 import pMap from 'p-map';
 import { IntegrationConfig } from '../types';
 import { createErrorProps } from './utils/createErrorProps';
@@ -46,7 +46,7 @@ export class Client {
   readonly folderId?: string;
 
   private credentials: CredentialBody;
-  private auth: accesscontextmanager_v1.Options['auth'];
+  private auth: BaseExternalAccountClient;
   private readonly onRetry?: (err: any) => void;
 
   constructor({ config, projectId, organizationId, onRetry }: ClientOptions) {
@@ -63,20 +63,18 @@ export class Client {
     this.onRetry = onRetry;
   }
 
-  private async getClient(): Promise<accesscontextmanager_v1.Options['auth']> {
+  private async getClient(): Promise<BaseExternalAccountClient> {
     const auth = new google.auth.GoogleAuth({
       credentials: this.credentials,
       scopes: ['https://www.googleapis.com/auth/cloud-platform'],
     });
 
-    const client = await auth.getClient();
+    const client = (await auth.getClient()) as BaseExternalAccountClient;
     await client.getAccessToken();
-    return client as accesscontextmanager_v1.Options['auth'];
+    return client;
   }
 
-  async getAuthenticatedServiceClient(): Promise<
-    accesscontextmanager_v1.Options['auth']
-  > {
+  async getAuthenticatedServiceClient(): Promise<BaseExternalAccountClient> {
     if (!this.auth) {
       try {
         this.auth = await this.getClient();
