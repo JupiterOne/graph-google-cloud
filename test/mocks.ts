@@ -20,7 +20,6 @@ import {
   memcache_v1,
   monitoring_v3,
   osconfig_v1,
-  privateca_v1beta1,
   pubsub_v1,
   redis_v1,
   run_v1,

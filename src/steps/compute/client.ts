@@ -2,7 +2,6 @@ import { BaseExternalAccountClient } from 'google-auth-library';
 import { compute_v1, google, osconfig_v1 } from 'googleapis';
 import { Client, PageableGaxiosResponse } from '../../google-cloud/client';
 import { iterateRegions, iterateRegionZones } from '../../google-cloud/regions';
-import { BaseExternalAccountClient } from 'google-auth-library';
 
 export class ComputeClient extends Client {
   private client = google.compute({ version: 'v1', retry: false });
