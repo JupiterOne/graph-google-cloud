@@ -1,3 +1,33 @@
+# v2.29.0 (Wed Jun 07 2023)
+
+#### 🚀 Enhancement
+
+- INT-8141: ingest compute instance Inventory data [#613](https://github.com/JupiterOne/graph-google-cloud/pull/613) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### Authors: 1
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
+# v2.28.0 (Tue Jun 06 2023)
+
+#### 🚀 Enhancement
+
+- bumping README.md [#612](https://github.com/JupiterOne/graph-google-cloud/pull/612) ([@mishelashala](https://github.com/mishelashala))
+
+#### 🐛 Bug Fix
+
+- [INT-8175]: expose enable confidencial compute [#609](https://github.com/JupiterOne/graph-google-cloud/pull/609) ([@mishelashala](https://github.com/mishelashala))
+- [INT-8174]: add hasRootPassword to google_sql_mysql_instance [#608](https://github.com/JupiterOne/graph-google-cloud/pull/608) ([@mishelashala](https://github.com/mishelashala))
+- [INT-8173]: add cloud logging enabled prop [#607](https://github.com/JupiterOne/graph-google-cloud/pull/607) ([@mishelashala](https://github.com/mishelashala))
+
+#### Authors: 1
+
+- Michell Ayala ([@mishelashala](https://github.com/mishelashala))
+
+---
+
 # v2.27.1 (Wed May 17 2023)
 
 #### 🐛 Bug Fix

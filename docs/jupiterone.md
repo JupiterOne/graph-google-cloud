@@ -77,6 +77,7 @@ all of the supported data into JupiterOne:
 | [memcache](https://console.developers.google.com/apis/library/memcache.googleapis.com)                         | memcache.googleapis.com             |
 | [monitoring](https://console.developers.google.com/apis/library/monitoring.googleapis.com)                     | monitoring.googleapis.com           |
 | [orgpolicy](https://console.developers.google.com/apis/library/orgpolicy.googleapis.com)                       | orgpolicy.googleapis.com            |
+| [osconfig](https://console.developers.google.com/apis/library/osconfig.googleapis.com)                         | osconfig.googleapis.com             |
 | [privateca](https://console.developers.google.com/apis/library/privateca.googleapis.com)                       | privateca.googleapis.com            |
 | [pubsub](https://console.developers.google.com/apis/library/pubsub.googleapis.com)                             | pubsub.googleapis.com               |
 | [redis](https://console.developers.google.com/apis/library/redis.googleapis.com)                               | redis.googleapis.com                |
@@ -137,6 +138,7 @@ gcloud services enable \
  memcache.googleapis.com \
  monitoring.googleapis.com \
  orgpolicy.googleapis.com \
+ osconfig.googleapis.com \
  privateca.googleapis.com \
  pubsub.googleapis.com \
  redis.googleapis.com \
@@ -598,7 +600,7 @@ permissions can be used to provision only the required ones:
 
 <!-- {J1_PERMISSIONS_DOCUMENTATION_MARKER_START} -->
 
-| Permissions List (111)                                  |
+| Permissions List (112)                                  |
 | ------------------------------------------------------- |
 | `accesscontextmanager.accessLevels.list`                |
 | `accesscontextmanager.accessPolicies.list`              |
@@ -685,6 +687,7 @@ permissions can be used to provision only the required ones:
 | `monitoring.alertPolicies.list`                         |
 | `orgpolicy.policies.list`                               |
 | `orgpolicy.policy.get`                                  |
+| `osconfig.inventories.get`                              |
 | `privateca.caPools.list`                                |
 | `privateca.certificateAuthorities.getIamPolicy`         |
 | `privateca.certificateAuthorities.list`                 |

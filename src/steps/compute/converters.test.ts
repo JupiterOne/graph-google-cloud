@@ -57,6 +57,7 @@ import {
   getMockComputeGlobalForwardingRule,
   getMockComputeForwardingRule,
   getMockComputeGlobalAddress,
+  getMockComputeInstanceInventory,
 } from '../../../test/mocks';
 import { DEFAULT_INTEGRATION_CONFIG_PROJECT_ID } from '../../../test/config';
 import {
@@ -136,6 +137,7 @@ describe('#createComputeInstanceEntity', () => {
     expect(
       createComputeInstanceEntity(
         getMockComputeInstance(),
+        getMockComputeInstanceInventory(),
         'j1-integration-dev-v2',
       ),
     ).toMatchSnapshot();
@@ -168,6 +170,7 @@ describe('#createComputeInstanceEntity', () => {
             },
           ],
         }),
+        getMockComputeInstanceInventory(),
         'j1-integration-dev-v2',
       ),
     ).toMatchSnapshot();
@@ -177,6 +180,7 @@ describe('#createComputeInstanceEntity', () => {
     expect(
       createComputeInstanceEntity(
         getMockComputeInstance({ status: 'SUSPENDED' }),
+        getMockComputeInstanceInventory(),
         'j1-integration-dev-v2',
       ),
     ).toMatchSnapshot();
@@ -196,6 +200,7 @@ describe('#createComputeInstanceEntity', () => {
             kind: 'compute#metadata',
           },
         }),
+        getMockComputeInstanceInventory(),
         'j1-integration-dev-v2',
       ),
     ).toMatchSnapshot();
@@ -283,8 +288,10 @@ describe('#createComputeInstanceUsesComputeDiskRelationship', () => {
       'j1-gc-integration-dev-v2',
     );
     const computeInstance = getMockComputeInstance();
+    const computeInstnaceInventory = getMockComputeInstanceInventory();
     const computeInstanceEntity = createComputeInstanceEntity(
       computeInstance,
+      computeInstnaceInventory,
       'j1-integration-dev-v2',
     );
 
