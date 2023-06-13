@@ -20,7 +20,6 @@ import {
   memcache_v1,
   monitoring_v3,
   osconfig_v1,
-  privateca_v1beta1,
   pubsub_v1,
   redis_v1,
   run_v1,
@@ -1853,79 +1852,6 @@ export function getMockSpannerInstanceConfiguration(
         type: 'READ_WRITE',
       },
     ],
-    ...partial,
-  };
-}
-
-export function getMockCertificateAuthority(
-  partial?: privateca_v1beta1.Schema$CertificateAuthority,
-): privateca_v1beta1.Schema$CertificateAuthority {
-  return {
-    name: 'projects/j1-gc-integration-dev-v2/locations/us-central1/certificateAuthorities/acmeName',
-    type: 'SELF_SIGNED',
-    tier: 'ENTERPRISE',
-    config: {
-      subjectConfig: {
-        subject: {
-          organization: 'Acme',
-        },
-        commonName: 'acmeName',
-      },
-      reusableConfig: {},
-    },
-    lifetime: '314496000s',
-    keySpec: {
-      algorithm: 'RSA_PKCS1_2048_SHA256',
-    },
-    issuingOptions: {
-      includeCaCertUrl: true,
-      includeCrlAccessUrl: true,
-    },
-    state: 'ENABLED',
-    caCertificateDescriptions: [
-      {
-        subjectDescription: {
-          subject: {
-            organization: 'Acme',
-          },
-          commonName: 'acmeName',
-          subjectAltName: {},
-          hexSerialNumber: '008a51de1d92de213728c7733b74700f4a684513',
-          lifetime: '314496000s',
-          notBeforeTime: '2021-04-08T14:44:07.900172684Z',
-          notAfterTime: '2031-03-27T14:44:07.900172684Z',
-        },
-        configValues: {
-          keyUsage: {
-            baseKeyUsage: {
-              certSign: true,
-              crlSign: true,
-            },
-          },
-          caOptions: {
-            isCa: true,
-          },
-        },
-        subjectKeyId: {
-          keyId: 'ec21738d89c6020cfab46e73b1a001d7fb24d34c',
-        },
-        authorityKeyId: {
-          keyId: 'ec21738d89c6020cfab46e73b1a001d7fb24d34c',
-        },
-        certFingerprint: {
-          sha256Hash:
-            'd7de957b8c0903c662332fc8ec4966c5dc01b7426ed778dc389aaa545a37064a',
-        },
-      },
-    ],
-    accessUrls: {
-      caCertificateAccessUrl:
-        'http://test-bucket-with-labels.storage.googleapis.com/f1cc34b5b7e8fa026582/ca.crt',
-      crlAccessUrl:
-        'http://test-bucket-with-labels.storage.googleapis.com/f1cc34b5b7e8fa026582/crl.crl',
-    },
-    createTime: '2021-04-08T14:44:07.215539285Z',
-    updateTime: '2021-04-08T14:44:09.263990183Z',
     ...partial,
   };
 }

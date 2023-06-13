@@ -1,5 +1,8 @@
 import { bigquery_v2 } from 'googleapis';
-import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
+import {
+  GoogleCloudResourceData,
+  createGoogleCloudIntegrationEntity,
+} from '../../utils/entity';
 import {
   BIG_QUERY_DATASET_ENTITY_CLASS,
   BIG_QUERY_DATASET_ENTITY_TYPE,
@@ -41,7 +44,7 @@ function isBigQueryDatasetPublicAccess(accessList: DatasetAccess[]): boolean {
 export function createBigQueryDatasetEntity(data: bigquery_v2.Schema$Dataset) {
   return createGoogleCloudIntegrationEntity(data, {
     entityData: {
-      source: data,
+      source: data as GoogleCloudResourceData,
       assign: {
         _key: data.id as string,
         _type: BIG_QUERY_DATASET_ENTITY_TYPE,
