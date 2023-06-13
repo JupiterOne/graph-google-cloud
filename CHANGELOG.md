@@ -1,3 +1,15 @@
+# v2.30.0 (Tue Jun 13 2023)
+
+#### 🚀 Enhancement
+
+- [INT-7879]: bump googleapis version [#610](https://github.com/JupiterOne/graph-google-cloud/pull/610) ([@mishelashala](https://github.com/mishelashala))
+
+#### Authors: 1
+
+- Michell Ayala ([@mishelashala](https://github.com/mishelashala))
+
+---
+
 # v2.29.0 (Wed Jun 07 2023)
 
 #### 🚀 Enhancement
