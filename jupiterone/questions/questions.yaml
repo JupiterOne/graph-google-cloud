@@ -113,6 +113,7 @@ questions:
 ################################################################################
 # Section 1: Identity and Access Management (IAM)
 ################################################################################
+#1.1
 - id: integration-question-google-cloud-corporate-login-credentials
   title: Ensure that corporate login credentials are used
   description:
@@ -130,6 +131,33 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '1.1'
+
+- id: integration-question-google-ske-enabled-for-admin-accounts
+  title: Ensure that Security Key Enforcement is Enabled for All Admin Accounts
+  description: >
+    Setup Security Key Enforcement for Google Cloud Platform admin accounts.
+  queries:
+  - name: good
+    query: |
+      FIND google_user WITH admin = true OR isAdmin = true OR isDelegatedAdmin = true AND isEnforcedIn2Sv = true
+  - name: bad
+    query: |
+      FIND google_user WITH admin = true OR isAdmin = true OR isDelegatedAdmin = true AND isEnforcedIn2Sv = true
+  tags:
+  - google-cloud
+  - admin-account
+  - security-key-enforcement
+  compliance:
+  - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '1.3'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '1.3'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '1.3'
+
 - id: integration-question-google-cloud-managed-service-account-keys
   title: Ensure that there are only GCP-managed service account keys for each service account
   description:
@@ -148,6 +176,7 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '1.4'
+
 - id: integration-question-google-cloud-service-account-non-admin
   title: Ensure that Service Account has no Admin privileges
   description:
@@ -197,6 +226,7 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '1.5'
+
 - id: integration-question-google-cloud-iam-not-assigned-user-token-roles-project-level
   title: Ensure that IAM users are not assigned the Service Account User or Service Account Token Creator roles at project level
   description: >
@@ -238,6 +268,7 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '1.6'
+
 - id: integration-question-google-cloud-user-managed-external-keys-service-account-rotation-period
   title: Ensure user-managed/external keys for service accounts are rotated every 90 days or less
   description: >
@@ -573,6 +604,55 @@ questions:
     requirements:
       - '3.7'
 
+- id: integration-question-google-vpc-flow-logs-for-every-VPC-subnet
+  title: Ensure that VPC Flow Logs is Enabled for Every Subnet in a VPC Network
+  description: >
+    Flow Logs is a feature that enables users to capture information about the IP traffic going to and from network interfaces in the organization's VPC Subnets. Once a flow log is created, the user can view and retrieve its data in Stackdriver Logging. It is recommended that Flow Logs be enabled for every business-critical VPC subnet.
+  queries:
+  - name: good
+    query: |
+      find google_compute_subnetwork WITH flowLogsEnabled = true
+  - name: bad
+    query: |
+      find google_compute_subnetwork WITH flowLogsEnabled != true
+  tags:
+  - google-cloud
+  - VPC-flowlogs
+  - logging
+  compliance:
+  - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '3.8'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '3.8'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '3.8'
+
+- id: integration-question-google-IAP-allow-google-IP-addresses
+  title: Use Identity Aware Proxy (IAP) to Ensure Only Traffic From Google IP Addresses are 'Allowed'
+  description: >
+    IAP authenticates the user requests to your apps via a Google single sign in. You can then manage these users with permissions to control access. It is recommended to use both IAP permissions and firewalls to restrict this access to your apps with sensitive information.
+  queries:
+  - name: good
+    query: |
+      find Service with displayName="Cloud Identity-Aware Proxy API" and enabled = true
+  - name: bad
+    query: |
+      find Service with displayName="Cloud Identity-Aware Proxy API" and enabled != true
+  tags:
+  - google-cloud
+  - google-IAP
+  - Networking
+  compliance:
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '3.10'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '3.10'
+
 - id: integration-question-google-cloud-firewall-deny-all
   title: Which Google Cloud networks do not have a default Deny All egress rule for firewalls?
   description: >
@@ -832,6 +912,58 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '4.8'
+
+- id: integration-question-google-compute-instances-do-not-have-public-ips
+  title: Ensure That Compute Instances Do Not Have Public IP Addresses
+  description: >
+    Compute instances should not be configured to have external IP addresses.
+  queries:
+  - name: good
+    query: |
+      FIND google_compute_instance with publicIpAddress = undefined
+  - name: bad
+    query: |
+      FIND google_compute_instance with publicIpAddress != undefined
+  tags:
+  - google-cloud
+  - virtual-machines
+  - google-compute-instances
+  compliance:
+  - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '4.9'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '4.9'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '4.9'
+
+- id: integration-question-google-app-engine-enforce-https
+  title: Ensure That App Engine Applications Enforce HTTPS Connections
+  description: >
+    In order to maintain the highest level of security all connections to an application should be secure by default.
+  queries:
+  - name: good
+    query: |
+      FIND google_app_engine_instance with encrypted = true
+  - name: bad
+    query: |
+      FIND google_app_engine_instance with encrypted != true
+  tags:
+  - google-cloud
+  - google-app-engine
+  - https
+  compliance:
+  - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '4.10'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '4.10'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '4.10'
 ################################################################################
 # End Section 4: Virtual Machines
 ################################################################################
@@ -839,6 +971,7 @@ questions:
 ################################################################################
 # Section 5: Storage
 ################################################################################
+#5.1
 - id: integration-question-google-cloud-storage-bucket-public-access
   title: Ensure that Cloud Storage bucket is not anonymously or publicly accessible
   description: >
@@ -857,6 +990,7 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '5.1'
+#5.2
 - id: integration-question-google-cloud-storage-bucket-uniform-bucket-access-enabled
   title: Ensure that Cloud Storage buckets have uniform bucket-level access enabled
   description: >
@@ -882,6 +1016,9 @@ questions:
 ################################################################################
 # Section 6: Cloud SQL Database Services
 ################################################################################
+##MySql
+#6.1.1
+#6.1.2 v1.1 only
 - id: integration-question-google-mysql-local-infile-flag-off
   title: Are my Cloud SQL MySQL instances configured with the "local_infile" database flag set to "off"?
   description: >
@@ -902,7 +1039,59 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '6.1.2'
+#6.1.2 GCP v 1.3 and later
+- id: integration-question-google-database-flag-skipshowdatabase
+  title: Ensure "Skip_show_database" Database Flag for Cloud SQL MySQL Instance Is Set to "On"
+  description: >
+    It is recommended to set "skip_show_database" database flag for Cloud SQL Mysql instance to "on"
+  queries:
+  - name: good
+    query: |
+      find google_sql_mysql_instance WITH skipShowDatabase = 'on'
+  - name: bad
+    query: |
+      find google_sql_mysql_instance WITH skipShowDatabase != 'on'
+  tags:
+  - google-cloud
+  - database-flags
+  - mysql
+  compliance:
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.1.2'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '6.1.2'
 
+#6.1.3
+- id: integration-question-google-database-flag-localinfile
+  title: Ensure That the "Local_infile" Database Flag for a Cloud SQL MySQL Instance Is Set to "Off"
+  description: >
+    It is recommended to set the `local_infile` database flag for a Cloud SQL MySQL instance to `off`.
+  queries:
+  - name: good
+    query: |
+      find google_sql_mysql_instance WITH localInfile = 'off'
+  - name: bad
+    query: |
+      find google_sql_mysql_instance WITH localInfile != 'off'
+  tags:
+  - google-cloud
+  - database-flags
+  - mysql
+  compliance:
+  - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '6.1.3'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.1.3'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '6.1.3'
+
+##PostgreSQL
+#6.2.1
 - id: integration-question-google-postgresql-log-checkpoints-flag-on
   title: Are my Cloud PostgreSQL instances configured with the "log_checkpoints" database flag set to "on"?
   description: >
@@ -924,6 +1113,31 @@ questions:
     requirements:
       - '6.2.1'
 
+#6.2.1 v1.3 and later
+- id: integration-question-google-database-flag-logerrorverbosity
+  title: Ensure Log_error_verbosity Database Flag for Cloud SQL PostgreSQL Instance Is Set to DEFAULT or Stricter
+  description: >
+    The `log_error_verbosity` flag controls the verbosity/details of messages logged. Valid values are - `TERSE` - `DEFAULT` - `VERBOSE` `TERSE` excludes the logging of `DETAIL`, `HINT`, `QUERY`, and `CONTEXT` error information. `VERBOSE` output includes the `SQLSTATE` error code, source code file name, function name, and line number that generated the error. Ensure an appropriate value is set to 'DEFAULT' or stricter.
+  queries:
+  - name: good
+    query: |
+      find google_sql_postgres_instance with logErrorVerbosity = ('verbose' or 'terse' or 'default')
+  - name: bad
+    query: |
+      find google_sql_postgres_instance with logErrorVerbosity != ('verbose' or 'terse' or 'default')
+  tags:
+  - google-cloud
+  - database-flags
+  - postgresql
+  compliance:
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.2.1'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '6.2.1'
+
+#6.2.2
 - id: integration-question-google-postgresql-log-connections-flag-on
   title: Are my Cloud PostgreSQL instances configured with the "log_connections" database flag set to "on"?
   description: >
@@ -945,6 +1159,7 @@ questions:
     requirements:
       - '6.2.2'
 
+#6.2.3
 - id: integration-question-google-postgresql-log-disconnections-flag-on
   title: Are my Cloud PostgreSQL instances configured with the "log_disconnections" database flag set to "on"?
   description: >
@@ -966,6 +1181,7 @@ questions:
     requirements:
       - '6.2.3'
 
+#6.2.4 v1.1 only 
 - id: integration-question-google-postgresql-log-lock-awaits-flag-on
   title: Are my Cloud SQL PostgreSQL instances configured with the "log_lock_waits" database flag set to "on"?
   description: >
@@ -987,6 +1203,31 @@ questions:
     requirements:
       - '6.2.4'
 
+#6.2.4 v1.3 and later
+- id: integration-question-google-database-flag-logstatement
+  title: Ensure Log_statement Database Flag for Cloud SQL PostgreSQL Instance Is Set Appropriately
+  description: >
+    The value of `log_statement` flag determined the SQL statements that are logged. Valid values are - `none` - `ddl` - `mod` - `all` The value `ddl` logs all data definition statements. The value `mod` logs all ddl statements, plus data-modifying statements. The statements are logged after a basic parsing is done and statement type is determined, thus this does not logs statements with errors. When using extended query protocol, logging occurs after an Execute message is received and values of the Bind parameters are included. A value of 'ddl' is recommended unless otherwise directed by your organization's logging policy.
+  queries:
+  - name: good
+    query: |
+      find google_sql_postgres_instance with logStatement = ('none' or 'mod' or 'ddl' or 'all')
+  - name: bad
+    query: |
+      find google_sql_postgres_instance with logStatement != ('none' or 'mod' or 'ddl' or 'all')
+  tags:
+  - google-cloud
+  - database-flags
+  - postgresql
+  compliance:
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.2.4'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '6.2.4'
+
+#6.2.5
 - id: integration-question-google-postgresql-log-min-messages-flag-on
   title: Are my Cloud PostgreSQL instances configured with the "log_min_messages" database flag set to an accetable value?
   description: >
@@ -998,10 +1239,10 @@ questions:
   queries:
   - name: good
     query: |
-      find google_sql_postgres_instance with logMinErrorStatement='{{orgMinErrorStatementPolicy}}'
+      find google_sql_postgres_instance with logMinErrorStatement=('debug5' or 'debug4' or 'debug3' or 'debug2' or 'debug1' or 'info' or 'notice' or 'warning' or 'error' or 'log' or 'fatal' or 'panic')
   - name: bad
     query: |
-      find google_sql_postgres_instance with logMinErrorStatement!='{{orgMinErrorStatementPolicy}}'
+      find google_sql_postgres_instance with logMinErrorStatement!=('debug5' or 'debug4' or 'debug3' or 'debug2' or 'debug1' or 'info' or 'notice' or 'warning' or 'error' or 'log' or 'fatal' or 'panic')
   tags:
   - google-cloud
   - sql
@@ -1011,7 +1252,14 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '6.2.5'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.2.6'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '6.2.5'
 
+#6.2.6 v1.1 only 
 - id: integration-question-google-postgresql-log-temp-files-flag
   title: Are my Cloud PostgreSQL instances configured with the "log_temp_files" database flag set to "0"?
   description: >
@@ -1039,6 +1287,31 @@ questions:
     requirements:
       - '6.2.6'
 
+#6.2.7 v1.3 and 6.2.6 v2.0
+- id: integration-question-google-database-flag-logminerrorstatement
+  title: Ensure "Log_min_error_statement" Database Flag for Cloud SQL PostgreSQL Instance Is Set to "Error" or Stricter
+  description: >
+    The "log_min_error_statement" flag defines the minimum message severity level that are considered as an error statement. Messages for error statements are logged with the SQL statement. Valid values include 'DEBUG5', 'DEBUG4', 'DEBUG3', 'DEBUG2', 'DEBUG1', 'INFO', 'NOTICE', 'WARNING', 'ERROR', 'LOG', 'FATAL', and 'PANIC'. Each severity level includes the subsequent levels mentioned above. Ensure a value of `ERROR` or stricter is set. By default ERROR and lower is considered good, and all obove ERROR is considered bad. Set as definied by organization policy.  
+  queries:
+  - name: good
+    query: |
+      find google_sql_postgres_instance with logMinErrorStatement = ('debug5' or 'debug4' or 'debug3' or 'debug2' or 'debug1' or 'info' or 'notice' or 'warning' or 'error' or 'log' or 'fatal' or 'panic')
+  - name: bad
+    query: |
+      find google_sql_postgres_instance with logMinErrorStatement != ('debug5' or 'debug4' or 'debug3' or 'debug2' or 'debug1' or 'info' or 'notice' or 'warning' or 'error' or 'log' or 'fatal' or 'panic')
+  tags:
+  - google-cloud
+  - database-flags
+  - postgresql
+  compliance:
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.2.7'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '6.2.6'
+
+#6.2.7
 - id: integration-question-google-postgresql-log-min-duration-statement-flag
   title: Are my Cloud SQL MySQL instances configured with the "log_min_duration_statement" database flag set to "-1"?
   description: >
@@ -1059,7 +1332,66 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '6.2.7'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.2.8'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '6.2.7'
 
+#6.2.9 v1.3 and 6.2.8 v2.0
+- id: integration-question-google-database-flag-cloudsql.enablepgaudit
+  title: Ensure That "cloudsql.enable_pgaudit" Database Flag for each Cloud Sql Postgresql Instance Is Set to "on" For Centralized Logging
+  description: >
+    Ensure "cloudsql.enable_pgaudit" database flag for Cloud SQL PostgreSQL instance is set to "on" to allow for centralized logging.
+  queries:
+  - name: good
+    query: |
+      find google_sql_postgres_instance WITH cloudsql.enable_pgaudit = "on"
+  - name: bad
+    query: |
+      find google_sql_postgres_instance WITH cloudsql.enable_pgaudit != "on"
+  tags:
+  - google-cloud
+  - database-flags
+  - postgresql
+  compliance:
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.2.9'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '6.2.8'
+
+#6.2.9 v2.0 and later
+
+##sqlserver
+
+#6.3.1 v1.3 and later
+- id: integration-question-google-database-flag-externalscriptsenabled
+  title: Ensure 'external scripts enabled' database flag for Cloud SQL SQL Server instance is set to 'off'
+  description: >
+    It is recommended to set 'external scripts enabled' database flag for Cloud SQL SQL Server instance to 'off'
+  queries:
+  - name: good
+    query: |
+      find google_sql_sql_server_instance WITH externalScriptsEnabled = "off"
+  - name: bad
+    query: |
+      find google_sql_sql_server_instance WITH externalScriptsEnabled != "off"
+  tags:
+  - google-cloud
+  - database-flags
+  - sqlserver
+  compliance:
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.3.1'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '6.3.1'
+
+#6.3.2
 - id: integration-question-google-sql-server-cross-db-ownership-chaining-flag
   title: Are my Cloud SQL Server instances configured with the "cross db ownership chaining" database flag set to "off"?
   description: >
@@ -1080,28 +1412,136 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '6.3.1'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.3.2'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '6.3.2'
 
-- id: integration-question-google-sql-server-contained-database-authentication-flag
-  title: Are my Cloud SQL Server instances configured with the "contained database authentication" database flag set to "off"?
+#6.3.3 v1.3 and later 
+- id: integration-question-google-database-flag-userconnections
+  title: Ensure 'User Connections' Database Flag for Cloud Sql Sql Server Instance Is Set to a Non-limiting Value
   description: >
-    It is recommended to set contained database authentication database flag for Cloud SQL on the SQL Server instance is set to off.
+    It is recommended to check the 'User Connections' for a Cloud SQL SQL Server instance to ensure that it is not artificially limiting connections. Set at >1, otherwise set to 0 for default. 
   queries:
   - name: good
     query: |
-      find google_sql_sql_server_instance with containedDatabaseAuthentication='off'
+      find google_sql_sql_server_instance WITH userConnections <= 0
   - name: bad
     query: |
-      find google_sql_sql_server_instance with containedDatabaseAuthentication!='off'
+      find google_sql_sql_server_instance WITH userConnections > 0
   tags:
   - google-cloud
-  - sql
-  - sql-server
-  - datastore
+  - database-flags
+  - sqlserver
+  compliance:
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.3.3'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '6.3.3'
+
+#6.3.4 v1.3 and later
+- id: integration-question-google-database-flag-useroptions
+  title: Ensure "user options" database flag for Cloud SQL SQL Server instance is not configured
+  description: >
+    It is recommended that, 'user options' database flag for Cloud SQL SQL Server instance should not be configured.
+  queries:
+  - name: bad
+    query: |
+      find google_sql_sql_server_instance WITH userOptions != undefined 
+  tags:
+  - google-cloud
+  - database-flags
+  - sqlserver
+  compliance:
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.3.4'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '6.3.4'
+
+#6.3.5 v1.3 and later 
+- id: integration-question-google-database-flag-remoteaccess
+  title: Ensure "remote access" database flag for Cloud SQL SQL Server instance is set to "off"
+  description: >
+    It is recommended to set "remote access" database flag for Cloud SQL SQL Server instance to "off".
+  queries:
+  - name: good
+    query: |
+      find google_sql_sql_server_instance WITH remoteAccess = "off" 
+  - name: bad
+    query: |
+      find google_sql_sql_server_instance WITH remoteAccess != "off" 
+  tags:
+  - google-cloud
+  - database-flags
+  - sqlserver
+  compliance:
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.3.5'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '6.3.5'
+
+#6.3.6 v1.3 and later 
+- id: integration-question-google-database-flag-traceflag
+  title: Ensure "3625 (trace flag)" database flag for all Cloud SQL Server instances is set to "on"
+  description: >
+    It is recommended to set "3625 (trace flag)" database flag for Cloud SQL SQL Server instance to ON.
+  queries:
+  - name: good
+    query: |
+      find google_sql_sql_server_instance WITH traceFlag = "on"
+  - name: bad
+    query: |
+      find google_sql_sql_server_instance WITH traceFlag != "on"
+  tags:
+  - google-cloud
+  - database-flags
+  - sqlserver
+  compliance:
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.3.6'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '6.3.6'
+
+#6.3.7
+- id: integration-question-google-database-flag-containeddatabaseauthentication
+  title: Ensure that the "contained database authentication" database flag for Cloud SQL on the SQL Server instance is set to "off"
+  description: >
+    It is recommended to set "contained database authentication" database flag for Cloud SQL on the SQL Server instance to OFF.
+  queries:
+  - name: good
+    query: |
+      find google_sql_sql_server_instance WITH containedDatabaseAuthentication = "off"
+  - name: bad
+    query: |
+      find google_sql_sql_server_instance WITH containedDatabaseAuthentication != "off"
+  tags:
+  - google-cloud
+  - database-flags
+  - sqlserver
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '6.3.2'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.3.7'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '6.3.7'
 
+##cloudsql
+
+#6.4
 - id: integration-question-google-sql-require-ssl-incoming
   title: Are my Cloud SQL instances requiring SSL on all incoming connections?
   description: >
@@ -1125,6 +1565,7 @@ questions:
     requirements:
       - '6.4'
 
+#6.5
 - id: integration-question-google-sql-open-to-world
   title: Are my Cloud SQL instances open to the world?
   description: >
@@ -1148,6 +1589,7 @@ questions:
     requirements:
       - '6.5'
 
+#6.6
 - id: integration-question-google-sql-public-ips
   title: Do my Cloud SQL instances have public IP addresses?
   description: >
@@ -1171,6 +1613,7 @@ questions:
     requirements:
       - '6.6'
 
+#6.7
 - id: integration-question-google-sql-automated-backups
   title: Are my Cloud SQL instances configured with automated backups?
   description: >
@@ -1200,6 +1643,8 @@ questions:
 ################################################################################
 # Section 7: BigQuery
 ################################################################################
+
+#7.1
 - id: integration-question-google-big-query-public
   title: Are any of my BigQuery datasets anonymously or publicly accessible?
   description: >
@@ -1219,6 +1664,7 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '7.1'
+
 #7.2
 - id: integration-question-google-bigquery-encrypt-tables-with-CMEK
   title: Ensure That All BigQuery Tables Are Encrypted With Customer-Managed Encryption Key (CMEK)
@@ -1240,6 +1686,7 @@ questions:
   - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
     requirements:
       - '7.2'
+
 #7.3
 - id: integration-question-google-bigquery-default-CMEK
   title: Ensure That a Default Customer-Managed Encryption Key (CMEK) Is Specified for All BigQuery Data Sets
