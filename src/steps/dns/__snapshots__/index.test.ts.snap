@@ -29,7 +29,7 @@ Object {
         },
       ],
       "_type": "google_dns_managed_zone",
-      "cloudLoggingEnabled": undefined,
+      "cloudLoggingStatus": "off",
       "createdOn": 1613606661953,
       "description": "Example DNS zone",
       "displayName": "example-public-zone",

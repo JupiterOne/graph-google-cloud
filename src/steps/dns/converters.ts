@@ -7,6 +7,7 @@ import {
   DNS_POLICY_ENTITY_CLASS,
   DNS_POLICY_ENTITY_TYPE,
 } from './constants';
+import { cloudLoggingConfigParser } from './cloudLoggingConfigParser';
 
 export function createDNSManagedZoneEntity(data: dns_v1.Schema$ManagedZone) {
   return createGoogleCloudIntegrationEntity(data, {
@@ -32,7 +33,8 @@ export function createDNSManagedZoneEntity(data: dns_v1.Schema$ManagedZone) {
           (spec) => spec.keyType === 'zoneSigning',
         )?.algorithm,
         createdOn: parseTimePropertyValue(data.creationTime),
-        cloudLoggingEnabled: data?.cloudLoggingConfig?.enableLogging,
+        cloudLoggingStatus:
+          cloudLoggingConfigParser.parseEnableLoggingStatus(data),
       },
     },
   });
