@@ -8,6 +8,7 @@ import {
   SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE,
   SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_CLASS,
 } from './constants';
+import { mysqlInstanceParser } from './mysqlInstanceParsers';
 
 function getFlagValue(
   instance: sqladmin_v1beta4.Schema$DatabaseInstance,
@@ -181,8 +182,7 @@ export function createMySQLInstanceEntity(
         name: instance.name,
         encrypted: true,
         location: instance.connectionName,
-        hasRootPassword:
-          instance.rootPassword !== null && instance.rootPassword !== undefined,
+        hasRootPassword: mysqlInstanceParser.parseHasRootPassword(instance),
         ...getMySQLSpecificBenchmarkProperties(instance),
         ...getCommonDatabaseInstanceProperties(instance),
       },

@@ -21,6 +21,7 @@ Object {
         "name": "cloud-sql-postgres",
         "project": "j1-gc-integration-dev-v2",
         "region": "europe-west3",
+        "rootPassword": "some-password",
         "selfLink": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v2/instances/cloud-sql-postgres",
         "serviceAccountEmailAddress": "p165882964161-x5ifig@gcp-sa-cloud-sql.iam.gserviceaccount.com",
         "settings": Object {
@@ -74,7 +75,7 @@ Object {
   "displayName": "cloud-sql-postgres",
   "encrypted": true,
   "hasPublicIP": false,
-  "hasRootPassword": false,
+  "hasRootPassword": true,
   "ipAddresses": undefined,
   "kmsKeyName": undefined,
   "localInfile": undefined,

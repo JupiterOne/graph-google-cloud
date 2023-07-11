@@ -13,6 +13,7 @@ describe('#createMySQLInstanceEntity', () => {
         getMockSQLInstance({
           databaseVersion: 'MYSQL_5_7',
           backendType: 'SECOND_GEN',
+          rootPassword: 'some-password',
         }),
       ),
     ).toMatchSnapshot();
