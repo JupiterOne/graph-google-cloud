@@ -33,8 +33,9 @@ export function createDNSManagedZoneEntity(data: dns_v1.Schema$ManagedZone) {
           (spec) => spec.keyType === 'zoneSigning',
         )?.algorithm,
         createdOn: parseTimePropertyValue(data.creationTime),
-        cloudLoggingStatus:
-          cloudLoggingConfigParser.parseEnableLoggingStatus(data),
+        cloudLoggingStatus: cloudLoggingConfigParser.parseEnableLoggingStatus(
+          data.cloudLoggingConfig,
+        ),
       },
     },
   });

@@ -27,7 +27,7 @@ Object {
     },
   ],
   "_type": "google_dns_managed_zone",
-  "cloudLoggingStatus": "off",
+  "cloudLoggingStatus": false,
   "createdOn": 1611334107272,
   "description": "",
   "displayName": "example-zone",
@@ -52,6 +52,9 @@ Object {
     Object {
       "name": "default",
       "rawData": Object {
+        "cloudLoggingConfig": Object {
+          "enableLogging": true,
+        },
         "creationTime": "2021-01-22T16:48:27.272Z",
         "description": "",
         "dnsName": "example.com.",
@@ -74,7 +77,7 @@ Object {
     },
   ],
   "_type": "google_dns_managed_zone",
-  "cloudLoggingStatus": "off",
+  "cloudLoggingStatus": true,
   "createdOn": 1611334107272,
   "description": "",
   "displayName": "example-zone",
@@ -99,6 +102,9 @@ Object {
     Object {
       "name": "default",
       "rawData": Object {
+        "cloudLoggingConfig": Object {
+          "enableLogging": null,
+        },
         "creationTime": "2021-01-22T16:48:27.272Z",
         "description": "",
         "dnsName": "example.com.",
@@ -129,7 +135,7 @@ Object {
     },
   ],
   "_type": "google_dns_managed_zone",
-  "cloudLoggingStatus": "off",
+  "cloudLoggingStatus": false,
   "createdOn": 1611334107272,
   "description": "",
   "displayName": "example-zone",
@@ -154,6 +160,9 @@ Object {
     Object {
       "name": "default",
       "rawData": Object {
+        "cloudLoggingConfig": Object {
+          "enableLogging": false,
+        },
         "creationTime": "2021-01-22T16:48:27.272Z",
         "description": "",
         "dnsName": "example.com.",
@@ -184,7 +193,7 @@ Object {
     },
   ],
   "_type": "google_dns_managed_zone",
-  "cloudLoggingStatus": "off",
+  "cloudLoggingStatus": false,
   "createdOn": 1611334107272,
   "description": "",
   "displayName": "example-zone",

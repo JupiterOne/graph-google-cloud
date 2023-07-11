@@ -74,7 +74,7 @@ describe('#fetchDNSManagedZones', () => {
           keySigningAlgorithm: { type: 'string' },
           zoneSigningAlgorithm: { type: 'string' },
           createdOn: { type: 'number' },
-          cloudLoggingStatus: { type: 'string' },
+          cloudLoggingStatus: { type: 'boolean' },
         },
       },
     });

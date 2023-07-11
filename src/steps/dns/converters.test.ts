@@ -16,6 +16,9 @@ describe('#createDNSManagedZoneEntity', () => {
     expect(
       createDNSManagedZoneEntity(
         getMockDNSManagedZone({
+          cloudLoggingConfig: {
+            enableLogging: true,
+          },
           dnssecConfig: {
             state: 'on',
             nonExistence: 'nsec3',
@@ -30,6 +33,9 @@ describe('#createDNSManagedZoneEntity', () => {
     expect(
       createDNSManagedZoneEntity(
         getMockDNSManagedZone({
+          cloudLoggingConfig: {
+            enableLogging: null,
+          },
           dnssecConfig: {
             state: 'on',
             defaultKeySpecs: [
@@ -52,6 +58,9 @@ describe('#createDNSManagedZoneEntity', () => {
     expect(
       createDNSManagedZoneEntity(
         getMockDNSManagedZone({
+          cloudLoggingConfig: {
+            enableLogging: false,
+          },
           dnssecConfig: {
             state: 'on',
             defaultKeySpecs: [
