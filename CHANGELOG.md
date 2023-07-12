@@ -1,3 +1,22 @@
+# v2.30.1 (Wed Jul 12 2023)
+
+#### 🐛 Bug Fix
+
+- chore: bump version [#616](https://github.com/JupiterOne/graph-google-cloud/pull/616) ([@mishelashala](https://github.com/mishelashala))
+- INT-8174: add mysql instance parser [#615](https://github.com/JupiterOne/graph-google-cloud/pull/615) ([@mishelashala](https://github.com/mishelashala))
+- INT-8173: expose cloudLoggingStatus [#614](https://github.com/JupiterOne/graph-google-cloud/pull/614) ([@mishelashala](https://github.com/mishelashala))
+- Section 6 [#603](https://github.com/JupiterOne/graph-google-cloud/pull/603) ([@mikiodehartj1](https://github.com/mikiodehartj1))
+- postgresql [#605](https://github.com/JupiterOne/graph-google-cloud/pull/605) ([@mikiodehartj1](https://github.com/mikiodehartj1))
+- changes to section 4 [#602](https://github.com/JupiterOne/graph-google-cloud/pull/602) ([@mikiodehartj1](https://github.com/mikiodehartj1))
+- changes to section 3 [#601](https://github.com/JupiterOne/graph-google-cloud/pull/601) ([@mikiodehartj1](https://github.com/mikiodehartj1))
+
+#### Authors: 2
+
+- [@mikiodehartj1](https://github.com/mikiodehartj1)
+- Michell Ayala ([@mishelashala](https://github.com/mishelashala))
+
+---
+
 # v2.30.0 (Tue Jun 13 2023)
 
 #### 🚀 Enhancement
