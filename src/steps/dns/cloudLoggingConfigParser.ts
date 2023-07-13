@@ -1,20 +1,22 @@
 import { dns_v1 } from 'googleapis';
 
+type ManagedZoneCloudLoggingConfigStatus = 'disabled' | 'enabled';
+
 const parseEnableLoggingStatus = (
   cloudLoggingConfig?: dns_v1.Schema$ManagedZoneCloudLoggingConfig,
-): boolean => {
+): ManagedZoneCloudLoggingConfigStatus => {
   if (cloudLoggingConfig === undefined || cloudLoggingConfig === null) {
-    return false;
+    return 'disabled';
   }
 
   if (
     cloudLoggingConfig.enableLogging === undefined ||
     cloudLoggingConfig.enableLogging === null
   ) {
-    return false;
+    return 'disabled';
   }
 
-  return cloudLoggingConfig.enableLogging;
+  return cloudLoggingConfig.enableLogging ? 'enabled' : 'disabled';
 };
 
 export const cloudLoggingConfigParser = {
