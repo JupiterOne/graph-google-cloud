@@ -1,3 +1,15 @@
+# v2.30.2 (Thu Jul 13 2023)
+
+#### 🐛 Bug Fix
+
+- INT-8173: change cloud logging status type [#617](https://github.com/JupiterOne/graph-google-cloud/pull/617) ([@mishelashala](https://github.com/mishelashala))
+
+#### Authors: 1
+
+- Michell Ayala ([@mishelashala](https://github.com/mishelashala))
+
+---
+
 # v2.30.1 (Wed Jul 12 2023)
 
 #### 🐛 Bug Fix
