@@ -1,3 +1,15 @@
+# v2.30.3 (Tue Aug 01 2023)
+
+#### 🐛 Bug Fix
+
+- INT-8705: avoid extra inventory calls if api is disabled [#618](https://github.com/JupiterOne/graph-google-cloud/pull/618) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### Authors: 1
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
 # v2.30.2 (Thu Jul 13 2023)
 
 #### 🐛 Bug Fix
