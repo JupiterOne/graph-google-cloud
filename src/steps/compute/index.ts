@@ -733,17 +733,24 @@ export async function fetchComputeInstances(
     compute_v1.Schema$ServiceAccount[]
   >();
 
+  let inventoryApiDisabled = false;
+
   await client.iterateComputeInstances(async (computeInstance) => {
     let instanceInventory: osconfig_v1.Schema$Inventory | undefined;
 
     try {
-      if (computeInstance.zone) {
+      if (computeInstance.zone && !inventoryApiDisabled) {
         instanceInventory = await client.fetchComputeInstanceInventory(
           computeInstance.zone?.split('/')[8],
           computeInstance.id!,
         );
       }
     } catch (e) {
+      // Do not make this inventory call if api is disabled and customer is not using this feature.
+      if (e.response.status === 403) {
+        inventoryApiDisabled = true;
+      }
+
       if (e.response.status === 404) {
         context.logger.debug(
           `Compute instance ${computeInstance.name} inventory entity not found.`,
