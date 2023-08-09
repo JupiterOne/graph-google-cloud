@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#createSecretEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Group",
   ],
   "_key": "sample-secret-name",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "createTime": "2022-08-10T13:39:10.097472Z",
         "name": "sample-secret-name",
       },
@@ -30,15 +30,15 @@ Object {
 `;
 
 exports[`#createSecretVersionEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Group",
   ],
   "_key": "projects/j1-gc-integration-dev-v3/secrets/sample-secret-name/versions/1",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "createTime": "2022-08-10T14:19:20.840979Z",
         "name": "projects/j1-gc-integration-dev-v3/secrets/sample-secret-name/versions/1",
         "state": "ENABLED",

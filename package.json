@@ -12,6 +12,9 @@
   "publishConfig": {
     "access": "public"
   },
+  "engines": {
+    "node": ">=18.0.0 <19.x"
+  },
   "scripts": {
     "start": "LOG_LEVEL=trace j1-integration collect",
     "graph": "j1-integration visualize",
@@ -33,12 +36,12 @@
     "document:permissions": " yarn ts-node commands/documentPermissions.ts documentPermissions"
   },
   "peerDependencies": {
-    "@jupiterone/integration-sdk-core": "^8.37.0"
+    "@jupiterone/integration-sdk-core": "^10.0.0"
   },
   "devDependencies": {
-    "@jupiterone/integration-sdk-core": "^8.37.0",
-    "@jupiterone/integration-sdk-dev-tools": "^8.37.0",
-    "@jupiterone/integration-sdk-testing": "^8.37.0",
+    "@jupiterone/integration-sdk-core": "^10.0.0",
+    "@jupiterone/integration-sdk-dev-tools": "^10.0.0",
+    "@jupiterone/integration-sdk-testing": "^10.0.0",
     "@types/bunyan": "^1.8.6",
     "@types/bunyan-format": "^0.2.3",
     "@types/node-fetch": "^2.5.10",

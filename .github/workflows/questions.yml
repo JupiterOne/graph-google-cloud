@@ -22,9 +22,7 @@ jobs:
         name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 14.x
-          cache: 'yarn'
-          cache-dependency-path: source/yarn.lock
+          node-version: 18.x
 
       - name: Install dependencies for `main` branch
         run: yarn install --cwd source --frozen-lockfile
@@ -37,6 +35,6 @@ jobs:
             ${{ secrets.MANAGED_QUESTIONS_JUPITERONE_API_KEY }}
         run:
           yarn --cwd source j1-integration validate-question-file -a
-          $MANAGED_QUESTIONS_JUPITERONE_ACCOUNT_ID -k
+          --frozen-lockfile $MANAGED_QUESTIONS_JUPITERONE_ACCOUNT_ID -k
           $MANAGED_QUESTIONS_JUPITERONE_API_KEY -p
           ../target/jupiterone/questions/questions.yaml

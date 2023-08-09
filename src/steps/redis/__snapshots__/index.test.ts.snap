@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#buildRedisInstanceUsesNetworkRelationships should collect data 1`] = `
-Object {
-  "collectedEntities": Array [
-    Object {
+{
+  "collectedEntities": [
+    {
       "CIDR": null,
       "IPv4Range": undefined,
-      "_class": Array [
+      "_class": [
         "Network",
       ],
       "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/default",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "autoCreateSubnetworks": true,
             "creationTimestamp": "2021-05-31T09:21:40.121-07:00",
             "description": "Default network for the project",
@@ -21,8 +21,8 @@ Object {
             "kind": "compute#network",
             "name": "default",
             "networkFirewallPolicyEnforcementOrder": "AFTER_CLASSIC_FIREWALL",
-            "peerings": Array [
-              Object {
+            "peerings": [
+              {
                 "autoCreateRoutes": true,
                 "exchangeSubnetRoutes": true,
                 "exportCustomRoutes": false,
@@ -35,12 +35,12 @@ Object {
                 "stateDetails": "[2022-03-15T10:41:05.027-07:00]: Connected.",
               },
             ],
-            "routingConfig": Object {
+            "routingConfig": {
               "routingMode": "REGIONAL",
             },
             "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/default",
             "selfLinkWithId": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/3355945658528347131",
-            "subnetworks": Array [
+            "subnetworks": [
               "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/europe-north1/subnetworks/default",
               "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/europe-west4/subnetworks/default",
               "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-east1/subnetworks/default",
@@ -88,7 +88,7 @@ Object {
       "name": "default",
       "public": false,
       "routingMode": "REGIONAL",
-      "subnetworks": Array [
+      "subnetworks": [
         "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/europe-north1/subnetworks/default",
         "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/europe-west4/subnetworks/default",
         "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-east1/subnetworks/default",
@@ -124,25 +124,25 @@ Object {
       ],
       "webLink": "https://console.cloud.google.com/networking/networks/details/default?project=j1-gc-integration-dev-v3",
     },
-    Object {
+    {
       "CIDR": null,
       "IPv4Range": undefined,
-      "_class": Array [
+      "_class": [
         "Network",
       ],
       "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/public-compute-app-vpc",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "autoCreateSubnetworks": false,
             "creationTimestamp": "2021-05-31T09:25:43.742-07:00",
             "id": "7739872907028377832",
             "kind": "compute#network",
             "name": "public-compute-app-vpc",
             "networkFirewallPolicyEnforcementOrder": "AFTER_CLASSIC_FIREWALL",
-            "peerings": Array [
-              Object {
+            "peerings": [
+              {
                 "autoCreateRoutes": true,
                 "exchangeSubnetRoutes": true,
                 "exportCustomRoutes": false,
@@ -155,12 +155,12 @@ Object {
                 "stateDetails": "[2021-07-02T11:37:04.253-07:00]: Peer network tried to connect and failed.",
               },
             ],
-            "routingConfig": Object {
+            "routingConfig": {
               "routingMode": "GLOBAL",
             },
             "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/public-compute-app-vpc",
             "selfLinkWithId": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/7739872907028377832",
-            "subnetworks": Array [
+            "subnetworks": [
               "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/subnetworks/public-compute-app-public-subnet-1",
             ],
           },
@@ -177,34 +177,34 @@ Object {
       "name": "public-compute-app-vpc",
       "public": false,
       "routingMode": "GLOBAL",
-      "subnetworks": Array [
+      "subnetworks": [
         "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/subnetworks/public-compute-app-public-subnet-1",
       ],
       "webLink": "https://console.cloud.google.com/networking/networks/details/public-compute-app-vpc?project=j1-gc-integration-dev-v3",
     },
-    Object {
+    {
       "CIDR": null,
       "IPv4Range": undefined,
-      "_class": Array [
+      "_class": [
         "Network",
       ],
       "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/rbs-net",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "autoCreateSubnetworks": false,
             "creationTimestamp": "2021-08-06T10:57:35.628-07:00",
             "id": "850726367629723360",
             "kind": "compute#network",
             "name": "rbs-net",
             "networkFirewallPolicyEnforcementOrder": "AFTER_CLASSIC_FIREWALL",
-            "routingConfig": Object {
+            "routingConfig": {
               "routingMode": "REGIONAL",
             },
             "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/rbs-net",
             "selfLinkWithId": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/850726367629723360",
-            "subnetworks": Array [
+            "subnetworks": [
               "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/subnetworks/rbs-net-default",
             ],
           },
@@ -221,22 +221,22 @@ Object {
       "name": "rbs-net",
       "public": false,
       "routingMode": "REGIONAL",
-      "subnetworks": Array [
+      "subnetworks": [
         "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/subnetworks/rbs-net-default",
       ],
       "webLink": "https://console.cloud.google.com/networking/networks/details/rbs-net?project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Database",
         "DataStore",
         "Host",
       ],
       "_key": "redis:projects/j1-gc-integration-dev-v3/locations/us-central1/instances/example-redis-1",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "authorizedNetwork": "projects/j1-gc-integration-dev-v3/global/networks/default",
             "connectMode": "PRIVATE_SERVICE_ACCESS",
             "createTime": "2022-03-15T17:40:25.188616283Z",
@@ -245,13 +245,13 @@ Object {
             "locationId": "us-central1-c",
             "memorySizeGb": 16,
             "name": "projects/j1-gc-integration-dev-v3/locations/us-central1/instances/example-redis-1",
-            "nodes": Array [
-              Object {
+            "nodes": [
+              {
                 "id": "node-0",
                 "zone": "us-central1-c",
               },
             ],
-            "persistenceConfig": Object {
+            "persistenceConfig": {
               "persistenceMode": "DISABLED",
             },
             "persistenceIamIdentity": "serviceAccount:645363647218-compute@developer.gserviceaccount.com",
@@ -288,8 +288,8 @@ Object {
       "webLink": "https://console.cloud.google.com/memorystore/redis/locations/us-central1/instances/example-redis-1/details?project=j1-gc-integration-dev-v3",
     },
   ],
-  "collectedRelationships": Array [
-    Object {
+  "collectedRelationships": [
+    {
       "_class": "USES",
       "_fromEntityKey": "redis:projects/j1-gc-integration-dev-v3/locations/us-central1/instances/example-redis-1",
       "_key": "redis:projects/j1-gc-integration-dev-v3/locations/us-central1/instances/example-redis-1|uses|https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/default",
@@ -298,7 +298,7 @@ Object {
       "displayName": "USES",
     },
   ],
-  "encounteredTypes": Array [
+  "encounteredTypes": [
     "google_compute_network",
     "google_redis_instance",
     "google_redis_instance_uses_compute_network",
@@ -309,19 +309,19 @@ Object {
 `;
 
 exports[`#fetchRedisInstances should collect data 1`] = `
-Object {
-  "collectedEntities": Array [
-    Object {
-      "_class": Array [
+{
+  "collectedEntities": [
+    {
+      "_class": [
         "Database",
         "DataStore",
         "Host",
       ],
       "_key": "redis:projects/j1-gc-integration-dev-v3/locations/us-central1/instances/example-redis-1",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "authorizedNetwork": "projects/j1-gc-integration-dev-v3/global/networks/default",
             "connectMode": "PRIVATE_SERVICE_ACCESS",
             "createTime": "2022-03-15T17:40:25.188616283Z",
@@ -330,13 +330,13 @@ Object {
             "locationId": "us-central1-c",
             "memorySizeGb": 16,
             "name": "projects/j1-gc-integration-dev-v3/locations/us-central1/instances/example-redis-1",
-            "nodes": Array [
-              Object {
+            "nodes": [
+              {
                 "id": "node-0",
                 "zone": "us-central1-c",
               },
             ],
-            "persistenceConfig": Object {
+            "persistenceConfig": {
               "persistenceMode": "DISABLED",
             },
             "persistenceIamIdentity": "serviceAccount:645363647218-compute@developer.gserviceaccount.com",
@@ -373,8 +373,8 @@ Object {
       "webLink": "https://console.cloud.google.com/memorystore/redis/locations/us-central1/instances/example-redis-1/details?project=j1-gc-integration-dev-v3",
     },
   ],
-  "collectedRelationships": Array [],
-  "encounteredTypes": Array [
+  "collectedRelationships": [],
+  "encounteredTypes": [
     "google_redis_instance",
   ],
   "numCollectedEntities": 1,

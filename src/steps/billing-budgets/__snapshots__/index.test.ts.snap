@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#buildAdditionalProjectBudgetRelationships should collect data 1`] = `
-Object {
-  "collectedEntities": Array [
-    Object {
-      "_class": Array [
+{
+  "collectedEntities": [
+    {
+      "_class": [
         "Organization",
       ],
       "_key": "organizations/958457776463",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "createTime": "2021-05-26T21:15:56.407Z",
             "directoryCustomerId": "C048tgq5f",
             "displayName": "jupiterone.dev",
@@ -31,15 +31,15 @@ Object {
       "name": "organizations/958457776463",
       "updatedOn": 1622063757254,
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Account",
       ],
       "_key": "billingAccounts/01694E-12D60B-BEBCE5",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "displayName": "Integration Development",
             "masterBillingAccount": "",
             "name": "billingAccounts/01694E-12D60B-BEBCE5",
@@ -54,15 +54,15 @@ Object {
       "name": "billingAccounts/01694E-12D60B-BEBCE5",
       "open": true,
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Account",
       ],
       "_key": "projects/167984947943",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "createTime": "2021-05-31T15:15:56.125Z",
             "displayName": "j1-gc-integration-dev-v3",
             "etag": "CzUfI2XTWvMJgVGlic9LWA==",
@@ -85,42 +85,42 @@ Object {
       "updatedOn": 1622474158148,
       "webLink": "https://console.cloud.google.com/home/dashboard?project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Ruleset",
       ],
       "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/459b5dfa-1c2b-47af-8396-e3fd5e32a834",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
-            "amount": Object {
-              "specifiedAmount": Object {
+          "rawData": {
+            "amount": {
+              "specifiedAmount": {
                 "currencyCode": "USD",
                 "units": "1000",
               },
             },
-            "budgetFilter": Object {
+            "budgetFilter": {
               "calendarPeriod": "MONTH",
               "creditTypesTreatment": "INCLUDE_ALL_CREDITS",
-              "projects": Array [
+              "projects": [
                 "projects/167984947943",
               ],
             },
             "displayName": "budget-example-01",
             "etag": "1627655637440882",
             "name": "billingAccounts/01694E-12D60B-BEBCE5/budgets/459b5dfa-1c2b-47af-8396-e3fd5e32a834",
-            "notificationsRule": Object {},
-            "thresholdRules": Array [
-              Object {
+            "notificationsRule": {},
+            "thresholdRules": [
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 0.5,
               },
-              Object {
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 0.9,
               },
-              Object {
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 1,
               },
@@ -136,7 +136,7 @@ Object {
       "etag": "1627655637440882",
       "monitoringNotificationChannels": undefined,
       "name": "billingAccounts/01694E-12D60B-BEBCE5/budgets/459b5dfa-1c2b-47af-8396-e3fd5e32a834",
-      "projects": Array [
+      "projects": [
         "projects/167984947943",
       ],
       "pubsubTopic": undefined,
@@ -145,39 +145,39 @@ Object {
       "specifiedAmoutNanos": undefined,
       "specifiedAmoutUnits": "1000",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Ruleset",
       ],
       "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/7fa6803c-0e1a-415e-ab30-69d953298d11",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
-            "amount": Object {
-              "specifiedAmount": Object {
+          "rawData": {
+            "amount": {
+              "specifiedAmount": {
                 "currencyCode": "USD",
                 "units": "1000",
               },
             },
-            "budgetFilter": Object {
+            "budgetFilter": {
               "calendarPeriod": "MONTH",
               "creditTypesTreatment": "INCLUDE_ALL_CREDITS",
             },
             "displayName": "budget-example-multi-project",
             "etag": "1627656753474895",
             "name": "billingAccounts/01694E-12D60B-BEBCE5/budgets/7fa6803c-0e1a-415e-ab30-69d953298d11",
-            "notificationsRule": Object {},
-            "thresholdRules": Array [
-              Object {
+            "notificationsRule": {},
+            "thresholdRules": [
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 0.5,
               },
-              Object {
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 0.9,
               },
-              Object {
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 1,
               },
@@ -200,25 +200,25 @@ Object {
       "specifiedAmoutNanos": undefined,
       "specifiedAmoutUnits": "1000",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Ruleset",
       ],
       "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/c7f7c572-2c36-4d77-bd73-a5090d150177",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
-            "amount": Object {
-              "specifiedAmount": Object {
+          "rawData": {
+            "amount": {
+              "specifiedAmount": {
                 "currencyCode": "USD",
                 "units": "1000",
               },
             },
-            "budgetFilter": Object {
+            "budgetFilter": {
               "calendarPeriod": "MONTH",
               "creditTypesTreatment": "INCLUDE_ALL_CREDITS",
-              "projects": Array [
+              "projects": [
                 "projects/538466736102",
                 "projects/167984947943",
               ],
@@ -226,17 +226,17 @@ Object {
             "displayName": "budget-example-some-projects",
             "etag": "1627656774053178",
             "name": "billingAccounts/01694E-12D60B-BEBCE5/budgets/c7f7c572-2c36-4d77-bd73-a5090d150177",
-            "notificationsRule": Object {},
-            "thresholdRules": Array [
-              Object {
+            "notificationsRule": {},
+            "thresholdRules": [
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 0.5,
               },
-              Object {
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 0.9,
               },
-              Object {
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 1,
               },
@@ -252,7 +252,7 @@ Object {
       "etag": "1627656774053178",
       "monitoringNotificationChannels": undefined,
       "name": "billingAccounts/01694E-12D60B-BEBCE5/budgets/c7f7c572-2c36-4d77-bd73-a5090d150177",
-      "projects": Array [
+      "projects": [
         "projects/538466736102",
         "projects/167984947943",
       ],
@@ -263,15 +263,15 @@ Object {
       "specifiedAmoutUnits": "1000",
     },
   ],
-  "collectedRelationships": Array [
-    Object {
+  "collectedRelationships": [
+    {
       "_class": "HAS",
       "_key": "organizations/958457776463|has|projects/477021317437",
-      "_mapping": Object {
+      "_mapping": {
         "relationshipDirection": "FORWARD",
         "sourceEntityKey": "organizations/958457776463",
-        "targetEntity": Object {
-          "_class": Array [
+        "targetEntity": {
+          "_class": [
             "Account",
           ],
           "_key": "projects/477021317437",
@@ -287,8 +287,8 @@ Object {
           "updatedOn": 1629408720110,
           "webLink": "https://console.cloud.google.com/home/dashboard?project=even-arc-320017",
         },
-        "targetFilterKeys": Array [
-          Array [
+        "targetFilterKeys": [
+          [
             "_type",
             "_key",
           ],
@@ -297,14 +297,14 @@ Object {
       "_type": "google_organization_has_project",
       "displayName": "HAS",
     },
-    Object {
+    {
       "_class": "HAS",
       "_key": "organizations/958457776463|has|projects/538466736102",
-      "_mapping": Object {
+      "_mapping": {
         "relationshipDirection": "FORWARD",
         "sourceEntityKey": "organizations/958457776463",
-        "targetEntity": Object {
-          "_class": Array [
+        "targetEntity": {
+          "_class": [
             "Account",
           ],
           "_key": "projects/538466736102",
@@ -320,8 +320,8 @@ Object {
           "updatedOn": 1627482619549,
           "webLink": "https://console.cloud.google.com/home/dashboard?project=vmware-account",
         },
-        "targetFilterKeys": Array [
-          Array [
+        "targetFilterKeys": [
+          [
             "_type",
             "_key",
           ],
@@ -330,14 +330,14 @@ Object {
       "_type": "google_organization_has_project",
       "displayName": "HAS",
     },
-    Object {
+    {
       "_class": "HAS",
       "_key": "organizations/958457776463|has|projects/592147458023",
-      "_mapping": Object {
+      "_mapping": {
         "relationshipDirection": "FORWARD",
         "sourceEntityKey": "organizations/958457776463",
-        "targetEntity": Object {
-          "_class": Array [
+        "targetEntity": {
+          "_class": [
             "Account",
           ],
           "_key": "projects/592147458023",
@@ -353,8 +353,8 @@ Object {
           "updatedOn": 1628092716049,
           "webLink": "https://console.cloud.google.com/home/dashboard?project=intense-pointer-315514",
         },
-        "targetFilterKeys": Array [
-          Array [
+        "targetFilterKeys": [
+          [
             "_type",
             "_key",
           ],
@@ -363,14 +363,14 @@ Object {
       "_type": "google_organization_has_project",
       "displayName": "HAS",
     },
-    Object {
+    {
       "_class": "HAS",
       "_key": "organizations/958457776463|has|projects/619127027446",
-      "_mapping": Object {
+      "_mapping": {
         "relationshipDirection": "FORWARD",
         "sourceEntityKey": "organizations/958457776463",
-        "targetEntity": Object {
-          "_class": Array [
+        "targetEntity": {
+          "_class": [
             "Account",
           ],
           "_key": "projects/619127027446",
@@ -386,8 +386,8 @@ Object {
           "updatedOn": 1622475908564,
           "webLink": "https://console.cloud.google.com/home/dashboard?project=winged-guild-315415",
         },
-        "targetFilterKeys": Array [
-          Array [
+        "targetFilterKeys": [
+          [
             "_type",
             "_key",
           ],
@@ -396,14 +396,14 @@ Object {
       "_type": "google_organization_has_project",
       "displayName": "HAS",
     },
-    Object {
+    {
       "_class": "HAS",
       "_key": "organizations/958457776463|has|projects/768118999942",
-      "_mapping": Object {
+      "_mapping": {
         "relationshipDirection": "FORWARD",
         "sourceEntityKey": "organizations/958457776463",
-        "targetEntity": Object {
-          "_class": Array [
+        "targetEntity": {
+          "_class": [
             "Account",
           ],
           "_key": "projects/768118999942",
@@ -419,8 +419,8 @@ Object {
           "updatedOn": 1626123159133,
           "webLink": "https://console.cloud.google.com/home/dashboard?project=glossy-calculus-319620",
         },
-        "targetFilterKeys": Array [
-          Array [
+        "targetFilterKeys": [
+          [
             "_type",
             "_key",
           ],
@@ -429,14 +429,14 @@ Object {
       "_type": "google_organization_has_project",
       "displayName": "HAS",
     },
-    Object {
+    {
       "_class": "HAS",
       "_key": "organizations/958457776463|has|projects/988862309073",
-      "_mapping": Object {
+      "_mapping": {
         "relationshipDirection": "FORWARD",
         "sourceEntityKey": "organizations/958457776463",
-        "targetEntity": Object {
-          "_class": Array [
+        "targetEntity": {
+          "_class": [
             "Account",
           ],
           "_key": "projects/988862309073",
@@ -452,8 +452,8 @@ Object {
           "updatedOn": 1622477708998,
           "webLink": "https://console.cloud.google.com/home/dashboard?project=learned-hour-315416",
         },
-        "targetFilterKeys": Array [
-          Array [
+        "targetFilterKeys": [
+          [
             "_type",
             "_key",
           ],
@@ -462,7 +462,7 @@ Object {
       "_type": "google_organization_has_project",
       "displayName": "HAS",
     },
-    Object {
+    {
       "_class": "HAS",
       "_fromEntityKey": "projects/167984947943",
       "_key": "projects/167984947943|has|billingAccounts/01694E-12D60B-BEBCE5/budgets/7fa6803c-0e1a-415e-ab30-69d953298d11",
@@ -470,15 +470,15 @@ Object {
       "_type": "google_cloud_project_has_billing_budget",
       "displayName": "HAS",
     },
-    Object {
+    {
       "_class": "HAS",
       "_key": "projects/538466736102|has|billingAccounts/01694E-12D60B-BEBCE5/budgets/7fa6803c-0e1a-415e-ab30-69d953298d11",
-      "_mapping": Object {
+      "_mapping": {
         "relationshipDirection": "FORWARD",
         "skipTargetCreation": true,
         "sourceEntityKey": "projects/538466736102",
-        "targetEntity": Object {
-          "_class": Array [
+        "targetEntity": {
+          "_class": [
             "Ruleset",
           ],
           "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/7fa6803c-0e1a-415e-ab30-69d953298d11",
@@ -498,8 +498,8 @@ Object {
           "specifiedAmoutNanos": undefined,
           "specifiedAmoutUnits": "1000",
         },
-        "targetFilterKeys": Array [
-          Array [
+        "targetFilterKeys": [
+          [
             "_type",
             "_key",
           ],
@@ -508,15 +508,15 @@ Object {
       "_type": "google_cloud_project_has_billing_budget",
       "displayName": "HAS",
     },
-    Object {
+    {
       "_class": "HAS",
       "_key": "projects/988862309073|has|billingAccounts/01694E-12D60B-BEBCE5/budgets/7fa6803c-0e1a-415e-ab30-69d953298d11",
-      "_mapping": Object {
+      "_mapping": {
         "relationshipDirection": "FORWARD",
         "skipTargetCreation": true,
         "sourceEntityKey": "projects/988862309073",
-        "targetEntity": Object {
-          "_class": Array [
+        "targetEntity": {
+          "_class": [
             "Ruleset",
           ],
           "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/7fa6803c-0e1a-415e-ab30-69d953298d11",
@@ -536,8 +536,8 @@ Object {
           "specifiedAmoutNanos": undefined,
           "specifiedAmoutUnits": "1000",
         },
-        "targetFilterKeys": Array [
-          Array [
+        "targetFilterKeys": [
+          [
             "_type",
             "_key",
           ],
@@ -547,7 +547,7 @@ Object {
       "displayName": "HAS",
     },
   ],
-  "encounteredTypes": Array [
+  "encounteredTypes": [
     "google_cloud_organization",
     "google_organization_has_project",
     "google_billing_account",
@@ -561,17 +561,17 @@ Object {
 `;
 
 exports[`#buildBillingAccountBudgetRelationships should collect data 1`] = `
-Object {
-  "collectedEntities": Array [
-    Object {
-      "_class": Array [
+{
+  "collectedEntities": [
+    {
+      "_class": [
         "Account",
       ],
       "_key": "billingAccounts/01694E-12D60B-BEBCE5",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "displayName": "My Billing Account",
             "masterBillingAccount": "",
             "name": "billingAccounts/01694E-12D60B-BEBCE5",
@@ -586,42 +586,42 @@ Object {
       "name": "billingAccounts/01694E-12D60B-BEBCE5",
       "open": true,
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Ruleset",
       ],
       "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/459b5dfa-1c2b-47af-8396-e3fd5e32a834",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
-            "amount": Object {
-              "specifiedAmount": Object {
+          "rawData": {
+            "amount": {
+              "specifiedAmount": {
                 "currencyCode": "USD",
                 "units": "1000",
               },
             },
-            "budgetFilter": Object {
+            "budgetFilter": {
               "calendarPeriod": "MONTH",
               "creditTypesTreatment": "INCLUDE_ALL_CREDITS",
-              "projects": Array [
+              "projects": [
                 "projects/167984947943",
               ],
             },
             "displayName": "budget-example-01",
             "etag": "1627655637440882",
             "name": "billingAccounts/01694E-12D60B-BEBCE5/budgets/459b5dfa-1c2b-47af-8396-e3fd5e32a834",
-            "notificationsRule": Object {},
-            "thresholdRules": Array [
-              Object {
+            "notificationsRule": {},
+            "thresholdRules": [
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 0.5,
               },
-              Object {
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 0.9,
               },
-              Object {
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 1,
               },
@@ -637,7 +637,7 @@ Object {
       "etag": "1627655637440882",
       "monitoringNotificationChannels": undefined,
       "name": "billingAccounts/01694E-12D60B-BEBCE5/budgets/459b5dfa-1c2b-47af-8396-e3fd5e32a834",
-      "projects": Array [
+      "projects": [
         "projects/167984947943",
       ],
       "pubsubTopic": undefined,
@@ -646,39 +646,39 @@ Object {
       "specifiedAmoutNanos": undefined,
       "specifiedAmoutUnits": "1000",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Ruleset",
       ],
       "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/7fa6803c-0e1a-415e-ab30-69d953298d11",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
-            "amount": Object {
-              "specifiedAmount": Object {
+          "rawData": {
+            "amount": {
+              "specifiedAmount": {
                 "currencyCode": "USD",
                 "units": "1000",
               },
             },
-            "budgetFilter": Object {
+            "budgetFilter": {
               "calendarPeriod": "MONTH",
               "creditTypesTreatment": "INCLUDE_ALL_CREDITS",
             },
             "displayName": "budget-example-multi-project",
             "etag": "1627656753474895",
             "name": "billingAccounts/01694E-12D60B-BEBCE5/budgets/7fa6803c-0e1a-415e-ab30-69d953298d11",
-            "notificationsRule": Object {},
-            "thresholdRules": Array [
-              Object {
+            "notificationsRule": {},
+            "thresholdRules": [
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 0.5,
               },
-              Object {
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 0.9,
               },
-              Object {
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 1,
               },
@@ -701,25 +701,25 @@ Object {
       "specifiedAmoutNanos": undefined,
       "specifiedAmoutUnits": "1000",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Ruleset",
       ],
       "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/c7f7c572-2c36-4d77-bd73-a5090d150177",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
-            "amount": Object {
-              "specifiedAmount": Object {
+          "rawData": {
+            "amount": {
+              "specifiedAmount": {
                 "currencyCode": "USD",
                 "units": "1000",
               },
             },
-            "budgetFilter": Object {
+            "budgetFilter": {
               "calendarPeriod": "MONTH",
               "creditTypesTreatment": "INCLUDE_ALL_CREDITS",
-              "projects": Array [
+              "projects": [
                 "projects/538466736102",
                 "projects/167984947943",
               ],
@@ -727,17 +727,17 @@ Object {
             "displayName": "budget-example-some-projects",
             "etag": "1627656774053178",
             "name": "billingAccounts/01694E-12D60B-BEBCE5/budgets/c7f7c572-2c36-4d77-bd73-a5090d150177",
-            "notificationsRule": Object {},
-            "thresholdRules": Array [
-              Object {
+            "notificationsRule": {},
+            "thresholdRules": [
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 0.5,
               },
-              Object {
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 0.9,
               },
-              Object {
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 1,
               },
@@ -753,7 +753,7 @@ Object {
       "etag": "1627656774053178",
       "monitoringNotificationChannels": undefined,
       "name": "billingAccounts/01694E-12D60B-BEBCE5/budgets/c7f7c572-2c36-4d77-bd73-a5090d150177",
-      "projects": Array [
+      "projects": [
         "projects/538466736102",
         "projects/167984947943",
       ],
@@ -764,8 +764,8 @@ Object {
       "specifiedAmoutUnits": "1000",
     },
   ],
-  "collectedRelationships": Array [
-    Object {
+  "collectedRelationships": [
+    {
       "_class": "HAS",
       "_fromEntityKey": "billingAccounts/01694E-12D60B-BEBCE5",
       "_key": "billingAccounts/01694E-12D60B-BEBCE5|has|billingAccounts/01694E-12D60B-BEBCE5/budgets/459b5dfa-1c2b-47af-8396-e3fd5e32a834",
@@ -773,7 +773,7 @@ Object {
       "_type": "google_billing_account_has_budget",
       "displayName": "HAS",
     },
-    Object {
+    {
       "_class": "HAS",
       "_fromEntityKey": "billingAccounts/01694E-12D60B-BEBCE5",
       "_key": "billingAccounts/01694E-12D60B-BEBCE5|has|billingAccounts/01694E-12D60B-BEBCE5/budgets/7fa6803c-0e1a-415e-ab30-69d953298d11",
@@ -781,7 +781,7 @@ Object {
       "_type": "google_billing_account_has_budget",
       "displayName": "HAS",
     },
-    Object {
+    {
       "_class": "HAS",
       "_fromEntityKey": "billingAccounts/01694E-12D60B-BEBCE5",
       "_key": "billingAccounts/01694E-12D60B-BEBCE5|has|billingAccounts/01694E-12D60B-BEBCE5/budgets/c7f7c572-2c36-4d77-bd73-a5090d150177",
@@ -790,7 +790,7 @@ Object {
       "displayName": "HAS",
     },
   ],
-  "encounteredTypes": Array [
+  "encounteredTypes": [
     "google_billing_account",
     "google_billing_budget",
     "google_billing_account_has_budget",
@@ -801,17 +801,17 @@ Object {
 `;
 
 exports[`#buildProjectBudgetRelationships should collect data 1`] = `
-Object {
-  "collectedEntities": Array [
-    Object {
-      "_class": Array [
+{
+  "collectedEntities": [
+    {
+      "_class": [
         "Account",
       ],
       "_key": "billingAccounts/01694E-12D60B-BEBCE5",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "displayName": "My Billing Account",
             "masterBillingAccount": "",
             "name": "billingAccounts/01694E-12D60B-BEBCE5",
@@ -826,42 +826,42 @@ Object {
       "name": "billingAccounts/01694E-12D60B-BEBCE5",
       "open": true,
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Ruleset",
       ],
       "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/459b5dfa-1c2b-47af-8396-e3fd5e32a834",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
-            "amount": Object {
-              "specifiedAmount": Object {
+          "rawData": {
+            "amount": {
+              "specifiedAmount": {
                 "currencyCode": "USD",
                 "units": "1000",
               },
             },
-            "budgetFilter": Object {
+            "budgetFilter": {
               "calendarPeriod": "MONTH",
               "creditTypesTreatment": "INCLUDE_ALL_CREDITS",
-              "projects": Array [
+              "projects": [
                 "projects/167984947943",
               ],
             },
             "displayName": "budget-example-01",
             "etag": "1627655637440882",
             "name": "billingAccounts/01694E-12D60B-BEBCE5/budgets/459b5dfa-1c2b-47af-8396-e3fd5e32a834",
-            "notificationsRule": Object {},
-            "thresholdRules": Array [
-              Object {
+            "notificationsRule": {},
+            "thresholdRules": [
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 0.5,
               },
-              Object {
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 0.9,
               },
-              Object {
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 1,
               },
@@ -877,7 +877,7 @@ Object {
       "etag": "1627655637440882",
       "monitoringNotificationChannels": undefined,
       "name": "billingAccounts/01694E-12D60B-BEBCE5/budgets/459b5dfa-1c2b-47af-8396-e3fd5e32a834",
-      "projects": Array [
+      "projects": [
         "projects/167984947943",
       ],
       "pubsubTopic": undefined,
@@ -886,39 +886,39 @@ Object {
       "specifiedAmoutNanos": undefined,
       "specifiedAmoutUnits": "1000",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Ruleset",
       ],
       "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/7fa6803c-0e1a-415e-ab30-69d953298d11",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
-            "amount": Object {
-              "specifiedAmount": Object {
+          "rawData": {
+            "amount": {
+              "specifiedAmount": {
                 "currencyCode": "USD",
                 "units": "1000",
               },
             },
-            "budgetFilter": Object {
+            "budgetFilter": {
               "calendarPeriod": "MONTH",
               "creditTypesTreatment": "INCLUDE_ALL_CREDITS",
             },
             "displayName": "budget-example-multi-project",
             "etag": "1627656753474895",
             "name": "billingAccounts/01694E-12D60B-BEBCE5/budgets/7fa6803c-0e1a-415e-ab30-69d953298d11",
-            "notificationsRule": Object {},
-            "thresholdRules": Array [
-              Object {
+            "notificationsRule": {},
+            "thresholdRules": [
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 0.5,
               },
-              Object {
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 0.9,
               },
-              Object {
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 1,
               },
@@ -941,25 +941,25 @@ Object {
       "specifiedAmoutNanos": undefined,
       "specifiedAmoutUnits": "1000",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Ruleset",
       ],
       "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/c7f7c572-2c36-4d77-bd73-a5090d150177",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
-            "amount": Object {
-              "specifiedAmount": Object {
+          "rawData": {
+            "amount": {
+              "specifiedAmount": {
                 "currencyCode": "USD",
                 "units": "1000",
               },
             },
-            "budgetFilter": Object {
+            "budgetFilter": {
               "calendarPeriod": "MONTH",
               "creditTypesTreatment": "INCLUDE_ALL_CREDITS",
-              "projects": Array [
+              "projects": [
                 "projects/538466736102",
                 "projects/167984947943",
               ],
@@ -967,17 +967,17 @@ Object {
             "displayName": "budget-example-some-projects",
             "etag": "1627656774053178",
             "name": "billingAccounts/01694E-12D60B-BEBCE5/budgets/c7f7c572-2c36-4d77-bd73-a5090d150177",
-            "notificationsRule": Object {},
-            "thresholdRules": Array [
-              Object {
+            "notificationsRule": {},
+            "thresholdRules": [
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 0.5,
               },
-              Object {
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 0.9,
               },
-              Object {
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 1,
               },
@@ -993,7 +993,7 @@ Object {
       "etag": "1627656774053178",
       "monitoringNotificationChannels": undefined,
       "name": "billingAccounts/01694E-12D60B-BEBCE5/budgets/c7f7c572-2c36-4d77-bd73-a5090d150177",
-      "projects": Array [
+      "projects": [
         "projects/538466736102",
         "projects/167984947943",
       ],
@@ -1003,15 +1003,15 @@ Object {
       "specifiedAmoutNanos": undefined,
       "specifiedAmoutUnits": "1000",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Account",
       ],
       "_key": "projects/167984947943",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "createTime": "2021-05-31T15:15:56.125Z",
             "displayName": "j1-gc-integration-dev-v3",
             "etag": "CzUfI2XTWvMJgVGlic9LWA==",
@@ -1035,8 +1035,8 @@ Object {
       "webLink": "https://console.cloud.google.com/home/dashboard?project=j1-gc-integration-dev-v3",
     },
   ],
-  "collectedRelationships": Array [
-    Object {
+  "collectedRelationships": [
+    {
       "_class": "HAS",
       "_fromEntityKey": "projects/167984947943",
       "_key": "projects/167984947943|has|billingAccounts/01694E-12D60B-BEBCE5/budgets/459b5dfa-1c2b-47af-8396-e3fd5e32a834",
@@ -1044,19 +1044,19 @@ Object {
       "_type": "google_cloud_project_has_billing_budget",
       "displayName": "HAS",
     },
-    Object {
+    {
       "_class": "HAS",
       "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/c7f7c572-2c36-4d77-bd73-a5090d150177|has|projects/538466736102",
-      "_mapping": Object {
+      "_mapping": {
         "relationshipDirection": "REVERSE",
         "skipTargetCreation": true,
         "sourceEntityKey": "billingAccounts/01694E-12D60B-BEBCE5/budgets/c7f7c572-2c36-4d77-bd73-a5090d150177",
-        "targetEntity": Object {
+        "targetEntity": {
           "_key": "projects/538466736102",
           "_type": "google_cloud_project",
         },
-        "targetFilterKeys": Array [
-          Array [
+        "targetFilterKeys": [
+          [
             "_type",
             "_key",
           ],
@@ -1065,7 +1065,7 @@ Object {
       "_type": "google_cloud_project_has_billing_budget",
       "displayName": "HAS",
     },
-    Object {
+    {
       "_class": "HAS",
       "_fromEntityKey": "projects/167984947943",
       "_key": "projects/167984947943|has|billingAccounts/01694E-12D60B-BEBCE5/budgets/c7f7c572-2c36-4d77-bd73-a5090d150177",
@@ -1074,7 +1074,7 @@ Object {
       "displayName": "HAS",
     },
   ],
-  "encounteredTypes": Array [
+  "encounteredTypes": [
     "google_billing_account",
     "google_billing_budget",
     "google_cloud_project",
@@ -1086,17 +1086,17 @@ Object {
 `;
 
 exports[`#fetchBillingBudget should collect data 1`] = `
-Object {
-  "collectedEntities": Array [
-    Object {
-      "_class": Array [
+{
+  "collectedEntities": [
+    {
+      "_class": [
         "Account",
       ],
       "_key": "billingAccounts/01694E-12D60B-BEBCE5",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "displayName": "My Billing Account",
             "masterBillingAccount": "",
             "name": "billingAccounts/01694E-12D60B-BEBCE5",
@@ -1111,42 +1111,42 @@ Object {
       "name": "billingAccounts/01694E-12D60B-BEBCE5",
       "open": true,
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Ruleset",
       ],
       "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/459b5dfa-1c2b-47af-8396-e3fd5e32a834",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
-            "amount": Object {
-              "specifiedAmount": Object {
+          "rawData": {
+            "amount": {
+              "specifiedAmount": {
                 "currencyCode": "USD",
                 "units": "1000",
               },
             },
-            "budgetFilter": Object {
+            "budgetFilter": {
               "calendarPeriod": "MONTH",
               "creditTypesTreatment": "INCLUDE_ALL_CREDITS",
-              "projects": Array [
+              "projects": [
                 "projects/167984947943",
               ],
             },
             "displayName": "budget-example-01",
             "etag": "1627655637440882",
             "name": "billingAccounts/01694E-12D60B-BEBCE5/budgets/459b5dfa-1c2b-47af-8396-e3fd5e32a834",
-            "notificationsRule": Object {},
-            "thresholdRules": Array [
-              Object {
+            "notificationsRule": {},
+            "thresholdRules": [
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 0.5,
               },
-              Object {
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 0.9,
               },
-              Object {
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 1,
               },
@@ -1162,7 +1162,7 @@ Object {
       "etag": "1627655637440882",
       "monitoringNotificationChannels": undefined,
       "name": "billingAccounts/01694E-12D60B-BEBCE5/budgets/459b5dfa-1c2b-47af-8396-e3fd5e32a834",
-      "projects": Array [
+      "projects": [
         "projects/167984947943",
       ],
       "pubsubTopic": undefined,
@@ -1171,39 +1171,39 @@ Object {
       "specifiedAmoutNanos": undefined,
       "specifiedAmoutUnits": "1000",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Ruleset",
       ],
       "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/7fa6803c-0e1a-415e-ab30-69d953298d11",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
-            "amount": Object {
-              "specifiedAmount": Object {
+          "rawData": {
+            "amount": {
+              "specifiedAmount": {
                 "currencyCode": "USD",
                 "units": "1000",
               },
             },
-            "budgetFilter": Object {
+            "budgetFilter": {
               "calendarPeriod": "MONTH",
               "creditTypesTreatment": "INCLUDE_ALL_CREDITS",
             },
             "displayName": "budget-example-multi-project",
             "etag": "1627656753474895",
             "name": "billingAccounts/01694E-12D60B-BEBCE5/budgets/7fa6803c-0e1a-415e-ab30-69d953298d11",
-            "notificationsRule": Object {},
-            "thresholdRules": Array [
-              Object {
+            "notificationsRule": {},
+            "thresholdRules": [
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 0.5,
               },
-              Object {
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 0.9,
               },
-              Object {
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 1,
               },
@@ -1226,25 +1226,25 @@ Object {
       "specifiedAmoutNanos": undefined,
       "specifiedAmoutUnits": "1000",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Ruleset",
       ],
       "_key": "billingAccounts/01694E-12D60B-BEBCE5/budgets/c7f7c572-2c36-4d77-bd73-a5090d150177",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
-            "amount": Object {
-              "specifiedAmount": Object {
+          "rawData": {
+            "amount": {
+              "specifiedAmount": {
                 "currencyCode": "USD",
                 "units": "1000",
               },
             },
-            "budgetFilter": Object {
+            "budgetFilter": {
               "calendarPeriod": "MONTH",
               "creditTypesTreatment": "INCLUDE_ALL_CREDITS",
-              "projects": Array [
+              "projects": [
                 "projects/538466736102",
                 "projects/167984947943",
               ],
@@ -1252,17 +1252,17 @@ Object {
             "displayName": "budget-example-some-projects",
             "etag": "1627656774053178",
             "name": "billingAccounts/01694E-12D60B-BEBCE5/budgets/c7f7c572-2c36-4d77-bd73-a5090d150177",
-            "notificationsRule": Object {},
-            "thresholdRules": Array [
-              Object {
+            "notificationsRule": {},
+            "thresholdRules": [
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 0.5,
               },
-              Object {
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 0.9,
               },
-              Object {
+              {
                 "spendBasis": "CURRENT_SPEND",
                 "thresholdPercent": 1,
               },
@@ -1278,7 +1278,7 @@ Object {
       "etag": "1627656774053178",
       "monitoringNotificationChannels": undefined,
       "name": "billingAccounts/01694E-12D60B-BEBCE5/budgets/c7f7c572-2c36-4d77-bd73-a5090d150177",
-      "projects": Array [
+      "projects": [
         "projects/538466736102",
         "projects/167984947943",
       ],
@@ -1289,8 +1289,8 @@ Object {
       "specifiedAmoutUnits": "1000",
     },
   ],
-  "collectedRelationships": Array [],
-  "encounteredTypes": Array [
+  "collectedRelationships": [],
+  "encounteredTypes": [
     "google_billing_account",
     "google_billing_budget",
   ],

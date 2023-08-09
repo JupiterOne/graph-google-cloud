@@ -106,9 +106,9 @@ export function createAppEngineVersionEntity(
         livenessCheckInitialDelay: data.livenessCheck?.initialDelay,
         createdOn: parseTimePropertyValue(data.createTime),
         webLink: getGoogleCloudConsoleWebLink(
-          `/appengine/versions?serviceId=${
-            data.name?.split('/')[3]
-          }&project=${projectId}`,
+          `/appengine/versions?serviceId=${data.name?.split(
+            '/',
+          )[3]}&project=${projectId}`,
         ),
       },
     },

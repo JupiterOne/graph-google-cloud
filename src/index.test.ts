@@ -850,9 +850,8 @@ expect.extend({
     stepCollection: string[],
   ) {
     for (const stepId of stepCollection) {
-      const stepDependencies = integrationSteps.find(
-        (s) => s.id === stepId,
-      )?.dependsOn;
+      const stepDependencies = integrationSteps.find((s) => s.id === stepId)
+        ?.dependsOn;
 
       const invalidStepDependencies = stepDependencies?.filter(
         (s) => !stepCollection.includes(s),

@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#createAccessLevelEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Ruleset",
   ],
   "_key": "accessPolicies/368605946207/accessLevels/access_level_example",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
-        "basic": Object {
-          "conditions": Array [
-            Object {
-              "regions": Array [
+      "rawData": {
+        "basic": {
+          "conditions": [
+            {
+              "regions": [
                 "US",
               ],
             },
@@ -34,15 +34,15 @@ Object {
 `;
 
 exports[`#createAccessPolicyEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "AccessPolicy",
   ],
   "_key": "accessPolicies/368605946207",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "etag": "64186ca0c82b01b4",
         "name": "accessPolicies/368605946207",
         "parent": "organizations/958457776463",
@@ -60,15 +60,15 @@ Object {
 `;
 
 exports[`#createServicePerimeterApiOperationEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Configuration",
   ],
   "_key": "accessPolicies/368605946207/servicePerimeters/example_perimetere:egressPolicies[0]:apiOperations[0]",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "serviceName": "storage.googleapis.com",
       },
     },
@@ -82,30 +82,30 @@ Object {
 `;
 
 exports[`#createServicePerimeterEgressPolicyEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "ControlPolicy",
   ],
   "_key": "accessPolicies/368605946207/servicePerimeters/example_perimetere:egressPolicies[0]",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
-        "egressFrom": Object {
+      "rawData": {
+        "egressFrom": {
           "identityType": "ANY_IDENTITY",
         },
-        "egressTo": Object {
-          "operations": Array [
-            Object {
-              "methodSelectors": Array [
-                Object {
+        "egressTo": {
+          "operations": [
+            {
+              "methodSelectors": [
+                {
                   "method": "*",
                 },
               ],
               "serviceName": "storage.googleapis.com",
             },
           ],
-          "resources": Array [
+          "resources": [
             "projects/167984947943",
           ],
         },
@@ -122,30 +122,30 @@ Object {
 `;
 
 exports[`#createServicePerimeterEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Configuration",
   ],
   "_key": "accessPolicies/368605946207/servicePerimeters/example_perimetere",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "name": "accessPolicies/368605946207/servicePerimeters/example_perimetere",
         "spec": undefined,
-        "status": Object {
-          "accessLevels": Array [
+        "status": {
+          "accessLevels": [
             "accessPolicies/368605946207/accessLevels/access_level_example",
           ],
           "egressPolicies": undefined,
           "ingressPolicies": undefined,
-          "resources": Array [
+          "resources": [
             "projects/167984947943",
           ],
-          "restrictedServices": Array [
+          "restrictedServices": [
             "storage.googleapis.com",
           ],
-          "vpcAccessibleServices": Object {},
+          "vpcAccessibleServices": {},
         },
         "title": "example_perimetere",
       },
@@ -161,13 +161,13 @@ Object {
   "spec.accessLevels": undefined,
   "spec.resources": undefined,
   "spec.restrictedServices": undefined,
-  "status.accessLevels": Array [
+  "status.accessLevels": [
     "accessPolicies/368605946207/accessLevels/access_level_example",
   ],
-  "status.resources": Array [
+  "status.resources": [
     "projects/167984947943",
   ],
-  "status.restrictedServices": Array [
+  "status.restrictedServices": [
     "storage.googleapis.com",
   ],
   "title": "example_perimetere",
@@ -176,35 +176,35 @@ Object {
 `;
 
 exports[`#createServicePerimeterIngressPolicyEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "ControlPolicy",
   ],
   "_key": "accessPolicies/368605946207/servicePerimeters/example_perimetere:ingressPolicies[0]",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
-        "ingressFrom": Object {
+      "rawData": {
+        "ingressFrom": {
           "identityType": "ANY_IDENTITY",
-          "sources": Array [
-            Object {
+          "sources": [
+            {
               "accessLevel": "accessPolicies/368605946207/accessLevels/access_level_example",
             },
           ],
         },
-        "ingressTo": Object {
-          "operations": Array [
-            Object {
-              "methodSelectors": Array [
-                Object {
+        "ingressTo": {
+          "operations": [
+            {
+              "methodSelectors": [
+                {
                   "method": "*",
                 },
               ],
               "serviceName": "storage.googleapis.com",
             },
           ],
-          "resources": Array [
+          "resources": [
             "projects/167984947943",
           ],
         },
@@ -221,15 +221,15 @@ Object {
 `;
 
 exports[`#createServicePerimeterMethodSelectorEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Configuration",
   ],
   "_key": "accessPolicies/368605946207/servicePerimeters/example_perimetere:egressPolicies[0]:apiOperations[0]:methodSelectors[0]",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "method": "*",
       },
     },

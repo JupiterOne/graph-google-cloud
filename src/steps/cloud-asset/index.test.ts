@@ -319,8 +319,8 @@ describe('#fetchIamBindings', () => {
         /// Direct Relationships ///
         // Organization relationships
         expect(
-          google_iam_binding_allows_resource.filter((r: any) =>
-            r._toEntityKey?.startsWith('organizations/'),
+          google_iam_binding_allows_resource.filter(
+            (r: any) => r._toEntityKey?.startsWith('organizations/'),
           ).length,
         ).toBeGreaterThan(0),
           expect(
@@ -331,8 +331,8 @@ describe('#fetchIamBindings', () => {
           ).toBe(0),
           // Folder relationships
           expect(
-            google_iam_binding_allows_resource.filter((r: any) =>
-              r._toEntityKey?.startsWith('folders/'),
+            google_iam_binding_allows_resource.filter(
+              (r: any) => r._toEntityKey?.startsWith('folders/'),
             ).length,
           ).toBeGreaterThan(0);
         expect(
@@ -796,11 +796,10 @@ describe('#createBasicRolesForBindings', () => {
         }
       });
 
-      // Ensure that all Basic roles are for heirarchy members that we have ingested.
+      // Ensure that all Basic roles are for hierarchy members that we have ingested.
       for (const role of google_iam_role) {
         const orgHierarchyKey = role._key.split('/').slice(0, -2).join('/');
-        await context.jobState.hasKey(orgHierarchyKey);
-        expect(await context.jobState.hasKey(orgHierarchyKey)).toBe(true);
+        expect(context.jobState.hasKey(orgHierarchyKey)).toBe(true);
       }
     });
   });

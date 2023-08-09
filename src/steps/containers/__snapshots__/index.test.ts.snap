@@ -1,33 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#fetchContainerClusters should collect data 1`] = `
-Object {
-  "collectedEntities": Array [
-    Object {
-      "_class": Array [
+{
+  "collectedEntities": [
+    {
+      "_class": [
         "Cluster",
       ],
       "_key": "google_container_cluster:d9692112289a4badbb83026dfa7ccd1567435b5823b647b3b71d969a55cd905a",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
-            "addonsConfig": Object {
-              "dnsCacheConfig": Object {},
-              "gcePersistentDiskCsiDriverConfig": Object {
+          "rawData": {
+            "addonsConfig": {
+              "dnsCacheConfig": {},
+              "gcePersistentDiskCsiDriverConfig": {
                 "enabled": true,
               },
-              "horizontalPodAutoscaling": Object {},
-              "httpLoadBalancing": Object {},
-              "kubernetesDashboard": Object {
+              "horizontalPodAutoscaling": {},
+              "httpLoadBalancing": {},
+              "kubernetesDashboard": {
                 "disabled": true,
               },
-              "networkPolicyConfig": Object {
+              "networkPolicyConfig": {
                 "disabled": true,
               },
             },
-            "authenticatorGroupsConfig": Object {},
-            "autoscaling": Object {
+            "authenticatorGroupsConfig": {},
+            "autoscaling": {
               "autoscalingProfile": "BALANCED",
             },
             "clusterIpv4Cidr": "10.32.0.0/14",
@@ -35,20 +35,20 @@ Object {
             "currentMasterVersion": "1.21.6-gke.1503",
             "currentNodeCount": 1,
             "currentNodeVersion": "1.21.6-gke.1503",
-            "databaseEncryption": Object {
+            "databaseEncryption": {
               "state": "DECRYPTED",
             },
-            "defaultMaxPodsConstraint": Object {
+            "defaultMaxPodsConstraint": {
               "maxPodsPerNode": "110",
             },
             "description": "example description",
             "endpoint": "35.225.113.218",
             "id": "d9692112289a4badbb83026dfa7ccd1567435b5823b647b3b71d969a55cd905a",
             "initialClusterVersion": "1.21.6-gke.1503",
-            "instanceGroupUrls": Array [
+            "instanceGroupUrls": [
               "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/zones/us-central1-c/instanceGroupManagers/gke-cluster-new-example-default-pool-bdda069a-grp",
             ],
-            "ipAllocationPolicy": Object {
+            "ipAllocationPolicy": {
               "clusterIpv4Cidr": "10.32.0.0/14",
               "clusterIpv4CidrBlock": "10.32.0.0/14",
               "clusterSecondaryRangeName": "gke-cluster-new-example-pods-d9692112",
@@ -58,30 +58,30 @@ Object {
               "useIpAliases": true,
             },
             "labelFingerprint": "5bb9be72",
-            "legacyAbac": Object {},
+            "legacyAbac": {},
             "location": "us-central1-c",
-            "locations": Array [
+            "locations": [
               "us-central1-c",
             ],
-            "loggingConfig": Object {
-              "componentConfig": Object {
-                "enableComponents": Array [
+            "loggingConfig": {
+              "componentConfig": {
+                "enableComponents": [
                   "SYSTEM_COMPONENTS",
                   "WORKLOADS",
                 ],
               },
             },
             "loggingService": "logging.googleapis.com/kubernetes",
-            "maintenancePolicy": Object {
+            "maintenancePolicy": {
               "resourceVersion": "e3b0c442",
             },
-            "masterAuth": Object {
+            "masterAuth": {
               "clusterCaCertificate": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUVMRENDQXBTZ0F3SUJBZ0lRWTlDdytFV1Q5TVBKbFhQVHdCQTNyREFOQmdrcWhraUc5dzBCQVFzRkFEQXYKTVMwd0t3WURWUVFERXlRNE5qTTVOV00wTVMwMU9EQTJMVFE1TW1JdFlUSTVPUzFsTmpFMk1qRmlZalEzTnpndwpJQmNOTWpJd016QTRNVFl5TlRFd1doZ1BNakExTWpBeU1qa3hOekkxTVRCYU1DOHhMVEFyQmdOVkJBTVRKRGcyCk16azFZelF4TFRVNE1EWXRORGt5WWkxaE1qazVMV1UyTVRZeU1XSmlORGMzT0RDQ0FhSXdEUVlKS29aSWh2Y04KQVFFQkJRQURnZ0dQQURDQ0FZb0NnZ0dCQUpoTnlKNDBMLzBLN09yazlzUitIaEQrQmZMbC9tR29PU1pWM0JTRAppRlR6MytCWWN1M2hNY1UyTWVibGR5MnRTcTkzTzhkRk5IeUE3d1VNbTJXWHo2ZS90SURRanZIWW8weUtmU01FCjYzZ2haQVVuNElURzY4M0FwV1lLYktMUWh3dnd4YUdCSEtLdVJSTUdNL29TUm9aL3BIbzA4Q1VkWUw5aFFFcTkKd3BzSXZqbkFYenoyRzFrQStPWDZuQzBLZzJQQ2hubUpzMTFyK3BKdzQ0bDc3NmlNdTEzeGRCNjRobFVWRW1DTAoyM3VoUFhOYXlIelBvZjkyL0s1dE5FN3VEcGRzOXJEK0Y5RzgrTm5hOGxQZzFHRnhXdDdTckUrbGs2aTZBcSswClZ4WDFhWkRXN0RuelluNXF1VlBpdUo0VXdUVGM1VXlHSG9NTHExVm5YdVNaa0tPeExibnBOL3NYMzRHdE90OVEKTmcvdjhTa2M1VmIzckd5L2oyV1NRUlFrVHpnbGkzOGNrTDVoeDhoRE96cjlGRENTUDVYa0tyZmlzb2hKeXAvUQp0dlpLNWhZSUhEZlVtb2taQTNGK0lVcTBZakhCVjZLcWk2ekIxYVk2eGhlVDdTTVN4b1FHUThUZ29GZ1lqeWppCnh5MkFBWHJpang3Qk5PMi9XbmRMY2dNbjB3SURBUUFCbzBJd1FEQU9CZ05WSFE4QkFmOEVCQU1DQWdRd0R3WUQKVlIwVEFRSC9CQVV3QXdFQi96QWRCZ05WSFE0RUZnUVVJVjAwNjlLRzI5cEcxVCtmQnZHR2hGVVJoYkl3RFFZSgpLb1pJaHZjTkFRRUxCUUFEZ2dHQkFBa3llT3JtUGduWTd0TG9xckZXM1pZbkwwRU0yRHpjRVZGb2p2aUFiYm1LCnpoV2k3OGlSemdRM1hPVUR5bnIwai95cm04RHU3RE9sSmQ2T2RGQnpPM3pQVzkxU2w0YnhWZWo4b3E3L3lxZTYKck0wR0M2UDBZUVBqTmVkRnY5SEhjbXg4MmFxaElEMCtGY2FnVzQrbXByVVUzblFLc0FoSFppMHBvNEhja2JYZgpjbm9xNms1MmZMQmlkSFNzWVY3cEdCSVRicXJWVTMwQ1YvVVRhRUN2VDVXVm0rZ1BDMnk2SHdQVGdmVUNLTnNHCjFLS3g2OW5MdjJNeFhGZVFSUDhOcnM5ZE1SWjV3S3ZLRms0UzdvQ3hmNUMrYlpudHhjeGtwTWZqQ1d2OXM5TjkKekpPcis2ZWxCOEcvNS9OaUdyMWszM29Lb3ZQTk5ZWmg0aWkrT0tUM3lVVUZsVEwxbWZlcWNqcVlabkFyVTlTSQpyWW1hRUtUTUhLSytkb2d3MFZkWDVYTWZiY0xSS0tmUnRvckpBTXhHaFZCWUtDU1ZRTXF3M1FFdXlDdFNLcjRrCkFsckk0TVhzWnBNY3dGMDI2NzlTaENwSzA1UUVKaTNGb1NZQ0QwMDhMdHMwQTBlaVJzZlA3UGVQbUZXMDZBOHIKMkdUbGc4TTdURWg1dloxbDBOSHlSdz09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K",
             },
-            "masterAuthorizedNetworksConfig": Object {},
-            "monitoringConfig": Object {
-              "componentConfig": Object {
-                "enableComponents": Array [
+            "masterAuthorizedNetworksConfig": {},
+            "monitoringConfig": {
+              "componentConfig": {
+                "enableComponents": [
                   "SYSTEM_COMPONENTS",
                 ],
               },
@@ -89,28 +89,28 @@ Object {
             "monitoringService": "monitoring.googleapis.com/kubernetes",
             "name": "cluster-new-example",
             "network": "default",
-            "networkConfig": Object {
+            "networkConfig": {
               "datapathProvider": "LEGACY_DATAPATH",
-              "defaultSnatStatus": Object {},
+              "defaultSnatStatus": {},
               "network": "projects/j1-gc-integration-dev-v3/global/networks/default",
-              "serviceExternalIpsConfig": Object {},
+              "serviceExternalIpsConfig": {},
               "subnetwork": "projects/j1-gc-integration-dev-v3/regions/us-central1/subnetworks/default",
             },
-            "nodeConfig": Object {
+            "nodeConfig": {
               "diskSizeGb": 20,
               "diskType": "pd-standard",
               "imageType": "COS_CONTAINERD",
-              "labels": Object {
+              "labels": {
                 "example-k8s-label-1": "test-value",
                 "example-k8s-label-2": "",
               },
               "machineType": "e2-micro",
-              "metadata": Object {
+              "metadata": {
                 "disable-legacy-endpoints": "true",
                 "example-metadata-1": "test-value",
                 "example-metadata-2": " ",
               },
-              "oauthScopes": Array [
+              "oauthScopes": [
                 "https://www.googleapis.com/auth/devstorage.read_only",
                 "https://www.googleapis.com/auth/logging.write",
                 "https://www.googleapis.com/auth/monitoring",
@@ -119,30 +119,30 @@ Object {
                 "https://www.googleapis.com/auth/trace.append",
               ],
               "serviceAccount": "default",
-              "shieldedInstanceConfig": Object {
+              "shieldedInstanceConfig": {
                 "enableIntegrityMonitoring": true,
               },
-              "tags": Array [
+              "tags": [
                 "network-tag-test",
               ],
             },
-            "nodePoolAutoConfig": Object {},
-            "nodePoolDefaults": Object {
-              "nodeConfigDefaults": Object {},
+            "nodePoolAutoConfig": {},
+            "nodePoolDefaults": {
+              "nodeConfigDefaults": {},
             },
-            "notificationConfig": Object {
-              "pubsub": Object {},
+            "notificationConfig": {
+              "pubsub": {},
             },
-            "releaseChannel": Object {
+            "releaseChannel": {
               "channel": "REGULAR",
             },
-            "resourceLabels": Object {
+            "resourceLabels": {
               "cluster-metadata-test-1": "example-value-1",
               "cluster-metadata-test-2": "",
             },
             "selfLink": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v3/zones/us-central1-c/clusters/cluster-new-example",
             "servicesIpv4Cidr": "10.36.0.0/20",
-            "shieldedNodes": Object {
+            "shieldedNodes": {
               "enabled": true,
             },
             "status": "RUNNING",
@@ -169,14 +169,14 @@ Object {
       "id": "d9692112289a4badbb83026dfa7ccd1567435b5823b647b3b71d969a55cd905a",
       "initialClusterVersion": "1.21.6-gke.1503",
       "initialNodeCode": undefined,
-      "instanceGroupUrls": Array [
+      "instanceGroupUrls": [
         "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/zones/us-central1-c/instanceGroupManagers/gke-cluster-new-example-default-pool-bdda069a-grp",
       ],
       "intraNodeVisibilityEnabled": false,
       "isAlphaCluster": false,
       "kubernetesDashboardEnabled": false,
       "location": "us-central1-c",
-      "locations": Array [
+      "locations": [
         "us-central1-c",
       ],
       "loggingService": "logging.googleapis.com/kubernetes",
@@ -196,7 +196,7 @@ Object {
       "nodeImageType": "COS_CONTAINERD",
       "nodeIpv4CidrSize": undefined,
       "nodeMachineType": "e2-micro",
-      "nodeOAuthScopes": Array [
+      "nodeOAuthScopes": [
         "https://www.googleapis.com/auth/devstorage.read_only",
         "https://www.googleapis.com/auth/logging.write",
         "https://www.googleapis.com/auth/monitoring",
@@ -218,31 +218,31 @@ Object {
       "webLink": "https://console.cloud.google.com/kubernetes/clusters/details/us-central1-c/cluster-new-example/details?folder=&organizationId=&project=j1-gc-integration-dev-v3",
       "workloadIdentity": undefined,
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Group",
       ],
       "_key": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v3/zones/us-central1-c/clusters/cluster-new-example/nodePools/default-pool",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
-            "autoscaling": Object {},
-            "config": Object {
+          "rawData": {
+            "autoscaling": {},
+            "config": {
               "diskSizeGb": 20,
               "diskType": "pd-standard",
               "imageType": "COS_CONTAINERD",
-              "labels": Object {
+              "labels": {
                 "example-k8s-label-1": "test-value",
                 "example-k8s-label-2": "",
               },
               "machineType": "e2-micro",
-              "metadata": Object {
+              "metadata": {
                 "disable-legacy-endpoints": "true",
                 "example-metadata-1": "test-value",
                 "example-metadata-2": " ",
               },
-              "oauthScopes": Array [
+              "oauthScopes": [
                 "https://www.googleapis.com/auth/devstorage.read_only",
                 "https://www.googleapis.com/auth/logging.write",
                 "https://www.googleapis.com/auth/monitoring",
@@ -251,36 +251,36 @@ Object {
                 "https://www.googleapis.com/auth/trace.append",
               ],
               "serviceAccount": "default",
-              "shieldedInstanceConfig": Object {
+              "shieldedInstanceConfig": {
                 "enableIntegrityMonitoring": true,
               },
-              "tags": Array [
+              "tags": [
                 "network-tag-test",
               ],
             },
             "initialNodeCount": 1,
-            "instanceGroupUrls": Array [
+            "instanceGroupUrls": [
               "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/zones/us-central1-c/instanceGroupManagers/gke-cluster-new-example-default-pool-bdda069a-grp",
             ],
-            "locations": Array [
+            "locations": [
               "us-central1-c",
             ],
-            "management": Object {
+            "management": {
               "autoRepair": true,
               "autoUpgrade": true,
             },
-            "maxPodsConstraint": Object {
+            "maxPodsConstraint": {
               "maxPodsPerNode": "110",
             },
             "name": "default-pool",
-            "networkConfig": Object {
+            "networkConfig": {
               "podIpv4CidrBlock": "10.32.0.0/14",
               "podRange": "gke-cluster-new-example-pods-d9692112",
             },
             "podIpv4CidrSize": 24,
             "selfLink": "https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v3/zones/us-central1-c/clusters/cluster-new-example/nodePools/default-pool",
             "status": "RUNNING",
-            "upgradeSettings": Object {
+            "upgradeSettings": {
               "maxSurge": 1,
             },
             "version": "1.21.6-gke.1503",
@@ -305,7 +305,7 @@ Object {
       "metadata.gce.example-metadata-2": " ",
       "metadata.labels.example-k8s-label-1": "test-value",
       "metadata.labels.example-k8s-label-2": "",
-      "metadata.networkTags": Array [
+      "metadata.networkTags": [
         "network-tag-test",
       ],
       "name": "default-pool",
@@ -318,8 +318,8 @@ Object {
       "webLink": "https://console.cloud.google.com/kubernetes/nodepool/us-central1-c/cluster-new-example/default-pool?folder=&organizationId=&project=j1-gc-integration-dev-v3",
     },
   ],
-  "collectedRelationships": Array [
-    Object {
+  "collectedRelationships": [
+    {
       "_class": "HAS",
       "_fromEntityKey": "google_container_cluster:d9692112289a4badbb83026dfa7ccd1567435b5823b647b3b71d969a55cd905a",
       "_key": "google_container_cluster:d9692112289a4badbb83026dfa7ccd1567435b5823b647b3b71d969a55cd905a|has|https://container.googleapis.com/v1/projects/j1-gc-integration-dev-v3/zones/us-central1-c/clusters/cluster-new-example/nodePools/default-pool",
@@ -328,7 +328,7 @@ Object {
       "displayName": "HAS",
     },
   ],
-  "encounteredTypes": Array [
+  "encounteredTypes": [
     "google_container_cluster",
     "google_container_node_pool",
     "google_container_cluster_has_node_pool",

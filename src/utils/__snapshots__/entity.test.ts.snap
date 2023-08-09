@@ -1,30 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#createGoogleCloudIntegrationEntity should produce entity and copy labels if labels exist on resource 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "DataStore",
   ],
   "_key": "bucket:customer-managed-encryption-key-bucket-1234",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
-        "encryption": Object {
+      "rawData": {
+        "encryption": {
           "defaultKmsKeyName": "projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key",
         },
         "etag": "CAE=",
-        "iamConfiguration": Object {
-          "bucketPolicyOnly": Object {
+        "iamConfiguration": {
+          "bucketPolicyOnly": {
             "enabled": false,
           },
-          "uniformBucketLevelAccess": Object {
+          "uniformBucketLevelAccess": {
             "enabled": false,
           },
         },
         "id": "customer-managed-encryption-key-bucket-1234",
         "kind": "storage#bucket",
-        "labels": Object {
+        "labels": {
           "myLabel": "test",
         },
         "location": "US",
@@ -63,24 +63,24 @@ Object {
 `;
 
 exports[`#createGoogleCloudIntegrationEntity should produce entity and not fail if labels do not exist on resource 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "DataStore",
   ],
   "_key": "bucket:customer-managed-encryption-key-bucket-1234",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
-        "encryption": Object {
+      "rawData": {
+        "encryption": {
           "defaultKmsKeyName": "projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key",
         },
         "etag": "CAE=",
-        "iamConfiguration": Object {
-          "bucketPolicyOnly": Object {
+        "iamConfiguration": {
+          "bucketPolicyOnly": {
             "enabled": false,
           },
-          "uniformBucketLevelAccess": Object {
+          "uniformBucketLevelAccess": {
             "enabled": false,
           },
         },

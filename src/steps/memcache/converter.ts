@@ -40,9 +40,11 @@ export function createMemcacheInstanceEntity(
         createdOn: parseTimePropertyValue(withoutNodes.createTime),
         updatedOn: parseTimePropertyValue(withoutNodes.updateTime),
         webLink: getGoogleCloudConsoleWebLink(
-          `/memorystore/memcached/locations/${
-            data.name?.split('/')[3]
-          }/instances/${data.name?.split('/')[5]}/details?project=${projectId}`,
+          `/memorystore/memcached/locations/${data.name?.split(
+            '/',
+          )[3]}/instances/${data.name?.split(
+            '/',
+          )[5]}/details?project=${projectId}`,
         ),
         hostname: null,
       },

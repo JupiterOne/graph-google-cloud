@@ -1,22 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#createCloudFunctionEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Function",
   ],
   "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/functions/j1-gc-integration-dev-v2testfunction",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "availableMemoryMb": 128,
         "description": "Test function",
         "entryPoint": "handler",
-        "environmentVariables": Object {
+        "environmentVariables": {
           "TEST_ENV_VAR": "test-env-var-val",
         },
-        "httpsTrigger": Object {
+        "httpsTrigger": {
           "url": "https://us-central1-j1-gc-integration-dev-v2.cloudfunctions.net/j1-gc-integration-dev-v2testfunction",
         },
         "ingressSettings": "ALLOW_ALL",
@@ -24,7 +24,7 @@ Object {
         "runtime": "nodejs10",
         "serviceAccountEmail": "j1-gc-integration-dev-v2@appspot.gserviceaccount.com",
         "sourceArchiveUrl": "gs://j1-gc-integration-dev-v2cloudfunctions/http_trigger.zip",
-        "sourceRepository": Object {
+        "sourceRepository": {
           "url": "https://source.developers.google.com/projects/j1-gc-integration-dev-v3/repos/gaston/moveable-aliases/master/paths/",
         },
         "status": "ACTIVE",

@@ -1,31 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#fetchAlertPolicies should collect data 1`] = `
-Object {
-  "collectedEntities": Array [
-    Object {
-      "_class": Array [
+{
+  "collectedEntities": [
+    {
+      "_class": [
         "Policy",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/alertPolicies/8900061597970753716",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "combiner": "OR",
-            "conditions": Array [
-              Object {
-                "conditionThreshold": Object {
-                  "aggregations": Array [
-                    Object {
+            "conditions": [
+              {
+                "conditionThreshold": {
+                  "aggregations": [
+                    {
                       "alignmentPeriod": "300s",
                       "perSeriesAligner": "ALIGN_RATE",
                     },
                   ],
                   "comparison": "COMPARISON_GT",
                   "duration": "0s",
-                  "filter": "metric.type=\\"logging.googleapis.com/user/my-example-metric\\" AND resource.type=\\"metric\\"",
-                  "trigger": Object {
+                  "filter": "metric.type="logging.googleapis.com/user/my-example-metric" AND resource.type="metric"",
+                  "trigger": {
                     "count": 1,
                   },
                 },
@@ -33,13 +33,13 @@ Object {
                 "name": "projects/j1-gc-integration-dev-v2/alertPolicies/8900061597970753716/conditions/8900061597970755317",
               },
             ],
-            "creationRecord": Object {
+            "creationRecord": {
               "mutateTime": "2021-02-19T13:41:42.161511391Z",
               "mutatedBy": "j1-gc-integration-dev-v2-tf@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
             },
             "displayName": "Example Alert Policy",
             "enabled": true,
-            "mutationRecord": Object {
+            "mutationRecord": {
               "mutateTime": "2021-02-19T13:41:42.161511391Z",
               "mutatedBy": "j1-gc-integration-dev-v2-tf@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
             },
@@ -48,8 +48,8 @@ Object {
         },
       ],
       "_type": "google_monitoring_alert_policy",
-      "conditionFilters": Array [
-        "metric.type=\\"logging.googleapis.com/user/my-example-metric\\" AND resource.type=\\"metric\\"",
+      "conditionFilters": [
+        "metric.type="logging.googleapis.com/user/my-example-metric" AND resource.type="metric"",
       ],
       "content": "",
       "createdOn": 1613742102161,
@@ -62,8 +62,8 @@ Object {
       "webLink": "https://console.cloud.google.com/monitoring/alerting/policies/8900061597970753716?project=j1-gc-integration-dev-v2",
     },
   ],
-  "collectedRelationships": Array [],
-  "encounteredTypes": Array [
+  "collectedRelationships": [],
+  "encounteredTypes": [
     "google_monitoring_alert_policy",
   ],
   "numCollectedEntities": 1,

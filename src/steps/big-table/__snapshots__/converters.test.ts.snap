@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#createAppProfileEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Database",
   ],
   "_key": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/appProfiles/default",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "description": "Default application profile for this instance. This profile is used if you do not supply a different profile ID at connection time.",
         "name": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/appProfiles/default",
-        "singleClusterRouting": Object {
+        "singleClusterRouting": {
           "allowTransactionalWrites": true,
           "clusterId": "j1-test-instance-c1",
         },
@@ -32,16 +32,16 @@ Object {
 `;
 
 exports[`#createBackupEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Backup",
   ],
   "_key": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/clusters/j1-test-instance-c1/backups/j1-backup",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
-        "encryptionInfo": Object {
+      "rawData": {
+        "encryptionInfo": {
           "encryptionType": "GOOGLE_DEFAULT_ENCRYPTION",
         },
         "endTime": "2021-08-03T19:37:46.235458Z",
@@ -73,15 +73,15 @@ Object {
 `;
 
 exports[`#createClusterEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Cluster",
   ],
   "_key": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/clusters/j1-test-instance-c1",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "defaultStorageType": "SSD",
         "location": "projects/j1-gc-integration-dev-v3/locations/asia-south1-a",
         "name": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/clusters/j1-test-instance-c1",
@@ -106,15 +106,15 @@ Object {
 `;
 
 exports[`#createInstanceEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Database",
   ],
   "_key": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "displayName": "j1-test-instance",
         "name": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance",
         "state": "READY",
@@ -134,15 +134,15 @@ Object {
 `;
 
 exports[`#createTableEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "DataCollection",
   ],
   "_key": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/tables/j1-table",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "name": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/tables/j1-table",
       },
     },

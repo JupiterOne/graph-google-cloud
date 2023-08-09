@@ -1,24 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#createMetricEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Configuration",
   ],
   "_key": "my-example-metric",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "createTime": "2021-02-02T16:14:20.068899250Z",
-        "filter": "protoPayload.methodName=\\"SetIamPolicy\\" AND protoPayload.serviceData.policyDelta.auditConfigDeltas:*",
-        "labelExtractors": Object {
+        "filter": "protoPayload.methodName="SetIamPolicy" AND protoPayload.serviceData.policyDelta.auditConfigDeltas:*",
+        "labelExtractors": {
           "occurences": "EXTRACT(textPayload)",
         },
-        "metricDescriptor": Object {
+        "metricDescriptor": {
           "displayName": "My metric",
-          "labels": Array [
-            Object {
+          "labels": [
+            {
               "key": "occurences",
               "valueType": "INT64",
             },
@@ -37,7 +37,7 @@ Object {
   "_type": "google_logging_metric",
   "createdOn": 1612282460068,
   "displayName": "my-example-metric",
-  "filter": "protoPayload.methodName=\\"SetIamPolicy\\" AND protoPayload.serviceData.policyDelta.auditConfigDeltas:*",
+  "filter": "protoPayload.methodName="SetIamPolicy" AND protoPayload.serviceData.policyDelta.auditConfigDeltas:*",
   "name": "my-example-metric",
   "updatedOn": 1612282460068,
   "webLink": "https://console.cloud.google.com/logs/metrics?project=j1-gc-integration-dev-v2",
@@ -45,16 +45,16 @@ Object {
 `;
 
 exports[`#createProjectSinkEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Logs",
   ],
   "_key": "google_logging_log_sink:example-sink",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
-        "bigqueryOptions": Object {},
+      "rawData": {
+        "bigqueryOptions": {},
         "createTime": "2021-01-27T18:44:26.303792531Z",
         "destination": "bigquery.googleapis.com/projects/j1-gc-integration-dev-v2/datasets/test_big_query_dataset",
         "name": "example-sink",
