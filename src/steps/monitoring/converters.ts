@@ -29,9 +29,9 @@ export function createAlertPolicyEntity(
         // 2.4 Ensure log metric filter and alerts exist for project ownership assignments/changes (Scored)
         enabled: data.enabled,
         webLink: getGoogleCloudConsoleWebLink(
-          `/monitoring/alerting/policies/${
-            data.name?.split('/')[3]
-          }?project=${projectId}`,
+          `/monitoring/alerting/policies/${data.name?.split(
+            '/',
+          )[3]}?project=${projectId}`,
         ),
         createdOn: parseTimePropertyValue(data.creationRecord?.mutateTime),
         updatedOn: parseTimePropertyValue(data.mutationRecord?.mutateTime),

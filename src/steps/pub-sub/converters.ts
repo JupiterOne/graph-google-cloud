@@ -31,9 +31,9 @@ export function createPubSubTopicEntity({
         function: ['other'],
         public: isPublic,
         webLink: getGoogleCloudConsoleWebLink(
-          `/cloudpubsub/topic/detail/${
-            data.name?.split('/')[3]
-          }?project=${projectId}`,
+          `/cloudpubsub/topic/detail/${data.name?.split(
+            '/',
+          )[3]}?project=${projectId}`,
         ),
       },
     },
@@ -67,9 +67,9 @@ export function createPubSubSubscriptionEntity(
         minimumBackoff: data.retryPolicy?.minimumBackoff,
         maximumBackoff: data.retryPolicy?.maximumBackoff,
         webLink: getGoogleCloudConsoleWebLink(
-          `/cloudpubsub/subscription/detail/${
-            data.name?.split('/')[3]
-          }?project=${projectId}`,
+          `/cloudpubsub/subscription/detail/${data.name?.split(
+            '/',
+          )[3]}?project=${projectId}`,
         ),
       },
     },

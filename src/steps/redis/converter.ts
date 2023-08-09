@@ -44,9 +44,11 @@ export function createRedisInstanceEntity(
         locationId: data.locationId,
         createdOn: parseTimePropertyValue(data.createTime),
         webLink: getGoogleCloudConsoleWebLink(
-          `/memorystore/redis/locations/${data.name?.split('/')[3]}/instances/${
-            data.name?.split('/')[5]
-          }/details?project=${projectId}`,
+          `/memorystore/redis/locations/${data.name?.split(
+            '/',
+          )[3]}/instances/${data.name?.split(
+            '/',
+          )[5]}/details?project=${projectId}`,
         ),
       },
     },

@@ -319,8 +319,8 @@ describe('#fetchIamBindings', () => {
         /// Direct Relationships ///
         // Organization relationships
         expect(
-          google_iam_binding_allows_resource.filter((r: any) =>
-            r._toEntityKey?.startsWith('organizations/'),
+          google_iam_binding_allows_resource.filter(
+            (r: any) => r._toEntityKey?.startsWith('organizations/'),
           ).length,
         ).toBeGreaterThan(0),
           expect(
@@ -331,8 +331,8 @@ describe('#fetchIamBindings', () => {
           ).toBe(0),
           // Folder relationships
           expect(
-            google_iam_binding_allows_resource.filter((r: any) =>
-              r._toEntityKey?.startsWith('folders/'),
+            google_iam_binding_allows_resource.filter(
+              (r: any) => r._toEntityKey?.startsWith('folders/'),
             ).length,
           ).toBeGreaterThan(0);
         expect(

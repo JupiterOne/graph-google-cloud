@@ -101,4 +101,3 @@ publish it to NPM.
 
 The history of this integration's development can be viewed at
 [CHANGELOG.md](CHANGELOG.md).
-
