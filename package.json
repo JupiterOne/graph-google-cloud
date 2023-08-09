@@ -12,6 +12,9 @@
   "publishConfig": {
     "access": "public"
   },
+  "engines": {
+    "node": ">=18.0.0 <19.x"
+  },
   "scripts": {
     "start": "LOG_LEVEL=trace j1-integration collect",
     "graph": "j1-integration visualize",
