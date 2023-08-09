@@ -1,3 +1,15 @@
+# v3.0.0 (Wed Aug 09 2023)
+
+#### 💥 Breaking Change
+
+- Upgrade to SDK v10 [#619](https://github.com/JupiterOne/graph-google-cloud/pull/619) ([@austinkelleher](https://github.com/austinkelleher))
+
+#### Authors: 1
+
+- Austin Kelleher ([@austinkelleher](https://github.com/austinkelleher))
+
+---
+
 # v2.30.3 (Tue Aug 01 2023)
 
 #### 🐛 Bug Fix
