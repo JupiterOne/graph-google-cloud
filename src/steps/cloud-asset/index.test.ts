@@ -796,11 +796,10 @@ describe('#createBasicRolesForBindings', () => {
         }
       });
 
-      // Ensure that all Basic roles are for heirarchy members that we have ingested.
+      // Ensure that all Basic roles are for hierarchy members that we have ingested.
       for (const role of google_iam_role) {
         const orgHierarchyKey = role._key.split('/').slice(0, -2).join('/');
-        await context.jobState.hasKey(orgHierarchyKey);
-        expect(await context.jobState.hasKey(orgHierarchyKey)).toBe(true);
+        expect(context.jobState.hasKey(orgHierarchyKey)).toBe(true);
       }
     });
   });
