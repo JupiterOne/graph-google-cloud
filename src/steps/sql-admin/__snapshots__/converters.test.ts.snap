@@ -1,22 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#createMySQLInstanceEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Database",
   ],
   "_key": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v2/instances/cloud-sql-postgres",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "backendType": "SECOND_GEN",
         "connectionName": "j1-gc-integration-dev-v2:europe-west3:cloud-sql-postgres",
         "databaseVersion": "MYSQL_5_7",
         "etag": "98de3deaeeca4420e21a891488c187b0b029235e2e0cb551fc00a388d1ac4f7d",
         "gceZone": "europe-west3-b",
         "instanceType": "CLOUD_SQL_INSTANCE",
-        "ipAddresses": Array [],
+        "ipAddresses": [],
         "kind": "sql#instance",
         "name": "cloud-sql-postgres",
         "project": "j1-gc-integration-dev-v2",
@@ -24,12 +24,12 @@ Object {
         "rootPassword": "some-password",
         "selfLink": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v2/instances/cloud-sql-postgres",
         "serviceAccountEmailAddress": "p165882964161-x5ifig@gcp-sa-cloud-sql.iam.gserviceaccount.com",
-        "settings": Object {
+        "settings": {
           "activationPolicy": "ALWAYS",
-          "authorizedGaeApplications": Array [],
+          "authorizedGaeApplications": [],
           "availabilityType": "ZONAL",
-          "backupConfiguration": Object {
-            "backupRetentionSettings": Object {
+          "backupConfiguration": {
+            "backupRetentionSettings": {
               "retainedBackups": 7,
               "retentionUnit": "COUNT",
             },
@@ -43,16 +43,16 @@ Object {
           },
           "dataDiskSizeGb": "10",
           "dataDiskType": "PD_SSD",
-          "ipConfiguration": Object {
-            "authorizedNetworks": Array [],
+          "ipConfiguration": {
+            "authorizedNetworks": [],
             "ipv4Enabled": true,
           },
           "kind": "sql#settings",
-          "locationPreference": Object {
+          "locationPreference": {
             "kind": "sql#locationPreference",
             "zone": "europe-west3-b",
           },
-          "maintenanceWindow": Object {
+          "maintenanceWindow": {
             "day": 0,
             "hour": 0,
             "kind": "sql#maintenanceWindow",
@@ -68,7 +68,7 @@ Object {
     },
   ],
   "_type": "google_sql_mysql_instance",
-  "authorizedNetworks": Array [],
+  "authorizedNetworks": [],
   "automatedBackupsEnabled": true,
   "connectionName": "j1-gc-integration-dev-v2:europe-west3:cloud-sql-postgres",
   "createdOn": undefined,
@@ -90,31 +90,31 @@ Object {
 `;
 
 exports[`#createMySQLInstanceEntity should convert to entity with localInfile param set to off 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Database",
   ],
   "_key": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v2/instances/cloud-sql-postgres",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "backendType": "SECOND_GEN",
         "connectionName": "j1-gc-integration-dev-v2:europe-west3:cloud-sql-postgres",
         "databaseVersion": "MYSQL_5_7",
         "etag": "98de3deaeeca4420e21a891488c187b0b029235e2e0cb551fc00a388d1ac4f7d",
         "gceZone": "europe-west3-b",
         "instanceType": "CLOUD_SQL_INSTANCE",
-        "ipAddresses": Array [],
+        "ipAddresses": [],
         "kind": "sql#instance",
         "name": "cloud-sql-postgres",
         "project": "j1-gc-integration-dev-v2",
         "region": "europe-west3",
         "selfLink": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v2/instances/cloud-sql-postgres",
         "serviceAccountEmailAddress": "p165882964161-x5ifig@gcp-sa-cloud-sql.iam.gserviceaccount.com",
-        "settings": Object {
-          "databaseFlags": Array [
-            Object {
+        "settings": {
+          "databaseFlags": [
+            {
               "name": "local_infile",
               "value": "off",
             },
@@ -125,7 +125,7 @@ Object {
     },
   ],
   "_type": "google_sql_mysql_instance",
-  "authorizedNetworks": Array [],
+  "authorizedNetworks": [],
   "automatedBackupsEnabled": undefined,
   "connectionName": "j1-gc-integration-dev-v2:europe-west3:cloud-sql-postgres",
   "createdOn": undefined,
@@ -147,30 +147,30 @@ Object {
 `;
 
 exports[`#createMySQLInstanceEntity should convert to entity with requireSSL param set to true 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Database",
   ],
   "_key": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v2/instances/cloud-sql-postgres",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "backendType": "SECOND_GEN",
         "connectionName": "j1-gc-integration-dev-v2:europe-west3:cloud-sql-postgres",
         "databaseVersion": "MYSQL_5_7",
         "etag": "98de3deaeeca4420e21a891488c187b0b029235e2e0cb551fc00a388d1ac4f7d",
         "gceZone": "europe-west3-b",
         "instanceType": "CLOUD_SQL_INSTANCE",
-        "ipAddresses": Array [],
+        "ipAddresses": [],
         "kind": "sql#instance",
         "name": "cloud-sql-postgres",
         "project": "j1-gc-integration-dev-v2",
         "region": "europe-west3",
         "selfLink": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v2/instances/cloud-sql-postgres",
         "serviceAccountEmailAddress": "p165882964161-x5ifig@gcp-sa-cloud-sql.iam.gserviceaccount.com",
-        "settings": Object {
-          "ipConfiguration": Object {
+        "settings": {
+          "ipConfiguration": {
             "requireSsl": true,
           },
         },
@@ -179,7 +179,7 @@ Object {
     },
   ],
   "_type": "google_sql_mysql_instance",
-  "authorizedNetworks": Array [],
+  "authorizedNetworks": [],
   "automatedBackupsEnabled": undefined,
   "connectionName": "j1-gc-integration-dev-v2:europe-west3:cloud-sql-postgres",
   "createdOn": undefined,
@@ -201,31 +201,31 @@ Object {
 `;
 
 exports[`#createMySQLInstanceEntity should parse/store the ip addresses values 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Database",
   ],
   "_key": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v2/instances/cloud-sql-postgres",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "backendType": "SECOND_GEN",
         "connectionName": "j1-gc-integration-dev-v2:europe-west3:cloud-sql-postgres",
         "databaseVersion": "MYSQL_5_7",
         "etag": "98de3deaeeca4420e21a891488c187b0b029235e2e0cb551fc00a388d1ac4f7d",
         "gceZone": "europe-west3-b",
         "instanceType": "CLOUD_SQL_INSTANCE",
-        "ipAddresses": Array [
-          Object {
+        "ipAddresses": [
+          {
             "ipAddress": "1.2.3.4",
             "type": "PRIMARY",
           },
-          Object {
+          {
             "ipAddress": "10.0.0.1",
             "type": "PRIVATE",
           },
-          Object {
+          {
             "ipAddress": "20.0.0.1",
             "type": "OUTGOING",
           },
@@ -236,12 +236,12 @@ Object {
         "region": "europe-west3",
         "selfLink": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v2/instances/cloud-sql-postgres",
         "serviceAccountEmailAddress": "p165882964161-x5ifig@gcp-sa-cloud-sql.iam.gserviceaccount.com",
-        "settings": Object {
+        "settings": {
           "activationPolicy": "ALWAYS",
-          "authorizedGaeApplications": Array [],
+          "authorizedGaeApplications": [],
           "availabilityType": "ZONAL",
-          "backupConfiguration": Object {
-            "backupRetentionSettings": Object {
+          "backupConfiguration": {
+            "backupRetentionSettings": {
               "retainedBackups": 7,
               "retentionUnit": "COUNT",
             },
@@ -255,16 +255,16 @@ Object {
           },
           "dataDiskSizeGb": "10",
           "dataDiskType": "PD_SSD",
-          "ipConfiguration": Object {
-            "authorizedNetworks": Array [],
+          "ipConfiguration": {
+            "authorizedNetworks": [],
             "ipv4Enabled": true,
           },
           "kind": "sql#settings",
-          "locationPreference": Object {
+          "locationPreference": {
             "kind": "sql#locationPreference",
             "zone": "europe-west3-b",
           },
-          "maintenanceWindow": Object {
+          "maintenanceWindow": {
             "day": 0,
             "hour": 0,
             "kind": "sql#maintenanceWindow",
@@ -280,7 +280,7 @@ Object {
     },
   ],
   "_type": "google_sql_mysql_instance",
-  "authorizedNetworks": Array [],
+  "authorizedNetworks": [],
   "automatedBackupsEnabled": true,
   "connectionName": "j1-gc-integration-dev-v2:europe-west3:cloud-sql-postgres",
   "createdOn": undefined,
@@ -288,7 +288,7 @@ Object {
   "encrypted": true,
   "hasPublicIP": true,
   "hasRootPassword": false,
-  "ipAddresses": Array [
+  "ipAddresses": [
     "1.2.3.4",
     "10.0.0.1",
     "20.0.0.1",
@@ -297,13 +297,13 @@ Object {
   "localInfile": undefined,
   "location": "j1-gc-integration-dev-v2:europe-west3:cloud-sql-postgres",
   "name": "cloud-sql-postgres",
-  "outgoingIpAddresses": Array [
+  "outgoingIpAddresses": [
     "20.0.0.1",
   ],
-  "primaryIpAddresses": Array [
+  "primaryIpAddresses": [
     "1.2.3.4",
   ],
-  "privateIpAddresses": Array [
+  "privateIpAddresses": [
     "10.0.0.1",
   ],
   "requireSSL": undefined,
@@ -312,34 +312,34 @@ Object {
 `;
 
 exports[`#createPostgresInstanceEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Database",
   ],
   "_key": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v2/instances/cloud-sql-postgres",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "backendType": "SECOND_GEN",
         "connectionName": "j1-gc-integration-dev-v2:europe-west3:cloud-sql-postgres",
         "databaseVersion": "POSTGRES_12",
         "etag": "98de3deaeeca4420e21a891488c187b0b029235e2e0cb551fc00a388d1ac4f7d",
         "gceZone": "europe-west3-b",
         "instanceType": "CLOUD_SQL_INSTANCE",
-        "ipAddresses": Array [],
+        "ipAddresses": [],
         "kind": "sql#instance",
         "name": "cloud-sql-postgres",
         "project": "j1-gc-integration-dev-v2",
         "region": "europe-west3",
         "selfLink": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v2/instances/cloud-sql-postgres",
         "serviceAccountEmailAddress": "p165882964161-x5ifig@gcp-sa-cloud-sql.iam.gserviceaccount.com",
-        "settings": Object {
+        "settings": {
           "activationPolicy": "ALWAYS",
-          "authorizedGaeApplications": Array [],
+          "authorizedGaeApplications": [],
           "availabilityType": "ZONAL",
-          "backupConfiguration": Object {
-            "backupRetentionSettings": Object {
+          "backupConfiguration": {
+            "backupRetentionSettings": {
               "retainedBackups": 7,
               "retentionUnit": "COUNT",
             },
@@ -353,16 +353,16 @@ Object {
           },
           "dataDiskSizeGb": "10",
           "dataDiskType": "PD_SSD",
-          "ipConfiguration": Object {
-            "authorizedNetworks": Array [],
+          "ipConfiguration": {
+            "authorizedNetworks": [],
             "ipv4Enabled": true,
           },
           "kind": "sql#settings",
-          "locationPreference": Object {
+          "locationPreference": {
             "kind": "sql#locationPreference",
             "zone": "europe-west3-b",
           },
-          "maintenanceWindow": Object {
+          "maintenanceWindow": {
             "day": 0,
             "hour": 0,
             "kind": "sql#maintenanceWindow",
@@ -378,7 +378,7 @@ Object {
     },
   ],
   "_type": "google_sql_postgres_instance",
-  "authorizedNetworks": Array [],
+  "authorizedNetworks": [],
   "automatedBackupsEnabled": true,
   "connectionName": "j1-gc-integration-dev-v2:europe-west3:cloud-sql-postgres",
   "createdOn": undefined,
@@ -413,31 +413,31 @@ Object {
 `;
 
 exports[`#createPostgresInstanceEntity should convert to entity with logCheckpoints param set to off 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Database",
   ],
   "_key": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v2/instances/cloud-sql-postgres",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "backendType": "SECOND_GEN",
         "connectionName": "j1-gc-integration-dev-v2:europe-west3:cloud-sql-postgres",
         "databaseVersion": "POSTGRES_12",
         "etag": "98de3deaeeca4420e21a891488c187b0b029235e2e0cb551fc00a388d1ac4f7d",
         "gceZone": "europe-west3-b",
         "instanceType": "CLOUD_SQL_INSTANCE",
-        "ipAddresses": Array [],
+        "ipAddresses": [],
         "kind": "sql#instance",
         "name": "cloud-sql-postgres",
         "project": "j1-gc-integration-dev-v2",
         "region": "europe-west3",
         "selfLink": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v2/instances/cloud-sql-postgres",
         "serviceAccountEmailAddress": "p165882964161-x5ifig@gcp-sa-cloud-sql.iam.gserviceaccount.com",
-        "settings": Object {
-          "databaseFlags": Array [
-            Object {
+        "settings": {
+          "databaseFlags": [
+            {
               "name": "log_checkpoints",
               "value": "off",
             },
@@ -448,7 +448,7 @@ Object {
     },
   ],
   "_type": "google_sql_postgres_instance",
-  "authorizedNetworks": Array [],
+  "authorizedNetworks": [],
   "automatedBackupsEnabled": undefined,
   "connectionName": "j1-gc-integration-dev-v2:europe-west3:cloud-sql-postgres",
   "createdOn": undefined,
@@ -483,31 +483,31 @@ Object {
 `;
 
 exports[`#createPostgresInstanceEntity should parse/store the ip addresses values 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Database",
   ],
   "_key": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v2/instances/cloud-sql-postgres",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "backendType": "SECOND_GEN",
         "connectionName": "j1-gc-integration-dev-v2:europe-west3:cloud-sql-postgres",
         "databaseVersion": "POSTGRES_12",
         "etag": "98de3deaeeca4420e21a891488c187b0b029235e2e0cb551fc00a388d1ac4f7d",
         "gceZone": "europe-west3-b",
         "instanceType": "CLOUD_SQL_INSTANCE",
-        "ipAddresses": Array [
-          Object {
+        "ipAddresses": [
+          {
             "ipAddress": "1.2.3.4",
             "type": "PRIMARY",
           },
-          Object {
+          {
             "ipAddress": "10.0.0.1",
             "type": "PRIVATE",
           },
-          Object {
+          {
             "ipAddress": "20.0.0.1",
             "type": "OUTGOING",
           },
@@ -518,12 +518,12 @@ Object {
         "region": "europe-west3",
         "selfLink": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v2/instances/cloud-sql-postgres",
         "serviceAccountEmailAddress": "p165882964161-x5ifig@gcp-sa-cloud-sql.iam.gserviceaccount.com",
-        "settings": Object {
+        "settings": {
           "activationPolicy": "ALWAYS",
-          "authorizedGaeApplications": Array [],
+          "authorizedGaeApplications": [],
           "availabilityType": "ZONAL",
-          "backupConfiguration": Object {
-            "backupRetentionSettings": Object {
+          "backupConfiguration": {
+            "backupRetentionSettings": {
               "retainedBackups": 7,
               "retentionUnit": "COUNT",
             },
@@ -537,16 +537,16 @@ Object {
           },
           "dataDiskSizeGb": "10",
           "dataDiskType": "PD_SSD",
-          "ipConfiguration": Object {
-            "authorizedNetworks": Array [],
+          "ipConfiguration": {
+            "authorizedNetworks": [],
             "ipv4Enabled": true,
           },
           "kind": "sql#settings",
-          "locationPreference": Object {
+          "locationPreference": {
             "kind": "sql#locationPreference",
             "zone": "europe-west3-b",
           },
-          "maintenanceWindow": Object {
+          "maintenanceWindow": {
             "day": 0,
             "hour": 0,
             "kind": "sql#maintenanceWindow",
@@ -562,14 +562,14 @@ Object {
     },
   ],
   "_type": "google_sql_postgres_instance",
-  "authorizedNetworks": Array [],
+  "authorizedNetworks": [],
   "automatedBackupsEnabled": true,
   "connectionName": "j1-gc-integration-dev-v2:europe-west3:cloud-sql-postgres",
   "createdOn": undefined,
   "displayName": "cloud-sql-postgres",
   "encrypted": true,
   "hasPublicIP": true,
-  "ipAddresses": Array [
+  "ipAddresses": [
     "1.2.3.4",
     "10.0.0.1",
     "20.0.0.1",
@@ -593,13 +593,13 @@ Object {
   "logStatementStats": undefined,
   "logTempFiles": undefined,
   "name": "cloud-sql-postgres",
-  "outgoingIpAddresses": Array [
+  "outgoingIpAddresses": [
     "20.0.0.1",
   ],
-  "primaryIpAddresses": Array [
+  "primaryIpAddresses": [
     "1.2.3.4",
   ],
-  "privateIpAddresses": Array [
+  "privateIpAddresses": [
     "10.0.0.1",
   ],
   "requireSSL": undefined,
@@ -607,34 +607,34 @@ Object {
 `;
 
 exports[`#createSQLServerInstanceEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Database",
   ],
   "_key": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v2/instances/cloud-sql-postgres",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "backendType": "SECOND_GEN",
         "connectionName": "j1-gc-integration-dev-v2:europe-west3:cloud-sql-postgres",
         "databaseVersion": "SQLSERVER_2017_STANDARD",
         "etag": "98de3deaeeca4420e21a891488c187b0b029235e2e0cb551fc00a388d1ac4f7d",
         "gceZone": "europe-west3-b",
         "instanceType": "CLOUD_SQL_INSTANCE",
-        "ipAddresses": Array [],
+        "ipAddresses": [],
         "kind": "sql#instance",
         "name": "cloud-sql-postgres",
         "project": "j1-gc-integration-dev-v2",
         "region": "europe-west3",
         "selfLink": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v2/instances/cloud-sql-postgres",
         "serviceAccountEmailAddress": "p165882964161-x5ifig@gcp-sa-cloud-sql.iam.gserviceaccount.com",
-        "settings": Object {
+        "settings": {
           "activationPolicy": "ALWAYS",
-          "authorizedGaeApplications": Array [],
+          "authorizedGaeApplications": [],
           "availabilityType": "ZONAL",
-          "backupConfiguration": Object {
-            "backupRetentionSettings": Object {
+          "backupConfiguration": {
+            "backupRetentionSettings": {
               "retainedBackups": 7,
               "retentionUnit": "COUNT",
             },
@@ -648,16 +648,16 @@ Object {
           },
           "dataDiskSizeGb": "10",
           "dataDiskType": "PD_SSD",
-          "ipConfiguration": Object {
-            "authorizedNetworks": Array [],
+          "ipConfiguration": {
+            "authorizedNetworks": [],
             "ipv4Enabled": true,
           },
           "kind": "sql#settings",
-          "locationPreference": Object {
+          "locationPreference": {
             "kind": "sql#locationPreference",
             "zone": "europe-west3-b",
           },
-          "maintenanceWindow": Object {
+          "maintenanceWindow": {
             "day": 0,
             "hour": 0,
             "kind": "sql#maintenanceWindow",
@@ -673,7 +673,7 @@ Object {
     },
   ],
   "_type": "google_sql_sql_server_instance",
-  "authorizedNetworks": Array [],
+  "authorizedNetworks": [],
   "automatedBackupsEnabled": true,
   "connectionName": "j1-gc-integration-dev-v2:europe-west3:cloud-sql-postgres",
   "containedDatabaseAuthentication": undefined,
@@ -699,31 +699,31 @@ Object {
 `;
 
 exports[`#createSQLServerInstanceEntity should convert to entity with crossDbOwnershipChaining param set to on 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Database",
   ],
   "_key": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v2/instances/cloud-sql-postgres",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "backendType": "SECOND_GEN",
         "connectionName": "j1-gc-integration-dev-v2:europe-west3:cloud-sql-postgres",
         "databaseVersion": "SQLSERVER_2017_STANDARD",
         "etag": "98de3deaeeca4420e21a891488c187b0b029235e2e0cb551fc00a388d1ac4f7d",
         "gceZone": "europe-west3-b",
         "instanceType": "CLOUD_SQL_INSTANCE",
-        "ipAddresses": Array [],
+        "ipAddresses": [],
         "kind": "sql#instance",
         "name": "cloud-sql-postgres",
         "project": "j1-gc-integration-dev-v2",
         "region": "europe-west3",
         "selfLink": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v2/instances/cloud-sql-postgres",
         "serviceAccountEmailAddress": "p165882964161-x5ifig@gcp-sa-cloud-sql.iam.gserviceaccount.com",
-        "settings": Object {
-          "databaseFlags": Array [
-            Object {
+        "settings": {
+          "databaseFlags": [
+            {
               "name": "cross db ownership chaining",
               "value": "on",
             },
@@ -734,7 +734,7 @@ Object {
     },
   ],
   "_type": "google_sql_sql_server_instance",
-  "authorizedNetworks": Array [],
+  "authorizedNetworks": [],
   "automatedBackupsEnabled": undefined,
   "connectionName": "j1-gc-integration-dev-v2:europe-west3:cloud-sql-postgres",
   "containedDatabaseAuthentication": undefined,
@@ -760,31 +760,31 @@ Object {
 `;
 
 exports[`#createSQLServerInstanceEntity should parse/store the ip addresses values 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Database",
   ],
   "_key": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v2/instances/cloud-sql-postgres",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "backendType": "SECOND_GEN",
         "connectionName": "j1-gc-integration-dev-v2:europe-west3:cloud-sql-postgres",
         "databaseVersion": "SQLSERVER_2017_STANDARD",
         "etag": "98de3deaeeca4420e21a891488c187b0b029235e2e0cb551fc00a388d1ac4f7d",
         "gceZone": "europe-west3-b",
         "instanceType": "CLOUD_SQL_INSTANCE",
-        "ipAddresses": Array [
-          Object {
+        "ipAddresses": [
+          {
             "ipAddress": "1.2.3.4",
             "type": "PRIMARY",
           },
-          Object {
+          {
             "ipAddress": "10.0.0.1",
             "type": "PRIVATE",
           },
-          Object {
+          {
             "ipAddress": "20.0.0.1",
             "type": "OUTGOING",
           },
@@ -795,12 +795,12 @@ Object {
         "region": "europe-west3",
         "selfLink": "https://www.googleapis.com/sql/v1beta4/projects/j1-gc-integration-dev-v2/instances/cloud-sql-postgres",
         "serviceAccountEmailAddress": "p165882964161-x5ifig@gcp-sa-cloud-sql.iam.gserviceaccount.com",
-        "settings": Object {
+        "settings": {
           "activationPolicy": "ALWAYS",
-          "authorizedGaeApplications": Array [],
+          "authorizedGaeApplications": [],
           "availabilityType": "ZONAL",
-          "backupConfiguration": Object {
-            "backupRetentionSettings": Object {
+          "backupConfiguration": {
+            "backupRetentionSettings": {
               "retainedBackups": 7,
               "retentionUnit": "COUNT",
             },
@@ -814,16 +814,16 @@ Object {
           },
           "dataDiskSizeGb": "10",
           "dataDiskType": "PD_SSD",
-          "ipConfiguration": Object {
-            "authorizedNetworks": Array [],
+          "ipConfiguration": {
+            "authorizedNetworks": [],
             "ipv4Enabled": true,
           },
           "kind": "sql#settings",
-          "locationPreference": Object {
+          "locationPreference": {
             "kind": "sql#locationPreference",
             "zone": "europe-west3-b",
           },
-          "maintenanceWindow": Object {
+          "maintenanceWindow": {
             "day": 0,
             "hour": 0,
             "kind": "sql#maintenanceWindow",
@@ -839,14 +839,14 @@ Object {
     },
   ],
   "_type": "google_sql_postgres_instance",
-  "authorizedNetworks": Array [],
+  "authorizedNetworks": [],
   "automatedBackupsEnabled": true,
   "connectionName": "j1-gc-integration-dev-v2:europe-west3:cloud-sql-postgres",
   "createdOn": undefined,
   "displayName": "cloud-sql-postgres",
   "encrypted": true,
   "hasPublicIP": true,
-  "ipAddresses": Array [
+  "ipAddresses": [
     "1.2.3.4",
     "10.0.0.1",
     "20.0.0.1",
@@ -870,13 +870,13 @@ Object {
   "logStatementStats": undefined,
   "logTempFiles": undefined,
   "name": "cloud-sql-postgres",
-  "outgoingIpAddresses": Array [
+  "outgoingIpAddresses": [
     "20.0.0.1",
   ],
-  "primaryIpAddresses": Array [
+  "primaryIpAddresses": [
     "1.2.3.4",
   ],
-  "privateIpAddresses": Array [
+  "privateIpAddresses": [
     "10.0.0.1",
   ],
   "requireSSL": undefined,

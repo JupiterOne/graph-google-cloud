@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#createMemcacheInstanceEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Database",
     "DataStore",
     "Cluster",
   ],
   "_key": "memcached:projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-memcached-instance",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "authorizedNetwork": "projects/j1-gc-integration-dev-v2/global/networks/test-private-vpc-network",
         "createTime": "2021-03-25T19:18:40.749241219Z",
         "discoveryEndpoint": "10.108.48.3:11211",
@@ -19,17 +19,17 @@ Object {
         "memcacheFullVersion": "memcached-1.5.16",
         "memcacheVersion": "MEMCACHE_1_5",
         "name": "projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-memcached-instance",
-        "nodeConfig": Object {
+        "nodeConfig": {
           "cpuCount": 1,
           "memorySizeMb": 1024,
         },
         "nodeCount": 1,
-        "parameters": Object {
+        "parameters": {
           "id": "1901468469",
         },
         "state": "READY",
         "updateTime": "2021-03-25T19:24:13.408022433Z",
-        "zones": Array [
+        "zones": [
           "us-central1-a",
           "us-central1-b",
           "us-central1-c",
@@ -58,20 +58,20 @@ Object {
 `;
 
 exports[`#createMemcacheNodeEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Database",
     "DataStore",
     "Host",
   ],
   "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-memcached-instance/node-c-1",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "host": "10.108.48.4",
         "nodeId": "node-c-1",
-        "parameters": Object {
+        "parameters": {
           "id": "1901468469",
         },
         "port": 11211,

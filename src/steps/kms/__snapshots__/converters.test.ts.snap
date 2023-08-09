@@ -1,20 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#createKmsCryptoKeyEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Key",
     "CryptoKey",
   ],
   "_key": "projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "createTime": "2020-07-28T18:59:59.513564921Z",
         "name": "projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key",
         "nextRotationTime": "2020-10-04T19:01:14.428484Z",
-        "primary": Object {
+        "primary": {
           "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
           "createTime": "2020-10-03T19:01:13.428484662Z",
           "generateTime": "2020-10-03T19:01:13.428484662Z",
@@ -24,7 +24,7 @@ Object {
         },
         "purpose": "ENCRYPT_DECRYPT",
         "rotationPeriod": "86401s",
-        "versionTemplate": Object {
+        "versionTemplate": {
           "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
           "protectionLevel": "SOFTWARE",
         },
@@ -53,20 +53,20 @@ Object {
 `;
 
 exports[`#createKmsCryptoKeyEntity should convert to entity with public=true if there is allAuthenticatedUsers bindings 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Key",
     "CryptoKey",
   ],
   "_key": "projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "createTime": "2020-07-28T18:59:59.513564921Z",
         "name": "projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key",
         "nextRotationTime": "2020-10-04T19:01:14.428484Z",
-        "primary": Object {
+        "primary": {
           "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
           "createTime": "2020-10-03T19:01:13.428484662Z",
           "generateTime": "2020-10-03T19:01:13.428484662Z",
@@ -76,7 +76,7 @@ Object {
         },
         "purpose": "ENCRYPT_DECRYPT",
         "rotationPeriod": "86401s",
-        "versionTemplate": Object {
+        "versionTemplate": {
           "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
           "protectionLevel": "SOFTWARE",
         },
@@ -105,20 +105,20 @@ Object {
 `;
 
 exports[`#createKmsCryptoKeyEntity should convert to entity with public=true if there is allUsers bindings 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Key",
     "CryptoKey",
   ],
   "_key": "projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "createTime": "2020-07-28T18:59:59.513564921Z",
         "name": "projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key",
         "nextRotationTime": "2020-10-04T19:01:14.428484Z",
-        "primary": Object {
+        "primary": {
           "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
           "createTime": "2020-10-03T19:01:13.428484662Z",
           "generateTime": "2020-10-03T19:01:13.428484662Z",
@@ -128,7 +128,7 @@ Object {
         },
         "purpose": "ENCRYPT_DECRYPT",
         "rotationPeriod": "86401s",
-        "versionTemplate": Object {
+        "versionTemplate": {
           "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
           "protectionLevel": "SOFTWARE",
         },
@@ -157,15 +157,15 @@ Object {
 `;
 
 exports[`#createKmsKeyRingEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Vault",
   ],
   "_key": "projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "createTime": "2020-07-28T18:34:26.034565002Z",
         "name": "projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring",
       },

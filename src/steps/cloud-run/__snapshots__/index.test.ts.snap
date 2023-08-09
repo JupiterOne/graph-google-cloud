@@ -1,21 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#fetchCloudRunConfigurations should collect data 1`] = `
-Object {
-  "collectedEntities": Array [
-    Object {
-      "_class": Array [
+{
+  "collectedEntities": [
+    {
+      "_class": [
         "Service",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/services/example-cloud-run-service",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "apiVersion": "serving.knative.dev/v1",
             "kind": "Service",
-            "metadata": Object {
-              "annotations": Object {
+            "metadata": {
+              "annotations": {
                 "client.knative.dev/user-image": "us-docker.pkg.dev/cloudrun/container/hello",
                 "run.googleapis.com/client-name": "cloud-console",
                 "run.googleapis.com/ingress": "all",
@@ -26,7 +26,7 @@ Object {
               },
               "creationTimestamp": "2021-03-09T20:41:29.622532Z",
               "generation": 1,
-              "labels": Object {
+              "labels": {
                 "cloud.googleapis.com/location": "us-central1",
               },
               "name": "example-cloud-run-service",
@@ -35,28 +35,28 @@ Object {
               "selfLink": "/apis/serving.knative.dev/v1/namespaces/711888229551/services/example-cloud-run-service",
               "uid": "fce2d165-9ccb-4b6c-9204-67362d41aadd",
             },
-            "spec": Object {
-              "template": Object {
-                "metadata": Object {
-                  "annotations": Object {
+            "spec": {
+              "template": {
+                "metadata": {
+                  "annotations": {
                     "autoscaling.knative.dev/maxScale": "100",
                     "run.googleapis.com/client-name": "cloud-console",
                     "run.googleapis.com/sandbox": "gvisor",
                   },
                   "name": "example-cloud-run-service-00001-mub",
                 },
-                "spec": Object {
+                "spec": {
                   "containerConcurrency": 80,
-                  "containers": Array [
-                    Object {
+                  "containers": [
+                    {
                       "image": "us-docker.pkg.dev/cloudrun/container/hello",
-                      "ports": Array [
-                        Object {
+                      "ports": [
+                        {
                           "containerPort": 8080,
                         },
                       ],
-                      "resources": Object {
-                        "limits": Object {
+                      "resources": {
+                        "limits": {
                           "cpu": "1000m",
                           "memory": "256Mi",
                         },
@@ -67,29 +67,29 @@ Object {
                   "timeoutSeconds": 300,
                 },
               },
-              "traffic": Array [
-                Object {
+              "traffic": [
+                {
                   "latestRevision": true,
                   "percent": 100,
                 },
               ],
             },
-            "status": Object {
-              "address": Object {
+            "status": {
+              "address": {
                 "url": "https://example-cloud-run-service-rhbpqun2qa-uc.a.run.app",
               },
-              "conditions": Array [
-                Object {
+              "conditions": [
+                {
                   "lastTransitionTime": "2021-03-09T20:42:53.416791Z",
                   "status": "True",
                   "type": "Ready",
                 },
-                Object {
+                {
                   "lastTransitionTime": "2021-03-09T20:42:53.211458Z",
                   "status": "True",
                   "type": "ConfigurationsReady",
                 },
-                Object {
+                {
                   "lastTransitionTime": "2021-03-09T20:42:53.416791Z",
                   "status": "True",
                   "type": "RoutesReady",
@@ -98,8 +98,8 @@ Object {
               "latestCreatedRevisionName": "example-cloud-run-service-00001-mub",
               "latestReadyRevisionName": "example-cloud-run-service-00001-mub",
               "observedGeneration": 1,
-              "traffic": Array [
-                Object {
+              "traffic": [
+                {
                   "latestRevision": true,
                   "percent": 100,
                   "revisionName": "example-cloud-run-service-00001-mub",
@@ -112,30 +112,30 @@ Object {
       ],
       "_type": "google_cloud_run_service",
       "active": undefined,
-      "category": Array [
+      "category": [
         "infrastructure",
       ],
       "createdOn": 1615322489622,
       "displayName": "example-cloud-run-service",
-      "function": Array [
+      "function": [
         "workload-management",
       ],
       "name": "example-cloud-run-service",
       "webLink": "https://console.cloud.google.com/run/detail/us-central1/example-cloud-run-service",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Configuration",
       ],
       "_key": "cloudrun_configuration:f190d809-4de1-4eb3-80bb-ad0ac9954f85",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "apiVersion": "serving.knative.dev/v1",
             "kind": "Configuration",
-            "metadata": Object {
-              "annotations": Object {
+            "metadata": {
+              "annotations": {
                 "client.knative.dev/user-image": "us-docker.pkg.dev/cloudrun/container/hello",
                 "run.googleapis.com/client-name": "cloud-console",
                 "run.googleapis.com/launch-stage": "BETA",
@@ -144,15 +144,15 @@ Object {
               },
               "creationTimestamp": "2021-03-09T20:41:30.336883Z",
               "generation": 1,
-              "labels": Object {
+              "labels": {
                 "cloud.googleapis.com/location": "us-central1",
                 "serving.knative.dev/route": "example-cloud-run-service",
                 "serving.knative.dev/service": "example-cloud-run-service",
               },
               "name": "example-cloud-run-service",
               "namespace": "711888229551",
-              "ownerReferences": Array [
-                Object {
+              "ownerReferences": [
+                {
                   "apiVersion": "serving.knative.dev/v1",
                   "blockOwnerDeletion": true,
                   "controller": true,
@@ -165,28 +165,28 @@ Object {
               "selfLink": "/apis/serving.knative.dev/v1/namespaces/711888229551/configurations/example-cloud-run-service",
               "uid": "f190d809-4de1-4eb3-80bb-ad0ac9954f85",
             },
-            "spec": Object {
-              "template": Object {
-                "metadata": Object {
-                  "annotations": Object {
+            "spec": {
+              "template": {
+                "metadata": {
+                  "annotations": {
                     "autoscaling.knative.dev/maxScale": "100",
                     "run.googleapis.com/client-name": "cloud-console",
                     "run.googleapis.com/sandbox": "gvisor",
                   },
                   "name": "example-cloud-run-service-00001-mub",
                 },
-                "spec": Object {
+                "spec": {
                   "containerConcurrency": 80,
-                  "containers": Array [
-                    Object {
+                  "containers": [
+                    {
                       "image": "us-docker.pkg.dev/cloudrun/container/hello",
-                      "ports": Array [
-                        Object {
+                      "ports": [
+                        {
                           "containerPort": 8080,
                         },
                       ],
-                      "resources": Object {
-                        "limits": Object {
+                      "resources": {
+                        "limits": {
                           "cpu": "1000m",
                           "memory": "256Mi",
                         },
@@ -198,9 +198,9 @@ Object {
                 },
               },
             },
-            "status": Object {
-              "conditions": Array [
-                Object {
+            "status": {
+              "conditions": [
+                {
                   "lastTransitionTime": "2021-03-09T20:42:53.137036Z",
                   "status": "True",
                   "type": "Ready",
@@ -228,8 +228,8 @@ Object {
       "name": "example-cloud-run-service",
     },
   ],
-  "collectedRelationships": Array [
-    Object {
+  "collectedRelationships": [
+    {
       "_class": "MANAGES",
       "_fromEntityKey": "projects/j1-gc-integration-dev-v2/locations/us-central1/services/example-cloud-run-service",
       "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/services/example-cloud-run-service|manages|cloudrun_configuration:f190d809-4de1-4eb3-80bb-ad0ac9954f85",
@@ -238,7 +238,7 @@ Object {
       "displayName": "MANAGES",
     },
   ],
-  "encounteredTypes": Array [
+  "encounteredTypes": [
     "google_cloud_run_service",
     "google_cloud_run_configuration",
     "google_cloud_run_service_manages_configuration",
@@ -249,21 +249,21 @@ Object {
 `;
 
 exports[`#fetchCloudRunRoutes should collect data 1`] = `
-Object {
-  "collectedEntities": Array [
-    Object {
-      "_class": Array [
+{
+  "collectedEntities": [
+    {
+      "_class": [
         "Service",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/services/example-cloud-run-service",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "apiVersion": "serving.knative.dev/v1",
             "kind": "Service",
-            "metadata": Object {
-              "annotations": Object {
+            "metadata": {
+              "annotations": {
                 "client.knative.dev/user-image": "us-docker.pkg.dev/cloudrun/container/hello",
                 "run.googleapis.com/client-name": "cloud-console",
                 "run.googleapis.com/ingress": "all",
@@ -274,7 +274,7 @@ Object {
               },
               "creationTimestamp": "2021-03-09T20:41:29.622532Z",
               "generation": 1,
-              "labels": Object {
+              "labels": {
                 "cloud.googleapis.com/location": "us-central1",
               },
               "name": "example-cloud-run-service",
@@ -283,28 +283,28 @@ Object {
               "selfLink": "/apis/serving.knative.dev/v1/namespaces/711888229551/services/example-cloud-run-service",
               "uid": "fce2d165-9ccb-4b6c-9204-67362d41aadd",
             },
-            "spec": Object {
-              "template": Object {
-                "metadata": Object {
-                  "annotations": Object {
+            "spec": {
+              "template": {
+                "metadata": {
+                  "annotations": {
                     "autoscaling.knative.dev/maxScale": "100",
                     "run.googleapis.com/client-name": "cloud-console",
                     "run.googleapis.com/sandbox": "gvisor",
                   },
                   "name": "example-cloud-run-service-00001-mub",
                 },
-                "spec": Object {
+                "spec": {
                   "containerConcurrency": 80,
-                  "containers": Array [
-                    Object {
+                  "containers": [
+                    {
                       "image": "us-docker.pkg.dev/cloudrun/container/hello",
-                      "ports": Array [
-                        Object {
+                      "ports": [
+                        {
                           "containerPort": 8080,
                         },
                       ],
-                      "resources": Object {
-                        "limits": Object {
+                      "resources": {
+                        "limits": {
                           "cpu": "1000m",
                           "memory": "256Mi",
                         },
@@ -315,29 +315,29 @@ Object {
                   "timeoutSeconds": 300,
                 },
               },
-              "traffic": Array [
-                Object {
+              "traffic": [
+                {
                   "latestRevision": true,
                   "percent": 100,
                 },
               ],
             },
-            "status": Object {
-              "address": Object {
+            "status": {
+              "address": {
                 "url": "https://example-cloud-run-service-rhbpqun2qa-uc.a.run.app",
               },
-              "conditions": Array [
-                Object {
+              "conditions": [
+                {
                   "lastTransitionTime": "2021-03-09T20:42:53.416791Z",
                   "status": "True",
                   "type": "Ready",
                 },
-                Object {
+                {
                   "lastTransitionTime": "2021-03-09T20:42:53.211458Z",
                   "status": "True",
                   "type": "ConfigurationsReady",
                 },
-                Object {
+                {
                   "lastTransitionTime": "2021-03-09T20:42:53.416791Z",
                   "status": "True",
                   "type": "RoutesReady",
@@ -346,8 +346,8 @@ Object {
               "latestCreatedRevisionName": "example-cloud-run-service-00001-mub",
               "latestReadyRevisionName": "example-cloud-run-service-00001-mub",
               "observedGeneration": 1,
-              "traffic": Array [
-                Object {
+              "traffic": [
+                {
                   "latestRevision": true,
                   "percent": 100,
                   "revisionName": "example-cloud-run-service-00001-mub",
@@ -360,30 +360,30 @@ Object {
       ],
       "_type": "google_cloud_run_service",
       "active": undefined,
-      "category": Array [
+      "category": [
         "infrastructure",
       ],
       "createdOn": 1615322489622,
       "displayName": "example-cloud-run-service",
-      "function": Array [
+      "function": [
         "workload-management",
       ],
       "name": "example-cloud-run-service",
       "webLink": "https://console.cloud.google.com/run/detail/us-central1/example-cloud-run-service",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Configuration",
       ],
       "_key": "cloudrun_route:f538487c-6e93-4038-9f6a-b7936cc4dd04",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "apiVersion": "serving.knative.dev/v1",
             "kind": "Route",
-            "metadata": Object {
-              "annotations": Object {
+            "metadata": {
+              "annotations": {
                 "client.knative.dev/user-image": "us-docker.pkg.dev/cloudrun/container/hello",
                 "run.googleapis.com/client-name": "cloud-console",
                 "run.googleapis.com/ingress": "all",
@@ -393,14 +393,14 @@ Object {
               },
               "creationTimestamp": "2021-03-09T20:41:30.309851Z",
               "generation": 1,
-              "labels": Object {
+              "labels": {
                 "cloud.googleapis.com/location": "us-central1",
                 "serving.knative.dev/service": "example-cloud-run-service",
               },
               "name": "example-cloud-run-service",
               "namespace": "711888229551",
-              "ownerReferences": Array [
-                Object {
+              "ownerReferences": [
+                {
                   "apiVersion": "serving.knative.dev/v1",
                   "blockOwnerDeletion": true,
                   "controller": true,
@@ -413,29 +413,29 @@ Object {
               "selfLink": "/apis/serving.knative.dev/v1/namespaces/711888229551/routes/example-cloud-run-service",
               "uid": "f538487c-6e93-4038-9f6a-b7936cc4dd04",
             },
-            "spec": Object {
-              "traffic": Array [
-                Object {
+            "spec": {
+              "traffic": [
+                {
                   "configurationName": "example-cloud-run-service",
                   "latestRevision": true,
                   "percent": 100,
                 },
               ],
             },
-            "status": Object {
-              "address": Object {
+            "status": {
+              "address": {
                 "url": "https://example-cloud-run-service-rhbpqun2qa-uc.a.run.app",
               },
-              "conditions": Array [
-                Object {
+              "conditions": [
+                {
                   "lastTransitionTime": "2021-03-09T20:42:53.373244Z",
                   "status": "True",
                   "type": "Ready",
                 },
               ],
               "observedGeneration": 1,
-              "traffic": Array [
-                Object {
+              "traffic": [
+                {
                   "latestRevision": true,
                   "percent": 100,
                   "revisionName": "example-cloud-run-service-00001-mub",
@@ -454,8 +454,8 @@ Object {
       "url": "https://example-cloud-run-service-rhbpqun2qa-uc.a.run.app",
     },
   ],
-  "collectedRelationships": Array [
-    Object {
+  "collectedRelationships": [
+    {
       "_class": "MANAGES",
       "_fromEntityKey": "projects/j1-gc-integration-dev-v2/locations/us-central1/services/example-cloud-run-service",
       "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/services/example-cloud-run-service|manages|cloudrun_route:f538487c-6e93-4038-9f6a-b7936cc4dd04",
@@ -464,7 +464,7 @@ Object {
       "displayName": "MANAGES",
     },
   ],
-  "encounteredTypes": Array [
+  "encounteredTypes": [
     "google_cloud_run_service",
     "google_cloud_run_route",
     "google_cloud_run_service_manages_route",
@@ -475,21 +475,21 @@ Object {
 `;
 
 exports[`#fetchCloudRunServices should collect data 1`] = `
-Object {
-  "collectedEntities": Array [
-    Object {
-      "_class": Array [
+{
+  "collectedEntities": [
+    {
+      "_class": [
         "Service",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/services/example-cloud-run-service",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "apiVersion": "serving.knative.dev/v1",
             "kind": "Service",
-            "metadata": Object {
-              "annotations": Object {
+            "metadata": {
+              "annotations": {
                 "client.knative.dev/user-image": "us-docker.pkg.dev/cloudrun/container/hello",
                 "run.googleapis.com/client-name": "cloud-console",
                 "run.googleapis.com/ingress": "all",
@@ -500,7 +500,7 @@ Object {
               },
               "creationTimestamp": "2021-03-09T20:41:29.622532Z",
               "generation": 1,
-              "labels": Object {
+              "labels": {
                 "cloud.googleapis.com/location": "us-central1",
               },
               "name": "example-cloud-run-service",
@@ -509,28 +509,28 @@ Object {
               "selfLink": "/apis/serving.knative.dev/v1/namespaces/711888229551/services/example-cloud-run-service",
               "uid": "fce2d165-9ccb-4b6c-9204-67362d41aadd",
             },
-            "spec": Object {
-              "template": Object {
-                "metadata": Object {
-                  "annotations": Object {
+            "spec": {
+              "template": {
+                "metadata": {
+                  "annotations": {
                     "autoscaling.knative.dev/maxScale": "100",
                     "run.googleapis.com/client-name": "cloud-console",
                     "run.googleapis.com/sandbox": "gvisor",
                   },
                   "name": "example-cloud-run-service-00001-mub",
                 },
-                "spec": Object {
+                "spec": {
                   "containerConcurrency": 80,
-                  "containers": Array [
-                    Object {
+                  "containers": [
+                    {
                       "image": "us-docker.pkg.dev/cloudrun/container/hello",
-                      "ports": Array [
-                        Object {
+                      "ports": [
+                        {
                           "containerPort": 8080,
                         },
                       ],
-                      "resources": Object {
-                        "limits": Object {
+                      "resources": {
+                        "limits": {
                           "cpu": "1000m",
                           "memory": "256Mi",
                         },
@@ -541,29 +541,29 @@ Object {
                   "timeoutSeconds": 300,
                 },
               },
-              "traffic": Array [
-                Object {
+              "traffic": [
+                {
                   "latestRevision": true,
                   "percent": 100,
                 },
               ],
             },
-            "status": Object {
-              "address": Object {
+            "status": {
+              "address": {
                 "url": "https://example-cloud-run-service-rhbpqun2qa-uc.a.run.app",
               },
-              "conditions": Array [
-                Object {
+              "conditions": [
+                {
                   "lastTransitionTime": "2021-03-09T20:42:53.416791Z",
                   "status": "True",
                   "type": "Ready",
                 },
-                Object {
+                {
                   "lastTransitionTime": "2021-03-09T20:42:53.211458Z",
                   "status": "True",
                   "type": "ConfigurationsReady",
                 },
-                Object {
+                {
                   "lastTransitionTime": "2021-03-09T20:42:53.416791Z",
                   "status": "True",
                   "type": "RoutesReady",
@@ -572,8 +572,8 @@ Object {
               "latestCreatedRevisionName": "example-cloud-run-service-00001-mub",
               "latestReadyRevisionName": "example-cloud-run-service-00001-mub",
               "observedGeneration": 1,
-              "traffic": Array [
-                Object {
+              "traffic": [
+                {
                   "latestRevision": true,
                   "percent": 100,
                   "revisionName": "example-cloud-run-service-00001-mub",
@@ -586,20 +586,20 @@ Object {
       ],
       "_type": "google_cloud_run_service",
       "active": undefined,
-      "category": Array [
+      "category": [
         "infrastructure",
       ],
       "createdOn": 1615322489622,
       "displayName": "example-cloud-run-service",
-      "function": Array [
+      "function": [
         "workload-management",
       ],
       "name": "example-cloud-run-service",
       "webLink": "https://console.cloud.google.com/run/detail/us-central1/example-cloud-run-service",
     },
   ],
-  "collectedRelationships": Array [],
-  "encounteredTypes": Array [
+  "collectedRelationships": [],
+  "encounteredTypes": [
     "google_cloud_run_service",
   ],
   "numCollectedEntities": 1,

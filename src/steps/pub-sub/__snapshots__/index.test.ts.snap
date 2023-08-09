@@ -640,29 +640,29 @@ Object {
 `;
 
 exports[`#fetchProjectSubscriptions should collect data 1`] = `
-Object {
-  "collectedEntities": Array [
-    Object {
-      "_class": Array [
+{
+  "collectedEntities": [
+    {
+      "_class": [
         "Channel",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/topics/example-topic",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "kmsKeyName": "projects/j1-gc-integration-dev-v3/locations/global/keyRings/example-topic-keyring/cryptoKeys/example-key",
             "name": "projects/j1-gc-integration-dev-v3/topics/example-topic",
           },
         },
       ],
       "_type": "google_pubsub_topic",
-      "category": Array [
+      "category": [
         "application",
       ],
       "createdOn": undefined,
       "displayName": "projects/j1-gc-integration-dev-v3/topics/example-topic",
-      "function": Array [
+      "function": [
         "other",
       ],
       "kmsKeyName": "projects/j1-gc-integration-dev-v3/locations/global/keyRings/example-topic-keyring/cryptoKeys/example-key",
@@ -670,26 +670,26 @@ Object {
       "public": false,
       "webLink": "https://console.cloud.google.com/cloudpubsub/topic/detail/example-topic?project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Channel",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/topics/container-analysis-notes-v1",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "name": "projects/j1-gc-integration-dev-v3/topics/container-analysis-notes-v1",
           },
         },
       ],
       "_type": "google_pubsub_topic",
-      "category": Array [
+      "category": [
         "application",
       ],
       "createdOn": undefined,
       "displayName": "projects/j1-gc-integration-dev-v3/topics/container-analysis-notes-v1",
-      "function": Array [
+      "function": [
         "other",
       ],
       "kmsKeyName": undefined,
@@ -697,26 +697,26 @@ Object {
       "public": false,
       "webLink": "https://console.cloud.google.com/cloudpubsub/topic/detail/container-analysis-notes-v1?project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Channel",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/topics/example-topic-dead-letter",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "name": "projects/j1-gc-integration-dev-v3/topics/example-topic-dead-letter",
           },
         },
       ],
       "_type": "google_pubsub_topic",
-      "category": Array [
+      "category": [
         "application",
       ],
       "createdOn": undefined,
       "displayName": "projects/j1-gc-integration-dev-v3/topics/example-topic-dead-letter",
-      "function": Array [
+      "function": [
         "other",
       ],
       "kmsKeyName": undefined,
@@ -724,26 +724,26 @@ Object {
       "public": false,
       "webLink": "https://console.cloud.google.com/cloudpubsub/topic/detail/example-topic-dead-letter?project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Channel",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/topics/container-analysis-occurrences-v1",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "name": "projects/j1-gc-integration-dev-v3/topics/container-analysis-occurrences-v1",
           },
         },
       ],
       "_type": "google_pubsub_topic",
-      "category": Array [
+      "category": [
         "application",
       ],
       "createdOn": undefined,
       "displayName": "projects/j1-gc-integration-dev-v3/topics/container-analysis-occurrences-v1",
-      "function": Array [
+      "function": [
         "other",
       ],
       "kmsKeyName": undefined,
@@ -751,26 +751,26 @@ Object {
       "public": false,
       "webLink": "https://console.cloud.google.com/cloudpubsub/topic/detail/container-analysis-occurrences-v1?project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Channel",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/topics/container-analysis-notes-v1beta1",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "name": "projects/j1-gc-integration-dev-v3/topics/container-analysis-notes-v1beta1",
           },
         },
       ],
       "_type": "google_pubsub_topic",
-      "category": Array [
+      "category": [
         "application",
       ],
       "createdOn": undefined,
       "displayName": "projects/j1-gc-integration-dev-v3/topics/container-analysis-notes-v1beta1",
-      "function": Array [
+      "function": [
         "other",
       ],
       "kmsKeyName": undefined,
@@ -778,26 +778,26 @@ Object {
       "public": false,
       "webLink": "https://console.cloud.google.com/cloudpubsub/topic/detail/container-analysis-notes-v1beta1?project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Channel",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/topics/container-analysis-occurrences-v1beta1",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "name": "projects/j1-gc-integration-dev-v3/topics/container-analysis-occurrences-v1beta1",
           },
         },
       ],
       "_type": "google_pubsub_topic",
-      "category": Array [
+      "category": [
         "application",
       ],
       "createdOn": undefined,
       "displayName": "projects/j1-gc-integration-dev-v3/topics/container-analysis-occurrences-v1beta1",
-      "function": Array [
+      "function": [
         "other",
       ],
       "kmsKeyName": undefined,
@@ -805,27 +805,27 @@ Object {
       "public": false,
       "webLink": "https://console.cloud.google.com/cloudpubsub/topic/detail/container-analysis-occurrences-v1beta1?project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Channel",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/topics/foreign-kms-topic",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "kmsKeyName": "projects/jupiterone-databricks-test/locations/global/keyRings/test-key-ring/cryptoKeys/foreign-key",
             "name": "projects/j1-gc-integration-dev-v3/topics/foreign-kms-topic",
           },
         },
       ],
       "_type": "google_pubsub_topic",
-      "category": Array [
+      "category": [
         "application",
       ],
       "createdOn": undefined,
       "displayName": "projects/j1-gc-integration-dev-v3/topics/foreign-kms-topic",
-      "function": Array [
+      "function": [
         "other",
       ],
       "kmsKeyName": "projects/jupiterone-databricks-test/locations/global/keyRings/test-key-ring/cryptoKeys/foreign-key",
@@ -833,22 +833,22 @@ Object {
       "public": false,
       "webLink": "https://console.cloud.google.com/cloudpubsub/topic/detail/foreign-kms-topic?project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Service",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/subscriptions/foreign-kms-topic-sub",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "ackDeadlineSeconds": 10,
-            "expirationPolicy": Object {
+            "expirationPolicy": {
               "ttl": "2678400s",
             },
             "messageRetentionDuration": "604800s",
             "name": "projects/j1-gc-integration-dev-v3/subscriptions/foreign-kms-topic-sub",
-            "pushConfig": Object {},
+            "pushConfig": {},
             "state": "ACTIVE",
             "topic": "projects/j1-gc-integration-dev-v3/topics/foreign-kms-topic",
           },
@@ -856,7 +856,7 @@ Object {
       ],
       "_type": "google_pubsub_subscription",
       "ackDeadlineSeconds": 10,
-      "category": Array [
+      "category": [
         "application",
       ],
       "createdOn": undefined,
@@ -864,7 +864,7 @@ Object {
       "displayName": "projects/j1-gc-integration-dev-v3/subscriptions/foreign-kms-topic-sub",
       "enableMessageOrdering": false,
       "expirationPolicyTtl": "2678400s",
-      "function": Array [
+      "function": [
         "notification",
       ],
       "isDefaultRetryPolicy": true,
@@ -877,8 +877,8 @@ Object {
       "webLink": "https://console.cloud.google.com/cloudpubsub/subscription/detail/foreign-kms-topic-sub?project=j1-gc-integration-dev-v3",
     },
   ],
-  "collectedRelationships": Array [
-    Object {
+  "collectedRelationships": [
+    {
       "_class": "USES",
       "_fromEntityKey": "projects/j1-gc-integration-dev-v3/subscriptions/foreign-kms-topic-sub",
       "_key": "projects/j1-gc-integration-dev-v3/subscriptions/foreign-kms-topic-sub|uses|projects/j1-gc-integration-dev-v3/topics/foreign-kms-topic",
@@ -887,7 +887,7 @@ Object {
       "displayName": "USES",
     },
   ],
-  "encounteredTypes": Array [
+  "encounteredTypes": [
     "google_pubsub_topic",
     "google_pubsub_subscription",
     "google_pubsub_subscription_uses_topic",
@@ -898,29 +898,29 @@ Object {
 `;
 
 exports[`#fetchProjectTopics should collect data 1`] = `
-Object {
-  "collectedEntities": Array [
-    Object {
-      "_class": Array [
+{
+  "collectedEntities": [
+    {
+      "_class": [
         "Channel",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/topics/example-topic",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "kmsKeyName": "projects/j1-gc-integration-dev-v3/locations/global/keyRings/example-topic-keyring/cryptoKeys/example-key",
             "name": "projects/j1-gc-integration-dev-v3/topics/example-topic",
           },
         },
       ],
       "_type": "google_pubsub_topic",
-      "category": Array [
+      "category": [
         "application",
       ],
       "createdOn": undefined,
       "displayName": "projects/j1-gc-integration-dev-v3/topics/example-topic",
-      "function": Array [
+      "function": [
         "other",
       ],
       "kmsKeyName": "projects/j1-gc-integration-dev-v3/locations/global/keyRings/example-topic-keyring/cryptoKeys/example-key",
@@ -928,26 +928,26 @@ Object {
       "public": false,
       "webLink": "https://console.cloud.google.com/cloudpubsub/topic/detail/example-topic?project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Channel",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/topics/container-analysis-notes-v1",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "name": "projects/j1-gc-integration-dev-v3/topics/container-analysis-notes-v1",
           },
         },
       ],
       "_type": "google_pubsub_topic",
-      "category": Array [
+      "category": [
         "application",
       ],
       "createdOn": undefined,
       "displayName": "projects/j1-gc-integration-dev-v3/topics/container-analysis-notes-v1",
-      "function": Array [
+      "function": [
         "other",
       ],
       "kmsKeyName": undefined,
@@ -955,26 +955,26 @@ Object {
       "public": false,
       "webLink": "https://console.cloud.google.com/cloudpubsub/topic/detail/container-analysis-notes-v1?project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Channel",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/topics/example-topic-dead-letter",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "name": "projects/j1-gc-integration-dev-v3/topics/example-topic-dead-letter",
           },
         },
       ],
       "_type": "google_pubsub_topic",
-      "category": Array [
+      "category": [
         "application",
       ],
       "createdOn": undefined,
       "displayName": "projects/j1-gc-integration-dev-v3/topics/example-topic-dead-letter",
-      "function": Array [
+      "function": [
         "other",
       ],
       "kmsKeyName": undefined,
@@ -982,26 +982,26 @@ Object {
       "public": false,
       "webLink": "https://console.cloud.google.com/cloudpubsub/topic/detail/example-topic-dead-letter?project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Channel",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/topics/container-analysis-occurrences-v1",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "name": "projects/j1-gc-integration-dev-v3/topics/container-analysis-occurrences-v1",
           },
         },
       ],
       "_type": "google_pubsub_topic",
-      "category": Array [
+      "category": [
         "application",
       ],
       "createdOn": undefined,
       "displayName": "projects/j1-gc-integration-dev-v3/topics/container-analysis-occurrences-v1",
-      "function": Array [
+      "function": [
         "other",
       ],
       "kmsKeyName": undefined,
@@ -1009,26 +1009,26 @@ Object {
       "public": false,
       "webLink": "https://console.cloud.google.com/cloudpubsub/topic/detail/container-analysis-occurrences-v1?project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Channel",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/topics/container-analysis-notes-v1beta1",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "name": "projects/j1-gc-integration-dev-v3/topics/container-analysis-notes-v1beta1",
           },
         },
       ],
       "_type": "google_pubsub_topic",
-      "category": Array [
+      "category": [
         "application",
       ],
       "createdOn": undefined,
       "displayName": "projects/j1-gc-integration-dev-v3/topics/container-analysis-notes-v1beta1",
-      "function": Array [
+      "function": [
         "other",
       ],
       "kmsKeyName": undefined,
@@ -1036,26 +1036,26 @@ Object {
       "public": false,
       "webLink": "https://console.cloud.google.com/cloudpubsub/topic/detail/container-analysis-notes-v1beta1?project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Channel",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/topics/container-analysis-occurrences-v1beta1",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "name": "projects/j1-gc-integration-dev-v3/topics/container-analysis-occurrences-v1beta1",
           },
         },
       ],
       "_type": "google_pubsub_topic",
-      "category": Array [
+      "category": [
         "application",
       ],
       "createdOn": undefined,
       "displayName": "projects/j1-gc-integration-dev-v3/topics/container-analysis-occurrences-v1beta1",
-      "function": Array [
+      "function": [
         "other",
       ],
       "kmsKeyName": undefined,
@@ -1063,27 +1063,27 @@ Object {
       "public": false,
       "webLink": "https://console.cloud.google.com/cloudpubsub/topic/detail/container-analysis-occurrences-v1beta1?project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Channel",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/topics/foreign-kms-topic",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "kmsKeyName": "projects/jupiterone-databricks-test/locations/global/keyRings/test-key-ring/cryptoKeys/foreign-key",
             "name": "projects/j1-gc-integration-dev-v3/topics/foreign-kms-topic",
           },
         },
       ],
       "_type": "google_pubsub_topic",
-      "category": Array [
+      "category": [
         "application",
       ],
       "createdOn": undefined,
       "displayName": "projects/j1-gc-integration-dev-v3/topics/foreign-kms-topic",
-      "function": Array [
+      "function": [
         "other",
       ],
       "kmsKeyName": "projects/jupiterone-databricks-test/locations/global/keyRings/test-key-ring/cryptoKeys/foreign-key",
@@ -1092,8 +1092,8 @@ Object {
       "webLink": "https://console.cloud.google.com/cloudpubsub/topic/detail/foreign-kms-topic?project=j1-gc-integration-dev-v3",
     },
   ],
-  "collectedRelationships": Array [],
-  "encounteredTypes": Array [
+  "collectedRelationships": [],
+  "encounteredTypes": [
     "google_pubsub_topic",
   ],
   "numCollectedEntities": 7,

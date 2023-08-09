@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#createIamRoleEntity should convert custom role to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "AccessRole",
   ],
   "_key": "projects/j1-gc-integration-dev-v2/roles/myrole",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "description": "Description",
         "etag": "abc123",
-        "includedPermissions": Array [
+        "includedPermissions": [
           "cloudfunctions.functions.get",
           "cloudfunctions.functions.getIamPolicy",
         ],
@@ -30,7 +30,7 @@ Object {
   "displayName": "Role",
   "etag": "abc123",
   "name": "projects/j1-gc-integration-dev-v2/roles/myrole",
-  "permissions": Array [
+  "permissions": [
     "cloudfunctions.functions.get",
     "cloudfunctions.functions.getIamPolicy",
   ],
@@ -40,12 +40,12 @@ Object {
 `;
 
 exports[`#createIamRoleEntity should convert noncustom role to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "AccessRole",
   ],
   "_key": "projects/j1-gc-integration-dev-v2/roles/myrole",
-  "_rawData": Array [],
+  "_rawData": [],
   "_type": "google_iam_role",
   "createdOn": undefined,
   "custom": false,
@@ -54,7 +54,7 @@ Object {
   "displayName": "Role",
   "etag": "abc123",
   "name": "projects/j1-gc-integration-dev-v2/roles/myrole",
-  "permissions": Array [
+  "permissions": [
     "cloudfunctions.functions.get",
     "cloudfunctions.functions.getIamPolicy",
   ],
@@ -64,15 +64,15 @@ Object {
 `;
 
 exports[`#createIamServiceAccount should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "User",
   ],
   "_key": "j1-gc-integration-dev-v2-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "description": "J1 Google Cloud integration execution",
         "email": "j1-gc-integration-dev-v2-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
         "etag": "abc=",
@@ -101,15 +101,15 @@ Object {
 `;
 
 exports[`#createIamServiceAccount should convert to entity with "enabled" set to "false" if "disabled" is "true" 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "User",
   ],
   "_key": "j1-gc-integration-dev-v2-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "description": "J1 Google Cloud integration execution",
         "disabled": true,
         "email": "j1-gc-integration-dev-v2-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
@@ -139,7 +139,7 @@ Object {
 `;
 
 exports[`#createIamServiceAccountHasKeyRelationship should convert to relationship 1`] = `
-Object {
+{
   "_class": "HAS",
   "_fromEntityKey": "j1-gc-integration-dev-v2-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
   "_key": "j1-gc-integration-dev-v2-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com|has|projects/j1-gc-integration-dev-v2/serviceAccounts/j1-gc-integration-dev-v2-sa-tf@j1-gc-integration-dev-v2.iam.gserviceaccount.com/keys/12345",
@@ -151,15 +151,15 @@ Object {
 `;
 
 exports[`#createIamServiceAccountKeyEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "AccessKey",
   ],
   "_key": "projects/j1-gc-integration-dev-v2/serviceAccounts/j1-gc-integration-dev-v2-sa-tf@j1-gc-integration-dev-v2.iam.gserviceaccount.com/keys/12345",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "keyAlgorithm": "KEY_ALG_RSA_2048",
         "keyOrigin": "GOOGLE_PROVIDED",
         "keyType": "SYSTEM_MANAGED",

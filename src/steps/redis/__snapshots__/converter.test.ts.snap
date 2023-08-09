@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#createRedisInstanceEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Database",
     "DataStore",
     "Host",
   ],
   "_key": "redis:projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-redis-instance",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "authorizedNetwork": "projects/j1-gc-integration-dev-v2/global/networks/default",
         "connectMode": "DIRECT_PEERING",
         "createTime": "2021-03-25T16:31:38.678284725Z",
@@ -56,17 +56,17 @@ Object {
 `;
 
 exports[`#createRedisInstanceEntity should have authEnabled set to false if it is disabled 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Database",
     "DataStore",
     "Host",
   ],
   "_key": "redis:projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-redis-instance",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "authorizedNetwork": "projects/j1-gc-integration-dev-v2/global/networks/default",
         "connectMode": "DIRECT_PEERING",
         "createTime": "2021-03-25T16:31:38.678284725Z",
@@ -111,17 +111,17 @@ Object {
 `;
 
 exports[`#createRedisInstanceEntity should have authEnabled set to true if it is enabled 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Database",
     "DataStore",
     "Host",
   ],
   "_key": "redis:projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-redis-instance",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "authEnabled": true,
         "authorizedNetwork": "projects/j1-gc-integration-dev-v2/global/networks/default",
         "connectMode": "DIRECT_PEERING",
@@ -167,17 +167,17 @@ Object {
 `;
 
 exports[`#createRedisInstanceEntity should have transitEncryptionModeEnabled set to false if it is disabled 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Database",
     "DataStore",
     "Host",
   ],
   "_key": "redis:projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-redis-instance",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "authorizedNetwork": "projects/j1-gc-integration-dev-v2/global/networks/default",
         "connectMode": "DIRECT_PEERING",
         "createTime": "2021-03-25T16:31:38.678284725Z",
@@ -222,17 +222,17 @@ Object {
 `;
 
 exports[`#createRedisInstanceEntity should have transitEncryptionModeEnabled set to true if it is enabled 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Database",
     "DataStore",
     "Host",
   ],
   "_key": "redis:projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-redis-instance",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "authorizedNetwork": "projects/j1-gc-integration-dev-v2/global/networks/default",
         "connectMode": "DIRECT_PEERING",
         "createTime": "2021-03-25T16:31:38.678284725Z",
