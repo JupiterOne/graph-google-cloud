@@ -1,3 +1,15 @@
+# v3.1.0 (Thu Oct 05 2023)
+
+#### 🚀 Enhancement
+
+- INT-9750: change permission errors to warnings [#620](https://github.com/JupiterOne/graph-google-cloud/pull/620) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### Authors: 1
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
 # v3.0.0 (Wed Aug 09 2023)
 
 #### 💥 Breaking Change
