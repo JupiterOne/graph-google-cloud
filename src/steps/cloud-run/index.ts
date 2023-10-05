@@ -37,9 +37,10 @@ export async function fetchCloudRunServices(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
 
-  const client = new CloudRunClient({ config });
+  const client = new CloudRunClient({ config }, logger);
 
   await client.iterateCloudRunServices(async (service) => {
     const key = await cacheCloudRunServiceKeyAndUid(
@@ -63,9 +64,10 @@ export async function fetchCloudRunRoutes(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
 
-  const client = new CloudRunClient({ config });
+  const client = new CloudRunClient({ config }, logger);
 
   await client.iterateCloudRunRoutes(async (route) => {
     const routeEntity = createCloudRunRouteEntity(route);
@@ -102,7 +104,7 @@ export async function fetchCloudRunConfigurations(
     logger,
   } = context;
 
-  const client = new CloudRunClient({ config });
+  const client = new CloudRunClient({ config }, logger);
 
   await client.iterateCloudRunConfigurations(async (configuration) => {
     const configurationEntity = createCloudRunConfigurationEntity(

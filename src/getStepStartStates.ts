@@ -506,7 +506,10 @@ async function getStepStartStatesUsingServiceEnablements(params: {
   let enabledServiceNames: string[];
   let serviceAccountProjectEnabledServiceNames: string[];
   try {
-    const enabledServiceData = await enablement.getEnabledServiceNames(config);
+    const enabledServiceData = await enablement.getEnabledServiceNames(
+      config,
+      logger,
+    );
     enabledServiceNames = enabledServiceData.intersectedEnabledServices ?? [];
     serviceAccountProjectEnabledServiceNames =
       enabledServiceData.mainProjectEnabledServices ?? [];

@@ -17,8 +17,9 @@ export const fetchCloudBuildBitbucketServerConfigStep: GoogleCloudIntegrationSte
       const {
         jobState,
         instance: { config },
+        logger,
       } = context;
-      const client = new CloudBuildClient({ config });
+      const client = new CloudBuildClient({ config }, logger);
 
       await client.iterateBuildsBitbucketServerConfigs(async (data) => {
         await jobState.addEntity(

@@ -29,8 +29,9 @@ export const fetchCloudBuildBitbucketRepositoriesStep: GoogleCloudIntegrationSte
       const {
         jobState,
         instance: { config },
+        logger,
       } = context;
-      const client = new CloudBuildClient({ config });
+      const client = new CloudBuildClient({ config }, logger);
 
       await jobState.iterateEntities(
         { _type: CloudBuildEntitiesSpec.BUILD_BITBUCKET_SERVER_CONFIG._type },

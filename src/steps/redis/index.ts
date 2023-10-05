@@ -26,9 +26,10 @@ export async function fetchRedisInstances(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
 
-  const client = new RedisClient({ config });
+  const client = new RedisClient({ config }, logger);
 
   await client.iterateRedisInstances(async (instance) => {
     const redisEntity = createRedisInstanceEntity(instance, client.projectId);

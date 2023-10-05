@@ -40,8 +40,9 @@ export async function fetchBillingBudgets(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
-  const client = new BillingBudgetClient({ config });
+  const client = new BillingBudgetClient({ config }, logger);
 
   await jobState.iterateEntities(
     { _type: ENTITY_TYPE_BILLING_ACCOUNT },
@@ -144,9 +145,10 @@ export async function buildAdditionalProjectBudgetRelationships(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
 
-  const client = new CloudBillingClient({ config });
+  const client = new CloudBillingClient({ config }, logger);
   const projectEntity = await getProjectEntity(jobState);
 
   await jobState.iterateEntities(

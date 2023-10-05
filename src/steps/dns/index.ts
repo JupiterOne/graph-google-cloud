@@ -28,9 +28,10 @@ export async function fetchDNSManagedZones(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
 
-  const client = new DNSClient({ config });
+  const client = new DNSClient({ config }, logger);
 
   await client.iterateDNSManagedZones(async (dnsZone) => {
     await jobState.addEntity(createDNSManagedZoneEntity(dnsZone));
@@ -43,9 +44,10 @@ export async function fetchDNSPolicies(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
 
-  const client = new DNSClient({ config });
+  const client = new DNSClient({ config }, logger);
 
   await client.iterateDNSPolicies(async (dnsPolicy) => {
     const dnsPolicyEntity = createDNSPolicyEntity(dnsPolicy, client.projectId);

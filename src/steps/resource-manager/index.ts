@@ -91,8 +91,9 @@ export async function fetchResourceManagerOrganization(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
-  const client = new ResourceManagerClient({ config });
+  const client = new ResourceManagerClient({ config }, logger);
 
   const organization = await client.getOrganization();
   await jobState.addEntity(createOrganizationEntity(organization));
@@ -104,8 +105,9 @@ export async function fetchResourceManagerFolders(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
-  const client = new ResourceManagerClient({ config });
+  const client = new ResourceManagerClient({ config }, logger);
 
   // Sending parentFolder name instead of Entity would be "cheaper", but we'd need to use
   // many jobState.findEntity calls to fetch parentFolder entity
@@ -164,8 +166,9 @@ export async function buildOrgFolderProjectMappedRelationships(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
-  const client = new ResourceManagerClient({ config });
+  const client = new ResourceManagerClient({ config }, logger);
 
   const organizationEntity = await jobState.findEntity(
     `organizations/${client.organizationId}`,
@@ -237,7 +240,7 @@ export async function fetchResourceManagerProject(
     instance: { config },
     logger,
   } = context;
-  const client = new ResourceManagerClient({ config });
+  const client = new ResourceManagerClient({ config }, logger);
 
   let project;
   try {
@@ -276,7 +279,7 @@ export async function fetchIamPolicyAuditConfig(
     jobState,
     logger,
   } = context;
-  const client = new ResourceManagerClient({ config });
+  const client = new ResourceManagerClient({ config }, logger);
 
   await client.iteratePolicyAuditConfigs(async (auditConfig) => {
     const auditConfigEntity = createAuditConfigEntity(auditConfig);

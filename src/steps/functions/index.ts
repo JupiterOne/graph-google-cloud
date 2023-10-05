@@ -25,8 +25,11 @@ export * from './constants';
 export async function fetchCloudFunctions(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
-  const client = new CloudFunctionsClient({ config: context.instance.config });
+  const { jobState, logger } = context;
+  const client = new CloudFunctionsClient(
+    { config: context.instance.config },
+    logger,
+  );
 
   await client.iterateCloudFunctions(async (cloudFunction) => {
     await jobState.addEntity(createCloudFunctionEntity(cloudFunction));

@@ -50,9 +50,10 @@ export async function fetchPubSubTopics(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
 
-  const client = new PubSubClient({ config });
+  const client = new PubSubClient({ config }, logger);
 
   await client.iterateProjectTopics(async (projectTopic) => {
     const topicPolicy = await client.getPolicy(projectTopic.name as string);
@@ -129,9 +130,10 @@ export async function fetchPubSubSubscriptions(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
 
-  const client = new PubSubClient({ config });
+  const client = new PubSubClient({ config }, logger);
 
   await client.iterateProjectSubscriptions(async (projectSubscription) => {
     const projectSubscriptionEntity = createPubSubSubscriptionEntity(

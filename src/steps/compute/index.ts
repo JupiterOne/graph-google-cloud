@@ -5,6 +5,7 @@ import {
   createMappedRelationship,
   RelationshipDirection,
   getRawData,
+  IntegrationLogger,
 } from '@jupiterone/integration-sdk-core';
 import { ComputeClient } from './client';
 import {
@@ -203,13 +204,19 @@ import { StorageEntitiesSpec, StorageStepsSpec } from '../storage/constants';
 
 export * from './constants';
 
-function createComputeClient(context: IntegrationStepContext) {
-  const client = new ComputeClient({
-    config: context.instance.config,
-    onRetry(err) {
-      context.logger.info({ err }, 'Retrying API call');
+function createComputeClient(
+  context: IntegrationStepContext,
+  logger: IntegrationLogger,
+) {
+  const client = new ComputeClient(
+    {
+      config: context.instance.config,
+      onRetry(err) {
+        context.logger.info({ err }, 'Retrying API call');
+      },
     },
-  });
+    logger,
+  );
 
   return client;
 }
@@ -303,7 +310,7 @@ export async function fetchComputeProject(
   context: IntegrationStepContext,
 ): Promise<void> {
   const { jobState, logger } = context;
-  const client = createComputeClient(context);
+  const client = createComputeClient(context, logger);
 
   let computeProject: compute_v1.Schema$Project;
 
@@ -356,8 +363,8 @@ export async function fetchComputeProject(
 export async function fetchComputeRegionDisks(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
-  const client = createComputeClient(context);
+  const { jobState, logger } = context;
+  const client = createComputeClient(context, logger);
 
   await client.iterateComputeRegionDisks(async (disk) => {
     const diskEntity = createComputeRegionDiskEntity(disk, client.projectId);
@@ -368,8 +375,8 @@ export async function fetchComputeRegionDisks(
 export async function fetchComputeDisks(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
-  const client = createComputeClient(context);
+  const { jobState, logger } = context;
+  const client = createComputeClient(context, logger);
 
   await client.iterateComputeDisks(async (disk) => {
     await jobState.setData(`disk:${disk.selfLink}`, `disk:${disk.id}`);
@@ -440,7 +447,7 @@ export async function buildDiskImageRelationships(
   context: IntegrationStepContext,
 ): Promise<void> {
   const { jobState, logger } = context;
-  const client = createComputeClient(context);
+  const client = createComputeClient(context, logger);
 
   await jobState.iterateEntities(
     { _type: ENTITY_TYPE_COMPUTE_DISK },
@@ -536,8 +543,8 @@ export async function buildDiskImageRelationships(
 export async function fetchComputeSnapshots(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
-  const client = createComputeClient(context);
+  const { jobState, logger } = context;
+  const client = createComputeClient(context, logger);
 
   await client.iterateComputeSnapshots(async (snapshot) => {
     await jobState.addEntity(createComputeSnapshotEntity(snapshot));
@@ -640,8 +647,8 @@ export async function buildImageUsesKmsRelationships(
 export async function fetchComputeImages(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
-  const client = createComputeClient(context);
+  const { jobState, logger } = context;
+  const client = createComputeClient(context, logger);
 
   await client.iterateCustomComputeImages(async (image) => {
     const imagePolicy = await client.fetchComputeImagePolicy(
@@ -726,8 +733,8 @@ export async function buildImageCreatedImageRelationships(
 export async function fetchComputeInstances(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
-  const client = createComputeClient(context);
+  const { jobState, logger } = context;
+  const client = createComputeClient(context, logger);
   const computeInstanceKeyToServiceAccountDataMap = new Map<
     string,
     compute_v1.Schema$ServiceAccount[]
@@ -941,8 +948,8 @@ export async function processFirewallRuleLists({
 export async function fetchComputeFirewalls(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
-  const client = createComputeClient(context);
+  const { jobState, logger } = context;
+  const client = createComputeClient(context, logger);
 
   await client.iterateFirewalls(async (firewall) => {
     const firewallEntity = await jobState.addEntity(
@@ -984,8 +991,8 @@ export async function fetchComputeFirewalls(
 export async function fetchComputeSubnetworks(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
-  const client = createComputeClient(context);
+  const { jobState, logger } = context;
+  const client = createComputeClient(context, logger);
 
   await client.iterateSubnetworks(async (subnet) => {
     const subnetEntity = await jobState.addEntity(
@@ -1013,8 +1020,8 @@ export async function fetchComputeSubnetworks(
 export async function fetchComputeGlobalAddresses(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
-  const client = createComputeClient(context);
+  const { jobState, logger } = context;
+  const client = createComputeClient(context, logger);
 
   await client.iterateComputeGlobalAddresses(async (address) => {
     const addressEntity = createComputeGlobalAddressEntity(
@@ -1056,8 +1063,8 @@ export async function fetchComputeGlobalAddresses(
 export async function fetchComputeAddresses(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
-  const client = createComputeClient(context);
+  const { jobState, logger } = context;
+  const client = createComputeClient(context, logger);
 
   await client.iterateComputeAddresses(async (address) => {
     const addressEntity = await jobState.addEntity(
@@ -1118,8 +1125,8 @@ export async function fetchComputeAddresses(
 export async function fetchComputeForwardingRules(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
-  const client = createComputeClient(context);
+  const { jobState, logger } = context;
+  const client = createComputeClient(context, logger);
 
   await client.iterateForwardingRules(async (forwardingRule) => {
     const forwardingRuleEntity =
@@ -1191,8 +1198,8 @@ export async function fetchComputeForwardingRules(
 export async function fetchComputeGlobalForwardingRules(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
-  const client = createComputeClient(context);
+  const { jobState, logger } = context;
+  const client = createComputeClient(context, logger);
 
   await client.iterateGlobalForwardingRules(async (forwardingRule) => {
     const forwardingRuleEntity =
@@ -1264,8 +1271,8 @@ export async function fetchComputeGlobalForwardingRules(
 export async function fetchComputeNetworks(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
-  const client = createComputeClient(context);
+  const { jobState, logger } = context;
+  const client = createComputeClient(context, logger);
 
   const peeredNetworks: string[] = [];
 
@@ -1367,8 +1374,8 @@ export async function buildComputeNetworkPeeringRelationships(
 export async function fetchComputeHealthChecks(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
-  const client = createComputeClient(context);
+  const { jobState, logger } = context;
+  const client = createComputeClient(context, logger);
 
   await client.iterateHealthChecks(async (healthCheck) => {
     const healthCheckEntity = createHealthCheckEntity(
@@ -1382,8 +1389,8 @@ export async function fetchComputeHealthChecks(
 export async function fetchComputeRegionHealthChecks(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
-  const client = createComputeClient(context);
+  const { jobState, logger } = context;
+  const client = createComputeClient(context, logger);
 
   await client.iterateRegionHealthChecks(async (healthCheck) => {
     const healthCheckEntity = createRegionHealthCheckEntity(
@@ -1397,8 +1404,8 @@ export async function fetchComputeRegionHealthChecks(
 export async function fetchComputeRegionInstanceGroups(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
-  const client = createComputeClient(context);
+  const { jobState, logger } = context;
+  const client = createComputeClient(context, logger);
 
   const { projectId } = client;
 
@@ -1446,8 +1453,8 @@ export async function fetchComputeRegionInstanceGroups(
 export async function fetchComputeInstanceGroups(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
-  const client = createComputeClient(context);
+  const { jobState, logger } = context;
+  const client = createComputeClient(context, logger);
   const { projectId } = client;
 
   await client.iterateInstanceGroups(async (instanceGroup) => {
@@ -1510,8 +1517,8 @@ function getBackendServices(
 export async function fetchComputeRegionLoadBalancers(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
-  const client = createComputeClient(context);
+  const { jobState, logger } = context;
+  const client = createComputeClient(context, logger);
 
   await client.iterateRegionLoadBalancers(async (loadBalancer) => {
     const loadBalancerEntity = createRegionLoadBalancerEntity(loadBalancer);
@@ -1545,8 +1552,8 @@ export async function fetchComputeRegionLoadBalancers(
 export async function fetchComputeLoadBalancers(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
-  const client = createComputeClient(context);
+  const { jobState, logger } = context;
+  const client = createComputeClient(context, logger);
 
   await client.iterateLoadBalancers(async (loadBalancer) => {
     const loadBalancerEntity = createLoadBalancerEntity(loadBalancer);
@@ -1594,8 +1601,8 @@ export async function fetchComputeLoadBalancers(
 export async function fetchComputeRegionBackendServices(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
-  const client = createComputeClient(context);
+  const { jobState, logger } = context;
+  const client = createComputeClient(context, logger);
 
   await client.iterateRegionBackendServices(async (regionBackendService) => {
     const regionBackendServiceEntity =
@@ -1637,8 +1644,8 @@ export async function fetchComputeRegionBackendServices(
 export async function fetchComputeBackendServices(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
-  const client = createComputeClient(context);
+  const { jobState, logger } = context;
+  const client = createComputeClient(context, logger);
 
   await client.iterateBackendServices(async (backendService) => {
     const backendServiceEntity = createBackendServiceEntity(backendService);
@@ -1679,8 +1686,8 @@ export async function fetchComputeBackendServices(
 export async function fetchComputeBackendBuckets(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
-  const client = createComputeClient(context);
+  const { jobState, logger } = context;
+  const client = createComputeClient(context, logger);
 
   await client.iterateBackendBuckets(async (backendBucket) => {
     const backendBucketEntity = createBackendBucketEntity(backendBucket);
@@ -1734,8 +1741,8 @@ export async function buildComputeBackendBucketHasBucketRelationships(
 export async function fetchComputeTargetSslProxies(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
-  const client = createComputeClient(context);
+  const { jobState, logger } = context;
+  const client = createComputeClient(context, logger);
 
   await client.iterateTargetSslProxies(async (targetSslProxy) => {
     const targetSslProxyEntity = createTargetSslProxyEntity(targetSslProxy);
@@ -1763,8 +1770,8 @@ export async function fetchComputeTargetSslProxies(
 export async function fetchComputeRegionTargetHttpsProxies(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
-  const client = createComputeClient(context);
+  const { jobState, logger } = context;
+  const client = createComputeClient(context, logger);
 
   await client.iterateRegionTargetHttpsProxies(async (targetHttpsProxy) => {
     const targetHttpsProxyEntity =
@@ -1789,8 +1796,8 @@ export async function fetchComputeRegionTargetHttpsProxies(
 export async function fetchComputeTargetHttpsProxies(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
-  const client = createComputeClient(context);
+  const { jobState, logger } = context;
+  const client = createComputeClient(context, logger);
 
   await client.iterateTargetHttpsProxies(async (targetHttpsProxy) => {
     const targetHttpsProxyEntity =
@@ -1815,8 +1822,8 @@ export async function fetchComputeTargetHttpsProxies(
 export async function fetchComputeRegionTargetHttpProxies(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
-  const client = createComputeClient(context);
+  const { jobState, logger } = context;
+  const client = createComputeClient(context, logger);
 
   await client.iterateRegionTargetHttpProxies(async (targetHttpProxy) => {
     const targetHttpProxyEntity =
@@ -1841,8 +1848,8 @@ export async function fetchComputeRegionTargetHttpProxies(
 export async function fetchComputeTargetHttpProxies(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
-  const client = createComputeClient(context);
+  const { jobState, logger } = context;
+  const client = createComputeClient(context, logger);
 
   await client.iterateTargetHttpProxies(async (targetHttpProxy) => {
     const targetHttpProxyEntity = createTargetHttpProxyEntity(targetHttpProxy);
@@ -1866,8 +1873,8 @@ export async function fetchComputeTargetHttpProxies(
 export async function fetchComputeSslPolicies(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
-  const client = createComputeClient(context);
+  const { jobState, logger } = context;
+  const client = createComputeClient(context, logger);
 
   await client.iterateSslPolicies(async (sslPolicy) => {
     const sslPolicyEntity = createSslPolicyEntity(sslPolicy);

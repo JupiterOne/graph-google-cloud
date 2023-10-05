@@ -116,7 +116,7 @@ export async function fetchIamCustomRoles(
   context: IntegrationStepContext,
 ): Promise<void> {
   const { jobState, instance, logger } = context;
-  const client = new IamClient({ config: instance.config });
+  const client = new IamClient({ config: instance.config }, logger);
 
   let numCustomRoles = 0;
 
@@ -169,8 +169,8 @@ export async function buildIamCustomRoleApiServiceRelationship(
 export async function fetchIamManagedRoles(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, instance } = context;
-  const client = new IamClient({ config: instance.config });
+  const { jobState, instance, logger } = context;
+  const client = new IamClient({ config: instance.config }, logger);
   const managedRoles: { [k: string]: iam_v1.Schema$Role } = {};
 
   await client.iterateManagedRoles((role) => {
@@ -197,8 +197,8 @@ export async function fetchIamManagedRoles(
 export async function fetchIamServiceAccounts(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, instance } = context;
-  const client = new IamClient({ config: instance.config });
+  const { jobState, instance, logger } = context;
+  const client = new IamClient({ config: instance.config }, logger);
 
   await client.iterateServiceAccounts(async (serviceAccount) => {
     const serviceAccountId = serviceAccount.uniqueId as string;

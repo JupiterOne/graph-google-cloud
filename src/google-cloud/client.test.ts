@@ -1,4 +1,5 @@
 import {
+  IntegrationLogger,
   IntegrationProviderAPIError,
   IntegrationProviderAuthorizationError,
 } from '@jupiterone/integration-sdk-core';
@@ -13,6 +14,7 @@ import {
 } from '../../test/recording';
 import { parseServiceAccountKeyFile } from '../utils/parseServiceAccountKeyFile';
 import { Client } from './client';
+import { getMockLogger } from '../../test/helpers/getMockLogger';
 
 describe('#getAuthenticatedServiceClient', () => {
   let googleAuthSpy: jest.SpyInstance<
@@ -53,7 +55,9 @@ describe('#getAuthenticatedServiceClient', () => {
 
     googleAuthSpy.mockReturnValueOnce(mockGoogleAuthClient);
 
-    const client = new Client({ config: instanceConfig });
+    const logger = getMockLogger<IntegrationLogger>();
+
+    const client = new Client({ config: instanceConfig }, logger);
 
     const auth = await client.getAuthenticatedServiceClient();
     const auth2 = await client.getAuthenticatedServiceClient();
@@ -94,9 +98,11 @@ describe('withErrorHandling', () => {
   let client;
   let onRetry;
 
+  const logger = getMockLogger<IntegrationLogger>();
+
   beforeEach(() => {
     onRetry = jest.fn();
-    client = new Client({ config, onRetry: onRetry });
+    client = new Client({ config, onRetry: onRetry }, logger);
   });
 
   [IntegrationProviderAuthorizationError, IntegrationProviderAPIError].forEach(
@@ -181,6 +187,8 @@ describe('withErrorHandling', () => {
 });
 
 describe('Client', () => {
+  const logger = getMockLogger<IntegrationLogger>();
+
   test('should set projectId to the config projectId if provided', () => {
     const configProjectId = 'projectId';
     const serviceAccountProjectId = 'serviceAccountProjectId';
@@ -188,7 +196,7 @@ describe('Client', () => {
       projectId: configProjectId,
       serviceAccountKeyConfig: { project_id: serviceAccountProjectId },
     } as unknown as IntegrationConfig;
-    expect(new Client({ config }).projectId).toBe(configProjectId);
+    expect(new Client({ config }, logger).projectId).toBe(configProjectId);
   });
 
   test('should set projectId to the service account projectId if the configprojectId is not provided', () => {
@@ -198,7 +206,9 @@ describe('Client', () => {
       projectId: configProjectId,
       serviceAccountKeyConfig: { project_id: serviceAccountProjectId },
     } as unknown as IntegrationConfig;
-    expect(new Client({ config }).projectId).toBe(serviceAccountProjectId);
+    expect(new Client({ config }, logger).projectId).toBe(
+      serviceAccountProjectId,
+    );
   });
 
   test('should set projectId to the projectId override option reguardless on if the service account projectId and config projectIds are provided or not', () => {
@@ -209,9 +219,9 @@ describe('Client', () => {
       projectId: configProjectId,
       serviceAccountKeyConfig: { project_id: serviceAccountProjectId },
     } as unknown as IntegrationConfig;
-    expect(new Client({ config, projectId: overrideProjectId }).projectId).toBe(
-      overrideProjectId,
-    );
+    expect(
+      new Client({ config, projectId: overrideProjectId }, logger).projectId,
+    ).toBe(overrideProjectId);
   });
 });
 
