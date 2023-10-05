@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#fetchAppProfiles should collect data 1`] = `
-Object {
-  "collectedEntities": Array [
-    Object {
-      "_class": Array [
+{
+  "collectedEntities": [
+    {
+      "_class": [
         "Database",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "displayName": "bt-instance",
             "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
             "state": "READY",
@@ -28,17 +28,17 @@ Object {
       "type": "PRODUCTION",
       "webLink": "https://console.cloud.google.com/bigtable/instances/bt-instance/overview?project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance/appProfiles/bt-profile",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance/appProfiles/bt-profile",
-            "singleClusterRouting": Object {
+            "singleClusterRouting": {
               "allowTransactionalWrites": true,
               "clusterId": "bt-instance",
             },
@@ -56,18 +56,18 @@ Object {
       "singleClusterRouting.clusterId": "bt-instance",
       "webLink": "https://console.cloud.google.com/bigtable/instances/bt-instance/app-profiles/bt-profile?project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance/appProfiles/default",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "description": "Default application profile for this instance. This profile is used if you do not supply a different profile ID at connection time.",
             "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance/appProfiles/default",
-            "singleClusterRouting": Object {
+            "singleClusterRouting": {
               "allowTransactionalWrites": true,
               "clusterId": "bt-instance",
             },
@@ -86,8 +86,8 @@ Object {
       "webLink": "https://console.cloud.google.com/bigtable/instances/bt-instance/app-profiles/default?project=j1-gc-integration-dev-v3",
     },
   ],
-  "collectedRelationships": Array [
-    Object {
+  "collectedRelationships": [
+    {
       "_class": "HAS",
       "_fromEntityKey": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
       "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance|has|projects/j1-gc-integration-dev-v3/instances/bt-instance/appProfiles/bt-profile",
@@ -95,7 +95,7 @@ Object {
       "_type": "google_bigtable_instance_has_app_profile",
       "displayName": "HAS",
     },
-    Object {
+    {
       "_class": "HAS",
       "_fromEntityKey": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
       "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance|has|projects/j1-gc-integration-dev-v3/instances/bt-instance/appProfiles/default",
@@ -104,7 +104,7 @@ Object {
       "displayName": "HAS",
     },
   ],
-  "encounteredTypes": Array [
+  "encounteredTypes": [
     "google_bigtable_instance",
     "google_bigtable_app_profile",
     "google_bigtable_instance_has_app_profile",
@@ -115,17 +115,17 @@ Object {
 `;
 
 exports[`#fetchBackups should collect data 1`] = `
-Object {
-  "collectedEntities": Array [
-    Object {
-      "_class": Array [
+{
+  "collectedEntities": [
+    {
+      "_class": [
         "Database",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "displayName": "bt-instance",
             "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
             "state": "READY",
@@ -142,15 +142,15 @@ Object {
       "type": "PRODUCTION",
       "webLink": "https://console.cloud.google.com/bigtable/instances/bt-instance/overview?project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Cluster",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "defaultStorageType": "HDD",
             "location": "projects/j1-gc-integration-dev-v3/locations/us-central1-b",
             "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance",
@@ -172,16 +172,16 @@ Object {
       "state": "READY",
       "webLink": "https://console.cloud.google.com/bigtable/instances/bt-instance/overview?project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Backup",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance/backups/tf-backup",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
-            "encryptionInfo": Object {
+          "rawData": {
+            "encryptionInfo": {
               "encryptionType": "GOOGLE_DEFAULT_ENCRYPTION",
             },
             "endTime": "2021-08-12T00:46:40.026785Z",
@@ -211,8 +211,8 @@ Object {
       "webLink": "https://console.cloud.google.com/bigtable/instances/bt-instance/backups?project=j1-gc-integration-dev-v3",
     },
   ],
-  "collectedRelationships": Array [
-    Object {
+  "collectedRelationships": [
+    {
       "_class": "HAS",
       "_fromEntityKey": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
       "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance|has|projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance",
@@ -220,7 +220,7 @@ Object {
       "_type": "google_bigtable_instance_has_cluster",
       "displayName": "HAS",
     },
-    Object {
+    {
       "_class": "HAS",
       "_fromEntityKey": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance",
       "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance|has|projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance/backups/tf-backup",
@@ -229,7 +229,7 @@ Object {
       "displayName": "HAS",
     },
   ],
-  "encounteredTypes": Array [
+  "encounteredTypes": [
     "google_bigtable_instance",
     "google_bigtable_cluster",
     "google_bigtable_instance_has_cluster",
@@ -242,17 +242,17 @@ Object {
 `;
 
 exports[`#fetchClusters should collect data 1`] = `
-Object {
-  "collectedEntities": Array [
-    Object {
-      "_class": Array [
+{
+  "collectedEntities": [
+    {
+      "_class": [
         "Database",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "displayName": "bt-instance",
             "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
             "state": "READY",
@@ -269,15 +269,15 @@ Object {
       "type": "PRODUCTION",
       "webLink": "https://console.cloud.google.com/bigtable/instances/bt-instance/overview?project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Cluster",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "defaultStorageType": "HDD",
             "location": "projects/j1-gc-integration-dev-v3/locations/us-central1-b",
             "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance",
@@ -300,8 +300,8 @@ Object {
       "webLink": "https://console.cloud.google.com/bigtable/instances/bt-instance/overview?project=j1-gc-integration-dev-v3",
     },
   ],
-  "collectedRelationships": Array [
-    Object {
+  "collectedRelationships": [
+    {
       "_class": "HAS",
       "_fromEntityKey": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
       "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance|has|projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance",
@@ -310,7 +310,7 @@ Object {
       "displayName": "HAS",
     },
   ],
-  "encounteredTypes": Array [
+  "encounteredTypes": [
     "google_bigtable_instance",
     "google_bigtable_cluster",
     "google_bigtable_instance_has_cluster",
@@ -321,17 +321,17 @@ Object {
 `;
 
 exports[`#fetchInstances should collect data 1`] = `
-Object {
-  "collectedEntities": Array [
-    Object {
-      "_class": Array [
+{
+  "collectedEntities": [
+    {
+      "_class": [
         "Database",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "displayName": "bt-instance",
             "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
             "state": "READY",
@@ -349,8 +349,8 @@ Object {
       "webLink": "https://console.cloud.google.com/bigtable/instances/bt-instance/overview?project=j1-gc-integration-dev-v3",
     },
   ],
-  "collectedRelationships": Array [],
-  "encounteredTypes": Array [
+  "collectedRelationships": [],
+  "encounteredTypes": [
     "google_bigtable_instance",
   ],
   "numCollectedEntities": 1,
@@ -359,17 +359,17 @@ Object {
 `;
 
 exports[`#fetchTables should collect data 1`] = `
-Object {
-  "collectedEntities": Array [
-    Object {
-      "_class": Array [
+{
+  "collectedEntities": [
+    {
+      "_class": [
         "Database",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "displayName": "bt-instance",
             "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
             "state": "READY",
@@ -386,15 +386,15 @@ Object {
       "type": "PRODUCTION",
       "webLink": "https://console.cloud.google.com/bigtable/instances/bt-instance/overview?project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "DataCollection",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance/tables/tf-table",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance/tables/tf-table",
           },
         },
@@ -411,8 +411,8 @@ Object {
       "webLink": "https://console.cloud.google.com/bigtable/instances/bt-instance/tables?project=j1-gc-integration-dev-v3",
     },
   ],
-  "collectedRelationships": Array [
-    Object {
+  "collectedRelationships": [
+    {
       "_class": "HAS",
       "_fromEntityKey": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
       "_key": "projects/j1-gc-integration-dev-v3/instances/bt-instance|has|projects/j1-gc-integration-dev-v3/instances/bt-instance/tables/tf-table",
@@ -421,7 +421,7 @@ Object {
       "displayName": "HAS",
     },
   ],
-  "encounteredTypes": Array [
+  "encounteredTypes": [
     "google_bigtable_instance",
     "google_bigtable_table",
     "google_bigtable_instance_has_table",

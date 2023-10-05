@@ -833,26 +833,26 @@ Object {
 `;
 
 exports[`#createClusterImageRelationships should collect data 1`] = `
-Object {
-  "collectedEntities": Array [
-    Object {
-      "_class": Array [
+{
+  "collectedEntities": [
+    {
+      "_class": [
         "Cluster",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/regions/us-central1/clusters/cluster-6495",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "clusterName": "cluster-6495",
             "clusterUuid": "ef6307df-d7f4-4b6d-9d12-bf9d481f6d72",
-            "config": Object {
+            "config": {
               "configBucket": "dataproc-staging-us-central1-167984947943-okmnuod7",
-              "encryptionConfig": Object {},
-              "endpointConfig": Object {},
-              "gceClusterConfig": Object {
+              "encryptionConfig": {},
+              "endpointConfig": {},
+              "gceClusterConfig": {
                 "networkUri": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/default",
-                "serviceAccountScopes": Array [
+                "serviceAccountScopes": [
                   "https://www.googleapis.com/auth/bigquery",
                   "https://www.googleapis.com/auth/bigtable.admin.table",
                   "https://www.googleapis.com/auth/bigtable.data",
@@ -861,16 +861,16 @@ Object {
                   "https://www.googleapis.com/auth/devstorage.read_write",
                   "https://www.googleapis.com/auth/logging.write",
                 ],
-                "shieldedInstanceConfig": Object {},
+                "shieldedInstanceConfig": {},
                 "zoneUri": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/zones/us-central1-b",
               },
-              "masterConfig": Object {
-                "diskConfig": Object {
+              "masterConfig": {
+                "diskConfig": {
                   "bootDiskSizeGb": 500,
                   "bootDiskType": "pd-standard",
                 },
                 "imageUri": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/images/dataproc-image-sample",
-                "instanceNames": Array [
+                "instanceNames": [
                   "cluster-6495-m",
                 ],
                 "machineTypeUri": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/zones/us-central1-b/machineTypes/n1-standard-4",
@@ -878,12 +878,12 @@ Object {
                 "numInstances": 1,
                 "preemptibility": "NON_PREEMPTIBLE",
               },
-              "securityConfig": Object {
-                "kerberosConfig": Object {},
+              "securityConfig": {
+                "kerberosConfig": {},
               },
-              "softwareConfig": Object {
+              "softwareConfig": {
                 "imageVersion": "2.0.14-debian10",
-                "properties": Object {
+                "properties": {
                   "capacity-scheduler:yarn.scheduler.capacity.root.default.ordering-policy": "fair",
                   "core:fs.gs.block.size": "134217728",
                   "core:fs.gs.metadata.cache.enable": "false",
@@ -944,13 +944,13 @@ Object {
                 },
               },
               "tempBucket": "dataproc-temp-us-central1-167984947943-c8nlqeyo",
-              "workerConfig": Object {
-                "diskConfig": Object {
+              "workerConfig": {
+                "diskConfig": {
                   "bootDiskSizeGb": 500,
                   "bootDiskType": "pd-standard",
                 },
                 "imageUri": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/images/dataproc-image-sample",
-                "instanceNames": Array [
+                "instanceNames": [
                   "cluster-6495-w-0",
                   "cluster-6495-w-1",
                 ],
@@ -960,13 +960,13 @@ Object {
                 "preemptibility": "NON_PREEMPTIBLE",
               },
             },
-            "labels": Object {
+            "labels": {
               "goog-dataproc-cluster-name": "cluster-6495",
               "goog-dataproc-cluster-uuid": "ef6307df-d7f4-4b6d-9d12-bf9d481f6d72",
               "goog-dataproc-location": "us-central1",
             },
-            "metrics": Object {
-              "hdfsMetrics": Object {
+            "metrics": {
+              "hdfsMetrics": {
                 "dfs-blocks-corrupt": "0",
                 "dfs-blocks-missing": "0",
                 "dfs-blocks-missing-repl-one": "0",
@@ -980,7 +980,7 @@ Object {
                 "dfs-nodes-decommissioning": "0",
                 "dfs-nodes-running": "2",
               },
-              "yarnMetrics": Object {
+              "yarnMetrics": {
                 "yarn-apps-completed": "0",
                 "yarn-apps-failed": "0",
                 "yarn-apps-killed": "0",
@@ -1008,12 +1008,12 @@ Object {
               },
             },
             "projectId": "j1-gc-integration-dev-v3",
-            "status": Object {
+            "status": {
               "state": "RUNNING",
               "stateStartTime": "2021-08-13T10:24:53.114077Z",
             },
-            "statusHistory": Array [
-              Object {
+            "statusHistory": [
+              {
                 "state": "CREATING",
                 "stateStartTime": "2021-08-13T10:22:16.636450Z",
               },
@@ -1065,37 +1065,37 @@ Object {
       "workerConfigPreemptibility": "NON_PREEMPTIBLE",
       "zoneUri": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/zones/us-central1-b",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Image",
       ],
       "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/images/dataproc-image-sample",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "archiveSizeBytes": "8766305344",
             "creationTimestamp": "2021-08-13T03:17:20.783-07:00",
             "diskSizeGb": "50",
             "family": "dataproc-custom-image",
-            "guestOsFeatures": Array [
-              Object {
+            "guestOsFeatures": [
+              {
                 "type": "UEFI_COMPATIBLE",
               },
-              Object {
+              {
                 "type": "VIRTIO_SCSI_MULTIQUEUE",
               },
             ],
             "id": "4458256484022351967",
             "kind": "compute#image",
             "labelFingerprint": "Xy9pnDhjprA=",
-            "labels": Object {
+            "labels": {
               "goog-dataproc-version": "2-0-14-debian10",
             },
-            "licenseCodes": Array [
+            "licenseCodes": [
               "1001006",
             ],
-            "licenses": Array [
+            "licenses": [
               "https://www.googleapis.com/compute/v1/projects/cloud-dataproc/global/licenses/dataproc",
             ],
             "name": "dataproc-image-sample",
@@ -1104,7 +1104,7 @@ Object {
             "sourceDiskId": "4031200068940593678",
             "sourceType": "RAW",
             "status": "READY",
-            "storageLocations": Array [
+            "storageLocations": [
               "us",
             ],
           },
@@ -1120,17 +1120,17 @@ Object {
       "diskSizeGb": "50",
       "displayName": "dataproc-image-sample",
       "family": "dataproc-custom-image",
-      "guestOsFeatures": Array [
+      "guestOsFeatures": [
         "UEFI_COMPATIBLE",
         "VIRTIO_SCSI_MULTIQUEUE",
       ],
       "id": "4458256484022351967",
       "kind": "compute#image",
       "labelFingerprint": "Xy9pnDhjprA=",
-      "licenseCodes": Array [
+      "licenseCodes": [
         "1001006",
       ],
-      "licenses": Array [
+      "licenses": [
         "https://www.googleapis.com/compute/v1/projects/cloud-dataproc/global/licenses/dataproc",
       ],
       "name": "dataproc-image-sample",
@@ -1146,35 +1146,35 @@ Object {
       "sourceSnapshotId": undefined,
       "sourceType": "RAW",
       "status": "READY",
-      "storageLocations": Array [
+      "storageLocations": [
         "us",
       ],
       "tag.goog-dataproc-version": "2-0-14-debian10",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Image",
       ],
       "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/images/example-disk-image",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "archiveSizeBytes": "677588608",
             "creationTimestamp": "2021-05-31T09:26:00.641-07:00",
             "diskSizeGb": "10",
-            "guestOsFeatures": Array [
-              Object {
+            "guestOsFeatures": [
+              {
                 "type": "VIRTIO_SCSI_MULTIQUEUE",
               },
             ],
             "id": "3455131146476105975",
             "kind": "compute#image",
             "labelFingerprint": "42WmSpB8rSM=",
-            "licenseCodes": Array [
+            "licenseCodes": [
               "1000205",
             ],
-            "licenses": Array [
+            "licenses": [
               "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-9-stretch",
             ],
             "name": "example-disk-image",
@@ -1183,7 +1183,7 @@ Object {
             "sourceDiskId": "7109116204666106089",
             "sourceType": "RAW",
             "status": "READY",
-            "storageLocations": Array [
+            "storageLocations": [
               "us",
             ],
           },
@@ -1199,16 +1199,16 @@ Object {
       "diskSizeGb": "10",
       "displayName": "example-disk-image",
       "family": undefined,
-      "guestOsFeatures": Array [
+      "guestOsFeatures": [
         "VIRTIO_SCSI_MULTIQUEUE",
       ],
       "id": "3455131146476105975",
       "kind": "compute#image",
       "labelFingerprint": "42WmSpB8rSM=",
-      "licenseCodes": Array [
+      "licenseCodes": [
         "1000205",
       ],
-      "licenses": Array [
+      "licenses": [
         "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-9-stretch",
       ],
       "name": "example-disk-image",
@@ -1224,34 +1224,34 @@ Object {
       "sourceSnapshotId": undefined,
       "sourceType": "RAW",
       "status": "READY",
-      "storageLocations": Array [
+      "storageLocations": [
         "us",
       ],
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Image",
       ],
       "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/images/example-snapshot-image",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "archiveSizeBytes": "677588608",
             "creationTimestamp": "2021-05-31T09:26:31.988-07:00",
             "diskSizeGb": "10",
-            "guestOsFeatures": Array [
-              Object {
+            "guestOsFeatures": [
+              {
                 "type": "VIRTIO_SCSI_MULTIQUEUE",
               },
             ],
             "id": "6763584320471347416",
             "kind": "compute#image",
             "labelFingerprint": "42WmSpB8rSM=",
-            "licenseCodes": Array [
+            "licenseCodes": [
               "1000205",
             ],
-            "licenses": Array [
+            "licenses": [
               "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-9-stretch",
             ],
             "name": "example-snapshot-image",
@@ -1260,7 +1260,7 @@ Object {
             "sourceSnapshotId": "5395528080101519607",
             "sourceType": "RAW",
             "status": "READY",
-            "storageLocations": Array [
+            "storageLocations": [
               "us",
             ],
           },
@@ -1276,16 +1276,16 @@ Object {
       "diskSizeGb": "10",
       "displayName": "example-snapshot-image",
       "family": undefined,
-      "guestOsFeatures": Array [
+      "guestOsFeatures": [
         "VIRTIO_SCSI_MULTIQUEUE",
       ],
       "id": "6763584320471347416",
       "kind": "compute#image",
       "labelFingerprint": "42WmSpB8rSM=",
-      "licenseCodes": Array [
+      "licenseCodes": [
         "1000205",
       ],
-      "licenses": Array [
+      "licenses": [
         "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-9-stretch",
       ],
       "name": "example-snapshot-image",
@@ -1301,34 +1301,34 @@ Object {
       "sourceSnapshotId": "5395528080101519607",
       "sourceType": "RAW",
       "status": "READY",
-      "storageLocations": Array [
+      "storageLocations": [
         "us",
       ],
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Image",
       ],
       "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/images/example-source-image",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "archiveSizeBytes": "708151296",
             "creationTimestamp": "2021-07-23T09:30:21.415-07:00",
             "diskSizeGb": "10",
-            "guestOsFeatures": Array [
-              Object {
+            "guestOsFeatures": [
+              {
                 "type": "VIRTIO_SCSI_MULTIQUEUE",
               },
             ],
             "id": "7307438273773129842",
             "kind": "compute#image",
             "labelFingerprint": "42WmSpB8rSM=",
-            "licenseCodes": Array [
+            "licenseCodes": [
               "1000205",
             ],
-            "licenses": Array [
+            "licenses": [
               "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-9-stretch",
             ],
             "name": "example-source-image",
@@ -1337,7 +1337,7 @@ Object {
             "sourceImageId": "3196446524667459422",
             "sourceType": "RAW",
             "status": "READY",
-            "storageLocations": Array [
+            "storageLocations": [
               "us",
             ],
           },
@@ -1353,16 +1353,16 @@ Object {
       "diskSizeGb": "10",
       "displayName": "example-source-image",
       "family": undefined,
-      "guestOsFeatures": Array [
+      "guestOsFeatures": [
         "VIRTIO_SCSI_MULTIQUEUE",
       ],
       "id": "7307438273773129842",
       "kind": "compute#image",
       "labelFingerprint": "42WmSpB8rSM=",
-      "licenseCodes": Array [
+      "licenseCodes": [
         "1000205",
       ],
-      "licenses": Array [
+      "licenses": [
         "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-9-stretch",
       ],
       "name": "example-source-image",
@@ -1378,37 +1378,37 @@ Object {
       "sourceSnapshotId": undefined,
       "sourceType": "RAW",
       "status": "READY",
-      "storageLocations": Array [
+      "storageLocations": [
         "us",
       ],
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Image",
       ],
       "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/images/image-1",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "archiveSizeBytes": "400770432",
             "creationTimestamp": "2021-06-11T03:52:48.626-07:00",
             "diskSizeGb": "10",
-            "guestOsFeatures": Array [
-              Object {
+            "guestOsFeatures": [
+              {
                 "type": "UEFI_COMPATIBLE",
               },
-              Object {
+              {
                 "type": "VIRTIO_SCSI_MULTIQUEUE",
               },
             ],
             "id": "1190666273104526959",
             "kind": "compute#image",
             "labelFingerprint": "42WmSpB8rSM=",
-            "licenseCodes": Array [
+            "licenseCodes": [
               "5543610867827062957",
             ],
-            "licenses": Array [
+            "licenses": [
               "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-10-buster",
             ],
             "name": "image-1",
@@ -1417,7 +1417,7 @@ Object {
             "sourceDiskId": "1753296839872774204",
             "sourceType": "RAW",
             "status": "READY",
-            "storageLocations": Array [
+            "storageLocations": [
               "us",
             ],
           },
@@ -1433,17 +1433,17 @@ Object {
       "diskSizeGb": "10",
       "displayName": "image-1",
       "family": undefined,
-      "guestOsFeatures": Array [
+      "guestOsFeatures": [
         "UEFI_COMPATIBLE",
         "VIRTIO_SCSI_MULTIQUEUE",
       ],
       "id": "1190666273104526959",
       "kind": "compute#image",
       "labelFingerprint": "42WmSpB8rSM=",
-      "licenseCodes": Array [
+      "licenseCodes": [
         "5543610867827062957",
       ],
-      "licenses": Array [
+      "licenses": [
         "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-10-buster",
       ],
       "name": "image-1",
@@ -1459,40 +1459,40 @@ Object {
       "sourceSnapshotId": undefined,
       "sourceType": "RAW",
       "status": "READY",
-      "storageLocations": Array [
+      "storageLocations": [
         "us",
       ],
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Image",
       ],
       "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/images/j1-image2",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "archiveSizeBytes": "400770432",
             "creationTimestamp": "2021-06-11T03:58:33.517-07:00",
             "diskSizeGb": "10",
-            "guestOsFeatures": Array [
-              Object {
+            "guestOsFeatures": [
+              {
                 "type": "UEFI_COMPATIBLE",
               },
-              Object {
+              {
                 "type": "VIRTIO_SCSI_MULTIQUEUE",
               },
             ],
             "id": "7233253107557138230",
             "kind": "compute#image",
             "labelFingerprint": "ZK_kFCMOrH8=",
-            "labels": Object {
+            "labels": {
               "copiedimage": "1",
             },
-            "licenseCodes": Array [
+            "licenseCodes": [
               "5543610867827062957",
             ],
-            "licenses": Array [
+            "licenses": [
               "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-10-buster",
             ],
             "name": "j1-image2",
@@ -1501,7 +1501,7 @@ Object {
             "sourceImageId": "1190666273104526959",
             "sourceType": "RAW",
             "status": "READY",
-            "storageLocations": Array [
+            "storageLocations": [
               "us",
             ],
           },
@@ -1517,17 +1517,17 @@ Object {
       "diskSizeGb": "10",
       "displayName": "j1-image2",
       "family": undefined,
-      "guestOsFeatures": Array [
+      "guestOsFeatures": [
         "UEFI_COMPATIBLE",
         "VIRTIO_SCSI_MULTIQUEUE",
       ],
       "id": "7233253107557138230",
       "kind": "compute#image",
       "labelFingerprint": "ZK_kFCMOrH8=",
-      "licenseCodes": Array [
+      "licenseCodes": [
         "5543610867827062957",
       ],
-      "licenses": Array [
+      "licenses": [
         "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-10-buster",
       ],
       "name": "j1-image2",
@@ -1543,39 +1543,39 @@ Object {
       "sourceSnapshotId": undefined,
       "sourceType": "RAW",
       "status": "READY",
-      "storageLocations": Array [
+      "storageLocations": [
         "us",
       ],
       "tag.copiedimage": 1,
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Image",
       ],
       "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/images/j1-image3",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "archiveSizeBytes": "400801216",
             "creationTimestamp": "2021-06-11T04:02:18.774-07:00",
             "description": "From j1-snapshot",
             "diskSizeGb": "10",
-            "guestOsFeatures": Array [
-              Object {
+            "guestOsFeatures": [
+              {
                 "type": "UEFI_COMPATIBLE",
               },
-              Object {
+              {
                 "type": "VIRTIO_SCSI_MULTIQUEUE",
               },
             ],
             "id": "282817071286254677",
             "kind": "compute#image",
             "labelFingerprint": "42WmSpB8rSM=",
-            "licenseCodes": Array [
+            "licenseCodes": [
               "5543610867827062957",
             ],
-            "licenses": Array [
+            "licenses": [
               "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-10-buster",
             ],
             "name": "j1-image3",
@@ -1584,7 +1584,7 @@ Object {
             "sourceSnapshotId": "3150235893494643858",
             "sourceType": "RAW",
             "status": "READY",
-            "storageLocations": Array [
+            "storageLocations": [
               "us",
             ],
           },
@@ -1600,17 +1600,17 @@ Object {
       "diskSizeGb": "10",
       "displayName": "j1-image3",
       "family": undefined,
-      "guestOsFeatures": Array [
+      "guestOsFeatures": [
         "UEFI_COMPATIBLE",
         "VIRTIO_SCSI_MULTIQUEUE",
       ],
       "id": "282817071286254677",
       "kind": "compute#image",
       "labelFingerprint": "42WmSpB8rSM=",
-      "licenseCodes": Array [
+      "licenseCodes": [
         "5543610867827062957",
       ],
-      "licenses": Array [
+      "licenses": [
         "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-10-buster",
       ],
       "name": "j1-image3",
@@ -1626,13 +1626,13 @@ Object {
       "sourceSnapshotId": "3150235893494643858",
       "sourceType": "RAW",
       "status": "READY",
-      "storageLocations": Array [
+      "storageLocations": [
         "us",
       ],
     },
   ],
-  "collectedRelationships": Array [
-    Object {
+  "collectedRelationships": [
+    {
       "_class": "USES",
       "_fromEntityKey": "projects/j1-gc-integration-dev-v3/regions/us-central1/clusters/cluster-6495",
       "_key": "projects/j1-gc-integration-dev-v3/regions/us-central1/clusters/cluster-6495|uses|https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/images/dataproc-image-sample",
@@ -1641,7 +1641,7 @@ Object {
       "displayName": "USES",
     },
   ],
-  "encounteredTypes": Array [
+  "encounteredTypes": [
     "google_dataproc_cluster",
     "google_compute_image",
     "google_dataproc_cluster_uses_compute_image",
@@ -1652,24 +1652,24 @@ Object {
 `;
 
 exports[`#createClusterStorageRelationships should collect data 1`] = `
-Object {
-  "collectedEntities": Array [
-    Object {
-      "_class": Array [
+{
+  "collectedEntities": [
+    {
+      "_class": [
         "DataStore",
       ],
       "_key": "bucket:dataproc-staging-europe-north1-167984947943-oqqo30p7",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "etag": "CAE=",
-            "iamConfiguration": Object {
-              "bucketPolicyOnly": Object {
+            "iamConfiguration": {
+              "bucketPolicyOnly": {
                 "enabled": false,
               },
               "publicAccessPrevention": "inherited",
-              "uniformBucketLevelAccess": Object {
+              "uniformBucketLevelAccess": {
                 "enabled": false,
               },
             },
@@ -1709,22 +1709,22 @@ Object {
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/dataproc-staging-europe-north1-167984947943-oqqo30p7;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "DataStore",
       ],
       "_key": "bucket:dataproc-staging-us-central1-167984947943-okmnuod7",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "etag": "CAc=",
-            "iamConfiguration": Object {
-              "bucketPolicyOnly": Object {
+            "iamConfiguration": {
+              "bucketPolicyOnly": {
                 "enabled": false,
               },
               "publicAccessPrevention": "inherited",
-              "uniformBucketLevelAccess": Object {
+              "uniformBucketLevelAccess": {
                 "enabled": false,
               },
             },
@@ -1764,34 +1764,34 @@ Object {
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/dataproc-staging-us-central1-167984947943-okmnuod7;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "DataStore",
       ],
       "_key": "bucket:dataproc-temp-europe-north1-167984947943-0quq0oz0",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "etag": "CAE=",
-            "iamConfiguration": Object {
-              "bucketPolicyOnly": Object {
+            "iamConfiguration": {
+              "bucketPolicyOnly": {
                 "enabled": false,
               },
               "publicAccessPrevention": "inherited",
-              "uniformBucketLevelAccess": Object {
+              "uniformBucketLevelAccess": {
                 "enabled": false,
               },
             },
             "id": "dataproc-temp-europe-north1-167984947943-0quq0oz0",
             "kind": "storage#bucket",
-            "lifecycle": Object {
-              "rule": Array [
-                Object {
-                  "action": Object {
+            "lifecycle": {
+              "rule": [
+                {
+                  "action": {
                     "type": "Delete",
                   },
-                  "condition": Object {
+                  "condition": {
                     "age": 90,
                   },
                 },
@@ -1831,34 +1831,34 @@ Object {
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/dataproc-temp-europe-north1-167984947943-0quq0oz0;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "DataStore",
       ],
       "_key": "bucket:dataproc-temp-us-central1-167984947943-c8nlqeyo",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "etag": "CAE=",
-            "iamConfiguration": Object {
-              "bucketPolicyOnly": Object {
+            "iamConfiguration": {
+              "bucketPolicyOnly": {
                 "enabled": false,
               },
               "publicAccessPrevention": "inherited",
-              "uniformBucketLevelAccess": Object {
+              "uniformBucketLevelAccess": {
                 "enabled": false,
               },
             },
             "id": "dataproc-temp-us-central1-167984947943-c8nlqeyo",
             "kind": "storage#bucket",
-            "lifecycle": Object {
-              "rule": Array [
-                Object {
-                  "action": Object {
+            "lifecycle": {
+              "rule": [
+                {
+                  "action": {
                     "type": "Delete",
                   },
-                  "condition": Object {
+                  "condition": {
                     "age": 90,
                   },
                 },
@@ -1898,21 +1898,21 @@ Object {
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/dataproc-temp-us-central1-167984947943-c8nlqeyo;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "DataStore",
       ],
       "_key": "bucket:gcf-sources-167984947943-us-central1",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
-            "cors": Array [
-              Object {
-                "method": Array [
+          "rawData": {
+            "cors": [
+              {
+                "method": [
                   "GET",
                 ],
-                "origin": Array [
+                "origin": [
                   "https://*.cloud.google.com",
                   "https://*.corp.google.com",
                   "https://*.corp.google.com:*",
@@ -1920,13 +1920,13 @@ Object {
               },
             ],
             "etag": "CAE=",
-            "iamConfiguration": Object {
-              "bucketPolicyOnly": Object {
+            "iamConfiguration": {
+              "bucketPolicyOnly": {
                 "enabled": true,
                 "lockedTime": "2021-08-29T16:26:23.272Z",
               },
               "publicAccessPrevention": "inherited",
-              "uniformBucketLevelAccess": Object {
+              "uniformBucketLevelAccess": {
                 "enabled": true,
                 "lockedTime": "2021-08-29T16:26:23.272Z",
               },
@@ -1967,22 +1967,22 @@ Object {
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/gcf-sources-167984947943-us-central1;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "DataStore",
       ],
       "_key": "bucket:j1-gc-integration-dev-v3-sink-logging-bucket",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "etag": "CAE=",
-            "iamConfiguration": Object {
-              "bucketPolicyOnly": Object {
+            "iamConfiguration": {
+              "bucketPolicyOnly": {
                 "enabled": false,
               },
               "publicAccessPrevention": "inherited",
-              "uniformBucketLevelAccess": Object {
+              "uniformBucketLevelAccess": {
                 "enabled": false,
               },
             },
@@ -2023,23 +2023,23 @@ Object {
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/j1-gc-integration-dev-v3-sink-logging-bucket;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "DataStore",
       ],
       "_key": "bucket:j1-gc-integration-dev-v3-super-secret-stuff",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "defaultEventBasedHold": false,
             "etag": "CAw=",
-            "iamConfiguration": Object {
-              "bucketPolicyOnly": Object {
+            "iamConfiguration": {
+              "bucketPolicyOnly": {
                 "enabled": false,
               },
               "publicAccessPrevention": "inherited",
-              "uniformBucketLevelAccess": Object {
+              "uniformBucketLevelAccess": {
                 "enabled": false,
               },
             },
@@ -2081,22 +2081,22 @@ Object {
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/j1-gc-integration-dev-v3-super-secret-stuff;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "DataStore",
       ],
       "_key": "bucket:j1-gc-integration-dev-v3-test-tf-bucket",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "etag": "CAI=",
-            "iamConfiguration": Object {
-              "bucketPolicyOnly": Object {
+            "iamConfiguration": {
+              "bucketPolicyOnly": {
                 "enabled": false,
               },
               "publicAccessPrevention": "enforced",
-              "uniformBucketLevelAccess": Object {
+              "uniformBucketLevelAccess": {
                 "enabled": false,
               },
             },
@@ -2137,22 +2137,22 @@ Object {
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/j1-gc-integration-dev-v3-test-tf-bucket;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "DataStore",
       ],
       "_key": "bucket:j1-gc-integration-dev-v3cloudfunctions",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "etag": "CAU=",
-            "iamConfiguration": Object {
-              "bucketPolicyOnly": Object {
+            "iamConfiguration": {
+              "bucketPolicyOnly": {
                 "enabled": false,
               },
               "publicAccessPrevention": "inherited",
-              "uniformBucketLevelAccess": Object {
+              "uniformBucketLevelAccess": {
                 "enabled": false,
               },
             },
@@ -2193,22 +2193,22 @@ Object {
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/j1-gc-integration-dev-v3cloudfunctions;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "DataStore",
       ],
       "_key": "bucket:us.artifacts.j1-gc-integration-dev-v3.appspot.com",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "etag": "CAE=",
-            "iamConfiguration": Object {
-              "bucketPolicyOnly": Object {
+            "iamConfiguration": {
+              "bucketPolicyOnly": {
                 "enabled": false,
               },
               "publicAccessPrevention": "inherited",
-              "uniformBucketLevelAccess": Object {
+              "uniformBucketLevelAccess": {
                 "enabled": false,
               },
             },
@@ -2250,8 +2250,8 @@ Object {
       "webLink": "https://console.cloud.google.com/storage/browser/us.artifacts.j1-gc-integration-dev-v3.appspot.com;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
   ],
-  "collectedRelationships": Array [],
-  "encounteredTypes": Array [
+  "collectedRelationships": [],
+  "encounteredTypes": [
     "google_storage_bucket",
   ],
   "numCollectedEntities": 10,
@@ -2260,28 +2260,28 @@ Object {
 `;
 
 exports[`#fetchDataprocClusters should collect data 1`] = `
-Object {
-  "collectedEntities": Array [
-    Object {
-      "_class": Array [
+{
+  "collectedEntities": [
+    {
+      "_class": [
         "Cluster",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/regions/us-central1/clusters/cluster-5697",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "clusterName": "cluster-5697",
             "clusterUuid": "3fd9f02f-efcd-45b3-ba76-608f9581546a",
-            "config": Object {
+            "config": {
               "configBucket": "dataproc-staging-us-central1-167984947943-okmnuod7",
-              "encryptionConfig": Object {
+              "encryptionConfig": {
                 "gcePdKmsKeyName": "projects/jupiterone-databricks-test/locations/us-central1/keyRings/test-key-ring/cryptoKeys/foreign-key",
               },
-              "endpointConfig": Object {},
-              "gceClusterConfig": Object {
+              "endpointConfig": {},
+              "gceClusterConfig": {
                 "networkUri": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/default",
-                "serviceAccountScopes": Array [
+                "serviceAccountScopes": [
                   "https://www.googleapis.com/auth/bigquery",
                   "https://www.googleapis.com/auth/bigtable.admin.table",
                   "https://www.googleapis.com/auth/bigtable.data",
@@ -2290,16 +2290,16 @@ Object {
                   "https://www.googleapis.com/auth/devstorage.read_write",
                   "https://www.googleapis.com/auth/logging.write",
                 ],
-                "shieldedInstanceConfig": Object {},
+                "shieldedInstanceConfig": {},
                 "zoneUri": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/zones/us-central1-c",
               },
-              "masterConfig": Object {
-                "diskConfig": Object {
+              "masterConfig": {
+                "diskConfig": {
                   "bootDiskSizeGb": 500,
                   "bootDiskType": "pd-standard",
                 },
                 "imageUri": "https://www.googleapis.com/compute/v1/projects/cloud-dataproc/global/images/dataproc-2-0-deb10-20220302-170200-rc01",
-                "instanceNames": Array [
+                "instanceNames": [
                   "cluster-5697-m",
                 ],
                 "machineTypeUri": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/zones/us-central1-c/machineTypes/n1-standard-4",
@@ -2307,12 +2307,12 @@ Object {
                 "numInstances": 1,
                 "preemptibility": "NON_PREEMPTIBLE",
               },
-              "securityConfig": Object {
-                "kerberosConfig": Object {},
+              "securityConfig": {
+                "kerberosConfig": {},
               },
-              "softwareConfig": Object {
+              "softwareConfig": {
                 "imageVersion": "2.0.32-debian10",
-                "properties": Object {
+                "properties": {
                   "capacity-scheduler:yarn.scheduler.capacity.root.default.ordering-policy": "fair",
                   "core:fs.gs.block.size": "134217728",
                   "core:fs.gs.metadata.cache.enable": "false",
@@ -2374,13 +2374,13 @@ Object {
                 },
               },
               "tempBucket": "dataproc-temp-us-central1-167984947943-c8nlqeyo",
-              "workerConfig": Object {
-                "diskConfig": Object {
+              "workerConfig": {
+                "diskConfig": {
                   "bootDiskSizeGb": 500,
                   "bootDiskType": "pd-standard",
                 },
                 "imageUri": "https://www.googleapis.com/compute/v1/projects/cloud-dataproc/global/images/dataproc-2-0-deb10-20220302-170200-rc01",
-                "instanceNames": Array [
+                "instanceNames": [
                   "cluster-5697-w-0",
                   "cluster-5697-w-1",
                 ],
@@ -2390,18 +2390,18 @@ Object {
                 "preemptibility": "NON_PREEMPTIBLE",
               },
             },
-            "labels": Object {
+            "labels": {
               "goog-dataproc-cluster-name": "cluster-5697",
               "goog-dataproc-cluster-uuid": "3fd9f02f-efcd-45b3-ba76-608f9581546a",
               "goog-dataproc-location": "us-central1",
             },
             "projectId": "j1-gc-integration-dev-v3",
-            "status": Object {
+            "status": {
               "state": "ERROR",
               "stateStartTime": "2022-03-14T14:49:31.384146Z",
             },
-            "statusHistory": Array [
-              Object {
+            "statusHistory": [
+              {
                 "state": "CREATING",
                 "stateStartTime": "2022-03-14T14:49:28.592262Z",
               },
@@ -2453,26 +2453,26 @@ Object {
       "workerConfigPreemptibility": "NON_PREEMPTIBLE",
       "zoneUri": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/zones/us-central1-c",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Cluster",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/regions/us-central1/clusters/cluster-ec3f",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "clusterName": "cluster-ec3f",
             "clusterUuid": "fd870e63-f664-4b20-8726-b6df193f51c3",
-            "config": Object {
+            "config": {
               "configBucket": "dataproc-staging-us-central1-167984947943-okmnuod7",
-              "encryptionConfig": Object {
+              "encryptionConfig": {
                 "gcePdKmsKeyName": "projects/j1-gc-integration-dev-v3/locations/us-central1/keyRings/j1-gc-integration-dev-v3-encrypted-sql-instance-ring/cryptoKeys/j1-gc-integration-dev-v3-encrypted-sql-instance-key",
               },
-              "endpointConfig": Object {},
-              "gceClusterConfig": Object {
+              "endpointConfig": {},
+              "gceClusterConfig": {
                 "networkUri": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/default",
-                "serviceAccountScopes": Array [
+                "serviceAccountScopes": [
                   "https://www.googleapis.com/auth/bigquery",
                   "https://www.googleapis.com/auth/bigtable.admin.table",
                   "https://www.googleapis.com/auth/bigtable.data",
@@ -2481,17 +2481,17 @@ Object {
                   "https://www.googleapis.com/auth/devstorage.read_write",
                   "https://www.googleapis.com/auth/logging.write",
                 ],
-                "shieldedInstanceConfig": Object {},
+                "shieldedInstanceConfig": {},
                 "zoneUri": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/zones/us-central1-f",
               },
-              "masterConfig": Object {
-                "diskConfig": Object {
+              "masterConfig": {
+                "diskConfig": {
                   "bootDiskSizeGb": 200,
                   "bootDiskType": "pd-standard",
                   "localSsdInterface": "SCSI",
                 },
                 "imageUri": "https://www.googleapis.com/compute/v1/projects/cloud-dataproc/global/images/dataproc-2-0-deb10-20220302-170200-rc01",
-                "instanceNames": Array [
+                "instanceNames": [
                   "cluster-ec3f-m",
                 ],
                 "machineTypeUri": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/zones/us-central1-f/machineTypes/n1-standard-2",
@@ -2499,12 +2499,12 @@ Object {
                 "numInstances": 1,
                 "preemptibility": "NON_PREEMPTIBLE",
               },
-              "securityConfig": Object {
-                "kerberosConfig": Object {},
+              "securityConfig": {
+                "kerberosConfig": {},
               },
-              "softwareConfig": Object {
+              "softwareConfig": {
                 "imageVersion": "2.0.32-debian10",
-                "properties": Object {
+                "properties": {
                   "capacity-scheduler:yarn.scheduler.capacity.root.default.ordering-policy": "fair",
                   "core:fs.gs.block.size": "134217728",
                   "core:fs.gs.metadata.cache.enable": "false",
@@ -2566,14 +2566,14 @@ Object {
                 },
               },
               "tempBucket": "dataproc-temp-us-central1-167984947943-c8nlqeyo",
-              "workerConfig": Object {
-                "diskConfig": Object {
+              "workerConfig": {
+                "diskConfig": {
                   "bootDiskSizeGb": 200,
                   "bootDiskType": "pd-standard",
                   "localSsdInterface": "SCSI",
                 },
                 "imageUri": "https://www.googleapis.com/compute/v1/projects/cloud-dataproc/global/images/dataproc-2-0-deb10-20220302-170200-rc01",
-                "instanceNames": Array [
+                "instanceNames": [
                   "cluster-ec3f-w-0",
                   "cluster-ec3f-w-1",
                 ],
@@ -2583,18 +2583,18 @@ Object {
                 "preemptibility": "NON_PREEMPTIBLE",
               },
             },
-            "labels": Object {
+            "labels": {
               "goog-dataproc-cluster-name": "cluster-ec3f",
               "goog-dataproc-cluster-uuid": "fd870e63-f664-4b20-8726-b6df193f51c3",
               "goog-dataproc-location": "us-central1",
             },
             "projectId": "j1-gc-integration-dev-v3",
-            "status": Object {
+            "status": {
               "state": "ERROR",
               "stateStartTime": "2022-03-14T14:37:52.996880Z",
             },
-            "statusHistory": Array [
-              Object {
+            "statusHistory": [
+              {
                 "state": "CREATING",
                 "stateStartTime": "2022-03-14T14:37:50.202792Z",
               },
@@ -2647,8 +2647,8 @@ Object {
       "zoneUri": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/zones/us-central1-f",
     },
   ],
-  "collectedRelationships": Array [],
-  "encounteredTypes": Array [
+  "collectedRelationships": [],
+  "encounteredTypes": [
     "google_dataproc_cluster",
   ],
   "numCollectedEntities": 2,

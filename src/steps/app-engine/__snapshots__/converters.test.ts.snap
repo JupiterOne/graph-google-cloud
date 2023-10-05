@@ -1,21 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#createAppEngineApplicationEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Application",
   ],
   "_key": "apps/j1-gc-integration-dev-v2",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "authDomain": "gmail.com",
         "codeBucket": "staging.j1-gc-integration-dev-v2.appspot.com",
         "databaseType": "CLOUD_DATASTORE_COMPATIBILITY",
         "defaultBucket": "j1-gc-integration-dev-v2.appspot.com",
         "defaultHostname": "j1-gc-integration-dev-v2.uc.r.appspot.com",
-        "featureSettings": Object {
+        "featureSettings": {
           "splitHealthChecks": true,
           "useContainerOptimizedOs": true,
         },
@@ -46,15 +46,15 @@ Object {
 `;
 
 exports[`#createAppEngineInstances should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Host",
   ],
   "_key": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022/instances/00c61b117c4f411df406d524e4a05eedc1393bcc50f9e7895ad08f46a2422e90974a734f30ef08b500405d4d514704e0d99c2ee290b9e238e920cba5d5a1964fe1c37be53c9773c2",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "appEngineRelease": "1.9.71",
         "availability": "DYNAMIC",
         "averageLatency": 365,
@@ -85,19 +85,19 @@ Object {
 `;
 
 exports[`#createAppEngineServices should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Container",
   ],
   "_key": "apps/j1-gc-integration-dev-v2/services/default",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "id": "default",
         "name": "apps/j1-gc-integration-dev-v2/services/default",
-        "split": Object {
-          "allocations": Object {
+        "split": {
+          "allocations": {
             "20210309t141022": 1,
           },
         },
@@ -113,15 +113,15 @@ Object {
 `;
 
 exports[`#createAppEngineVersions should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Service",
   ],
   "_key": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "createTime": "2021-03-09T14:11:25Z",
         "createdBy": "username@email.com",
         "diskUsageBytes": "4027054",
@@ -129,7 +129,7 @@ Object {
         "id": "20210309t141022",
         "instanceClass": "F1",
         "name": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022",
-        "network": Object {},
+        "network": {},
         "runtime": "nodejs14",
         "runtimeChannel": "default",
         "servingStatus": "SERVING",
@@ -139,7 +139,7 @@ Object {
     },
   ],
   "_type": "google_app_engine_version",
-  "category": Array [
+  "category": [
     "application",
   ],
   "cpuCount": undefined,
@@ -149,7 +149,7 @@ Object {
   "diskUsageBytes": 4027054,
   "displayName": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022",
   "env": "standard",
-  "function": Array [
+  "function": [
     "workload-management",
   ],
   "id": "20210309t141022",

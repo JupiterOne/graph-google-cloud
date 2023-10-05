@@ -1,36 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#createBigQueryDatasetEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "DataStore",
     "Database",
   ],
   "_key": "j1-gc-integration-dev-v2:test_big_query_dataset",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
-        "access": Array [
-          Object {
+      "rawData": {
+        "access": [
+          {
             "role": "WRITER",
             "specialGroup": "projectWriters",
           },
-          Object {
+          {
             "role": "OWNER",
             "specialGroup": "projectOwners",
           },
-          Object {
+          {
             "role": "OWNER",
             "userByEmail": "admin@creativice.com",
           },
-          Object {
+          {
             "role": "READER",
             "specialGroup": "projectReaders",
           },
         ],
         "creationTime": "1610919167542",
-        "datasetReference": Object {
+        "datasetReference": {
           "datasetId": "test_big_query_dataset",
           "projectId": "j1-gc-integration-dev-v2",
         },
@@ -61,44 +61,44 @@ Object {
 `;
 
 exports[`#createBigQueryDatasetEntity should convert to entity with public param set to on 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "DataStore",
     "Database",
   ],
   "_key": "j1-gc-integration-dev-v2:test_big_query_dataset",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
-        "access": Array [
-          Object {
+      "rawData": {
+        "access": [
+          {
             "role": "WRITER",
             "specialGroup": "allAuthenticatedUsers",
           },
-          Object {
+          {
             "role": "WRITER",
             "specialGroup": "projectWriters",
           },
-          Object {
+          {
             "role": "OWNER",
             "specialGroup": "projectOwners",
           },
-          Object {
+          {
             "role": "OWNER",
             "userByEmail": "admin@creativice.com",
           },
-          Object {
+          {
             "iamMember": "allUsers",
             "role": "READER",
           },
-          Object {
+          {
             "role": "READER",
             "specialGroup": "projectReaders",
           },
         ],
         "creationTime": "1610919167542",
-        "datasetReference": Object {
+        "datasetReference": {
           "datasetId": "test_big_query_dataset",
           "projectId": "j1-gc-integration-dev-v2",
         },
@@ -129,75 +129,75 @@ Object {
 `;
 
 exports[`#createBigQueryModelEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Model",
   ],
   "_key": "j1-gc-integration-dev-v2:test_big_query_dataset:natality_model",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "creationTime": "1622485604349",
         "etag": "NEs92BeE7yNA56rXtlPojg==",
-        "featureColumns": Array [
-          Object {
+        "featureColumns": [
+          {
             "name": "is_male",
-            "type": Object {
+            "type": {
               "typeKind": "BOOL",
             },
           },
-          Object {
+          {
             "name": "gestation_weeks",
-            "type": Object {
+            "type": {
               "typeKind": "INT64",
             },
           },
-          Object {
+          {
             "name": "mother_age",
-            "type": Object {
+            "type": {
               "typeKind": "INT64",
             },
           },
-          Object {
+          {
             "name": "mother_race",
-            "type": Object {
+            "type": {
               "typeKind": "STRING",
             },
           },
         ],
-        "labelColumns": Array [
-          Object {
+        "labelColumns": [
+          {
             "name": "predicted_weight_pounds",
-            "type": Object {
+            "type": {
               "typeKind": "FLOAT64",
             },
           },
         ],
         "lastModifiedTime": "1622485604453",
         "location": "US",
-        "modelReference": Object {
+        "modelReference": {
           "datasetId": "natality",
           "modelId": "natality_model",
           "projectId": "j1-gc-integration-dev-v2",
         },
         "modelType": "LINEAR_REGRESSION",
-        "trainingRuns": Array [
-          Object {
-            "dataSplitResult": Object {
-              "evaluationTable": Object {
+        "trainingRuns": [
+          {
+            "dataSplitResult": {
+              "evaluationTable": {
                 "datasetId": "_dc91ff9c66b0b00709a1245f8bd9d5ddbfdf7aea",
                 "projectId": "j1-gc-integration-dev-v2",
                 "tableId": "anon74d97e3b_b105_4c61_a170_ab4d07a18969_imported_data_split_eval_data",
               },
-              "trainingTable": Object {
+              "trainingTable": {
                 "datasetId": "_dc91ff9c66b0b00709a1245f8bd9d5ddbfdf7aea",
                 "projectId": "j1-gc-integration-dev-v2",
                 "tableId": "anon74d97e3b_b105_4c61_a170_ab4d07a18969_imported_data_split_training_data",
               },
             },
-            "evaluationMetrics": Object {
-              "regressionMetrics": Object {
+            "evaluationMetrics": {
+              "regressionMetrics": {
                 "meanAbsoluteError": 0.977932870859257,
                 "meanSquaredError": 1.739664352683728,
                 "meanSquaredLogError": 0.03609560638952963,
@@ -205,8 +205,8 @@ Object {
                 "rSquared": 0.043297645981164035,
               },
             },
-            "results": Array [
-              Object {
+            "results": [
+              {
                 "durationMs": "5022",
                 "evalLoss": 1.7396643526837197,
                 "index": 0,
@@ -214,7 +214,7 @@ Object {
               },
             ],
             "startTime": "2021-05-31T18:26:24.431Z",
-            "trainingOptions": Object {
+            "trainingOptions": {
               "l2Regularization": 0,
               "lossType": "MEAN_SQUARED_LOSS",
               "optimizationStrategy": "NORMAL_EQUATION",
@@ -240,19 +240,19 @@ Object {
 `;
 
 exports[`#createBigQueryTableEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "DataCollection",
   ],
   "_key": "j1-gc-integration-dev-v2:new_dataset_test.mascots",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "creationTime": "1621610438123",
         "id": "j1-gc-integration-dev-v2:new_dataset_test.mascots",
         "kind": "bigquery#table",
-        "tableReference": Object {
+        "tableReference": {
           "datasetId": "new_dataset_test",
           "projectId": "j1-gc-integration-dev-v2",
           "tableId": "mascots",

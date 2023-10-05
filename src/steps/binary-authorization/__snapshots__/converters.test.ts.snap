@@ -1,33 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#createBinaryAuthorizationPolicy should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "AccessPolicy",
   ],
   "_key": "projects/j1-gc-integration-dev-v2/policy",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
-        "admissionWhitelistPatterns": Array [
-          Object {
+      "rawData": {
+        "admissionWhitelistPatterns": [
+          {
             "namePattern": "gcr.io/google_containers/*",
           },
-          Object {
+          {
             "namePattern": "gcr.io/google-containers/*",
           },
-          Object {
+          {
             "namePattern": "k8s.gcr.io/*",
           },
-          Object {
+          {
             "namePattern": "gke.gcr.io/*",
           },
-          Object {
+          {
             "namePattern": "gcr.io/stackdriver-agents/*",
           },
         ],
-        "defaultAdmissionRule": Object {
+        "defaultAdmissionRule": {
           "enforcementMode": "ENFORCED_BLOCK_AND_AUDIT_LOG",
           "evaluationMode": "ALWAYS_ALLOW",
         },
@@ -37,7 +37,7 @@ Object {
     },
   ],
   "_type": "google_binary_authorization_policy",
-  "admissionWhitelistPatterns": Array [
+  "admissionWhitelistPatterns": [
     "gcr.io/google_containers/*",
     "gcr.io/google-containers/*",
     "k8s.gcr.io/*",

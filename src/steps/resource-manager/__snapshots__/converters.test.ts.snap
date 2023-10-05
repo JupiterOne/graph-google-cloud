@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#createAuditConfigEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Configuration",
   ],
   "_key": "auditConfig:sample.service.com",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
-        "auditLogConfigs": Array [
-          Object {
+      "rawData": {
+        "auditLogConfigs": [
+          {
             "logType": "SAMPLE_LOG",
           },
         ],
@@ -22,7 +22,7 @@ Object {
   "_type": "google_cloud_audit_config",
   "createdOn": undefined,
   "displayName": "auditConfig:sample.service.com",
-  "logTypes": Array [
+  "logTypes": [
     "SAMPLE_LOG",
   ],
   "name": "auditConfig:sample.service.com",
@@ -31,15 +31,15 @@ Object {
 `;
 
 exports[`#createOrganizationEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Organization",
   ],
   "_key": "organizations/958457776463",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "createTime": "2021-05-26T21:15:56.407Z",
         "directoryCustomerId": "C048tgq5f",
         "displayName": "jupiterone.dev",
@@ -61,15 +61,15 @@ Object {
 `;
 
 exports[`#createProjectEntity should convert entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Account",
   ],
   "_key": "projects/619127027446",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "createTime": "2021-05-31T15:45:06.340Z",
         "displayName": "My First Project",
         "etag": "Woe+unJqYGNKmCl1jbZyug==",
@@ -95,12 +95,12 @@ Object {
 `;
 
 exports[`#createProjectEntity should convert entity with just projectId 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Account",
   ],
   "_key": "j1-gc-integration-dev-v2",
-  "_rawData": Array [],
+  "_rawData": [],
   "_type": "google_cloud_project",
   "createdOn": undefined,
   "displayName": "j1-gc-integration-dev-v2",

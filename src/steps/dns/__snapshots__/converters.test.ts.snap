@@ -1,22 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#createDNSManagedZoneEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "DomainZone",
   ],
   "_key": "778386319953398157",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "creationTime": "2021-01-22T16:48:27.272Z",
         "description": "",
         "dnsName": "example.com.",
         "id": "778386319953398157",
         "kind": "dns#managedZone",
         "name": "example-zone",
-        "nameServers": Array [
+        "nameServers": [
           "ns-cloud-a1.googledomains.com.",
           "ns-cloud-a2.googledomains.com.",
           "ns-cloud-a3.googledomains.com.",
@@ -43,22 +43,22 @@ Object {
 `;
 
 exports[`#createDNSManagedZoneEntity should set dnssec to "on" when dnssec is enabled 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "DomainZone",
   ],
   "_key": "778386319953398157",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
-        "cloudLoggingConfig": Object {
+      "rawData": {
+        "cloudLoggingConfig": {
           "enableLogging": true,
         },
         "creationTime": "2021-01-22T16:48:27.272Z",
         "description": "",
         "dnsName": "example.com.",
-        "dnssecConfig": Object {
+        "dnssecConfig": {
           "kind": "dns#managedZoneDnsSecConfig",
           "nonExistence": "nsec3",
           "state": "on",
@@ -66,7 +66,7 @@ Object {
         "id": "778386319953398157",
         "kind": "dns#managedZone",
         "name": "example-zone",
-        "nameServers": Array [
+        "nameServers": [
           "ns-cloud-a1.googledomains.com.",
           "ns-cloud-a2.googledomains.com.",
           "ns-cloud-a3.googledomains.com.",
@@ -93,24 +93,24 @@ Object {
 `;
 
 exports[`#createDNSManagedZoneEntity should set value to keySigningAlgorithm when it is present 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "DomainZone",
   ],
   "_key": "778386319953398157",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
-        "cloudLoggingConfig": Object {
+      "rawData": {
+        "cloudLoggingConfig": {
           "enableLogging": null,
         },
         "creationTime": "2021-01-22T16:48:27.272Z",
         "description": "",
         "dnsName": "example.com.",
-        "dnssecConfig": Object {
-          "defaultKeySpecs": Array [
-            Object {
+        "dnssecConfig": {
+          "defaultKeySpecs": [
+            {
               "algorithm": "rsasha256",
               "keyLength": 2048,
               "keyType": "keySigning",
@@ -124,7 +124,7 @@ Object {
         "id": "778386319953398157",
         "kind": "dns#managedZone",
         "name": "example-zone",
-        "nameServers": Array [
+        "nameServers": [
           "ns-cloud-a1.googledomains.com.",
           "ns-cloud-a2.googledomains.com.",
           "ns-cloud-a3.googledomains.com.",
@@ -151,24 +151,24 @@ Object {
 `;
 
 exports[`#createDNSManagedZoneEntity should set value to zoneSigningAlgorithm when it is present 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "DomainZone",
   ],
   "_key": "778386319953398157",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
-        "cloudLoggingConfig": Object {
+      "rawData": {
+        "cloudLoggingConfig": {
           "enableLogging": false,
         },
         "creationTime": "2021-01-22T16:48:27.272Z",
         "description": "",
         "dnsName": "example.com.",
-        "dnssecConfig": Object {
-          "defaultKeySpecs": Array [
-            Object {
+        "dnssecConfig": {
+          "defaultKeySpecs": [
+            {
               "algorithm": "rsasha256",
               "keyLength": 1024,
               "keyType": "zoneSigning",
@@ -182,7 +182,7 @@ Object {
         "id": "778386319953398157",
         "kind": "dns#managedZone",
         "name": "example-zone",
-        "nameServers": Array [
+        "nameServers": [
           "ns-cloud-a1.googledomains.com.",
           "ns-cloud-a2.googledomains.com.",
           "ns-cloud-a3.googledomains.com.",
@@ -209,27 +209,27 @@ Object {
 `;
 
 exports[`#createDNSPolicyEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Ruleset",
   ],
   "_key": "projects/j1-gc-integration-dev-v2/policies/2869664235641544935",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "description": "",
         "enableInboundForwarding": true,
         "enableLogging": true,
         "id": "2869664235641544935",
         "kind": "dns#policy",
         "name": "test-policy",
-        "networks": Array [
-          Object {
+        "networks": [
+          {
             "kind": "dns#policyNetwork",
             "networkUrl": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/public-compute-app-vpc",
           },
-          Object {
+          {
             "kind": "dns#policyNetwork",
             "networkUrl": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/default",
           },
@@ -246,7 +246,7 @@ Object {
   "id": "2869664235641544935",
   "kind": "dns#policy",
   "name": "test-policy",
-  "networks": Array [
+  "networks": [
     "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/public-compute-app-vpc",
     "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/default",
   ],

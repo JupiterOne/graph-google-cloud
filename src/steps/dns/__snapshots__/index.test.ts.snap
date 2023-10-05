@@ -1,24 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#fetchDNSManagedZones should collect data 1`] = `
-Object {
-  "collectedEntities": Array [
-    Object {
-      "_class": Array [
+{
+  "collectedEntities": [
+    {
+      "_class": [
         "DomainZone",
       ],
       "_key": "5302175939166426816",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "creationTime": "2021-02-18T00:04:21.953Z",
             "description": "Example DNS zone",
             "dnsName": "example-981611f4.com.",
             "id": "5302175939166426816",
             "kind": "dns#managedZone",
             "name": "example-public-zone",
-            "nameServers": Array [
+            "nameServers": [
               "ns-cloud-c1.googledomains.com.",
               "ns-cloud-c2.googledomains.com.",
               "ns-cloud-c3.googledomains.com.",
@@ -43,8 +43,8 @@ Object {
       "zoneSigningAlgorithm": undefined,
     },
   ],
-  "collectedRelationships": Array [],
-  "encounteredTypes": Array [
+  "collectedRelationships": [],
+  "encounteredTypes": [
     "google_dns_managed_zone",
   ],
   "numCollectedEntities": 1,
@@ -53,30 +53,30 @@ Object {
 `;
 
 exports[`#fetchDNSPolicies should collect data 1`] = `
-Object {
-  "collectedEntities": Array [
-    Object {
+{
+  "collectedEntities": [
+    {
       "CIDR": null,
       "IPv4Range": undefined,
-      "_class": Array [
+      "_class": [
         "Network",
       ],
       "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/default",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "autoCreateSubnetworks": true,
             "creationTimestamp": "2021-05-31T09:21:40.121-07:00",
             "description": "Default network for the project",
             "id": "3355945658528347131",
             "kind": "compute#network",
             "name": "default",
-            "routingConfig": Object {
+            "routingConfig": {
               "routingMode": "REGIONAL",
             },
             "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/default",
-            "subnetworks": Array [
+            "subnetworks": [
               "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/europe-north1/subnetworks/default",
               "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/europe-west4/subnetworks/default",
               "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-east1/subnetworks/default",
@@ -120,7 +120,7 @@ Object {
       "name": "default",
       "public": false,
       "routingMode": "REGIONAL",
-      "subnetworks": Array [
+      "subnetworks": [
         "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/europe-north1/subnetworks/default",
         "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/europe-west4/subnetworks/default",
         "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-east1/subnetworks/default",
@@ -152,24 +152,24 @@ Object {
       ],
       "webLink": "https://console.cloud.google.com/networking/networks/details/default?project=j1-gc-integration-dev-v3",
     },
-    Object {
+    {
       "CIDR": null,
       "IPv4Range": undefined,
-      "_class": Array [
+      "_class": [
         "Network",
       ],
       "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/public-compute-app-vpc",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "autoCreateSubnetworks": false,
             "creationTimestamp": "2021-05-31T09:25:43.742-07:00",
             "id": "7739872907028377832",
             "kind": "compute#network",
             "name": "public-compute-app-vpc",
-            "peerings": Array [
-              Object {
+            "peerings": [
+              {
                 "autoCreateRoutes": true,
                 "exchangeSubnetRoutes": true,
                 "exportCustomRoutes": false,
@@ -182,11 +182,11 @@ Object {
                 "stateDetails": "[2021-07-02T11:37:04.253-07:00]: Peer network tried to connect and failed.",
               },
             ],
-            "routingConfig": Object {
+            "routingConfig": {
               "routingMode": "GLOBAL",
             },
             "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/public-compute-app-vpc",
-            "subnetworks": Array [
+            "subnetworks": [
               "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/subnetworks/public-compute-app-public-subnet-1",
             ],
           },
@@ -203,32 +203,32 @@ Object {
       "name": "public-compute-app-vpc",
       "public": false,
       "routingMode": "GLOBAL",
-      "subnetworks": Array [
+      "subnetworks": [
         "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/subnetworks/public-compute-app-public-subnet-1",
       ],
       "webLink": "https://console.cloud.google.com/networking/networks/details/public-compute-app-vpc?project=j1-gc-integration-dev-v3",
     },
-    Object {
+    {
       "CIDR": null,
       "IPv4Range": undefined,
-      "_class": Array [
+      "_class": [
         "Network",
       ],
       "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/rbs-net",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "autoCreateSubnetworks": false,
             "creationTimestamp": "2021-08-06T10:57:35.628-07:00",
             "id": "850726367629723360",
             "kind": "compute#network",
             "name": "rbs-net",
-            "routingConfig": Object {
+            "routingConfig": {
               "routingMode": "REGIONAL",
             },
             "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/rbs-net",
-            "subnetworks": Array [
+            "subnetworks": [
               "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/subnetworks/rbs-net-default",
             ],
           },
@@ -245,32 +245,32 @@ Object {
       "name": "rbs-net",
       "public": false,
       "routingMode": "REGIONAL",
-      "subnetworks": Array [
+      "subnetworks": [
         "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/subnetworks/rbs-net-default",
       ],
       "webLink": "https://console.cloud.google.com/networking/networks/details/rbs-net?project=j1-gc-integration-dev-v3",
     },
-    Object {
-      "_class": Array [
+    {
+      "_class": [
         "Ruleset",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/policies/2869664235641544935",
-      "_rawData": Array [
-        Object {
+      "_rawData": [
+        {
           "name": "default",
-          "rawData": Object {
+          "rawData": {
             "description": "",
             "enableInboundForwarding": true,
             "enableLogging": true,
             "id": "2869664235641544935",
             "kind": "dns#policy",
             "name": "test-policy",
-            "networks": Array [
-              Object {
+            "networks": [
+              {
                 "kind": "dns#policyNetwork",
                 "networkUrl": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/public-compute-app-vpc",
               },
-              Object {
+              {
                 "kind": "dns#policyNetwork",
                 "networkUrl": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/default",
               },
@@ -287,14 +287,14 @@ Object {
       "id": "2869664235641544935",
       "kind": "dns#policy",
       "name": "test-policy",
-      "networks": Array [
+      "networks": [
         "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/public-compute-app-vpc",
         "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/default",
       ],
     },
   ],
-  "collectedRelationships": Array [
-    Object {
+  "collectedRelationships": [
+    {
       "_class": "HAS",
       "_fromEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/public-compute-app-vpc",
       "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/public-compute-app-vpc|has|projects/j1-gc-integration-dev-v3/policies/2869664235641544935",
@@ -302,7 +302,7 @@ Object {
       "_type": "google_compute_network_has_dns_policy",
       "displayName": "HAS",
     },
-    Object {
+    {
       "_class": "HAS",
       "_fromEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/default",
       "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/default|has|projects/j1-gc-integration-dev-v3/policies/2869664235641544935",
@@ -311,7 +311,7 @@ Object {
       "displayName": "HAS",
     },
   ],
-  "encounteredTypes": Array [
+  "encounteredTypes": [
     "google_compute_network",
     "google_dns_policy",
     "google_compute_network_has_dns_policy",

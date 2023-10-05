@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#createApiGatewayApiConfigEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Configuration",
   ],
   "_key": "projects/j1-gc-integration-dev-v2/locations/global/apis/example-api-gateway-endpoint/configs/example-config",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "createTime": "2021-03-30T21:17:10.657320375Z",
         "displayName": "Example Config",
         "gatewayServiceAccount": "projects/-/serviceAccounts/j1-gc-integration-dev-v2@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
@@ -32,15 +32,15 @@ Object {
 `;
 
 exports[`#createApiGatewayApiEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Service",
   ],
   "_key": "projects/j1-gc-integration-dev-v2/locations/global/apis/example-api-gateway-endpoint",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "createTime": "2021-03-30T21:15:27.820351650Z",
         "displayName": "Example API Gateway Endpoint",
         "managedService": "example-api-gateway-endpoint-0fo33j5zaqt68.apigateway.j1-gc-integration-dev-v2.cloud.goog",
@@ -51,12 +51,12 @@ Object {
     },
   ],
   "_type": "google_api_gateway_api",
-  "category": Array [
+  "category": [
     "network",
   ],
   "createdOn": 1617138927820,
   "displayName": "Example API Gateway Endpoint",
-  "function": Array [
+  "function": [
     "api-gateway",
   ],
   "managedService": "example-api-gateway-endpoint-0fo33j5zaqt68.apigateway.j1-gc-integration-dev-v2.cloud.goog",
@@ -69,15 +69,15 @@ Object {
 `;
 
 exports[`#createApiGatewayGatewayEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
+{
+  "_class": [
     "Gateway",
   ],
   "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/gateways/example-gateway",
-  "_rawData": Array [
-    Object {
+  "_rawData": [
+    {
       "name": "default",
-      "rawData": Object {
+      "rawData": {
         "apiConfig": "projects/711888229551/locations/global/apis/example-api-gateway-endpoint/configs/example-config",
         "createTime": "2021-03-30T21:19:35.916320550Z",
         "defaultHostname": "example-gateway-931bvdf3.uc.gateway.dev",
@@ -89,13 +89,13 @@ Object {
     },
   ],
   "_type": "google_api_gateway_gateway",
-  "category": Array [
+  "category": [
     "network",
   ],
   "createdOn": 1617139175916,
   "defaultHostname": "example-gateway-931bvdf3.uc.gateway.dev",
   "displayName": "Example gateway",
-  "function": Array [
+  "function": [
     "api-gateway",
   ],
   "name": "projects/j1-gc-integration-dev-v2/locations/us-central1/gateways/example-gateway",
