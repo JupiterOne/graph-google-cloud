@@ -6,6 +6,8 @@ import { IntegrationConfig } from '../..';
 import { integrationConfig } from '../../../test/config';
 import { setupGoogleCloudRecording } from '../../../test/recording';
 import { CloudAssetClient } from './client';
+import { getMockLogger } from '../../../test/helpers/getMockLogger';
+import { IntegrationLogger } from '@jupiterone/integration-sdk-core';
 
 describe('#iterateIamPoliciesForProjectAndResources', () => {
   let recording: Recording;
@@ -39,7 +41,11 @@ describe('#iterateIamPoliciesForProjectAndResources', () => {
     });
 
     const handlePolicyResult = jest.fn();
-    const client = new CloudAssetClient({ config: context.instance.config });
+    const logger = getMockLogger<IntegrationLogger>();
+    const client = new CloudAssetClient(
+      { config: context.instance.config },
+      logger,
+    );
     expect(typeof client.projectId).toBe('string');
 
     await client.iterateIamPoliciesForProjectAndResources(handlePolicyResult);
@@ -67,7 +73,11 @@ describe('#iterateIamPoliciesForProjectAndResources', () => {
     delete (context as any).instance.config.serviceAccountKeyConfig.project_id;
 
     const handlePolicyResult = jest.fn();
-    const client = new CloudAssetClient({ config: context.instance.config });
+    const logger = getMockLogger<IntegrationLogger>();
+    const client = new CloudAssetClient(
+      { config: context.instance.config },
+      logger,
+    );
     expect(client.projectId).toBeUndefined();
 
     await client.iterateIamPoliciesForProjectAndResources(handlePolicyResult);
