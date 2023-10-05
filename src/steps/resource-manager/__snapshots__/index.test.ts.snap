@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
-{
-  "collectedEntities": [
-    {
-      "_class": [
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
         "Account",
       ],
       "_key": "projects/167984947943",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "createTime": "2021-05-31T15:15:56.125Z",
             "displayName": "j1-gc-integration-dev-v3",
             "etag": "CzUfI2XTWvMJgVGlic9LWA==",
@@ -34,15 +34,15 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
       "updatedOn": 1622474158148,
       "webLink": "https://console.cloud.google.com/home/dashboard?project=j1-gc-integration-dev-v3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Organization",
       ],
       "_key": "organizations/958457776463",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "createTime": "2021-05-26T21:15:56.407Z",
             "directoryCustomerId": "C048tgq5f",
             "displayName": "jupiterone.dev",
@@ -62,15 +62,15 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
       "name": "organizations/958457776463",
       "updatedOn": 1622063757254,
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Group",
       ],
       "_key": "folders/299817291758",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "createTime": "2021-06-03T16:44:28.216Z",
             "displayName": "example-folder-level-0",
             "etag": "2f8zjBmyEStHXN45HiqtvA==",
@@ -90,15 +90,15 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
       "parent": "organizations/958457776463",
       "updatedOn": 1622738668216,
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Group",
       ],
       "_key": "folders/1065006483234",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "createTime": "2021-06-03T16:45:03.939Z",
             "displayName": "example-folder-level-1",
             "etag": "dV+Si+qLs1/yoqzfIcKDFw==",
@@ -118,15 +118,15 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
       "parent": "folders/299817291758",
       "updatedOn": 1622738703939,
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Group",
       ],
       "_key": "folders/811983343328",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "createTime": "2021-06-03T17:19:34.539Z",
             "displayName": "example-folder-level-2",
             "etag": "ZKljr9WBPqy9lzArWkk7Mg==",
@@ -146,15 +146,15 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
       "parent": "folders/1065006483234",
       "updatedOn": 1622740774539,
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Group",
       ],
       "_key": "folders/306329820365",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "createTime": "2021-05-31T15:15:04.386Z",
             "displayName": "integration-dev",
             "etag": "AIbp3/+xtzAFwc+jklXkEA==",
@@ -175,8 +175,8 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
       "updatedOn": 1622474104386,
     },
   ],
-  "collectedRelationships": [
-    {
+  "collectedRelationships": Array [
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "organizations/958457776463",
       "_key": "organizations/958457776463|has|folders/299817291758",
@@ -184,7 +184,7 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
       "_type": "google_cloud_organization_has_folder",
       "displayName": "HAS",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "folders/299817291758",
       "_key": "folders/299817291758|has|folders/1065006483234",
@@ -192,7 +192,7 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
       "_type": "google_cloud_folder_has_folder",
       "displayName": "HAS",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "folders/1065006483234",
       "_key": "folders/1065006483234|has|folders/811983343328",
@@ -200,7 +200,7 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
       "_type": "google_cloud_folder_has_folder",
       "displayName": "HAS",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "organizations/958457776463",
       "_key": "organizations/958457776463|has|folders/306329820365",
@@ -208,14 +208,14 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
       "_type": "google_cloud_organization_has_folder",
       "displayName": "HAS",
     },
-    {
+    Object {
       "_class": "HAS",
       "_key": "organizations/958457776463|has|projects/151807220743",
-      "_mapping": {
+      "_mapping": Object {
         "relationshipDirection": "FORWARD",
         "sourceEntityKey": "organizations/958457776463",
-        "targetEntity": {
-          "_class": [
+        "targetEntity": Object {
+          "_class": Array [
             "Account",
           ],
           "_key": "projects/151807220743",
@@ -231,8 +231,8 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
           "updatedOn": 1632421410163,
           "webLink": "https://console.cloud.google.com/home/dashboard?project=j1-gc-integration-dev-rw",
         },
-        "targetFilterKeys": [
-          [
+        "targetFilterKeys": Array [
+          Array [
             "_type",
             "_key",
           ],
@@ -241,14 +241,14 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
       "_type": "google_organization_has_project",
       "displayName": "HAS",
     },
-    {
+    Object {
       "_class": "HAS",
       "_key": "organizations/958457776463|has|projects/538466736102",
-      "_mapping": {
+      "_mapping": Object {
         "relationshipDirection": "FORWARD",
         "sourceEntityKey": "organizations/958457776463",
-        "targetEntity": {
-          "_class": [
+        "targetEntity": Object {
+          "_class": Array [
             "Account",
           ],
           "_key": "projects/538466736102",
@@ -264,8 +264,8 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
           "updatedOn": 1627482619549,
           "webLink": "https://console.cloud.google.com/home/dashboard?project=vmware-account",
         },
-        "targetFilterKeys": [
-          [
+        "targetFilterKeys": Array [
+          Array [
             "_type",
             "_key",
           ],
@@ -274,14 +274,14 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
       "_type": "google_organization_has_project",
       "displayName": "HAS",
     },
-    {
+    Object {
       "_class": "HAS",
       "_key": "organizations/958457776463|has|projects/590086701852",
-      "_mapping": {
+      "_mapping": Object {
         "relationshipDirection": "FORWARD",
         "sourceEntityKey": "organizations/958457776463",
-        "targetEntity": {
-          "_class": [
+        "targetEntity": Object {
+          "_class": Array [
             "Account",
           ],
           "_key": "projects/590086701852",
@@ -297,8 +297,8 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
           "updatedOn": 1632155624084,
           "webLink": "https://console.cloud.google.com/home/dashboard?project=rick-sandbox-326122",
         },
-        "targetFilterKeys": [
-          [
+        "targetFilterKeys": Array [
+          Array [
             "_type",
             "_key",
           ],
@@ -307,14 +307,14 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
       "_type": "google_organization_has_project",
       "displayName": "HAS",
     },
-    {
+    Object {
       "_class": "HAS",
       "_key": "organizations/958457776463|has|projects/592147458023",
-      "_mapping": {
+      "_mapping": Object {
         "relationshipDirection": "FORWARD",
         "sourceEntityKey": "organizations/958457776463",
-        "targetEntity": {
-          "_class": [
+        "targetEntity": Object {
+          "_class": Array [
             "Account",
           ],
           "_key": "projects/592147458023",
@@ -330,8 +330,8 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
           "updatedOn": 1628092716049,
           "webLink": "https://console.cloud.google.com/home/dashboard?project=intense-pointer-315514",
         },
-        "targetFilterKeys": [
-          [
+        "targetFilterKeys": Array [
+          Array [
             "_type",
             "_key",
           ],
@@ -340,14 +340,14 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
       "_type": "google_organization_has_project",
       "displayName": "HAS",
     },
-    {
+    Object {
       "_class": "HAS",
       "_key": "organizations/958457776463|has|projects/619127027446",
-      "_mapping": {
+      "_mapping": Object {
         "relationshipDirection": "FORWARD",
         "sourceEntityKey": "organizations/958457776463",
-        "targetEntity": {
-          "_class": [
+        "targetEntity": Object {
+          "_class": Array [
             "Account",
           ],
           "_key": "projects/619127027446",
@@ -363,8 +363,8 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
           "updatedOn": 1622475908564,
           "webLink": "https://console.cloud.google.com/home/dashboard?project=winged-guild-315415",
         },
-        "targetFilterKeys": [
-          [
+        "targetFilterKeys": Array [
+          Array [
             "_type",
             "_key",
           ],
@@ -373,14 +373,14 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
       "_type": "google_organization_has_project",
       "displayName": "HAS",
     },
-    {
+    Object {
       "_class": "HAS",
       "_key": "organizations/958457776463|has|projects/723846238347",
-      "_mapping": {
+      "_mapping": Object {
         "relationshipDirection": "FORWARD",
         "sourceEntityKey": "organizations/958457776463",
-        "targetEntity": {
-          "_class": [
+        "targetEntity": Object {
+          "_class": Array [
             "Account",
           ],
           "_key": "projects/723846238347",
@@ -396,8 +396,8 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
           "updatedOn": 1632421052340,
           "webLink": "https://console.cloud.google.com/home/dashboard?project=j1-gc-integration-dev-rick",
         },
-        "targetFilterKeys": [
-          [
+        "targetFilterKeys": Array [
+          Array [
             "_type",
             "_key",
           ],
@@ -406,14 +406,14 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
       "_type": "google_organization_has_project",
       "displayName": "HAS",
     },
-    {
+    Object {
       "_class": "HAS",
       "_key": "organizations/958457776463|has|projects/768118999942",
-      "_mapping": {
+      "_mapping": Object {
         "relationshipDirection": "FORWARD",
         "sourceEntityKey": "organizations/958457776463",
-        "targetEntity": {
-          "_class": [
+        "targetEntity": Object {
+          "_class": Array [
             "Account",
           ],
           "_key": "projects/768118999942",
@@ -429,8 +429,8 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
           "updatedOn": 1626123159133,
           "webLink": "https://console.cloud.google.com/home/dashboard?project=glossy-calculus-319620",
         },
-        "targetFilterKeys": [
-          [
+        "targetFilterKeys": Array [
+          Array [
             "_type",
             "_key",
           ],
@@ -439,14 +439,14 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
       "_type": "google_organization_has_project",
       "displayName": "HAS",
     },
-    {
+    Object {
       "_class": "HAS",
       "_key": "organizations/958457776463|has|projects/803723915367",
-      "_mapping": {
+      "_mapping": Object {
         "relationshipDirection": "FORWARD",
         "sourceEntityKey": "organizations/958457776463",
-        "targetEntity": {
-          "_class": [
+        "targetEntity": Object {
+          "_class": Array [
             "Account",
           ],
           "_key": "projects/803723915367",
@@ -462,8 +462,8 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
           "updatedOn": 1632155613381,
           "webLink": "https://console.cloud.google.com/home/dashboard?project=smiling-garden-326616",
         },
-        "targetFilterKeys": [
-          [
+        "targetFilterKeys": Array [
+          Array [
             "_type",
             "_key",
           ],
@@ -472,14 +472,14 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
       "_type": "google_organization_has_project",
       "displayName": "HAS",
     },
-    {
+    Object {
       "_class": "HAS",
       "_key": "organizations/958457776463|has|projects/935349827748",
-      "_mapping": {
+      "_mapping": Object {
         "relationshipDirection": "FORWARD",
         "sourceEntityKey": "organizations/958457776463",
-        "targetEntity": {
-          "_class": [
+        "targetEntity": Object {
+          "_class": Array [
             "Account",
           ],
           "_key": "projects/935349827748",
@@ -495,8 +495,8 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
           "updatedOn": 1632155370819,
           "webLink": "https://console.cloud.google.com/home/dashboard?project=jupiter-dev-326616",
         },
-        "targetFilterKeys": [
-          [
+        "targetFilterKeys": Array [
+          Array [
             "_type",
             "_key",
           ],
@@ -505,14 +505,14 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
       "_type": "google_organization_has_project",
       "displayName": "HAS",
     },
-    {
+    Object {
       "_class": "HAS",
       "_key": "organizations/958457776463|has|projects/988862309073",
-      "_mapping": {
+      "_mapping": Object {
         "relationshipDirection": "FORWARD",
         "sourceEntityKey": "organizations/958457776463",
-        "targetEntity": {
-          "_class": [
+        "targetEntity": Object {
+          "_class": Array [
             "Account",
           ],
           "_key": "projects/988862309073",
@@ -528,8 +528,8 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
           "updatedOn": 1622477708998,
           "webLink": "https://console.cloud.google.com/home/dashboard?project=learned-hour-315416",
         },
-        "targetFilterKeys": [
-          [
+        "targetFilterKeys": Array [
+          Array [
             "_type",
             "_key",
           ],
@@ -538,14 +538,14 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
       "_type": "google_organization_has_project",
       "displayName": "HAS",
     },
-    {
+    Object {
       "_class": "HAS",
       "_key": "folders/811983343328|has|projects/270453338007",
-      "_mapping": {
+      "_mapping": Object {
         "relationshipDirection": "FORWARD",
         "sourceEntityKey": "folders/811983343328",
-        "targetEntity": {
-          "_class": [
+        "targetEntity": Object {
+          "_class": Array [
             "Account",
           ],
           "_key": "projects/270453338007",
@@ -561,8 +561,8 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
           "updatedOn": 1624364970108,
           "webLink": "https://console.cloud.google.com/home/dashboard?project=j1-gc-integration-dev-nested",
         },
-        "targetFilterKeys": [
-          [
+        "targetFilterKeys": Array [
+          Array [
             "_type",
             "_key",
           ],
@@ -571,14 +571,14 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
       "_type": "google_folder_has_project",
       "displayName": "HAS",
     },
-    {
+    Object {
       "_class": "HAS",
       "_key": "folders/306329820365|has|projects/167984947943",
-      "_mapping": {
+      "_mapping": Object {
         "relationshipDirection": "FORWARD",
         "sourceEntityKey": "folders/306329820365",
-        "targetEntity": {
-          "_class": [
+        "targetEntity": Object {
+          "_class": Array [
             "Account",
           ],
           "_key": "projects/167984947943",
@@ -594,8 +594,8 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
           "updatedOn": 1622474158148,
           "webLink": "https://console.cloud.google.com/home/dashboard?project=j1-gc-integration-dev-v3",
         },
-        "targetFilterKeys": [
-          [
+        "targetFilterKeys": Array [
+          Array [
             "_type",
             "_key",
           ],
@@ -605,7 +605,7 @@ exports[`#buildOrgFolderProjectMappedRelationships should collect data 1`] = `
       "displayName": "HAS",
     },
   ],
-  "encounteredTypes": [
+  "encounteredTypes": Array [
     "google_cloud_project",
     "google_cloud_organization",
     "google_cloud_folder",
@@ -65845,17 +65845,17 @@ own APIs.",
 `;
 
 exports[`#fetchResourceManagerFolders should collect data 1`] = `
-{
-  "collectedEntities": [
-    {
-      "_class": [
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
         "Organization",
       ],
       "_key": "organizations/958457776463",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "createTime": "2021-05-26T21:15:56.407Z",
             "directoryCustomerId": "C048tgq5f",
             "displayName": "jupiterone.dev",
@@ -65875,15 +65875,15 @@ exports[`#fetchResourceManagerFolders should collect data 1`] = `
       "name": "organizations/958457776463",
       "updatedOn": 1622063757254,
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Group",
       ],
       "_key": "folders/299817291758",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "createTime": "2021-06-03T16:44:28.216Z",
             "displayName": "example-folder-level-0",
             "etag": "2f8zjBmyEStHXN45HiqtvA==",
@@ -65903,15 +65903,15 @@ exports[`#fetchResourceManagerFolders should collect data 1`] = `
       "parent": "organizations/958457776463",
       "updatedOn": 1622738668216,
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Group",
       ],
       "_key": "folders/1065006483234",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "createTime": "2021-06-03T16:45:03.939Z",
             "displayName": "example-folder-level-1",
             "etag": "dV+Si+qLs1/yoqzfIcKDFw==",
@@ -65931,15 +65931,15 @@ exports[`#fetchResourceManagerFolders should collect data 1`] = `
       "parent": "folders/299817291758",
       "updatedOn": 1622738703939,
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Group",
       ],
       "_key": "folders/811983343328",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "createTime": "2021-06-03T17:19:34.539Z",
             "displayName": "example-folder-level-2",
             "etag": "ZKljr9WBPqy9lzArWkk7Mg==",
@@ -65959,15 +65959,15 @@ exports[`#fetchResourceManagerFolders should collect data 1`] = `
       "parent": "folders/1065006483234",
       "updatedOn": 1622740774539,
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Group",
       ],
       "_key": "folders/306329820365",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "createTime": "2021-05-31T15:15:04.386Z",
             "displayName": "integration-dev",
             "etag": "AIbp3/+xtzAFwc+jklXkEA==",
@@ -65988,8 +65988,8 @@ exports[`#fetchResourceManagerFolders should collect data 1`] = `
       "updatedOn": 1622474104386,
     },
   ],
-  "collectedRelationships": [
-    {
+  "collectedRelationships": Array [
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "organizations/958457776463",
       "_key": "organizations/958457776463|has|folders/299817291758",
@@ -65997,7 +65997,7 @@ exports[`#fetchResourceManagerFolders should collect data 1`] = `
       "_type": "google_cloud_organization_has_folder",
       "displayName": "HAS",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "folders/299817291758",
       "_key": "folders/299817291758|has|folders/1065006483234",
@@ -66005,7 +66005,7 @@ exports[`#fetchResourceManagerFolders should collect data 1`] = `
       "_type": "google_cloud_folder_has_folder",
       "displayName": "HAS",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "folders/1065006483234",
       "_key": "folders/1065006483234|has|folders/811983343328",
@@ -66013,7 +66013,7 @@ exports[`#fetchResourceManagerFolders should collect data 1`] = `
       "_type": "google_cloud_folder_has_folder",
       "displayName": "HAS",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "organizations/958457776463",
       "_key": "organizations/958457776463|has|folders/306329820365",
@@ -66022,7 +66022,7 @@ exports[`#fetchResourceManagerFolders should collect data 1`] = `
       "displayName": "HAS",
     },
   ],
-  "encounteredTypes": [
+  "encounteredTypes": Array [
     "google_cloud_organization",
     "google_cloud_folder",
     "google_cloud_organization_has_folder",
@@ -66034,17 +66034,17 @@ exports[`#fetchResourceManagerFolders should collect data 1`] = `
 `;
 
 exports[`#fetchResourceManagerOrganization should collect data 1`] = `
-{
-  "collectedEntities": [
-    {
-      "_class": [
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
         "Organization",
       ],
       "_key": "organizations/958457776463",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "createTime": "2021-05-26T21:15:56.407Z",
             "directoryCustomerId": "C048tgq5f",
             "displayName": "jupiterone.dev",
@@ -66065,8 +66065,8 @@ exports[`#fetchResourceManagerOrganization should collect data 1`] = `
       "updatedOn": 1622063757254,
     },
   ],
-  "collectedRelationships": [],
-  "encounteredTypes": [
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
     "google_cloud_organization",
   ],
   "numCollectedEntities": 1,
@@ -66075,17 +66075,17 @@ exports[`#fetchResourceManagerOrganization should collect data 1`] = `
 `;
 
 exports[`#fetchResourceManagerProject should collect data 1`] = `
-{
-  "collectedEntities": [
-    {
-      "_class": [
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
         "Account",
       ],
       "_key": "projects/167984947943",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "createTime": "2021-05-31T15:15:56.125Z",
             "displayName": "j1-gc-integration-dev-v3",
             "etag": "CzUfI2XTWvMJgVGlic9LWA==",
@@ -66109,8 +66109,8 @@ exports[`#fetchResourceManagerProject should collect data 1`] = `
       "webLink": "https://console.cloud.google.com/home/dashboard?project=j1-gc-integration-dev-v3",
     },
   ],
-  "collectedRelationships": [],
-  "encounteredTypes": [
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
     "google_cloud_project",
   ],
   "numCollectedEntities": 1,
@@ -66119,17 +66119,17 @@ exports[`#fetchResourceManagerProject should collect data 1`] = `
 `;
 
 exports[`#fetchResourceManagerProject should log & return Account entity if client.getProject() fails 1`] = `
-{
-  "collectedEntities": [
-    {
-      "_class": [
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
         "Account",
       ],
       "_key": "projects/167984947943",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "createTime": "2021-05-31T15:15:56.125Z",
             "displayName": "j1-gc-integration-dev-v3",
             "etag": "CzUfI2XTWvMJgVGlic9LWA==",
@@ -66153,8 +66153,8 @@ exports[`#fetchResourceManagerProject should log & return Account entity if clie
       "webLink": "https://console.cloud.google.com/home/dashboard?project=j1-gc-integration-dev-v3",
     },
   ],
-  "collectedRelationships": [],
-  "encounteredTypes": [
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
     "google_cloud_project",
   ],
   "numCollectedEntities": 1,

@@ -1,34 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
-{
-  "collectedEntities": [
-    {
-      "_class": [
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/asia1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "Asia (Tokyo/Osaka/Seoul)",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/asia1",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "asia-northeast1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-northeast1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-northeast2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-northeast2",
                 "type": "READ_WRITE",
               },
@@ -41,32 +41,32 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/asia1",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/asia1",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur3",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "Europe (Belgium/Netherlands)",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur3",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "europe-west1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west4",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west4",
                 "type": "READ_WRITE",
               },
@@ -79,32 +79,32 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur3",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur5",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "Europe (London/Belgium/Netherlands)",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur5",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "europe-west2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west1",
                 "type": "READ_WRITE",
               },
@@ -117,36 +117,36 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur5",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur5",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur6",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "Europe (Netherlands, Frankfurt)",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur6",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "europe-west4",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west4",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west3",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west3",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west6",
                 "type": "WITNESS",
               },
@@ -159,48 +159,48 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur6",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur6",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam-eur-asia1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "United States, Europe, and Asia (Iowa/Oklahoma/Belgium/Taiwan)",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam-eur-asia1",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-central2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-central2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west1",
                 "type": "READ_ONLY",
               },
-              {
+              Object {
                 "location": "europe-west1",
                 "type": "READ_ONLY",
               },
-              {
+              Object {
                 "location": "asia-east1",
                 "type": "READ_ONLY",
               },
-              {
+              Object {
                 "location": "asia-east1",
                 "type": "READ_ONLY",
               },
@@ -213,32 +213,32 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam-eur-asia1",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam-eur-asia1",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam10",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "United States (Iowa/Salt Lake/Oklahoma)",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam10",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west3",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west3",
                 "type": "READ_WRITE",
               },
@@ -251,32 +251,32 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam10",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam10",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam11",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "United States (Iowa, South Carolina, Oklahoma)",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam11",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east1",
                 "type": "READ_WRITE",
               },
@@ -289,32 +289,32 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam11",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam11",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam3",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "United States (Northern Virginia/South Carolina)",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam3",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-east4",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east4",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east1",
                 "type": "READ_WRITE",
               },
@@ -327,40 +327,40 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam3",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam6",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "United States (Iowa/South Carolina/Oregon/Los Angeles)",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam6",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west1",
                 "type": "READ_ONLY",
               },
-              {
+              Object {
                 "location": "us-west2",
                 "type": "READ_ONLY",
               },
@@ -373,32 +373,32 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam6",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam6",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam7",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "United States (Iowa, Northern Virginia, Oklahoma)",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam7",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east4",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east4",
                 "type": "READ_WRITE",
               },
@@ -411,36 +411,36 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam7",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam7",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam8",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "United States (Los Angeles, Oregon, Salt Lake City)",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam8",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-west2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west3",
                 "type": "WITNESS",
               },
@@ -453,44 +453,44 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam8",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam8",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam9",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "United States (Northern Virginia, Iowa, South Carolina, Oregon)",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam9",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-east4",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east4",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east1",
                 "type": "WITNESS",
               },
-              {
+              Object {
                 "location": "us-west1",
                 "type": "READ_ONLY",
               },
-              {
+              Object {
                 "location": "us-west1",
                 "type": "READ_ONLY",
               },
@@ -503,28 +503,28 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam9",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam9",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "asia-east1",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east1",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "asia-east1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-east1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-east1",
                 "type": "READ_WRITE",
               },
@@ -537,28 +537,28 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east1",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east1",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east2",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "asia-east2",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east2",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "asia-east2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-east2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-east2",
                 "type": "READ_WRITE",
               },
@@ -571,28 +571,28 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east2",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east2",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "asia-northeast1",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast1",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "asia-northeast1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-northeast1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-northeast1",
                 "type": "READ_WRITE",
               },
@@ -605,28 +605,28 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast1",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast1",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast2",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "asia-northeast2",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast2",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "asia-northeast2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-northeast2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-northeast2",
                 "type": "READ_WRITE",
               },
@@ -639,28 +639,28 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast2",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast2",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast3",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "asia-northeast3",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast3",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "asia-northeast3",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-northeast3",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-northeast3",
                 "type": "READ_WRITE",
               },
@@ -673,28 +673,28 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast3",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-south1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "asia-south1",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-south1",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "asia-south1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-south1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-south1",
                 "type": "READ_WRITE",
               },
@@ -707,28 +707,28 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-south1",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-south1",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "asia-southeast1",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast1",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "asia-southeast1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-southeast1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-southeast1",
                 "type": "READ_WRITE",
               },
@@ -741,28 +741,28 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast1",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast1",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast2",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "asia-southeast2",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast2",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "asia-southeast2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-southeast2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-southeast2",
                 "type": "READ_WRITE",
               },
@@ -775,28 +775,28 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast2",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast2",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-australia-southeast1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "australia-southeast1",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-australia-southeast1",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "australia-southeast1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "australia-southeast1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "australia-southeast1",
                 "type": "READ_WRITE",
               },
@@ -809,28 +809,28 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-australia-southeast1",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-australia-southeast1",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-central2",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "europe-central2",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-central2",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "europe-central2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-central2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-central2",
                 "type": "READ_WRITE",
               },
@@ -843,28 +843,28 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-central2",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-central2",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-north1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "europe-north1",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-north1",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "europe-north1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-north1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-north1",
                 "type": "READ_WRITE",
               },
@@ -877,28 +877,28 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-north1",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-north1",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "europe-west1",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west1",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "europe-west1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west1",
                 "type": "READ_WRITE",
               },
@@ -911,28 +911,28 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west1",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west1",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west2",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "europe-west2",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west2",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "europe-west2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west2",
                 "type": "READ_WRITE",
               },
@@ -945,28 +945,28 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west2",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west2",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west3",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "europe-west3",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west3",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "europe-west3",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west3",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west3",
                 "type": "READ_WRITE",
               },
@@ -979,28 +979,28 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west3",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west4",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "europe-west4",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west4",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "europe-west4",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west4",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west4",
                 "type": "READ_WRITE",
               },
@@ -1013,28 +1013,28 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west4",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west4",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west6",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "europe-west6",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west6",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "europe-west6",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west6",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west6",
                 "type": "READ_WRITE",
               },
@@ -1047,28 +1047,28 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west6",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west6",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-northamerica-northeast1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "northamerica-northeast1",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-northamerica-northeast1",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "northamerica-northeast1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "northamerica-northeast1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "northamerica-northeast1",
                 "type": "READ_WRITE",
               },
@@ -1081,28 +1081,28 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-northamerica-northeast1",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-northamerica-northeast1",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-southamerica-east1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "southamerica-east1",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-southamerica-east1",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "southamerica-east1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "southamerica-east1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "southamerica-east1",
                 "type": "READ_WRITE",
               },
@@ -1115,28 +1115,28 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-southamerica-east1",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-southamerica-east1",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-central1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "us-central1",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-central1",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
@@ -1149,28 +1149,28 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-central1",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-central1",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "us-east1",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east1",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-east1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east1",
                 "type": "READ_WRITE",
               },
@@ -1183,28 +1183,28 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east1",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east1",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east4",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "us-east4",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east4",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-east4",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east4",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east4",
                 "type": "READ_WRITE",
               },
@@ -1217,28 +1217,28 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east4",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east4",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "us-west1",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west1",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-west1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west1",
                 "type": "READ_WRITE",
               },
@@ -1251,28 +1251,28 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west1",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west1",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west2",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "us-west2",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west2",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-west2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west2",
                 "type": "READ_WRITE",
               },
@@ -1285,28 +1285,28 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west2",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west2",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west3",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "us-west3",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west3",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-west3",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west3",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west3",
                 "type": "READ_WRITE",
               },
@@ -1319,28 +1319,28 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west3",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west4",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "us-west4",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west4",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-west4",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west4",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west4",
                 "type": "READ_WRITE",
               },
@@ -1354,8 +1354,8 @@ exports[`#fetchSpannerInstanceConfigs should collect data 1`] = `
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west4",
     },
   ],
-  "collectedRelationships": [],
-  "encounteredTypes": [
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
     "google_spanner_instance_config",
   ],
   "numCollectedEntities": 37,
@@ -1781,34 +1781,34 @@ Object {
 `;
 
 exports[`#fetchSpannerInstances should collect data 1`] = `
-{
-  "collectedEntities": [
-    {
-      "_class": [
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/asia1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "Asia (Tokyo/Osaka/Seoul)",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/asia1",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "asia-northeast1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-northeast1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-northeast2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-northeast2",
                 "type": "READ_WRITE",
               },
@@ -1821,32 +1821,32 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/asia1",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/asia1",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur3",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "Europe (Belgium/Netherlands)",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur3",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "europe-west1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west4",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west4",
                 "type": "READ_WRITE",
               },
@@ -1859,32 +1859,32 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur3",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur5",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "Europe (London/Belgium/Netherlands)",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur5",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "europe-west2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west1",
                 "type": "READ_WRITE",
               },
@@ -1897,36 +1897,36 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur5",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur5",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur6",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "Europe (Netherlands, Frankfurt)",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur6",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "europe-west4",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west4",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west3",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west3",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west6",
                 "type": "WITNESS",
               },
@@ -1939,48 +1939,48 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur6",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/eur6",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam-eur-asia1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "United States, Europe, and Asia (Iowa/Oklahoma/Belgium/Taiwan)",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam-eur-asia1",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-central2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-central2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west1",
                 "type": "READ_ONLY",
               },
-              {
+              Object {
                 "location": "europe-west1",
                 "type": "READ_ONLY",
               },
-              {
+              Object {
                 "location": "asia-east1",
                 "type": "READ_ONLY",
               },
-              {
+              Object {
                 "location": "asia-east1",
                 "type": "READ_ONLY",
               },
@@ -1993,32 +1993,32 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam-eur-asia1",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam-eur-asia1",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam10",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "United States (Iowa/Salt Lake/Oklahoma)",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam10",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west3",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west3",
                 "type": "READ_WRITE",
               },
@@ -2031,32 +2031,32 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam10",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam10",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam11",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "United States (Iowa, South Carolina, Oklahoma)",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam11",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east1",
                 "type": "READ_WRITE",
               },
@@ -2069,32 +2069,32 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam11",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam11",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam3",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "United States (Northern Virginia/South Carolina)",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam3",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-east4",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east4",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east1",
                 "type": "READ_WRITE",
               },
@@ -2107,40 +2107,40 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam3",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam6",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "United States (Iowa/South Carolina/Oregon/Los Angeles)",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam6",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west1",
                 "type": "READ_ONLY",
               },
-              {
+              Object {
                 "location": "us-west2",
                 "type": "READ_ONLY",
               },
@@ -2153,32 +2153,32 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam6",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam6",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam7",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "United States (Iowa, Northern Virginia, Oklahoma)",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam7",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east4",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east4",
                 "type": "READ_WRITE",
               },
@@ -2191,36 +2191,36 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam7",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam7",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam8",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "United States (Los Angeles, Oregon, Salt Lake City)",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam8",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-west2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west3",
                 "type": "WITNESS",
               },
@@ -2233,44 +2233,44 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam8",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam8",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam9",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "United States (Northern Virginia, Iowa, South Carolina, Oregon)",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam9",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-east4",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east4",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east1",
                 "type": "WITNESS",
               },
-              {
+              Object {
                 "location": "us-west1",
                 "type": "READ_ONLY",
               },
-              {
+              Object {
                 "location": "us-west1",
                 "type": "READ_ONLY",
               },
@@ -2283,28 +2283,28 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam9",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/nam9",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "asia-east1",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east1",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "asia-east1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-east1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-east1",
                 "type": "READ_WRITE",
               },
@@ -2317,28 +2317,28 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east1",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east1",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east2",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "asia-east2",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east2",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "asia-east2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-east2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-east2",
                 "type": "READ_WRITE",
               },
@@ -2351,28 +2351,28 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east2",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-east2",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "asia-northeast1",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast1",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "asia-northeast1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-northeast1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-northeast1",
                 "type": "READ_WRITE",
               },
@@ -2385,28 +2385,28 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast1",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast1",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast2",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "asia-northeast2",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast2",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "asia-northeast2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-northeast2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-northeast2",
                 "type": "READ_WRITE",
               },
@@ -2419,28 +2419,28 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast2",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast2",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast3",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "asia-northeast3",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast3",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "asia-northeast3",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-northeast3",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-northeast3",
                 "type": "READ_WRITE",
               },
@@ -2453,28 +2453,28 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast3",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-northeast3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-south1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "asia-south1",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-south1",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "asia-south1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-south1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-south1",
                 "type": "READ_WRITE",
               },
@@ -2487,28 +2487,28 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-south1",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-south1",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "asia-southeast1",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast1",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "asia-southeast1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-southeast1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-southeast1",
                 "type": "READ_WRITE",
               },
@@ -2521,28 +2521,28 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast1",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast1",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast2",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "asia-southeast2",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast2",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "asia-southeast2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-southeast2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "asia-southeast2",
                 "type": "READ_WRITE",
               },
@@ -2555,28 +2555,28 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast2",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-asia-southeast2",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-australia-southeast1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "australia-southeast1",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-australia-southeast1",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "australia-southeast1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "australia-southeast1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "australia-southeast1",
                 "type": "READ_WRITE",
               },
@@ -2589,28 +2589,28 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-australia-southeast1",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-australia-southeast1",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-central2",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "europe-central2",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-central2",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "europe-central2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-central2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-central2",
                 "type": "READ_WRITE",
               },
@@ -2623,28 +2623,28 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-central2",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-central2",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-north1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "europe-north1",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-north1",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "europe-north1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-north1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-north1",
                 "type": "READ_WRITE",
               },
@@ -2657,28 +2657,28 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-north1",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-north1",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "europe-west1",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west1",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "europe-west1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west1",
                 "type": "READ_WRITE",
               },
@@ -2691,28 +2691,28 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west1",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west1",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west2",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "europe-west2",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west2",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "europe-west2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west2",
                 "type": "READ_WRITE",
               },
@@ -2725,28 +2725,28 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west2",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west2",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west3",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "europe-west3",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west3",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "europe-west3",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west3",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west3",
                 "type": "READ_WRITE",
               },
@@ -2759,28 +2759,28 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west3",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west4",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "europe-west4",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west4",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "europe-west4",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west4",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west4",
                 "type": "READ_WRITE",
               },
@@ -2793,28 +2793,28 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west4",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west4",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west6",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "europe-west6",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west6",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "europe-west6",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west6",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "europe-west6",
                 "type": "READ_WRITE",
               },
@@ -2827,28 +2827,28 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west6",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-europe-west6",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-northamerica-northeast1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "northamerica-northeast1",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-northamerica-northeast1",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "northamerica-northeast1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "northamerica-northeast1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "northamerica-northeast1",
                 "type": "READ_WRITE",
               },
@@ -2861,28 +2861,28 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-northamerica-northeast1",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-northamerica-northeast1",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-southamerica-east1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "southamerica-east1",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-southamerica-east1",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "southamerica-east1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "southamerica-east1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "southamerica-east1",
                 "type": "READ_WRITE",
               },
@@ -2895,28 +2895,28 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-southamerica-east1",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-southamerica-east1",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-central1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "us-central1",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-central1",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-central1",
                 "type": "READ_WRITE",
               },
@@ -2929,28 +2929,28 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-central1",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-central1",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "us-east1",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east1",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-east1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east1",
                 "type": "READ_WRITE",
               },
@@ -2963,28 +2963,28 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east1",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east1",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east4",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "us-east4",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east4",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-east4",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east4",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-east4",
                 "type": "READ_WRITE",
               },
@@ -2997,28 +2997,28 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east4",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-east4",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "us-west1",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west1",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-west1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west1",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west1",
                 "type": "READ_WRITE",
               },
@@ -3031,28 +3031,28 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west1",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west1",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west2",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "us-west2",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west2",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-west2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west2",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west2",
                 "type": "READ_WRITE",
               },
@@ -3065,28 +3065,28 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west2",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west2",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west3",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "us-west3",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west3",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-west3",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west3",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west3",
                 "type": "READ_WRITE",
               },
@@ -3099,28 +3099,28 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west3",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Configuration",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west4",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "us-west4",
             "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west4",
-            "replicas": [
-              {
+            "replicas": Array [
+              Object {
                 "defaultLeaderLocation": true,
                 "location": "us-west4",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west4",
                 "type": "READ_WRITE",
               },
-              {
+              Object {
                 "location": "us-west4",
                 "type": "READ_WRITE",
               },
@@ -3133,19 +3133,19 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west4",
       "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west4",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Database",
         "Cluster",
       ],
       "_key": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "config": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-central1",
             "displayName": "Example Spanner Instance",
-            "labels": {
+            "labels": Object {
               "foo": "bar",
             },
             "name": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance",
@@ -3165,8 +3165,8 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "webLink": "https://console.cloud.google.com/spanner/instances/example-spanner-instance/details/databases?project=j1-gc-integration-dev-v2",
     },
   ],
-  "collectedRelationships": [
-    {
+  "collectedRelationships": Array [
+    Object {
       "_class": "USES",
       "_fromEntityKey": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance",
       "_key": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance|uses|projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-central1",
@@ -3175,7 +3175,7 @@ exports[`#fetchSpannerInstances should collect data 1`] = `
       "displayName": "USES",
     },
   ],
-  "encounteredTypes": [
+  "encounteredTypes": Array [
     "google_spanner_instance_config",
     "google_spanner_instance",
     "google_spanner_instance_uses_config",

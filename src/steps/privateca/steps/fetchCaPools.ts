@@ -12,9 +12,10 @@ export async function fetchCaPools(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
 
-  const client = new PrivateCaClient({ config });
+  const client = new PrivateCaClient({ config }, logger);
 
   await client.iterateCaPools(async (caPool) => {
     await jobState.addEntity(createCaPoolEntity(caPool));

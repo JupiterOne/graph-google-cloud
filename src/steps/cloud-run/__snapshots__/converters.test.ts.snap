@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#createCloudRunConfigurationEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Configuration",
   ],
   "_key": "cloudrun_configuration:f190d809-4de1-4eb3-80bb-ad0ac9954f85",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "apiVersion": "serving.knative.dev/v1",
         "kind": "Configuration",
-        "metadata": {
-          "annotations": {
+        "metadata": Object {
+          "annotations": Object {
             "client.knative.dev/user-image": "us-docker.pkg.dev/cloudrun/container/hello",
             "run.googleapis.com/client-name": "cloud-console",
             "run.googleapis.com/launch-stage": "BETA",
@@ -22,15 +22,15 @@ exports[`#createCloudRunConfigurationEntity should convert to entity 1`] = `
           },
           "creationTimestamp": "2021-03-09T20:41:30.336883Z",
           "generation": 1,
-          "labels": {
+          "labels": Object {
             "cloud.googleapis.com/location": "us-central1",
             "serving.knative.dev/route": "example-cloud-run-service",
             "serving.knative.dev/service": "example-cloud-run-service",
           },
           "name": "example-cloud-run-service",
           "namespace": "711888229551",
-          "ownerReferences": [
-            {
+          "ownerReferences": Array [
+            Object {
               "apiVersion": "serving.knative.dev/v1",
               "blockOwnerDeletion": true,
               "controller": true,
@@ -43,28 +43,28 @@ exports[`#createCloudRunConfigurationEntity should convert to entity 1`] = `
           "selfLink": "/apis/serving.knative.dev/v1/namespaces/711888229551/configurations/example-cloud-run-service",
           "uid": "f190d809-4de1-4eb3-80bb-ad0ac9954f85",
         },
-        "spec": {
-          "template": {
-            "metadata": {
-              "annotations": {
+        "spec": Object {
+          "template": Object {
+            "metadata": Object {
+              "annotations": Object {
                 "autoscaling.knative.dev/maxScale": "100",
                 "run.googleapis.com/client-name": "cloud-console",
                 "run.googleapis.com/sandbox": "gvisor",
               },
               "name": "example-cloud-run-service-00001-mub",
             },
-            "spec": {
+            "spec": Object {
               "containerConcurrency": 80,
-              "containers": [
-                {
+              "containers": Array [
+                Object {
                   "image": "us-docker.pkg.dev/cloudrun/container/hello",
-                  "ports": [
-                    {
+                  "ports": Array [
+                    Object {
                       "containerPort": 8080,
                     },
                   ],
-                  "resources": {
-                    "limits": {
+                  "resources": Object {
+                    "limits": Object {
                       "cpu": "1000m",
                       "memory": "256Mi",
                     },
@@ -76,9 +76,9 @@ exports[`#createCloudRunConfigurationEntity should convert to entity 1`] = `
             },
           },
         },
-        "status": {
-          "conditions": [
-            {
+        "status": Object {
+          "conditions": Array [
+            Object {
               "lastTransitionTime": "2021-03-09T20:42:53.137036Z",
               "status": "True",
               "type": "Ready",
@@ -108,19 +108,19 @@ exports[`#createCloudRunConfigurationEntity should convert to entity 1`] = `
 `;
 
 exports[`#createCloudRunRouteEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Configuration",
   ],
   "_key": "cloudrun_route:f538487c-6e93-4038-9f6a-b7936cc4dd04",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "apiVersion": "serving.knative.dev/v1",
         "kind": "Route",
-        "metadata": {
-          "annotations": {
+        "metadata": Object {
+          "annotations": Object {
             "client.knative.dev/user-image": "us-docker.pkg.dev/cloudrun/container/hello",
             "run.googleapis.com/client-name": "cloud-console",
             "run.googleapis.com/ingress": "all",
@@ -130,14 +130,14 @@ exports[`#createCloudRunRouteEntity should convert to entity 1`] = `
           },
           "creationTimestamp": "2021-03-09T20:41:30.309851Z",
           "generation": 1,
-          "labels": {
+          "labels": Object {
             "cloud.googleapis.com/location": "us-central1",
             "serving.knative.dev/service": "example-cloud-run-service",
           },
           "name": "example-cloud-run-service",
           "namespace": "711888229551",
-          "ownerReferences": [
-            {
+          "ownerReferences": Array [
+            Object {
               "apiVersion": "serving.knative.dev/v1",
               "blockOwnerDeletion": true,
               "controller": true,
@@ -150,29 +150,29 @@ exports[`#createCloudRunRouteEntity should convert to entity 1`] = `
           "selfLink": "/apis/serving.knative.dev/v1/namespaces/711888229551/routes/example-cloud-run-service",
           "uid": "f538487c-6e93-4038-9f6a-b7936cc4dd04",
         },
-        "spec": {
-          "traffic": [
-            {
+        "spec": Object {
+          "traffic": Array [
+            Object {
               "configurationName": "example-cloud-run-service",
               "latestRevision": true,
               "percent": 100,
             },
           ],
         },
-        "status": {
-          "address": {
+        "status": Object {
+          "address": Object {
             "url": "https://example-cloud-run-service-rhbpqun2qa-uc.a.run.app",
           },
-          "conditions": [
-            {
+          "conditions": Array [
+            Object {
               "lastTransitionTime": "2021-03-09T20:42:53.373244Z",
               "status": "True",
               "type": "Ready",
             },
           ],
           "observedGeneration": 1,
-          "traffic": [
-            {
+          "traffic": Array [
+            Object {
               "latestRevision": true,
               "percent": 100,
               "revisionName": "example-cloud-run-service-00001-mub",
@@ -193,19 +193,19 @@ exports[`#createCloudRunRouteEntity should convert to entity 1`] = `
 `;
 
 exports[`#createCloudRunServiceEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Service",
   ],
   "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/services/example-cloud-run-service",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "apiVersion": "serving.knative.dev/v1",
         "kind": "Service",
-        "metadata": {
-          "annotations": {
+        "metadata": Object {
+          "annotations": Object {
             "client.knative.dev/user-image": "us-docker.pkg.dev/cloudrun/container/hello",
             "run.googleapis.com/client-name": "cloud-console",
             "run.googleapis.com/ingress": "all",
@@ -216,7 +216,7 @@ exports[`#createCloudRunServiceEntity should convert to entity 1`] = `
           },
           "creationTimestamp": "2021-03-09T20:41:29.622532Z",
           "generation": 1,
-          "labels": {
+          "labels": Object {
             "cloud.googleapis.com/location": "us-central1",
           },
           "name": "example-cloud-run-service",
@@ -225,28 +225,28 @@ exports[`#createCloudRunServiceEntity should convert to entity 1`] = `
           "selfLink": "/apis/serving.knative.dev/v1/namespaces/711888229551/services/example-cloud-run-service",
           "uid": "fce2d165-9ccb-4b6c-9204-67362d41aadd",
         },
-        "spec": {
-          "template": {
-            "metadata": {
-              "annotations": {
+        "spec": Object {
+          "template": Object {
+            "metadata": Object {
+              "annotations": Object {
                 "autoscaling.knative.dev/maxScale": "100",
                 "run.googleapis.com/client-name": "cloud-console",
                 "run.googleapis.com/sandbox": "gvisor",
               },
               "name": "example-cloud-run-service-00001-mub",
             },
-            "spec": {
+            "spec": Object {
               "containerConcurrency": 80,
-              "containers": [
-                {
+              "containers": Array [
+                Object {
                   "image": "us-docker.pkg.dev/cloudrun/container/hello",
-                  "ports": [
-                    {
+                  "ports": Array [
+                    Object {
                       "containerPort": 8080,
                     },
                   ],
-                  "resources": {
-                    "limits": {
+                  "resources": Object {
+                    "limits": Object {
                       "cpu": "1000m",
                       "memory": "256Mi",
                     },
@@ -257,29 +257,29 @@ exports[`#createCloudRunServiceEntity should convert to entity 1`] = `
               "timeoutSeconds": 300,
             },
           },
-          "traffic": [
-            {
+          "traffic": Array [
+            Object {
               "latestRevision": true,
               "percent": 100,
             },
           ],
         },
-        "status": {
-          "address": {
+        "status": Object {
+          "address": Object {
             "url": "https://example-cloud-run-service-rhbpqun2qa-uc.a.run.app",
           },
-          "conditions": [
-            {
+          "conditions": Array [
+            Object {
               "lastTransitionTime": "2021-03-09T20:42:53.416791Z",
               "status": "True",
               "type": "Ready",
             },
-            {
+            Object {
               "lastTransitionTime": "2021-03-09T20:42:53.211458Z",
               "status": "True",
               "type": "ConfigurationsReady",
             },
-            {
+            Object {
               "lastTransitionTime": "2021-03-09T20:42:53.416791Z",
               "status": "True",
               "type": "RoutesReady",
@@ -288,8 +288,8 @@ exports[`#createCloudRunServiceEntity should convert to entity 1`] = `
           "latestCreatedRevisionName": "example-cloud-run-service-00001-mub",
           "latestReadyRevisionName": "example-cloud-run-service-00001-mub",
           "observedGeneration": 1,
-          "traffic": [
-            {
+          "traffic": Array [
+            Object {
               "latestRevision": true,
               "percent": 100,
               "revisionName": "example-cloud-run-service-00001-mub",
@@ -302,12 +302,12 @@ exports[`#createCloudRunServiceEntity should convert to entity 1`] = `
   ],
   "_type": "google_cloud_run_service",
   "active": undefined,
-  "category": [
+  "category": Array [
     "infrastructure",
   ],
   "createdOn": 1615322489622,
   "displayName": "example-cloud-run-service",
-  "function": [
+  "function": Array [
     "workload-management",
   ],
   "name": "example-cloud-run-service",

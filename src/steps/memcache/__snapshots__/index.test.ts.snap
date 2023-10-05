@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#buildMemcacheInstancesUsesNetworkRelationships should collect data 1`] = `
-{
-  "collectedEntities": [
-    {
+Object {
+  "collectedEntities": Array [
+    Object {
       "CIDR": null,
       "IPv4Range": undefined,
-      "_class": [
+      "_class": Array [
         "Network",
       ],
       "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/default",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "autoCreateSubnetworks": true,
             "creationTimestamp": "2021-05-31T09:21:40.121-07:00",
             "description": "Default network for the project",
@@ -21,8 +21,8 @@ exports[`#buildMemcacheInstancesUsesNetworkRelationships should collect data 1`]
             "kind": "compute#network",
             "name": "default",
             "networkFirewallPolicyEnforcementOrder": "AFTER_CLASSIC_FIREWALL",
-            "peerings": [
-              {
+            "peerings": Array [
+              Object {
                 "autoCreateRoutes": true,
                 "exchangeSubnetRoutes": true,
                 "exportCustomRoutes": false,
@@ -35,12 +35,12 @@ exports[`#buildMemcacheInstancesUsesNetworkRelationships should collect data 1`]
                 "stateDetails": "[2022-03-15T09:06:59.892-07:00]: Connected.",
               },
             ],
-            "routingConfig": {
+            "routingConfig": Object {
               "routingMode": "REGIONAL",
             },
             "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/default",
             "selfLinkWithId": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/3355945658528347131",
-            "subnetworks": [
+            "subnetworks": Array [
               "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/europe-north1/subnetworks/default",
               "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/europe-west4/subnetworks/default",
               "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-east1/subnetworks/default",
@@ -88,7 +88,7 @@ exports[`#buildMemcacheInstancesUsesNetworkRelationships should collect data 1`]
       "name": "default",
       "public": false,
       "routingMode": "REGIONAL",
-      "subnetworks": [
+      "subnetworks": Array [
         "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/europe-north1/subnetworks/default",
         "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/europe-west4/subnetworks/default",
         "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-east1/subnetworks/default",
@@ -124,25 +124,25 @@ exports[`#buildMemcacheInstancesUsesNetworkRelationships should collect data 1`]
       ],
       "webLink": "https://console.cloud.google.com/networking/networks/details/default?project=j1-gc-integration-dev-v3",
     },
-    {
+    Object {
       "CIDR": null,
       "IPv4Range": undefined,
-      "_class": [
+      "_class": Array [
         "Network",
       ],
       "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/public-compute-app-vpc",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "autoCreateSubnetworks": false,
             "creationTimestamp": "2021-05-31T09:25:43.742-07:00",
             "id": "7739872907028377832",
             "kind": "compute#network",
             "name": "public-compute-app-vpc",
             "networkFirewallPolicyEnforcementOrder": "AFTER_CLASSIC_FIREWALL",
-            "peerings": [
-              {
+            "peerings": Array [
+              Object {
                 "autoCreateRoutes": true,
                 "exchangeSubnetRoutes": true,
                 "exportCustomRoutes": false,
@@ -155,12 +155,12 @@ exports[`#buildMemcacheInstancesUsesNetworkRelationships should collect data 1`]
                 "stateDetails": "[2021-07-02T11:37:04.253-07:00]: Peer network tried to connect and failed.",
               },
             ],
-            "routingConfig": {
+            "routingConfig": Object {
               "routingMode": "GLOBAL",
             },
             "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/public-compute-app-vpc",
             "selfLinkWithId": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/7739872907028377832",
-            "subnetworks": [
+            "subnetworks": Array [
               "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/subnetworks/public-compute-app-public-subnet-1",
             ],
           },
@@ -177,34 +177,34 @@ exports[`#buildMemcacheInstancesUsesNetworkRelationships should collect data 1`]
       "name": "public-compute-app-vpc",
       "public": false,
       "routingMode": "GLOBAL",
-      "subnetworks": [
+      "subnetworks": Array [
         "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/subnetworks/public-compute-app-public-subnet-1",
       ],
       "webLink": "https://console.cloud.google.com/networking/networks/details/public-compute-app-vpc?project=j1-gc-integration-dev-v3",
     },
-    {
+    Object {
       "CIDR": null,
       "IPv4Range": undefined,
-      "_class": [
+      "_class": Array [
         "Network",
       ],
       "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/rbs-net",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "autoCreateSubnetworks": false,
             "creationTimestamp": "2021-08-06T10:57:35.628-07:00",
             "id": "850726367629723360",
             "kind": "compute#network",
             "name": "rbs-net",
             "networkFirewallPolicyEnforcementOrder": "AFTER_CLASSIC_FIREWALL",
-            "routingConfig": {
+            "routingConfig": Object {
               "routingMode": "REGIONAL",
             },
             "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/rbs-net",
             "selfLinkWithId": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/850726367629723360",
-            "subnetworks": [
+            "subnetworks": Array [
               "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/subnetworks/rbs-net-default",
             ],
           },
@@ -221,37 +221,37 @@ exports[`#buildMemcacheInstancesUsesNetworkRelationships should collect data 1`]
       "name": "rbs-net",
       "public": false,
       "routingMode": "REGIONAL",
-      "subnetworks": [
+      "subnetworks": Array [
         "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/subnetworks/rbs-net-default",
       ],
       "webLink": "https://console.cloud.google.com/networking/networks/details/rbs-net?project=j1-gc-integration-dev-v3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Database",
         "DataStore",
         "Cluster",
       ],
       "_key": "memcached:projects/j1-gc-integration-dev-v3/locations/us-central1/instances/memcached-instance-2",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "authorizedNetwork": "projects/j1-gc-integration-dev-v3/global/networks/default",
             "createTime": "2022-03-15T16:06:33.506758765Z",
             "discoveryEndpoint": "10.0.0.67:11211",
             "memcacheFullVersion": "memcached-1.5.16",
             "memcacheVersion": "MEMCACHE_1_5",
             "name": "projects/j1-gc-integration-dev-v3/locations/us-central1/instances/memcached-instance-2",
-            "nodeConfig": {
+            "nodeConfig": Object {
               "cpuCount": 1,
               "memorySizeMb": 5120,
             },
             "nodeCount": 1,
-            "parameters": {},
+            "parameters": Object {},
             "state": "READY",
             "updateTime": "2022-03-15T16:11:50.929963455Z",
-            "zones": [
+            "zones": Array [
               "us-central1-a",
               "us-central1-b",
               "us-central1-c",
@@ -277,20 +277,20 @@ exports[`#buildMemcacheInstancesUsesNetworkRelationships should collect data 1`]
       "updatedOn": 1647360710929,
       "webLink": "https://console.cloud.google.com/memorystore/memcached/locations/us-central1/instances/memcached-instance-2/details?project=j1-gc-integration-dev-v3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Database",
         "DataStore",
         "Host",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/locations/us-central1/instances/memcached-instance-2/node-c-1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "host": "10.0.0.68",
             "nodeId": "node-c-1",
-            "parameters": {},
+            "parameters": Object {},
             "port": 11211,
             "state": "READY",
             "zone": "us-central1-c",
@@ -310,32 +310,32 @@ exports[`#buildMemcacheInstancesUsesNetworkRelationships should collect data 1`]
       "webLink": "https://console.cloud.google.com/memorystore/memcached/locations/us-central1/instances/memcached-instance-2/details?project=j1-gc-integration-dev-v3",
       "zone": "us-central1-c",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Database",
         "DataStore",
         "Cluster",
       ],
       "_key": "memcached:projects/j1-gc-integration-dev-v3/locations/us-central1/instances/example-instance-id",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "authorizedNetwork": "projects/j1-gc-integration-dev-v3/global/networks/default",
             "createTime": "2022-03-15T16:01:32.122334322Z",
             "discoveryEndpoint": "10.0.0.3:11211",
             "memcacheFullVersion": "memcached-1.5.16",
             "memcacheVersion": "MEMCACHE_1_5",
             "name": "projects/j1-gc-integration-dev-v3/locations/us-central1/instances/example-instance-id",
-            "nodeConfig": {
+            "nodeConfig": Object {
               "cpuCount": 1,
               "memorySizeMb": 1024,
             },
             "nodeCount": 1,
-            "parameters": {},
+            "parameters": Object {},
             "state": "READY",
             "updateTime": "2022-03-15T16:06:45.191080532Z",
-            "zones": [
+            "zones": Array [
               "us-central1-a",
               "us-central1-b",
               "us-central1-c",
@@ -361,20 +361,20 @@ exports[`#buildMemcacheInstancesUsesNetworkRelationships should collect data 1`]
       "updatedOn": 1647360405191,
       "webLink": "https://console.cloud.google.com/memorystore/memcached/locations/us-central1/instances/example-instance-id/details?project=j1-gc-integration-dev-v3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Database",
         "DataStore",
         "Host",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/locations/us-central1/instances/example-instance-id/node-c-1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "host": "10.0.0.4",
             "nodeId": "node-c-1",
-            "parameters": {},
+            "parameters": Object {},
             "port": 11211,
             "state": "READY",
             "zone": "us-central1-c",
@@ -395,8 +395,8 @@ exports[`#buildMemcacheInstancesUsesNetworkRelationships should collect data 1`]
       "zone": "us-central1-c",
     },
   ],
-  "collectedRelationships": [
-    {
+  "collectedRelationships": Array [
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "memcached:projects/j1-gc-integration-dev-v3/locations/us-central1/instances/memcached-instance-2",
       "_key": "memcached:projects/j1-gc-integration-dev-v3/locations/us-central1/instances/memcached-instance-2|has|projects/j1-gc-integration-dev-v3/locations/us-central1/instances/memcached-instance-2/node-c-1",
@@ -404,7 +404,7 @@ exports[`#buildMemcacheInstancesUsesNetworkRelationships should collect data 1`]
       "_type": "google_memcache_instance_has_node",
       "displayName": "HAS",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "memcached:projects/j1-gc-integration-dev-v3/locations/us-central1/instances/example-instance-id",
       "_key": "memcached:projects/j1-gc-integration-dev-v3/locations/us-central1/instances/example-instance-id|has|projects/j1-gc-integration-dev-v3/locations/us-central1/instances/example-instance-id/node-c-1",
@@ -412,7 +412,7 @@ exports[`#buildMemcacheInstancesUsesNetworkRelationships should collect data 1`]
       "_type": "google_memcache_instance_has_node",
       "displayName": "HAS",
     },
-    {
+    Object {
       "_class": "USES",
       "_fromEntityKey": "memcached:projects/j1-gc-integration-dev-v3/locations/us-central1/instances/memcached-instance-2",
       "_key": "memcached:projects/j1-gc-integration-dev-v3/locations/us-central1/instances/memcached-instance-2|uses|https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/default",
@@ -420,7 +420,7 @@ exports[`#buildMemcacheInstancesUsesNetworkRelationships should collect data 1`]
       "_type": "google_memcache_instance_uses_compute_network",
       "displayName": "USES",
     },
-    {
+    Object {
       "_class": "USES",
       "_fromEntityKey": "memcached:projects/j1-gc-integration-dev-v3/locations/us-central1/instances/example-instance-id",
       "_key": "memcached:projects/j1-gc-integration-dev-v3/locations/us-central1/instances/example-instance-id|uses|https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/default",
@@ -429,7 +429,7 @@ exports[`#buildMemcacheInstancesUsesNetworkRelationships should collect data 1`]
       "displayName": "USES",
     },
   ],
-  "encounteredTypes": [
+  "encounteredTypes": Array [
     "google_compute_network",
     "google_memcache_instance",
     "google_memcache_instance_node",
@@ -442,34 +442,34 @@ exports[`#buildMemcacheInstancesUsesNetworkRelationships should collect data 1`]
 `;
 
 exports[`#fetchMemcacheInstances should collect data 1`] = `
-{
-  "collectedEntities": [
-    {
-      "_class": [
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
         "Database",
         "DataStore",
         "Cluster",
       ],
       "_key": "memcached:projects/j1-gc-integration-dev-v3/locations/us-central1/instances/memcached-instance-2",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "authorizedNetwork": "projects/j1-gc-integration-dev-v3/global/networks/default",
             "createTime": "2022-03-15T16:06:33.506758765Z",
             "discoveryEndpoint": "10.0.0.67:11211",
             "memcacheFullVersion": "memcached-1.5.16",
             "memcacheVersion": "MEMCACHE_1_5",
             "name": "projects/j1-gc-integration-dev-v3/locations/us-central1/instances/memcached-instance-2",
-            "nodeConfig": {
+            "nodeConfig": Object {
               "cpuCount": 1,
               "memorySizeMb": 5120,
             },
             "nodeCount": 1,
-            "parameters": {},
+            "parameters": Object {},
             "state": "READY",
             "updateTime": "2022-03-15T16:11:50.929963455Z",
-            "zones": [
+            "zones": Array [
               "us-central1-a",
               "us-central1-b",
               "us-central1-c",
@@ -495,20 +495,20 @@ exports[`#fetchMemcacheInstances should collect data 1`] = `
       "updatedOn": 1647360710929,
       "webLink": "https://console.cloud.google.com/memorystore/memcached/locations/us-central1/instances/memcached-instance-2/details?project=j1-gc-integration-dev-v3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Database",
         "DataStore",
         "Host",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/locations/us-central1/instances/memcached-instance-2/node-c-1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "host": "10.0.0.68",
             "nodeId": "node-c-1",
-            "parameters": {},
+            "parameters": Object {},
             "port": 11211,
             "state": "READY",
             "zone": "us-central1-c",
@@ -528,32 +528,32 @@ exports[`#fetchMemcacheInstances should collect data 1`] = `
       "webLink": "https://console.cloud.google.com/memorystore/memcached/locations/us-central1/instances/memcached-instance-2/details?project=j1-gc-integration-dev-v3",
       "zone": "us-central1-c",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Database",
         "DataStore",
         "Cluster",
       ],
       "_key": "memcached:projects/j1-gc-integration-dev-v3/locations/us-central1/instances/example-instance-id",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "authorizedNetwork": "projects/j1-gc-integration-dev-v3/global/networks/default",
             "createTime": "2022-03-15T16:01:32.122334322Z",
             "discoveryEndpoint": "10.0.0.3:11211",
             "memcacheFullVersion": "memcached-1.5.16",
             "memcacheVersion": "MEMCACHE_1_5",
             "name": "projects/j1-gc-integration-dev-v3/locations/us-central1/instances/example-instance-id",
-            "nodeConfig": {
+            "nodeConfig": Object {
               "cpuCount": 1,
               "memorySizeMb": 1024,
             },
             "nodeCount": 1,
-            "parameters": {},
+            "parameters": Object {},
             "state": "READY",
             "updateTime": "2022-03-15T16:06:45.191080532Z",
-            "zones": [
+            "zones": Array [
               "us-central1-a",
               "us-central1-b",
               "us-central1-c",
@@ -579,20 +579,20 @@ exports[`#fetchMemcacheInstances should collect data 1`] = `
       "updatedOn": 1647360405191,
       "webLink": "https://console.cloud.google.com/memorystore/memcached/locations/us-central1/instances/example-instance-id/details?project=j1-gc-integration-dev-v3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Database",
         "DataStore",
         "Host",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/locations/us-central1/instances/example-instance-id/node-c-1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "host": "10.0.0.4",
             "nodeId": "node-c-1",
-            "parameters": {},
+            "parameters": Object {},
             "port": 11211,
             "state": "READY",
             "zone": "us-central1-c",
@@ -613,8 +613,8 @@ exports[`#fetchMemcacheInstances should collect data 1`] = `
       "zone": "us-central1-c",
     },
   ],
-  "collectedRelationships": [
-    {
+  "collectedRelationships": Array [
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "memcached:projects/j1-gc-integration-dev-v3/locations/us-central1/instances/memcached-instance-2",
       "_key": "memcached:projects/j1-gc-integration-dev-v3/locations/us-central1/instances/memcached-instance-2|has|projects/j1-gc-integration-dev-v3/locations/us-central1/instances/memcached-instance-2/node-c-1",
@@ -622,7 +622,7 @@ exports[`#fetchMemcacheInstances should collect data 1`] = `
       "_type": "google_memcache_instance_has_node",
       "displayName": "HAS",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "memcached:projects/j1-gc-integration-dev-v3/locations/us-central1/instances/example-instance-id",
       "_key": "memcached:projects/j1-gc-integration-dev-v3/locations/us-central1/instances/example-instance-id|has|projects/j1-gc-integration-dev-v3/locations/us-central1/instances/example-instance-id/node-c-1",
@@ -631,7 +631,7 @@ exports[`#fetchMemcacheInstances should collect data 1`] = `
       "displayName": "HAS",
     },
   ],
-  "encounteredTypes": [
+  "encounteredTypes": Array [
     "google_memcache_instance",
     "google_memcache_instance_node",
     "google_memcache_instance_has_node",

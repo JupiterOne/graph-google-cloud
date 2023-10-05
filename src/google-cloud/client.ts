@@ -1,7 +1,9 @@
 import {
   IntegrationError,
+  IntegrationLogger,
   IntegrationProviderAPIError,
   IntegrationProviderAuthorizationError,
+  IntegrationWarnEventName,
 } from '@jupiterone/integration-sdk-core';
 import { retry } from '@lifeomic/attempt';
 import { GaxiosError, GaxiosResponse } from 'gaxios';
@@ -44,12 +46,16 @@ export class Client {
   readonly projectId: string;
   readonly organizationId?: string;
   readonly folderId?: string;
+  readonly logger: IntegrationLogger;
 
   private credentials: CredentialBody;
   private auth: BaseExternalAccountClient;
   private readonly onRetry?: (err: any) => void;
 
-  constructor({ config, projectId, organizationId, onRetry }: ClientOptions) {
+  constructor(
+    { config, projectId, organizationId, onRetry }: ClientOptions,
+    logger: IntegrationLogger,
+  ) {
     this.projectId =
       projectId ||
       config.projectId ||
@@ -61,6 +67,7 @@ export class Client {
     };
     this.folderId = config.folderId;
     this.onRetry = onRetry;
+    this.logger = logger;
   }
 
   private async getClient(): Promise<BaseExternalAccountClient> {
@@ -91,19 +98,39 @@ export class Client {
     callback: (data: T) => Promise<void>,
   ) {
     return this.forEachPage(async (nextPageToken) => {
-      const result = await this.withErrorHandling(() => fn(nextPageToken));
-      await callback(result.data);
+      try {
+        const result = await this.withErrorHandling(() => fn(nextPageToken));
+        await callback(result.data);
 
-      return result;
+        return result;
+      } catch (err) {
+        if (err.status === 403) {
+          this.logger.warn(
+            { err },
+            `Step failed due to missing permission. Requires additional permission`,
+          );
+
+          this.logger.publishWarnEvent({
+            name: IntegrationWarnEventName.MissingPermission,
+            description: `Received authorization error when attempting to call ${err.endpoint}. Please review permissions in the integration documentation.`,
+          });
+          return;
+        }
+
+        throw err;
+      }
     });
   }
 
   async forEachPage<T>(
-    cb: (nextToken: string | undefined) => Promise<PageableGaxiosResponse<T>>,
+    cb: (
+      nextToken: string | undefined,
+    ) => Promise<PageableGaxiosResponse<T> | undefined>,
   ): Promise<any> {
     let nextToken: string | undefined;
     do {
       const response = await cb(nextToken);
+      if (!response) return;
       nextToken = response.data.nextPageToken
         ? response.data.nextPageToken
         : undefined;
@@ -151,7 +178,7 @@ export class Client {
 /**
  * Codes unknown error into JupiterOne errors
  */
-function handleApiClientError(error: GaxiosError) {
+export function handleApiClientError(error: GaxiosError) {
   // If the error was already handled, forward it on
   if (error instanceof IntegrationError) {
     return error;

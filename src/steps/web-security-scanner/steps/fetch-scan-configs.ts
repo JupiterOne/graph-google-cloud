@@ -15,8 +15,9 @@ async function fetchScanConfigs(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
-  const client = new WebSecurityScannerClient({ config });
+  const client = new WebSecurityScannerClient({ config }, logger);
 
   await client.iterateScanConfigs(async (data) => {
     await jobState.addEntity(createScanConfigEntity(data));

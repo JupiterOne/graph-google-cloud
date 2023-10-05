@@ -1,24 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#buildAppEngineApplicationUsesBucketRelationships should collect data 1`] = `
-{
-  "collectedEntities": [
-    {
-      "_class": [
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
         "DataStore",
       ],
       "_key": "bucket:dataproc-staging-europe-north1-167984947943-oqqo30p7",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "etag": "CAE=",
-            "iamConfiguration": {
-              "bucketPolicyOnly": {
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
                 "enabled": false,
               },
               "publicAccessPrevention": "inherited",
-              "uniformBucketLevelAccess": {
+              "uniformBucketLevelAccess": Object {
                 "enabled": false,
               },
             },
@@ -58,22 +58,22 @@ exports[`#buildAppEngineApplicationUsesBucketRelationships should collect data 1
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/dataproc-staging-europe-north1-167984947943-oqqo30p7;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "DataStore",
       ],
       "_key": "bucket:dataproc-staging-us-central1-167984947943-okmnuod7",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "etag": "CAc=",
-            "iamConfiguration": {
-              "bucketPolicyOnly": {
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
                 "enabled": false,
               },
               "publicAccessPrevention": "inherited",
-              "uniformBucketLevelAccess": {
+              "uniformBucketLevelAccess": Object {
                 "enabled": false,
               },
             },
@@ -113,34 +113,34 @@ exports[`#buildAppEngineApplicationUsesBucketRelationships should collect data 1
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/dataproc-staging-us-central1-167984947943-okmnuod7;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "DataStore",
       ],
       "_key": "bucket:dataproc-temp-europe-north1-167984947943-0quq0oz0",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "etag": "CAE=",
-            "iamConfiguration": {
-              "bucketPolicyOnly": {
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
                 "enabled": false,
               },
               "publicAccessPrevention": "inherited",
-              "uniformBucketLevelAccess": {
+              "uniformBucketLevelAccess": Object {
                 "enabled": false,
               },
             },
             "id": "dataproc-temp-europe-north1-167984947943-0quq0oz0",
             "kind": "storage#bucket",
-            "lifecycle": {
-              "rule": [
-                {
-                  "action": {
+            "lifecycle": Object {
+              "rule": Array [
+                Object {
+                  "action": Object {
                     "type": "Delete",
                   },
-                  "condition": {
+                  "condition": Object {
                     "age": 90,
                   },
                 },
@@ -180,34 +180,34 @@ exports[`#buildAppEngineApplicationUsesBucketRelationships should collect data 1
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/dataproc-temp-europe-north1-167984947943-0quq0oz0;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "DataStore",
       ],
       "_key": "bucket:dataproc-temp-us-central1-167984947943-c8nlqeyo",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "etag": "CAE=",
-            "iamConfiguration": {
-              "bucketPolicyOnly": {
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
                 "enabled": false,
               },
               "publicAccessPrevention": "inherited",
-              "uniformBucketLevelAccess": {
+              "uniformBucketLevelAccess": Object {
                 "enabled": false,
               },
             },
             "id": "dataproc-temp-us-central1-167984947943-c8nlqeyo",
             "kind": "storage#bucket",
-            "lifecycle": {
-              "rule": [
-                {
-                  "action": {
+            "lifecycle": Object {
+              "rule": Array [
+                Object {
+                  "action": Object {
                     "type": "Delete",
                   },
-                  "condition": {
+                  "condition": Object {
                     "age": 90,
                   },
                 },
@@ -247,21 +247,21 @@ exports[`#buildAppEngineApplicationUsesBucketRelationships should collect data 1
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/dataproc-temp-us-central1-167984947943-c8nlqeyo;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "DataStore",
       ],
       "_key": "bucket:gcf-sources-167984947943-us-central1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
-            "cors": [
-              {
-                "method": [
+          "rawData": Object {
+            "cors": Array [
+              Object {
+                "method": Array [
                   "GET",
                 ],
-                "origin": [
+                "origin": Array [
                   "https://*.cloud.google.com",
                   "https://*.corp.google.com",
                   "https://*.corp.google.com:*",
@@ -269,13 +269,13 @@ exports[`#buildAppEngineApplicationUsesBucketRelationships should collect data 1
               },
             ],
             "etag": "CAE=",
-            "iamConfiguration": {
-              "bucketPolicyOnly": {
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
                 "enabled": true,
                 "lockedTime": "2021-08-29T16:26:23.272Z",
               },
               "publicAccessPrevention": "inherited",
-              "uniformBucketLevelAccess": {
+              "uniformBucketLevelAccess": Object {
                 "enabled": true,
                 "lockedTime": "2021-08-29T16:26:23.272Z",
               },
@@ -316,22 +316,22 @@ exports[`#buildAppEngineApplicationUsesBucketRelationships should collect data 1
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/gcf-sources-167984947943-us-central1;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "DataStore",
       ],
       "_key": "bucket:j1-gc-integration-dev-v3-sink-logging-bucket",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "etag": "CAE=",
-            "iamConfiguration": {
-              "bucketPolicyOnly": {
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
                 "enabled": false,
               },
               "publicAccessPrevention": "inherited",
-              "uniformBucketLevelAccess": {
+              "uniformBucketLevelAccess": Object {
                 "enabled": false,
               },
             },
@@ -372,23 +372,23 @@ exports[`#buildAppEngineApplicationUsesBucketRelationships should collect data 1
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/j1-gc-integration-dev-v3-sink-logging-bucket;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "DataStore",
       ],
       "_key": "bucket:j1-gc-integration-dev-v3-super-secret-stuff",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "defaultEventBasedHold": false,
             "etag": "CAw=",
-            "iamConfiguration": {
-              "bucketPolicyOnly": {
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
                 "enabled": false,
               },
               "publicAccessPrevention": "inherited",
-              "uniformBucketLevelAccess": {
+              "uniformBucketLevelAccess": Object {
                 "enabled": false,
               },
             },
@@ -430,22 +430,22 @@ exports[`#buildAppEngineApplicationUsesBucketRelationships should collect data 1
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/j1-gc-integration-dev-v3-super-secret-stuff;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "DataStore",
       ],
       "_key": "bucket:j1-gc-integration-dev-v3-test-tf-bucket",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "etag": "CAI=",
-            "iamConfiguration": {
-              "bucketPolicyOnly": {
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
                 "enabled": false,
               },
               "publicAccessPrevention": "enforced",
-              "uniformBucketLevelAccess": {
+              "uniformBucketLevelAccess": Object {
                 "enabled": false,
               },
             },
@@ -486,22 +486,22 @@ exports[`#buildAppEngineApplicationUsesBucketRelationships should collect data 1
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/j1-gc-integration-dev-v3-test-tf-bucket;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "DataStore",
       ],
       "_key": "bucket:j1-gc-integration-dev-v3.appspot.com",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "etag": "CAE=",
-            "iamConfiguration": {
-              "bucketPolicyOnly": {
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
                 "enabled": false,
               },
               "publicAccessPrevention": "inherited",
-              "uniformBucketLevelAccess": {
+              "uniformBucketLevelAccess": Object {
                 "enabled": false,
               },
             },
@@ -542,22 +542,22 @@ exports[`#buildAppEngineApplicationUsesBucketRelationships should collect data 1
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/j1-gc-integration-dev-v3.appspot.com;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "DataStore",
       ],
       "_key": "bucket:j1-gc-integration-dev-v3cloudfunctions",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "etag": "CAU=",
-            "iamConfiguration": {
-              "bucketPolicyOnly": {
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
                 "enabled": false,
               },
               "publicAccessPrevention": "inherited",
-              "uniformBucketLevelAccess": {
+              "uniformBucketLevelAccess": Object {
                 "enabled": false,
               },
             },
@@ -598,34 +598,34 @@ exports[`#buildAppEngineApplicationUsesBucketRelationships should collect data 1
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/j1-gc-integration-dev-v3cloudfunctions;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "DataStore",
       ],
       "_key": "bucket:staging.j1-gc-integration-dev-v3.appspot.com",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "etag": "CAE=",
-            "iamConfiguration": {
-              "bucketPolicyOnly": {
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
                 "enabled": false,
               },
               "publicAccessPrevention": "inherited",
-              "uniformBucketLevelAccess": {
+              "uniformBucketLevelAccess": Object {
                 "enabled": false,
               },
             },
             "id": "staging.j1-gc-integration-dev-v3.appspot.com",
             "kind": "storage#bucket",
-            "lifecycle": {
-              "rule": [
-                {
-                  "action": {
+            "lifecycle": Object {
+              "rule": Array [
+                Object {
+                  "action": Object {
                     "type": "Delete",
                   },
-                  "condition": {
+                  "condition": Object {
                     "age": 15,
                   },
                 },
@@ -666,22 +666,22 @@ exports[`#buildAppEngineApplicationUsesBucketRelationships should collect data 1
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/staging.j1-gc-integration-dev-v3.appspot.com;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "DataStore",
       ],
       "_key": "bucket:us.artifacts.j1-gc-integration-dev-v3.appspot.com",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "etag": "CAE=",
-            "iamConfiguration": {
-              "bucketPolicyOnly": {
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
                 "enabled": false,
               },
               "publicAccessPrevention": "inherited",
-              "uniformBucketLevelAccess": {
+              "uniformBucketLevelAccess": Object {
                 "enabled": false,
               },
             },
@@ -722,21 +722,21 @@ exports[`#buildAppEngineApplicationUsesBucketRelationships should collect data 1
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/us.artifacts.j1-gc-integration-dev-v3.appspot.com;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Application",
       ],
       "_key": "apps/j1-gc-integration-dev-v3",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "authDomain": "gmail.com",
             "codeBucket": "staging.j1-gc-integration-dev-v3.appspot.com",
             "databaseType": "CLOUD_DATASTORE_COMPATIBILITY",
             "defaultBucket": "j1-gc-integration-dev-v3.appspot.com",
             "defaultHostname": "j1-gc-integration-dev-v3.uc.r.appspot.com",
-            "featureSettings": {
+            "featureSettings": Object {
               "splitHealthChecks": true,
               "useContainerOptimizedOs": true,
             },
@@ -766,8 +766,8 @@ exports[`#buildAppEngineApplicationUsesBucketRelationships should collect data 1
       "webLink": "https://console.cloud.google.com/appengine?project=j1-gc-integration-dev-v3",
     },
   ],
-  "collectedRelationships": [
-    {
+  "collectedRelationships": Array [
+    Object {
       "_class": "USES",
       "_fromEntityKey": "apps/j1-gc-integration-dev-v3",
       "_key": "apps/j1-gc-integration-dev-v3|uses|bucket:j1-gc-integration-dev-v3.appspot.com",
@@ -775,7 +775,7 @@ exports[`#buildAppEngineApplicationUsesBucketRelationships should collect data 1
       "_type": "google_app_engine_application_uses_storage_bucket",
       "displayName": "USES",
     },
-    {
+    Object {
       "_class": "USES",
       "_fromEntityKey": "apps/j1-gc-integration-dev-v3",
       "_key": "apps/j1-gc-integration-dev-v3|uses|bucket:staging.j1-gc-integration-dev-v3.appspot.com",
@@ -784,7 +784,7 @@ exports[`#buildAppEngineApplicationUsesBucketRelationships should collect data 1
       "displayName": "USES",
     },
   ],
-  "encounteredTypes": [
+  "encounteredTypes": Array [
     "google_storage_bucket",
     "google_app_engine_application",
     "google_app_engine_application_uses_storage_bucket",
@@ -795,23 +795,23 @@ exports[`#buildAppEngineApplicationUsesBucketRelationships should collect data 1
 `;
 
 exports[`#fetchAppEngineApplication should collect data 1`] = `
-{
-  "collectedEntities": [
-    {
-      "_class": [
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
         "Application",
       ],
       "_key": "apps/j1-gc-integration-dev-v3",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "authDomain": "gmail.com",
             "codeBucket": "staging.j1-gc-integration-dev-v3.appspot.com",
             "databaseType": "CLOUD_DATASTORE_COMPATIBILITY",
             "defaultBucket": "j1-gc-integration-dev-v3.appspot.com",
             "defaultHostname": "j1-gc-integration-dev-v3.uc.r.appspot.com",
-            "featureSettings": {
+            "featureSettings": Object {
               "splitHealthChecks": true,
               "useContainerOptimizedOs": true,
             },
@@ -841,8 +841,8 @@ exports[`#fetchAppEngineApplication should collect data 1`] = `
       "webLink": "https://console.cloud.google.com/appengine?project=j1-gc-integration-dev-v3",
     },
   ],
-  "collectedRelationships": [],
-  "encounteredTypes": [
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
     "google_app_engine_application",
   ],
   "numCollectedEntities": 1,
@@ -851,23 +851,23 @@ exports[`#fetchAppEngineApplication should collect data 1`] = `
 `;
 
 exports[`#fetchAppEngineInstances should collect data 1`] = `
-{
-  "collectedEntities": [
-    {
-      "_class": [
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
         "Application",
       ],
       "_key": "apps/j1-gc-integration-dev-v2",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "authDomain": "gmail.com",
             "codeBucket": "staging.j1-gc-integration-dev-v2.appspot.com",
             "databaseType": "CLOUD_FIRESTORE",
             "defaultBucket": "j1-gc-integration-dev-v2.appspot.com",
             "defaultHostname": "j1-gc-integration-dev-v2.uc.r.appspot.com",
-            "featureSettings": {
+            "featureSettings": Object {
               "splitHealthChecks": true,
               "useContainerOptimizedOs": true,
             },
@@ -895,19 +895,19 @@ exports[`#fetchAppEngineInstances should collect data 1`] = `
       "useContainerOptimizedOs": true,
       "webLink": "https://console.cloud.google.com/appengine?project=j1-gc-integration-dev-v2",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Container",
       ],
       "_key": "apps/j1-gc-integration-dev-v2/services/default",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "id": "default",
             "name": "apps/j1-gc-integration-dev-v2/services/default",
-            "split": {
-              "allocations": {
+            "split": Object {
+              "allocations": Object {
                 "20210319t163820": 1,
               },
             },
@@ -920,15 +920,15 @@ exports[`#fetchAppEngineInstances should collect data 1`] = `
       "id": "default",
       "name": "apps/j1-gc-integration-dev-v2/services/default",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Service",
       ],
       "_key": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "createTime": "2021-03-09T14:11:25Z",
             "createdBy": "viragsf@gmail.com",
             "diskUsageBytes": "4027054",
@@ -936,7 +936,7 @@ exports[`#fetchAppEngineInstances should collect data 1`] = `
             "id": "20210309t141022",
             "instanceClass": "F1",
             "name": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022",
-            "network": {},
+            "network": Object {},
             "runtime": "nodejs14",
             "runtimeChannel": "default",
             "servingStatus": "SERVING",
@@ -946,7 +946,7 @@ exports[`#fetchAppEngineInstances should collect data 1`] = `
         },
       ],
       "_type": "google_app_engine_version",
-      "category": [
+      "category": Array [
         "application",
       ],
       "cpuCount": undefined,
@@ -956,7 +956,7 @@ exports[`#fetchAppEngineInstances should collect data 1`] = `
       "diskUsageBytes": 4027054,
       "displayName": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022",
       "env": "standard",
-      "function": [
+      "function": Array [
         "workload-management",
       ],
       "id": "20210309t141022",
@@ -980,16 +980,16 @@ exports[`#fetchAppEngineInstances should collect data 1`] = `
       "versionUrl": "https://20210309t141022-dot-j1-gc-integration-dev-v2.appspot.com",
       "webLink": "https://console.cloud.google.com/appengine/versions?serviceId=default&project=j1-gc-integration-dev-v2",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Service",
       ],
       "_key": "apps/j1-gc-integration-dev-v2/services/default/versions/20210319t163820",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
-            "betaSettings": {
+          "rawData": Object {
+            "betaSettings": Object {
               "has_docker_image": "true",
               "module_yaml_path": "app.yaml",
               "no_appserver_affinity": "true",
@@ -999,26 +999,26 @@ exports[`#fetchAppEngineInstances should collect data 1`] = `
             "createdBy": "viragsf@gmail.com",
             "env": "flexible",
             "id": "20210319t163820",
-            "livenessCheck": {
+            "livenessCheck": Object {
               "checkInterval": "30s",
               "failureThreshold": 4,
               "initialDelay": "300s",
               "successThreshold": 2,
               "timeout": "4s",
             },
-            "manualScaling": {
+            "manualScaling": Object {
               "instances": 1,
             },
             "name": "apps/j1-gc-integration-dev-v2/services/default/versions/20210319t163820",
-            "network": {},
-            "readinessCheck": {
+            "network": Object {},
+            "readinessCheck": Object {
               "appStartTimeout": "300s",
               "checkInterval": "5s",
               "failureThreshold": 2,
               "successThreshold": 2,
               "timeout": "4s",
             },
-            "resources": {
+            "resources": Object {
               "cpu": 1,
               "diskGb": 10,
               "memoryGb": 0.5,
@@ -1032,7 +1032,7 @@ exports[`#fetchAppEngineInstances should collect data 1`] = `
         },
       ],
       "_type": "google_app_engine_version",
-      "category": [
+      "category": Array [
         "application",
       ],
       "cpuCount": 1,
@@ -1042,7 +1042,7 @@ exports[`#fetchAppEngineInstances should collect data 1`] = `
       "diskUsageBytes": undefined,
       "displayName": "apps/j1-gc-integration-dev-v2/services/default/versions/20210319t163820",
       "env": "flexible",
-      "function": [
+      "function": Array [
         "workload-management",
       ],
       "id": "20210319t163820",
@@ -1066,15 +1066,15 @@ exports[`#fetchAppEngineInstances should collect data 1`] = `
       "versionUrl": "https://20210319t163820-dot-j1-gc-integration-dev-v2.appspot.com",
       "webLink": "https://console.cloud.google.com/appengine/versions?serviceId=default&project=j1-gc-integration-dev-v2",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Host",
       ],
       "_key": "apps/j1-gc-integration-dev-v2/services/default/versions/20210319t163820/instances/aef-default-20210319t163820-mlt8",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "id": "aef-default-20210319t163820-mlt8",
             "name": "apps/j1-gc-integration-dev-v2/services/default/versions/20210319t163820/instances/aef-default-20210319t163820-mlt8",
             "startTime": "2021-03-26T17:53:40.236Z",
@@ -1100,8 +1100,8 @@ exports[`#fetchAppEngineInstances should collect data 1`] = `
       "vmStatus": "RUNNING",
     },
   ],
-  "collectedRelationships": [
-    {
+  "collectedRelationships": Array [
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "apps/j1-gc-integration-dev-v2",
       "_key": "apps/j1-gc-integration-dev-v2|has|apps/j1-gc-integration-dev-v2/services/default",
@@ -1109,7 +1109,7 @@ exports[`#fetchAppEngineInstances should collect data 1`] = `
       "_type": "google_app_engine_application_has_service",
       "displayName": "HAS",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "apps/j1-gc-integration-dev-v2/services/default",
       "_key": "apps/j1-gc-integration-dev-v2/services/default|has|apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022",
@@ -1117,19 +1117,19 @@ exports[`#fetchAppEngineInstances should collect data 1`] = `
       "_type": "google_app_engine_service_has_version",
       "displayName": "HAS",
     },
-    {
+    Object {
       "_class": "CREATED",
       "_key": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022|created|REVERSE:_type=google_user:email=viragsf@gmail.com",
-      "_mapping": {
+      "_mapping": Object {
         "relationshipDirection": "REVERSE",
         "sourceEntityKey": "apps/j1-gc-integration-dev-v2/services/default/versions/20210309t141022",
-        "targetEntity": {
+        "targetEntity": Object {
           "_type": "google_user",
           "email": "viragsf@gmail.com",
           "username": "viragsf@gmail.com",
         },
-        "targetFilterKeys": [
-          [
+        "targetFilterKeys": Array [
+          Array [
             "_type",
             "email",
           ],
@@ -1138,7 +1138,7 @@ exports[`#fetchAppEngineInstances should collect data 1`] = `
       "_type": "mapping_source_created_google_user",
       "displayName": "CREATED",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "apps/j1-gc-integration-dev-v2/services/default",
       "_key": "apps/j1-gc-integration-dev-v2/services/default|has|apps/j1-gc-integration-dev-v2/services/default/versions/20210319t163820",
@@ -1146,19 +1146,19 @@ exports[`#fetchAppEngineInstances should collect data 1`] = `
       "_type": "google_app_engine_service_has_version",
       "displayName": "HAS",
     },
-    {
+    Object {
       "_class": "CREATED",
       "_key": "apps/j1-gc-integration-dev-v2/services/default/versions/20210319t163820|created|REVERSE:_type=google_user:email=viragsf@gmail.com",
-      "_mapping": {
+      "_mapping": Object {
         "relationshipDirection": "REVERSE",
         "sourceEntityKey": "apps/j1-gc-integration-dev-v2/services/default/versions/20210319t163820",
-        "targetEntity": {
+        "targetEntity": Object {
           "_type": "google_user",
           "email": "viragsf@gmail.com",
           "username": "viragsf@gmail.com",
         },
-        "targetFilterKeys": [
-          [
+        "targetFilterKeys": Array [
+          Array [
             "_type",
             "email",
           ],
@@ -1167,7 +1167,7 @@ exports[`#fetchAppEngineInstances should collect data 1`] = `
       "_type": "mapping_source_created_google_user",
       "displayName": "CREATED",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "apps/j1-gc-integration-dev-v2/services/default/versions/20210319t163820",
       "_key": "apps/j1-gc-integration-dev-v2/services/default/versions/20210319t163820|has|apps/j1-gc-integration-dev-v2/services/default/versions/20210319t163820/instances/aef-default-20210319t163820-mlt8",
@@ -1176,7 +1176,7 @@ exports[`#fetchAppEngineInstances should collect data 1`] = `
       "displayName": "HAS",
     },
   ],
-  "encounteredTypes": [
+  "encounteredTypes": Array [
     "google_app_engine_application",
     "google_app_engine_service",
     "google_app_engine_application_has_service",
@@ -1192,23 +1192,23 @@ exports[`#fetchAppEngineInstances should collect data 1`] = `
 `;
 
 exports[`#fetchAppEngineServices should collect data 1`] = `
-{
-  "collectedEntities": [
-    {
-      "_class": [
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
         "Application",
       ],
       "_key": "apps/j1-gc-integration-dev-v2",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "authDomain": "gmail.com",
             "codeBucket": "staging.j1-gc-integration-dev-v2.appspot.com",
             "databaseType": "CLOUD_FIRESTORE",
             "defaultBucket": "j1-gc-integration-dev-v2.appspot.com",
             "defaultHostname": "j1-gc-integration-dev-v2.uc.r.appspot.com",
-            "featureSettings": {
+            "featureSettings": Object {
               "splitHealthChecks": true,
               "useContainerOptimizedOs": true,
             },
@@ -1236,19 +1236,19 @@ exports[`#fetchAppEngineServices should collect data 1`] = `
       "useContainerOptimizedOs": true,
       "webLink": "https://console.cloud.google.com/appengine?project=j1-gc-integration-dev-v2",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Container",
       ],
       "_key": "apps/j1-gc-integration-dev-v2/services/default",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "id": "default",
             "name": "apps/j1-gc-integration-dev-v2/services/default",
-            "split": {
-              "allocations": {
+            "split": Object {
+              "allocations": Object {
                 "20210319t163820": 1,
               },
             },
@@ -1262,8 +1262,8 @@ exports[`#fetchAppEngineServices should collect data 1`] = `
       "name": "apps/j1-gc-integration-dev-v2/services/default",
     },
   ],
-  "collectedRelationships": [
-    {
+  "collectedRelationships": Array [
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "apps/j1-gc-integration-dev-v2",
       "_key": "apps/j1-gc-integration-dev-v2|has|apps/j1-gc-integration-dev-v2/services/default",
@@ -1272,7 +1272,7 @@ exports[`#fetchAppEngineServices should collect data 1`] = `
       "displayName": "HAS",
     },
   ],
-  "encounteredTypes": [
+  "encounteredTypes": Array [
     "google_app_engine_application",
     "google_app_engine_service",
     "google_app_engine_application_has_service",
@@ -1283,24 +1283,24 @@ exports[`#fetchAppEngineServices should collect data 1`] = `
 `;
 
 exports[`#fetchAppEngineVersions should collect data 1`] = `
-{
-  "collectedEntities": [
-    {
-      "_class": [
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
         "DataStore",
       ],
       "_key": "bucket:dataproc-staging-europe-north1-167984947943-oqqo30p7",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "etag": "CAE=",
-            "iamConfiguration": {
-              "bucketPolicyOnly": {
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
                 "enabled": false,
               },
               "publicAccessPrevention": "inherited",
-              "uniformBucketLevelAccess": {
+              "uniformBucketLevelAccess": Object {
                 "enabled": false,
               },
             },
@@ -1340,22 +1340,22 @@ exports[`#fetchAppEngineVersions should collect data 1`] = `
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/dataproc-staging-europe-north1-167984947943-oqqo30p7;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "DataStore",
       ],
       "_key": "bucket:dataproc-staging-us-central1-167984947943-okmnuod7",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "etag": "CAc=",
-            "iamConfiguration": {
-              "bucketPolicyOnly": {
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
                 "enabled": false,
               },
               "publicAccessPrevention": "inherited",
-              "uniformBucketLevelAccess": {
+              "uniformBucketLevelAccess": Object {
                 "enabled": false,
               },
             },
@@ -1395,34 +1395,34 @@ exports[`#fetchAppEngineVersions should collect data 1`] = `
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/dataproc-staging-us-central1-167984947943-okmnuod7;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "DataStore",
       ],
       "_key": "bucket:dataproc-temp-europe-north1-167984947943-0quq0oz0",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "etag": "CAE=",
-            "iamConfiguration": {
-              "bucketPolicyOnly": {
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
                 "enabled": false,
               },
               "publicAccessPrevention": "inherited",
-              "uniformBucketLevelAccess": {
+              "uniformBucketLevelAccess": Object {
                 "enabled": false,
               },
             },
             "id": "dataproc-temp-europe-north1-167984947943-0quq0oz0",
             "kind": "storage#bucket",
-            "lifecycle": {
-              "rule": [
-                {
-                  "action": {
+            "lifecycle": Object {
+              "rule": Array [
+                Object {
+                  "action": Object {
                     "type": "Delete",
                   },
-                  "condition": {
+                  "condition": Object {
                     "age": 90,
                   },
                 },
@@ -1462,34 +1462,34 @@ exports[`#fetchAppEngineVersions should collect data 1`] = `
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/dataproc-temp-europe-north1-167984947943-0quq0oz0;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "DataStore",
       ],
       "_key": "bucket:dataproc-temp-us-central1-167984947943-c8nlqeyo",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "etag": "CAE=",
-            "iamConfiguration": {
-              "bucketPolicyOnly": {
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
                 "enabled": false,
               },
               "publicAccessPrevention": "inherited",
-              "uniformBucketLevelAccess": {
+              "uniformBucketLevelAccess": Object {
                 "enabled": false,
               },
             },
             "id": "dataproc-temp-us-central1-167984947943-c8nlqeyo",
             "kind": "storage#bucket",
-            "lifecycle": {
-              "rule": [
-                {
-                  "action": {
+            "lifecycle": Object {
+              "rule": Array [
+                Object {
+                  "action": Object {
                     "type": "Delete",
                   },
-                  "condition": {
+                  "condition": Object {
                     "age": 90,
                   },
                 },
@@ -1529,21 +1529,21 @@ exports[`#fetchAppEngineVersions should collect data 1`] = `
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/dataproc-temp-us-central1-167984947943-c8nlqeyo;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "DataStore",
       ],
       "_key": "bucket:gcf-sources-167984947943-us-central1",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
-            "cors": [
-              {
-                "method": [
+          "rawData": Object {
+            "cors": Array [
+              Object {
+                "method": Array [
                   "GET",
                 ],
-                "origin": [
+                "origin": Array [
                   "https://*.cloud.google.com",
                   "https://*.corp.google.com",
                   "https://*.corp.google.com:*",
@@ -1551,13 +1551,13 @@ exports[`#fetchAppEngineVersions should collect data 1`] = `
               },
             ],
             "etag": "CAE=",
-            "iamConfiguration": {
-              "bucketPolicyOnly": {
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
                 "enabled": true,
                 "lockedTime": "2021-08-29T16:26:23.272Z",
               },
               "publicAccessPrevention": "inherited",
-              "uniformBucketLevelAccess": {
+              "uniformBucketLevelAccess": Object {
                 "enabled": true,
                 "lockedTime": "2021-08-29T16:26:23.272Z",
               },
@@ -1598,22 +1598,22 @@ exports[`#fetchAppEngineVersions should collect data 1`] = `
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/gcf-sources-167984947943-us-central1;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "DataStore",
       ],
       "_key": "bucket:j1-gc-integration-dev-v3-sink-logging-bucket",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "etag": "CAE=",
-            "iamConfiguration": {
-              "bucketPolicyOnly": {
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
                 "enabled": false,
               },
               "publicAccessPrevention": "inherited",
-              "uniformBucketLevelAccess": {
+              "uniformBucketLevelAccess": Object {
                 "enabled": false,
               },
             },
@@ -1654,23 +1654,23 @@ exports[`#fetchAppEngineVersions should collect data 1`] = `
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/j1-gc-integration-dev-v3-sink-logging-bucket;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "DataStore",
       ],
       "_key": "bucket:j1-gc-integration-dev-v3-super-secret-stuff",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "defaultEventBasedHold": false,
             "etag": "CAw=",
-            "iamConfiguration": {
-              "bucketPolicyOnly": {
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
                 "enabled": false,
               },
               "publicAccessPrevention": "inherited",
-              "uniformBucketLevelAccess": {
+              "uniformBucketLevelAccess": Object {
                 "enabled": false,
               },
             },
@@ -1712,22 +1712,22 @@ exports[`#fetchAppEngineVersions should collect data 1`] = `
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/j1-gc-integration-dev-v3-super-secret-stuff;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "DataStore",
       ],
       "_key": "bucket:j1-gc-integration-dev-v3-test-tf-bucket",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "etag": "CAI=",
-            "iamConfiguration": {
-              "bucketPolicyOnly": {
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
                 "enabled": false,
               },
               "publicAccessPrevention": "enforced",
-              "uniformBucketLevelAccess": {
+              "uniformBucketLevelAccess": Object {
                 "enabled": false,
               },
             },
@@ -1768,22 +1768,22 @@ exports[`#fetchAppEngineVersions should collect data 1`] = `
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/j1-gc-integration-dev-v3-test-tf-bucket;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "DataStore",
       ],
       "_key": "bucket:j1-gc-integration-dev-v3cloudfunctions",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "etag": "CAU=",
-            "iamConfiguration": {
-              "bucketPolicyOnly": {
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
                 "enabled": false,
               },
               "publicAccessPrevention": "inherited",
-              "uniformBucketLevelAccess": {
+              "uniformBucketLevelAccess": Object {
                 "enabled": false,
               },
             },
@@ -1824,22 +1824,22 @@ exports[`#fetchAppEngineVersions should collect data 1`] = `
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/j1-gc-integration-dev-v3cloudfunctions;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "DataStore",
       ],
       "_key": "bucket:us.artifacts.j1-gc-integration-dev-v3.appspot.com",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "etag": "CAE=",
-            "iamConfiguration": {
-              "bucketPolicyOnly": {
+            "iamConfiguration": Object {
+              "bucketPolicyOnly": Object {
                 "enabled": false,
               },
               "publicAccessPrevention": "inherited",
-              "uniformBucketLevelAccess": {
+              "uniformBucketLevelAccess": Object {
                 "enabled": false,
               },
             },
@@ -1880,19 +1880,19 @@ exports[`#fetchAppEngineVersions should collect data 1`] = `
       "versioningEnabled": false,
       "webLink": "https://console.cloud.google.com/storage/browser/us.artifacts.j1-gc-integration-dev-v3.appspot.com;tab=objects?forceOnBucketsSortingFiltering=false&project=j1-gc-integration-dev-v3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Application",
       ],
       "_key": "apps/j1-gc-integration-dev-v3",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "authDomain": "gmail.com",
             "databaseType": "CLOUD_DATASTORE_COMPATIBILITY",
             "defaultHostname": "j1-gc-integration-dev-v3.uc.r.appspot.com",
-            "featureSettings": {
+            "featureSettings": Object {
               "splitHealthChecks": true,
               "useContainerOptimizedOs": true,
             },
@@ -1922,8 +1922,8 @@ exports[`#fetchAppEngineVersions should collect data 1`] = `
       "webLink": "https://console.cloud.google.com/appengine?project=j1-gc-integration-dev-v3",
     },
   ],
-  "collectedRelationships": [],
-  "encounteredTypes": [
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
     "google_storage_bucket",
     "google_app_engine_application",
   ],

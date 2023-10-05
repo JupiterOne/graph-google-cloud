@@ -441,17 +441,17 @@ This is a test role. If you see this, delete it!",
 `;
 
 exports[`#fetchIamServiceAccounts should collect data 1`] = `
-{
-  "collectedEntities": [
-    {
-      "_class": [
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
         "User",
       ],
       "_key": "j1-gc-integration-dev-f-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "Service account for a test Google Cloud Function",
             "email": "j1-gc-integration-dev-f-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
             "etag": "MDEwMjE5MjA=",
@@ -477,15 +477,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "username": "j1-gc-integration-dev-f-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/109173014638576490139?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "AccessKey",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-f-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/854489f467c934eef0c59196d96c4db065cc2238",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "keyAlgorithm": "KEY_ALG_RSA_2048",
             "keyOrigin": "GOOGLE_PROVIDED",
             "keyType": "SYSTEM_MANAGED",
@@ -505,15 +505,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "type": "SYSTEM_MANAGED",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/109173014638576490139?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "AccessKey",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-f-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/84b309e84d913d63d3f6281dd86ed3d78d249dd5",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "keyAlgorithm": "KEY_ALG_RSA_2048",
             "keyOrigin": "GOOGLE_PROVIDED",
             "keyType": "SYSTEM_MANAGED",
@@ -533,15 +533,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "type": "SYSTEM_MANAGED",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/109173014638576490139?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "User",
       ],
       "_key": "167984947943-compute@developer.gserviceaccount.com",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "Compute Engine default service account",
             "email": "167984947943-compute@developer.gserviceaccount.com",
             "etag": "MDEwMjE5MjA=",
@@ -567,15 +567,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "username": "167984947943-compute@developer.gserviceaccount.com",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/108874199334173654593?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "AccessKey",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/serviceAccounts/167984947943-compute@developer.gserviceaccount.com/keys/722dc85430d62cc5b29783aa29537f861d0368bf",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "keyAlgorithm": "KEY_ALG_RSA_2048",
             "keyOrigin": "GOOGLE_PROVIDED",
             "keyType": "SYSTEM_MANAGED",
@@ -595,15 +595,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "type": "SYSTEM_MANAGED",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/108874199334173654593?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "AccessKey",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/serviceAccounts/167984947943-compute@developer.gserviceaccount.com/keys/dba2d378c0ec31cd65a19272b26bb3b7406e7e13",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "keyAlgorithm": "KEY_ALG_RSA_2048",
             "keyOrigin": "GOOGLE_PROVIDED",
             "keyType": "SYSTEM_MANAGED",
@@ -623,15 +623,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "type": "SYSTEM_MANAGED",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/108874199334173654593?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "User",
       ],
       "_key": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "description": "Service account for local Terraform development",
             "displayName": "j1-gc-integration-dev-sa-tf",
             "email": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
@@ -658,15 +658,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "username": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/113013793384076940956?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "AccessKey",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/4f700a7b71025ec1cb4b87be35163e484fdfecc2",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "keyAlgorithm": "KEY_ALG_RSA_2048",
             "keyOrigin": "GOOGLE_PROVIDED",
             "keyType": "SYSTEM_MANAGED",
@@ -686,15 +686,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "type": "SYSTEM_MANAGED",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/113013793384076940956?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "AccessKey",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/67086bec0da2ab13d178855155797aff36dc0f05",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "keyAlgorithm": "KEY_ALG_RSA_2048",
             "keyOrigin": "GOOGLE_PROVIDED",
             "keyType": "SYSTEM_MANAGED",
@@ -714,15 +714,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "type": "SYSTEM_MANAGED",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/113013793384076940956?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "AccessKey",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/36bfb41edeb8d9d02b216aae384dc0c4ba3661bd",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "keyAlgorithm": "KEY_ALG_RSA_2048",
             "keyOrigin": "GOOGLE_PROVIDED",
             "keyType": "USER_MANAGED",
@@ -742,15 +742,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "type": "USER_MANAGED",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/113013793384076940956?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "AccessKey",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/52a7ebbae7cb160171d246da1fa78308ce63ce40",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "keyAlgorithm": "KEY_ALG_RSA_2048",
             "keyOrigin": "GOOGLE_PROVIDED",
             "keyType": "USER_MANAGED",
@@ -770,15 +770,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "type": "USER_MANAGED",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/113013793384076940956?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "User",
       ],
       "_key": "j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "description": "Service account for local integration development runner",
             "displayName": "j1-gc-integration-dev-v3",
             "email": "j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
@@ -805,15 +805,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "username": "j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/103268068430301189523?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "AccessKey",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/5f3fef09051688ce905a9180bb771b2837ed5a94",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "keyAlgorithm": "KEY_ALG_RSA_2048",
             "keyOrigin": "GOOGLE_PROVIDED",
             "keyType": "SYSTEM_MANAGED",
@@ -833,15 +833,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "type": "SYSTEM_MANAGED",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/103268068430301189523?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "AccessKey",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/f4e9d7fd8a3f8a50dbdebc2d26e3f7c88611a6cb",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "keyAlgorithm": "KEY_ALG_RSA_2048",
             "keyOrigin": "GOOGLE_PROVIDED",
             "keyType": "SYSTEM_MANAGED",
@@ -861,15 +861,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "type": "SYSTEM_MANAGED",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/103268068430301189523?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "AccessKey",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/1d6ce62f402f9cd79e346bc00ed3ab1a92f433fb",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "keyAlgorithm": "KEY_ALG_RSA_2048",
             "keyOrigin": "GOOGLE_PROVIDED",
             "keyType": "USER_MANAGED",
@@ -889,15 +889,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "type": "USER_MANAGED",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/103268068430301189523?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "AccessKey",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/f40bb95a0a370c91f8c9e5d213e1a208bf87760d",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "keyAlgorithm": "KEY_ALG_RSA_2048",
             "keyOrigin": "GOOGLE_PROVIDED",
             "keyType": "USER_MANAGED",
@@ -917,15 +917,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "type": "USER_MANAGED",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/103268068430301189523?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "AccessKey",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/be26faf7b1eaf73ea09e82da703ae8cf04e1b6bb",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "keyAlgorithm": "KEY_ALG_RSA_2048",
             "keyOrigin": "GOOGLE_PROVIDED",
             "keyType": "USER_MANAGED",
@@ -945,15 +945,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "type": "USER_MANAGED",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/103268068430301189523?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "AccessKey",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/99d569a56b2cca7df3b01595ad0619063bc7eb15",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "keyAlgorithm": "KEY_ALG_RSA_2048",
             "keyOrigin": "GOOGLE_PROVIDED",
             "keyType": "USER_MANAGED",
@@ -973,15 +973,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "type": "USER_MANAGED",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/103268068430301189523?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "AccessKey",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/1ec50621dd0de1e751d7ee7fd09a3be1d56a5165",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "keyAlgorithm": "KEY_ALG_RSA_2048",
             "keyOrigin": "GOOGLE_PROVIDED",
             "keyType": "USER_MANAGED",
@@ -1001,15 +1001,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "type": "USER_MANAGED",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/103268068430301189523?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "AccessKey",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/de85b4ec44cfa894a1920ca71d024524de884f93",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "keyAlgorithm": "KEY_ALG_RSA_2048",
             "keyOrigin": "GOOGLE_PROVIDED",
             "keyType": "USER_MANAGED",
@@ -1029,15 +1029,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "type": "USER_MANAGED",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/103268068430301189523?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "AccessKey",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/9ab30084a78c5a2c2215199dceb3705d11d9a179",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "keyAlgorithm": "KEY_ALG_RSA_2048",
             "keyOrigin": "GOOGLE_PROVIDED",
             "keyType": "USER_MANAGED",
@@ -1057,15 +1057,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "type": "USER_MANAGED",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/103268068430301189523?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "AccessKey",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/0a6839bed10401baaaebd11d8f680089d64a373a",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "keyAlgorithm": "KEY_ALG_RSA_2048",
             "keyOrigin": "GOOGLE_PROVIDED",
             "keyType": "USER_MANAGED",
@@ -1085,15 +1085,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "type": "USER_MANAGED",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/103268068430301189523?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "AccessKey",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/f1dca4e4421ec4a8bc38c1a5995163fdb0a2ec87",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "keyAlgorithm": "KEY_ALG_RSA_2048",
             "keyOrigin": "GOOGLE_PROVIDED",
             "keyType": "USER_MANAGED",
@@ -1113,15 +1113,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "type": "USER_MANAGED",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/103268068430301189523?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "AccessKey",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/4a0cfa80579ef5f13565857bf70eb7e14ca0921f",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "keyAlgorithm": "KEY_ALG_RSA_2048",
             "keyOrigin": "GOOGLE_PROVIDED",
             "keyType": "USER_MANAGED",
@@ -1141,15 +1141,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "type": "USER_MANAGED",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/103268068430301189523?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "User",
       ],
       "_key": "demo-j1-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "description": "Demo",
             "displayName": "demo-j1-sa",
             "email": "demo-j1-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
@@ -1176,15 +1176,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "username": "demo-j1-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/104510319565846337835?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "AccessKey",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/serviceAccounts/demo-j1-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/ad5fd47a839a96adfd09ba98704487754cbb52e6",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "keyAlgorithm": "KEY_ALG_RSA_2048",
             "keyOrigin": "GOOGLE_PROVIDED",
             "keyType": "SYSTEM_MANAGED",
@@ -1204,15 +1204,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "type": "SYSTEM_MANAGED",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/104510319565846337835?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "AccessKey",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/serviceAccounts/demo-j1-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/dc22040358abdb39ff6b932b7b05aeb32bdc300c",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "keyAlgorithm": "KEY_ALG_RSA_2048",
             "keyOrigin": "GOOGLE_PROVIDED",
             "keyType": "SYSTEM_MANAGED",
@@ -1232,15 +1232,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "type": "SYSTEM_MANAGED",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/104510319565846337835?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "User",
       ],
       "_key": "j1-gc-integration-dev-v3@appspot.gserviceaccount.com",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "displayName": "App Engine default service account",
             "email": "j1-gc-integration-dev-v3@appspot.gserviceaccount.com",
             "etag": "MDEwMjE5MjA=",
@@ -1266,15 +1266,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "username": "j1-gc-integration-dev-v3@appspot.gserviceaccount.com",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/116576469833536157133?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "AccessKey",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-v3@appspot.gserviceaccount.com/keys/374112e8f3c77e7065bb33faa26a48b624f571bb",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "keyAlgorithm": "KEY_ALG_RSA_2048",
             "keyOrigin": "GOOGLE_PROVIDED",
             "keyType": "SYSTEM_MANAGED",
@@ -1294,15 +1294,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "type": "SYSTEM_MANAGED",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/116576469833536157133?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "AccessKey",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-v3@appspot.gserviceaccount.com/keys/9dec446eda400465b4846835eaa402eb867b1bd3",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "keyAlgorithm": "KEY_ALG_RSA_2048",
             "keyOrigin": "GOOGLE_PROVIDED",
             "keyType": "SYSTEM_MANAGED",
@@ -1322,15 +1322,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "type": "SYSTEM_MANAGED",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/116576469833536157133?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "User",
       ],
       "_key": "j1-gc-integration-dev-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "description": "J1 Google Cloud integration execution",
             "email": "j1-gc-integration-dev-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
             "etag": "MDEwMjE5MjA=",
@@ -1356,15 +1356,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "username": "j1-gc-integration-dev-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/114352795236399269818?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "AccessKey",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/3d46f0cfdb8b851b7473836a821163cbd23e8baf",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "keyAlgorithm": "KEY_ALG_RSA_2048",
             "keyOrigin": "GOOGLE_PROVIDED",
             "keyType": "SYSTEM_MANAGED",
@@ -1384,15 +1384,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "type": "SYSTEM_MANAGED",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/114352795236399269818?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "AccessKey",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/9859cf9aca8f3fa001ca99cdb77d1b76d04961f5",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "keyAlgorithm": "KEY_ALG_RSA_2048",
             "keyOrigin": "GOOGLE_PROVIDED",
             "keyType": "SYSTEM_MANAGED",
@@ -1412,15 +1412,15 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "type": "SYSTEM_MANAGED",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/114352795236399269818?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "AccessKey",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/53ca6c15bcc2fc2599d13f8a25164979d64028ac",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "keyAlgorithm": "KEY_ALG_RSA_2048",
             "keyOrigin": "GOOGLE_PROVIDED",
             "keyType": "USER_MANAGED",
@@ -1441,8 +1441,8 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/114352795236399269818?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
   ],
-  "collectedRelationships": [
-    {
+  "collectedRelationships": Array [
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "j1-gc-integration-dev-f-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
       "_key": "j1-gc-integration-dev-f-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com|has|projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-f-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/854489f467c934eef0c59196d96c4db065cc2238",
@@ -1451,7 +1451,7 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "displayName": "HAS",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/109173014638576490139?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "j1-gc-integration-dev-f-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
       "_key": "j1-gc-integration-dev-f-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com|has|projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-f-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/84b309e84d913d63d3f6281dd86ed3d78d249dd5",
@@ -1460,7 +1460,7 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "displayName": "HAS",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/109173014638576490139?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "167984947943-compute@developer.gserviceaccount.com",
       "_key": "167984947943-compute@developer.gserviceaccount.com|has|projects/j1-gc-integration-dev-v3/serviceAccounts/167984947943-compute@developer.gserviceaccount.com/keys/722dc85430d62cc5b29783aa29537f861d0368bf",
@@ -1469,7 +1469,7 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "displayName": "HAS",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/108874199334173654593?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "167984947943-compute@developer.gserviceaccount.com",
       "_key": "167984947943-compute@developer.gserviceaccount.com|has|projects/j1-gc-integration-dev-v3/serviceAccounts/167984947943-compute@developer.gserviceaccount.com/keys/dba2d378c0ec31cd65a19272b26bb3b7406e7e13",
@@ -1478,7 +1478,7 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "displayName": "HAS",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/108874199334173654593?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
       "_key": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com|has|projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/4f700a7b71025ec1cb4b87be35163e484fdfecc2",
@@ -1487,7 +1487,7 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "displayName": "HAS",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/113013793384076940956?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
       "_key": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com|has|projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/67086bec0da2ab13d178855155797aff36dc0f05",
@@ -1496,7 +1496,7 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "displayName": "HAS",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/113013793384076940956?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
       "_key": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com|has|projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/36bfb41edeb8d9d02b216aae384dc0c4ba3661bd",
@@ -1505,7 +1505,7 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "displayName": "HAS",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/113013793384076940956?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
       "_key": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com|has|projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/52a7ebbae7cb160171d246da1fa78308ce63ce40",
@@ -1514,7 +1514,7 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "displayName": "HAS",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/113013793384076940956?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
       "_key": "j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com|has|projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/5f3fef09051688ce905a9180bb771b2837ed5a94",
@@ -1523,7 +1523,7 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "displayName": "HAS",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/103268068430301189523?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
       "_key": "j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com|has|projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/f4e9d7fd8a3f8a50dbdebc2d26e3f7c88611a6cb",
@@ -1532,7 +1532,7 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "displayName": "HAS",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/103268068430301189523?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
       "_key": "j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com|has|projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/1d6ce62f402f9cd79e346bc00ed3ab1a92f433fb",
@@ -1541,7 +1541,7 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "displayName": "HAS",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/103268068430301189523?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
       "_key": "j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com|has|projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/f40bb95a0a370c91f8c9e5d213e1a208bf87760d",
@@ -1550,7 +1550,7 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "displayName": "HAS",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/103268068430301189523?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
       "_key": "j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com|has|projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/be26faf7b1eaf73ea09e82da703ae8cf04e1b6bb",
@@ -1559,7 +1559,7 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "displayName": "HAS",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/103268068430301189523?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
       "_key": "j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com|has|projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/99d569a56b2cca7df3b01595ad0619063bc7eb15",
@@ -1568,7 +1568,7 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "displayName": "HAS",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/103268068430301189523?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
       "_key": "j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com|has|projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/1ec50621dd0de1e751d7ee7fd09a3be1d56a5165",
@@ -1577,7 +1577,7 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "displayName": "HAS",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/103268068430301189523?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
       "_key": "j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com|has|projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/de85b4ec44cfa894a1920ca71d024524de884f93",
@@ -1586,7 +1586,7 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "displayName": "HAS",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/103268068430301189523?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
       "_key": "j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com|has|projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/9ab30084a78c5a2c2215199dceb3705d11d9a179",
@@ -1595,7 +1595,7 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "displayName": "HAS",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/103268068430301189523?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
       "_key": "j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com|has|projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/0a6839bed10401baaaebd11d8f680089d64a373a",
@@ -1604,7 +1604,7 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "displayName": "HAS",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/103268068430301189523?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
       "_key": "j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com|has|projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/f1dca4e4421ec4a8bc38c1a5995163fdb0a2ec87",
@@ -1613,7 +1613,7 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "displayName": "HAS",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/103268068430301189523?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
       "_key": "j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com|has|projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/4a0cfa80579ef5f13565857bf70eb7e14ca0921f",
@@ -1622,7 +1622,7 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "displayName": "HAS",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/103268068430301189523?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "demo-j1-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
       "_key": "demo-j1-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com|has|projects/j1-gc-integration-dev-v3/serviceAccounts/demo-j1-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/ad5fd47a839a96adfd09ba98704487754cbb52e6",
@@ -1631,7 +1631,7 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "displayName": "HAS",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/104510319565846337835?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "demo-j1-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
       "_key": "demo-j1-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com|has|projects/j1-gc-integration-dev-v3/serviceAccounts/demo-j1-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/dc22040358abdb39ff6b932b7b05aeb32bdc300c",
@@ -1640,7 +1640,7 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "displayName": "HAS",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/104510319565846337835?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "j1-gc-integration-dev-v3@appspot.gserviceaccount.com",
       "_key": "j1-gc-integration-dev-v3@appspot.gserviceaccount.com|has|projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-v3@appspot.gserviceaccount.com/keys/374112e8f3c77e7065bb33faa26a48b624f571bb",
@@ -1649,7 +1649,7 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "displayName": "HAS",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/116576469833536157133?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "j1-gc-integration-dev-v3@appspot.gserviceaccount.com",
       "_key": "j1-gc-integration-dev-v3@appspot.gserviceaccount.com|has|projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-v3@appspot.gserviceaccount.com/keys/9dec446eda400465b4846835eaa402eb867b1bd3",
@@ -1658,7 +1658,7 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "displayName": "HAS",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/116576469833536157133?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "j1-gc-integration-dev-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
       "_key": "j1-gc-integration-dev-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com|has|projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/3d46f0cfdb8b851b7473836a821163cbd23e8baf",
@@ -1667,7 +1667,7 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "displayName": "HAS",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/114352795236399269818?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "j1-gc-integration-dev-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
       "_key": "j1-gc-integration-dev-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com|has|projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/9859cf9aca8f3fa001ca99cdb77d1b76d04961f5",
@@ -1676,7 +1676,7 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "displayName": "HAS",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/114352795236399269818?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "j1-gc-integration-dev-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
       "_key": "j1-gc-integration-dev-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com|has|projects/j1-gc-integration-dev-v3/serviceAccounts/j1-gc-integration-dev-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/53ca6c15bcc2fc2599d13f8a25164979d64028ac",
@@ -1686,7 +1686,7 @@ exports[`#fetchIamServiceAccounts should collect data 1`] = `
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/114352795236399269818?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
     },
   ],
-  "encounteredTypes": [
+  "encounteredTypes": Array [
     "google_iam_service_account",
     "google_iam_service_account_key",
     "google_iam_service_account_has_key",

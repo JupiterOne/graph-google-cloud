@@ -31,7 +31,7 @@ export async function fetchBinaryAuthorizationPolicy(
     logger,
   } = context;
 
-  const client = new BinaryAuthorizationClient({ config });
+  const client = new BinaryAuthorizationClient({ config }, logger);
 
   let policy: binaryauthorization_v1.Schema$Policy;
   try {

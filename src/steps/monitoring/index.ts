@@ -20,7 +20,7 @@ export async function fetchAlertPolicies(
     logger,
   } = context;
 
-  const client = new MonitoringClient({ config });
+  const client = new MonitoringClient({ config }, logger);
 
   try {
     await client.iterateAlertPolicies(async (alertPolicy) => {

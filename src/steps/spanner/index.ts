@@ -54,9 +54,10 @@ export async function fetchSpannerInstanceConfigs(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
 
-  const client = new SpannerClient({ config });
+  const client = new SpannerClient({ config }, logger);
 
   await client.iterateInstanceConfigs(async (instanceConfig) => {
     await jobState.addEntity(
@@ -71,9 +72,10 @@ export async function fetchSpannerInstances(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
 
-  const client = new SpannerClient({ config });
+  const client = new SpannerClient({ config }, logger);
   await client.iterateInstances(async (instance) => {
     const instanceId = instance.name?.split('/')[3];
     const instancePolicy = await client.getInstancePolicy(instanceId as string);
@@ -106,9 +108,10 @@ export async function fetchSpannerInstanceDatabases(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
 
-  const client = new SpannerClient({ config });
+  const client = new SpannerClient({ config }, logger);
   await jobState.iterateEntities(
     {
       _type: ENTITY_TYPE_SPANNER_INSTANCE,

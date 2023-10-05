@@ -22,8 +22,9 @@ export async function fetchSecrets(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
-  const client = new SecretManagerClient({ config });
+  const client = new SecretManagerClient({ config }, logger);
 
   await client.iterateSecrets(async (secret) => {
     await jobState.addEntity(createSecretEntity(secret));
@@ -36,8 +37,9 @@ export async function fetchSecretVersions(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
-  const client = new SecretManagerClient({ config });
+  const client = new SecretManagerClient({ config }, logger);
 
   await jobState.iterateEntities(
     { _type: SecretManagerEntities.SECRET._type },

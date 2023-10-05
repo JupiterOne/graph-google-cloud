@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#createMemcacheInstanceEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Database",
     "DataStore",
     "Cluster",
   ],
   "_key": "memcached:projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-memcached-instance",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "authorizedNetwork": "projects/j1-gc-integration-dev-v2/global/networks/test-private-vpc-network",
         "createTime": "2021-03-25T19:18:40.749241219Z",
         "discoveryEndpoint": "10.108.48.3:11211",
@@ -19,17 +19,17 @@ exports[`#createMemcacheInstanceEntity should convert to entity 1`] = `
         "memcacheFullVersion": "memcached-1.5.16",
         "memcacheVersion": "MEMCACHE_1_5",
         "name": "projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-memcached-instance",
-        "nodeConfig": {
+        "nodeConfig": Object {
           "cpuCount": 1,
           "memorySizeMb": 1024,
         },
         "nodeCount": 1,
-        "parameters": {
+        "parameters": Object {
           "id": "1901468469",
         },
         "state": "READY",
         "updateTime": "2021-03-25T19:24:13.408022433Z",
-        "zones": [
+        "zones": Array [
           "us-central1-a",
           "us-central1-b",
           "us-central1-c",
@@ -58,20 +58,20 @@ exports[`#createMemcacheInstanceEntity should convert to entity 1`] = `
 `;
 
 exports[`#createMemcacheNodeEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Database",
     "DataStore",
     "Host",
   ],
   "_key": "projects/j1-gc-integration-dev-v2/locations/us-central1/instances/test-memcached-instance/node-c-1",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "host": "10.108.48.4",
         "nodeId": "node-c-1",
-        "parameters": {
+        "parameters": Object {
           "id": "1901468469",
         },
         "port": 11211,

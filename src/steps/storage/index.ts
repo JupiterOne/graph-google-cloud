@@ -141,8 +141,8 @@ export async function fetchStorageBuckets(
     logger,
   } = context;
 
-  const client = new CloudStorageClient({ config });
-  const orgPolicyClient = new OrgPolicyClient({ config });
+  const client = new CloudStorageClient({ config }, logger);
+  const orgPolicyClient = new OrgPolicyClient({ config }, logger);
 
   let publicAccessPreventionPolicy: boolean | undefined = undefined;
 

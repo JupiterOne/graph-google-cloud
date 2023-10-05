@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#fetchBinaryAuthorization should collect data 1`] = `
-{
-  "collectedEntities": [
-    {
-      "_class": [
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
         "Account",
       ],
       "_key": "projects/167984947943",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "createTime": "2021-05-31T15:15:56.125Z",
             "displayName": "j1-gc-integration-dev-v3",
             "etag": "6nNZKrLueq5A5QHM92fcDg==",
@@ -34,33 +34,33 @@ exports[`#fetchBinaryAuthorization should collect data 1`] = `
       "updatedOn": 1622474158148,
       "webLink": "https://console.cloud.google.com/home/dashboard?project=j1-gc-integration-dev-v3",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "AccessPolicy",
       ],
       "_key": "projects/j1-gc-integration-dev-v3/policy",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
-            "admissionWhitelistPatterns": [
-              {
+          "rawData": Object {
+            "admissionWhitelistPatterns": Array [
+              Object {
                 "namePattern": "gcr.io/google_containers/*",
               },
-              {
+              Object {
                 "namePattern": "gcr.io/google-containers/*",
               },
-              {
+              Object {
                 "namePattern": "k8s.gcr.io/*",
               },
-              {
+              Object {
                 "namePattern": "gke.gcr.io/*",
               },
-              {
+              Object {
                 "namePattern": "gcr.io/stackdriver-agents/*",
               },
             ],
-            "defaultAdmissionRule": {
+            "defaultAdmissionRule": Object {
               "enforcementMode": "ENFORCED_BLOCK_AND_AUDIT_LOG",
               "evaluationMode": "ALWAYS_ALLOW",
             },
@@ -70,7 +70,7 @@ exports[`#fetchBinaryAuthorization should collect data 1`] = `
         },
       ],
       "_type": "google_binary_authorization_policy",
-      "admissionWhitelistPatterns": [
+      "admissionWhitelistPatterns": Array [
         "gcr.io/google_containers/*",
         "gcr.io/google-containers/*",
         "k8s.gcr.io/*",
@@ -86,8 +86,8 @@ exports[`#fetchBinaryAuthorization should collect data 1`] = `
       "webLink": "https://console.cloud.google.com/security/binary-authorization/policy?project=j1-gc-integration-dev-v3&folder=&organizationId=",
     },
   ],
-  "collectedRelationships": [
-    {
+  "collectedRelationships": Array [
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "projects/167984947943",
       "_key": "projects/167984947943|has|projects/j1-gc-integration-dev-v3/policy",
@@ -96,7 +96,7 @@ exports[`#fetchBinaryAuthorization should collect data 1`] = `
       "displayName": "HAS",
     },
   ],
-  "encounteredTypes": [
+  "encounteredTypes": Array [
     "google_cloud_project",
     "google_binary_authorization_policy",
     "google_cloud_project_has_binary_authorization_policy",

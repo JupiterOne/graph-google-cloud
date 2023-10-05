@@ -1,21 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#createIamBindingEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "AccessPolicy",
   ],
-  "_key": "binding|project:projects/123456789|resource:resource|role:projects/j1-gc-integration-dev-v3/roles/167984947943customroleconditions|members:d67596848eadce677215c99cb8d085373e61df54|condition:resource.name != "bogusunknownresourcename"",
-  "_rawData": [
-    {
+  "_key": "binding|project:projects/123456789|resource:resource|role:projects/j1-gc-integration-dev-v3/roles/167984947943customroleconditions|members:d67596848eadce677215c99cb8d085373e61df54|condition:resource.name != \\"bogusunknownresourcename\\"",
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
-        "condition": {
+      "rawData": Object {
+        "condition": Object {
           "description": "Test condition description",
-          "expression": "resource.name != "bogusunknownresourcename"",
+          "expression": "resource.name != \\"bogusunknownresourcename\\"",
           "title": "Test condition title",
         },
-        "members": [
+        "members": Array [
           "serviceAccount:j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
         ],
         "role": "projects/j1-gc-integration-dev-v3/roles/167984947943customroleconditions",
@@ -24,21 +24,21 @@ exports[`#createIamBindingEntity should convert to entity 1`] = `
   ],
   "_type": "google_iam_binding",
   "condition.description": "Test condition description",
-  "condition.expression": "resource.name != "bogusunknownresourcename"",
+  "condition.expression": "resource.name != \\"bogusunknownresourcename\\"",
   "condition.location": undefined,
   "condition.title": "Test condition title",
   "createdOn": undefined,
   "displayName": "Role Binding for Resource: resource",
-  "folders": [
+  "folders": Array [
     "folders/1212121212",
     "folders/3434343434",
   ],
-  "members": [
+  "members": Array [
     "serviceAccount:j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
   ],
   "name": "role_binding_for_resourceresource",
   "organization": "organizations/5656565656",
-  "permissions": [
+  "permissions": Array [
     "storage.admin",
     "storage.objects.list",
   ],

@@ -43,8 +43,8 @@ import {
 export async function fetchInstances(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { instance, jobState } = context;
-  const client = new BigTableClient({ config: instance.config });
+  const { instance, jobState, logger } = context;
+  const client = new BigTableClient({ config: instance.config }, logger);
 
   await client.iterateInstances(async (instance) => {
     await jobState.addEntity(
@@ -59,8 +59,8 @@ export async function fetchInstances(
 export async function fetchAppProfiles(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { instance, jobState } = context;
-  const client = new BigTableClient({ config: instance.config });
+  const { instance, jobState, logger } = context;
+  const client = new BigTableClient({ config: instance.config }, logger);
 
   await jobState.iterateEntities(
     { _type: ENTITY_TYPE_BIG_TABLE_INSTANCE },
@@ -92,8 +92,8 @@ export async function fetchAppProfiles(
 export async function fetchClusters(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { instance, jobState } = context;
-  const client = new BigTableClient({ config: instance.config });
+  const { instance, jobState, logger } = context;
+  const client = new BigTableClient({ config: instance.config }, logger);
 
   await jobState.iterateEntities(
     { _type: ENTITY_TYPE_BIG_TABLE_INSTANCE },
@@ -143,8 +143,8 @@ export async function fetchClusters(
 export async function fetchBackups(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { instance, jobState } = context;
-  const client = new BigTableClient({ config: instance.config });
+  const { instance, jobState, logger } = context;
+  const client = new BigTableClient({ config: instance.config }, logger);
 
   await jobState.iterateEntities(
     { _type: ENTITY_TYPE_BIG_TABLE_CLUSTER },
@@ -191,8 +191,8 @@ export async function fetchBackups(
 export async function fetchTables(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { instance, jobState } = context;
-  const client = new BigTableClient({ config: instance.config });
+  const { instance, jobState, logger } = context;
+  const client = new BigTableClient({ config: instance.config }, logger);
 
   await jobState.iterateEntities(
     { _type: ENTITY_TYPE_BIG_TABLE_INSTANCE },

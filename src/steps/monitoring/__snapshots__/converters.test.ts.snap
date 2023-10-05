@@ -1,23 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#createAlertPolicyEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Policy",
   ],
   "_key": "projects/j1-gc-integration-dev-v2/alertPolicies/9246450381922925470",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "combiner": "OR",
-        "creationRecord": {
+        "creationRecord": Object {
           "mutateTime": "2021-02-02T16:18:23.127595226Z",
           "mutatedBy": "j1-gc-integration-dev-v2-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
         },
         "displayName": "Example Alert Policy",
         "enabled": true,
-        "mutationRecord": {
+        "mutationRecord": Object {
           "mutateTime": "2021-02-02T16:18:23.127595226Z",
           "mutatedBy": "j1-gc-integration-dev-v2-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
         },
@@ -40,29 +40,29 @@ exports[`#createAlertPolicyEntity should convert to entity 1`] = `
 `;
 
 exports[`#createAlertPolicyEntity should convert to entity with conditionFilters array 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Policy",
   ],
   "_key": "projects/j1-gc-integration-dev-v2/alertPolicies/9246450381922925470",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "combiner": "OR",
-        "conditions": [
-          {
-            "conditionThreshold": {
-              "aggregations": [
-                {
+        "conditions": Array [
+          Object {
+            "conditionThreshold": Object {
+              "aggregations": Array [
+                Object {
                   "alignmentPeriod": "300s",
                   "perSeriesAligner": "ALIGN_RATE",
                 },
               ],
               "comparison": "COMPARISON_GT",
               "duration": "0s",
-              "filter": "metric.type="logging.googleapis.com/user/my-example-metric" AND resource.type="metric"",
-              "trigger": {
+              "filter": "metric.type=\\"logging.googleapis.com/user/my-example-metric\\" AND resource.type=\\"metric\\"",
+              "trigger": Object {
                 "count": 1,
               },
             },
@@ -70,13 +70,13 @@ exports[`#createAlertPolicyEntity should convert to entity with conditionFilters
             "name": "projects/j1-gc-integration-dev-v2/alertPolicies/9246450381922925470/conditions/9246450381922923601",
           },
         ],
-        "creationRecord": {
+        "creationRecord": Object {
           "mutateTime": "2021-02-02T16:18:23.127595226Z",
           "mutatedBy": "j1-gc-integration-dev-v2-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
         },
         "displayName": "Example Alert Policy",
         "enabled": true,
-        "mutationRecord": {
+        "mutationRecord": Object {
           "mutateTime": "2021-02-02T16:18:23.127595226Z",
           "mutatedBy": "j1-gc-integration-dev-v2-sa@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
         },
@@ -85,8 +85,8 @@ exports[`#createAlertPolicyEntity should convert to entity with conditionFilters
     },
   ],
   "_type": "google_monitoring_alert_policy",
-  "conditionFilters": [
-    "metric.type="logging.googleapis.com/user/my-example-metric" AND resource.type="metric"",
+  "conditionFilters": Array [
+    "metric.type=\\"logging.googleapis.com/user/my-example-metric\\" AND resource.type=\\"metric\\"",
   ],
   "content": "",
   "createdOn": 1612282703127,

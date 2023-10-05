@@ -1,42 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#fetchBigQueryDatasets should collect data 1`] = `
-{
-  "collectedEntities": [
-    {
-      "_class": [
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
         "DataStore",
         "Database",
       ],
       "_key": "j1-gc-integration-dev-v3:cmed_example_dataset",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
-            "access": [
-              {
+          "rawData": Object {
+            "access": Array [
+              Object {
                 "role": "WRITER",
                 "specialGroup": "projectWriters",
               },
-              {
+              Object {
                 "role": "OWNER",
                 "specialGroup": "projectOwners",
               },
-              {
+              Object {
                 "role": "OWNER",
                 "userByEmail": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
               },
-              {
+              Object {
                 "role": "READER",
                 "specialGroup": "projectReaders",
               },
             ],
             "creationTime": "1622479211545",
-            "datasetReference": {
+            "datasetReference": Object {
               "datasetId": "cmed_example_dataset",
               "projectId": "j1-gc-integration-dev-v3",
             },
-            "defaultEncryptionConfiguration": {
+            "defaultEncryptionConfiguration": Object {
               "kmsKeyName": "projects/j1-gc-integration-dev-v3/locations/us/keyRings/example-keyring/cryptoKeys/cmek_bigquery_crypto_key",
             },
             "defaultTableExpirationMs": "3600000",
@@ -67,36 +67,36 @@ exports[`#fetchBigQueryDatasets should collect data 1`] = `
       "updatedOn": 1622479211545,
       "webLink": "https://console.cloud.google.com/bigquery?project=j1-gc-integration-dev-v3&d=cmed_example_dataset&p=j1-gc-integration-dev-v3&page=dataset",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "DataStore",
         "Database",
       ],
       "_key": "j1-gc-integration-dev-v3:natality",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
-            "access": [
-              {
+          "rawData": Object {
+            "access": Array [
+              Object {
                 "role": "WRITER",
                 "specialGroup": "projectWriters",
               },
-              {
+              Object {
                 "role": "OWNER",
                 "specialGroup": "projectOwners",
               },
-              {
+              Object {
                 "role": "OWNER",
                 "userByEmail": "viragsf@gmail.com",
               },
-              {
+              Object {
                 "role": "READER",
                 "specialGroup": "projectReaders",
               },
             ],
             "creationTime": "1622550833239",
-            "datasetReference": {
+            "datasetReference": Object {
               "datasetId": "natality",
               "projectId": "j1-gc-integration-dev-v3",
             },
@@ -125,24 +125,24 @@ exports[`#fetchBigQueryDatasets should collect data 1`] = `
       "updatedOn": 1622550833239,
       "webLink": "https://console.cloud.google.com/bigquery?project=j1-gc-integration-dev-v3&d=natality&p=j1-gc-integration-dev-v3&page=dataset",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "DataStore",
         "Database",
       ],
       "_key": "j1-gc-integration-dev-v3:test_big_query_dataset",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
-            "access": [
-              {
+          "rawData": Object {
+            "access": Array [
+              Object {
                 "role": "OWNER",
                 "userByEmail": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
               },
             ],
             "creationTime": "1622478350061",
-            "datasetReference": {
+            "datasetReference": Object {
               "datasetId": "test_big_query_dataset",
               "projectId": "j1-gc-integration-dev-v3",
             },
@@ -173,8 +173,8 @@ exports[`#fetchBigQueryDatasets should collect data 1`] = `
       "webLink": "https://console.cloud.google.com/bigquery?project=j1-gc-integration-dev-v3&d=test_big_query_dataset&p=j1-gc-integration-dev-v3&page=dataset",
     },
   ],
-  "collectedRelationships": [],
-  "encounteredTypes": [
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
     "google_bigquery_dataset",
   ],
   "numCollectedEntities": 3,
@@ -183,42 +183,42 @@ exports[`#fetchBigQueryDatasets should collect data 1`] = `
 `;
 
 exports[`#fetchBigQueryModels should collect data 1`] = `
-{
-  "collectedEntities": [
-    {
-      "_class": [
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
         "DataStore",
         "Database",
       ],
       "_key": "j1-gc-integration-dev-v3:cmed_example_dataset",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
-            "access": [
-              {
+          "rawData": Object {
+            "access": Array [
+              Object {
                 "role": "WRITER",
                 "specialGroup": "projectWriters",
               },
-              {
+              Object {
                 "role": "OWNER",
                 "specialGroup": "projectOwners",
               },
-              {
+              Object {
                 "role": "OWNER",
                 "userByEmail": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
               },
-              {
+              Object {
                 "role": "READER",
                 "specialGroup": "projectReaders",
               },
             ],
             "creationTime": "1622479211545",
-            "datasetReference": {
+            "datasetReference": Object {
               "datasetId": "cmed_example_dataset",
               "projectId": "j1-gc-integration-dev-v3",
             },
-            "defaultEncryptionConfiguration": {
+            "defaultEncryptionConfiguration": Object {
               "kmsKeyName": "projects/j1-gc-integration-dev-v3/locations/us/keyRings/example-keyring/cryptoKeys/cmek_bigquery_crypto_key",
             },
             "defaultTableExpirationMs": "3600000",
@@ -249,36 +249,36 @@ exports[`#fetchBigQueryModels should collect data 1`] = `
       "updatedOn": 1622479211545,
       "webLink": "https://console.cloud.google.com/bigquery?project=j1-gc-integration-dev-v3&d=cmed_example_dataset&p=j1-gc-integration-dev-v3&page=dataset",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "DataStore",
         "Database",
       ],
       "_key": "j1-gc-integration-dev-v3:natality",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
-            "access": [
-              {
+          "rawData": Object {
+            "access": Array [
+              Object {
                 "role": "WRITER",
                 "specialGroup": "projectWriters",
               },
-              {
+              Object {
                 "role": "OWNER",
                 "specialGroup": "projectOwners",
               },
-              {
+              Object {
                 "role": "OWNER",
                 "userByEmail": "viragsf@gmail.com",
               },
-              {
+              Object {
                 "role": "READER",
                 "specialGroup": "projectReaders",
               },
             ],
             "creationTime": "1622550833239",
-            "datasetReference": {
+            "datasetReference": Object {
               "datasetId": "natality",
               "projectId": "j1-gc-integration-dev-v3",
             },
@@ -307,24 +307,24 @@ exports[`#fetchBigQueryModels should collect data 1`] = `
       "updatedOn": 1622550833239,
       "webLink": "https://console.cloud.google.com/bigquery?project=j1-gc-integration-dev-v3&d=natality&p=j1-gc-integration-dev-v3&page=dataset",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "DataStore",
         "Database",
       ],
       "_key": "j1-gc-integration-dev-v3:test_big_query_dataset",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
-            "access": [
-              {
+          "rawData": Object {
+            "access": Array [
+              Object {
                 "role": "OWNER",
                 "userByEmail": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
               },
             ],
             "creationTime": "1622478350061",
-            "datasetReference": {
+            "datasetReference": Object {
               "datasetId": "test_big_query_dataset",
               "projectId": "j1-gc-integration-dev-v3",
             },
@@ -354,75 +354,75 @@ exports[`#fetchBigQueryModels should collect data 1`] = `
       "updatedOn": 1628272655532,
       "webLink": "https://console.cloud.google.com/bigquery?project=j1-gc-integration-dev-v3&d=test_big_query_dataset&p=j1-gc-integration-dev-v3&page=dataset",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Model",
       ],
       "_key": "j1-gc-integration-dev-v3:natality:natality_model",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "creationTime": "1622550868545",
             "etag": "TqdFEafie4P/uCkcTDeDoQ==",
-            "featureColumns": [
-              {
+            "featureColumns": Array [
+              Object {
                 "name": "is_male",
-                "type": {
+                "type": Object {
                   "typeKind": "BOOL",
                 },
               },
-              {
+              Object {
                 "name": "gestation_weeks",
-                "type": {
+                "type": Object {
                   "typeKind": "INT64",
                 },
               },
-              {
+              Object {
                 "name": "mother_age",
-                "type": {
+                "type": Object {
                   "typeKind": "INT64",
                 },
               },
-              {
+              Object {
                 "name": "mother_race",
-                "type": {
+                "type": Object {
                   "typeKind": "STRING",
                 },
               },
             ],
-            "labelColumns": [
-              {
+            "labelColumns": Array [
+              Object {
                 "name": "predicted_weight_pounds",
-                "type": {
+                "type": Object {
                   "typeKind": "FLOAT64",
                 },
               },
             ],
             "lastModifiedTime": "1622550868626",
             "location": "US",
-            "modelReference": {
+            "modelReference": Object {
               "datasetId": "natality",
               "modelId": "natality_model",
               "projectId": "j1-gc-integration-dev-v3",
             },
             "modelType": "LINEAR_REGRESSION",
-            "trainingRuns": [
-              {
-                "dataSplitResult": {
-                  "evaluationTable": {
+            "trainingRuns": Array [
+              Object {
+                "dataSplitResult": Object {
+                  "evaluationTable": Object {
                     "datasetId": "_dc91ff9c66b0b00709a1245f8bd9d5ddbfdf7aea",
                     "projectId": "j1-gc-integration-dev-v3",
                     "tableId": "anon0bba0136_499d_4347_a2fc_b490d93dfe6a_imported_data_split_eval_data",
                   },
-                  "trainingTable": {
+                  "trainingTable": Object {
                     "datasetId": "_dc91ff9c66b0b00709a1245f8bd9d5ddbfdf7aea",
                     "projectId": "j1-gc-integration-dev-v3",
                     "tableId": "anon0bba0136_499d_4347_a2fc_b490d93dfe6a_imported_data_split_training_data",
                   },
                 },
-                "evaluationMetrics": {
-                  "regressionMetrics": {
+                "evaluationMetrics": Object {
+                  "regressionMetrics": Object {
                     "meanAbsoluteError": 0.9538477406705936,
                     "meanSquaredError": 1.6561986053104583,
                     "meanSquaredLogError": 0.03441221912886547,
@@ -430,8 +430,8 @@ exports[`#fetchBigQueryModels should collect data 1`] = `
                     "rSquared": 0.042719525606098596,
                   },
                 },
-                "results": [
-                  {
+                "results": Array [
+                  Object {
                     "durationMs": "4380",
                     "evalLoss": 1.6561986053104691,
                     "index": 0,
@@ -439,7 +439,7 @@ exports[`#fetchBigQueryModels should collect data 1`] = `
                   },
                 ],
                 "startTime": "2021-06-01T12:34:11.714Z",
-                "trainingOptions": {
+                "trainingOptions": Object {
                   "l2Regularization": 0,
                   "lossType": "MEAN_SQUARED_LOSS",
                   "optimizationStrategy": "NORMAL_EQUATION",
@@ -463,8 +463,8 @@ exports[`#fetchBigQueryModels should collect data 1`] = `
       "webLink": "https://console.cloud.google.com/bigquery?project=j1-gc-integration-dev-v3&d=natality&m=natality_model&p=j1-gc-integration-dev-v3&page=model",
     },
   ],
-  "collectedRelationships": [
-    {
+  "collectedRelationships": Array [
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "j1-gc-integration-dev-v3:natality",
       "_key": "j1-gc-integration-dev-v3:natality|has|j1-gc-integration-dev-v3:natality:natality_model",
@@ -473,7 +473,7 @@ exports[`#fetchBigQueryModels should collect data 1`] = `
       "displayName": "HAS",
     },
   ],
-  "encounteredTypes": [
+  "encounteredTypes": Array [
     "google_bigquery_dataset",
     "google_bigquery_model",
     "google_bigquery_dataset_has_model",
@@ -484,42 +484,42 @@ exports[`#fetchBigQueryModels should collect data 1`] = `
 `;
 
 exports[`#fetchBigQueryTables should collect data 1`] = `
-{
-  "collectedEntities": [
-    {
-      "_class": [
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
         "DataStore",
         "Database",
       ],
       "_key": "j1-gc-integration-dev-v3:cmed_example_dataset",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
-            "access": [
-              {
+          "rawData": Object {
+            "access": Array [
+              Object {
                 "role": "WRITER",
                 "specialGroup": "projectWriters",
               },
-              {
+              Object {
                 "role": "OWNER",
                 "specialGroup": "projectOwners",
               },
-              {
+              Object {
                 "role": "OWNER",
                 "userByEmail": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
               },
-              {
+              Object {
                 "role": "READER",
                 "specialGroup": "projectReaders",
               },
             ],
             "creationTime": "1622479211545",
-            "datasetReference": {
+            "datasetReference": Object {
               "datasetId": "cmed_example_dataset",
               "projectId": "j1-gc-integration-dev-v3",
             },
-            "defaultEncryptionConfiguration": {
+            "defaultEncryptionConfiguration": Object {
               "kmsKeyName": "projects/j1-gc-integration-dev-v3/locations/us/keyRings/example-keyring/cryptoKeys/cmek_bigquery_crypto_key",
             },
             "defaultTableExpirationMs": "3600000",
@@ -550,36 +550,36 @@ exports[`#fetchBigQueryTables should collect data 1`] = `
       "updatedOn": 1622479211545,
       "webLink": "https://console.cloud.google.com/bigquery?project=j1-gc-integration-dev-v3&d=cmed_example_dataset&p=j1-gc-integration-dev-v3&page=dataset",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "DataStore",
         "Database",
       ],
       "_key": "j1-gc-integration-dev-v3:natality",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
-            "access": [
-              {
+          "rawData": Object {
+            "access": Array [
+              Object {
                 "role": "WRITER",
                 "specialGroup": "projectWriters",
               },
-              {
+              Object {
                 "role": "OWNER",
                 "specialGroup": "projectOwners",
               },
-              {
+              Object {
                 "role": "OWNER",
                 "userByEmail": "viragsf@gmail.com",
               },
-              {
+              Object {
                 "role": "READER",
                 "specialGroup": "projectReaders",
               },
             ],
             "creationTime": "1622550833239",
-            "datasetReference": {
+            "datasetReference": Object {
               "datasetId": "natality",
               "projectId": "j1-gc-integration-dev-v3",
             },
@@ -608,24 +608,24 @@ exports[`#fetchBigQueryTables should collect data 1`] = `
       "updatedOn": 1622550833239,
       "webLink": "https://console.cloud.google.com/bigquery?project=j1-gc-integration-dev-v3&d=natality&p=j1-gc-integration-dev-v3&page=dataset",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "DataStore",
         "Database",
       ],
       "_key": "j1-gc-integration-dev-v3:test_big_query_dataset",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
-            "access": [
-              {
+          "rawData": Object {
+            "access": Array [
+              Object {
                 "role": "OWNER",
                 "userByEmail": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
               },
             ],
             "creationTime": "1622478350061",
-            "datasetReference": {
+            "datasetReference": Object {
               "datasetId": "test_big_query_dataset",
               "projectId": "j1-gc-integration-dev-v3",
             },
@@ -655,20 +655,20 @@ exports[`#fetchBigQueryTables should collect data 1`] = `
       "updatedOn": 1628272655532,
       "webLink": "https://console.cloud.google.com/bigquery?project=j1-gc-integration-dev-v3&d=test_big_query_dataset&p=j1-gc-integration-dev-v3&page=dataset",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "DataCollection",
       ],
       "_key": "j1-gc-integration-dev-v3:cmed_example_dataset.cis-cmek-sample",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "creationTime": "1630476546010",
             "expirationTime": "1630480146010",
             "id": "j1-gc-integration-dev-v3:cmed_example_dataset.cis-cmek-sample",
             "kind": "bigquery#table",
-            "tableReference": {
+            "tableReference": Object {
               "datasetId": "cmed_example_dataset",
               "projectId": "j1-gc-integration-dev-v3",
               "tableId": "cis-cmek-sample",
@@ -690,19 +690,19 @@ exports[`#fetchBigQueryTables should collect data 1`] = `
       "type": "TABLE",
       "webLink": "https://console.cloud.google.com/bigquery?project=j1-gc-integration-dev-v3&d=cmed_example_dataset&p=j1-gc-integration-dev-v3&t=cis-cmek-sample&page=table",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "DataCollection",
       ],
       "_key": "j1-gc-integration-dev-v3:natality.Test Table",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "creationTime": "1627428318786",
             "id": "j1-gc-integration-dev-v3:natality.Test Table",
             "kind": "bigquery#table",
-            "tableReference": {
+            "tableReference": Object {
               "datasetId": "natality",
               "projectId": "j1-gc-integration-dev-v3",
               "tableId": "Test Table",
@@ -725,8 +725,8 @@ exports[`#fetchBigQueryTables should collect data 1`] = `
       "webLink": "https://console.cloud.google.com/bigquery?project=j1-gc-integration-dev-v3&d=natality&p=j1-gc-integration-dev-v3&t=Test%20Table&page=table",
     },
   ],
-  "collectedRelationships": [
-    {
+  "collectedRelationships": Array [
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "j1-gc-integration-dev-v3:cmed_example_dataset",
       "_key": "j1-gc-integration-dev-v3:cmed_example_dataset|has|j1-gc-integration-dev-v3:cmed_example_dataset.cis-cmek-sample",
@@ -734,7 +734,7 @@ exports[`#fetchBigQueryTables should collect data 1`] = `
       "_type": "google_bigquery_dataset_has_table",
       "displayName": "HAS",
     },
-    {
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "j1-gc-integration-dev-v3:natality",
       "_key": "j1-gc-integration-dev-v3:natality|has|j1-gc-integration-dev-v3:natality.Test Table",
@@ -743,7 +743,7 @@ exports[`#fetchBigQueryTables should collect data 1`] = `
       "displayName": "HAS",
     },
   ],
-  "encounteredTypes": [
+  "encounteredTypes": Array [
     "google_bigquery_dataset",
     "google_bigquery_table",
     "google_bigquery_dataset_has_table",

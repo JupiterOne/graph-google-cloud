@@ -1,28 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#createSpannerInstanceConfiguration should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Configuration",
   ],
   "_key": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west2",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "displayName": "us-west2",
         "name": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-west2",
-        "replicas": [
-          {
+        "replicas": Array [
+          Object {
             "defaultLeaderLocation": true,
             "location": "us-west2",
             "type": "READ_WRITE",
           },
-          {
+          Object {
             "location": "us-west2",
             "type": "READ_WRITE",
           },
-          {
+          Object {
             "location": "us-west2",
             "type": "READ_WRITE",
           },
@@ -38,19 +38,19 @@ exports[`#createSpannerInstanceConfiguration should convert to entity 1`] = `
 `;
 
 exports[`#createSpannerInstanceDatabaseEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Database",
   ],
   "_key": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance/databases/database-name",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "createTime": "2021-03-31T15:37:47.962882Z",
         "earliestVersionTime": "2021-03-31T15:53:22.875987Z",
-        "encryptionInfo": [
-          {
+        "encryptionInfo": Array [
+          Object {
             "encryptionType": "GOOGLE_DEFAULT_ENCRYPTION",
           },
         ],
@@ -78,16 +78,16 @@ exports[`#createSpannerInstanceDatabaseEntity should convert to entity 1`] = `
 `;
 
 exports[`#createSpannerInstanceEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Database",
     "Cluster",
   ],
   "_key": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "config": "projects/j1-gc-integration-dev-v2/instanceConfigs/regional-us-central1",
         "displayName": "Example Spanner Instance",
         "name": "projects/j1-gc-integration-dev-v2/instances/example-spanner-instance",

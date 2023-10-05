@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#createBackendBucketEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Gateway",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/backendBuckets/example-backend-bucket",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "bucketName": "log-example-bucket",
         "creationTimestamp": "2021-01-29T08:55:45.400-08:00",
         "description": "",
@@ -23,7 +23,7 @@ exports[`#createBackendBucketEntity should convert to entity 1`] = `
   ],
   "_type": "google_compute_backend_bucket",
   "bucketName": "log-example-bucket",
-  "category": [
+  "category": Array [
     "network",
   ],
   "createdOn": 1611939345400,
@@ -31,7 +31,7 @@ exports[`#createBackendBucketEntity should convert to entity 1`] = `
   "displayName": "example-backend-bucket",
   "enableCdn": false,
   "encrypted": true,
-  "function": [
+  "function": Array [
     "load-balancing",
   ],
   "id": "6230681112154833150",
@@ -41,38 +41,38 @@ exports[`#createBackendBucketEntity should convert to entity 1`] = `
 `;
 
 exports[`#createBackendServiceEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Service",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/backendServices/example-backend-service",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "affinityCookieTtlSec": 0,
-        "backends": [
-          {
+        "backends": Array [
+          Object {
             "balancingMode": "UTILIZATION",
             "capacityScaler": 1,
             "group": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instanceGroups/instance-group-1",
             "maxUtilization": 0.8,
           },
         ],
-        "connectionDraining": {
+        "connectionDraining": Object {
           "drainingTimeoutSec": 300,
         },
         "creationTimestamp": "2021-01-25T13:09:28.422-08:00",
         "description": "",
         "enableCDN": false,
         "fingerprint": "OnffiLYpLO4=",
-        "healthChecks": [
+        "healthChecks": Array [
           "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/healthChecks/health-check",
         ],
         "id": "3052966098403233127",
         "kind": "compute#backendService",
         "loadBalancingScheme": "EXTERNAL",
-        "logConfig": {
+        "logConfig": Object {
           "enable": true,
           "sampleRate": 1,
         },
@@ -87,14 +87,14 @@ exports[`#createBackendServiceEntity should convert to entity 1`] = `
     },
   ],
   "_type": "google_compute_backend_service",
-  "category": [
+  "category": Array [
     "network",
   ],
   "createdOn": 1611608968422,
   "description": "",
   "displayName": "example-backend-service",
   "enableCDN": false,
-  "function": [
+  "function": Array [
     "load-balancing",
   ],
   "id": "3052966098403233127",
@@ -107,15 +107,15 @@ exports[`#createBackendServiceEntity should convert to entity 1`] = `
 `;
 
 exports[`#createComputeAddressEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "IpAddress",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/addresses/my-test-address",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "address": "35.224.103.156",
         "addressType": "EXTERNAL",
         "creationTimestamp": "2021-05-21T05:34:18.344-07:00",
@@ -153,15 +153,15 @@ exports[`#createComputeAddressEntity should convert to entity 1`] = `
 `;
 
 exports[`#createComputeAddressEntity should convert to entity 2`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "IpAddress",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/addresses/global-address-example",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "address": "100.100.100.105",
         "addressType": "INTERNAL",
         "creationTimestamp": "2021-07-07T04:43:33.648-07:00",
@@ -200,15 +200,15 @@ exports[`#createComputeAddressEntity should convert to entity 2`] = `
 `;
 
 exports[`#createComputeAddressEntity should have list of resources using the address if resources are using it 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "IpAddress",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/addresses/my-test-address",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "address": "35.224.103.156",
         "addressType": "EXTERNAL",
         "creationTimestamp": "2021-05-21T05:34:18.344-07:00",
@@ -220,7 +220,7 @@ exports[`#createComputeAddressEntity should have list of resources using the add
         "region": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1",
         "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/addresses/my-test-address",
         "status": "RESERVED",
-        "users": [
+        "users": Array [
           "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/instance-custom-image",
         ],
       },
@@ -243,7 +243,7 @@ exports[`#createComputeAddressEntity should have list of resources using the add
   "purpose": undefined,
   "status": "RESERVED",
   "subnetwork": undefined,
-  "users": [
+  "users": Array [
     "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/instance-custom-image",
   ],
   "webLink": "https://console.cloud.google.com/networking/addresses/list?project=j1-gc-integration-dev-v2",
@@ -251,15 +251,15 @@ exports[`#createComputeAddressEntity should have list of resources using the add
 `;
 
 exports[`#createComputeAddressEntity should have list of resources using the address if resources are using it 2`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "IpAddress",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/addresses/my-test-address",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "address": "35.224.103.156",
         "addressType": "EXTERNAL",
         "creationTimestamp": "2021-05-21T05:34:18.344-07:00",
@@ -271,7 +271,7 @@ exports[`#createComputeAddressEntity should have list of resources using the add
         "region": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1",
         "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/addresses/my-test-address",
         "status": "RESERVED",
-        "users": [
+        "users": Array [
           "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/instance-custom-image",
         ],
       },
@@ -294,7 +294,7 @@ exports[`#createComputeAddressEntity should have list of resources using the add
   "purpose": undefined,
   "status": "RESERVED",
   "subnetwork": undefined,
-  "users": [
+  "users": Array [
     "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/instance-custom-image",
   ],
   "webLink": "https://console.cloud.google.com/networking/addresses/list?project=j1-gc-integration-dev-v2",
@@ -302,19 +302,19 @@ exports[`#createComputeAddressEntity should have list of resources using the add
 `;
 
 exports[`#createComputeDiskEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "DataStore",
     "Disk",
   ],
   "_key": "disk:123456789",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "creationTimestamp": "2020-08-12T08:20:05.930-07:00",
-        "guestOsFeatures": [
-          {
+        "guestOsFeatures": Array [
+          Object {
             "type": "VIRTIO_SCSI_MULTIQUEUE",
           },
         ],
@@ -322,10 +322,10 @@ exports[`#createComputeDiskEntity should convert to entity 1`] = `
         "kind": "compute#disk",
         "labelFingerprint": "42WmSpB8rSM=",
         "lastAttachTimestamp": "2020-08-12T08:20:05.930-07:00",
-        "licenseCodes": [
+        "licenseCodes": Array [
           "1000205",
         ],
-        "licenses": [
+        "licenses": Array [
           "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-9-stretch",
         ],
         "name": "testvm",
@@ -337,7 +337,7 @@ exports[`#createComputeDiskEntity should convert to entity 1`] = `
         "status": "READY",
         "tags": undefined,
         "type": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/diskTypes/pd-standard",
-        "users": [
+        "users": Array [
           "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/testvm",
         ],
         "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a",
@@ -351,7 +351,7 @@ exports[`#createComputeDiskEntity should convert to entity 1`] = `
   "description": undefined,
   "displayName": "testvm",
   "encrypted": true,
-  "guestOsFeatures": [
+  "guestOsFeatures": Array [
     "VIRTIO_SCSI_MULTIQUEUE",
   ],
   "id": "123456789",
@@ -361,10 +361,10 @@ exports[`#createComputeDiskEntity should convert to entity 1`] = `
   "kmsKeyServiceAccount": undefined,
   "labelFingerprint": "42WmSpB8rSM=",
   "lastAttachTimestamp": 1597245605930,
-  "licenseCodes": [
+  "licenseCodes": Array [
     "1000205",
   ],
-  "licenses": [
+  "licenses": Array [
     "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-9-stretch",
   ],
   "name": "testvm",
@@ -383,19 +383,19 @@ exports[`#createComputeDiskEntity should convert to entity 1`] = `
 `;
 
 exports[`#createComputeDiskEntity should set active to false when status is not READY 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "DataStore",
     "Disk",
   ],
   "_key": "disk:123456789",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "creationTimestamp": "2020-08-12T08:20:05.930-07:00",
-        "guestOsFeatures": [
-          {
+        "guestOsFeatures": Array [
+          Object {
             "type": "VIRTIO_SCSI_MULTIQUEUE",
           },
         ],
@@ -403,10 +403,10 @@ exports[`#createComputeDiskEntity should set active to false when status is not 
         "kind": "compute#disk",
         "labelFingerprint": "42WmSpB8rSM=",
         "lastAttachTimestamp": "2020-08-12T08:20:05.930-07:00",
-        "licenseCodes": [
+        "licenseCodes": Array [
           "1000205",
         ],
-        "licenses": [
+        "licenses": Array [
           "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-9-stretch",
         ],
         "name": "testvm",
@@ -418,7 +418,7 @@ exports[`#createComputeDiskEntity should set active to false when status is not 
         "status": "FAILED",
         "tags": undefined,
         "type": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/diskTypes/pd-standard",
-        "users": [
+        "users": Array [
           "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/testvm",
         ],
         "zone": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a",
@@ -432,7 +432,7 @@ exports[`#createComputeDiskEntity should set active to false when status is not 
   "description": undefined,
   "displayName": "testvm",
   "encrypted": true,
-  "guestOsFeatures": [
+  "guestOsFeatures": Array [
     "VIRTIO_SCSI_MULTIQUEUE",
   ],
   "id": "123456789",
@@ -442,10 +442,10 @@ exports[`#createComputeDiskEntity should set active to false when status is not 
   "kmsKeyServiceAccount": undefined,
   "labelFingerprint": "42WmSpB8rSM=",
   "lastAttachTimestamp": 1597245605930,
-  "licenseCodes": [
+  "licenseCodes": Array [
     "1000205",
   ],
-  "licenses": [
+  "licenses": Array [
     "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-9-stretch",
   ],
   "name": "testvm",
@@ -464,19 +464,19 @@ exports[`#createComputeDiskEntity should set active to false when status is not 
 `;
 
 exports[`#createComputeFirewallEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Firewall",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/firewalls/public-compute-app-fw-allow-https",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
-        "allowed": [
-          {
+      "rawData": Object {
+        "allowed": Array [
+          Object {
             "IPProtocol": "tcp",
-            "ports": [
+            "ports": Array [
               "443",
             ],
           },
@@ -487,25 +487,25 @@ exports[`#createComputeFirewallEntity should convert to entity 1`] = `
         "disabled": false,
         "id": "1234567890",
         "kind": "compute#firewall",
-        "logConfig": {
+        "logConfig": Object {
           "enable": false,
         },
         "name": "public-compute-app-fw-allow-https",
         "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/public-compute-app-vpc",
         "priority": 1000,
         "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/firewalls/public-compute-app-fw-allow-https",
-        "sourceRanges": [
+        "sourceRanges": Array [
           "0.0.0.0/0",
         ],
-        "targetTags": [
+        "targetTags": Array [
           "https",
         ],
       },
     },
   ],
   "_type": "google_compute_firewall",
-  "allowed": "[{"IPProtocol":"tcp","ports":["443"]}]",
-  "category": [
+  "allowed": "[{\\"IPProtocol\\":\\"tcp\\",\\"ports\\":[\\"443\\"]}]",
+  "category": Array [
     "network",
   ],
   "createdOn": 1600872444809,
@@ -524,52 +524,52 @@ exports[`#createComputeFirewallEntity should convert to entity 1`] = `
   "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/public-compute-app-vpc",
   "priority": 1000,
   "public": false,
-  "sourceRanges": [
+  "sourceRanges": Array [
     "0.0.0.0/0",
   ],
   "sourceServiceAccounts": undefined,
   "sourceTags": undefined,
   "targetServiceAccounts": undefined,
-  "targetTags": [
+  "targetTags": Array [
     "https",
   ],
 }
 `;
 
 exports[`#createComputeImageEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Image",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/my-custom-image",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "archiveSizeBytes": "1775261760",
         "creationTimestamp": "2021-05-03T13:04:03.663-07:00",
         "diskSizeGb": "10",
-        "guestOsFeatures": [
-          {
+        "guestOsFeatures": Array [
+          Object {
             "type": "VIRTIO_SCSI_MULTIQUEUE",
           },
-          {
+          Object {
             "type": "SEV_CAPABLE",
           },
-          {
+          Object {
             "type": "UEFI_COMPATIBLE",
           },
         ],
         "id": "6989580994168613341",
-        "imageEncryptionKey": {
+        "imageEncryptionKey": Object {
           "kmsKeyName": "projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring/cryptoKeys/example-key/cryptoKeyVersions/1",
         },
         "kind": "compute#image",
         "labelFingerprint": "42WmSpB8rSM=",
-        "licenseCodes": [
+        "licenseCodes": Array [
           "5926592092274602096",
         ],
-        "licenses": [
+        "licenses": Array [
           "https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/licenses/ubuntu-1804-lts",
         ],
         "name": "my-custom-image",
@@ -578,7 +578,7 @@ exports[`#createComputeImageEntity should convert to entity 1`] = `
         "sourceDiskId": "7645090348976312809",
         "sourceType": "RAW",
         "status": "READY",
-        "storageLocations": [
+        "storageLocations": Array [
           "us-central1",
         ],
       },
@@ -594,7 +594,7 @@ exports[`#createComputeImageEntity should convert to entity 1`] = `
   "diskSizeGb": "10",
   "displayName": "my-custom-image",
   "family": undefined,
-  "guestOsFeatures": [
+  "guestOsFeatures": Array [
     "VIRTIO_SCSI_MULTIQUEUE",
     "SEV_CAPABLE",
     "UEFI_COMPATIBLE",
@@ -602,10 +602,10 @@ exports[`#createComputeImageEntity should convert to entity 1`] = `
   "id": "6989580994168613341",
   "kind": "compute#image",
   "labelFingerprint": "42WmSpB8rSM=",
-  "licenseCodes": [
+  "licenseCodes": Array [
     "5926592092274602096",
   ],
-  "licenses": [
+  "licenses": Array [
     "https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/licenses/ubuntu-1804-lts",
   ],
   "name": "my-custom-image",
@@ -621,46 +621,46 @@ exports[`#createComputeImageEntity should convert to entity 1`] = `
   "sourceSnapshotId": undefined,
   "sourceType": "RAW",
   "status": "READY",
-  "storageLocations": [
+  "storageLocations": Array [
     "us-central1",
   ],
 }
 `;
 
 exports[`#createComputeImageEntity should set deprecated to false if the image is not deprecated 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Image",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/my-custom-image",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "archiveSizeBytes": "1775261760",
         "creationTimestamp": "2021-05-03T13:04:03.663-07:00",
         "diskSizeGb": "10",
-        "guestOsFeatures": [
-          {
+        "guestOsFeatures": Array [
+          Object {
             "type": "VIRTIO_SCSI_MULTIQUEUE",
           },
-          {
+          Object {
             "type": "SEV_CAPABLE",
           },
-          {
+          Object {
             "type": "UEFI_COMPATIBLE",
           },
         ],
         "id": "6989580994168613341",
-        "imageEncryptionKey": {
+        "imageEncryptionKey": Object {
           "kmsKeyName": "projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring/cryptoKeys/example-key/cryptoKeyVersions/1",
         },
         "kind": "compute#image",
         "labelFingerprint": "42WmSpB8rSM=",
-        "licenseCodes": [
+        "licenseCodes": Array [
           "5926592092274602096",
         ],
-        "licenses": [
+        "licenses": Array [
           "https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/licenses/ubuntu-1804-lts",
         ],
         "name": "my-custom-image",
@@ -669,7 +669,7 @@ exports[`#createComputeImageEntity should set deprecated to false if the image i
         "sourceDiskId": "7645090348976312809",
         "sourceType": "RAW",
         "status": "READY",
-        "storageLocations": [
+        "storageLocations": Array [
           "us-central1",
         ],
       },
@@ -685,7 +685,7 @@ exports[`#createComputeImageEntity should set deprecated to false if the image i
   "diskSizeGb": "10",
   "displayName": "my-custom-image",
   "family": undefined,
-  "guestOsFeatures": [
+  "guestOsFeatures": Array [
     "VIRTIO_SCSI_MULTIQUEUE",
     "SEV_CAPABLE",
     "UEFI_COMPATIBLE",
@@ -693,10 +693,10 @@ exports[`#createComputeImageEntity should set deprecated to false if the image i
   "id": "6989580994168613341",
   "kind": "compute#image",
   "labelFingerprint": "42WmSpB8rSM=",
-  "licenseCodes": [
+  "licenseCodes": Array [
     "5926592092274602096",
   ],
-  "licenses": [
+  "licenses": Array [
     "https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/licenses/ubuntu-1804-lts",
   ],
   "name": "my-custom-image",
@@ -712,50 +712,50 @@ exports[`#createComputeImageEntity should set deprecated to false if the image i
   "sourceSnapshotId": undefined,
   "sourceType": "RAW",
   "status": "READY",
-  "storageLocations": [
+  "storageLocations": Array [
     "us-central1",
   ],
 }
 `;
 
 exports[`#createComputeImageEntity should set deprecated to true if the image is deprecated 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Image",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/my-custom-image",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "archiveSizeBytes": "1775261760",
         "creationTimestamp": "2021-05-03T13:04:03.663-07:00",
-        "deprecated": {
+        "deprecated": Object {
           "replacement": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/images/example-disk-image",
           "state": "DEPRECATED",
         },
         "diskSizeGb": "10",
-        "guestOsFeatures": [
-          {
+        "guestOsFeatures": Array [
+          Object {
             "type": "VIRTIO_SCSI_MULTIQUEUE",
           },
-          {
+          Object {
             "type": "SEV_CAPABLE",
           },
-          {
+          Object {
             "type": "UEFI_COMPATIBLE",
           },
         ],
         "id": "6989580994168613341",
-        "imageEncryptionKey": {
+        "imageEncryptionKey": Object {
           "kmsKeyName": "projects/j1-gc-integration-dev-v2/locations/global/keyRings/example-topic-keyring/cryptoKeys/example-key/cryptoKeyVersions/1",
         },
         "kind": "compute#image",
         "labelFingerprint": "42WmSpB8rSM=",
-        "licenseCodes": [
+        "licenseCodes": Array [
           "5926592092274602096",
         ],
-        "licenses": [
+        "licenses": Array [
           "https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/licenses/ubuntu-1804-lts",
         ],
         "name": "my-custom-image",
@@ -764,7 +764,7 @@ exports[`#createComputeImageEntity should set deprecated to true if the image is
         "sourceDiskId": "7645090348976312809",
         "sourceType": "RAW",
         "status": "READY",
-        "storageLocations": [
+        "storageLocations": Array [
           "us-central1",
         ],
       },
@@ -780,7 +780,7 @@ exports[`#createComputeImageEntity should set deprecated to true if the image is
   "diskSizeGb": "10",
   "displayName": "my-custom-image",
   "family": undefined,
-  "guestOsFeatures": [
+  "guestOsFeatures": Array [
     "VIRTIO_SCSI_MULTIQUEUE",
     "SEV_CAPABLE",
     "UEFI_COMPATIBLE",
@@ -788,10 +788,10 @@ exports[`#createComputeImageEntity should set deprecated to true if the image is
   "id": "6989580994168613341",
   "kind": "compute#image",
   "labelFingerprint": "42WmSpB8rSM=",
-  "licenseCodes": [
+  "licenseCodes": Array [
     "5926592092274602096",
   ],
-  "licenses": [
+  "licenses": Array [
     "https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/licenses/ubuntu-1804-lts",
   ],
   "name": "my-custom-image",
@@ -807,27 +807,27 @@ exports[`#createComputeImageEntity should set deprecated to true if the image is
   "sourceSnapshotId": undefined,
   "sourceType": "RAW",
   "status": "READY",
-  "storageLocations": [
+  "storageLocations": Array [
     "us-central1",
   ],
 }
 `;
 
 exports[`#createComputeInstanceEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Host",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/testvm",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
-        "tags": [
-          {
+      "rawData": Object {
+        "tags": Array [
+          Object {
             "testvmtag1": true,
           },
-          {
+          Object {
             "testvmtag2": true,
           },
         ],
@@ -862,12 +862,12 @@ exports[`#createComputeInstanceEntity should convert to entity 1`] = `
   "osShortName": "debian",
   "osVersion": "11",
   "osconfigAgentVersion": "20221013.01-g1",
-  "privateIpAddress": [
+  "privateIpAddress": Array [
     "10.128.0.2",
   ],
-  "publicIpAddress": [],
+  "publicIpAddress": Array [],
   "secureBootEnabled": false,
-  "serviceAccountEmails": [
+  "serviceAccountEmails": Array [
     "j1-gc-integration-dev-v2-sa-tf@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
   ],
   "startRestricted": false,
@@ -882,20 +882,20 @@ exports[`#createComputeInstanceEntity should convert to entity 1`] = `
 `;
 
 exports[`#createComputeInstanceEntity should set active to false when status is not RUNNING 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Host",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/testvm",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
-        "tags": [
-          {
+      "rawData": Object {
+        "tags": Array [
+          Object {
             "testvmtag1": true,
           },
-          {
+          Object {
             "testvmtag2": true,
           },
         ],
@@ -930,12 +930,12 @@ exports[`#createComputeInstanceEntity should set active to false when status is 
   "osShortName": "debian",
   "osVersion": "11",
   "osconfigAgentVersion": "20221013.01-g1",
-  "privateIpAddress": [
+  "privateIpAddress": Array [
     "10.128.0.2",
   ],
-  "publicIpAddress": [],
+  "publicIpAddress": Array [],
   "secureBootEnabled": false,
-  "serviceAccountEmails": [
+  "serviceAccountEmails": Array [
     "j1-gc-integration-dev-v2-sa-tf@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
   ],
   "startRestricted": false,
@@ -950,20 +950,20 @@ exports[`#createComputeInstanceEntity should set active to false when status is 
 `;
 
 exports[`#createComputeInstanceEntity should set connectedNetworksCount to 2 when there are 2 network interfaces 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Host",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/testvm",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
-        "tags": [
-          {
+      "rawData": Object {
+        "tags": Array [
+          Object {
             "testvmtag1": true,
           },
-          {
+          Object {
             "testvmtag2": true,
           },
         ],
@@ -998,13 +998,13 @@ exports[`#createComputeInstanceEntity should set connectedNetworksCount to 2 whe
   "osShortName": "debian",
   "osVersion": "11",
   "osconfigAgentVersion": "20221013.01-g1",
-  "privateIpAddress": [
+  "privateIpAddress": Array [
     "10.128.0.2",
     "10.128.0.22",
   ],
-  "publicIpAddress": [],
+  "publicIpAddress": Array [],
   "secureBootEnabled": false,
-  "serviceAccountEmails": [
+  "serviceAccountEmails": Array [
     "j1-gc-integration-dev-v2-sa-tf@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
   ],
   "startRestricted": false,
@@ -1019,20 +1019,20 @@ exports[`#createComputeInstanceEntity should set connectedNetworksCount to 2 whe
 `;
 
 exports[`#createComputeInstanceEntity should set isOSLoginEnabled to true when enabled-oslogin metadata value is "TRUE" 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Host",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/testvm",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
-        "tags": [
-          {
+      "rawData": Object {
+        "tags": Array [
+          Object {
             "testvmtag1": true,
           },
-          {
+          Object {
             "testvmtag2": true,
           },
         ],
@@ -1067,12 +1067,12 @@ exports[`#createComputeInstanceEntity should set isOSLoginEnabled to true when e
   "osShortName": "debian",
   "osVersion": "11",
   "osconfigAgentVersion": "20221013.01-g1",
-  "privateIpAddress": [
+  "privateIpAddress": Array [
     "10.128.0.2",
   ],
-  "publicIpAddress": [],
+  "publicIpAddress": Array [],
   "secureBootEnabled": false,
-  "serviceAccountEmails": [
+  "serviceAccountEmails": Array [
     "j1-gc-integration-dev-v2-sa-tf@j1-gc-integration-dev-v2.iam.gserviceaccount.com",
   ],
   "startRestricted": false,
@@ -1087,7 +1087,7 @@ exports[`#createComputeInstanceEntity should set isOSLoginEnabled to true when e
 `;
 
 exports[`#createComputeInstanceUsesComputeDiskRelationship should convert to relationship 1`] = `
-{
+Object {
   "_class": "USES",
   "_fromEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/testvm",
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/testvm|uses|disk:123456789",
@@ -1102,27 +1102,27 @@ exports[`#createComputeInstanceUsesComputeDiskRelationship should convert to rel
 `;
 
 exports[`#createComputeNetworkEntity should convert to entity 1`] = `
-{
+Object {
   "CIDR": null,
   "IPv4Range": undefined,
-  "_class": [
+  "_class": Array [
     "Network",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/public-compute-app-vpc",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "autoCreateSubnetworks": false,
         "creationTimestamp": "2020-09-23T07:47:13.320-07:00",
         "id": "4319333979087364382",
         "kind": "compute#network",
         "name": "public-compute-app-vpc",
-        "routingConfig": {
+        "routingConfig": Object {
           "routingMode": "GLOBAL",
         },
         "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/networks/public-compute-app-vpc",
-        "subnetworks": [
+        "subnetworks": Array [
           "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/public-compute-app-public-subnet-1",
         ],
       },
@@ -1139,7 +1139,7 @@ exports[`#createComputeNetworkEntity should convert to entity 1`] = `
   "name": "public-compute-app-vpc",
   "public": false,
   "routingMode": "GLOBAL",
-  "subnetworks": [
+  "subnetworks": Array [
     "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/us-central1/subnetworks/public-compute-app-public-subnet-1",
   ],
   "webLink": "https://console.cloud.google.com/networking/networks/details/public-compute-app-vpc?project=j1-gc-integration-dev-v2",
@@ -1147,16 +1147,16 @@ exports[`#createComputeNetworkEntity should convert to entity 1`] = `
 `;
 
 exports[`#createComputeProjectEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Project",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
-        "commonInstanceMetadata": {
+      "rawData": Object {
+        "commonInstanceMetadata": Object {
           "fingerprint": "3rFva159u8A=",
           "kind": "compute#metadata",
         },
@@ -1166,18 +1166,18 @@ exports[`#createComputeProjectEntity should convert to entity 1`] = `
         "id": "8075573275056338764",
         "kind": "compute#project",
         "name": "j1-gc-integration-dev-v2",
-        "quotas": [
-          {
+        "quotas": Array [
+          Object {
             "limit": 1000,
             "metric": "SNAPSHOTS",
             "usage": 0,
           },
-          {
+          Object {
             "limit": 5,
             "metric": "NETWORKS",
             "usage": 3,
           },
-          {
+          Object {
             "limit": 100,
             "metric": "FIREWALLS",
             "usage": 7,
@@ -1201,18 +1201,18 @@ exports[`#createComputeProjectEntity should convert to entity 1`] = `
 `;
 
 exports[`#createComputeProjectEntity should set isOSLoginEnabled to true when enabled-oslogin metadata value is "TRUE" 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Project",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
-        "commonInstanceMetadata": {
-          "items": [
-            {
+      "rawData": Object {
+        "commonInstanceMetadata": Object {
+          "items": Array [
+            Object {
               "key": "enable-oslogin",
               "value": "TRUE",
             },
@@ -1225,18 +1225,18 @@ exports[`#createComputeProjectEntity should set isOSLoginEnabled to true when en
         "id": "8075573275056338764",
         "kind": "compute#project",
         "name": "j1-gc-integration-dev-v2",
-        "quotas": [
-          {
+        "quotas": Array [
+          Object {
             "limit": 1000,
             "metric": "SNAPSHOTS",
             "usage": 0,
           },
-          {
+          Object {
             "limit": 5,
             "metric": "NETWORKS",
             "usage": 3,
           },
-          {
+          Object {
             "limit": 100,
             "metric": "FIREWALLS",
             "usage": 7,
@@ -1260,19 +1260,19 @@ exports[`#createComputeProjectEntity should set isOSLoginEnabled to true when en
 `;
 
 exports[`#createComputeRegionDiskEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "DataStore",
     "Disk",
   ],
   "_key": "region_disk:123456789",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "creationTimestamp": "2020-08-12T08:20:05.930-07:00",
-        "guestOsFeatures": [
-          {
+        "guestOsFeatures": Array [
+          Object {
             "type": "VIRTIO_SCSI_MULTIQUEUE",
           },
         ],
@@ -1280,10 +1280,10 @@ exports[`#createComputeRegionDiskEntity should convert to entity 1`] = `
         "kind": "compute#disk",
         "labelFingerprint": "42WmSpB8rSM=",
         "lastAttachTimestamp": "2021-07-09T08:20:05.930-07:00",
-        "licenseCodes": [
+        "licenseCodes": Array [
           "1000205",
         ],
-        "licenses": [
+        "licenses": Array [
           "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-9-stretch",
         ],
         "name": "my-region-disk",
@@ -1306,7 +1306,7 @@ exports[`#createComputeRegionDiskEntity should convert to entity 1`] = `
   "description": undefined,
   "displayName": "my-region-disk",
   "encrypted": true,
-  "guestOsFeatures": [
+  "guestOsFeatures": Array [
     "VIRTIO_SCSI_MULTIQUEUE",
   ],
   "id": "123456789",
@@ -1316,10 +1316,10 @@ exports[`#createComputeRegionDiskEntity should convert to entity 1`] = `
   "kmsKeyServiceAccount": undefined,
   "labelFingerprint": "42WmSpB8rSM=",
   "lastAttachTimestamp": 1625844005930,
-  "licenseCodes": [
+  "licenseCodes": Array [
     "1000205",
   ],
-  "licenses": [
+  "licenses": Array [
     "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-9-stretch",
   ],
   "name": "my-region-disk",
@@ -1336,16 +1336,16 @@ exports[`#createComputeRegionDiskEntity should convert to entity 1`] = `
 `;
 
 exports[`#createComputeSubnetEntity should convert to entity 1`] = `
-{
+Object {
   "CIDR": "10.164.0.0/20",
-  "_class": [
+  "_class": Array [
     "Network",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/europe-west4/subnetworks/default",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "creationTimestamp": "2020-08-07T10:20:16.033-07:00",
         "fingerprint": "whfZBEBCda4=",
         "gatewayAddress": "10.164.0.1",
@@ -1379,23 +1379,23 @@ exports[`#createComputeSubnetEntity should convert to entity 1`] = `
 `;
 
 exports[`#createComputeSubnetEntity should have flowLogsEnabled set to true if it is enabled for subnet 1`] = `
-{
+Object {
   "CIDR": "10.164.0.0/20",
-  "_class": [
+  "_class": Array [
     "Network",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/regions/europe-west4/subnetworks/default",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "creationTimestamp": "2020-08-07T10:20:16.033-07:00",
         "fingerprint": "whfZBEBCda4=",
         "gatewayAddress": "10.164.0.1",
         "id": "1234567890",
         "ipCidrRange": "10.164.0.0/20",
         "kind": "compute#subnetwork",
-        "logConfig": {
+        "logConfig": Object {
           "enable": true,
         },
         "name": "default",
@@ -1425,17 +1425,17 @@ exports[`#createComputeSubnetEntity should have flowLogsEnabled set to true if i
 `;
 
 exports[`#createFirewallRuleMappedRelationship should convert to mapped relationship 1`] = `
-{
+Object {
   "_class": "ALLOWS",
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/firewalls/public-compute-app-fw-allow-https:0:tcp:0:0.0.0.0/0:443",
-  "_mapping": {
+  "_mapping": Object {
     "relationshipDirection": "REVERSE",
     "skipTargetCreation": true,
     "sourceEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/firewalls/public-compute-app-fw-allow-https",
-    "targetEntity": {
+    "targetEntity": Object {
       "CIDR": "0.0.0.0/0",
       "CIDRv6": "::/0",
-      "_class": [
+      "_class": Array [
         "Internet",
         "Network",
       ],
@@ -1444,8 +1444,8 @@ exports[`#createFirewallRuleMappedRelationship should convert to mapped relation
       "displayName": "Internet",
       "public": true,
     },
-    "targetFilterKeys": [
-      [
+    "targetFilterKeys": Array [
+      Array [
         "_key",
       ],
     ],
@@ -1462,15 +1462,15 @@ exports[`#createFirewallRuleMappedRelationship should convert to mapped relation
 `;
 
 exports[`#createForwardingRuleEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Configuration",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/forwardingRules/forwarding-rule-example",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "IPAddress": "35.226.248.183",
         "IPProtocol": "TCP",
         "backendService": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/backendServices/forwarding-rule-example-backend",
@@ -1514,15 +1514,15 @@ exports[`#createForwardingRuleEntity should convert to entity 1`] = `
 `;
 
 exports[`#createGlobalForwardingRuleEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Configuration",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/forwardingRules/global-forwarding-rule-example",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "IPAddress": "34.149.86.61",
         "IPProtocol": "TCP",
         "creationTimestamp": "2021-07-06T12:13:10.197-07:00",
@@ -1565,15 +1565,15 @@ exports[`#createGlobalForwardingRuleEntity should convert to entity 1`] = `
 `;
 
 exports[`#createHealthCheckEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Service",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/healthChecks/health-check",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "checkIntervalSec": 10,
         "creationTimestamp": "2021-01-25T13:09:23.908-08:00",
         "description": "",
@@ -1582,7 +1582,7 @@ exports[`#createHealthCheckEntity should convert to entity 1`] = `
         "kind": "compute#healthCheck",
         "name": "health-check",
         "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/healthChecks/health-check",
-        "tcpHealthCheck": {
+        "tcpHealthCheck": Object {
           "port": 80,
           "proxyHeader": "NONE",
         },
@@ -1593,14 +1593,14 @@ exports[`#createHealthCheckEntity should convert to entity 1`] = `
     },
   ],
   "_type": "google_compute_health_check",
-  "category": [
+  "category": Array [
     "network",
   ],
   "checkIntervalSec": 10,
   "createdOn": 1611608963908,
   "description": "",
   "displayName": "health-check",
-  "function": [
+  "function": Array [
     "validation",
   ],
   "healthyThreshold": 2,
@@ -1615,23 +1615,23 @@ exports[`#createHealthCheckEntity should convert to entity 1`] = `
 `;
 
 exports[`#createInstanceGroupEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Group",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instanceGroups/instance-group-1",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "creationTimestamp": "2021-01-25T13:05:35.348-08:00",
         "description": "This instance group is controlled by Instance Group Manager 'instance-group-1'. To modify instances in this group, use the Instance Group Manager API: https://cloud.google.com/compute/docs/reference/latest/instanceGroupManagers",
         "fingerprint": "Mhi8gtwR57U=",
         "id": "4682404015364017264",
         "kind": "compute#instanceGroup",
         "name": "instance-group-1",
-        "namedPorts": [
-          {
+        "namedPorts": Array [
+          Object {
             "name": "https",
             "port": 5000,
           },
@@ -1659,21 +1659,21 @@ exports[`#createInstanceGroupEntity should convert to entity 1`] = `
 `;
 
 exports[`#createLoadBalancerEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Gateway",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/urlMaps/region-load-balancer",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "creationTimestamp": "2021-07-06T08:43:38.575-07:00",
         "defaultService": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/backendServices/region-backend-service-a",
         "fingerprint": "pQIO2oOQZtQ=",
-        "hostRules": [
-          {
-            "hosts": [
+        "hostRules": Array [
+          Object {
+            "hosts": Array [
               "mysite.com",
             ],
             "pathMatcher": "allpaths",
@@ -1682,13 +1682,13 @@ exports[`#createLoadBalancerEntity should convert to entity 1`] = `
         "id": "1752343790922351813",
         "kind": "compute#urlMap",
         "name": "region-load-balancer",
-        "pathMatchers": [
-          {
+        "pathMatchers": Array [
+          Object {
             "defaultService": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/backendServices/region-backend-service-a",
             "name": "allpaths",
-            "pathRules": [
-              {
-                "paths": [
+            "pathRules": Array [
+              Object {
+                "paths": Array [
                   "/*",
                 ],
                 "service": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/backendServices/region-backend-service-a",
@@ -1702,14 +1702,14 @@ exports[`#createLoadBalancerEntity should convert to entity 1`] = `
     },
   ],
   "_type": "google_compute_url_map",
-  "category": [
+  "category": Array [
     "network",
   ],
   "createdOn": 1625586218575,
   "defaultService": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/backendServices/region-backend-service-a",
   "description": undefined,
   "displayName": "region-load-balancer",
-  "function": [
+  "function": Array [
     "load-balancing",
   ],
   "id": "1752343790922351813",
@@ -1721,30 +1721,30 @@ exports[`#createLoadBalancerEntity should convert to entity 1`] = `
 `;
 
 exports[`#createRegionBackendServiceEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Service",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/backendServices/region-service",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "affinityCookieTtlSec": 0,
-        "backends": [
-          {
+        "backends": Array [
+          Object {
             "balancingMode": "UTILIZATION",
             "capacityScaler": 1,
             "group": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/instanceGroups/rbs-rigm",
           },
         ],
-        "connectionDraining": {
+        "connectionDraining": Object {
           "drainingTimeoutSec": 0,
         },
         "creationTimestamp": "2021-07-02T11:37:53.945-07:00",
         "description": "",
         "fingerprint": "awc17aRlLnY=",
-        "healthChecks": [
+        "healthChecks": Array [
           "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/healthChecks/region-health-check",
         ],
         "id": "4177301228397716462",
@@ -1762,14 +1762,14 @@ exports[`#createRegionBackendServiceEntity should convert to entity 1`] = `
     },
   ],
   "_type": "google_compute_backend_service",
-  "category": [
+  "category": Array [
     "network",
   ],
   "createdOn": 1625251073945,
   "description": "",
   "displayName": "region-service",
   "enableCDN": undefined,
-  "function": [
+  "function": Array [
     "load-balancing",
   ],
   "id": "4177301228397716462",
@@ -1782,15 +1782,15 @@ exports[`#createRegionBackendServiceEntity should convert to entity 1`] = `
 `;
 
 exports[`#createRegionHealthCheckEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Service",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/healthChecks/forwarding-rule-example-hc",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "checkIntervalSec": 10,
         "creationTimestamp": "2021-07-07T13:09:23.908-08:00",
         "description": "",
@@ -1800,7 +1800,7 @@ exports[`#createRegionHealthCheckEntity should convert to entity 1`] = `
         "name": "region-health-check",
         "region": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1",
         "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/healthChecks/forwarding-rule-example-hc",
-        "tcpHealthCheck": {
+        "tcpHealthCheck": Object {
           "port": 80,
           "proxyHeader": "NONE",
         },
@@ -1811,14 +1811,14 @@ exports[`#createRegionHealthCheckEntity should convert to entity 1`] = `
     },
   ],
   "_type": "google_compute_health_check",
-  "category": [
+  "category": Array [
     "network",
   ],
   "checkIntervalSec": 10,
   "createdOn": 1625692163908,
   "description": "",
   "displayName": "region-health-check",
-  "function": [
+  "function": Array [
     "validation",
   ],
   "healthyThreshold": 2,
@@ -1834,23 +1834,23 @@ exports[`#createRegionHealthCheckEntity should convert to entity 1`] = `
 `;
 
 exports[`#createRegionInstanceGroupEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Group",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/instanceGroups/rbs-rigm",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "creationTimestamp": "2021-07-02T11:37:36.900-07:00",
         "description": "This instance group is controlled by Regional Instance Group Manager 'rbs-rigm'. To modify instances in this group, use the Regional Instance Group Manager API: https://cloud.google.com/compute/docs/reference/latest/regionInstanceGroupManagers",
         "fingerprint": "l9ccw0jwP90=",
         "id": "1067593809144242719",
         "kind": "compute#instanceGroup",
         "name": "rbs-rigm",
-        "namedPorts": [
-          {
+        "namedPorts": Array [
+          Object {
             "name": "http",
             "port": 80,
           },
@@ -1878,21 +1878,21 @@ exports[`#createRegionInstanceGroupEntity should convert to entity 1`] = `
 `;
 
 exports[`#createRegionLoadBalancerEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Gateway",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/urlMaps/example-http-load-balancer",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "creationTimestamp": "2021-01-25T13:09:32.355-08:00",
         "defaultService": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/backendServices/example-backend-service",
         "fingerprint": "7VTPVZHiF8k=",
-        "hostRules": [
-          {
-            "hosts": [
+        "hostRules": Array [
+          Object {
+            "hosts": Array [
               "web.test.com",
             ],
             "pathMatcher": "path-matcher-1",
@@ -1901,13 +1901,13 @@ exports[`#createRegionLoadBalancerEntity should convert to entity 1`] = `
         "id": "7884251075960802659",
         "kind": "compute#urlMap",
         "name": "example-http-load-balancer",
-        "pathMatchers": [
-          {
+        "pathMatchers": Array [
+          Object {
             "defaultService": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/backendServices/example-backend-service",
             "name": "path-matcher-1",
-            "pathRules": [
-              {
-                "paths": [
+            "pathRules": Array [
+              Object {
+                "paths": Array [
                   "/images/*",
                 ],
                 "service": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/backendBuckets/example-backend-bucket",
@@ -1920,14 +1920,14 @@ exports[`#createRegionLoadBalancerEntity should convert to entity 1`] = `
     },
   ],
   "_type": "google_compute_url_map",
-  "category": [
+  "category": Array [
     "network",
   ],
   "createdOn": 1611608972355,
   "defaultService": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/backendServices/example-backend-service",
   "description": undefined,
   "displayName": "example-http-load-balancer",
-  "function": [
+  "function": Array [
     "load-balancing",
   ],
   "id": "7884251075960802659",
@@ -1940,15 +1940,15 @@ exports[`#createRegionLoadBalancerEntity should convert to entity 1`] = `
 `;
 
 exports[`#createRegionTargetHttpProxyEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Gateway",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/targetHttpProxies/region-target-http-proxy",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "creationTimestamp": "2021-07-06T08:43:50.058-07:00",
         "fingerprint": "NsugSa3Ddx8=",
         "id": "8864379689692153049",
@@ -1961,12 +1961,12 @@ exports[`#createRegionTargetHttpProxyEntity should convert to entity 1`] = `
     },
   ],
   "_type": "google_compute_target_http_proxy",
-  "category": [
+  "category": Array [
     "network",
   ],
   "createdOn": 1625586230058,
   "displayName": "region-target-http-proxy",
-  "function": [
+  "function": Array [
     "load-balancing",
   ],
   "id": "8864379689692153049",
@@ -1977,22 +1977,22 @@ exports[`#createRegionTargetHttpProxyEntity should convert to entity 1`] = `
 `;
 
 exports[`#createRegionTargetHttpsProxyEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Gateway",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/targetHttpsProxies/example-http-load-balancer-target-proxy",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "creationTimestamp": "2021-01-25T13:12:07.139-08:00",
         "id": "4900822412538579656",
         "kind": "compute#targetHttpsProxy",
         "name": "example-http-load-balancer-target-proxy",
         "quicOverride": "NONE",
         "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/targetHttpsProxies/example-http-load-balancer-target-proxy",
-        "sslCertificates": [
+        "sslCertificates": Array [
           "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/sslCertificates/example-certificate",
         ],
         "sslPolicy": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/sslPolicies/example-tls-1-2-policy",
@@ -2001,12 +2001,12 @@ exports[`#createRegionTargetHttpsProxyEntity should convert to entity 1`] = `
     },
   ],
   "_type": "google_compute_target_https_proxy",
-  "category": [
+  "category": Array [
     "network",
   ],
   "createdOn": 1611609127139,
   "displayName": "example-http-load-balancer-target-proxy",
-  "function": [
+  "function": Array [
     "load-balancing",
   ],
   "id": "4900822412538579656",
@@ -2018,17 +2018,17 @@ exports[`#createRegionTargetHttpsProxyEntity should convert to entity 1`] = `
 `;
 
 exports[`#createSslPolicyEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Policy",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/sslPolicies/example-tls-1-2-policy",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "creationTimestamp": "2021-01-25T13:14:45.749-08:00",
-        "customFeatures": [
+        "customFeatures": Array [
           "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA",
           "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256",
           "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA",
@@ -2047,7 +2047,7 @@ exports[`#createSslPolicyEntity should convert to entity 1`] = `
   "_type": "google_compute_ssl_policy",
   "content": "",
   "createdOn": 1611609285749,
-  "customFeatures": [
+  "customFeatures": Array [
     "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA",
     "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256",
     "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA",
@@ -2064,15 +2064,15 @@ exports[`#createSslPolicyEntity should convert to entity 1`] = `
 `;
 
 exports[`#createTargetHttpProxyEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Gateway",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/targetHttpProxies/example-http-loadbalancer-target-proxy",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "creationTimestamp": "2021-02-04T11:44:02.365-08:00",
         "fingerprint": "XrJcBMxyGME=",
         "id": "3284730591055048813",
@@ -2084,12 +2084,12 @@ exports[`#createTargetHttpProxyEntity should convert to entity 1`] = `
     },
   ],
   "_type": "google_compute_target_http_proxy",
-  "category": [
+  "category": Array [
     "network",
   ],
   "createdOn": 1612467842365,
   "displayName": "example-http-loadbalancer-target-proxy",
-  "function": [
+  "function": Array [
     "load-balancing",
   ],
   "id": "3284730591055048813",
@@ -2100,22 +2100,22 @@ exports[`#createTargetHttpProxyEntity should convert to entity 1`] = `
 `;
 
 exports[`#createTargetHttpsProxyEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Gateway",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/targetHttpsProxies/example-http-load-balancer-target-proxy",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "creationTimestamp": "2021-01-25T13:12:07.139-08:00",
         "id": "4900822412538579656",
         "kind": "compute#targetHttpsProxy",
         "name": "example-http-load-balancer-target-proxy",
         "quicOverride": "NONE",
         "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/targetHttpsProxies/example-http-load-balancer-target-proxy",
-        "sslCertificates": [
+        "sslCertificates": Array [
           "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/sslCertificates/example-certificate",
         ],
         "sslPolicy": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/sslPolicies/example-tls-1-2-policy",
@@ -2124,12 +2124,12 @@ exports[`#createTargetHttpsProxyEntity should convert to entity 1`] = `
     },
   ],
   "_type": "google_compute_target_https_proxy",
-  "category": [
+  "category": Array [
     "network",
   ],
   "createdOn": 1611609127139,
   "displayName": "example-http-load-balancer-target-proxy",
-  "function": [
+  "function": Array [
     "load-balancing",
   ],
   "id": "4900822412538579656",
@@ -2141,15 +2141,15 @@ exports[`#createTargetHttpsProxyEntity should convert to entity 1`] = `
 `;
 
 exports[`#createTargetSslProxyEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Gateway",
   ],
   "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/targetSslProxies/example-ssl-2-loadbalancer-target-proxy",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "creationTimestamp": "2021-02-04T12:07:33.886-08:00",
         "id": "764465862189116138",
         "kind": "compute#targetSslProxy",
@@ -2157,19 +2157,19 @@ exports[`#createTargetSslProxyEntity should convert to entity 1`] = `
         "proxyHeader": "NONE",
         "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/targetSslProxies/example-ssl-2-loadbalancer-target-proxy",
         "service": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/backendServices/example-ssl-2-loadbalancer",
-        "sslCertificates": [
+        "sslCertificates": Array [
           "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/global/sslCertificates/example-certificate",
         ],
       },
     },
   ],
   "_type": "google_compute_target_ssl_proxy",
-  "category": [
+  "category": Array [
     "network",
   ],
   "createdOn": 1612469253886,
   "displayName": "example-ssl-2-loadbalancer-target-proxy",
-  "function": [
+  "function": Array [
     "load-balancing",
   ],
   "id": "764465862189116138",

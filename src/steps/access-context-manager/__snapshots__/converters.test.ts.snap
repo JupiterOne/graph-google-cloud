@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#createAccessLevelEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Ruleset",
   ],
   "_key": "accessPolicies/368605946207/accessLevels/access_level_example",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
-        "basic": {
-          "conditions": [
-            {
-              "regions": [
+      "rawData": Object {
+        "basic": Object {
+          "conditions": Array [
+            Object {
+              "regions": Array [
                 "US",
               ],
             },
@@ -34,15 +34,15 @@ exports[`#createAccessLevelEntity should convert to entity 1`] = `
 `;
 
 exports[`#createAccessPolicyEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "AccessPolicy",
   ],
   "_key": "accessPolicies/368605946207",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "etag": "64186ca0c82b01b4",
         "name": "accessPolicies/368605946207",
         "parent": "organizations/958457776463",
@@ -60,15 +60,15 @@ exports[`#createAccessPolicyEntity should convert to entity 1`] = `
 `;
 
 exports[`#createServicePerimeterApiOperationEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Configuration",
   ],
   "_key": "accessPolicies/368605946207/servicePerimeters/example_perimetere:egressPolicies[0]:apiOperations[0]",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "serviceName": "storage.googleapis.com",
       },
     },
@@ -82,30 +82,30 @@ exports[`#createServicePerimeterApiOperationEntity should convert to entity 1`] 
 `;
 
 exports[`#createServicePerimeterEgressPolicyEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "ControlPolicy",
   ],
   "_key": "accessPolicies/368605946207/servicePerimeters/example_perimetere:egressPolicies[0]",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
-        "egressFrom": {
+      "rawData": Object {
+        "egressFrom": Object {
           "identityType": "ANY_IDENTITY",
         },
-        "egressTo": {
-          "operations": [
-            {
-              "methodSelectors": [
-                {
+        "egressTo": Object {
+          "operations": Array [
+            Object {
+              "methodSelectors": Array [
+                Object {
                   "method": "*",
                 },
               ],
               "serviceName": "storage.googleapis.com",
             },
           ],
-          "resources": [
+          "resources": Array [
             "projects/167984947943",
           ],
         },
@@ -122,30 +122,30 @@ exports[`#createServicePerimeterEgressPolicyEntity should convert to entity 1`] 
 `;
 
 exports[`#createServicePerimeterEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Configuration",
   ],
   "_key": "accessPolicies/368605946207/servicePerimeters/example_perimetere",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "name": "accessPolicies/368605946207/servicePerimeters/example_perimetere",
         "spec": undefined,
-        "status": {
-          "accessLevels": [
+        "status": Object {
+          "accessLevels": Array [
             "accessPolicies/368605946207/accessLevels/access_level_example",
           ],
           "egressPolicies": undefined,
           "ingressPolicies": undefined,
-          "resources": [
+          "resources": Array [
             "projects/167984947943",
           ],
-          "restrictedServices": [
+          "restrictedServices": Array [
             "storage.googleapis.com",
           ],
-          "vpcAccessibleServices": {},
+          "vpcAccessibleServices": Object {},
         },
         "title": "example_perimetere",
       },
@@ -161,13 +161,13 @@ exports[`#createServicePerimeterEntity should convert to entity 1`] = `
   "spec.accessLevels": undefined,
   "spec.resources": undefined,
   "spec.restrictedServices": undefined,
-  "status.accessLevels": [
+  "status.accessLevels": Array [
     "accessPolicies/368605946207/accessLevels/access_level_example",
   ],
-  "status.resources": [
+  "status.resources": Array [
     "projects/167984947943",
   ],
-  "status.restrictedServices": [
+  "status.restrictedServices": Array [
     "storage.googleapis.com",
   ],
   "title": "example_perimetere",
@@ -176,35 +176,35 @@ exports[`#createServicePerimeterEntity should convert to entity 1`] = `
 `;
 
 exports[`#createServicePerimeterIngressPolicyEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "ControlPolicy",
   ],
   "_key": "accessPolicies/368605946207/servicePerimeters/example_perimetere:ingressPolicies[0]",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
-        "ingressFrom": {
+      "rawData": Object {
+        "ingressFrom": Object {
           "identityType": "ANY_IDENTITY",
-          "sources": [
-            {
+          "sources": Array [
+            Object {
               "accessLevel": "accessPolicies/368605946207/accessLevels/access_level_example",
             },
           ],
         },
-        "ingressTo": {
-          "operations": [
-            {
-              "methodSelectors": [
-                {
+        "ingressTo": Object {
+          "operations": Array [
+            Object {
+              "methodSelectors": Array [
+                Object {
                   "method": "*",
                 },
               ],
               "serviceName": "storage.googleapis.com",
             },
           ],
-          "resources": [
+          "resources": Array [
             "projects/167984947943",
           ],
         },
@@ -221,15 +221,15 @@ exports[`#createServicePerimeterIngressPolicyEntity should convert to entity 1`]
 `;
 
 exports[`#createServicePerimeterMethodSelectorEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Configuration",
   ],
   "_key": "accessPolicies/368605946207/servicePerimeters/example_perimetere:egressPolicies[0]:apiOperations[0]:methodSelectors[0]",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "method": "*",
       },
     },

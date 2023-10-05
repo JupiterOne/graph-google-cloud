@@ -24,9 +24,10 @@ async function fetchAuthorityCertificates(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
 
-  const client = new PrivateCaClient({ config });
+  const client = new PrivateCaClient({ config }, logger);
 
   await jobState.iterateEntities(
     {

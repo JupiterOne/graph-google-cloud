@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#createAuditConfigEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Configuration",
   ],
   "_key": "auditConfig:sample.service.com",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
-        "auditLogConfigs": [
-          {
+      "rawData": Object {
+        "auditLogConfigs": Array [
+          Object {
             "logType": "SAMPLE_LOG",
           },
         ],
@@ -22,7 +22,7 @@ exports[`#createAuditConfigEntity should convert to entity 1`] = `
   "_type": "google_cloud_audit_config",
   "createdOn": undefined,
   "displayName": "auditConfig:sample.service.com",
-  "logTypes": [
+  "logTypes": Array [
     "SAMPLE_LOG",
   ],
   "name": "auditConfig:sample.service.com",
@@ -31,15 +31,15 @@ exports[`#createAuditConfigEntity should convert to entity 1`] = `
 `;
 
 exports[`#createOrganizationEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Organization",
   ],
   "_key": "organizations/958457776463",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "createTime": "2021-05-26T21:15:56.407Z",
         "directoryCustomerId": "C048tgq5f",
         "displayName": "jupiterone.dev",
@@ -61,15 +61,15 @@ exports[`#createOrganizationEntity should convert to entity 1`] = `
 `;
 
 exports[`#createProjectEntity should convert entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Account",
   ],
   "_key": "projects/619127027446",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
+      "rawData": Object {
         "createTime": "2021-05-31T15:45:06.340Z",
         "displayName": "My First Project",
         "etag": "Woe+unJqYGNKmCl1jbZyug==",
@@ -95,12 +95,12 @@ exports[`#createProjectEntity should convert entity 1`] = `
 `;
 
 exports[`#createProjectEntity should convert entity with just projectId 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Account",
   ],
   "_key": "j1-gc-integration-dev-v2",
-  "_rawData": [],
+  "_rawData": Array [],
   "_type": "google_cloud_project",
   "createdOn": undefined,
   "displayName": "j1-gc-integration-dev-v2",

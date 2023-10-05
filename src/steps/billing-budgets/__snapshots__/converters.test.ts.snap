@@ -1,24 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#createBillingBudgetEntity should convert to entity 1`] = `
-{
-  "_class": [
+Object {
+  "_class": Array [
     "Ruleset",
   ],
   "_key": "sample-name",
-  "_rawData": [
-    {
+  "_rawData": Array [
+    Object {
       "name": "default",
-      "rawData": {
-        "amount": {
-          "specifiedAmount": {
+      "rawData": Object {
+        "amount": Object {
+          "specifiedAmount": Object {
             "currencyCode": "USD",
             "nanos": 750000000,
             "units": "1",
           },
         },
-        "budgetFilter": {
-          "projects": [
+        "budgetFilter": Object {
+          "projects": Array [
             "project/project-1",
             "project/project-2",
           ],
@@ -26,9 +26,9 @@ exports[`#createBillingBudgetEntity should convert to entity 1`] = `
         "displayName": "sample-display-name",
         "etag": "sample-etag",
         "name": "sample-name",
-        "notificationsRule": {
+        "notificationsRule": Object {
           "disableDefaultIamRecipients": true,
-          "monitoringNotificationChannels": [
+          "monitoringNotificationChannels": Array [
             "channel-1",
             "channel-2",
           ],
@@ -44,12 +44,12 @@ exports[`#createBillingBudgetEntity should convert to entity 1`] = `
   "disableDefaultIamRecipients": true,
   "displayName": "sample-display-name",
   "etag": "sample-etag",
-  "monitoringNotificationChannels": [
+  "monitoringNotificationChannels": Array [
     "channel-1",
     "channel-2",
   ],
   "name": "sample-name",
-  "projects": [
+  "projects": Array [
     "project/project-1",
     "project/project-2",
   ],

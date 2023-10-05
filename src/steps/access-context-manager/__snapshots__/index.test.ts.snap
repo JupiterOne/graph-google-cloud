@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#fetchAccessContextManagerAccessLevels should collect data 1`] = `
-{
-  "collectedEntities": [
-    {
-      "_class": [
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
         "AccessPolicy",
       ],
       "_key": "accessPolicies/368605946207",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "etag": "fc2ac26b9b1240b3",
             "name": "accessPolicies/368605946207",
             "parent": "organizations/958457776463",
@@ -26,19 +26,19 @@ exports[`#fetchAccessContextManagerAccessLevels should collect data 1`] = `
       "name": "accessPolicies/368605946207",
       "title": "default policy",
     },
-    {
-      "_class": [
+    Object {
+      "_class": Array [
         "Ruleset",
       ],
       "_key": "accessPolicies/368605946207/accessLevels/access_level_example",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
-            "basic": {
-              "conditions": [
-                {
-                  "regions": [
+          "rawData": Object {
+            "basic": Object {
+              "conditions": Array [
+                Object {
+                  "regions": Array [
                     "US",
                   ],
                 },
@@ -57,8 +57,8 @@ exports[`#fetchAccessContextManagerAccessLevels should collect data 1`] = `
       "title": "access_level_example",
     },
   ],
-  "collectedRelationships": [
-    {
+  "collectedRelationships": Array [
+    Object {
       "_class": "HAS",
       "_fromEntityKey": "accessPolicies/368605946207",
       "_key": "accessPolicies/368605946207|has|accessPolicies/368605946207/accessLevels/access_level_example",
@@ -67,7 +67,7 @@ exports[`#fetchAccessContextManagerAccessLevels should collect data 1`] = `
       "displayName": "HAS",
     },
   ],
-  "encounteredTypes": [
+  "encounteredTypes": Array [
     "google_access_context_manager_access_policy",
     "google_access_context_manager_access_level",
     "google_access_context_manager_access_policy_has_level",
@@ -78,17 +78,17 @@ exports[`#fetchAccessContextManagerAccessLevels should collect data 1`] = `
 `;
 
 exports[`#fetchAccessContextManagerAccessPolicies should collect data 1`] = `
-{
-  "collectedEntities": [
-    {
-      "_class": [
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
         "AccessPolicy",
       ],
       "_key": "accessPolicies/368605946207",
-      "_rawData": [
-        {
+      "_rawData": Array [
+        Object {
           "name": "default",
-          "rawData": {
+          "rawData": Object {
             "etag": "64186ca0c82b01b4",
             "name": "accessPolicies/368605946207",
             "parent": "organizations/958457776463",
@@ -104,8 +104,8 @@ exports[`#fetchAccessContextManagerAccessPolicies should collect data 1`] = `
       "title": "default policy",
     },
   ],
-  "collectedRelationships": [],
-  "encounteredTypes": [
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
     "google_access_context_manager_access_policy",
   ],
   "numCollectedEntities": 1,
