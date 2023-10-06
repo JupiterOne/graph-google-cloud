@@ -1,3 +1,18 @@
+# v3.1.1 (Fri Oct 06 2023)
+
+#### 🐛 Bug Fix
+
+- INT-9642 Bump public sdk version [#621](https://github.com/JupiterOne/graph-google-cloud/pull/621) ([@JakeFerrero](https://github.com/JakeFerrero))
+- Fix questions command [#623](https://github.com/JupiterOne/graph-google-cloud/pull/623) ([@i5o](https://github.com/i5o))
+- Set right parameter for questions test [#622](https://github.com/JupiterOne/graph-google-cloud/pull/622) ([@i5o](https://github.com/i5o))
+
+#### Authors: 2
+
+- Ignacio Rodríguez ([@i5o](https://github.com/i5o))
+- Jake Ferrero ([@JakeFerrero](https://github.com/JakeFerrero))
+
+---
+
 # v3.1.0 (Thu Oct 05 2023)
 
 #### 🚀 Enhancement
