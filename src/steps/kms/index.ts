@@ -24,7 +24,7 @@ export async function fetchKmsKeyRings(
   context: IntegrationStepContext,
 ): Promise<void> {
   const { jobState, instance, logger } = context;
-  const client = new CloudKmsClient({ config: instance.config });
+  const client = new CloudKmsClient({ config: instance.config }, logger);
 
   await client.iterateKeyRings(
     async (keyRing) => {
@@ -50,8 +50,8 @@ export async function fetchKmsKeyRings(
 export async function fetchKmsCryptoKeys(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState, instance } = context;
-  const client = new CloudKmsClient({ config: instance.config });
+  const { jobState, instance, logger } = context;
+  const client = new CloudKmsClient({ config: instance.config }, logger);
 
   await jobState.iterateEntities(
     {

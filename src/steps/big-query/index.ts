@@ -62,8 +62,9 @@ export async function fetchBigQueryDatasets(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
-  const client = new BigQueryClient({ config });
+  const client = new BigQueryClient({ config }, logger);
 
   try {
     await client.iterateBigQueryDatasets(async (dataset) => {
@@ -140,7 +141,7 @@ export async function fetchBigQueryModels(
     instance: { config },
     logger,
   } = context;
-  const client = new BigQueryClient({ config });
+  const client = new BigQueryClient({ config }, logger);
 
   await jobState.iterateEntities(
     {
@@ -183,7 +184,7 @@ export async function fetchBigQueryTables(
     logger,
     instance: { config },
   } = context;
-  const client = new BigQueryClient({ config });
+  const client = new BigQueryClient({ config }, logger);
 
   await jobState.iterateEntities(
     {

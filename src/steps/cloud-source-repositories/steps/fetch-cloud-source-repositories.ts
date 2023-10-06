@@ -19,8 +19,9 @@ export const fetchCloudSourceRepositoriesStep: GoogleCloudIntegrationStep = {
     const {
       jobState,
       instance: { config },
+      logger,
     } = context;
-    const client = new CloudSourceRepositoriesClient({ config });
+    const client = new CloudSourceRepositoriesClient({ config }, logger);
 
     await client.iterateRepositories(async (data) => {
       await jobState.addEntity(createRepositoryEntity(data));

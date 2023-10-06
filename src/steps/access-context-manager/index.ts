@@ -62,8 +62,9 @@ export async function fetchAccessPolicies(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
-  const client = new AccessContextManagerClient({ config });
+  const client = new AccessContextManagerClient({ config }, logger);
   await client.iterateAccessPolicies(async (accessPolicy) => {
     await jobState.addEntity(createAccessPolicyEntity(accessPolicy));
   });
@@ -75,8 +76,9 @@ export async function fetchAccessLevels(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
-  const client = new AccessContextManagerClient({ config });
+  const client = new AccessContextManagerClient({ config }, logger);
 
   await jobState.iterateEntities(
     {
@@ -333,8 +335,9 @@ export async function fetchServicePerimeters(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
-  const client = new AccessContextManagerClient({ config });
+  const client = new AccessContextManagerClient({ config }, logger);
 
   await jobState.iterateEntities(
     {

@@ -31,9 +31,10 @@ export async function fetchMemcacheInstances(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
 
-  const client = new MemcacheClient({ config });
+  const client = new MemcacheClient({ config }, logger);
 
   await client.iterateMemcachedInstances(async (instance) => {
     const memcacheInstanceEntity = createMemcacheInstanceEntity(

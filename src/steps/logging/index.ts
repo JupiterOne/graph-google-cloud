@@ -37,9 +37,10 @@ export async function fetchSinks(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
 
-  const client = new LoggingClient({ config });
+  const client = new LoggingClient({ config }, logger);
 
   await client.iterateProjectSinks(async (projectSink) => {
     const projectSinkEntity = createLoggingProjectSinkEntity(
@@ -107,9 +108,10 @@ export async function fetchMetrics(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
 
-  const client = new LoggingClient({ config });
+  const client = new LoggingClient({ config }, logger);
 
   await client.iterateMetrics(async (metric) => {
     const metricEntity = createMetricEntity(metric, client.projectId);
@@ -123,8 +125,8 @@ export async function fetchMetrics(
         if (alertPolicyEntity) {
           // Check if alertPolicy exists for this particular metric
           if (
-            (alertPolicyEntity.conditionFilters as string[]).find(
-              (condition) => condition?.includes(metricEntity.name as string),
+            (alertPolicyEntity.conditionFilters as string[]).find((condition) =>
+              condition?.includes(metricEntity.name as string),
             )
           ) {
             await jobState.addRelationship(

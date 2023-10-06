@@ -53,9 +53,10 @@ export async function fetchApiGatewayApis(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
 
-  const client = new ApiGatewayClient({ config });
+  const client = new ApiGatewayClient({ config }, logger);
 
   await client.iterateApis(async (api) => {
     const apiId = api.name?.split('/')[5];
@@ -78,7 +79,7 @@ export async function fetchApiGatewayApiConfigs(
     logger,
   } = context;
 
-  const client = new ApiGatewayClient({ config });
+  const client = new ApiGatewayClient({ config }, logger);
 
   await jobState.iterateEntities(
     {
@@ -151,9 +152,10 @@ export async function fetchApiGatewayGateways(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
 
-  const client = new ApiGatewayClient({ config });
+  const client = new ApiGatewayClient({ config }, logger);
 
   await client.iterateGateways(async (gateway) => {
     const gatewayId = gateway.name?.split('/')[5];

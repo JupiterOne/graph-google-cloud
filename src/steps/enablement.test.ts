@@ -1,4 +1,6 @@
+import { IntegrationLogger } from '@jupiterone/integration-sdk-core';
 import { getMockIntegrationConfig } from '../../test/config';
+import { getMockLogger } from '../../test/helpers/getMockLogger';
 import { ServiceUsageName } from '../google-cloud/types';
 import * as enablement from './enablement';
 import * as serviceUsage from './service-usage/client';
@@ -104,7 +106,8 @@ describe('#getEnabledServiceNames', () => {
       .spyOn(serviceUsage, 'collectEnabledServicesForProject')
       .mockResolvedValue(Promise.resolve(mockEnabledServiceNames));
 
-    expect(await enablement.getEnabledServiceNames(mockConfig)).toEqual(
+    const logger = getMockLogger<IntegrationLogger>();
+    expect(await enablement.getEnabledServiceNames(mockConfig, logger)).toEqual(
       mockEnabledServiceData,
     );
     expect(collectEnabledServicesForProjectSpy).toHaveBeenCalledTimes(1);
@@ -133,7 +136,9 @@ describe('#getEnabledServiceNames', () => {
       .mockResolvedValueOnce(Promise.resolve(mockEnabledServiceNames))
       .mockResolvedValueOnce(Promise.resolve(targetMockEnabledServiceNames));
 
-    expect(await enablement.getEnabledServiceNames(mockConfig)).toEqual(
+    const logger = getMockLogger<IntegrationLogger>();
+
+    expect(await enablement.getEnabledServiceNames(mockConfig, logger)).toEqual(
       mockEnabledServiceData,
     );
     expect(collectEnabledServicesForProjectSpy).toHaveBeenCalledTimes(1);
@@ -164,7 +169,9 @@ describe('#getEnabledServiceNames', () => {
       .mockResolvedValueOnce(Promise.resolve(mainMockEnabledServiceNames))
       .mockResolvedValueOnce(Promise.resolve(targetMockEnabledServiceNames));
 
-    expect(await enablement.getEnabledServiceNames(mockConfig)).toEqual(
+    const logger = getMockLogger<IntegrationLogger>();
+
+    expect(await enablement.getEnabledServiceNames(mockConfig, logger)).toEqual(
       mockEnabledServiceData,
     );
 

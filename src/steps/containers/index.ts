@@ -33,8 +33,9 @@ export async function fetchContainerClusters(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
-  const client = new ContainerClient({ config });
+  const client = new ContainerClient({ config }, logger);
 
   await client.iterateClusters(async (cluster) => {
     const clusterEntity = createContainerClusterEntity(

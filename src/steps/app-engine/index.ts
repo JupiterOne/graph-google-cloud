@@ -92,7 +92,7 @@ export async function fetchAppEngineApplication(
     instance: { config },
     logger,
   } = context;
-  const client = new AppEngineClient({ config });
+  const client = new AppEngineClient({ config }, logger);
   const { projectId } = client;
 
   let application: appengine_v1.Schema$Application | undefined;
@@ -223,7 +223,7 @@ export async function fetchAppEngineServices(
     return;
   }
 
-  const client = new AppEngineClient({ config });
+  const client = new AppEngineClient({ config }, logger);
   const { projectId } = client;
 
   await withAppEngineErrorHandling(logger, projectId, async () => {
@@ -251,7 +251,7 @@ export async function fetchAppEngineServiceVersions(
     logger,
   } = context;
 
-  const client = new AppEngineClient({ config });
+  const client = new AppEngineClient({ config }, logger);
   const { projectId } = client;
 
   await jobState.iterateEntities(
@@ -342,7 +342,7 @@ export async function fetchAppEngineVersionInstances(
     logger,
   } = context;
 
-  const client = new AppEngineClient({ config });
+  const client = new AppEngineClient({ config }, logger);
   const { projectId } = client;
 
   await jobState.iterateEntities(

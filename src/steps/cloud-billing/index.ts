@@ -16,8 +16,9 @@ export async function fetchBillingAccounts(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
-  const client = new CloudBillingClient({ config });
+  const client = new CloudBillingClient({ config }, logger);
 
   await client.iterateBillingAccounts(async (account) => {
     await jobState.addEntity(createBillingAccountEntity(account));

@@ -48,7 +48,7 @@ export async function fetchSQLAdminInstances(
     instance: { config },
     logger,
   } = context;
-  const client = new SQLAdminClient({ config });
+  const client = new SQLAdminClient({ config }, logger);
 
   await client.iterateCloudSQLInstances(async (instance) => {
     if (!instance?.databaseVersion) {

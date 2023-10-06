@@ -16,8 +16,9 @@ export const fetchCloudBuildStep: GoogleCloudIntegrationStep = {
     const {
       jobState,
       instance: { config },
+      logger,
     } = context;
-    const client = new CloudBuildClient({ config });
+    const client = new CloudBuildClient({ config }, logger);
 
     await client.iterateBuilds(async (data) => {
       await jobState.addEntity(createGoogleCloudBuildEntity(data));

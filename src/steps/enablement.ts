@@ -1,4 +1,7 @@
-import { StepStartState } from '@jupiterone/integration-sdk-core';
+import {
+  IntegrationLogger,
+  StepStartState,
+} from '@jupiterone/integration-sdk-core';
 import { ServiceUsageName } from '../google-cloud/types';
 import { IntegrationConfig } from '../types';
 import { collectEnabledServicesForProject } from './service-usage/client';
@@ -31,6 +34,7 @@ export interface EnabledServiceData {
  */
 export async function getEnabledServiceNames(
   config: IntegrationConfig,
+  logger: IntegrationLogger,
 ): Promise<EnabledServiceData> {
   const targetProjectId = config.projectId;
   const mainProjectId = config.serviceAccountKeyConfig.project_id;
@@ -38,6 +42,7 @@ export async function getEnabledServiceNames(
 
   const mainProjectEnabledServices = await getMainProjectEnabledServices(
     config,
+    logger,
   );
   enabledServiceData.mainProjectEnabledServices = mainProjectEnabledServices;
 
@@ -53,6 +58,7 @@ export async function getEnabledServiceNames(
   const targetProjectEnabledServices = await collectEnabledServicesForProject(
     config,
     targetProjectId,
+    logger,
   );
   enabledServiceData.targetProjectEnabledServices =
     targetProjectEnabledServices;
@@ -71,10 +77,14 @@ export async function getEnabledServiceNames(
   return enabledServiceData;
 }
 
-export async function getMainProjectEnabledServices(config: IntegrationConfig) {
+export async function getMainProjectEnabledServices(
+  config: IntegrationConfig,
+  logger: IntegrationLogger,
+) {
   return await collectEnabledServicesForProject(
     config,
     config.serviceAccountKeyConfig.project_id,
+    logger,
   );
 }
 

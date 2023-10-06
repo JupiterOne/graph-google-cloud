@@ -19,8 +19,9 @@ async function fetchScanRuns(context: IntegrationStepContext): Promise<void> {
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
-  const client = new WebSecurityScannerClient({ config });
+  const client = new WebSecurityScannerClient({ config }, logger);
 
   await jobState.iterateEntities(
     { _type: WebSecurityScannerEntities.SCAN_CONFIG._type },

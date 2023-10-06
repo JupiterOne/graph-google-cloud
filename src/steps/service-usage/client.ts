@@ -2,6 +2,7 @@ import { Client } from '../../google-cloud/client';
 import { ServiceUsageListFilter } from '../../google-cloud/types';
 import { google, serviceusage_v1 } from 'googleapis';
 import { IntegrationConfig } from '../..';
+import { IntegrationLogger } from '@jupiterone/integration-sdk-core';
 
 export class ServiceUsageClient extends Client {
   private client = google.serviceusage({ version: 'v1', retry: false });
@@ -101,8 +102,9 @@ export function serviceResourceNameToServiceName(serviceResourceName: string) {
 export async function collectEnabledServicesForProject(
   config: IntegrationConfig,
   projectId: string,
+  logger: IntegrationLogger,
 ): Promise<string[]> {
-  const client = new ServiceUsageClient({ config, projectId });
+  const client = new ServiceUsageClient({ config, projectId }, logger);
   const enabledServices = await client.collectEnabledServices();
   return enabledServices.map((v) =>
     serviceResourceNameToServiceName(v.name as string),

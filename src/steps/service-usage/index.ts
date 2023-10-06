@@ -48,8 +48,8 @@ export async function fetchApiServices(
     instance: { config },
     logger,
   } = context;
-  const client = new ServiceUsageClient({ config });
-  const iamClient = new IamClient({ config });
+  const client = new ServiceUsageClient({ config }, logger);
+  const iamClient = new IamClient({ config }, logger);
   const projectEntity = await getProjectEntity(jobState);
 
   const permissionsByApiServiceMap = buildPermissionsByApiServiceMap(

@@ -35,9 +35,10 @@ export async function fetchDataprocClusters(
   const {
     jobState,
     instance: { config },
+    logger,
   } = context;
 
-  const client = new DataProcClient({ config });
+  const client = new DataProcClient({ config }, logger);
   await client.iterateClusters(async (cluster) => {
     const clusterEntity = createDataprocClusterEntity(cluster);
     await jobState.addEntity(clusterEntity);
