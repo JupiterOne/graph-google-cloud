@@ -1,3 +1,15 @@
+# v3.1.3 (Mon Oct 09 2023)
+
+#### 🐛 Bug Fix
+
+- INT-9750: update 403 log event [#625](https://github.com/JupiterOne/graph-google-cloud/pull/625) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### Authors: 1
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
 # v3.1.2 (Mon Oct 09 2023)
 
 #### 🐛 Bug Fix
