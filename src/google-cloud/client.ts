@@ -39,7 +39,8 @@ export type PageableGaxiosResponse<T> = GaxiosResponse<
 >;
 
 export type IterateApiOptions = {
-  onRetry?: (err: any) => void;
+  throwMissingPermissionError?: boolean;
+  publishMissingPermissionWarnEvent?: boolean;
 };
 
 export class Client {
@@ -96,7 +97,10 @@ export class Client {
   async iterateApi<T>(
     fn: (nextPageToken?: string) => Promise<PageableGaxiosResponse<T>>,
     callback: (data: T) => Promise<void>,
-    throwMissingPermissionError?: boolean,
+    options: IterateApiOptions = {
+      publishMissingPermissionWarnEvent: true,
+      throwMissingPermissionError: false,
+    },
   ) {
     return this.forEachPage(async (nextPageToken) => {
       try {
@@ -111,12 +115,16 @@ export class Client {
             `Step failed due to missing permission. Requires additional permission`,
           );
 
-          this.logger.publishWarnEvent({
-            name: IntegrationWarnEventName.MissingPermission,
-            description: `Received authorization error when attempting to call ${err.endpoint}. Please review permissions in the integration documentation.`,
-          });
+          if (options && options.publishMissingPermissionWarnEvent) {
+            this.logger.publishWarnEvent({
+              name: IntegrationWarnEventName.MissingPermission,
+              description: `Received authorization error when attempting to call ${err.endpoint}. Please review permissions in the integration documentation.`,
+            });
+          }
 
-          if (throwMissingPermissionError) throw err;
+          if (options && options.throwMissingPermissionError) {
+            throw err;
+          }
 
           return;
         }
