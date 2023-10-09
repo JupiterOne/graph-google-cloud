@@ -110,15 +110,10 @@ export class Client {
         return result;
       } catch (err) {
         if (err.status === 403) {
-          this.logger.warn(
-            { err },
-            `Step failed due to missing permission. Requires additional permission`,
-          );
-
           if (options && options.publishMissingPermissionWarnEvent) {
             this.logger.publishWarnEvent({
               name: IntegrationWarnEventName.MissingPermission,
-              description: `Received authorization error when attempting to call ${err.endpoint}. Please review permissions in the integration documentation.`,
+              description: `Received authorization error when attempting to call ${err.endpoint}: ${err.statusText}`,
             });
           }
 
