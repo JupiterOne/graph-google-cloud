@@ -96,6 +96,7 @@ export class Client {
   async iterateApi<T>(
     fn: (nextPageToken?: string) => Promise<PageableGaxiosResponse<T>>,
     callback: (data: T) => Promise<void>,
+    throwMissingPermissionError?: boolean,
   ) {
     return this.forEachPage(async (nextPageToken) => {
       try {
@@ -114,6 +115,9 @@ export class Client {
             name: IntegrationWarnEventName.MissingPermission,
             description: `Received authorization error when attempting to call ${err.endpoint}. Please review permissions in the integration documentation.`,
           });
+
+          if (throwMissingPermissionError) throw err;
+
           return;
         }
 
