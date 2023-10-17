@@ -1,0 +1,12 @@
+openapi: 3.0.1
+info:
+  title: '@jupiterone/graph-google-cloud'
+  description: A graph conversion tool for https://cloud.google.com/
+  x-cortex-git:
+    github:
+      repository: JupiterOne/graph-google-cloud
+  x-cortex-owners:
+    - type: group
+      name: JupiterOne/integrations
+  x-cortex-service-groups: tier-4
+  x-cortex-tag: '@jupiterone/graph-google-cloud'
