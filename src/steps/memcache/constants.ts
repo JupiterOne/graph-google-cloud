@@ -21,3 +21,15 @@ export const RELATIONSHIP_TYPE_MEMCACHE_INSTANCE_USES_NETWORK =
   'google_memcache_instance_uses_compute_network';
 export const RELATIONSHIP_TYPE_MEMCACHE_INSTANCE_HAS_NODE =
   'google_memcache_instance_has_node';
+
+export const IngestionSources = {
+  MEMCACHE_INSTANCES: 'memcache-instances',
+};
+
+export const MemcacheIngestionConfig = {
+  [IngestionSources.MEMCACHE_INSTANCES]: {
+    title: 'Google Memcache Instances',
+    description: 'In-memory data cache in GCP.',
+    defaultsToDisabled: false,
+  },
+};

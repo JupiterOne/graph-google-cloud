@@ -32,3 +32,21 @@ export const SecretManagerRelationships = {
     targetType: SecretManagerEntities.SECRET_VERSION._type,
   },
 };
+
+export const IngestionSources = {
+  SECRET_MANAGER_SECRETS: 'secret-manager-secrets',
+  SECRET_MANAGER_SECRET_VERSIONS: 'secret-manager-secret-versions',
+};
+
+export const SecretManagerIngestionConfig = {
+  [IngestionSources.SECRET_MANAGER_SECRETS]: {
+    title: 'Google Secret Manager Secrets',
+    description: 'Manage sensitive data securely.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.SECRET_MANAGER_SECRET_VERSIONS]: {
+    title: 'Google Secret Manager Versions',
+    description: 'Versioning for managed secrets.',
+    defaultsToDisabled: false,
+  },
+};

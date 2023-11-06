@@ -30,6 +30,7 @@ import {
   BIG_QUERY_MODEL_ENTITY_CLASS,
   RELATIONSHIP_TYPE_DATASET_HAS_MODEL,
   STEP_BUILD_BIG_QUERY_DATASET_KMS_RELATIONSHIPS,
+  IngestionSources,
 } from './constants';
 import {
   createBigQueryDatasetEntity,
@@ -257,6 +258,7 @@ export function handleDatasetError(
 export const bigQuerySteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_BIG_QUERY_DATASETS,
+    ingestionSourceId: IngestionSources.BIG_QUERY_DATASETS,
     name: 'Big Query Datasets',
     entities: [
       {
@@ -288,6 +290,7 @@ export const bigQuerySteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_BIG_QUERY_MODELS,
+    ingestionSourceId: IngestionSources.BIG_QUERY_MODELS,
     name: 'Big Query Models',
     entities: [
       {
@@ -315,6 +318,7 @@ export const bigQuerySteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_BIG_QUERY_TABLES,
+    ingestionSourceId: IngestionSources.BIG_QUERY_TABLES,
     name: 'Big Query Tables',
     entities: [
       {

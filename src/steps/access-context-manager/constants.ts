@@ -57,3 +57,27 @@ export const RELATIONSHIP_TYPE_SERVICE_PERIMETER_HAS_INGRESS_POLICY =
   'google_access_context_manager_service_perimeter_has_ingress_policy';
 export const RELATIONSHIP_TYPE_INGRESS_POLICY_HAS_API_OPERATION =
   'google_access_context_manager_service_perimeter_ingress_policy_has_api_operation';
+
+export const IngestionSources = {
+  ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES: 'acm-access-policies',
+  ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS: 'acm-access-levels',
+  ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS: 'acm-service-perimeters',
+};
+
+export const AccessContextManagerIngestionConfig = {
+  [IngestionSources.ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES]: {
+    title: 'Google Cloud Access Context Manager Access Policies',
+    description: 'Defines secure access boundaries in GCP.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS]: {
+    title: 'Google Cloud Access Context Manager Access Levels',
+    description: 'Manages access via hierarchical levels in GCP.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS]: {
+    title: 'Google Cloud Access Context Manager Service Perimeters',
+    description: 'Secures resources within network boundaries.',
+    defaultsToDisabled: false,
+  },
+};

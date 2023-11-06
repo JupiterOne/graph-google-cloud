@@ -3,7 +3,11 @@ import {
   IntegrationStepContext,
 } from '../../../types';
 import { PrivateCaClient } from '../client';
-import { PrivatecaEntities, PrivatecaSteps } from '../constants';
+import {
+  PrivatecaEntities,
+  PrivatecaSteps,
+  IngestionSources,
+} from '../constants';
 import { createCaPoolEntity } from '../converters';
 
 export async function fetchCaPools(
@@ -24,6 +28,7 @@ export async function fetchCaPools(
 
 export const fetchCaPoolsStepMap: GoogleCloudIntegrationStep = {
   id: PrivatecaSteps.STEP_PRIVATE_CA_POOLS.id,
+  ingestionSourceId: IngestionSources.PRIVATE_CA_POOLS,
   name: PrivatecaSteps.STEP_PRIVATE_CA_POOLS.name,
   entities: [PrivatecaEntities.PRIVATE_CA_POOL],
   relationships: [],

@@ -4,7 +4,11 @@ import {
   IntegrationStepContext,
 } from '../../types';
 import { createCloudStorageBucketEntity } from './converters';
-import { StorageStepsSpec, StorageEntitiesSpec } from './constants';
+import {
+  StorageStepsSpec,
+  StorageEntitiesSpec,
+  IngestionSources,
+} from './constants';
 import { storage_v1 } from 'googleapis';
 import {
   publishMissingPermissionEvent,
@@ -225,6 +229,7 @@ export async function fetchStorageBuckets(
 export const storageSteps: GoogleCloudIntegrationStep[] = [
   {
     id: StorageStepsSpec.FETCH_STORAGE_BUCKETS.id,
+    ingestionSourceId: IngestionSources.STORAGE_BUCKETS,
     name: StorageStepsSpec.FETCH_STORAGE_BUCKETS.name,
     entities: [StorageEntitiesSpec.STORAGE_BUCKET],
     relationships: [],

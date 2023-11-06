@@ -1,3 +1,4 @@
+import { IngestionSources } from '../constants';
 import {
   GoogleCloudIntegrationStep,
   IntegrationStepContext,
@@ -8,6 +9,7 @@ import { createGoogleCloudBuildTriggerEntity } from '../converters';
 
 export const fetchCloudBuildTriggerStep: GoogleCloudIntegrationStep = {
   ...CloudBuildStepsSpec.FETCH_BUILD_TRIGGERS,
+  ingestionSourceId: IngestionSources.CLOUD_BUILD_TRIGGERS,
   entities: [CloudBuildEntitiesSpec.BUILD_TRIGGER],
   relationships: [],
   executionHandler: async function (

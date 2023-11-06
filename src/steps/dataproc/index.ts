@@ -26,6 +26,7 @@ import {
   STEP_CREATE_CLUSTER_IMAGE_RELATIONSHIPS,
   STEP_DATAPROC_CLUSTERS,
   STEP_DATAPROC_CLUSTER_KMS_RELATIONSHIPS,
+  IngestionSources,
 } from './constants';
 import { createDataprocClusterEntity } from './converters';
 
@@ -189,6 +190,7 @@ export async function createClusterStorageRelationships(
 export const dataprocSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_DATAPROC_CLUSTERS,
+    ingestionSourceId: IngestionSources.DATAPROC_CLUSTERS,
     name: 'Dataproc Clusters',
     entities: [
       {

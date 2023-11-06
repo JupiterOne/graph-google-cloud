@@ -16,10 +16,12 @@ import { createGoogleCloudBuildBitbucketRepoEntity } from '../converters';
 
 import { getRawData } from '@jupiterone/integration-sdk-core';
 import { cloudbuild_v1 } from 'googleapis';
+import { IngestionSources } from '../constants';
 
 export const fetchCloudBuildBitbucketRepositoriesStep: GoogleCloudIntegrationStep =
   {
     ...CloudBuildStepsSpec.FETCH_BUILD_BITBUCKET_REPOS,
+    ingestionSourceId: IngestionSources.CLOUD_BUILD_BITBUCKET_REPOS,
     entities: [CloudBuildEntitiesSpec.BUILD_BITBUCKET_REPO],
     dependsOn: [CloudBuildStepsSpec.FETCH_BUILD_BITBUCKET_SERVER_CONFIG.id],
     relationships: [CloudBuildRelationshipsSpec.BITBUCKET_SERVER_HAS_REPO],

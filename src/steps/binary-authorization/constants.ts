@@ -7,3 +7,15 @@ export const STEP_BINARY_AUTHORIZATION_POLICY =
 
 export const RELATIONSHIP_TYPE_PROJECT_HAS_BINARY_AUTHORIZATION_POLICY =
   'google_cloud_project_has_binary_authorization_policy';
+
+export const IngestionSources = {
+  BINARY_AUTHORIZATION_POLICY: 'binary-authorization-policy',
+};
+
+export const BinaryAuthorizationIngestionConfig = {
+  [IngestionSources.BINARY_AUTHORIZATION_POLICY]: {
+    title: 'Google Cloud Binary Authorization Policy',
+    description: 'Controls for deploying trusted containers.',
+    defaultsToDisabled: false,
+  },
+};

@@ -22,6 +22,7 @@ import {
   RELATIONSHIP_TYPE_API_GATEWAY_API_USES_CONFIG,
   RELATIONSHIP_TYPE_API_GATEWAY_API_HAS_GATEWAY,
   RELATIONSHIP_TYPE_API_GATEWAY_API_CONFIG_USES_SERVICE_ACCOUNT,
+  IngestionSources,
 } from './constants';
 import {
   createApiGatewayApiConfigEntity,
@@ -188,6 +189,7 @@ export async function fetchApiGatewayGateways(
 export const apiGatewaySteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_API_GATEWAY_APIS,
+    ingestionSourceId: IngestionSources.API_GATEWAY_APIS,
     name: 'Api Gateway APIs',
     entities: [
       {
@@ -203,6 +205,7 @@ export const apiGatewaySteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_API_GATEWAY_API_CONFIGS,
+    ingestionSourceId: IngestionSources.API_GATEWAY_API_CONFIGS,
     name: 'Api Gateway Api Configs',
     entities: [
       {
@@ -235,6 +238,7 @@ export const apiGatewaySteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_API_GATEWAY_GATEWAYS,
+    ingestionSourceId: IngestionSources.API_GATEWAY_GATEWAYS,
     name: 'Api Gateway Gateways',
     entities: [
       {

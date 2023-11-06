@@ -17,6 +17,7 @@ import {
   BINARY_AUTHORIZATION_POLICY_ENTITY_TYPE,
   STEP_BINARY_AUTHORIZATION_POLICY,
   RELATIONSHIP_TYPE_PROJECT_HAS_BINARY_AUTHORIZATION_POLICY,
+  IngestionSources,
 } from './constants';
 import { createBinaryAuthorizationPolicyEntity } from './converters';
 import { publishMissingPermissionEvent } from '../../utils/events';
@@ -77,6 +78,7 @@ export async function fetchBinaryAuthorizationPolicy(
 export const binaryAuthorizationSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_BINARY_AUTHORIZATION_POLICY,
+    ingestionSourceId: IngestionSources.BINARY_AUTHORIZATION_POLICY,
     name: 'Binary Authorization Policy',
     entities: [
       {

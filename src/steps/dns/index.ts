@@ -16,6 +16,7 @@ import {
   RELATIONSHIP_TYPE_COMPUTE_NETWORK_HAS_DNS_POLICY,
   STEP_DNS_MANAGED_ZONES,
   STEP_DNS_POLICIES,
+  IngestionSources,
 } from './constants';
 import {
   createDNSManagedZoneEntity,
@@ -78,6 +79,7 @@ export async function fetchDNSPolicies(
 export const dnsManagedZonesSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_DNS_MANAGED_ZONES,
+    ingestionSourceId: IngestionSources.DNS_MANAGED_ZONES,
     name: 'DNS Managed Zones',
     entities: [
       {
@@ -94,6 +96,7 @@ export const dnsManagedZonesSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_DNS_POLICIES,
+    ingestionSourceId: IngestionSources.DNS_POLICIES,
     name: 'DNS Policies',
     entities: [
       {

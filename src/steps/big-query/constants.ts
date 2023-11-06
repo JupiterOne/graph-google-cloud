@@ -19,3 +19,27 @@ export const RELATIONSHIP_TYPE_DATASET_HAS_TABLE =
   'google_bigquery_dataset_has_table';
 export const RELATIONSHIP_TYPE_DATASET_HAS_MODEL =
   'google_bigquery_dataset_has_model';
+
+export const IngestionSources = {
+  BIG_QUERY_DATASETS: 'big-query-datasets',
+  BIG_QUERY_MODELS: 'big-query-models',
+  BIG_QUERY_TABLES: 'big-query-tables',
+};
+
+export const BigQueryIngestionConfig = {
+  [IngestionSources.BIG_QUERY_DATASETS]: {
+    title: 'Google Cloud BigQuery Datasets',
+    description: 'Organized collections of BigQuery data.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.BIG_QUERY_MODELS]: {
+    title: 'Google Cloud BigQuery Models',
+    description: 'Machine learning models in BigQuery.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.BIG_QUERY_TABLES]: {
+    title: 'Google Cloud BigQuery Tables',
+    description: 'Structured data tables in BigQuery.',
+    defaultsToDisabled: false,
+  },
+};

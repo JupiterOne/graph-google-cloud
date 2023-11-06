@@ -19,3 +19,27 @@ export const RELATIONSHIP_TYPE_SPANNER_INSTANCE_USES_CONFIG =
   'google_spanner_instance_uses_config';
 export const RELATIONSHIP_TYPE_SPANNER_INSTANCE_DATABASE_USES_KMS_KEY =
   'google_spanner_database_uses_kms_crypto_key';
+
+export const IngestionSources = {
+  SPANNER_INSTANCE_CONFIGS: 'spanner-instance-configs',
+  SPANNER_INSTANCES: 'spanner-instances',
+  SPANNER_INSTANCE_DATABASES: 'spanner-instance-databases',
+};
+
+export const SpannerIngestionConfig = {
+  [IngestionSources.SPANNER_INSTANCE_CONFIGS]: {
+    title: 'Google Spanner Instance Configs',
+    description: 'Configurations for Spanner instances.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.SPANNER_INSTANCES]: {
+    title: 'Google Spanner Instances',
+    description: 'Managed database instances in Spanner.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.SPANNER_INSTANCE_DATABASES]: {
+    title: 'Google Spanner Databases',
+    description: 'Databases within Spanner instances.',
+    defaultsToDisabled: false,
+  },
+};

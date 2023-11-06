@@ -61,3 +61,15 @@ export const FunctionsRelationshipsSpec = {
     targetType: StorageEntitiesSpec.STORAGE_BUCKET._type,
   },
 };
+
+export const IngestionSources = {
+  FUNCTIONS: 'functions',
+};
+
+export const FunctionsIngestionConfig = {
+  [IngestionSources.FUNCTIONS]: {
+    title: 'Google Cloud Functions',
+    description: 'Event-driven serverless functions.',
+    defaultsToDisabled: false,
+  },
+};

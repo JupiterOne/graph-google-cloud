@@ -47,3 +47,21 @@ export const WebSecurityScannerRelationships = {
     targetType: WebSecurityScannerEntities.SCAN_RUN_FINDING._type,
   },
 };
+
+export const IngestionSources = {
+  WEB_SECURITY_SCANNER_CONFIGS: 'web-security-scanner-configs',
+  WEB_SECURITY_SCAN_RUNS: 'web-security-scan-runs',
+};
+
+export const WebSecurityScannerIngestionConfig = {
+  [IngestionSources.WEB_SECURITY_SCANNER_CONFIGS]: {
+    title: 'Google Web Security Scanner Configs',
+    description: 'Configurations for web security scans.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.WEB_SECURITY_SCAN_RUNS]: {
+    title: 'Google Web Security Scan Runs',
+    description: 'Execution of web security scans.',
+    defaultsToDisabled: false,
+  },
+};

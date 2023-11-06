@@ -18,6 +18,7 @@ import {
   RELATIONSHIP_TYPE_PROJECT_SINK_USES_STORAGE_BUCKET,
   RELATIONSHIP_TYPE_METRIC_HAS_ALERT_POLICY,
   STEP_CREATE_LOGGING_PROJECT_SINK_BUCKET_RELATIONSHIPS,
+  IngestionSources,
 } from './constants';
 import {
   createLoggingProjectSinkEntity,
@@ -125,8 +126,8 @@ export async function fetchMetrics(
         if (alertPolicyEntity) {
           // Check if alertPolicy exists for this particular metric
           if (
-            (alertPolicyEntity.conditionFilters as string[]).find((condition) =>
-              condition?.includes(metricEntity.name as string),
+            (alertPolicyEntity.conditionFilters as string[]).find(
+              (condition) => condition?.includes(metricEntity.name as string),
             )
           ) {
             await jobState.addRelationship(
@@ -146,6 +147,7 @@ export async function fetchMetrics(
 export const loggingSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_LOGGING_PROJECT_SINKS,
+    ingestionSourceId: IngestionSources.LOGGING_PROJECT_SINKS,
     name: 'Logging Project Sinks',
     entities: [
       {
@@ -180,6 +182,7 @@ export const loggingSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_LOGGING_METRICS,
+    ingestionSourceId: IngestionSources.LOGGING_METRICS,
     name: 'Logging Metrics',
     entities: [
       {

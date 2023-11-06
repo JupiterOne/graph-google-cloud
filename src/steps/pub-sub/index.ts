@@ -22,6 +22,7 @@ import {
   ENTITY_CLASS_PUBSUB_SUBSCRIPTION,
   ENTITY_TYPE_PUBSUB_SUBSCRIPTION,
   STEP_CREATE_PUBSUB_TOPIC_KMS_RELATIONSHIPS,
+  IngestionSources,
 } from './constants';
 import {
   createPubSubSubscriptionEntity,
@@ -169,6 +170,7 @@ export async function fetchPubSubSubscriptions(
 export const pubSubSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_PUBSUB_TOPICS,
+    ingestionSourceId: IngestionSources.PUBSUB_TOPICS,
     name: 'PubSub Topics',
     entities: [
       {
@@ -200,6 +202,7 @@ export const pubSubSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_PUBSUB_SUBSCRIPTIONS,
+    ingestionSourceId: IngestionSources.PUBSUB_SUBSCRIPTIONS,
     name: 'PubSub Subscriptions',
     entities: [
       {

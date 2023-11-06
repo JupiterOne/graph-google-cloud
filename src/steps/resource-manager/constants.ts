@@ -38,3 +38,36 @@ export const AUDIT_CONFIG_ALLOWS_GROUP_RELATIONSHIP_TYPE =
   'google_cloud_audit_config_allows_group';
 export const AUDIT_CONFIG_ALLOWS_DOMAIN_RELATIONSHIP_TYPE =
   'google_cloud_audit_config_allows_domain';
+
+export const IngestionSources = {
+  RESOURCE_MANAGER_ORGANIZATION: 'resource-manager-organization',
+  RESOURCE_MANAGER_FOLDERS: 'resource-manager-folders',
+  RESOURCE_MANAGER_PROJECT: 'resource-manager-project',
+  RESOURCE_MANAGER_AUDIT_CONFIG_IAM_POLICY:
+    'resource-manager-audit-config-iam-policy',
+};
+
+export const ResourceManagerIngestionConfig = {
+  [IngestionSources.RESOURCE_MANAGER_ORGANIZATION]: {
+    title: 'GCP Resource Manager Organization',
+    description: 'Organizational resource management.',
+    defaultsToDisabled: false,
+    cannotBeDisabled: true,
+  },
+  [IngestionSources.RESOURCE_MANAGER_FOLDERS]: {
+    title: 'GCP Resource Manager Folders',
+    description: 'Hierarchical organization of resources.',
+    defaultsToDisabled: false,
+    cannotBeDisabled: true,
+  },
+  [IngestionSources.RESOURCE_MANAGER_PROJECT]: {
+    title: 'GCP Resource Manager Project',
+    description: 'Projects for resource organization.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.RESOURCE_MANAGER_AUDIT_CONFIG_IAM_POLICY]: {
+    title: 'GCP Audit Config IAM Policy',
+    description: 'Audit configurations for IAM policies.',
+    defaultsToDisabled: false,
+  },
+};

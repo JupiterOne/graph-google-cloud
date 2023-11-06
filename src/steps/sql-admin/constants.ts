@@ -28,3 +28,15 @@ export enum DATABASE_TYPE {
   POSTGRES = 'POSTGRES',
   SQL_SERVER = 'SQLSERVER',
 }
+
+export const IngestionSources = {
+  SQL_ADMIN_INSTANCES: 'sql-admin-instances',
+};
+
+export const SQLAdminIngestionConfig = {
+  [IngestionSources.SQL_ADMIN_INSTANCES]: {
+    title: 'Google SQL Admin Instances',
+    description: 'Managed SQL database instances.',
+    defaultsToDisabled: false,
+  },
+};

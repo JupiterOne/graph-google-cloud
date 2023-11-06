@@ -38,6 +38,7 @@ import {
   RELATIONSHIP_TYPE_SERVICE_PERIMETER_HAS_INGRESS_POLICY,
   RELATIONSHIP_TYPE_INGRESS_POLICY_HAS_API_OPERATION,
   ENTITY_CLASS_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETER_INGRESS_POLICY,
+  IngestionSources,
 } from './constants';
 import {
   PROJECT_ENTITY_TYPE,
@@ -391,6 +392,7 @@ export async function fetchServicePerimeters(
 export const accessPoliciesSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
+    ingestionSourceId: IngestionSources.ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
     name: 'Access Context Manager Access Policies',
     entities: [
       {
@@ -407,6 +409,7 @@ export const accessPoliciesSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS,
+    ingestionSourceId: IngestionSources.ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS,
     name: 'Access Context Manager Access Levels',
     entities: [
       {
@@ -430,6 +433,8 @@ export const accessPoliciesSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS,
+    ingestionSourceId:
+      IngestionSources.ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS,
     name: 'Access Context Manager Service Perimeters',
     entities: [
       {

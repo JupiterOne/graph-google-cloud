@@ -12,3 +12,15 @@ export const CloudSourceRepositoriesStepsSpec = {
     name: 'Fetch Cloud Source Repositories',
   },
 };
+
+export const IngestionSources = {
+  CLOUD_SOURCE_REPOSITORIES: 'cloud-source-repositories',
+};
+
+export const CloudSourceRepositoriesIngestionConfig = {
+  [IngestionSources.CLOUD_SOURCE_REPOSITORIES]: {
+    title: 'Google Cloud Source Repositories',
+    description: 'Fully managed source code repositories.',
+    defaultsToDisabled: false,
+  },
+};

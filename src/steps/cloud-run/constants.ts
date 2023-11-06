@@ -17,3 +17,27 @@ export const RELATIONSHIP_TYPE_CLOUD_RUN_SERVICE_MANAGES_ROUTE =
 
 export const RELATIONSHIP_TYPE_CLOUD_RUN_SERVICE_MANAGES_CONFIGURATION =
   'google_cloud_run_service_manages_configuration';
+
+export const IngestionSources = {
+  CLOUD_RUN_SERVICES: 'cloud-run-services',
+  CLOUD_RUN_ROUTES: 'cloud-run-routes',
+  CLOUD_RUN_CONFIGURATIONS: 'cloud-run-configurations',
+};
+
+export const CloudRunIngestionConfig = {
+  [IngestionSources.CLOUD_RUN_SERVICES]: {
+    title: 'Google Cloud Run Services',
+    description: 'Serverless app deployment services.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.CLOUD_RUN_ROUTES]: {
+    title: 'Google Cloud Run Routes',
+    description: 'URL paths to Cloud Run services.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.CLOUD_RUN_CONFIGURATIONS]: {
+    title: 'Google Cloud Run Configurations',
+    description: 'Manage configurations of Cloud Run services.',
+    defaultsToDisabled: false,
+  },
+};

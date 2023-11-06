@@ -25,3 +25,27 @@ export const EVERYONE_TYPE = 'everyone';
 
 export const API_SERVICE_HAS_IAM_ROLE_RELATIONSHIP_TYPE =
   'google_cloud_api_service_has_iam_role';
+
+export const IngestionSources = {
+  IAM_CUSTOM_ROLES: 'iam-custom-roles',
+  IAM_MANAGED_ROLES: 'iam-managed-roles',
+  IAM_SERVICE_ACCOUNTS: 'iam-service-accounts',
+};
+
+export const IamIngestionConfig = {
+  [IngestionSources.IAM_CUSTOM_ROLES]: {
+    title: 'Google IAM Custom Roles',
+    description: 'Customizable access roles in GCP.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.IAM_MANAGED_ROLES]: {
+    title: 'Google IAM Managed Roles',
+    description: 'Google managed access roles in GCP.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.IAM_SERVICE_ACCOUNTS]: {
+    title: 'Google IAM Service Accounts',
+    description: 'Accounts for service authentication.',
+    defaultsToDisabled: false,
+  },
+};
