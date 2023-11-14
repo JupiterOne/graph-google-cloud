@@ -30,16 +30,16 @@ export const BigQueryIngestionConfig = {
   [IngestionSources.BIG_QUERY_DATASETS]: {
     title: 'Google Cloud BigQuery Datasets',
     description: 'Organized collections of BigQuery data.',
-    defaultsToDisabled: false,
+    defaultsToDisabled: true,
   },
   [IngestionSources.BIG_QUERY_MODELS]: {
     title: 'Google Cloud BigQuery Models',
     description: 'Machine learning models in BigQuery.',
-    defaultsToDisabled: false,
+    defaultsToDisabled: true,
   },
   [IngestionSources.BIG_QUERY_TABLES]: {
     title: 'Google Cloud BigQuery Tables',
     description: 'Structured data tables in BigQuery.',
-    defaultsToDisabled: false,
+    defaultsToDisabled: true,
   },
 };

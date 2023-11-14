@@ -25,6 +25,6 @@ export const DataprocIngestionConfig = {
   [IngestionSources.DATAPROC_CLUSTERS]: {
     title: 'Google Dataproc Clusters',
     description: 'Managed Hadoop and Spark clusters.',
-    defaultsToDisabled: false,
+    defaultsToDisabled: true,
   },
 };

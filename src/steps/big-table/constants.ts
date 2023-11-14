@@ -54,21 +54,21 @@ export const BigTableIngestionConfig = {
   [IngestionSources.BIG_TABLE_APP_PROFILES]: {
     title: 'Google Cloud BigTable App Profiles',
     description: 'App profiles for BigTable configuration.',
-    defaultsToDisabled: false,
+    defaultsToDisabled: true,
   },
   [IngestionSources.BIG_TABLE_CLUSTERS]: {
     title: 'Google Cloud BigTable Clusters',
     description: 'Cluster management in BigTable.',
-    defaultsToDisabled: false,
+    defaultsToDisabled: true,
   },
   [IngestionSources.BIG_TABLE_BACKUPS]: {
     title: 'Google Cloud BigTable Backups',
     description: 'Backup solutions for BigTable data.',
-    defaultsToDisabled: false,
+    defaultsToDisabled: true,
   },
   [IngestionSources.BIG_TABLE_TABLES]: {
     title: 'Google Cloud BigTable Tables',
     description: 'Data tables within BigTable.',
-    defaultsToDisabled: false,
+    defaultsToDisabled: true,
   },
 };

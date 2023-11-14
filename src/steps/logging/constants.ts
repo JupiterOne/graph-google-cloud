@@ -24,11 +24,11 @@ export const LoggingIngestionConfig = {
   [IngestionSources.LOGGING_PROJECT_SINKS]: {
     title: 'Google Logging Project Sinks',
     description: 'Destinations for log entries export.',
-    defaultsToDisabled: false,
+    defaultsToDisabled: true,
   },
   [IngestionSources.LOGGING_METRICS]: {
     title: 'Google Logging Metrics',
     description: 'Custom metrics from log data.',
-    defaultsToDisabled: false,
+    defaultsToDisabled: true,
   },
 };

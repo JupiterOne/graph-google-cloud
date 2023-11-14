@@ -37,6 +37,6 @@ export const SQLAdminIngestionConfig = {
   [IngestionSources.SQL_ADMIN_INSTANCES]: {
     title: 'Google SQL Admin Instances',
     description: 'Managed SQL database instances.',
-    defaultsToDisabled: false,
+    defaultsToDisabled: true,
   },
 };
