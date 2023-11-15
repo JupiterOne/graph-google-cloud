@@ -1,3 +1,20 @@
+# v3.2.0 (Wed Nov 15 2023)
+
+#### 🚀 Enhancement
+
+- INT-9871: add ingest sources [#626](https://github.com/JupiterOne/graph-google-cloud/pull/626) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### ⚠️ Pushed to `main`
+
+- Populate CODEOWENRS, baseline package.json and baseline cortex.yaml ([@jablonnc](https://github.com/jablonnc))
+
+#### Authors: 2
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+- Noah Jablonski ([@jablonnc](https://github.com/jablonnc))
+
+---
+
 # v3.1.3 (Mon Oct 09 2023)
 
 #### 🐛 Bug Fix
