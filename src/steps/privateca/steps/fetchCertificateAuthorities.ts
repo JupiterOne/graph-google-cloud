@@ -8,6 +8,7 @@ import {
   PrivatecaEntities,
   PrivatecaRelationships,
   PrivatecaSteps,
+  IngestionSources,
 } from '../constants';
 import { createCertificateAuthorityEntity } from '../converters';
 import { isMemberPublic } from '../../../utils/iam';
@@ -93,6 +94,7 @@ async function fetchCertificateAuthorities(
 
 export const fetchCertificateAuthoritiesStepMap: GoogleCloudIntegrationStep = {
   id: PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES.id,
+  ingestionSourceId: IngestionSources.PRIVATE_CA_CERTIFICATE_AUTHORITIES,
   name: PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES.name,
   entities: [PrivatecaEntities.PRIVATE_CA_CERTIFICATE_AUTHORITY],
   relationships: [PrivatecaRelationships.PRIVATE_CA_POOL_CERTIFICATE_AUTHORITY],

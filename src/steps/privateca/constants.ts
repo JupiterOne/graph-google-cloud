@@ -58,3 +58,27 @@ export const PrivatecaRelationships = {
     targetType: PrivatecaEntities.PRIVATE_CA_CERTIFICATE._type,
   },
 };
+
+export const IngestionSources = {
+  PRIVATE_CA_POOLS: 'private-ca-pools',
+  PRIVATE_CA_CERTIFICATES: 'private-ca-certificates',
+  PRIVATE_CA_CERTIFICATE_AUTHORITIES: 'private-ca-certificate-authorities',
+};
+
+export const PrivatecaIngestionConfig = {
+  [IngestionSources.PRIVATE_CA_POOLS]: {
+    title: 'Google Private CA Pools',
+    description: 'Certificate pools for private CAs.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.PRIVATE_CA_CERTIFICATES]: {
+    title: 'Google Private CA Certificates',
+    description: 'Certificates from private CAs.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.PRIVATE_CA_CERTIFICATE_AUTHORITIES]: {
+    title: 'Google Private CA Authorities',
+    description: 'Certificate authorities in private CAs.',
+    defaultsToDisabled: false,
+  },
+};

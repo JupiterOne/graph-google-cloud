@@ -19,6 +19,7 @@ import {
   RELATIONSHIP_TYPE_CONTAINER_CLUSTER_HAS_NODE_POOL,
   CONTAINER_NODE_POOL_ENTITY_CLASS,
   RELATIONSHIP_TYPE_CONTAINER_NODE_POOL_HAS_INSTANCE_GROUP,
+  IngestionSources,
 } from './constants';
 import {
   createContainerClusterEntity,
@@ -102,6 +103,7 @@ export async function fetchContainerClusters(
 export const containerSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_CONTAINER_CLUSTERS,
+    ingestionSourceId: IngestionSources.CONTAINER_CLUSTERS,
     name: 'Container Clusters',
     entities: [
       {

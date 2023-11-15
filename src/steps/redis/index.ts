@@ -15,6 +15,7 @@ import {
   STEP_REDIS_INSTANCES,
   RELATIONSHIP_TYPE_REDIS_INSTANCE_USES_NETWORK,
   STEP_CREATE_REDIS_INSTANCE_NETWORK_RELATIONSHIPS,
+  IngestionSources,
 } from './constants';
 import { ENTITY_TYPE_COMPUTE_NETWORK } from '../compute/constants';
 import { createRedisInstanceEntity } from './converter';
@@ -84,6 +85,7 @@ export async function buildRedisInstanceUsesNetworkRelationships(
 export const redisSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_REDIS_INSTANCES,
+    ingestionSourceId: IngestionSources.REDIS_INSTANCES,
     name: 'Redis Instances',
     entities: [
       {

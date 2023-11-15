@@ -1,3 +1,4 @@
+import { IngestionSources } from '../constants';
 import {
   GoogleCloudIntegrationStep,
   IntegrationStepContext,
@@ -8,6 +9,7 @@ import { createGoogleCloudBuildWorkerPoolEntity } from '../converters';
 
 export const fetchCloudBuildWorkerPoolsStep: GoogleCloudIntegrationStep = {
   ...CloudBuildStepsSpec.FETCH_BUILD_WORKER_POOLS,
+  ingestionSourceId: IngestionSources.CLOUD_BUILD_WORKER_POOLS,
   entities: [CloudBuildEntitiesSpec.BUILD_WORKER_POOL],
   relationships: [],
   executionHandler: async function (

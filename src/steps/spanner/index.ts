@@ -27,6 +27,7 @@ import {
   RELATIONSHIP_TYPE_SPANNER_INSTANCE_HAS_DATABASE,
   RELATIONSHIP_TYPE_SPANNER_INSTANCE_USES_CONFIG,
   RELATIONSHIP_TYPE_SPANNER_INSTANCE_DATABASE_USES_KMS_KEY,
+  IngestionSources,
 } from './constants';
 import {
   createSpannerInstanceConfiguration,
@@ -182,6 +183,7 @@ export async function fetchSpannerInstanceDatabases(
 export const spannerSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_SPANNER_INSTANCE_CONFIGS,
+    ingestionSourceId: IngestionSources.SPANNER_INSTANCE_CONFIGS,
     name: 'Spanner Instance Configs',
     entities: [
       {
@@ -198,6 +200,7 @@ export const spannerSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_SPANNER_INSTANCES,
+    ingestionSourceId: IngestionSources.SPANNER_INSTANCES,
     name: 'Spanner Instances',
     entities: [
       {
@@ -221,6 +224,7 @@ export const spannerSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_SPANNER_INSTANCE_DATABASES,
+    ingestionSourceId: IngestionSources.SPANNER_INSTANCE_DATABASES,
     name: 'Spanner Instance Databases',
     entities: [
       {

@@ -16,3 +16,15 @@ export const RELATIONSHIP_TYPE_DATAPROC_CLUSTER_USES_STORAGE_BUCKET =
   'google_dataproc_cluster_uses_storage_bucket';
 export const RELATIONSHIP_TYPE_DATAPROC_CLUSTER_USES_COMPUTE_IMAGE =
   'google_dataproc_cluster_uses_compute_image';
+
+export const IngestionSources = {
+  DATAPROC_CLUSTERS: 'dataproc-clusters',
+};
+
+export const DataprocIngestionConfig = {
+  [IngestionSources.DATAPROC_CLUSTERS]: {
+    title: 'Google Dataproc Clusters',
+    description: 'Managed Hadoop and Spark clusters.',
+    defaultsToDisabled: true,
+  },
+};

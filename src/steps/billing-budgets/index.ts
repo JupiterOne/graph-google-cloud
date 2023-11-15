@@ -24,6 +24,7 @@ import {
   STEP_BUILD_ACCOUNT_BUDGET,
   STEP_BUILD_ADDITIONAL_PROJECT_BUDGET,
   STEP_BUILD_PROJECT_BUDGET,
+  IngestionSources,
 } from './constants';
 import { createBillingBudgetEntity } from './converters';
 import { getProjectEntity } from '../../utils/project';
@@ -206,6 +207,7 @@ export async function buildAdditionalProjectBudgetRelationships(
 export const billingBudgetsSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_BILLING_BUDGETS,
+    ingestionSourceId: IngestionSources.BILLING_BUDGETS,
     name: 'Billing Budgets',
     entities: [
       {

@@ -27,6 +27,7 @@ import {
   STEP_IAM_MANAGED_ROLES,
   API_SERVICE_HAS_IAM_ROLE_RELATIONSHIP_TYPE,
   STEP_IAM_CUSTOM_ROLE_SERVICE_API_RELATIONSHIPS,
+  IngestionSources,
 } from './constants';
 import { RelationshipClass } from '@jupiterone/data-model';
 import { iam_v1 } from 'googleapis';
@@ -233,6 +234,7 @@ export async function fetchIamServiceAccounts(
 export const iamSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_IAM_CUSTOM_ROLES,
+    ingestionSourceId: IngestionSources.IAM_CUSTOM_ROLES,
     name: 'Identity and Access Management (IAM) Custom Roles',
     entities: [
       {
@@ -264,6 +266,7 @@ export const iamSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_IAM_MANAGED_ROLES,
+    ingestionSourceId: IngestionSources.IAM_MANAGED_ROLES,
     name: 'Identity and Access Management (IAM) Managed Roles',
     entities: [],
     relationships: [],
@@ -273,6 +276,7 @@ export const iamSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_IAM_SERVICE_ACCOUNTS,
+    ingestionSourceId: IngestionSources.IAM_SERVICE_ACCOUNTS,
     name: 'Identity and Access Management (IAM) Service Accounts',
     entities: [
       {

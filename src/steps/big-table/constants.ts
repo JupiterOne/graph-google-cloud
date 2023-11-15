@@ -36,3 +36,39 @@ export const RELATIONSHIP_TYPE_TABLE_HAS_BACKUP =
 
 export const RELATIONSHIP_TYPE_CLUSTER_USES_KMS_KEY =
   'google_bigtable_cluster_uses_kms_key';
+
+export const IngestionSources = {
+  BIG_TABLE_INSTANCES: 'big-table-instances',
+  BIG_TABLE_APP_PROFILES: 'big-table-app-profiles',
+  BIG_TABLE_CLUSTERS: 'big-table-clusters',
+  BIG_TABLE_BACKUPS: 'big-table-backups',
+  BIG_TABLE_TABLES: 'big-table-tables',
+};
+
+export const BigTableIngestionConfig = {
+  [IngestionSources.BIG_TABLE_INSTANCES]: {
+    title: 'Google Cloud BigTable Instances',
+    description: 'Managed NoSQL database instances.',
+    defaultsToDisabled: true,
+  },
+  [IngestionSources.BIG_TABLE_APP_PROFILES]: {
+    title: 'Google Cloud BigTable App Profiles',
+    description: 'App profiles for BigTable configuration.',
+    defaultsToDisabled: true,
+  },
+  [IngestionSources.BIG_TABLE_CLUSTERS]: {
+    title: 'Google Cloud BigTable Clusters',
+    description: 'Cluster management in BigTable.',
+    defaultsToDisabled: true,
+  },
+  [IngestionSources.BIG_TABLE_BACKUPS]: {
+    title: 'Google Cloud BigTable Backups',
+    description: 'Backup solutions for BigTable data.',
+    defaultsToDisabled: true,
+  },
+  [IngestionSources.BIG_TABLE_TABLES]: {
+    title: 'Google Cloud BigTable Tables',
+    description: 'Data tables within BigTable.',
+    defaultsToDisabled: true,
+  },
+};

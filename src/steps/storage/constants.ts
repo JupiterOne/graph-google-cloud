@@ -12,3 +12,15 @@ export const StorageEntitiesSpec = {
     _class: ['DataStore'],
   },
 };
+
+export const IngestionSources = {
+  STORAGE_BUCKETS: 'storage-buckets',
+};
+
+export const StorageIngestionConfig = {
+  [IngestionSources.STORAGE_BUCKETS]: {
+    title: 'Google Cloud Storage Buckets',
+    description: 'Object storage for large-scale data.',
+    defaultsToDisabled: false,
+  },
+};

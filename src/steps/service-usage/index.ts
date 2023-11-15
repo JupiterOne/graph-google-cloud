@@ -12,6 +12,7 @@ import {
   ServiceUsageStepIds,
   ServiceUsageEntities,
   ServiceUsageRelationships,
+  IngestionSources,
 } from './constants';
 import { STEP_RESOURCE_MANAGER_PROJECT } from '../resource-manager';
 import { getProjectEntity } from '../../utils/project';
@@ -108,6 +109,7 @@ export async function fetchApiServices(
 export const serviceUsageSteps: GoogleCloudIntegrationStep[] = [
   {
     id: ServiceUsageStepIds.FETCH_API_SERVICES,
+    ingestionSourceId: IngestionSources.SERVICE_USAGE_API_SERVICES,
     name: 'API Services',
     entities: [ServiceUsageEntities.API_SERVICE],
     relationships: [ServiceUsageRelationships.PROJECT_HAS_API_SERVICE],

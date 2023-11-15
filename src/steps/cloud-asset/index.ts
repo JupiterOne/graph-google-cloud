@@ -39,6 +39,7 @@ import {
   STEP_CREATE_BINDING_ROLE_RELATIONSHIPS,
   STEP_IAM_BINDINGS,
   bindingEntities,
+  IngestionSources,
 } from './constants';
 import {
   BindingEntity,
@@ -586,9 +587,8 @@ export async function createPrincipalRelationships(
     { _type: bindingEntities.BINDINGS._type },
     async (bindingEntity: BindingEntity) => {
       const condition =
-        getRawData<cloudresourcemanager_v3.Schema$Binding>(
-          bindingEntity,
-        )?.condition;
+        getRawData<cloudresourcemanager_v3.Schema$Binding>(bindingEntity)
+          ?.condition;
 
       for (const member of bindingEntity?.members ?? []) {
         if (isConvienenceMember(member)) {
@@ -796,6 +796,7 @@ export async function createApiServiceToAnyResourceRelationships(
 export const cloudAssetSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_IAM_BINDINGS,
+    ingestionSourceId: IngestionSources.CLOUD_ASSET_IAM_BINDINGS,
     name: 'IAM Bindings',
     entities: [bindingEntities.BINDINGS],
     relationships: [],
@@ -807,6 +808,7 @@ export const cloudAssetSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_CREATE_BASIC_ROLES,
+    ingestionSourceId: IngestionSources.CLOUD_ASSET_IAM_BASIC_ROLES,
     name: 'Identity and Access Management (IAM) Basic Roles',
     entities: [
       {

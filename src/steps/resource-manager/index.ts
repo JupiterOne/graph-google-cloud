@@ -37,6 +37,7 @@ import {
   AUDIT_CONFIG_ALLOWS_USER_RELATIONSHIP_TYPE,
   AUDIT_CONFIG_ALLOWS_GROUP_RELATIONSHIP_TYPE,
   AUDIT_CONFIG_ALLOWS_DOMAIN_RELATIONSHIP_TYPE,
+  IngestionSources,
 } from './constants';
 import {
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
@@ -402,6 +403,7 @@ export function flattenAuditLogConfigs(
 export const resourceManagerSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_RESOURCE_MANAGER_ORGANIZATION,
+    ingestionSourceId: IngestionSources.RESOURCE_MANAGER_ORGANIZATION,
     name: 'Resource Manager Organization',
     entities: [
       {
@@ -418,6 +420,7 @@ export const resourceManagerSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_RESOURCE_MANAGER_FOLDERS,
+    ingestionSourceId: IngestionSources.RESOURCE_MANAGER_FOLDERS,
     name: 'Resource Manager Folders',
     entities: [
       {
@@ -473,6 +476,7 @@ export const resourceManagerSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_RESOURCE_MANAGER_PROJECT,
+    ingestionSourceId: IngestionSources.RESOURCE_MANAGER_PROJECT,
     name: 'Resource Manager Project',
     entities: [
       {

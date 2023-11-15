@@ -23,6 +23,7 @@ import {
   ENTITY_CLASS_CLOUD_RUN_CONFIGURATION,
   RELATIONSHIP_TYPE_CLOUD_RUN_SERVICE_MANAGES_ROUTE,
   RELATIONSHIP_TYPE_CLOUD_RUN_SERVICE_MANAGES_CONFIGURATION,
+  IngestionSources,
 } from './constants';
 import {
   createCloudRunConfigurationEntity,
@@ -152,6 +153,7 @@ export async function fetchCloudRunConfigurations(
 export const cloudRunSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_CLOUD_RUN_SERVICES,
+    ingestionSourceId: IngestionSources.CLOUD_RUN_SERVICES,
     name: 'Cloud Run Services',
     entities: [
       {
@@ -167,6 +169,7 @@ export const cloudRunSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_CLOUD_RUN_ROUTES,
+    ingestionSourceId: IngestionSources.CLOUD_RUN_ROUTES,
     name: 'Cloud Run Routes',
     entities: [
       {
@@ -189,6 +192,7 @@ export const cloudRunSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_CLOUD_RUN_CONFIGURATIONS,
+    ingestionSourceId: IngestionSources.CLOUD_RUN_CONFIGURATIONS,
     name: 'Cloud Run Configurations',
     entities: [
       {

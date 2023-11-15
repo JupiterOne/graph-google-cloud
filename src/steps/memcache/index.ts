@@ -19,6 +19,7 @@ import {
   RELATIONSHIP_TYPE_MEMCACHE_INSTANCE_USES_NETWORK,
   RELATIONSHIP_TYPE_MEMCACHE_INSTANCE_HAS_NODE,
   STEP_CREATE_MEMCACHE_INSTANCE_NETWORK_RELATIONSHIPS,
+  IngestionSources,
 } from './constants';
 import {
   createMemcacheInstanceEntity,
@@ -110,6 +111,7 @@ export async function buildMemcacheInstancesUsesNetworkRelationships(
 export const memcacheSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_MEMCACHE_INSTANCES,
+    ingestionSourceId: IngestionSources.MEMCACHE_INSTANCES,
     name: 'Memcache Instances',
     entities: [
       {

@@ -12,6 +12,7 @@ import {
   WebSecurityScannerEntities,
   WebSecurityScannerRelationships,
   WebSecurityScannerSteps,
+  IngestionSources,
 } from '../constants';
 import { createScanRunEntity } from '../converters';
 
@@ -50,6 +51,7 @@ async function fetchScanRuns(context: IntegrationStepContext): Promise<void> {
 
 export const fetchScanRunsStepMap: GoogleCloudIntegrationStep = {
   id: WebSecurityScannerSteps.FETCH_SCAN_RUNS.id,
+  ingestionSourceId: IngestionSources.WEB_SECURITY_SCAN_RUNS,
   name: WebSecurityScannerSteps.FETCH_SCAN_RUNS.name,
   entities: [WebSecurityScannerEntities.SCAN_RUN],
   relationships: [

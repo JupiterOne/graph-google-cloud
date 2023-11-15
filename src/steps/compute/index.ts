@@ -170,6 +170,7 @@ import {
   STEP_COMPUTE_DISK_KMS_RELATIONSHIPS,
   STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS,
   STEP_COMPUTE_IMAGE_KMS_RELATIONSHIPS,
+  IngestionSources,
 } from './constants';
 import { compute_v1, osconfig_v1 } from 'googleapis';
 import { INTERNET, RelationshipClass } from '@jupiterone/data-model';
@@ -1923,6 +1924,7 @@ export async function fetchComputeSslPolicies(
 export const computeSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_COMPUTE_NETWORKS,
+    ingestionSourceId: IngestionSources.COMPUTE_NETWORKS,
     name: 'Compute Networks',
     entities: [
       {
@@ -1953,6 +1955,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_COMPUTE_ADDRESSES,
+    ingestionSourceId: IngestionSources.COMPUTE_ADDRESSES,
     name: 'Compute Addresses',
     entities: [
       {
@@ -1999,6 +2002,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_COMPUTE_GLOBAL_ADDRESSES,
+    ingestionSourceId: IngestionSources.COMPUTE_GLOBAL_ADDRESSES,
     name: 'Compute Global Addresses',
     entities: [
       {
@@ -2028,6 +2032,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_COMPUTE_FORWARDING_RULES,
+    ingestionSourceId: IngestionSources.COMPUTE_FORWARDING_RULES,
     name: 'Compute Forwarding Rules',
     entities: [
       {
@@ -2084,6 +2089,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_COMPUTE_GLOBAL_FORWARDING_RULES,
+    ingestionSourceId: IngestionSources.COMPUTE_GLOBAL_FORWARDING_RULES,
     name: 'Compute Global Forwarding Rules',
     entities: [
       {
@@ -2142,6 +2148,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_COMPUTE_FIREWALLS,
+    ingestionSourceId: IngestionSources.COMPUTE_FIREWALLS,
     name: 'Compute Firewalls',
     entities: [
       {
@@ -2177,6 +2184,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_COMPUTE_SUBNETWORKS,
+    ingestionSourceId: IngestionSources.COMPUTE_SUBNETWORKS,
     name: 'Compute Subnetworks',
     entities: [
       {
@@ -2201,6 +2209,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_COMPUTE_DISKS,
+    ingestionSourceId: IngestionSources.COMPUTE_DISKS,
     name: 'Compute Disks',
     entities: [
       {
@@ -2254,6 +2263,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_COMPUTE_REGION_DISKS,
+    ingestionSourceId: IngestionSources.COMPUTE_REGION_DISKS,
     name: 'Compute Region Disks',
     entities: [
       {
@@ -2270,6 +2280,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_COMPUTE_SNAPSHOTS,
+    ingestionSourceId: IngestionSources.COMPUTE_SNAPSHOTS,
     name: 'Compute Snapshots',
     entities: [
       {
@@ -2301,6 +2312,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_COMPUTE_IMAGES,
+    ingestionSourceId: IngestionSources.COMPUTE_IMAGES,
     name: 'Compute Images',
     entities: [
       {
@@ -2354,6 +2366,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_COMPUTE_INSTANCES,
+    ingestionSourceId: IngestionSources.COMPUTE_INSTANCES,
     name: 'Compute Instances',
     entities: [
       {
@@ -2410,6 +2423,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_COMPUTE_PROJECT,
+    ingestionSourceId: IngestionSources.COMPUTE_PROJECT,
     name: 'Compute Project',
     entities: [
       {
@@ -2433,6 +2447,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_COMPUTE_HEALTH_CHECKS,
+    ingestionSourceId: IngestionSources.COMPUTE_HEALTH_CHECKS,
     name: 'Compute Health Checks',
     entities: [
       {
@@ -2449,6 +2464,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_COMPUTE_REGION_HEALTH_CHECKS,
+    ingestionSourceId: IngestionSources.COMPUTE_REGION_HEALTH_CHECKS,
     name: 'Compute Region Health Checks',
     entities: [
       {
@@ -2465,6 +2481,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_COMPUTE_REGION_INSTANCE_GROUPS,
+    ingestionSourceId: IngestionSources.COMPUTE_REGION_INSTANCE_GROUPS,
     name: 'Compute Region Instance Groups',
     entities: [
       {
@@ -2493,6 +2510,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_COMPUTE_INSTANCE_GROUPS,
+    ingestionSourceId: IngestionSources.COMPUTE_INSTANCE_GROUPS,
     name: 'Compute Instance Groups',
     entities: [
       {
@@ -2521,6 +2539,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_COMPUTE_LOADBALANCERS,
+    ingestionSourceId: IngestionSources.COMPUTE_LOADBALANCERS,
     name: 'Compute Load Balancers',
     entities: [
       {
@@ -2550,6 +2569,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_COMPUTE_REGION_LOADBALANCERS,
+    ingestionSourceId: IngestionSources.COMPUTE_REGION_LOADBALANCERS,
     name: 'Compute Region Load Balancers',
     entities: [
       {
@@ -2573,6 +2593,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_COMPUTE_BACKEND_SERVICES,
+    ingestionSourceId: IngestionSources.COMPUTE_BACKEND_SERVICES,
     name: 'Compute Backend Services',
     entities: [
       {
@@ -2602,6 +2623,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_COMPUTE_REGION_BACKEND_SERVICES,
+    ingestionSourceId: IngestionSources.COMPUTE_REGION_BACKEND_SERVICES,
     name: 'Compute Region Backend Services',
     entities: [
       {
@@ -2634,6 +2656,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_COMPUTE_BACKEND_BUCKETS,
+    ingestionSourceId: IngestionSources.COMPUTE_BACKEND_BUCKETS,
     name: 'Compute Backend Buckets',
     entities: [
       {
@@ -2668,6 +2691,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_COMPUTE_TARGET_SSL_PROXIES,
+    ingestionSourceId: IngestionSources.COMPUTE_TARGET_SSL_PROXIES,
     name: 'Compute Target SSL Proxies',
     entities: [
       {
@@ -2691,6 +2715,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_COMPUTE_TARGET_HTTPS_PROXIES,
+    ingestionSourceId: IngestionSources.COMPUTE_TARGET_HTTPS_PROXIES,
     name: 'Compute Target HTTPS Proxies',
     entities: [
       {
@@ -2714,6 +2739,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES,
+    ingestionSourceId: IngestionSources.COMPUTE_REGION_TARGET_HTTPS_PROXIES,
     name: 'Compute Region Target HTTPS Proxies',
     entities: [
       {
@@ -2737,6 +2763,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_COMPUTE_TARGET_HTTP_PROXIES,
+    ingestionSourceId: IngestionSources.COMPUTE_TARGET_HTTP_PROXIES,
     name: 'Compute Target HTTP Proxies',
     entities: [
       {
@@ -2760,6 +2787,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES,
+    ingestionSourceId: IngestionSources.COMPUTE_REGION_TARGET_HTTP_PROXIES,
     name: 'Compute Region Target HTTP Proxies',
     entities: [
       {
@@ -2783,6 +2811,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_COMPUTE_SSL_POLICIES,
+    ingestionSourceId: IngestionSources.COMPUTE_SSL_POLICIES,
     name: 'Compute SSL Policies',
     entities: [
       {

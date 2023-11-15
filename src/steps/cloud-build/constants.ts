@@ -132,3 +132,45 @@ export const CloudBuildLocations = [
   'us-west3',
   'us-west4',
 ];
+
+export const IngestionSources = {
+  CLOUD_BUILD_BUILDS: 'cloud-build-builds',
+  CLOUD_BUILD_TRIGGERS: 'cloud-build-triggers',
+  CLOUD_BUILD_WORKER_POOLS: 'cloud-build-worker-pools',
+  CLOUD_BUILD_GITHUB_ENTERPRISE_CONFIG: 'cloud-build-github-enterprise-config',
+  CLOUD_BUILD_BITBUCKET_SERVER_CONFIG: 'cloud-build-bitbucket-server-config',
+  CLOUD_BUILD_BITBUCKET_REPOS: 'cloud-build-bitbucket-repos',
+};
+
+export const CloudBuildIngestionConfig = {
+  [IngestionSources.CLOUD_BUILD_BUILDS]: {
+    title: 'Google Cloud Build Builds',
+    description: 'Continuous integration build records.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.CLOUD_BUILD_TRIGGERS]: {
+    title: 'Google Cloud Build Triggers',
+    description: 'Triggers for automated builds.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.CLOUD_BUILD_WORKER_POOLS]: {
+    title: 'Google Cloud Build Worker Pools',
+    description: 'Worker pool for parallel build tasks.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.CLOUD_BUILD_GITHUB_ENTERPRISE_CONFIG]: {
+    title: 'Cloud Build GitHub Enterprise Config',
+    description: 'Integration settings for GitHub Enterprise.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.CLOUD_BUILD_BITBUCKET_SERVER_CONFIG]: {
+    title: 'Cloud Build Bitbucket Server Config',
+    description: 'Configuration for Bitbucket Server integration.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.CLOUD_BUILD_BITBUCKET_REPOS]: {
+    title: 'Cloud Build Bitbucket Repositories',
+    description: 'Build management for Bitbucket repositories.',
+    defaultsToDisabled: false,
+  },
+};

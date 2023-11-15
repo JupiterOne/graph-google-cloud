@@ -18,3 +18,27 @@ export const RELATIONSHIP_TYPE_API_GATEWAY_API_HAS_GATEWAY =
   'google_api_gateway_api_has_gateway';
 export const RELATIONSHIP_TYPE_API_GATEWAY_API_CONFIG_USES_SERVICE_ACCOUNT =
   'google_api_gateway_api_config_uses_iam_service_account';
+
+export const IngestionSources = {
+  API_GATEWAY_APIS: 'api-gateway-apis',
+  API_GATEWAY_API_CONFIGS: 'api-gateway-api-configs',
+  API_GATEWAY_GATEWAYS: 'api-gateway-gateways',
+};
+
+export const ApiGatewayIngestionConfig = {
+  [IngestionSources.API_GATEWAY_APIS]: {
+    title: 'Google Cloud API Gateway APIs',
+    description: 'Endpoint management for API gateways.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.API_GATEWAY_API_CONFIGS]: {
+    title: 'Google Cloud API Gateway API Configurations',
+    description: 'Config settings for API interfaces.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.API_GATEWAY_GATEWAYS]: {
+    title: 'Google Cloud API Gateway Gateways',
+    description: 'Networking gateways for API management.',
+    defaultsToDisabled: false,
+  },
+};

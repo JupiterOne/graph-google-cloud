@@ -14,3 +14,21 @@ export const RELATIONSHIP_TYPE_PUBSUB_TOPIC_USES_KMS_KEY =
 
 export const RELATIONSHIP_TYPE_PUBSUB_SUBSCRIPTION_USES_TOPIC =
   'google_pubsub_subscription_uses_topic';
+
+export const IngestionSources = {
+  PUBSUB_TOPICS: 'pubsub-topics',
+  PUBSUB_SUBSCRIPTIONS: 'pubsub-subscriptions',
+};
+
+export const PubSubIngestionConfig = {
+  [IngestionSources.PUBSUB_TOPICS]: {
+    title: 'Google Pub/Sub Topics',
+    description: 'Messaging topics for Pub/Sub.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.PUBSUB_SUBSCRIPTIONS]: {
+    title: 'Google Pub/Sub Subscriptions',
+    description: 'Subscriptions to Pub/Sub topics.',
+    defaultsToDisabled: false,
+  },
+};

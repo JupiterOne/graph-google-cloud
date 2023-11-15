@@ -85,3 +85,21 @@ export const API_SERVICE_HAS_ANY_RESOURCE_RELATIONSHIP = {
   sourceType: ServiceUsageEntities.API_SERVICE._type,
   targetType: ANY_RESOURCE,
 };
+
+export const IngestionSources = {
+  CLOUD_ASSET_IAM_BINDINGS: 'cloud-asset-iam-bindings',
+  CLOUD_ASSET_IAM_BASIC_ROLES: 'cloud-asset-basic-roles',
+};
+
+export const CloudAssetIngestionConfig = {
+  [IngestionSources.CLOUD_ASSET_IAM_BINDINGS]: {
+    title: 'Google Cloud Asset IAM Bindings',
+    description: 'IAM bindings for cloud assets.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.CLOUD_ASSET_IAM_BASIC_ROLES]: {
+    title: 'Google Cloud Asset Basic Roles',
+    description: 'Basic IAM roles for cloud assets.',
+    defaultsToDisabled: false,
+  },
+};

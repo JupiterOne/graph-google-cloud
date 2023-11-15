@@ -6,11 +6,13 @@ import { CloudSourceRepositoriesClient } from '../client';
 import {
   CloudSourceRepositoriesEntitiesSpec,
   CloudSourceRepositoriesStepsSpec,
+  IngestionSources,
 } from '../constants';
 import { createRepositoryEntity } from '../converters';
 
 export const fetchCloudSourceRepositoriesStep: GoogleCloudIntegrationStep = {
   ...CloudSourceRepositoriesStepsSpec.FETCH_REPOSITORIES,
+  ingestionSourceId: IngestionSources.CLOUD_SOURCE_REPOSITORIES,
   entities: [CloudSourceRepositoriesEntitiesSpec.REPOSITORY],
   relationships: [],
   executionHandler: async function (

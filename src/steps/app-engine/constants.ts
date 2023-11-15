@@ -35,3 +35,33 @@ export const RELATIONSHIP_TYPE_GOOGLE_USER_CREATED_VERSION =
 
 export const RELATIONSHIP_TYPE_SERVICE_ACCOUNT_CREATED_VERSION =
   'google_iam_service_account_created_app_engine_version';
+
+export const IngestionSources = {
+  APP_ENGINE_APPLICATION: 'app-engine-application',
+  APP_ENGINE_SERVICES: 'app-engine-services',
+  APP_ENGINE_VERSIONS: 'app-engine-versions',
+  APP_ENGINE_INSTANCES: 'app-engine-instances',
+};
+
+export const AppEngineIngestionConfig = {
+  [IngestionSources.APP_ENGINE_APPLICATION]: {
+    title: 'Google Cloud App Engine Application',
+    description: 'Platform for building scalable web apps.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.APP_ENGINE_SERVICES]: {
+    title: 'Google Cloud App Engine Services',
+    description: 'Modular components of App Engine apps.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.APP_ENGINE_VERSIONS]: {
+    title: 'Google Cloud App Engine Versions',
+    description: 'Versioning for App Engine application components.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.APP_ENGINE_INSTANCES]: {
+    title: 'Google Cloud App Engine Instances',
+    description: 'Running instances of App Engine services.',
+    defaultsToDisabled: false,
+  },
+};

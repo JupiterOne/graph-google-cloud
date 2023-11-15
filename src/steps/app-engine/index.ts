@@ -34,6 +34,7 @@ import {
   RELATIONSHIP_TYPE_GOOGLE_USER_CREATED_VERSION,
   RELATIONSHIP_TYPE_SERVICE_ACCOUNT_CREATED_VERSION,
   STEP_CREATE_APP_ENGINE_BUCKET_RELATIONSHIPS,
+  IngestionSources,
 } from './constants';
 import {
   createAppEngineApplicationEntity,
@@ -382,6 +383,7 @@ export async function fetchAppEngineVersionInstances(
 export const appEngineSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_APP_ENGINE_APPLICATION,
+    ingestionSourceId: IngestionSources.APP_ENGINE_APPLICATION,
     name: 'AppEngine Application',
     entities: [
       {
@@ -416,6 +418,7 @@ export const appEngineSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_APP_ENGINE_SERVICES,
+    ingestionSourceId: IngestionSources.APP_ENGINE_SERVICES,
     name: 'AppEngine Services',
     entities: [
       {
@@ -439,6 +442,7 @@ export const appEngineSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_APP_ENGINE_VERSIONS,
+    ingestionSourceId: IngestionSources.APP_ENGINE_VERSIONS,
     name: 'AppEngine Versions',
     entities: [
       {
@@ -473,6 +477,7 @@ export const appEngineSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_APP_ENGINE_INSTANCES,
+    ingestionSourceId: IngestionSources.APP_ENGINE_INSTANCES,
     name: 'AppEngine Instances',
     entities: [
       {

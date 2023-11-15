@@ -12,6 +12,7 @@ import {
   PrivatecaEntities,
   PrivatecaRelationships,
   PrivatecaSteps,
+  IngestionSources,
 } from '../constants';
 import { createCertificateEntity } from '../converters';
 import { privateca_v1 } from 'googleapis';
@@ -115,6 +116,7 @@ async function buildCertificateAuthorityBucketRelationships(
 
 export const fetchAuthorityCertificatesStepMap: GoogleCloudIntegrationStep = {
   id: PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATES.id,
+  ingestionSourceId: IngestionSources.PRIVATE_CA_CERTIFICATES,
   name: PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATES.name,
   entities: [PrivatecaEntities.PRIVATE_CA_CERTIFICATE],
   relationships: [

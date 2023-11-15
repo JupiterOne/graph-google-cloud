@@ -7,6 +7,7 @@ import {
   STEP_BILLING_ACCOUNTS,
   ENTITY_TYPE_BILLING_ACCOUNT,
   ENTITY_CLASS_BILLING_ACCOUNT,
+  IngestionSources,
 } from './constants';
 import { createBillingAccountEntity } from './converters';
 
@@ -28,6 +29,7 @@ export async function fetchBillingAccounts(
 export const cloudBillingSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_BILLING_ACCOUNTS,
+    ingestionSourceId: IngestionSources.CLOUD_BILLING_ACCOUNTS,
     name: 'Billing Accounts',
     entities: [
       {

@@ -13,6 +13,7 @@ import {
   SecretManagerEntities,
   SecretManagerRelationships,
   SecretManagerSteps,
+  IngestionSources,
 } from './constants';
 import { createSecretEntity, createSecretVersionEntity } from './converters';
 
@@ -65,6 +66,7 @@ export async function fetchSecretVersions(
 export const secretManagerSteps: GoogleCloudIntegrationStep[] = [
   {
     ...SecretManagerSteps.FETCH_SECRETS,
+    ingestionSourceId: IngestionSources.SECRET_MANAGER_SECRETS,
     entities: [SecretManagerEntities.SECRET],
     relationships: [],
     executionHandler: fetchSecrets,
@@ -73,6 +75,7 @@ export const secretManagerSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     ...SecretManagerSteps.FETCH_SECRET_VERSIONS,
+    ingestionSourceId: IngestionSources.SECRET_MANAGER_SECRET_VERSIONS,
     entities: [SecretManagerEntities.SECRET_VERSION],
     relationships: [SecretManagerRelationships.SECRET_HAS_VERSION],
     dependsOn: [SecretManagerSteps.FETCH_SECRETS.id],

@@ -89,6 +89,7 @@ all of the supported data into JupiterOne:
 | [spanner](https://console.developers.google.com/apis/library/spanner.googleapis.com)                           | spanner.googleapis.com              |
 | [storage](https://console.developers.google.com/apis/library/storage.googleapis.com)                           | storage.googleapis.com              |
 | [websecurityscanner](https://console.developers.google.com/apis/library/websecurityscanner.googleapis.com)     | websecurityscanner.googleapis.com   |
+
 <!-- {J1_APIS_DOCUMENTATION_LINKS_MARKER_END} -->
 
 Google Cloud service APIs can be enabled using one of the following methods:
@@ -113,7 +114,7 @@ integration supports:
 **NOTE**: You can only enable 20 services at a time.
 
 <!-- {J1_APIS_DOCUMENTATION_MARKER_START} -->
-    
+
 ```
 gcloud services enable \
  accesscontextmanager.googleapis.com \
@@ -149,7 +150,8 @@ gcloud services enable \
  spanner.googleapis.com \
  storage.googleapis.com \
  websecurityscanner.googleapis.com
-  ```
+```
+
 <!-- {J1_APIS_DOCUMENTATION_MARKER_END} -->
 
 #### Creating Google Cloud project service account
@@ -446,16 +448,16 @@ The following relationships are created:
 | ---------------------------------------------------------------- | --------------------- | ----------------------------------------------------------------- |
 | `google_access_context_manager_access_policy`                    | **HAS**               | `google_access_context_manager_access_level`                      |
 | `google_access_context_manager_access_policy`                    | **HAS**               | `google_access_context_manager_service_perimeter`                 |
-| `google_access_context_manager_service_perimeter_api_operation`  | **HAS**               | `google_access_context_manager_service_perimeter_method_selector` |
-| `google_access_context_manager_service_perimeter_egress_policy`  | **HAS**               | `google_access_context_manager_service_perimeter_api_operation`   |
 | `google_access_context_manager_service_perimeter`                | **HAS**               | `google_access_context_manager_service_perimeter_egress_policy`   |
 | `google_access_context_manager_service_perimeter`                | **HAS**               | `google_access_context_manager_service_perimeter_ingress_policy`  |
-| `google_access_context_manager_service_perimeter_ingress_policy` | **HAS**               | `google_access_context_manager_service_perimeter_api_operation`   |
 | `google_access_context_manager_service_perimeter`                | **LIMITS**            | `google_cloud_api_service`                                        |
 | `google_access_context_manager_service_perimeter`                | **PROTECTS**          | `google_cloud_project`                                            |
-| `google_api_gateway_api_config`                                  | **USES**              | `google_iam_service_account`                                      |
-| `google_api_gateway_api`                                         | **HAS**               | `google_api_gateway_gateway`                                      |
+| `google_access_context_manager_service_perimeter_api_operation`  | **HAS**               | `google_access_context_manager_service_perimeter_method_selector` |
+| `google_access_context_manager_service_perimeter_egress_policy`  | **HAS**               | `google_access_context_manager_service_perimeter_api_operation`   |
+| `google_access_context_manager_service_perimeter_ingress_policy` | **HAS**               | `google_access_context_manager_service_perimeter_api_operation`   |
 | `google_api_gateway_api`                                         | **USES**              | `google_api_gateway_api_config`                                   |
+| `google_api_gateway_api`                                         | **HAS**               | `google_api_gateway_gateway`                                      |
+| `google_api_gateway_api_config`                                  | **USES**              | `google_iam_service_account`                                      |
 | `google_app_engine_application`                                  | **HAS**               | `google_app_engine_service`                                       |
 | `google_app_engine_application`                                  | **USES**              | `google_storage_bucket`                                           |
 | `google_app_engine_service`                                      | **HAS**               | `google_app_engine_version`                                       |
@@ -470,26 +472,27 @@ The following relationships are created:
 | `google_bigtable_instance`                                       | **HAS**               | `google_bigtable_table`                                           |
 | `google_bigtable_table`                                          | **HAS**               | `google_bigtable_backup`                                          |
 | `google_billing_account`                                         | **HAS**               | `google_billing_budget`                                           |
+| `google_cloud_api_service`                                       | **USES**              | `google_cloud_audit_config`                                       |
 | `google_cloud_api_service`                                       | **HAS**               | `google_iam_role`                                                 |
 | `google_cloud_api_service`                                       | **HAS**               | `resource`                                                        |
-| `google_cloud_api_service`                                       | **USES**              | `google_cloud_audit_config`                                       |
 | `google_cloud_audit_config`                                      | **ALLOWS**            | `google_domain`                                                   |
 | `google_cloud_audit_config`                                      | **ALLOWS**            | `google_group`                                                    |
 | `google_cloud_audit_config`                                      | **ALLOWS**            | `google_iam_service_account`                                      |
 | `google_cloud_audit_config`                                      | **ALLOWS**            | `google_user`                                                     |
 | `google_cloud_bitbucket_server_config`                           | **HAS**               | `google_cloud_bitbucket_server_repo`                              |
-| `google_cloud_build_trigger`                                     | **TRIGGERS**          | `google_cloud_build`                                              |
 | `google_cloud_build`                                             | **USES**              | `google_cloud_source_repository`                                  |
 | `google_cloud_build`                                             | **USES**              | `google_storage_bucket`                                           |
-| `internet`                                                       | **ALLOWS**            | `google_compute_firewall`                                         |
+| `google_cloud_build_trigger`                                     | **TRIGGERS**          | `google_cloud_build`                                              |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_folder`                                             |
-| `google_cloud_function`                                          | **USES**              | `google_iam_service_account`                                      |
+| `google_cloud_folder`                                            | **HAS**               | `google_cloud_project`                                            |
 | `google_cloud_function`                                          | **USES**              | `google_cloud_source_repository`                                  |
+| `google_cloud_function`                                          | **USES**              | `google_iam_service_account`                                      |
 | `google_cloud_function`                                          | **USES**              | `google_storage_bucket`                                           |
 | `google_cloud_organization`                                      | **HAS**               | `google_cloud_folder`                                             |
-| `google_cloud_project`                                           | **HAS**               | `google_cloud_api_service`                                        |
+| `google_cloud_organization`                                      | **HAS**               | `google_cloud_project`                                            |
 | `google_cloud_project`                                           | **HAS**               | `google_billing_budget`                                           |
 | `google_cloud_project`                                           | **HAS**               | `google_binary_authorization_policy`                              |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_api_service`                                        |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_configuration`                                  |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_route`                                          |
 | `google_cloud_scan_config`                                       | **PERFORMED**         | `google_cloud_scan_run`                                           |
@@ -497,16 +500,16 @@ The following relationships are created:
 | `google_compute_backend_service`                                 | **HAS**               | `google_compute_health_check`                                     |
 | `google_compute_backend_service`                                 | **HAS**               | `google_compute_instance_group`                                   |
 | `google_compute_backend_service`                                 | **HAS**               | `google_compute_target_ssl_proxy`                                 |
-| `google_compute_disk`                                            | **CREATED**           | `google_compute_snapshot`                                         |
 | `google_compute_disk`                                            | **USES**              | `google_compute_image`                                            |
+| `google_compute_disk`                                            | **CREATED**           | `google_compute_snapshot`                                         |
 | `google_compute_disk`                                            | **USES**              | `google_kms_crypto_key`                                           |
 | `google_compute_firewall`                                        | **PROTECTS**          | `google_compute_network`                                          |
+| `google_compute_forwarding_rule`                                 | **USES**              | `google_compute_address`                                          |
 | `google_compute_forwarding_rule`                                 | **CONNECTS**          | `google_compute_backend_service`                                  |
 | `google_compute_forwarding_rule`                                 | **CONNECTS**          | `google_compute_network`                                          |
 | `google_compute_forwarding_rule`                                 | **CONNECTS**          | `google_compute_subnetwork`                                       |
 | `google_compute_forwarding_rule`                                 | **CONNECTS**          | `google_compute_target_http_proxy`                                |
 | `google_compute_forwarding_rule`                                 | **CONNECTS**          | `google_compute_target_https_proxy`                               |
-| `google_compute_forwarding_rule`                                 | **USES**              | `google_compute_address`                                          |
 | `google_compute_global_forwarding_rule`                          | **CONNECTS**          | `google_compute_backend_service`                                  |
 | `google_compute_global_forwarding_rule`                          | **CONNECTS**          | `google_compute_network`                                          |
 | `google_compute_global_forwarding_rule`                          | **CONNECTS**          | `google_compute_subnetwork`                                       |
@@ -514,17 +517,17 @@ The following relationships are created:
 | `google_compute_global_forwarding_rule`                          | **CONNECTS**          | `google_compute_target_https_proxy`                               |
 | `google_compute_image`                                           | **USES**              | `google_compute_image`                                            |
 | `google_compute_image`                                           | **USES**              | `google_kms_crypto_key`                                           |
-| `google_compute_instance_group`                                  | **HAS**               | `google_compute_instance`                                         |
-| `google_compute_instance_group`                                  | **HAS**               | `google_compute_instance_group_named_port`                        |
-| `google_compute_instance`                                        | **TRUSTS**            | `google_iam_service_account`                                      |
 | `google_compute_instance`                                        | **USES**              | `google_compute_address`                                          |
 | `google_compute_instance`                                        | **USES**              | `google_compute_disk`                                             |
-| `google_compute_network`                                         | **CONNECTS**          | `google_compute_network`                                          |
-| `google_compute_network`                                         | **CONTAINS**          | `google_compute_subnetwork`                                       |
+| `google_compute_instance`                                        | **TRUSTS**            | `google_iam_service_account`                                      |
+| `google_compute_instance_group`                                  | **HAS**               | `google_compute_instance`                                         |
+| `google_compute_instance_group`                                  | **HAS**               | `google_compute_instance_group_named_port`                        |
 | `google_compute_network`                                         | **HAS**               | `google_compute_address`                                          |
-| `google_compute_network`                                         | **HAS**               | `google_dns_policy`                                               |
 | `google_compute_network`                                         | **HAS**               | `google_compute_firewall`                                         |
 | `google_compute_network`                                         | **HAS**               | `google_compute_global_address`                                   |
+| `google_compute_network`                                         | **CONNECTS**          | `google_compute_network`                                          |
+| `google_compute_network`                                         | **CONTAINS**          | `google_compute_subnetwork`                                       |
+| `google_compute_network`                                         | **HAS**               | `google_dns_policy`                                               |
 | `google_compute_project`                                         | **HAS**               | `google_compute_instance`                                         |
 | `google_compute_snapshot`                                        | **CREATED**           | `google_compute_image`                                            |
 | `google_compute_subnetwork`                                      | **HAS**               | `google_compute_address`                                          |
@@ -541,24 +544,22 @@ The following relationships are created:
 | `google_dataproc_cluster`                                        | **USES**              | `google_compute_image`                                            |
 | `google_dataproc_cluster`                                        | **USES**              | `google_kms_crypto_key`                                           |
 | `google_dataproc_cluster`                                        | **USES**              | `google_storage_bucket`                                           |
-| `google_cloud_folder`                                            | **HAS**               | `google_cloud_project`                                            |
-| `google_iam_binding`                                             | **ALLOWS**            | `resource`                                                        |
+| `google_iam_binding`                                             | **ASSIGNED**          | `everyone`                                                        |
 | `google_iam_binding`                                             | **ASSIGNED**          | `google_cloud_authenticated_users`                                |
 | `google_iam_binding`                                             | **ASSIGNED**          | `google_domain`                                                   |
-| `google_iam_binding`                                             | **ASSIGNED**          | `everyone`                                                        |
 | `google_iam_binding`                                             | **ASSIGNED**          | `google_group`                                                    |
 | `google_iam_binding`                                             | **ASSIGNED**          | `google_iam_role`                                                 |
+| `google_iam_binding`                                             | **USES**              | `google_iam_role`                                                 |
 | `google_iam_binding`                                             | **ASSIGNED**          | `google_iam_service_account`                                      |
 | `google_iam_binding`                                             | **ASSIGNED**          | `google_user`                                                     |
-| `google_iam_binding`                                             | **USES**              | `google_iam_role`                                                 |
+| `google_iam_binding`                                             | **ALLOWS**            | `resource`                                                        |
 | `google_iam_service_account`                                     | **CREATED**           | `google_app_engine_version`                                       |
 | `google_iam_service_account`                                     | **HAS**               | `google_iam_service_account_key`                                  |
 | `google_kms_key_ring`                                            | **HAS**               | `google_kms_crypto_key`                                           |
 | `google_logging_metric`                                          | **HAS**               | `google_monitoring_alert_policy`                                  |
 | `google_logging_project_sink`                                    | **USES**              | `google_storage_bucket`                                           |
-| `google_memcache_instance`                                       | **HAS**               | `google_memcache_instance_node`                                   |
 | `google_memcache_instance`                                       | **USES**              | `google_compute_network`                                          |
-| `google_cloud_organization`                                      | **HAS**               | `google_cloud_project`                                            |
+| `google_memcache_instance`                                       | **HAS**               | `google_memcache_instance_node`                                   |
 | `google_privateca_certificate_authority`                         | **CREATED**           | `google_privateca_certificate`                                    |
 | `google_privateca_certificate_authority`                         | **USES**              | `google_storage_bucket`                                           |
 | `google_privateca_pool`                                          | **HAS**               | `google_privateca_certificate_authority`                          |
@@ -573,6 +574,7 @@ The following relationships are created:
 | `google_sql_postgres_instance`                                   | **USES**              | `google_kms_crypto_key`                                           |
 | `google_sql_sql_server_instance`                                 | **USES**              | `google_kms_crypto_key`                                           |
 | `google_user`                                                    | **CREATED**           | `google_app_engine_version`                                       |
+| `internet`                                                       | **ALLOWS**            | `google_compute_firewall`                                         |
 
 ### Mapped Relationships
 
@@ -712,4 +714,5 @@ permissions can be used to provision only the required ones:
 | `spanner.instances.list`                                |
 | `storage.buckets.getIamPolicy`                          |
 | `storage.buckets.list`                                  |
+
 <!-- {J1_PERMISSIONS_DOCUMENTATION_MARKER_END} -->

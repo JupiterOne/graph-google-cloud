@@ -31,6 +31,7 @@ import {
   STEP_BIG_TABLE_CLUSTERS,
   STEP_BIG_TABLE_INSTANCES,
   STEP_BIG_TABLE_TABLES,
+  IngestionSources,
 } from './constants';
 import {
   createAppProfileEntity,
@@ -224,6 +225,7 @@ export async function fetchTables(
 export const bigTableSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_BIG_TABLE_INSTANCES,
+    ingestionSourceId: IngestionSources.BIG_TABLE_INSTANCES,
     name: 'Bigtable Instances',
     entities: [
       {
@@ -240,6 +242,7 @@ export const bigTableSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_BIG_TABLE_APP_PROFILES,
+    ingestionSourceId: IngestionSources.BIG_TABLE_APP_PROFILES,
     name: 'Bigtable AppProfiles',
     entities: [
       {
@@ -263,6 +266,7 @@ export const bigTableSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_BIG_TABLE_CLUSTERS,
+    ingestionSourceId: IngestionSources.BIG_TABLE_CLUSTERS,
     name: 'Bigtable Clusters',
     entities: [
       {
@@ -292,6 +296,7 @@ export const bigTableSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_BIG_TABLE_BACKUPS,
+    ingestionSourceId: IngestionSources.BIG_TABLE_BACKUPS,
     name: 'Bigtable Backups',
     entities: [
       {
@@ -326,6 +331,7 @@ export const bigTableSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_BIG_TABLE_TABLES,
+    ingestionSourceId: IngestionSources.BIG_TABLE_TABLES,
     name: 'Bigtable Tables',
     entities: [
       {

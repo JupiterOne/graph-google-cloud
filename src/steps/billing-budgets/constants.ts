@@ -11,3 +11,15 @@ export const RELATIONSHIP_TYPE_PROJECT_HAS_BUDGET =
   'google_cloud_project_has_billing_budget';
 export const RELATIONSHIP_TYPE_BILLING_ACCOUNT_HAS_BUDGET =
   'google_billing_account_has_budget';
+
+export const IngestionSources = {
+  BILLING_BUDGETS: 'billing-budgets',
+};
+
+export const BillingBudgetsIngestionConfig = {
+  [IngestionSources.BILLING_BUDGETS]: {
+    title: 'Google Cloud Billing Budgets',
+    description: 'Budget management for cloud resources.',
+    defaultsToDisabled: false,
+  },
+};

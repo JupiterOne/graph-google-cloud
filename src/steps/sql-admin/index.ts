@@ -31,6 +31,7 @@ import {
   SQL_MYSQL_INSTANCE_USES_KMS_KEY_RELATIONSHIP,
   SQL_SQL_INSTANCE_USES_KMS_KEY_RELATIONSHIP,
   SqlAdminSteps,
+  IngestionSources,
 } from './constants';
 import {
   createMySQLInstanceEntity,
@@ -159,6 +160,7 @@ export async function buildSqlAdminInstanceKmsKeyRelationships(
 export const sqlAdminSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_SQL_ADMIN_INSTANCES,
+    ingestionSourceId: IngestionSources.SQL_ADMIN_INSTANCES,
     name: 'SQL Admin Instances',
     entities: [
       {

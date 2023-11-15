@@ -67,3 +67,21 @@ export const KMS_SERVICE_LOCATIONS: string[] = [
   'us-west3',
   'us-west4',
 ];
+
+export const IngestionSources = {
+  CLOUD_KMS_KEY_RINGS: 'cloud-kms-key-rings',
+  CLOUD_KMS_KEYS: 'cloud-kms-keys',
+};
+
+export const KmsIngestionConfig = {
+  [IngestionSources.CLOUD_KMS_KEY_RINGS]: {
+    title: 'Google Cloud KMS Key Rings',
+    description: 'Groups for organizing cryptographic keys.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.CLOUD_KMS_KEYS]: {
+    title: 'Google Cloud KMS Keys',
+    description: 'Cryptographic keys for data protection.',
+    defaultsToDisabled: false,
+  },
+};

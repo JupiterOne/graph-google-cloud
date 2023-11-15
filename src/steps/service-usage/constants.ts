@@ -43,3 +43,15 @@ export const ServiceUsageRelationships = {
     targetType: ServiceUsageEntities.API_SERVICE._type,
   },
 };
+
+export const IngestionSources = {
+  SERVICE_USAGE_API_SERVICES: 'service-usage-api-services',
+};
+
+export const ServiceUsageIngestionConfig = {
+  [IngestionSources.SERVICE_USAGE_API_SERVICES]: {
+    title: 'Google Service Usage APIs',
+    description: 'API management for GCP services.',
+    defaultsToDisabled: false,
+  },
+};

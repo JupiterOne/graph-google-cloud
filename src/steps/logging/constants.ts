@@ -14,3 +14,21 @@ export const RELATIONSHIP_TYPE_PROJECT_SINK_USES_STORAGE_BUCKET =
 
 export const RELATIONSHIP_TYPE_METRIC_HAS_ALERT_POLICY =
   'google_logging_metric_has_monitoring_alert_policy';
+
+export const IngestionSources = {
+  LOGGING_PROJECT_SINKS: 'logging-project-sinks',
+  LOGGING_METRICS: 'logging-metrics',
+};
+
+export const LoggingIngestionConfig = {
+  [IngestionSources.LOGGING_PROJECT_SINKS]: {
+    title: 'Google Logging Project Sinks',
+    description: 'Destinations for log entries export.',
+    defaultsToDisabled: true,
+  },
+  [IngestionSources.LOGGING_METRICS]: {
+    title: 'Google Logging Metrics',
+    description: 'Custom metrics from log data.',
+    defaultsToDisabled: true,
+  },
+};

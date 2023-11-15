@@ -14,6 +14,7 @@ import {
   FunctionEntitiesSpec,
   FunctionsRelationshipsSpec,
   FunctionStepsSpec,
+  IngestionSources,
 } from './constants';
 import { CloudSourceRepositoriesStepsSpec } from '../cloud-source-repositories/constants';
 import { cloudfunctions_v1 } from 'googleapis';
@@ -153,6 +154,7 @@ export async function buildCloudFunctionStorageBucketRelationships(
 export const functionsSteps: GoogleCloudIntegrationStep[] = [
   {
     id: FunctionStepsSpec.FETCH_CLOUD_FUNCTIONS.id,
+    ingestionSourceId: IngestionSources.FUNCTIONS,
     name: FunctionStepsSpec.FETCH_CLOUD_FUNCTIONS.name,
     dependsOn: [],
     entities: [FunctionEntitiesSpec.CLOUD_FUNCTION],

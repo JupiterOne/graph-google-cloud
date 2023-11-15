@@ -15,6 +15,7 @@ import {
   RELATIONSHIP_TYPE_KMS_KEY_RING_HAS_KMS_KEY,
   STEP_CLOUD_KMS_KEYS,
   STEP_CLOUD_KMS_KEY_RINGS,
+  IngestionSources,
 } from './constants';
 import { createKmsKeyRingEntity, createKmsCryptoKeyEntity } from './converters';
 
@@ -98,6 +99,7 @@ export async function fetchKmsCryptoKeys(
 export const kmsSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_CLOUD_KMS_KEY_RINGS,
+    ingestionSourceId: IngestionSources.CLOUD_KMS_KEY_RINGS,
     name: 'KMS Key Rings',
     entities: [
       {
@@ -113,6 +115,7 @@ export const kmsSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_CLOUD_KMS_KEYS,
+    ingestionSourceId: IngestionSources.CLOUD_KMS_KEYS,
     name: 'KMS Crypto Keys',
     entities: [
       {

@@ -228,3 +228,177 @@ export const RELATIONSHIP_TYPE_TARGET_SSL_PROXY_HAS_SSL_POLICY =
 // Mapped relationships
 export const MAPPED_RELATIONSHIP_FIREWALL_RULE_TYPE =
   'google_cloud_firewall_rule';
+
+export const IngestionSources = {
+  COMPUTE_NETWORKS: 'compute-networks',
+  COMPUTE_ADDRESSES: 'compute-addresses',
+  COMPUTE_GLOBAL_ADDRESSES: 'compute-global-addresses',
+  COMPUTE_FORWARDING_RULES: 'compute-forwarding-rules',
+  COMPUTE_GLOBAL_FORWARDING_RULES: 'compute-global-forwarding-rules',
+  COMPUTE_FIREWALLS: 'compute-firewalls',
+  COMPUTE_SUBNETWORKS: 'compute-subnetworks',
+  COMPUTE_DISKS: 'compute-disks',
+  COMPUTE_REGION_DISKS: 'compute-region-disks',
+  COMPUTE_SNAPSHOTS: 'compute-snapshots',
+  COMPUTE_IMAGES: 'compute-images',
+  COMPUTE_INSTANCES: 'compute-instances',
+  COMPUTE_PROJECT: 'compute-project',
+  COMPUTE_HEALTH_CHECKS: 'compute-health-checks',
+  COMPUTE_REGION_HEALTH_CHECKS: 'compute-region-health-checks',
+  COMPUTE_REGION_INSTANCE_GROUPS: 'compute-region-instance-groups',
+  COMPUTE_INSTANCE_GROUPS: 'compute-instance-groups',
+  COMPUTE_LOADBALANCERS: 'compute-loadbalancers',
+  COMPUTE_REGION_LOADBALANCERS: 'compute-region-loadbalancers',
+  COMPUTE_BACKEND_SERVICES: 'compute-backend-services',
+  COMPUTE_REGION_BACKEND_SERVICES: 'compute-region-backend-services',
+  COMPUTE_BACKEND_BUCKETS: 'compute-backend-buckets',
+  COMPUTE_TARGET_SSL_PROXIES: 'compute-target-ssl-proxies',
+  COMPUTE_TARGET_HTTPS_PROXIES: 'compute-target-https-proxies',
+  COMPUTE_REGION_TARGET_HTTPS_PROXIES: 'compute-region-target-https-proxies',
+  COMPUTE_TARGET_HTTP_PROXIES: 'compute-target-http-proxies',
+  COMPUTE_REGION_TARGET_HTTP_PROXIES: 'compute-region-target-http-proxies',
+  COMPUTE_SSL_POLICIES: 'compute-ssl-policies',
+};
+
+export const ComputeIngestionConfig = {
+  [IngestionSources.COMPUTE_NETWORKS]: {
+    title: 'Google Compute Engine Networks',
+    description: 'Virtual networks for GCP resources.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_ADDRESSES]: {
+    title: 'Google Compute Engine Addresses',
+    description: 'Static IP addresses for compute instances.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_GLOBAL_ADDRESSES]: {
+    title: 'Google Compute Global Addresses',
+    description: 'Global static IP addresses.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_FORWARDING_RULES]: {
+    title: 'Google Compute Forwarding Rules',
+    description: 'Rules for routing network traffic.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_GLOBAL_FORWARDING_RULES]: {
+    title: 'Google Compute Global Forwarding Rules',
+    description: 'Global traffic routing rules.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_FIREWALLS]: {
+    title: 'Google Compute Firewalls',
+    description: 'Firewall rules for network security.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_SUBNETWORKS]: {
+    title: 'Google Compute Subnetworks',
+    description: 'Subsections of Compute Engine networks.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_DISKS]: {
+    title: 'Google Compute Engine Disks',
+    description: 'Persistent disks for VM instances.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_REGION_DISKS]: {
+    title: 'Google Compute Region Disks',
+    description: 'Regional persistent disks.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_SNAPSHOTS]: {
+    title: 'Google Compute Engine Snapshots',
+    description: 'Snapshots for backing up disks.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_IMAGES]: {
+    title: 'Google Compute Engine Images',
+    description: 'Custom OS images for VMs.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_INSTANCES]: {
+    title: 'Google Compute Engine Instances',
+    description: 'Virtual machine instances in GCP.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_PROJECT]: {
+    title: 'Google Compute Engine Project',
+    description: 'Project-wide compute settings.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_HEALTH_CHECKS]: {
+    title: 'Google Compute Health Checks',
+    description: 'Monitoring for compute instance health.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_REGION_HEALTH_CHECKS]: {
+    title: 'Google Compute Regional Health Checks',
+    description: 'Regional health monitoring checks.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_INSTANCE_GROUPS]: {
+    title: 'Google Compute Instance Groups',
+    description: 'VM instance groups.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_REGION_INSTANCE_GROUPS]: {
+    title: 'Google Compute Region Instance Groups',
+    description: 'Regional VM instance groups.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_LOADBALANCERS]: {
+    title: 'Google Compute Load Balancers',
+    description: 'Distribute network or application traffic.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_REGION_LOADBALANCERS]: {
+    title: 'Google Compute Regional Load Balancers',
+    description: 'Regional load balancing solutions.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_BACKEND_SERVICES]: {
+    title: 'Google Compute Backend Services',
+    description: 'Backend services for load balancing.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_REGION_BACKEND_SERVICES]: {
+    title: 'Google Compute Regional Backend Services',
+    description: 'Regional backend services for traffic mgmt.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_BACKEND_BUCKETS]: {
+    title: 'Google Compute Backend Buckets',
+    description: 'Buckets as backends for load balancing.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_TARGET_SSL_PROXIES]: {
+    title: 'Google Compute Target SSL Proxies',
+    description: 'SSL proxies for secure network traffic.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_TARGET_HTTPS_PROXIES]: {
+    title: 'Google Compute Target HTTPS Proxies',
+    description: 'HTTPS proxy layers for secure traffic.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_REGION_TARGET_HTTPS_PROXIES]: {
+    title: 'Google Compute Regional Target HTTPS Proxies',
+    description: 'Regional HTTPS proxies for traffic mgmt.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_TARGET_HTTP_PROXIES]: {
+    title: 'Google Compute Target HTTP Proxies',
+    description: 'HTTP proxies for network traffic mgmt.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_REGION_TARGET_HTTP_PROXIES]: {
+    title: 'Google Compute Regional Target HTTP Proxies',
+    description: 'Regional HTTP proxies for load balancing.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_SSL_POLICIES]: {
+    title: 'Google Compute SSL Policies',
+    description: 'SSL policies for secure network connections.',
+    defaultsToDisabled: false,
+  },
+};
