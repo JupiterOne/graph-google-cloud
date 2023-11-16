@@ -6,6 +6,7 @@ import { steps } from './steps/steps';
 import { IntegrationConfig } from './types';
 import { deserializeIntegrationConfig } from './utils/integrationConfig';
 import { maybeDefaultProjectIdOnEntity } from './utils/maybeDefaultProjectIdOnEntity';
+import { ingestionConfig } from './ingestSources';
 
 export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> =
   {
@@ -33,6 +34,7 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> =
     dependencyGraphOrder: ['last'],
     beforeAddEntity: maybeDefaultProjectIdOnEntity,
     validateInvocation,
+    ingestionConfig,
   };
 
 export {
