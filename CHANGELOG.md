@@ -1,3 +1,15 @@
+# v3.2.1 (Thu Nov 16 2023)
+
+#### 🐛 Bug Fix
+
+- INT-9871: add missing import [#627](https://github.com/JupiterOne/graph-google-cloud/pull/627) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### Authors: 1
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
 # v3.2.0 (Wed Nov 15 2023)
 
 #### 🚀 Enhancement
