@@ -1,3 +1,15 @@
+# v3.2.2 (Wed Nov 22 2023)
+
+#### 🐛 Bug Fix
+
+- INT-10036: increase timeout [#629](https://github.com/JupiterOne/graph-google-cloud/pull/629) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### Authors: 1
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
 # v3.2.1 (Thu Nov 16 2023)
 
 #### 🐛 Bug Fix
