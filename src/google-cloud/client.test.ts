@@ -97,12 +97,17 @@ describe('withErrorHandling', () => {
 
   let client;
   let onRetry;
+  let onTimeoutRetry;
 
   const logger = getMockLogger<IntegrationLogger>();
 
   beforeEach(() => {
     onRetry = jest.fn();
-    client = new Client({ config, onRetry: onRetry }, logger);
+    onTimeoutRetry = jest.fn();
+    client = new Client(
+      { config, onRetry: onRetry, onTimeoutRetry: onTimeoutRetry },
+      logger,
+    );
   });
 
   [IntegrationProviderAuthorizationError, IntegrationProviderAPIError].forEach(
@@ -184,6 +189,99 @@ describe('withErrorHandling', () => {
     expect(onRetry).toHaveBeenCalledTimes(1);
     expect(onRetry).toHaveBeenCalledWith(err);
   });
+
+  test('should throw an IntegrationProviderAPIError if max timeout retry attempts was reached', async () => {
+    const fakeApiCall = async () =>
+      await new Promise((resolve) => setTimeout(resolve, 20));
+
+    await expect(
+      client.withErrorHandling(fakeApiCall, {
+        timeout: 10,
+        retryTimeOutSleepInMS: 10,
+      }),
+    ).rejects.toThrow('Provider API failed at UNKNOWN: 408 Operation Timeout');
+
+    expect(onRetry).toHaveBeenCalledTimes(0);
+    expect(onTimeoutRetry).toHaveBeenCalledTimes(6);
+  });
+
+  test('should handle recursively - First promise is timeout but second is unknown', async () => {
+    let simulateSecondFailedApiCall = false;
+
+    const fakeApiCall = async () => {
+      if (!simulateSecondFailedApiCall) {
+        simulateSecondFailedApiCall = true;
+        return await new Promise((resolve) => setTimeout(resolve, 20));
+      } else {
+        return await new Promise((_, reject) => reject('UNKNOWN'));
+      }
+    };
+
+    await expect(
+      client.withErrorHandling(fakeApiCall, {
+        timeout: 10,
+        retryTimeOutSleepInMS: 10,
+      }),
+    ).rejects.toThrow('Provider API failed at UNKNOWN: UNKNOWN UNKNOWN');
+
+    expect(onRetry).toHaveBeenCalledTimes(0);
+    expect(onTimeoutRetry).toHaveBeenCalledTimes(1);
+  });
+
+  test('should handle recursively - First promise is timeout but second is retyable', async () => {
+    const err = new Error('Error: Too Many Requests');
+    (err as unknown as { response: { status: number } }).response = {
+      status: 429,
+    };
+
+    let simulateSecondFailedApiCall = false;
+
+    const fakeApiCall = async () => {
+      if (!simulateSecondFailedApiCall) {
+        simulateSecondFailedApiCall = true;
+        return await new Promise((resolve) => setTimeout(resolve, 200));
+      } else {
+        return await new Promise((_, reject) => reject(err));
+      }
+    };
+
+    await expect(
+      client.withErrorHandling(fakeApiCall, {
+        timeout: 100,
+        retryTimeOutSleepInMS: 100,
+        maxAttempts: 2,
+        factor: null,
+      }),
+    ).rejects.toThrow('Error: Too Many Requests');
+
+    expect(onTimeoutRetry).toHaveBeenCalledTimes(1);
+    expect(onRetry).toHaveBeenCalledTimes(2);
+  }, 100_000);
+
+  test('should handle recursively - First promise is timeout but second is fullfilled', async () => {
+    let simulateSecondFailedApiCall = false;
+
+    const fakeApiCall = async () => {
+      if (!simulateSecondFailedApiCall) {
+        simulateSecondFailedApiCall = true;
+        return await new Promise((resolve) => setTimeout(resolve, 200));
+      } else {
+        return await new Promise((resolve) => resolve([]));
+      }
+    };
+
+    await expect(
+      client.withErrorHandling(fakeApiCall, {
+        timeout: 100,
+        retryTimeOutSleepInMS: 100,
+        maxAttempts: 2,
+        factor: null,
+      }),
+    ).resolves.toEqual([]);
+
+    expect(onTimeoutRetry).toHaveBeenCalledTimes(1);
+    expect(onRetry).toHaveBeenCalledTimes(0);
+  }, 100_000);
 });
 
 describe('Client', () => {

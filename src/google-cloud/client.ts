@@ -26,6 +26,7 @@ export interface ClientOptions {
   projectId?: string;
   organizationId?: string;
   onRetry?: (err: any) => void;
+  onTimeoutRetry?: () => void;
 }
 
 export interface PageableResponse {
@@ -43,6 +44,9 @@ export type IterateApiOptions = {
   publishMissingPermissionWarnEvent?: boolean;
 };
 
+const RETRY_TIMEOUT_OPERATION_TIMEOUT_ERROR_CODE =
+  'RETRY_TIMEOUT_OPERATION_TIMEOUT';
+
 export class Client {
   readonly projectId: string;
   readonly organizationId?: string;
@@ -52,9 +56,16 @@ export class Client {
   private credentials: CredentialBody;
   private auth: BaseExternalAccountClient;
   private readonly onRetry?: (err: any) => void;
+  private readonly onTimeoutRetry?: () => void;
 
   constructor(
-    { config, projectId, organizationId, onRetry }: ClientOptions,
+    {
+      config,
+      projectId,
+      organizationId,
+      onRetry,
+      onTimeoutRetry,
+    }: ClientOptions,
     logger: IntegrationLogger,
   ) {
     this.projectId =
@@ -68,6 +79,7 @@ export class Client {
     };
     this.folderId = config.folderId;
     this.onRetry = onRetry;
+    this.onTimeoutRetry = onTimeoutRetry;
     this.logger = logger;
   }
 
@@ -156,17 +168,84 @@ export class Client {
     await pMap(resources || [], cb, { concurrency: options.concurrency });
   }
 
-  withErrorHandling<T>(fn: () => Promise<T>) {
+  resolveWithTimeout<T>(promise: Promise<T>, timeoutMs: number): Promise<T> {
+    return new Promise((resolve, reject) => {
+      const timeoutPromise = new Promise<never>((_, timeoutReject) => {
+        setTimeout(() => {
+          timeoutReject(new Error(RETRY_TIMEOUT_OPERATION_TIMEOUT_ERROR_CODE));
+        }, timeoutMs);
+      });
+
+      Promise.race([promise, timeoutPromise]).then(resolve).catch(reject);
+    });
+  }
+
+  withErrorHandling<T>(
+    fn: () => Promise<T>,
+    options?: {
+      timeout: number;
+      retryTimeOutSleepInMS: number;
+      maxAttempts: number;
+      factor: number;
+    },
+  ) {
+    let timeoutsRetryRemaining = 6;
+
+    const newTimeOutLimitInMS = options?.retryTimeOutSleepInMS || 120_000;
     const onRetry = this.onRetry;
+    const onTimeoutRetry = this.onTimeoutRetry;
+
     return retry(
       async () => {
         return await fn();
       },
       {
         delay: 2_000,
-        timeout: 91_000, // Need to set a timeout, otherwise we might wait for a response indefinitely.
-        maxAttempts: 6,
-        factor: 2.25, //t=0s, 2s, 4.5s, 10.125s, 22.78125s, 51.2578125 (90.6640652s)
+        timeout: options?.timeout || 91_000, // Need to set a timeout, otherwise we might wait for a response indefinitely.
+        maxAttempts: options?.maxAttempts || 6,
+        factor: options?.factor || 2.25, //t=0s, 2s, 4.5s, 10.125s, 22.78125s, 51.2578125 (90.6640652s)
+        handleTimeout: async () => {
+          /**
+           * Handles retry() attept timeout, NOT API call timeout
+           */
+          this.logger.warn(`Retrying due to operation attempt timeout.`);
+
+          let breakRetryLoop = false;
+
+          do {
+            if (onTimeoutRetry) {
+              onTimeoutRetry();
+            }
+
+            try {
+              const response = await this.resolveWithTimeout(
+                fn(),
+                newTimeOutLimitInMS,
+              );
+              breakRetryLoop = true;
+
+              return response;
+            } catch (err) {
+              if (
+                err instanceof Error &&
+                err.message === RETRY_TIMEOUT_OPERATION_TIMEOUT_ERROR_CODE
+              ) {
+                timeoutsRetryRemaining--;
+
+                if (timeoutsRetryRemaining === 0) {
+                  throw new IntegrationProviderAPIError({
+                    code: RETRY_TIMEOUT_OPERATION_TIMEOUT_ERROR_CODE,
+                    status: 408,
+                    statusText: 'Operation Timeout',
+                    endpoint: 'UNKNOWN',
+                  });
+                }
+              } else {
+                return await this.withErrorHandling(fn, options);
+              }
+            }
+          } while (timeoutsRetryRemaining > 0 && !breakRetryLoop);
+        },
         handleError(err, ctx) {
           const newError = handleApiClientError(err);
 
