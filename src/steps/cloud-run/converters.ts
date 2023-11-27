@@ -53,6 +53,8 @@ export function createCloudRunServiceEntity(
     webLink = `/run?project=${projectId}`;
   }
 
+  const metadataProperties = parseMetadata(data);
+
   return createIntegrationEntity({
     entityData: {
       source: data,
@@ -66,6 +68,7 @@ export function createCloudRunServiceEntity(
         category: ['infrastructure'],
         createdOn: parseTimePropertyValue(data.metadata?.creationTimestamp),
         webLink: getGoogleCloudConsoleWebLink(webLink),
+        ...metadataProperties.filteredProperties,
       },
     },
   });

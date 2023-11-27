@@ -310,6 +310,15 @@ exports[`#createCloudRunServiceEntity should convert to entity 1`] = `
   "function": [
     "workload-management",
   ],
+  "metaClientName": "cloud-console",
+  "metaCreator": "user@email.com",
+  "metaIngress": "all",
+  "metaIngressStatus": "all",
+  "metaLastModifier": "user@email.com",
+  "metaLaunchStage": "BETA",
+  "metaMaxScale": "100",
+  "metaSandbox": "gvisor",
+  "metaUserImage": "us-docker.pkg.dev/cloudrun/container/hello",
   "name": "example-cloud-run-service",
   "webLink": "https://console.cloud.google.com/run/detail/us-central1/example-cloud-run-service",
 }
