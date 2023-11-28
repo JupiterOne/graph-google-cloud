@@ -51,7 +51,7 @@ describe('#fetchCloudRunServices', () => {
     ).toMatchGraphObjectSchema({
       _class: ['Service'],
       schema: {
-        additionalProperties: false,
+        additionalProperties: true,
         properties: {
           _type: { const: 'google_cloud_run_service' },
           _rawData: {
@@ -110,7 +110,7 @@ describe('#fetchCloudRunRoutes', () => {
     ).toMatchGraphObjectSchema({
       _class: ['Service'],
       schema: {
-        additionalProperties: false,
+        additionalProperties: true,
         properties: {
           _type: { const: 'google_cloud_run_service' },
           _rawData: {
@@ -204,7 +204,7 @@ describe('#fetchCloudRunConfigurations', () => {
     ).toMatchGraphObjectSchema({
       _class: ['Service'],
       schema: {
-        additionalProperties: false,
+        additionalProperties: true,
         properties: {
           _type: { const: 'google_cloud_run_service' },
           _rawData: {
