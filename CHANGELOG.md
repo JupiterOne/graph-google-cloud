@@ -1,3 +1,15 @@
+# v3.2.3 (Tue Nov 28 2023)
+
+#### 🐛 Bug Fix
+
+- INT-9927: propagate run service metadata to entity [#630](https://github.com/JupiterOne/graph-google-cloud/pull/630) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### Authors: 1
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
 # v3.2.2 (Wed Nov 22 2023)
 
 #### 🐛 Bug Fix
