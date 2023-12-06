@@ -1,3 +1,20 @@
+# v3.2.4 (Wed Dec 06 2023)
+
+#### 🐛 Bug Fix
+
+- INT-8952: update SDK packages [#631](https://github.com/JupiterOne/graph-google-cloud/pull/631) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### ⚠️ Pushed to `main`
+
+- Fix x-cortex-service-groups where tier-4 was set incorrectly ([@jablonnc](https://github.com/jablonnc))
+
+#### Authors: 2
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+- Noah Jablonski ([@jablonnc](https://github.com/jablonnc))
+
+---
+
 # v3.2.3 (Tue Nov 28 2023)
 
 #### 🐛 Bug Fix
