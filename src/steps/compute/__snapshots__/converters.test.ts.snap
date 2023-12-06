@@ -335,7 +335,6 @@ exports[`#createComputeDiskEntity should convert to entity 1`] = `
         "sourceImage": "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-9-stretch-v20200805",
         "sourceImageId": "6709658075886210235",
         "status": "READY",
-        "tags": undefined,
         "type": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/diskTypes/pd-standard",
         "users": [
           "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/testvm",
@@ -416,7 +415,6 @@ exports[`#createComputeDiskEntity should set active to false when status is not 
         "sourceImage": "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-9-stretch-v20200805",
         "sourceImageId": "6709658075886210235",
         "status": "FAILED",
-        "tags": undefined,
         "type": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/diskTypes/pd-standard",
         "users": [
           "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v2/zones/us-central1-a/instances/testvm",
@@ -1294,7 +1292,6 @@ exports[`#createComputeRegionDiskEntity should convert to entity 1`] = `
         "sourceSnapshot": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/snapshots/my-snapshot",
         "sourceSnapshotId": "582017966438274022",
         "status": "READY",
-        "tags": undefined,
         "type": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/diskTypes/pd-ssd",
       },
     },

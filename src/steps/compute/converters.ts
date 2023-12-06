@@ -195,10 +195,7 @@ export function createComputeDiskEntity(
 
   return createGoogleCloudIntegrationEntity(data, {
     entityData: {
-      source: {
-        ...data,
-        tags: buildComputeInstanceTags(data),
-      },
+      source: data,
       assign: {
         _class: ENTITY_CLASS_COMPUTE_DISK,
         _type: ENTITY_TYPE_COMPUTE_DISK,
@@ -224,10 +221,7 @@ export function createComputeRegionDiskEntity(
 
   return createGoogleCloudIntegrationEntity(data, {
     entityData: {
-      source: {
-        ...data,
-        tags: buildComputeInstanceTags(data),
-      },
+      source: data,
       assign: {
         _class: ENTITY_CLASS_COMPUTE_DISK,
         _type: ENTITY_TYPE_COMPUTE_DISK,
