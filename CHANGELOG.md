@@ -1,3 +1,15 @@
+# v3.2.5 (Fri Dec 15 2023)
+
+#### 🐛 Bug Fix
+
+- NO-TICKET: update log level [#632](https://github.com/JupiterOne/graph-google-cloud/pull/632) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### Authors: 1
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
 # v3.2.4 (Wed Dec 06 2023)
 
 #### 🐛 Bug Fix
