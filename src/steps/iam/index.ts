@@ -86,7 +86,7 @@ async function createApiServiceEntityHasIamRoleRelationships({
       const serviceApiEntity = await jobState.findEntity(serviceApiEntityKey);
 
       if (!serviceApiEntity) {
-        logger.warn(
+        logger.debug(
           {
             serviceApiName,
           },
