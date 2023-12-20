@@ -129,6 +129,15 @@ questions:
   - access
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
+    version: v1.1.0
+    requirements:
+      - '1.1'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    version: v1.3.0
+    requirements:
+      - '1.1'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    version: v2.0.0
     requirements:
       - '1.1'
 
@@ -173,7 +182,16 @@ questions:
   - access
   - iam
   compliance:
-  - standard: CIS Google Cloud Foundations 1.1
+  - standard: CIS Google Cloud Foundations 1.2
+    version: v1.1.0
+    requirements:
+      - '1.4'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    version: v1.3.0
+    requirements:
+      - '1.4'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    version: v2.0.0
     requirements:
       - '1.4' 
   - standard: CIS Google Cloud Foundations 1.3
@@ -232,7 +250,14 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '1.5'
-
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    version: v1.3.0
+    requirements:
+      - '1.5'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    version: v2.0.0
+    requirements:
+      - '1.5'
 - id: integration-question-google-cloud-iam-not-assigned-user-token-roles-project-level
   title: Ensure that IAM users are not assigned the Service Account User or Service Account Token Creator roles at project level
   description: >
@@ -274,7 +299,14 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '1.6'
-
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    version: v1.3.0
+    requirements:
+      - '1.6'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    version: v2.0.0
+    requirements:
+      - '1.6'
 - id: integration-question-google-cloud-user-managed-external-keys-service-account-rotation-period
   title: Ensure user-managed/external keys for service accounts are rotated every 90 days or less
   description: >
@@ -307,7 +339,14 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '1.7'
-
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    version: v1.3.0
+    requirements:
+      - '1.7'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    version: v2.0.0
+    requirements:
+      - '1.7'
 - id: integration-question-google-cloud-encryption-keys-publicly-accessible
   title: Are there Cloud KMS crypto keys that are publicly accessible?
   description: >
@@ -324,6 +363,14 @@ questions:
   - kms
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '1.9'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    version: v1.3.0
+    requirements:
+      - '1.9'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    version: v2.0.0
     requirements:
       - '1.9'
 
@@ -369,6 +416,14 @@ questions:
   - kms
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '1.10'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    version: v1.3.0
+    requirements:
+      - '1.10'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    version: v2.0.0
     requirements:
       - '1.10'
 
@@ -481,7 +536,14 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '3.1'
-
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    version: v1.3.0
+    requirements:
+      - '3.1'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    version: v2.0.0
+    requirements:
+      - '3.1'
 - id: integration-question-google-cloud-dnssec-enabled-cloud-dns
   title: Are Domain Name System Security Extensions (DNSSEC) enabled for Cloud DNS?
   description: >
@@ -497,6 +559,14 @@ questions:
   - dns
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '3.3'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    version: v1.3.0
+    requirements:
+      - '3.3'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    version: v2.0.0
     requirements:
       - '3.3'
 
@@ -515,6 +585,14 @@ questions:
   - dns
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '3.4'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    version: v1.3.0
+    requirements:
+      - '3.4'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    version: v2.0.0
     requirements:
       - '3.4'
 
