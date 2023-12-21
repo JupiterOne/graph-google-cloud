@@ -527,6 +527,15 @@ questions:
   - dns
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
+    version: v1.1.0
+    requirements:
+      - '3.5'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    version: v1.3.0
+    requirements:
+      - '3.5'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    version: v2.0.0
     requirements:
       - '3.5'
 
@@ -564,6 +573,15 @@ questions:
   - network
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
+    version: v1.1.0
+    requirements:
+      - '3.6'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    version: v1.3.0
+    requirements:
+      - '3.6'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    version: v2.0.0
     requirements:
       - '3.6'
 
@@ -601,6 +619,15 @@ questions:
   - network
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
+    version: v1.1.0
+    requirements:
+      - '3.7'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    version: v1.3.0
+    requirements:
+      - '3.7'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    version: v2.0.0
     requirements:
       - '3.7'
 
@@ -741,6 +768,15 @@ questions:
   - service-account
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
+    version: v1.1.0
+    requirements:
+      - '4.1'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    version: v1.3.0
+    requirements:
+      - '4.1'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    version: v2.0.0
     requirements:
       - '4.1'
 
@@ -785,6 +821,15 @@ questions:
   - instance
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
+    version: v1.1.0
+    requirements:
+      - '4.3'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    version: v1.3.0
+    requirements:
+      - '4.3'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    version: v2.0.0
     requirements:
       - '4.3'
 
@@ -819,6 +864,15 @@ questions:
   - project
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
+    version: v1.1.0
+    requirements:
+      - '4.4'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    version: v1.3.0
+    requirements:
+      - '4.4'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    version: v2.0.0
     requirements:
       - '4.4'
 
@@ -844,6 +898,15 @@ questions:
   - compute
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
+    version: v1.1.0
+    requirements:
+      - '4.5'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    version: v1.3.0
+    requirements:
+      - '4.5'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    version: v2.0.0
     requirements:
       - '4.5'
 
@@ -871,6 +934,15 @@ questions:
   - network
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
+    version: v1.1.0
+    requirements:
+      - '4.6'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    version: v1.3.0
+    requirements:
+      - '4.6'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    version: v2.0.0
     requirements:
       - '4.6'
 
@@ -891,6 +963,15 @@ questions:
   - encryption
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
+    version: v1.1.0
+    requirements:
+      - '4.7'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    version: v1.3.0
+    requirements:
+      - '4.7'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    version: v2.0.0
     requirements:
       - '4.7'
 
@@ -910,6 +991,15 @@ questions:
   - compute
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
+    version: v1.1.0
+    requirements:
+      - '4.8'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    version: v1.3.0
+    requirements:
+      - '4.8'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    version: v2.0.0
     requirements:
       - '4.8'
 
@@ -988,6 +1078,15 @@ questions:
   - access
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
+    version: v1.1.0
+    requirements:
+      - '5.1'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    version: v1.3.0
+    requirements:
+      - '5.1'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    version: v2.0.0
     requirements:
       - '5.1'
 #5.2
@@ -1007,8 +1106,18 @@ questions:
   - access
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
+    version: v1.1.0
     requirements:
       - '5.2'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    version: v1.3.0
+    requirements:
+      - '5.2'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    version: v2.0.0
+    requirements:
+      - '5.2'
+
 ################################################################################
 # End Section 5: Storage
 ################################################################################
@@ -1156,6 +1265,15 @@ questions:
   - datastore
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
+    version: v1.1.0
+    requirements:
+      - '6.2.2'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    version: v1.3.0
+    requirements:
+      - '6.2.2'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    version: v2.0.0
     requirements:
       - '6.2.2'
 
@@ -1178,6 +1296,15 @@ questions:
   - datastore
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
+    version: v1.1.0
+    requirements:
+      - '6.2.3'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    version: v1.3.0
+    requirements:
+      - '6.2.3'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    version: v2.0.0
     requirements:
       - '6.2.3'
 
@@ -1562,6 +1689,15 @@ questions:
   - network
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
+    version: v1.1.0
+    requirements:
+      - '6.4'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    version: v1.3.0
+    requirements:
+      - '6.4'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    version: v2.0.0
     requirements:
       - '6.4'
 
@@ -1586,8 +1722,17 @@ questions:
   - network
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
+    version: v1.1.0
     requirements:
       - '6.5'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    version: v1.3.0
+    requirements:
+      - '7.1'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    version: v2.0.0
+    requirements:
+      - '7.1'
 
 #6.6
 - id: integration-question-google-sql-public-ips
@@ -1610,6 +1755,15 @@ questions:
   - network
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
+    version: v1.1.0
+    requirements:
+      - '6.6'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    version: v1.3.0
+    requirements:
+      - '6.6'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    version: v2.0.0
     requirements:
       - '6.6'
 
@@ -1634,6 +1788,15 @@ questions:
   - network
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
+    version: v1.1.0
+    requirements:
+      - '6.7'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    version: v1.3.0
+    requirements:
+      - '6.7'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    version: v2.0.0
     requirements:
       - '6.7'
 ################################################################################
@@ -1662,6 +1825,15 @@ questions:
   - datastore
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
+    version: v1.1.0
+    requirements:
+      - '7.1'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    version: v1.3.0
+    requirements:
+      - '7.1'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    version: v2.0.0
     requirements:
       - '7.1'
 
