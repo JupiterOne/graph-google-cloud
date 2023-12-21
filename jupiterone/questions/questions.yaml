@@ -1650,7 +1650,7 @@ questions:
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
-      - '6.1.2'
+      - '6.1.3'
   - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
     requirements:
       - '6.1.3'
@@ -2152,9 +2152,9 @@ questions:
     It is recommended to check the `user connections` for a Cloud SQL SQL Server instance to ensure that it is not artificially limiting connections.
   queries:
   - name: good
-    query: find google_sql_sql_server_instance WITH userConnections <= /* Set number of connections or 0 as default */
+    query: find google_sql_sql_server_instance WITH userConnections <= 0
   - name: bad
-    query: find google_sql_sql_server_instance WITH userConnections > /* Set number of connections or 0 as default */
+    query: find google_sql_sql_server_instance WITH userConnections > 0
   tags:
   - google-cloud
   - database-flags
