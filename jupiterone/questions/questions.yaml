@@ -207,24 +207,16 @@ questions:
   - access
   - iam
   compliance:
-  - standard: CIS Google Cloud Foundations 1.2
+  - standard: CIS Google Cloud Foundations 1.1
     version: v1.1.0
     requirements:
       - '1.4'
   - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
-    version: v1.3.0
     requirements:
       - '1.4'
   - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
-    version: v2.0.0
     requirements:
       - '1.4' 
-  - standard: CIS Google Cloud Foundations 1.3
-    requirements:
-      - '1.4'
-  - standard: CIS Google Cloud Foundations 2.0
-    requirements:
-      - '1.4'
 
 
 #1.5
@@ -540,29 +532,30 @@ questions:
 #1.16 TBD
 
 #1.17
-# - id: integration-question-google-
-#   title: 
-#   description:
-    
-#   queries:
-#   - name: good
-#     query: FIND google_dataproc_cluster WITH encrypted = true AND kmsKeyName ~= "cmek"
-#   - name: bad
-#     query: FIND google_dataproc_cluster WITH encrypted != true OR kmsKeyName !~= "cmek"
-#   tags:
-#   - dataproc-cluster
-#   - CMEK
-#   - Encryption
-#   compliance:
-#   - standard: CIS Google Cloud Foundations 1.1
-#     requirements:
-#       - '1.17'
-#   - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
-#     requirements:
-#       - '1.17'
-#   - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
-#     requirements:
-#       - '1.17'
+- id: integration-question-google-dataproc-encryption
+  title: Ensure that Dataproc Cluster is encrypted using Customer-Managed Encryption Key
+  description: When you use Dataproc, cluster and job data is stored on Persistent Disks (PDs) associated with the Compute Engine VMs in your cluster and in a Cloud Storage staging bucket. This PD and bucket data is encrypted using a Google-generated data encryption key (DEK) and key encryption key (KEK). The CMEK feature allows you to create, use, and revoke the key encryption key (KEK). Google still controls the data encryption key (DEK).
+  queries:
+  - name: good
+    query: FIND google_dataproc_cluster WITH encrypted = true AND kmsKeyName ~= "cmek"
+  - name: bad
+    query: FIND google_dataproc_cluster WITH encrypted != true OR kmsKeyName !~= "cmek"
+  tags:
+  - dataproc-cluster
+  - CMEK
+  - google-cloud
+  - customer-managed-encryption-key
+  - encryption
+  compliance:
+  - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '1.17'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '1.17'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '1.17'
 
 #1.18
 - id: integration-question-google-secret-manager
@@ -588,32 +581,6 @@ questions:
   - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
     requirements:
       - '1.18'
-
-- id: integration-question-google-dataproc-cmek
-  title: Ensure that Dataproc Cluster is encrypted using Customer-Managed Encryption Key
-  description: >
-    When you use Dataproc, cluster and job data is stored on Persistent Disks (PDs) associated with the Compute Engine VMs in your cluster and in a Cloud Storage staging bucket. This PD and bucket data is encrypted using a Google-generated data encryption key (DEK) and key encryption key (KEK). The CMEK feature allows you to create, use, and revoke the key encryption key (KEK). Google still controls the data encryption key (DEK).
-  queries:
-  - name: good
-    query: |
-      FIND google_dataproc_cluster WITH encrypted = true AND kmsKeyName ~= "cmek"
-  - name: bad
-    query: |
-      FIND google_dataproc_cluster WITH encrypted != true OR kmsKeyName !~= "cmek"
-  tags:
-  - google-cloud
-  - customer-managed-encryption-key
-  - encryption
-  compliance:
-  - standard: CIS Google Cloud Foundations 1.1
-    requirements:
-      - '1.17'
-  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
-    requirements:
-      - '1.17'
-  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
-    requirements:
-      - '1.17'
 
 - id: integration-question-google-cloud-iam-all-user-policies
   title: Which policies are bound to “allUsers” or “allAuthenticatedUsers”?
@@ -1676,7 +1643,7 @@ questions:
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
-      - '6.1.3'
+      - '6.1.2'
   - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
     requirements:
       - '6.1.3'
@@ -1751,6 +1718,12 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '6.2.2'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.2.2'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '6.2.2'
 
 #6.2.3
 - id: integration-question-google-postgresql-log-disconnections-flag-on
@@ -1771,6 +1744,12 @@ questions:
   - datastore
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '6.2.3'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.2.3'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
     requirements:
       - '6.2.3'
 
@@ -1843,6 +1822,7 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '6.2.5'
+
 #6.2.5 (GCP v 1.3 Only)
 - id: integration-question-google-database-flag-loghostname
   title: Ensure ‘Log_hostname’ Database Flag for Cloud SQL PostgreSQL Instance Is Set to 'on'
@@ -1860,12 +1840,6 @@ questions:
   - datastore
   compliance:
   - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
-    requirements:
-      - '6.2.5'
-  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
-    requirements:
-      - '6.2.6'
-  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
     requirements:
       - '6.2.5'
 
@@ -1886,7 +1860,7 @@ questions:
   compliance:
   - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
     requirements:
-      - '6.2.6'
+      - '6.2.6'      
   - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
     requirements:
       - '6.2.5'
@@ -1998,34 +1972,6 @@ questions:
 #6.2.9 v2.0 and later
 
 ##sqlserver
-
-#6.3.2
-- id: integration-question-google-sql-server-cross-db-ownership-chaining-flag
-  title: Are my Cloud SQL Server instances configured with the "cross db ownership chaining" database flag set to "off"?
-  description: >
-    It is recommended to set cross db ownership chaining database flag for Cloud SQL SQL Server instance to off.
-  queries:
-  - name: good
-    query: |
-      find google_sql_sql_server_instance with crossDatabaseOwnershipChaining='off'
-  - name: bad
-    query: |
-      find google_sql_sql_server_instance with crossDatabaseOwnershipChaining!='off'
-  tags:
-  - google-cloud
-  - sql
-  - sql-server
-  - datastore
-  compliance:
-  - standard: CIS Google Cloud Foundations 1.1
-    requirements:
-      - '6.3.1'
-  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
-    requirements:
-      - '6.3.2'
-  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
-    requirements:
-      - '6.3.2'
 
 #6.3.1 (GCP v 1.3 and later)
 - id: integration-question-google-database-flag-externalscriptsenabled
@@ -2145,7 +2091,6 @@ questions:
 
 ##cloudsql
 
-#6.4
 #6.3.2
 - id: integration-question-google-database-flag-crossdbownershipchaining
   title: Ensure that the 'cross db ownership chaining' database flag for Cloud SQL SQL Server instance is set to 'off'
@@ -2170,28 +2115,6 @@ questions:
   - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
     requirements:
       - '6.3.2'
-
-#6.3.3 
-- id: integration-question-google-database-flag-userconnections
-  title: Ensure 'user Connections' Database Flag for Cloud Sql Sql Server Instance Is Set to a Non-limiting Value
-  description:
-    It is recommended to check the `user connections` for a Cloud SQL SQL Server instance to ensure that it is not artificially limiting connections.
-  queries:
-  - name: good
-    query: find google_sql_sql_server_instance WITH userConnections <= 0
-  - name: bad
-    query: find google_sql_sql_server_instance WITH userConnections > 0
-  tags:
-  - google-cloud
-  - database-flags
-  - sqlserver
-  compliance:
-  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
-    requirements:
-      - '6.3.3'
-  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
-    requirements:
-      - '6.3.3'
 
 #6.3.4
 # - id: integration-question-google-database-flag-useroptions
@@ -2303,6 +2226,12 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '6.4'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.4'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '6.4'
 
 #6.5
 - id: integration-question-google-sql-open-to-world
@@ -2325,6 +2254,12 @@ questions:
   - network
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '6.5'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.5'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
     requirements:
       - '6.5'
 
@@ -2351,6 +2286,12 @@ questions:
   - standard: CIS Google Cloud Foundations 1.1
     requirements:
       - '6.6'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.6'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
+    requirements:
+      - '6.6'
 
 #6.7
 - id: integration-question-google-sql-automated-backups
@@ -2373,6 +2314,12 @@ questions:
   - network
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '6.7'
+    - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '6.7'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
     requirements:
       - '6.7'
 ################################################################################
@@ -2400,6 +2347,12 @@ questions:
   - datastore
   compliance:
   - standard: CIS Google Cloud Foundations 1.1
+    requirements:
+      - '7.1'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 1.3
+    requirements:
+      - '7.1'
+  - standard: CIS Google Cloud Platform Foundation Benchmark 2.0.0
     requirements:
       - '7.1'
 
