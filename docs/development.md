@@ -83,7 +83,7 @@ my-proj-id-123          test  848199124374
 
 In the above case, your Google Cloud project ID would be `my-proj-id-123`. In
 the remainder of this document, we will reference the project ID as
-`MY_PROJECT_ID`.
+`MY_PROJECT_ID`
 
 ### Set the `gcloud` default project
 
