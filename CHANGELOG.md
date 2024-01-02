@@ -1,3 +1,26 @@
+# v3.2.6 (Tue Jan 02 2024)
+
+#### 🐛 Bug Fix
+
+- Bump package version [#634](https://github.com/JupiterOne/graph-google-cloud/pull/634) ([@jzolo22](https://github.com/jzolo22))
+- Combined compliance question mapping updates [#633](https://github.com/JupiterOne/graph-google-cloud/pull/633) ([@mikiodehartj1](https://github.com/mikiodehartj1) [@jzolo22](https://github.com/jzolo22))
+- updated section 3 [#595](https://github.com/JupiterOne/graph-google-cloud/pull/595) ([@mikiodehartj1](https://github.com/mikiodehartj1))
+- Updated GCP Questions v1.3 and v2.0 [#586](https://github.com/JupiterOne/graph-google-cloud/pull/586) ([@mikiodehartj1](https://github.com/mikiodehartj1) [@jzolo22](https://github.com/jzolo22))
+- Add mappings 1.1-3.4 [#585](https://github.com/JupiterOne/graph-google-cloud/pull/585) ([@mikiodehartj1](https://github.com/mikiodehartj1))
+- GCP 1.1-1.3 Change [#578](https://github.com/JupiterOne/graph-google-cloud/pull/578) ([@mikiodehartj1](https://github.com/mikiodehartj1) [@jzolo22](https://github.com/jzolo22))
+
+#### ⚠️ Pushed to `main`
+
+- Apply remove-codeql with multi-gitter [ci skip] ([@electricgull](https://github.com/electricgull))
+
+#### Authors: 3
+
+- [@mikiodehartj1](https://github.com/mikiodehartj1)
+- Cameron Griffin ([@electricgull](https://github.com/electricgull))
+- Julia Zolotarev ([@jzolo22](https://github.com/jzolo22))
+
+---
+
 # v3.2.5 (Fri Dec 15 2023)
 
 #### 🐛 Bug Fix
