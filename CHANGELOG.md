@@ -1,3 +1,15 @@
+# v3.2.7 (Fri Jan 12 2024)
+
+#### 🐛 Bug Fix
+
+- APP-14216 - Remove duplicate question [#635](https://github.com/JupiterOne/graph-google-cloud/pull/635) ([@jzolo22](https://github.com/jzolo22))
+
+#### Authors: 1
+
+- Julia Zolotarev ([@jzolo22](https://github.com/jzolo22))
+
+---
+
 # v3.2.6 (Tue Jan 02 2024)
 
 #### 🐛 Bug Fix
