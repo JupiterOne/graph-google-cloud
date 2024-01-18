@@ -150,6 +150,7 @@ import {
   STEP_RESOURCE_MANAGER_ORGANIZATION,
   STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
   STEP_RESOURCE_MANAGER_PROJECT,
+  STEP_RESOURCE_MANAGER_SKIPPED_PROJECTS,
 } from './steps/resource-manager';
 import { SecretManagerSteps } from './steps/secret-manager/constants';
 import { ServiceUsageStepIds } from './steps/service-usage/constants';
@@ -222,6 +223,9 @@ describe('#getStepStartStates success', () => {
           disabled: false,
         },
         [STEP_RESOURCE_MANAGER_PROJECT]: {
+          disabled: false,
+        },
+        [STEP_RESOURCE_MANAGER_SKIPPED_PROJECTS]: {
           disabled: false,
         },
         [ServiceUsageStepIds.FETCH_API_SERVICES]: {

@@ -2,6 +2,8 @@ export const STEP_RESOURCE_MANAGER_ORGANIZATION =
   'fetch-resource-manager-organization';
 export const STEP_RESOURCE_MANAGER_FOLDERS = 'fetch-resource-manager-folders';
 export const STEP_RESOURCE_MANAGER_PROJECT = 'fetch-resource-manager-project';
+export const STEP_RESOURCE_MANAGER_SKIPPED_PROJECTS =
+  'fetch-resource-manager-skipped-projects';
 export const STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS =
   'fetch-resource-manager-org-project-relationships';
 export const STEP_AUDIT_CONFIG_IAM_POLICY = 'fetch-iam-policy-audit-config';
@@ -43,6 +45,7 @@ export const IngestionSources = {
   RESOURCE_MANAGER_ORGANIZATION: 'resource-manager-organization',
   RESOURCE_MANAGER_FOLDERS: 'resource-manager-folders',
   RESOURCE_MANAGER_PROJECT: 'resource-manager-project',
+  RESOURCE_MANAGER_SKIPPED_PROJECTS: 'resource-manager-skipped-projects',
   RESOURCE_MANAGER_AUDIT_CONFIG_IAM_POLICY:
     'resource-manager-audit-config-iam-policy',
 };
