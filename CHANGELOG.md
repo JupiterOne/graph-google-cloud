@@ -1,3 +1,15 @@
+# v3.2.8 (Thu Jan 18 2024)
+
+#### 🐛 Bug Fix
+
+- INT-9937: add ingest skipped projects ingestion [#636](https://github.com/JupiterOne/graph-google-cloud/pull/636) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### Authors: 1
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
 # v3.2.7 (Fri Jan 12 2024)
 
 #### 🐛 Bug Fix
