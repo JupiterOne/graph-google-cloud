@@ -177,6 +177,7 @@ import {
   STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
   STEP_RESOURCE_MANAGER_ORGANIZATION,
   STEP_RESOURCE_MANAGER_PROJECT,
+  STEP_RESOURCE_MANAGER_SKIPPED_PROJECTS,
 } from './steps/resource-manager';
 import { secretManagerSteps } from './steps/secret-manager';
 import { SecretManagerSteps } from './steps/secret-manager/constants';
@@ -312,6 +313,7 @@ function getDefaultStepStartStates(params: {
     // Rest of steps...
     // This API will be enabled otherwise fetching services names above would fail
     [STEP_RESOURCE_MANAGER_PROJECT]: { disabled: false },
+    [STEP_RESOURCE_MANAGER_SKIPPED_PROJECTS]: { disabled: false },
     [ServiceUsageStepIds.FETCH_API_SERVICES]: { disabled: false },
     [STEP_IAM_BINDINGS]: { disabled: false },
     [STEP_CREATE_BASIC_ROLES]: { disabled: false },
@@ -591,6 +593,7 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     // Rest of steps...
     // This API will be enabled otherwise fetching services names above would fail
     [STEP_RESOURCE_MANAGER_PROJECT]: { disabled: false },
+    [STEP_RESOURCE_MANAGER_SKIPPED_PROJECTS]: { disabled: false },
     [ServiceUsageStepIds.FETCH_API_SERVICES]: { disabled: false },
     [STEP_IAM_BINDINGS]: createStartStatesBasedOnServiceAccountProject(
       ServiceUsageName.CLOUD_ASSET,

@@ -38,6 +38,7 @@ import {
   AUDIT_CONFIG_ALLOWS_GROUP_RELATIONSHIP_TYPE,
   AUDIT_CONFIG_ALLOWS_DOMAIN_RELATIONSHIP_TYPE,
   IngestionSources,
+  STEP_RESOURCE_MANAGER_SKIPPED_PROJECTS,
 } from './constants';
 import {
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
@@ -272,6 +273,36 @@ export async function fetchResourceManagerProject(
   await jobState.addEntity(projectEntity);
 }
 
+// This step is for INT-9937
+export async function fetchResourceManagerSkippedProjects(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const {
+    jobState,
+    instance: { config },
+    logger,
+  } = context;
+  const client = new ResourceManagerClient({ config }, logger);
+
+  const organizationEntity = await jobState.findEntity(
+    `organizations/${client.organizationId}`,
+  );
+
+  if (organizationEntity) {
+    await client.iterateProjects(async (project) => {
+      if (
+        project.labels &&
+        (project.labels['j1-integration'].toLocaleLowerCase() === 'skip' ||
+          project.labels['JupiterOne'].toLocaleLowerCase() === 'skip')
+      ) {
+        await jobState.addEntity(
+          createProjectEntity(client.projectId, project),
+        );
+      }
+    });
+  }
+}
+
 export async function fetchIamPolicyAuditConfig(
   context: IntegrationStepContext,
 ): Promise<void> {
@@ -488,6 +519,23 @@ export const resourceManagerSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchResourceManagerProject,
+    permissions: ['resourcemanager.projects.get'],
+    apis: ['resourcemanager.googleapis.com'],
+  },
+  {
+    id: STEP_RESOURCE_MANAGER_SKIPPED_PROJECTS,
+    ingestionSourceId: IngestionSources.RESOURCE_MANAGER_PROJECT,
+    name: 'Resource Manager Skipped Projects',
+    entities: [
+      {
+        resourceName: 'Project',
+        _type: 'google_cloud_project',
+        _class: 'Account',
+      },
+    ],
+    relationships: [],
+    dependsOn: [STEP_RESOURCE_MANAGER_ORGANIZATION],
+    executionHandler: fetchResourceManagerSkippedProjects,
     permissions: ['resourcemanager.projects.get'],
     apis: ['resourcemanager.googleapis.com'],
   },
