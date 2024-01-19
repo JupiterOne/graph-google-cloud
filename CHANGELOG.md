@@ -1,3 +1,15 @@
+# v3.2.9 (Fri Jan 19 2024)
+
+#### 🐛 Bug Fix
+
+- INT-9937: add null check [#637](https://github.com/JupiterOne/graph-google-cloud/pull/637) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### Authors: 1
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
 # v3.2.8 (Thu Jan 18 2024)
 
 #### 🐛 Bug Fix
