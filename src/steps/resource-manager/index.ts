@@ -292,8 +292,8 @@ export async function fetchResourceManagerSkippedProjects(
     await client.iterateProjects(async (project) => {
       if (
         project.labels &&
-        (project.labels['j1-integration'].toLocaleLowerCase() === 'skip' ||
-          project.labels['JupiterOne'].toLocaleLowerCase() === 'skip')
+        (project.labels['j1-integration']?.toLocaleLowerCase() === 'skip' ||
+          project.labels['JupiterOne']?.toLocaleLowerCase() === 'skip')
       ) {
         await jobState.addEntity(
           createProjectEntity(client.projectId, project),
