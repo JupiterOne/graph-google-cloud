@@ -3,12 +3,12 @@ import { fetchDNSManagedZones, fetchDNSPolicies } from '.';
 import { integrationConfig } from '../../../test/config';
 import { Recording, setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
-import { fetchComputeNetworks } from '../compute';
 import {
   DNS_MANAGED_ZONE_ENTITY_TYPE,
   DNS_POLICY_ENTITY_TYPE,
   RELATIONSHIP_TYPE_COMPUTE_NETWORK_HAS_DNS_POLICY,
 } from './constants';
+import { fetchComputeNetworks } from '../compute/steps/fetch-compute-networks';
 
 const tempNewAccountConfig = {
   ...integrationConfig,

@@ -9,7 +9,7 @@ import {
 import { integrationConfig } from '../../../test/config';
 import { setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
-import { fetchComputeNetworks } from '../compute';
+import { fetchComputeNetworks } from '../compute/steps/fetch-compute-networks';
 import {
   ENTITY_TYPE_MEMCACHE_INSTANCE,
   ENTITY_TYPE_MEMCACHE_INSTANCE_NODE,
