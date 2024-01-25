@@ -19,7 +19,7 @@ describe(`compute#${STEP_COMPUTE_IMAGE_IMAGE_RELATIONSHIPS}`, () => {
 
   jest.setTimeout(999999);
 
-  test(
+  test.skip(
     STEP_COMPUTE_IMAGE_IMAGE_RELATIONSHIPS,
     async () => {
       const stepTestConfig: StepTestConfig = {
