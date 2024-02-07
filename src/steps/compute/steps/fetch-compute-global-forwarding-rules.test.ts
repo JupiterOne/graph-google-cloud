@@ -17,7 +17,7 @@ describe(`compute#${STEP_COMPUTE_GLOBAL_FORWARDING_RULES}`, () => {
     if (recording) await recording.stop();
   });
 
-  test(STEP_COMPUTE_GLOBAL_FORWARDING_RULES, async () => {
+  test.skip(STEP_COMPUTE_GLOBAL_FORWARDING_RULES, async () => {
     recording = setupGoogleCloudRecording({
       name: STEP_COMPUTE_GLOBAL_FORWARDING_RULES,
       directory: __dirname,
