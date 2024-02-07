@@ -17,8 +17,6 @@ describe(`compute#${STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS}`, () => {
     if (recording) await recording.stop();
   });
 
-  jest.setTimeout(999999);
-
   test(
     STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS,
     async () => {

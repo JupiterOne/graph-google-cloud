@@ -19,7 +19,7 @@ describe(`compute#${STEP_COMPUTE_DISK_KMS_RELATIONSHIPS}`, () => {
 
   jest.setTimeout(45000);
 
-  test.skip(
+  test(
     STEP_COMPUTE_DISK_KMS_RELATIONSHIPS,
     async () => {
       const stepTestConfig: StepTestConfig = {
@@ -32,7 +32,10 @@ describe(`compute#${STEP_COMPUTE_DISK_KMS_RELATIONSHIPS}`, () => {
         name: STEP_COMPUTE_DISK_KMS_RELATIONSHIPS,
         directory: __dirname,
         options: {
-          matchRequestsBy: getMatchRequestsBy(integrationConfig),
+          matchRequestsBy: {
+            ...getMatchRequestsBy(integrationConfig),
+            url: false,
+          },
         },
       });
 

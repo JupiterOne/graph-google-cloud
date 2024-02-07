@@ -17,8 +17,6 @@ describe(`compute#${STEP_COMPUTE_IMAGE_KMS_RELATIONSHIPS}`, () => {
     if (recording) await recording.stop();
   });
 
-  jest.setTimeout(999999);
-
   test.skip(
     STEP_COMPUTE_IMAGE_KMS_RELATIONSHIPS,
     async () => {

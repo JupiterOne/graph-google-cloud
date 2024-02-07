@@ -17,9 +17,7 @@ describe(`compute#${STEP_COMPUTE_GLOBAL_FORWARDING_RULES}`, () => {
     if (recording) await recording.stop();
   });
 
-  jest.setTimeout(999999);
-
-  test.skip(STEP_COMPUTE_GLOBAL_FORWARDING_RULES, async () => {
+  test(STEP_COMPUTE_GLOBAL_FORWARDING_RULES, async () => {
     recording = setupGoogleCloudRecording({
       name: STEP_COMPUTE_GLOBAL_FORWARDING_RULES,
       directory: __dirname,

@@ -17,8 +17,6 @@ describe(`compute#${STEP_COMPUTE_SSL_POLICIES}`, () => {
     if (recording) await recording.stop();
   });
 
-  jest.setTimeout(999999);
-
   test.skip(STEP_COMPUTE_SSL_POLICIES, async () => {
     recording = setupGoogleCloudRecording({
       name: STEP_COMPUTE_SSL_POLICIES,

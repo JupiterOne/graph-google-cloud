@@ -17,9 +17,7 @@ describe(`compute#${STEP_COMPUTE_IMAGE_IMAGE_RELATIONSHIPS}`, () => {
     if (recording) await recording.stop();
   });
 
-  jest.setTimeout(999999);
-
-  test.skip(
+  test(
     STEP_COMPUTE_IMAGE_IMAGE_RELATIONSHIPS,
     async () => {
       const stepTestConfig: StepTestConfig = {

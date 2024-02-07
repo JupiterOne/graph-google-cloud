@@ -17,9 +17,7 @@ describe(`compute#${STEP_COMPUTE_INSTANCE_SERVICE_ACCOUNT_RELATIONSHIPS}`, () =>
     if (recording) await recording.stop();
   });
 
-  jest.setTimeout(999999);
-
-  test.skip(
+  test(
     STEP_COMPUTE_INSTANCE_SERVICE_ACCOUNT_RELATIONSHIPS,
     async () => {
       const stepTestConfig: StepTestConfig = {
@@ -32,7 +30,11 @@ describe(`compute#${STEP_COMPUTE_INSTANCE_SERVICE_ACCOUNT_RELATIONSHIPS}`, () =>
         name: STEP_COMPUTE_INSTANCE_SERVICE_ACCOUNT_RELATIONSHIPS,
         directory: __dirname,
         options: {
-          matchRequestsBy: getMatchRequestsBy(integrationConfig),
+          matchRequestsBy: {
+            ...getMatchRequestsBy(integrationConfig),
+            url: false,
+          },
+          recordFailedRequests: true,
         },
       });
 

@@ -17,9 +17,7 @@ describe(`compute#${STEP_COMPUTE_INSTANCES}`, () => {
     if (recording) await recording.stop();
   });
 
-  jest.setTimeout(999999);
-
-  test.skip(STEP_COMPUTE_INSTANCES, async () => {
+  test(STEP_COMPUTE_INSTANCES, async () => {
     recording = setupGoogleCloudRecording({
       name: STEP_COMPUTE_INSTANCES,
       directory: __dirname,

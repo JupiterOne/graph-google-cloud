@@ -17,8 +17,6 @@ describe(`compute#${STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS}`, (
     if (recording) await recording.stop();
   });
 
-  jest.setTimeout(999999);
-
   test(
     STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS,
     async () => {

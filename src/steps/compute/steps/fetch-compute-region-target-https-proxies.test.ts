@@ -17,9 +17,7 @@ describe(`compute#${STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES}`, () => {
     if (recording) await recording.stop();
   });
 
-  jest.setTimeout(999999);
-
-  test.skip(STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES, async () => {
+  test(STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES, async () => {
     recording = setupGoogleCloudRecording({
       name: STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES,
       directory: __dirname,

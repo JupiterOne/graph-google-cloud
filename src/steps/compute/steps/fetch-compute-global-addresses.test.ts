@@ -17,8 +17,6 @@ describe(`compute#${STEP_COMPUTE_GLOBAL_ADDRESSES}`, () => {
     if (recording) await recording.stop();
   });
 
-  jest.setTimeout(999999);
-
   test.skip(STEP_COMPUTE_GLOBAL_ADDRESSES, async () => {
     recording = setupGoogleCloudRecording({
       name: STEP_COMPUTE_GLOBAL_ADDRESSES,
