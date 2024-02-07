@@ -6,7 +6,7 @@ import {
 import { integrationConfig } from '../../../test/config';
 import { Recording, setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
-import { fetchComputeNetworks } from '../compute';
+import { fetchComputeNetworks } from '../compute/steps/fetch-compute-networks';
 import {
   ENTITY_TYPE_REDIS_INSTANCE,
   RELATIONSHIP_TYPE_REDIS_INSTANCE_USES_NETWORK,

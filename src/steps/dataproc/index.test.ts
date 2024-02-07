@@ -19,10 +19,11 @@ import {
 } from './constants';
 import { fetchKmsCryptoKeys, fetchKmsKeyRings } from '../kms';
 import { fetchStorageBuckets } from '../storage';
-import { ENTITY_TYPE_COMPUTE_IMAGE, fetchComputeImages } from '../compute';
+import { ENTITY_TYPE_COMPUTE_IMAGE } from '../compute';
 import { separateDirectMappedRelationships } from '../../../test/helpers/separateDirectMappedRelationships';
 import { omitNewRegionsFromTests } from '../../../test/regions';
 import { StorageEntitiesSpec } from '../storage/constants';
+import { fetchComputeImages } from '../compute/steps/fetch-compute-images';
 
 beforeAll(() => omitNewRegionsFromTests());
 

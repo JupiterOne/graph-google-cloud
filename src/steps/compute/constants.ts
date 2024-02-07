@@ -64,69 +64,69 @@ export const ENTITY_TYPE_COMPUTE_DISK = 'google_compute_disk';
 export const ENTITY_CLASS_COMPUTE_SNAPSHOT = ['Image'];
 export const ENTITY_TYPE_COMPUTE_SNAPSHOT = 'google_compute_snapshot';
 
-export const ENTITY_CLASS_COMPUTE_IMAGE = 'Image';
+export const ENTITY_CLASS_COMPUTE_IMAGE = ['Image'];
 export const ENTITY_TYPE_COMPUTE_IMAGE = 'google_compute_image';
 
 export const ENTITY_TYPE_COMPUTE_NETWORK = 'google_compute_network';
-export const ENTITY_CLASS_COMPUTE_NETWORK = 'Network';
+export const ENTITY_CLASS_COMPUTE_NETWORK = ['Network'];
 
 export const ENTITY_TYPE_COMPUTE_ADDRESS = 'google_compute_address';
 export const ENTITY_CLASS_COMPUTE_ADDRESS = ['IpAddress'];
 
 export const ENTITY_TYPE_COMPUTE_GLOBAL_ADDRESS =
   'google_compute_global_address';
-export const ENTITY_CLASS_COMPUTE_GLOBAL_ADDRESS = 'IpAddress';
+export const ENTITY_CLASS_COMPUTE_GLOBAL_ADDRESS = ['IpAddress'];
 
 export const ENTITY_TYPE_COMPUTE_FORWARDING_RULE =
   'google_compute_forwarding_rule';
-export const ENTITY_CLASS_COMPUTE_FORWARDING_RULE = 'Configuration';
+export const ENTITY_CLASS_COMPUTE_FORWARDING_RULE = ['Configuration'];
 
 export const ENTITY_TYPE_COMPUTE_GLOBAL_FORWARDING_RULE =
   'google_compute_global_forwarding_rule';
-export const ENTITY_CLASS_COMPUTE_GLOBAL_FORWARDING_RULE = 'Configuration';
+export const ENTITY_CLASS_COMPUTE_GLOBAL_FORWARDING_RULE = ['Configuration'];
 
 export const ENTITY_TYPE_COMPUTE_SUBNETWORK = 'google_compute_subnetwork';
-export const ENTITY_CLASS_COMPUTE_SUBNETWORK = 'Network';
+export const ENTITY_CLASS_COMPUTE_SUBNETWORK = ['Network'];
 
 export const ENTITY_TYPE_COMPUTE_FIREWALL = 'google_compute_firewall';
-export const ENTITY_CLASS_COMPUTE_FIREWALL = 'Firewall';
+export const ENTITY_CLASS_COMPUTE_FIREWALL = ['Firewall'];
 
 export const ENTITY_TYPE_COMPUTE_HEALTH_CHECK = 'google_compute_health_check';
-export const ENTITY_CLASS_COMPUTE_HEALTH_CHECK = 'Service';
+export const ENTITY_CLASS_COMPUTE_HEALTH_CHECK = ['Service'];
 
 export const ENTITY_TYPE_COMPUTE_PROJECT = 'google_compute_project';
 export const ENTITY_CLASS_COMPUTE_PROJECT = ['Project'];
 
 export const ENTITY_TYPE_COMPUTE_INSTANCE_GROUP =
   'google_compute_instance_group';
-export const ENTITY_CLASS_COMPUTE_INSTANCE_GROUP = 'Group';
+export const ENTITY_CLASS_COMPUTE_INSTANCE_GROUP = ['Group'];
 
 export const ENTITY_TYPE_COMPUTE_INSTANCE_GROUP_NAMED_PORT =
   'google_compute_instance_group_named_port';
-export const ENTITY_CLASS_COMPUTE_INSTANCE_GROUP_NAMED_PORT = 'Configuration';
+export const ENTITY_CLASS_COMPUTE_INSTANCE_GROUP_NAMED_PORT = ['Configuration'];
 
 export const ENTITY_TYPE_COMPUTE_LOAD_BALANCER = 'google_compute_url_map';
-export const ENTITY_CLASS_COMPUTE_LOAD_BALANCER = 'Gateway';
+export const ENTITY_CLASS_COMPUTE_LOAD_BALANCER = ['Gateway'];
 
 export const ENTITY_TYPE_COMPUTE_BACKEND_SERVICE =
   'google_compute_backend_service';
-export const ENTITY_CLASS_COMPUTE_BACKEND_SERVICE = 'Service';
+export const ENTITY_CLASS_COMPUTE_BACKEND_SERVICE = ['Service'];
 
 export const ENTITY_TYPE_COMPUTE_BACKEND_BUCKET =
   'google_compute_backend_bucket';
-export const ENTITY_CLASS_COMPUTE_BACKEND_BUCKET = 'Gateway';
+export const ENTITY_CLASS_COMPUTE_BACKEND_BUCKET = ['Gateway'];
 
 export const ENTITY_TYPE_COMPUTE_TARGET_SSL_PROXY =
   'google_compute_target_ssl_proxy';
-export const ENTITY_CLASS_COMPUTE_TARGET_SSL_PROXY = 'Gateway';
+export const ENTITY_CLASS_COMPUTE_TARGET_SSL_PROXY = ['Gateway'];
 
 export const ENTITY_TYPE_COMPUTE_TARGET_HTTP_PROXY =
   'google_compute_target_http_proxy';
-export const ENTITY_CLASS_COMPUTE_TARGET_HTTP_PROXY = 'Gateway';
+export const ENTITY_CLASS_COMPUTE_TARGET_HTTP_PROXY = ['Gateway'];
 
 export const ENTITY_TYPE_COMPUTE_TARGET_HTTPS_PROXY =
   'google_compute_target_https_proxy';
-export const ENTITY_CLASS_COMPUTE_TARGET_HTTPS_PROXY = 'Gateway';
+export const ENTITY_CLASS_COMPUTE_TARGET_HTTPS_PROXY = ['Gateway'];
 
 export const ENTITY_TYPE_COMPUTE_SSL_POLICY = 'google_compute_ssl_policy';
 export const ENTITY_CLASS_COMPUTE_SSL_POLICY = 'Policy';
