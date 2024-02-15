@@ -19,20 +19,15 @@ export async function executeTestRequest(
     const auth = await googleClient.getAuthenticatedServiceClient();
 
     await client.services.list({
-      parent: `projects/${config.serviceAccountKeyConfig.project_id}`,
+      parent: `projects/${
+        config.projectId
+          ? config.projectId
+          : config.serviceAccountKeyConfig.project_id
+      }`,
       pageSize: 200,
       auth: auth,
       filter: ServiceUsageListFilter.ENABLED,
     });
-
-    if (config.projectId) {
-      await client.services.list({
-        parent: `projects/${config.projectId}`,
-        pageSize: 200,
-        auth: auth,
-        filter: ServiceUsageListFilter.ENABLED,
-      });
-    }
   } catch (err) {
     throw handleApiClientError(err);
   }
