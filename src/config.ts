@@ -24,6 +24,15 @@ export async function executeTestRequest(
       auth: auth,
       filter: ServiceUsageListFilter.ENABLED,
     });
+
+    if (config.projectId) {
+      await client.services.list({
+        parent: `projects/${config.projectId}`,
+        pageSize: 200,
+        auth: auth,
+        filter: ServiceUsageListFilter.ENABLED,
+      });
+    }
   } catch (err) {
     throw handleApiClientError(err);
   }
