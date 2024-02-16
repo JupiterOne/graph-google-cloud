@@ -1,3 +1,16 @@
+# v3.2.10 (Fri Feb 16 2024)
+
+#### 🐛 Bug Fix
+
+- INT-9865: check target project ID in validate invocation [#639](https://github.com/JupiterOne/graph-google-cloud/pull/639) ([@gastonyelmini](https://github.com/gastonyelmini))
+- INT-8998: refactor compute service [#638](https://github.com/JupiterOne/graph-google-cloud/pull/638) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### Authors: 1
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
 # v3.2.9 (Fri Jan 19 2024)
 
 #### 🐛 Bug Fix
