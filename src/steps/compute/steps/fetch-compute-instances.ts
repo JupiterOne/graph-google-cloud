@@ -111,9 +111,6 @@ export async function fetchComputeInstances(
   const client = new ComputeClient(
     {
       config: context.instance.config,
-      onRetry(err) {
-        context.logger.info({ err }, 'Retrying API call');
-      },
     },
     logger,
   );
@@ -139,17 +136,6 @@ export async function fetchComputeInstances(
       // Do not make this inventory call if api is disabled and customer is not using this feature.
       if (e.response.status === 403) {
         inventoryApiDisabled = true;
-      }
-
-      if (e.response.status === 404) {
-        context.logger.debug(
-          `Compute instance ${computeInstance.name} inventory entity not found.`,
-        );
-      } else {
-        context.logger.warn(
-          { e },
-          `Error fetching compute instance ${computeInstance.name} inventory.`,
-        );
       }
     }
     const computeInstanceEntity = await jobState.addEntity(

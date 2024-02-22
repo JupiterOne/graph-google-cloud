@@ -27,9 +27,6 @@ export async function fetchComputeProject(
   const client = new ComputeClient(
     {
       config: context.instance.config,
-      onRetry(err) {
-        context.logger.info({ err }, 'Retrying API call');
-      },
     },
     logger,
   );
@@ -40,11 +37,6 @@ export async function fetchComputeProject(
     computeProject = await client.fetchComputeProject();
   } catch (err) {
     if (err.code === 403) {
-      logger.warn(
-        { err },
-        'Could not fetch compute project. Requires additional permission',
-      );
-
       publishMissingPermissionEvent({
         logger,
         permission: 'compute.projects.get',

@@ -57,9 +57,6 @@ export async function fetchComputeLoadBalancers(
   const client = new ComputeClient(
     {
       config: context.instance.config,
-      onRetry(err) {
-        context.logger.info({ err }, 'Retrying API call');
-      },
     },
     logger,
   );

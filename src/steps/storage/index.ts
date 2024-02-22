@@ -154,11 +154,6 @@ export async function fetchStorageBuckets(
     publicAccessPreventionPolicy =
       await orgPolicyClient.fetchOrganizationPublicAccessPreventionPolicy();
   } catch (err) {
-    logger.warn(
-      { err },
-      'Error fetching organization public access prevention policy',
-    );
-
     if (
       err.code === 403 &&
       (err.message as string).includes(

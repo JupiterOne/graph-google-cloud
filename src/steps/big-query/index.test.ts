@@ -409,7 +409,7 @@ describe('handleDatasetError', () => {
     method();
     expect(spy).toHaveBeenCalledTimes(1);
     expect(spy).toHaveBeenCalledWith(
-      { error: err, dataset: datasetName },
+      { dataset: datasetName },
       `Unable to fetch ${resourceDescription} for dataset.`,
     );
   });
