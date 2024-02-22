@@ -80,7 +80,7 @@ export async function buildDiskImageRelationships(
               return;
             } else if (err.code === 404) {
               logger.info(
-                { err, sourceImageName },
+                { sourceImageName },
                 `The public image cannot be found, it's most likely deprecated`,
               );
 
