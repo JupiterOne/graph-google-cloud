@@ -29,9 +29,6 @@ export async function buildDiskImageRelationships(
   const client = new ComputeClient(
     {
       config: context.instance.config,
-      onRetry(err) {
-        context.logger.info({ err }, 'Retrying API call');
-      },
     },
     logger,
   );
@@ -74,11 +71,6 @@ export async function buildDiskImageRelationships(
             );
           } catch (err) {
             if (err.code === 403) {
-              logger.warn(
-                { err },
-                'Could not fetch compute image. Requires additional permission',
-              );
-
               publishMissingPermissionEvent({
                 logger,
                 permission: 'compute.images.get',

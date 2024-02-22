@@ -516,10 +516,6 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     serviceAccountProjectEnabledServiceNames =
       enabledServiceData.mainProjectEnabledServices ?? [];
   } catch (err) {
-    // NOTE: The `IntegrationValidationError` function does not currently support
-    // a `cause` to be passed. We should update that.
-    logger.warn({ err }, 'Error listing enabled service names');
-
     throw new IntegrationValidationError(
       `Failed to fetch enabled service names. Ability to list services is required to run the Google Cloud integration. (error=${err.message})`,
     );

@@ -256,11 +256,6 @@ export async function fetchResourceManagerProject(
       '`resourcemanager.projects.get` permission (see ' +
       'https://github.com/JupiterOne/graph-google-cloud/blob/master/docs/development.md#enabling-google-cloud-services) ' +
       `${JSON.stringify({ code: err.code, message: err.message })}`;
-    if (err.code === 403) {
-      logger.warn({ err }, message);
-    } else {
-      logger.error({ err }, message);
-    }
     logger.publishEvent({
       name: 'auth_error',
       description: message,

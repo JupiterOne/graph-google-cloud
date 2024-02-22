@@ -247,7 +247,7 @@ export function handleDatasetError(
     error.status.toString() === '404'
   ) {
     logger.warn(
-      { error: error, dataset: datasetName },
+      { dataset: datasetName },
       `Unable to fetch ${resourceDescription} for dataset.`,
     );
   } else {
