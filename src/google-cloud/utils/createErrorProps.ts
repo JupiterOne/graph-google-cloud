@@ -13,7 +13,7 @@ const isGaxiosError = (error: Error | GaxiosError): error is GaxiosError => {
 };
 
 function redactBearerTokens(err: GaxiosError | Error) {
-  const tokenRegex = /Bearer\s[^\s]+/g;
+  const tokenRegex = /Bearer\s[^\s]+/i;
 
   for (const key in err) {
     if (typeof err[key] === 'string') {
