@@ -1,3 +1,15 @@
+# v3.2.11 (Thu Feb 22 2024)
+
+#### 🐛 Bug Fix
+
+- INT-10459: logs clean up [#640](https://github.com/JupiterOne/graph-google-cloud/pull/640) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### Authors: 1
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
 # v3.2.10 (Fri Feb 16 2024)
 
 #### 🐛 Bug Fix
