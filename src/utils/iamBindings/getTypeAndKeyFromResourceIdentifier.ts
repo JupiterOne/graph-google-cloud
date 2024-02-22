@@ -76,23 +76,17 @@ export function makeLogsForTypeAndKeyResponse(
     metadata: { googleResourceKind, keyGenFunction },
   } = response;
   if (!googleResourceKind) {
-    logger.warn(response, 'Unable to find google cloud resource identifier.');
+    logger.warn('Unable to find google cloud resource identifier.');
   } else if (J1_TYPES_WITHOUT_A_UNIQUE_KIND.includes(type as any)) {
-    logger.info(
-      response,
-      'There are multiple J1 Types for this Google Cloud resource.',
-    );
+    logger.info('There are multiple J1 Types for this Google Cloud resource.');
   } else if (!type) {
-    logger.info(response, 'Unable to find J1 type from google cloud resource.');
+    logger.info('Unable to find J1 type from google cloud resource.');
   } else if (type === NONE) {
-    logger.info(response, 'There is no JupiterOne entity for this resource.');
+    logger.info('There is no JupiterOne entity for this resource.');
   } else if (typeof keyGenFunction !== 'function') {
-    logger.warn(
-      response,
-      'Unable to find a key generation function for this entity.',
-    );
+    logger.warn('Unable to find a key generation function for this entity.');
   } else if (!key) {
-    logger.warn(response, 'Unable to generate key for this type.');
+    logger.warn('Unable to generate key for this type.');
   }
   return response;
 }

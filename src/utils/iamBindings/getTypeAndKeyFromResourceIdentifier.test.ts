@@ -86,7 +86,6 @@ describe('makeLogsForTypeAndKeyResponse', () => {
     const logger = getMockLogger<IntegrationLogger>();
     makeLogsForTypeAndKeyResponse(logger, typeAndKeyResponse);
     expect(logger.warn).toHaveBeenCalledWith(
-      typeAndKeyResponse,
       'Unable to find google cloud resource identifier.',
     );
   });
@@ -97,7 +96,6 @@ describe('makeLogsForTypeAndKeyResponse', () => {
     const logger = getMockLogger<IntegrationLogger>();
     makeLogsForTypeAndKeyResponse(logger, typeAndKeyResponse);
     expect(logger.info).toHaveBeenCalledWith(
-      typeAndKeyResponse,
       'Unable to find J1 type from google cloud resource.',
     );
   });
@@ -109,7 +107,6 @@ describe('makeLogsForTypeAndKeyResponse', () => {
     const logger = getMockLogger<IntegrationLogger>();
     makeLogsForTypeAndKeyResponse(logger, typeAndKeyResponse);
     expect(logger.info).toHaveBeenCalledWith(
-      typeAndKeyResponse,
       'There is no JupiterOne entity for this resource.',
     );
   });
@@ -121,7 +118,6 @@ describe('makeLogsForTypeAndKeyResponse', () => {
     const logger = getMockLogger<IntegrationLogger>();
     makeLogsForTypeAndKeyResponse(logger, typeAndKeyResponse);
     expect(logger.warn).toHaveBeenCalledWith(
-      typeAndKeyResponse,
       'Unable to find a key generation function for this entity.',
     );
   });
@@ -136,7 +132,6 @@ describe('makeLogsForTypeAndKeyResponse', () => {
     const logger = getMockLogger<IntegrationLogger>();
     makeLogsForTypeAndKeyResponse(logger, typeAndKeyResponse);
     expect(logger.warn).toHaveBeenCalledWith(
-      typeAndKeyResponse,
       'Unable to generate key for this type.',
     );
   });

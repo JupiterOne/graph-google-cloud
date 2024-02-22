@@ -65,7 +65,6 @@ async function withAppEngineErrorHandling<T>(
     ) {
       logger.info(
         {
-          err,
           projectId,
           code: err.code,
           causeCode: err._cause?.code,
