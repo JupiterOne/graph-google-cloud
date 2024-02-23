@@ -11,10 +11,12 @@ export class BinaryAuthorizationClient extends Client {
   async fetchPolicy(): Promise<binaryauthorization_v1.Schema$Policy> {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const result: PolicyResponse = await this.client.projects.getPolicy({
-      auth,
-      name: `projects/${this.projectId}/policy`,
-    });
+    const result: PolicyResponse = await this.withErrorHandling(() =>
+      this.client.projects.getPolicy({
+        auth,
+        name: `projects/${this.projectId}/policy`,
+      }),
+    );
 
     return result.data;
   }

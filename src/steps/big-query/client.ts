@@ -57,10 +57,12 @@ export class BigQueryClient extends Client {
     if (!projectId || !datasetId || !tableId) {
       return undefined;
     }
-    const policyResponse = await this.client.tables.getIamPolicy({
-      auth,
-      resource: `projects/${projectId}/datasets/${datasetId}/tables/${tableId}`,
-    });
+    const policyResponse = await this.withErrorHandling(() =>
+      this.client.tables.getIamPolicy({
+        auth,
+        resource: `projects/${projectId}/datasets/${datasetId}/tables/${tableId}`,
+      }),
+    );
     return policyResponse?.data;
   }
 
@@ -69,12 +71,14 @@ export class BigQueryClient extends Client {
   ): Promise<bigquery_v2.Schema$Table> {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const resp = await this.client.tables.get({
-      auth,
-      projectId: data.tableReference?.projectId!,
-      datasetId: data.tableReference?.datasetId!,
-      tableId: data.tableReference?.tableId!,
-    });
+    const resp = await this.withErrorHandling(() =>
+      this.client.tables.get({
+        auth,
+        projectId: data.tableReference?.projectId!,
+        datasetId: data.tableReference?.datasetId!,
+        tableId: data.tableReference?.tableId!,
+      }),
+    );
 
     return resp.data;
   }
@@ -95,11 +99,13 @@ export class BigQueryClient extends Client {
       async (data: bigquery_v2.Schema$DatasetList) => {
         for (const datasetRef of data.datasets || []) {
           if (datasetRef?.datasetReference?.datasetId) {
-            const dataset = await this.client.datasets.get({
-              auth,
-              projectId: this.projectId,
-              datasetId: datasetRef.datasetReference?.datasetId,
-            });
+            const dataset = await this.withErrorHandling(() =>
+              this.client.datasets.get({
+                auth,
+                projectId: this.projectId,
+                datasetId: datasetRef.datasetReference?.datasetId as string,
+              }),
+            );
 
             await callback(dataset.data);
           }
@@ -126,12 +132,14 @@ export class BigQueryClient extends Client {
       async (data: bigquery_v2.Schema$ListModelsResponse) => {
         for (const modelRef of data.models || []) {
           if (modelRef.modelReference?.modelId) {
-            const model = await this.client.models.get({
-              auth,
-              projectId: this.projectId,
-              datasetId,
-              modelId: modelRef.modelReference.modelId,
-            });
+            const model = await this.withErrorHandling(() =>
+              this.client.models.get({
+                auth,
+                projectId: this.projectId,
+                datasetId: datasetId,
+                modelId: modelRef.modelReference?.modelId as string,
+              }),
+            );
             await callback(model.data);
           }
         }

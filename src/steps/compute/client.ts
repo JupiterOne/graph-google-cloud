@@ -141,11 +141,13 @@ export class ComputeClient extends Client {
   async fetchComputeImagePolicy(name: string) {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const resp = await this.client.images.getIamPolicy({
-      auth,
-      project: this.projectId,
-      resource: name,
-    });
+    const resp = await this.withErrorHandling(() =>
+      this.client.images.getIamPolicy({
+        auth,
+        project: this.projectId,
+        resource: name,
+      }),
+    );
 
     return resp.data;
   }
@@ -153,12 +155,14 @@ export class ComputeClient extends Client {
   async fetchComputeImage(name: string, projectId: string) {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const resp = await this.client.images.get({
-      auth,
-      image: name,
-      // allow us to use the same method for both custom and public images
-      project: projectId,
-    });
+    const resp = await this.withErrorHandling(() =>
+      this.client.images.get({
+        auth,
+        image: name,
+        // allow us to use the same method for both custom and public images
+        project: projectId,
+      }),
+    );
 
     return resp.data;
   }
@@ -231,10 +235,12 @@ export class ComputeClient extends Client {
   async fetchComputeProject(): Promise<compute_v1.Schema$Project> {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const computeProjectResponse = await this.client.projects.get({
-      auth: auth,
-      project: this.projectId,
-    });
+    const computeProjectResponse = await this.withErrorHandling(() =>
+      this.client.projects.get({
+        auth: auth,
+        project: this.projectId,
+      }),
+    );
 
     return computeProjectResponse.data;
   }
@@ -270,11 +276,12 @@ export class ComputeClient extends Client {
   ): Promise<osconfig_v1.Schema$Inventory> {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const resp =
-      await this.osConfigClient.projects.locations.instances.inventories.get({
+    const resp = await this.withErrorHandling(() =>
+      this.osConfigClient.projects.locations.instances.inventories.get({
         auth,
         name: `projects/${this.projectId}/locations/${location}/instances/${instanceId}/inventory`,
-      });
+      }),
+    );
 
     return resp.data;
   }

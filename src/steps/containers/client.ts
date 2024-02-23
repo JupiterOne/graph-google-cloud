@@ -9,10 +9,12 @@ export class ContainerClient extends Client {
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const result = await this.client.projects.locations.clusters.list({
-      auth,
-      parent: `projects/${this.projectId}/locations/-`,
-    });
+    const result = await this.withErrorHandling(() =>
+      this.client.projects.locations.clusters.list({
+        auth,
+        parent: `projects/${this.projectId}/locations/-`,
+      }),
+    );
 
     for (const cluster of result.data.clusters || []) {
       await callback(cluster);

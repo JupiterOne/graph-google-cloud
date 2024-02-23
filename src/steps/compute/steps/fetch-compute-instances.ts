@@ -134,7 +134,7 @@ export async function fetchComputeInstances(
       }
     } catch (e) {
       // Do not make this inventory call if api is disabled and customer is not using this feature.
-      if (e.response.status === 403) {
+      if (e.code === 403) {
         inventoryApiDisabled = true;
       }
     }

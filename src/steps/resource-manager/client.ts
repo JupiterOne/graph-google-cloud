@@ -16,10 +16,12 @@ export class ResourceManagerClient extends Client {
   async getProject() {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const result = await this.client.projects.get({
-      auth,
-      name: `projects/${this.projectId}`,
-    });
+    const result = await this.withErrorHandling(() =>
+      this.client.projects.get({
+        auth,
+        name: `projects/${this.projectId}`,
+      }),
+    );
 
     return result.data;
   }
@@ -27,10 +29,12 @@ export class ResourceManagerClient extends Client {
   async getOrganization() {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const result = await this.client.organizations.get({
-      auth,
-      name: `organizations/${this.organizationId}`,
-    });
+    const result = await this.withErrorHandling(() =>
+      this.client.organizations.get({
+        auth,
+        name: `organizations/${this.organizationId}`,
+      }),
+    );
 
     return result.data;
   }
@@ -86,20 +90,22 @@ export class ResourceManagerClient extends Client {
   async getServiceAccountPolicy() {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const result = await this.client.projects.getIamPolicy({
-      auth,
-      resource: `projects/${this.projectId}`,
-      requestBody: {
-        options: {
-          // Policies are versioned and specifying this version will return
-          // different data. The only way to fetch `conditions` on the
-          // policies is to specify "3".
-          //
-          // See: https://cloud.google.com/iam/docs/reference/rest/v1/Policy
-          requestedPolicyVersion: 3,
+    const result = await this.withErrorHandling(() =>
+      this.client.projects.getIamPolicy({
+        auth,
+        resource: `projects/${this.projectId}`,
+        requestBody: {
+          options: {
+            // Policies are versioned and specifying this version will return
+            // different data. The only way to fetch `conditions` on the
+            // policies is to specify "3".
+            //
+            // See: https://cloud.google.com/iam/docs/reference/rest/v1/Policy
+            requestedPolicyVersion: 3,
+          },
         },
-      },
-    });
+      }),
+    );
 
     return result.data;
   }

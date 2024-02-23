@@ -7,10 +7,12 @@ export class AppEngineClient extends Client {
   async getAppEngineApplication() {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const response = await this.client.apps.get({
-      appsId: this.projectId,
-      auth,
-    });
+    const response = await this.withErrorHandling(() =>
+      this.client.apps.get({
+        appsId: this.projectId,
+        auth,
+      }),
+    );
 
     return response.data;
   }

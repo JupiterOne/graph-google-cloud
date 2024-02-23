@@ -23,10 +23,12 @@ export class SpannerClient extends Client {
   ): Promise<spanner_v1.Schema$Policy> {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const result = await this.client.projects.instances.databases.getIamPolicy({
-      resource: `projects/${this.projectId}/instances/${instanceId}/databases/${databaseId}`,
-      auth,
-    });
+    const result = await this.withErrorHandling(() =>
+      this.client.projects.instances.databases.getIamPolicy({
+        resource: `projects/${this.projectId}/instances/${instanceId}/databases/${databaseId}`,
+        auth,
+      }),
+    );
 
     return result.data;
   }

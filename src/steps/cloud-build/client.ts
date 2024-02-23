@@ -86,10 +86,12 @@ export class CloudBuildClient extends Client {
     const auth = await this.getAuthenticatedServiceClient();
 
     try {
-      const res = await this.client.projects.githubEnterpriseConfigs.list({
-        auth,
-        parent: `projects/${this.projectId}`,
-      });
+      const res = await this.withErrorHandling(() =>
+        this.client.projects.githubEnterpriseConfigs.list({
+          auth,
+          parent: `projects/${this.projectId}`,
+        }),
+      );
 
       if (res.data?.configs) {
         for (const config of res.data.configs) {
