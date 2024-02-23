@@ -1,3 +1,15 @@
+# v3.2.13 (Fri Feb 23 2024)
+
+#### 🐛 Bug Fix
+
+- NT-10459: add retry to client get function calls [#642](https://github.com/JupiterOne/graph-google-cloud/pull/642) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### Authors: 1
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
 # v3.2.12 (Thu Feb 22 2024)
 
 #### 🐛 Bug Fix
