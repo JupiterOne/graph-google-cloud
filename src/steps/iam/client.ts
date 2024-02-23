@@ -101,10 +101,12 @@ export class IamClient extends Client {
     callback: (data: iam_v1.Schema$ServiceAccountKey) => Promise<void>,
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
-    const response = await this.client.projects.serviceAccounts.keys.list({
-      auth,
-      name: serviceAccountName,
-    });
+    const response = await this.withErrorHandling(() =>
+      this.client.projects.serviceAccounts.keys.list({
+        auth,
+        name: serviceAccountName,
+      }),
+    );
 
     for (const k of response.data.keys || []) {
       await callback(k);
@@ -116,12 +118,14 @@ export class IamClient extends Client {
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const response = await this.client.iamPolicies.queryAuditableServices({
-      auth,
-      requestBody: {
-        fullResourceName: `//cloudresourcemanager.googleapis.com/projects/${this.projectId}`,
-      },
-    });
+    const response = await this.withErrorHandling(() =>
+      this.client.iamPolicies.queryAuditableServices({
+        auth,
+        requestBody: {
+          fullResourceName: `//cloudresourcemanager.googleapis.com/projects/${this.projectId}`,
+        },
+      }),
+    );
 
     for (const service of response.data.services || []) {
       const name = service.name;

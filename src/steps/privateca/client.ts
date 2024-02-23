@@ -10,10 +10,12 @@ export class PrivateCaClient extends Client {
   ): Promise<privateca_v1.Schema$Policy> {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const result = await this.client.projects.locations.caPools.getIamPolicy({
-      resource: `projects/${this.projectId}/locations/${location}/caPools/${caPoolId}`,
-      auth,
-    });
+    const result = await this.withErrorHandling(() =>
+      this.client.projects.locations.caPools.getIamPolicy({
+        resource: `projects/${this.projectId}/locations/${location}/caPools/${caPoolId}`,
+        auth,
+      }),
+    );
 
     return result.data;
   }
