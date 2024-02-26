@@ -1,3 +1,15 @@
+# v3.2.14 (Mon Feb 26 2024)
+
+#### 🐛 Bug Fix
+
+- INT-10459: redact assertion [#643](https://github.com/JupiterOne/graph-google-cloud/pull/643) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### Authors: 1
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
 # v3.2.13 (Fri Feb 23 2024)
 
 #### 🐛 Bug Fix
