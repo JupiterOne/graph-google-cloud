@@ -16,6 +16,12 @@ function redactBearerTokens(err: GaxiosError | Error) {
   const tokenRegex = /Bearer\s[^\s]+/i;
 
   for (const key in err) {
+    if (
+      key === 'assertion' ||
+      (typeof err[key] === 'string' && err[key].includes('assertion'))
+    ) {
+      delete err[key];
+    }
     if (typeof err[key] === 'string') {
       err[key] = err[key].replace(tokenRegex, 'Bearer [REDACTED]');
     } else if (typeof err[key] === 'object' && err[key] !== null) {

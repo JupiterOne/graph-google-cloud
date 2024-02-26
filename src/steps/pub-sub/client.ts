@@ -8,10 +8,12 @@ export class PubSubClient extends Client {
     const auth = await this.getAuthenticatedServiceClient();
     const topicName = topicPath.split('/')[3];
 
-    const response = await this.client.projects.topics.getIamPolicy({
-      resource: `projects/${this.projectId}/topics/${topicName}`,
-      auth,
-    });
+    const response = await this.withErrorHandling(() =>
+      this.client.projects.topics.getIamPolicy({
+        resource: `projects/${this.projectId}/topics/${topicName}`,
+        auth,
+      }),
+    );
 
     return response.data;
   }
