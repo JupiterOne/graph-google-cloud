@@ -119,6 +119,7 @@ export class Client {
     callback: (data: T) => Promise<void>,
     stepId: string,
     suggestedPermissions: string[],
+    options?: PermissionErrorHandlingOptions,
   ) {
     return this.forEachPage(async (nextPageToken) => {
       const result = await this.withErrorHandling(
@@ -128,6 +129,7 @@ export class Client {
           stepId,
           suggestedPermissions,
         },
+        options,
       );
 
       if (result) {
