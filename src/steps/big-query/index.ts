@@ -336,11 +336,7 @@ export const bigQuerySteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_BIG_QUERY_DATASETS],
     executionHandler: fetchBigQueryTables,
-    permissions: [
-      'bigquery.tables.list',
-      'bigquery.tables.getIamPolicy',
-      'bigquery.tables.get',
-    ],
-    apis: BigQueryPermissions.STEP_BIG_QUERY_TABLES,
+    permissions: BigQueryPermissions.STEP_BIG_QUERY_TABLES,
+    apis: ['bigquery.googleapis.com'],
   },
 ];
