@@ -1,6 +1,11 @@
 import { google, cloudkms_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
-import { KMS_SERVICE_LOCATIONS } from './constants';
+import {
+  KMSPermissions,
+  KMS_SERVICE_LOCATIONS,
+  STEP_CLOUD_KMS_KEYS,
+  STEP_CLOUD_KMS_KEY_RINGS,
+} from './constants';
 
 export class CloudKmsClient extends Client {
   private client = google.cloudkms({ version: 'v1', retry: false });
@@ -49,6 +54,8 @@ export class CloudKmsClient extends Client {
               await callback(item);
             }
           },
+          STEP_CLOUD_KMS_KEY_RINGS,
+          KMSPermissions.STEP_CLOUD_KMS_KEY_RINGS,
         );
       });
     } finally {
@@ -87,19 +94,29 @@ export class CloudKmsClient extends Client {
           await callback(item);
         }
       },
+      STEP_CLOUD_KMS_KEYS,
+      KMSPermissions.STEP_CLOUD_KMS_KEY_RINGS,
     );
   }
 
-  async fetchCryptoKeyPolicy(resource: string) {
+  async fetchCryptoKeyPolicy(
+    resource: string,
+  ): Promise<cloudkms_v1.Schema$Policy | undefined> {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const result = await this.withErrorHandling(() =>
-      this.client.projects.locations.keyRings.cryptoKeys.getIamPolicy({
-        auth,
-        resource,
-      }),
+    const result = await this.withErrorHandling(
+      () =>
+        this.client.projects.locations.keyRings.cryptoKeys.getIamPolicy({
+          auth,
+          resource,
+        }),
+      this.logger,
+      {
+        stepId: STEP_CLOUD_KMS_KEYS,
+        suggestedPermissions: KMSPermissions.STEP_CLOUD_KMS_KEYS,
+      },
     );
 
-    return result.data;
+    return result?.data;
   }
 }

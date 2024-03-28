@@ -18,6 +18,7 @@ import {
   STEP_BINARY_AUTHORIZATION_POLICY,
   RELATIONSHIP_TYPE_PROJECT_HAS_BINARY_AUTHORIZATION_POLICY,
   IngestionSources,
+  BinaryAuthPermissions,
 } from './constants';
 import { createBinaryAuthorizationPolicyEntity } from './converters';
 import { publishMissingPermissionEvent } from '../../utils/events';
@@ -34,7 +35,7 @@ export async function fetchBinaryAuthorizationPolicy(
 
   const client = new BinaryAuthorizationClient({ config }, logger);
 
-  let policy: binaryauthorization_v1.Schema$Policy;
+  let policy: binaryauthorization_v1.Schema$Policy | undefined;
   try {
     policy = await client.fetchPolicy();
   } catch (err) {
@@ -92,7 +93,7 @@ export const binaryAuthorizationSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_RESOURCE_MANAGER_PROJECT],
     executionHandler: fetchBinaryAuthorizationPolicy,
-    permissions: ['binaryauthorization.policy.get'],
+    permissions: BinaryAuthPermissions.STEP_BINARY_AUTHORIZATION_POLICY,
     apis: ['binaryauthorization.googleapis.com'],
   },
 ];

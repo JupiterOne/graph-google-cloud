@@ -27,6 +27,7 @@ import {
   STEP_COMPUTE_SUBNETWORKS,
   STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES,
   STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES,
+  ComputePermissions,
 } from '../constants';
 import { createComputeForwardingRuleEntity } from '../converters';
 
@@ -164,6 +165,6 @@ export const fetchComputeForwardingRulesStepMap: GoogleCloudIntegrationStep = {
     STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES,
   ],
   executionHandler: fetchComputeForwardingRules,
-  permissions: ['compute.forwardingRules.list'],
+  permissions: ComputePermissions.STEP_COMPUTE_FORWARDING_RULES,
   apis: ['compute.googleapis.com'],
 };

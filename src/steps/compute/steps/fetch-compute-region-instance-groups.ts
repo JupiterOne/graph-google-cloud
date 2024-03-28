@@ -15,6 +15,7 @@ import {
   ENTITY_TYPE_COMPUTE_INSTANCE_GROUP_NAMED_PORT,
   ENTITY_CLASS_COMPUTE_INSTANCE_GROUP_NAMED_PORT,
   RELATIONSHIP_TYPE_INSTANCE_GROUP_HAS_NAMED_PORT,
+  ComputePermissions,
 } from '../constants';
 import {
   createInstanceGroupNamedPortEntity,
@@ -102,6 +103,6 @@ export const fetchComputeRegionInstanceGroupsStepMap: GoogleCloudIntegrationStep
     ],
     dependsOn: [],
     executionHandler: fetchComputeRegionInstanceGroups,
-    permissions: ['compute.instanceGroups.list'],
+    permissions: ComputePermissions.STEP_COMPUTE_REGION_INSTANCE_GROUPS,
     apis: ['compute.googleapis.com'],
   };

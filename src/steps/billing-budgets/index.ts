@@ -25,6 +25,7 @@ import {
   STEP_BUILD_ADDITIONAL_PROJECT_BUDGET,
   STEP_BUILD_PROJECT_BUDGET,
   IngestionSources,
+  BillingBudgetsPermissions,
 } from './constants';
 import { createBillingBudgetEntity } from './converters';
 import { getProjectEntity } from '../../utils/project';
@@ -219,7 +220,7 @@ export const billingBudgetsSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [STEP_BILLING_ACCOUNTS],
     executionHandler: fetchBillingBudgets,
-    permissions: ['billing.budgets.list'],
+    permissions: BillingBudgetsPermissions.STEP_BILLING_BUDGETS,
     apis: ['cloudbilling.googleapis.com'],
   },
   {
@@ -271,7 +272,7 @@ export const billingBudgetsSteps: GoogleCloudIntegrationStep[] = [
       STEP_BILLING_BUDGETS,
     ],
     executionHandler: buildAdditionalProjectBudgetRelationships,
-    permissions: ['cloudasset.assets.listCloudbillingProjectBillingInfos'],
+    permissions: BillingBudgetsPermissions.STEP_BUILD_ADDITIONAL_PROJECT_BUDGET,
     apis: ['cloudbilling.googleapis.com'],
   },
 ];

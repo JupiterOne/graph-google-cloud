@@ -8,6 +8,7 @@ import {
   ENTITY_TYPE_COMPUTE_HEALTH_CHECK,
   ENTITY_CLASS_COMPUTE_HEALTH_CHECK,
   STEP_COMPUTE_REGION_HEALTH_CHECKS,
+  ComputePermissions,
 } from '../constants';
 import { createRegionHealthCheckEntity } from '../converters';
 
@@ -46,6 +47,6 @@ export const fetchComputeRegionHealthChecksStepMap: GoogleCloudIntegrationStep =
     relationships: [],
     dependsOn: [],
     executionHandler: fetchComputeRegionHealthChecks,
-    permissions: ['compute.regionHealthChecks.list'],
+    permissions: ComputePermissions.STEP_COMPUTE_REGION_HEALTH_CHECKS,
     apis: ['compute.googleapis.com'],
   };

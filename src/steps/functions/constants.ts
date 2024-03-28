@@ -73,3 +73,7 @@ export const FunctionsIngestionConfig = {
     defaultsToDisabled: false,
   },
 };
+
+export const FunctionsPermissions = {
+  FETCH_CLOUD_FUNCTIONS: ['cloudfunctions.functions.list'],
+};

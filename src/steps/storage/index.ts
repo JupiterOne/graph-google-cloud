@@ -8,6 +8,7 @@ import {
   StorageStepsSpec,
   StorageEntitiesSpec,
   IngestionSources,
+  StoragePermissions,
 } from './constants';
 import { storage_v1 } from 'googleapis';
 import {
@@ -230,12 +231,7 @@ export const storageSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchStorageBuckets,
-    permissions: [
-      'orgpolicy.policies.list',
-      'orgpolicy.policy.get',
-      'storage.buckets.list',
-      'storage.buckets.getIamPolicy',
-    ],
+    permissions: StoragePermissions.FETCH_STORAGE_BUCKETS,
     apis: ['orgpolicy.googleapis.com', 'storage.googleapis.com'],
   },
 ];

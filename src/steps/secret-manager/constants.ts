@@ -50,3 +50,8 @@ export const SecretManagerIngestionConfig = {
     defaultsToDisabled: false,
   },
 };
+
+export const SecretManagerPermissions = {
+  FETCH_SECRETS: ['secretmanager.secrets.list'],
+  FETCH_SECRET_VERSIONS: ['secretmanager.versions.list'],
+};

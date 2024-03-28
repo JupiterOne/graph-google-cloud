@@ -60,6 +60,9 @@ all of the supported data into JupiterOne:
 | [apigateway](https://console.developers.google.com/apis/library/apigateway.googleapis.com)                     | apigateway.googleapis.com           |
 | [appengine](https://console.developers.google.com/apis/library/appengine.googleapis.com)                       | appengine.googleapis.com            |
 | [bigquery](https://console.developers.google.com/apis/library/bigquery.googleapis.com)                         | bigquery.googleapis.com             |
+| [bigquery](https://console.developers.google.com/apis/library/bigquery.tables.get)                             | bigquery.tables.get                 |
+| [bigquery](https://console.developers.google.com/apis/library/bigquery.tables.getIamPolicy)                    | bigquery.tables.getIamPolicy        |
+| [bigquery](https://console.developers.google.com/apis/library/bigquery.tables.list)                            | bigquery.tables.list                |
 | [bigtable](https://console.developers.google.com/apis/library/bigtable.googleapis.com)                         | bigtable.googleapis.com             |
 | [binaryauthorization](https://console.developers.google.com/apis/library/binaryauthorization.googleapis.com)   | binaryauthorization.googleapis.com  |
 | [cloudasset](https://console.developers.google.com/apis/library/cloudasset.googleapis.com)                     | cloudasset.googleapis.com           |
@@ -121,6 +124,9 @@ gcloud services enable \
  apigateway.googleapis.com \
  appengine.googleapis.com \
  bigquery.googleapis.com \
+ bigquery.tables.get \
+ bigquery.tables.getIamPolicy \
+ bigquery.tables.list \
  bigtable.googleapis.com \
  binaryauthorization.googleapis.com \
  cloudasset.googleapis.com \

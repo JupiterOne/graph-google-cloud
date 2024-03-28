@@ -1,5 +1,9 @@
 import { google, sourcerepo_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
+import {
+  CloudSourcePermissions,
+  CloudSourceRepositoriesStepsSpec,
+} from './constants';
 export class CloudSourceRepositoriesClient extends Client {
   private client = google.sourcerepo({ version: 'v1' });
 
@@ -21,6 +25,8 @@ export class CloudSourceRepositoriesClient extends Client {
           await callback(build);
         }
       },
+      CloudSourceRepositoriesStepsSpec.FETCH_REPOSITORIES.id,
+      CloudSourcePermissions.FETCH_REPOSITORIES,
     );
   }
 }

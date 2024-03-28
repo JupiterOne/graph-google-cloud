@@ -12,7 +12,6 @@ import {
   GoogleCloudIntegrationStep,
   IntegrationStepContext,
 } from '../../types';
-import { publishMissingPermissionEvent } from '../../utils/events';
 import { AppEngineClient } from './client';
 import {
   STEP_APP_ENGINE_APPLICATION,
@@ -35,6 +34,7 @@ import {
   RELATIONSHIP_TYPE_SERVICE_ACCOUNT_CREATED_VERSION,
   STEP_CREATE_APP_ENGINE_BUCKET_RELATIONSHIPS,
   IngestionSources,
+  AppEnginePermissions,
 } from './constants';
 import {
   createAppEngineApplicationEntity,
@@ -93,36 +93,15 @@ export async function fetchAppEngineApplication(
     logger,
   } = context;
   const client = new AppEngineClient({ config }, logger);
-  const { projectId } = client;
 
-  let application: appengine_v1.Schema$Application | undefined;
-
-  try {
-    application = await withAppEngineErrorHandling(
-      logger,
-      projectId,
-      async () => await client.getAppEngineApplication(),
-    );
-  } catch (err) {
-    if (err.code === 403) {
-      publishMissingPermissionEvent({
-        logger,
-        permission: 'appengine.applications.get',
-        stepId: STEP_APP_ENGINE_APPLICATION,
-      });
-
-      return;
-    } else if (err.code === 404) {
-      logger.info(
-        { projectId },
-        'App engine application not found for project',
-      );
-
-      return;
-    }
-
-    throw err;
-  }
+  const application = await client.withErrorHandling(
+    () => client.getAppEngineApplication(),
+    client.logger,
+    {
+      stepId: STEP_APP_ENGINE_APPLICATION,
+      suggestedPermissions: ['appengine.applications.get'],
+    },
+  );
 
   if (application) {
     const applicationEntity = createAppEngineApplicationEntity(
@@ -389,7 +368,7 @@ export const appEngineSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchAppEngineApplication,
-    permissions: ['appengine.applications.get'],
+    permissions: AppEnginePermissions.STEP_APP_ENGINE_APPLICATION,
     apis: ['appengine.googleapis.com'],
   },
   {
@@ -431,7 +410,7 @@ export const appEngineSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_APP_ENGINE_APPLICATION],
     executionHandler: fetchAppEngineServices,
-    permissions: ['appengine.services.list'],
+    permissions: AppEnginePermissions.STEP_APP_ENGINE_SERVICES,
     apis: ['appengine.googleapis.com'],
   },
   {
@@ -467,7 +446,7 @@ export const appEngineSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_APP_ENGINE_SERVICES, STEP_IAM_SERVICE_ACCOUNTS],
     executionHandler: fetchAppEngineServiceVersions,
-    permissions: ['appengine.versions.list'],
+    permissions: AppEnginePermissions.STEP_APP_ENGINE_VERSIONS,
   },
   {
     id: STEP_APP_ENGINE_INSTANCES,
@@ -490,7 +469,7 @@ export const appEngineSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_APP_ENGINE_VERSIONS],
     executionHandler: fetchAppEngineVersionInstances,
-    permissions: ['appengine.instances.list'],
+    permissions: AppEnginePermissions.STEP_APP_ENGINE_INSTANCES,
     apis: ['appengine.googleapis.com'],
   },
 ];

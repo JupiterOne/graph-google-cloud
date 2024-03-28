@@ -23,3 +23,10 @@ export const BillingBudgetsIngestionConfig = {
     defaultsToDisabled: false,
   },
 };
+
+export const BillingBudgetsPermissions = {
+  STEP_BILLING_BUDGETS: ['billing.budgets.list'],
+  STEP_BUILD_ADDITIONAL_PROJECT_BUDGET: [
+    'cloudasset.assets.listCloudbillingProjectBillingInfos',
+  ],
+};

@@ -9,6 +9,7 @@ import {
   MONITORING_ALERT_POLICY_TYPE,
   STEP_MONITORING_ALERT_POLICIES,
   IngestionSources,
+  MonitoringPermissions,
 } from './constants';
 import { createAlertPolicyEntity } from './converters';
 
@@ -57,7 +58,7 @@ export const monitoringSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchAlertPolicies,
-    permissions: ['monitoring.alertPolicies.list'],
+    permissions: MonitoringPermissions.STEP_MONITORING_ALERT_POLICIES,
     apis: ['monitoring.googleapis.com'],
   },
 ];

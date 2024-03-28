@@ -18,6 +18,7 @@ import {
   ENTITY_CLASS_COMPUTE_GLOBAL_ADDRESS,
   RELATIONSHIP_TYPE_COMPUTE_NETWORK_HAS_GLOBAL_ADDRESS,
   RELATIONSHIP_TYPE_COMPUTE_SUBNETWORK_HAS_GLOBAL_ADDRESS,
+  ComputePermissions,
 } from '../constants';
 import { createComputeGlobalAddressEntity } from '../converters';
 
@@ -96,6 +97,6 @@ export const fetchComputeGlobalAddressesStepMap: GoogleCloudIntegrationStep = {
   ],
   dependsOn: [STEP_COMPUTE_NETWORKS, STEP_COMPUTE_SUBNETWORKS],
   executionHandler: fetchComputeGlobalAddresses,
-  permissions: ['compute.globalAddresses.list'],
+  permissions: ComputePermissions.STEP_COMPUTE_GLOBAL_ADDRESSES,
   apis: ['compute.googleapis.com'],
 };

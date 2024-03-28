@@ -13,6 +13,7 @@ import {
   PrivatecaRelationships,
   PrivatecaSteps,
   IngestionSources,
+  PrivateCAPermissions,
 } from '../constants';
 import { createCertificateEntity } from '../converters';
 import { privateca_v1 } from 'googleapis';
@@ -124,7 +125,7 @@ export const fetchAuthorityCertificatesStepMap: GoogleCloudIntegrationStep = {
   ],
   dependsOn: [PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES.id],
   executionHandler: fetchAuthorityCertificates,
-  permissions: ['privateca.certificates.list'],
+  permissions: PrivateCAPermissions.STEP_PRIVATE_CA_CERTIFICATES,
   apis: ['privateca.googleapis.com'],
 };
 

@@ -49,3 +49,12 @@ export const IamIngestionConfig = {
     defaultsToDisabled: false,
   },
 };
+
+export const IAMPermissions = {
+  STEP_IAM_CUSTOM_ROLES: ['iam.roles.list'],
+  STEP_IAM_MANAGED_ROLES: ['iam.roles.list'],
+  STEP_IAM_SERVICE_ACCOUNTS: [
+    'iam.serviceAccounts.list',
+    'iam.serviceAccountKeys.list',
+  ],
+};

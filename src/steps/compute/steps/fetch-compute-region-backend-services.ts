@@ -18,6 +18,7 @@ import {
   RELATIONSHIP_TYPE_BACKEND_SERVICE_HAS_INSTANCE_GROUP,
   ENTITY_CLASS_COMPUTE_BACKEND_SERVICE,
   STEP_COMPUTE_REGION_BACKEND_SERVICES,
+  ComputePermissions,
 } from '../constants';
 import { createRegionBackendServiceEntity } from '../converters';
 
@@ -100,6 +101,6 @@ export const fetchComputeRegionBackendServicesStepMap: GoogleCloudIntegrationSte
       STEP_COMPUTE_REGION_HEALTH_CHECKS,
     ],
     executionHandler: fetchComputeRegionBackendServices,
-    permissions: ['compute.regionBackendServices.list'],
+    permissions: ComputePermissions.STEP_COMPUTE_REGION_BACKEND_SERVICES,
     apis: ['compute.googleapis.com'],
   };

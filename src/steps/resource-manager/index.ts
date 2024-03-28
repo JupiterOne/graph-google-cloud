@@ -39,6 +39,7 @@ import {
   AUDIT_CONFIG_ALLOWS_DOMAIN_RELATIONSHIP_TYPE,
   IngestionSources,
   STEP_RESOURCE_MANAGER_SKIPPED_PROJECTS,
+  ResourceManagerPermissions,
 } from './constants';
 import {
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
@@ -98,7 +99,10 @@ export async function fetchResourceManagerOrganization(
   const client = new ResourceManagerClient({ config }, logger);
 
   const organization = await client.getOrganization();
-  await jobState.addEntity(createOrganizationEntity(organization));
+
+  if (organization) {
+    await jobState.addEntity(createOrganizationEntity(organization));
+  }
 }
 
 export async function fetchResourceManagerFolders(
@@ -247,7 +251,10 @@ export async function fetchResourceManagerProject(
   let project;
   try {
     project = await client.getProject();
-    await cacheProjectNameAndId(jobState, project);
+
+    if (project) {
+      await cacheProjectNameAndId(jobState, project);
+    }
   } catch (err) {
     // This step _always_ executes because it creates a root `Account` entity for the integration instance.
     // However, users can only fetch the project details if cloudresourcemanager API is enabled.
@@ -261,6 +268,8 @@ export async function fetchResourceManagerProject(
       description: message,
     });
   }
+
+  if (!project) return;
 
   const projectEntity = createProjectEntity(client.projectId, project);
 
@@ -441,7 +450,7 @@ export const resourceManagerSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchResourceManagerOrganization,
-    permissions: ['resourcemanager.organizations.get'],
+    permissions: ResourceManagerPermissions.STEP_RESOURCE_MANAGER_ORGANIZATION,
     apis: ['resourcemanager.googleapis.com'],
   },
   {
@@ -471,7 +480,7 @@ export const resourceManagerSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_RESOURCE_MANAGER_ORGANIZATION],
     executionHandler: fetchResourceManagerFolders,
-    permissions: ['resourcemanager.folders.list'],
+    permissions: ResourceManagerPermissions.STEP_RESOURCE_MANAGER_FOLDERS,
     apis: ['resourcemanager.googleapis.com'],
   },
   {
@@ -497,7 +506,8 @@ export const resourceManagerSteps: GoogleCloudIntegrationStep[] = [
       STEP_RESOURCE_MANAGER_FOLDERS,
     ],
     executionHandler: buildOrgFolderProjectMappedRelationships,
-    permissions: ['resourcemanager.projects.list'],
+    permissions:
+      ResourceManagerPermissions.STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
     apis: ['resourcemanager.googleapis.com'],
   },
   {
@@ -514,7 +524,7 @@ export const resourceManagerSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchResourceManagerProject,
-    permissions: ['resourcemanager.projects.get'],
+    permissions: ResourceManagerPermissions.STEP_RESOURCE_MANAGER_PROJECT,
     apis: ['resourcemanager.googleapis.com'],
   },
   {
@@ -531,7 +541,8 @@ export const resourceManagerSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [STEP_RESOURCE_MANAGER_ORGANIZATION],
     executionHandler: fetchResourceManagerSkippedProjects,
-    permissions: ['resourcemanager.projects.get'],
+    permissions:
+      ResourceManagerPermissions.STEP_RESOURCE_MANAGER_SKIPPED_PROJECTS,
     apis: ['resourcemanager.googleapis.com'],
   },
   {
@@ -581,7 +592,7 @@ export const resourceManagerSteps: GoogleCloudIntegrationStep[] = [
       ServiceUsageStepIds.FETCH_API_SERVICES,
       STEP_IAM_SERVICE_ACCOUNTS,
     ],
-    permissions: ['resourcemanager.projects.getIamPolicy'],
+    permissions: ResourceManagerPermissions.STEP_AUDIT_CONFIG_IAM_POLICY,
     apis: ['resourcemanager.googleapis.com'],
   },
 ];
