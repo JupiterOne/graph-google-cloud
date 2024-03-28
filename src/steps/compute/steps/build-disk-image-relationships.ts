@@ -17,6 +17,7 @@ import {
   ENTITY_TYPE_COMPUTE_IMAGE,
   STEP_COMPUTE_DISKS,
   STEP_COMPUTE_IMAGES,
+  ComputePermissions,
 } from '../constants';
 import { createComputeImageEntity } from '../converters';
 import { compute_v1 } from 'googleapis';
@@ -62,7 +63,7 @@ export async function buildDiskImageRelationships(
           }
         } else {
           // Public image case
-          let image: compute_v1.Schema$Image;
+          let image: compute_v1.Schema$Image | undefined;
 
           try {
             image = await client.fetchComputeImage(
@@ -133,6 +134,6 @@ export const buildDiskImageRelationshipsStepMap: GoogleCloudIntegrationStep = {
   ],
   executionHandler: buildDiskImageRelationships,
   dependsOn: [STEP_COMPUTE_DISKS, STEP_COMPUTE_IMAGES],
-  permissions: ['compute.images.get'],
+  permissions: ComputePermissions.STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS,
   apis: ['compute.googleapis.com'],
 };

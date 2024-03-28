@@ -18,6 +18,7 @@ import {
   ENTITY_TYPE_COMPUTE_TARGET_HTTPS_PROXY,
   RELATIONSHIP_TYPE_TARGET_SSL_PROXY_HAS_SSL_POLICY,
   STEP_COMPUTE_TARGET_HTTPS_PROXIES,
+  ComputePermissions,
 } from '../constants';
 import { createSslPolicyEntity } from '../converters';
 
@@ -106,6 +107,6 @@ export const fetchComputeSslPoliciesStepMap: GoogleCloudIntegrationStep = {
     STEP_COMPUTE_TARGET_SSL_PROXIES,
   ],
   executionHandler: fetchComputeSslPolicies,
-  permissions: ['compute.sslPolicies.list'],
+  permissions: ComputePermissions.STEP_COMPUTE_SSL_POLICIES,
   apis: ['compute.googleapis.com'],
 };

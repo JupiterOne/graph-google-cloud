@@ -55,3 +55,7 @@ export const ServiceUsageIngestionConfig = {
     defaultsToDisabled: false,
   },
 };
+
+export const ServiceUsagePermissions = {
+  FETCH_API_SERVICES: ['serviceusage.services.list'],
+};

@@ -28,6 +28,7 @@ import {
   RELATIONSHIP_TYPE_SPANNER_INSTANCE_USES_CONFIG,
   RELATIONSHIP_TYPE_SPANNER_INSTANCE_DATABASE_USES_KMS_KEY,
   IngestionSources,
+  SpannerPermissions,
 } from './constants';
 import {
   createSpannerInstanceConfiguration,
@@ -127,6 +128,8 @@ export async function fetchSpannerInstanceDatabases(
           databaseId as string,
         );
 
+        if (!databasePolicy) return;
+
         const instanceDatabaseEntity = createSpannerInstanceDatabaseEntity({
           data: database,
           projectId: client.projectId,
@@ -195,7 +198,7 @@ export const spannerSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchSpannerInstanceConfigs,
-    permissions: ['spanner.instanceConfigs.list'],
+    permissions: SpannerPermissions.STEP_SPANNER_INSTANCE_CONFIGS,
     apis: ['spanner.googleapis.com'],
   },
   {
@@ -219,7 +222,7 @@ export const spannerSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_SPANNER_INSTANCE_CONFIGS],
     executionHandler: fetchSpannerInstances,
-    permissions: ['spanner.instances.list', 'spanner.databases.getIamPolicy'],
+    permissions: SpannerPermissions.STEP_SPANNER_INSTANCES,
     apis: ['spanner.googleapis.com'],
   },
   {
@@ -249,7 +252,7 @@ export const spannerSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_SPANNER_INSTANCES, STEP_CLOUD_KMS_KEYS],
     executionHandler: fetchSpannerInstanceDatabases,
-    permissions: ['spanner.databases.list'],
+    permissions: SpannerPermissions.STEP_SPANNER_INSTANCE_DATABASES,
     apis: ['spanner.googleapis.com'],
   },
 ];

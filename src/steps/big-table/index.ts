@@ -32,6 +32,7 @@ import {
   STEP_BIG_TABLE_INSTANCES,
   STEP_BIG_TABLE_TABLES,
   IngestionSources,
+  BigTablePermissions,
 } from './constants';
 import {
   createAppProfileEntity,
@@ -237,7 +238,7 @@ export const bigTableSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchInstances,
-    permissions: ['bigtable.instances.list'],
+    permissions: BigTablePermissions.STEP_BIG_TABLE_INSTANCES,
     apis: ['bigtable.googleapis.com'],
   },
   {
@@ -261,7 +262,7 @@ export const bigTableSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_BIG_TABLE_INSTANCES],
     executionHandler: fetchAppProfiles,
-    permissions: ['bigtable.appProfiles.list'],
+    permissions: BigTablePermissions.STEP_BIG_TABLE_APP_PROFILES,
     apis: ['bigtable.googleapis.com'],
   },
   {
@@ -291,7 +292,7 @@ export const bigTableSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_BIG_TABLE_INSTANCES],
     executionHandler: fetchClusters,
-    permissions: ['bigtable.clusters.list'],
+    permissions: BigTablePermissions.STEP_BIG_TABLE_CLUSTERS,
     apis: ['bigtable.googleapis.com'],
   },
   {
@@ -326,7 +327,7 @@ export const bigTableSteps: GoogleCloudIntegrationStep[] = [
       STEP_CLOUD_KMS_KEYS,
     ],
     executionHandler: fetchBackups,
-    permissions: ['bigtable.backups.list'],
+    permissions: BigTablePermissions.STEP_BIG_TABLE_BACKUPS,
     apis: ['bigtable.googleapis.com'],
   },
   {
@@ -350,7 +351,7 @@ export const bigTableSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_BIG_TABLE_INSTANCES],
     executionHandler: fetchTables,
-    permissions: ['bigtable.tables.list'],
+    permissions: BigTablePermissions.STEP_BIG_TABLE_TABLES,
     apis: ['bigtable.googleapis.com'],
   },
 ];

@@ -27,3 +27,8 @@ export const DnsIngestionConfig = {
     defaultsToDisabled: false,
   },
 };
+
+export const DNSPermissions = {
+  STEP_DNS_MANAGED_ZONES: ['dns.managedZones.list'],
+  STEP_DNS_POLICIES: ['dns.policies.list'],
+};

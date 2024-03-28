@@ -1,5 +1,11 @@
 import { google, spanner_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
+import {
+  STEP_SPANNER_INSTANCES,
+  STEP_SPANNER_INSTANCE_CONFIGS,
+  STEP_SPANNER_INSTANCE_DATABASES,
+  SpannerPermissions,
+} from './constants';
 
 export class SpannerClient extends Client {
   private client = google.spanner({ version: 'v1', retry: false });
@@ -20,17 +26,24 @@ export class SpannerClient extends Client {
   async getDatabasePolicy(
     instanceId: string,
     databaseId: string,
-  ): Promise<spanner_v1.Schema$Policy> {
+  ): Promise<spanner_v1.Schema$Policy | undefined> {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const result = await this.withErrorHandling(() =>
-      this.client.projects.instances.databases.getIamPolicy({
-        resource: `projects/${this.projectId}/instances/${instanceId}/databases/${databaseId}`,
-        auth,
-      }),
+    const result = await this.withErrorHandling(
+      () =>
+        this.client.projects.instances.databases.getIamPolicy({
+          resource: `projects/${this.projectId}/instances/${instanceId}/databases/${databaseId}`,
+          auth,
+        }),
+      this.logger,
+      {
+        stepId: STEP_SPANNER_INSTANCE_DATABASES,
+        suggestedPermissions:
+          SpannerPermissions.STEP_SPANNER_INSTANCE_DATABASES,
+      },
     );
 
-    return result.data;
+    return result?.data;
   }
 
   async iterateInstances(
@@ -51,6 +64,8 @@ export class SpannerClient extends Client {
           await callback(instance);
         }
       },
+      STEP_SPANNER_INSTANCES,
+      SpannerPermissions.STEP_SPANNER_INSTANCES,
     );
   }
 
@@ -72,6 +87,8 @@ export class SpannerClient extends Client {
           await callback(instanceConfig);
         }
       },
+      STEP_SPANNER_INSTANCE_CONFIGS,
+      SpannerPermissions.STEP_SPANNER_INSTANCE_CONFIGS,
     );
   }
 
@@ -94,6 +111,8 @@ export class SpannerClient extends Client {
           await callback(database);
         }
       },
+      STEP_SPANNER_INSTANCE_DATABASES,
+      SpannerPermissions.STEP_SPANNER_INSTANCE_DATABASES,
     );
   }
 }

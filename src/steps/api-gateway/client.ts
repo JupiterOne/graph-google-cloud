@@ -1,5 +1,11 @@
 import { apigateway_v1, google } from 'googleapis';
 import { Client } from '../../google-cloud/client';
+import {
+  ApiGatewayPermissions,
+  STEP_API_GATEWAY_APIS,
+  STEP_API_GATEWAY_API_CONFIGS,
+  STEP_API_GATEWAY_GATEWAYS,
+} from './constants';
 
 export class ApiGatewayClient extends Client {
   private client = google.apigateway({ version: 'v1', retry: false });
@@ -20,32 +26,45 @@ export class ApiGatewayClient extends Client {
   async getApiConfigPolicy(
     apiId: string,
     configId: string,
-  ): Promise<apigateway_v1.Schema$ApigatewayPolicy> {
+  ): Promise<apigateway_v1.Schema$ApigatewayPolicy | undefined> {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const result = await this.withErrorHandling(() =>
-      this.client.projects.locations.apis.configs.getIamPolicy({
-        resource: `projects/${this.projectId}/locations/global/apis/${apiId}/configs/${configId}`,
-        auth,
-      }),
+    const result = await this.withErrorHandling(
+      () =>
+        this.client.projects.locations.apis.configs.getIamPolicy({
+          resource: `projects/${this.projectId}/locations/global/apis/${apiId}/configs/${configId}`,
+          auth,
+        }),
+      this.logger,
+      {
+        stepId: STEP_API_GATEWAY_API_CONFIGS,
+        suggestedPermissions:
+          ApiGatewayPermissions.STEP_API_GATEWAY_API_CONFIGS,
+      },
     );
 
-    return result.data;
+    return result?.data;
   }
 
   async getGatewayPolicy(
     gatewayId: string,
-  ): Promise<apigateway_v1.Schema$ApigatewayPolicy> {
+  ): Promise<apigateway_v1.Schema$ApigatewayPolicy | undefined> {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const result = await this.withErrorHandling(() =>
-      this.client.projects.locations.gateways.getIamPolicy({
-        resource: `projects/${this.projectId}/locations/global/gateways/${gatewayId}`,
-        auth,
-      }),
+    const result = await this.withErrorHandling(
+      () =>
+        this.client.projects.locations.gateways.getIamPolicy({
+          resource: `projects/${this.projectId}/locations/global/gateways/${gatewayId}`,
+          auth,
+        }),
+      this.logger,
+      {
+        stepId: STEP_API_GATEWAY_GATEWAYS,
+        suggestedPermissions: ApiGatewayPermissions.STEP_API_GATEWAY_GATEWAYS,
+      },
     );
 
-    return result.data;
+    return result?.data;
   }
 
   async iterateGateways(
@@ -66,6 +85,8 @@ export class ApiGatewayClient extends Client {
           await callback(gateway);
         }
       },
+      STEP_API_GATEWAY_GATEWAYS,
+      ApiGatewayPermissions.STEP_API_GATEWAY_GATEWAYS,
     );
   }
 
@@ -87,6 +108,8 @@ export class ApiGatewayClient extends Client {
           await callback(api);
         }
       },
+      STEP_API_GATEWAY_APIS,
+      ApiGatewayPermissions.STEP_API_GATEWAY_APIS,
     );
   }
 
@@ -109,6 +132,8 @@ export class ApiGatewayClient extends Client {
           await callback(config);
         }
       },
+      STEP_API_GATEWAY_API_CONFIGS,
+      ApiGatewayPermissions.STEP_API_GATEWAY_API_CONFIGS,
     );
   }
 }

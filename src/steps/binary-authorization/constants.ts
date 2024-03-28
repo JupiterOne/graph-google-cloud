@@ -19,3 +19,7 @@ export const BinaryAuthorizationIngestionConfig = {
     defaultsToDisabled: false,
   },
 };
+
+export const BinaryAuthPermissions = {
+  STEP_BINARY_AUTHORIZATION_POLICY: ['binaryauthorization.policy.get'],
+};

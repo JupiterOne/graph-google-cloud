@@ -15,6 +15,7 @@ import {
   RELATIONSHIP_TYPE_PROJECT_HAS_INSTANCE,
   ENTITY_TYPE_COMPUTE_INSTANCE,
   STEP_COMPUTE_INSTANCES,
+  ComputePermissions,
 } from '../constants';
 import { createComputeProjectEntity } from '../converters';
 import { compute_v1 } from 'googleapis';
@@ -31,7 +32,7 @@ export async function fetchComputeProject(
     logger,
   );
 
-  let computeProject: compute_v1.Schema$Project;
+  let computeProject: compute_v1.Schema$Project | undefined;
 
   try {
     computeProject = await client.fetchComputeProject();
@@ -94,6 +95,6 @@ export const fetchComputeProjectStepMap: GoogleCloudIntegrationStep = {
   ],
   dependsOn: [STEP_COMPUTE_INSTANCES],
   executionHandler: fetchComputeProject,
-  permissions: ['compute.projects.get'],
+  permissions: ComputePermissions.STEP_COMPUTE_PROJECT,
   apis: ['compute.googleapis.com'],
 };

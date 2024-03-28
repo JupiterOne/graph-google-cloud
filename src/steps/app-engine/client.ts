@@ -1,20 +1,35 @@
 import { Client } from '../../google-cloud/client';
 import { appengine_v1, google } from 'googleapis';
+import {
+  AppEnginePermissions,
+  STEP_APP_ENGINE_APPLICATION,
+  STEP_APP_ENGINE_INSTANCES,
+  STEP_APP_ENGINE_SERVICES,
+  STEP_APP_ENGINE_VERSIONS,
+} from './constants';
 
 export class AppEngineClient extends Client {
   private client = google.appengine({ version: 'v1', retry: false });
 
-  async getAppEngineApplication() {
+  async getAppEngineApplication(): Promise<
+    appengine_v1.Schema$Application | undefined
+  > {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const response = await this.withErrorHandling(() =>
-      this.client.apps.get({
-        appsId: this.projectId,
-        auth,
-      }),
+    const response = await this.withErrorHandling(
+      () =>
+        this.client.apps.get({
+          appsId: this.projectId,
+          auth,
+        }),
+      this.logger,
+      {
+        stepId: STEP_APP_ENGINE_APPLICATION,
+        suggestedPermissions: ['appengine.applications.get'],
+      },
     );
 
-    return response.data;
+    return response?.data;
   }
 
   async iterateAppEngineServices(
@@ -35,6 +50,8 @@ export class AppEngineClient extends Client {
           await callback(service);
         }
       },
+      STEP_APP_ENGINE_SERVICES,
+      AppEnginePermissions.STEP_APP_ENGINE_SERVICES,
     );
   }
 
@@ -58,6 +75,8 @@ export class AppEngineClient extends Client {
           await callback(version);
         }
       },
+      STEP_APP_ENGINE_VERSIONS,
+      AppEnginePermissions.STEP_APP_ENGINE_VERSIONS,
     );
   }
 
@@ -83,6 +102,8 @@ export class AppEngineClient extends Client {
           await callback(instance);
         }
       },
+      STEP_APP_ENGINE_INSTANCES,
+      AppEnginePermissions.STEP_APP_ENGINE_INSTANCES,
     );
   }
 }

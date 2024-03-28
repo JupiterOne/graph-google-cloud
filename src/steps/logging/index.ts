@@ -19,6 +19,7 @@ import {
   RELATIONSHIP_TYPE_METRIC_HAS_ALERT_POLICY,
   STEP_CREATE_LOGGING_PROJECT_SINK_BUCKET_RELATIONSHIPS,
   IngestionSources,
+  LoggingPermissions,
 } from './constants';
 import {
   createLoggingProjectSinkEntity,
@@ -159,7 +160,7 @@ export const loggingSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchSinks,
-    permissions: ['logging.sinks.list'],
+    permissions: LoggingPermissions.STEP_LOGGING_PROJECT_SINKS,
     apis: ['logging.googleapis.com'],
   },
   {
@@ -201,7 +202,7 @@ export const loggingSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_MONITORING_ALERT_POLICIES],
     executionHandler: fetchMetrics,
-    permissions: ['logging.logMetrics.list'],
+    permissions: LoggingPermissions.STEP_LOGGING_METRICS,
     apis: ['logging.googleapis.com'],
   },
 ];

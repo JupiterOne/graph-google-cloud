@@ -40,6 +40,7 @@ import {
   STEP_IAM_BINDINGS,
   bindingEntities,
   IngestionSources,
+  CloudAssetPermissions,
 } from './constants';
 import {
   BindingEntity,
@@ -796,7 +797,7 @@ export const cloudAssetSteps: GoogleCloudIntegrationStep[] = [
     dependsOn: [],
     executionHandler: fetchIamBindings,
     dependencyGraphId: 'last',
-    permissions: ['cloudasset.assets.searchAllIamPolicies'],
+    permissions: CloudAssetPermissions.STEP_IAM_BINDINGS,
     apis: ['cloudasset.googleapis.com'],
   },
   {

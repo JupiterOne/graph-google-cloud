@@ -13,6 +13,7 @@ import {
   ServiceUsageEntities,
   ServiceUsageRelationships,
   IngestionSources,
+  ServiceUsagePermissions,
 } from './constants';
 import { STEP_RESOURCE_MANAGER_PROJECT } from '../resource-manager';
 import { getProjectEntity } from '../../utils/project';
@@ -115,7 +116,7 @@ export const serviceUsageSteps: GoogleCloudIntegrationStep[] = [
     relationships: [ServiceUsageRelationships.PROJECT_HAS_API_SERVICE],
     dependsOn: [STEP_RESOURCE_MANAGER_PROJECT, STEP_IAM_MANAGED_ROLES],
     executionHandler: fetchApiServices,
-    permissions: ['serviceusage.services.list'],
+    permissions: ServiceUsagePermissions.FETCH_API_SERVICES,
     apis: ['serviceusage.googleapis.com'],
   },
 ];

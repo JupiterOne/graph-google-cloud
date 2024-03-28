@@ -27,6 +27,7 @@ import {
   STEP_COMPUTE_BACKEND_SERVICES,
   STEP_COMPUTE_TARGET_HTTP_PROXIES,
   STEP_COMPUTE_TARGET_HTTPS_PROXIES,
+  ComputePermissions,
 } from '../constants';
 import { createComputeGlobalForwardingRuleEntity } from '../converters';
 
@@ -164,6 +165,6 @@ export const fetchComputeGlobalForwardingRulesStepMap: GoogleCloudIntegrationSte
       STEP_COMPUTE_TARGET_HTTPS_PROXIES,
     ],
     executionHandler: fetchComputeGlobalForwardingRules,
-    permissions: ['compute.globalForwardingRules.list'],
+    permissions: ComputePermissions.STEP_COMPUTE_GLOBAL_FORWARDING_RULES,
     apis: ['compute.googleapis.com'],
   };
