@@ -1,3 +1,15 @@
+# v3.3.1 (Thu Mar 28 2024)
+
+#### 🐛 Bug Fix
+
+- INT-10621: expose PermissionErrorHandlingOptions to iterateApi [#645](https://github.com/JupiterOne/graph-google-cloud/pull/645) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### Authors: 1
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
 # v3.3.0 (Thu Mar 28 2024)
 
 #### 🚀 Enhancement
