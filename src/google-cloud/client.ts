@@ -216,7 +216,6 @@ export class Client {
           factor: 2.25, //t=0s, 2s, 4.5s, 10.125s, 22.78125s, 51.2578125 (90.6640652s)
 
           handleError: (err, ctx) => {
-            // Use an arrow function here
             const isPermissionsError = this.interceptAuthorizationError(
               options.publishMissingPermissionWarnEvent || false,
               err,
