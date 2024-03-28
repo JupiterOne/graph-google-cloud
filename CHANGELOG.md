@@ -1,3 +1,15 @@
+# v3.3.0 (Thu Mar 28 2024)
+
+#### 🚀 Enhancement
+
+- INT-10621: improve GCP Authorization errors handling [#644](https://github.com/JupiterOne/graph-google-cloud/pull/644) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### Authors: 1
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
 # v3.2.14 (Mon Feb 26 2024)
 
 #### 🐛 Bug Fix
