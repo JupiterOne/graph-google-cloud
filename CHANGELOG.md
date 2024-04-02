@@ -1,3 +1,15 @@
+# v3.3.2 (Tue Apr 02 2024)
+
+#### 🐛 Bug Fix
+
+- INT-10621: update error handling logic [#646](https://github.com/JupiterOne/graph-google-cloud/pull/646) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### Authors: 1
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
 # v3.3.1 (Thu Mar 28 2024)
 
 #### 🐛 Bug Fix
