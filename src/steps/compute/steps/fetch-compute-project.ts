@@ -19,7 +19,6 @@ import {
 } from '../constants';
 import { createComputeProjectEntity } from '../converters';
 import { compute_v1 } from 'googleapis';
-import { publishMissingPermissionEvent } from '../../../utils/events';
 
 export async function fetchComputeProject(
   context: IntegrationStepContext,
@@ -32,23 +31,8 @@ export async function fetchComputeProject(
     logger,
   );
 
-  let computeProject: compute_v1.Schema$Project | undefined;
-
-  try {
-    computeProject = await client.fetchComputeProject();
-  } catch (err) {
-    if (err.code === 403) {
-      publishMissingPermissionEvent({
-        logger,
-        permission: 'compute.projects.get',
-        stepId: STEP_COMPUTE_PROJECT,
-      });
-
-      return;
-    }
-
-    throw err;
-  }
+  const computeProject: compute_v1.Schema$Project | undefined =
+    await client.fetchComputeProject();
 
   if (computeProject) {
     const computeProjectEntity = createComputeProjectEntity(computeProject);

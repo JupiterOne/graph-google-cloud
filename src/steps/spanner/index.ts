@@ -82,24 +82,26 @@ export async function fetchSpannerInstances(
     const instanceId = instance.name?.split('/')[3];
     const instancePolicy = await client.getInstancePolicy(instanceId as string);
 
-    const instanceEntity = createSpannerInstanceEntity({
-      data: instance,
-      projectId: client.projectId,
-      isPublic: isSpannerPolicyPublicAccess(instancePolicy),
-    });
-    await jobState.addEntity(instanceEntity);
+    if (instancePolicy) {
+      const instanceEntity = createSpannerInstanceEntity({
+        data: instance,
+        projectId: client.projectId,
+        isPublic: isSpannerPolicyPublicAccess(instancePolicy),
+      });
+      await jobState.addEntity(instanceEntity);
 
-    const instanceConfigEntity = await jobState.findEntity(
-      instance.config as string,
-    );
-    if (instanceConfigEntity) {
-      await jobState.addRelationship(
-        createDirectRelationship({
-          _class: RelationshipClass.USES,
-          from: instanceEntity,
-          to: instanceConfigEntity,
-        }),
+      const instanceConfigEntity = await jobState.findEntity(
+        instance.config as string,
       );
+      if (instanceConfigEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.USES,
+            from: instanceEntity,
+            to: instanceConfigEntity,
+          }),
+        );
+      }
     }
   });
 }

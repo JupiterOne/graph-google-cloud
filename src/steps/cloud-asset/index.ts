@@ -19,7 +19,6 @@ import {
   GoogleCloudIntegrationStep,
   IntegrationStepContext,
 } from '../../types';
-import { publishMissingPermissionEvent } from '../../utils/events';
 import { getProjectIdFromName } from '../../utils/jobState';
 import { IAM_ROLE_ENTITY_CLASS, IAM_ROLE_ENTITY_TYPE } from '../iam';
 import {
@@ -174,43 +173,28 @@ export async function fetchIamBindings(
     }
   }
 
-  // Need to get bindings for every level of the Resource Hierarchy.
-  try {
-    // Project level bindings and all resource level bindings in that project
-    await client.iterateIamPoliciesForProjectAndResources(handlePolicyResult);
-    // Folder level bindings
-    await jobState.iterateEntities(
-      { _type: FOLDER_ENTITY_TYPE },
-      async (folderEntity: Entity) => {
-        await client.iterateIamPoliciesForResourceAtScope(
-          folderEntity._key,
-          handlePolicyResult,
-        );
-      },
-    );
-    // Organization level bindings
-    await jobState.iterateEntities(
-      { _type: ORGANIZATION_ENTITY_TYPE },
-      async (organizationEntity: Entity) => {
-        await client.iterateIamPoliciesForResourceAtScope(
-          organizationEntity._key,
-          handlePolicyResult,
-        );
-      },
-    );
-  } catch (err) {
-    if (err.status === 403) {
-      publishMissingPermissionEvent({
-        logger,
-        permission: 'cloudasset.assets.searchAllIamPolicies',
-        stepId: STEP_IAM_BINDINGS,
-      });
-
-      return;
-    }
-
-    throw err;
-  }
+  // Project level bindings and all resource level bindings in that project
+  await client.iterateIamPoliciesForProjectAndResources(handlePolicyResult);
+  // Folder level bindings
+  await jobState.iterateEntities(
+    { _type: FOLDER_ENTITY_TYPE },
+    async (folderEntity: Entity) => {
+      await client.iterateIamPoliciesForResourceAtScope(
+        folderEntity._key,
+        handlePolicyResult,
+      );
+    },
+  );
+  // Organization level bindings
+  await jobState.iterateEntities(
+    { _type: ORGANIZATION_ENTITY_TYPE },
+    async (organizationEntity: Entity) => {
+      await client.iterateIamPoliciesForResourceAtScope(
+        organizationEntity._key,
+        handlePolicyResult,
+      );
+    },
+  );
 
   logger.info(
     {

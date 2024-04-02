@@ -12,15 +12,24 @@ export class SpannerClient extends Client {
 
   async getInstancePolicy(
     instanceId: string,
-  ): Promise<spanner_v1.Schema$Policy> {
+  ): Promise<spanner_v1.Schema$Policy | undefined> {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const result = await this.client.projects.instances.getIamPolicy({
-      resource: `projects/${this.projectId}/instances/${instanceId}`,
-      auth,
-    });
+    const result = await this.withErrorHandling(
+      () =>
+        this.client.projects.instances.getIamPolicy({
+          resource: `projects/${this.projectId}/instances/${instanceId}`,
+          auth,
+        }),
+      this.logger,
+      {
+        stepId: STEP_SPANNER_INSTANCE_DATABASES,
+        suggestedPermissions:
+          SpannerPermissions.STEP_SPANNER_INSTANCE_DATABASES,
+      },
+    );
 
-    return result.data;
+    return result?.data;
   }
 
   async getDatabasePolicy(

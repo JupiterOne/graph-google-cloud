@@ -54,6 +54,8 @@ export async function fetchApiServices(
   const iamClient = new IamClient({ config }, logger);
   const projectEntity = await getProjectEntity(jobState);
 
+  if (!projectEntity) return;
+
   const permissionsByApiServiceMap = buildPermissionsByApiServiceMap(
     await getIamManagedRoleData(jobState),
   );

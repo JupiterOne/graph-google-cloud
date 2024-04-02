@@ -94,6 +94,8 @@ export async function buildProjectBudgetRelationships(
   const { jobState } = context;
   const projectEntity = await getProjectEntity(jobState);
 
+  if (!projectEntity) return;
+
   await jobState.iterateEntities(
     {
       _type: ENTITY_TYPE_BILLING_BUDGET,
@@ -152,6 +154,8 @@ export async function buildAdditionalProjectBudgetRelationships(
 
   const client = new CloudBillingClient({ config }, logger);
   const projectEntity = await getProjectEntity(jobState);
+
+  if (!projectEntity) return;
 
   await jobState.iterateEntities(
     {

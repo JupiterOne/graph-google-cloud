@@ -2,7 +2,6 @@ import {
   createDirectRelationship,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
-import { binaryauthorization_v1 } from 'googleapis';
 import {
   GoogleCloudIntegrationStep,
   IntegrationStepContext,
@@ -21,7 +20,6 @@ import {
   BinaryAuthPermissions,
 } from './constants';
 import { createBinaryAuthorizationPolicyEntity } from './converters';
-import { publishMissingPermissionEvent } from '../../utils/events';
 import { getProjectEntity } from '../../utils/project';
 
 export async function fetchBinaryAuthorizationPolicy(
@@ -35,22 +33,7 @@ export async function fetchBinaryAuthorizationPolicy(
 
   const client = new BinaryAuthorizationClient({ config }, logger);
 
-  let policy: binaryauthorization_v1.Schema$Policy | undefined;
-  try {
-    policy = await client.fetchPolicy();
-  } catch (err) {
-    if (err.code === 403) {
-      publishMissingPermissionEvent({
-        logger,
-        permission: 'binaryauthorization.policy.get',
-        stepId: STEP_BINARY_AUTHORIZATION_POLICY,
-      });
-
-      return;
-    }
-
-    throw err;
-  }
+  const policy = await client.fetchPolicy();
 
   if (policy) {
     const policyEntity = createBinaryAuthorizationPolicyEntity(
@@ -61,6 +44,9 @@ export async function fetchBinaryAuthorizationPolicy(
     await jobState.addEntity(policyEntity);
 
     const projectEntity = await getProjectEntity(jobState);
+
+    if (!projectEntity) return;
+
     await jobState.addRelationship(
       createDirectRelationship({
         _class: RelationshipClass.HAS,

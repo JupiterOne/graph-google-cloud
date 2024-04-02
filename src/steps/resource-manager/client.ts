@@ -38,6 +38,10 @@ export class ResourceManagerClient extends Client {
         suggestedPermissions:
           ResourceManagerPermissions.STEP_RESOURCE_MANAGER_PROJECT,
       },
+      {
+        throwMissingAuthPermissionError: true,
+        publishMissingPermissionWarnEvent: false,
+      },
     );
 
     return result?.data;
@@ -59,6 +63,10 @@ export class ResourceManagerClient extends Client {
         stepId: STEP_RESOURCE_MANAGER_ORGANIZATION,
         suggestedPermissions:
           ResourceManagerPermissions.STEP_RESOURCE_MANAGER_ORGANIZATION,
+      },
+      {
+        throwMissingAuthPermissionError: true,
+        publishMissingPermissionWarnEvent: false,
       },
     );
 
@@ -86,6 +94,10 @@ export class ResourceManagerClient extends Client {
       },
       STEP_RESOURCE_MANAGER_FOLDERS,
       ResourceManagerPermissions.STEP_RESOURCE_MANAGER_FOLDERS,
+      {
+        throwMissingAuthPermissionError: true,
+        publishMissingPermissionWarnEvent: false,
+      },
     );
   }
 
@@ -114,6 +126,10 @@ export class ResourceManagerClient extends Client {
       },
       STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
       ResourceManagerPermissions.STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
+      {
+        throwMissingAuthPermissionError: true,
+        publishMissingPermissionWarnEvent: false,
+      },
     );
   }
 
