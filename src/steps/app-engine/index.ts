@@ -99,7 +99,7 @@ export async function fetchAppEngineApplication(
     client.logger,
     {
       stepId: STEP_APP_ENGINE_APPLICATION,
-      suggestedPermissions: ['appengine.applications.get'],
+      suggestedPermissions: AppEnginePermissions.STEP_APP_ENGINE_APPLICATION,
     },
   );
 

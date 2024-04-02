@@ -248,28 +248,11 @@ export async function fetchResourceManagerProject(
   } = context;
   const client = new ResourceManagerClient({ config }, logger);
 
-  let project;
-  try {
-    project = await client.getProject();
-
-    if (project) {
-      await cacheProjectNameAndId(jobState, project);
-    }
-  } catch (err) {
-    // This step _always_ executes because it creates a root `Account` entity for the integration instance.
-    // However, users can only fetch the project details if cloudresourcemanager API is enabled.
-    const message =
-      'Could not fetch project from Cloud Resource Manager API. Ensure the API is enabled and the service account has the ' +
-      '`resourcemanager.projects.get` permission (see ' +
-      'https://github.com/JupiterOne/graph-google-cloud/blob/master/docs/development.md#enabling-google-cloud-services) ' +
-      `${JSON.stringify({ code: err.code, message: err.message })}`;
-    logger.publishEvent({
-      name: 'auth_error',
-      description: message,
-    });
-  }
+  const project = await client.getProject();
 
   if (!project) return;
+
+  await cacheProjectNameAndId(jobState, project);
 
   const projectEntity = createProjectEntity(client.projectId, project);
 

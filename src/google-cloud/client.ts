@@ -166,7 +166,10 @@ export class Client {
   ): boolean {
     let isAuthorizationError = false;
 
-    if (err.status === 403 && !isQuotaLimitError(err)) {
+    if (
+      (err.response?.status === 403 || err.status === 403) &&
+      !isQuotaLimitError(err)
+    ) {
       isAuthorizationError = true;
 
       if (
@@ -237,7 +240,6 @@ export class Client {
                 throw new AuthorizationError('');
               }
 
-              ctx.abort();
               throw newError;
             } else if (onRetry) {
               onRetry(err);
