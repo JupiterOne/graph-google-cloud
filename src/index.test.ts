@@ -169,6 +169,16 @@ import {
 } from './steps/functions';
 import { StorageStepsSpec } from './steps/storage/constants';
 import { WebSecurityScannerSteps } from './steps/web-security-scanner/constants';
+import {
+  STEP_CLOUD_DEPLOY_AUTOMATION,
+  STEP_CLOUD_DEPLOY_AUTOMATION_TRIGGERS_DELIVERY_PIPELINE_AUTOMATION_RELATIONSHIP,
+  STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE,
+  STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_GITHUB_REPO_RELAIONSHIP,
+  STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_STORAGE_BUCKET_RELATIONSHIP,
+  STEP_CLOUD_DEPLOY_SERVICE,
+  STEP_CLOUD_DEPLOY_SERVICE_HAS_DELIVERY_PIPELINE_RELAIONSHIP,
+  STEP_PROJECT_HAS_CLOUD_DEPLOY_RELATIONSHIP,
+} from './steps/cloud-deploy/constant';
 
 describe('#getStepStartStates success', () => {
   let recording: Recording;
@@ -599,6 +609,32 @@ describe('#getStepStartStates success', () => {
         [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: {
           disabled: false,
         },
+        [STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_DEPLOY_AUTOMATION]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_DEPLOY_SERVICE]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_CLOUD_DEPLOY_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_DEPLOY_SERVICE_HAS_DELIVERY_PIPELINE_RELAIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_DEPLOY_AUTOMATION_TRIGGERS_DELIVERY_PIPELINE_AUTOMATION_RELATIONSHIP]:
+          {
+            disabled: false,
+          },
+        [STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_GITHUB_REPO_RELAIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_STORAGE_BUCKET_RELATIONSHIP]:
+          {
+            disabled: false,
+          },
       };
 
       expect(stepStartStates).toEqual(expectedStepStartStates);

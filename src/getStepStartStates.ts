@@ -201,6 +201,17 @@ import { WebSecurityScannerSteps } from './steps/web-security-scanner/constants'
 import { IntegrationConfig } from './types';
 import { isMasterOrganizationInstance } from './utils/isMasterOrganizationInstance';
 import { isSingleProjectInstance } from './utils/isSingleProjectInstance';
+import {
+  STEP_CLOUD_DEPLOY_AUTOMATION,
+  STEP_CLOUD_DEPLOY_AUTOMATION_TRIGGERS_DELIVERY_PIPELINE_AUTOMATION_RELATIONSHIP,
+  STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE,
+  STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_GITHUB_REPO_RELAIONSHIP,
+  STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_STORAGE_BUCKET_RELATIONSHIP,
+  STEP_CLOUD_DEPLOY_SERVICE,
+  STEP_CLOUD_DEPLOY_SERVICE_HAS_DELIVERY_PIPELINE_RELAIONSHIP,
+  STEP_PROJECT_HAS_CLOUD_DEPLOY_RELATIONSHIP,
+} from './steps/cloud-deploy/constant';
+import { CloudDeploySteps } from './steps/cloud-deploy';
 
 function makeStepStartStates(
   stepIds: string[],
@@ -481,8 +492,32 @@ function getDefaultStepStartStates(params: {
     [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: {
       disabled: false,
     },
+    [STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE]: {
+      disabled: false,
+    },
+    [STEP_CLOUD_DEPLOY_AUTOMATION]: {
+      disabled: false,
+    },
+    [STEP_CLOUD_DEPLOY_SERVICE]: {
+      disabled: false,
+    },
+    [STEP_PROJECT_HAS_CLOUD_DEPLOY_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_CLOUD_DEPLOY_SERVICE_HAS_DELIVERY_PIPELINE_RELAIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_CLOUD_DEPLOY_AUTOMATION_TRIGGERS_DELIVERY_PIPELINE_AUTOMATION_RELATIONSHIP]:
+      {
+        disabled: false,
+      },
+    [STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_GITHUB_REPO_RELAIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_STORAGE_BUCKET_RELATIONSHIP]: {
+      disabled: false,
+    },
   };
-
   logger.info(
     { stepStartStates: JSON.stringify(stepStartStates) },
     'Step start states',
@@ -904,6 +939,26 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: createStepStartState(
       ServiceUsageName.WEB_SECURITY_SCANNER,
     ),
+    [STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE]: createStepStartState(
+      ServiceUsageName.CLOUD_DEPLOY,
+    ),
+    [STEP_CLOUD_DEPLOY_AUTOMATION]: createStepStartState(
+      ServiceUsageName.CLOUD_DEPLOY,
+    ),
+    [STEP_CLOUD_DEPLOY_SERVICE]: createStepStartState(
+      ServiceUsageName.CLOUD_DEPLOY,
+    ),
+    [STEP_PROJECT_HAS_CLOUD_DEPLOY_RELATIONSHIP]: createStepStartState(
+      ServiceUsageName.CLOUD_DEPLOY,
+    ),
+    [STEP_CLOUD_DEPLOY_SERVICE_HAS_DELIVERY_PIPELINE_RELAIONSHIP]:
+      createStepStartState(ServiceUsageName.CLOUD_DEPLOY),
+    [STEP_CLOUD_DEPLOY_AUTOMATION_TRIGGERS_DELIVERY_PIPELINE_AUTOMATION_RELATIONSHIP]:
+      createStepStartState(ServiceUsageName.CLOUD_DEPLOY),
+    [STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_GITHUB_REPO_RELAIONSHIP]:
+      createStepStartState(ServiceUsageName.CLOUD_DEPLOY),
+    [STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_STORAGE_BUCKET_RELATIONSHIP]:
+      createStepStartState(ServiceUsageName.CLOUD_DEPLOY),
   };
 
   const apiServiceToStepIdsMap: { [apiService: string]: string[] } = {
@@ -946,6 +1001,7 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [ServiceUsageName.WEB_SECURITY_SCANNER]: webSecurityScannerSteps.map(
       (s) => s.id,
     ),
+    [ServiceUsageName.CLOUD_DEPLOY]: CloudDeploySteps.map((s) => s.id),
   };
 
   for (const serviceName of Object.keys(apiServiceToStepIdsMap)) {
