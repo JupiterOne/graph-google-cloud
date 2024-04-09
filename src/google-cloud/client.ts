@@ -233,6 +233,13 @@ export class Client {
             const newError = handleApiClientError(err);
 
             if (!newError.retryable) {
+              logger.info(
+                {
+                  err: newError,
+                  stepId: stepMetadata?.stepId,
+                },
+                'Error when trying to call GCP API',
+              );
               if (
                 isPermissionsError &&
                 !options.throwMissingAuthPermissionError
