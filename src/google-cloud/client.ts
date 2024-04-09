@@ -233,7 +233,7 @@ export class Client {
             const newError = handleApiClientError(err);
 
             if (!newError.retryable) {
-              logger.info(
+              this.logger.info(
                 {
                   err: newError,
                   stepId: stepMetadata?.stepId,
