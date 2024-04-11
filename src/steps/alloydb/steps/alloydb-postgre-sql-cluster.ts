@@ -12,7 +12,7 @@ import {
 } from '../constants';
 import { createAlloyDbClusterEntity } from '../converter';
 
-export async function createAlloyDBPostgreSQLCluster(
+export async function fetchAlloyDBPostgreSQLCluster(
   context: IntegrationStepContext,
 ): Promise<void> {
   const { jobState, logger } = context;
@@ -42,6 +42,6 @@ export const alloyDBPostgreSQLClusterStep: GoogleCloudIntegrationStep = {
   relationships: [],
   dependsOn: [],
   permissions: AlloyDBPermissions.STEP_ALLOYDB_POSTGRE_SQL_CLUSTER,
-  executionHandler: createAlloyDBPostgreSQLCluster,
+  executionHandler: fetchAlloyDBPostgreSQLCluster,
   apis: ['alloydb.googleapis.com'],
 };
