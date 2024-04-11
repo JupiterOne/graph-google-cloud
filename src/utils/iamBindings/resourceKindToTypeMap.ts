@@ -1,4 +1,9 @@
 import {
+  ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_CLUSTER,
+  ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_INSTANCE,
+  ENTITY_TYPE_POSTGRE_SQL_BACKUP,
+} from '../../steps/alloydb/constants';
+import {
   ENTITY_TYPE_API_GATEWAY_API,
   ENTITY_TYPE_API_GATEWAY_API_CONFIG,
   ENTITY_TYPE_API_GATEWAY_GATEWAY,
@@ -253,4 +258,7 @@ export const GOOGLE_RESOURCE_KIND_TO_J1_TYPE_MAP: {
   'aiplatform.googleapis.com/TrainingPipeline': NONE,
   'monitoring.googleapis.com/AlertPolicy': MONITORING_ALERT_POLICY_TYPE,
   'vpcaccess.googleapis.com/Connector': NONE,
+  'alloydb.googleapis.com/Instance': ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_INSTANCE,
+  'alloydb.googleapis.com/Cluster': ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_CLUSTER,
+  'alloydb.googleapis.com/Backup': ENTITY_TYPE_POSTGRE_SQL_BACKUP,
 };

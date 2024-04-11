@@ -95,6 +95,11 @@ import {
 } from '../../steps/sql-admin';
 import { StorageEntitiesSpec } from '../../steps/storage/constants';
 import { PrivatecaEntities } from '../../steps/privateca/constants';
+import {
+  ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_CLUSTER,
+  ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_INSTANCE,
+  ENTITY_TYPE_POSTGRE_SQL_BACKUP,
+} from '../../steps/alloydb/constants';
 
 /**
  * A map of JupiterOne types to a function which can generate their _key
@@ -179,6 +184,9 @@ export const J1_TYPE_TO_KEY_GENERATOR_MAP: {
   [SQL_ADMIN_MYSQL_INSTANCE_ENTITY_TYPE]: selfLinkKeyMap,
   [SQL_ADMIN_POSTGRES_INSTANCE_ENTITY_TYPE]: selfLinkKeyMap,
   [SQL_ADMIN_SQL_SERVER_INSTANCE_ENTITY_TYPE]: selfLinkKeyMap,
+  [ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_CLUSTER]: fullPathKeyMap,
+  [ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_INSTANCE]: fullPathKeyMap,
+  [ENTITY_TYPE_POSTGRE_SQL_BACKUP]: fullPathKeyMap,
 };
 
 // ex: projects/j1-gc-integration-dev-v3/locations/us-central1/functions/j1-gc-integration-dev-v3testfunction

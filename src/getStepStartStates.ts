@@ -225,6 +225,7 @@ import {
   STEP_PROJECT_HAS_ALLOYDB_CLUSTER_RELATIONSHIP,
   STEP_PROJECT_HAS_ALLOYDB_SERVICE_RELATIONSHIP,
 } from './steps/alloydb/constants';
+import { alloyDBSteps } from './steps/alloydb';
 
 function makeStepStartStates(
   stepIds: string[],
@@ -1081,6 +1082,7 @@ async function getStepStartStatesUsingServiceEnablements(params: {
       (s) => s.id,
     ),
     [ServiceUsageName.CLOUD_DEPLOY]: cloudDeploySteps.map((s) => s.id),
+    [ServiceUsageName.ALLOYDB]: alloyDBSteps.map((s) => s.id),
   };
 
   for (const serviceName of Object.keys(apiServiceToStepIdsMap)) {

@@ -90,8 +90,8 @@ export const IngestionSources = {
     'alloydb-instance-has-connection-relationship',
   ALLOYDB_CLUSTER_USES_KMS_KEY_RELATIONSHIP:
     'alloydb-cluster-uses-kms-key-relationship',
-  GOOGLE_USER_ASSIGNED_ALLOYDB_CLUSTER_RELATIONSHIP:
-    'google-user-assigned-alloydb-cluster-relationship',
+  // GOOGLE_USER_ASSIGNED_ALLOYDB_CLUSTER_RELATIONSHIP:
+  //   'google-user-assigned-alloydb-cluster-relationship',
 };
 
 // IngestionSources Configs
