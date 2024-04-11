@@ -57,6 +57,7 @@ all of the supported data into JupiterOne:
 | Service Name                                                                                                   | Service API                         |
 | -------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
 | [accesscontextmanager](https://console.developers.google.com/apis/library/accesscontextmanager.googleapis.com) | accesscontextmanager.googleapis.com |
+| [alloydb](https://console.developers.google.com/apis/library/alloydb.googleapis.com)                           | alloydb.googleapis.com              |
 | [apigateway](https://console.developers.google.com/apis/library/apigateway.googleapis.com)                     | apigateway.googleapis.com           |
 | [appengine](https://console.developers.google.com/apis/library/appengine.googleapis.com)                       | appengine.googleapis.com            |
 | [bigquery](https://console.developers.google.com/apis/library/bigquery.googleapis.com)                         | bigquery.googleapis.com             |
@@ -119,6 +120,7 @@ integration supports:
 ```
 gcloud services enable \
  accesscontextmanager.googleapis.com \
+ alloydb.googleapis.com \
  apigateway.googleapis.com \
  appengine.googleapis.com \
  bigquery.googleapis.com \
@@ -345,6 +347,7 @@ The following entities are created:
 
 | Resources                                                | Entity `_type`                                                    | Entity `_class`                    |
 | -------------------------------------------------------- | ----------------------------------------------------------------- | ---------------------------------- |
+| AlloyDB for PostgreSQL Cluster                           | `google_cloud_alloydb_cluster`                                    | `Database`, `DataStore`, `Cluster` |
 | Access Context Manager Access Level                      | `google_access_context_manager_access_level`                      | `Ruleset`                          |
 | Access Context Manager Access Policy                     | `google_access_context_manager_access_policy`                     | `AccessPolicy`                     |
 | Access Context Manager Service Perimeter                 | `google_access_context_manager_service_perimeter`                 | `Configuration`                    |
@@ -352,6 +355,10 @@ The following entities are created:
 | Access Context Manager Service Perimeter Egress Policy   | `google_access_context_manager_service_perimeter_egress_policy`   | `ControlPolicy`                    |
 | Access Context Manager Service Perimeter Ingress Policy  | `google_access_context_manager_service_perimeter_ingress_policy`  | `ControlPolicy`                    |
 | Access Context Manager Service Perimeter Method Selector | `google_access_context_manager_service_perimeter_method_selector` | `Configuration`                    |
+| AlloyDB for PostgreSQL                                   | `google_cloud_alloydb`                                            | `Service`                          |
+| AlloyDB for PostgreSQL Backup                            | `google_cloud_alloydb_backup`                                     | `Backup`                           |
+| AlloyDB for PostgreSQL Connection                        | `google_cloud_alloydb_connection`                                 | `Network`                          |
+| AlloyDB for PostgreSQL Instances                         | `google_cloud_alloydb_instance`                                   | `Database`, `DataStore`, `Host`    |
 | Api Gateway Api                                          | `google_api_gateway_api`                                          | `Service`                          |
 | Api Gateway Api Config                                   | `google_api_gateway_api_config`                                   | `Configuration`                    |
 | Api Gateway Gateway                                      | `google_api_gateway_gateway`                                      | `Gateway`                          |
@@ -477,6 +484,10 @@ The following relationships are created:
 | `google_bigtable_instance`                                       | **HAS**               | `google_bigtable_table`                                           |
 | `google_bigtable_table`                                          | **HAS**               | `google_bigtable_backup`                                          |
 | `google_billing_account`                                         | **HAS**               | `google_billing_budget`                                           |
+| `google_cloud_alloydb_cluster`                                   | **HAS**               | `google_cloud_alloydb_backup`                                     |
+| `google_cloud_alloydb_cluster`                                   | **USES**              | `google_kms_crypto_key`                                           |
+| `google_cloud_alloydb_instance`                                  | **USES**              | `google_cloud_alloydb_cluster`                                    |
+| `google_cloud_alloydb_instance`                                  | **HAS**               | `google_cloud_alloydb_connection`                                 |
 | `google_cloud_api_service`                                       | **USES**              | `google_cloud_audit_config`                                       |
 | `google_cloud_api_service`                                       | **HAS**               | `google_iam_role`                                                 |
 | `google_cloud_api_service`                                       | **HAS**               | `resource`                                                        |
@@ -500,6 +511,8 @@ The following relationships are created:
 | `google_cloud_organization`                                      | **HAS**               | `google_cloud_project`                                            |
 | `google_cloud_project`                                           | **HAS**               | `google_billing_budget`                                           |
 | `google_cloud_project`                                           | **HAS**               | `google_binary_authorization_policy`                              |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_alloydb`                                            |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_alloydb_cluster`                                    |
 | `google_cloud_project`                                           | **HAS**               | `google_cloud_api_service`                                        |
 | `google_cloud_project`                                           | **HAS**               | `google_cloud_deploy_service`                                     |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_configuration`                                  |
@@ -610,11 +623,15 @@ permissions can be used to provision only the required ones:
 
 <!-- {J1_PERMISSIONS_DOCUMENTATION_MARKER_START} -->
 
-| Permissions List (114)                                  |
+| Permissions List (118)                                  |
 | ------------------------------------------------------- |
 | `accesscontextmanager.accessLevels.list`                |
 | `accesscontextmanager.accessPolicies.list`              |
 | `accesscontextmanager.servicePerimeters.list`           |
+| `alloydb.backups.get`                                   |
+| `alloydb.clusters.list`                                 |
+| `alloydb.instances.connect`                             |
+| `alloydb.instances.list`                                |
 | `apigateway.apiconfigs.getIamPolicy`                    |
 | `apigateway.apiconfigs.list`                            |
 | `apigateway.apis.getIamPolicy`                          |
