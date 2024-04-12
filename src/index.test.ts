@@ -191,6 +191,7 @@ import {
   STEP_ALLOYDB_POSTGRE_SQL_SERVICE,
   STEP_PROJECT_HAS_ALLOYDB_CLUSTER_RELATIONSHIP,
   STEP_PROJECT_HAS_ALLOYDB_SERVICE_RELATIONSHIP,
+  STEP_USER_ASSIGNED_ALLOYDB_CLUSTER_RELATIONSHIP,
 } from './steps/alloydb/constants';
 
 describe('#getStepStartStates success', () => {
@@ -681,8 +682,10 @@ describe('#getStepStartStates success', () => {
         [STEP_ALLOYDB_CLUSTER_USES_KMS_KEY_RELATIONSHIP]: {
           disabled: false,
         },
+        [STEP_USER_ASSIGNED_ALLOYDB_CLUSTER_RELATIONSHIP]: {
+          disabled: false,
+        },
       };
-
       expect(stepStartStates).toEqual(expectedStepStartStates);
     },
   );

@@ -596,6 +596,7 @@ The following relationships are created:
 | `google_sql_postgres_instance`                                   | **USES**              | `google_kms_crypto_key`                                           |
 | `google_sql_sql_server_instance`                                 | **USES**              | `google_kms_crypto_key`                                           |
 | `google_user`                                                    | **CREATED**           | `google_app_engine_version`                                       |
+| `google_user`                                                    | **ASSIGNED**          | `google_cloud_alloydb_cluster`                                    |
 | `internet`                                                       | **ALLOWS**            | `google_compute_firewall`                                         |
 
 ### Mapped Relationships
@@ -623,7 +624,7 @@ permissions can be used to provision only the required ones:
 
 <!-- {J1_PERMISSIONS_DOCUMENTATION_MARKER_START} -->
 
-| Permissions List (118)                                  |
+| Permissions List (119)                                  |
 | ------------------------------------------------------- |
 | `accesscontextmanager.accessLevels.list`                |
 | `accesscontextmanager.accessPolicies.list`              |
@@ -632,6 +633,7 @@ permissions can be used to provision only the required ones:
 | `alloydb.clusters.list`                                 |
 | `alloydb.instances.connect`                             |
 | `alloydb.instances.list`                                |
+| `alloydb.users.list`                                    |
 | `apigateway.apiconfigs.getIamPolicy`                    |
 | `apigateway.apiconfigs.list`                            |
 | `apigateway.apis.getIamPolicy`                          |

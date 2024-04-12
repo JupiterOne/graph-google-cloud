@@ -6,6 +6,7 @@ import {
   STEP_ALLOYDB_POSTGRE_SQL_CLUSTER,
   STEP_ALLOYDB_POSTGRE_SQL_CONNECTION,
   STEP_ALLOYDB_POSTGRE_SQL_INSTANCE,
+  STEP_USER_ASSIGNED_ALLOYDB_CLUSTER_RELATIONSHIP,
 } from './constants';
 
 export class AlloyDBClient extends Client {
@@ -55,6 +56,37 @@ export class AlloyDBClient extends Client {
       STEP_ALLOYDB_POSTGRE_SQL_INSTANCE,
       AlloyDBPermissions.STEP_ALLOYDB_POSTGRE_SQL_INSTANCE,
     );
+  }
+
+  async iterateAlloyDBPostgreSQLUsers(
+    clusterName,
+    location,
+    callback: (data: alloydb_v1.Schema$User) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+    try {
+      await this.iterateApi(
+        async (nextPageToken) => {
+          return this.client.projects.locations.clusters.users.list({
+            auth,
+            pageToken: nextPageToken,
+            parent: `projects/${this.projectId}/locations/${location}/clusters/${clusterName}`,
+          });
+        },
+        async (data: alloydb_v1.Schema$ListUsersResponse) => {
+          for (const user of data.users || []) {
+            await callback(user);
+          }
+        },
+        STEP_USER_ASSIGNED_ALLOYDB_CLUSTER_RELATIONSHIP,
+        AlloyDBPermissions.STEP_USER_ASSIGNED_ALLOYDB_CLUSTER_RELATIONSHIP,
+      );
+    } catch (error) {
+      if (error.statusCode == 400) {
+        // when cluster d'nt have primary instance we get 400
+        return;
+      }
+    }
   }
 
   async iterateAlloyDBPostgreSQLConnectionInfo(

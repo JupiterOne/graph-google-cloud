@@ -70,6 +70,8 @@ export const RELATIONSHIP_TYPE_ALLOYDB_CLUSTER_USES_KMS_KEY =
   'google_cloud_alloydb_cluster_uses_kms_crypto_key';
 export const RELATIONSHIP_TYPE_USER_ASSIGNED_ALLOYDB_CLUSTER =
   'google_user_assigned_cloud_alloydb_cluster';
+export const RELATIONSHIP_TYPE_SERVICE_ACCOUNT_ASSIGNED_ALLOYDB_CLUSTE =
+  'google_service_account_assigned_cloud_alloydb_cluster';
 
 // IngestionSources
 export const IngestionSources = {
@@ -90,8 +92,8 @@ export const IngestionSources = {
     'alloydb-instance-has-connection-relationship',
   ALLOYDB_CLUSTER_USES_KMS_KEY_RELATIONSHIP:
     'alloydb-cluster-uses-kms-key-relationship',
-  // GOOGLE_USER_ASSIGNED_ALLOYDB_CLUSTER_RELATIONSHIP:
-  //   'google-user-assigned-alloydb-cluster-relationship',
+  USER_ASSIGNED_ALLOYDB_CLUSTER_RELATIONSHIP:
+    'google-user-assigned-alloydb-cluster-relationship',
 };
 
 // IngestionSources Configs
@@ -146,6 +148,11 @@ export const AlloyDBIngestionConfig = {
     description: 'Build AlloyDB Cluster Kms Key Has Relationship.',
     defaultsToDisabled: false,
   },
+  [IngestionSources.USER_ASSIGNED_ALLOYDB_CLUSTER_RELATIONSHIP]: {
+    title: 'Google User Assigned AlloyDB Cluster Relationship',
+    description: 'Build Google User Assigned AlloyDB Cluster Relationship.',
+    defaultsToDisabled: false,
+  },
 };
 
 // IAM Permissions
@@ -154,4 +161,5 @@ export const AlloyDBPermissions = {
   STEP_ALLOYDB_POSTGRE_SQL_INSTANCE: ['alloydb.instances.list'],
   STEP_ALLOYDB_POSTGRE_SQL_CONNECTION: ['alloydb.instances.connect'],
   STEP_ALLOYDB_POSTGRE_SQL_BACKUP: ['alloydb.backups.get'],
+  STEP_USER_ASSIGNED_ALLOYDB_CLUSTER_RELATIONSHIP: ['alloydb.users.list'], // to fetch alloydb cluster users
 };

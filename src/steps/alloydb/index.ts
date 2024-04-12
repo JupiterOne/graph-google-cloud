@@ -10,6 +10,7 @@ import { buildAlloyDBInstanceHasConnectionRelationshipStep } from './steps/build
 import { buildInstanceClusterRelationshipStep } from './steps/build-alloydb-instance-uses-cluster-relationship';
 import { buildProjectAlloyDBServiceRelationshipStep } from './steps/build-project-has-alloydb-service-relationship';
 import { buildProjectClusterRelationshipStep } from './steps/build-project-has-cluster';
+import { buildUserAssignedAlloyDbClusterRelationshipStep } from './steps/build-user-assigned-alloydb-cluster';
 
 export const alloyDBSteps: GoogleCloudIntegrationStep[] = [
   alloyDBPostgreSQLServiceStep,
@@ -23,4 +24,5 @@ export const alloyDBSteps: GoogleCloudIntegrationStep[] = [
   buildAlloyDBClusterHasBackupRelationshipStep,
   buildAlloyDBInstanceHasConnectionRelationshipStep,
   buildAlloyDBClusterUsesKMSKeyRelationshipStep,
+  buildUserAssignedAlloyDbClusterRelationshipStep,
 ];
