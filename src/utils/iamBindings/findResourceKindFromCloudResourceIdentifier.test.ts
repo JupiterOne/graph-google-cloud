@@ -316,6 +316,12 @@ export const testResourceIdentifiers = {
     'rbac.authorization.k8s.io/ClusterRole',
   [`//container.googleapis.com/projects/${TEST_PROJECT_ID}/zones/${TEST_ZONE}/clusters/${TEST_CLUSTER}/k8s/rbac.authorization.k8s.io/clusterrolebindings/${GENERIC_ID}`]:
     'rbac.authorization.k8s.io/ClusterRoleBinding',
+  [`//alloydb.googleapis.com/projects/${TEST_PROJECT_ID}/locations/${TEST_LOCATION}/backups/${GENERIC_ID}`]:
+    'alloydb.googleapis.com/Backup',
+  [`//alloydb.googleapis.com/projects/${TEST_PROJECT_ID}/locations/${TEST_LOCATION}/clusters/${GENERIC_ID}`]:
+    'alloydb.googleapis.com/Cluster',
+  [`//alloydb.googleapis.com/projects/${TEST_PROJECT_ID}/locations/${TEST_LOCATION}/clusters/${GENERIC_ID}/instances/${GENERIC_ID}`]:
+    'alloydb.googleapis.com/Instance',
 };
 
 describe('findResourceKindFromCloudResourceIdentifier', () => {
