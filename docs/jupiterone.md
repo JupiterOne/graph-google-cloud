@@ -59,6 +59,7 @@ all of the supported data into JupiterOne:
 | [accesscontextmanager](https://console.developers.google.com/apis/library/accesscontextmanager.googleapis.com) | accesscontextmanager.googleapis.com |
 | [apigateway](https://console.developers.google.com/apis/library/apigateway.googleapis.com)                     | apigateway.googleapis.com           |
 | [appengine](https://console.developers.google.com/apis/library/appengine.googleapis.com)                       | appengine.googleapis.com            |
+| [artifactregistry](https://console.developers.google.com/apis/library/artifactregistry.googleapis.com)         | artifactregistry.googleapis.com     |
 | [bigquery](https://console.developers.google.com/apis/library/bigquery.googleapis.com)                         | bigquery.googleapis.com             |
 | [bigtable](https://console.developers.google.com/apis/library/bigtable.googleapis.com)                         | bigtable.googleapis.com             |
 | [binaryauthorization](https://console.developers.google.com/apis/library/binaryauthorization.googleapis.com)   | binaryauthorization.googleapis.com  |
@@ -120,6 +121,7 @@ gcloud services enable \
  accesscontextmanager.googleapis.com \
  apigateway.googleapis.com \
  appengine.googleapis.com \
+ artifactregistry.googleapis.com \
  bigquery.googleapis.com \
  bigtable.googleapis.com \
  binaryauthorization.googleapis.com \
@@ -357,6 +359,7 @@ The following entities are created:
 | AppEngine Instance                                       | `google_app_engine_instance`                                      | `Host`                             |
 | AppEngine Service                                        | `google_app_engine_service`                                       | `Container`                        |
 | AppEngine Version                                        | `google_app_engine_version`                                       | `Service`                          |
+| Artifact Registry Repository                             | `google_cloud_artifact_registry_repository`                       | `CodeRepo`, `Repository`           |
 | Audit Config                                             | `google_cloud_audit_config`                                       | `Configuration`                    |
 | Big Query Dataset                                        | `google_bigquery_dataset`                                         | `DataStore`, `Database`            |
 | Big Query Model                                          | `google_bigquery_model`                                           | `Model`                            |
@@ -600,7 +603,7 @@ permissions can be used to provision only the required ones:
 
 <!-- {J1_PERMISSIONS_DOCUMENTATION_MARKER_START} -->
 
-| Permissions List (112)                                  |
+| Permissions List (113)                                  |
 | ------------------------------------------------------- |
 | `accesscontextmanager.accessLevels.list`                |
 | `accesscontextmanager.accessPolicies.list`              |
@@ -615,6 +618,7 @@ permissions can be used to provision only the required ones:
 | `appengine.instances.list`                              |
 | `appengine.services.list`                               |
 | `appengine.versions.list`                               |
+| `artifactregistry.repositories.list`                    |
 | `bigquery.datasets.get`                                 |
 | `bigquery.models.getData`                               |
 | `bigquery.models.getMetadata`                           |
