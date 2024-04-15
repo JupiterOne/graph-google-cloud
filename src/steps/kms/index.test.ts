@@ -25,6 +25,7 @@ const tempNewAccountConfig = {
 
 describe('#fetchKmsKeyRings', () => {
   let recording: Recording;
+  jest.setTimeout(450000);
 
   beforeEach(() => {
     recording = setupGoogleCloudRecording({

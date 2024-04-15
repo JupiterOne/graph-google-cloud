@@ -36,5 +36,14 @@ describe(STEP_ALLOYDB_POSTGRE_SQL_CLUSTER, () => {
 
     const result = await executeStepWithDependencies(stepTestConfig);
     expect(result).toMatchStepMetadata(stepTestConfig);
+
+    const relStepTestConfig: StepTestConfig = {
+      stepId: STEP_ALLOYDB_POSTGRE_SQL_CLUSTER,
+      instanceConfig: integrationConfig,
+      invocationConfig: invocationConfig as any,
+    };
+
+    const relResult = await executeStepWithDependencies(relStepTestConfig);
+    expect(relResult).toMatchStepMetadata(stepTestConfig);
   });
 });
