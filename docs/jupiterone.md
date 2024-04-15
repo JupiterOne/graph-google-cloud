@@ -59,6 +59,7 @@ all of the supported data into JupiterOne:
 | [accesscontextmanager](https://console.developers.google.com/apis/library/accesscontextmanager.googleapis.com) | accesscontextmanager.googleapis.com |
 | [apigateway](https://console.developers.google.com/apis/library/apigateway.googleapis.com)                     | apigateway.googleapis.com           |
 | [appengine](https://console.developers.google.com/apis/library/appengine.googleapis.com)                       | appengine.googleapis.com            |
+| [beyondcorp](https://console.developers.google.com/apis/library/beyondcorp.googleapis.com)                     | beyondcorp.googleapis.com           |
 | [bigquery](https://console.developers.google.com/apis/library/bigquery.googleapis.com)                         | bigquery.googleapis.com             |
 | [bigtable](https://console.developers.google.com/apis/library/bigtable.googleapis.com)                         | bigtable.googleapis.com             |
 | [binaryauthorization](https://console.developers.google.com/apis/library/binaryauthorization.googleapis.com)   | binaryauthorization.googleapis.com  |
@@ -120,6 +121,7 @@ gcloud services enable \
  accesscontextmanager.googleapis.com \
  apigateway.googleapis.com \
  appengine.googleapis.com \
+ beyondcorp.googleapis.com \
  bigquery.googleapis.com \
  bigtable.googleapis.com \
  binaryauthorization.googleapis.com \
@@ -358,6 +360,11 @@ The following entities are created:
 | AppEngine Service                                        | `google_app_engine_service`                                       | `Container`                        |
 | AppEngine Version                                        | `google_app_engine_version`                                       | `Service`                          |
 | Audit Config                                             | `google_cloud_audit_config`                                       | `Configuration`                    |
+| BeyondCrop App connection                                | `google_cloud_beyondcorp_connection`                              | `Network`                          |
+| BeyondCrop App connector                                 | `google_cloud_beyondcorp_connector`                               | `Network`                          |
+| BeyondCrop Application Endpoints                         | `google_cloud_beyondcorp_application_endpoint`                    | `NetworkEndpoint`                  |
+| BeyondCrop Enterprise Partner Tenant                     | `google_cloud_beyondborp_partner_tenant`                          | `Organization`                     |
+| BeyondCrop gateways                                      | `google_cloud_beyondcorp_gateway`                                 | `Gateway`                          |
 | Big Query Dataset                                        | `google_bigquery_dataset`                                         | `DataStore`, `Database`            |
 | Big Query Model                                          | `google_bigquery_model`                                           | `Model`                            |
 | Big Query Table                                          | `google_bigquery_table`                                           | `DataCollection`                   |
@@ -479,6 +486,10 @@ The following relationships are created:
 | `google_cloud_audit_config`                                      | **ALLOWS**            | `google_group`                                                    |
 | `google_cloud_audit_config`                                      | **ALLOWS**            | `google_iam_service_account`                                      |
 | `google_cloud_audit_config`                                      | **ALLOWS**            | `google_user`                                                     |
+| `google_cloud_beyondcorp_application_endpoint`                   | **USES**              | `google_cloud_beyondcorp_gateway`                                 |
+| `google_cloud_beyondcorp_connection`                             | **HAS**               | `google_cloud_beyondcorp_application_endpoint`                    |
+| `google_cloud_beyondcorp_connection`                             | **HAS**               | `google_cloud_beyondcorp_connector`                               |
+| `google_cloud_beyondcorp_connection`                             | **HAS**               | `google_cloud_beyondcorp_gateway`                                 |
 | `google_cloud_bitbucket_server_config`                           | **HAS**               | `google_cloud_bitbucket_server_repo`                              |
 | `google_cloud_build`                                             | **USES**              | `google_cloud_source_repository`                                  |
 | `google_cloud_build`                                             | **USES**              | `google_storage_bucket`                                           |
@@ -493,6 +504,8 @@ The following relationships are created:
 | `google_cloud_project`                                           | **HAS**               | `google_billing_budget`                                           |
 | `google_cloud_project`                                           | **HAS**               | `google_binary_authorization_policy`                              |
 | `google_cloud_project`                                           | **HAS**               | `google_cloud_api_service`                                        |
+| `google_cloud_project`                                           | **USES**              | `google_cloud_beyondcorp_connection`                              |
+| `google_cloud_project`                                           | **USES**              | `google_cloud_beyondcorp_connector`                               |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_configuration`                                  |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_route`                                          |
 | `google_cloud_scan_config`                                       | **PERFORMED**         | `google_cloud_scan_run`                                           |
@@ -600,7 +613,7 @@ permissions can be used to provision only the required ones:
 
 <!-- {J1_PERMISSIONS_DOCUMENTATION_MARKER_START} -->
 
-| Permissions List (112)                                  |
+| Permissions List (116)                                  |
 | ------------------------------------------------------- |
 | `accesscontextmanager.accessLevels.list`                |
 | `accesscontextmanager.accessPolicies.list`              |
@@ -615,6 +628,10 @@ permissions can be used to provision only the required ones:
 | `appengine.instances.list`                              |
 | `appengine.services.list`                               |
 | `appengine.versions.list`                               |
+| `beyoncorp.partnerTenants.getIamPolicy`                 |
+| `beyondcrop.appConnections.list`                        |
+| `beyondcrop.appConnectors.list`                         |
+| `beyondcrop.appGateways.list`                           |
 | `bigquery.datasets.get`                                 |
 | `bigquery.models.getData`                               |
 | `bigquery.models.getMetadata`                           |

@@ -169,6 +169,19 @@ import {
 } from './steps/functions';
 import { StorageStepsSpec } from './steps/storage/constants';
 import { WebSecurityScannerSteps } from './steps/web-security-scanner/constants';
+import {
+  STEP_APPLICATION_ENDPOINT_USES_GATEWAY_RELATIONSHIP,
+  STEP_APP_CONNECTION_HAS_APPLICATION_ENDPOINT_RELATIONSHIP,
+  STEP_APP_CONNECTION_HAS_APP_CONNECTOR_RELATIONSHIP,
+  STEP_APP_CONNECTION_HAS_GATEWAY_RELATIONSHIP,
+  STEP_BEYONDCORP_APPLICATION_ENDPOINT,
+  STEP_BEYONDCORP_APP_CONNECTION,
+  STEP_BEYONDCORP_APP_CONNECTOR,
+  STEP_BEYONDCORP_GATEWAY,
+  STEP_BEYONDCORP_PARTNER_TENANT,
+  STEP_PROJECT_USES_APP_CONNECTION_RELATIONSHIP,
+  STEP_PROJECT_USES_APP_CONNECTOR_RELATIONSHIP,
+} from './steps/beyondcorp/constant';
 
 describe('#getStepStartStates success', () => {
   let recording: Recording;
@@ -599,8 +612,40 @@ describe('#getStepStartStates success', () => {
         [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: {
           disabled: false,
         },
+        [STEP_BEYONDCORP_APPLICATION_ENDPOINT]: {
+          disabled: false,
+        },
+        [STEP_BEYONDCORP_APP_CONNECTION]: {
+          disabled: false,
+        },
+        [STEP_BEYONDCORP_APP_CONNECTOR]: {
+          disabled: false,
+        },
+        [STEP_BEYONDCORP_GATEWAY]: {
+          disabled: false,
+        },
+        [STEP_BEYONDCORP_PARTNER_TENANT]: {
+          disabled: false,
+        },
+        [STEP_APP_CONNECTION_HAS_APPLICATION_ENDPOINT_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_APP_CONNECTION_HAS_APP_CONNECTOR_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_APP_CONNECTION_HAS_GATEWAY_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_USES_APP_CONNECTION_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_USES_APP_CONNECTOR_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_APPLICATION_ENDPOINT_USES_GATEWAY_RELATIONSHIP]: {
+          disabled: false,
+        },
       };
-
       expect(stepStartStates).toEqual(expectedStepStartStates);
     },
   );
@@ -854,8 +899,9 @@ expect.extend({
     stepCollection: string[],
   ) {
     for (const stepId of stepCollection) {
-      const stepDependencies = integrationSteps.find((s) => s.id === stepId)
-        ?.dependsOn;
+      const stepDependencies = integrationSteps.find(
+        (s) => s.id === stepId,
+      )?.dependsOn;
 
       const invalidStepDependencies = stepDependencies?.filter(
         (s) => !stepCollection.includes(s),

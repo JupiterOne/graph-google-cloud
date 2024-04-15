@@ -201,6 +201,20 @@ import { WebSecurityScannerSteps } from './steps/web-security-scanner/constants'
 import { IntegrationConfig } from './types';
 import { isMasterOrganizationInstance } from './utils/isMasterOrganizationInstance';
 import { isSingleProjectInstance } from './utils/isSingleProjectInstance';
+import {
+  STEP_APPLICATION_ENDPOINT_USES_GATEWAY_RELATIONSHIP,
+  STEP_APP_CONNECTION_HAS_APPLICATION_ENDPOINT_RELATIONSHIP,
+  STEP_APP_CONNECTION_HAS_APP_CONNECTOR_RELATIONSHIP,
+  STEP_APP_CONNECTION_HAS_GATEWAY_RELATIONSHIP,
+  STEP_BEYONDCORP_APPLICATION_ENDPOINT,
+  STEP_BEYONDCORP_APP_CONNECTION,
+  STEP_BEYONDCORP_APP_CONNECTOR,
+  STEP_BEYONDCORP_GATEWAY,
+  STEP_BEYONDCORP_PARTNER_TENANT,
+  STEP_PROJECT_USES_APP_CONNECTION_RELATIONSHIP,
+  STEP_PROJECT_USES_APP_CONNECTOR_RELATIONSHIP,
+} from './steps/beyondcorp/constant';
+import { beyondcorpSteps } from './steps/beyondcorp';
 
 function makeStepStartStates(
   stepIds: string[],
@@ -481,6 +495,39 @@ function getDefaultStepStartStates(params: {
     [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: {
       disabled: false,
     },
+    [STEP_BEYONDCORP_APPLICATION_ENDPOINT]: {
+      disabled: false,
+    },
+    [STEP_BEYONDCORP_APP_CONNECTION]: {
+      disabled: false,
+    },
+    [STEP_BEYONDCORP_APP_CONNECTOR]: {
+      disabled: false,
+    },
+    [STEP_BEYONDCORP_GATEWAY]: {
+      disabled: false,
+    },
+    [STEP_BEYONDCORP_PARTNER_TENANT]: {
+      disabled: false,
+    },
+    [STEP_APP_CONNECTION_HAS_APPLICATION_ENDPOINT_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_APP_CONNECTION_HAS_APP_CONNECTOR_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_APP_CONNECTION_HAS_GATEWAY_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_PROJECT_USES_APP_CONNECTION_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_PROJECT_USES_APP_CONNECTOR_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_APPLICATION_ENDPOINT_USES_GATEWAY_RELATIONSHIP]: {
+      disabled: false,
+    },
   };
 
   logger.info(
@@ -732,6 +779,36 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES]: createStepStartState(
       ServiceUsageName.COMPUTE,
     ),
+    [STEP_BEYONDCORP_APP_CONNECTOR]: createStepStartState(
+      ServiceUsageName.BEYONDCORP,
+    ),
+    [STEP_BEYONDCORP_APP_CONNECTION]: createStepStartState(
+      ServiceUsageName.BEYONDCORP,
+    ),
+    [STEP_BEYONDCORP_GATEWAY]: createOrgStepStartState(
+      ServiceUsageName.BEYONDCORP,
+    ),
+    [STEP_BEYONDCORP_PARTNER_TENANT]: createOrgStepStartState(
+      ServiceUsageName.BEYONDCORP,
+    ),
+    [STEP_APP_CONNECTION_HAS_APP_CONNECTOR_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.BEYONDCORP),
+    [STEP_APP_CONNECTION_HAS_APPLICATION_ENDPOINT_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.BEYONDCORP),
+    [STEP_APP_CONNECTION_HAS_GATEWAY_RELATIONSHIP]: createOrgStepStartState(
+      ServiceUsageName.BEYONDCORP,
+    ),
+    [STEP_PROJECT_USES_APP_CONNECTOR_RELATIONSHIP]: createOrgStepStartState(
+      ServiceUsageName.BEYONDCORP,
+    ),
+    [STEP_PROJECT_USES_APP_CONNECTION_RELATIONSHIP]: createOrgStepStartState(
+      ServiceUsageName.BEYONDCORP,
+    ),
+    [STEP_APPLICATION_ENDPOINT_USES_GATEWAY_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.BEYONDCORP),
+    [STEP_BEYONDCORP_APPLICATION_ENDPOINT]: createOrgStepStartState(
+      ServiceUsageName.BEYONDCORP,
+    ),
     [STEP_COMPUTE_SSL_POLICIES]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_CLOUD_KMS_KEY_RINGS]: createStepStartState(ServiceUsageName.KMS),
     [STEP_CLOUD_KMS_KEYS]: createStepStartState(ServiceUsageName.KMS),
@@ -946,6 +1023,7 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [ServiceUsageName.WEB_SECURITY_SCANNER]: webSecurityScannerSteps.map(
       (s) => s.id,
     ),
+    [ServiceUsageName.BEYONDCORP]: beyondcorpSteps.map((s) => s.id),
   };
 
   for (const serviceName of Object.keys(apiServiceToStepIdsMap)) {
