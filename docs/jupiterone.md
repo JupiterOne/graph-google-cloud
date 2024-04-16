@@ -359,7 +359,9 @@ The following entities are created:
 | AppEngine Instance                                       | `google_app_engine_instance`                                      | `Host`                             |
 | AppEngine Service                                        | `google_app_engine_service`                                       | `Container`                        |
 | AppEngine Version                                        | `google_app_engine_version`                                       | `Service`                          |
+| Artifact Registry                                        | `google_cloud_artifact_registry`                                  | `Service`                          |
 | Artifact Registry Repository                             | `google_cloud_artifact_registry_repository`                       | `CodeRepo`, `Repository`           |
+| Artifact Repository Package                              | `google_cloud_artifact_registry_package`                          | `CodeModule`                       |
 | Audit Config                                             | `google_cloud_audit_config`                                       | `Configuration`                    |
 | Big Query Dataset                                        | `google_bigquery_dataset`                                         | `DataStore`, `Database`            |
 | Big Query Model                                          | `google_bigquery_model`                                           | `Model`                            |
@@ -603,7 +605,7 @@ permissions can be used to provision only the required ones:
 
 <!-- {J1_PERMISSIONS_DOCUMENTATION_MARKER_START} -->
 
-| Permissions List (113)                                  |
+| Permissions List (114)                                  |
 | ------------------------------------------------------- |
 | `accesscontextmanager.accessLevels.list`                |
 | `accesscontextmanager.accessPolicies.list`              |
@@ -618,6 +620,7 @@ permissions can be used to provision only the required ones:
 | `appengine.instances.list`                              |
 | `appengine.services.list`                               |
 | `appengine.versions.list`                               |
+| `artifactregistry.packages.list`                        |
 | `artifactregistry.repositories.list`                    |
 | `bigquery.datasets.get`                                 |
 | `bigquery.models.getData`                               |

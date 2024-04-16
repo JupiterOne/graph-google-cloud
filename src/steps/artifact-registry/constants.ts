@@ -4,14 +4,49 @@ export const ARTIFACT_REGISTRY_REPOSITORY_TYPE =
 export const STEP_ARTIFACT_REGISTRY_REPOSITORY =
   'fetch-artifact-registry-repository';
 
+export const ARTIFACT_REPOSITORY_PACKAGE_CLASS = ['CodeModule'];
+export const ARTIFACT_REPOSITORY_PACKAGE_TYPE =
+  'google_cloud_artifact_registry_package';
+export const STEP_ARTIFACT_REPOSIOTRY_PACKAGE =
+  'fetch-artifact-repository-package';
+
+export const STEP_ARTIFACT_REGISTRY = 'fetch-artifact-registry';
+export const ARTIFACT_REGISTRY_CLASS = ['Service'];
+export const ARTIFACT_REGISTRY_TYPE = 'google_cloud_artifact_registry';
+
+export const STEP_ARTIFACT_REGISTRY_VPCSC_CONFIGURATION =
+  'fetch-artifact-registry-vpcsc-configuration';
+export const ARTIFACT_REGISTRY_VPCSC_CONFIGURATION_CLASS = ['Configuration'];
+export const ARTIFACT_REGISTRY_VPCSC_CONFIGURATION_TYPE =
+  'google_cloud_artifact_registry_vpcsc_configuration';
+
 export const IngestionSources = {
   ARTIFACT_REGISTRY_REPOSITORY: 'artifact_registry_repositories',
+  ARTIFACT_REPOSITORY_PACKAGE: 'artifact_repository_packages',
+  ARTIFACT_REGISTRY: 'artifact_registries',
+  ARTIFACT_REGISTRY_VPCSC_CONFIGURATION:
+    'artifact_registry_vpcsc_configurations',
 };
 
 export const MonitoringIngestionConfig = {
   [IngestionSources.ARTIFACT_REGISTRY_REPOSITORY]: {
     title: 'Artifact Registry Repository',
     description: 'Artifact Registry Repository for GCP',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.ARTIFACT_REGISTRY]: {
+    title: 'Artifact Registry',
+    description: 'Artifact Registry for GCP',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.ARTIFACT_REPOSITORY_PACKAGE]: {
+    title: 'Artifact Repository Package',
+    description: 'Artifact Repository package for GCP',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.ARTIFACT_REGISTRY_VPCSC_CONFIGURATION]: {
+    title: 'Artifact Registry vpcsc configuration',
+    description: 'Artifact Registry vpcsc configuration for GCP',
     defaultsToDisabled: false,
   },
 };

@@ -169,6 +169,11 @@ import {
 } from './steps/functions';
 import { StorageStepsSpec } from './steps/storage/constants';
 import { WebSecurityScannerSteps } from './steps/web-security-scanner/constants';
+import {
+  STEP_ARTIFACT_REGISTRY,
+  STEP_ARTIFACT_REGISTRY_REPOSITORY,
+  STEP_ARTIFACT_REPOSIOTRY_PACKAGE,
+} from './steps/artifact-registry/constants';
 
 describe('#getStepStartStates success', () => {
   let recording: Recording;
@@ -599,6 +604,15 @@ describe('#getStepStartStates success', () => {
         [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: {
           disabled: false,
         },
+        [STEP_ARTIFACT_REGISTRY_REPOSITORY]: {
+          disabled: false,
+        },
+        [STEP_ARTIFACT_REPOSIOTRY_PACKAGE]: {
+          disabled: false,
+        },
+        [STEP_ARTIFACT_REGISTRY]: {
+          disabled: false,
+        },
       };
 
       expect(stepStartStates).toEqual(expectedStepStartStates);
@@ -854,8 +868,9 @@ expect.extend({
     stepCollection: string[],
   ) {
     for (const stepId of stepCollection) {
-      const stepDependencies = integrationSteps.find((s) => s.id === stepId)
-        ?.dependsOn;
+      const stepDependencies = integrationSteps.find(
+        (s) => s.id === stepId,
+      )?.dependsOn;
 
       const invalidStepDependencies = stepDependencies?.filter(
         (s) => !stepCollection.includes(s),

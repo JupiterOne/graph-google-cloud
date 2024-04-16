@@ -34,4 +34,28 @@ export class artifactRegistryClient extends Client {
       );
     });
   }
+
+  async iterateArtifactRepositoryPackage(
+    repositoryName: string,
+    repositoryLocation: string,
+    callback: (data: artifactregistry_v1.Schema$Package) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+    await this.iterateProjectLocations(async (locationId) => {
+      await this.iterateApi(
+        async (nextPageToken) => {
+          return this.client.projects.locations.repositories.packages.list({
+            auth,
+            parent: `projects/${this.projectId}/locations/${repositoryLocation}/repositories/${repositoryName}`,
+            pageToken: nextPageToken,
+          });
+        },
+        async (data: artifactregistry_v1.Schema$ListPackagesResponse) => {
+          for (const packages of data.packages || []) {
+            await callback(packages);
+          }
+        },
+      );
+    });
+  }
 }
