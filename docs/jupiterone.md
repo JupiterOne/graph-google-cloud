@@ -385,6 +385,7 @@ The following entities are created:
 | Cloud Build GitHub Enterprise Config                     | `google_cloud_github_enterprise_config`                           | `Configuration`                    |
 | Cloud Build Trigger                                      | `google_cloud_build_trigger`                                      | `Rule`                             |
 | Cloud Build Worker Pool                                  | `google_cloud_build_worker_pool`                                  | `Cluster`                          |
+| Cloud Compute Router                                     | `google_cloud_compute_router`                                     | `Device`                           |
 | Cloud Deploy Automation                                  | `google_cloud_deploy_automation`                                  | `Rule`                             |
 | Cloud Deploy Delivery Pipeline                           | `google_cloud_deploy_delivery_pipeline`                           | `Workflow`                         |
 | Cloud Deploy Service                                     | `google_cloud_deploy_service`                                     | `Service`                          |
@@ -544,6 +545,7 @@ The following relationships are created:
 | `google_compute_instance`                                        | **TRUSTS**            | `google_iam_service_account`                                      |
 | `google_compute_instance_group`                                  | **HAS**               | `google_compute_instance`                                         |
 | `google_compute_instance_group`                                  | **HAS**               | `google_compute_instance_group_named_port`                        |
+| `google_compute_network`                                         | **HAS**               | `google_cloud_compute_router`                                     |
 | `google_compute_network`                                         | **HAS**               | `google_compute_address`                                          |
 | `google_compute_network`                                         | **HAS**               | `google_compute_firewall`                                         |
 | `google_compute_network`                                         | **HAS**               | `google_compute_global_address`                                   |
@@ -624,7 +626,7 @@ permissions can be used to provision only the required ones:
 
 <!-- {J1_PERMISSIONS_DOCUMENTATION_MARKER_START} -->
 
-| Permissions List (119)                                  |
+| Permissions List (120)                                  |
 | ------------------------------------------------------- |
 | `accesscontextmanager.accessLevels.list`                |
 | `accesscontextmanager.accessPolicies.list`              |
@@ -698,6 +700,7 @@ permissions can be used to provision only the required ones:
 | `compute.regionTargetHttpProxies.list`                  |
 | `compute.regionTargetHttpsProxies.list`                 |
 | `compute.regionUrlMaps.list`                            |
+| `compute.routers.list`                                  |
 | `compute.snapshots.list`                                |
 | `compute.sslPolicies.list`                              |
 | `compute.subnetworks.list`                              |
