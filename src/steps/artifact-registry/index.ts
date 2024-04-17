@@ -91,7 +91,6 @@ export async function fetchArtifactRepositoryPackage(
       async (repository) => {
         const repositoryName = (repository.name as string).split('/')[5];
         const repositoryLocation = (repository.name as string).split('/')[3];
-        console.log(repositoryName + ' ;;;;' + repositoryLocation);
         await client.iterateArtifactRepositoryPackage(
           repositoryName,
           repositoryLocation,
