@@ -1,4 +1,8 @@
 import {
+  RelationshipClass,
+  createDirectRelationship,
+} from '@jupiterone/integration-sdk-core';
+import {
   GoogleCloudIntegrationStep,
   IntegrationStepContext,
 } from '../../types';
@@ -12,15 +16,24 @@ import {
   ARTIFACT_REPOSITORY_PACKAGE_CLASS,
   ARTIFACT_REPOSITORY_PACKAGE_TYPE,
   IngestionSources,
+  RELATIONSHIP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_TYPE,
+  RELATIONSHIP_PROJECT_HAS_ARTIFACT_REGISTRY_TYPE,
   STEP_ARTIFACT_REGISTRY,
   STEP_ARTIFACT_REGISTRY_REPOSITORY,
   STEP_ARTIFACT_REPOSIOTRY_PACKAGE,
+  STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP,
+  STEP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP,
 } from './constants';
 import {
   createArtifactRegistryEntity,
   createArtifactRegistryRepositoryEntity,
   createArtifactRepositoryPackageEntity,
 } from './converters';
+import {
+  PROJECT_ENTITY_TYPE,
+  STEP_RESOURCE_MANAGER_PROJECT,
+} from '../resource-manager';
+import { getProjectEntity } from '../../utils/project';
 
 export async function fetchArtifactRegistryRepository(
   context: IntegrationStepContext,
@@ -112,6 +125,56 @@ export async function fetchArtifactRegistry(
   );
 }
 
+export async function buildProjectHasArtifactRegistryRepositoryRelationship(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState } = context;
+
+  const projectEntity = await getProjectEntity(jobState);
+
+  if (!projectEntity) return;
+
+  await jobState.iterateEntities(
+    { _type: ARTIFACT_REGISTRY_REPOSITORY_TYPE },
+    async (repositories) => {
+      await jobState.addRelationship(
+        createDirectRelationship({
+          _class: RelationshipClass.HAS,
+          fromKey: projectEntity._key as string,
+          fromType: PROJECT_ENTITY_TYPE,
+          toKey: repositories._key as string,
+          toType: ARTIFACT_REGISTRY_REPOSITORY_TYPE,
+        }),
+      );
+    },
+  );
+}
+
+export async function buildProjectHasArtifactRegistryRelationship(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState } = context;
+
+  const projectEntity = await getProjectEntity(jobState);
+
+  if (!projectEntity) return;
+
+  await jobState.iterateEntities(
+    { _type: ARTIFACT_REGISTRY_TYPE },
+    async (registry) => {
+      await jobState.addRelationship(
+        createDirectRelationship({
+          _class: RelationshipClass.HAS,
+          fromKey: projectEntity._key as string,
+          fromType: PROJECT_ENTITY_TYPE,
+          toKey: registry._key as string,
+          toType: ARTIFACT_REGISTRY_TYPE,
+        }),
+      );
+    },
+  );
+}
+
 export const artifactRegistrySteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_ARTIFACT_REGISTRY_REPOSITORY,
@@ -161,6 +224,47 @@ export const artifactRegistrySteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchArtifactRegistry,
+    permissions: [],
+    apis: ['artifactregistry.googleapis.com'],
+  },
+  {
+    id: STEP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP,
+    ingestionSourceId:
+      IngestionSources.PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP,
+    name: 'Project HAS Artifact Registry Repository',
+    entities: [],
+    relationships: [
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_TYPE,
+        sourceType: PROJECT_ENTITY_TYPE,
+        targetType: ARTIFACT_REGISTRY_REPOSITORY_TYPE,
+      },
+    ],
+    dependsOn: [
+      STEP_RESOURCE_MANAGER_PROJECT,
+      STEP_ARTIFACT_REGISTRY_REPOSITORY,
+    ],
+    executionHandler: buildProjectHasArtifactRegistryRepositoryRelationship,
+    permissions: ['artifactregistry.repositories.list'],
+    apis: ['artifactregistry.googleapis.com'],
+  },
+  {
+    id: STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP,
+    ingestionSourceId:
+      IngestionSources.PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP,
+    name: 'Project HAS Artifact Registry',
+    entities: [],
+    relationships: [
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_PROJECT_HAS_ARTIFACT_REGISTRY_TYPE,
+        sourceType: PROJECT_ENTITY_TYPE,
+        targetType: ARTIFACT_REGISTRY_TYPE,
+      },
+    ],
+    dependsOn: [STEP_RESOURCE_MANAGER_PROJECT, STEP_ARTIFACT_REGISTRY],
+    executionHandler: buildProjectHasArtifactRegistryRelationship,
     permissions: [],
     apis: ['artifactregistry.googleapis.com'],
   },

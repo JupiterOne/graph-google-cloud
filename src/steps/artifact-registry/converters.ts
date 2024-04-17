@@ -22,6 +22,9 @@ export function createArtifactRegistryRepositoryEntity(
         _class: ARTIFACT_REGISTRY_REPOSITORY_CLASS,
         name: data.name,
         createdTime: data.createTime,
+        updatedTime: data.updateTime,
+        format: data.format,
+        mode: data.mode,
       },
     },
   });

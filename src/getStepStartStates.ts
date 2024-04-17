@@ -205,6 +205,8 @@ import {
   STEP_ARTIFACT_REGISTRY,
   STEP_ARTIFACT_REGISTRY_REPOSITORY,
   STEP_ARTIFACT_REPOSIOTRY_PACKAGE,
+  STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP,
+  STEP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP,
 } from './steps/artifact-registry/constants';
 import { artifactRegistrySteps } from './steps/artifact-registry';
 
@@ -496,6 +498,12 @@ function getDefaultStepStartStates(params: {
     [STEP_ARTIFACT_REGISTRY]: {
       disabled: false,
     },
+    [STEP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP]: {
+      disabled: false,
+    },
   };
 
   logger.info(
@@ -754,6 +762,11 @@ async function getStepStartStatesUsingServiceEnablements(params: {
       ServiceUsageName.ARTIFACT_REGISTRY,
     ),
     [STEP_ARTIFACT_REGISTRY]: createOrgStepStartState(
+      ServiceUsageName.ARTIFACT_REGISTRY,
+    ),
+    [STEP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.ARTIFACT_REGISTRY),
+    [STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP]: createOrgStepStartState(
       ServiceUsageName.ARTIFACT_REGISTRY,
     ),
     [STEP_COMPUTE_SSL_POLICIES]: createStepStartState(ServiceUsageName.COMPUTE),

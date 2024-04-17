@@ -173,6 +173,8 @@ import {
   STEP_ARTIFACT_REGISTRY,
   STEP_ARTIFACT_REGISTRY_REPOSITORY,
   STEP_ARTIFACT_REPOSIOTRY_PACKAGE,
+  STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP,
+  STEP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP,
 } from './steps/artifact-registry/constants';
 
 describe('#getStepStartStates success', () => {
@@ -611,6 +613,12 @@ describe('#getStepStartStates success', () => {
           disabled: false,
         },
         [STEP_ARTIFACT_REGISTRY]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP]: {
           disabled: false,
         },
       };

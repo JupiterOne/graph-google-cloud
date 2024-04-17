@@ -20,12 +20,33 @@ export const ARTIFACT_REGISTRY_VPCSC_CONFIGURATION_CLASS = ['Configuration'];
 export const ARTIFACT_REGISTRY_VPCSC_CONFIGURATION_TYPE =
   'google_cloud_artifact_registry_vpcsc_configuration';
 
+export const STEP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP =
+  'fetch-project-has-artifact-registry-repository';
+export const RELATIONSHIP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_TYPE =
+  'google_cloud_project_has_artifact_registry_repository';
+
+export const STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP =
+  'fetch-project-has-artifact-registry';
+export const RELATIONSHIP_PROJECT_HAS_ARTIFACT_REGISTRY_TYPE =
+  'google_cloud_project_has_artifact_registry';
+
+export const STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP =
+  'fetch-artifact-registry-repository-uses-kms-key';
+export const RELATIONSHIP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY =
+  'google_cloud_artifact_registry_repository_uses_kms_crypto_key';
+
 export const IngestionSources = {
   ARTIFACT_REGISTRY_REPOSITORY: 'artifact_registry_repositories',
   ARTIFACT_REPOSITORY_PACKAGE: 'artifact_repository_packages',
   ARTIFACT_REGISTRY: 'artifact_registries',
   ARTIFACT_REGISTRY_VPCSC_CONFIGURATION:
     'artifact_registry_vpcsc_configurations',
+  PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP:
+    'project_has_artifact_registry_repository_relationship',
+  PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP:
+    'project_has_artifact_registry_relationship',
+  ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP:
+    'artifact_registry_repository_uses_kms_key',
 };
 
 export const MonitoringIngestionConfig = {
@@ -47,6 +68,21 @@ export const MonitoringIngestionConfig = {
   [IngestionSources.ARTIFACT_REGISTRY_VPCSC_CONFIGURATION]: {
     title: 'Artifact Registry vpcsc configuration',
     description: 'Artifact Registry vpcsc configuration for GCP',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP]: {
+    title: 'Project HAS artifact registry repository',
+    description: 'Project HAS artifact registry repository for GCP',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP]: {
+    title: 'Project HAS artifact registry repository',
+    description: 'Project HAS artifact registry repository for GCP',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP]: {
+    title: 'Artifact registry repository uses kms crypto key',
+    description: 'Artifact registry repository uses kms crypto key for GCP',
     defaultsToDisabled: false,
   },
 };
