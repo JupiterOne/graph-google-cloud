@@ -25,6 +25,7 @@ export function createArtifactRegistryRepositoryEntity(
         updatedTime: data.updateTime,
         format: data.format,
         mode: data.mode,
+        kmsKey: data.kmsKeyName,
       },
     },
   });

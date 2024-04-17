@@ -172,6 +172,7 @@ import { WebSecurityScannerSteps } from './steps/web-security-scanner/constants'
 import {
   STEP_ARTIFACT_REGISTRY,
   STEP_ARTIFACT_REGISTRY_REPOSITORY,
+  STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP,
   STEP_ARTIFACT_REPOSIOTRY_PACKAGE,
   STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP,
   STEP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP,
@@ -619,6 +620,9 @@ describe('#getStepStartStates success', () => {
           disabled: false,
         },
         [STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP]: {
           disabled: false,
         },
       };

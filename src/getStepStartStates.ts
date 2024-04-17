@@ -204,6 +204,7 @@ import { isSingleProjectInstance } from './utils/isSingleProjectInstance';
 import {
   STEP_ARTIFACT_REGISTRY,
   STEP_ARTIFACT_REGISTRY_REPOSITORY,
+  STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP,
   STEP_ARTIFACT_REPOSIOTRY_PACKAGE,
   STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP,
   STEP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP,
@@ -504,6 +505,9 @@ function getDefaultStepStartStates(params: {
     [STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP]: {
       disabled: false,
     },
+    [STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP]: {
+      disabled: false,
+    },
   };
 
   logger.info(
@@ -769,6 +773,8 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP]: createOrgStepStartState(
       ServiceUsageName.ARTIFACT_REGISTRY,
     ),
+    [STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.ARTIFACT_REGISTRY),
     [STEP_COMPUTE_SSL_POLICIES]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_CLOUD_KMS_KEY_RINGS]: createStepStartState(ServiceUsageName.KMS),
     [STEP_CLOUD_KMS_KEYS]: createStepStartState(ServiceUsageName.KMS),

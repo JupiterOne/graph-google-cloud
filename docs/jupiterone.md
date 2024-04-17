@@ -480,6 +480,7 @@ The following relationships are created:
 | `google_cloud_api_service`                                       | **USES**              | `google_cloud_audit_config`                                       |
 | `google_cloud_api_service`                                       | **HAS**               | `google_iam_role`                                                 |
 | `google_cloud_api_service`                                       | **HAS**               | `resource`                                                        |
+| `google_cloud_artifact_registry_repository`                      | **USES**              | `google_kms_crypto_key`                                           |
 | `google_cloud_audit_config`                                      | **ALLOWS**            | `google_domain`                                                   |
 | `google_cloud_audit_config`                                      | **ALLOWS**            | `google_group`                                                    |
 | `google_cloud_audit_config`                                      | **ALLOWS**            | `google_iam_service_account`                                      |
