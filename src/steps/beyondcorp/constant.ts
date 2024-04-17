@@ -23,6 +23,10 @@ export const BEYONDCORP_ENTERPRISE_PARTNER_TENANT_TYPE =
   'google_cloud_beyondborp_partner_tenant';
 export const BEYONDCORP_ENTERPRISE_PARTNER_TENANT_CLASS = ['Organization'];
 
+export const STEP_BEYONDCORP_ENTERPRISE = 'fetch-beyondcorp-enterprise';
+export const BEYONDCORP_ENTERPRISE_TYPE = 'google_cloud_beyondcorp_enterprise';
+export const BEYONDCORP_ENTERPRISE_CLASS = ['Service'];
+
 export const RELATIONSHIP_TYPE_APPLICATION_ENDPOINT_USES_GATEWAY =
   'google_cloud_beyondcorp_application_endpoint_uses_gateway';
 export const STEP_APPLICATION_ENDPOINT_USES_GATEWAY_RELATIONSHIP =
@@ -53,12 +57,18 @@ export const RELATIONSHIP_TYPE_PROJECT_USES_APP_CONNECTION =
 export const STEP_PROJECT_USES_APP_CONNECTION_RELATIONSHIP =
   'fetch-project-uses-app-connection';
 
+export const RELATIONSHIP_TYPE_PROJECT_HAS_BEYONDCORP_ENTERPRISE =
+  'google_cloud_project_has_beyondcorp_enterprise';
+export const STEP_PROJECT_HAS_BEYONDCORP_ENTERPRISE_RELATIONSHIP =
+  'fetch-project-has-beyondcorp-enterprise';
+
 export const IngestionSources = {
   BEYONDCORP_CONNECTORS: 'beyondcorp_connectors',
   BEYONDCORP_GATEWAYS: 'beyondcorp_gateways',
   BEYONDCORP_CONNECTIONS: 'beyondcorp_connections',
   BEYONDCORP_APPLICATION_ENDPOINTS: 'beyondcorp_application_endpoints',
   BEYONDCORP_PARTNER_TENANT: 'beyondcorp_partner_tenant',
+  BEYONDCORP_ENTERPRISE: 'beyondcorp_enterprise',
   APP_CONNECTION_HAS_APP_CONNECTOR_RELATIONSHIP:
     'app_connection_has_app_connector',
   APP_CONNECTION_HAS_APPLICATION_ENDPOINT_RELATIONSHIP:
@@ -68,6 +78,7 @@ export const IngestionSources = {
   PROJECT_USES_APP_CONNECTION_RELATIONSHIP: 'project_uses_app_connection',
   APPLICATION_ENDPOINT_USES_GATEWAY_RELATIONSHIP:
     'application_endpoint_uses_gateway',
+  PROJECT_HAS_BEYONDCORP_ENTERPRISE: 'project_has_beyondcorp_enterprise',
 };
 
 export const MonitoringIngestionConfig = {
@@ -79,6 +90,11 @@ export const MonitoringIngestionConfig = {
   [IngestionSources.BEYONDCORP_GATEWAYS]: {
     title: 'BeyondCorp Gateways',
     description: 'BeyondCorp Gateways for GCP',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.BEYONDCORP_ENTERPRISE]: {
+    title: 'BeyondCorp Enterprise',
+    description: 'BeyondCorp Enterprise for GCP',
     defaultsToDisabled: false,
   },
   [IngestionSources.BEYONDCORP_APPLICATION_ENDPOINTS]: {

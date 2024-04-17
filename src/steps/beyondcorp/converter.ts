@@ -7,6 +7,8 @@ import {
   BEYONDCORP_APP_CONNECTION_TYPE,
   BEYONDCORP_APP_CONNECTOR_CLASS,
   BEYONDCORP_APP_CONNECTOR_TYPE,
+  BEYONDCORP_ENTERPRISE_CLASS,
+  BEYONDCORP_ENTERPRISE_TYPE,
   BEYONDCORP_GATEWAY_CLASS,
   BEYONDCORP_GATEWAY_TYPE,
 } from './constant';
@@ -97,6 +99,27 @@ export function createApplicationEndpointEntity(
         portNumber: data.port,
         gateway: gateways.appGateway,
         name: data.host,
+      },
+    },
+  });
+}
+
+export function createBeyondcorpEnterpriseEntity(
+  organizationId: string,
+  data: any,
+  projectId: string,
+) {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _key: (organizationId + '_' + BEYONDCORP_ENTERPRISE_TYPE) as string,
+        _type: BEYONDCORP_ENTERPRISE_TYPE,
+        _class: BEYONDCORP_ENTERPRISE_CLASS,
+        name: 'Beyondcorp Enterprise Service',
+        function: ['Networking'],
+        category: ['Security', 'Network'],
+        endpoint: 'http://console.cloud.google.com/',
       },
     },
   });

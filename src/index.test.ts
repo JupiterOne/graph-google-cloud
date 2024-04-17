@@ -177,8 +177,10 @@ import {
   STEP_BEYONDCORP_APPLICATION_ENDPOINT,
   STEP_BEYONDCORP_APP_CONNECTION,
   STEP_BEYONDCORP_APP_CONNECTOR,
+  STEP_BEYONDCORP_ENTERPRISE,
   STEP_BEYONDCORP_GATEWAY,
   STEP_BEYONDCORP_PARTNER_TENANT,
+  STEP_PROJECT_HAS_BEYONDCORP_ENTERPRISE_RELATIONSHIP,
   STEP_PROJECT_USES_APP_CONNECTION_RELATIONSHIP,
   STEP_PROJECT_USES_APP_CONNECTOR_RELATIONSHIP,
 } from './steps/beyondcorp/constant';
@@ -627,6 +629,9 @@ describe('#getStepStartStates success', () => {
         [STEP_BEYONDCORP_PARTNER_TENANT]: {
           disabled: false,
         },
+        [STEP_BEYONDCORP_ENTERPRISE]: {
+          disabled: false,
+        },
         [STEP_APP_CONNECTION_HAS_APPLICATION_ENDPOINT_RELATIONSHIP]: {
           disabled: false,
         },
@@ -640,6 +645,9 @@ describe('#getStepStartStates success', () => {
           disabled: false,
         },
         [STEP_PROJECT_USES_APP_CONNECTOR_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_BEYONDCORP_ENTERPRISE_RELATIONSHIP]: {
           disabled: false,
         },
         [STEP_APPLICATION_ENDPOINT_USES_GATEWAY_RELATIONSHIP]: {

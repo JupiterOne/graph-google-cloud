@@ -16,8 +16,10 @@ import {
   BEYONDCORP_APP_CONNECTION_TYPE,
   BEYONDCORP_APP_CONNECTOR_CLASS,
   BEYONDCORP_APP_CONNECTOR_TYPE,
+  BEYONDCORP_ENTERPRISE_CLASS,
   BEYONDCORP_ENTERPRISE_PARTNER_TENANT_CLASS,
   BEYONDCORP_ENTERPRISE_PARTNER_TENANT_TYPE,
+  BEYONDCORP_ENTERPRISE_TYPE,
   BEYONDCORP_GATEWAY_CLASS,
   BEYONDCORP_GATEWAY_TYPE,
   IngestionSources,
@@ -25,6 +27,7 @@ import {
   RELATIONSHIP_TYPE_APP_CONNECTION_HAS_APPLICATION_ENDPOINT,
   RELATIONSHIP_TYPE_APP_CONNECTION_HAS_APP_CONNECTOR,
   RELATIONSHIP_TYPE_APP_CONNECTION_HAS_GATEWAY,
+  RELATIONSHIP_TYPE_PROJECT_HAS_BEYONDCORP_ENTERPRISE,
   RELATIONSHIP_TYPE_PROJECT_USES_APP_CONNECTION,
   RELATIONSHIP_TYPE_PROJECT_USES_APP_CONNECTOR,
   STEP_APPLICATION_ENDPOINT_USES_GATEWAY_RELATIONSHIP,
@@ -34,8 +37,10 @@ import {
   STEP_BEYONDCORP_APPLICATION_ENDPOINT,
   STEP_BEYONDCORP_APP_CONNECTION,
   STEP_BEYONDCORP_APP_CONNECTOR,
+  STEP_BEYONDCORP_ENTERPRISE,
   STEP_BEYONDCORP_GATEWAY,
   STEP_BEYONDCORP_PARTNER_TENANT,
+  STEP_PROJECT_HAS_BEYONDCORP_ENTERPRISE_RELATIONSHIP,
   STEP_PROJECT_USES_APP_CONNECTION_RELATIONSHIP,
   STEP_PROJECT_USES_APP_CONNECTOR_RELATIONSHIP,
 } from './constant';
@@ -43,6 +48,7 @@ import {
   createAppConnectionEntity,
   createAppConnectorEntity,
   createApplicationEndpointEntity,
+  createBeyondcorpEnterpriseEntity,
   createGatewayEntity,
 } from './converter';
 import {
@@ -202,6 +208,23 @@ export async function fetchPartnerTenant(
       throw err;
     }
   }
+}
+
+export async function fetchBeyondcorpEnterprise(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const {
+    jobState,
+    instance: { config },
+    logger,
+  } = context;
+
+  const client = new beyondcorpClient({ config }, logger);
+  const data = [];
+  const organization_id = config.organizationId as string;
+  await jobState.addEntity(
+    createBeyondcorpEnterpriseEntity(organization_id, data, client.projectId),
+  );
 }
 
 export async function buildApplicationEndpointUsesGatewayRelationship(
@@ -381,6 +404,31 @@ export async function buildProjectUsesAppConnectionRelationship(
   );
 }
 
+export async function buildProjectHasBeyondcorpEnterpriseRelationship(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState } = context;
+
+  const projectEntity = await getProjectEntity(jobState);
+
+  if (!projectEntity) return;
+
+  await jobState.iterateEntities(
+    { _type: BEYONDCORP_ENTERPRISE_TYPE },
+    async (enterprise) => {
+      await jobState.addRelationship(
+        createDirectRelationship({
+          _class: RelationshipClass.HAS,
+          fromKey: projectEntity._key as string,
+          fromType: PROJECT_ENTITY_TYPE,
+          toKey: enterprise._key as string,
+          toType: BEYONDCORP_ENTERPRISE_TYPE,
+        }),
+      );
+    },
+  );
+}
+
 export const beyondcorpSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_BEYONDCORP_APP_CONNECTOR,
@@ -494,6 +542,24 @@ export const beyondcorpSteps: GoogleCloudIntegrationStep[] = [
   },
 
   {
+    id: STEP_BEYONDCORP_ENTERPRISE,
+    ingestionSourceId: IngestionSources.BEYONDCORP_ENTERPRISE,
+    name: 'BeyondCrop Enterprise',
+    entities: [
+      {
+        resourceName: 'BeyondCrop Enterprise',
+        _type: BEYONDCORP_ENTERPRISE_TYPE,
+        _class: BEYONDCORP_ENTERPRISE_CLASS,
+      },
+    ],
+    relationships: [],
+    dependsOn: [],
+    executionHandler: fetchBeyondcorpEnterprise,
+    permissions: [],
+    apis: ['beyondcorp.googleapis.com'],
+  },
+
+  {
     id: STEP_APP_CONNECTION_HAS_APP_CONNECTOR_RELATIONSHIP,
     ingestionSourceId:
       IngestionSources.APP_CONNECTION_HAS_APP_CONNECTOR_RELATIONSHIP,
@@ -601,7 +667,7 @@ export const beyondcorpSteps: GoogleCloudIntegrationStep[] = [
     id: STEP_APPLICATION_ENDPOINT_USES_GATEWAY_RELATIONSHIP,
     ingestionSourceId:
       IngestionSources.APPLICATION_ENDPOINT_USES_GATEWAY_RELATIONSHIP,
-    name: 'build application endpoint uses relationship',
+    name: 'build application endpoint uses gateway relationship',
     entities: [],
     relationships: [
       {
@@ -614,6 +680,25 @@ export const beyondcorpSteps: GoogleCloudIntegrationStep[] = [
     dependsOn: [STEP_BEYONDCORP_APPLICATION_ENDPOINT, STEP_BEYONDCORP_GATEWAY],
     executionHandler: buildApplicationEndpointUsesGatewayRelationship,
     permissions: ['beyondcrop.appConnections.list'],
+    apis: ['beyondcorp.googleapis.com'],
+  },
+
+  {
+    id: STEP_PROJECT_HAS_BEYONDCORP_ENTERPRISE_RELATIONSHIP,
+    ingestionSourceId: IngestionSources.PROJECT_HAS_BEYONDCORP_ENTERPRISE,
+    name: 'build project has beyondcorp enterprise relationship',
+    entities: [],
+    relationships: [
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_PROJECT_HAS_BEYONDCORP_ENTERPRISE,
+        sourceType: PROJECT_ENTITY_TYPE,
+        targetType: BEYONDCORP_ENTERPRISE_TYPE,
+      },
+    ],
+    dependsOn: [STEP_BEYONDCORP_ENTERPRISE, STEP_RESOURCE_MANAGER_PROJECT],
+    executionHandler: buildProjectHasBeyondcorpEnterpriseRelationship,
+    permissions: [],
     apis: ['beyondcorp.googleapis.com'],
   },
 ];

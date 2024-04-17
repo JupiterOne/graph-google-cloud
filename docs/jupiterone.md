@@ -363,6 +363,7 @@ The following entities are created:
 | BeyondCrop App connection                                | `google_cloud_beyondcorp_connection`                              | `Network`                          |
 | BeyondCrop App connector                                 | `google_cloud_beyondcorp_connector`                               | `Network`                          |
 | BeyondCrop Application Endpoints                         | `google_cloud_beyondcorp_application_endpoint`                    | `NetworkEndpoint`                  |
+| BeyondCrop Enterprise                                    | `google_cloud_beyondcorp_enterprise`                              | `Service`                          |
 | BeyondCrop Enterprise Partner Tenant                     | `google_cloud_beyondborp_partner_tenant`                          | `Organization`                     |
 | BeyondCrop gateways                                      | `google_cloud_beyondcorp_gateway`                                 | `Gateway`                          |
 | Big Query Dataset                                        | `google_bigquery_dataset`                                         | `DataStore`, `Database`            |
@@ -506,6 +507,7 @@ The following relationships are created:
 | `google_cloud_project`                                           | **HAS**               | `google_cloud_api_service`                                        |
 | `google_cloud_project`                                           | **USES**              | `google_cloud_beyondcorp_connection`                              |
 | `google_cloud_project`                                           | **USES**              | `google_cloud_beyondcorp_connector`                               |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_beyondcorp_enterprise`                              |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_configuration`                                  |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_route`                                          |
 | `google_cloud_scan_config`                                       | **PERFORMED**         | `google_cloud_scan_run`                                           |
