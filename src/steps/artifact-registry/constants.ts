@@ -32,8 +32,23 @@ export const RELATIONSHIP_PROJECT_HAS_ARTIFACT_REGISTRY_TYPE =
 
 export const STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP =
   'fetch-artifact-registry-repository-uses-kms-key';
-export const RELATIONSHIP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY =
+export const RELATIONSHIP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_TYPE =
   'google_cloud_artifact_registry_repository_uses_kms_crypto_key';
+
+export const STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_PACKAGE_RELATIONSHIP =
+  'fetch-artifact-registry-repository-uses-package';
+export const RELATIONSHIP_ARTIFACT_REGISTRY_REPOSITORY_USES_PACKAGE_TYPE =
+  'google_cloud_artifact_registry_repository_uses_package';
+
+export const STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_NPM_PACKAGE_RELATIONSHIP =
+  'fetch-artifact-registry-repository-uses-npm-package';
+export const RELATIONSHIP_ARTIFACT_REGISTRY_REPOSITORY_USES_NPM_PACKAGE_TYPE =
+  'google_cloud_artifact_registry_repository_uses_npm_package';
+
+export const STEP_ARTIFACT_REPOSITROY_PACKAGE_IS_NPM_PACKAGE_RELATIONSHIP =
+  'fetch-artifact-repository-package-is-npm-package';
+export const RELATIONSHIP_ARTIFACT_REPOSITORY_PACKAGE_IS_NPM_PACKAGE_TYPE =
+  'google_cloud_artifact_registry_package_is_npm_package';
 
 export const IngestionSources = {
   ARTIFACT_REGISTRY_REPOSITORY: 'artifact_registry_repositories',
@@ -46,7 +61,13 @@ export const IngestionSources = {
   PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP:
     'project_has_artifact_registry_relationship',
   ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP:
-    'artifact_registry_repository_uses_kms_key',
+    'artifact_registry_repository_uses_kms_key_relationship',
+  ARTIFACT_REGISTRY_REPOSITORY_USES_PACKAGE_RELATIONSHIP:
+    'artifact_registry_repository_uses_package_relationship',
+  ARTIFACT_REGISTRY_REPOSITORY_USES_NPM_PACKAGE_RELATIONSHIP:
+    'artifact_registry_repository_uses_npm_package_relationship',
+  ARTIFACT_REPOSITORY_PACKAGE_IS_NPM_PACKAGE_REALTIONSHIP:
+    'artifact_repository_package_is_npm_package_relationship',
 };
 
 export const MonitoringIngestionConfig = {
@@ -83,6 +104,22 @@ export const MonitoringIngestionConfig = {
   [IngestionSources.ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP]: {
     title: 'Artifact registry repository uses kms crypto key',
     description: 'Artifact registry repository uses kms crypto key for GCP',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.ARTIFACT_REGISTRY_REPOSITORY_USES_PACKAGE_RELATIONSHIP]: {
+    title: 'Artifact registry repository uses packages',
+    description: 'Artifact registry repository uses packages for GCP',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.ARTIFACT_REGISTRY_REPOSITORY_USES_NPM_PACKAGE_RELATIONSHIP]:
+    {
+      title: 'Artifact registry repository uses npm package',
+      description: 'Artifact registry repository uses npm package for GCP',
+      defaultsToDisabled: false,
+    },
+  [IngestionSources.ARTIFACT_REPOSITORY_PACKAGE_IS_NPM_PACKAGE_REALTIONSHIP]: {
+    title: 'Artifact repository package is npm package',
+    description: 'Artifact repository package is npm package for GCP',
     defaultsToDisabled: false,
   },
 };

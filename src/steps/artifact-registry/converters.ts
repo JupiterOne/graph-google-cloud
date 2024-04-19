@@ -44,6 +44,8 @@ export function createArtifactRepositoryPackageEntity(
         _class: ARTIFACT_REPOSITORY_PACKAGE_CLASS,
         name: data.name,
         createdTime: data.createTime,
+        updatedTime: data.updateTime,
+        repositoryName: data.name as string,
       },
     },
   });
@@ -65,6 +67,24 @@ export function createArtifactRegistryEntity(
         function: ['container-registry'],
         category: ['software'],
         endpoint: 'http://console.cloud.google.com/',
+      },
+    },
+  });
+}
+
+export function createArtifactRegistryVpcscConfigEntity(
+  data: artifactregistry_v1.Schema$VPCSCConfig,
+  projectId: string,
+) {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _key: data.name as string,
+        _type: ARTIFACT_REPOSITORY_PACKAGE_TYPE,
+        _class: ARTIFACT_REPOSITORY_PACKAGE_CLASS,
+        name: data.name,
+        vpcsc: data.vpcscPolicy,
       },
     },
   });

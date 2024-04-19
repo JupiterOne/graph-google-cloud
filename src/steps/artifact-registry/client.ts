@@ -56,4 +56,26 @@ export class artifactRegistryClient extends Client {
       },
     );
   }
+
+  async iterateArtifactRegistryVpcscConfig(
+    callback: (data: artifactregistry_v1.Schema$VPCSCConfig) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+    console.log('check 1');
+    //await this.iterateProjectLocations(async (locationId) => {
+    await this.iterateApi(
+      async () => {
+        console.log('inside');
+        return this.client.projects.locations.getVpcscConfig({
+          name: `projects/${this.projectId}/locations/us-central1/vpcscConfig`,
+          auth,
+        });
+      },
+      async (data: artifactregistry_v1.Schema$VPCSCConfig) => {
+        console.log(data.name);
+        await callback(data);
+      },
+    );
+    //})
+  }
 }

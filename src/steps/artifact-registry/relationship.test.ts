@@ -1,6 +1,8 @@
 import {
   Recording,
+  StepTestConfig,
   createMockStepExecutionContext,
+  executeStepWithDependencies,
   filterGraphObjects,
 } from '@jupiterone/integration-sdk-testing';
 import {
@@ -8,14 +10,22 @@ import {
   ARTIFACT_REGISTRY_REPOSITORY_CLASS,
   ARTIFACT_REGISTRY_REPOSITORY_TYPE,
   ARTIFACT_REGISTRY_TYPE,
-  RELATIONSHIP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY,
+  ARTIFACT_REPOSITORY_PACKAGE_TYPE,
+  RELATIONSHIP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_TYPE,
+  RELATIONSHIP_ARTIFACT_REGISTRY_REPOSITORY_USES_PACKAGE_TYPE,
   RELATIONSHIP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_TYPE,
   RELATIONSHIP_PROJECT_HAS_ARTIFACT_REGISTRY_TYPE,
   STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP,
+  STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_NPM_PACKAGE_RELATIONSHIP,
+  STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_PACKAGE_RELATIONSHIP,
+  STEP_ARTIFACT_REPOSITROY_PACKAGE_IS_NPM_PACKAGE_RELATIONSHIP,
   STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP,
   STEP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP,
 } from './constants';
-import { setupGoogleCloudRecording } from '../../../test/recording';
+import {
+  setupGoogleCloudRecording,
+  getMatchRequestsBy,
+} from '../../../test/recording';
 import {
   ExplicitRelationship,
   Relationship,
@@ -24,16 +34,19 @@ import { IntegrationConfig } from '../../types';
 import { integrationConfig } from '../../../test/config';
 import {
   buildArtifactRegistryRepositoryUsesKMSKeysRelationship,
+  buildArtifactRegistryRepositoryUsesPackageRelationship,
   buildProjectHasArtifactRegistryRelationship,
   buildProjectHasArtifactRegistryRepositoryRelationship,
   fetchArtifactRegistry,
   fetchArtifactRegistryRepository,
+  fetchArtifactRepositoryPackage,
 } from '.';
 import {
   PROJECT_ENTITY_TYPE,
   fetchResourceManagerProject,
 } from '../resource-manager';
 import { ENTITY_TYPE_KMS_KEY, fetchKmsCryptoKeys } from '../kms';
+import { invocationConfig } from '../..';
 
 describe(`artifactRegistry#${STEP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP}`, () => {
   let recording: Recording;
@@ -260,14 +273,15 @@ describe(`artifactRegistry#${STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELA
     expect(
       directRelationships.filter(
         (e) =>
-          e._type === RELATIONSHIP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY,
+          e._type ===
+          RELATIONSHIP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_TYPE,
       ),
     ).toMatchDirectRelationshipSchema({
       schema: {
         properties: {
           _class: { const: 'USES' },
           _type: {
-            const: RELATIONSHIP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY,
+            const: RELATIONSHIP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_TYPE,
           },
         },
       },
@@ -384,4 +398,177 @@ describe(`artifactRegistry#${STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP}`, 
       },
     });
   });
+});
+
+describe(`artifactRegistry#${STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_PACKAGE_RELATIONSHIP}`, () => {
+  let recording: Recording;
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_PACKAGE_RELATIONSHIP,
+    });
+  });
+  afterEach(async () => {
+    await recording.stop();
+  });
+  function separateRelationships(collectedRelationships: Relationship[]) {
+    const { targets: directRelationships } = filterGraphObjects(
+      collectedRelationships,
+      (r) => !r._mapping,
+    ) as {
+      targets: ExplicitRelationship[];
+    };
+    return {
+      directRelationships,
+    };
+  }
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: {
+        ...integrationConfig,
+        serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+          'j1-gc-integration-dev-v2',
+          'j1-gc-integration-dev-v3',
+        ),
+        serviceAccountKeyConfig: {
+          ...integrationConfig.serviceAccountKeyConfig,
+          project_id: 'j1-gc-integration-dev-v3',
+        },
+      },
+    });
+    await fetchArtifactRegistryRepository(context);
+    await fetchArtifactRepositoryPackage(context);
+    await buildArtifactRegistryRepositoryUsesPackageRelationship(context);
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === ARTIFACT_REPOSITORY_PACKAGE_TYPE,
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: ['CodeModule'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_cloud_artifact_registry_package' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          name: { type: 'string' },
+          createdTime: { type: 'string' },
+          updatedTime: { type: 'string' },
+          repositoryName: { type: 'string' },
+        },
+      },
+    });
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === ARTIFACT_REGISTRY_REPOSITORY_TYPE,
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: ARTIFACT_REGISTRY_REPOSITORY_CLASS,
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: ARTIFACT_REGISTRY_REPOSITORY_TYPE },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          name: { type: 'string' },
+          projectId: { type: 'string' },
+          createdTime: { type: 'string' },
+          updatedTime: { type: 'string' },
+          format: { type: 'string' },
+          mode: { type: 'string' },
+          kmsKey: { type: 'string' },
+        },
+      },
+    });
+    const { directRelationships } = separateRelationships(
+      context.jobState.collectedRelationships,
+    );
+    expect(
+      directRelationships.filter(
+        (e) =>
+          e._type ===
+          RELATIONSHIP_ARTIFACT_REGISTRY_REPOSITORY_USES_PACKAGE_TYPE,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'USES' },
+          _type: {
+            const: RELATIONSHIP_ARTIFACT_REGISTRY_REPOSITORY_USES_PACKAGE_TYPE,
+          },
+        },
+      },
+    });
+  }, 100000);
+});
+
+describe(`artifactRegistry#${STEP_ARTIFACT_REPOSITROY_PACKAGE_IS_NPM_PACKAGE_RELATIONSHIP}`, () => {
+  let recording: Recording;
+  afterEach(async () => {
+    if (recording) await recording.stop();
+  });
+
+  test(
+    STEP_ARTIFACT_REPOSITROY_PACKAGE_IS_NPM_PACKAGE_RELATIONSHIP,
+    async () => {
+      const stepTestConfig: StepTestConfig = {
+        stepId: STEP_ARTIFACT_REPOSITROY_PACKAGE_IS_NPM_PACKAGE_RELATIONSHIP,
+        instanceConfig: integrationConfig,
+        invocationConfig: invocationConfig as any,
+      };
+
+      recording = setupGoogleCloudRecording({
+        name: STEP_ARTIFACT_REPOSITROY_PACKAGE_IS_NPM_PACKAGE_RELATIONSHIP,
+        directory: __dirname,
+        options: {
+          matchRequestsBy: getMatchRequestsBy(integrationConfig),
+        },
+      });
+
+      const result = await executeStepWithDependencies(stepTestConfig);
+      expect(result).toHaveOnlyMappedRelationships; //.toMatchStepMetadata(stepTestConfig);
+    },
+    500_000,
+  );
+});
+
+describe(`artifactRegistry#${STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_NPM_PACKAGE_RELATIONSHIP}`, () => {
+  let recording: Recording;
+  afterEach(async () => {
+    if (recording) await recording.stop();
+  });
+
+  test(
+    STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_NPM_PACKAGE_RELATIONSHIP,
+    async () => {
+      const stepTestConfig: StepTestConfig = {
+        stepId: STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_NPM_PACKAGE_RELATIONSHIP,
+        instanceConfig: integrationConfig,
+        invocationConfig: invocationConfig as any,
+      };
+
+      recording = setupGoogleCloudRecording({
+        name: STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_NPM_PACKAGE_RELATIONSHIP,
+        directory: __dirname,
+        options: {
+          matchRequestsBy: getMatchRequestsBy(integrationConfig),
+        },
+      });
+
+      const result = await executeStepWithDependencies(stepTestConfig);
+      expect(result).toHaveOnlyMappedRelationships;
+    },
+    500_000,
+  );
 });

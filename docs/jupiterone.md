@@ -361,6 +361,7 @@ The following entities are created:
 | AppEngine Version                                        | `google_app_engine_version`                                       | `Service`                          |
 | Artifact Registry                                        | `google_cloud_artifact_registry`                                  | `Service`                          |
 | Artifact Registry Repository                             | `google_cloud_artifact_registry_repository`                       | `CodeRepo`, `Repository`           |
+| Artifact Registry VPCSC configuration                    | `google_cloud_artifact_registry_vpcsc_configuration`              | `Configuration`                    |
 | Artifact Repository Package                              | `google_cloud_artifact_registry_package`                          | `CodeModule`                       |
 | Audit Config                                             | `google_cloud_audit_config`                                       | `Configuration`                    |
 | Big Query Dataset                                        | `google_bigquery_dataset`                                         | `DataStore`, `Database`            |
@@ -480,6 +481,7 @@ The following relationships are created:
 | `google_cloud_api_service`                                       | **USES**              | `google_cloud_audit_config`                                       |
 | `google_cloud_api_service`                                       | **HAS**               | `google_iam_role`                                                 |
 | `google_cloud_api_service`                                       | **HAS**               | `resource`                                                        |
+| `google_cloud_artifact_registry_repository`                      | **USES**              | `google_cloud_artifact_registry_package`                          |
 | `google_cloud_artifact_registry_repository`                      | **USES**              | `google_kms_crypto_key`                                           |
 | `google_cloud_audit_config`                                      | **ALLOWS**            | `google_domain`                                                   |
 | `google_cloud_audit_config`                                      | **ALLOWS**            | `google_group`                                                    |
@@ -588,9 +590,11 @@ The following relationships are created:
 
 The following mapped relationships are created:
 
-| Source Entity `_type`        | Relationship `_class` | Target Entity `_type` | Direction |
-| ---------------------------- | --------------------- | --------------------- | --------- |
-| `google_cloud_build_trigger` | **USES**              | `*github_repo*`       | FORWARD   |
+| Source Entity `_type`                       | Relationship `_class` | Target Entity `_type` | Direction |
+| ------------------------------------------- | --------------------- | --------------------- | --------- |
+| `google_cloud_artifact_registry_package`    | **IS**                | `*npm_package*`       | FORWARD   |
+| `google_cloud_artifact_registry_repository` | **USES**              | `*npm_package*`       | FORWARD   |
+| `google_cloud_build_trigger`                | **USES**              | `*github_repo*`       | FORWARD   |
 
 <!--
 ********************************************************************************
@@ -608,7 +612,7 @@ permissions can be used to provision only the required ones:
 
 <!-- {J1_PERMISSIONS_DOCUMENTATION_MARKER_START} -->
 
-| Permissions List (114)                                  |
+| Permissions List (115)                                  |
 | ------------------------------------------------------- |
 | `accesscontextmanager.accessLevels.list`                |
 | `accesscontextmanager.accessPolicies.list`              |
@@ -625,6 +629,7 @@ permissions can be used to provision only the required ones:
 | `appengine.versions.list`                               |
 | `artifactregistry.packages.list`                        |
 | `artifactregistry.repositories.list`                    |
+| `artifactregistry.vpcscconfigs.get`                     |
 | `bigquery.datasets.get`                                 |
 | `bigquery.models.getData`                               |
 | `bigquery.models.getMetadata`                           |

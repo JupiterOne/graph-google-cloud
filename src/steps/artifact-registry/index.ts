@@ -1,4 +1,5 @@
 import {
+  IntegrationMissingKeyError,
   RelationshipClass,
   RelationshipDirection,
   createDirectRelationship,
@@ -16,16 +17,25 @@ import {
   ARTIFACT_REGISTRY_REPOSITORY_CLASS,
   ARTIFACT_REGISTRY_REPOSITORY_TYPE,
   ARTIFACT_REGISTRY_TYPE,
+  ARTIFACT_REGISTRY_VPCSC_CONFIGURATION_CLASS,
+  ARTIFACT_REGISTRY_VPCSC_CONFIGURATION_TYPE,
   ARTIFACT_REPOSITORY_PACKAGE_CLASS,
   ARTIFACT_REPOSITORY_PACKAGE_TYPE,
   IngestionSources,
-  RELATIONSHIP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY,
+  RELATIONSHIP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_TYPE,
+  RELATIONSHIP_ARTIFACT_REGISTRY_REPOSITORY_USES_NPM_PACKAGE_TYPE,
+  RELATIONSHIP_ARTIFACT_REGISTRY_REPOSITORY_USES_PACKAGE_TYPE,
+  RELATIONSHIP_ARTIFACT_REPOSITORY_PACKAGE_IS_NPM_PACKAGE_TYPE,
   RELATIONSHIP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_TYPE,
   RELATIONSHIP_PROJECT_HAS_ARTIFACT_REGISTRY_TYPE,
   STEP_ARTIFACT_REGISTRY,
   STEP_ARTIFACT_REGISTRY_REPOSITORY,
   STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP,
+  STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_NPM_PACKAGE_RELATIONSHIP,
+  STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_PACKAGE_RELATIONSHIP,
+  STEP_ARTIFACT_REGISTRY_VPCSC_CONFIGURATION,
   STEP_ARTIFACT_REPOSIOTRY_PACKAGE,
+  STEP_ARTIFACT_REPOSITROY_PACKAGE_IS_NPM_PACKAGE_RELATIONSHIP,
   STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP,
   STEP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP,
 } from './constants';
@@ -43,6 +53,23 @@ import { ENTITY_TYPE_KMS_KEY, STEP_CLOUD_KMS_KEYS } from '../kms/constants';
 import { artifactregistry_v1 } from 'googleapis';
 import { getKmsGraphObjectKeyFromKmsKeyName } from '../../utils/kms';
 
+export const ServiceMappedRelationships = {
+  ARTIFACT_REPOSITORY_ENTITY_USES_NPM_PACKAGE: {
+    _type: RELATIONSHIP_ARTIFACT_REGISTRY_REPOSITORY_USES_NPM_PACKAGE_TYPE,
+    sourceType: ARTIFACT_REGISTRY_REPOSITORY_TYPE,
+    _class: RelationshipClass.USES,
+    targetType: 'npm_package',
+    direction: RelationshipDirection.FORWARD,
+  },
+  ARTIFACT_REPOSITORY_PACKAGE_ENTITY_IS_NPM_PACKAGE: {
+    _type: RELATIONSHIP_ARTIFACT_REPOSITORY_PACKAGE_IS_NPM_PACKAGE_TYPE,
+    sourceType: ARTIFACT_REPOSITORY_PACKAGE_TYPE,
+    _class: RelationshipClass.IS,
+    targetType: 'npm_package',
+    direction: RelationshipDirection.FORWARD,
+  },
+};
+
 export async function fetchArtifactRegistryRepository(
   context: IntegrationStepContext,
 ): Promise<void> {
@@ -55,9 +82,9 @@ export async function fetchArtifactRegistryRepository(
   const client = new artifactRegistryClient({ config }, logger);
 
   try {
-    await client.iterateArtifactRegistryRepository(async (repositories) => {
+    await client.iterateArtifactRegistryRepository(async (repository) => {
       await jobState.addEntity(
-        createArtifactRegistryRepositoryEntity(repositories, client.projectId),
+        createArtifactRegistryRepositoryEntity(repository, client.projectId),
       );
     });
   } catch (err) {
@@ -107,6 +134,36 @@ export async function fetchArtifactRepositoryPackage(
       publishUnsupportedConfigEvent({
         logger,
         resource: 'Artifact Repository Package',
+        reason: `${client.projectId} project is not a workspace`,
+      });
+    } else {
+      throw err;
+    }
+  }
+}
+
+export async function fetchArtifactRegistryVPCSCConfiguration(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const {
+    jobState,
+    instance: { config },
+    logger,
+  } = context;
+
+  const client = new artifactRegistryClient({ config }, logger);
+
+  try {
+    await client.iterateArtifactRegistryVpcscConfig(async (policy) => {
+      await jobState.addEntity(
+        createArtifactRegistryRepositoryEntity(policy, client.projectId),
+      );
+    });
+  } catch (err) {
+    if (err.message?.match && err.message.match(/is not a workspace/i)) {
+      publishUnsupportedConfigEvent({
+        logger,
+        resource: 'Artifact Registry Repository',
         reason: `${client.projectId} project is not a workspace`,
       });
     } else {
@@ -222,7 +279,7 @@ export async function buildArtifactRegistryRepositoryUsesKMSKeysRelationship(
         await jobState.addRelationship(
           createMappedRelationship({
             _class: RelationshipClass.USES,
-            _type: RELATIONSHIP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY,
+            _type: RELATIONSHIP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_TYPE,
             _mapping: {
               relationshipDirection: RelationshipDirection.FORWARD,
               sourceEntityKey: repositories._key,
@@ -235,6 +292,119 @@ export async function buildArtifactRegistryRepositoryUsesKMSKeysRelationship(
             },
           }),
         );
+      }
+    },
+  );
+}
+
+export async function buildArtifactRegistryRepositoryUsesPackageRelationship(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState } = context;
+
+  await jobState.iterateEntities(
+    {
+      _type: ARTIFACT_REPOSITORY_PACKAGE_TYPE,
+    },
+    async (packages) => {
+      const projectId = (packages.repositoryName as string).split('/')[1];
+      const location = (packages.repositoryName as string).split('/')[3];
+      const repoName = (packages.repositoryName as string).split('/')[5];
+      const repository =
+        'projects/' +
+        projectId +
+        '/locations/' +
+        location +
+        '/repositories/' +
+        repoName;
+
+      if (!jobState.hasKey(repository)) {
+        throw new IntegrationMissingKeyError(`
+          Step Name : build Artifact Registry Repository Uses Package relationship
+          applicationEndpoint Key: ${repository}`);
+      }
+
+      await jobState.addRelationship(
+        createDirectRelationship({
+          _class: RelationshipClass.USES,
+          fromKey: repository as string,
+          fromType: ARTIFACT_REGISTRY_REPOSITORY_TYPE,
+          toKey: packages._key,
+          toType: ARTIFACT_REPOSITORY_PACKAGE_TYPE,
+        }),
+      );
+    },
+  );
+}
+
+export async function buildArtifactRegistryRepositoryUsesNpmPackageRelationship(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState } = context;
+
+  await jobState.iterateEntities(
+    { _type: ARTIFACT_REGISTRY_REPOSITORY_TYPE },
+    async (repository) => {
+      if (repository.name) {
+        const relationship = createMappedRelationship({
+          _key: `${repository._key}|USES|NPM_PACKAGE:${repository.format}`,
+          _type:
+            ServiceMappedRelationships
+              .ARTIFACT_REPOSITORY_ENTITY_USES_NPM_PACKAGE._type,
+          _class:
+            ServiceMappedRelationships
+              .ARTIFACT_REPOSITORY_ENTITY_USES_NPM_PACKAGE._class,
+          _mapping: {
+            sourceEntityKey: repository._key,
+            relationshipDirection:
+              ServiceMappedRelationships
+                .ARTIFACT_REPOSITORY_ENTITY_USES_NPM_PACKAGE.direction,
+            targetEntity: {
+              _key: `NPM_PACKAGE:${repository.format}`,
+              _class: 'NPM_PACKAGE',
+              name: repository.name as string,
+            },
+            targetFilterKeys: [['_class', 'name']],
+            skipTargetCreation: false,
+          },
+        });
+        await jobState.addRelationship(relationship);
+      }
+    },
+  );
+}
+
+export async function buildArtifactRepositoryPackageIsNpmPackageRelationship(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState } = context;
+  await jobState.iterateEntities(
+    { _type: ARTIFACT_REPOSITORY_PACKAGE_TYPE },
+    async (Package) => {
+      if (Package.name) {
+        const relationship = createMappedRelationship({
+          _key: `${Package._key as string}|IS|NPM_PACKAGE:${(Package.name as string).split('/')[7]}`,
+          _type:
+            ServiceMappedRelationships
+              .ARTIFACT_REPOSITORY_PACKAGE_ENTITY_IS_NPM_PACKAGE._type,
+          _class:
+            ServiceMappedRelationships
+              .ARTIFACT_REPOSITORY_PACKAGE_ENTITY_IS_NPM_PACKAGE._class,
+          _mapping: {
+            sourceEntityKey: Package._key,
+            relationshipDirection:
+              ServiceMappedRelationships
+                .ARTIFACT_REPOSITORY_PACKAGE_ENTITY_IS_NPM_PACKAGE.direction,
+            targetEntity: {
+              _key: `NPM_PACKAGE:${(Package.name as string).split('/')[7]}`,
+              _class: 'NPM_PACKAGE',
+              name: Package.name as string,
+            },
+            targetFilterKeys: [['_class', 'name']],
+            skipTargetCreation: false,
+          },
+        });
+        await jobState.addRelationship(relationship);
       }
     },
   );
@@ -293,6 +463,23 @@ export const artifactRegistrySteps: GoogleCloudIntegrationStep[] = [
     apis: ['artifactregistry.googleapis.com'],
   },
   {
+    id: STEP_ARTIFACT_REGISTRY_VPCSC_CONFIGURATION,
+    ingestionSourceId: IngestionSources.ARTIFACT_REGISTRY_VPCSC_CONFIGURATION,
+    name: 'Artifact Registry VPC SC configuration',
+    entities: [
+      {
+        resourceName: 'Artifact Registry VPCSC configuration',
+        _type: ARTIFACT_REGISTRY_VPCSC_CONFIGURATION_TYPE,
+        _class: ARTIFACT_REGISTRY_VPCSC_CONFIGURATION_CLASS,
+      },
+    ],
+    relationships: [],
+    dependsOn: [],
+    executionHandler: fetchArtifactRegistryVPCSCConfiguration,
+    permissions: ['artifactregistry.vpcscconfigs.get'],
+    apis: ['artifactregistry.googleapis.com'],
+  },
+  {
     id: STEP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP,
     ingestionSourceId:
       IngestionSources.PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP,
@@ -314,6 +501,7 @@ export const artifactRegistrySteps: GoogleCloudIntegrationStep[] = [
     permissions: ['artifactregistry.repositories.list'],
     apis: ['artifactregistry.googleapis.com'],
   },
+
   {
     id: STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP,
     ingestionSourceId:
@@ -343,7 +531,7 @@ export const artifactRegistrySteps: GoogleCloudIntegrationStep[] = [
     relationships: [
       {
         _class: RelationshipClass.USES,
-        _type: RELATIONSHIP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY,
+        _type: RELATIONSHIP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_TYPE,
         sourceType: ARTIFACT_REGISTRY_REPOSITORY_TYPE,
         targetType: ENTITY_TYPE_KMS_KEY,
       },
@@ -356,5 +544,63 @@ export const artifactRegistrySteps: GoogleCloudIntegrationStep[] = [
       'artifactregistry.repositories.list',
     ],
     apis: ['artifactregistry.googleapis.com', 'cloudkms.googleapis.com'],
+  },
+
+  {
+    id: STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_PACKAGE_RELATIONSHIP,
+    ingestionSourceId:
+      IngestionSources.ARTIFACT_REGISTRY_REPOSITORY_USES_PACKAGE_RELATIONSHIP,
+    name: 'Artifact Registry Repository Uses Package',
+    entities: [],
+    relationships: [
+      {
+        _class: RelationshipClass.USES,
+        _type: RELATIONSHIP_ARTIFACT_REGISTRY_REPOSITORY_USES_PACKAGE_TYPE,
+        sourceType: ARTIFACT_REGISTRY_REPOSITORY_TYPE,
+        targetType: ARTIFACT_REPOSITORY_PACKAGE_TYPE,
+      },
+    ],
+    dependsOn: [
+      STEP_ARTIFACT_REPOSIOTRY_PACKAGE,
+      STEP_ARTIFACT_REGISTRY_REPOSITORY,
+    ],
+    executionHandler: buildArtifactRegistryRepositoryUsesPackageRelationship,
+    permissions: [
+      'artifactregistry.repositories.list',
+      'artifactregistry.packages.list',
+    ],
+    apis: ['artifactregistry.googleapis.com'],
+  },
+
+  {
+    id: STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_NPM_PACKAGE_RELATIONSHIP,
+    ingestionSourceId:
+      IngestionSources.ARTIFACT_REGISTRY_REPOSITORY_USES_NPM_PACKAGE_RELATIONSHIP,
+    name: 'Artifact Registry Repository Uses NPM Package',
+    entities: [],
+    relationships: [],
+    mappedRelationships: [
+      ServiceMappedRelationships.ARTIFACT_REPOSITORY_ENTITY_USES_NPM_PACKAGE,
+    ],
+    dependsOn: [STEP_ARTIFACT_REGISTRY_REPOSITORY],
+    executionHandler: buildArtifactRegistryRepositoryUsesNpmPackageRelationship,
+    permissions: ['artifactregistry.repositories.list'],
+    apis: ['artifactregistry.googleapis.com'],
+  },
+
+  {
+    id: STEP_ARTIFACT_REPOSITROY_PACKAGE_IS_NPM_PACKAGE_RELATIONSHIP,
+    ingestionSourceId:
+      IngestionSources.ARTIFACT_REPOSITORY_PACKAGE_IS_NPM_PACKAGE_REALTIONSHIP,
+    name: 'Artifact Repository package is NPM Package',
+    entities: [],
+    relationships: [],
+    mappedRelationships: [
+      ServiceMappedRelationships.ARTIFACT_REPOSITORY_PACKAGE_ENTITY_IS_NPM_PACKAGE,
+    ],
+    dependsOn: [STEP_ARTIFACT_REPOSIOTRY_PACKAGE],
+    executionHandler: buildArtifactRepositoryPackageIsNpmPackageRelationship,
+    permissions: ['artifactregistry.packages.list'],
+    apis: ['artifactregistry.googleapis.com'],
   },
 ];

@@ -151,6 +151,178 @@ exports[`artifactRegistry#fetch-artifact-registry-repository-uses-kms-key should
 }
 `;
 
+exports[`artifactRegistry#fetch-artifact-registry-repository-uses-package should collect data 1`] = `
+{
+  "collectedEntities": [
+    {
+      "_class": [
+        "CodeRepo",
+        "Repository",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepofordev",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "cleanupPolicyDryRun": true,
+            "createTime": "2024-04-17T19:09:28.444136Z",
+            "format": "PYTHON",
+            "kmsKeyName": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/keyRings/demoKeyRing/cryptoKeys/demoKey1",
+            "mode": "STANDARD_REPOSITORY",
+            "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepofordev",
+            "sizeBytes": "9458",
+            "updateTime": "2024-04-17T20:37:12.582653Z",
+          },
+        },
+      ],
+      "_type": "google_cloud_artifact_registry_repository",
+      "createdOn": undefined,
+      "createdTime": "2024-04-17T19:09:28.444136Z",
+      "displayName": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepofordev",
+      "format": "PYTHON",
+      "kmsKey": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/keyRings/demoKeyRing/cryptoKeys/demoKey1",
+      "mode": "STANDARD_REPOSITORY",
+      "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepofordev",
+      "updatedTime": "2024-04-17T20:37:12.582653Z",
+    },
+    {
+      "_class": [
+        "CodeRepo",
+        "Repository",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepositorynpm",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "cleanupPolicyDryRun": true,
+            "createTime": "2024-04-17T10:11:37.491482Z",
+            "description": "npm package",
+            "format": "NPM",
+            "kmsKeyName": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/keyRings/demoKeyRing/cryptoKeys/demoKey1",
+            "mode": "STANDARD_REPOSITORY",
+            "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepositorynpm",
+            "updateTime": "2024-04-17T10:11:37.491482Z",
+          },
+        },
+      ],
+      "_type": "google_cloud_artifact_registry_repository",
+      "createdOn": undefined,
+      "createdTime": "2024-04-17T10:11:37.491482Z",
+      "description": "npm package",
+      "displayName": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepositorynpm",
+      "format": "NPM",
+      "kmsKey": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/keyRings/demoKeyRing/cryptoKeys/demoKey1",
+      "mode": "STANDARD_REPOSITORY",
+      "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepositorynpm",
+      "updatedTime": "2024-04-17T10:11:37.491482Z",
+    },
+    {
+      "_class": [
+        "CodeRepo",
+        "Repository",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/test-repository",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "createTime": "2024-04-15T04:46:39.615018Z",
+            "description": "testing",
+            "dockerConfig": {},
+            "format": "DOCKER",
+            "mode": "STANDARD_REPOSITORY",
+            "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/test-repository",
+            "updateTime": "2024-04-16T04:59:58.144094Z",
+          },
+        },
+      ],
+      "_type": "google_cloud_artifact_registry_repository",
+      "createdOn": undefined,
+      "createdTime": "2024-04-15T04:46:39.615018Z",
+      "description": "testing",
+      "displayName": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/test-repository",
+      "format": "DOCKER",
+      "kmsKey": undefined,
+      "mode": "STANDARD_REPOSITORY",
+      "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/test-repository",
+      "updatedTime": "2024-04-16T04:59:58.144094Z",
+    },
+    {
+      "_class": [
+        "CodeModule",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepofordev/packages/peppercorn",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "createTime": "2024-04-17T20:37:11.746651Z",
+            "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepofordev/packages/peppercorn",
+            "updateTime": "2024-04-17T20:37:11.746651Z",
+          },
+        },
+      ],
+      "_type": "google_cloud_artifact_registry_package",
+      "createdOn": undefined,
+      "createdTime": "2024-04-17T20:37:11.746651Z",
+      "displayName": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepofordev/packages/peppercorn",
+      "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepofordev/packages/peppercorn",
+      "repositoryName": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepofordev/packages/peppercorn",
+      "updatedTime": "2024-04-17T20:37:11.746651Z",
+    },
+    {
+      "_class": [
+        "CodeModule",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepofordev/packages/sampleproject",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "createTime": "2024-04-17T20:37:12.592034Z",
+            "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepofordev/packages/sampleproject",
+            "updateTime": "2024-04-17T20:37:12.592034Z",
+          },
+        },
+      ],
+      "_type": "google_cloud_artifact_registry_package",
+      "createdOn": undefined,
+      "createdTime": "2024-04-17T20:37:12.592034Z",
+      "displayName": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepofordev/packages/sampleproject",
+      "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepofordev/packages/sampleproject",
+      "repositoryName": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepofordev/packages/sampleproject",
+      "updatedTime": "2024-04-17T20:37:12.592034Z",
+    },
+  ],
+  "collectedRelationships": [
+    {
+      "_class": "USES",
+      "_fromEntityKey": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepofordev",
+      "_key": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepofordev|uses|projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepofordev/packages/peppercorn",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepofordev/packages/peppercorn",
+      "_type": "google_cloud_artifact_registry_repository_uses_package",
+      "displayName": "USES",
+    },
+    {
+      "_class": "USES",
+      "_fromEntityKey": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepofordev",
+      "_key": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepofordev|uses|projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepofordev/packages/sampleproject",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepofordev/packages/sampleproject",
+      "_type": "google_cloud_artifact_registry_repository_uses_package",
+      "displayName": "USES",
+    },
+  ],
+  "encounteredTypes": [
+    "google_cloud_artifact_registry_repository",
+    "google_cloud_artifact_registry_package",
+    "google_cloud_artifact_registry_repository_uses_package",
+  ],
+  "numCollectedEntities": 5,
+  "numCollectedRelationships": 2,
+}
+`;
+
 exports[`artifactRegistry#fetch-project-has-artifact-registry should collect data 1`] = `
 {
   "collectedEntities": [
