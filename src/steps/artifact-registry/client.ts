@@ -67,7 +67,7 @@ export class artifactRegistryClient extends Client {
       async () => {
         console.log('inside');
         return this.client.projects.locations.getVpcscConfig({
-          name: `projects/${this.projectId}/locations/us-central1/vpcscConfig`,
+          name: `projects/${this.projectId}/locations/northamerica-northeast1/vpcscConfig`,
           auth,
         });
       },

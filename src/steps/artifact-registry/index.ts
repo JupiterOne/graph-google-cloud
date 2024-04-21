@@ -42,6 +42,7 @@ import {
 import {
   createArtifactRegistryEntity,
   createArtifactRegistryRepositoryEntity,
+  createArtifactRegistryVpcscConfigEntity,
   createArtifactRepositoryPackageEntity,
 } from './converters';
 import {
@@ -156,7 +157,7 @@ export async function fetchArtifactRegistryVPCSCConfiguration(
   try {
     await client.iterateArtifactRegistryVpcscConfig(async (policy) => {
       await jobState.addEntity(
-        createArtifactRegistryRepositoryEntity(policy, client.projectId),
+        createArtifactRegistryVpcscConfigEntity(policy, client.projectId),
       );
     });
   } catch (err) {

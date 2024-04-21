@@ -5,6 +5,8 @@ import {
   ARTIFACT_REGISTRY_REPOSITORY_CLASS,
   ARTIFACT_REGISTRY_REPOSITORY_TYPE,
   ARTIFACT_REGISTRY_TYPE,
+  ARTIFACT_REGISTRY_VPCSC_CONFIGURATION_CLASS,
+  ARTIFACT_REGISTRY_VPCSC_CONFIGURATION_TYPE,
   ARTIFACT_REPOSITORY_PACKAGE_CLASS,
   ARTIFACT_REPOSITORY_PACKAGE_TYPE,
 } from './constants';
@@ -81,8 +83,8 @@ export function createArtifactRegistryVpcscConfigEntity(
       source: data,
       assign: {
         _key: data.name as string,
-        _type: ARTIFACT_REPOSITORY_PACKAGE_TYPE,
-        _class: ARTIFACT_REPOSITORY_PACKAGE_CLASS,
+        _type: ARTIFACT_REGISTRY_VPCSC_CONFIGURATION_TYPE,
+        _class: ARTIFACT_REGISTRY_VPCSC_CONFIGURATION_CLASS,
         name: data.name,
         vpcsc: data.vpcscPolicy,
       },
