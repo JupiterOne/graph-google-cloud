@@ -29,7 +29,6 @@ export function createAppConnectorEntity(
         updatedTime: data.updateTime,
         UID: data.uid,
         State: data.state,
-        PrincipleInfo: data.principalInfo as string,
         CIDR: '0.0.0.0/29',
         internal: true,
         public: true,

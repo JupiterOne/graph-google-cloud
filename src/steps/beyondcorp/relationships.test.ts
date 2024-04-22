@@ -219,7 +219,6 @@ describe(`beyondcorp#${STEP_PROJECT_USES_APP_CONNECTOR_RELATIONSHIP}`, () => {
           updatedTime: { type: 'string' },
           UID: { type: 'string' },
           State: { type: 'string' },
-          PrincipleInfo: { type: 'object' },
           CIDR: { type: 'string' },
           internal: { type: 'boolean' },
           public: { type: 'boolean' },
