@@ -29,9 +29,6 @@ export function createAppConnectorEntity(
         updatedTime: data.updateTime,
         UID: data.uid,
         State: data.state,
-        CIDR: '0.0.0.0/29',
-        internal: true,
-        public: true,
       },
     },
   });
@@ -58,9 +55,6 @@ export function createAppConnectionEntity(
         state: data.state,
         endpointHost: data.applicationEndpoint?.host,
         endpointPort: data.applicationEndpoint?.port,
-        CIDR: '0.0.0.0/29',
-        internal: true,
-        public: true,
       },
     },
   });
@@ -77,6 +71,10 @@ export function createGatewayEntity(
         _key: data.name as string,
         _type: BEYONDCORP_GATEWAY_TYPE,
         _class: BEYONDCORP_GATEWAY_CLASS,
+        uid: data.uid,
+        state: data.state,
+        type: data.type,
+        hostType: data.hostType,
       },
     },
   });

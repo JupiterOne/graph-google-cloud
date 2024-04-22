@@ -77,7 +77,7 @@ export class beyondcorpClient extends Client {
     );
   }
 
-  async iteratePartnerTenantRule(
+  async iteratePartnerTenant(
     callback: (data: beyondcorp_v1.Schema$GoogleIamV1Policy) => Promise<void>,
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
@@ -86,7 +86,7 @@ export class beyondcorpClient extends Client {
         return this.client.organizations.locations.global.partnerTenants.getIamPolicy(
           {
             auth,
-            resource: `organizations/${this.organizationId}/locations/global/partnerTenants/-`,
+            resource: `organizations/${this.organizationId}/locations/global/partnerTenants/*`,
           },
         );
       },

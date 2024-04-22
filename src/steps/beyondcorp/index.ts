@@ -196,7 +196,9 @@ export async function fetchPartnerTenant(
 
   const client = new beyondcorpClient({ config }, logger);
   try {
-    await client.iteratePartnerTenantRule(async (tenant) => {});
+    await client.iteratePartnerTenant(async (tenant) => {
+      console.log(tenant);
+    });
   } catch (err) {
     if (err.message?.match && err.message.match(/is not a workspace/i)) {
       publishUnsupportedConfigEvent({
