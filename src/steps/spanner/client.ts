@@ -1,9 +1,11 @@
 import { google, spanner_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
 import {
+  STEP_SPANNER_BACKUP,
   STEP_SPANNER_INSTANCES,
   STEP_SPANNER_INSTANCE_CONFIGS,
   STEP_SPANNER_INSTANCE_DATABASES,
+  STEP_SPANNER_INSTANCE_DATABASES_ROLE,
   SpannerPermissions,
 } from './constants';
 
@@ -123,5 +125,60 @@ export class SpannerClient extends Client {
       STEP_SPANNER_INSTANCE_DATABASES,
       SpannerPermissions.STEP_SPANNER_INSTANCE_DATABASES,
     );
+  }
+
+  async iterateInstanceDatabasesRoles(
+    instanceId: string,
+    databaseId: string,
+    callback: (data: spanner_v1.Schema$DatabaseRole) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.projects.instances.databases.databaseRoles.list({
+          auth,
+          parent: `projects/${this.projectId}/instances/${instanceId}/databases/${databaseId}`,
+          pageToken: nextPageToken,
+        });
+      },
+      async (data: spanner_v1.Schema$ListDatabaseRolesResponse) => {
+        for (const databaseRole of data.databaseRoles || []) {
+          await callback(databaseRole);
+        }
+      },
+      STEP_SPANNER_INSTANCE_DATABASES_ROLE,
+      SpannerPermissions.STEP_SPANNER_INSTANCE_DATABASES_ROLE,
+    );
+  }
+
+  async iterateSpannerBackup(
+    instanceName: string,
+    callback: (data: spanner_v1.Schema$Backup) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    try {
+      await this.iterateApi(
+        async (nextPageToken) => {
+          return this.client.projects.instances.backups.list({
+            auth,
+            parent: `projects/${this.projectId}/instances/${instanceName}`,
+            pageToken: nextPageToken,
+          });
+        },
+        async (data: spanner_v1.Schema$ListBackupsResponse) => {
+          for (const backup of data.backups || []) {
+            await callback(backup);
+          }
+        },
+        STEP_SPANNER_BACKUP,
+        SpannerPermissions.STEP_SPANNER_INSTANCE_BACKUP,
+      );
+    } catch (err) {
+      if (err.status == 404) {
+        this.logger.warn('No backup available');
+      }
+    }
   }
 }

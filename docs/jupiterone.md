@@ -394,6 +394,8 @@ The following entities are created:
 | Cloud Run Route                                          | `google_cloud_run_route`                                          | `Configuration`                    |
 | Cloud Run Service                                        | `google_cloud_run_service`                                        | `Service`                          |
 | Cloud Source Repository                                  | `google_cloud_source_repository`                                  | `CodeRepo`                         |
+| Cloud Spanner                                            | `google_cloud_spanner`                                            | `Service`                          |
+| Cloud Spanner Backups                                    | `google_cloud_spanner_backup`                                     | `Backup`                           |
 | Cloud Storage Bucket                                     | `google_storage_bucket`                                           | `DataStore`                        |
 | Compute Address                                          | `google_compute_address`                                          | `IpAddress`                        |
 | Compute Backend Bucket                                   | `google_compute_backend_bucket`                                   | `Gateway`                          |
@@ -452,6 +454,7 @@ The following entities are created:
 | Spanner Instance                                         | `google_spanner_instance`                                         | `Database`, `Cluster`              |
 | Spanner Instance Config                                  | `google_spanner_instance_config`                                  | `Configuration`                    |
 | Spanner Instance Database                                | `google_spanner_database`                                         | `Database`                         |
+| Spanner Instance Database Role                           | `google_cloud_spanner_database_role`                              | `AccessRole`                       |
 
 ### Relationships
 
@@ -516,6 +519,9 @@ The following relationships are created:
 | `google_cloud_project`                                           | **HAS**               | `google_cloud_alloydb_cluster`                                    |
 | `google_cloud_project`                                           | **HAS**               | `google_cloud_api_service`                                        |
 | `google_cloud_project`                                           | **HAS**               | `google_cloud_deploy_service`                                     |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_spanner`                                            |
+| `google_cloud_project`                                           | **HAS**               | `google_spanner_instance`                                         |
+| `google_cloud_project`                                           | **HAS**               | `google_spanner_instance_config`                                  |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_configuration`                                  |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_route`                                          |
 | `google_cloud_scan_config`                                       | **PERFORMED**         | `google_cloud_scan_run`                                           |
@@ -591,7 +597,9 @@ The following relationships are created:
 | `google_pubsub_topic`                                            | **USES**              | `google_kms_crypto_key`                                           |
 | `google_redis_instance`                                          | **USES**              | `google_compute_network`                                          |
 | `google_secret_manager_secret`                                   | **HAS**               | `google_secret_manager_secret_version`                            |
+| `google_spanner_database`                                        | **ASSIGNED**          | `google_cloud_spanner_database_role`                              |
 | `google_spanner_database`                                        | **USES**              | `google_kms_crypto_key`                                           |
+| `google_spanner_instance`                                        | **HAS**               | `google_cloud_spanner_backup`                                     |
 | `google_spanner_instance`                                        | **HAS**               | `google_spanner_database`                                         |
 | `google_spanner_instance`                                        | **USES**              | `google_spanner_instance_config`                                  |
 | `google_sql_mysql_instance`                                      | **USES**              | `google_kms_crypto_key`                                           |
@@ -626,7 +634,7 @@ permissions can be used to provision only the required ones:
 
 <!-- {J1_PERMISSIONS_DOCUMENTATION_MARKER_START} -->
 
-| Permissions List (120)                                  |
+| Permissions List (122)                                  |
 | ------------------------------------------------------- |
 | `accesscontextmanager.accessLevels.list`                |
 | `accesscontextmanager.accessPolicies.list`              |
@@ -742,8 +750,10 @@ permissions can be used to provision only the required ones:
 | `secretmanager.versions.list`                           |
 | `serviceusage.services.list`                            |
 | `source.repos.list`                                     |
+| `spanner.backups.get`                                   |
 | `spanner.databases.getIamPolicy`                        |
 | `spanner.databases.list`                                |
+| `spanner.databasesRoles.list`                           |
 | `spanner.instanceConfigs.list`                          |
 | `spanner.instances.list`                                |
 | `storage.buckets.getIamPolicy`                          |
