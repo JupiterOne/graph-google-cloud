@@ -27,6 +27,7 @@ import {
   STEP_APP_ENGINE_VERSIONS,
   STEP_CREATE_APP_ENGINE_BUCKET_RELATIONSHIPS,
 } from './steps/app-engine/constants';
+import { STEP_NETWORK_INTELLIGENCE_CENTER, STEP_NETWORK_ANALYZER_CONNECTIVITY_TEST } from './steps/network-analyzer/constants';
 import {
   bigQuerySteps,
   STEP_BIG_QUERY_DATASETS,
@@ -481,6 +482,12 @@ function getDefaultStepStartStates(params: {
     [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: {
       disabled: false,
     },
+    [STEP_NETWORK_INTELLIGENCE_CENTER]: {
+      disabled: false,
+    },
+    [STEP_NETWORK_ANALYZER_CONNECTIVITY_TEST]: {
+      disabled: false,
+    },
   };
 
   logger.info(
@@ -801,6 +808,10 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [STEP_SPANNER_INSTANCE_DATABASES]: createStepStartState(
       ServiceUsageName.SPANNER,
     ),
+    [STEP_NETWORK_INTELLIGENCE_CENTER]:
+      createOrgStepStartState(ServiceUsageName.NETWORK_ANALYZER),
+      [STEP_NETWORK_ANALYZER_CONNECTIVITY_TEST]:
+      createOrgStepStartState(ServiceUsageName.NETWORK_ANALYZER),
     [STEP_API_GATEWAY_APIS]: createStepStartState(ServiceUsageName.API_GATEWAY),
     [STEP_API_GATEWAY_API_CONFIGS]: createStepStartState(
       ServiceUsageName.API_GATEWAY,
