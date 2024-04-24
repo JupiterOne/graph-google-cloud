@@ -1,0 +1,302 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cloudMonitoring#fetch-cloud-monitoring-has-monitoring-alert-policies should collect data 1`] = `
+{
+  "collectedEntities": [
+    {
+      "_class": [
+        "Service",
+      ],
+      "_key": "958457776463_google_cloud_monitoring",
+      "_rawData": [],
+      "_type": "google_cloud_monitoring",
+      "category": [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "displayName": "Cloud Monitoring Service",
+      "endpoint": "http://console.cloud.google.com/",
+      "function": [
+        "monitoring",
+      ],
+      "name": "Cloud Monitoring Service",
+    },
+    {
+      "_class": [
+        "Policy",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v3/alertPolicies/7530992326634323073",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "combiner": "OR",
+            "conditions": [
+              {
+                "conditionThreshold": {
+                  "aggregations": [
+                    {
+                      "alignmentPeriod": "300s",
+                      "perSeriesAligner": "ALIGN_RATE",
+                    },
+                  ],
+                  "comparison": "COMPARISON_GT",
+                  "duration": "0s",
+                  "filter": "metric.type="logging.googleapis.com/user/my-example-metric" AND resource.type="metric"",
+                  "trigger": {
+                    "count": 1,
+                  },
+                },
+                "displayName": "test condition",
+                "name": "projects/j1-gc-integration-dev-v3/alertPolicies/7530992326634323073/conditions/7530992326634320184",
+              },
+            ],
+            "creationRecord": {
+              "mutateTime": "2021-05-31T16:25:52.239928975Z",
+              "mutatedBy": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+            },
+            "displayName": "Example Alert Policy",
+            "enabled": true,
+            "mutationRecord": {
+              "mutateTime": "2021-05-31T16:25:52.239928975Z",
+              "mutatedBy": "j1-gc-integration-dev-sa-tf@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+            },
+            "name": "projects/j1-gc-integration-dev-v3/alertPolicies/7530992326634323073",
+          },
+        },
+      ],
+      "_type": "google_monitoring_alert_policy",
+      "conditionFilters": [
+        "metric.type="logging.googleapis.com/user/my-example-metric" AND resource.type="metric"",
+      ],
+      "content": "",
+      "createdOn": 1622478352239,
+      "displayName": "Example Alert Policy",
+      "enabled": true,
+      "name": "Example Alert Policy",
+      "summary": "Alert policy that is triggered based on some metric",
+      "title": "Alert policy",
+      "updatedOn": 1622478352239,
+      "webLink": "https://console.cloud.google.com/monitoring/alerting/policies/7530992326634323073?project=j1-gc-integration-dev-v3",
+    },
+  ],
+  "collectedRelationships": [],
+  "encounteredTypes": [
+    "google_cloud_monitoring",
+    "google_monitoring_alert_policy",
+  ],
+  "numCollectedEntities": 2,
+  "numCollectedRelationships": 0,
+}
+`;
+
+exports[`cloudMonitoring#fetch-cloud-monitoring-has-monitoring-channels should collect data 1`] = `
+{
+  "collectedEntities": [
+    {
+      "_class": [
+        "Service",
+      ],
+      "_key": "958457776463_google_cloud_monitoring",
+      "_rawData": [],
+      "_type": "google_cloud_monitoring",
+      "category": [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "displayName": "Cloud Monitoring Service",
+      "endpoint": "http://console.cloud.google.com/",
+      "function": [
+        "monitoring",
+      ],
+      "name": "Cloud Monitoring Service",
+    },
+    {
+      "_class": [
+        "Channel",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v3/notificationChannels/5840683316867018886",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "creationRecord": {
+              "mutateTime": "2024-04-23T07:11:40.007779224Z",
+            },
+            "displayName": "sarthak-metron",
+            "enabled": true,
+            "labels": {
+              "number": "+917071885843",
+            },
+            "mutationRecords": [
+              {
+                "mutateTime": "2024-04-23T07:11:40.007779224Z",
+              },
+            ],
+            "name": "projects/j1-gc-integration-dev-v3/notificationChannels/5840683316867018886",
+            "type": "sms",
+            "verificationStatus": "VERIFIED",
+          },
+        },
+      ],
+      "_type": "google_cloud_monitoring-channel",
+      "createdOn": undefined,
+      "description": undefined,
+      "displayName": "sarthak-metron",
+      "isEnabled": true,
+      "name": "projects/j1-gc-integration-dev-v3/notificationChannels/5840683316867018886",
+      "tag.number": "+917071885843",
+      "type": "sms",
+    },
+  ],
+  "collectedRelationships": [],
+  "encounteredTypes": [
+    "google_cloud_monitoring",
+    "google_cloud_monitoring-channel",
+  ],
+  "numCollectedEntities": 2,
+  "numCollectedRelationships": 0,
+}
+`;
+
+exports[`cloudMonitoring#fetch-cloud-monitoring-has-monitoring-groups should collect data 1`] = `
+{
+  "collectedEntities": [
+    {
+      "_class": [
+        "Service",
+      ],
+      "_key": "958457776463_google_cloud_monitoring",
+      "_rawData": [],
+      "_type": "google_cloud_monitoring",
+      "category": [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "displayName": "Cloud Monitoring Service",
+      "endpoint": "http://console.cloud.google.com/",
+      "function": [
+        "monitoring",
+      ],
+      "name": "Cloud Monitoring Service",
+    },
+    {
+      "_class": [
+        "Group",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v3/groups/4264585095652530981",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "displayName": "demoForTesting",
+            "filter": "resource.type = "bigquery_dataset"",
+            "name": "projects/j1-gc-integration-dev-v3/groups/4264585095652530981",
+          },
+        },
+      ],
+      "_type": "google_cloud_group",
+      "createdOn": undefined,
+      "displayName": "demoForTesting",
+      "filter": "resource.type = "bigquery_dataset"",
+      "isCluster": undefined,
+      "name": "projects/j1-gc-integration-dev-v3/groups/4264585095652530981",
+      "parentName": undefined,
+    },
+  ],
+  "collectedRelationships": [
+    {
+      "_class": "HAS",
+      "_fromEntityKey": "958457776463_google_cloud_monitoring",
+      "_key": "958457776463_google_cloud_monitoring|has|projects/j1-gc-integration-dev-v3/groups/4264585095652530981",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v3/groups/4264585095652530981",
+      "_type": "google_cloud_monitoring_has_group",
+      "displayName": "HAS",
+    },
+  ],
+  "encounteredTypes": [
+    "google_cloud_monitoring",
+    "google_cloud_group",
+    "google_cloud_monitoring_has_group",
+  ],
+  "numCollectedEntities": 2,
+  "numCollectedRelationships": 1,
+}
+`;
+
+exports[`cloudMonitoring#fetch-project-has-cloud-monitoring should collect data 1`] = `
+{
+  "collectedEntities": [
+    {
+      "_class": [
+        "Service",
+      ],
+      "_key": "958457776463_google_cloud_monitoring",
+      "_rawData": [],
+      "_type": "google_cloud_monitoring",
+      "category": [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "displayName": "Cloud Monitoring Service",
+      "endpoint": "http://console.cloud.google.com/",
+      "function": [
+        "monitoring",
+      ],
+      "name": "Cloud Monitoring Service",
+    },
+    {
+      "_class": [
+        "Account",
+      ],
+      "_key": "projects/167984947943",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "createTime": "2021-05-31T15:15:56.125Z",
+            "displayName": "j1-gc-integration-dev-v3",
+            "etag": "W/"8f56735f6f3d890d"",
+            "labels": {
+              "firebase": "enabled",
+            },
+            "name": "projects/167984947943",
+            "parent": "folders/306329820365",
+            "projectId": "j1-gc-integration-dev-v3",
+            "state": "ACTIVE",
+            "updateTime": "2024-02-27T16:17:58.322524Z",
+          },
+        },
+      ],
+      "_type": "google_cloud_project",
+      "createdOn": 1622474156125,
+      "displayName": "j1-gc-integration-dev-v3",
+      "id": "j1-gc-integration-dev-v3",
+      "lifecycleState": "ACTIVE",
+      "name": "projects/167984947943",
+      "parent": "folders/306329820365",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.firebase": "enabled",
+      "updatedOn": 1709050678322,
+      "webLink": "https://console.cloud.google.com/home/dashboard?project=j1-gc-integration-dev-v3",
+    },
+  ],
+  "collectedRelationships": [
+    {
+      "_class": "HAS",
+      "_fromEntityKey": "projects/167984947943",
+      "_key": "projects/167984947943|has|958457776463_google_cloud_monitoring",
+      "_toEntityKey": "958457776463_google_cloud_monitoring",
+      "_type": "google_cloud_project_has_monitoring",
+      "displayName": "HAS",
+    },
+  ],
+  "encounteredTypes": [
+    "google_cloud_monitoring",
+    "google_cloud_project",
+    "google_cloud_project_has_monitoring",
+  ],
+  "numCollectedEntities": 2,
+  "numCollectedRelationships": 1,
+}
+`;

@@ -156,7 +156,16 @@ import {
   STEP_MEMCACHE_INSTANCES,
 } from './steps/memcache/constants';
 import { monitoringSteps } from './steps/monitoring';
-import { STEP_MONITORING_ALERT_POLICIES } from './steps/monitoring/constants';
+import {
+  STEP_CLOUD_MONITORING,
+  STEP_CLOUD_MONITORING_HAS_MONITORING_ALERT_POLICIES_RELATIONSHIP,
+  STEP_CLOUD_MONITORING_HAS_MONITORING_CHANNELS_RELATIONSHIP,
+  STEP_CLOUD_MONITORING_HAS_MONITORING_GROUPS_RELATIONSHIP,
+  STEP_MONITORING_ALERT_POLICIES,
+  STEP_MONITORING_CHANNELS,
+  STEP_MONITORING_GROUPS,
+  STEP_PROJECT_HAS_CLOUD_MONITORING_RELATIONSHIP,
+} from './steps/monitoring/constants';
 import { privateCaSteps } from './steps/privateca';
 import { PrivatecaSteps } from './steps/privateca/constants';
 import { pubSubSteps } from './steps/pub-sub';
@@ -390,6 +399,19 @@ function getDefaultStepStartStates(params: {
     },
     [STEP_LOGGING_METRICS]: { disabled: false },
     [STEP_MONITORING_ALERT_POLICIES]: { disabled: false },
+    [STEP_MONITORING_GROUPS]: { disabled: false },
+    [STEP_MONITORING_CHANNELS]: { disabled: false },
+    [STEP_CLOUD_MONITORING]: { disabled: false },
+    [STEP_PROJECT_HAS_CLOUD_MONITORING_RELATIONSHIP]: { disabled: false },
+    [STEP_CLOUD_MONITORING_HAS_MONITORING_GROUPS_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_CLOUD_MONITORING_HAS_MONITORING_CHANNELS_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_CLOUD_MONITORING_HAS_MONITORING_ALERT_POLICIES_RELATIONSHIP]: {
+      disabled: false,
+    },
     [STEP_BINARY_AUTHORIZATION_POLICY]: { disabled: false },
     [STEP_PUBSUB_TOPICS]: { disabled: false },
     [STEP_CREATE_PUBSUB_TOPIC_KMS_RELATIONSHIPS]: { disabled: false },
@@ -758,6 +780,24 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [STEP_MONITORING_ALERT_POLICIES]: createStepStartState(
       ServiceUsageName.MONITORING,
     ),
+    [STEP_CLOUD_MONITORING]: createOrgStepStartState(
+      ServiceUsageName.MONITORING,
+    ),
+    [STEP_MONITORING_CHANNELS]: createOrgStepStartState(
+      ServiceUsageName.MONITORING,
+    ),
+    [STEP_MONITORING_GROUPS]: createOrgStepStartState(
+      ServiceUsageName.MONITORING,
+    ),
+    [STEP_PROJECT_HAS_CLOUD_MONITORING_RELATIONSHIP]: createOrgStepStartState(
+      ServiceUsageName.MONITORING,
+    ),
+    [STEP_CLOUD_MONITORING_HAS_MONITORING_GROUPS_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.MONITORING),
+    [STEP_CLOUD_MONITORING_HAS_MONITORING_CHANNELS_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.MONITORING),
+    [STEP_CLOUD_MONITORING_HAS_MONITORING_ALERT_POLICIES_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.MONITORING),
     [STEP_BINARY_AUTHORIZATION_POLICY]: createStepStartState(
       ServiceUsageName.BINARY_AUTHORIZATION,
     ),

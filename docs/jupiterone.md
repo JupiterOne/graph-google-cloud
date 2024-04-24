@@ -59,6 +59,7 @@ all of the supported data into JupiterOne:
 | [accesscontextmanager](https://console.developers.google.com/apis/library/accesscontextmanager.googleapis.com) | accesscontextmanager.googleapis.com |
 | [apigateway](https://console.developers.google.com/apis/library/apigateway.googleapis.com)                     | apigateway.googleapis.com           |
 | [appengine](https://console.developers.google.com/apis/library/appengine.googleapis.com)                       | appengine.googleapis.com            |
+| [beyondcorp](https://console.developers.google.com/apis/library/beyondcorp.googleapis.com)                     | beyondcorp.googleapis.com           |
 | [bigquery](https://console.developers.google.com/apis/library/bigquery.googleapis.com)                         | bigquery.googleapis.com             |
 | [bigtable](https://console.developers.google.com/apis/library/bigtable.googleapis.com)                         | bigtable.googleapis.com             |
 | [binaryauthorization](https://console.developers.google.com/apis/library/binaryauthorization.googleapis.com)   | binaryauthorization.googleapis.com  |
@@ -120,6 +121,7 @@ gcloud services enable \
  accesscontextmanager.googleapis.com \
  apigateway.googleapis.com \
  appengine.googleapis.com \
+ beyondcorp.googleapis.com \
  bigquery.googleapis.com \
  bigtable.googleapis.com \
  binaryauthorization.googleapis.com \
@@ -377,6 +379,7 @@ The following entities are created:
 | Cloud Build Trigger                                      | `google_cloud_build_trigger`                                      | `Rule`                             |
 | Cloud Build Worker Pool                                  | `google_cloud_build_worker_pool`                                  | `Cluster`                          |
 | Cloud Function                                           | `google_cloud_function`                                           | `Function`                         |
+| Cloud Monitoring                                         | `google_cloud_monitoring`                                         | `Service`                          |
 | Cloud Run Configuration                                  | `google_cloud_run_configuration`                                  | `Configuration`                    |
 | Cloud Run Route                                          | `google_cloud_run_route`                                          | `Configuration`                    |
 | Cloud Run Service                                        | `google_cloud_run_service`                                        | `Service`                          |
@@ -421,6 +424,8 @@ The following entities are created:
 | Memcache Instance                                        | `google_memcache_instance`                                        | `Database`, `DataStore`, `Cluster` |
 | Memcache Instance Node                                   | `google_memcache_instance_node`                                   | `Database`, `DataStore`, `Host`    |
 | Monitoring Alert Policy                                  | `google_monitoring_alert_policy`                                  | `Policy`                           |
+| Monitoring Channels                                      | `google_cloud_monitoring-channel`                                 | `Channel`                          |
+| Monitoring Groups                                        | `google_cloud_group`                                              | `Group`                            |
 | Organization                                             | `google_cloud_organization`                                       | `Organization`                     |
 | Private CA Certificate                                   | `google_privateca_certificate`                                    | `Certificate`                      |
 | Private CA Certificate Authority                         | `google_privateca_certificate_authority`                          | `Service`                          |
@@ -488,11 +493,15 @@ The following relationships are created:
 | `google_cloud_function`                                          | **USES**              | `google_cloud_source_repository`                                  |
 | `google_cloud_function`                                          | **USES**              | `google_iam_service_account`                                      |
 | `google_cloud_function`                                          | **USES**              | `google_storage_bucket`                                           |
+| `google_cloud_monitoring`                                        | **HAS**               | `google_cloud_group`                                              |
+| `google_cloud_monitoring`                                        | **HAS**               | `google_cloud_monitoring-channel`                                 |
+| `google_cloud_monitoring`                                        | **HAS**               | `google_monitoring_alert_policy`                                  |
 | `google_cloud_organization`                                      | **HAS**               | `google_cloud_folder`                                             |
 | `google_cloud_organization`                                      | **HAS**               | `google_cloud_project`                                            |
 | `google_cloud_project`                                           | **HAS**               | `google_billing_budget`                                           |
 | `google_cloud_project`                                           | **HAS**               | `google_binary_authorization_policy`                              |
 | `google_cloud_project`                                           | **HAS**               | `google_cloud_api_service`                                        |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_monitoring`                                         |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_configuration`                                  |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_route`                                          |
 | `google_cloud_scan_config`                                       | **PERFORMED**         | `google_cloud_scan_run`                                           |
@@ -600,7 +609,7 @@ permissions can be used to provision only the required ones:
 
 <!-- {J1_PERMISSIONS_DOCUMENTATION_MARKER_START} -->
 
-| Permissions List (112)                                  |
+| Permissions List (113)                                  |
 | ------------------------------------------------------- |
 | `accesscontextmanager.accessLevels.list`                |
 | `accesscontextmanager.accessPolicies.list`              |
@@ -685,6 +694,7 @@ permissions can be used to provision only the required ones:
 | `logging.sinks.list`                                    |
 | `memcache.instances.list`                               |
 | `monitoring.alertPolicies.list`                         |
+| `monitoring.notificationChannels.list`                  |
 | `orgpolicy.policies.list`                               |
 | `orgpolicy.policy.get`                                  |
 | `osconfig.inventories.get`                              |

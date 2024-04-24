@@ -133,7 +133,16 @@ import {
   STEP_CREATE_MEMCACHE_INSTANCE_NETWORK_RELATIONSHIPS,
   STEP_MEMCACHE_INSTANCES,
 } from './steps/memcache/constants';
-import { STEP_MONITORING_ALERT_POLICIES } from './steps/monitoring/constants';
+import {
+  STEP_CLOUD_MONITORING,
+  STEP_CLOUD_MONITORING_HAS_MONITORING_ALERT_POLICIES_RELATIONSHIP,
+  STEP_CLOUD_MONITORING_HAS_MONITORING_CHANNELS_RELATIONSHIP,
+  STEP_CLOUD_MONITORING_HAS_MONITORING_GROUPS_RELATIONSHIP,
+  STEP_MONITORING_ALERT_POLICIES,
+  STEP_MONITORING_CHANNELS,
+  STEP_MONITORING_GROUPS,
+  STEP_PROJECT_HAS_CLOUD_MONITORING_RELATIONSHIP,
+} from './steps/monitoring/constants';
 import { PrivatecaSteps } from './steps/privateca/constants';
 import {
   STEP_CREATE_PUBSUB_TOPIC_KMS_RELATIONSHIPS,
@@ -409,6 +418,27 @@ describe('#getStepStartStates success', () => {
           disabled: false,
         },
         [STEP_MONITORING_ALERT_POLICIES]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_MONITORING]: {
+          disabled: false,
+        },
+        [STEP_MONITORING_CHANNELS]: {
+          disabled: false,
+        },
+        [STEP_MONITORING_GROUPS]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_CLOUD_MONITORING_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_MONITORING_HAS_MONITORING_GROUPS_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_MONITORING_HAS_MONITORING_CHANNELS_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_MONITORING_HAS_MONITORING_ALERT_POLICIES_RELATIONSHIP]: {
           disabled: false,
         },
         [STEP_BINARY_AUTHORIZATION_POLICY]: {
@@ -854,8 +884,9 @@ expect.extend({
     stepCollection: string[],
   ) {
     for (const stepId of stepCollection) {
-      const stepDependencies = integrationSteps.find((s) => s.id === stepId)
-        ?.dependsOn;
+      const stepDependencies = integrationSteps.find(
+        (s) => s.id === stepId,
+      )?.dependsOn;
 
       const invalidStepDependencies = stepDependencies?.filter(
         (s) => !stepCollection.includes(s),
