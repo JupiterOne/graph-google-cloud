@@ -327,11 +327,7 @@ export async function fetchSpannerService(
 export async function buildSpannerInstanceBackupRelationship(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const {
-    jobState,
-    instance: { config },
-    logger,
-  } = context;
+  const { jobState } = context;
 
   await jobState.iterateEntities(
     {
