@@ -1,3 +1,15 @@
+# v3.3.3 (Tue Apr 09 2024)
+
+#### 🐛 Bug Fix
+
+- INT-10621: add error logger [#647](https://github.com/JupiterOne/graph-google-cloud/pull/647) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### Authors: 1
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
 # v3.3.2 (Tue Apr 02 2024)
 
 #### 🐛 Bug Fix
