@@ -40,4 +40,5 @@ export enum ServiceUsageName {
   WEB_SECURITY_SCANNER = 'websecurityscanner.googleapis.com',
   ORG_POLICY = 'orgpolicy.googleapis.com',
   CLOUD_DEPLOY = 'clouddeploy.googleapis.com',
+  ALLOYDB = 'alloydb.googleapis.com',
 }

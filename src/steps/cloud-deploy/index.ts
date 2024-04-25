@@ -8,7 +8,7 @@ import { fetchCloudDeployServiceStep } from './steps/cloud-deploy-service';
 import { fetchCloudDeployAutomationsStep } from './steps/fetch-automations';
 import { fetchCloudDeployDeliveryPipelinesStep } from './steps/fetch-delivery-pipeline';
 
-export const CloudDeploySteps: GoogleCloudIntegrationStep[] = [
+export const cloudDeploySteps: GoogleCloudIntegrationStep[] = [
   fetchCloudDeployDeliveryPipelinesStep,
   fetchCloudDeployAutomationsStep,
   fetchCloudDeployServiceStep,

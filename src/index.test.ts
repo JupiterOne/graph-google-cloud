@@ -179,6 +179,20 @@ import {
   STEP_CLOUD_DEPLOY_SERVICE_HAS_DELIVERY_PIPELINE_RELAIONSHIP,
   STEP_PROJECT_HAS_CLOUD_DEPLOY_RELATIONSHIP,
 } from './steps/cloud-deploy/constant';
+import {
+  STEP_ALLOYDB_CLUSTER_HAS_BACKUP_RELATIONSHIP,
+  STEP_ALLOYDB_CLUSTER_USES_KMS_KEY_RELATIONSHIP,
+  STEP_ALLOYDB_INSTANCE_HAS_CONNECTION_RELATIONSHIP,
+  STEP_ALLOYDB_INSTANCE_USES_CLUSTER_RELATIONSHIP,
+  STEP_ALLOYDB_POSTGRE_SQL_BACKUP,
+  STEP_ALLOYDB_POSTGRE_SQL_CLUSTER,
+  STEP_ALLOYDB_POSTGRE_SQL_CONNECTION,
+  STEP_ALLOYDB_POSTGRE_SQL_INSTANCE,
+  STEP_ALLOYDB_POSTGRE_SQL_SERVICE,
+  STEP_PROJECT_HAS_ALLOYDB_CLUSTER_RELATIONSHIP,
+  STEP_PROJECT_HAS_ALLOYDB_SERVICE_RELATIONSHIP,
+  STEP_USER_ASSIGNED_ALLOYDB_CLUSTER_RELATIONSHIP,
+} from './steps/alloydb/constants';
 
 describe('#getStepStartStates success', () => {
   let recording: Recording;
@@ -635,8 +649,43 @@ describe('#getStepStartStates success', () => {
           {
             disabled: false,
           },
+        [STEP_ALLOYDB_POSTGRE_SQL_SERVICE]: {
+          disabled: false,
+        },
+        [STEP_ALLOYDB_POSTGRE_SQL_CLUSTER]: {
+          disabled: false,
+        },
+        [STEP_ALLOYDB_POSTGRE_SQL_INSTANCE]: {
+          disabled: false,
+        },
+        [STEP_ALLOYDB_POSTGRE_SQL_CONNECTION]: {
+          disabled: false,
+        },
+        [STEP_ALLOYDB_POSTGRE_SQL_BACKUP]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_ALLOYDB_SERVICE_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_ALLOYDB_CLUSTER_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_ALLOYDB_INSTANCE_USES_CLUSTER_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_ALLOYDB_CLUSTER_HAS_BACKUP_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_ALLOYDB_INSTANCE_HAS_CONNECTION_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_ALLOYDB_CLUSTER_USES_KMS_KEY_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_USER_ASSIGNED_ALLOYDB_CLUSTER_RELATIONSHIP]: {
+          disabled: false,
+        },
       };
-
       expect(stepStartStates).toEqual(expectedStepStartStates);
     },
   );

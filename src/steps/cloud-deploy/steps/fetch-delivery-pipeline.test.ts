@@ -36,5 +36,14 @@ describe(STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE, () => {
 
     const result = await executeStepWithDependencies(stepTestConfig);
     expect(result).toMatchStepMetadata(stepTestConfig);
+
+    const relStepTestConfig = {
+      stepId: STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE,
+      instanceConfig: integrationConfig,
+      invocationConfig: invocationConfig as any,
+    };
+
+    const relResult = await executeStepWithDependencies(relStepTestConfig);
+    expect(relResult).toMatchStepMetadata(stepTestConfig);
   });
 });

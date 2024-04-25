@@ -211,7 +211,22 @@ import {
   STEP_CLOUD_DEPLOY_SERVICE_HAS_DELIVERY_PIPELINE_RELAIONSHIP,
   STEP_PROJECT_HAS_CLOUD_DEPLOY_RELATIONSHIP,
 } from './steps/cloud-deploy/constant';
-import { CloudDeploySteps } from './steps/cloud-deploy';
+import { cloudDeploySteps } from './steps/cloud-deploy';
+import {
+  STEP_ALLOYDB_CLUSTER_HAS_BACKUP_RELATIONSHIP,
+  STEP_ALLOYDB_CLUSTER_USES_KMS_KEY_RELATIONSHIP,
+  STEP_ALLOYDB_INSTANCE_HAS_CONNECTION_RELATIONSHIP,
+  STEP_ALLOYDB_INSTANCE_USES_CLUSTER_RELATIONSHIP,
+  STEP_ALLOYDB_POSTGRE_SQL_BACKUP,
+  STEP_ALLOYDB_POSTGRE_SQL_CLUSTER,
+  STEP_ALLOYDB_POSTGRE_SQL_CONNECTION,
+  STEP_ALLOYDB_POSTGRE_SQL_INSTANCE,
+  STEP_ALLOYDB_POSTGRE_SQL_SERVICE,
+  STEP_PROJECT_HAS_ALLOYDB_CLUSTER_RELATIONSHIP,
+  STEP_PROJECT_HAS_ALLOYDB_SERVICE_RELATIONSHIP,
+  STEP_USER_ASSIGNED_ALLOYDB_CLUSTER_RELATIONSHIP,
+} from './steps/alloydb/constants';
+import { alloyDBSteps } from './steps/alloydb';
 
 function makeStepStartStates(
   stepIds: string[],
@@ -515,6 +530,42 @@ function getDefaultStepStartStates(params: {
       disabled: false,
     },
     [STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_STORAGE_BUCKET_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_ALLOYDB_POSTGRE_SQL_SERVICE]: {
+      disabled: false,
+    },
+    [STEP_ALLOYDB_POSTGRE_SQL_CLUSTER]: {
+      disabled: false,
+    },
+    [STEP_ALLOYDB_POSTGRE_SQL_INSTANCE]: {
+      disabled: false,
+    },
+    [STEP_ALLOYDB_POSTGRE_SQL_CONNECTION]: {
+      disabled: false,
+    },
+    [STEP_ALLOYDB_POSTGRE_SQL_BACKUP]: {
+      disabled: false,
+    },
+    [STEP_PROJECT_HAS_ALLOYDB_SERVICE_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_PROJECT_HAS_ALLOYDB_CLUSTER_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_ALLOYDB_INSTANCE_USES_CLUSTER_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_ALLOYDB_CLUSTER_HAS_BACKUP_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_ALLOYDB_INSTANCE_HAS_CONNECTION_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_ALLOYDB_CLUSTER_USES_KMS_KEY_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_USER_ASSIGNED_ALLOYDB_CLUSTER_RELATIONSHIP]: {
       disabled: false,
     },
   };
@@ -959,6 +1010,42 @@ async function getStepStartStatesUsingServiceEnablements(params: {
       createStepStartState(ServiceUsageName.CLOUD_DEPLOY),
     [STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_STORAGE_BUCKET_RELATIONSHIP]:
       createStepStartState(ServiceUsageName.CLOUD_DEPLOY),
+    [STEP_ALLOYDB_POSTGRE_SQL_SERVICE]: createStepStartState(
+      ServiceUsageName.ALLOYDB,
+    ),
+    [STEP_ALLOYDB_POSTGRE_SQL_CLUSTER]: createStepStartState(
+      ServiceUsageName.ALLOYDB,
+    ),
+    [STEP_ALLOYDB_POSTGRE_SQL_INSTANCE]: createStepStartState(
+      ServiceUsageName.ALLOYDB,
+    ),
+    [STEP_ALLOYDB_POSTGRE_SQL_CONNECTION]: createStepStartState(
+      ServiceUsageName.ALLOYDB,
+    ),
+    [STEP_ALLOYDB_POSTGRE_SQL_BACKUP]: createStepStartState(
+      ServiceUsageName.ALLOYDB,
+    ),
+    [STEP_PROJECT_HAS_ALLOYDB_SERVICE_RELATIONSHIP]: createStepStartState(
+      ServiceUsageName.ALLOYDB,
+    ),
+    [STEP_PROJECT_HAS_ALLOYDB_CLUSTER_RELATIONSHIP]: createStepStartState(
+      ServiceUsageName.ALLOYDB,
+    ),
+    [STEP_ALLOYDB_INSTANCE_USES_CLUSTER_RELATIONSHIP]: createStepStartState(
+      ServiceUsageName.ALLOYDB,
+    ),
+    [STEP_ALLOYDB_CLUSTER_HAS_BACKUP_RELATIONSHIP]: createStepStartState(
+      ServiceUsageName.ALLOYDB,
+    ),
+    [STEP_ALLOYDB_INSTANCE_HAS_CONNECTION_RELATIONSHIP]: createStepStartState(
+      ServiceUsageName.ALLOYDB,
+    ),
+    [STEP_ALLOYDB_CLUSTER_USES_KMS_KEY_RELATIONSHIP]: createStepStartState(
+      ServiceUsageName.ALLOYDB,
+    ),
+    [STEP_USER_ASSIGNED_ALLOYDB_CLUSTER_RELATIONSHIP]: createStepStartState(
+      ServiceUsageName.ALLOYDB,
+    ),
   };
 
   const apiServiceToStepIdsMap: { [apiService: string]: string[] } = {
@@ -1001,7 +1088,8 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [ServiceUsageName.WEB_SECURITY_SCANNER]: webSecurityScannerSteps.map(
       (s) => s.id,
     ),
-    [ServiceUsageName.CLOUD_DEPLOY]: CloudDeploySteps.map((s) => s.id),
+    [ServiceUsageName.CLOUD_DEPLOY]: cloudDeploySteps.map((s) => s.id),
+    [ServiceUsageName.ALLOYDB]: alloyDBSteps.map((s) => s.id),
   };
 
   for (const serviceName of Object.keys(apiServiceToStepIdsMap)) {
