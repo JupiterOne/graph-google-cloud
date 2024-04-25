@@ -89,6 +89,7 @@ import {
   STEP_COMPUTE_LOADBALANCERS,
   STEP_COMPUTE_NETWORKS,
   STEP_COMPUTE_NETWORK_PEERING_RELATIONSHIPS,
+  STEP_COMPUTE_NETWORK_ROUTER_RELATIONSHIPS,
   STEP_COMPUTE_PROJECT,
   STEP_COMPUTE_REGION_BACKEND_SERVICES,
   STEP_COMPUTE_REGION_DISKS,
@@ -97,6 +98,7 @@ import {
   STEP_COMPUTE_REGION_LOADBALANCERS,
   STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES,
   STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES,
+  STEP_COMPUTE_ROUTER,
   STEP_COMPUTE_SNAPSHOTS,
   STEP_COMPUTE_SNAPSHOT_DISK_RELATIONSHIPS,
   STEP_COMPUTE_SSL_POLICIES,
@@ -155,9 +157,17 @@ import {
 import { SecretManagerSteps } from './steps/secret-manager/constants';
 import { ServiceUsageStepIds } from './steps/service-usage/constants';
 import {
+  STEP_CLOUD_SPANNER_SERVICE,
+  STEP_PROJECT_HAS_SPANNER_INSTANCE,
+  STEP_PROJECT_HAS_SPANNER_INSTANCE_CONFIG,
+  STEP_PROJECT_HAS_SPANNER_SERVICE,
+  STEP_SPANNER_BACKUP,
   STEP_SPANNER_INSTANCES,
   STEP_SPANNER_INSTANCE_CONFIGS,
   STEP_SPANNER_INSTANCE_DATABASES,
+  STEP_SPANNER_INSTANCE_DATABASES_ASSIGNED_DATABASE_ROLE,
+  STEP_SPANNER_INSTANCE_DATABASES_ROLE,
+  STEP_SPANNER_INSTANCE_HAS_BACKUP,
 } from './steps/spanner/constants';
 import { SqlAdminSteps, STEP_SQL_ADMIN_INSTANCES } from './steps/sql-admin';
 import { IntegrationConfig } from './types';
@@ -339,6 +349,8 @@ describe('#getStepStartStates success', () => {
         [STEP_COMPUTE_SUBNETWORKS]: {
           disabled: false,
         },
+        [STEP_COMPUTE_ROUTER]: { disabled: false },
+        [STEP_COMPUTE_NETWORK_ROUTER_RELATIONSHIPS]: { disabled: false },
         [STEP_COMPUTE_PROJECT]: {
           disabled: false,
         },
@@ -492,6 +504,16 @@ describe('#getStepStartStates success', () => {
         [STEP_SPANNER_INSTANCE_DATABASES]: {
           disabled: false,
         },
+        [STEP_SPANNER_INSTANCE_DATABASES_ROLE]: { disabled: false },
+        [STEP_SPANNER_INSTANCE_DATABASES_ASSIGNED_DATABASE_ROLE]: {
+          disabled: false,
+        },
+        [STEP_SPANNER_BACKUP]: { disabled: false },
+        [STEP_SPANNER_INSTANCE_HAS_BACKUP]: { disabled: false },
+        [STEP_CLOUD_SPANNER_SERVICE]: { disabled: false },
+        [STEP_PROJECT_HAS_SPANNER_SERVICE]: { disabled: false },
+        [STEP_PROJECT_HAS_SPANNER_INSTANCE]: { disabled: false },
+        [STEP_PROJECT_HAS_SPANNER_INSTANCE_CONFIG]: { disabled: false },
         [STEP_API_GATEWAY_APIS]: {
           disabled: false,
         },

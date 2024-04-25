@@ -93,6 +93,7 @@ import {
   STEP_COMPUTE_INSTANCES,
   STEP_COMPUTE_LOADBALANCERS,
   STEP_COMPUTE_NETWORK_PEERING_RELATIONSHIPS,
+  STEP_COMPUTE_NETWORK_ROUTER_RELATIONSHIPS,
   STEP_COMPUTE_NETWORKS,
   STEP_COMPUTE_PROJECT,
   STEP_COMPUTE_REGION_BACKEND_SERVICES,
@@ -102,6 +103,7 @@ import {
   STEP_COMPUTE_REGION_LOADBALANCERS,
   STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES,
   STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES,
+  STEP_COMPUTE_ROUTER,
   STEP_COMPUTE_SNAPSHOT_DISK_RELATIONSHIPS,
   STEP_COMPUTE_SNAPSHOTS,
   STEP_COMPUTE_SSL_POLICIES,
@@ -185,8 +187,16 @@ import { serviceUsageSteps } from './steps/service-usage';
 import { ServiceUsageStepIds } from './steps/service-usage/constants';
 import { spannerSteps } from './steps/spanner';
 import {
+  STEP_CLOUD_SPANNER_SERVICE,
+  STEP_PROJECT_HAS_SPANNER_INSTANCE,
+  STEP_PROJECT_HAS_SPANNER_INSTANCE_CONFIG,
+  STEP_PROJECT_HAS_SPANNER_SERVICE,
+  STEP_SPANNER_BACKUP,
   STEP_SPANNER_INSTANCE_CONFIGS,
   STEP_SPANNER_INSTANCE_DATABASES,
+  STEP_SPANNER_INSTANCE_DATABASES_ASSIGNED_DATABASE_ROLE,
+  STEP_SPANNER_INSTANCE_DATABASES_ROLE,
+  STEP_SPANNER_INSTANCE_HAS_BACKUP,
   STEP_SPANNER_INSTANCES,
 } from './steps/spanner/constants';
 import {
@@ -376,6 +386,8 @@ function getDefaultStepStartStates(params: {
     [STEP_COMPUTE_GLOBAL_FORWARDING_RULES]: { disabled: false },
     [STEP_COMPUTE_FIREWALLS]: { disabled: false },
     [STEP_COMPUTE_SUBNETWORKS]: { disabled: false },
+    [STEP_COMPUTE_ROUTER]: { disabled: false },
+    [STEP_COMPUTE_NETWORK_ROUTER_RELATIONSHIPS]: { disabled: false },
     [STEP_COMPUTE_PROJECT]: { disabled: false },
     [STEP_COMPUTE_HEALTH_CHECKS]: { disabled: false },
     [STEP_COMPUTE_REGION_HEALTH_CHECKS]: { disabled: false },
@@ -434,6 +446,16 @@ function getDefaultStepStartStates(params: {
     [STEP_SPANNER_INSTANCES]: { disabled: false },
     [STEP_SPANNER_INSTANCE_CONFIGS]: { disabled: false },
     [STEP_SPANNER_INSTANCE_DATABASES]: { disabled: false },
+    [STEP_SPANNER_INSTANCE_DATABASES_ROLE]: { disabled: false },
+    [STEP_SPANNER_INSTANCE_DATABASES_ASSIGNED_DATABASE_ROLE]: {
+      disabled: false,
+    },
+    [STEP_SPANNER_BACKUP]: { disabled: false },
+    [STEP_SPANNER_INSTANCE_HAS_BACKUP]: { disabled: false },
+    [STEP_CLOUD_SPANNER_SERVICE]: { disabled: false },
+    [STEP_PROJECT_HAS_SPANNER_SERVICE]: { disabled: false },
+    [STEP_PROJECT_HAS_SPANNER_INSTANCE]: { disabled: false },
+    [STEP_PROJECT_HAS_SPANNER_INSTANCE_CONFIG]: { disabled: false },
     [STEP_API_GATEWAY_APIS]: { disabled: false },
     [STEP_API_GATEWAY_API_CONFIGS]: { disabled: false },
     [STEP_API_GATEWAY_GATEWAYS]: { disabled: false },
@@ -769,6 +791,10 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     ),
     [STEP_COMPUTE_FIREWALLS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_SUBNETWORKS]: createStepStartState(ServiceUsageName.COMPUTE),
+    [STEP_COMPUTE_ROUTER]: createStepStartState(ServiceUsageName.COMPUTE),
+    [STEP_COMPUTE_NETWORK_ROUTER_RELATIONSHIPS]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
     [STEP_COMPUTE_PROJECT]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_HEALTH_CHECKS]: createStepStartState(
       ServiceUsageName.COMPUTE,
@@ -884,6 +910,25 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [STEP_SPANNER_INSTANCE_CONFIGS]: createStepStartState(
       ServiceUsageName.SPANNER,
     ),
+    [STEP_SPANNER_INSTANCE_DATABASES_ROLE]: createStepStartState(
+      ServiceUsageName.SPANNER,
+    ),
+    [STEP_SPANNER_INSTANCE_DATABASES_ASSIGNED_DATABASE_ROLE]:
+      createStepStartState(ServiceUsageName.SPANNER),
+    [STEP_SPANNER_BACKUP]: createStepStartState(ServiceUsageName.SPANNER),
+    [STEP_SPANNER_INSTANCE_HAS_BACKUP]: createStepStartState(
+      ServiceUsageName.SPANNER,
+    ),
+    [STEP_CLOUD_SPANNER_SERVICE]: createStepStartState(
+      ServiceUsageName.SPANNER,
+    ),
+    [STEP_PROJECT_HAS_SPANNER_SERVICE]: createStepStartState(
+      ServiceUsageName.SPANNER,
+    ),
+    [STEP_PROJECT_HAS_SPANNER_INSTANCE]: createStepStartState(
+      ServiceUsageName.SPANNER,
+    ),
+    [STEP_PROJECT_HAS_SPANNER_INSTANCE_CONFIG]: { disabled: false },
     [STEP_SPANNER_INSTANCE_DATABASES]: createStepStartState(
       ServiceUsageName.SPANNER,
     ),

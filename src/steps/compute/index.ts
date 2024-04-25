@@ -35,6 +35,8 @@ import { buildImageUsesKmsRelationshipsStepMap } from './steps/build-image-uses-
 import { fetchComputeForwardingRulesStepMap } from './steps/fetch-compute-forwarding-rules';
 import { buildDiskUsesKmsRelationshipsStepMap } from './steps/build-disk-uses-kms-relationships';
 import { fetchComputeGlobalForwardingRulesStepMap } from './steps/fetch-compute-global-forwarding-rules';
+import { fetchComputeRouterStepsMap } from './steps/fetch-compute-router';
+import { buildComputeNetworkRouterRelationshipsMap } from './steps/build-compute-network-router-relationship.ts';
 
 export * from './constants';
 
@@ -68,6 +70,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   fetchComputeSslPoliciesStepMap,
   fetchComputeForwardingRulesStepMap,
   fetchComputeGlobalForwardingRulesStepMap,
+  fetchComputeRouterStepsMap,
   // Build steps
   buildComputeNetworkPeeringRelationshipsStepMap,
   buildComputeSnapshotDiskRelationshipsStepMap,
@@ -78,4 +81,5 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   buildComputeBackendBucketHasBucketRelationshipsStepMap,
   buildImageUsesKmsRelationshipsStepMap,
   buildDiskUsesKmsRelationshipsStepMap,
+  buildComputeNetworkRouterRelationshipsMap,
 ];
