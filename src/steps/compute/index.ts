@@ -35,6 +35,9 @@ import { buildImageUsesKmsRelationshipsStepMap } from './steps/build-image-uses-
 import { fetchComputeForwardingRulesStepMap } from './steps/fetch-compute-forwarding-rules';
 import { buildDiskUsesKmsRelationshipsStepMap } from './steps/build-disk-uses-kms-relationships';
 import { fetchComputeGlobalForwardingRulesStepMap } from './steps/fetch-compute-global-forwarding-rules';
+import { fetchCloudInterConnectStep } from './steps/fetch-cloud-interconnect';
+import { fetchInterConnectLocationStep } from './steps/fetch-interconnect-locations';
+import { buildInterConnectLocationUsesCloudInterConnectStep } from './steps/build-interconnect-location-uses-cloud-interconnect';
 
 export * from './constants';
 
@@ -76,4 +79,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   buildComputeBackendBucketHasBucketRelationshipsStepMap,
   buildImageUsesKmsRelationshipsStepMap,
   buildDiskUsesKmsRelationshipsStepMap,
+  fetchCloudInterConnectStep,
+  fetchInterConnectLocationStep,
+  buildInterConnectLocationUsesCloudInterConnectStep,
 ];

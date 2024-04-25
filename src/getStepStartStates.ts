@@ -74,6 +74,7 @@ import { cloudSourceRepositoriesSteps } from './steps/cloud-source-repositories'
 import { CloudSourceRepositoriesStepsSpec } from './steps/cloud-source-repositories/constants';
 import {
   computeSteps,
+  STEP_CLOUD_INTERCONNECT,
   STEP_COMPUTE_ADDRESSES,
   STEP_COMPUTE_BACKEND_BUCKETS,
   STEP_COMPUTE_BACKEND_SERVICES,
@@ -110,6 +111,8 @@ import {
   STEP_COMPUTE_TARGET_HTTPS_PROXIES,
   STEP_COMPUTE_TARGET_SSL_PROXIES,
   STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS,
+  STEP_INTERCONNECT_LOCATION,
+  STEP_INTERCONNECT_LOCATION_USES_CLOUD_INTERCONNECT_RELATIONSHIP,
 } from './steps/compute';
 import { containerSteps, STEP_CONTAINER_CLUSTERS } from './steps/containers';
 import { dataprocSteps } from './steps/dataproc';
@@ -371,6 +374,11 @@ function getDefaultStepStartStates(params: {
     [STEP_COMPUTE_TARGET_HTTP_PROXIES]: { disabled: false },
     [STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES]: { disabled: false },
     [STEP_COMPUTE_SSL_POLICIES]: { disabled: false },
+    [STEP_CLOUD_INTERCONNECT]: { disabled: false },
+    [STEP_INTERCONNECT_LOCATION]: { disabled: false },
+    [STEP_INTERCONNECT_LOCATION_USES_CLOUD_INTERCONNECT_RELATIONSHIP]: {
+      disabled: false,
+    },
     [STEP_CLOUD_KMS_KEY_RINGS]: { disabled: false },
     [STEP_CLOUD_KMS_KEYS]: { disabled: false },
     [STEP_BIG_QUERY_DATASETS]: { disabled: false },
@@ -733,6 +741,14 @@ async function getStepStartStatesUsingServiceEnablements(params: {
       ServiceUsageName.COMPUTE,
     ),
     [STEP_COMPUTE_SSL_POLICIES]: createStepStartState(ServiceUsageName.COMPUTE),
+    [STEP_CLOUD_INTERCONNECT]: createOrgStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
+    [STEP_INTERCONNECT_LOCATION]: createOrgStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
+    [STEP_INTERCONNECT_LOCATION_USES_CLOUD_INTERCONNECT_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.COMPUTE),
     [STEP_CLOUD_KMS_KEY_RINGS]: createStepStartState(ServiceUsageName.KMS),
     [STEP_CLOUD_KMS_KEYS]: createStepStartState(ServiceUsageName.KMS),
     [STEP_BIG_QUERY_DATASETS]: createStepStartState(ServiceUsageName.BIG_QUERY),

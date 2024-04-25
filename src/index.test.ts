@@ -69,6 +69,7 @@ import {
 } from './steps/cloud-run/constants';
 import { CloudSourceRepositoriesStepsSpec } from './steps/cloud-source-repositories/constants';
 import {
+  STEP_CLOUD_INTERCONNECT,
   STEP_COMPUTE_ADDRESSES,
   STEP_COMPUTE_BACKEND_BUCKETS,
   STEP_COMPUTE_BACKEND_SERVICES,
@@ -105,6 +106,8 @@ import {
   STEP_COMPUTE_TARGET_HTTP_PROXIES,
   STEP_COMPUTE_TARGET_SSL_PROXIES,
   STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS,
+  STEP_INTERCONNECT_LOCATION,
+  STEP_INTERCONNECT_LOCATION_USES_CLOUD_INTERCONNECT_RELATIONSHIP,
 } from './steps/compute';
 import { STEP_CONTAINER_CLUSTERS } from './steps/containers';
 import {
@@ -364,6 +367,15 @@ describe('#getStepStartStates success', () => {
           disabled: false,
         },
         [STEP_COMPUTE_SSL_POLICIES]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_INTERCONNECT]: {
+          disabled: false,
+        },
+        [STEP_INTERCONNECT_LOCATION]: {
+          disabled: false,
+        },
+        [STEP_INTERCONNECT_LOCATION_USES_CLOUD_INTERCONNECT_RELATIONSHIP]: {
           disabled: false,
         },
         [STEP_DNS_MANAGED_ZONES]: {

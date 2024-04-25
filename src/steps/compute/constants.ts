@@ -53,6 +53,10 @@ export const STEP_COMPUTE_TARGET_HTTP_PROXIES =
 export const STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES =
   'fetch-compute-region-target-http-proxies';
 export const STEP_COMPUTE_SSL_POLICIES = 'fetch-compute-ssl-policies';
+export const STEP_CLOUD_INTERCONNECT = 'fetch-cloud-interconnect';
+export const STEP_INTERCONNECT_LOCATION = 'fetch-interconnect-location';
+export const STEP_INTERCONNECT_LOCATION_USES_CLOUD_INTERCONNECT_RELATIONSHIP =
+  'fetch-interconnect-location-uses-cloud-interconnect';
 
 // Entities
 export const ENTITY_CLASS_COMPUTE_INSTANCE = ['Host'];
@@ -130,6 +134,13 @@ export const ENTITY_CLASS_COMPUTE_TARGET_HTTPS_PROXY = ['Gateway'];
 
 export const ENTITY_TYPE_COMPUTE_SSL_POLICY = 'google_compute_ssl_policy';
 export const ENTITY_CLASS_COMPUTE_SSL_POLICY = 'Policy';
+
+export const ENTITY_TYPE_CLOUD_INTERCONNECT = 'google_cloud_interconnect';
+export const ENTITY_CLASS_CLOUD_INTERCONNECT = ['Network'];
+
+export const ENTITY_TYPE_INTERCONNECT_LOCATION =
+  'google_cloud_internetconnect_location';
+export const ENTITY_CLASS_INTERCONNECT_LOCATION = ['Site'];
 
 // Relationships
 export const RELATIONSHIP_TYPE_GOOGLE_COMPUTE_INSTANCE_TRUSTS_IAM_SERVICE_ACCOUNT =
@@ -225,6 +236,9 @@ export const RELATIONSHIP_TYPE_TARGET_HTTPS_PROXY_HAS_SSL_POLICY =
 export const RELATIONSHIP_TYPE_TARGET_SSL_PROXY_HAS_SSL_POLICY =
   'google_compute_target_ssl_proxy_has_ssl_policy';
 
+export const RELATIONSHIP_TYPE_INTERCONNECT_LOCATION_USES_CLOUD_INTERCONNECT =
+  'google_cloud_internetconnect_location_uses_interconnect';
+
 // Mapped relationships
 export const MAPPED_RELATIONSHIP_FIREWALL_RULE_TYPE =
   'google_cloud_firewall_rule';
@@ -258,6 +272,8 @@ export const IngestionSources = {
   COMPUTE_TARGET_HTTP_PROXIES: 'compute-target-http-proxies',
   COMPUTE_REGION_TARGET_HTTP_PROXIES: 'compute-region-target-http-proxies',
   COMPUTE_SSL_POLICIES: 'compute-ssl-policies',
+  CLOUD_INTERCONNECT: 'cloud-interconnect',
+  INTERCONNECT_LOCATION: 'interconnect-locations',
 };
 
 export const ComputeIngestionConfig = {
@@ -399,6 +415,16 @@ export const ComputeIngestionConfig = {
   [IngestionSources.COMPUTE_SSL_POLICIES]: {
     title: 'Google Compute SSL Policies',
     description: 'SSL policies for secure network connections.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.CLOUD_INTERCONNECT]: {
+    title: 'Google Cloud Interconnect',
+    description: 'Cloud InterConnect for the Compute',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.INTERCONNECT_LOCATION]: {
+    title: 'Google Interconnect locations',
+    description: 'InterConnect location for the Compute',
     defaultsToDisabled: false,
   },
 };

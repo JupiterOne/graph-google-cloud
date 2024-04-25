@@ -675,4 +675,44 @@ export class ComputeClient extends Client {
       },
     );
   }
+
+  async iterateCloudInterconnect(
+    callback: (data: compute_v1.Schema$Interconnect) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.interconnects.list({
+          auth,
+          project: `${this.projectId}`,
+          pageToken: nextPageToken,
+        });
+      },
+      async (data: compute_v1.Schema$InterconnectList) => {
+        for (const item of data.items || []) {
+          await callback(item);
+        }
+      },
+    );
+  }
+
+  async iterateInterconnectLocations(
+    callback: (data: compute_v1.Schema$InterconnectLocation) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.interconnectLocations.list({
+          auth,
+          project: `${this.projectId}`,
+          pageToken: nextPageToken,
+        });
+      },
+      async (data: compute_v1.Schema$InterconnectLocationList) => {
+        for (const item of data.items || []) {
+          await callback(item);
+        }
+      },
+    );
+  }
 }
