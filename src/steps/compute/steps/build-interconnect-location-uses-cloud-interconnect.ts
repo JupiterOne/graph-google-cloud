@@ -15,7 +15,7 @@ import {
   STEP_INTERCONNECT_LOCATION_USES_CLOUD_INTERCONNECT_RELATIONSHIP,
 } from '../constants';
 
-export async function buildComputeInstanceServiceAccountRelationships(
+export async function buildInterconnectLocationUsesCloudInterconnectRelationships(
   context: IntegrationStepContext,
 ): Promise<void> {
   const { jobState } = context;
@@ -65,5 +65,6 @@ export const buildInterConnectLocationUsesCloudInterConnectStep: GoogleCloudInte
       },
     ],
     dependsOn: [STEP_INTERCONNECT_LOCATION, STEP_CLOUD_INTERCONNECT],
-    executionHandler: buildComputeInstanceServiceAccountRelationships,
+    executionHandler:
+      buildInterconnectLocationUsesCloudInterconnectRelationships,
   };

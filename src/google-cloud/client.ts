@@ -106,7 +106,6 @@ export class Client {
   ) {
     return this.forEachPage(async (nextPageToken) => {
       try {
-        console.log('-------');
         const result = await this.withErrorHandling(() => fn(nextPageToken));
         await callback(result.data);
 

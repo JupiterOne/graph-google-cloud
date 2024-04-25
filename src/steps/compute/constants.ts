@@ -57,6 +57,10 @@ export const STEP_CLOUD_INTERCONNECT = 'fetch-cloud-interconnect';
 export const STEP_INTERCONNECT_LOCATION = 'fetch-interconnect-location';
 export const STEP_INTERCONNECT_LOCATION_USES_CLOUD_INTERCONNECT_RELATIONSHIP =
   'fetch-interconnect-location-uses-cloud-interconnect';
+export const STEP_COMPUTE_PROJECT_HAS_CLOUD_INTERCONNECT_RELATIONSHIP =
+  'fetch-compute-project-has-cloud-interconnect';
+export const STEP_COMPUTE_PROJECT_HAS_INTERCONNECT_LOCATION_RELATIONSHIP =
+  'fetch-compute-project-has-interconnect-location';
 
 // Entities
 export const ENTITY_CLASS_COMPUTE_INSTANCE = ['Host'];
@@ -238,6 +242,10 @@ export const RELATIONSHIP_TYPE_TARGET_SSL_PROXY_HAS_SSL_POLICY =
 
 export const RELATIONSHIP_TYPE_INTERCONNECT_LOCATION_USES_CLOUD_INTERCONNECT =
   'google_cloud_internetconnect_location_uses_interconnect';
+export const REATIONSHIP_TYPE_COMPUTE_PROJECT_HAS_CLOUD_INTERCONNECT =
+  'google_compute_project_has_cloud_interconnect';
+export const RELATIONSHIP_TYPE_COMPUTE_PROJECT_HAS_INTERCONNECT_LOCATION =
+  'google_compute_project_has_cloud_internetconnect_location';
 
 // Mapped relationships
 export const MAPPED_RELATIONSHIP_FIREWALL_RULE_TYPE =

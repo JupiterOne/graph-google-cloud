@@ -531,6 +531,8 @@ The following relationships are created:
 | `google_compute_network`                                         | **CONNECTS**          | `google_compute_network`                                          |
 | `google_compute_network`                                         | **CONTAINS**          | `google_compute_subnetwork`                                       |
 | `google_compute_network`                                         | **HAS**               | `google_dns_policy`                                               |
+| `google_compute_project`                                         | **HAS**               | `google_cloud_interconnect`                                       |
+| `google_compute_project`                                         | **HAS**               | `google_cloud_internetconnect_location`                           |
 | `google_compute_project`                                         | **HAS**               | `google_compute_instance`                                         |
 | `google_compute_snapshot`                                        | **CREATED**           | `google_compute_image`                                            |
 | `google_compute_subnetwork`                                      | **HAS**               | `google_compute_address`                                          |
