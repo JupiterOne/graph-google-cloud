@@ -157,9 +157,17 @@ import {
 import { SecretManagerSteps } from './steps/secret-manager/constants';
 import { ServiceUsageStepIds } from './steps/service-usage/constants';
 import {
+  STEP_CLOUD_SPANNER_SERVICE,
+  STEP_PROJECT_HAS_SPANNER_INSTANCE,
+  STEP_PROJECT_HAS_SPANNER_INSTANCE_CONFIG,
+  STEP_PROJECT_HAS_SPANNER_SERVICE,
+  STEP_SPANNER_BACKUP,
   STEP_SPANNER_INSTANCES,
   STEP_SPANNER_INSTANCE_CONFIGS,
   STEP_SPANNER_INSTANCE_DATABASES,
+  STEP_SPANNER_INSTANCE_DATABASES_ASSIGNED_DATABASE_ROLE,
+  STEP_SPANNER_INSTANCE_DATABASES_ROLE,
+  STEP_SPANNER_INSTANCE_HAS_BACKUP,
 } from './steps/spanner/constants';
 import { SqlAdminSteps, STEP_SQL_ADMIN_INSTANCES } from './steps/sql-admin';
 import { IntegrationConfig } from './types';
@@ -496,6 +504,16 @@ describe('#getStepStartStates success', () => {
         [STEP_SPANNER_INSTANCE_DATABASES]: {
           disabled: false,
         },
+        [STEP_SPANNER_INSTANCE_DATABASES_ROLE]: { disabled: false },
+        [STEP_SPANNER_INSTANCE_DATABASES_ASSIGNED_DATABASE_ROLE]: {
+          disabled: false,
+        },
+        [STEP_SPANNER_BACKUP]: { disabled: false },
+        [STEP_SPANNER_INSTANCE_HAS_BACKUP]: { disabled: false },
+        [STEP_CLOUD_SPANNER_SERVICE]: { disabled: false },
+        [STEP_PROJECT_HAS_SPANNER_SERVICE]: { disabled: false },
+        [STEP_PROJECT_HAS_SPANNER_INSTANCE]: { disabled: false },
+        [STEP_PROJECT_HAS_SPANNER_INSTANCE_CONFIG]: { disabled: false },
         [STEP_API_GATEWAY_APIS]: {
           disabled: false,
         },

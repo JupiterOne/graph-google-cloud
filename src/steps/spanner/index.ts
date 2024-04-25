@@ -337,7 +337,6 @@ export async function buildSpannerInstanceBackupRelationship(
       const instanceKey = backupEntity.name
         ?.toString()
         .substring(0, backupEntity.name?.toString().indexOf('/backups'));
-      console.log(instanceKey);
 
       if (!jobState.hasKey(instanceKey)) {
         throw new IntegrationMissingKeyError(
