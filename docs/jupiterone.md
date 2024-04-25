@@ -65,6 +65,7 @@ all of the supported data into JupiterOne:
 | [cloudasset](https://console.developers.google.com/apis/library/cloudasset.googleapis.com)                     | cloudasset.googleapis.com           |
 | [cloudbilling](https://console.developers.google.com/apis/library/cloudbilling.googleapis.com)                 | cloudbilling.googleapis.com         |
 | [cloudbuild](https://console.developers.google.com/apis/library/cloudbuild.googleapis.com)                     | cloudbuild.googleapis.com           |
+| [clouddeploy](https://console.developers.google.com/apis/library/clouddeploy.googleapis.com)                   | clouddeploy.googleapis.com          |
 | [cloudfunctions](https://console.developers.google.com/apis/library/cloudfunctions.googleapis.com)             | cloudfunctions.googleapis.com       |
 | [cloudkms](https://console.developers.google.com/apis/library/cloudkms.googleapis.com)                         | cloudkms.googleapis.com             |
 | [cloudsql](https://console.developers.google.com/apis/library/cloudsql.googleapis.com)                         | cloudsql.googleapis.com             |
@@ -126,6 +127,7 @@ gcloud services enable \
  cloudasset.googleapis.com \
  cloudbilling.googleapis.com \
  cloudbuild.googleapis.com \
+ clouddeploy.googleapis.com \
  cloudfunctions.googleapis.com \
  cloudkms.googleapis.com \
  cloudsql.googleapis.com \
@@ -376,6 +378,9 @@ The following entities are created:
 | Cloud Build GitHub Enterprise Config                     | `google_cloud_github_enterprise_config`                           | `Configuration`                    |
 | Cloud Build Trigger                                      | `google_cloud_build_trigger`                                      | `Rule`                             |
 | Cloud Build Worker Pool                                  | `google_cloud_build_worker_pool`                                  | `Cluster`                          |
+| Cloud Deploy Automation                                  | `google_cloud_deploy_automation`                                  | `Rule`                             |
+| Cloud Deploy Delivery Pipeline                           | `google_cloud_deploy_delivery_pipeline`                           | `Workflow`                         |
+| Cloud Deploy Service                                     | `google_cloud_deploy_service`                                     | `Service`                          |
 | Cloud Function                                           | `google_cloud_function`                                           | `Function`                         |
 | Cloud Run Configuration                                  | `google_cloud_run_configuration`                                  | `Configuration`                    |
 | Cloud Run Route                                          | `google_cloud_run_route`                                          | `Configuration`                    |
@@ -483,6 +488,9 @@ The following relationships are created:
 | `google_cloud_build`                                             | **USES**              | `google_cloud_source_repository`                                  |
 | `google_cloud_build`                                             | **USES**              | `google_storage_bucket`                                           |
 | `google_cloud_build_trigger`                                     | **TRIGGERS**          | `google_cloud_build`                                              |
+| `google_cloud_deploy_automation`                                 | **TRIGGERS**          | `google_cloud_deploy_delivery_pipeline`                           |
+| `google_cloud_deploy_delivery_pipeline`                          | **USES**              | `google_storage_bucket`                                           |
+| `google_cloud_deploy_service`                                    | **HAS**               | `google_cloud_deploy_delivery_pipeline`                           |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_folder`                                             |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_project`                                            |
 | `google_cloud_function`                                          | **USES**              | `google_cloud_source_repository`                                  |
@@ -493,6 +501,7 @@ The following relationships are created:
 | `google_cloud_project`                                           | **HAS**               | `google_billing_budget`                                           |
 | `google_cloud_project`                                           | **HAS**               | `google_binary_authorization_policy`                              |
 | `google_cloud_project`                                           | **HAS**               | `google_cloud_api_service`                                        |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_deploy_service`                                     |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_configuration`                                  |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_route`                                          |
 | `google_cloud_scan_config`                                       | **PERFORMED**         | `google_cloud_scan_run`                                           |
@@ -580,9 +589,10 @@ The following relationships are created:
 
 The following mapped relationships are created:
 
-| Source Entity `_type`        | Relationship `_class` | Target Entity `_type` | Direction |
-| ---------------------------- | --------------------- | --------------------- | --------- |
-| `google_cloud_build_trigger` | **USES**              | `*github_repo*`       | FORWARD   |
+| Source Entity `_type`                   | Relationship `_class` | Target Entity `_type` | Direction |
+| --------------------------------------- | --------------------- | --------------------- | --------- |
+| `google_cloud_build_trigger`            | **USES**              | `*github_repo*`       | FORWARD   |
+| `google_cloud_deploy_delivery_pipeline` | **USES**              | `*github_repo*`       | FORWARD   |
 
 <!--
 ********************************************************************************
@@ -600,7 +610,7 @@ permissions can be used to provision only the required ones:
 
 <!-- {J1_PERMISSIONS_DOCUMENTATION_MARKER_START} -->
 
-| Permissions List (112)                                  |
+| Permissions List (114)                                  |
 | ------------------------------------------------------- |
 | `accesscontextmanager.accessLevels.list`                |
 | `accesscontextmanager.accessPolicies.list`              |
@@ -639,6 +649,8 @@ permissions can be used to provision only the required ones:
 | `cloudbuild.repositories.get`                           |
 | `cloudbuild.repositories.list`                          |
 | `cloudbuild.workerpools.list`                           |
+| `clouddeploy.automations.list`                          |
+| `clouddeploy.deliveryPipelines.list`                    |
 | `cloudfunctions.functions.list`                         |
 | `cloudkms.cryptoKeys.getIamPolicy`                      |
 | `cloudkms.cryptoKeys.list`                              |
