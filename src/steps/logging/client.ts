@@ -1,5 +1,10 @@
 import { google, logging_v2 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
+import {
+  LoggingPermissions,
+  STEP_LOGGING_METRICS,
+  STEP_LOGGING_PROJECT_SINKS,
+} from './constants';
 
 export class LoggingClient extends Client {
   private client = google.logging({ version: 'v2', retry: false });
@@ -22,6 +27,8 @@ export class LoggingClient extends Client {
           await callback(logSink);
         }
       },
+      STEP_LOGGING_PROJECT_SINKS,
+      LoggingPermissions.STEP_LOGGING_PROJECT_SINKS,
     );
   }
 
@@ -43,6 +50,8 @@ export class LoggingClient extends Client {
           await callback(metric);
         }
       },
+      STEP_LOGGING_METRICS,
+      LoggingPermissions.STEP_LOGGING_METRICS,
     );
   }
 }

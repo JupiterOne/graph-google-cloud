@@ -43,3 +43,12 @@ export const SpannerIngestionConfig = {
     defaultsToDisabled: false,
   },
 };
+
+export const SpannerPermissions = {
+  STEP_SPANNER_INSTANCE_CONFIGS: ['spanner.instanceConfigs.list'],
+  STEP_SPANNER_INSTANCES: [
+    'spanner.instances.list',
+    'spanner.databases.getIamPolicy',
+  ],
+  STEP_SPANNER_INSTANCE_DATABASES: ['spanner.databases.list'],
+};

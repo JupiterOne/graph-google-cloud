@@ -1,5 +1,6 @@
 import { google, memcache_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
+import { MemcachePermissions, STEP_MEMCACHE_INSTANCES } from './constants';
 
 export class MemcacheClient extends Client {
   private client = google.memcache({ version: 'v1', retry: false });
@@ -22,6 +23,8 @@ export class MemcacheClient extends Client {
           await callback(instance);
         }
       },
+      STEP_MEMCACHE_INSTANCES,
+      MemcachePermissions.STEP_MEMCACHE_INSTANCES,
     );
   }
 }

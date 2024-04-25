@@ -24,3 +24,7 @@ export const CloudSourceRepositoriesIngestionConfig = {
     defaultsToDisabled: false,
   },
 };
+
+export const CloudSourcePermissions = {
+  FETCH_REPOSITORIES: ['source.repos.list'],
+};

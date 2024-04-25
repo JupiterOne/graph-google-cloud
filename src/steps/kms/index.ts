@@ -16,6 +16,7 @@ import {
   STEP_CLOUD_KMS_KEYS,
   STEP_CLOUD_KMS_KEY_RINGS,
   IngestionSources,
+  KMSPermissions,
 } from './constants';
 import { createKmsKeyRingEntity, createKmsCryptoKeyEntity } from './converters';
 
@@ -73,6 +74,8 @@ export async function fetchKmsCryptoKeys(
             cryptoKey.name as string,
           );
 
+          if (!iamPolicy) return;
+
           const cryptoKeyEntity = await jobState.addEntity(
             createKmsCryptoKeyEntity({
               cryptoKey,
@@ -110,7 +113,7 @@ export const kmsSteps: GoogleCloudIntegrationStep[] = [
     ],
     relationships: [],
     executionHandler: fetchKmsKeyRings,
-    permissions: ['cloudkms.keyRings.list'],
+    permissions: KMSPermissions.STEP_CLOUD_KMS_KEY_RINGS,
     apis: ['cloudkms.googleapis.com'],
   },
   {
@@ -134,10 +137,7 @@ export const kmsSteps: GoogleCloudIntegrationStep[] = [
     ],
     executionHandler: fetchKmsCryptoKeys,
     dependsOn: [STEP_CLOUD_KMS_KEY_RINGS],
-    permissions: [
-      'cloudkms.cryptoKeys.list',
-      'cloudkms.cryptoKeys.getIamPolicy',
-    ],
+    permissions: KMSPermissions.STEP_CLOUD_KMS_KEYS,
     apis: ['cloudkms.googleapis.com'],
   },
 ];

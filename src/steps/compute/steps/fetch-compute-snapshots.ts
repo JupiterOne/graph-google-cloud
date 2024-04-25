@@ -8,6 +8,7 @@ import {
   STEP_COMPUTE_SNAPSHOTS,
   ENTITY_TYPE_COMPUTE_SNAPSHOT,
   ENTITY_CLASS_COMPUTE_SNAPSHOT,
+  ComputePermissions,
 } from '../constants';
 import { createComputeSnapshotEntity } from '../converters';
 
@@ -41,6 +42,6 @@ export const fetchComputeSnapshotsStepMap: GoogleCloudIntegrationStep = {
   relationships: [],
   executionHandler: fetchComputeSnapshots,
   dependsOn: [],
-  permissions: ['compute.snapshots.list'],
+  permissions: ComputePermissions.STEP_COMPUTE_SNAPSHOTS,
   apis: ['compute.googleapis.com'],
 };

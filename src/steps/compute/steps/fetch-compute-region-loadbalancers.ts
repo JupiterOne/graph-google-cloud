@@ -15,6 +15,7 @@ import {
   RELATIONSHIP_TYPE_LOAD_BALANCER_HAS_BACKEND_SERVICE,
   ENTITY_TYPE_COMPUTE_BACKEND_SERVICE,
   STEP_COMPUTE_REGION_BACKEND_SERVICES,
+  ComputePermissions,
 } from '../constants';
 import { createRegionLoadBalancerEntity } from '../converters';
 import { compute_v1 } from 'googleapis';
@@ -109,6 +110,6 @@ export const fetchComputeRegionLoadbalancersStepMap: GoogleCloudIntegrationStep 
     ],
     dependsOn: [STEP_COMPUTE_REGION_BACKEND_SERVICES],
     executionHandler: fetchComputeRegionLoadBalancers,
-    permissions: ['compute.regionUrlMaps.list'],
+    permissions: ComputePermissions.STEP_COMPUTE_REGION_LOADBALANCERS,
     apis: ['compute.googleapis.com'],
   };

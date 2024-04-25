@@ -24,3 +24,12 @@ export const StorageIngestionConfig = {
     defaultsToDisabled: false,
   },
 };
+
+export const StoragePermissions = {
+  FETCH_STORAGE_BUCKETS: [
+    'orgpolicy.policies.list',
+    'orgpolicy.policy.get',
+    'storage.buckets.list',
+    'storage.buckets.getIamPolicy',
+  ],
+};

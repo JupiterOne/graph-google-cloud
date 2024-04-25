@@ -1,5 +1,6 @@
 import { google, cloudfunctions_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
+import { FunctionStepsSpec, FunctionsPermissions } from './constants';
 
 export function createCloudFunctionClientMapper(
   callback: (data: cloudfunctions_v1.Schema$CloudFunction) => Promise<void>,
@@ -19,12 +20,17 @@ export class CloudFunctionsClient extends Client {
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
 
-    await this.iterateApi(async (nextPageToken) => {
-      return this.client.projects.locations.functions.list({
-        parent: `projects/${this.projectId}/locations/-`,
-        auth,
-        pageToken: nextPageToken,
-      });
-    }, createCloudFunctionClientMapper(callback));
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.projects.locations.functions.list({
+          parent: `projects/${this.projectId}/locations/-`,
+          auth,
+          pageToken: nextPageToken,
+        });
+      },
+      createCloudFunctionClientMapper(callback),
+      FunctionStepsSpec.FETCH_CLOUD_FUNCTIONS.id,
+      FunctionsPermissions.FETCH_CLOUD_FUNCTIONS,
+    );
   }
 }

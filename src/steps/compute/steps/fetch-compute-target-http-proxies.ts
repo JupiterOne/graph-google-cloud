@@ -15,6 +15,7 @@ import {
   RELATIONSHIP_TYPE_LOAD_BALANCER_HAS_TARGET_HTTP_PROXY,
   STEP_COMPUTE_TARGET_HTTP_PROXIES,
   STEP_COMPUTE_LOADBALANCERS,
+  ComputePermissions,
 } from '../constants';
 import { createTargetHttpProxyEntity } from '../converters';
 
@@ -70,6 +71,6 @@ export const fetchComputeTargetHttpProxiesStepMap: GoogleCloudIntegrationStep =
     ],
     dependsOn: [STEP_COMPUTE_LOADBALANCERS],
     executionHandler: fetchComputeTargetHttpProxies,
-    permissions: ['compute.targetHttpProxies.list'],
+    permissions: ComputePermissions.STEP_COMPUTE_TARGET_HTTP_PROXIES,
     apis: ['compute.googleapis.com'],
   };

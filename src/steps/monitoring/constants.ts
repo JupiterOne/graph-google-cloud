@@ -71,3 +71,7 @@ export const MonitoringIngestionConfig = {
     defaultsToDisabled: false,
   },
 };
+
+export const MonitoringPermissions = {
+  STEP_MONITORING_ALERT_POLICIES: ['monitoring.alertPolicies.list'],
+};

@@ -20,6 +20,7 @@ import {
   CONTAINER_NODE_POOL_ENTITY_CLASS,
   RELATIONSHIP_TYPE_CONTAINER_NODE_POOL_HAS_INSTANCE_GROUP,
   IngestionSources,
+  ContainerPermissions,
 } from './constants';
 import {
   createContainerClusterEntity,
@@ -133,7 +134,7 @@ export const containerSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_COMPUTE_INSTANCE_GROUPS],
     executionHandler: fetchContainerClusters,
-    permissions: ['container.clusters.list'],
+    permissions: ContainerPermissions.STEP_CONTAINER_CLUSTERS,
     apis: ['container.googleapis.com'],
   },
 ];

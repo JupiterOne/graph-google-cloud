@@ -1,21 +1,34 @@
 import { Client } from '../../google-cloud/client';
 import { google, pubsub_v1 } from 'googleapis';
+import {
+  PubSubPermissions,
+  STEP_PUBSUB_SUBSCRIPTIONS,
+  STEP_PUBSUB_TOPICS,
+} from './constants';
 
 export class PubSubClient extends Client {
   private client = google.pubsub({ version: 'v1', retry: false });
 
-  async getPolicy(topicPath: string): Promise<pubsub_v1.Schema$Policy> {
+  async getPolicy(
+    topicPath: string,
+  ): Promise<pubsub_v1.Schema$Policy | undefined> {
     const auth = await this.getAuthenticatedServiceClient();
     const topicName = topicPath.split('/')[3];
 
-    const response = await this.withErrorHandling(() =>
-      this.client.projects.topics.getIamPolicy({
-        resource: `projects/${this.projectId}/topics/${topicName}`,
-        auth,
-      }),
+    const response = await this.withErrorHandling(
+      () =>
+        this.client.projects.topics.getIamPolicy({
+          resource: `projects/${this.projectId}/topics/${topicName}`,
+          auth,
+        }),
+      this.logger,
+      {
+        stepId: STEP_PUBSUB_TOPICS,
+        suggestedPermissions: PubSubPermissions.STEP_PUBSUB_TOPICS,
+      },
     );
 
-    return response.data;
+    return response?.data;
   }
 
   async iterateProjectTopics(
@@ -36,6 +49,8 @@ export class PubSubClient extends Client {
           await callback(topic);
         }
       },
+      STEP_PUBSUB_TOPICS,
+      PubSubPermissions.STEP_PUBSUB_TOPICS,
     );
   }
 
@@ -57,6 +72,8 @@ export class PubSubClient extends Client {
           await callback(subscription);
         }
       },
+      STEP_PUBSUB_SUBSCRIPTIONS,
+      PubSubPermissions.STEP_PUBSUB_SUBSCRIPTIONS,
     );
   }
 }

@@ -1,5 +1,9 @@
 import { google, monitoring_v3 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
+import {
+  MonitoringPermissions,
+  STEP_MONITORING_ALERT_POLICIES,
+} from './constants';
 
 export class MonitoringClient extends Client {
   private client = google.monitoring({ version: 'v3', retry: false });
@@ -22,6 +26,8 @@ export class MonitoringClient extends Client {
           await callback(alertPolicy);
         }
       },
+      STEP_MONITORING_ALERT_POLICIES,
+      MonitoringPermissions.STEP_MONITORING_ALERT_POLICIES,
     );
   }
 

@@ -1,5 +1,11 @@
 import { accesscontextmanager_v1, google } from 'googleapis';
 import { Client } from '../../google-cloud/client';
+import {
+  AccessContextManagerPermissions,
+  STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS,
+  STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
+  STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS,
+} from './constants';
 
 export class AccessContextManagerClient extends Client {
   private client = google.accesscontextmanager({ version: 'v1', retry: false });
@@ -26,6 +32,8 @@ export class AccessContextManagerClient extends Client {
           await callback(accessPolicy);
         }
       },
+      STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
+      AccessContextManagerPermissions.STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
     );
   }
 
@@ -50,6 +58,8 @@ export class AccessContextManagerClient extends Client {
           await callback(accessLevel);
         }
       },
+      STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS,
+      AccessContextManagerPermissions.STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS,
     );
   }
 
@@ -76,6 +86,8 @@ export class AccessContextManagerClient extends Client {
           await callback(servicePerimeter);
         }
       },
+      STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS,
+      AccessContextManagerPermissions.STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS,
     );
   }
 }

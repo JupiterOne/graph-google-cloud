@@ -72,3 +72,11 @@ export const BigTableIngestionConfig = {
     defaultsToDisabled: true,
   },
 };
+
+export const BigTablePermissions = {
+  STEP_BIG_TABLE_INSTANCES: ['bigtable.instances.list'],
+  STEP_BIG_TABLE_APP_PROFILES: ['bigtable.appProfiles.list'],
+  STEP_BIG_TABLE_CLUSTERS: ['bigtable.clusters.list'],
+  STEP_BIG_TABLE_BACKUPS: ['bigtable.backups.list'],
+  STEP_BIG_TABLE_TABLES: ['bigtable.tables.list'],
+};

@@ -1,5 +1,9 @@
 import { google, websecurityscanner_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
+import {
+  WebSecurityScannerPermissions,
+  WebSecurityScannerSteps,
+} from './constants';
 
 export class WebSecurityScannerClient extends Client {
   private client = google.websecurityscanner({ version: 'v1' });
@@ -22,6 +26,8 @@ export class WebSecurityScannerClient extends Client {
           await callback(scanConfig);
         }
       },
+      WebSecurityScannerSteps.FETCH_SCAN_CONFIGS.id,
+      WebSecurityScannerPermissions.FETCH_SCAN_CONFIGS,
     );
   }
 
@@ -46,6 +52,8 @@ export class WebSecurityScannerClient extends Client {
           await callback(scanRun);
         }
       },
+      WebSecurityScannerSteps.FETCH_SCAN_RUNS.id,
+      WebSecurityScannerPermissions.FETCH_SCAN_RUNS,
     );
   }
 }

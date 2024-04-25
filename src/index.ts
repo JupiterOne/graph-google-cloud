@@ -28,6 +28,10 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> =
       folderId: {
         type: 'string',
       },
+      useEnablementsInGetStepStartStates: {
+        type: 'boolean',
+        optional: true,
+      },
     },
     getStepStartStates,
     integrationSteps: steps,

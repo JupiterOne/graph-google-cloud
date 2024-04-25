@@ -65,3 +65,8 @@ export const WebSecurityScannerIngestionConfig = {
     defaultsToDisabled: false,
   },
 };
+
+export const WebSecurityScannerPermissions = {
+  FETCH_SCAN_CONFIGS: ['cloudsecurityscanner.scans.list'],
+  FETCH_SCAN_RUNS: ['cloudsecurityscanner.scanruns.list'],
+};

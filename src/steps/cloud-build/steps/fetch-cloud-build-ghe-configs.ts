@@ -1,4 +1,4 @@
-import { IngestionSources } from '../constants';
+import { CloudBuildPermissions, IngestionSources } from '../constants';
 import {
   GoogleCloudIntegrationStep,
   IntegrationStepContext,
@@ -29,6 +29,6 @@ export const fetchCloudBuildGithubEnterpriseConfigStep: GoogleCloudIntegrationSt
         );
       }, context);
     },
-    permissions: ['cloudbuild.integrations.list'],
+    permissions: CloudBuildPermissions.FETCH_BUILD_GITHUB_ENTERPRISE_CONFIG,
     apis: ['cloudbuild.googleapis.com'],
   };

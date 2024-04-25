@@ -20,6 +20,7 @@ import {
   RELATIONSHIP_TYPE_MEMCACHE_INSTANCE_HAS_NODE,
   STEP_CREATE_MEMCACHE_INSTANCE_NETWORK_RELATIONSHIPS,
   IngestionSources,
+  MemcachePermissions,
 } from './constants';
 import {
   createMemcacheInstanceEntity,
@@ -135,7 +136,7 @@ export const memcacheSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [],
     executionHandler: fetchMemcacheInstances,
-    permissions: ['memcache.instances.list'],
+    permissions: MemcachePermissions.STEP_MEMCACHE_INSTANCES,
     apis: ['memcache.googleapis.com'],
   },
   {
