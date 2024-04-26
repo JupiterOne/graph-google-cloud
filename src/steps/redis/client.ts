@@ -24,4 +24,25 @@ export class RedisClient extends Client {
       },
     );
   }
+
+  async iterateMemoryStoreRedisLocation(
+    callback: (data: redis_v1.Schema$Location) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.projects.locations.list({
+          auth,
+          name: `projects/${this.projectId}`,
+          pageToken: nextPageToken,
+        });
+      },
+      async (data: redis_v1.Schema$ListLocationsResponse) => {
+        for (const location of data.locations || []) {
+          await callback(location);
+        }
+      },
+    );
+  }
 }
