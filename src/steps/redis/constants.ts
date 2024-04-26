@@ -8,6 +8,10 @@ export const STEP_PROJECT_HAS_MEMORYSTORE_REDIS_RELATIONSHIP =
   'fetch-project-has-memorystore-redis';
 export const STEP_PROJECT_HAS_MEMORYSTORE_REDIS_LOCATION_RELTIONSHIP =
   'fetch-project-has-memorystore-redis-location';
+export const STEP_PROJECT_HAS_REDIS_INSTANCE_RELATIONSHIP =
+  'fetch-project-has-redis-instance';
+export const STEP_MEMORYSTORE_REDIS_LOCATION_HAS_REDIS_INSTANCE_RELATIONSHIP =
+  'fetch-memorystore-redis-location-has-redis-instance';
 
 export const ENTITY_TYPE_MEMORYSTORE_REDIS_LOCATION =
   'google_cloud_redis_location';
@@ -25,14 +29,21 @@ export const RELATIONSHIP_TYPE_PROJECT_HAS_MEMORYSTORE_REDIS =
   'google_cloud_project_has_redis';
 export const RELATIONSHIP_TYPE_PROJECT_HAS_MEMORYSTORE_REDIS_LOCATION =
   'google_cloud_project_has_redis_location';
+export const RELATIONSHIP_TYPE_PROJECT_HAS_REDIS_INSTANCE =
+  'google_cloud_project_has_redis_instance';
+export const RELATIONSHIP_TYPE_MEMORYSTORE_REDIS_LOCATION_HAS_REDIS_INTANCE =
+  'google_cloud_redis_location_has_redis_instance';
 
 export const IngestionSources = {
   REDIS_INSTANCES: 'redis-instances',
   MEMORYSTORE_REDIS_LOCATION: 'memorystore-redis-location',
   MEMORYSTORE_REDIS: 'memorystore-redis',
   RELATIONSHIP_PROJECT_HAS_MEMORYSTORE_REDIS: 'project-has-memorystore-redis',
-  RELATION_PROJECT_HAS_MEMORYSTORE_REDIS_LOCATION:
+  RELATIONSHIP_PROJECT_HAS_MEMORYSTORE_REDIS_LOCATION:
     'project-has-memorystore-redis-location',
+  REATIONSHIP_PROJECT_HAS_REDIS_INSTANCE: 'project-has-redis-instance',
+  RELATIONSHIP_MEMORYSTORE_REDIS_LOCATION_HAS_REDIS_INTANCE:
+    'memorystore-redis-location-has-redis-instance',
 };
 
 export const RedisIngestionConfig = {

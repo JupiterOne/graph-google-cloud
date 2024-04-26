@@ -1,6 +1,7 @@
 import {
   createDirectRelationship,
   getRawData,
+  IntegrationMissingKeyError,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
 import {
@@ -26,6 +27,10 @@ import {
   RELATIONSHIP_TYPE_PROJECT_HAS_MEMORYSTORE_REDIS,
   STEP_PROJECT_HAS_MEMORYSTORE_REDIS_LOCATION_RELTIONSHIP,
   RELATIONSHIP_TYPE_PROJECT_HAS_MEMORYSTORE_REDIS_LOCATION,
+  STEP_PROJECT_HAS_REDIS_INSTANCE_RELATIONSHIP,
+  RELATIONSHIP_TYPE_PROJECT_HAS_REDIS_INSTANCE,
+  RELATIONSHIP_TYPE_MEMORYSTORE_REDIS_LOCATION_HAS_REDIS_INTANCE,
+  STEP_MEMORYSTORE_REDIS_LOCATION_HAS_REDIS_INSTANCE_RELATIONSHIP,
 } from './constants';
 import { ENTITY_TYPE_COMPUTE_NETWORK } from '../compute/constants';
 import {
@@ -222,6 +227,63 @@ export async function buildProjectHasMemoryStoreRedisLocationRelationship(
   );
 }
 
+export async function buildProjectHasRedisInstanceRelationship(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState } = context;
+
+  const projectEntity = await getProjectEntity(jobState);
+
+  if (!projectEntity) return;
+
+  await jobState.iterateEntities(
+    { _type: ENTITY_TYPE_REDIS_INSTANCE },
+    async (instance) => {
+      await jobState.addRelationship(
+        createDirectRelationship({
+          _class: RelationshipClass.HAS,
+          fromKey: projectEntity._key as string,
+          fromType: PROJECT_ENTITY_TYPE,
+          toKey: instance._key as string,
+          toType: ENTITY_TYPE_REDIS_INSTANCE,
+        }),
+      );
+    },
+  );
+}
+
+export async function buildMemoryStoreRedisLocationHasRedisInstanceRelationship(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState } = context;
+  await jobState.iterateEntities(
+    {
+      _type: ENTITY_TYPE_REDIS_INSTANCE,
+    },
+    async (instance) => {
+      const locationKey =
+        'redis:projects/j1-gc-integration-dev-v3/locations/' +
+        (instance.name as string).split('/')[3];
+
+      if (!jobState.hasKey(locationKey)) {
+        throw new IntegrationMissingKeyError(`
+          Step Name : build MemoryStore Redis Location Has Redis Instance relationship
+          applicationEndpoint Key: ${locationKey}`);
+      } else {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.HAS,
+            fromKey: locationKey as string,
+            fromType: ENTITY_TYPE_MEMORYSTORE_REDIS_LOCATION,
+            toKey: instance._key,
+            toType: ENTITY_TYPE_REDIS_INSTANCE,
+          }),
+        );
+      }
+    },
+  );
+}
+
 export const redisSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_REDIS_INSTANCES,
@@ -311,7 +373,7 @@ export const redisSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_PROJECT_HAS_MEMORYSTORE_REDIS_LOCATION_RELTIONSHIP,
     ingestionSourceId:
-      IngestionSources.RELATION_PROJECT_HAS_MEMORYSTORE_REDIS_LOCATION,
+      IngestionSources.RELATIONSHIP_PROJECT_HAS_MEMORYSTORE_REDIS_LOCATION,
     name: 'Project HAS MemoryStore Redis Location',
     entities: [],
     relationships: [
@@ -324,6 +386,43 @@ export const redisSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_RESOURCE_MANAGER_PROJECT, STEP_MEMORYSTORE_REDIS_LOCATION],
     executionHandler: buildProjectHasMemoryStoreRedisLocationRelationship,
+    permissions: [],
+    apis: ['redis.googleapis.com'],
+  },
+  {
+    id: STEP_PROJECT_HAS_REDIS_INSTANCE_RELATIONSHIP,
+    ingestionSourceId: IngestionSources.REATIONSHIP_PROJECT_HAS_REDIS_INSTANCE,
+    name: 'Project HAS Redis Instance',
+    entities: [],
+    relationships: [
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_PROJECT_HAS_REDIS_INSTANCE,
+        sourceType: PROJECT_ENTITY_TYPE,
+        targetType: ENTITY_TYPE_REDIS_INSTANCE,
+      },
+    ],
+    dependsOn: [STEP_RESOURCE_MANAGER_PROJECT, STEP_REDIS_INSTANCES],
+    executionHandler: buildProjectHasRedisInstanceRelationship,
+    permissions: [],
+    apis: ['redis.googleapis.com'],
+  },
+  {
+    id: STEP_MEMORYSTORE_REDIS_LOCATION_HAS_REDIS_INSTANCE_RELATIONSHIP,
+    ingestionSourceId:
+      IngestionSources.RELATIONSHIP_MEMORYSTORE_REDIS_LOCATION_HAS_REDIS_INTANCE,
+    name: 'MemoryStore Redis Location HAS Redis Instance',
+    entities: [],
+    relationships: [
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_MEMORYSTORE_REDIS_LOCATION_HAS_REDIS_INTANCE,
+        sourceType: ENTITY_TYPE_MEMORYSTORE_REDIS_LOCATION,
+        targetType: ENTITY_TYPE_REDIS_INSTANCE,
+      },
+    ],
+    dependsOn: [STEP_MEMORYSTORE_REDIS_LOCATION, STEP_REDIS_INSTANCES],
+    executionHandler: buildMemoryStoreRedisLocationHasRedisInstanceRelationship,
     permissions: [],
     apis: ['redis.googleapis.com'],
   },
