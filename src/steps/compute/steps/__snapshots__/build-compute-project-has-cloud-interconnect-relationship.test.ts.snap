@@ -1,0 +1,342 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`compute#fetch-compute-project-has-cloud-interconnect should collect data 1`] = `
+{
+  "collectedEntities": [
+    {
+      "_class": [
+        "Project",
+      ],
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "cloudArmorTier": "CA_STANDARD",
+            "commonInstanceMetadata": {
+              "fingerprint": "C_x3HYVZJUo=",
+              "items": [
+                {
+                  "key": "enable-osconfig",
+                  "value": "TRUE",
+                },
+                {
+                  "key": "ssh-keys",
+                  "value": "pgilaga:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDU0g4vACE8PrXfTGM4wUbIfQ207LxClP8p2wCI7RwGdZn+cAoMPKaHxIKck2fA1VtVWzUXehhUJbS1lrI40NQR1vH9C37shGDftEFyDORwMS2yxSWZtzUISINMzpG8Ih+iVfSAVFbjNsJpMBYDrtaLLzBOud8FDsx6scxWfI64u5hxXtjvO3rW1i4qAbYouCtMnse7xE2LUaiURpqq5ojCRlFC2bOQ+pYb0/9Jy3v6KpMnATg7Z68pWJrocnpJhkRywNwldbZLSDgff4Y5Gjbeq+Zl6qEEmyxFpqdVzB/RSM0g7eikkXZDzZHDvrXvxWiGqhBXXJ/KRfCuJG1LKzI+hl+yWvM/1qbX4qBpbnaNv+EvhS37Yu/OEqXMoUfOWqEIR//3QSf4cluhlLQ1F9GElmnicj41MFZwFq/7IQXikcrz3lfzQ5fXLmBeQ3E97z4ZSETVqHDWc04h7MdueW1OdNbKGIx7ldNAWo3TxNsV6etFTtv1QK/ZTNmqQB5fxF0= pgilaga@Pauls-MacBook-Air.local
+ignacio:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDSg4sA5KWtxOoYlWtyJ+uI1f7xPQ3UMMz9tMfP3SLTQFS+ThHw4+IxhZdIy1RYug+l2YFdF5W3vOaHozE2hLarvj9hSClipoy7COn9+NkkDKLFdVajJCNxKrj1YespMBTG00frk/+t+ilz9DX0kKHklrjvQQ+TJe0R2MJa0tyAyZ4pOTXcI96YvNA0N8e/AglixvybtX1KTYj30TnrGke+vAkVa1xG0UulZ7O5At4Xd/Ue3e9SsnEO3JOUb4MLz5xKBCTY42TQp1exrccSXl4cXZV5AIuvmypkx6nrsR9K5WEgPEENCiQO+ghR6YaSnBY9Yk8w7TPI2ep0S1g2NYGjGfPCv0fhw/422utFd6amFJc1NOP8ZaT7FEpCKxVEiR30q0lARs4q1YuuQu2mx/nZ/DMQMweiXrrCfnWDRnFjvCmcT3BEtTQUa1z8MiybeVJN9MKDued6Y2dJCwBaXH0A62k4txV1b5oNAGFCPMLLRDnGzld+l+M07ub6b0CZkVM= ignacio@dbp.local",
+                },
+                {
+                  "key": "sshKeys",
+                  "value": "",
+                },
+              ],
+              "kind": "compute#metadata",
+            },
+            "creationTimestamp": "2021-05-31T09:21:30.379-07:00",
+            "defaultNetworkTier": "PREMIUM",
+            "defaultServiceAccount": "167984947943-compute@developer.gserviceaccount.com",
+            "id": "2723542235640017893",
+            "kind": "compute#project",
+            "name": "j1-gc-integration-dev-v3",
+            "quotas": [
+              {
+                "limit": 10000,
+                "metric": "SNAPSHOTS",
+                "usage": 32,
+              },
+              {
+                "limit": 30,
+                "metric": "NETWORKS",
+                "usage": 6,
+              },
+              {
+                "limit": 500,
+                "metric": "FIREWALLS",
+                "usage": 16,
+              },
+              {
+                "limit": 5000,
+                "metric": "IMAGES",
+                "usage": 5,
+              },
+              {
+                "limit": 175,
+                "metric": "STATIC_ADDRESSES",
+                "usage": 0,
+              },
+              {
+                "limit": 300,
+                "metric": "ROUTES",
+                "usage": 0,
+              },
+              {
+                "limit": 150,
+                "metric": "FORWARDING_RULES",
+                "usage": 0,
+              },
+              {
+                "limit": 500,
+                "metric": "TARGET_POOLS",
+                "usage": 1,
+              },
+              {
+                "limit": 1000,
+                "metric": "HEALTH_CHECKS",
+                "usage": 4,
+              },
+              {
+                "limit": 575,
+                "metric": "IN_USE_ADDRESSES",
+                "usage": 2,
+              },
+              {
+                "limit": 500,
+                "metric": "TARGET_INSTANCES",
+                "usage": 0,
+              },
+              {
+                "limit": 100,
+                "metric": "TARGET_HTTP_PROXIES",
+                "usage": 3,
+              },
+              {
+                "limit": 100,
+                "metric": "URL_MAPS",
+                "usage": 3,
+              },
+              {
+                "limit": 150,
+                "metric": "BACKEND_SERVICES",
+                "usage": 0,
+              },
+              {
+                "limit": 1000,
+                "metric": "INSTANCE_TEMPLATES",
+                "usage": 1,
+              },
+              {
+                "limit": 50,
+                "metric": "TARGET_VPN_GATEWAYS",
+                "usage": 0,
+              },
+              {
+                "limit": 100,
+                "metric": "VPN_TUNNELS",
+                "usage": 1,
+              },
+              {
+                "limit": 30,
+                "metric": "BACKEND_BUCKETS",
+                "usage": 1,
+              },
+              {
+                "limit": 20,
+                "metric": "ROUTERS",
+                "usage": 4,
+              },
+              {
+                "limit": 100,
+                "metric": "TARGET_SSL_PROXIES",
+                "usage": 0,
+              },
+              {
+                "limit": 100,
+                "metric": "TARGET_HTTPS_PROXIES",
+                "usage": 2,
+              },
+              {
+                "limit": 100,
+                "metric": "SSL_CERTIFICATES",
+                "usage": 2,
+              },
+              {
+                "limit": 275,
+                "metric": "SUBNETWORKS",
+                "usage": 0,
+              },
+              {
+                "limit": 100,
+                "metric": "TARGET_TCP_PROXIES",
+                "usage": 0,
+              },
+              {
+                "limit": 10,
+                "metric": "SECURITY_POLICIES",
+                "usage": 0,
+              },
+              {
+                "limit": 200,
+                "metric": "SECURITY_POLICY_RULES",
+                "usage": 0,
+              },
+              {
+                "limit": 1000,
+                "metric": "XPN_SERVICE_PROJECTS",
+                "usage": 0,
+              },
+              {
+                "limit": 150,
+                "metric": "PACKET_MIRRORINGS",
+                "usage": 0,
+              },
+              {
+                "limit": 1000,
+                "metric": "NETWORK_ENDPOINT_GROUPS",
+                "usage": 0,
+              },
+              {
+                "limit": 6,
+                "metric": "INTERCONNECTS",
+                "usage": 1,
+              },
+              {
+                "limit": 5000,
+                "metric": "GLOBAL_INTERNAL_ADDRESSES",
+                "usage": 1,
+              },
+              {
+                "limit": 50,
+                "metric": "VPN_GATEWAYS",
+                "usage": 2,
+              },
+              {
+                "limit": 5000,
+                "metric": "MACHINE_IMAGES",
+                "usage": 0,
+              },
+              {
+                "limit": 20,
+                "metric": "SECURITY_POLICY_CEVAL_RULES",
+                "usage": 0,
+              },
+              {
+                "limit": 50,
+                "metric": "EXTERNAL_VPN_GATEWAYS",
+                "usage": 1,
+              },
+              {
+                "limit": 1,
+                "metric": "PUBLIC_ADVERTISED_PREFIXES",
+                "usage": 0,
+              },
+              {
+                "limit": 10,
+                "metric": "PUBLIC_DELEGATED_PREFIXES",
+                "usage": 0,
+              },
+              {
+                "limit": 1024,
+                "metric": "STATIC_BYOIP_ADDRESSES",
+                "usage": 0,
+              },
+              {
+                "limit": 60,
+                "metric": "NETWORK_FIREWALL_POLICIES",
+                "usage": 1,
+              },
+              {
+                "limit": 150,
+                "metric": "INTERNAL_TRAFFIC_DIRECTOR_FORWARDING_RULES",
+                "usage": 0,
+              },
+              {
+                "limit": 150,
+                "metric": "GLOBAL_EXTERNAL_MANAGED_FORWARDING_RULES",
+                "usage": 1,
+              },
+              {
+                "limit": 150,
+                "metric": "GLOBAL_INTERNAL_MANAGED_BACKEND_SERVICES",
+                "usage": 0,
+              },
+              {
+                "limit": 150,
+                "metric": "GLOBAL_EXTERNAL_MANAGED_BACKEND_SERVICES",
+                "usage": 0,
+              },
+              {
+                "limit": 150,
+                "metric": "GLOBAL_EXTERNAL_PROXY_LB_BACKEND_SERVICES",
+                "usage": 1,
+              },
+              {
+                "limit": 750,
+                "metric": "GLOBAL_INTERNAL_TRAFFIC_DIRECTOR_BACKEND_SERVICES",
+                "usage": 0,
+              },
+            ],
+            "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3",
+            "vmDnsSetting": "ZONAL_ONLY",
+            "xpnProjectStatus": "UNSPECIFIED_XPN_PROJECT_STATUS",
+          },
+        },
+      ],
+      "_type": "google_compute_project",
+      "createdOn": 1622478090379,
+      "defaultNetworkTier": "PREMIUM",
+      "defaultServiceAccount": "167984947943-compute@developer.gserviceaccount.com",
+      "displayName": "j1-gc-integration-dev-v3",
+      "id": "2723542235640017893",
+      "isOSLoginEnabled": false,
+      "kind": "compute#project",
+      "name": "j1-gc-integration-dev-v3",
+    },
+    {
+      "_class": [
+        "Network",
+      ],
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/interconnects/demo-interconnect",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "adminEnabled": true,
+            "circuitInfos": [
+              {
+                "customerDemarcId": "",
+                "googleCircuitId": "GCP-00008",
+                "googleDemarcId": "VOCUS:MMR-A: Ground 7A, Frontcomms, Cab FC4, PP-HAAA12, RU21-24 FP3 Fibers 63,64 - LC",
+              },
+            ],
+            "creationTimestamp": "2024-04-22T23:53:41.482-07:00",
+            "customerName": "demo-customer",
+            "description": "Example Compute Cloud Interconnect",
+            "googleReferenceId": "1134185888",
+            "id": "3602008363502330906",
+            "interconnectType": "IT_PRIVATE",
+            "kind": "compute#interconnect",
+            "labelFingerprint": "42WmSpB8rSM=",
+            "linkType": "LINK_TYPE_ETHERNET_10G_LR",
+            "location": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/interconnectLocations/akl-zone1-1353",
+            "macsecEnabled": false,
+            "name": "demo-interconnect",
+            "operationalStatus": "OS_UNPROVISIONED",
+            "provisionedLinkCount": 1,
+            "requestedLinkCount": 1,
+            "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/interconnects/demo-interconnect",
+            "state": "UNPROVISIONED",
+          },
+        },
+      ],
+      "_type": "google_cloud_interconnect",
+      "adminEnabled": true,
+      "createdOn": 1713855221482,
+      "description": "Example Compute Cloud Interconnect",
+      "displayName": "demo-interconnect",
+      "id": "3602008363502330906",
+      "interConnectType": "IT_PRIVATE",
+      "kind": "compute#interconnect",
+      "location": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/interconnectLocations/akl-zone1-1353",
+      "name": "demo-interconnect",
+      "public": true,
+    },
+  ],
+  "collectedRelationships": [],
+  "encounteredTypes": [
+    "google_compute_project",
+    "google_cloud_interconnect",
+  ],
+  "numCollectedEntities": 2,
+  "numCollectedRelationships": 0,
+}
+`;
