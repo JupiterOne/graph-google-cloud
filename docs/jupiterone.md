@@ -608,7 +608,7 @@ permissions can be used to provision only the required ones:
 
 <!-- {J1_PERMISSIONS_DOCUMENTATION_MARKER_START} -->
 
-| Permissions List (112)                                  |
+| Permissions List (115)                                  |
 | ------------------------------------------------------- |
 | `accesscontextmanager.accessLevels.list`                |
 | `accesscontextmanager.accessPolicies.list`              |
@@ -682,6 +682,8 @@ permissions can be used to provision only the required ones:
 | `compute.targetHttpsProxies.list`                       |
 | `compute.targetSslProxies.list`                         |
 | `compute.urlMaps.list`                                  |
+| `compute.vpnGateways.list`                              |
+| `compute.vpnTunnels.get`                                |
 | `container.clusters.list`                               |
 | `dataproc.clusters.list`                                |
 | `dns.managedZones.list`                                 |
@@ -693,6 +695,7 @@ permissions can be used to provision only the required ones:
 | `logging.sinks.list`                                    |
 | `memcache.instances.list`                               |
 | `monitoring.alertPolicies.list`                         |
+| `networkmanagement.connectivitytests.list`              |
 | `orgpolicy.policies.list`                               |
 | `orgpolicy.policy.get`                                  |
 | `osconfig.inventories.get`                              |

@@ -121,8 +121,10 @@ export const NETWORK_ANALYZER_LOCATIONS: string[] = [
 ];
 
 export const Network_Analyzer_Permission = {
-  STEP_NETWORK_ANALYZER_CONNECTIVITY_TEST: [],
+  STEP_NETWORK_ANALYZER_CONNECTIVITY_TEST: [
+    'networkmanagement.connectivitytests.list',
+  ],
   STEP_NETWORK_INTELLIGENCE_CENTER: [],
-  STEP_VPN_GATEWAY: [],
-  STEP_VPN_GATEWAY_TUNNEL: [],
+  STEP_VPN_GATEWAY: ['compute.vpnGateways.list'],
+  STEP_VPN_GATEWAY_TUNNEL: ['compute.vpnTunnels.get'],
 };
