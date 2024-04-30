@@ -76,6 +76,7 @@ all of the supported data into JupiterOne:
 | [logging](https://console.developers.google.com/apis/library/logging.googleapis.com)                           | logging.googleapis.com              |
 | [memcache](https://console.developers.google.com/apis/library/memcache.googleapis.com)                         | memcache.googleapis.com             |
 | [monitoring](https://console.developers.google.com/apis/library/monitoring.googleapis.com)                     | monitoring.googleapis.com           |
+| [networkmanagement](https://console.developers.google.com/apis/library/networkmanagement.googleapis.com)       | networkmanagement.googleapis.com    |
 | [orgpolicy](https://console.developers.google.com/apis/library/orgpolicy.googleapis.com)                       | orgpolicy.googleapis.com            |
 | [osconfig](https://console.developers.google.com/apis/library/osconfig.googleapis.com)                         | osconfig.googleapis.com             |
 | [privateca](https://console.developers.google.com/apis/library/privateca.googleapis.com)                       | privateca.googleapis.com            |
@@ -137,6 +138,7 @@ gcloud services enable \
  logging.googleapis.com \
  memcache.googleapis.com \
  monitoring.googleapis.com \
+ networkmanagement.googleapis.com \
  orgpolicy.googleapis.com \
  osconfig.googleapis.com \
  privateca.googleapis.com \
@@ -421,6 +423,8 @@ The following entities are created:
 | Memcache Instance                                        | `google_memcache_instance`                                        | `Database`, `DataStore`, `Cluster` |
 | Memcache Instance Node                                   | `google_memcache_instance_node`                                   | `Database`, `DataStore`, `Host`    |
 | Monitoring Alert Policy                                  | `google_monitoring_alert_policy`                                  | `Policy`                           |
+| Network Intelligence Center                              | `google_cloud_network_analyzer`                                   | `Service`                          |
+| Network Intelligence Center                              | `google_cloud_network_analyzer_connectivity_test`                 | `Assessment`                       |
 | Organization                                             | `google_cloud_organization`                                       | `Organization`                     |
 | Private CA Certificate                                   | `google_privateca_certificate`                                    | `Certificate`                      |
 | Private CA Certificate Authority                         | `google_privateca_certificate_authority`                          | `Service`                          |
@@ -488,14 +492,18 @@ The following relationships are created:
 | `google_cloud_function`                                          | **USES**              | `google_cloud_source_repository`                                  |
 | `google_cloud_function`                                          | **USES**              | `google_iam_service_account`                                      |
 | `google_cloud_function`                                          | **USES**              | `google_storage_bucket`                                           |
+| `google_cloud_network_analyzer`                                  | **HAS**               | `google_cloud_network_analyzer_connectivity_test`                 |
 | `google_cloud_organization`                                      | **HAS**               | `google_cloud_folder`                                             |
 | `google_cloud_organization`                                      | **HAS**               | `google_cloud_project`                                            |
 | `google_cloud_project`                                           | **HAS**               | `google_billing_budget`                                           |
 | `google_cloud_project`                                           | **HAS**               | `google_binary_authorization_policy`                              |
 | `google_cloud_project`                                           | **HAS**               | `google_cloud_api_service`                                        |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_network_analyzer`                                   |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_network_analyzer_connectivity_test`                 |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_configuration`                                  |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_route`                                          |
 | `google_cloud_scan_config`                                       | **PERFORMED**         | `google_cloud_scan_run`                                           |
+| `google_cloud_vpn_gateway`                                       | **USES**              | `google_cloud_vpn_tunnel`                                         |
 | `google_compute_backend_bucket`                                  | **HAS**               | `google_storage_bucket`                                           |
 | `google_compute_backend_service`                                 | **HAS**               | `google_compute_health_check`                                     |
 | `google_compute_backend_service`                                 | **HAS**               | `google_compute_instance_group`                                   |

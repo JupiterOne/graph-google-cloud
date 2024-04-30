@@ -27,7 +27,17 @@ import {
   STEP_APP_ENGINE_VERSIONS,
   STEP_CREATE_APP_ENGINE_BUCKET_RELATIONSHIPS,
 } from './steps/app-engine/constants';
-import { STEP_NETWORK_INTELLIGENCE_CENTER, STEP_NETWORK_ANALYZER_CONNECTIVITY_TEST } from './steps/network-analyzer/constants';
+import {
+  STEP_NETWORK_INTELLIGENCE_CENTER,
+  STEP_NETWORK_ANALYZER_CONNECTIVITY_TEST,
+  STEP_VPN_GATEWAY,
+  STEP_VPN_GATEWAY_TUNNEL,
+  STEP_PROJECT_HAS_NETWORK_INTELLIGENCE_CENTER_RELATIONSHIP,
+  STEP_PROJECT_HAS_NETWORK_ANALYZER_CONNECTIVITY_TEST_RELATIONSHIP,
+  STEP_NETWORK_INTELLIGENCE_CENTER_HAS_NETWORK_ANALYZER_CONNECTIVITY_TEST_RELATIONSHIP,
+  STEP_VPN_GATEWAY_USES_VPN_GATEWAY_TUNNEL_RELATIONSHIP,
+  STEP_NETWORK_ANALYZER_VPC,
+} from './steps/network-analyzer/constants';
 import {
   bigQuerySteps,
   STEP_BIG_QUERY_DATASETS,
@@ -202,6 +212,7 @@ import { WebSecurityScannerSteps } from './steps/web-security-scanner/constants'
 import { IntegrationConfig } from './types';
 import { isMasterOrganizationInstance } from './utils/isMasterOrganizationInstance';
 import { isSingleProjectInstance } from './utils/isSingleProjectInstance';
+import { networkAnalyzerSteps } from './steps/network-analyzer';
 
 function makeStepStartStates(
   stepIds: string[],
@@ -486,6 +497,28 @@ function getDefaultStepStartStates(params: {
       disabled: false,
     },
     [STEP_NETWORK_ANALYZER_CONNECTIVITY_TEST]: {
+      disabled: false,
+    },
+    [STEP_VPN_GATEWAY]: {
+      disabled: false,
+    },
+    [STEP_VPN_GATEWAY_TUNNEL]: {
+      disabled: false,
+    },
+    [STEP_NETWORK_INTELLIGENCE_CENTER_HAS_NETWORK_ANALYZER_CONNECTIVITY_TEST_RELATIONSHIP]:
+      {
+        disabled: false,
+      },
+    [STEP_VPN_GATEWAY_USES_VPN_GATEWAY_TUNNEL_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_PROJECT_HAS_NETWORK_ANALYZER_CONNECTIVITY_TEST_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_PROJECT_HAS_NETWORK_INTELLIGENCE_CENTER_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_NETWORK_ANALYZER_VPC]: {
       disabled: false,
     },
   };
@@ -808,10 +841,29 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [STEP_SPANNER_INSTANCE_DATABASES]: createStepStartState(
       ServiceUsageName.SPANNER,
     ),
-    [STEP_NETWORK_INTELLIGENCE_CENTER]:
+    [STEP_NETWORK_INTELLIGENCE_CENTER]: createOrgStepStartState(
+      ServiceUsageName.NETWORK_ANALYZER,
+    ),
+    [STEP_NETWORK_ANALYZER_CONNECTIVITY_TEST]: createOrgStepStartState(
+      ServiceUsageName.NETWORK_ANALYZER,
+    ),
+    [STEP_VPN_GATEWAY]: createOrgStepStartState(
+      ServiceUsageName.NETWORK_ANALYZER,
+    ),
+    [STEP_VPN_GATEWAY_TUNNEL]: createOrgStepStartState(
+      ServiceUsageName.NETWORK_ANALYZER,
+    ),
+    [STEP_PROJECT_HAS_NETWORK_INTELLIGENCE_CENTER_RELATIONSHIP]:
       createOrgStepStartState(ServiceUsageName.NETWORK_ANALYZER),
-      [STEP_NETWORK_ANALYZER_CONNECTIVITY_TEST]:
+    [STEP_PROJECT_HAS_NETWORK_ANALYZER_CONNECTIVITY_TEST_RELATIONSHIP]:
       createOrgStepStartState(ServiceUsageName.NETWORK_ANALYZER),
+    [STEP_NETWORK_INTELLIGENCE_CENTER_HAS_NETWORK_ANALYZER_CONNECTIVITY_TEST_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.NETWORK_ANALYZER),
+    [STEP_VPN_GATEWAY_USES_VPN_GATEWAY_TUNNEL_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.NETWORK_ANALYZER),
+    [STEP_NETWORK_ANALYZER_VPC]: createOrgStepStartState(
+      ServiceUsageName.NETWORK_ANALYZER,
+    ),
     [STEP_API_GATEWAY_APIS]: createStepStartState(ServiceUsageName.API_GATEWAY),
     [STEP_API_GATEWAY_API_CONFIGS]: createStepStartState(
       ServiceUsageName.API_GATEWAY,
@@ -957,6 +1009,7 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [ServiceUsageName.WEB_SECURITY_SCANNER]: webSecurityScannerSteps.map(
       (s) => s.id,
     ),
+    [ServiceUsageName.NETWORK_ANALYZER]: networkAnalyzerSteps.map((s) => s.id),
   };
 
   for (const serviceName of Object.keys(apiServiceToStepIdsMap)) {

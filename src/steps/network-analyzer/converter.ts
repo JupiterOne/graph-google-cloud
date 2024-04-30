@@ -8,7 +8,7 @@ import {
   VPN_GATEWAY_TUNNEL_TYPE,
   VPN_GATEWAY_TUNNEL_CLASS,
   VPN_GATEWAY_TYPE,
-  VPN_GATEWAY_CLASS
+  VPN_GATEWAY_CLASS,
 } from './constants';
 
 export function createNetworkIntelligenceCenterEntity(
@@ -26,7 +26,7 @@ export function createNetworkIntelligenceCenterEntity(
         category: ['network'],
         function: ['networking'],
         locationId: data.locationId,
-        projectId: projectId
+        projectId: projectId,
       },
     },
   });
@@ -48,7 +48,7 @@ export function createNetworkAnalyzerConnectivityTest(
         displayName: data.displayName as string,
         category: data.protocol as string,
         summary: data.probingDetails?.result as string,
-        internal: true
+        internal: true,
       },
     },
   });
@@ -70,7 +70,7 @@ export function createVpnGatewayTunnel(
     entityData: {
       source: data,
       assign: {
-        _key: data.id as string,
+        _key: data.name as string,
         _type: VPN_GATEWAY_TUNNEL_TYPE,
         _class: VPN_GATEWAY_TUNNEL_CLASS,
         name: data.name,
@@ -80,7 +80,7 @@ export function createVpnGatewayTunnel(
         kind: data.kind,
         category: ['network'],
         function: ['routing'],
-        vpnGatewayName: vpnGatewayName
+        vpnGatewayName: vpnGatewayName,
       },
     },
   });
@@ -117,7 +117,7 @@ export function createVpnGateway(
     entityData: {
       source: data,
       assign: {
-        _key: data.id as string,
+        _key: data.name as string,
         _type: VPN_GATEWAY_TYPE,
         _class: VPN_GATEWAY_CLASS,
         name: data.name,
@@ -126,7 +126,7 @@ export function createVpnGateway(
         public: true,
         kind: data.kind,
         category: ['network'],
-        function: ['routing','remote-access-gateway'],
+        function: ['routing', 'remote-access-gateway'],
       },
     },
   });
