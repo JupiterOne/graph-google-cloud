@@ -7,6 +7,7 @@ import {
   WebSecurityScannerEntities,
   WebSecurityScannerSteps,
   IngestionSources,
+  WebSecurityScannerPermissions,
 } from '../constants';
 import { createScanConfigEntity } from '../converters';
 
@@ -33,6 +34,6 @@ export const fetchScanConfigsStepMap: GoogleCloudIntegrationStep = {
   relationships: [],
   dependsOn: [],
   executionHandler: fetchScanConfigs,
-  permissions: ['cloudsecurityscanner.scans.list'],
+  permissions: WebSecurityScannerPermissions.FETCH_SCAN_CONFIGS,
   apis: ['websecurityscanner.googleapis.com'],
 };

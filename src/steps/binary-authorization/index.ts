@@ -2,7 +2,6 @@ import {
   createDirectRelationship,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
-import { binaryauthorization_v1 } from 'googleapis';
 import {
   GoogleCloudIntegrationStep,
   IntegrationStepContext,
@@ -18,9 +17,9 @@ import {
   STEP_BINARY_AUTHORIZATION_POLICY,
   RELATIONSHIP_TYPE_PROJECT_HAS_BINARY_AUTHORIZATION_POLICY,
   IngestionSources,
+  BinaryAuthPermissions,
 } from './constants';
 import { createBinaryAuthorizationPolicyEntity } from './converters';
-import { publishMissingPermissionEvent } from '../../utils/events';
 import { getProjectEntity } from '../../utils/project';
 
 export async function fetchBinaryAuthorizationPolicy(
@@ -34,22 +33,7 @@ export async function fetchBinaryAuthorizationPolicy(
 
   const client = new BinaryAuthorizationClient({ config }, logger);
 
-  let policy: binaryauthorization_v1.Schema$Policy;
-  try {
-    policy = await client.fetchPolicy();
-  } catch (err) {
-    if (err.code === 403) {
-      publishMissingPermissionEvent({
-        logger,
-        permission: 'binaryauthorization.policy.get',
-        stepId: STEP_BINARY_AUTHORIZATION_POLICY,
-      });
-
-      return;
-    }
-
-    throw err;
-  }
+  const policy = await client.fetchPolicy();
 
   if (policy) {
     const policyEntity = createBinaryAuthorizationPolicyEntity(
@@ -60,6 +44,9 @@ export async function fetchBinaryAuthorizationPolicy(
     await jobState.addEntity(policyEntity);
 
     const projectEntity = await getProjectEntity(jobState);
+
+    if (!projectEntity) return;
+
     await jobState.addRelationship(
       createDirectRelationship({
         _class: RelationshipClass.HAS,
@@ -92,7 +79,7 @@ export const binaryAuthorizationSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_RESOURCE_MANAGER_PROJECT],
     executionHandler: fetchBinaryAuthorizationPolicy,
-    permissions: ['binaryauthorization.policy.get'],
+    permissions: BinaryAuthPermissions.STEP_BINARY_AUTHORIZATION_POLICY,
     apis: ['binaryauthorization.googleapis.com'],
   },
 ];

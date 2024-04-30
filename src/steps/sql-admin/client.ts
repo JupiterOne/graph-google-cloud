@@ -1,5 +1,6 @@
 import { google, sqladmin_v1beta4 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
+import { SQLAdminPermissions, STEP_SQL_ADMIN_INSTANCES } from './constants';
 
 export class SQLAdminClient extends Client {
   private client = google.sqladmin({ version: 'v1beta4', retry: false });
@@ -22,6 +23,8 @@ export class SQLAdminClient extends Client {
           await callback(sqlInstance);
         }
       },
+      STEP_SQL_ADMIN_INSTANCES,
+      SQLAdminPermissions.STEP_SQL_ADMIN_INSTANCES,
     );
   }
 }

@@ -103,3 +103,7 @@ export const CloudAssetIngestionConfig = {
     defaultsToDisabled: false,
   },
 };
+
+export const CloudAssetPermissions = {
+  STEP_IAM_BINDINGS: ['cloudasset.assets.searchAllIamPolicies'],
+};

@@ -32,3 +32,8 @@ export const LoggingIngestionConfig = {
     defaultsToDisabled: true,
   },
 };
+
+export const LoggingPermissions = {
+  STEP_LOGGING_PROJECT_SINKS: ['logging.sinks.list'],
+  STEP_LOGGING_METRICS: ['logging.logMetrics.list'],
+};

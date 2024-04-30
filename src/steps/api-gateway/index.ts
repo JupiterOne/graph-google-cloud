@@ -23,6 +23,7 @@ import {
   RELATIONSHIP_TYPE_API_GATEWAY_API_HAS_GATEWAY,
   RELATIONSHIP_TYPE_API_GATEWAY_API_CONFIG_USES_SERVICE_ACCOUNT,
   IngestionSources,
+  ApiGatewayPermissions,
 } from './constants';
 import {
   createApiGatewayApiConfigEntity,
@@ -94,6 +95,9 @@ export async function fetchApiGatewayApiConfigs(
           apiId,
           configId as string,
         );
+
+        if (!configPolicy) return;
+
         const apiConfigEntity = createApiGatewayApiConfigEntity({
           data: apiConfig,
           apiId: (apiEntity.name as string).split('/')[5],
@@ -162,6 +166,8 @@ export async function fetchApiGatewayGateways(
     const gatewayId = gateway.name?.split('/')[5];
     const gatewayPolicy = await client.getGatewayPolicy(gatewayId as string);
 
+    if (!gatewayPolicy) return;
+
     const gatewayEntity = createApiGatewayGatewayEntity({
       data: gateway,
       projectId: client.projectId,
@@ -201,7 +207,7 @@ export const apiGatewaySteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchApiGatewayApis,
-    permissions: ['apigateway.apis.getIamPolicy', 'apigateway.apis.list'],
+    permissions: ApiGatewayPermissions.STEP_API_GATEWAY_APIS,
   },
   {
     id: STEP_API_GATEWAY_API_CONFIGS,
@@ -230,10 +236,7 @@ export const apiGatewaySteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_API_GATEWAY_APIS, STEP_IAM_SERVICE_ACCOUNTS],
     executionHandler: fetchApiGatewayApiConfigs,
-    permissions: [
-      'apigateway.apiconfigs.list',
-      'apigateway.apiconfigs.getIamPolicy',
-    ],
+    permissions: ApiGatewayPermissions.STEP_API_GATEWAY_API_CONFIGS,
     apis: ['apigateway.googleapis.com'],
   },
   {
@@ -257,10 +260,7 @@ export const apiGatewaySteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_API_GATEWAY_APIS],
     executionHandler: fetchApiGatewayGateways,
-    permissions: [
-      'apigateway.gateways.list',
-      'apigateway.gateways.getIamPolicy',
-    ],
+    permissions: ApiGatewayPermissions.STEP_API_GATEWAY_GATEWAYS,
     apis: ['apigateway.googleapis.com'],
   },
 ];

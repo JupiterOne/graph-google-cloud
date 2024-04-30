@@ -13,6 +13,7 @@ import {
   ServiceUsageEntities,
   ServiceUsageRelationships,
   IngestionSources,
+  ServiceUsagePermissions,
 } from './constants';
 import { STEP_RESOURCE_MANAGER_PROJECT } from '../resource-manager';
 import { getProjectEntity } from '../../utils/project';
@@ -52,6 +53,8 @@ export async function fetchApiServices(
   const client = new ServiceUsageClient({ config }, logger);
   const iamClient = new IamClient({ config }, logger);
   const projectEntity = await getProjectEntity(jobState);
+
+  if (!projectEntity) return;
 
   const permissionsByApiServiceMap = buildPermissionsByApiServiceMap(
     await getIamManagedRoleData(jobState),
@@ -115,7 +118,7 @@ export const serviceUsageSteps: GoogleCloudIntegrationStep[] = [
     relationships: [ServiceUsageRelationships.PROJECT_HAS_API_SERVICE],
     dependsOn: [STEP_RESOURCE_MANAGER_PROJECT, STEP_IAM_MANAGED_ROLES],
     executionHandler: fetchApiServices,
-    permissions: ['serviceusage.services.list'],
+    permissions: ServiceUsagePermissions.FETCH_API_SERVICES,
     apis: ['serviceusage.googleapis.com'],
   },
 ];

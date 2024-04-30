@@ -28,3 +28,7 @@ export const DataprocIngestionConfig = {
     defaultsToDisabled: true,
   },
 };
+
+export const DataprocPermissions = {
+  STEP_DATAPROC_CLUSTERS: ['dataproc.clusters.list'],
+};

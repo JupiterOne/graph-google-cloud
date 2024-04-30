@@ -14,6 +14,7 @@ import {
   SecretManagerRelationships,
   SecretManagerSteps,
   IngestionSources,
+  SecretManagerPermissions,
 } from './constants';
 import { createSecretEntity, createSecretVersionEntity } from './converters';
 
@@ -70,7 +71,7 @@ export const secretManagerSteps: GoogleCloudIntegrationStep[] = [
     entities: [SecretManagerEntities.SECRET],
     relationships: [],
     executionHandler: fetchSecrets,
-    permissions: ['secretmanager.secrets.list'],
+    permissions: SecretManagerPermissions.FETCH_SECRETS,
     apis: ['secretmanager.googleapis.com'],
   },
   {
@@ -80,7 +81,7 @@ export const secretManagerSteps: GoogleCloudIntegrationStep[] = [
     relationships: [SecretManagerRelationships.SECRET_HAS_VERSION],
     dependsOn: [SecretManagerSteps.FETCH_SECRETS.id],
     executionHandler: fetchSecretVersions,
-    permissions: ['secretmanager.versions.list'],
+    permissions: SecretManagerPermissions.FETCH_SECRET_VERSIONS,
     apis: ['secretmanager.googleapis.com'],
   },
 ];

@@ -24,6 +24,7 @@ import {
   STEP_COMPUTE_NETWORKS,
   STEP_COMPUTE_SUBNETWORKS,
   STEP_COMPUTE_INSTANCE_GROUPS,
+  ComputePermissions,
 } from '../constants';
 import {
   createComputeInstanceEntity,
@@ -260,6 +261,6 @@ export const fetchComputeInstancesStepMap: GoogleCloudIntegrationStep = {
     STEP_COMPUTE_INSTANCE_GROUPS,
   ],
   executionHandler: fetchComputeInstances,
-  permissions: ['compute.instances.list', 'osconfig.inventories.get'],
+  permissions: ComputePermissions.STEP_COMPUTE_INSTANCES,
   apis: ['compute.googleapis.com', 'osconfig.googleapis.com'],
 };

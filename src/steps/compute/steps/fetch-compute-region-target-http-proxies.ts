@@ -15,6 +15,7 @@ import {
   ENTITY_TYPE_COMPUTE_TARGET_HTTP_PROXY,
   ENTITY_CLASS_COMPUTE_TARGET_HTTP_PROXY,
   RELATIONSHIP_TYPE_LOAD_BALANCER_HAS_TARGET_HTTP_PROXY,
+  ComputePermissions,
 } from '../constants';
 import { createRegionTargetHttpProxyEntity } from '../converters';
 
@@ -71,6 +72,6 @@ export const fetchComputeRegionTargetHttpProxiesStepMap: GoogleCloudIntegrationS
     ],
     dependsOn: [STEP_COMPUTE_REGION_LOADBALANCERS],
     executionHandler: fetchComputeRegionTargetHttpProxies,
-    permissions: ['compute.regionTargetHttpProxies.list'],
+    permissions: ComputePermissions.STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES,
     apis: ['compute.googleapis.com'],
   };

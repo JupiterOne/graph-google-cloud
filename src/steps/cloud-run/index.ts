@@ -24,6 +24,7 @@ import {
   RELATIONSHIP_TYPE_CLOUD_RUN_SERVICE_MANAGES_ROUTE,
   RELATIONSHIP_TYPE_CLOUD_RUN_SERVICE_MANAGES_CONFIGURATION,
   IngestionSources,
+  CloudRunPermissions,
 } from './constants';
 import {
   createCloudRunConfigurationEntity,
@@ -165,7 +166,7 @@ export const cloudRunSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchCloudRunServices,
-    permissions: ['run.services.list'],
+    permissions: CloudRunPermissions.STEP_CLOUD_RUN_SERVICES,
   },
   {
     id: STEP_CLOUD_RUN_ROUTES,
@@ -188,7 +189,7 @@ export const cloudRunSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_CLOUD_RUN_SERVICES],
     executionHandler: fetchCloudRunRoutes,
-    permissions: ['run.routes.list'],
+    permissions: CloudRunPermissions.STEP_CLOUD_RUN_ROUTES,
   },
   {
     id: STEP_CLOUD_RUN_CONFIGURATIONS,
@@ -211,7 +212,7 @@ export const cloudRunSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_CLOUD_RUN_SERVICES],
     executionHandler: fetchCloudRunConfigurations,
-    permissions: ['run.configurations.list'],
+    permissions: CloudRunPermissions.STEP_CLOUD_RUN_CONFIGURATIONS,
     apis: ['run.googleapis.com'],
   },
 ];

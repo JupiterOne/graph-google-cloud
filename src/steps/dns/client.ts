@@ -1,5 +1,10 @@
 import { google, dns_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
+import {
+  DNSPermissions,
+  STEP_DNS_MANAGED_ZONES,
+  STEP_DNS_POLICIES,
+} from './constants';
 
 export class DNSClient extends Client {
   private client = google.dns({ version: 'v1', retry: false });
@@ -22,6 +27,8 @@ export class DNSClient extends Client {
           await callback(managedZone);
         }
       },
+      STEP_DNS_MANAGED_ZONES,
+      DNSPermissions.STEP_DNS_MANAGED_ZONES,
     );
   }
 
@@ -43,6 +50,8 @@ export class DNSClient extends Client {
           await callback(policy);
         }
       },
+      STEP_DNS_POLICIES,
+      DNSPermissions.STEP_DNS_POLICIES,
     );
   }
 }

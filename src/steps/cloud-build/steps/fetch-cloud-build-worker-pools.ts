@@ -1,4 +1,4 @@
-import { IngestionSources } from '../constants';
+import { CloudBuildPermissions, IngestionSources } from '../constants';
 import {
   GoogleCloudIntegrationStep,
   IntegrationStepContext,
@@ -26,6 +26,6 @@ export const fetchCloudBuildWorkerPoolsStep: GoogleCloudIntegrationStep = {
       await jobState.addEntity(createGoogleCloudBuildWorkerPoolEntity(data));
     });
   },
-  permissions: ['cloudbuild.workerpools.list'],
+  permissions: CloudBuildPermissions.FETCH_BUILD_WORKER_POOLS,
   apis: ['cloudbuild.googleapis.com'],
 };

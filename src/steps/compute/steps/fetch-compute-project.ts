@@ -15,10 +15,10 @@ import {
   RELATIONSHIP_TYPE_PROJECT_HAS_INSTANCE,
   ENTITY_TYPE_COMPUTE_INSTANCE,
   STEP_COMPUTE_INSTANCES,
+  ComputePermissions,
 } from '../constants';
 import { createComputeProjectEntity } from '../converters';
 import { compute_v1 } from 'googleapis';
-import { publishMissingPermissionEvent } from '../../../utils/events';
 
 export async function fetchComputeProject(
   context: IntegrationStepContext,
@@ -31,23 +31,8 @@ export async function fetchComputeProject(
     logger,
   );
 
-  let computeProject: compute_v1.Schema$Project;
-
-  try {
-    computeProject = await client.fetchComputeProject();
-  } catch (err) {
-    if (err.code === 403) {
-      publishMissingPermissionEvent({
-        logger,
-        permission: 'compute.projects.get',
-        stepId: STEP_COMPUTE_PROJECT,
-      });
-
-      return;
-    }
-
-    throw err;
-  }
+  const computeProject: compute_v1.Schema$Project | undefined =
+    await client.fetchComputeProject();
 
   if (computeProject) {
     const computeProjectEntity = createComputeProjectEntity(computeProject);
@@ -94,6 +79,6 @@ export const fetchComputeProjectStepMap: GoogleCloudIntegrationStep = {
   ],
   dependsOn: [STEP_COMPUTE_INSTANCES],
   executionHandler: fetchComputeProject,
-  permissions: ['compute.projects.get'],
+  permissions: ComputePermissions.STEP_COMPUTE_PROJECT,
   apis: ['compute.googleapis.com'],
 };

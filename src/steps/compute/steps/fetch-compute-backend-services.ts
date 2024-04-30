@@ -18,6 +18,7 @@ import {
   STEP_COMPUTE_BACKEND_SERVICES,
   STEP_COMPUTE_INSTANCE_GROUPS,
   STEP_COMPUTE_HEALTH_CHECKS,
+  ComputePermissions,
 } from '../constants';
 import { createBackendServiceEntity } from '../converters';
 
@@ -95,6 +96,6 @@ export const fetchComputeBackendServicesStepMap: GoogleCloudIntegrationStep = {
   ],
   dependsOn: [STEP_COMPUTE_INSTANCE_GROUPS, STEP_COMPUTE_HEALTH_CHECKS],
   executionHandler: fetchComputeBackendServices,
-  permissions: ['compute.backendServices.list'],
+  permissions: ComputePermissions.STEP_COMPUTE_BACKEND_SERVICES,
   apis: ['compute.googleapis.com'],
 };

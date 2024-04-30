@@ -1,5 +1,6 @@
 import { google, billingbudgets_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
+import { BillingBudgetsPermissions, STEP_BILLING_BUDGETS } from './constants';
 
 export class BillingBudgetClient extends Client {
   private client = google.billingbudgets({ version: 'v1', retry: false });
@@ -27,6 +28,8 @@ export class BillingBudgetClient extends Client {
           await callback(budget);
         }
       },
+      STEP_BILLING_BUDGETS,
+      BillingBudgetsPermissions.STEP_BILLING_BUDGETS,
     );
   }
 }

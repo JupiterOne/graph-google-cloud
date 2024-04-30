@@ -17,6 +17,7 @@ import {
   RELATIONSHIP_TYPE_REDIS_INSTANCE_USES_NETWORK,
   STEP_CREATE_REDIS_INSTANCE_NETWORK_RELATIONSHIPS,
   IngestionSources,
+
   STEP_MEMORYSTORE_REDIS_LOCATION,
   ENTITY_TYPE_MEMORYSTORE_REDIS_LOCATION,
   ENTITY_CLASS_MEMORYSTORE_REDIS_LOCATION,
@@ -31,6 +32,7 @@ import {
   RELATIONSHIP_TYPE_PROJECT_HAS_REDIS_INSTANCE,
   RELATIONSHIP_TYPE_MEMORYSTORE_REDIS_LOCATION_HAS_REDIS_INTANCE,
   STEP_MEMORYSTORE_REDIS_LOCATION_HAS_REDIS_INSTANCE_RELATIONSHIP,
+
 } from './constants';
 import { ENTITY_TYPE_COMPUTE_NETWORK } from '../compute/constants';
 import {
@@ -299,7 +301,7 @@ export const redisSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchRedisInstances,
-    permissions: ['redis.instances.list'],
+    permissions: RedisPermissions.STEP_REDIS_INSTANCES,
     apis: ['redis.googleapis.com'],
   },
   {

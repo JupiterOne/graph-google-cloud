@@ -63,3 +63,7 @@ export const RedisIngestionConfig = {
     defaultsToDisabled: false,
   },
 };
+
+export const RedisPermissions = {
+  STEP_REDIS_INSTANCES: ['redis.instances.list'],
+};

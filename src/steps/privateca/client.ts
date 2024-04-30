@@ -1,5 +1,6 @@
 import { google, privateca_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
+import { PrivateCAPermissions, PrivatecaSteps } from './constants';
 
 export class PrivateCaClient extends Client {
   private client = google.privateca({ version: 'v1', retry: false });
@@ -7,17 +8,24 @@ export class PrivateCaClient extends Client {
   async getAuthorityPolicy(
     caPoolId: string,
     location: string,
-  ): Promise<privateca_v1.Schema$Policy> {
+  ): Promise<privateca_v1.Schema$Policy | undefined> {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const result = await this.withErrorHandling(() =>
-      this.client.projects.locations.caPools.getIamPolicy({
-        resource: `projects/${this.projectId}/locations/${location}/caPools/${caPoolId}`,
-        auth,
-      }),
+    const result = await this.withErrorHandling(
+      () =>
+        this.client.projects.locations.caPools.getIamPolicy({
+          resource: `projects/${this.projectId}/locations/${location}/caPools/${caPoolId}`,
+          auth,
+        }),
+      this.logger,
+      {
+        stepId: PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES.id,
+        suggestedPermissions:
+          PrivateCAPermissions.STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES,
+      },
     );
 
-    return result.data;
+    return result?.data;
   }
 
   async iterateCaPools(
@@ -38,6 +46,8 @@ export class PrivateCaClient extends Client {
           await callback(certificateAuthority);
         }
       },
+      PrivatecaSteps.STEP_PRIVATE_CA_POOLS.id,
+      PrivateCAPermissions.STEP_PRIVATE_CA_POOLS,
     );
   }
 
@@ -63,6 +73,8 @@ export class PrivateCaClient extends Client {
           await callback(certificateAuthority);
         }
       },
+      PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES.id,
+      PrivateCAPermissions.STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES,
     );
   }
 
@@ -86,6 +98,8 @@ export class PrivateCaClient extends Client {
           await callback(certificate);
         }
       },
+      PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATES.id,
+      PrivateCAPermissions.STEP_PRIVATE_CA_CERTIFICATES,
     );
   }
 }
