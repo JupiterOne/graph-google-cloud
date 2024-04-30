@@ -52,7 +52,7 @@ ignacio:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDSg4sA5KWtxOoYlWtyJ+uI1f7xPQ3UMMz9
               {
                 "limit": 500,
                 "metric": "FIREWALLS",
-                "usage": 16,
+                "usage": 22,
               },
               {
                 "limit": 5000,
@@ -82,7 +82,7 @@ ignacio:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDSg4sA5KWtxOoYlWtyJ+uI1f7xPQ3UMMz9
               {
                 "limit": 1000,
                 "metric": "HEALTH_CHECKS",
-                "usage": 4,
+                "usage": 5,
               },
               {
                 "limit": 575,
