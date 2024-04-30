@@ -57,6 +57,7 @@ all of the supported data into JupiterOne:
 | Service Name                                                                                                   | Service API                         |
 | -------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
 | [accesscontextmanager](https://console.developers.google.com/apis/library/accesscontextmanager.googleapis.com) | accesscontextmanager.googleapis.com |
+| [alloydb](https://console.developers.google.com/apis/library/alloydb.googleapis.com)                           | alloydb.googleapis.com              |
 | [apigateway](https://console.developers.google.com/apis/library/apigateway.googleapis.com)                     | apigateway.googleapis.com           |
 | [appengine](https://console.developers.google.com/apis/library/appengine.googleapis.com)                       | appengine.googleapis.com            |
 | [bigquery](https://console.developers.google.com/apis/library/bigquery.googleapis.com)                         | bigquery.googleapis.com             |
@@ -65,6 +66,7 @@ all of the supported data into JupiterOne:
 | [cloudasset](https://console.developers.google.com/apis/library/cloudasset.googleapis.com)                     | cloudasset.googleapis.com           |
 | [cloudbilling](https://console.developers.google.com/apis/library/cloudbilling.googleapis.com)                 | cloudbilling.googleapis.com         |
 | [cloudbuild](https://console.developers.google.com/apis/library/cloudbuild.googleapis.com)                     | cloudbuild.googleapis.com           |
+| [clouddeploy](https://console.developers.google.com/apis/library/clouddeploy.googleapis.com)                   | clouddeploy.googleapis.com          |
 | [cloudfunctions](https://console.developers.google.com/apis/library/cloudfunctions.googleapis.com)             | cloudfunctions.googleapis.com       |
 | [cloudkms](https://console.developers.google.com/apis/library/cloudkms.googleapis.com)                         | cloudkms.googleapis.com             |
 | [cloudsql](https://console.developers.google.com/apis/library/cloudsql.googleapis.com)                         | cloudsql.googleapis.com             |
@@ -118,6 +120,7 @@ integration supports:
 ```
 gcloud services enable \
  accesscontextmanager.googleapis.com \
+ alloydb.googleapis.com \
  apigateway.googleapis.com \
  appengine.googleapis.com \
  bigquery.googleapis.com \
@@ -126,6 +129,7 @@ gcloud services enable \
  cloudasset.googleapis.com \
  cloudbilling.googleapis.com \
  cloudbuild.googleapis.com \
+ clouddeploy.googleapis.com \
  cloudfunctions.googleapis.com \
  cloudkms.googleapis.com \
  cloudsql.googleapis.com \
@@ -343,6 +347,7 @@ The following entities are created:
 
 | Resources                                                | Entity `_type`                                                    | Entity `_class`                    |
 | -------------------------------------------------------- | ----------------------------------------------------------------- | ---------------------------------- |
+| AlloyDB for PostgreSQL Cluster                           | `google_cloud_alloydb_cluster`                                    | `Database`, `DataStore`, `Cluster` |
 | Access Context Manager Access Level                      | `google_access_context_manager_access_level`                      | `Ruleset`                          |
 | Access Context Manager Access Policy                     | `google_access_context_manager_access_policy`                     | `AccessPolicy`                     |
 | Access Context Manager Service Perimeter                 | `google_access_context_manager_service_perimeter`                 | `Configuration`                    |
@@ -350,6 +355,10 @@ The following entities are created:
 | Access Context Manager Service Perimeter Egress Policy   | `google_access_context_manager_service_perimeter_egress_policy`   | `ControlPolicy`                    |
 | Access Context Manager Service Perimeter Ingress Policy  | `google_access_context_manager_service_perimeter_ingress_policy`  | `ControlPolicy`                    |
 | Access Context Manager Service Perimeter Method Selector | `google_access_context_manager_service_perimeter_method_selector` | `Configuration`                    |
+| AlloyDB for PostgreSQL                                   | `google_cloud_alloydb`                                            | `Service`                          |
+| AlloyDB for PostgreSQL Backup                            | `google_cloud_alloydb_backup`                                     | `Backup`                           |
+| AlloyDB for PostgreSQL Connection                        | `google_cloud_alloydb_connection`                                 | `Network`                          |
+| AlloyDB for PostgreSQL Instances                         | `google_cloud_alloydb_instance`                                   | `Database`, `DataStore`, `Host`    |
 | Api Gateway Api                                          | `google_api_gateway_api`                                          | `Service`                          |
 | Api Gateway Api Config                                   | `google_api_gateway_api_config`                                   | `Configuration`                    |
 | Api Gateway Gateway                                      | `google_api_gateway_gateway`                                      | `Gateway`                          |
@@ -376,11 +385,17 @@ The following entities are created:
 | Cloud Build GitHub Enterprise Config                     | `google_cloud_github_enterprise_config`                           | `Configuration`                    |
 | Cloud Build Trigger                                      | `google_cloud_build_trigger`                                      | `Rule`                             |
 | Cloud Build Worker Pool                                  | `google_cloud_build_worker_pool`                                  | `Cluster`                          |
+| Cloud Compute Router                                     | `google_cloud_compute_router`                                     | `Device`                           |
+| Cloud Deploy Automation                                  | `google_cloud_deploy_automation`                                  | `Rule`                             |
+| Cloud Deploy Delivery Pipeline                           | `google_cloud_deploy_delivery_pipeline`                           | `Workflow`                         |
+| Cloud Deploy Service                                     | `google_cloud_deploy_service`                                     | `Service`                          |
 | Cloud Function                                           | `google_cloud_function`                                           | `Function`                         |
 | Cloud Run Configuration                                  | `google_cloud_run_configuration`                                  | `Configuration`                    |
 | Cloud Run Route                                          | `google_cloud_run_route`                                          | `Configuration`                    |
 | Cloud Run Service                                        | `google_cloud_run_service`                                        | `Service`                          |
 | Cloud Source Repository                                  | `google_cloud_source_repository`                                  | `CodeRepo`                         |
+| Cloud Spanner                                            | `google_cloud_spanner`                                            | `Service`                          |
+| Cloud Spanner Backups                                    | `google_cloud_spanner_backup`                                     | `Backup`                           |
 | Cloud Storage Bucket                                     | `google_storage_bucket`                                           | `DataStore`                        |
 | Compute Address                                          | `google_compute_address`                                          | `IpAddress`                        |
 | Compute Backend Bucket                                   | `google_compute_backend_bucket`                                   | `Gateway`                          |
@@ -439,6 +454,7 @@ The following entities are created:
 | Spanner Instance                                         | `google_spanner_instance`                                         | `Database`, `Cluster`              |
 | Spanner Instance Config                                  | `google_spanner_instance_config`                                  | `Configuration`                    |
 | Spanner Instance Database                                | `google_spanner_database`                                         | `Database`                         |
+| Spanner Instance Database Role                           | `google_cloud_spanner_database_role`                              | `AccessRole`                       |
 
 ### Relationships
 
@@ -472,6 +488,10 @@ The following relationships are created:
 | `google_bigtable_instance`                                       | **HAS**               | `google_bigtable_table`                                           |
 | `google_bigtable_table`                                          | **HAS**               | `google_bigtable_backup`                                          |
 | `google_billing_account`                                         | **HAS**               | `google_billing_budget`                                           |
+| `google_cloud_alloydb_cluster`                                   | **HAS**               | `google_cloud_alloydb_backup`                                     |
+| `google_cloud_alloydb_cluster`                                   | **USES**              | `google_kms_crypto_key`                                           |
+| `google_cloud_alloydb_instance`                                  | **USES**              | `google_cloud_alloydb_cluster`                                    |
+| `google_cloud_alloydb_instance`                                  | **HAS**               | `google_cloud_alloydb_connection`                                 |
 | `google_cloud_api_service`                                       | **USES**              | `google_cloud_audit_config`                                       |
 | `google_cloud_api_service`                                       | **HAS**               | `google_iam_role`                                                 |
 | `google_cloud_api_service`                                       | **HAS**               | `resource`                                                        |
@@ -483,6 +503,9 @@ The following relationships are created:
 | `google_cloud_build`                                             | **USES**              | `google_cloud_source_repository`                                  |
 | `google_cloud_build`                                             | **USES**              | `google_storage_bucket`                                           |
 | `google_cloud_build_trigger`                                     | **TRIGGERS**          | `google_cloud_build`                                              |
+| `google_cloud_deploy_automation`                                 | **TRIGGERS**          | `google_cloud_deploy_delivery_pipeline`                           |
+| `google_cloud_deploy_delivery_pipeline`                          | **USES**              | `google_storage_bucket`                                           |
+| `google_cloud_deploy_service`                                    | **HAS**               | `google_cloud_deploy_delivery_pipeline`                           |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_folder`                                             |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_project`                                            |
 | `google_cloud_function`                                          | **USES**              | `google_cloud_source_repository`                                  |
@@ -492,7 +515,13 @@ The following relationships are created:
 | `google_cloud_organization`                                      | **HAS**               | `google_cloud_project`                                            |
 | `google_cloud_project`                                           | **HAS**               | `google_billing_budget`                                           |
 | `google_cloud_project`                                           | **HAS**               | `google_binary_authorization_policy`                              |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_alloydb`                                            |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_alloydb_cluster`                                    |
 | `google_cloud_project`                                           | **HAS**               | `google_cloud_api_service`                                        |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_deploy_service`                                     |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_spanner`                                            |
+| `google_cloud_project`                                           | **HAS**               | `google_spanner_instance`                                         |
+| `google_cloud_project`                                           | **HAS**               | `google_spanner_instance_config`                                  |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_configuration`                                  |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_route`                                          |
 | `google_cloud_scan_config`                                       | **PERFORMED**         | `google_cloud_scan_run`                                           |
@@ -522,6 +551,7 @@ The following relationships are created:
 | `google_compute_instance`                                        | **TRUSTS**            | `google_iam_service_account`                                      |
 | `google_compute_instance_group`                                  | **HAS**               | `google_compute_instance`                                         |
 | `google_compute_instance_group`                                  | **HAS**               | `google_compute_instance_group_named_port`                        |
+| `google_compute_network`                                         | **HAS**               | `google_cloud_compute_router`                                     |
 | `google_compute_network`                                         | **HAS**               | `google_compute_address`                                          |
 | `google_compute_network`                                         | **HAS**               | `google_compute_firewall`                                         |
 | `google_compute_network`                                         | **HAS**               | `google_compute_global_address`                                   |
@@ -567,22 +597,26 @@ The following relationships are created:
 | `google_pubsub_topic`                                            | **USES**              | `google_kms_crypto_key`                                           |
 | `google_redis_instance`                                          | **USES**              | `google_compute_network`                                          |
 | `google_secret_manager_secret`                                   | **HAS**               | `google_secret_manager_secret_version`                            |
+| `google_spanner_database`                                        | **ASSIGNED**          | `google_cloud_spanner_database_role`                              |
 | `google_spanner_database`                                        | **USES**              | `google_kms_crypto_key`                                           |
+| `google_spanner_instance`                                        | **HAS**               | `google_cloud_spanner_backup`                                     |
 | `google_spanner_instance`                                        | **HAS**               | `google_spanner_database`                                         |
 | `google_spanner_instance`                                        | **USES**              | `google_spanner_instance_config`                                  |
 | `google_sql_mysql_instance`                                      | **USES**              | `google_kms_crypto_key`                                           |
 | `google_sql_postgres_instance`                                   | **USES**              | `google_kms_crypto_key`                                           |
 | `google_sql_sql_server_instance`                                 | **USES**              | `google_kms_crypto_key`                                           |
 | `google_user`                                                    | **CREATED**           | `google_app_engine_version`                                       |
+| `google_user`                                                    | **ASSIGNED**          | `google_cloud_alloydb_cluster`                                    |
 | `internet`                                                       | **ALLOWS**            | `google_compute_firewall`                                         |
 
 ### Mapped Relationships
 
 The following mapped relationships are created:
 
-| Source Entity `_type`        | Relationship `_class` | Target Entity `_type` | Direction |
-| ---------------------------- | --------------------- | --------------------- | --------- |
-| `google_cloud_build_trigger` | **USES**              | `*github_repo*`       | FORWARD   |
+| Source Entity `_type`                   | Relationship `_class` | Target Entity `_type` | Direction |
+| --------------------------------------- | --------------------- | --------------------- | --------- |
+| `google_cloud_build_trigger`            | **USES**              | `*github_repo*`       | FORWARD   |
+| `google_cloud_deploy_delivery_pipeline` | **USES**              | `*github_repo*`       | FORWARD   |
 
 <!--
 ********************************************************************************
@@ -600,11 +634,16 @@ permissions can be used to provision only the required ones:
 
 <!-- {J1_PERMISSIONS_DOCUMENTATION_MARKER_START} -->
 
-| Permissions List (112)                                  |
+| Permissions List (122)                                  |
 | ------------------------------------------------------- |
 | `accesscontextmanager.accessLevels.list`                |
 | `accesscontextmanager.accessPolicies.list`              |
 | `accesscontextmanager.servicePerimeters.list`           |
+| `alloydb.backups.get`                                   |
+| `alloydb.clusters.list`                                 |
+| `alloydb.instances.connect`                             |
+| `alloydb.instances.list`                                |
+| `alloydb.users.list`                                    |
 | `apigateway.apiconfigs.getIamPolicy`                    |
 | `apigateway.apiconfigs.list`                            |
 | `apigateway.apis.getIamPolicy`                          |
@@ -639,6 +678,8 @@ permissions can be used to provision only the required ones:
 | `cloudbuild.repositories.get`                           |
 | `cloudbuild.repositories.list`                          |
 | `cloudbuild.workerpools.list`                           |
+| `clouddeploy.automations.list`                          |
+| `clouddeploy.deliveryPipelines.list`                    |
 | `cloudfunctions.functions.list`                         |
 | `cloudkms.cryptoKeys.getIamPolicy`                      |
 | `cloudkms.cryptoKeys.list`                              |
@@ -667,6 +708,7 @@ permissions can be used to provision only the required ones:
 | `compute.regionTargetHttpProxies.list`                  |
 | `compute.regionTargetHttpsProxies.list`                 |
 | `compute.regionUrlMaps.list`                            |
+| `compute.routers.list`                                  |
 | `compute.snapshots.list`                                |
 | `compute.sslPolicies.list`                              |
 | `compute.subnetworks.list`                              |
@@ -708,8 +750,10 @@ permissions can be used to provision only the required ones:
 | `secretmanager.versions.list`                           |
 | `serviceusage.services.list`                            |
 | `source.repos.list`                                     |
+| `spanner.backups.get`                                   |
 | `spanner.databases.getIamPolicy`                        |
 | `spanner.databases.list`                                |
+| `spanner.databasesRoles.list`                           |
 | `spanner.instanceConfigs.list`                          |
 | `spanner.instances.list`                                |
 | `storage.buckets.getIamPolicy`                          |
