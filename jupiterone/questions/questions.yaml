@@ -97,20 +97,7 @@ questions:
   description: >
     Returns service account keys that are set to expire within the next 30 days
   queries:
-    query: |
-      find google_iam_service_account as serviceAccount
-        that HAS google_iam_service_account_key
-        with expiresOn < date.now+30days
-      return
-        serviceAccount.id,
-        serviceAccount.email,
-        serviceAccount.description,
-        serviceAccount.enabled,
-        serviceAccount.webLink,
-        google_iam_service_account_key.name,
-        google_iam_service_account_key.type,
-        google_iam_service_account_key.createdOn,
-        google_iam_service_account_key.expiresOn
+    query: FIND google_iam_service_account_key WITH expiresOn < date.now + 30 days
   tags:
   - google-cloud
   - service-account
