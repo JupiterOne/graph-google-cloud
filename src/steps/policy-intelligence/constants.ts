@@ -36,9 +36,24 @@ export const PolicyIntelligenceIngestionConfig = {
     description: 'Analyzes activity for Policy Intelligence.',
     defaultsToDisabled: false,
   },
+  [IngestionSources.PROJECT_HAS_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY]: {
+    title: 'Project has Policy Intelligence Analyzer Activity Relation',
+    description: 'Relation indicating project has Policy Intelligence Analyzer activity.',
+    defaultsToDisabled: false,
+  },
   [IngestionSources.POLICY_INTELLIGENCE_ANALYZER]: {
     title: 'Policy Intelligence Analyzer',
     description: 'Analyzes policies',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.PROJECT_HAS_POLICY_INTELLIGENCE_ANALYZER]: {
+    title: 'Project has Policy Intelligence Analyzer Relation',
+    description: 'Relation indicating project has Policy Intelligence Analyzer.',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.POLICY_INTELLIGENCE_ANALYZER_HAS_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY]: {
+    title: 'Policy Intelligence Analyzer has Policy Intelligence Analyzer Activity Relation',
+    description: 'Relation indicating Policy Intelligence Analyzer has Policy Intelligence Analyzer activity.',
     defaultsToDisabled: false,
   },
 };
