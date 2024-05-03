@@ -25,6 +25,7 @@ export interface SerializedIntegrationConfig extends IntegrationInstanceConfig {
   configureOrganizationProjects?: boolean;
   folderId?: string;
   useEnablementsForStepStartStates?: boolean;
+  computeInstanceMetadataFieldsToIngest?: string;
 }
 
 export interface IntegrationConfig extends SerializedIntegrationConfig {
