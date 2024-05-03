@@ -201,6 +201,7 @@ import { WebSecurityScannerSteps } from './steps/web-security-scanner/constants'
 import { IntegrationConfig } from './types';
 import { isMasterOrganizationInstance } from './utils/isMasterOrganizationInstance';
 import { isSingleProjectInstance } from './utils/isSingleProjectInstance';
+import { STEP_GOOGLE_CLOUD_DATAFLOW_JOB } from './steps/data-flow/constants';
 
 function makeStepStartStates(
   stepIds: string[],
@@ -333,6 +334,7 @@ function getDefaultStepStartStates(params: {
     [STEP_AUDIT_CONFIG_IAM_POLICY]: {
       disabled: !!config.configureOrganizationProjects,
     },
+    [STEP_GOOGLE_CLOUD_DATAFLOW_JOB]: { disabled: false },
     [STEP_COMPUTE_DISKS]: { disabled: false },
     [STEP_COMPUTE_REGION_DISKS]: { disabled: false },
     [STEP_COMPUTE_IMAGES]: { disabled: false },
@@ -648,6 +650,7 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [STEP_AUDIT_CONFIG_IAM_POLICY]: config.configureOrganizationProjects
       ? { disabled: true }
       : createStepStartState(ServiceUsageName.RESOURCE_MANAGER),
+    [STEP_GOOGLE_CLOUD_DATAFLOW_JOB]: createStepStartState(ServiceUsageName.DATA_FLOW),
     [STEP_COMPUTE_DISKS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_REGION_DISKS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_IMAGES]: createStepStartState(ServiceUsageName.COMPUTE),
