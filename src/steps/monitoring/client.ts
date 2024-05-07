@@ -3,6 +3,8 @@ import { Client } from '../../google-cloud/client';
 import {
   MonitoringPermissions,
   STEP_MONITORING_ALERT_POLICIES,
+  STEP_MONITORING_CHANNELS,
+  STEP_MONITORING_GROUPS,
 } from './constants';
 
 export class MonitoringClient extends Client {
@@ -49,6 +51,8 @@ export class MonitoringClient extends Client {
           await callback(channel);
         }
       },
+      STEP_MONITORING_CHANNELS,
+      MonitoringPermissions.STEP_MONITORING_CHANNELS,
     );
   }
 
@@ -70,6 +74,8 @@ export class MonitoringClient extends Client {
           await callback(Group);
         }
       },
+      STEP_MONITORING_GROUPS,
+      MonitoringPermissions.STEP_MONITORING_GROUPS,
     );
   }
 }

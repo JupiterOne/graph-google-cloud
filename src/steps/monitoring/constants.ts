@@ -74,4 +74,7 @@ export const MonitoringIngestionConfig = {
 
 export const MonitoringPermissions = {
   STEP_MONITORING_ALERT_POLICIES: ['monitoring.alertPolicies.list'],
+  STEP_MONITORING_GROUPS: [],
+  STEP_MONITORING_CHANNELS: ['monitoring.notificationChannels.list'],
+  STEP_CLOUD_MONITORING: [],
 };

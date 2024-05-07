@@ -31,6 +31,7 @@ import {
   REALTIONSHIP_CLOUD_MONITORING_HAS_MONITORING_CHANNELS_TYPE,
   STEP_CLOUD_MONITORING_HAS_MONITORING_ALERT_POLICIES_RELATIONSHIP,
   RELATIONSHIP_CLOUD_MONITORING_HAS_MONITORING_ALERT_POLICIES_TYPE,
+  MonitoringPermissions,
 } from './constants';
 import {
   createAlertPolicyEntity,
@@ -295,7 +296,7 @@ export const monitoringSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchAlertPolicies,
-    permissions: ['monitoring.alertPolicies.list'],
+    permissions: MonitoringPermissions.STEP_MONITORING_ALERT_POLICIES,
     apis: ['monitoring.googleapis.com'],
   },
   {
@@ -312,7 +313,7 @@ export const monitoringSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchGroups,
-    permissions: [],
+    permissions: MonitoringPermissions.STEP_MONITORING_GROUPS,
     apis: ['monitoring.googleapis.com'],
   },
   {
@@ -329,7 +330,7 @@ export const monitoringSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchChannels,
-    permissions: ['monitoring.notificationChannels.list'],
+    permissions: MonitoringPermissions.STEP_MONITORING_CHANNELS,
     apis: ['monitoring.googleapis.com'],
   },
   {
@@ -346,7 +347,7 @@ export const monitoringSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchCloudMonitoring,
-    permissions: [],
+    permissions: MonitoringPermissions.STEP_CLOUD_MONITORING,
     apis: ['monitoring.googleapis.com'],
   },
   {
@@ -364,7 +365,6 @@ export const monitoringSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_RESOURCE_MANAGER_PROJECT, STEP_CLOUD_MONITORING],
     executionHandler: buildProjectHasCloudMonitoringRelationship,
-    permissions: [],
     apis: ['beyondcorp.googleapis.com'],
   },
   {
@@ -382,7 +382,6 @@ export const monitoringSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_MONITORING_GROUPS, STEP_CLOUD_MONITORING],
     executionHandler: buildCloudMonitoringHasMonitoringGroupsRelationship,
-    permissions: [],
     apis: ['beyondcorp.googleapis.com'],
   },
   {
@@ -401,7 +400,6 @@ export const monitoringSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_MONITORING_CHANNELS, STEP_CLOUD_MONITORING],
     executionHandler: buildCloudMonitoringHasMonitoringChannelsRelationship,
-    permissions: ['monitoring.notificationChannels.list'],
     apis: ['beyondcorp.googleapis.com'],
   },
   {
@@ -421,7 +419,6 @@ export const monitoringSteps: GoogleCloudIntegrationStep[] = [
     dependsOn: [STEP_MONITORING_ALERT_POLICIES, STEP_CLOUD_MONITORING],
     executionHandler:
       buildCloudMonitoringHasMonitoringAlertPoliciesRelationship,
-    permissions: ['monitoring.alertPolicies.list'],
     apis: ['beyondcorp.googleapis.com'],
   },
 ];
