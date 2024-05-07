@@ -474,4 +474,6 @@ export const ComputePermissions = {
   STEP_COMPUTE_TARGET_SSL_PROXIES: ['compute.targetSslProxies.list'],
   STEP_COMPUTE_IMAGES: ['compute.images.list', 'compute.images.getIamPolicy'],
   STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS: ['compute.images.get'],
+  STEP_INTERCONNECT_LOCATION: [],
+  STEP_CLOUD_INTERCONNECT: [],
 };

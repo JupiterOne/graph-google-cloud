@@ -3,6 +3,7 @@ import {
   IntegrationStepContext,
 } from '../../../types';
 import {
+  ComputePermissions,
   ENTITY_CLASS_CLOUD_INTERCONNECT,
   ENTITY_TYPE_CLOUD_INTERCONNECT,
   IngestionSources,
@@ -68,6 +69,6 @@ export const fetchCloudInterConnectStep: GoogleCloudIntegrationStep = {
   relationships: [],
   dependsOn: [],
   executionHandler: fetchCloudInterconnect,
-  permissions: [],
+  permissions: ComputePermissions.STEP_CLOUD_INTERCONNECT,
   apis: ['compute.googleapis.com'],
 };

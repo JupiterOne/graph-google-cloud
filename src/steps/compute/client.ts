@@ -4,6 +4,7 @@ import { Client, PageableGaxiosResponse } from '../../google-cloud/client';
 import { iterateRegions, iterateRegionZones } from '../../google-cloud/regions';
 import {
   ComputePermissions,
+  STEP_CLOUD_INTERCONNECT,
   STEP_COMPUTE_ADDRESSES,
   STEP_COMPUTE_BACKEND_BUCKETS,
   STEP_COMPUTE_BACKEND_SERVICES,
@@ -33,6 +34,7 @@ import {
   STEP_COMPUTE_TARGET_HTTPS_PROXIES,
   STEP_COMPUTE_TARGET_HTTP_PROXIES,
   STEP_COMPUTE_TARGET_SSL_PROXIES,
+  STEP_INTERCONNECT_LOCATION,
 } from './constants';
 
 export class ComputeClient extends Client {
@@ -813,6 +815,8 @@ export class ComputeClient extends Client {
           await callback(item);
         }
       },
+      STEP_CLOUD_INTERCONNECT,
+      ComputePermissions.STEP_CLOUD_INTERCONNECT,
     );
   }
 
@@ -833,6 +837,8 @@ export class ComputeClient extends Client {
           await callback(item);
         }
       },
+      STEP_INTERCONNECT_LOCATION,
+      ComputePermissions.STEP_INTERCONNECT_LOCATION,
     );
   }
 }
