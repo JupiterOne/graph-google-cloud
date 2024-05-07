@@ -31,6 +31,7 @@ import {
   RELATIONSHIP_TYPE_DATASET_HAS_MODEL,
   STEP_BUILD_BIG_QUERY_DATASET_KMS_RELATIONSHIPS,
   IngestionSources,
+  BigQueryPermissions,
 } from './constants';
 import {
   createBigQueryDatasetEntity,
@@ -209,6 +210,8 @@ export async function fetchBigQueryTables(
               }
               const tableResource = await client.getTableResource(table);
 
+              if (!tableResource) return;
+
               const tableEntity = createBigQueryTableEntity({
                 data: table,
                 projectId: client.projectId,
@@ -270,7 +273,7 @@ export const bigQuerySteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchBigQueryDatasets,
-    permissions: ['bigquery.datasets.get'],
+    permissions: BigQueryPermissions.STEP_BIG_QUERY_DATASETS,
     apis: ['bigquery.googleapis.com'],
   },
   {
@@ -309,11 +312,7 @@ export const bigQuerySteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_BIG_QUERY_DATASETS],
     executionHandler: fetchBigQueryModels,
-    permissions: [
-      'bigquery.models.list',
-      'bigquery.models.getData',
-      'bigquery.models.getMetadata',
-    ],
+    permissions: BigQueryPermissions.STEP_BIG_QUERY_MODELS,
     apis: ['bigquery.googleapis.com'],
   },
   {
@@ -337,11 +336,7 @@ export const bigQuerySteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_BIG_QUERY_DATASETS],
     executionHandler: fetchBigQueryTables,
-    permissions: [
-      'bigquery.tables.list',
-      'bigquery.tables.getIamPolicy',
-      'bigquery.tables.get',
-    ],
+    permissions: BigQueryPermissions.STEP_BIG_QUERY_TABLES,
     apis: ['bigquery.googleapis.com'],
   },
 ];

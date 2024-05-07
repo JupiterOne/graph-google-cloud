@@ -1,5 +1,15 @@
 import { google, iam_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
+import {
+  IAMPermissions,
+  STEP_IAM_CUSTOM_ROLES,
+  STEP_IAM_MANAGED_ROLES,
+  STEP_IAM_SERVICE_ACCOUNTS,
+} from './constants';
+import {
+  ServiceUsagePermissions,
+  ServiceUsageStepIds,
+} from '../service-usage/constants';
 
 function isManagedRole(data: iam_v1.Schema$Role): boolean {
   return !!data.name && !data.name.startsWith('projects/');
@@ -28,6 +38,8 @@ export class IamClient extends Client {
           await callback(role);
         }
       },
+      STEP_IAM_CUSTOM_ROLES,
+      IAMPermissions.STEP_IAM_CUSTOM_ROLES,
     );
 
     // If the organizationId is available, fetch those Custom Roles as well.
@@ -47,6 +59,8 @@ export class IamClient extends Client {
             await callback(role);
           }
         },
+        STEP_IAM_CUSTOM_ROLES,
+        IAMPermissions.STEP_IAM_CUSTOM_ROLES,
       );
     }
   }
@@ -72,6 +86,8 @@ export class IamClient extends Client {
           }
         }
       },
+      STEP_IAM_MANAGED_ROLES,
+      IAMPermissions.STEP_IAM_MANAGED_ROLES,
     );
   }
 
@@ -93,6 +109,8 @@ export class IamClient extends Client {
           await callback(account);
         }
       },
+      STEP_IAM_SERVICE_ACCOUNTS,
+      IAMPermissions.STEP_IAM_SERVICE_ACCOUNTS,
     );
   }
 
@@ -101,14 +119,20 @@ export class IamClient extends Client {
     callback: (data: iam_v1.Schema$ServiceAccountKey) => Promise<void>,
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
-    const response = await this.withErrorHandling(() =>
-      this.client.projects.serviceAccounts.keys.list({
-        auth,
-        name: serviceAccountName,
-      }),
+    const response = await this.withErrorHandling(
+      () =>
+        this.client.projects.serviceAccounts.keys.list({
+          auth,
+          name: serviceAccountName,
+        }),
+      this.logger,
+      {
+        stepId: STEP_IAM_SERVICE_ACCOUNTS,
+        suggestedPermissions: IAMPermissions.STEP_IAM_SERVICE_ACCOUNTS,
+      },
     );
 
-    for (const k of response.data.keys || []) {
+    for (const k of response?.data.keys || []) {
       await callback(k);
     }
   }
@@ -118,16 +142,22 @@ export class IamClient extends Client {
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const response = await this.withErrorHandling(() =>
-      this.client.iamPolicies.queryAuditableServices({
-        auth,
-        requestBody: {
-          fullResourceName: `//cloudresourcemanager.googleapis.com/projects/${this.projectId}`,
-        },
-      }),
+    const response = await this.withErrorHandling(
+      () =>
+        this.client.iamPolicies.queryAuditableServices({
+          auth,
+          requestBody: {
+            fullResourceName: `//cloudresourcemanager.googleapis.com/projects/${this.projectId}`,
+          },
+        }),
+      this.logger,
+      {
+        stepId: ServiceUsageStepIds.FETCH_API_SERVICES,
+        suggestedPermissions: ServiceUsagePermissions.FETCH_API_SERVICES,
+      },
     );
 
-    for (const service of response.data.services || []) {
+    for (const service of response?.data.services || []) {
       const name = service.name;
       if (name) {
         await callback(name);

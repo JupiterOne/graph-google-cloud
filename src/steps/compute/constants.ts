@@ -436,3 +436,42 @@ export const ComputeIngestionConfig = {
     defaultsToDisabled: false,
   },
 };
+
+export const ComputePermissions = {
+  STEP_COMPUTE_NETWORKS: ['compute.networks.list'],
+  STEP_COMPUTE_SUBNETWORKS: ['compute.subnetworks.list'],
+  STEP_COMPUTE_DISKS: ['compute.disks.list'],
+  STEP_COMPUTE_REGION_DISKS: ['compute.disks.list'],
+  STEP_COMPUTE_BACKEND_BUCKETS: ['compute.backendBuckets.list'],
+  STEP_COMPUTE_SNAPSHOTS: ['compute.snapshots.list'],
+  STEP_COMPUTE_HEALTH_CHECKS: ['compute.healthChecks.list'],
+  STEP_COMPUTE_REGION_HEALTH_CHECKS: ['compute.regionHealthChecks.list'],
+  STEP_COMPUTE_INSTANCE_GROUPS: ['compute.instanceGroups.list'],
+  STEP_COMPUTE_REGION_INSTANCE_GROUPS: ['compute.instanceGroups.list'],
+  STEP_COMPUTE_PROJECT: ['compute.projects.get'],
+  STEP_COMPUTE_ADDRESSES: ['compute.addresses.list'],
+  STEP_COMPUTE_REGION_BACKEND_SERVICES: ['compute.regionBackendServices.list'],
+  STEP_COMPUTE_BACKEND_SERVICES: ['compute.backendServices.list'],
+  STEP_COMPUTE_GLOBAL_ADDRESSES: ['compute.globalAddresses.list'],
+  STEP_COMPUTE_REGION_LOADBALANCERS: ['compute.regionUrlMaps.list'],
+  STEP_COMPUTE_TARGET_HTTPS_PROXIES: ['compute.targetHttpsProxies.list'],
+  STEP_COMPUTE_INSTANCES: [
+    'compute.instances.list',
+    'osconfig.inventories.get',
+  ],
+  STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES: [
+    'compute.regionTargetHttpsProxies.list',
+  ],
+  STEP_COMPUTE_FIREWALLS: ['compute.firewalls.list'],
+  STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES: [
+    'compute.regionTargetHttpProxies.list',
+  ],
+  STEP_COMPUTE_TARGET_HTTP_PROXIES: ['compute.targetHttpProxies.list'],
+  STEP_COMPUTE_SSL_POLICIES: ['compute.sslPolicies.list'],
+  STEP_COMPUTE_FORWARDING_RULES: ['compute.forwardingRules.list'],
+  STEP_COMPUTE_GLOBAL_FORWARDING_RULES: ['compute.globalForwardingRules.list'],
+  STEP_COMPUTE_LOADBALANCERS: ['compute.urlMaps.list'],
+  STEP_COMPUTE_TARGET_SSL_PROXIES: ['compute.targetSslProxies.list'],
+  STEP_COMPUTE_IMAGES: ['compute.images.list', 'compute.images.getIamPolicy'],
+  STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS: ['compute.images.get'],
+};

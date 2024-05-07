@@ -82,3 +82,12 @@ export const PrivatecaIngestionConfig = {
     defaultsToDisabled: false,
   },
 };
+
+export const PrivateCAPermissions = {
+  STEP_PRIVATE_CA_POOLS: ['privateca.caPools.list'],
+  STEP_PRIVATE_CA_CERTIFICATES: ['privateca.certificates.list'],
+  STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES: [
+    'privateca.certificateAuthorities.getIamPolicy',
+    'privateca.certificateAuthorities.list',
+  ],
+};

@@ -42,3 +42,18 @@ export const ApiGatewayIngestionConfig = {
     defaultsToDisabled: false,
   },
 };
+
+export const ApiGatewayPermissions = {
+  STEP_API_GATEWAY_APIS: [
+    'apigateway.apis.getIamPolicy',
+    'apigateway.apis.list',
+  ],
+  STEP_API_GATEWAY_API_CONFIGS: [
+    'apigateway.apiconfigs.list',
+    'apigateway.apiconfigs.getIamPolicy',
+  ],
+  STEP_API_GATEWAY_GATEWAYS: [
+    'apigateway.gateways.list',
+    'apigateway.gateways.getIamPolicy',
+  ],
+};

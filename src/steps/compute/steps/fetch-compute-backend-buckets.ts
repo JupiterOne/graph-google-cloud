@@ -8,6 +8,7 @@ import {
   STEP_COMPUTE_BACKEND_BUCKETS,
   ENTITY_TYPE_COMPUTE_BACKEND_BUCKET,
   ENTITY_CLASS_COMPUTE_BACKEND_BUCKET,
+  ComputePermissions,
 } from '../constants';
 import { createBackendBucketEntity } from '../converters';
 
@@ -42,6 +43,6 @@ export const fetchBackendBucketsStepMap: GoogleCloudIntegrationStep = {
   relationships: [],
   dependsOn: [],
   executionHandler: fetchComputeBackendBuckets,
-  permissions: ['compute.backendBuckets.list'],
+  permissions: ComputePermissions.STEP_COMPUTE_BACKEND_BUCKETS,
   apis: ['compute.googleapis.com'],
 };

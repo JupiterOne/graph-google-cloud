@@ -65,3 +65,10 @@ export const AppEngineIngestionConfig = {
     defaultsToDisabled: false,
   },
 };
+
+export const AppEnginePermissions = {
+  STEP_APP_ENGINE_APPLICATION: ['appengine.applications.get'],
+  STEP_APP_ENGINE_SERVICES: ['appengine.services.list'],
+  STEP_APP_ENGINE_VERSIONS: ['appengine.versions.list'],
+  STEP_APP_ENGINE_INSTANCES: ['appengine.instances.list'],
+};

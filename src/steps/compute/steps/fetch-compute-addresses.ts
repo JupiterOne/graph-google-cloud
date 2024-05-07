@@ -24,6 +24,7 @@ import {
   ENTITY_TYPE_COMPUTE_FORWARDING_RULE,
   STEP_COMPUTE_INSTANCES,
   STEP_COMPUTE_FORWARDING_RULES,
+  ComputePermissions,
 } from '../constants';
 import { createComputeAddressEntity } from '../converters';
 
@@ -135,6 +136,6 @@ export const fetchComputeAddressesStepMap: GoogleCloudIntegrationStep = {
     STEP_COMPUTE_FORWARDING_RULES,
   ],
   executionHandler: fetchComputeAddresses,
-  permissions: ['compute.addresses.list'],
+  permissions: ComputePermissions.STEP_COMPUTE_ADDRESSES,
   apis: ['compute.googleapis.com'],
 };

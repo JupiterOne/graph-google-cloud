@@ -1,7 +1,11 @@
 import { cloudbuild_v1, google } from 'googleapis';
 import { Client } from '../../google-cloud/client';
 import { IntegrationStepContext } from '../../types';
-import { CloudBuildLocations } from './constants';
+import {
+  CloudBuildLocations,
+  CloudBuildPermissions,
+  CloudBuildStepsSpec,
+} from './constants';
 
 export class CloudBuildClient extends Client {
   private client = google.cloudbuild({ version: 'v1' });
@@ -30,6 +34,8 @@ export class CloudBuildClient extends Client {
           await callback(build);
         }
       },
+      CloudBuildStepsSpec.FETCH_BUILDS.id,
+      CloudBuildPermissions.FETCH_BUILDS,
     );
   }
 
@@ -51,6 +57,8 @@ export class CloudBuildClient extends Client {
           await callback(trigger);
         }
       },
+      CloudBuildStepsSpec.FETCH_BUILD_TRIGGERS.id,
+      CloudBuildPermissions.FETCH_BUILD_TRIGGERS,
     );
   }
 
@@ -73,6 +81,8 @@ export class CloudBuildClient extends Client {
             await callback(pool);
           }
         },
+        CloudBuildStepsSpec.FETCH_BUILD_WORKER_POOLS.id,
+        CloudBuildPermissions.FETCH_BUILD_WORKER_POOLS,
       );
     });
   }
@@ -86,14 +96,21 @@ export class CloudBuildClient extends Client {
     const auth = await this.getAuthenticatedServiceClient();
 
     try {
-      const res = await this.withErrorHandling(() =>
-        this.client.projects.githubEnterpriseConfigs.list({
-          auth,
-          parent: `projects/${this.projectId}`,
-        }),
+      const res = await this.withErrorHandling(
+        () =>
+          this.client.projects.githubEnterpriseConfigs.list({
+            auth,
+            parent: `projects/${this.projectId}`,
+          }),
+        this.logger,
+        {
+          stepId: CloudBuildStepsSpec.FETCH_BUILD_GITHUB_ENTERPRISE_CONFIG.id,
+          suggestedPermissions:
+            CloudBuildPermissions.FETCH_BUILD_GITHUB_ENTERPRISE_CONFIG,
+        },
       );
 
-      if (res.data?.configs) {
+      if (res?.data?.configs) {
         for (const config of res.data.configs) {
           await callback(config);
         }
@@ -125,6 +142,8 @@ export class CloudBuildClient extends Client {
           await callback(config);
         }
       },
+      CloudBuildStepsSpec.FETCH_BUILD_BITBUCKET_SERVER_CONFIG.id,
+      CloudBuildPermissions.FETCH_BUILD_BITBUCKET_SERVER_CONFIG,
     );
   }
 
@@ -154,6 +173,8 @@ export class CloudBuildClient extends Client {
           await callback(config);
         }
       },
+      CloudBuildStepsSpec.FETCH_BUILD_BITBUCKET_REPOS.id,
+      CloudBuildPermissions.FETCH_BUILD_BITBUCKET_REPOS,
     );
   }
 }

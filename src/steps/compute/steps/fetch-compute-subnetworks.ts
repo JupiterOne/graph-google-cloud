@@ -15,6 +15,7 @@ import {
   ENTITY_TYPE_COMPUTE_SUBNETWORK,
   ENTITY_CLASS_COMPUTE_SUBNETWORK,
   RELATIONSHIP_TYPE_GOOGLE_COMPUTE_NETWORK_CONTAINS_GOOGLE_COMPUTE_SUBNETWORK,
+  ComputePermissions,
 } from '../constants';
 import { createComputeSubnetEntity } from '../converters';
 
@@ -74,6 +75,6 @@ export const fetchComputeSubnetworksStepMap: GoogleCloudIntegrationStep = {
   ],
   executionHandler: fetchComputeSubnetworks,
   dependsOn: [STEP_COMPUTE_NETWORKS],
-  permissions: ['compute.subnetworks.list'],
+  permissions: ComputePermissions.STEP_COMPUTE_SUBNETWORKS,
   apis: ['compute.googleapis.com'],
 };

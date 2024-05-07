@@ -4,6 +4,7 @@ import {
 } from '../../../types';
 import { CloudSourceRepositoriesClient } from '../client';
 import {
+  CloudSourcePermissions,
   CloudSourceRepositoriesEntitiesSpec,
   CloudSourceRepositoriesStepsSpec,
   IngestionSources,
@@ -29,6 +30,6 @@ export const fetchCloudSourceRepositoriesStep: GoogleCloudIntegrationStep = {
       await jobState.addEntity(createRepositoryEntity(data));
     });
   },
-  permissions: ['source.repos.list'],
+  permissions: CloudSourcePermissions.FETCH_REPOSITORIES,
   apis: ['source.googleapis.com'],
 };

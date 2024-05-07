@@ -33,3 +33,7 @@ export const MemcacheIngestionConfig = {
     defaultsToDisabled: false,
   },
 };
+
+export const MemcachePermissions = {
+  STEP_MEMCACHE_INSTANCES: ['memcache.instances.list'],
+};

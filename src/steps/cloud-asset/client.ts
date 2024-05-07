@@ -1,5 +1,6 @@
 import { google, cloudasset_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
+import { CloudAssetPermissions, STEP_IAM_BINDINGS } from './constants';
 
 export class CloudAssetClient extends Client {
   private client = google.cloudasset({ version: 'v1', retry: false });
@@ -26,6 +27,8 @@ export class CloudAssetClient extends Client {
             await callback(policyResult);
           }
         },
+        STEP_IAM_BINDINGS,
+        CloudAssetPermissions.STEP_IAM_BINDINGS,
       );
     }
   }
@@ -54,6 +57,8 @@ export class CloudAssetClient extends Client {
           await callback(policyResult);
         }
       },
+      STEP_IAM_BINDINGS,
+      CloudAssetPermissions.STEP_IAM_BINDINGS,
     );
   }
 }

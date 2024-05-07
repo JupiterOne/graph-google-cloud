@@ -14,3 +14,7 @@ export const CloudBillingIngestionConfig = {
     defaultsToDisabled: false,
   },
 };
+
+export const CloudBillingPermissions = {
+  STEP_BILLING_ACCOUNTS: ['cloudasset.assets.listCloudbillingBillingAccounts'],
+};

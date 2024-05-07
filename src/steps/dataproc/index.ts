@@ -27,6 +27,7 @@ import {
   STEP_DATAPROC_CLUSTERS,
   STEP_DATAPROC_CLUSTER_KMS_RELATIONSHIPS,
   IngestionSources,
+  DataprocPermissions,
 } from './constants';
 import { createDataprocClusterEntity } from './converters';
 
@@ -144,13 +145,21 @@ export async function createClusterStorageRelationships(
           getCloudStorageBucketKey(configBucket),
         );
         if (storageEntity) {
-          await jobState.addRelationship(
-            createDirectRelationship({
-              _class: RelationshipClass.USES,
-              from: clusterEntity,
-              to: storageEntity,
-            }),
-          );
+          const clusterStorageRelationship = createDirectRelationship({
+            _class: RelationshipClass.USES,
+            from: clusterEntity,
+            to: storageEntity,
+          });
+
+          if (!jobState.hasKey(clusterStorageRelationship._key)) {
+            await jobState.addRelationship(
+              createDirectRelationship({
+                _class: RelationshipClass.USES,
+                from: clusterEntity,
+                to: storageEntity,
+              }),
+            );
+          }
         }
       } else {
         if (configBucket) {
@@ -202,7 +211,7 @@ export const dataprocSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchDataprocClusters,
-    permissions: ['dataproc.clusters.list'],
+    permissions: DataprocPermissions.STEP_DATAPROC_CLUSTERS,
     apis: ['dataproc.googleapis.com'],
   },
   {

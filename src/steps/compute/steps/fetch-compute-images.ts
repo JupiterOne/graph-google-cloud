@@ -15,6 +15,7 @@ import {
   RELATIONSHIP_TYPE_SNAPSHOT_CREATED_IMAGE,
   ENTITY_TYPE_COMPUTE_SNAPSHOT,
   STEP_COMPUTE_SNAPSHOTS,
+  ComputePermissions,
 } from '../constants';
 import { createComputeImageEntity } from '../converters';
 import { compute_v1 } from 'googleapis';
@@ -49,6 +50,9 @@ export async function fetchComputeImages(
     const imagePolicy = await client.fetchComputeImagePolicy(
       image.name as string,
     );
+
+    if (!imagePolicy) return;
+
     const imageEntity = createComputeImageEntity({
       data: image,
       isPublic: isComputeImagePublicAccess(imagePolicy),
@@ -96,6 +100,6 @@ export const fetchComputeImagesStepMap: GoogleCloudIntegrationStep = {
   ],
   dependsOn: [STEP_COMPUTE_SNAPSHOTS],
   executionHandler: fetchComputeImages,
-  permissions: ['compute.images.list', 'compute.images.getIamPolicy'],
+  permissions: ComputePermissions.STEP_COMPUTE_IMAGES,
   apis: ['compute.googleapis.com'],
 };

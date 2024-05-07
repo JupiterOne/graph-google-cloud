@@ -1,5 +1,6 @@
 import { google, secretmanager_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
+import { SecretManagerPermissions, SecretManagerSteps } from './constants';
 
 export class SecretManagerClient extends Client {
   private client = google.secretmanager({ version: 'v1' });
@@ -23,6 +24,8 @@ export class SecretManagerClient extends Client {
           await callback(version);
         }
       },
+      SecretManagerSteps.FETCH_SECRET_VERSIONS.id,
+      SecretManagerPermissions.FETCH_SECRET_VERSIONS,
     );
   }
 
@@ -44,6 +47,8 @@ export class SecretManagerClient extends Client {
           await callback(secret);
         }
       },
+      SecretManagerSteps.FETCH_SECRETS.id,
+      SecretManagerPermissions.FETCH_SECRETS,
     );
   }
 }

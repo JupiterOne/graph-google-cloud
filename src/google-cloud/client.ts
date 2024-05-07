@@ -10,9 +10,12 @@ import { GaxiosError, GaxiosResponse } from 'gaxios';
 import { BaseExternalAccountClient, CredentialBody } from 'google-auth-library';
 import { google } from 'googleapis';
 import pMap from 'p-map';
-import { IntegrationConfig } from '../types';
+import { IntegrationConfig, PermissionErrorHandlingOptions } from '../types';
 import { createErrorProps } from './utils/createErrorProps';
-// import { GoogleCloudServiceApiDisabledError } from './errors';
+import {
+  DEFAULT_FETCH_BASIC_API_CALL_AUTHORIZATION_HANDLING_OPTIONS,
+  DEFAULT_FETCH_AUTHORIZATION_HANDLING_OPTIONS,
+} from '../constants';
 
 export interface ClientOptions {
   config: IntegrationConfig;
@@ -38,10 +41,11 @@ export type PageableGaxiosResponse<T> = GaxiosResponse<
   }
 >;
 
-export type IterateApiOptions = {
-  throwMissingPermissionError?: boolean;
-  publishMissingPermissionWarnEvent?: boolean;
-};
+class AuthorizationError extends Error {
+  constructor(message: string) {
+    super(message);
+  }
+}
 
 export class Client {
   readonly projectId: string;
@@ -52,6 +56,7 @@ export class Client {
   private credentials: CredentialBody;
   private auth: BaseExternalAccountClient;
   private readonly onRetry?: (err: any) => void;
+  private permissionsWarnLogs: Set<string>;
 
   constructor(
     { config, projectId, organizationId, onRetry }: ClientOptions,
@@ -69,6 +74,7 @@ export class Client {
     this.folderId = config.folderId;
     this.onRetry = onRetry;
     this.logger = logger;
+    this.permissionsWarnLogs = new Set();
   }
 
   private async getClient(): Promise<BaseExternalAccountClient> {
@@ -77,14 +83,26 @@ export class Client {
       scopes: ['https://www.googleapis.com/auth/cloud-platform'],
     });
 
-    const client = (await this.withErrorHandling(() =>
-      auth.getClient(),
+    const client = (await this.withErrorHandling(
+      () => auth.getClient(),
+      this.logger,
+      undefined,
+      DEFAULT_FETCH_BASIC_API_CALL_AUTHORIZATION_HANDLING_OPTIONS,
     )) as BaseExternalAccountClient;
-    await this.withErrorHandling(() => client.getAccessToken());
+    await this.withErrorHandling(
+      () => client.getAccessToken(),
+      this.logger,
+      undefined,
+      DEFAULT_FETCH_BASIC_API_CALL_AUTHORIZATION_HANDLING_OPTIONS,
+    );
     return client;
   }
 
-  async getAuthenticatedServiceClient(): Promise<BaseExternalAccountClient> {
+  /**
+   * Public methods
+   */
+
+  public async getAuthenticatedServiceClient(): Promise<BaseExternalAccountClient> {
     if (!this.auth) {
       try {
         this.auth = await this.getClient();
@@ -96,42 +114,33 @@ export class Client {
     return this.auth;
   }
 
-  async iterateApi<T>(
+  public async iterateApi<T>(
     fn: (nextPageToken?: string) => Promise<PageableGaxiosResponse<T>>,
     callback: (data: T) => Promise<void>,
-    options: IterateApiOptions = {
-      publishMissingPermissionWarnEvent: true,
-      throwMissingPermissionError: false,
-    },
+    stepId: string,
+    suggestedPermissions: string[],
+    options?: PermissionErrorHandlingOptions,
   ) {
     return this.forEachPage(async (nextPageToken) => {
-      try {
-        const result = await this.withErrorHandling(() => fn(nextPageToken));
+      const result = await this.withErrorHandling(
+        () => fn(nextPageToken),
+        this.logger,
+        {
+          stepId,
+          suggestedPermissions,
+        },
+        options,
+      );
+
+      if (result) {
         await callback(result.data);
-
-        return result;
-      } catch (err) {
-        if (err.status === 403) {
-          if (options && options.publishMissingPermissionWarnEvent) {
-            this.logger.publishWarnEvent({
-              name: IntegrationWarnEventName.MissingPermission,
-              description: `Received authorization error when attempting to call ${err.endpoint}: ${err.statusText}`,
-            });
-          }
-
-          if (options && options.throwMissingPermissionError) {
-            throw err;
-          }
-
-          return;
-        }
-
-        throw err;
       }
+
+      return result;
     });
   }
 
-  async forEachPage<T>(
+  public async forEachPage<T>(
     cb: (
       nextToken: string | undefined,
     ) => Promise<PageableGaxiosResponse<T> | undefined>,
@@ -146,6 +155,112 @@ export class Client {
     } while (nextToken);
   }
 
+  public interceptAuthorizationError(
+    logMissingAuhtorizationWarnEvent: boolean,
+    err: GaxiosError,
+    logger: IntegrationLogger,
+    stepMetadata?: {
+      suggestedPermissions: string[];
+      stepId: string;
+    },
+  ): boolean {
+    let isAuthorizationError = false;
+
+    if (
+      (err.response?.status === 403 || err.status === 403) &&
+      !isQuotaLimitError(err)
+    ) {
+      isAuthorizationError = true;
+
+      if (
+        logMissingAuhtorizationWarnEvent &&
+        stepMetadata &&
+        stepMetadata.stepId &&
+        stepMetadata.suggestedPermissions
+      ) {
+        const warnLog = `[${
+          stepMetadata.stepId
+        }] - Unable to successfuly complete data ingestion for step. The following permissions are required: ${stepMetadata.suggestedPermissions.join(
+          ', ',
+        )}. If you prefer using Google managed roles, you can find the required ones here: https://docs.jupiterone.io/integrations/directory/google-cloud.`;
+
+        if (!this.permissionsWarnLogs.has(warnLog)) {
+          logger.publishWarnEvent({
+            name: IntegrationWarnEventName.MissingPermission,
+            description: warnLog,
+          });
+
+          this.permissionsWarnLogs.add(warnLog);
+        }
+      }
+    }
+
+    return isAuthorizationError;
+  }
+
+  public async withErrorHandling<T>(
+    fn: () => Promise<T>,
+    logger: IntegrationLogger,
+    stepMetadata?: {
+      suggestedPermissions: string[];
+      stepId: string;
+    },
+    options: PermissionErrorHandlingOptions = DEFAULT_FETCH_AUTHORIZATION_HANDLING_OPTIONS,
+  ) {
+    const onRetry = this.onRetry;
+
+    try {
+      return await retry(
+        async () => {
+          return await fn();
+        },
+        {
+          delay: 2_000,
+          timeout: 182_000, // Need to set a timeout, otherwise we might wait for a response indefinitely.
+          maxAttempts: 6,
+          factor: 2.25, //t=0s, 2s, 4.5s, 10.125s, 22.78125s, 51.2578125 (90.6640652s)
+
+          handleError: (err, ctx) => {
+            const isPermissionsError = this.interceptAuthorizationError(
+              options.publishMissingPermissionWarnEvent || false,
+              err,
+              logger,
+              stepMetadata?.stepId && stepMetadata.suggestedPermissions.length
+                ? stepMetadata
+                : undefined,
+            );
+
+            const newError = handleApiClientError(err);
+
+            if (!newError.retryable) {
+              this.logger.info(
+                {
+                  err: newError,
+                  stepId: stepMetadata?.stepId,
+                },
+                'Error when trying to call GCP API',
+              );
+              if (
+                isPermissionsError &&
+                !options.throwMissingAuthPermissionError
+              ) {
+                throw new AuthorizationError('');
+              }
+
+              throw newError;
+            } else if (onRetry) {
+              onRetry(err);
+            }
+          },
+        },
+      );
+    } catch (err) {
+      if (!(err instanceof AuthorizationError)) {
+        throw err;
+      }
+    }
+  }
+
   /**
    * Executes a map of asynchronous callbacks concurrently
    * @param options.concurrency default: 5
@@ -157,32 +272,11 @@ export class Client {
   ) {
     await pMap(resources || [], cb, { concurrency: options.concurrency });
   }
-
-  withErrorHandling<T>(fn: () => Promise<T>) {
-    const onRetry = this.onRetry;
-    return retry(
-      async () => {
-        return await fn();
-      },
-      {
-        delay: 2_000,
-        timeout: 182_000, // Need to set a timeout, otherwise we might wait for a response indefinitely.
-        maxAttempts: 6,
-        factor: 2.25, //t=0s, 2s, 4.5s, 10.125s, 22.78125s, 51.2578125 (90.6640652s)
-        handleError(err, ctx) {
-          const newError = handleApiClientError(err);
-
-          if (!newError.retryable) {
-            ctx.abort();
-            throw newError;
-          } else if (onRetry) {
-            onRetry(err);
-          }
-        },
-      },
-    );
-  }
 }
+
+/**
+ * Helper functions
+ */
 
 /**
  * Codes unknown error into JupiterOne errors
@@ -204,19 +298,10 @@ export function handleApiClientError(error: GaxiosError) {
   if (code == 403) {
     err = new IntegrationProviderAuthorizationError(errorProps);
 
-    if (
-      error.message?.match &&
-      // GCP responds with a 403 when an API quota has been exceeded. We should
-      // retry this case.
-      error.message.match(/Quota exceeded/i)
-    ) {
+    if (isQuotaLimitError(error)) {
       err.retryable = true;
     }
-  } else if (
-    code == 400 &&
-    error.message?.match &&
-    error.message.match(/billing/i)
-  ) {
+  } else if (isBillingError(error)) {
     err = new IntegrationProviderAuthorizationError(errorProps);
   } else if (code == 401) {
     err = new IntegrationProviderAuthorizationError(errorProps);
@@ -234,7 +319,17 @@ export function handleApiClientError(error: GaxiosError) {
   return err;
 }
 
-function shouldKeepErrorMessage(error: any) {
+export function isQuotaLimitError(err: GaxiosError) {
+  return err.message?.match && err.message.match(/Quota exceeded/i);
+}
+
+export function isBillingError(err: GaxiosError) {
+  return (
+    err.status == 400 && err.message?.match && err.message.match(/billing/i)
+  );
+}
+
+export function shouldKeepErrorMessage(error: any) {
   const errorMessagesToKeep = [
     'billing is disabled',
     'requires billing to be enabled',
