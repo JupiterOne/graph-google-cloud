@@ -62,6 +62,7 @@ import {
   ENTITY_TYPE_COMPUTE_TARGET_SSL_PROXY,
   MAPPED_RELATIONSHIP_FIREWALL_RULE_TYPE,
 } from './constants';
+import { camelCase } from 'lodash';
 
 export function createComputeProjectEntity(data: compute_v1.Schema$Project) {
   return createGoogleCloudIntegrationEntity(data, {
@@ -434,10 +435,45 @@ function isShieldedVM(
     : false;
 }
 
+function getComputeInstanceMetadataFieldsToIngest(
+  computeInstanceMetadataFieldsToIngest: string | undefined,
+  computeInstanceMetadata:
+    | { key?: string | undefined; value?: string | undefined }[]
+    | null
+    | undefined,
+) {
+  const parsedcomputeInstanceMetadataFieldsToIngest: string[] | undefined =
+    computeInstanceMetadataFieldsToIngest?.split(',');
+
+  if (
+    !parsedcomputeInstanceMetadataFieldsToIngest ||
+    !parsedcomputeInstanceMetadataFieldsToIngest.length ||
+    !computeInstanceMetadata ||
+    !computeInstanceMetadata.length
+  ) {
+    return {};
+  }
+
+  const metadataObject = {};
+
+  for (const metadata of computeInstanceMetadata) {
+    if (
+      metadata.key &&
+      parsedcomputeInstanceMetadataFieldsToIngest.includes(metadata.key)
+    ) {
+      const parsedKey = `metadata.${camelCase(metadata.key)}`;
+      metadataObject[parsedKey] = metadata.value;
+    }
+  }
+
+  return metadataObject;
+}
+
 export function createComputeInstanceEntity(
   data: compute_v1.Schema$Instance,
   instanceInventory: osconfig_v1.Schema$Inventory | undefined,
   projectId: string,
+  computeInstanceMetadataFieldsToIngest: string | undefined,
 ) {
   const ipAddresses = getIpAddressesForComputeInstance(data);
   const zone = getLastUrlPart(data.zone!);
@@ -500,6 +536,10 @@ export function createComputeInstanceEntity(
         serviceAccountEmails: data.serviceAccounts?.map((s) => s.email!),
         webLink: getGoogleCloudConsoleWebLink(
           `/compute/instancesDetail/zones/${zone}/instances/${data.name}?project=${projectId}`,
+        ),
+        ...getComputeInstanceMetadataFieldsToIngest(
+          computeInstanceMetadataFieldsToIngest,
+          data.metadata?.items,
         ),
         osHostname: instanceInventory?.osInfo?.hostname,
         osLongName: instanceInventory?.osInfo?.longName,

@@ -1,3 +1,15 @@
+# v3.3.4 (Fri May 03 2024)
+
+#### 🐛 Bug Fix
+
+- INT-8094: ingest compute instance metadata fields [#659](https://github.com/JupiterOne/graph-google-cloud/pull/659) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### Authors: 1
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
 # v3.3.3 (Tue Apr 09 2024)
 
 #### 🐛 Bug Fix

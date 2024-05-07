@@ -144,6 +144,7 @@ export async function fetchComputeInstances(
         computeInstance,
         instanceInventory,
         client.projectId,
+        context.instance.config.computeInstanceMetadataFieldsToIngest,
       ),
     );
 
