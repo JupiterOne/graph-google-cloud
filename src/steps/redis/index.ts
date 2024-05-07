@@ -17,7 +17,6 @@ import {
   RELATIONSHIP_TYPE_REDIS_INSTANCE_USES_NETWORK,
   STEP_CREATE_REDIS_INSTANCE_NETWORK_RELATIONSHIPS,
   IngestionSources,
-
   STEP_MEMORYSTORE_REDIS_LOCATION,
   ENTITY_TYPE_MEMORYSTORE_REDIS_LOCATION,
   ENTITY_CLASS_MEMORYSTORE_REDIS_LOCATION,
@@ -33,7 +32,6 @@ import {
   RELATIONSHIP_TYPE_MEMORYSTORE_REDIS_LOCATION_HAS_REDIS_INTANCE,
   STEP_MEMORYSTORE_REDIS_LOCATION_HAS_REDIS_INSTANCE_RELATIONSHIP,
   RedisPermissions,
-
 } from './constants';
 import { ENTITY_TYPE_COMPUTE_NETWORK } from '../compute/constants';
 import {
@@ -319,7 +317,7 @@ export const redisSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchMemoryStoreRedisLocation,
-    permissions: [],
+    permissions: RedisPermissions.STEP_MEMORYSTORE_REDIS_LOCATION,
     apis: ['redis.googleapis.com'],
   },
   {
@@ -336,7 +334,7 @@ export const redisSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchMemoryStoreRedis,
-    permissions: [],
+    permissions: RedisPermissions.STEP_MEMORYSTORE_REDIS,
     apis: ['redis.googleapis.com'],
   },
   {
@@ -370,7 +368,6 @@ export const redisSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_RESOURCE_MANAGER_PROJECT, STEP_MEMORYSTORE_REDIS],
     executionHandler: buildProjectHasMemoryStoreRedisRelationship,
-    permissions: [],
     apis: ['redis.googleapis.com'],
   },
   {
@@ -389,7 +386,6 @@ export const redisSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_RESOURCE_MANAGER_PROJECT, STEP_MEMORYSTORE_REDIS_LOCATION],
     executionHandler: buildProjectHasMemoryStoreRedisLocationRelationship,
-    permissions: [],
     apis: ['redis.googleapis.com'],
   },
   {
@@ -407,7 +403,6 @@ export const redisSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_RESOURCE_MANAGER_PROJECT, STEP_REDIS_INSTANCES],
     executionHandler: buildProjectHasRedisInstanceRelationship,
-    permissions: [],
     apis: ['redis.googleapis.com'],
   },
   {
@@ -426,7 +421,6 @@ export const redisSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_MEMORYSTORE_REDIS_LOCATION, STEP_REDIS_INSTANCES],
     executionHandler: buildMemoryStoreRedisLocationHasRedisInstanceRelationship,
-    permissions: [],
     apis: ['redis.googleapis.com'],
   },
 ];

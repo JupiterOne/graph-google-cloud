@@ -66,4 +66,6 @@ export const RedisIngestionConfig = {
 
 export const RedisPermissions = {
   STEP_REDIS_INSTANCES: ['redis.instances.list'],
+  STEP_MEMORYSTORE_REDIS_LOCATION: [],
+  STEP_MEMORYSTORE_REDIS: [],
 };

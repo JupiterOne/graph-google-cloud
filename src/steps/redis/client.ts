@@ -1,6 +1,10 @@
 import { google, redis_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
-import { RedisPermissions, STEP_REDIS_INSTANCES } from './constants';
+import {
+  RedisPermissions,
+  STEP_MEMORYSTORE_REDIS_LOCATION,
+  STEP_REDIS_INSTANCES,
+} from './constants';
 
 export class RedisClient extends Client {
   private client = google.redis({ version: 'v1', retry: false });
@@ -46,6 +50,8 @@ export class RedisClient extends Client {
           await callback(location);
         }
       },
+      STEP_MEMORYSTORE_REDIS_LOCATION,
+      RedisPermissions.STEP_MEMORYSTORE_REDIS_LOCATION,
     );
   }
 }
