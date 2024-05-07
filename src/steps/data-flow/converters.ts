@@ -44,19 +44,36 @@ export function createGoogleCloudDataFlowJobEntity(
 
 export function createGoogleCloudDataFlowDataStoreEntity(
   data: dataflow_v1b3.Schema$DatastoreIODetails,
-  jobId:string,
-  projectId: string,
 ) {
   return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {
-        _key: `projects/${projectId}${data.namespace}`,
+        _key: data.namespace as string,
         _type: GOOGLE_CLOUD_DATAFLOW_DATASTORE_TYPE,
         _class: GOOGLE_CLOUD_DATAFLOW_DATASTORE_CLASS,
         projectId: data.projectId as string,
         name: data.namespace,
-        classification: data.namespace,
+        encrypted: false,
+      },
+    },
+  });
+}
+
+export function createGoogleCloudDataFlowSnapshotEntity(
+  data: dataflow_v1b3.Schema$Snapshot,
+  jobId:string,
+) {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _key: data.id as string,
+        _type: GOOGLE_CLOUD_DATAFLOW_DATASTORE_TYPE,
+        _class: GOOGLE_CLOUD_DATAFLOW_DATASTORE_CLASS,
+        projectId: data.projectId as string,
+        name: data.diskSizeBytes,
+        classification: data.diskSizeBytes,
         encrypted: false,
         jobId: jobId
       },

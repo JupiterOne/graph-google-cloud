@@ -25,7 +25,6 @@ import {
   STEP_GOOGLE_CLOUD_DATAFLOW_JOB,
   STEP_GOOGLE_CLOUD_DATAFLOW_JOB_USES_GOOGLE_CLOUD_DATAFLOW_DATASTORE,
   RELATIONSHIP_TYPE_GOOGLE_CLOUD_DATAFLOW_JOB_USES_GOOGLE_CLOUD_DATAFLOW_DATASTORE,
-  GOOGLE_CLOUD_DATAFLOW_JOB_CLASS,
   STEP_GOOGLE_CLOUD_PROJECT_HAS_GOOGLE_CLOUD_DATAFLOW,
   RELATIONSHIP_TYPE_GOOGLE_CLOUD_PROJECT_HAS_GOOGLE_CLOUD_DATAFLOW,
   STEP_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT,
@@ -36,6 +35,7 @@ import {
   createGoogleCloudDataFlowEntity,
   createGoogleCloudDataFlowDataStoreEntity,
   createGoogleCloudDataFlowJobEntity,
+  createGoogleCloudDataFlowSnapshotEntity,
 } from './converters';
 import { PROJECT_ENTITY_TYPE, STEP_RESOURCE_MANAGER_PROJECT } from '../resource-manager';
 import { getProjectEntity } from '../../utils/project';
@@ -46,18 +46,15 @@ export async function fetchGoogleCloudDataFlowDataStore(
 ): Promise<void> {
   const {
     jobState,
-    instance: { config },
-    logger,
   } = context;
 
-  const client = new dataFlowClient({ config }, logger);
   await jobState.iterateEntities(
     { _type: GOOGLE_CLOUD_DATAFLOW_JOB_TYPE },
     async (dataflowEntity) => {
       const dataflow = getRawData<dataflow_v1b3.Schema$Job>(dataflowEntity);
 
       if (dataflow?.jobMetadata?.datastoreDetails) {
-        await jobState.addEntity(createGoogleCloudDataFlowDataStoreEntity(dataflow, dataflow.id as string, client.projectId));
+        await jobState.addEntity(createGoogleCloudDataFlowDataStoreEntity(dataflow));
       }
     },
   );
@@ -102,8 +99,20 @@ export async function fetchGoogleCloudDataFlowSnapshot(
   } = context;
 
   const client = new dataFlowClient({ config }, logger);
-  await jobState.addEntity(createGoogleCloudDataFlowEntity(client.projectId));
+  await jobState.iterateEntities(
+    { _type: GOOGLE_CLOUD_DATAFLOW_JOB_TYPE },
+    async (dataflowEntity) => {
+      const dataflow = getRawData<dataflow_v1b3.Schema$ListSnapshotsResponse>(dataflowEntity);
+
+      if (dataflow?.snapshots) {
+        for (const snapshot of dataflow.snapshots) {
+          await jobState.addEntity(createGoogleCloudDataFlowSnapshotEntity(snapshot, client.projectId));
+        }
+      }
+    },
+  ); 
 }
+
 
 export async function buildProjectHasDataflowDatastoreRelationship(
   context: IntegrationStepContext,
