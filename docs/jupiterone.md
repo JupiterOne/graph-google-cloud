@@ -377,6 +377,7 @@ The following entities are created:
 | Cloud Build Trigger                                      | `google_cloud_build_trigger`                                      | `Rule`                             |
 | Cloud Build Worker Pool                                  | `google_cloud_build_worker_pool`                                  | `Cluster`                          |
 | Cloud Function                                           | `google_cloud_function`                                           | `Function`                         |
+| Cloud Interconnect                                       | `google_cloud_interconnect`                                       | `Network`                          |
 | Cloud Run Configuration                                  | `google_cloud_run_configuration`                                  | `Configuration`                    |
 | Cloud Run Route                                          | `google_cloud_run_route`                                          | `Configuration`                    |
 | Cloud Run Service                                        | `google_cloud_run_service`                                        | `Service`                          |
@@ -414,6 +415,7 @@ The following entities are created:
 | IAM Custom Role                                          | `google_iam_role`                                                 | `AccessRole`                       |
 | IAM Service Account                                      | `google_iam_service_account`                                      | `User`                             |
 | IAM Service Account Key                                  | `google_iam_service_account_key`                                  | `AccessKey`                        |
+| Interconnect Location                                    | `google_cloud_internetconnect_location`                           | `Site`                             |
 | KMS Crypto Key                                           | `google_kms_crypto_key`                                           | `Key`, `CryptoKey`                 |
 | KMS Key Ring                                             | `google_kms_key_ring`                                             | `Vault`                            |
 | Logging Metric                                           | `google_logging_metric`                                           | `Configuration`                    |
@@ -488,6 +490,7 @@ The following relationships are created:
 | `google_cloud_function`                                          | **USES**              | `google_cloud_source_repository`                                  |
 | `google_cloud_function`                                          | **USES**              | `google_iam_service_account`                                      |
 | `google_cloud_function`                                          | **USES**              | `google_storage_bucket`                                           |
+| `google_cloud_internetconnect_location`                          | **USES**              | `google_cloud_interconnect`                                       |
 | `google_cloud_organization`                                      | **HAS**               | `google_cloud_folder`                                             |
 | `google_cloud_organization`                                      | **HAS**               | `google_cloud_project`                                            |
 | `google_cloud_project`                                           | **HAS**               | `google_billing_budget`                                           |
@@ -528,6 +531,8 @@ The following relationships are created:
 | `google_compute_network`                                         | **CONNECTS**          | `google_compute_network`                                          |
 | `google_compute_network`                                         | **CONTAINS**          | `google_compute_subnetwork`                                       |
 | `google_compute_network`                                         | **HAS**               | `google_dns_policy`                                               |
+| `google_compute_project`                                         | **HAS**               | `google_cloud_interconnect`                                       |
+| `google_compute_project`                                         | **HAS**               | `google_cloud_internetconnect_location`                           |
 | `google_compute_project`                                         | **HAS**               | `google_compute_instance`                                         |
 | `google_compute_snapshot`                                        | **CREATED**           | `google_compute_image`                                            |
 | `google_compute_subnetwork`                                      | **HAS**               | `google_compute_address`                                          |

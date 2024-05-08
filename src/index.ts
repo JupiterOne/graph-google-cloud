@@ -32,6 +32,10 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> =
         type: 'boolean',
         optional: true,
       },
+      computeInstanceMetadataFieldsToIngest: {
+        type: 'string',
+        optional: true,
+      },
     },
     getStepStartStates,
     integrationSteps: steps,
