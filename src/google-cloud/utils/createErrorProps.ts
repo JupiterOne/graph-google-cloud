@@ -36,7 +36,7 @@ export function createErrorProps(error: Error | GaxiosError): J1ApiErrorProps {
   if (isGaxiosError(error) && error.response) {
     return {
       cause: redactBearerTokens(error),
-      endpoint: error.response?.config?.url || UNKNOWN_VALUE,
+      endpoint: (error.response?.config?.url as string) || UNKNOWN_VALUE,
       status: error.response?.status,
       statusText: error.message,
     };

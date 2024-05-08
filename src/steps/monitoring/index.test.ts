@@ -1,9 +1,23 @@
-import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-testing';
+import {
+  StepTestConfig,
+  createMockStepExecutionContext,
+  executeStepWithDependencies,
+} from '@jupiterone/integration-sdk-testing';
 import { integrationConfig } from '../../../test/config';
-import { Recording, setupGoogleCloudRecording } from '../../../test/recording';
+import {
+  Recording,
+  setupGoogleCloudRecording,
+  getMatchRequestsBy,
+} from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
 import { fetchAlertPolicies } from '.';
-import { MONITORING_ALERT_POLICY_TYPE } from './constants';
+import {
+  MONITORING_ALERT_POLICY_TYPE,
+  STEP_CLOUD_MONITORING,
+  STEP_MONITORING_CHANNELS,
+  STEP_MONITORING_GROUPS,
+} from './constants';
+import { invocationConfig } from '../..';
 
 describe('#fetchAlertPolicies', () => {
   let recording: Recording;
@@ -21,7 +35,18 @@ describe('#fetchAlertPolicies', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      //instanceConfig: integrationConfig,
+      instanceConfig: {
+        ...integrationConfig,
+        serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+          'j1-gc-integration-dev-v2',
+          'j1-gc-integration-dev-v3',
+        ),
+        serviceAccountKeyConfig: {
+          ...integrationConfig.serviceAccountKeyConfig,
+          project_id: 'j1-gc-integration-dev-v3',
+        },
+      },
     });
 
     await fetchAlertPolicies(context);
@@ -65,4 +90,94 @@ describe('#fetchAlertPolicies', () => {
       },
     });
   });
+});
+
+describe(`cloudMonitoring#${STEP_MONITORING_CHANNELS}`, () => {
+  let recording: Recording;
+  afterEach(async () => {
+    if (recording) await recording.stop();
+  });
+
+  test(
+    STEP_MONITORING_CHANNELS,
+    async () => {
+      const stepTestConfig: StepTestConfig = {
+        stepId: STEP_MONITORING_CHANNELS,
+        instanceConfig: integrationConfig,
+        invocationConfig: invocationConfig as any,
+      };
+
+      recording = setupGoogleCloudRecording({
+        name: STEP_MONITORING_CHANNELS,
+        directory: __dirname,
+        options: {
+          matchRequestsBy: getMatchRequestsBy(integrationConfig),
+        },
+      });
+
+      const result = await executeStepWithDependencies(stepTestConfig);
+      expect(result).toMatchStepMetadata(stepTestConfig);
+    },
+    500_000,
+  );
+});
+
+describe(`cloudMonitoring#${STEP_MONITORING_GROUPS}`, () => {
+  let recording: Recording;
+  afterEach(async () => {
+    if (recording) await recording.stop();
+  });
+
+  test(
+    STEP_MONITORING_GROUPS,
+    async () => {
+      const stepTestConfig: StepTestConfig = {
+        stepId: STEP_MONITORING_GROUPS,
+        instanceConfig: integrationConfig,
+        invocationConfig: invocationConfig as any,
+      };
+
+      recording = setupGoogleCloudRecording({
+        name: STEP_MONITORING_GROUPS,
+        directory: __dirname,
+        options: {
+          matchRequestsBy: getMatchRequestsBy(integrationConfig),
+        },
+      });
+
+      const result = await executeStepWithDependencies(stepTestConfig);
+      expect(result).toMatchStepMetadata(stepTestConfig);
+    },
+    500_000,
+  );
+});
+
+describe(`cloudMonitoring#${STEP_CLOUD_MONITORING}`, () => {
+  let recording: Recording;
+  afterEach(async () => {
+    if (recording) await recording.stop();
+  });
+
+  test(
+    STEP_CLOUD_MONITORING,
+    async () => {
+      const stepTestConfig: StepTestConfig = {
+        stepId: STEP_CLOUD_MONITORING,
+        instanceConfig: integrationConfig,
+        invocationConfig: invocationConfig as any,
+      };
+
+      recording = setupGoogleCloudRecording({
+        name: STEP_CLOUD_MONITORING,
+        directory: __dirname,
+        options: {
+          matchRequestsBy: getMatchRequestsBy(integrationConfig),
+        },
+      });
+
+      const result = await executeStepWithDependencies(stepTestConfig);
+      expect(result).toMatchStepMetadata(stepTestConfig);
+    },
+    500_000,
+  );
 });
