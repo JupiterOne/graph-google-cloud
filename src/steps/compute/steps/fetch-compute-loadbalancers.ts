@@ -18,6 +18,7 @@ import {
   ENTITY_TYPE_COMPUTE_BACKEND_BUCKET,
   STEP_COMPUTE_BACKEND_SERVICES,
   STEP_COMPUTE_BACKEND_BUCKETS,
+  ComputePermissions,
 } from '../constants';
 import { createLoadBalancerEntity } from '../converters';
 import { compute_v1 } from 'googleapis';
@@ -131,6 +132,6 @@ export const fetchComputeLoadbalancersStepMap: GoogleCloudIntegrationStep = {
   ],
   dependsOn: [STEP_COMPUTE_BACKEND_SERVICES, STEP_COMPUTE_BACKEND_BUCKETS],
   executionHandler: fetchComputeLoadBalancers,
-  permissions: ['compute.urlMaps.list'],
+  permissions: ComputePermissions.STEP_COMPUTE_LOADBALANCERS,
   apis: ['compute.googleapis.com'],
 };

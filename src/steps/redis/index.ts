@@ -16,6 +16,7 @@ import {
   RELATIONSHIP_TYPE_REDIS_INSTANCE_USES_NETWORK,
   STEP_CREATE_REDIS_INSTANCE_NETWORK_RELATIONSHIPS,
   IngestionSources,
+  RedisPermissions,
 } from './constants';
 import { ENTITY_TYPE_COMPUTE_NETWORK } from '../compute/constants';
 import { createRedisInstanceEntity } from './converter';
@@ -97,7 +98,7 @@ export const redisSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchRedisInstances,
-    permissions: ['redis.instances.list'],
+    permissions: RedisPermissions.STEP_REDIS_INSTANCES,
     apis: ['redis.googleapis.com'],
   },
   {

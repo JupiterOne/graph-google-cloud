@@ -74,3 +74,14 @@ export const ResourceManagerIngestionConfig = {
     defaultsToDisabled: false,
   },
 };
+
+export const ResourceManagerPermissions = {
+  STEP_RESOURCE_MANAGER_ORGANIZATION: ['resourcemanager.organizations.get'],
+  STEP_RESOURCE_MANAGER_FOLDERS: ['resourcemanager.folders.list'],
+  STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS: [
+    'resourcemanager.projects.list',
+  ],
+  STEP_RESOURCE_MANAGER_PROJECT: ['resourcemanager.projects.get'],
+  STEP_RESOURCE_MANAGER_SKIPPED_PROJECTS: ['resourcemanager.projects.get'],
+  STEP_AUDIT_CONFIG_IAM_POLICY: ['resourcemanager.projects.getIamPolicy'],
+};

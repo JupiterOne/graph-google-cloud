@@ -15,6 +15,7 @@ import {
   RELATIONSHIP_TYPE_BACKEND_SERVICE_HAS_TARGET_SSL_PROXY,
   ENTITY_TYPE_COMPUTE_BACKEND_SERVICE,
   STEP_COMPUTE_BACKEND_SERVICES,
+  ComputePermissions,
 } from '../constants';
 import { createTargetSslProxyEntity } from '../converters';
 
@@ -73,6 +74,6 @@ export const fetchComputeTargetSslProxiesStepMap: GoogleCloudIntegrationStep = {
   ],
   dependsOn: [STEP_COMPUTE_BACKEND_SERVICES],
   executionHandler: fetchComputeTargetSslProxies,
-  permissions: ['compute.targetSslProxies.list'],
+  permissions: ComputePermissions.STEP_COMPUTE_TARGET_SSL_PROXIES,
   apis: ['compute.googleapis.com'],
 };

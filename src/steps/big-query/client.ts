@@ -2,6 +2,12 @@
 
 import { bigquery_v2, google } from 'googleapis';
 import { Client } from '../../google-cloud/client';
+import {
+  BigQueryPermissions,
+  STEP_BIG_QUERY_DATASETS,
+  STEP_BIG_QUERY_MODELS,
+  STEP_BIG_QUERY_TABLES,
+} from './constants';
 
 // googleapis is missing a type for this
 export type BigQueryTable = {
@@ -46,6 +52,8 @@ export class BigQueryClient extends Client {
           await this.executeConcurrently(data.tables, callback);
         }
       },
+      STEP_BIG_QUERY_TABLES,
+      BigQueryPermissions.STEP_BIG_QUERY_TABLES,
     );
   }
 
@@ -57,30 +65,42 @@ export class BigQueryClient extends Client {
     if (!projectId || !datasetId || !tableId) {
       return undefined;
     }
-    const policyResponse = await this.withErrorHandling(() =>
-      this.client.tables.getIamPolicy({
-        auth,
-        resource: `projects/${projectId}/datasets/${datasetId}/tables/${tableId}`,
-      }),
+    const policyResponse = await this.withErrorHandling(
+      () =>
+        this.client.tables.getIamPolicy({
+          auth,
+          resource: `projects/${projectId}/datasets/${datasetId}/tables/${tableId}`,
+        }),
+      this.logger,
+      {
+        stepId: STEP_BIG_QUERY_TABLES,
+        suggestedPermissions: BigQueryPermissions.STEP_BIG_QUERY_TABLES,
+      },
     );
     return policyResponse?.data;
   }
 
   async getTableResource(
     data: BigQueryTable,
-  ): Promise<bigquery_v2.Schema$Table> {
+  ): Promise<bigquery_v2.Schema$Table | undefined> {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const resp = await this.withErrorHandling(() =>
-      this.client.tables.get({
-        auth,
-        projectId: data.tableReference?.projectId!,
-        datasetId: data.tableReference?.datasetId!,
-        tableId: data.tableReference?.tableId!,
-      }),
+    const resp = await this.withErrorHandling(
+      () =>
+        this.client.tables.get({
+          auth,
+          projectId: data.tableReference?.projectId!,
+          datasetId: data.tableReference?.datasetId!,
+          tableId: data.tableReference?.tableId!,
+        }),
+      this.logger,
+      {
+        stepId: STEP_BIG_QUERY_TABLES,
+        suggestedPermissions: BigQueryPermissions.STEP_BIG_QUERY_TABLES,
+      },
     );
 
-    return resp.data;
+    return resp?.data;
   }
 
   async iterateBigQueryDatasets(
@@ -99,18 +119,29 @@ export class BigQueryClient extends Client {
       async (data: bigquery_v2.Schema$DatasetList) => {
         for (const datasetRef of data.datasets || []) {
           if (datasetRef?.datasetReference?.datasetId) {
-            const dataset = await this.withErrorHandling(() =>
-              this.client.datasets.get({
-                auth,
-                projectId: this.projectId,
-                datasetId: datasetRef.datasetReference?.datasetId as string,
-              }),
+            const dataset = await this.withErrorHandling(
+              () =>
+                this.client.datasets.get({
+                  auth,
+                  projectId: this.projectId,
+                  datasetId: datasetRef.datasetReference?.datasetId as string,
+                }),
+              this.logger,
+              {
+                stepId: STEP_BIG_QUERY_DATASETS,
+                suggestedPermissions:
+                  BigQueryPermissions.STEP_BIG_QUERY_DATASETS,
+              },
             );
 
-            await callback(dataset.data);
+            if (dataset) {
+              await callback(dataset.data);
+            }
           }
         }
       },
+      STEP_BIG_QUERY_DATASETS,
+      BigQueryPermissions.STEP_BIG_QUERY_DATASETS,
     );
   }
 
@@ -132,18 +163,28 @@ export class BigQueryClient extends Client {
       async (data: bigquery_v2.Schema$ListModelsResponse) => {
         for (const modelRef of data.models || []) {
           if (modelRef.modelReference?.modelId) {
-            const model = await this.withErrorHandling(() =>
-              this.client.models.get({
-                auth,
-                projectId: this.projectId,
-                datasetId: datasetId,
-                modelId: modelRef.modelReference?.modelId as string,
-              }),
+            const model = await this.withErrorHandling(
+              () =>
+                this.client.models.get({
+                  auth,
+                  projectId: this.projectId,
+                  datasetId: datasetId,
+                  modelId: modelRef.modelReference?.modelId as string,
+                }),
+              this.logger,
+              {
+                stepId: STEP_BIG_QUERY_MODELS,
+                suggestedPermissions: BigQueryPermissions.STEP_BIG_QUERY_MODELS,
+              },
             );
-            await callback(model.data);
+            if (model) {
+              await callback(model.data);
+            }
           }
         }
       },
+      STEP_BIG_QUERY_MODELS,
+      BigQueryPermissions.STEP_BIG_QUERY_MODELS,
     );
   }
 }

@@ -8,6 +8,7 @@ import {
   ENTITY_TYPE_BILLING_ACCOUNT,
   ENTITY_CLASS_BILLING_ACCOUNT,
   IngestionSources,
+  CloudBillingPermissions,
 } from './constants';
 import { createBillingAccountEntity } from './converters';
 
@@ -41,7 +42,7 @@ export const cloudBillingSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchBillingAccounts,
-    permissions: ['cloudasset.assets.listCloudbillingBillingAccounts'],
+    permissions: CloudBillingPermissions.STEP_BILLING_ACCOUNTS,
     apis: ['cloudasset.googleapis.com'],
   },
 ];

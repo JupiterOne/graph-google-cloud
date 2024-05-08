@@ -8,12 +8,10 @@ import {
   StorageStepsSpec,
   StorageEntitiesSpec,
   IngestionSources,
+  StoragePermissions,
 } from './constants';
 import { storage_v1 } from 'googleapis';
-import {
-  publishMissingPermissionEvent,
-  publishUnprocessedBucketsEvent,
-} from '../../utils/events';
+import { publishUnprocessedBucketsEvent } from '../../utils/events';
 import { OrgPolicyClient } from '../orgpolicy/client';
 import { isMemberPublic } from '../../utils/iam';
 
@@ -148,25 +146,8 @@ export async function fetchStorageBuckets(
   const client = new CloudStorageClient({ config }, logger);
   const orgPolicyClient = new OrgPolicyClient({ config }, logger);
 
-  let publicAccessPreventionPolicy: boolean | undefined = undefined;
-
-  try {
-    publicAccessPreventionPolicy =
-      await orgPolicyClient.fetchOrganizationPublicAccessPreventionPolicy();
-  } catch (err) {
-    if (
-      err.code === 403 &&
-      (err.message as string).includes(
-        `Permission 'orgpolicy.policy.get' denied on resource`,
-      )
-    ) {
-      publishMissingPermissionEvent({
-        logger,
-        permission: 'orgpolicy.policy.get',
-        stepId: StorageStepsSpec.FETCH_STORAGE_BUCKETS.id,
-      });
-    }
-  }
+  const publicAccessPreventionPolicy: boolean | undefined =
+    await orgPolicyClient.fetchOrganizationPublicAccessPreventionPolicy();
 
   const bucketIdsWithUnprocessedPolicies: string[] = [];
   await client.iterateCloudStorageBuckets(async (bucket) => {
@@ -230,12 +211,7 @@ export const storageSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchStorageBuckets,
-    permissions: [
-      'orgpolicy.policies.list',
-      'orgpolicy.policy.get',
-      'storage.buckets.list',
-      'storage.buckets.getIamPolicy',
-    ],
+    permissions: StoragePermissions.FETCH_STORAGE_BUCKETS,
     apis: ['orgpolicy.googleapis.com', 'storage.googleapis.com'],
   },
 ];

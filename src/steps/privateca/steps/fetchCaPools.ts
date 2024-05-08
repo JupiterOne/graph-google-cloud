@@ -7,6 +7,7 @@ import {
   PrivatecaEntities,
   PrivatecaSteps,
   IngestionSources,
+  PrivateCAPermissions,
 } from '../constants';
 import { createCaPoolEntity } from '../converters';
 
@@ -34,6 +35,6 @@ export const fetchCaPoolsStepMap: GoogleCloudIntegrationStep = {
   relationships: [],
   dependsOn: [],
   executionHandler: fetchCaPools,
-  permissions: ['privateca.caPools.list'],
+  permissions: PrivateCAPermissions.STEP_PRIVATE_CA_POOLS,
   apis: ['privateca.googleapis.com'],
 };

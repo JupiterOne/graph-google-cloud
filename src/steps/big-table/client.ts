@@ -1,5 +1,13 @@
 import { bigtableadmin_v2, google } from 'googleapis';
 import { Client } from '../../google-cloud/client';
+import {
+  BigTablePermissions,
+  STEP_BIG_TABLE_APP_PROFILES,
+  STEP_BIG_TABLE_BACKUPS,
+  STEP_BIG_TABLE_CLUSTERS,
+  STEP_BIG_TABLE_INSTANCES,
+  STEP_BIG_TABLE_TABLES,
+} from './constants';
 
 export class BigTableClient extends Client {
   private client = google.bigtableadmin({ version: 'v2', retry: false });
@@ -22,6 +30,8 @@ export class BigTableClient extends Client {
           await callback(instanceResult);
         }
       },
+      STEP_BIG_TABLE_INSTANCES,
+      BigTablePermissions.STEP_BIG_TABLE_INSTANCES,
     );
   }
 
@@ -44,6 +54,8 @@ export class BigTableClient extends Client {
           await callback(appProfileResult);
         }
       },
+      STEP_BIG_TABLE_APP_PROFILES,
+      BigTablePermissions.STEP_BIG_TABLE_APP_PROFILES,
     );
   }
 
@@ -66,6 +78,8 @@ export class BigTableClient extends Client {
           await callback(clusterResult);
         }
       },
+      STEP_BIG_TABLE_CLUSTERS,
+      BigTablePermissions.STEP_BIG_TABLE_CLUSTERS,
     );
   }
 
@@ -88,6 +102,8 @@ export class BigTableClient extends Client {
           await callback(backupResult);
         }
       },
+      STEP_BIG_TABLE_BACKUPS,
+      BigTablePermissions.STEP_BIG_TABLE_BACKUPS,
     );
   }
 
@@ -110,6 +126,8 @@ export class BigTableClient extends Client {
           await callback(tableResult);
         }
       },
+      STEP_BIG_TABLE_TABLES,
+      BigTablePermissions.STEP_BIG_TABLE_TABLES,
     );
   }
 }

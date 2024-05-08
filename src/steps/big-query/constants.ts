@@ -43,3 +43,17 @@ export const BigQueryIngestionConfig = {
     defaultsToDisabled: true,
   },
 };
+
+export const BigQueryPermissions = {
+  STEP_BIG_QUERY_DATASETS: ['bigquery.datasets.get'],
+  STEP_BIG_QUERY_MODELS: [
+    'bigquery.models.list',
+    'bigquery.models.getData',
+    'bigquery.models.getMetadata',
+  ],
+  STEP_BIG_QUERY_TABLES: [
+    'bigquery.tables.list',
+    'bigquery.tables.getIamPolicy',
+    'bigquery.tables.get',
+  ],
+};

@@ -23,6 +23,7 @@ import {
   ENTITY_TYPE_PUBSUB_SUBSCRIPTION,
   STEP_CREATE_PUBSUB_TOPIC_KMS_RELATIONSHIPS,
   IngestionSources,
+  PubSubPermissions,
 } from './constants';
 import {
   createPubSubSubscriptionEntity,
@@ -58,6 +59,8 @@ export async function fetchPubSubTopics(
 
   await client.iterateProjectTopics(async (projectTopic) => {
     const topicPolicy = await client.getPolicy(projectTopic.name as string);
+
+    if (!topicPolicy) return;
 
     const projectTopicEntity = createPubSubTopicEntity({
       data: projectTopic,
@@ -182,7 +185,7 @@ export const pubSubSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchPubSubTopics,
-    permissions: ['pubsub.topics.getIamPolicy', 'pubsub.topics.list'],
+    permissions: PubSubPermissions.STEP_PUBSUB_TOPICS,
     apis: ['pubsub.googleapis.com'],
   },
   {
@@ -221,7 +224,7 @@ export const pubSubSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_PUBSUB_TOPICS],
     executionHandler: fetchPubSubSubscriptions,
-    permissions: ['pubsub.subscriptions.list'],
+    permissions: PubSubPermissions.STEP_PUBSUB_SUBSCRIPTIONS,
     apis: ['pubsub.googleapis.com'],
   },
 ];

@@ -9,6 +9,7 @@ import {
   STEP_COMPUTE_NETWORKS,
   ENTITY_TYPE_COMPUTE_NETWORK,
   ENTITY_CLASS_COMPUTE_NETWORK,
+  ComputePermissions,
 } from '../constants';
 import { createComputeNetworkEntity } from '../converters';
 
@@ -55,6 +56,6 @@ export const fetchComputeNetworksStepMap: GoogleCloudIntegrationStep = {
   ],
   relationships: [],
   executionHandler: fetchComputeNetworks,
-  permissions: ['compute.networks.list'],
+  permissions: ComputePermissions.STEP_COMPUTE_NETWORKS,
   apis: ['compute.googleapis.com'],
 };

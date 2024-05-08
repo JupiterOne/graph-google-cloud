@@ -3,6 +3,7 @@ import { ServiceUsageListFilter } from '../../google-cloud/types';
 import { google, serviceusage_v1 } from 'googleapis';
 import { IntegrationConfig } from '../..';
 import { IntegrationLogger } from '@jupiterone/integration-sdk-core';
+import { ServiceUsagePermissions, ServiceUsageStepIds } from './constants';
 
 export class ServiceUsageClient extends Client {
   private client = google.serviceusage({ version: 'v1', retry: false });
@@ -58,6 +59,8 @@ export class ServiceUsageClient extends Client {
             await callback(service);
           }
         },
+        ServiceUsageStepIds.FETCH_API_SERVICES,
+        ServiceUsagePermissions.FETCH_API_SERVICES,
       );
     } finally {
       if (onComplete) {

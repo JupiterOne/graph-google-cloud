@@ -1,5 +1,13 @@
 import { Client } from '../../google-cloud/client';
 import { google, cloudresourcemanager_v3 } from 'googleapis';
+import {
+  ResourceManagerPermissions,
+  STEP_AUDIT_CONFIG_IAM_POLICY,
+  STEP_RESOURCE_MANAGER_FOLDERS,
+  STEP_RESOURCE_MANAGER_ORGANIZATION,
+  STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
+  STEP_RESOURCE_MANAGER_PROJECT,
+} from './constants';
 
 export interface PolicyMemberBinding {
   binding: cloudresourcemanager_v3.Schema$Binding;
@@ -13,30 +21,56 @@ function shouldSkipProject(projectId: string) {
 export class ResourceManagerClient extends Client {
   private client = google.cloudresourcemanager({ version: 'v3', retry: false });
 
-  async getProject() {
+  async getProject(): Promise<
+    cloudresourcemanager_v3.Schema$Project | undefined
+  > {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const result = await this.withErrorHandling(() =>
-      this.client.projects.get({
-        auth,
-        name: `projects/${this.projectId}`,
-      }),
+    const result = await this.withErrorHandling(
+      () =>
+        this.client.projects.get({
+          auth,
+          name: `projects/${this.projectId}`,
+        }),
+      this.logger,
+      {
+        stepId: STEP_RESOURCE_MANAGER_PROJECT,
+        suggestedPermissions:
+          ResourceManagerPermissions.STEP_RESOURCE_MANAGER_PROJECT,
+      },
+      {
+        throwMissingAuthPermissionError: true,
+        publishMissingPermissionWarnEvent: false,
+      },
     );
 
-    return result.data;
+    return result?.data;
   }
 
-  async getOrganization() {
+  async getOrganization(): Promise<
+    cloudresourcemanager_v3.Schema$Organization | undefined
+  > {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const result = await this.withErrorHandling(() =>
-      this.client.organizations.get({
-        auth,
-        name: `organizations/${this.organizationId}`,
-      }),
+    const result = await this.withErrorHandling(
+      () =>
+        this.client.organizations.get({
+          auth,
+          name: `organizations/${this.organizationId}`,
+        }),
+      this.logger,
+      {
+        stepId: STEP_RESOURCE_MANAGER_ORGANIZATION,
+        suggestedPermissions:
+          ResourceManagerPermissions.STEP_RESOURCE_MANAGER_ORGANIZATION,
+      },
+      {
+        throwMissingAuthPermissionError: true,
+        publishMissingPermissionWarnEvent: false,
+      },
     );
 
-    return result.data;
+    return result?.data;
   }
 
   async iterateFolders(
@@ -57,6 +91,12 @@ export class ResourceManagerClient extends Client {
         for (const folder of data.folders || []) {
           await callback(folder);
         }
+      },
+      STEP_RESOURCE_MANAGER_FOLDERS,
+      ResourceManagerPermissions.STEP_RESOURCE_MANAGER_FOLDERS,
+      {
+        throwMissingAuthPermissionError: true,
+        publishMissingPermissionWarnEvent: false,
       },
     );
   }
@@ -84,30 +124,45 @@ export class ResourceManagerClient extends Client {
           await callback(project);
         }
       },
+      STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
+      ResourceManagerPermissions.STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
+      {
+        throwMissingAuthPermissionError: true,
+        publishMissingPermissionWarnEvent: false,
+      },
     );
   }
 
-  async getServiceAccountPolicy() {
+  async getServiceAccountPolicy(): Promise<
+    cloudresourcemanager_v3.Schema$Policy | undefined
+  > {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const result = await this.withErrorHandling(() =>
-      this.client.projects.getIamPolicy({
-        auth,
-        resource: `projects/${this.projectId}`,
-        requestBody: {
-          options: {
-            // Policies are versioned and specifying this version will return
-            // different data. The only way to fetch `conditions` on the
-            // policies is to specify "3".
-            //
-            // See: https://cloud.google.com/iam/docs/reference/rest/v1/Policy
-            requestedPolicyVersion: 3,
+    const result = await this.withErrorHandling(
+      () =>
+        this.client.projects.getIamPolicy({
+          auth,
+          resource: `projects/${this.projectId}`,
+          requestBody: {
+            options: {
+              // Policies are versioned and specifying this version will return
+              // different data. The only way to fetch `conditions` on the
+              // policies is to specify "3".
+              //
+              // See: https://cloud.google.com/iam/docs/reference/rest/v1/Policy
+              requestedPolicyVersion: 3,
+            },
           },
-        },
-      }),
+        }),
+      this.logger,
+      {
+        stepId: STEP_AUDIT_CONFIG_IAM_POLICY,
+        suggestedPermissions:
+          ResourceManagerPermissions.STEP_AUDIT_CONFIG_IAM_POLICY,
+      },
     );
 
-    return result.data;
+    return result?.data;
   }
 
   async iteratePolicyAuditConfigs(
@@ -116,6 +171,8 @@ export class ResourceManagerClient extends Client {
     ) => Promise<void>,
   ) {
     const policy = await this.getServiceAccountPolicy();
+    if (!policy) return;
+
     for (const auditConfig of policy.auditConfigs || []) {
       await callback(auditConfig);
     }
