@@ -39,6 +39,7 @@ import { fetchComputeGlobalForwardingRulesStepMap } from './steps/fetch-compute-
 export * from './constants';
 
 export const computeSteps: GoogleCloudIntegrationStep[] = [
+  // Fetch steps
   fetchComputeNetworksStepMap,
   fetchComputeSubnetworksStepMap,
   fetchComputeDisksStepMap,
@@ -67,6 +68,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   fetchComputeSslPoliciesStepMap,
   fetchComputeForwardingRulesStepMap,
   fetchComputeGlobalForwardingRulesStepMap,
+  // Build steps
   buildComputeNetworkPeeringRelationshipsStepMap,
   buildComputeSnapshotDiskRelationshipsStepMap,
   buildDiskImageRelationshipsStepMap,

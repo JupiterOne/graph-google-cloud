@@ -9,6 +9,7 @@ import {
   PrivatecaRelationships,
   PrivatecaSteps,
   IngestionSources,
+  PrivateCAPermissions,
 } from '../constants';
 import { createCertificateAuthorityEntity } from '../converters';
 import { isMemberPublic } from '../../../utils/iam';
@@ -71,6 +72,8 @@ async function fetchCertificateAuthorities(
             location as string,
           );
 
+          if (!policy) return;
+
           const certificateAuthorityEntity = createCertificateAuthorityEntity({
             data: certificateAuthority,
             projectId: client.projectId,
@@ -100,9 +103,6 @@ export const fetchCertificateAuthoritiesStepMap: GoogleCloudIntegrationStep = {
   relationships: [PrivatecaRelationships.PRIVATE_CA_POOL_CERTIFICATE_AUTHORITY],
   dependsOn: [PrivatecaSteps.STEP_PRIVATE_CA_POOLS.id],
   executionHandler: fetchCertificateAuthorities,
-  permissions: [
-    'privateca.certificateAuthorities.getIamPolicy',
-    'privateca.certificateAuthorities.list',
-  ],
+  permissions: PrivateCAPermissions.STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES,
   apis: ['privateca.googleapis.com'],
 };

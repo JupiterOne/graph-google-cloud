@@ -23,3 +23,7 @@ export const ContainersIngestionConfig = {
     defaultsToDisabled: false,
   },
 };
+
+export const ContainerPermissions = {
+  STEP_CONTAINER_CLUSTERS: ['container.clusters.list'],
+};

@@ -28,6 +28,7 @@ import {
   RELATIONSHIP_TYPE_SPANNER_INSTANCE_USES_CONFIG,
   RELATIONSHIP_TYPE_SPANNER_INSTANCE_DATABASE_USES_KMS_KEY,
   IngestionSources,
+  SpannerPermissions,
 } from './constants';
 import {
   createSpannerInstanceConfiguration,
@@ -81,24 +82,26 @@ export async function fetchSpannerInstances(
     const instanceId = instance.name?.split('/')[3];
     const instancePolicy = await client.getInstancePolicy(instanceId as string);
 
-    const instanceEntity = createSpannerInstanceEntity({
-      data: instance,
-      projectId: client.projectId,
-      isPublic: isSpannerPolicyPublicAccess(instancePolicy),
-    });
-    await jobState.addEntity(instanceEntity);
+    if (instancePolicy) {
+      const instanceEntity = createSpannerInstanceEntity({
+        data: instance,
+        projectId: client.projectId,
+        isPublic: isSpannerPolicyPublicAccess(instancePolicy),
+      });
+      await jobState.addEntity(instanceEntity);
 
-    const instanceConfigEntity = await jobState.findEntity(
-      instance.config as string,
-    );
-    if (instanceConfigEntity) {
-      await jobState.addRelationship(
-        createDirectRelationship({
-          _class: RelationshipClass.USES,
-          from: instanceEntity,
-          to: instanceConfigEntity,
-        }),
+      const instanceConfigEntity = await jobState.findEntity(
+        instance.config as string,
       );
+      if (instanceConfigEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.USES,
+            from: instanceEntity,
+            to: instanceConfigEntity,
+          }),
+        );
+      }
     }
   });
 }
@@ -126,6 +129,8 @@ export async function fetchSpannerInstanceDatabases(
           instanceId,
           databaseId as string,
         );
+
+        if (!databasePolicy) return;
 
         const instanceDatabaseEntity = createSpannerInstanceDatabaseEntity({
           data: database,
@@ -195,7 +200,7 @@ export const spannerSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchSpannerInstanceConfigs,
-    permissions: ['spanner.instanceConfigs.list'],
+    permissions: SpannerPermissions.STEP_SPANNER_INSTANCE_CONFIGS,
     apis: ['spanner.googleapis.com'],
   },
   {
@@ -219,7 +224,7 @@ export const spannerSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_SPANNER_INSTANCE_CONFIGS],
     executionHandler: fetchSpannerInstances,
-    permissions: ['spanner.instances.list', 'spanner.databases.getIamPolicy'],
+    permissions: SpannerPermissions.STEP_SPANNER_INSTANCES,
     apis: ['spanner.googleapis.com'],
   },
   {
@@ -249,7 +254,7 @@ export const spannerSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_SPANNER_INSTANCES, STEP_CLOUD_KMS_KEYS],
     executionHandler: fetchSpannerInstanceDatabases,
-    permissions: ['spanner.databases.list'],
+    permissions: SpannerPermissions.STEP_SPANNER_INSTANCE_DATABASES,
     apis: ['spanner.googleapis.com'],
   },
 ];

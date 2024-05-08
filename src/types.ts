@@ -25,6 +25,7 @@ export interface SerializedIntegrationConfig extends IntegrationInstanceConfig {
   configureOrganizationProjects?: boolean;
   folderId?: string;
   useEnablementsForStepStartStates?: boolean;
+  computeInstanceMetadataFieldsToIngest?: string;
 }
 
 export interface IntegrationConfig extends SerializedIntegrationConfig {
@@ -38,3 +39,8 @@ export interface GoogleCloudIntegrationStep
   permissions?: Array<string>;
   apis?: Array<string>;
 }
+
+export type PermissionErrorHandlingOptions = {
+  throwMissingAuthPermissionError?: boolean;
+  publishMissingPermissionWarnEvent?: boolean;
+};

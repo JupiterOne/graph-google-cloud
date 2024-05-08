@@ -12,6 +12,7 @@ import { createCloudFunctionEntity } from './converters';
 import { STEP_IAM_SERVICE_ACCOUNTS } from '../iam';
 import {
   FunctionEntitiesSpec,
+  FunctionsPermissions,
   FunctionsRelationshipsSpec,
   FunctionStepsSpec,
   IngestionSources,
@@ -160,7 +161,7 @@ export const functionsSteps: GoogleCloudIntegrationStep[] = [
     entities: [FunctionEntitiesSpec.CLOUD_FUNCTION],
     relationships: [],
     executionHandler: fetchCloudFunctions,
-    permissions: ['cloudfunctions.functions.list'],
+    permissions: FunctionsPermissions.FETCH_CLOUD_FUNCTIONS,
     apis: ['cloudfunctions.googleapis.com'],
   },
   {

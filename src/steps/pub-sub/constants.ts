@@ -32,3 +32,8 @@ export const PubSubIngestionConfig = {
     defaultsToDisabled: false,
   },
 };
+
+export const PubSubPermissions = {
+  STEP_PUBSUB_TOPICS: ['pubsub.topics.getIamPolicy', 'pubsub.topics.list'],
+  STEP_PUBSUB_SUBSCRIPTIONS: ['pubsub.subscriptions.list'],
+};

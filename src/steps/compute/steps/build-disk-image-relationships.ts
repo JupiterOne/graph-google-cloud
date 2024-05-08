@@ -17,10 +17,10 @@ import {
   ENTITY_TYPE_COMPUTE_IMAGE,
   STEP_COMPUTE_DISKS,
   STEP_COMPUTE_IMAGES,
+  ComputePermissions,
 } from '../constants';
 import { createComputeImageEntity } from '../converters';
 import { compute_v1 } from 'googleapis';
-import { publishMissingPermissionEvent } from '../../../utils/events';
 
 export async function buildDiskImageRelationships(
   context: IntegrationStepContext,
@@ -62,33 +62,11 @@ export async function buildDiskImageRelationships(
           }
         } else {
           // Public image case
-          let image: compute_v1.Schema$Image;
-
-          try {
-            image = await client.fetchComputeImage(
+          const image: compute_v1.Schema$Image | undefined =
+            await client.fetchComputeImage(
               sourceImageName as string,
               sourceImageProjectId as string,
             );
-          } catch (err) {
-            if (err.code === 403) {
-              publishMissingPermissionEvent({
-                logger,
-                permission: 'compute.images.get',
-                stepId: STEP_COMPUTE_DISKS,
-              });
-
-              return;
-            } else if (err.code === 404) {
-              logger.info(
-                { sourceImageName },
-                `The public image cannot be found, it's most likely deprecated`,
-              );
-
-              return;
-            } else {
-              throw err;
-            }
-          }
 
           if (image) {
             // iamPolicy can't be fetched for public images/nor can it be changed (expected)
@@ -133,6 +111,6 @@ export const buildDiskImageRelationshipsStepMap: GoogleCloudIntegrationStep = {
   ],
   executionHandler: buildDiskImageRelationships,
   dependsOn: [STEP_COMPUTE_DISKS, STEP_COMPUTE_IMAGES],
-  permissions: ['compute.images.get'],
+  permissions: ComputePermissions.STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS,
   apis: ['compute.googleapis.com'],
 };

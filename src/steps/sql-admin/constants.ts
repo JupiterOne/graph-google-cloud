@@ -40,3 +40,7 @@ export const SQLAdminIngestionConfig = {
     defaultsToDisabled: true,
   },
 };
+
+export const SQLAdminPermissions = {
+  STEP_SQL_ADMIN_INSTANCES: ['cloudsql.instances.list'],
+};

@@ -32,6 +32,7 @@ import {
   SQL_SQL_INSTANCE_USES_KMS_KEY_RELATIONSHIP,
   SqlAdminSteps,
   IngestionSources,
+  SQLAdminPermissions,
 } from './constants';
 import {
   createMySQLInstanceEntity,
@@ -182,7 +183,7 @@ export const sqlAdminSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [STEP_RESOURCE_MANAGER_PROJECT],
     executionHandler: fetchSQLAdminInstances,
-    permissions: ['cloudsql.instances.list'],
+    permissions: SQLAdminPermissions.STEP_SQL_ADMIN_INSTANCES,
     apis: ['cloudsql.googleapis.com'],
   },
   {

@@ -8,6 +8,7 @@ import {
   STEP_COMPUTE_DISKS,
   ENTITY_TYPE_COMPUTE_DISK,
   ENTITY_CLASS_COMPUTE_DISK,
+  ComputePermissions,
 } from '../constants';
 import { createComputeDiskEntity } from '../converters';
 
@@ -43,6 +44,6 @@ export const fetchComputeDisksStepMap: GoogleCloudIntegrationStep = {
   relationships: [],
   executionHandler: fetchComputeDisks,
   dependsOn: [],
-  permissions: ['compute.disks.list'],
+  permissions: ComputePermissions.STEP_COMPUTE_DISKS,
   apis: ['compute.googleapis.com'],
 };

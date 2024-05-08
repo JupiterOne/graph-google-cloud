@@ -1,6 +1,7 @@
 import { google, dataproc_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
 import { iterateRegions } from '../../google-cloud/regions';
+import { DataprocPermissions, STEP_DATAPROC_CLUSTERS } from './constants';
 
 export class DataProcClient extends Client {
   private client = google.dataproc({ version: 'v1', retry: false });
@@ -25,6 +26,8 @@ export class DataProcClient extends Client {
             await callback(cluster);
           }
         },
+        STEP_DATAPROC_CLUSTERS,
+        DataprocPermissions.STEP_DATAPROC_CLUSTERS,
       );
     });
   }

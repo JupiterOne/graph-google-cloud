@@ -85,3 +85,11 @@ export const KmsIngestionConfig = {
     defaultsToDisabled: false,
   },
 };
+
+export const KMSPermissions = {
+  STEP_CLOUD_KMS_KEY_RINGS: ['cloudkms.keyRings.list'],
+  STEP_CLOUD_KMS_KEYS: [
+    'cloudkms.cryptoKeys.list',
+    'cloudkms.cryptoKeys.getIamPolicy',
+  ],
+};

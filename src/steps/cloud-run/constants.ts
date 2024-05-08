@@ -41,3 +41,9 @@ export const CloudRunIngestionConfig = {
     defaultsToDisabled: false,
   },
 };
+
+export const CloudRunPermissions = {
+  STEP_CLOUD_RUN_SERVICES: ['run.services.list'],
+  STEP_CLOUD_RUN_ROUTES: ['run.routes.list'],
+  STEP_CLOUD_RUN_CONFIGURATIONS: ['run.configurations.list'],
+};

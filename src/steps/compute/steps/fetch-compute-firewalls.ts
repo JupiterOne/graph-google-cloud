@@ -20,6 +20,7 @@ import {
   MAPPED_RELATIONSHIP_FIREWALL_RULE_TYPE,
   STEP_COMPUTE_NETWORKS,
   STEP_COMPUTE_FIREWALLS,
+  ComputePermissions,
 } from '../constants';
 import {
   createComputeFirewallEntity,
@@ -162,6 +163,6 @@ export const fetchComputeFirewallsStepMap: GoogleCloudIntegrationStep = {
   ],
   executionHandler: fetchComputeFirewalls,
   dependsOn: [STEP_COMPUTE_NETWORKS],
-  permissions: ['compute.firewalls.list'],
+  permissions: ComputePermissions.STEP_COMPUTE_FIREWALLS,
   apis: ['compute.googleapis.com'],
 };

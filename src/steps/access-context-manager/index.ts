@@ -39,6 +39,7 @@ import {
   RELATIONSHIP_TYPE_INGRESS_POLICY_HAS_API_OPERATION,
   ENTITY_CLASS_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETER_INGRESS_POLICY,
   IngestionSources,
+  AccessContextManagerPermissions,
 } from './constants';
 import {
   PROJECT_ENTITY_TYPE,
@@ -404,7 +405,8 @@ export const accessPoliciesSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchAccessPolicies,
-    permissions: ['accesscontextmanager.accessPolicies.list'],
+    permissions:
+      AccessContextManagerPermissions.STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
     apis: ['accesscontextmanager.googleapis.com'],
   },
   {
@@ -428,7 +430,8 @@ export const accessPoliciesSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES],
     executionHandler: fetchAccessLevels,
-    permissions: ['accesscontextmanager.accessLevels.list'],
+    permissions:
+      AccessContextManagerPermissions.STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS,
     apis: ['accesscontextmanager.googleapis.com'],
   },
   {
@@ -535,7 +538,8 @@ export const accessPoliciesSteps: GoogleCloudIntegrationStep[] = [
       STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
     ],
     executionHandler: fetchServicePerimeters,
-    permissions: ['accesscontextmanager.servicePerimeters.list'],
+    permissions:
+      AccessContextManagerPermissions.STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS,
     apis: ['accesscontextmanager.googleapis.com'],
   },
 ];

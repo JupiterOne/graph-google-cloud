@@ -9,6 +9,7 @@ import {
 import { CloudBuildClient } from '../client';
 import {
   CloudBuildEntitiesSpec,
+  CloudBuildPermissions,
   CloudBuildRelationshipsSpec,
   CloudBuildStepsSpec,
 } from '../constants';
@@ -62,9 +63,6 @@ export const fetchCloudBuildBitbucketRepositoriesStep: GoogleCloudIntegrationSte
         },
       );
     },
-    permissions: [
-      'cloudbuild.repositories.list',
-      'cloudbuild.repositories.get',
-    ],
+    permissions: CloudBuildPermissions.FETCH_BUILD_BITBUCKET_REPOS,
     apis: ['cloudbuild.googleapis.com'],
   };

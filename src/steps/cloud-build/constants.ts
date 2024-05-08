@@ -174,3 +174,18 @@ export const CloudBuildIngestionConfig = {
     defaultsToDisabled: false,
   },
 };
+
+export const CloudBuildPermissions = {
+  FETCH_BUILDS: ['cloudbuild.builds.list', 'cloudbuild.builds.get'],
+  FETCH_BUILD_TRIGGERS: ['cloudbuild.builds.list'],
+  FETCH_BUILD_WORKER_POOLS: ['cloudbuild.workerpools.list'],
+  FETCH_BUILD_GITHUB_ENTERPRISE_CONFIG: ['cloudbuild.integrations.list'],
+  FETCH_BUILD_BITBUCKET_SERVER_CONFIG: [
+    'cloudbuild.integrations.list',
+    'cloudbuild.integrations.get',
+  ],
+  FETCH_BUILD_BITBUCKET_REPOS: [
+    'cloudbuild.repositories.list',
+    'cloudbuild.repositories.get',
+  ],
+};

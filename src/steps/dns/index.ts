@@ -17,6 +17,7 @@ import {
   STEP_DNS_MANAGED_ZONES,
   STEP_DNS_POLICIES,
   IngestionSources,
+  DNSPermissions,
 } from './constants';
 import {
   createDNSManagedZoneEntity,
@@ -91,7 +92,7 @@ export const dnsManagedZonesSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchDNSManagedZones,
-    permissions: ['dns.managedZones.list'],
+    permissions: DNSPermissions.STEP_DNS_MANAGED_ZONES,
     apis: ['dns.googleapis.com'],
   },
   {
@@ -115,7 +116,7 @@ export const dnsManagedZonesSteps: GoogleCloudIntegrationStep[] = [
     ],
     executionHandler: fetchDNSPolicies,
     dependsOn: [STEP_COMPUTE_NETWORKS],
-    permissions: ['dns.policies.list'],
+    permissions: DNSPermissions.STEP_DNS_POLICIES,
     apis: ['dns.googleapis.com'],
   },
 ];

@@ -81,3 +81,15 @@ export const AccessContextManagerIngestionConfig = {
     defaultsToDisabled: false,
   },
 };
+
+export const AccessContextManagerPermissions = {
+  STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES: [
+    'accesscontextmanager.accessPolicies.list',
+  ],
+  STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS: [
+    'accesscontextmanager.accessLevels.list',
+  ],
+  STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS: [
+    'accesscontextmanager.servicePerimeters.list',
+  ],
+};
