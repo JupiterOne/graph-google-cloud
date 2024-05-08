@@ -422,6 +422,8 @@ The following entities are created:
 | Logging Project Sink                                     | `google_logging_project_sink`                                     | `Logs`                             |
 | Memcache Instance                                        | `google_memcache_instance`                                        | `Database`, `DataStore`, `Cluster` |
 | Memcache Instance Node                                   | `google_memcache_instance_node`                                   | `Database`, `DataStore`, `Host`    |
+| MemoryStore Redis                                        | `google_cloud_redis`                                              | `Service`                          |
+| MemoryStore Redis Location                               | `google_cloud_redis_location`                                     | `Site`                             |
 | Monitoring Alert Policy                                  | `google_monitoring_alert_policy`                                  | `Policy`                           |
 | Organization                                             | `google_cloud_organization`                                       | `Organization`                     |
 | Private CA Certificate                                   | `google_privateca_certificate`                                    | `Certificate`                      |
@@ -496,6 +498,10 @@ The following relationships are created:
 | `google_cloud_project`                                           | **HAS**               | `google_billing_budget`                                           |
 | `google_cloud_project`                                           | **HAS**               | `google_binary_authorization_policy`                              |
 | `google_cloud_project`                                           | **HAS**               | `google_cloud_api_service`                                        |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_redis`                                              |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_redis_location`                                     |
+| `google_cloud_project`                                           | **HAS**               | `google_redis_instance`                                           |
+| `google_cloud_redis_location`                                    | **HAS**               | `google_redis_instance`                                           |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_configuration`                                  |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_route`                                          |
 | `google_cloud_scan_config`                                       | **PERFORMED**         | `google_cloud_scan_run`                                           |

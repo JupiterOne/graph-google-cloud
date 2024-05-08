@@ -173,6 +173,12 @@ import {
 import { redisSteps } from './steps/redis';
 import {
   STEP_CREATE_REDIS_INSTANCE_NETWORK_RELATIONSHIPS,
+  STEP_MEMORYSTORE_REDIS,
+  STEP_MEMORYSTORE_REDIS_LOCATION,
+  STEP_MEMORYSTORE_REDIS_LOCATION_HAS_REDIS_INSTANCE_RELATIONSHIP,
+  STEP_PROJECT_HAS_MEMORYSTORE_REDIS_LOCATION_RELTIONSHIP,
+  STEP_PROJECT_HAS_MEMORYSTORE_REDIS_RELATIONSHIP,
+  STEP_PROJECT_HAS_REDIS_INSTANCE_RELATIONSHIP,
   STEP_REDIS_INSTANCES,
 } from './steps/redis/constants';
 import {
@@ -418,7 +424,19 @@ function getDefaultStepStartStates(params: {
     [STEP_CLOUD_RUN_ROUTES]: { disabled: false },
     [STEP_CLOUD_RUN_CONFIGURATIONS]: { disabled: false },
     [STEP_REDIS_INSTANCES]: { disabled: false },
+    [STEP_MEMORYSTORE_REDIS_LOCATION]: { disabled: false },
+    [STEP_MEMORYSTORE_REDIS]: { disabled: false },
     [STEP_CREATE_REDIS_INSTANCE_NETWORK_RELATIONSHIPS]: { disabled: false },
+    [STEP_PROJECT_HAS_MEMORYSTORE_REDIS_RELATIONSHIP]: { disabled: false },
+    [STEP_PROJECT_HAS_MEMORYSTORE_REDIS_LOCATION_RELTIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_PROJECT_HAS_REDIS_INSTANCE_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_MEMORYSTORE_REDIS_LOCATION_HAS_REDIS_INSTANCE_RELATIONSHIP]: {
+      disabled: false,
+    },
     [STEP_MEMCACHE_INSTANCES]: { disabled: false },
     [STEP_CREATE_MEMCACHE_INSTANCE_NETWORK_RELATIONSHIPS]: { disabled: false },
     [STEP_SPANNER_INSTANCES]: { disabled: false },
@@ -815,9 +833,23 @@ async function getStepStartStatesUsingServiceEnablements(params: {
       ServiceUsageName.CLOUD_RUN,
     ),
     [STEP_REDIS_INSTANCES]: createStepStartState(ServiceUsageName.REDIS),
+    [STEP_MEMORYSTORE_REDIS_LOCATION]: createOrgStepStartState(
+      ServiceUsageName.REDIS,
+    ),
+    [STEP_MEMORYSTORE_REDIS]: createOrgStepStartState(ServiceUsageName.REDIS),
     [STEP_CREATE_REDIS_INSTANCE_NETWORK_RELATIONSHIPS]: createStepStartState(
       ServiceUsageName.REDIS,
     ),
+    [STEP_PROJECT_HAS_MEMORYSTORE_REDIS_RELATIONSHIP]: createOrgStepStartState(
+      ServiceUsageName.REDIS,
+    ),
+    [STEP_PROJECT_HAS_MEMORYSTORE_REDIS_LOCATION_RELTIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.REDIS),
+    [STEP_PROJECT_HAS_REDIS_INSTANCE_RELATIONSHIP]: createOrgStepStartState(
+      ServiceUsageName.REDIS,
+    ),
+    [STEP_MEMORYSTORE_REDIS_LOCATION_HAS_REDIS_INSTANCE_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.REDIS),
     [STEP_MEMCACHE_INSTANCES]: createStepStartState(ServiceUsageName.MEMCACHE),
     [STEP_CREATE_MEMCACHE_INSTANCE_NETWORK_RELATIONSHIPS]: createStepStartState(
       ServiceUsageName.MEMCACHE,

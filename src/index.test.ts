@@ -147,6 +147,12 @@ import {
 } from './steps/pub-sub/constants';
 import {
   STEP_CREATE_REDIS_INSTANCE_NETWORK_RELATIONSHIPS,
+  STEP_MEMORYSTORE_REDIS,
+  STEP_MEMORYSTORE_REDIS_LOCATION,
+  STEP_MEMORYSTORE_REDIS_LOCATION_HAS_REDIS_INSTANCE_RELATIONSHIP,
+  STEP_PROJECT_HAS_MEMORYSTORE_REDIS_LOCATION_RELTIONSHIP,
+  STEP_PROJECT_HAS_MEMORYSTORE_REDIS_RELATIONSHIP,
+  STEP_PROJECT_HAS_REDIS_INSTANCE_RELATIONSHIP,
   STEP_REDIS_INSTANCES,
 } from './steps/redis/constants';
 import {
@@ -470,7 +476,25 @@ describe('#getStepStartStates success', () => {
         [STEP_REDIS_INSTANCES]: {
           disabled: false,
         },
+        [STEP_MEMORYSTORE_REDIS_LOCATION]: {
+          disabled: false,
+        },
+        [STEP_MEMORYSTORE_REDIS]: {
+          disabled: false,
+        },
         [STEP_CREATE_REDIS_INSTANCE_NETWORK_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_MEMORYSTORE_REDIS_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_MEMORYSTORE_REDIS_LOCATION_RELTIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_REDIS_INSTANCE_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_MEMORYSTORE_REDIS_LOCATION_HAS_REDIS_INSTANCE_RELATIONSHIP]: {
           disabled: false,
         },
         [STEP_MEMCACHE_INSTANCES]: {
