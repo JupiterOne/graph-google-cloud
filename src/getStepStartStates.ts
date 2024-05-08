@@ -201,6 +201,19 @@ import { WebSecurityScannerSteps } from './steps/web-security-scanner/constants'
 import { IntegrationConfig } from './types';
 import { isMasterOrganizationInstance } from './utils/isMasterOrganizationInstance';
 import { isSingleProjectInstance } from './utils/isSingleProjectInstance';
+import {
+  STEP_ARTIFACT_REGISTRY,
+  STEP_ARTIFACT_REGISTRY_REPOSITORY,
+  STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP,
+  STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_NPM_PACKAGE_RELATIONSHIP,
+  STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_PACKAGE_RELATIONSHIP,
+  STEP_ARTIFACT_REGISTRY_VPCSC_CONFIGURATION,
+  STEP_ARTIFACT_REPOSIOTRY_PACKAGE,
+  STEP_ARTIFACT_REPOSITROY_PACKAGE_IS_NPM_PACKAGE_RELATIONSHIP,
+  STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP,
+  STEP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP,
+} from './steps/artifact-registry/constants';
+import { artifactRegistrySteps } from './steps/artifact-registry';
 
 function makeStepStartStates(
   stepIds: string[],
@@ -481,6 +494,36 @@ function getDefaultStepStartStates(params: {
     [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: {
       disabled: false,
     },
+    [STEP_ARTIFACT_REGISTRY_REPOSITORY]: {
+      disabled: false,
+    },
+    [STEP_ARTIFACT_REPOSIOTRY_PACKAGE]: {
+      disabled: false,
+    },
+    [STEP_ARTIFACT_REGISTRY]: {
+      disabled: false,
+    },
+    [STEP_ARTIFACT_REGISTRY_VPCSC_CONFIGURATION]: {
+      disabled: false,
+    },
+    [STEP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_PACKAGE_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_NPM_PACKAGE_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_ARTIFACT_REPOSITROY_PACKAGE_IS_NPM_PACKAGE_RELATIONSHIP]: {
+      disabled: false,
+    },
   };
 
   logger.info(
@@ -732,6 +775,31 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES]: createStepStartState(
       ServiceUsageName.COMPUTE,
     ),
+    [STEP_ARTIFACT_REGISTRY_REPOSITORY]: createOrgStepStartState(
+      ServiceUsageName.ARTIFACT_REGISTRY,
+    ),
+    [STEP_ARTIFACT_REPOSIOTRY_PACKAGE]: createOrgStepStartState(
+      ServiceUsageName.ARTIFACT_REGISTRY,
+    ),
+    [STEP_ARTIFACT_REGISTRY]: createOrgStepStartState(
+      ServiceUsageName.ARTIFACT_REGISTRY,
+    ),
+    [STEP_ARTIFACT_REGISTRY_VPCSC_CONFIGURATION]: createOrgStepStartState(
+      ServiceUsageName.ARTIFACT_REGISTRY,
+    ),
+    [STEP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.ARTIFACT_REGISTRY),
+    [STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP]: createOrgStepStartState(
+      ServiceUsageName.ARTIFACT_REGISTRY,
+    ),
+    [STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.ARTIFACT_REGISTRY),
+    [STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_NPM_PACKAGE_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.ARTIFACT_REGISTRY),
+    [STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_PACKAGE_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.ARTIFACT_REGISTRY),
+    [STEP_ARTIFACT_REPOSITROY_PACKAGE_IS_NPM_PACKAGE_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.ARTIFACT_REGISTRY),
     [STEP_COMPUTE_SSL_POLICIES]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_CLOUD_KMS_KEY_RINGS]: createStepStartState(ServiceUsageName.KMS),
     [STEP_CLOUD_KMS_KEYS]: createStepStartState(ServiceUsageName.KMS),
@@ -944,6 +1012,9 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [ServiceUsageName.SQL_ADMIN]: sqlAdminSteps.map((s) => s.id),
     [ServiceUsageName.STORAGE]: storageSteps.map((s) => s.id),
     [ServiceUsageName.WEB_SECURITY_SCANNER]: webSecurityScannerSteps.map(
+      (s) => s.id,
+    ),
+    [ServiceUsageName.ARTIFACT_REGISTRY]: artifactRegistrySteps.map(
       (s) => s.id,
     ),
   };
