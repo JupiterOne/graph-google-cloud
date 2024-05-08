@@ -38,6 +38,7 @@ import {
   STEP_ARTIFACT_REPOSITROY_PACKAGE_IS_NPM_PACKAGE_RELATIONSHIP,
   STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP,
   STEP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP,
+  artifactRegistryPermissions,
 } from './constants';
 import {
   createArtifactRegistryEntity,
@@ -426,7 +427,7 @@ export const artifactRegistrySteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchArtifactRegistryRepository,
-    permissions: ['artifactregistry.repositories.list'],
+    permissions: artifactRegistryPermissions.STEP_ARTIFACT_REGISTRY_REPOSITORY,
     apis: ['artifactregistry.googleapis.com'],
   },
   {
@@ -443,7 +444,7 @@ export const artifactRegistrySteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [STEP_ARTIFACT_REGISTRY_REPOSITORY],
     executionHandler: fetchArtifactRepositoryPackage,
-    permissions: ['artifactregistry.packages.list'],
+    permissions: artifactRegistryPermissions.STEP_ARTIFACT_REPOSIOTRY_PACKAGE,
     apis: ['artifactregistry.googleapis.com'],
   },
   {
@@ -460,7 +461,7 @@ export const artifactRegistrySteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchArtifactRegistry,
-    permissions: [],
+    permissions: artifactRegistryPermissions.STEP_ARTIFACT_REGISTRY,
     apis: ['artifactregistry.googleapis.com'],
   },
   {
@@ -477,7 +478,8 @@ export const artifactRegistrySteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchArtifactRegistryVPCSCConfiguration,
-    permissions: ['artifactregistry.vpcscconfigs.get'],
+    permissions:
+      artifactRegistryPermissions.STEP_ARTIFACT_REGISTRY_VPCSC_CONFIGURATION,
     apis: ['artifactregistry.googleapis.com'],
   },
   {
@@ -499,7 +501,6 @@ export const artifactRegistrySteps: GoogleCloudIntegrationStep[] = [
       STEP_ARTIFACT_REGISTRY_REPOSITORY,
     ],
     executionHandler: buildProjectHasArtifactRegistryRepositoryRelationship,
-    permissions: ['artifactregistry.repositories.list'],
     apis: ['artifactregistry.googleapis.com'],
   },
 
@@ -519,7 +520,6 @@ export const artifactRegistrySteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_RESOURCE_MANAGER_PROJECT, STEP_ARTIFACT_REGISTRY],
     executionHandler: buildProjectHasArtifactRegistryRelationship,
-    permissions: [],
     apis: ['artifactregistry.googleapis.com'],
   },
 
@@ -539,11 +539,8 @@ export const artifactRegistrySteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_CLOUD_KMS_KEYS, STEP_ARTIFACT_REGISTRY_REPOSITORY],
     executionHandler: buildArtifactRegistryRepositoryUsesKMSKeysRelationship,
-    permissions: [
-      'cloudkms.cryptoKeys.list',
-      'cloudkms.cryptoKeys.getIamPolicy',
-      'artifactregistry.repositories.list',
-    ],
+    permissions:
+      artifactRegistryPermissions.STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP,
     apis: ['artifactregistry.googleapis.com', 'cloudkms.googleapis.com'],
   },
 
@@ -566,10 +563,6 @@ export const artifactRegistrySteps: GoogleCloudIntegrationStep[] = [
       STEP_ARTIFACT_REGISTRY_REPOSITORY,
     ],
     executionHandler: buildArtifactRegistryRepositoryUsesPackageRelationship,
-    permissions: [
-      'artifactregistry.repositories.list',
-      'artifactregistry.packages.list',
-    ],
     apis: ['artifactregistry.googleapis.com'],
   },
 
@@ -585,7 +578,6 @@ export const artifactRegistrySteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_ARTIFACT_REGISTRY_REPOSITORY],
     executionHandler: buildArtifactRegistryRepositoryUsesNpmPackageRelationship,
-    permissions: ['artifactregistry.repositories.list'],
     apis: ['artifactregistry.googleapis.com'],
   },
 
@@ -601,7 +593,6 @@ export const artifactRegistrySteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_ARTIFACT_REPOSIOTRY_PACKAGE],
     executionHandler: buildArtifactRepositoryPackageIsNpmPackageRelationship,
-    permissions: ['artifactregistry.packages.list'],
     apis: ['artifactregistry.googleapis.com'],
   },
 ];

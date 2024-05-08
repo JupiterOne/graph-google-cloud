@@ -124,6 +124,19 @@ export const MonitoringIngestionConfig = {
   },
 };
 
+export const artifactRegistryPermissions = {
+  STEP_ARTIFACT_REGISTRY_REPOSITORY: ['artifactregistry.repositories.list'],
+  STEP_ARTIFACT_REPOSIOTRY_PACKAGE: ['artifactregistry.packages.list'],
+  STEP_ARTIFACT_REGISTRY: [],
+  STEP_ARTIFACT_REGISTRY_VPCSC_CONFIGURATION: [
+    'artifactregistry.vpcscconfigs.get',
+  ],
+  STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP: [
+    'cloudkms.cryptoKeys.list',
+    'cloudkms.cryptoKeys.getIamPolicy',
+  ],
+};
+
 //Fetched directly from the repository.location.list
 // This is the location : https://cloud.google.com/artifact-registry/docs/repositories/repo-locations
 

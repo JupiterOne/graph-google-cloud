@@ -1,6 +1,12 @@
 import { artifactregistry_v1, google } from 'googleapis';
 import { Client } from '../../google-cloud/client';
-import { ARTIFACT_REGISTRY_LOCATIONS } from './constants';
+import {
+  ARTIFACT_REGISTRY_LOCATIONS,
+  STEP_ARTIFACT_REGISTRY_REPOSITORY,
+  STEP_ARTIFACT_REGISTRY_VPCSC_CONFIGURATION,
+  STEP_ARTIFACT_REPOSIOTRY_PACKAGE,
+  artifactRegistryPermissions,
+} from './constants';
 
 export class artifactRegistryClient extends Client {
   private client = google.artifactregistry({ version: 'v1', retry: false });
@@ -31,6 +37,8 @@ export class artifactRegistryClient extends Client {
             await callback(repositories);
           }
         },
+        STEP_ARTIFACT_REGISTRY_REPOSITORY,
+        artifactRegistryPermissions.STEP_ARTIFACT_REGISTRY_REPOSITORY,
       );
     });
   }
@@ -54,6 +62,8 @@ export class artifactRegistryClient extends Client {
           await callback(packages);
         }
       },
+      STEP_ARTIFACT_REPOSIOTRY_PACKAGE,
+      artifactRegistryPermissions.STEP_ARTIFACT_REPOSIOTRY_PACKAGE,
     );
   }
 
@@ -75,6 +85,8 @@ export class artifactRegistryClient extends Client {
         console.log(data.name);
         await callback(data);
       },
+      STEP_ARTIFACT_REGISTRY_VPCSC_CONFIGURATION,
+      artifactRegistryPermissions.STEP_ARTIFACT_REGISTRY_VPCSC_CONFIGURATION,
     );
     //})
   }
