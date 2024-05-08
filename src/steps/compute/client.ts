@@ -4,6 +4,7 @@ import { Client, PageableGaxiosResponse } from '../../google-cloud/client';
 import { iterateRegions, iterateRegionZones } from '../../google-cloud/regions';
 import {
   ComputePermissions,
+  STEP_CLOUD_INTERCONNECT,
   STEP_COMPUTE_ADDRESSES,
   STEP_COMPUTE_BACKEND_BUCKETS,
   STEP_COMPUTE_BACKEND_SERVICES,
@@ -33,6 +34,7 @@ import {
   STEP_COMPUTE_TARGET_HTTPS_PROXIES,
   STEP_COMPUTE_TARGET_HTTP_PROXIES,
   STEP_COMPUTE_TARGET_SSL_PROXIES,
+  STEP_INTERCONNECT_LOCATION,
 } from './constants';
 
 export class ComputeClient extends Client {
@@ -793,6 +795,50 @@ export class ComputeClient extends Client {
       },
       STEP_COMPUTE_SSL_POLICIES,
       ComputePermissions.STEP_COMPUTE_SSL_POLICIES,
+    );
+  }
+
+  async iterateCloudInterconnect(
+    callback: (data: compute_v1.Schema$Interconnect) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.interconnects.list({
+          auth,
+          project: `${this.projectId}`,
+          pageToken: nextPageToken,
+        });
+      },
+      async (data: compute_v1.Schema$InterconnectList) => {
+        for (const item of data.items || []) {
+          await callback(item);
+        }
+      },
+      STEP_CLOUD_INTERCONNECT,
+      ComputePermissions.STEP_CLOUD_INTERCONNECT,
+    );
+  }
+
+  async iterateInterconnectLocations(
+    callback: (data: compute_v1.Schema$InterconnectLocation) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.interconnectLocations.list({
+          auth,
+          project: `${this.projectId}`,
+          pageToken: nextPageToken,
+        });
+      },
+      async (data: compute_v1.Schema$InterconnectLocationList) => {
+        for (const item of data.items || []) {
+          await callback(item);
+        }
+      },
+      STEP_INTERCONNECT_LOCATION,
+      ComputePermissions.STEP_INTERCONNECT_LOCATION,
     );
   }
 }

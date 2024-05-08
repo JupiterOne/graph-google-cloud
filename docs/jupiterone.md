@@ -380,6 +380,7 @@ The following entities are created:
 | Cloud Build Worker Pool                                  | `google_cloud_build_worker_pool`                                  | `Cluster`                          |
 | Cloud Function                                           | `google_cloud_function`                                           | `Function`                         |
 | Cloud Monitoring                                         | `google_cloud_monitoring`                                         | `Service`                          |
+| Cloud Interconnect                                       | `google_cloud_interconnect`                                       | `Network`                          |
 | Cloud Run Configuration                                  | `google_cloud_run_configuration`                                  | `Configuration`                    |
 | Cloud Run Route                                          | `google_cloud_run_route`                                          | `Configuration`                    |
 | Cloud Run Service                                        | `google_cloud_run_service`                                        | `Service`                          |
@@ -417,12 +418,15 @@ The following entities are created:
 | IAM Custom Role                                          | `google_iam_role`                                                 | `AccessRole`                       |
 | IAM Service Account                                      | `google_iam_service_account`                                      | `User`                             |
 | IAM Service Account Key                                  | `google_iam_service_account_key`                                  | `AccessKey`                        |
+| Interconnect Location                                    | `google_cloud_internetconnect_location`                           | `Site`                             |
 | KMS Crypto Key                                           | `google_kms_crypto_key`                                           | `Key`, `CryptoKey`                 |
 | KMS Key Ring                                             | `google_kms_key_ring`                                             | `Vault`                            |
 | Logging Metric                                           | `google_logging_metric`                                           | `Configuration`                    |
 | Logging Project Sink                                     | `google_logging_project_sink`                                     | `Logs`                             |
 | Memcache Instance                                        | `google_memcache_instance`                                        | `Database`, `DataStore`, `Cluster` |
 | Memcache Instance Node                                   | `google_memcache_instance_node`                                   | `Database`, `DataStore`, `Host`    |
+| MemoryStore Redis                                        | `google_cloud_redis`                                              | `Service`                          |
+| MemoryStore Redis Location                               | `google_cloud_redis_location`                                     | `Site`                             |
 | Monitoring Alert Policy                                  | `google_monitoring_alert_policy`                                  | `Policy`                           |
 | Monitoring Channels                                      | `google_cloud_monitoring-channel`                                 | `Channel`                          |
 | Monitoring Groups                                        | `google_cloud_group`                                              | `Group`                            |
@@ -496,12 +500,17 @@ The following relationships are created:
 | `google_cloud_monitoring`                                        | **HAS**               | `google_cloud_group`                                              |
 | `google_cloud_monitoring`                                        | **HAS**               | `google_cloud_monitoring-channel`                                 |
 | `google_cloud_monitoring`                                        | **HAS**               | `google_monitoring_alert_policy`                                  |
+| `google_cloud_internetconnect_location`                          | **USES**              | `google_cloud_interconnect`                                       |
 | `google_cloud_organization`                                      | **HAS**               | `google_cloud_folder`                                             |
 | `google_cloud_organization`                                      | **HAS**               | `google_cloud_project`                                            |
 | `google_cloud_project`                                           | **HAS**               | `google_billing_budget`                                           |
 | `google_cloud_project`                                           | **HAS**               | `google_binary_authorization_policy`                              |
 | `google_cloud_project`                                           | **HAS**               | `google_cloud_api_service`                                        |
 | `google_cloud_project`                                           | **HAS**               | `google_cloud_monitoring`                                         |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_redis`                                              |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_redis_location`                                     |
+| `google_cloud_project`                                           | **HAS**               | `google_redis_instance`                                           |
+| `google_cloud_redis_location`                                    | **HAS**               | `google_redis_instance`                                           |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_configuration`                                  |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_route`                                          |
 | `google_cloud_scan_config`                                       | **PERFORMED**         | `google_cloud_scan_run`                                           |
@@ -537,6 +546,8 @@ The following relationships are created:
 | `google_compute_network`                                         | **CONNECTS**          | `google_compute_network`                                          |
 | `google_compute_network`                                         | **CONTAINS**          | `google_compute_subnetwork`                                       |
 | `google_compute_network`                                         | **HAS**               | `google_dns_policy`                                               |
+| `google_compute_project`                                         | **HAS**               | `google_cloud_interconnect`                                       |
+| `google_compute_project`                                         | **HAS**               | `google_cloud_internetconnect_location`                           |
 | `google_compute_project`                                         | **HAS**               | `google_compute_instance`                                         |
 | `google_compute_snapshot`                                        | **CREATED**           | `google_compute_image`                                            |
 | `google_compute_subnetwork`                                      | **HAS**               | `google_compute_address`                                          |

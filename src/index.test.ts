@@ -69,6 +69,7 @@ import {
 } from './steps/cloud-run/constants';
 import { CloudSourceRepositoriesStepsSpec } from './steps/cloud-source-repositories/constants';
 import {
+  STEP_CLOUD_INTERCONNECT,
   STEP_COMPUTE_ADDRESSES,
   STEP_COMPUTE_BACKEND_BUCKETS,
   STEP_COMPUTE_BACKEND_SERVICES,
@@ -90,6 +91,8 @@ import {
   STEP_COMPUTE_NETWORKS,
   STEP_COMPUTE_NETWORK_PEERING_RELATIONSHIPS,
   STEP_COMPUTE_PROJECT,
+  STEP_COMPUTE_PROJECT_HAS_CLOUD_INTERCONNECT_RELATIONSHIP,
+  STEP_COMPUTE_PROJECT_HAS_INTERCONNECT_LOCATION_RELATIONSHIP,
   STEP_COMPUTE_REGION_BACKEND_SERVICES,
   STEP_COMPUTE_REGION_DISKS,
   STEP_COMPUTE_REGION_HEALTH_CHECKS,
@@ -105,6 +108,8 @@ import {
   STEP_COMPUTE_TARGET_HTTP_PROXIES,
   STEP_COMPUTE_TARGET_SSL_PROXIES,
   STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS,
+  STEP_INTERCONNECT_LOCATION,
+  STEP_INTERCONNECT_LOCATION_USES_CLOUD_INTERCONNECT_RELATIONSHIP,
 } from './steps/compute';
 import { STEP_CONTAINER_CLUSTERS } from './steps/containers';
 import {
@@ -151,6 +156,12 @@ import {
 } from './steps/pub-sub/constants';
 import {
   STEP_CREATE_REDIS_INSTANCE_NETWORK_RELATIONSHIPS,
+  STEP_MEMORYSTORE_REDIS,
+  STEP_MEMORYSTORE_REDIS_LOCATION,
+  STEP_MEMORYSTORE_REDIS_LOCATION_HAS_REDIS_INSTANCE_RELATIONSHIP,
+  STEP_PROJECT_HAS_MEMORYSTORE_REDIS_LOCATION_RELTIONSHIP,
+  STEP_PROJECT_HAS_MEMORYSTORE_REDIS_RELATIONSHIP,
+  STEP_PROJECT_HAS_REDIS_INSTANCE_RELATIONSHIP,
   STEP_REDIS_INSTANCES,
 } from './steps/redis/constants';
 import {
@@ -375,6 +386,21 @@ describe('#getStepStartStates success', () => {
         [STEP_COMPUTE_SSL_POLICIES]: {
           disabled: false,
         },
+        [STEP_CLOUD_INTERCONNECT]: {
+          disabled: false,
+        },
+        [STEP_INTERCONNECT_LOCATION]: {
+          disabled: false,
+        },
+        [STEP_INTERCONNECT_LOCATION_USES_CLOUD_INTERCONNECT_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_PROJECT_HAS_CLOUD_INTERCONNECT_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_PROJECT_HAS_INTERCONNECT_LOCATION_RELATIONSHIP]: {
+          disabled: false,
+        },
         [STEP_DNS_MANAGED_ZONES]: {
           disabled: false,
         },
@@ -480,7 +506,25 @@ describe('#getStepStartStates success', () => {
         [STEP_REDIS_INSTANCES]: {
           disabled: false,
         },
+        [STEP_MEMORYSTORE_REDIS_LOCATION]: {
+          disabled: false,
+        },
+        [STEP_MEMORYSTORE_REDIS]: {
+          disabled: false,
+        },
         [STEP_CREATE_REDIS_INSTANCE_NETWORK_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_MEMORYSTORE_REDIS_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_MEMORYSTORE_REDIS_LOCATION_RELTIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_REDIS_INSTANCE_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_MEMORYSTORE_REDIS_LOCATION_HAS_REDIS_INSTANCE_RELATIONSHIP]: {
           disabled: false,
         },
         [STEP_MEMCACHE_INSTANCES]: {

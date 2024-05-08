@@ -74,6 +74,7 @@ import { cloudSourceRepositoriesSteps } from './steps/cloud-source-repositories'
 import { CloudSourceRepositoriesStepsSpec } from './steps/cloud-source-repositories/constants';
 import {
   computeSteps,
+  STEP_CLOUD_INTERCONNECT,
   STEP_COMPUTE_ADDRESSES,
   STEP_COMPUTE_BACKEND_BUCKETS,
   STEP_COMPUTE_BACKEND_SERVICES,
@@ -95,6 +96,8 @@ import {
   STEP_COMPUTE_NETWORK_PEERING_RELATIONSHIPS,
   STEP_COMPUTE_NETWORKS,
   STEP_COMPUTE_PROJECT,
+  STEP_COMPUTE_PROJECT_HAS_CLOUD_INTERCONNECT_RELATIONSHIP,
+  STEP_COMPUTE_PROJECT_HAS_INTERCONNECT_LOCATION_RELATIONSHIP,
   STEP_COMPUTE_REGION_BACKEND_SERVICES,
   STEP_COMPUTE_REGION_DISKS,
   STEP_COMPUTE_REGION_HEALTH_CHECKS,
@@ -110,6 +113,8 @@ import {
   STEP_COMPUTE_TARGET_HTTPS_PROXIES,
   STEP_COMPUTE_TARGET_SSL_PROXIES,
   STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS,
+  STEP_INTERCONNECT_LOCATION,
+  STEP_INTERCONNECT_LOCATION_USES_CLOUD_INTERCONNECT_RELATIONSHIP,
 } from './steps/compute';
 import { containerSteps, STEP_CONTAINER_CLUSTERS } from './steps/containers';
 import { dataprocSteps } from './steps/dataproc';
@@ -177,6 +182,12 @@ import {
 import { redisSteps } from './steps/redis';
 import {
   STEP_CREATE_REDIS_INSTANCE_NETWORK_RELATIONSHIPS,
+  STEP_MEMORYSTORE_REDIS,
+  STEP_MEMORYSTORE_REDIS_LOCATION,
+  STEP_MEMORYSTORE_REDIS_LOCATION_HAS_REDIS_INSTANCE_RELATIONSHIP,
+  STEP_PROJECT_HAS_MEMORYSTORE_REDIS_LOCATION_RELTIONSHIP,
+  STEP_PROJECT_HAS_MEMORYSTORE_REDIS_RELATIONSHIP,
+  STEP_PROJECT_HAS_REDIS_INSTANCE_RELATIONSHIP,
   STEP_REDIS_INSTANCES,
 } from './steps/redis/constants';
 import {
@@ -380,6 +391,17 @@ function getDefaultStepStartStates(params: {
     [STEP_COMPUTE_TARGET_HTTP_PROXIES]: { disabled: false },
     [STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES]: { disabled: false },
     [STEP_COMPUTE_SSL_POLICIES]: { disabled: false },
+    [STEP_CLOUD_INTERCONNECT]: { disabled: false },
+    [STEP_INTERCONNECT_LOCATION]: { disabled: false },
+    [STEP_INTERCONNECT_LOCATION_USES_CLOUD_INTERCONNECT_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_COMPUTE_PROJECT_HAS_CLOUD_INTERCONNECT_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_COMPUTE_PROJECT_HAS_INTERCONNECT_LOCATION_RELATIONSHIP]: {
+      disabled: false,
+    },
     [STEP_CLOUD_KMS_KEY_RINGS]: { disabled: false },
     [STEP_CLOUD_KMS_KEYS]: { disabled: false },
     [STEP_BIG_QUERY_DATASETS]: { disabled: false },
@@ -424,7 +446,19 @@ function getDefaultStepStartStates(params: {
     [STEP_CLOUD_RUN_ROUTES]: { disabled: false },
     [STEP_CLOUD_RUN_CONFIGURATIONS]: { disabled: false },
     [STEP_REDIS_INSTANCES]: { disabled: false },
+    [STEP_MEMORYSTORE_REDIS_LOCATION]: { disabled: false },
+    [STEP_MEMORYSTORE_REDIS]: { disabled: false },
     [STEP_CREATE_REDIS_INSTANCE_NETWORK_RELATIONSHIPS]: { disabled: false },
+    [STEP_PROJECT_HAS_MEMORYSTORE_REDIS_RELATIONSHIP]: { disabled: false },
+    [STEP_PROJECT_HAS_MEMORYSTORE_REDIS_LOCATION_RELTIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_PROJECT_HAS_REDIS_INSTANCE_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_MEMORYSTORE_REDIS_LOCATION_HAS_REDIS_INSTANCE_RELATIONSHIP]: {
+      disabled: false,
+    },
     [STEP_MEMCACHE_INSTANCES]: { disabled: false },
     [STEP_CREATE_MEMCACHE_INSTANCE_NETWORK_RELATIONSHIPS]: { disabled: false },
     [STEP_SPANNER_INSTANCES]: { disabled: false },
@@ -755,6 +789,18 @@ async function getStepStartStatesUsingServiceEnablements(params: {
       ServiceUsageName.COMPUTE,
     ),
     [STEP_COMPUTE_SSL_POLICIES]: createStepStartState(ServiceUsageName.COMPUTE),
+    [STEP_CLOUD_INTERCONNECT]: createOrgStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
+    [STEP_INTERCONNECT_LOCATION]: createOrgStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
+    [STEP_INTERCONNECT_LOCATION_USES_CLOUD_INTERCONNECT_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.COMPUTE),
+    [STEP_COMPUTE_PROJECT_HAS_CLOUD_INTERCONNECT_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.COMPUTE),
+    [STEP_COMPUTE_PROJECT_HAS_INTERCONNECT_LOCATION_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.COMPUTE),
     [STEP_CLOUD_KMS_KEY_RINGS]: createStepStartState(ServiceUsageName.KMS),
     [STEP_CLOUD_KMS_KEYS]: createStepStartState(ServiceUsageName.KMS),
     [STEP_BIG_QUERY_DATASETS]: createStepStartState(ServiceUsageName.BIG_QUERY),
@@ -827,9 +873,23 @@ async function getStepStartStatesUsingServiceEnablements(params: {
       ServiceUsageName.CLOUD_RUN,
     ),
     [STEP_REDIS_INSTANCES]: createStepStartState(ServiceUsageName.REDIS),
+    [STEP_MEMORYSTORE_REDIS_LOCATION]: createOrgStepStartState(
+      ServiceUsageName.REDIS,
+    ),
+    [STEP_MEMORYSTORE_REDIS]: createOrgStepStartState(ServiceUsageName.REDIS),
     [STEP_CREATE_REDIS_INSTANCE_NETWORK_RELATIONSHIPS]: createStepStartState(
       ServiceUsageName.REDIS,
     ),
+    [STEP_PROJECT_HAS_MEMORYSTORE_REDIS_RELATIONSHIP]: createOrgStepStartState(
+      ServiceUsageName.REDIS,
+    ),
+    [STEP_PROJECT_HAS_MEMORYSTORE_REDIS_LOCATION_RELTIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.REDIS),
+    [STEP_PROJECT_HAS_REDIS_INSTANCE_RELATIONSHIP]: createOrgStepStartState(
+      ServiceUsageName.REDIS,
+    ),
+    [STEP_MEMORYSTORE_REDIS_LOCATION_HAS_REDIS_INSTANCE_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.REDIS),
     [STEP_MEMCACHE_INSTANCES]: createStepStartState(ServiceUsageName.MEMCACHE),
     [STEP_CREATE_MEMCACHE_INSTANCE_NETWORK_RELATIONSHIPS]: createStepStartState(
       ServiceUsageName.MEMCACHE,
