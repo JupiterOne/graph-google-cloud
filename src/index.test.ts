@@ -189,6 +189,17 @@ import {
 } from './steps/functions';
 import { StorageStepsSpec } from './steps/storage/constants';
 import { WebSecurityScannerSteps } from './steps/web-security-scanner/constants';
+import {
+  STEP_NETWORK_ANALYZER_CONNECTIVITY_TEST,
+  STEP_NETWORK_ANALYZER_VPC,
+  STEP_NETWORK_INTELLIGENCE_CENTER,
+  STEP_NETWORK_INTELLIGENCE_CENTER_HAS_NETWORK_ANALYZER_CONNECTIVITY_TEST_RELATIONSHIP,
+  STEP_PROJECT_HAS_NETWORK_ANALYZER_CONNECTIVITY_TEST_RELATIONSHIP,
+  STEP_PROJECT_HAS_NETWORK_INTELLIGENCE_CENTER_RELATIONSHIP,
+  STEP_VPN_GATEWAY,
+  STEP_VPN_GATEWAY_TUNNEL,
+  STEP_VPN_GATEWAY_USES_VPN_GATEWAY_TUNNEL_RELATIONSHIP,
+} from './steps/network-analyzer/constants';
 
 describe('#getStepStartStates success', () => {
   let recording: Recording;
@@ -673,6 +684,34 @@ describe('#getStepStartStates success', () => {
         [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: {
           disabled: false,
         },
+        [STEP_NETWORK_INTELLIGENCE_CENTER]: {
+          disabled: false,
+        },
+        [STEP_NETWORK_ANALYZER_CONNECTIVITY_TEST]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_NETWORK_INTELLIGENCE_CENTER_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_NETWORK_ANALYZER_CONNECTIVITY_TEST_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_NETWORK_INTELLIGENCE_CENTER_HAS_NETWORK_ANALYZER_CONNECTIVITY_TEST_RELATIONSHIP]:
+          {
+            disabled: false,
+          },
+        [STEP_VPN_GATEWAY_TUNNEL]: {
+          disabled: false,
+        },
+        [STEP_VPN_GATEWAY]: {
+          disabled: false,
+        },
+        [STEP_VPN_GATEWAY_USES_VPN_GATEWAY_TUNNEL_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_NETWORK_ANALYZER_VPC]: {
+          disabled: false,
+        },
       };
 
       expect(stepStartStates).toEqual(expectedStepStartStates);
@@ -928,9 +967,8 @@ expect.extend({
     stepCollection: string[],
   ) {
     for (const stepId of stepCollection) {
-      const stepDependencies = integrationSteps.find(
-        (s) => s.id === stepId,
-      )?.dependsOn;
+      const stepDependencies = integrationSteps.find((s) => s.id === stepId)
+        ?.dependsOn;
 
       const invalidStepDependencies = stepDependencies?.filter(
         (s) => !stepCollection.includes(s),

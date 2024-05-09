@@ -1,0 +1,401 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`networkAnalyzer#fetch-network-intelligence-center-has-network-analyzer-connectivity-test-relation should collect data 1`] = `
+{
+  "collectedEntities": [
+    {
+      "_class": [
+        "Assessment",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v3/locations/global/connectivityTests/demo-test-metron",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "createTime": "2024-04-23T07:00:31.509683590Z",
+            "destination": {
+              "appEngineVersion": {},
+              "cloudFunction": {},
+              "cloudRunRevision": {},
+              "instance": "projects/j1-gc-integration-dev-v3/zones/us-central1-a/instances/sonarqube",
+              "network": "projects/j1-gc-integration-dev-v3/global/networks/default",
+              "port": 80,
+            },
+            "displayName": "demo-test-metron",
+            "name": "projects/j1-gc-integration-dev-v3/locations/global/connectivityTests/demo-test-metron",
+            "probingDetails": {
+              "probingLatency": {
+                "latencyPercentiles": [
+                  {
+                    "latencyMicros": "30",
+                    "percent": 50,
+                  },
+                  {
+                    "latencyMicros": "64",
+                    "percent": 95,
+                  },
+                ],
+              },
+              "result": "REACHABLE",
+              "sentProbeCount": 50,
+              "successfulProbeCount": 50,
+              "verifyTime": "2024-04-23T07:03:52.474533Z",
+            },
+            "protocol": "TCP",
+            "reachabilityDetails": {
+              "result": "REACHABLE",
+              "traces": [
+                {
+                  "endpointInfo": {
+                    "destinationIp": "10.128.15.219",
+                    "destinationNetworkUri": "projects/j1-gc-integration-dev-v3/global/networks/default",
+                    "destinationPort": 80,
+                    "protocol": "TCP",
+                    "sourceIp": "10.128.15.223",
+                    "sourceNetworkUri": "projects/j1-gc-integration-dev-v3/global/networks/default",
+                    "sourcePort": 59689,
+                  },
+                  "forwardTraceId": 1,
+                  "steps": [
+                    {
+                      "description": "Initial state: packet originating from a Compute Engine instance.",
+                      "instance": {
+                        "displayName": "instance-1",
+                        "externalIp": "34.172.130.250",
+                        "interface": "nic0",
+                        "internalIp": "10.128.15.223",
+                        "networkTags": [
+                          "http-server",
+                          "https-server",
+                        ],
+                        "networkUri": "projects/j1-gc-integration-dev-v3/global/networks/default",
+                        "uri": "projects/j1-gc-integration-dev-v3/zones/us-central1-a/instances/instance-1",
+                      },
+                      "projectId": "j1-gc-integration-dev-v3",
+                      "state": "START_FROM_INSTANCE",
+                    },
+                    {
+                      "description": "Config checking state: verify EGRESS firewall rule.",
+                      "firewall": {
+                        "action": "ALLOW",
+                        "direction": "EGRESS",
+                        "displayName": "default-allow-egress",
+                        "firewallRuleType": "IMPLIED_VPC_FIREWALL_RULE",
+                        "networkUri": "projects/j1-gc-integration-dev-v3/global/networks/default",
+                        "priority": 65535,
+                      },
+                      "projectId": "j1-gc-integration-dev-v3",
+                      "state": "APPLY_EGRESS_FIREWALL_RULE",
+                    },
+                    {
+                      "description": "Config checking state: verify route.",
+                      "projectId": "j1-gc-integration-dev-v3",
+                      "route": {
+                        "destIpRange": "10.128.0.0/20",
+                        "displayName": "default-route-3983b63c88b8bd67",
+                        "networkUri": "projects/j1-gc-integration-dev-v3/global/networks/default",
+                        "nextHop": "network gateway",
+                        "nextHopType": "NEXT_HOP_NETWORK",
+                        "routeScope": "NETWORK",
+                        "routeType": "SUBNET",
+                        "uri": "projects/j1-gc-integration-dev-v3/global/routes/default-route-3983b63c88b8bd67",
+                      },
+                      "state": "APPLY_ROUTE",
+                    },
+                    {
+                      "description": "Forwarding state: arriving at a Compute Engine instance.",
+                      "instance": {
+                        "displayName": "sonarqube",
+                        "externalIp": "34.171.196.173",
+                        "interface": "nic0",
+                        "internalIp": "10.128.15.219",
+                        "networkTags": [
+                          "http-server",
+                          "https-server",
+                          "sonarqube",
+                        ],
+                        "networkUri": "projects/j1-gc-integration-dev-v3/global/networks/default",
+                        "uri": "projects/j1-gc-integration-dev-v3/zones/us-central1-a/instances/sonarqube",
+                      },
+                      "projectId": "j1-gc-integration-dev-v3",
+                      "state": "ARRIVE_AT_INSTANCE",
+                    },
+                    {
+                      "description": "Config checking state: verify INGRESS firewall rule.",
+                      "firewall": {
+                        "action": "ALLOW",
+                        "direction": "INGRESS",
+                        "displayName": "default-allow-http",
+                        "firewallRuleType": "VPC_FIREWALL_RULE",
+                        "networkUri": "projects/j1-gc-integration-dev-v3/global/networks/default",
+                        "priority": 1000,
+                        "targetTags": [
+                          "http-server",
+                        ],
+                        "uri": "projects/j1-gc-integration-dev-v3/global/firewalls/default-allow-http",
+                      },
+                      "projectId": "j1-gc-integration-dev-v3",
+                      "state": "APPLY_INGRESS_FIREWALL_RULE",
+                    },
+                    {
+                      "deliver": {
+                        "ipAddress": "10.128.15.219",
+                        "resourceUri": "projects/j1-gc-integration-dev-v3/zones/us-central1-a/instances/sonarqube",
+                        "target": "INSTANCE",
+                      },
+                      "description": "Final state: packet delivered to instance.",
+                      "projectId": "j1-gc-integration-dev-v3",
+                      "state": "DELIVER",
+                    },
+                  ],
+                },
+              ],
+              "verifyTime": "2024-04-23T07:04:02.093991288Z",
+            },
+            "source": {
+              "appEngineVersion": {},
+              "cloudFunction": {},
+              "cloudRunRevision": {},
+              "instance": "projects/j1-gc-integration-dev-v3/zones/us-central1-a/instances/instance-1",
+              "ipAddress": "10.128.15.223",
+              "network": "projects/j1-gc-integration-dev-v3/global/networks/default",
+            },
+            "updateTime": "2024-04-23T07:04:02.110460265Z",
+          },
+        },
+      ],
+      "_type": "google_cloud_network_analyzer_connectivity_test",
+      "category": "TCP",
+      "createdOn": undefined,
+      "displayName": "demo-test-metron",
+      "internal": true,
+      "name": "projects/j1-gc-integration-dev-v3/locations/global/connectivityTests/demo-test-metron",
+      "projectId": "j1-gc-integration-dev-v3",
+      "summary": "REACHABLE",
+    },
+    {
+      "_class": [
+        "Service",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v3/locations/global",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "locationId": "global",
+            "name": "projects/j1-gc-integration-dev-v3/locations/global",
+          },
+        },
+      ],
+      "_type": "google_cloud_network_analyzer",
+      "category": [
+        "network",
+      ],
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v3/locations/global",
+      "function": [
+        "networking",
+      ],
+      "locationId": "global",
+      "name": "projects/j1-gc-integration-dev-v3/locations/global",
+      "projectId": "j1-gc-integration-dev-v3",
+    },
+  ],
+  "collectedRelationships": [
+    {
+      "_class": "HAS",
+      "_fromEntityKey": "projects/j1-gc-integration-dev-v3/locations/global",
+      "_key": "projects/j1-gc-integration-dev-v3/locations/global|has|projects/j1-gc-integration-dev-v3/locations/global/connectivityTests/demo-test-metron",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v3/locations/global/connectivityTests/demo-test-metron",
+      "_type": "google_cloud_network_analyzer_has_connectivity_test",
+      "displayName": "HAS",
+    },
+  ],
+  "encounteredTypes": [
+    "google_cloud_network_analyzer_connectivity_test",
+    "google_cloud_network_analyzer",
+    "google_cloud_network_analyzer_has_connectivity_test",
+  ],
+  "numCollectedEntities": 2,
+  "numCollectedRelationships": 1,
+}
+`;
+
+exports[`networkAnalyzer#fetch-vpn-gateway-uses-vpn-gateway-tunnel-relation should collect data 1`] = `
+{
+  "collectedEntities": [
+    {
+      "_class": [
+        "Gateway",
+      ],
+      "_key": "demo-vpn-gateway",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "creationTimestamp": "2024-04-23T23:16:17.360-07:00",
+            "gatewayIpVersion": "IPV4",
+            "id": "5169371474615934302",
+            "kind": "compute#vpnGateway",
+            "labelFingerprint": "42WmSpB8rSM=",
+            "name": "demo-vpn-gateway",
+            "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/default",
+            "region": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1",
+            "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/vpnGateways/demo-vpn-gateway",
+            "stackType": "IPV4_ONLY",
+            "vpnInterfaces": [
+              {
+                "id": 0,
+                "ipAddress": "34.157.99.170",
+              },
+              {
+                "id": 1,
+                "ipAddress": "35.220.75.52",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_cloud_vpn_gateway",
+      "category": [
+        "network",
+      ],
+      "createdOn": 1713939377360,
+      "displayName": "demo-vpn-gateway",
+      "function": [
+        "routing",
+        "remote-access-gateway",
+      ],
+      "id": "5169371474615934302",
+      "kind": "compute#vpnGateway",
+      "name": "demo-vpn-gateway",
+      "projectId": "j1-gc-integration-dev-v3",
+      "public": true,
+      "summary": undefined,
+    },
+    {
+      "_class": [
+        "Gateway",
+      ],
+      "_key": "demo-vpn-gateway-2",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "creationTimestamp": "2024-04-23T23:26:08.398-07:00",
+            "gatewayIpVersion": "IPV4",
+            "id": "506472523849079023",
+            "kind": "compute#vpnGateway",
+            "labelFingerprint": "42WmSpB8rSM=",
+            "name": "demo-vpn-gateway-2",
+            "network": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/default",
+            "region": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-east1",
+            "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-east1/vpnGateways/demo-vpn-gateway-2",
+            "stackType": "IPV4_ONLY",
+            "vpnInterfaces": [
+              {
+                "id": 0,
+                "ipAddress": "35.242.10.161",
+              },
+              {
+                "id": 1,
+                "ipAddress": "35.220.8.175",
+              },
+            ],
+          },
+        },
+      ],
+      "_type": "google_cloud_vpn_gateway",
+      "category": [
+        "network",
+      ],
+      "createdOn": 1713939968398,
+      "displayName": "demo-vpn-gateway-2",
+      "function": [
+        "routing",
+        "remote-access-gateway",
+      ],
+      "id": "506472523849079023",
+      "kind": "compute#vpnGateway",
+      "name": "demo-vpn-gateway-2",
+      "projectId": "j1-gc-integration-dev-v3",
+      "public": true,
+      "summary": undefined,
+    },
+    {
+      "_class": [
+        "Gateway",
+      ],
+      "_key": "demo-vpn-tunnel",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "creationTimestamp": "2024-04-24T00:08:43.251-07:00",
+            "description": "",
+            "detailedStatus": "No incoming packets from peer",
+            "id": "5333968030286549268",
+            "ikeVersion": 2,
+            "kind": "compute#vpnTunnel",
+            "labelFingerprint": "42WmSpB8rSM=",
+            "localTrafficSelector": [
+              "0.0.0.0/0",
+            ],
+            "name": "demo-vpn-tunnel",
+            "peerExternalGateway": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/externalVpnGateways/demo-peer-gateway",
+            "peerExternalGatewayInterface": 0,
+            "peerIp": "12.120.12.33",
+            "region": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1",
+            "remoteTrafficSelector": [
+              "0.0.0.0/0",
+            ],
+            "router": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/routers/demo-router2",
+            "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/vpnTunnels/demo-vpn-tunnel",
+            "sharedSecret": "*************",
+            "sharedSecretHash": "4bcIUgeMVskvZeiR0f8c9n4s1AaP",
+            "status": "NO_INCOMING_PACKETS",
+            "vpnGateway": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/vpnGateways/demo-vpn-gateway",
+            "vpnGatewayInterface": 1,
+          },
+        },
+      ],
+      "_type": "google_cloud_vpn_tunnel",
+      "active": undefined,
+      "category": [
+        "network",
+      ],
+      "createdOn": 1713942523251,
+      "description": "",
+      "displayName": "demo-vpn-tunnel",
+      "function": [
+        "routing",
+      ],
+      "id": "5333968030286549268",
+      "kind": "compute#vpnTunnel",
+      "name": "demo-vpn-tunnel",
+      "projectId": "j1-gc-integration-dev-v3",
+      "public": true,
+      "status": "NO_INCOMING_PACKETS",
+      "summary": "",
+      "vpnGatewayName": "demo-vpn-gateway",
+    },
+  ],
+  "collectedRelationships": [
+    {
+      "_class": "USES",
+      "_fromEntityKey": "demo-vpn-gateway",
+      "_key": "demo-vpn-gateway|uses|demo-vpn-tunnel",
+      "_toEntityKey": "demo-vpn-tunnel",
+      "_type": "google_cloud_vpn_gateway_uses_tunnel",
+      "displayName": "USES",
+    },
+  ],
+  "encounteredTypes": [
+    "google_cloud_vpn_gateway",
+    "google_cloud_vpn_tunnel",
+    "google_cloud_vpn_gateway_uses_tunnel",
+  ],
+  "numCollectedEntities": 3,
+  "numCollectedRelationships": 1,
+}
+`;
