@@ -170,6 +170,20 @@ import {
 import { StorageStepsSpec } from './steps/storage/constants';
 import { WebSecurityScannerSteps } from './steps/web-security-scanner/constants';
 import {
+  STEP_APPLICATION_ENDPOINT_USES_GATEWAY_RELATIONSHIP,
+  STEP_APP_CONNECTION_HAS_APPLICATION_ENDPOINT_RELATIONSHIP,
+  STEP_APP_CONNECTION_HAS_APP_CONNECTOR_RELATIONSHIP,
+  STEP_APP_CONNECTION_HAS_GATEWAY_RELATIONSHIP,
+  STEP_BEYONDCORP_APPLICATION_ENDPOINT,
+  STEP_BEYONDCORP_APP_CONNECTION,
+  STEP_BEYONDCORP_APP_CONNECTOR,
+  STEP_BEYONDCORP_ENTERPRISE,
+  STEP_BEYONDCORP_GATEWAY,
+  STEP_PROJECT_HAS_BEYONDCORP_ENTERPRISE_RELATIONSHIP,
+  STEP_PROJECT_USES_APP_CONNECTION_RELATIONSHIP,
+  STEP_PROJECT_USES_APP_CONNECTOR_RELATIONSHIP,
+} from './steps/beyondcorp/constant';
+import {
   STEP_ARTIFACT_REGISTRY,
   STEP_ARTIFACT_REGISTRY_REPOSITORY,
   STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP,
@@ -611,6 +625,42 @@ describe('#getStepStartStates success', () => {
         [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: {
           disabled: false,
         },
+        [STEP_BEYONDCORP_APPLICATION_ENDPOINT]: {
+          disabled: false,
+        },
+        [STEP_BEYONDCORP_APP_CONNECTION]: {
+          disabled: false,
+        },
+        [STEP_BEYONDCORP_APP_CONNECTOR]: {
+          disabled: false,
+        },
+        [STEP_BEYONDCORP_GATEWAY]: {
+          disabled: false,
+        },
+        [STEP_BEYONDCORP_ENTERPRISE]: {
+          disabled: false,
+        },
+        [STEP_APP_CONNECTION_HAS_APPLICATION_ENDPOINT_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_APP_CONNECTION_HAS_APP_CONNECTOR_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_APP_CONNECTION_HAS_GATEWAY_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_USES_APP_CONNECTION_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_USES_APP_CONNECTOR_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_BEYONDCORP_ENTERPRISE_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_APPLICATION_ENDPOINT_USES_GATEWAY_RELATIONSHIP]: {
+          disabled: false,
+        },
         [STEP_ARTIFACT_REGISTRY_REPOSITORY]: {
           disabled: false,
         },
@@ -642,7 +692,6 @@ describe('#getStepStartStates success', () => {
           disabled: false,
         },
       };
-
       expect(stepStartStates).toEqual(expectedStepStartStates);
     },
   );

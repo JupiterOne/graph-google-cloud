@@ -202,6 +202,21 @@ import { IntegrationConfig } from './types';
 import { isMasterOrganizationInstance } from './utils/isMasterOrganizationInstance';
 import { isSingleProjectInstance } from './utils/isSingleProjectInstance';
 import {
+  STEP_APPLICATION_ENDPOINT_USES_GATEWAY_RELATIONSHIP,
+  STEP_APP_CONNECTION_HAS_APPLICATION_ENDPOINT_RELATIONSHIP,
+  STEP_APP_CONNECTION_HAS_APP_CONNECTOR_RELATIONSHIP,
+  STEP_APP_CONNECTION_HAS_GATEWAY_RELATIONSHIP,
+  STEP_BEYONDCORP_APPLICATION_ENDPOINT,
+  STEP_BEYONDCORP_APP_CONNECTION,
+  STEP_BEYONDCORP_APP_CONNECTOR,
+  STEP_BEYONDCORP_ENTERPRISE,
+  STEP_BEYONDCORP_GATEWAY,
+  STEP_PROJECT_HAS_BEYONDCORP_ENTERPRISE_RELATIONSHIP,
+  STEP_PROJECT_USES_APP_CONNECTION_RELATIONSHIP,
+  STEP_PROJECT_USES_APP_CONNECTOR_RELATIONSHIP,
+} from './steps/beyondcorp/constant';
+import { beyondcorpSteps } from './steps/beyondcorp';
+import {
   STEP_ARTIFACT_REGISTRY,
   STEP_ARTIFACT_REGISTRY_REPOSITORY,
   STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP,
@@ -494,6 +509,42 @@ function getDefaultStepStartStates(params: {
     [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: {
       disabled: false,
     },
+    [STEP_BEYONDCORP_APPLICATION_ENDPOINT]: {
+      disabled: false,
+    },
+    [STEP_BEYONDCORP_APP_CONNECTION]: {
+      disabled: false,
+    },
+    [STEP_BEYONDCORP_APP_CONNECTOR]: {
+      disabled: false,
+    },
+    [STEP_BEYONDCORP_GATEWAY]: {
+      disabled: false,
+    },
+    [STEP_BEYONDCORP_ENTERPRISE]: {
+      disabled: false,
+    },
+    [STEP_APP_CONNECTION_HAS_APPLICATION_ENDPOINT_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_APP_CONNECTION_HAS_APP_CONNECTOR_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_APP_CONNECTION_HAS_GATEWAY_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_PROJECT_USES_APP_CONNECTION_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_PROJECT_USES_APP_CONNECTOR_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_APPLICATION_ENDPOINT_USES_GATEWAY_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_PROJECT_HAS_BEYONDCORP_ENTERPRISE_RELATIONSHIP]: {
+      disabled: false,
+    },
     [STEP_ARTIFACT_REGISTRY_REPOSITORY]: {
       disabled: false,
     },
@@ -775,6 +826,38 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES]: createStepStartState(
       ServiceUsageName.COMPUTE,
     ),
+    [STEP_BEYONDCORP_APP_CONNECTOR]: createStepStartState(
+      ServiceUsageName.BEYONDCORP,
+    ),
+    [STEP_BEYONDCORP_APP_CONNECTION]: createStepStartState(
+      ServiceUsageName.BEYONDCORP,
+    ),
+    [STEP_BEYONDCORP_GATEWAY]: createOrgStepStartState(
+      ServiceUsageName.BEYONDCORP,
+    ),
+    [STEP_BEYONDCORP_ENTERPRISE]: createOrgStepStartState(
+      ServiceUsageName.BEYONDCORP,
+    ),
+    [STEP_APP_CONNECTION_HAS_APP_CONNECTOR_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.BEYONDCORP),
+    [STEP_APP_CONNECTION_HAS_APPLICATION_ENDPOINT_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.BEYONDCORP),
+    [STEP_APP_CONNECTION_HAS_GATEWAY_RELATIONSHIP]: createOrgStepStartState(
+      ServiceUsageName.BEYONDCORP,
+    ),
+    [STEP_PROJECT_USES_APP_CONNECTOR_RELATIONSHIP]: createOrgStepStartState(
+      ServiceUsageName.BEYONDCORP,
+    ),
+    [STEP_PROJECT_USES_APP_CONNECTION_RELATIONSHIP]: createOrgStepStartState(
+      ServiceUsageName.BEYONDCORP,
+    ),
+    [STEP_PROJECT_HAS_BEYONDCORP_ENTERPRISE_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.BEYONDCORP),
+    [STEP_APPLICATION_ENDPOINT_USES_GATEWAY_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.BEYONDCORP),
+    [STEP_BEYONDCORP_APPLICATION_ENDPOINT]: createOrgStepStartState(
+      ServiceUsageName.BEYONDCORP,
+    ),
     [STEP_ARTIFACT_REGISTRY_REPOSITORY]: createOrgStepStartState(
       ServiceUsageName.ARTIFACT_REGISTRY,
     ),
@@ -1014,6 +1097,7 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [ServiceUsageName.WEB_SECURITY_SCANNER]: webSecurityScannerSteps.map(
       (s) => s.id,
     ),
+    [ServiceUsageName.BEYONDCORP]: beyondcorpSteps.map((s) => s.id),
     [ServiceUsageName.ARTIFACT_REGISTRY]: artifactRegistrySteps.map(
       (s) => s.id,
     ),
