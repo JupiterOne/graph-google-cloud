@@ -18,11 +18,6 @@ export const BEYONDCORP_APP_CONNECTION_CLASS = ['Network'];
 export const BEYONDCORP_APP_CONNECTION_TYPE =
   'google_cloud_beyondcorp_connection';
 
-export const STEP_BEYONDCORP_PARTNER_TENANT = 'fetch-beyondcorp-partner-tenant';
-export const BEYONDCORP_ENTERPRISE_PARTNER_TENANT_TYPE =
-  'google_cloud_beyondborp_partner_tenant';
-export const BEYONDCORP_ENTERPRISE_PARTNER_TENANT_CLASS = ['Organization'];
-
 export const STEP_BEYONDCORP_ENTERPRISE = 'fetch-beyondcorp-enterprise';
 export const BEYONDCORP_ENTERPRISE_TYPE = 'google_cloud_beyondcorp_enterprise';
 export const BEYONDCORP_ENTERPRISE_CLASS = ['Service'];
@@ -40,7 +35,7 @@ export const STEP_APP_CONNECTION_HAS_APP_CONNECTOR_RELATIONSHIP =
 export const RELATIONSHIP_TYPE_APP_CONNECTION_HAS_APPLICATION_ENDPOINT =
   'google_cloud_beyondcorp_connection_has_application_endpoint';
 export const STEP_APP_CONNECTION_HAS_APPLICATION_ENDPOINT_RELATIONSHIP =
-  'fetch-app-connection-has-applifcation-endpoint';
+  'fetch-app-connection-has-application-endpoint';
 
 export const RELATIONSHIP_TYPE_APP_CONNECTION_HAS_GATEWAY =
   'google_cloud_beyondcorp_connection_has_gateway';
@@ -67,7 +62,6 @@ export const IngestionSources = {
   BEYONDCORP_GATEWAYS: 'beyondcorp_gateways',
   BEYONDCORP_CONNECTIONS: 'beyondcorp_connections',
   BEYONDCORP_APPLICATION_ENDPOINTS: 'beyondcorp_application_endpoints',
-  BEYONDCORP_PARTNER_TENANT: 'beyondcorp_partner_tenant',
   BEYONDCORP_ENTERPRISE: 'beyondcorp_enterprise',
   APP_CONNECTION_HAS_APP_CONNECTOR_RELATIONSHIP:
     'app_connection_has_app_connector',
@@ -107,9 +101,12 @@ export const MonitoringIngestionConfig = {
     description: 'BeyondCorp App Connection for GCP',
     defaultsToDisabled: false,
   },
-  [IngestionSources.BEYONDCORP_PARTNER_TENANT]: {
-    title: 'BeyondCorp Partner Tenant',
-    description: 'BeyondCorp Partner Tenant for GCP',
-    defaultsToDisabled: false,
-  },
+};
+
+export const BeyondCorpPermissions = {
+  STEP_BEYONDCORP_APP_CONNECTOR: ['beyondcrop.appConnectors.list'],
+  STEP_BEYONDCORP_APP_CONNECTION: ['beyondcrop.appConnections.list'],
+  STEP_BEYONDCORP_GATEWAY: ['beyondcrop.appGateways.list'],
+  STEP_BEYONDCORP_APPLICATION_ENDPOINT: [],
+  STEP_BEYONDCORP_ENTERPRISE: [],
 };

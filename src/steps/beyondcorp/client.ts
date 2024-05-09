@@ -1,5 +1,11 @@
 import { beyondcorp_v1, google } from 'googleapis';
 import { Client } from '../../google-cloud/client';
+import {
+  BeyondCorpPermissions,
+  STEP_BEYONDCORP_APP_CONNECTION,
+  STEP_BEYONDCORP_APP_CONNECTOR,
+  STEP_BEYONDCORP_GATEWAY,
+} from './constant';
 
 export class beyondcorpClient extends Client {
   private client = google.beyondcorp({ version: 'v1', retry: false });
@@ -26,6 +32,8 @@ export class beyondcorpClient extends Client {
           await callback(connectors);
         }
       },
+      STEP_BEYONDCORP_APP_CONNECTOR,
+      BeyondCorpPermissions.STEP_BEYONDCORP_APP_CONNECTOR,
     );
   }
 
@@ -49,6 +57,8 @@ export class beyondcorpClient extends Client {
           await callback(gateway);
         }
       },
+      STEP_BEYONDCORP_GATEWAY,
+      BeyondCorpPermissions.STEP_BEYONDCORP_GATEWAY,
     );
   }
 
@@ -74,25 +84,8 @@ export class beyondcorpClient extends Client {
           await callback(connections);
         }
       },
-    );
-  }
-
-  async iteratePartnerTenant(
-    callback: (data: beyondcorp_v1.Schema$GoogleIamV1Policy) => Promise<void>,
-  ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
-    await this.iterateApi(
-      async () => {
-        return this.client.organizations.locations.global.partnerTenants.getIamPolicy(
-          {
-            auth,
-            resource: `organizations/${this.organizationId}/locations/global/partnerTenants/*`,
-          },
-        );
-      },
-      async (data: beyondcorp_v1.Schema$GoogleIamV1Policy) => {
-        return callback(data);
-      },
+      STEP_BEYONDCORP_APP_CONNECTION,
+      BeyondCorpPermissions.STEP_BEYONDCORP_APP_CONNECTION,
     );
   }
 }

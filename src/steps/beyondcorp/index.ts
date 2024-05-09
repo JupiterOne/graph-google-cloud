@@ -17,11 +17,10 @@ import {
   BEYONDCORP_APP_CONNECTOR_CLASS,
   BEYONDCORP_APP_CONNECTOR_TYPE,
   BEYONDCORP_ENTERPRISE_CLASS,
-  BEYONDCORP_ENTERPRISE_PARTNER_TENANT_CLASS,
-  BEYONDCORP_ENTERPRISE_PARTNER_TENANT_TYPE,
   BEYONDCORP_ENTERPRISE_TYPE,
   BEYONDCORP_GATEWAY_CLASS,
   BEYONDCORP_GATEWAY_TYPE,
+  BeyondCorpPermissions,
   IngestionSources,
   RELATIONSHIP_TYPE_APPLICATION_ENDPOINT_USES_GATEWAY,
   RELATIONSHIP_TYPE_APP_CONNECTION_HAS_APPLICATION_ENDPOINT,
@@ -39,7 +38,6 @@ import {
   STEP_BEYONDCORP_APP_CONNECTOR,
   STEP_BEYONDCORP_ENTERPRISE,
   STEP_BEYONDCORP_GATEWAY,
-  STEP_BEYONDCORP_PARTNER_TENANT,
   STEP_PROJECT_HAS_BEYONDCORP_ENTERPRISE_RELATIONSHIP,
   STEP_PROJECT_USES_APP_CONNECTION_RELATIONSHIP,
   STEP_PROJECT_USES_APP_CONNECTOR_RELATIONSHIP,
@@ -177,33 +175,6 @@ export async function fetchApplicationEndpoint(
       publishUnsupportedConfigEvent({
         logger,
         resource: 'Application Endpoint',
-        reason: `${client.projectId} project is not a workspace`,
-      });
-    } else {
-      throw err;
-    }
-  }
-}
-
-export async function fetchPartnerTenant(
-  context: IntegrationStepContext,
-): Promise<void> {
-  const {
-    //jobState,
-    instance: { config },
-    logger,
-  } = context;
-
-  const client = new beyondcorpClient({ config }, logger);
-  try {
-    await client.iteratePartnerTenant(async (tenant) => {
-      console.log(tenant);
-    });
-  } catch (err) {
-    if (err.message?.match && err.message.match(/is not a workspace/i)) {
-      publishUnsupportedConfigEvent({
-        logger,
-        resource: 'Enterprise Partner Tenant',
         reason: `${client.projectId} project is not a workspace`,
       });
     } else {
@@ -453,7 +424,7 @@ export const beyondcorpSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchAppConnectors,
-    permissions: ['beyondcrop.appConnectors.list'],
+    permissions: BeyondCorpPermissions.STEP_BEYONDCORP_APP_CONNECTOR,
     apis: ['beyondcorp.googleapis.com'],
   },
 
@@ -478,7 +449,7 @@ export const beyondcorpSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchAppConnections,
-    permissions: ['beyondcrop.appConnections.list'],
+    permissions: BeyondCorpPermissions.STEP_BEYONDCORP_APP_CONNECTION,
     apis: ['beyondcorp.googleapis.com'],
   },
 
@@ -503,7 +474,7 @@ export const beyondcorpSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchGateways,
-    permissions: ['beyondcrop.appGateways.list'],
+    permissions: BeyondCorpPermissions.STEP_BEYONDCORP_GATEWAY,
     apis: ['beyondcorp.googleapis.com'],
   },
 
@@ -521,26 +492,8 @@ export const beyondcorpSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [STEP_BEYONDCORP_APP_CONNECTION],
     executionHandler: fetchApplicationEndpoint,
-    permissions: [],
+    permissions: BeyondCorpPermissions.STEP_BEYONDCORP_APPLICATION_ENDPOINT,
     apis: ['beyondcorp.googleapis.com'],
-  },
-
-  {
-    id: STEP_BEYONDCORP_PARTNER_TENANT,
-    ingestionSourceId: IngestionSources.BEYONDCORP_PARTNER_TENANT,
-    name: 'BeyondCrop Enterprise Partner Tenant',
-    entities: [
-      {
-        resourceName: 'BeyondCrop Enterprise Partner Tenant',
-        _type: BEYONDCORP_ENTERPRISE_PARTNER_TENANT_TYPE,
-        _class: BEYONDCORP_ENTERPRISE_PARTNER_TENANT_CLASS,
-      },
-    ],
-    relationships: [],
-    dependsOn: [],
-    executionHandler: fetchPartnerTenant,
-    permissions: ['beyoncorp.partnerTenants.getIamPolicy'],
-    apis: ['beyondcorp.googleapis.com', 'iam.googleapis.com'],
   },
 
   {
@@ -557,7 +510,7 @@ export const beyondcorpSteps: GoogleCloudIntegrationStep[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchBeyondcorpEnterprise,
-    permissions: [],
+    permissions: BeyondCorpPermissions.STEP_BEYONDCORP_ENTERPRISE,
     apis: ['beyondcorp.googleapis.com'],
   },
 
@@ -577,7 +530,6 @@ export const beyondcorpSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_BEYONDCORP_APP_CONNECTION, STEP_BEYONDCORP_APP_CONNECTOR],
     executionHandler: buildAppConnectionHasAppConnectorRelationship,
-    permissions: ['beyondcrop.appConnectors.list'],
     apis: ['beyondcorp.googleapis.com'],
   },
 
@@ -600,7 +552,6 @@ export const beyondcorpSteps: GoogleCloudIntegrationStep[] = [
       STEP_BEYONDCORP_APPLICATION_ENDPOINT,
     ],
     executionHandler: buildAppConnectionHasApplicationEndpointRelationship,
-    permissions: ['beyondcrop.appConnectors.list'],
     apis: ['beyondcorp.googleapis.com'],
   },
 
@@ -619,10 +570,6 @@ export const beyondcorpSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_BEYONDCORP_APP_CONNECTION, STEP_BEYONDCORP_GATEWAY],
     executionHandler: buildAppConnectionHasGatewayRelationship,
-    permissions: [
-      'beyondcrop.appConnectors.list',
-      'beyondcrop.appGateways.list',
-    ],
     apis: ['beyondcorp.googleapis.com'],
   },
 
@@ -641,7 +588,6 @@ export const beyondcorpSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_BEYONDCORP_APP_CONNECTOR, STEP_RESOURCE_MANAGER_PROJECT],
     executionHandler: buildProjectUsesAppConnectorRelationship,
-    permissions: ['beyondcrop.appConnectors.list'],
     apis: ['beyondcorp.googleapis.com'],
   },
 
@@ -661,7 +607,6 @@ export const beyondcorpSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_BEYONDCORP_APP_CONNECTION, STEP_RESOURCE_MANAGER_PROJECT],
     executionHandler: buildProjectUsesAppConnectionRelationship,
-    permissions: ['beyondcrop.appConnections.list'],
     apis: ['beyondcorp.googleapis.com'],
   },
 
@@ -681,7 +626,6 @@ export const beyondcorpSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_BEYONDCORP_APPLICATION_ENDPOINT, STEP_BEYONDCORP_GATEWAY],
     executionHandler: buildApplicationEndpointUsesGatewayRelationship,
-    permissions: ['beyondcrop.appConnections.list'],
     apis: ['beyondcorp.googleapis.com'],
   },
 
@@ -700,7 +644,6 @@ export const beyondcorpSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_BEYONDCORP_ENTERPRISE, STEP_RESOURCE_MANAGER_PROJECT],
     executionHandler: buildProjectHasBeyondcorpEnterpriseRelationship,
-    permissions: [],
     apis: ['beyondcorp.googleapis.com'],
   },
 ];
