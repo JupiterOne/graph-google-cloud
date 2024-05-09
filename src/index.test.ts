@@ -184,6 +184,18 @@ import {
   STEP_PROJECT_USES_APP_CONNECTION_RELATIONSHIP,
   STEP_PROJECT_USES_APP_CONNECTOR_RELATIONSHIP,
 } from './steps/beyondcorp/constant';
+import {
+  STEP_ARTIFACT_REGISTRY,
+  STEP_ARTIFACT_REGISTRY_REPOSITORY,
+  STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP,
+  STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_NPM_PACKAGE_RELATIONSHIP,
+  STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_PACKAGE_RELATIONSHIP,
+  STEP_ARTIFACT_REGISTRY_VPCSC_CONFIGURATION,
+  STEP_ARTIFACT_REPOSIOTRY_PACKAGE,
+  STEP_ARTIFACT_REPOSITROY_PACKAGE_IS_NPM_PACKAGE_RELATIONSHIP,
+  STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP,
+  STEP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP,
+} from './steps/artifact-registry/constants';
 
 describe('#getStepStartStates success', () => {
   let recording: Recording;
@@ -651,6 +663,36 @@ describe('#getStepStartStates success', () => {
           disabled: false,
         },
         [STEP_APPLICATION_ENDPOINT_USES_GATEWAY_RELATIONSHIP]: {
+           disabled: false,
+        },
+        [STEP_ARTIFACT_REGISTRY_REPOSITORY]: {
+          disabled: false,
+        },
+        [STEP_ARTIFACT_REPOSIOTRY_PACKAGE]: {
+          disabled: false,
+        },
+        [STEP_ARTIFACT_REGISTRY]: {
+          disabled: false,
+        },
+        [STEP_ARTIFACT_REGISTRY_VPCSC_CONFIGURATION]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_PACKAGE_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_NPM_PACKAGE_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_ARTIFACT_REPOSITROY_PACKAGE_IS_NPM_PACKAGE_RELATIONSHIP]: {
           disabled: false,
         },
       };

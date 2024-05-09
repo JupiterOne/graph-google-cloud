@@ -217,6 +217,19 @@ import {
   STEP_PROJECT_USES_APP_CONNECTOR_RELATIONSHIP,
 } from './steps/beyondcorp/constant';
 import { beyondcorpSteps } from './steps/beyondcorp';
+import {
+  STEP_ARTIFACT_REGISTRY,
+  STEP_ARTIFACT_REGISTRY_REPOSITORY,
+  STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP,
+  STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_NPM_PACKAGE_RELATIONSHIP,
+  STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_PACKAGE_RELATIONSHIP,
+  STEP_ARTIFACT_REGISTRY_VPCSC_CONFIGURATION,
+  STEP_ARTIFACT_REPOSIOTRY_PACKAGE,
+  STEP_ARTIFACT_REPOSITROY_PACKAGE_IS_NPM_PACKAGE_RELATIONSHIP,
+  STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP,
+  STEP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP,
+} from './steps/artifact-registry/constants';
+import { artifactRegistrySteps } from './steps/artifact-registry';
 
 function makeStepStartStates(
   stepIds: string[],
@@ -534,6 +547,36 @@ function getDefaultStepStartStates(params: {
       disabled: false,
     },
     [STEP_PROJECT_HAS_BEYONDCORP_ENTERPRISE_RELATIONSHIP]: {
+        disabled: false,
+    },
+    [STEP_ARTIFACT_REGISTRY_REPOSITORY]: {
+      disabled: false,
+    },
+    [STEP_ARTIFACT_REPOSIOTRY_PACKAGE]: {
+      disabled: false,
+    },
+    [STEP_ARTIFACT_REGISTRY]: {
+      disabled: false,
+    },
+    [STEP_ARTIFACT_REGISTRY_VPCSC_CONFIGURATION]: {
+      disabled: false,
+    },
+    [STEP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_PACKAGE_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_NPM_PACKAGE_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_ARTIFACT_REPOSITROY_PACKAGE_IS_NPM_PACKAGE_RELATIONSHIP]: {
       disabled: false,
     },
   };
@@ -822,6 +865,31 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [STEP_BEYONDCORP_APPLICATION_ENDPOINT]: createOrgStepStartState(
       ServiceUsageName.BEYONDCORP,
     ),
+    [STEP_ARTIFACT_REGISTRY_REPOSITORY]: createOrgStepStartState(
+      ServiceUsageName.ARTIFACT_REGISTRY,
+    ),
+    [STEP_ARTIFACT_REPOSIOTRY_PACKAGE]: createOrgStepStartState(
+      ServiceUsageName.ARTIFACT_REGISTRY,
+    ),
+    [STEP_ARTIFACT_REGISTRY]: createOrgStepStartState(
+      ServiceUsageName.ARTIFACT_REGISTRY,
+    ),
+    [STEP_ARTIFACT_REGISTRY_VPCSC_CONFIGURATION]: createOrgStepStartState(
+      ServiceUsageName.ARTIFACT_REGISTRY,
+    ),
+    [STEP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.ARTIFACT_REGISTRY),
+    [STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP]: createOrgStepStartState(
+      ServiceUsageName.ARTIFACT_REGISTRY,
+    ),
+    [STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.ARTIFACT_REGISTRY),
+    [STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_NPM_PACKAGE_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.ARTIFACT_REGISTRY),
+    [STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_PACKAGE_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.ARTIFACT_REGISTRY),
+    [STEP_ARTIFACT_REPOSITROY_PACKAGE_IS_NPM_PACKAGE_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.ARTIFACT_REGISTRY),
     [STEP_COMPUTE_SSL_POLICIES]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_CLOUD_KMS_KEY_RINGS]: createStepStartState(ServiceUsageName.KMS),
     [STEP_CLOUD_KMS_KEYS]: createStepStartState(ServiceUsageName.KMS),
@@ -1037,6 +1105,9 @@ async function getStepStartStatesUsingServiceEnablements(params: {
       (s) => s.id,
     ),
     [ServiceUsageName.BEYONDCORP]: beyondcorpSteps.map((s) => s.id),
+    [ServiceUsageName.ARTIFACT_REGISTRY]: artifactRegistrySteps.map(
+      (s) => s.id,
+    ),
   };
 
   for (const serviceName of Object.keys(apiServiceToStepIdsMap)) {

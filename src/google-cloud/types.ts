@@ -40,4 +40,5 @@ export enum ServiceUsageName {
   WEB_SECURITY_SCANNER = 'websecurityscanner.googleapis.com',
   ORG_POLICY = 'orgpolicy.googleapis.com',
   BEYONDCORP = 'beyondcorp.googleapis.com',
+  ARTIFACT_REGISTRY = 'artifactregistry.googleapis.com',
 }
