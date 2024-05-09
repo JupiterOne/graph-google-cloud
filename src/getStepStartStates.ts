@@ -211,7 +211,6 @@ import {
   STEP_BEYONDCORP_APP_CONNECTOR,
   STEP_BEYONDCORP_ENTERPRISE,
   STEP_BEYONDCORP_GATEWAY,
-  STEP_BEYONDCORP_PARTNER_TENANT,
   STEP_PROJECT_HAS_BEYONDCORP_ENTERPRISE_RELATIONSHIP,
   STEP_PROJECT_USES_APP_CONNECTION_RELATIONSHIP,
   STEP_PROJECT_USES_APP_CONNECTOR_RELATIONSHIP,
@@ -522,9 +521,6 @@ function getDefaultStepStartStates(params: {
     [STEP_BEYONDCORP_GATEWAY]: {
       disabled: false,
     },
-    [STEP_BEYONDCORP_PARTNER_TENANT]: {
-      disabled: false,
-    },
     [STEP_BEYONDCORP_ENTERPRISE]: {
       disabled: false,
     },
@@ -547,7 +543,7 @@ function getDefaultStepStartStates(params: {
       disabled: false,
     },
     [STEP_PROJECT_HAS_BEYONDCORP_ENTERPRISE_RELATIONSHIP]: {
-        disabled: false,
+      disabled: false,
     },
     [STEP_ARTIFACT_REGISTRY_REPOSITORY]: {
       disabled: false,
@@ -837,9 +833,6 @@ async function getStepStartStatesUsingServiceEnablements(params: {
       ServiceUsageName.BEYONDCORP,
     ),
     [STEP_BEYONDCORP_GATEWAY]: createOrgStepStartState(
-      ServiceUsageName.BEYONDCORP,
-    ),
-    [STEP_BEYONDCORP_PARTNER_TENANT]: createOrgStepStartState(
       ServiceUsageName.BEYONDCORP,
     ),
     [STEP_BEYONDCORP_ENTERPRISE]: createOrgStepStartState(
