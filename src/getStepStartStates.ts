@@ -70,6 +70,23 @@ import {
   STEP_CLOUD_RUN_ROUTES,
   STEP_CLOUD_RUN_SERVICES,
 } from './steps/cloud-run/constants';
+import {
+  STEP_CLOUD_SQL,
+  STEP_CLOUD_SQL_BACKUP,
+  STEP_CLOUD_SQL_CONNECTION,
+  STEP_CLOUD_SQL_DATABASE,
+  STEP_CLOUD_SQL_HAS_CLOUD_SQL_DATABASE,
+  STEP_CLOUD_SQL_HAS_CLOUD_SQL_INSTANCES,
+  STEP_CLOUD_SQL_INSTANCES,
+  STEP_CLOUD_SQL_INSTANCES_ASSIGNED_GOOGLE_USER,
+  STEP_CLOUD_SQL_INSTANCES_HAS_CLOUD_SQL_BACKUP,
+  STEP_CLOUD_SQL_INSTANCES_HAS_CLOUD_SQL_CONNECTION,
+  STEP_CLOUD_SQL_INSTANCES_USES_CLOUD_SQL_DATABASE,
+  STEP_CLOUD_SQL_INSTANCES_USES_CLOUD_SQL_SSL_CERTIFICATION,
+  STEP_CLOUD_SQL_SSL_CERTIFICATION,
+  STEP_CLOUD_SQL_SSL_CERTIFICATION_HAS_CLOUD_SQL_BACKUP,
+  STEP_CLOUD_USER, STEP_GOOGLE_CLOUD_PROJECT_HAS_CLOUD_SQL
+} from './steps/cloud-sql/constants'
 import { cloudSourceRepositoriesSteps } from './steps/cloud-source-repositories';
 import { CloudSourceRepositoriesStepsSpec } from './steps/cloud-source-repositories/constants';
 import {
@@ -243,9 +260,8 @@ export default async function getStepStartStates(
 
   logger.publishEvent({
     name: 'integration_config',
-    description: `Starting Google Cloud integration with service account (email=${
-      config.serviceAccountKeyConfig.client_email
-    }, configureOrganizationProjects=${!!config.configureOrganizationProjects})`,
+    description: `Starting Google Cloud integration with service account (email=${config.serviceAccountKeyConfig.client_email
+      }, configureOrganizationProjects=${!!config.configureOrganizationProjects})`,
   });
 
   const masterOrgInstance = isMasterOrganizationInstance(config);
@@ -333,6 +349,22 @@ function getDefaultStepStartStates(params: {
     [STEP_AUDIT_CONFIG_IAM_POLICY]: {
       disabled: !!config.configureOrganizationProjects,
     },
+    [STEP_CLOUD_SQL]: { disabled: false },
+    [STEP_CLOUD_SQL_BACKUP]: { disabled: false },
+    [STEP_CLOUD_SQL_CONNECTION]: { disabled: false },
+    [STEP_CLOUD_SQL_DATABASE]: { disabled: false },
+    [STEP_CLOUD_SQL_HAS_CLOUD_SQL_DATABASE]: { disabled: false },
+    [STEP_CLOUD_SQL_HAS_CLOUD_SQL_INSTANCES]: { disabled: false },
+    [STEP_CLOUD_SQL_INSTANCES]: { disabled: false },
+    [STEP_CLOUD_SQL_INSTANCES_ASSIGNED_GOOGLE_USER]: { disabled: false },
+    [STEP_CLOUD_SQL_INSTANCES_HAS_CLOUD_SQL_BACKUP]: { disabled: false },
+    [STEP_CLOUD_SQL_INSTANCES_HAS_CLOUD_SQL_CONNECTION]: { disabled: false },
+    [STEP_CLOUD_SQL_INSTANCES_USES_CLOUD_SQL_DATABASE]: { disabled: false },
+    [STEP_CLOUD_SQL_INSTANCES_USES_CLOUD_SQL_SSL_CERTIFICATION]: { disabled: false },
+    [STEP_CLOUD_SQL_SSL_CERTIFICATION]: { disabled: false },
+    // [STEP_CLOUD_SQL_SSL_CERTIFICATION_HAS_CLOUD_SQL_BACKUP]: { disabled: false },
+    [STEP_CLOUD_USER]: { disabled: false },
+    [STEP_GOOGLE_CLOUD_PROJECT_HAS_CLOUD_SQL]: { disabled: false },
     [STEP_COMPUTE_DISKS]: { disabled: false },
     [STEP_COMPUTE_REGION_DISKS]: { disabled: false },
     [STEP_COMPUTE_IMAGES]: { disabled: false },
@@ -648,6 +680,22 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [STEP_AUDIT_CONFIG_IAM_POLICY]: config.configureOrganizationProjects
       ? { disabled: true }
       : createStepStartState(ServiceUsageName.RESOURCE_MANAGER),
+    [STEP_CLOUD_SQL]: createStepStartState(ServiceUsageName.COMPUTE),
+    [STEP_CLOUD_SQL_BACKUP]: createStepStartState(ServiceUsageName.CLOUD_SQL),
+    [STEP_CLOUD_SQL_CONNECTION]: createStepStartState(ServiceUsageName.CLOUD_SQL),
+    [STEP_CLOUD_SQL_DATABASE]: createStepStartState(ServiceUsageName.CLOUD_SQL),
+    [STEP_CLOUD_SQL_HAS_CLOUD_SQL_DATABASE]: createStepStartState(ServiceUsageName.CLOUD_SQL),
+    [STEP_CLOUD_SQL_HAS_CLOUD_SQL_INSTANCES]: createStepStartState(ServiceUsageName.CLOUD_SQL),
+    [STEP_CLOUD_SQL_INSTANCES]: createStepStartState(ServiceUsageName.CLOUD_SQL),
+    [STEP_CLOUD_SQL_INSTANCES_ASSIGNED_GOOGLE_USER]: createStepStartState(ServiceUsageName.CLOUD_SQL),
+    [STEP_CLOUD_SQL_INSTANCES_HAS_CLOUD_SQL_BACKUP]: createStepStartState(ServiceUsageName.CLOUD_SQL),
+    [STEP_CLOUD_SQL_INSTANCES_HAS_CLOUD_SQL_CONNECTION]: createStepStartState(ServiceUsageName.CLOUD_SQL),
+    [STEP_CLOUD_SQL_INSTANCES_USES_CLOUD_SQL_DATABASE]: createStepStartState(ServiceUsageName.CLOUD_SQL),
+    [STEP_CLOUD_SQL_INSTANCES_USES_CLOUD_SQL_SSL_CERTIFICATION]: createStepStartState(ServiceUsageName.CLOUD_SQL),
+    [STEP_CLOUD_SQL_SSL_CERTIFICATION]: createStepStartState(ServiceUsageName.CLOUD_SQL),
+    // [STEP_CLOUD_SQL_SSL_CERTIFICATION_HAS_CLOUD_SQL_BACKUP]: createStepStartState(ServiceUsageName.CLOUD_SQL),
+    [STEP_CLOUD_USER]: createStepStartState(ServiceUsageName.IAM),
+    [STEP_GOOGLE_CLOUD_PROJECT_HAS_CLOUD_SQL]: createStepStartState(ServiceUsageName.CLOUD_SQL),
     [STEP_COMPUTE_DISKS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_REGION_DISKS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_IMAGES]: createStepStartState(ServiceUsageName.COMPUTE),
@@ -885,16 +933,16 @@ async function getStepStartStatesUsingServiceEnablements(params: {
       .id]: createStepStartState(ServiceUsageName.CLOUD_BUILD),
     [CloudBuildStepsSpec.BUILD_CLOUD_BUILD_USES_STORAGE_BUCKET_RELATIONSHIPS
       .id]: createStepStartState(
-      ServiceUsageName.CLOUD_BUILD,
-      ServiceUsageName.STORAGE,
-    ),
+        ServiceUsageName.CLOUD_BUILD,
+        ServiceUsageName.STORAGE,
+      ),
     [CloudSourceRepositoriesStepsSpec.FETCH_REPOSITORIES.id]:
       createStepStartState(ServiceUsageName.CLOUD_SOURCE_REPOSITORIES),
     [CloudBuildStepsSpec.BUILD_CLOUD_BUILD_USES_SOURCE_REPOSITORY_RELATIONSHIPS
       .id]: createStepStartState(
-      ServiceUsageName.CLOUD_BUILD,
-      ServiceUsageName.CLOUD_SOURCE_REPOSITORIES,
-    ),
+        ServiceUsageName.CLOUD_BUILD,
+        ServiceUsageName.CLOUD_SOURCE_REPOSITORIES,
+      ),
     [CloudBuildStepsSpec
       .BUILD_CLOUD_BUILD_TRIGGER_USES_GITHUB_REPO_RELATIONSHIPS.id]:
       createStepStartState(ServiceUsageName.CLOUD_BUILD),
