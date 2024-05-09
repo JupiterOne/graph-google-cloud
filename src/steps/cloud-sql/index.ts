@@ -470,7 +470,7 @@ export async function buildSqlHasSqldatabaseRelationship(
       }
       await jobState.addRelationship(
         createDirectRelationship({
-          _class: RelationshipClass.ASSIGNED,
+          _class: RelationshipClass.HAS,
           fromKey: sqlEntityKey as string,
           fromType: ENTITY_TYPE_CLOUD_SQL,
           toKey: sqlDatabseEntity._key as string,
@@ -690,7 +690,7 @@ export const cloudSqlSteps: GoogleCloudIntegrationStep[] = [
     entities: [],
     relationships: [
       {
-        _class: RelationshipClass.HAS,
+        _class: RelationshipClass.USES,
         _type: RELATIONSHIP_TYPE_CLOUD_SQL_INSTANCES_USES_CLOUD_SQL_SSL_CERTIFICATION,
         sourceType: ENTITY_TYPE_CLOUD_SQL_INSTANCES,
         targetType: ENTITY_TYPE_CLOUD_SQL_SSL_CERTIFICATION,
