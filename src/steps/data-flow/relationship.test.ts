@@ -3,7 +3,7 @@ import {
     Recording,
     StepTestConfig,
   } from '@jupiterone/integration-sdk-testing';
-  import { invocationConfig } from '../../..';
+  import { invocationConfig } from '../..';
   import { integrationConfig } from '../../../test/config';
   import {
     getMatchRequestsBy,

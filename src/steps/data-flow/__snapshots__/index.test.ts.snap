@@ -1,0 +1,155 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchGoogleCloudDataFlowDataStore should collect data 1`] = `
+{
+  "collectedEntities": [],
+  "collectedRelationships": [],
+  "encounteredTypes": [],
+  "numCollectedEntities": 0,
+  "numCollectedRelationships": 0,
+}
+`;
+
+exports[`#fetchGoogleCloudDataFlowJob should collect data 1`] = `
+{
+  "collectedEntities": [
+    {
+      "_class": [
+        "Workflow",
+      ],
+      "_key": "2024-05-02_05_25_02-17305733872805367843",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "createTime": "2024-05-02T12:25:06.098727Z",
+            "currentState": "JOB_STATE_FAILED",
+            "currentStateTime": "2024-05-02T13:28:54.170517Z",
+            "id": "2024-05-02_05_25_02-17305733872805367843",
+            "jobMetadata": {
+              "sdkVersion": {
+                "sdkSupportStatus": "SUPPORTED",
+                "version": "2.55.1",
+                "versionDisplayName": "Apache Beam SDK for Java",
+              },
+            },
+            "location": "us-central1",
+            "name": "test-job3",
+            "projectId": "j1-gc-integration-dev-v3",
+            "startTime": "2024-05-02T12:25:06.098727Z",
+            "type": "JOB_TYPE_BATCH",
+          },
+        },
+      ],
+      "_type": "google_cloud_dataflow_job",
+      "createdOn": undefined,
+      "description": undefined,
+      "displayName": "test-job3",
+      "id": "2024-05-02_05_25_02-17305733872805367843",
+      "name": "test-job3",
+    },
+    {
+      "_class": [
+        "Workflow",
+      ],
+      "_key": "2024-04-29_06_54_21-11420805499054724452",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "createTime": "2024-04-29T13:54:22.225266Z",
+            "currentState": "JOB_STATE_FAILED",
+            "currentStateTime": "2024-04-29T14:01:46.604199Z",
+            "id": "2024-04-29_06_54_21-11420805499054724452",
+            "location": "us-central1",
+            "name": "test-metron-job2",
+            "projectId": "j1-gc-integration-dev-v3",
+            "startTime": "2024-04-29T13:54:22.225266Z",
+          },
+        },
+      ],
+      "_type": "google_cloud_dataflow_job",
+      "createdOn": undefined,
+      "description": undefined,
+      "displayName": "test-metron-job2",
+      "id": "2024-04-29_06_54_21-11420805499054724452",
+      "name": "test-metron-job2",
+    },
+    {
+      "_class": [
+        "Workflow",
+      ],
+      "_key": "2024-04-29_06_40_47-701576625030004708",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "createTime": "2024-04-29T13:40:48.311738Z",
+            "currentState": "JOB_STATE_FAILED",
+            "currentStateTime": "2024-04-29T13:46:31.741443Z",
+            "id": "2024-04-29_06_40_47-701576625030004708",
+            "location": "us-central1",
+            "name": "test-metron-job1",
+            "projectId": "j1-gc-integration-dev-v3",
+            "startTime": "2024-04-29T13:40:48.311738Z",
+          },
+        },
+      ],
+      "_type": "google_cloud_dataflow_job",
+      "createdOn": undefined,
+      "description": undefined,
+      "displayName": "test-metron-job1",
+      "id": "2024-04-29_06_40_47-701576625030004708",
+      "name": "test-metron-job1",
+    },
+  ],
+  "collectedRelationships": [],
+  "encounteredTypes": [
+    "google_cloud_dataflow_job",
+  ],
+  "numCollectedEntities": 3,
+  "numCollectedRelationships": 0,
+}
+`;
+
+exports[`#fetchGoogleCloudDataFlowService should collect data 1`] = `
+{
+  "collectedEntities": [
+    {
+      "_class": [
+        "Service",
+      ],
+      "_key": "google_cloud_dataflow:j1-gc-integration-dev-v3",
+      "_rawData": [],
+      "_type": "google_cloud_dataflow",
+      "category": [
+        "network",
+        "security",
+      ],
+      "createdOn": undefined,
+      "displayName": "Google Cloud Data Flow",
+      "function": [
+        "workflow",
+        "networking",
+      ],
+      "name": "Google Cloud Data Flow",
+    },
+  ],
+  "collectedRelationships": [],
+  "encounteredTypes": [
+    "google_cloud_dataflow",
+  ],
+  "numCollectedEntities": 1,
+  "numCollectedRelationships": 0,
+}
+`;
+
+exports[`#fetchGoogleCloudDataFlowSnapshot should collect data 1`] = `
+{
+  "collectedEntities": [],
+  "collectedRelationships": [],
+  "encounteredTypes": [],
+  "numCollectedEntities": 0,
+  "numCollectedRelationships": 0,
+}
+`;

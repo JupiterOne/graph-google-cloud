@@ -30,6 +30,8 @@ import {
   STEP_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT,
   GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_TYPE,
   GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_CLASS,
+  STEP_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_USES_GOOGLE_PUBSUB_TOPIC,
+  RELATIONSHIP_TYPE_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_USES_GOOGLE_PUBSUB_TOPIC,
 } from './constants';
 import {
   createGoogleCloudDataFlowEntity,
@@ -40,6 +42,7 @@ import {
 import { PROJECT_ENTITY_TYPE, STEP_RESOURCE_MANAGER_PROJECT } from '../resource-manager';
 import { getProjectEntity } from '../../utils/project';
 import { dataflow_v1b3 } from 'googleapis';
+import { ENTITY_TYPE_PUBSUB_TOPIC } from '../pub-sub/constants';
 
 export async function fetchGoogleCloudDataFlowDataStore(
   context: IntegrationStepContext,
@@ -374,5 +377,22 @@ export const dataFlowSteps: GoogleCloudIntegrationStep[] = [
     executionHandler: fetchGoogleCloudDataFlowSnapshot,
     apis: ['dataflow.googleapis.com'],
   },
+  // {
+  //   id: STEP_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_USES_GOOGLE_PUBSUB_TOPIC,
+  //   ingestionSourceId: IngestionSources.GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_USES_GOOGLE_PUBSUB_TOPIC,
+  //   name: 'Google Cloud Dataflow Snapshot uses Google pubsub',
+  //   entities: [],
+  //   relationships: [
+  //     {
+  //       _class: RelationshipClass.HAS,
+  //       _type: RELATIONSHIP_TYPE_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_USES_GOOGLE_PUBSUB_TOPIC,
+  //       sourceType: GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_TYPE,
+  //       targetType: ENTITY_TYPE_PUBSUB_TOPIC,
+  //     },
+  //   ],
+  //   dependsOn: [STEP_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT],
+  //   executionHandler: buildCloudDataflow,
+  //   apis: ['dataflow.googleapis.com'],
+  // },
 ];
 
