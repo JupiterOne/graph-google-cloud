@@ -128,7 +128,8 @@ export function createCloudSqlDatabaseEntity(data: sqladmin_v1.Schema$Database) 
         _class: ENTITY_CLASS_CLOUD_SQL_DATABASE,
         _type: ENTITY_TYPE_CLOUD_SQL_DATABASE,
         _key: data.etag as string,
-        name: data.kind,
+        name: data.name,
+        kind: data.kind,
         instanceName: data.instance,
         url: data.selfLink,
         projectId: data.project
