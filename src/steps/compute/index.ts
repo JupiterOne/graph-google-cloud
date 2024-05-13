@@ -35,6 +35,11 @@ import { buildImageUsesKmsRelationshipsStepMap } from './steps/build-image-uses-
 import { fetchComputeForwardingRulesStepMap } from './steps/fetch-compute-forwarding-rules';
 import { buildDiskUsesKmsRelationshipsStepMap } from './steps/build-disk-uses-kms-relationships';
 import { fetchComputeGlobalForwardingRulesStepMap } from './steps/fetch-compute-global-forwarding-rules';
+import { fetchComputeEngineAutoScalersMap } from './steps/fetch-compute-engine-autoscalers';
+import { fetchComputeEngineRegionAutoScalersMap } from './steps/fetch-compute-engine-region-autoscalers';
+import { fetchAutoScalersPolicyMap } from './steps/fetch-autoscaler-policy';
+import { fetchAutoScalersRegionPolicyMap } from './steps/fetch-region-autoscaler-policy';
+import { buildProjectComputeEngineAutoscalersRelationshipMap } from './steps/build-project-compute-engine-autoscalers-relationships';
 
 export * from './constants';
 
@@ -68,6 +73,10 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   fetchComputeSslPoliciesStepMap,
   fetchComputeForwardingRulesStepMap,
   fetchComputeGlobalForwardingRulesStepMap,
+  fetchComputeEngineAutoScalersMap,
+  fetchComputeEngineRegionAutoScalersMap,
+  fetchAutoScalersPolicyMap,
+  fetchAutoScalersRegionPolicyMap,
   // Build steps
   buildComputeNetworkPeeringRelationshipsStepMap,
   buildComputeSnapshotDiskRelationshipsStepMap,
@@ -78,4 +87,5 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   buildComputeBackendBucketHasBucketRelationshipsStepMap,
   buildImageUsesKmsRelationshipsStepMap,
   buildDiskUsesKmsRelationshipsStepMap,
+  // buildProjectComputeEngineAutoscalersRelationshipMap
 ];
