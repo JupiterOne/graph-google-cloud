@@ -75,7 +75,7 @@ export async function fetchGoogleCloudDataFlowJob(
   const client = new dataFlowClient({ config }, logger);
 
   await client.iterateGoogleCloudDataFlowJob(async (dataflow) => {
-    await jobState.addEntity(createGoogleCloudDataFlowJobEntity(dataflow, client.projectId));
+    await jobState.addEntity(createGoogleCloudDataFlowJobEntity(dataflow));
   });
 }
 
@@ -113,7 +113,7 @@ export async function fetchGoogleCloudDataFlowSnapshot(
         }
       }
     },
-  ); 
+  );
 }
 
 

@@ -24,7 +24,6 @@ export function createGoogleCloudDataFlowEntity(serviceObj) {
 
 export function createGoogleCloudDataFlowJobEntity(
   data: dataflow_v1b3.Schema$Job,
-  projectId: string,
 ) {
   return createGoogleCloudIntegrationEntity(data, {
     entityData: {
@@ -37,6 +36,23 @@ export function createGoogleCloudDataFlowJobEntity(
         name: data.name,
         displayName: data.name as string,
         description: data.environment as string,
+        projectId: data.projectId,
+        type: data.type,
+        stepLocation: data.stepsLocation,
+        currentState: data.currentState,
+        currentStateTime: data.currentStateTime,
+        requestedState: data.requestedState,
+        createTime: data.createTime,
+        replaceJobId: data.replaceJobId,
+        clientRequestId: data.clientRequestId,
+        location: data.location,
+        version: data.jobMetadata?.sdkVersion?.version,
+        startTime: data.startTime,
+        createFromSnapshotId: data.createdFromSnapshotId,
+        satisfiesPzs: data.satisfiesPzs,
+        satisfiesPzi: data.satisfiesPzi,
+        maxNumWorkers: data.runtimeUpdatableParams?.maxNumWorkers,
+        minNumWorkers: data.runtimeUpdatableParams?.minNumWorkers
       },
     },
   });
@@ -75,7 +91,14 @@ export function createGoogleCloudDataFlowSnapshotEntity(
         name: data.diskSizeBytes,
         classification: data.diskSizeBytes,
         encrypted: false,
-        jobId: jobId
+        sourceJobId: data.sourceJobId,
+        jobId: jobId,
+        creationTime: data.creationTime,
+        ttl: data.ttl,
+        state: data.state,
+        description: data.description,
+        region: data.region,
+        diskSizeBytes: data.diskSizeBytes,
       },
     },
   });
