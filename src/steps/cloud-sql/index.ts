@@ -561,10 +561,10 @@ export const cloudSqlSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_CLOUD_SQL_SSL_CERTIFICATION,
     ingestionSourceId: IngestionSources.CLOUD_SQL_SSL_CERTIFICATION,
-    name: 'Cloud SQL Instances',
+    name: 'Cloud SQL SSL Certification',
     entities: [
       {
-        resourceName: 'Cloud SQL Instances',
+        resourceName: 'Cloud SQL SSL Certification',
         _type: ENTITY_TYPE_CLOUD_SQL_SSL_CERTIFICATION,
         _class: ENTITY_CLASS_CLOUD_SQL_SSL_CERTIFICATION,
       },
