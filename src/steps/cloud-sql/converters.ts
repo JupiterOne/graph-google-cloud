@@ -46,7 +46,7 @@ export function createCloudSqlInstancesEntity(data) {
       assign: {
         _class: ENTITY_CLASS_CLOUD_SQL_INSTANCES,
         _type: ENTITY_TYPE_CLOUD_SQL_INSTANCES,
-        _key: data.name as string,
+        _key: data.etag as string,
         name: data.name,
         etag: data.etag,
         connectionName: data.connectionName,
@@ -69,7 +69,12 @@ export function createCloudSslCertificationEntity(data: sqladmin_v1.Schema$SslCe
         name: data.commonName,
         instanceName: data.instance,
         url: data.selfLink,
-        cert: data.cert
+        cert: data.cert,
+        kind: data.kind,
+        certSerialNumber: data.certSerialNumber,
+        sha1FingerPrint: data.sha1Fingerprint,
+        expirationTime: data.expirationTime,
+        createTime: data.createTime,
       },
     },
   });
@@ -87,7 +92,13 @@ export function createCloudSqlBackupEntity(data: sqladmin_v1.Schema$BackupRun) {
         instanceName: data.instance,
         url: data.selfLink,
         status: data.status,
-        type: data.type
+        type: data.type,
+        description: data.description,
+        backupKind: data.backupKind,
+        location: data.location,
+        enqueuedTime: data.enqueuedTime,
+        startTime: data.startTime,
+        endTime: data.endTime
       },
     },
   });
@@ -114,7 +125,9 @@ export function createCloudSqlConnectionEntity(data: sqladmin_v1.Schema$ConnectS
         kind: data.kind,
         CIDR: extractIPAddresses(data.ipAddresses),
         public: true,
-        internal: false
+        internal: false,
+        pscEnabled: data.pscEnabled,
+        dnsName: data.dnsName
       },
     },
   });
@@ -132,7 +145,8 @@ export function createCloudSqlDatabaseEntity(data: sqladmin_v1.Schema$Database) 
         kind: data.kind,
         instanceName: data.instance,
         url: data.selfLink,
-        projectId: data.project
+        projectId: data.project,
+        charset: data.charset
       },
     },
   });

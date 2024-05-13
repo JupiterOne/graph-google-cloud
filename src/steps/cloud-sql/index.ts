@@ -314,7 +314,7 @@ export async function buildSqlInstanceHasSqlBackupRelationship(
       }
       await jobState.addRelationship(
         createDirectRelationship({
-          _class: RelationshipClass.USES,
+          _class: RelationshipClass.HAS,
           fromKey: sqlInstanceEntityKey as string,
           fromType: ENTITY_TYPE_CLOUD_SQL_INSTANCES,
           toKey: cloudSqlBackupEntity._key as string,

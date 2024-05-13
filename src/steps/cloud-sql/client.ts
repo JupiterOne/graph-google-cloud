@@ -11,7 +11,7 @@ import {
 } from './constants';
 
 export class CloudSqlClient extends Client {
-  private client = google.sqladmin({ version: 'v1beta4' }); // Initialize as SQL Admin client
+  private client = google.sqladmin({ version: 'v1' }); // Initialize as SQL Admin client
 
   async iterateCloudSqlInstances(
     callback: (data: sqladmin_v1.Schema$InstancesListResponse) => Promise<void>,
