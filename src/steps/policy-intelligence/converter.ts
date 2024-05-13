@@ -19,8 +19,9 @@ export function createPolicyIntelligenceAnalyzerActivityEntity(data: policyanaly
                 summary: 'policy activities on Google Cloud resources',
                 category: data.activityType as string,
                 internal: true,
-                serviceAccountId: data.activity?.serviceAccount.serviceAccountId 
-                
+                serviceAccountId: data.activity?.serviceAccount.serviceAccountId,
+                endTime: data.observationPeriod?.endTime,
+                startTime: data.observationPeriod?.startTime
             },
         },
     });
@@ -40,6 +41,9 @@ export function createPolicyIntelligenceAnalyzerEntity(
                 name: data.name,
                 category: ['network'],
                 function: ['monitoring', 'networking'],
+                projectId: projectId,
+                activityType: data.activityType,
+                observationPeriod: data.observationPeriod
             },
         },
     });
