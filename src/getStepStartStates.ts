@@ -345,7 +345,7 @@ function getDefaultStepStartStates(params: {
     [STEP_AUTOSCALER_REGION_POLICY]: { disabled: false },
     [STEP_AUTOSCALER_POLICY]: { disabled: false },
     [STEP_COMPUTE_ENGINE_REGION_AUTOSCALERS]: { disabled: false },
-    [STEP_PROJECT_COMPUTE_ENGINE_AUTOSCALERS_RELATIONSHIPS]: { disabled: false },
+    // [STEP_PROJECT_COMPUTE_ENGINE_AUTOSCALERS_RELATIONSHIPS]: { disabled: false },
     [STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS]: { disabled: false },
     [STEP_COMPUTE_DISK_KMS_RELATIONSHIPS]: { disabled: false },
     [STEP_COMPUTE_SNAPSHOTS]: { disabled: false },
@@ -672,9 +672,9 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [STEP_COMPUTE_ENGINE_REGION_AUTOSCALERS]: createStepStartState(
       ServiceUsageName.COMPUTE,
     ),
-    [STEP_PROJECT_COMPUTE_ENGINE_AUTOSCALERS_RELATIONSHIPS]: createStepStartState(
-      ServiceUsageName.COMPUTE,
-    ),
+    // [STEP_PROJECT_COMPUTE_ENGINE_AUTOSCALERS_RELATIONSHIPS]: createStepStartState(
+    //   ServiceUsageName.COMPUTE,
+    // ),
     [STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS]: createStepStartState(
       ServiceUsageName.COMPUTE,
     ),
