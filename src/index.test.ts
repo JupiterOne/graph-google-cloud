@@ -134,6 +134,13 @@ import {
   STEP_MEMCACHE_INSTANCES,
 } from './steps/memcache/constants';
 import { STEP_MONITORING_ALERT_POLICIES } from './steps/monitoring/constants';
+import {
+  STEP_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY,
+  STEP_GOOGLE_CLOUD_PROJECT_HAS_POLICY_INTELLIGENCE_ANALYZER,
+  STEP_GOOGLE_CLOUD_PROJECT_HAS_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY,
+  STEP_POLICY_INTELLIGENCE_ANALYZER,
+  STEP_POLICY_INTELLIGENCE_ANALYZER_HAS_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY
+} from './steps/policy-intelligence/constants'
 import { PrivatecaSteps } from './steps/privateca/constants';
 import {
   STEP_CREATE_PUBSUB_TOPIC_KMS_RELATIONSHIPS,
@@ -550,6 +557,21 @@ describe('#getStepStartStates success', () => {
         [STEP_BUILD_ADDITIONAL_PROJECT_BUDGET]: {
           disabled: false,
         },
+        [STEP_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY]: {
+          disabled: false,
+        },
+        [STEP_POLICY_INTELLIGENCE_ANALYZER]: {
+          disabled: false,
+        },
+        [STEP_GOOGLE_CLOUD_PROJECT_HAS_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY]: {
+          disabled: false,
+        },
+        [STEP_POLICY_INTELLIGENCE_ANALYZER_HAS_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY]: {
+          disabled: false,
+        },
+        [STEP_GOOGLE_CLOUD_PROJECT_HAS_POLICY_INTELLIGENCE_ANALYZER]: {
+          disabled: false,
+        },
         [SecretManagerSteps.FETCH_SECRETS.id]: {
           disabled: false,
         },
@@ -800,7 +822,7 @@ describe('#beforeAddEntity', () => {
 
     expect(
       invocationConfig.beforeAddEntity &&
-        invocationConfig.beforeAddEntity(context, mockEntity),
+      invocationConfig.beforeAddEntity(context, mockEntity),
     ).toEqual({
       ...mockEntity,
       projectId:
@@ -823,7 +845,7 @@ describe('#beforeAddEntity', () => {
 
     expect(
       invocationConfig.beforeAddEntity &&
-        invocationConfig.beforeAddEntity(context, mockEntity),
+      invocationConfig.beforeAddEntity(context, mockEntity),
     ).toEqual({
       ...mockEntity,
       projectId: 'my-project-id',
