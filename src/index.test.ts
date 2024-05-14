@@ -169,6 +169,19 @@ import {
 } from './steps/functions';
 import { StorageStepsSpec } from './steps/storage/constants';
 import { WebSecurityScannerSteps } from './steps/web-security-scanner/constants';
+import {
+  STEP_CLOUD_IDENTITY_DEVICES,
+  STEP_CLOUD_IDENTITY_DEVICES_USER_ASSIGNED_GROUP,
+  STEP_CLOUD_IDENTITY_DEVICES_USER_USES_DEVICE,
+  STEP_CLOUD_IDENTITY_DEVICE_USERS,
+  STEP_CLOUD_IDENTITY_GROUPS,
+  STEP_CLOUD_IDENTITY_GROUP_ASSIGNED_MEMBERSHIP_ROLE_RELATIONSHIP,
+  STEP_CLOUD_IDENTITY_MEMBERSHIP_ROLES,
+  STEP_CLOUD_IDENTITY_SSO_PROFILE,
+  STEP_CLOUD_IDENTITY_SSO_PROFILE_ASSIGNED_GROUP_RELATIONSHIP,
+  STEP_CLOUD_IDENTITY_SSO_SAML_PROVIDER,
+  STEP_DEVICE_USER_IS_GOOGLE_USER,
+} from './steps/cloud-identity/constants';
 
 describe('#getStepStartStates success', () => {
   let recording: Recording;
@@ -597,6 +610,21 @@ describe('#getStepStartStates success', () => {
           disabled: false,
         },
         [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_IDENTITY_DEVICES]: { disabled: false },
+        [STEP_CLOUD_IDENTITY_DEVICE_USERS]: { disabled: false },
+        [STEP_CLOUD_IDENTITY_GROUPS]: { disabled: false },
+        [STEP_CLOUD_IDENTITY_MEMBERSHIP_ROLES]: { disabled: false },
+        [STEP_CLOUD_IDENTITY_SSO_PROFILE]: { disabled: false },
+        [STEP_CLOUD_IDENTITY_SSO_SAML_PROVIDER]: { disabled: false },
+        [STEP_CLOUD_IDENTITY_DEVICES_USER_ASSIGNED_GROUP]: { disabled: false },
+        [STEP_DEVICE_USER_IS_GOOGLE_USER]: { disabled: false },
+        [STEP_CLOUD_IDENTITY_DEVICES_USER_USES_DEVICE]: { disabled: false },
+        [STEP_CLOUD_IDENTITY_GROUP_ASSIGNED_MEMBERSHIP_ROLE_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_IDENTITY_SSO_PROFILE_ASSIGNED_GROUP_RELATIONSHIP]: {
           disabled: false,
         },
       };

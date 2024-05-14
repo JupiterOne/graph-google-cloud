@@ -66,6 +66,7 @@ all of the supported data into JupiterOne:
 | [cloudbilling](https://console.developers.google.com/apis/library/cloudbilling.googleapis.com)                 | cloudbilling.googleapis.com         |
 | [cloudbuild](https://console.developers.google.com/apis/library/cloudbuild.googleapis.com)                     | cloudbuild.googleapis.com           |
 | [cloudfunctions](https://console.developers.google.com/apis/library/cloudfunctions.googleapis.com)             | cloudfunctions.googleapis.com       |
+| [cloudidentity](https://console.developers.google.com/apis/library/cloudidentity.googleapis.com)               | cloudidentity.googleapis.com        |
 | [cloudkms](https://console.developers.google.com/apis/library/cloudkms.googleapis.com)                         | cloudkms.googleapis.com             |
 | [cloudsql](https://console.developers.google.com/apis/library/cloudsql.googleapis.com)                         | cloudsql.googleapis.com             |
 | [compute](https://console.developers.google.com/apis/library/compute.googleapis.com)                           | compute.googleapis.com              |
@@ -127,6 +128,7 @@ gcloud services enable \
  cloudbilling.googleapis.com \
  cloudbuild.googleapis.com \
  cloudfunctions.googleapis.com \
+ cloudidentity.googleapis.com \
  cloudkms.googleapis.com \
  cloudsql.googleapis.com \
  compute.googleapis.com \
@@ -377,6 +379,12 @@ The following entities are created:
 | Cloud Build Trigger                                      | `google_cloud_build_trigger`                                      | `Rule`                             |
 | Cloud Build Worker Pool                                  | `google_cloud_build_worker_pool`                                  | `Cluster`                          |
 | Cloud Function                                           | `google_cloud_function`                                           | `Function`                         |
+| Cloud Identity Device Users                              | `google_cloud_identity_user`                                      | `User`                             |
+| Cloud Identity Devices                                   | `google_cloud_identity_device`                                    | `Device`                           |
+| Cloud Identity Groups                                    | `google_cloud_identity_group`                                     | `UserGroup`                        |
+| Cloud Identity Membership Roles                          | `google_cloud_identity_member_role`                               | `AccessRole`                       |
+| Cloud Identity SSO Profile                               | `google_cloud_sso`                                                | `Configuration`                    |
+| Cloud Identity SSO Saml Provider                         | `google_cloud_identity_saml_provider`                             | `Service`                          |
 | Cloud Run Configuration                                  | `google_cloud_run_configuration`                                  | `Configuration`                    |
 | Cloud Run Route                                          | `google_cloud_run_route`                                          | `Configuration`                    |
 | Cloud Run Service                                        | `google_cloud_run_service`                                        | `Service`                          |
@@ -488,6 +496,10 @@ The following relationships are created:
 | `google_cloud_function`                                          | **USES**              | `google_cloud_source_repository`                                  |
 | `google_cloud_function`                                          | **USES**              | `google_iam_service_account`                                      |
 | `google_cloud_function`                                          | **USES**              | `google_storage_bucket`                                           |
+| `google_cloud_identity_group`                                    | **ASSIGNED**          | `google_cloud_identity_member_role`                               |
+| `google_cloud_identity_user`                                     | **USES**              | `google_cloud_identity_device`                                    |
+| `google_cloud_identity_user`                                     | **ASSIGNED**          | `google_cloud_identity_group`                                     |
+| `google_cloud_identity_user`                                     | **IS**                | `google_user`                                                     |
 | `google_cloud_organization`                                      | **HAS**               | `google_cloud_folder`                                             |
 | `google_cloud_organization`                                      | **HAS**               | `google_cloud_project`                                            |
 | `google_cloud_project`                                           | **HAS**               | `google_billing_budget`                                           |
@@ -496,6 +508,7 @@ The following relationships are created:
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_configuration`                                  |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_route`                                          |
 | `google_cloud_scan_config`                                       | **PERFORMED**         | `google_cloud_scan_run`                                           |
+| `google_cloud_sso`                                               | **ASSIGNED**          | `google_cloud_identity_group`                                     |
 | `google_compute_backend_bucket`                                  | **HAS**               | `google_storage_bucket`                                           |
 | `google_compute_backend_service`                                 | **HAS**               | `google_compute_health_check`                                     |
 | `google_compute_backend_service`                                 | **HAS**               | `google_compute_instance_group`                                   |

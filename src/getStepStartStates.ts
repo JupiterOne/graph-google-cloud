@@ -201,6 +201,20 @@ import { WebSecurityScannerSteps } from './steps/web-security-scanner/constants'
 import { IntegrationConfig } from './types';
 import { isMasterOrganizationInstance } from './utils/isMasterOrganizationInstance';
 import { isSingleProjectInstance } from './utils/isSingleProjectInstance';
+import {
+  STEP_CLOUD_IDENTITY_DEVICES,
+  STEP_CLOUD_IDENTITY_DEVICES_USER_ASSIGNED_GROUP,
+  STEP_CLOUD_IDENTITY_DEVICES_USER_USES_DEVICE,
+  STEP_CLOUD_IDENTITY_DEVICE_USERS,
+  STEP_CLOUD_IDENTITY_GROUPS,
+  STEP_CLOUD_IDENTITY_GROUP_ASSIGNED_MEMBERSHIP_ROLE_RELATIONSHIP,
+  STEP_CLOUD_IDENTITY_MEMBERSHIP_ROLES,
+  STEP_CLOUD_IDENTITY_SSO_PROFILE,
+  STEP_CLOUD_IDENTITY_SSO_PROFILE_ASSIGNED_GROUP_RELATIONSHIP,
+  STEP_CLOUD_IDENTITY_SSO_SAML_PROVIDER,
+  STEP_DEVICE_USER_IS_GOOGLE_USER,
+} from './steps/cloud-identity/constants';
+import { cloudIdentitySteps } from './steps/cloud-identity';
 
 function makeStepStartStates(
   stepIds: string[],
@@ -479,6 +493,21 @@ function getDefaultStepStartStates(params: {
       disabled: false,
     },
     [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: {
+      disabled: false,
+    },
+    [STEP_CLOUD_IDENTITY_DEVICES]: { disabled: false },
+    [STEP_CLOUD_IDENTITY_DEVICE_USERS]: { disabled: false },
+    [STEP_CLOUD_IDENTITY_GROUPS]: { disabled: false },
+    [STEP_CLOUD_IDENTITY_MEMBERSHIP_ROLES]: { disabled: false },
+    [STEP_CLOUD_IDENTITY_SSO_PROFILE]: { disabled: false },
+    [STEP_CLOUD_IDENTITY_SSO_SAML_PROVIDER]: { disabled: false },
+    [STEP_CLOUD_IDENTITY_DEVICES_USER_ASSIGNED_GROUP]: { disabled: false },
+    [STEP_DEVICE_USER_IS_GOOGLE_USER]: { disabled: false },
+    [STEP_CLOUD_IDENTITY_DEVICES_USER_USES_DEVICE]: { disabled: false },
+    [STEP_CLOUD_IDENTITY_GROUP_ASSIGNED_MEMBERSHIP_ROLE_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_CLOUD_IDENTITY_SSO_PROFILE_ASSIGNED_GROUP_RELATIONSHIP]: {
       disabled: false,
     },
   };
@@ -904,6 +933,37 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: createStepStartState(
       ServiceUsageName.WEB_SECURITY_SCANNER,
     ),
+    [STEP_CLOUD_IDENTITY_DEVICES]: createStepStartState(
+      ServiceUsageName.CLOUD_IDENTITY,
+    ),
+    [STEP_CLOUD_IDENTITY_DEVICE_USERS]: createStepStartState(
+      ServiceUsageName.CLOUD_IDENTITY,
+    ),
+    [STEP_CLOUD_IDENTITY_GROUPS]: createStepStartState(
+      ServiceUsageName.CLOUD_IDENTITY,
+    ),
+    [STEP_CLOUD_IDENTITY_MEMBERSHIP_ROLES]: createStepStartState(
+      ServiceUsageName.CLOUD_IDENTITY,
+    ),
+    [STEP_CLOUD_IDENTITY_SSO_PROFILE]: createStepStartState(
+      ServiceUsageName.CLOUD_IDENTITY,
+    ),
+    [STEP_CLOUD_IDENTITY_SSO_SAML_PROVIDER]: createStepStartState(
+      ServiceUsageName.CLOUD_IDENTITY,
+    ),
+    [STEP_CLOUD_IDENTITY_DEVICES_USER_ASSIGNED_GROUP]: createStepStartState(
+      ServiceUsageName.CLOUD_IDENTITY,
+    ),
+    [STEP_DEVICE_USER_IS_GOOGLE_USER]: createStepStartState(
+      ServiceUsageName.CLOUD_IDENTITY,
+    ),
+    [STEP_CLOUD_IDENTITY_DEVICES_USER_USES_DEVICE]: createStepStartState(
+      ServiceUsageName.CLOUD_IDENTITY,
+    ),
+    [STEP_CLOUD_IDENTITY_GROUP_ASSIGNED_MEMBERSHIP_ROLE_RELATIONSHIP]:
+      createStepStartState(ServiceUsageName.CLOUD_IDENTITY),
+    [STEP_CLOUD_IDENTITY_SSO_PROFILE_ASSIGNED_GROUP_RELATIONSHIP]:
+      createStepStartState(ServiceUsageName.CLOUD_IDENTITY),
   };
 
   const apiServiceToStepIdsMap: { [apiService: string]: string[] } = {
@@ -946,6 +1006,7 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [ServiceUsageName.WEB_SECURITY_SCANNER]: webSecurityScannerSteps.map(
       (s) => s.id,
     ),
+    [ServiceUsageName.CLOUD_IDENTITY]: cloudIdentitySteps.map((s) => s.id),
   };
 
   for (const serviceName of Object.keys(apiServiceToStepIdsMap)) {
