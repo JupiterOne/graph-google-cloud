@@ -39,8 +39,10 @@ import { fetchComputeEngineAutoScalersMap } from './steps/fetch-compute-engine-a
 import { fetchComputeEngineRegionAutoScalersMap } from './steps/fetch-compute-engine-region-autoscalers';
 import { fetchAutoScalersPolicyMap } from './steps/fetch-autoscaler-policy';
 import { fetchAutoScalersRegionPolicyMap } from './steps/fetch-region-autoscaler-policy';
-import { buildProjectComputeEngineAutoscalersRelationshipMap } from './steps/build-project-compute-engine-autoscalers-relationships';
-
+import { buildComputeEngineRegionAutoscalerRegionPolicyRelationshipStepMap } from './steps/build-compute-engine-region-autoscalers-and-region-policy-relationships'
+import { buildProjectComputeEngineAutoscalersRelationshipStepMap } from './steps/build-project-compute-engine-autoscalers-relationships';
+import { buildProjectComputeEngineRegionAutoscalersRelationshipMap } from './steps/build-project-compute-engine-region-autoscalers-relationships';
+import { buildComputeEngineAutoscalerPolicyRelationshipStepMap } from './steps/build-compute-engine-autoscalers-and-policy-relationships'
 export * from './constants';
 
 export const computeSteps: GoogleCloudIntegrationStep[] = [
@@ -87,5 +89,8 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   buildComputeBackendBucketHasBucketRelationshipsStepMap,
   buildImageUsesKmsRelationshipsStepMap,
   buildDiskUsesKmsRelationshipsStepMap,
-  // buildProjectComputeEngineAutoscalersRelationshipMap
+  buildProjectComputeEngineRegionAutoscalersRelationshipMap,
+  buildComputeEngineAutoscalerPolicyRelationshipStepMap,
+  buildProjectComputeEngineAutoscalersRelationshipStepMap,
+  buildComputeEngineRegionAutoscalerRegionPolicyRelationshipStepMap,
 ];

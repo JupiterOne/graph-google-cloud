@@ -40,7 +40,7 @@ export async function buildProjectComputeEngineAutoscalersRelationship(
     );
 }
 
-export const buildProjectComputeEngineAutoscalersRelationshipMap: GoogleCloudIntegrationStep =
+export const buildProjectComputeEngineAutoscalersRelationshipStepMap: GoogleCloudIntegrationStep =
 {
     id: STEP_PROJECT_COMPUTE_ENGINE_AUTOSCALERS_RELATIONSHIPS,
     name: 'Build Project Compute Engine Autoscaler Relationships',

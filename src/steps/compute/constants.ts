@@ -11,8 +11,8 @@ export const STEP_PROJECT_COMPUTE_ENGINE_REGION_AUTOSCALERS_RELATIONSHIPS =
   'build-project-compute-engine-region-autoscalers-relationships';
 export const STEP_COMPUTE_ENGINE_AUTOSCALERS_AND_POLICY_RELATIONSHIPS =
   'build-compute-engine-autoscalers-and-policy-relationships';
-export const STEP_COMPUTE_ENGINE_AUTOSCALERS_AND_REGION_POLICY_RELATIONSHIPS =
-  'build-compute-engine-autoscalers-and-region-policy-relationships';
+export const STEP_COMPUTE_ENGINE_REGION_AUTOSCALERS_AND_REGION_POLICY_RELATIONSHIPS =
+  'build-compute-engine-region-autoscalers-and-region-policy-relationships';
 
 export const STEP_COMPUTE_INSTANCE_SERVICE_ACCOUNT_RELATIONSHIPS =
   'build-compute-instance-service-account-relationships';
