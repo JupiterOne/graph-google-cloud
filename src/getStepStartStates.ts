@@ -222,12 +222,14 @@ import { IntegrationConfig } from './types';
 import { isMasterOrganizationInstance } from './utils/isMasterOrganizationInstance';
 import { isSingleProjectInstance } from './utils/isSingleProjectInstance';
 import {
+  STEP_CONNECTIVITY_TEST_USES_VPC_RELATIONSHIP,
   STEP_NETWORK_ANALYZER_CONNECTIVITY_TEST,
   STEP_NETWORK_ANALYZER_VPC,
   STEP_NETWORK_INTELLIGENCE_CENTER,
   STEP_NETWORK_INTELLIGENCE_CENTER_HAS_NETWORK_ANALYZER_CONNECTIVITY_TEST_RELATIONSHIP,
   STEP_PROJECT_HAS_NETWORK_ANALYZER_CONNECTIVITY_TEST_RELATIONSHIP,
   STEP_PROJECT_HAS_NETWORK_INTELLIGENCE_CENTER_RELATIONSHIP,
+  STEP_PROJECT_USES_NETWORK_ANALYZER_VPC_RELATIONSHIP,
   STEP_VPN_GATEWAY,
   STEP_VPN_GATEWAY_TUNNEL,
   STEP_VPN_GATEWAY_USES_VPN_GATEWAY_TUNNEL_RELATIONSHIP,
@@ -575,6 +577,12 @@ function getDefaultStepStartStates(params: {
       disabled: false,
     },
     [STEP_NETWORK_ANALYZER_VPC]: {
+      disabled: false,
+    },
+    [STEP_CONNECTIVITY_TEST_USES_VPC_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_PROJECT_USES_NETWORK_ANALYZER_VPC_RELATIONSHIP]: {
       disabled: false,
     },
   };
@@ -1067,6 +1075,11 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [STEP_NETWORK_ANALYZER_VPC]: createOrgStepStartState(
       ServiceUsageName.NETWORK_ANALYZER,
     ),
+    [STEP_CONNECTIVITY_TEST_USES_VPC_RELATIONSHIP]: createOrgStepStartState(
+      ServiceUsageName.NETWORK_ANALYZER,
+    ),
+    [STEP_PROJECT_USES_NETWORK_ANALYZER_VPC_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.NETWORK_ANALYZER),
   };
 
   const apiServiceToStepIdsMap: { [apiService: string]: string[] } = {
