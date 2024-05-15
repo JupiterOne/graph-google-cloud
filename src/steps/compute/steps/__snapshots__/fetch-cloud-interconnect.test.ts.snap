@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchCloudInterconnect should collect data 1`] = `
+{
+  "collectedEntities": [
+    {
+      "_class": [
+        "Network",
+      ],
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/interconnects/demo-interconnect",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "adminEnabled": true,
+            "circuitInfos": [
+              {
+                "customerDemarcId": "",
+                "googleCircuitId": "GCP-00008",
+                "googleDemarcId": "VOCUS:MMR-A: Ground 7A, Frontcomms, Cab FC4, PP-HAAA12, RU21-24 FP3 Fibers 63,64 - LC",
+              },
+            ],
+            "creationTimestamp": "2024-04-22T23:53:41.482-07:00",
+            "customerName": "demo-customer",
+            "description": "Example Compute Cloud Interconnect",
+            "googleReferenceId": "1134185888",
+            "id": "3602008363502330906",
+            "interconnectType": "IT_PRIVATE",
+            "kind": "compute#interconnect",
+            "labelFingerprint": "42WmSpB8rSM=",
+            "linkType": "LINK_TYPE_ETHERNET_10G_LR",
+            "location": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/interconnectLocations/akl-zone1-1353",
+            "macsecEnabled": false,
+            "name": "demo-interconnect",
+            "operationalStatus": "OS_UNPROVISIONED",
+            "provisionedLinkCount": 1,
+            "requestedLinkCount": 1,
+            "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/interconnects/demo-interconnect",
+            "state": "UNPROVISIONED",
+          },
+        },
+      ],
+      "_type": "google_cloud_interconnect",
+      "adminEnabled": true,
+      "createdOn": 1713855221482,
+      "description": "Example Compute Cloud Interconnect",
+      "displayName": "demo-interconnect",
+      "id": "3602008363502330906",
+      "interConnectType": "IT_PRIVATE",
+      "kind": "compute#interconnect",
+      "location": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/interconnectLocations/akl-zone1-1353",
+      "name": "demo-interconnect",
+      "public": true,
+    },
+  ],
+  "collectedRelationships": [],
+  "encounteredTypes": [
+    "google_cloud_interconnect",
+  ],
+  "numCollectedEntities": 1,
+  "numCollectedRelationships": 0,
+}
+`;
