@@ -180,3 +180,73 @@ exports[`networkAnalyzer#fetch-cloud-vpn-gateway-tunnel should collect data 1`] 
   "numCollectedRelationships": 0,
 }
 `;
+
+exports[`networkAnalyzer#fetch-network-analyzer-vpc should collect data 1`] = `
+{
+  "collectedEntities": [
+    {
+      "_class": [
+        "Gateway",
+      ],
+      "_key": "demo-vpn-tunnel",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "creationTimestamp": "2024-04-24T00:08:43.251-07:00",
+            "description": "",
+            "detailedStatus": "No incoming packets from peer",
+            "id": "5333968030286549268",
+            "ikeVersion": 2,
+            "kind": "compute#vpnTunnel",
+            "labelFingerprint": "42WmSpB8rSM=",
+            "localTrafficSelector": [
+              "0.0.0.0/0",
+            ],
+            "name": "demo-vpn-tunnel",
+            "peerExternalGateway": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/externalVpnGateways/demo-peer-gateway",
+            "peerExternalGatewayInterface": 0,
+            "peerIp": "12.120.12.33",
+            "region": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1",
+            "remoteTrafficSelector": [
+              "0.0.0.0/0",
+            ],
+            "router": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/routers/demo-router2",
+            "selfLink": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/vpnTunnels/demo-vpn-tunnel",
+            "sharedSecret": "*************",
+            "sharedSecretHash": "4bcIUgeMVskvZeiR0f8c9n4s1AaP",
+            "status": "NO_INCOMING_PACKETS",
+            "vpnGateway": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/regions/us-central1/vpnGateways/demo-vpn-gateway",
+            "vpnGatewayInterface": 1,
+          },
+        },
+      ],
+      "_type": "google_cloud_vpn_tunnel",
+      "active": undefined,
+      "category": [
+        "network",
+      ],
+      "createdOn": 1713942523251,
+      "description": "",
+      "displayName": "demo-vpn-tunnel",
+      "function": [
+        "routing",
+      ],
+      "id": "5333968030286549268",
+      "kind": "compute#vpnTunnel",
+      "name": "demo-vpn-tunnel",
+      "projectId": "j1-gc-integration-dev-v3",
+      "public": true,
+      "status": "NO_INCOMING_PACKETS",
+      "summary": "",
+      "vpnGatewayName": "demo-vpn-gateway",
+    },
+  ],
+  "collectedRelationships": [],
+  "encounteredTypes": [
+    "google_cloud_vpn_tunnel",
+  ],
+  "numCollectedEntities": 1,
+  "numCollectedRelationships": 0,
+}
+`;

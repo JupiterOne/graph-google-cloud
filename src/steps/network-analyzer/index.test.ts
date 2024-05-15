@@ -5,7 +5,10 @@ import {
   executeStepWithDependencies,
 } from '@jupiterone/integration-sdk-testing';
 import {
+  NETWORK_ANALYZER_VPC_CLASS,
+  NETWORK_ANALYZER_VPC_TYPE,
   STEP_NETWORK_ANALYZER_CONNECTIVITY_TEST,
+  STEP_NETWORK_ANALYZER_VPC,
   STEP_NETWORK_INTELLIGENCE_CENTER,
   STEP_VPN_GATEWAY,
   STEP_VPN_GATEWAY_TUNNEL,
@@ -203,4 +206,59 @@ describe(`networkAnalyzer#${STEP_VPN_GATEWAY_TUNNEL}`, () => {
       },
     });
   }, 50000);
+});
+
+describe(`networkAnalyzer#${STEP_NETWORK_ANALYZER_VPC}`, () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'fetchVPCConnector',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: tempNewAccountConfig,
+    });
+
+    await fetchVpnGatewayTunnel(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === NETWORK_ANALYZER_VPC_TYPE,
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: NETWORK_ANALYZER_VPC_CLASS,
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_cloud_network_analyzer_vpc' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          name: { type: 'string' },
+          uri: { type: 'string' },
+          location: { type: 'string' },
+          internal: { exclude: true },
+          public: { exclude: true },
+          CIDR: { exclude: true },
+        },
+      },
+    });
+  }, 500000);
 });
