@@ -55,6 +55,11 @@ export const STEP_VPN_GATEWAY_USES_VPN_GATEWAY_TUNNEL_RELATIONSHIP =
 export const RELATIONSHIP_VPN_GATEWAY_USES_VPN_GATEWAY_TUNNEL_RELATIONSHIP_TYPE =
   'google_cloud_vpn_gateway_uses_google_cloud_vpn_tunnel';
 
+export const STEP_CONNECTIVITY_TEST_USES_VPC_RELATIONSHIP =
+  'connectivity-test-uses-vpc';
+export const CONNECTIVITY_TEST_USES_VPC_RELATIONSHIP_TYPE =
+  'google_cloud_network_analyzer_connectivity_test_uses_vpc';
+
 export const IngestionSources = {
   NETWORK_INTELLIGENCE_CENTER: 'network-intelligence-center',
   PROJECT_HAS_NETWORK_INTELLIGENCE_CENTER_RELATIONSHIP:
@@ -75,6 +80,7 @@ export const IngestionSources = {
   VPN_GATEWAY: 'vpn-gateway',
   VPN_GATEWAY_USES_VPN_GATEWAY_TUNNEL_RELATIONSHIP:
     'vpn-gateway-uses-vpn-gateway-tunnel',
+  CONNECTIVITY_TEST_USES_VPC_RELATIONSHIP: 'connectivity-test-uses-vpc',
 };
 
 export const NETWORK_ANALYZER_LOCATIONS: string[] = [

@@ -92,6 +92,7 @@ export function createVpnGatewayTunnel(
 export function createNetworkAnalyzerVpc(
   data: VpcConnector,
   projectId: string,
+  connectivityTestName: string,
 ) {
   return createGoogleCloudIntegrationEntity(data, {
     entityData: {
@@ -104,6 +105,7 @@ export function createNetworkAnalyzerVpc(
         name: data.displayName,
         uri: data.uri,
         location: data.location,
+        connectivityTestName: connectivityTestName,
       },
     },
   });

@@ -33,6 +33,8 @@ import {
   Network_Analyzer_Permission,
   NETWORK_ANALYZER_VPC_TYPE,
   NETWORK_ANALYZER_VPC_CLASS,
+  STEP_CONNECTIVITY_TEST_USES_VPC_RELATIONSHIP,
+  CONNECTIVITY_TEST_USES_VPC_RELATIONSHIP_TYPE,
 } from './constants';
 import {
   createNetworkAnalyzerConnectivityTest,
@@ -264,7 +266,11 @@ export async function fetchNetworkAnalyzerVpc(
         const vpcConnector = findVpcConnector(connectivityTest);
         if (vpcConnector) {
           await jobState.addEntity(
-            createNetworkAnalyzerVpc(vpcConnector, client.projectId),
+            createNetworkAnalyzerVpc(
+              vpcConnector,
+              client.projectId,
+              connectivityTest.name!,
+            ),
           );
         }
       },
@@ -273,7 +279,7 @@ export async function fetchNetworkAnalyzerVpc(
     if (err.message?.match && err.message.match(/is not a workspace/i)) {
       publishUnsupportedConfigEvent({
         logger,
-        resource: 'VPN Gateway Tunnel',
+        resource: 'VPC Connector',
         reason: `${client.projectId} project is not a workspace`,
       });
     } else {
@@ -337,6 +343,33 @@ export async function buildVpnGatewayVpnGatewayTunnelRelationship(
             `Build VPN Gateway USES VPN Gateway Tunnel: ${vpnGatewayKey} Missing.`,
           );
         }
+      }
+    },
+  );
+}
+
+export async function buildConnectivityTestUsesVpcRelationship(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState } = context;
+  await jobState.iterateEntities(
+    { _type: NETWORK_ANALYZER_VPC_TYPE },
+    async (vpcConnector) => {
+      const testConnectionName = vpcConnector.connectivityTestName as string;
+      if (jobState.hasKey(testConnectionName)) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.USES,
+            fromKey: testConnectionName,
+            fromType: NETWORK_ANALYZER_CONNECTIVITY_TEST_TYPE,
+            toKey: vpcConnector._key as string,
+            toType: NETWORK_ANALYZER_VPC_TYPE,
+          }),
+        );
+      } else {
+        throw new IntegrationMissingKeyError(
+          `Build Connectivity Test Uses VPC. ConnectivityTest: ${testConnectionName} Missing.`,
+        );
       }
     },
   );
@@ -514,6 +547,27 @@ export const networkAnalyzerSteps: GoogleCloudIntegrationStep[] = [
     ],
     dependsOn: [STEP_VPN_GATEWAY, STEP_VPN_GATEWAY_TUNNEL],
     executionHandler: buildVpnGatewayVpnGatewayTunnelRelationship,
+    permissions: [],
+    apis: ['networkmanagement.googleapis.com'],
+  },
+  {
+    id: STEP_CONNECTIVITY_TEST_USES_VPC_RELATIONSHIP,
+    ingestionSourceId: IngestionSources.CONNECTIVITY_TEST_USES_VPC_RELATIONSHIP,
+    name: 'Connectivity Test Uses VPC',
+    entities: [],
+    relationships: [
+      {
+        _class: RelationshipClass.USES,
+        _type: CONNECTIVITY_TEST_USES_VPC_RELATIONSHIP_TYPE,
+        sourceType: NETWORK_ANALYZER_CONNECTIVITY_TEST_TYPE,
+        targetType: NETWORK_ANALYZER_VPC_TYPE,
+      },
+    ],
+    dependsOn: [
+      STEP_NETWORK_ANALYZER_CONNECTIVITY_TEST,
+      STEP_NETWORK_ANALYZER_VPC,
+    ],
+    executionHandler: buildConnectivityTestUsesVpcRelationship,
     permissions: [],
     apis: ['networkmanagement.googleapis.com'],
   },

@@ -507,6 +507,7 @@ The following relationships are created:
 | `google_cloud_monitoring`                                        | **HAS**               | `google_cloud_monitoring-channel`                                 |
 | `google_cloud_monitoring`                                        | **HAS**               | `google_monitoring_alert_policy`                                  |
 | `google_cloud_network_analyzer`                                  | **HAS**               | `google_cloud_network_analyzer_connectivity_test`                 |
+| `google_cloud_network_analyzer_connectivity_test`                | **USES**              | `google_cloud_network_analyzer_vpc`                               |
 | `google_cloud_organization`                                      | **HAS**               | `google_cloud_folder`                                             |
 | `google_cloud_organization`                                      | **HAS**               | `google_cloud_project`                                            |
 | `google_cloud_project`                                           | **HAS**               | `google_billing_budget`                                           |
