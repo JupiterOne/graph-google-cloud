@@ -46,7 +46,7 @@ export function createCloudSqlInstancesEntity(data) {
       assign: {
         _class: ENTITY_CLASS_CLOUD_SQL_INSTANCES,
         _type: ENTITY_TYPE_CLOUD_SQL_INSTANCES,
-        _key: data.etag as string,
+        _key: data.name as string,
         name: data.name,
         etag: data.etag,
         connectionName: data.connectionName,

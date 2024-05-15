@@ -205,7 +205,7 @@ export async function fetchCloudUser(
   );
 }
 
-export async function buildProjectHasRelationship(
+export async function buildProjectHasSqlRelationship(
   context: IntegrationStepContext,
 ): Promise<void> {
   const { jobState } = context;
@@ -515,7 +515,7 @@ export const cloudSqlSteps: GoogleCloudIntegrationStep[] = [
       STEP_RESOURCE_MANAGER_PROJECT,
       STEP_CLOUD_SQL,
     ],
-    executionHandler: buildProjectHasRelationship,
+    executionHandler: buildProjectHasSqlRelationship,
     permissions: [],
     apis: ['dataflow.googleapis.com'],
   },

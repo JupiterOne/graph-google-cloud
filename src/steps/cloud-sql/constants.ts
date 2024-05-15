@@ -36,10 +36,10 @@ export const STEP_CLOUD_SQL_HAS_CLOUD_SQL_INSTANCES =
 export const RELATIONSHIP_TYPE_CLOUD_SQL_HAS_CLOUD_SQL_INSTANCES =
   'google_cloud_sql_has_sql_instance';
 
-export const STEP_CLOUD_SQL_SSL_CERTIFICATION_HAS_CLOUD_SQL_BACKUP =
-  'fetch-cloud-sql-ssl-certification-has-sql-backup';
-export const RELATIONSHIP_TYPE_CLOUD_SQL_SSL_CERTIFICATION_HAS_CLOUD_SQL_BACKUP =
-  'google_cloud_sql_ssl_certificate_has_sql_backup';
+// export const STEP_CLOUD_SQL_SSL_CERTIFICATION_HAS_CLOUD_SQL_BACKUP =
+//   'fetch-cloud-sql-ssl-certification-has-sql-backup';
+// export const RELATIONSHIP_TYPE_CLOUD_SQL_SSL_CERTIFICATION_HAS_CLOUD_SQL_BACKUP =
+//   'google_cloud_sql_ssl_certificate_has_sql_backup';
 
 export const STEP_CLOUD_SQL_INSTANCES_HAS_CLOUD_SQL_BACKUP =
   'fetch-cloud-sql-instances-has-sql-backup';
