@@ -12,7 +12,7 @@ import {
     STEP_COMPUTE_ENGINE_REGION_AUTOSCALERS,
     ENTITY_TYPE_COMPUTE_ENGINE_REGION_AUTOSCALER,
 } from '../constants';
-import { PROJECT_ENTITY_TYPE, STEP_RESOURCE_MANAGER_PROJECT } from '../../resource-manager';
+import { PROJECT_ENTITY_TYPE, STEP_RESOURCE_MANAGER_PROJECT } from '../../resource-manager/constants'
 import { getProjectEntity } from '../../../utils/project';
 
 export async function buildProjectComputeEngineRegionAutoscalersRelationship(

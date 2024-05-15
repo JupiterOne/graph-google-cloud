@@ -252,7 +252,7 @@ export const RELATIONSHIP_TYPE_TARGET_SSL_PROXY_HAS_SSL_POLICY =
   'google_compute_target_ssl_proxy_has_ssl_policy';
 
 export const RELATIONSHIP_TYPE_PROJECT_HAS_COMPUTE_ENGINE_AUTOSCALERS =
-  'google_cloud_project_has_autoscaler'
+  'google_cloud_project_has_compute_autoscaler'
 export const RELATIONSHIP_TYPE_PROJECT_HAS_COMPUTE_ENGINE_REGION_AUTOSCALERS =
   'google_cloud_project_has_region_autoscaler'
 export const RELATIONSHIP_TYPE_COMPUTE_ENGINE_AUTOSCALERS_HAS_POLICY =
