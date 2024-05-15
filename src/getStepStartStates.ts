@@ -84,7 +84,6 @@ import {
   STEP_CLOUD_SQL_INSTANCES_USES_CLOUD_SQL_DATABASE,
   STEP_CLOUD_SQL_INSTANCES_USES_CLOUD_SQL_SSL_CERTIFICATION,
   STEP_CLOUD_SQL_SSL_CERTIFICATION,
-  STEP_CLOUD_SQL_SSL_CERTIFICATION_HAS_CLOUD_SQL_BACKUP,
   STEP_CLOUD_USER, STEP_GOOGLE_CLOUD_PROJECT_HAS_CLOUD_SQL
 } from './steps/cloud-sql/constants'
 import { cloudSourceRepositoriesSteps } from './steps/cloud-source-repositories';
@@ -362,7 +361,6 @@ function getDefaultStepStartStates(params: {
     [STEP_CLOUD_SQL_INSTANCES_USES_CLOUD_SQL_DATABASE]: { disabled: false },
     [STEP_CLOUD_SQL_INSTANCES_USES_CLOUD_SQL_SSL_CERTIFICATION]: { disabled: false },
     [STEP_CLOUD_SQL_SSL_CERTIFICATION]: { disabled: false },
-    // [STEP_CLOUD_SQL_SSL_CERTIFICATION_HAS_CLOUD_SQL_BACKUP]: { disabled: false },
     [STEP_CLOUD_USER]: { disabled: false },
     [STEP_GOOGLE_CLOUD_PROJECT_HAS_CLOUD_SQL]: { disabled: false },
     [STEP_COMPUTE_DISKS]: { disabled: false },
@@ -693,7 +691,6 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [STEP_CLOUD_SQL_INSTANCES_USES_CLOUD_SQL_DATABASE]: createStepStartState(ServiceUsageName.CLOUD_SQL),
     [STEP_CLOUD_SQL_INSTANCES_USES_CLOUD_SQL_SSL_CERTIFICATION]: createStepStartState(ServiceUsageName.CLOUD_SQL),
     [STEP_CLOUD_SQL_SSL_CERTIFICATION]: createStepStartState(ServiceUsageName.CLOUD_SQL),
-    // [STEP_CLOUD_SQL_SSL_CERTIFICATION_HAS_CLOUD_SQL_BACKUP]: createStepStartState(ServiceUsageName.CLOUD_SQL),
     [STEP_CLOUD_USER]: createStepStartState(ServiceUsageName.IAM),
     [STEP_GOOGLE_CLOUD_PROJECT_HAS_CLOUD_SQL]: createStepStartState(ServiceUsageName.CLOUD_SQL),
     [STEP_COMPUTE_DISKS]: createStepStartState(ServiceUsageName.COMPUTE),

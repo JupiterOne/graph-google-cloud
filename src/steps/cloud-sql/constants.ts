@@ -68,7 +68,7 @@ export const RELATIONSHIP_TYPE_CLOUD_SQL_INSTANCES_ASSIGNED_GOOGLE_USER =
 
 export const STEP_CLOUD_SQL_HAS_CLOUD_SQL_DATABASE =
   'fetch-cloud-sql-has-sql-database';
-export const RELATIONSHIP_TYPE_GOOGLE_CLOUD_PROJECT_HAS_CLOUD_SQL =
+export const RELATIONSHIP_TYPE_GOOGLE_CLOUD_SQL_HAS_CLOUD_SQL_DATABASE =
   'google_cloud_sql_has_cloud_sql';
 
 export const IngestionSources = {
