@@ -43,7 +43,7 @@ export const RELATIONSHIP_NETWORK_ANALYZER_CONNECTIVITY_TEST_USES_NETWORK_ANALYZ
 export const STEP_PROJECT_USES_NETWORK_ANALYZER_VPC_RELATIONSHIP =
   'fetch-project-uses-network-analyzer-vpc-relation';
 export const RELATIONSHIP_PROJECT_USES_NETWORK_ANALYZER_VPC_RELATIONSHIP_TYPE =
-  'google_cloud_project_uses_google_cloud_network_analyzer_vpc';
+  'google_cloud_project_uses_network_analyzer_vpc';
 
 export const STEP_NETWORK_ANALYZER_VPC_USES_VPN_GATEWAY_RELATIONSHIP =
   'fetch-network-analyzer-vpc-uses-vpn-gateway-relation';

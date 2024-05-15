@@ -35,6 +35,8 @@ import {
   NETWORK_ANALYZER_VPC_CLASS,
   STEP_CONNECTIVITY_TEST_USES_VPC_RELATIONSHIP,
   CONNECTIVITY_TEST_USES_VPC_RELATIONSHIP_TYPE,
+  STEP_PROJECT_USES_NETWORK_ANALYZER_VPC_RELATIONSHIP,
+  RELATIONSHIP_PROJECT_USES_NETWORK_ANALYZER_VPC_RELATIONSHIP_TYPE,
 } from './constants';
 import {
   createNetworkAnalyzerConnectivityTest,
@@ -375,6 +377,31 @@ export async function buildConnectivityTestUsesVpcRelationship(
   );
 }
 
+export async function buildProjectUsesNetworkAnalyzerVPCRelationship(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState } = context;
+
+  const projectEntity = await getProjectEntity(jobState);
+
+  if (!projectEntity) return;
+
+  await jobState.iterateEntities(
+    { _type: NETWORK_ANALYZER_VPC_TYPE },
+    async (networkAnalyzerVpc) => {
+      await jobState.addRelationship(
+        createDirectRelationship({
+          _class: RelationshipClass.USES,
+          fromKey: projectEntity._key as string,
+          fromType: PROJECT_ENTITY_TYPE,
+          toKey: networkAnalyzerVpc._key as string,
+          toType: NETWORK_ANALYZER_VPC_TYPE,
+        }),
+      );
+    },
+  );
+}
+
 export const networkAnalyzerSteps: GoogleCloudIntegrationStep[] = [
   {
     id: STEP_NETWORK_INTELLIGENCE_CENTER,
@@ -568,6 +595,25 @@ export const networkAnalyzerSteps: GoogleCloudIntegrationStep[] = [
       STEP_NETWORK_ANALYZER_VPC,
     ],
     executionHandler: buildConnectivityTestUsesVpcRelationship,
+    permissions: [],
+    apis: ['networkmanagement.googleapis.com'],
+  },
+  {
+    id: STEP_PROJECT_USES_NETWORK_ANALYZER_VPC_RELATIONSHIP,
+    ingestionSourceId:
+      IngestionSources.PROJECT_USES_NETWORK_ANALYZER_VPC_RELATIONSHIP,
+    name: 'Project Uses Network Analyzer VPC',
+    entities: [],
+    relationships: [
+      {
+        _class: RelationshipClass.USES,
+        _type: RELATIONSHIP_PROJECT_USES_NETWORK_ANALYZER_VPC_RELATIONSHIP_TYPE,
+        sourceType: PROJECT_ENTITY_TYPE,
+        targetType: STEP_NETWORK_ANALYZER_VPC,
+      },
+    ],
+    dependsOn: [STEP_RESOURCE_MANAGER_PROJECT, STEP_NETWORK_ANALYZER_VPC],
+    executionHandler: buildProjectUsesNetworkAnalyzerVPCRelationship,
     permissions: [],
     apis: ['networkmanagement.googleapis.com'],
   },

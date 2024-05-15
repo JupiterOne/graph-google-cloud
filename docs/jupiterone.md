@@ -510,6 +510,7 @@ The following relationships are created:
 | `google_cloud_network_analyzer_connectivity_test`                | **USES**              | `google_cloud_network_analyzer_vpc`                               |
 | `google_cloud_organization`                                      | **HAS**               | `google_cloud_folder`                                             |
 | `google_cloud_organization`                                      | **HAS**               | `google_cloud_project`                                            |
+| `google_cloud_project`                                           | **USES**              | `fetch-network-analyzer-vpc`                                      |
 | `google_cloud_project`                                           | **HAS**               | `google_billing_budget`                                           |
 | `google_cloud_project`                                           | **HAS**               | `google_binary_authorization_policy`                              |
 | `google_cloud_project`                                           | **HAS**               | `google_cloud_api_service`                                        |
