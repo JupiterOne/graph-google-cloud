@@ -166,10 +166,10 @@ export class Client {
   ): boolean {
     let isAuthorizationError = false;
 
-    if (
-      (err.response?.status === 403 || err.status === 403) &&
-      !isQuotaLimitError(err)
-    ) {
+    const status =
+      err.response?.status !== undefined ? err.response?.status : err.status;
+
+    if ((status === 403 || status === 404) && !isQuotaLimitError(err)) {
       isAuthorizationError = true;
 
       if (
