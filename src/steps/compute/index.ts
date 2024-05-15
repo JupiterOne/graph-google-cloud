@@ -89,7 +89,7 @@ export const computeSteps: GoogleCloudIntegrationStep[] = [
   buildComputeBackendBucketHasBucketRelationshipsStepMap,
   buildImageUsesKmsRelationshipsStepMap,
   buildDiskUsesKmsRelationshipsStepMap,
-  buildProjectComputeEngineRegionAutoscalersRelationshipMap,
+  // buildProjectComputeEngineRegionAutoscalersRelationshipMap,
   buildComputeEngineAutoscalerPolicyRelationshipStepMap,
   buildProjectComputeEngineAutoscalersRelationshipStepMap,
   buildComputeEngineRegionAutoscalerRegionPolicyRelationshipStepMap,
