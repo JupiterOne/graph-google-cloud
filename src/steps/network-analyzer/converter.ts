@@ -9,7 +9,10 @@ import {
   VPN_GATEWAY_TUNNEL_CLASS,
   VPN_GATEWAY_TYPE,
   VPN_GATEWAY_CLASS,
+  NETWORK_ANALYZER_VPC_CLASS,
+  NETWORK_ANALYZER_VPC_TYPE,
 } from './constants';
+import { VpcConnector } from './index';
 
 export function createNetworkIntelligenceCenterEntity(
   data: networkmanagement_v1.Schema$Location,
@@ -87,23 +90,20 @@ export function createVpnGatewayTunnel(
 }
 
 export function createNetworkAnalyzerVpc(
-  data: compute_v1.Schema$VpnTunnel,
+  data: VpcConnector,
   projectId: string,
 ) {
   return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {
-        _key: data.id as string,
-        _type: VPN_GATEWAY_TUNNEL_TYPE,
-        _class: VPN_GATEWAY_TUNNEL_CLASS,
-        name: data.name,
+        _key: data.uri as string,
+        _type: NETWORK_ANALYZER_VPC_TYPE,
+        _class: NETWORK_ANALYZER_VPC_CLASS,
         projectId: projectId,
-        summary: data.description,
-        public: true,
-        kind: data.kind,
-        category: ['network'],
-        function: ['routing'],
+        name: data.displayName,
+        uri: data.uri,
+        location: data.location,
       },
     },
   });

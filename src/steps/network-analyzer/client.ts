@@ -99,31 +99,6 @@ export class networkAnalyzerClient extends Client {
     });
   }
 
-  async iterateNetworkAnalyzerVpc(
-    callback: (data: compute_v1.Schema$VpnTunnel) => Promise<void>,
-  ): Promise<void> {
-    const auth = await this.getAuthenticatedServiceClient();
-    await this.iterateProjectLocations(async (locationId) => {
-      await this.iterateApi(
-        async (nextPageToken) => {
-          return this.computeClient.vpnTunnels.list({
-            auth,
-            project: this.projectId,
-            region: locationId,
-            pageToken: nextPageToken,
-          });
-        },
-        async (data: compute_v1.Schema$VpnTunnelList) => {
-          for (const item of data.items || []) {
-            await callback(item);
-          }
-        },
-        STEP_VPN_GATEWAY_TUNNEL,
-        Network_Analyzer_Permission.STEP_VPN_GATEWAY_TUNNEL,
-      );
-    });
-  }
-
   async iterateVpnGateway(
     callback: (data: compute_v1.Schema$VpnGateway) => Promise<void>,
   ): Promise<void> {

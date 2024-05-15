@@ -31,6 +31,8 @@ import {
   VPN_GATEWAY_TYPE,
   VPN_GATEWAY_TUNNEL_TYPE,
   Network_Analyzer_Permission,
+  NETWORK_ANALYZER_VPC_TYPE,
+  NETWORK_ANALYZER_VPC_CLASS,
 } from './constants';
 import {
   createNetworkAnalyzerConnectivityTest,
@@ -44,6 +46,41 @@ import {
   STEP_RESOURCE_MANAGER_PROJECT,
 } from '../resource-manager';
 import { getProjectEntity } from '../../utils/project';
+
+export interface VpcConnector {
+  displayName: string;
+  uri: string;
+  location: string;
+}
+
+function findVpcConnector(obj: any): VpcConnector | null {
+  if (!obj || typeof obj !== 'object') {
+    return null;
+  }
+
+  if ('vpcConnector' in obj) {
+    const connector = obj['vpcConnector'];
+    if (
+      connector &&
+      typeof connector === 'object' &&
+      'displayName' in connector &&
+      'uri' in connector &&
+      'location' in connector
+    ) {
+      return connector;
+    }
+  }
+
+  for (const key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      const result = findVpcConnector(obj[key]);
+      if (result !== null) {
+        return result;
+      }
+    }
+  }
+  return null;
+}
 
 export async function fetchNetworkIntelligenceCenter(
   context: IntegrationStepContext,
@@ -222,11 +259,16 @@ export async function fetchNetworkAnalyzerVpc(
   } = context;
   const client = new networkAnalyzerClient({ config }, logger);
   try {
-    await client.iterateNetworkAnalyzerVpc(async (vpnGatewayTunnel) => {
-      await jobState.addEntity(
-        createNetworkAnalyzerVpc(vpnGatewayTunnel, client.projectId),
-      );
-    });
+    await client.iterateNetworkAnalyzerConnectivityTest(
+      async (connectivityTest) => {
+        const vpcConnector = findVpcConnector(connectivityTest);
+        if (vpcConnector) {
+          await jobState.addEntity(
+            createNetworkAnalyzerVpc(vpcConnector, client.projectId),
+          );
+        }
+      },
+    );
   } catch (err) {
     if (err.message?.match && err.message.match(/is not a workspace/i)) {
       publishUnsupportedConfigEvent({
@@ -420,11 +462,28 @@ export const networkAnalyzerSteps: GoogleCloudIntegrationStep[] = [
     id: STEP_NETWORK_ANALYZER_VPC,
     ingestionSourceId: IngestionSources.NETWORK_ANALYZER_VPC,
     name: 'Network Analyzer VPC',
-    entities: [],
+    entities: [
+      {
+        resourceName: 'Network Analyzer VPC',
+        _type: NETWORK_ANALYZER_VPC_TYPE,
+        _class: NETWORK_ANALYZER_VPC_CLASS,
+        schema: {
+          properties: {
+            name: { type: 'string' },
+            uri: { type: 'string' },
+            location: { type: 'string' },
+            internal: { exclude: true },
+            public: { exclude: true },
+            CIDR: { exclude: true },
+          },
+        },
+      },
+    ],
     relationships: [],
     dependsOn: [],
     executionHandler: fetchNetworkAnalyzerVpc,
-    permissions: [],
+    permissions:
+      Network_Analyzer_Permission.STEP_NETWORK_ANALYZER_CONNECTIVITY_TEST,
     apis: ['networkmanagement.googleapis.com'],
   },
   {

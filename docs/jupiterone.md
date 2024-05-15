@@ -432,6 +432,7 @@ The following entities are created:
 | Monitoring Alert Policy                                  | `google_monitoring_alert_policy`                                  | `Policy`                           |
 | Monitoring Channels                                      | `google_cloud_monitoring-channel`                                 | `Channel`                          |
 | Monitoring Groups                                        | `google_cloud_group`                                              | `Group`                            |
+| Network Analyzer VPC                                     | `google_cloud_network_analyzer_vpc`                               | `Network`                          |
 | Network Intelligence Center                              | `google_cloud_network_analyzer`                                   | `Service`                          |
 | Network Intelligence Center                              | `google_cloud_network_analyzer_connectivity_test`                 | `Assessment`                       |
 | Organization                                             | `google_cloud_organization`                                       | `Organization`                     |
