@@ -37,6 +37,7 @@ import {
   CONNECTIVITY_TEST_USES_VPC_RELATIONSHIP_TYPE,
   STEP_PROJECT_USES_NETWORK_ANALYZER_VPC_RELATIONSHIP,
   RELATIONSHIP_PROJECT_USES_NETWORK_ANALYZER_VPC_RELATIONSHIP_TYPE,
+  VPN_GATEWAY_CLASS,
 } from './constants';
 import {
   createNetworkAnalyzerConnectivityTest,
@@ -550,7 +551,13 @@ export const networkAnalyzerSteps: GoogleCloudIntegrationStep[] = [
     id: STEP_VPN_GATEWAY,
     ingestionSourceId: IngestionSources.VPN_GATEWAY,
     name: 'VPN Gateway',
-    entities: [],
+    entities: [
+      {
+        resourceName: 'VPN GateWay',
+        _type: VPN_GATEWAY_TYPE,
+        _class: VPN_GATEWAY_CLASS,
+      },
+    ],
     relationships: [],
     dependsOn: [],
     executionHandler: fetchVpnGateway,

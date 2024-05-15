@@ -453,6 +453,7 @@ The following entities are created:
 | Spanner Instance                                         | `google_spanner_instance`                                         | `Database`, `Cluster`              |
 | Spanner Instance Config                                  | `google_spanner_instance_config`                                  | `Configuration`                    |
 | Spanner Instance Database                                | `google_spanner_database`                                         | `Database`                         |
+| VPN GateWay                                              | `google_cloud_vpn_gateway`                                        | `Gateway`                          |
 
 ### Relationships
 
