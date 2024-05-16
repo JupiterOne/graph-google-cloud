@@ -33,6 +33,23 @@ import {
   STEP_CREATE_APP_ENGINE_BUCKET_RELATIONSHIPS,
 } from './steps/app-engine/constants';
 import {
+  STEP_CLOUD_SQL,
+  STEP_CLOUD_SQL_BACKUP,
+  STEP_CLOUD_SQL_CONNECTION,
+  STEP_CLOUD_SQL_DATABASE,
+  STEP_CLOUD_SQL_HAS_CLOUD_SQL_DATABASE,
+  STEP_CLOUD_SQL_HAS_CLOUD_SQL_INSTANCES,
+  STEP_CLOUD_SQL_INSTANCES,
+  STEP_CLOUD_SQL_INSTANCES_ASSIGNED_GOOGLE_USER,
+  STEP_CLOUD_SQL_INSTANCES_HAS_CLOUD_SQL_BACKUP,
+  STEP_CLOUD_SQL_INSTANCES_HAS_CLOUD_SQL_CONNECTION,
+  STEP_CLOUD_SQL_INSTANCES_USES_CLOUD_SQL_DATABASE,
+  STEP_CLOUD_SQL_INSTANCES_USES_CLOUD_SQL_SSL_CERTIFICATION,
+  STEP_CLOUD_SQL_SSL_CERTIFICATION,
+  STEP_CLOUD_USER,
+  STEP_GOOGLE_CLOUD_PROJECT_HAS_CLOUD_SQL,
+} from './steps/cloud-sql/constants'
+import {
   STEP_BIG_QUERY_DATASETS,
   STEP_BIG_QUERY_MODELS,
   STEP_BIG_QUERY_TABLES,
@@ -477,6 +494,51 @@ describe('#getStepStartStates success', () => {
         [STEP_API_GATEWAY_GATEWAYS]: {
           disabled: false,
         },
+        [STEP_CLOUD_SQL_BACKUP]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_SQL]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_SQL_CONNECTION]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_SQL_DATABASE]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_SQL_HAS_CLOUD_SQL_DATABASE]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_SQL_HAS_CLOUD_SQL_INSTANCES]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_SQL_INSTANCES]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_SQL_INSTANCES_ASSIGNED_GOOGLE_USER]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_SQL_INSTANCES_HAS_CLOUD_SQL_BACKUP]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_SQL_INSTANCES_USES_CLOUD_SQL_DATABASE]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_SQL_INSTANCES_HAS_CLOUD_SQL_CONNECTION]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_SQL_INSTANCES_USES_CLOUD_SQL_SSL_CERTIFICATION]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_SQL_SSL_CERTIFICATION]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_USER]: {
+          disabled: false,
+        },
+        [STEP_GOOGLE_CLOUD_PROJECT_HAS_CLOUD_SQL]: {
+          disabled: false,
+        },
         [PrivatecaSteps.STEP_PRIVATE_CA_POOLS.id]: { disabled: false },
         [PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATE_AUTHORITIES.id]: {
           disabled: false,
@@ -604,7 +666,6 @@ describe('#getStepStartStates success', () => {
       expect(stepStartStates).toEqual(expectedStepStartStates);
     },
   );
-
   test('configureOrganizationProjects: true and organizationId: undefined: should disable billing and organization steps', async () => {
     const stepStartStates = await invocationConfig.getStepStartStates?.(
       createMockExecutionContext({
@@ -800,7 +861,7 @@ describe('#beforeAddEntity', () => {
 
     expect(
       invocationConfig.beforeAddEntity &&
-        invocationConfig.beforeAddEntity(context, mockEntity),
+      invocationConfig.beforeAddEntity(context, mockEntity),
     ).toEqual({
       ...mockEntity,
       projectId:
@@ -823,7 +884,7 @@ describe('#beforeAddEntity', () => {
 
     expect(
       invocationConfig.beforeAddEntity &&
-        invocationConfig.beforeAddEntity(context, mockEntity),
+      invocationConfig.beforeAddEntity(context, mockEntity),
     ).toEqual({
       ...mockEntity,
       projectId: 'my-project-id',
