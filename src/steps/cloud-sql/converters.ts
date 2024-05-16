@@ -19,8 +19,6 @@ import {
   ENTITY_TYPE_CLOUD_USER,
 } from './constants';
 
-
-
 export function createCloudSqlServiceEntity(
   projectId: string,
 ) {

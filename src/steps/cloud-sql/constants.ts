@@ -1,30 +1,30 @@
 export const STEP_CLOUD_SQL = 'fetch-cloud-sql';
 export const ENTITY_TYPE_CLOUD_SQL = 'google_cloud_sql';
-export const ENTITY_CLASS_CLOUD_SQL = 'Service';
+export const ENTITY_CLASS_CLOUD_SQL = ["Service"];
 
 export const STEP_CLOUD_SQL_SSL_CERTIFICATION = 'fetch-cloud-sql-ssl-certification';
 export const ENTITY_TYPE_CLOUD_SQL_SSL_CERTIFICATION = 'google_cloud_sql_ssl_certificate';
-export const ENTITY_CLASS_CLOUD_SQL_SSL_CERTIFICATION = 'Certificate';
+export const ENTITY_CLASS_CLOUD_SQL_SSL_CERTIFICATION = ['Certificate'];
 
 export const STEP_CLOUD_SQL_INSTANCES = 'fetch-cloud-sql-instances';
 export const ENTITY_TYPE_CLOUD_SQL_INSTANCES = 'google_cloud_sql_instance';
-export const ENTITY_CLASS_CLOUD_SQL_INSTANCES = 'Database';
+export const ENTITY_CLASS_CLOUD_SQL_INSTANCES = ['Database'];
 
 export const STEP_CLOUD_SQL_BACKUP = 'fetch-cloud-sql-backup';
 export const ENTITY_TYPE_CLOUD_SQL_BACKUP = 'google_cloud_sql_backup';
-export const ENTITY_CLASS_CLOUD_SQL_BACKUP = 'Backup';
+export const ENTITY_CLASS_CLOUD_SQL_BACKUP = ['Backup'];
 
 export const STEP_CLOUD_SQL_DATABASE = 'fetch-cloud-sql-database';
 export const ENTITY_TYPE_CLOUD_SQL_DATABASE = 'google_cloud_sql_database';
-export const ENTITY_CLASS_CLOUD_SQL_DATABASE = 'Database';
+export const ENTITY_CLASS_CLOUD_SQL_DATABASE = ['Database'];
 
 export const STEP_CLOUD_USER = 'fetch-cloud-user';
 export const ENTITY_TYPE_CLOUD_USER = 'google_user';
-export const ENTITY_CLASS_CLOUD_USER = 'User';
+export const ENTITY_CLASS_CLOUD_USER = ['User'];
 
 export const STEP_CLOUD_SQL_CONNECTION = 'fetch-cloud-sql-connection';
 export const ENTITY_TYPE_CLOUD_SQL_CONNECTION = 'google_cloud_sql_connection';
-export const ENTITY_CLASS_CLOUD_SQL_CONNECTION = 'Network';
+export const ENTITY_CLASS_CLOUD_SQL_CONNECTION = ['Network'];
 
 export const STEP_GOOGLE_CLOUD_PROJECT_HAS_CLOUD_SQL =
   'fetch-project-has-sql';
@@ -34,7 +34,7 @@ export const RELATIONSHIP_TYPE_CLOUD_PROJECT_HAS_CLOUD_SQL =
 export const STEP_CLOUD_SQL_HAS_CLOUD_SQL_INSTANCES =
   'fetch-cloud-sql-has-sql-instances';
 export const RELATIONSHIP_TYPE_CLOUD_SQL_HAS_CLOUD_SQL_INSTANCES =
-  'google_cloud_sql_has_sql_instance';
+  'google_cloud_sql_has_instance';
 
 // export const STEP_CLOUD_SQL_SSL_CERTIFICATION_HAS_CLOUD_SQL_BACKUP =
 //   'fetch-cloud-sql-ssl-certification-has-sql-backup';
@@ -44,7 +44,7 @@ export const RELATIONSHIP_TYPE_CLOUD_SQL_HAS_CLOUD_SQL_INSTANCES =
 export const STEP_CLOUD_SQL_INSTANCES_HAS_CLOUD_SQL_BACKUP =
   'fetch-cloud-sql-instances-has-sql-backup';
 export const RELATIONSHIP_TYPE_CLOUD_SQL_INSTANCES_HAS_CLOUD_SQL_BACKUP =
-  'google_cloud_sql_instance_has_sql_backup';
+  'google_cloud_sql_instance_has_backup';
 
 export const STEP_CLOUD_SQL_INSTANCES_USES_CLOUD_SQL_SSL_CERTIFICATION =
   'fetch-cloud-sql-instances-uses-sql-ssl-certification';
@@ -69,7 +69,7 @@ export const RELATIONSHIP_TYPE_CLOUD_SQL_INSTANCES_ASSIGNED_GOOGLE_USER =
 export const STEP_CLOUD_SQL_HAS_CLOUD_SQL_DATABASE =
   'fetch-cloud-sql-has-sql-database';
 export const RELATIONSHIP_TYPE_GOOGLE_CLOUD_SQL_HAS_CLOUD_SQL_DATABASE =
-  'google_cloud_sql_has_cloud_sql';
+  'google_cloud_sql_has_database';
 
 export const IngestionSources = {
   CLOUD_SQL: 'cloud-sql',

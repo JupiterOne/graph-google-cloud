@@ -46,6 +46,7 @@ import {
   STEP_CLOUD_SQL_HAS_CLOUD_SQL_DATABASE,
   RELATIONSHIP_TYPE_GOOGLE_CLOUD_SQL_HAS_CLOUD_SQL_DATABASE,
   RELATIONSHIP_TYPE_CLOUD_PROJECT_HAS_CLOUD_SQL,
+  RELATIONSHIP_TYPE_CLOUD_SQL_INSTANCES_HAS_CLOUD_SQL_CONNECTION,
 } from './constants';
 import {
   createCloudSqlBackupEntity,
@@ -239,8 +240,7 @@ export async function buildSqlHasSqlInstancesRelationship(
     { _type: ENTITY_TYPE_CLOUD_SQL_INSTANCES },
     async (cloudSqlInstanceEntity) => {
 
-      const sqlEntityKey = cloudSqlInstanceEntity.projectId
-
+      const sqlEntityKey = cloudSqlInstanceEntity.projectId as string
 
       if (!sqlEntityKey) {
         throw new IntegrationMissingKeyError(
@@ -317,7 +317,7 @@ export async function buildSqlInstanceHasSqlBackupRelationship(
           fromKey: sqlInstanceEntityKey as string,
           fromType: ENTITY_TYPE_CLOUD_SQL_INSTANCES,
           toKey: cloudSqlBackupEntity._key as string,
-          toType: ENTITY_TYPE_CLOUD_SQL_SSL_CERTIFICATION,
+          toType: ENTITY_TYPE_CLOUD_SQL_BACKUP,
         }),
       );
     },
@@ -526,8 +526,8 @@ export const cloudSqlSteps: GoogleCloudIntegrationStep[] = [
     entities: [
       {
         resourceName: 'Cloud SQL Instances',
-        _type: ENTITY_CLASS_CLOUD_SQL_INSTANCES,
-        _class: ENTITY_TYPE_CLOUD_SQL_INSTANCES,
+        _type: ENTITY_TYPE_CLOUD_SQL_INSTANCES,
+        _class: ENTITY_CLASS_CLOUD_SQL_INSTANCES,
       },
     ],
     relationships: [],
@@ -756,7 +756,7 @@ export const cloudSqlSteps: GoogleCloudIntegrationStep[] = [
     relationships: [
       {
         _class: RelationshipClass.HAS,
-        _type: RELATIONSHIP_TYPE_CLOUD_SQL_INSTANCES_USES_CLOUD_SQL_DATABASE,
+        _type: RELATIONSHIP_TYPE_CLOUD_SQL_INSTANCES_HAS_CLOUD_SQL_CONNECTION,
         sourceType: ENTITY_TYPE_CLOUD_SQL_INSTANCES,
         targetType: ENTITY_TYPE_CLOUD_SQL_CONNECTION,
       },
