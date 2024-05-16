@@ -1,3 +1,15 @@
+# v3.3.6 (Thu May 16 2024)
+
+#### 🐛 Bug Fix
+
+- INT-10820: add key check to skipped projects step [#687](https://github.com/JupiterOne/graph-google-cloud/pull/687) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### Authors: 1
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
 # v3.3.5 (Thu May 16 2024)
 
 #### 🐛 Bug Fix
