@@ -290,9 +290,13 @@ export async function fetchResourceManagerSkippedProjects(
           skipLabelValues.includes(labelLowerCase) &&
           labelValueLowerCase === 'skip'
         ) {
-          await jobState.addEntity(
-            createProjectEntity(client.projectId, project),
-          );
+          const projectEntity = createProjectEntity(client.projectId, project);
+
+          if (!jobState.hasKey(projectEntity._key)) {
+            await jobState.addEntity(
+              createProjectEntity(client.projectId, project),
+            );
+          }
         }
       }
     });
