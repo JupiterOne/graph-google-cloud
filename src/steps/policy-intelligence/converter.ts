@@ -39,6 +39,7 @@ export function createPolicyIntelligenceAnalyzerEntity(
                 _type: POLICY_INTELLIGENCE_ANALYZER_TYPE,
                 _class: POLICY_INTELLIGENCE_ANALYZER_CLASS,
                 name: data.name,
+                summary: data.summary,
                 category: ['network'],
                 function: ['monitoring', 'networking'],
                 projectId: projectId,
