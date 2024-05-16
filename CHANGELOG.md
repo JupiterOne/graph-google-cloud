@@ -1,3 +1,15 @@
+# v3.3.5 (Thu May 16 2024)
+
+#### 🐛 Bug Fix
+
+- INT-10820: update skipped project steps to not be case sensitive [#686](https://github.com/JupiterOne/graph-google-cloud/pull/686) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### Authors: 1
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
 # v3.3.4 (Fri May 03 2024)
 
 #### 🐛 Bug Fix
