@@ -26,6 +26,7 @@ import {
   secretmanager_v1,
   serviceusage_v1,
   spanner_v1,
+  sqladmin_v1,
   sqladmin_v1beta4,
   storage_v1,
 } from 'googleapis';
@@ -2513,5 +2514,90 @@ export function getMockSecretVersionEntity(): secretmanager_v1.Schema$SecretVers
     createTime: '2022-08-10T14:19:20.840979Z',
     name: 'projects/j1-gc-integration-dev-v3/secrets/sample-secret-name/versions/1',
     state: 'ENABLED',
+  };
+}
+
+export function getMockCloudSqlBackupEntity(
+  partial?: sqladmin_v1.Schema$BackupRun
+): sqladmin_v1.Schema$BackupRun {
+  return {
+    id: 'example_backup_id',
+    kind: 'SQL#backupRun',
+    instance: 'example_instance_name',
+    selfLink: 'example_self_link',
+    status: 'SUCCESS',
+    type: 'AUTOMATED',
+    description: 'Example backup description',
+    backupKind: 'SNAPSHOT',
+    location: 'us-central1',
+    enqueuedTime: '2024-05-15T10:00:00Z',
+    startTime: '2024-05-15T10:05:00Z',
+    endTime: '2024-05-15T10:10:00Z',
+    ...partial,
+  };
+}
+
+export function getMockCloudSqlInstancesEntity() {
+  return {
+    name: 'example_instance_name',
+    etag: 'example_etag',
+    connectionName: 'example_connection_name',
+    selfLink: 'example_self_link',
+    projectId: 'example_project_id',
+    kind: 'example_kind',
+    databaseInstalledVersion: 'example_installed_version',
+  };
+}
+
+export function getMockCloudSqlConnectionEntity(): sqladmin_v1.Schema$ConnectSettings {
+  const mockIpMapping: sqladmin_v1.Schema$IpMapping = {
+    ipAddress: '192.168.0.1',
+    timeToRetire: '2024-05-15T12:00:00Z',
+  };
+  return {
+    serverCaCert: {
+      certSerialNumber: 'example_cert_serial_number',
+      commonName: 'example_common_name',
+      instance: 'example_instance_name',
+    },
+    databaseVersion: 'example_database_version',
+    backendType: 'example_backend_type',
+    kind: 'example_kind',
+    ipAddresses: [mockIpMapping],
+    pscEnabled: true,
+    dnsName: 'example_dns_name',
+  };
+}
+
+export function getMockCloudSqlDatabaseEntity(): sqladmin_v1.Schema$Database {
+  return {
+    name: 'example_database_name',
+    etag: 'example_etag',
+    kind: 'example_kind',
+    instance: 'example_instance_name',
+    selfLink: 'example_self_link',
+    project: 'example_project_id',
+    charset: 'example_charset',
+  };
+}
+
+export function getMockCloudSslCertificationEntity(): sqladmin_v1.Schema$Database {
+  return {
+    name: 'example_certificate_name',
+    etag: 'example_etag',
+    kind: 'example_kind',
+    instance: 'example_instance_name',
+    selfLink: 'example_self_link',
+    project: 'example_project_id',
+    charset: 'example_charset',
+  };
+}
+
+export function getMockCloudUserEntity(): sqladmin_v1.Schema$User {
+  return {
+    name: 'example_user_name',
+    etag: 'example_etag',
+    instance: 'example_instance_name',
+    project: 'example_project_id',
   };
 }
