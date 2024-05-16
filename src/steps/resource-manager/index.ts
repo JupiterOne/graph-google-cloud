@@ -277,14 +277,23 @@ export async function fetchResourceManagerSkippedProjects(
 
   if (organizationEntity) {
     await client.iterateProjects(async (project) => {
-      if (
-        project.labels &&
-        (project.labels['j1-integration']?.toLocaleLowerCase() === 'skip' ||
-          project.labels['JupiterOne']?.toLocaleLowerCase() === 'skip')
-      ) {
-        await jobState.addEntity(
-          createProjectEntity(client.projectId, project),
-        );
+      const labels = project.labels;
+
+      for (const label in labels) {
+        const labelValueLowerCase = labels[label]?.toLowerCase();
+        const labelLowerCase = label?.toLowerCase();
+
+        const skipLabelValues = ['jupiterone', 'j1-integration'];
+
+        if (
+          typeof labelValueLowerCase === 'string' &&
+          skipLabelValues.includes(labelLowerCase) &&
+          labelValueLowerCase === 'skip'
+        ) {
+          await jobState.addEntity(
+            createProjectEntity(client.projectId, project),
+          );
+        }
       }
     });
   }
