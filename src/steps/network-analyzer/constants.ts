@@ -35,8 +35,6 @@ export const STEP_PROJECT_HAS_NETWORK_ANALYZER_CONNECTIVITY_TEST_RELATIONSHIP =
 export const RELATIONSHIP_PROJECT_HAS_NETWORK_ANALYZER_CONNECTIVITY_TEST_TYPE =
   'google_cloud_project_has_network_analyzer_connectivity_test';
 
-export const STEP_NETWORK_ANALYZER_CONNECTIVITY_TEST_USES_NETWORK_ANALYZER_VPC_RELATIONSHIP =
-  'fetch-network-analyzer-connectivity-test-uses-network-analyzer-vpc-relation';
 export const RELATIONSHIP_NETWORK_ANALYZER_CONNECTIVITY_TEST_USES_NETWORK_ANALYZER_VPC_TYPE =
   'google_cloud_network_analyzer_connectivity_test_uses_google_cloud_network_analyzer_vpc';
 
@@ -56,7 +54,7 @@ export const RELATIONSHIP_VPN_GATEWAY_USES_VPN_GATEWAY_TUNNEL_RELATIONSHIP_TYPE 
   'google_cloud_vpn_gateway_uses_google_cloud_vpn_tunnel';
 
 export const STEP_CONNECTIVITY_TEST_USES_VPC_RELATIONSHIP =
-  'connectivity-test-uses-vpc';
+  'build-connectivity-test-uses-vpc-relationship';
 export const CONNECTIVITY_TEST_USES_VPC_RELATIONSHIP_TYPE =
   'google_cloud_network_analyzer_connectivity_test_uses_vpc';
 
