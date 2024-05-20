@@ -433,8 +433,8 @@ The following entities are created:
 | Monitoring Channels                                      | `google_cloud_monitoring-channel`                                 | `Channel`                          |
 | Monitoring Groups                                        | `google_cloud_group`                                              | `Group`                            |
 | Network Analyzer VPC                                     | `google_cloud_network_analyzer_vpc`                               | `Network`                          |
-| Network Intelligence Center                              | `google_cloud_network_analyzer`                                   | `Service`                          |
 | Network Intelligence Center                              | `google_cloud_network_analyzer_connectivity_test`                 | `Assessment`                       |
+| Network Intelligence Center                              | `google_cloud_network_analyzer`                                   | `Service`                          |
 | Organization                                             | `google_cloud_organization`                                       | `Organization`                     |
 | Private CA Certificate                                   | `google_privateca_certificate`                                    | `Certificate`                      |
 | Private CA Certificate Authority                         | `google_privateca_certificate_authority`                          | `Service`                          |
@@ -508,7 +508,14 @@ The following relationships are created:
 | `google_cloud_monitoring`                                        | **HAS**               | `google_cloud_monitoring-channel`                                 |
 | `google_cloud_monitoring`                                        | **HAS**               | `google_monitoring_alert_policy`                                  |
 | `google_cloud_network_analyzer`                                  | **HAS**               | `google_cloud_network_analyzer_connectivity_test`                 |
+| `google_cloud_network_analyzer_connectivity_test`                | **SCANS**             | `google_app_engine_version`                                       |
+| `google_cloud_network_analyzer_connectivity_test`                | **SCANS**             | `google_cloud_function`                                           |
 | `google_cloud_network_analyzer_connectivity_test`                | **USES**              | `google_cloud_network_analyzer_vpc`                               |
+| `google_cloud_network_analyzer_connectivity_test`                | **SCANS**             | `google_compute_forwarding_rule`                                  |
+| `google_cloud_network_analyzer_connectivity_test`                | **SCANS**             | `google_compute_instance`                                         |
+| `google_cloud_network_analyzer_connectivity_test`                | **SCANS**             | `google_compute_network`                                          |
+| `google_cloud_network_analyzer_connectivity_test`                | **SCANS**             | `google_container_cluster`                                        |
+| `google_cloud_network_analyzer_connectivity_test`                | **SCANS**             | `google_sql_mysql_instance`                                       |
 | `google_cloud_organization`                                      | **HAS**               | `google_cloud_folder`                                             |
 | `google_cloud_organization`                                      | **HAS**               | `google_cloud_project`                                            |
 | `google_cloud_project`                                           | **USES**              | `fetch-network-analyzer-vpc`                                      |

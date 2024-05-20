@@ -51,6 +51,7 @@ import {
   STEP_RESOURCE_MANAGER_PROJECT,
 } from '../resource-manager';
 import { getProjectEntity } from '../../utils/project';
+import { buildConnectivityTestScansEndpointsRelationship } from './build-connectivity-test-scans-endpoints-relationship';
 
 export interface VpcConnector {
   displayName: string;
@@ -404,6 +405,7 @@ export async function buildProjectUsesNetworkAnalyzerVPCRelationship(
 }
 
 export const networkAnalyzerSteps: GoogleCloudIntegrationStep[] = [
+  ...buildConnectivityTestScansEndpointsRelationship,
   {
     id: STEP_NETWORK_INTELLIGENCE_CENTER,
     ingestionSourceId: IngestionSources.NETWORK_INTELLIGENCE_CENTER,

@@ -60,6 +60,41 @@ export const STEP_CONNECTIVITY_TEST_USES_VPC_RELATIONSHIP =
 export const CONNECTIVITY_TEST_USES_VPC_RELATIONSHIP_TYPE =
   'google_cloud_network_analyzer_connectivity_test_uses_vpc';
 
+export const STEP_CONNECTIVITY_TEST_SCANS_COMPUTE_INSTANCE =
+  'build-connectivity-test-scans-compute-instance-relationship';
+export const RELATIONSHIP_TYPE_CONNECTIVITY_TEST_SCANS_COMPUTE_INSTANCE =
+  'google_cloud_network_analyzer_connectivity_test_scans_compute_instance';
+export const STEP_CONNECTIVITY_TEST_SCANS_FORWARDING_RULE =
+  'build-connectivity-test-scans-forwarding-rule-relationship';
+export const RELATIONSHIP_TYPE_CONNECTIVITY_TEST_SCANS_FORWARDING_RULE =
+  'google_cloud_network_analyzer_connectivity_test_scans_compute_forwarding_rule';
+
+export const STEP_CONNECTIVITY_TEST_SCANS_CLOUD_SQL_INSTANCE =
+  'build-connectivity-test-scans-cloud-sql-relationship';
+export const RELATIONSHIP_TYPE_CONNECTIVITY_TEST_SCANS_CLOUD_SQL_INSTANCE =
+  'google_cloud_network_analyzer_connectivity_test_scans_sql_mysql_instance';
+
+export const STEP_CONNECTIVITY_TEST_SCANS_CLOUD_FUNCTION =
+  'build-connectivity-test-scans-cloud-function-relationship';
+export const RELATIONSHIP_TYPE_CONNECTIVITY_TEST_SCANS_CLOUD_FUNCTION =
+  'google_cloud_network_analyzer_connectivity_test_scans_function';
+
+export const RELATIONSHIP_TYPE_CONNECTIVITY_TEST_SCANS_APP_ENGINE_VERSION =
+  'google_cloud_network_analyzer_connectivity_test_scans_app_engine_version';
+
+export const STEP_CONNECTIVITY_TEST_SCANS_APP_ENGINE_VERSION =
+  'build-connectivity-test-scans-app-engine-version';
+
+export const STEP_CONNECTIVITY_TEST_SCANS_NETWORK =
+  'build-connectivity-test-scans-network';
+export const RELATIONSHIP_TYPE_CONNECTIVITY_TEST_SCANS_NETWORK =
+  'google_cloud_network_analyzer_connectivity_test_scans_compute_network';
+
+export const STEP_CONNECTIVITY_TEST_SCANS_GKE_CLUSTER =
+  'build-connectivity-test-scans-gke-cluster';
+export const RELATIONSHIP_TYPE_CONNECTIVITY_TEST_SCANS_GKE_CLUSTER =
+  'google_cloud_network_analyzer_connectivity_test_scans_gke_cluster';
+
 export const IngestionSources = {
   NETWORK_INTELLIGENCE_CENTER: 'network-intelligence-center',
   PROJECT_HAS_NETWORK_INTELLIGENCE_CENTER_RELATIONSHIP:
@@ -81,6 +116,20 @@ export const IngestionSources = {
   VPN_GATEWAY_USES_VPN_GATEWAY_TUNNEL_RELATIONSHIP:
     'vpn-gateway-uses-vpn-gateway-tunnel',
   CONNECTIVITY_TEST_USES_VPC_RELATIONSHIP: 'connectivity-test-uses-vpc',
+  CONNECTIVITY_TEST_SCANS_COMPUTE_INSTANCE_RELATIONSHIP:
+    'connectivity-test-scans-compute-instance',
+  CONNECTIVITY_TEST_SCANS_FORWARDING_RULE_RELATIONSHIP:
+    'connectivity-test-scans-compute-forwarding-rule',
+  CONNECTIVITY_TEST_SCANS_CLOUD_SQL_INSTANCE_RELATIONSHIP:
+    'connectivity-test-cloud-scans-sql-instance',
+  CONNECTIVITY_TEST_SCANS_CLOUD_FUNCTION_RELATIONSHIP:
+    'connectivity-test-cloud-scans-cloud-function',
+  CONNECTIVITY_TEST_SCANS_APP_ENGINE_VERSION_RELATIONSHIP:
+    'connectivity-test-cloud-scans-app-engine-version',
+  CONNECTIVITY_TEST_SCANS_NETWORK_RELATIONSHIP:
+    'connectivity-test-cloud-scans-network',
+  CONNECTIVITY_TEST_SCANS_GKE_CLUSTER_RELATIONSHIP:
+    'connectivity-test-cloud-scans-gke-cluster',
 };
 
 export const NETWORK_ANALYZER_LOCATIONS: string[] = [
