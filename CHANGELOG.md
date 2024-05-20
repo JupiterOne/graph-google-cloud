@@ -1,3 +1,15 @@
+# v3.3.7 (Mon May 20 2024)
+
+#### 🐛 Bug Fix
+
+- INT-10878: update integration error handling [#688](https://github.com/JupiterOne/graph-google-cloud/pull/688) ([@gastonyelmini](https://github.com/gastonyelmini))
+
+#### Authors: 1
+
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
 # v3.3.6 (Thu May 16 2024)
 
 #### 🐛 Bug Fix
