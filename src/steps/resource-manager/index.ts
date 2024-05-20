@@ -292,10 +292,12 @@ export async function fetchResourceManagerSkippedProjects(
         ) {
           const projectEntity = createProjectEntity(client.projectId, project);
 
+          logger.info(
+            `Adding skipped project to jobState: ${projectEntity._key}`,
+          );
+
           if (!jobState.hasKey(projectEntity._key)) {
-            await jobState.addEntity(
-              createProjectEntity(client.projectId, project),
-            );
+            await jobState.addEntity(projectEntity);
           }
         }
       }
