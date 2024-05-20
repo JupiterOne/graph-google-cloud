@@ -50,7 +50,7 @@ export function createNetworkAnalyzerConnectivityTest(
         projectId: projectId,
         displayName: data.displayName as string,
         category: data.protocol as string,
-        summary: data.probingDetails?.result as string,
+        summary: data.reachabilityDetails?.result as string,
         internal: true,
         srcInstance: data.source?.instance,
         dstInstance: data.destination?.instance,
