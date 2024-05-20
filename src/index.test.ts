@@ -190,6 +190,12 @@ import {
 import { StorageStepsSpec } from './steps/storage/constants';
 import { WebSecurityScannerSteps } from './steps/web-security-scanner/constants';
 import {
+  STEP_CONNECTIVITY_TEST_SCANS_APP_ENGINE_VERSION,
+  STEP_CONNECTIVITY_TEST_SCANS_CLOUD_FUNCTION,
+  STEP_CONNECTIVITY_TEST_SCANS_CLOUD_SQL_INSTANCE,
+  STEP_CONNECTIVITY_TEST_SCANS_COMPUTE_INSTANCE,
+  STEP_CONNECTIVITY_TEST_SCANS_FORWARDING_RULE,
+  STEP_CONNECTIVITY_TEST_SCANS_NETWORK,
   STEP_CONNECTIVITY_TEST_USES_VPC_RELATIONSHIP,
   STEP_NETWORK_ANALYZER_CONNECTIVITY_TEST,
   STEP_NETWORK_ANALYZER_VPC,
@@ -720,6 +726,24 @@ describe('#getStepStartStates success', () => {
         [STEP_PROJECT_USES_NETWORK_ANALYZER_VPC_RELATIONSHIP]: {
           disabled: false,
         },
+        [STEP_CONNECTIVITY_TEST_SCANS_COMPUTE_INSTANCE]: {
+          disabled: false,
+        },
+        [STEP_CONNECTIVITY_TEST_SCANS_FORWARDING_RULE]: {
+          disabled: false,
+        },
+        [STEP_CONNECTIVITY_TEST_SCANS_CLOUD_SQL_INSTANCE]: {
+          disabled: false,
+        },
+        [STEP_CONNECTIVITY_TEST_SCANS_CLOUD_FUNCTION]: {
+          disabled: false,
+        },
+        [STEP_CONNECTIVITY_TEST_SCANS_APP_ENGINE_VERSION]: {
+          disabled: false,
+        },
+        [STEP_CONNECTIVITY_TEST_SCANS_NETWORK]: {
+          disabled: false,
+        },
       };
 
       expect(stepStartStates).toEqual(expectedStepStartStates);
@@ -975,8 +999,9 @@ expect.extend({
     stepCollection: string[],
   ) {
     for (const stepId of stepCollection) {
-      const stepDependencies = integrationSteps.find((s) => s.id === stepId)
-        ?.dependsOn;
+      const stepDependencies = integrationSteps.find(
+        (s) => s.id === stepId,
+      )?.dependsOn;
 
       const invalidStepDependencies = stepDependencies?.filter(
         (s) => !stepCollection.includes(s),

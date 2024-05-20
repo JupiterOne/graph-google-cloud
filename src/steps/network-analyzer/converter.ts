@@ -64,8 +64,6 @@ export function createNetworkAnalyzerConnectivityTest(
         dstAppEngineVersion: data.destination?.appEngineVersion?.uri,
         srcNetwork: data.source?.network,
         dstNetwork: data.destination?.network,
-        srcGkeCluster: data.source?.gkeMasterCluster,
-        dstGkeCluster: data.destination?.gkeMasterCluster,
       },
     },
   });

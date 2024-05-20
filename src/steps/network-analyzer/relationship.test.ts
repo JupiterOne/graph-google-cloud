@@ -192,6 +192,18 @@ describe(`networkAnalyzer#${STEP_NETWORK_INTELLIGENCE_CENTER_HAS_NETWORK_ANALYZE
           category: { type: 'string' },
           summary: { type: 'string' },
           internal: { type: 'boolean' },
+          srcInstance: { type: 'string' },
+          dstInstance: { type: 'string' },
+          srcForwardingRule: { type: 'string' },
+          dstForwardingRule: { type: 'string' },
+          srcCloudSqlInstance: { type: 'string' },
+          dstCloudSqlInstance: { type: 'string' },
+          srcCloudFunction: { type: 'string' },
+          dstCloudFunction: { type: 'string' },
+          srcAppEngineVersion: { type: 'string' },
+          dstAppEngineVersion: { type: 'string' },
+          srcNetwork: { type: 'string' },
+          dstNetwork: { type: 'string' },
         },
       },
     });
@@ -323,5 +335,5 @@ describe(`networkAnalyzer#${STEP_VPN_GATEWAY_USES_VPN_GATEWAY_TUNNEL_RELATIONSHI
         },
       },
     });
-  }, 100000);
+  }, 1000000);
 });

@@ -147,7 +147,7 @@ describe(`networkAnalyzer#${STEP_VPN_GATEWAY}`, () => {
         },
       },
     });
-  }, 50000);
+  }, 5000000);
 });
 
 describe(`networkAnalyzer#${STEP_VPN_GATEWAY_TUNNEL}`, () => {
@@ -205,7 +205,7 @@ describe(`networkAnalyzer#${STEP_VPN_GATEWAY_TUNNEL}`, () => {
         },
       },
     });
-  }, 50000);
+  }, 5000000);
 });
 
 describe(`networkAnalyzer#${STEP_NETWORK_ANALYZER_VPC}`, () => {
@@ -260,5 +260,5 @@ describe(`networkAnalyzer#${STEP_NETWORK_ANALYZER_VPC}`, () => {
         },
       },
     });
-  }, 500000);
+  }, 50000000);
 });

@@ -233,6 +233,12 @@ import {
   STEP_VPN_GATEWAY,
   STEP_VPN_GATEWAY_TUNNEL,
   STEP_VPN_GATEWAY_USES_VPN_GATEWAY_TUNNEL_RELATIONSHIP,
+  STEP_CONNECTIVITY_TEST_SCANS_COMPUTE_INSTANCE,
+  STEP_CONNECTIVITY_TEST_SCANS_FORWARDING_RULE,
+  STEP_CONNECTIVITY_TEST_SCANS_CLOUD_SQL_INSTANCE,
+  STEP_CONNECTIVITY_TEST_SCANS_CLOUD_FUNCTION,
+  STEP_CONNECTIVITY_TEST_SCANS_APP_ENGINE_VERSION,
+  STEP_CONNECTIVITY_TEST_SCANS_NETWORK,
 } from './steps/network-analyzer/constants';
 import { networkAnalyzerSteps } from './steps/network-analyzer';
 
@@ -583,6 +589,24 @@ function getDefaultStepStartStates(params: {
       disabled: false,
     },
     [STEP_PROJECT_USES_NETWORK_ANALYZER_VPC_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_CONNECTIVITY_TEST_SCANS_COMPUTE_INSTANCE]: {
+      disabled: false,
+    },
+    [STEP_CONNECTIVITY_TEST_SCANS_FORWARDING_RULE]: {
+      disabled: false,
+    },
+    [STEP_CONNECTIVITY_TEST_SCANS_CLOUD_SQL_INSTANCE]: {
+      disabled: false,
+    },
+    [STEP_CONNECTIVITY_TEST_SCANS_CLOUD_FUNCTION]: {
+      disabled: false,
+    },
+    [STEP_CONNECTIVITY_TEST_SCANS_APP_ENGINE_VERSION]: {
+      disabled: false,
+    },
+    [STEP_CONNECTIVITY_TEST_SCANS_NETWORK]: {
       disabled: false,
     },
   };
@@ -1080,6 +1104,24 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     ),
     [STEP_PROJECT_USES_NETWORK_ANALYZER_VPC_RELATIONSHIP]:
       createOrgStepStartState(ServiceUsageName.NETWORK_ANALYZER),
+    [STEP_CONNECTIVITY_TEST_SCANS_COMPUTE_INSTANCE]: createOrgStepStartState(
+      ServiceUsageName.NETWORK_ANALYZER,
+    ),
+    [STEP_CONNECTIVITY_TEST_SCANS_FORWARDING_RULE]: createOrgStepStartState(
+      ServiceUsageName.NETWORK_ANALYZER,
+    ),
+    [STEP_CONNECTIVITY_TEST_SCANS_CLOUD_SQL_INSTANCE]: createOrgStepStartState(
+      ServiceUsageName.NETWORK_ANALYZER,
+    ),
+    [STEP_CONNECTIVITY_TEST_SCANS_CLOUD_FUNCTION]: createOrgStepStartState(
+      ServiceUsageName.NETWORK_ANALYZER,
+    ),
+    [STEP_CONNECTIVITY_TEST_SCANS_APP_ENGINE_VERSION]: createOrgStepStartState(
+      ServiceUsageName.NETWORK_ANALYZER,
+    ),
+    [STEP_CONNECTIVITY_TEST_SCANS_NETWORK]: createOrgStepStartState(
+      ServiceUsageName.NETWORK_ANALYZER,
+    ),
   };
 
   const apiServiceToStepIdsMap: { [apiService: string]: string[] } = {
