@@ -514,7 +514,6 @@ The following relationships are created:
 | `google_cloud_network_analyzer_connectivity_test`                | **SCANS**             | `google_compute_forwarding_rule`                                  |
 | `google_cloud_network_analyzer_connectivity_test`                | **SCANS**             | `google_compute_instance`                                         |
 | `google_cloud_network_analyzer_connectivity_test`                | **SCANS**             | `google_compute_network`                                          |
-| `google_cloud_network_analyzer_connectivity_test`                | **SCANS**             | `google_container_cluster`                                        |
 | `google_cloud_network_analyzer_connectivity_test`                | **SCANS**             | `google_sql_mysql_instance`                                       |
 | `google_cloud_organization`                                      | **HAS**               | `google_cloud_folder`                                             |
 | `google_cloud_organization`                                      | **HAS**               | `google_cloud_project`                                            |

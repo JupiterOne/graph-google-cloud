@@ -23,8 +23,6 @@ import {
   STEP_CONNECTIVITY_TEST_SCANS_APP_ENGINE_VERSION,
   STEP_CONNECTIVITY_TEST_SCANS_NETWORK,
   RELATIONSHIP_TYPE_CONNECTIVITY_TEST_SCANS_NETWORK,
-  STEP_CONNECTIVITY_TEST_SCANS_GKE_CLUSTER,
-  RELATIONSHIP_TYPE_CONNECTIVITY_TEST_SCANS_GKE_CLUSTER,
 } from './constants';
 import {
   ENTITY_TYPE_COMPUTE_FORWARDING_RULE,
@@ -43,10 +41,6 @@ import {
   ENTITY_TYPE_APP_ENGINE_VERSION,
   STEP_APP_ENGINE_VERSIONS,
 } from '../app-engine/constants';
-import {
-  CONTAINER_CLUSTER_ENTITY_TYPE,
-  STEP_CONTAINER_CLUSTERS,
-} from '../containers';
 
 function throwErr(stepId: string, EntityName: string, Key: string) {
   throw new IntegrationMissingKeyError(`
@@ -297,47 +291,6 @@ export async function buildConnectivityTestScansNetworkRelationship(
   );
 }
 
-export async function buildConnectivityTestScansGkeClusterRelationship(
-  context: IntegrationStepContext,
-): Promise<void> {
-  const { jobState } = context;
-
-  await jobState.iterateEntities(
-    { _type: NETWORK_ANALYZER_CONNECTIVITY_TEST_TYPE },
-    async (connTest) => {
-      const gkeClusters: string[] = [
-        connTest.dstGkeCluster as string,
-        connTest.srcGkeCluster as string,
-      ];
-
-      for (let i = 0; i < gkeClusters.length; i = i + 1) {
-        if (gkeClusters[i]) {
-          const gkeClustersKey =
-            'https://www.googleapis.com/compute/v1/' + gkeClusters[i];
-          if (!jobState.hasKey(gkeClustersKey)) {
-            throwErr(
-              STEP_CONNECTIVITY_TEST_SCANS_NETWORK, // Step Id
-              'GKE Cluster Key', // Entity Name
-              gkeClustersKey, // Missing Key
-            );
-          }
-
-          if (!jobState.hasKey(`${connTest._key}|scans|${gkeClustersKey}`))
-            await jobState.addRelationship(
-              createDirectRelationship({
-                _class: RelationshipClass.SCANS,
-                fromKey: connTest._key,
-                fromType: NETWORK_ANALYZER_CONNECTIVITY_TEST_TYPE,
-                toKey: gkeClustersKey,
-                toType: CONTAINER_CLUSTER_ENTITY_TYPE,
-              }),
-            );
-        }
-      }
-    },
-  );
-}
-
 export const buildConnectivityTestScansEndpointsRelationship: GoogleCloudIntegrationStep[] =
   [
     {
@@ -459,25 +412,5 @@ export const buildConnectivityTestScansEndpointsRelationship: GoogleCloudIntegra
         STEP_COMPUTE_NETWORKS,
       ],
       executionHandler: buildConnectivityTestScansNetworkRelationship,
-    },
-    {
-      id: STEP_CONNECTIVITY_TEST_SCANS_GKE_CLUSTER,
-      ingestionSourceId:
-        IngestionSources.CONNECTIVITY_TEST_SCANS_GKE_CLUSTER_RELATIONSHIP,
-      name: 'Connectivity Test Scans Gke Cluster Relationship',
-      entities: [],
-      relationships: [
-        {
-          _class: RelationshipClass.SCANS,
-          _type: RELATIONSHIP_TYPE_CONNECTIVITY_TEST_SCANS_GKE_CLUSTER,
-          sourceType: NETWORK_ANALYZER_CONNECTIVITY_TEST_TYPE,
-          targetType: CONTAINER_CLUSTER_ENTITY_TYPE,
-        },
-      ],
-      dependsOn: [
-        STEP_NETWORK_ANALYZER_CONNECTIVITY_TEST,
-        STEP_CONTAINER_CLUSTERS,
-      ],
-      executionHandler: buildConnectivityTestScansGkeClusterRelationship,
     },
   ];
