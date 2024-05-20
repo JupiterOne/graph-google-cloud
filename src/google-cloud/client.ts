@@ -169,7 +169,7 @@ export class Client {
     const status =
       err.response?.status !== undefined ? err.response?.status : err.status;
 
-    if ((status === 403 || status === 404) && !isQuotaLimitError(err)) {
+    if ((status == 403 || status == 404) && !isQuotaLimitError(err)) {
       isAuthorizationError = true;
 
       if (
