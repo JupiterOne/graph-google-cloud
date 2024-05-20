@@ -166,10 +166,14 @@ export class Client {
   ): boolean {
     let isAuthorizationError = false;
 
-    if (
-      (err.response?.status === 403 || err.status === 403) &&
-      !isQuotaLimitError(err)
-    ) {
+    const status =
+      err.response?.status !== undefined ? err.response?.status : err.status;
+
+    /**
+     * 404 is usually not a permission issue. In this case, when a user doesn't have access to a
+     * specific resource it will return a 404 status code, when its a permission issue.
+     */
+    if ((status == 403 || status == 404) && !isQuotaLimitError(err)) {
       isAuthorizationError = true;
 
       if (
