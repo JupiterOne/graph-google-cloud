@@ -105,6 +105,14 @@ import {
   STEP_COMPUTE_TARGET_HTTP_PROXIES,
   STEP_COMPUTE_TARGET_SSL_PROXIES,
   STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS,
+  STEP_AUTOSCALER_POLICY,
+  STEP_AUTOSCALER_REGION_POLICY,
+  STEP_COMPUTE_ENGINE_AUTOSCALERS,
+  STEP_COMPUTE_ENGINE_AUTOSCALERS_AND_POLICY_RELATIONSHIPS,
+  STEP_COMPUTE_ENGINE_REGION_AUTOSCALERS,
+  STEP_COMPUTE_ENGINE_REGION_AUTOSCALERS_AND_REGION_POLICY_RELATIONSHIPS,
+  STEP_PROJECT_COMPUTE_ENGINE_AUTOSCALERS_RELATIONSHIPS,
+  STEP_PROJECT_COMPUTE_ENGINE_REGION_AUTOSCALERS_RELATIONSHIPS,
 } from './steps/compute';
 import { STEP_CONTAINER_CLUSTERS } from './steps/containers';
 import {
@@ -346,6 +354,30 @@ describe('#getStepStartStates success', () => {
           disabled: false,
         },
         [STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_AUTOSCALER_POLICY]: {
+          disabled: false,
+        },
+        [STEP_AUTOSCALER_REGION_POLICY]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_ENGINE_AUTOSCALERS]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_ENGINE_AUTOSCALERS_AND_POLICY_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_ENGINE_REGION_AUTOSCALERS]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_ENGINE_REGION_AUTOSCALERS_AND_REGION_POLICY_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_COMPUTE_ENGINE_AUTOSCALERS_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_COMPUTE_ENGINE_REGION_AUTOSCALERS_RELATIONSHIPS]: {
           disabled: false,
         },
         [STEP_COMPUTE_TARGET_SSL_PROXIES]: {
@@ -800,7 +832,7 @@ describe('#beforeAddEntity', () => {
 
     expect(
       invocationConfig.beforeAddEntity &&
-        invocationConfig.beforeAddEntity(context, mockEntity),
+      invocationConfig.beforeAddEntity(context, mockEntity),
     ).toEqual({
       ...mockEntity,
       projectId:
@@ -823,7 +855,7 @@ describe('#beforeAddEntity', () => {
 
     expect(
       invocationConfig.beforeAddEntity &&
-        invocationConfig.beforeAddEntity(context, mockEntity),
+      invocationConfig.beforeAddEntity(context, mockEntity),
     ).toEqual({
       ...mockEntity,
       projectId: 'my-project-id',

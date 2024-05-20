@@ -675,6 +675,9 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [STEP_AUTOSCALER_REGION_POLICY]: createStepStartState(
       ServiceUsageName.COMPUTE,
     ),
+    [STEP_AUTOSCALER_POLICY]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
     [STEP_COMPUTE_ENGINE_REGION_AUTOSCALERS]: createStepStartState(
       ServiceUsageName.COMPUTE,
     ),
