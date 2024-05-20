@@ -29,7 +29,6 @@ export async function buildProjectComputeEngineRegionAutoscalersRelationship(
                 if (numericPartMatch) {
                     const numericPart = numericPartMatch[0];
                     const computeEngineAutoscalerKey = numericPart;
-                    console.log(computeEngineAutoscalerKey);
                     const hasComputeEngineAutoscalerKey = jobState.hasKey(computeEngineAutoscalerKey);
                     if (!hasComputeEngineAutoscalerKey) {
                         throw new IntegrationMissingKeyError(

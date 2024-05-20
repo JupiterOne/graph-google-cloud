@@ -256,9 +256,9 @@ export const RELATIONSHIP_TYPE_PROJECT_HAS_COMPUTE_ENGINE_AUTOSCALERS =
 export const RELATIONSHIP_TYPE_PROJECT_HAS_COMPUTE_ENGINE_REGION_AUTOSCALERS =
   'google_cloud_project_has_region_autoscaler'
 export const RELATIONSHIP_TYPE_COMPUTE_ENGINE_AUTOSCALERS_HAS_POLICY =
-  'google_cloud_project_has_autoscaler_policy'
-export const RELATIONSHIP_TYPE_COMPUTE_ENGINE_AUTOSCALERS_HAS_REGION_POLICY =
-  'google_cloud_project_has_region_autoscaler_policy'
+  'google_cloud_compute_autoscaler_has_autoscaler_policy'
+export const RELATIONSHIP_TYPE_COMPUTE_ENGINE_REGION_AUTOSCALERS_HAS_REGION_POLICY =
+  'google_cloud_compute_region_autoscaler_has_region_autoscaler_policy'
 
 
 // Mapped relationships
