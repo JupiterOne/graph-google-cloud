@@ -5,6 +5,10 @@ import { getGoogleCloudConsoleWebLink } from '../../utils/url';
 import {
   ENTITY_TYPE_REDIS_INSTANCE,
   ENTITY_CLASS_REDIS_INSTANCE,
+  ENTITY_TYPE_MEMORYSTORE_REDIS_LOCATION,
+  ENTITY_CLASS_MEMORYSTORE_REDIS_LOCATION,
+  ENTITY_TYPE_MEMORYSTORE_REDIS,
+  ENTITY_CLASS_MEMORYSTORE_REDIS,
 } from './constants';
 
 export function getRedisKey(uid: string) {
@@ -50,6 +54,46 @@ export function createRedisInstanceEntity(
             '/',
           )[5]}/details?project=${projectId}`,
         ),
+      },
+    },
+  });
+}
+
+export function createMemoryStoreRedisLocationEntity(
+  data: redis_v1.Schema$Location,
+  projectId: string,
+) {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _key: getRedisKey(data.name!),
+        _type: ENTITY_TYPE_MEMORYSTORE_REDIS_LOCATION,
+        _class: ENTITY_CLASS_MEMORYSTORE_REDIS_LOCATION,
+        name: data.name,
+        displayName: data.displayName as string,
+        locationId: data.locationId,
+      },
+    },
+  });
+}
+
+export function createMemoryStoreRedisEntity(
+  data: any,
+  organizationId: string,
+  projectId: string,
+) {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _key: (organizationId + '_' + ENTITY_TYPE_MEMORYSTORE_REDIS) as string,
+        _type: ENTITY_TYPE_MEMORYSTORE_REDIS,
+        _class: ENTITY_CLASS_MEMORYSTORE_REDIS,
+        name: 'MemoryStore Redis Service',
+        function: ['Storage'],
+        category: ['Platform'],
+        endpoint: 'https://console.cloud.google.com/',
       },
     },
   });

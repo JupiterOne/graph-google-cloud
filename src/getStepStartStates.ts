@@ -74,6 +74,7 @@ import { cloudSourceRepositoriesSteps } from './steps/cloud-source-repositories'
 import { CloudSourceRepositoriesStepsSpec } from './steps/cloud-source-repositories/constants';
 import {
   computeSteps,
+  STEP_CLOUD_INTERCONNECT,
   STEP_COMPUTE_ADDRESSES,
   STEP_COMPUTE_BACKEND_BUCKETS,
   STEP_COMPUTE_BACKEND_SERVICES,
@@ -95,6 +96,8 @@ import {
   STEP_COMPUTE_NETWORK_PEERING_RELATIONSHIPS,
   STEP_COMPUTE_NETWORKS,
   STEP_COMPUTE_PROJECT,
+  STEP_COMPUTE_PROJECT_HAS_CLOUD_INTERCONNECT_RELATIONSHIP,
+  STEP_COMPUTE_PROJECT_HAS_INTERCONNECT_LOCATION_RELATIONSHIP,
   STEP_COMPUTE_REGION_BACKEND_SERVICES,
   STEP_COMPUTE_REGION_DISKS,
   STEP_COMPUTE_REGION_HEALTH_CHECKS,
@@ -110,6 +113,8 @@ import {
   STEP_COMPUTE_TARGET_HTTPS_PROXIES,
   STEP_COMPUTE_TARGET_SSL_PROXIES,
   STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS,
+  STEP_INTERCONNECT_LOCATION,
+  STEP_INTERCONNECT_LOCATION_USES_CLOUD_INTERCONNECT_RELATIONSHIP,
 } from './steps/compute';
 import { containerSteps, STEP_CONTAINER_CLUSTERS } from './steps/containers';
 import { dataprocSteps } from './steps/dataproc';
@@ -156,7 +161,16 @@ import {
   STEP_MEMCACHE_INSTANCES,
 } from './steps/memcache/constants';
 import { monitoringSteps } from './steps/monitoring';
-import { STEP_MONITORING_ALERT_POLICIES } from './steps/monitoring/constants';
+import {
+  STEP_CLOUD_MONITORING,
+  STEP_CLOUD_MONITORING_HAS_MONITORING_ALERT_POLICIES_RELATIONSHIP,
+  STEP_CLOUD_MONITORING_HAS_MONITORING_CHANNELS_RELATIONSHIP,
+  STEP_CLOUD_MONITORING_HAS_MONITORING_GROUPS_RELATIONSHIP,
+  STEP_MONITORING_ALERT_POLICIES,
+  STEP_MONITORING_CHANNELS,
+  STEP_MONITORING_GROUPS,
+  STEP_PROJECT_HAS_CLOUD_MONITORING_RELATIONSHIP,
+} from './steps/monitoring/constants';
 import { privateCaSteps } from './steps/privateca';
 import { PrivatecaSteps } from './steps/privateca/constants';
 import { pubSubSteps } from './steps/pub-sub';
@@ -168,6 +182,12 @@ import {
 import { redisSteps } from './steps/redis';
 import {
   STEP_CREATE_REDIS_INSTANCE_NETWORK_RELATIONSHIPS,
+  STEP_MEMORYSTORE_REDIS,
+  STEP_MEMORYSTORE_REDIS_LOCATION,
+  STEP_MEMORYSTORE_REDIS_LOCATION_HAS_REDIS_INSTANCE_RELATIONSHIP,
+  STEP_PROJECT_HAS_MEMORYSTORE_REDIS_LOCATION_RELTIONSHIP,
+  STEP_PROJECT_HAS_MEMORYSTORE_REDIS_RELATIONSHIP,
+  STEP_PROJECT_HAS_REDIS_INSTANCE_RELATIONSHIP,
   STEP_REDIS_INSTANCES,
 } from './steps/redis/constants';
 import {
@@ -201,6 +221,26 @@ import { WebSecurityScannerSteps } from './steps/web-security-scanner/constants'
 import { IntegrationConfig } from './types';
 import { isMasterOrganizationInstance } from './utils/isMasterOrganizationInstance';
 import { isSingleProjectInstance } from './utils/isSingleProjectInstance';
+import {
+  STEP_CONNECTIVITY_TEST_USES_VPC_RELATIONSHIP,
+  STEP_NETWORK_ANALYZER_CONNECTIVITY_TEST,
+  STEP_NETWORK_ANALYZER_VPC,
+  STEP_NETWORK_INTELLIGENCE_CENTER,
+  STEP_NETWORK_INTELLIGENCE_CENTER_HAS_NETWORK_ANALYZER_CONNECTIVITY_TEST_RELATIONSHIP,
+  STEP_PROJECT_HAS_NETWORK_ANALYZER_CONNECTIVITY_TEST_RELATIONSHIP,
+  STEP_PROJECT_HAS_NETWORK_INTELLIGENCE_CENTER_RELATIONSHIP,
+  STEP_PROJECT_USES_NETWORK_ANALYZER_VPC_RELATIONSHIP,
+  STEP_VPN_GATEWAY,
+  STEP_VPN_GATEWAY_TUNNEL,
+  STEP_VPN_GATEWAY_USES_VPN_GATEWAY_TUNNEL_RELATIONSHIP,
+  STEP_CONNECTIVITY_TEST_SCANS_COMPUTE_INSTANCE,
+  STEP_CONNECTIVITY_TEST_SCANS_FORWARDING_RULE,
+  STEP_CONNECTIVITY_TEST_SCANS_CLOUD_SQL_INSTANCE,
+  STEP_CONNECTIVITY_TEST_SCANS_CLOUD_FUNCTION,
+  STEP_CONNECTIVITY_TEST_SCANS_APP_ENGINE_VERSION,
+  STEP_CONNECTIVITY_TEST_SCANS_NETWORK,
+} from './steps/network-analyzer/constants';
+import { networkAnalyzerSteps } from './steps/network-analyzer';
 
 function makeStepStartStates(
   stepIds: string[],
@@ -371,6 +411,17 @@ function getDefaultStepStartStates(params: {
     [STEP_COMPUTE_TARGET_HTTP_PROXIES]: { disabled: false },
     [STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES]: { disabled: false },
     [STEP_COMPUTE_SSL_POLICIES]: { disabled: false },
+    [STEP_CLOUD_INTERCONNECT]: { disabled: false },
+    [STEP_INTERCONNECT_LOCATION]: { disabled: false },
+    [STEP_INTERCONNECT_LOCATION_USES_CLOUD_INTERCONNECT_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_COMPUTE_PROJECT_HAS_CLOUD_INTERCONNECT_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_COMPUTE_PROJECT_HAS_INTERCONNECT_LOCATION_RELATIONSHIP]: {
+      disabled: false,
+    },
     [STEP_CLOUD_KMS_KEY_RINGS]: { disabled: false },
     [STEP_CLOUD_KMS_KEYS]: { disabled: false },
     [STEP_BIG_QUERY_DATASETS]: { disabled: false },
@@ -390,6 +441,19 @@ function getDefaultStepStartStates(params: {
     },
     [STEP_LOGGING_METRICS]: { disabled: false },
     [STEP_MONITORING_ALERT_POLICIES]: { disabled: false },
+    [STEP_MONITORING_GROUPS]: { disabled: false },
+    [STEP_MONITORING_CHANNELS]: { disabled: false },
+    [STEP_CLOUD_MONITORING]: { disabled: false },
+    [STEP_PROJECT_HAS_CLOUD_MONITORING_RELATIONSHIP]: { disabled: false },
+    [STEP_CLOUD_MONITORING_HAS_MONITORING_GROUPS_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_CLOUD_MONITORING_HAS_MONITORING_CHANNELS_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_CLOUD_MONITORING_HAS_MONITORING_ALERT_POLICIES_RELATIONSHIP]: {
+      disabled: false,
+    },
     [STEP_BINARY_AUTHORIZATION_POLICY]: { disabled: false },
     [STEP_PUBSUB_TOPICS]: { disabled: false },
     [STEP_CREATE_PUBSUB_TOPIC_KMS_RELATIONSHIPS]: { disabled: false },
@@ -402,7 +466,19 @@ function getDefaultStepStartStates(params: {
     [STEP_CLOUD_RUN_ROUTES]: { disabled: false },
     [STEP_CLOUD_RUN_CONFIGURATIONS]: { disabled: false },
     [STEP_REDIS_INSTANCES]: { disabled: false },
+    [STEP_MEMORYSTORE_REDIS_LOCATION]: { disabled: false },
+    [STEP_MEMORYSTORE_REDIS]: { disabled: false },
     [STEP_CREATE_REDIS_INSTANCE_NETWORK_RELATIONSHIPS]: { disabled: false },
+    [STEP_PROJECT_HAS_MEMORYSTORE_REDIS_RELATIONSHIP]: { disabled: false },
+    [STEP_PROJECT_HAS_MEMORYSTORE_REDIS_LOCATION_RELTIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_PROJECT_HAS_REDIS_INSTANCE_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_MEMORYSTORE_REDIS_LOCATION_HAS_REDIS_INSTANCE_RELATIONSHIP]: {
+      disabled: false,
+    },
     [STEP_MEMCACHE_INSTANCES]: { disabled: false },
     [STEP_CREATE_MEMCACHE_INSTANCE_NETWORK_RELATIONSHIPS]: { disabled: false },
     [STEP_SPANNER_INSTANCES]: { disabled: false },
@@ -479,6 +555,58 @@ function getDefaultStepStartStates(params: {
       disabled: false,
     },
     [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: {
+      disabled: false,
+    },
+    [STEP_NETWORK_INTELLIGENCE_CENTER]: {
+      disabled: false,
+    },
+    [STEP_NETWORK_ANALYZER_CONNECTIVITY_TEST]: {
+      disabled: false,
+    },
+    [STEP_VPN_GATEWAY]: {
+      disabled: false,
+    },
+    [STEP_VPN_GATEWAY_TUNNEL]: {
+      disabled: false,
+    },
+    [STEP_NETWORK_INTELLIGENCE_CENTER_HAS_NETWORK_ANALYZER_CONNECTIVITY_TEST_RELATIONSHIP]:
+      {
+        disabled: false,
+      },
+    [STEP_VPN_GATEWAY_USES_VPN_GATEWAY_TUNNEL_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_PROJECT_HAS_NETWORK_ANALYZER_CONNECTIVITY_TEST_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_PROJECT_HAS_NETWORK_INTELLIGENCE_CENTER_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_NETWORK_ANALYZER_VPC]: {
+      disabled: false,
+    },
+    [STEP_CONNECTIVITY_TEST_USES_VPC_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_PROJECT_USES_NETWORK_ANALYZER_VPC_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_CONNECTIVITY_TEST_SCANS_COMPUTE_INSTANCE]: {
+      disabled: false,
+    },
+    [STEP_CONNECTIVITY_TEST_SCANS_FORWARDING_RULE]: {
+      disabled: false,
+    },
+    [STEP_CONNECTIVITY_TEST_SCANS_CLOUD_SQL_INSTANCE]: {
+      disabled: false,
+    },
+    [STEP_CONNECTIVITY_TEST_SCANS_CLOUD_FUNCTION]: {
+      disabled: false,
+    },
+    [STEP_CONNECTIVITY_TEST_SCANS_APP_ENGINE_VERSION]: {
+      disabled: false,
+    },
+    [STEP_CONNECTIVITY_TEST_SCANS_NETWORK]: {
       disabled: false,
     },
   };
@@ -733,6 +861,18 @@ async function getStepStartStatesUsingServiceEnablements(params: {
       ServiceUsageName.COMPUTE,
     ),
     [STEP_COMPUTE_SSL_POLICIES]: createStepStartState(ServiceUsageName.COMPUTE),
+    [STEP_CLOUD_INTERCONNECT]: createOrgStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
+    [STEP_INTERCONNECT_LOCATION]: createOrgStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
+    [STEP_INTERCONNECT_LOCATION_USES_CLOUD_INTERCONNECT_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.COMPUTE),
+    [STEP_COMPUTE_PROJECT_HAS_CLOUD_INTERCONNECT_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.COMPUTE),
+    [STEP_COMPUTE_PROJECT_HAS_INTERCONNECT_LOCATION_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.COMPUTE),
     [STEP_CLOUD_KMS_KEY_RINGS]: createStepStartState(ServiceUsageName.KMS),
     [STEP_CLOUD_KMS_KEYS]: createStepStartState(ServiceUsageName.KMS),
     [STEP_BIG_QUERY_DATASETS]: createStepStartState(ServiceUsageName.BIG_QUERY),
@@ -758,6 +898,24 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [STEP_MONITORING_ALERT_POLICIES]: createStepStartState(
       ServiceUsageName.MONITORING,
     ),
+    [STEP_CLOUD_MONITORING]: createOrgStepStartState(
+      ServiceUsageName.MONITORING,
+    ),
+    [STEP_MONITORING_CHANNELS]: createOrgStepStartState(
+      ServiceUsageName.MONITORING,
+    ),
+    [STEP_MONITORING_GROUPS]: createOrgStepStartState(
+      ServiceUsageName.MONITORING,
+    ),
+    [STEP_PROJECT_HAS_CLOUD_MONITORING_RELATIONSHIP]: createOrgStepStartState(
+      ServiceUsageName.MONITORING,
+    ),
+    [STEP_CLOUD_MONITORING_HAS_MONITORING_GROUPS_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.MONITORING),
+    [STEP_CLOUD_MONITORING_HAS_MONITORING_CHANNELS_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.MONITORING),
+    [STEP_CLOUD_MONITORING_HAS_MONITORING_ALERT_POLICIES_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.MONITORING),
     [STEP_BINARY_AUTHORIZATION_POLICY]: createStepStartState(
       ServiceUsageName.BINARY_AUTHORIZATION,
     ),
@@ -787,9 +945,23 @@ async function getStepStartStatesUsingServiceEnablements(params: {
       ServiceUsageName.CLOUD_RUN,
     ),
     [STEP_REDIS_INSTANCES]: createStepStartState(ServiceUsageName.REDIS),
+    [STEP_MEMORYSTORE_REDIS_LOCATION]: createOrgStepStartState(
+      ServiceUsageName.REDIS,
+    ),
+    [STEP_MEMORYSTORE_REDIS]: createOrgStepStartState(ServiceUsageName.REDIS),
     [STEP_CREATE_REDIS_INSTANCE_NETWORK_RELATIONSHIPS]: createStepStartState(
       ServiceUsageName.REDIS,
     ),
+    [STEP_PROJECT_HAS_MEMORYSTORE_REDIS_RELATIONSHIP]: createOrgStepStartState(
+      ServiceUsageName.REDIS,
+    ),
+    [STEP_PROJECT_HAS_MEMORYSTORE_REDIS_LOCATION_RELTIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.REDIS),
+    [STEP_PROJECT_HAS_REDIS_INSTANCE_RELATIONSHIP]: createOrgStepStartState(
+      ServiceUsageName.REDIS,
+    ),
+    [STEP_MEMORYSTORE_REDIS_LOCATION_HAS_REDIS_INSTANCE_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.REDIS),
     [STEP_MEMCACHE_INSTANCES]: createStepStartState(ServiceUsageName.MEMCACHE),
     [STEP_CREATE_MEMCACHE_INSTANCE_NETWORK_RELATIONSHIPS]: createStepStartState(
       ServiceUsageName.MEMCACHE,
@@ -904,6 +1076,52 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: createStepStartState(
       ServiceUsageName.WEB_SECURITY_SCANNER,
     ),
+    [STEP_NETWORK_INTELLIGENCE_CENTER]: createOrgStepStartState(
+      ServiceUsageName.NETWORK_ANALYZER,
+    ),
+    [STEP_NETWORK_ANALYZER_CONNECTIVITY_TEST]: createOrgStepStartState(
+      ServiceUsageName.NETWORK_ANALYZER,
+    ),
+    [STEP_VPN_GATEWAY]: createOrgStepStartState(
+      ServiceUsageName.NETWORK_ANALYZER,
+    ),
+    [STEP_VPN_GATEWAY_TUNNEL]: createOrgStepStartState(
+      ServiceUsageName.NETWORK_ANALYZER,
+    ),
+    [STEP_PROJECT_HAS_NETWORK_INTELLIGENCE_CENTER_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.NETWORK_ANALYZER),
+    [STEP_PROJECT_HAS_NETWORK_ANALYZER_CONNECTIVITY_TEST_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.NETWORK_ANALYZER),
+    [STEP_NETWORK_INTELLIGENCE_CENTER_HAS_NETWORK_ANALYZER_CONNECTIVITY_TEST_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.NETWORK_ANALYZER),
+    [STEP_VPN_GATEWAY_USES_VPN_GATEWAY_TUNNEL_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.NETWORK_ANALYZER),
+    [STEP_NETWORK_ANALYZER_VPC]: createOrgStepStartState(
+      ServiceUsageName.NETWORK_ANALYZER,
+    ),
+    [STEP_CONNECTIVITY_TEST_USES_VPC_RELATIONSHIP]: createOrgStepStartState(
+      ServiceUsageName.NETWORK_ANALYZER,
+    ),
+    [STEP_PROJECT_USES_NETWORK_ANALYZER_VPC_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.NETWORK_ANALYZER),
+    [STEP_CONNECTIVITY_TEST_SCANS_COMPUTE_INSTANCE]: createOrgStepStartState(
+      ServiceUsageName.NETWORK_ANALYZER,
+    ),
+    [STEP_CONNECTIVITY_TEST_SCANS_FORWARDING_RULE]: createOrgStepStartState(
+      ServiceUsageName.NETWORK_ANALYZER,
+    ),
+    [STEP_CONNECTIVITY_TEST_SCANS_CLOUD_SQL_INSTANCE]: createOrgStepStartState(
+      ServiceUsageName.NETWORK_ANALYZER,
+    ),
+    [STEP_CONNECTIVITY_TEST_SCANS_CLOUD_FUNCTION]: createOrgStepStartState(
+      ServiceUsageName.NETWORK_ANALYZER,
+    ),
+    [STEP_CONNECTIVITY_TEST_SCANS_APP_ENGINE_VERSION]: createOrgStepStartState(
+      ServiceUsageName.NETWORK_ANALYZER,
+    ),
+    [STEP_CONNECTIVITY_TEST_SCANS_NETWORK]: createOrgStepStartState(
+      ServiceUsageName.NETWORK_ANALYZER,
+    ),
   };
 
   const apiServiceToStepIdsMap: { [apiService: string]: string[] } = {
@@ -946,6 +1164,7 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [ServiceUsageName.WEB_SECURITY_SCANNER]: webSecurityScannerSteps.map(
       (s) => s.id,
     ),
+    [ServiceUsageName.NETWORK_ANALYZER]: networkAnalyzerSteps.map((s) => s.id),
   };
 
   for (const serviceName of Object.keys(apiServiceToStepIdsMap)) {

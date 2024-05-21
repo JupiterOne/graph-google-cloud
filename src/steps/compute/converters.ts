@@ -16,6 +16,7 @@ import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import { FirewallRuleRelationshipTargetProperties } from '../../utils/firewall';
 import { getGoogleCloudConsoleWebLink, getLastUrlPart } from '../../utils/url';
 import {
+  ENTITY_CLASS_CLOUD_INTERCONNECT,
   ENTITY_CLASS_COMPUTE_ADDRESS,
   ENTITY_CLASS_COMPUTE_BACKEND_BUCKET,
   ENTITY_CLASS_COMPUTE_BACKEND_SERVICE,
@@ -38,6 +39,8 @@ import {
   ENTITY_CLASS_COMPUTE_TARGET_HTTPS_PROXY,
   ENTITY_CLASS_COMPUTE_TARGET_HTTP_PROXY,
   ENTITY_CLASS_COMPUTE_TARGET_SSL_PROXY,
+  ENTITY_CLASS_INTERCONNECT_LOCATION,
+  ENTITY_TYPE_CLOUD_INTERCONNECT,
   ENTITY_TYPE_COMPUTE_ADDRESS,
   ENTITY_TYPE_COMPUTE_BACKEND_BUCKET,
   ENTITY_TYPE_COMPUTE_BACKEND_SERVICE,
@@ -60,6 +63,7 @@ import {
   ENTITY_TYPE_COMPUTE_TARGET_HTTPS_PROXY,
   ENTITY_TYPE_COMPUTE_TARGET_HTTP_PROXY,
   ENTITY_TYPE_COMPUTE_TARGET_SSL_PROXY,
+  ENTITY_TYPE_INTERCONNECT_LOCATION,
   MAPPED_RELATIONSHIP_FIREWALL_RULE_TYPE,
 } from './constants';
 import { camelCase } from 'lodash';
@@ -1438,6 +1442,52 @@ export function createSslPolicyEntity(data: compute_v1.Schema$SslPolicy) {
         summary:
           'SSL policies give you the ability to control the features of SSL that your Google Cloud SSL proxy load balancer or external HTTP(S) load balancer negotiates with clients.',
         content: '',
+        createdOn: parseTimePropertyValue(data.creationTimestamp),
+      },
+    },
+  });
+}
+
+export function createCloudInterconnectEntity(
+  data: compute_v1.Schema$Interconnect,
+) {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_CLOUD_INTERCONNECT,
+        _type: ENTITY_TYPE_CLOUD_INTERCONNECT,
+        _key: data.selfLink as string,
+        id: data.id as string,
+        name: data.name,
+        location: data.location,
+        interConnectType: data.interconnectType,
+        kind: data.kind,
+        public: true,
+        adminEnabled: data.adminEnabled,
+        createdOn: parseTimePropertyValue(data.creationTimestamp),
+      },
+    },
+  });
+}
+
+export function createInterconnectLocationEntity(
+  data: compute_v1.Schema$InterconnectLocation,
+) {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_INTERCONNECT_LOCATION,
+        _type: ENTITY_TYPE_INTERCONNECT_LOCATION,
+        _key: data.selfLink as string,
+        id: data.id as string,
+        name: data.name,
+        kind: data.kind,
+        city: data.city,
+        address: data.address,
+        facilityProvider: data.facilityProvider,
+        status: data.status,
         createdOn: parseTimePropertyValue(data.creationTimestamp),
       },
     },
