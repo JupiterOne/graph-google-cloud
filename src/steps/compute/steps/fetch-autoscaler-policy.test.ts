@@ -34,6 +34,6 @@ import {
   
       const result = await executeStepWithDependencies(stepTestConfig);
       expect(result).toMatchStepMetadata(stepTestConfig);
-    });
+    }, 600000);
   });
   

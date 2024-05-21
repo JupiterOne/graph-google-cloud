@@ -1481,7 +1481,7 @@ export function createAutoScalersPolicyEntity(data: compute_v1.Schema$Autoscalin
   });
 }
 
-export function createAutoScalersgionRePolicyEntity(data: compute_v1.Schema$AutoscalingPolicy,
+export function createAutoScalersRegionPolicyEntity(data: compute_v1.Schema$AutoscalingPolicy,
   projectId, autoscalerId, autoscalerName) {
 
   return createGoogleCloudIntegrationEntity(data, {

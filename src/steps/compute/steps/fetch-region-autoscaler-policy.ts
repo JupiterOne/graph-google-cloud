@@ -14,7 +14,7 @@ import {
     ENTITY_TYPE_COMPUTE_ENGINE_REGION_AUTOSCALER,
 } from '../constants';
 import { compute_v1 } from 'googleapis';
-import { createAutoScalersgionRePolicyEntity } from '../converters';
+import { createAutoScalersRegionPolicyEntity } from '../converters';
 
 export async function fetchAutoScalersRegionPolicy(
     context: IntegrationStepContext,
@@ -39,7 +39,7 @@ export async function fetchAutoScalersRegionPolicy(
                 );
                 return;
             }
-            await jobState.addEntity(createAutoScalersgionRePolicyEntity(regionAutoscaler?.autoscalingPolicy,
+            await jobState.addEntity(createAutoScalersRegionPolicyEntity(regionAutoscaler?.autoscalingPolicy,
                 client.projectId, regionAutoscaler.id, regionAutoscaler.name));
         },
     );
