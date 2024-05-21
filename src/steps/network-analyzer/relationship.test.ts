@@ -13,6 +13,8 @@ import {
   NETWORK_INTELLIGENCE_CENTER_TYPE,
   RELATIONSHIP_NETWORK_INTELLIGENCE_CENTER_HAS_NETWORK_ANALYZER_CONNECTIVITY_TEST_TYPE,
   RELATIONSHIP_VPN_GATEWAY_USES_VPN_GATEWAY_TUNNEL_RELATIONSHIP_TYPE,
+  STEP_CONNECTIVITY_TEST_SCANS_CLOUD_FUNCTION,
+  STEP_CONNECTIVITY_TEST_SCANS_NETWORK,
   STEP_NETWORK_INTELLIGENCE_CENTER_HAS_NETWORK_ANALYZER_CONNECTIVITY_TEST_RELATIONSHIP,
   STEP_PROJECT_HAS_NETWORK_ANALYZER_CONNECTIVITY_TEST_RELATIONSHIP,
   STEP_PROJECT_HAS_NETWORK_INTELLIGENCE_CENTER_RELATIONSHIP,
@@ -336,4 +338,60 @@ describe(`networkAnalyzer#${STEP_VPN_GATEWAY_USES_VPN_GATEWAY_TUNNEL_RELATIONSHI
       },
     });
   }, 1000000);
+});
+
+describe(`networkAnalyzer#${STEP_CONNECTIVITY_TEST_SCANS_CLOUD_FUNCTION}`, () => {
+  let recording: Recording;
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  jest.setTimeout(45000);
+
+  test.skip(STEP_CONNECTIVITY_TEST_SCANS_CLOUD_FUNCTION, async () => {
+    recording = setupGoogleCloudRecording({
+      name: STEP_CONNECTIVITY_TEST_SCANS_CLOUD_FUNCTION,
+      directory: __dirname,
+      options: {
+        matchRequestsBy: getMatchRequestsBy(tempNewAccountConfig),
+      },
+    });
+
+    const stepTestConfig: StepTestConfig = {
+      stepId: STEP_CONNECTIVITY_TEST_SCANS_CLOUD_FUNCTION,
+      instanceConfig: tempNewAccountConfig,
+      invocationConfig: invocationConfig as any,
+    };
+
+    const result = await executeStepWithDependencies(stepTestConfig);
+    expect(result).toMatchStepMetadata(stepTestConfig);
+  });
+});
+
+describe(`networkAnalyzer#${STEP_CONNECTIVITY_TEST_SCANS_NETWORK}`, () => {
+  let recording: Recording;
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  jest.setTimeout(45000);
+
+  test(STEP_CONNECTIVITY_TEST_SCANS_NETWORK, async () => {
+    recording = setupGoogleCloudRecording({
+      name: STEP_CONNECTIVITY_TEST_SCANS_NETWORK,
+      directory: __dirname,
+      options: {
+        matchRequestsBy: getMatchRequestsBy(tempNewAccountConfig),
+      },
+    });
+
+    const stepTestConfig: StepTestConfig = {
+      stepId: STEP_CONNECTIVITY_TEST_SCANS_NETWORK,
+      instanceConfig: tempNewAccountConfig,
+      invocationConfig: invocationConfig as any,
+    };
+
+    const result = await executeStepWithDependencies(stepTestConfig);
+    expect(result).toMatchStepMetadata(stepTestConfig);
+  });
 });
