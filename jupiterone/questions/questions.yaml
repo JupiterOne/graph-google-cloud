@@ -104,7 +104,7 @@ questions:
     tags:
       - google-cloud
       - function
-    - id: integration-question-google-cloud-bucket-test-question
+  - id: integration-question-google-cloud-bucket-test-question
     title: this is a test question?
     description: Finds all Google Cloud storage buckets with versioning disabled
     queries:
