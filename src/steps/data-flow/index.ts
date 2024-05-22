@@ -32,6 +32,10 @@ import {
   GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_CLASS,
   STEP_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_USES_GOOGLE_PUBSUB_TOPIC,
   RELATIONSHIP_TYPE_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_USES_GOOGLE_PUBSUB_TOPIC,
+  STEP_GOOGLE_CLOUD_DATAFLOW_JOB_HAS_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT,
+  RELATIONSHIP_TYPE_GOOGLE_CLOUD_DATAFLOW_JOB_HAS_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT,
+  STEP_GOOGLE_CLOUD_DATAFLOW_USES_GOOGLE_SPANNER_INSTANCE,
+  RELATIONSHIP_TYPE_GOOGLE_CLOUD_DATAFLOW_USES_GOOGLE_SPANNER_INSTANCE
 } from './constants';
 import {
   createGoogleCloudDataFlowEntity,
@@ -42,7 +46,8 @@ import {
 import { PROJECT_ENTITY_TYPE, STEP_RESOURCE_MANAGER_PROJECT } from '../resource-manager';
 import { getProjectEntity } from '../../utils/project';
 import { dataflow_v1b3 } from 'googleapis';
-import { ENTITY_TYPE_PUBSUB_TOPIC } from '../pub-sub/constants';
+import { ENTITY_TYPE_PUBSUB_TOPIC, STEP_PUBSUB_TOPICS } from '../pub-sub/constants';
+import { ENTITY_TYPE_SPANNER_INSTANCE, STEP_SPANNER_INSTANCES } from '../spanner/constants';
 
 export async function fetchGoogleCloudDataFlowDataStore(
   context: IntegrationStepContext,
@@ -191,6 +196,7 @@ export async function buildProjectHasDataflowJobRelationship(
     },
   );
 }
+
 export async function buildDataflowUsesDataflowDatastoreRelationship(
   executionContext: IntegrationStepContext,
 ) {
@@ -218,6 +224,74 @@ export async function buildDataflowUsesDataflowDatastoreRelationship(
           fromType: GOOGLE_CLOUD_DATAFLOW_JOB_TYPE,
           toKey: datastoreEntity._key,
           toType: GOOGLE_CLOUD_DATAFLOW_DATASTORE_TYPE,
+        }),
+      );
+    },
+  );
+}
+
+export async function buildCloudDataflowSpannerInstanceRelation(
+  executionContext: IntegrationStepContext,
+) {
+  const { jobState } = executionContext;
+  await jobState.iterateEntities(
+
+    { _type: ENTITY_TYPE_SPANNER_INSTANCE },
+    async (cloudSpannerInstanceEntity) => {
+
+      const dataflowJobKey = cloudSpannerInstanceEntity.name as string
+
+      const hasDataflowJobKey = jobState.hasKey(dataflowJobKey);
+
+      if (!hasDataflowJobKey) {
+        throw new IntegrationMissingKeyError(
+          `Cannot build Relationship.
+          Error: Missing Key.
+          dataflowJobKey : ${dataflowJobKey}`,
+        );
+      }
+
+      await jobState.addRelationship(
+        createDirectRelationship({
+          _class: RelationshipClass.USES,
+          fromKey: dataflowJobKey,
+          fromType: GOOGLE_CLOUD_DATAFLOW_JOB_TYPE,
+          toKey: cloudSpannerInstanceEntity._key,
+          toType: ENTITY_TYPE_SPANNER_INSTANCE,
+        }),
+      );
+    },
+  );
+}
+
+export async function buildCloudDataflowSnapshotPubsubTopicRelation(
+  executionContext: IntegrationStepContext,
+) {
+  const { jobState } = executionContext;
+  await jobState.iterateEntities(
+
+    { _type: GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_TYPE },
+    async (snapshotEntity) => {
+
+      const pubsubKey = snapshotEntity.pubsubName as string
+
+      const haspubsubKey = jobState.hasKey(pubsubKey);
+
+      if (!haspubsubKey) {
+        throw new IntegrationMissingKeyError(
+          `Cannot build Relationship.
+          Error: Missing Key.
+          haspubsubKey : ${haspubsubKey}`,
+        );
+      }
+
+      await jobState.addRelationship(
+        createDirectRelationship({
+          _class: RelationshipClass.USES,
+          fromKey: snapshotEntity._key,
+          fromType: GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_TYPE,
+          toKey: pubsubKey,
+          toType: ENTITY_TYPE_PUBSUB_TOPIC,
         }),
       );
     },
@@ -377,21 +451,55 @@ export const dataFlowSteps: GoogleCloudIntegrationStep[] = [
     executionHandler: fetchGoogleCloudDataFlowSnapshot,
     apis: ['dataflow.googleapis.com'],
   },
+  {
+    id: STEP_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_USES_GOOGLE_PUBSUB_TOPIC,
+    ingestionSourceId: IngestionSources.GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_USES_GOOGLE_PUBSUB_TOPIC,
+    name: 'Google Cloud Dataflow Snapshot uses Google pubsub',
+    entities: [],
+    relationships: [
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_USES_GOOGLE_PUBSUB_TOPIC,
+        sourceType: GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_TYPE,
+        targetType: ENTITY_TYPE_PUBSUB_TOPIC,
+      },
+    ],
+    dependsOn: [STEP_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT, STEP_PUBSUB_TOPICS],
+    executionHandler: buildCloudDataflowSnapshotPubsubTopicRelation,
+    apis: ['dataflow.googleapis.com'],
+  },
+  {
+    id: STEP_GOOGLE_CLOUD_DATAFLOW_USES_GOOGLE_SPANNER_INSTANCE,
+    ingestionSourceId: IngestionSources.GOOGLE_CLOUD_DATAFLOW_USES_GOOGLE_SPANNER_INSTANCE,
+    name: 'Google Cloud Dataflow uses Google Spanner Instance',
+    entities: [],
+    relationships: [
+      {
+        _class: RelationshipClass.USES,
+        _type: RELATIONSHIP_TYPE_GOOGLE_CLOUD_DATAFLOW_USES_GOOGLE_SPANNER_INSTANCE,
+        sourceType: GOOGLE_CLOUD_DATAFLOW_TYPE,
+        targetType: ENTITY_TYPE_SPANNER_INSTANCE,
+      },
+    ],
+    dependsOn: [STEP_SPANNER_INSTANCES, STEP_GOOGLE_CLOUD_DATAFLOW],
+    executionHandler: buildCloudDataflowSpannerInstanceRelation,
+    apis: ['dataflow.googleapis.com'],
+  },
   // {
-  //   id: STEP_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_USES_GOOGLE_PUBSUB_TOPIC,
-  //   ingestionSourceId: IngestionSources.GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_USES_GOOGLE_PUBSUB_TOPIC,
-  //   name: 'Google Cloud Dataflow Snapshot uses Google pubsub',
+  //   id: STEP_GOOGLE_CLOUD_DATAFLOW_JOB_HAS_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT,
+  //   ingestionSourceId: IngestionSources.GOOGLE_CLOUD_DATAFLOW_JOB_HAS_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT,
+  //   name: 'Google Cloud Dataflow Has Google Cloud DataFlow SNapshot',
   //   entities: [],
   //   relationships: [
   //     {
-  //       _class: RelationshipClass.HAS,
-  //       _type: RELATIONSHIP_TYPE_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_USES_GOOGLE_PUBSUB_TOPIC,
-  //       sourceType: GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_TYPE,
-  //       targetType: ENTITY_TYPE_PUBSUB_TOPIC,
+  //       _class: RelationshipClass.USES,
+  //       _type: RELATIONSHIP_TYPE_GOOGLE_CLOUD_DATAFLOW_JOB_HAS_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT,
+  //       sourceType: GOOGLE_CLOUD_DATAFLOW_TYPE,
+  //       targetType: ENTITY_TYPE_SPANNER_INSTANCE,
   //     },
   //   ],
-  //   dependsOn: [STEP_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT],
-  //   executionHandler: buildCloudDataflow,
+  //   dependsOn: [STEP_SPANNER_INSTANCES, STEP_GOOGLE_CLOUD_DATAFLOW],
+  //   executionHandler: buildCloudDataflowSnapshoteRelation,
   //   apis: ['dataflow.googleapis.com'],
   // },
 ];

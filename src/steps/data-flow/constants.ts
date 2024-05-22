@@ -39,6 +39,11 @@ export const STEP_GOOGLE_CLOUD_DATAFLOW_JOB_HAS_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT =
 export const RELATIONSHIP_TYPE_GOOGLE_CLOUD_DATAFLOW_JOB_HAS_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT =
   'google_cloud_dataflow_job_uses_google_cloud_dataflow_snapshot';
 
+export const STEP_GOOGLE_CLOUD_DATAFLOW_USES_GOOGLE_SPANNER_INSTANCE =
+  'fetch-google-cloud-dataflow-uses-google-spanner-instance';
+export const RELATIONSHIP_TYPE_GOOGLE_CLOUD_DATAFLOW_USES_GOOGLE_SPANNER_INSTANCE =
+  'google_cloud_dataflow_uses_google_spanner_instance';
+
 export const STEP_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_USES_GOOGLE_PUBSUB_TOPIC =
   'fetch-google-cloud-dataflow-job-uses-google-pubsub-topic';
 export const RELATIONSHIP_TYPE_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_USES_GOOGLE_PUBSUB_TOPIC =
@@ -54,7 +59,8 @@ export const IngestionSources = {
   GOOGLE_CLOUD_PROJECT_HAS_GOOGLE_CLOUD_DATAFLOW_JOB: 'google-cloud-project-has-google-cloud-dataflow-job',
   GOOGLE_CLOUD_DATAFLOW_JOB_USES_GOOGLE_CLOUD_DATAFLOW_DATASTORE: 'google-cloud-dataflow-job-uses-google-cloud-dataflow-datastore',
   GOOGLE_CLOUD_DATAFLOW_JOB_HAS_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT: 'google-cloud-dataflow-job-has-google-cloud-dataflow-snapshot',
-  GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_USES_GOOGLE_PUBSUB_TOPIC: 'google-cloud-dataflow-snapshot-uses-google-pubsub-topic'
+  GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_USES_GOOGLE_PUBSUB_TOPIC: 'google-cloud-dataflow-snapshot-uses-google-pubsub-topic',
+  GOOGLE_CLOUD_DATAFLOW_USES_GOOGLE_SPANNER_INSTANCE: 'google-cloud-dataflow-uses-google-spanner-instance'
 };
 
 export const DataflowIngestionConfig = {
@@ -105,6 +111,11 @@ export const DataflowIngestionConfig = {
   },
   [IngestionSources.GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_USES_GOOGLE_PUBSUB_TOPIC]: {
     title: 'Google Cloud Dataflow Snapshot Uses Google Pub/Sub Topic',
+    description: '',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.GOOGLE_CLOUD_DATAFLOW_USES_GOOGLE_SPANNER_INSTANCE]: {
+    title: 'Google Cloud Dataflow Uses Google Spanner Instance',
     description: '',
     defaultsToDisabled: false,
   }
