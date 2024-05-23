@@ -110,6 +110,14 @@ import {
   STEP_COMPUTE_TARGET_HTTPS_PROXIES,
   STEP_COMPUTE_TARGET_SSL_PROXIES,
   STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS,
+  STEP_COMPUTE_ENGINE_AUTOSCALERS,
+  STEP_AUTOSCALER_REGION_POLICY,
+  STEP_AUTOSCALER_POLICY,
+  STEP_COMPUTE_ENGINE_REGION_AUTOSCALERS,
+  STEP_PROJECT_COMPUTE_ENGINE_AUTOSCALERS_RELATIONSHIPS,
+  STEP_COMPUTE_ENGINE_REGION_AUTOSCALERS_AND_REGION_POLICY_RELATIONSHIPS,
+  STEP_PROJECT_COMPUTE_ENGINE_REGION_AUTOSCALERS_RELATIONSHIPS,
+  STEP_COMPUTE_ENGINE_AUTOSCALERS_AND_POLICY_RELATIONSHIPS
 } from './steps/compute';
 import { containerSteps, STEP_CONTAINER_CLUSTERS } from './steps/containers';
 import { dataprocSteps } from './steps/dataproc';
@@ -243,9 +251,8 @@ export default async function getStepStartStates(
 
   logger.publishEvent({
     name: 'integration_config',
-    description: `Starting Google Cloud integration with service account (email=${
-      config.serviceAccountKeyConfig.client_email
-    }, configureOrganizationProjects=${!!config.configureOrganizationProjects})`,
+    description: `Starting Google Cloud integration with service account (email=${config.serviceAccountKeyConfig.client_email
+      }, configureOrganizationProjects=${!!config.configureOrganizationProjects})`,
   });
 
   const masterOrgInstance = isMasterOrganizationInstance(config);
@@ -337,6 +344,14 @@ function getDefaultStepStartStates(params: {
     [STEP_COMPUTE_REGION_DISKS]: { disabled: false },
     [STEP_COMPUTE_IMAGES]: { disabled: false },
     [STEP_COMPUTE_IMAGE_KMS_RELATIONSHIPS]: { disabled: false },
+    [STEP_COMPUTE_ENGINE_AUTOSCALERS]: { disabled: false },
+    [STEP_AUTOSCALER_REGION_POLICY]: { disabled: false },
+    [STEP_AUTOSCALER_POLICY]: { disabled: false },
+    [STEP_COMPUTE_ENGINE_REGION_AUTOSCALERS]: { disabled: false },
+    [STEP_PROJECT_COMPUTE_ENGINE_AUTOSCALERS_RELATIONSHIPS]: { disabled: false },
+    [STEP_PROJECT_COMPUTE_ENGINE_REGION_AUTOSCALERS_RELATIONSHIPS]: { disabled: false },
+    [STEP_COMPUTE_ENGINE_REGION_AUTOSCALERS_AND_REGION_POLICY_RELATIONSHIPS]: { disabled: false },
+    [STEP_COMPUTE_ENGINE_AUTOSCALERS_AND_POLICY_RELATIONSHIPS]: { disabled: false },
     [STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS]: { disabled: false },
     [STEP_COMPUTE_DISK_KMS_RELATIONSHIPS]: { disabled: false },
     [STEP_COMPUTE_SNAPSHOTS]: { disabled: false },
@@ -654,6 +669,30 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [STEP_COMPUTE_IMAGE_KMS_RELATIONSHIPS]: createStepStartState(
       ServiceUsageName.COMPUTE,
     ),
+    [STEP_COMPUTE_ENGINE_AUTOSCALERS]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
+    [STEP_AUTOSCALER_REGION_POLICY]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
+    [STEP_AUTOSCALER_POLICY]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
+    [STEP_COMPUTE_ENGINE_REGION_AUTOSCALERS]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
+    [STEP_PROJECT_COMPUTE_ENGINE_AUTOSCALERS_RELATIONSHIPS]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
+    [STEP_PROJECT_COMPUTE_ENGINE_REGION_AUTOSCALERS_RELATIONSHIPS]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
+    [STEP_COMPUTE_ENGINE_REGION_AUTOSCALERS_AND_REGION_POLICY_RELATIONSHIPS]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
+    [STEP_COMPUTE_ENGINE_AUTOSCALERS_AND_POLICY_RELATIONSHIPS]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
     [STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS]: createStepStartState(
       ServiceUsageName.COMPUTE,
     ),
@@ -885,16 +924,16 @@ async function getStepStartStatesUsingServiceEnablements(params: {
       .id]: createStepStartState(ServiceUsageName.CLOUD_BUILD),
     [CloudBuildStepsSpec.BUILD_CLOUD_BUILD_USES_STORAGE_BUCKET_RELATIONSHIPS
       .id]: createStepStartState(
-      ServiceUsageName.CLOUD_BUILD,
-      ServiceUsageName.STORAGE,
-    ),
+        ServiceUsageName.CLOUD_BUILD,
+        ServiceUsageName.STORAGE,
+      ),
     [CloudSourceRepositoriesStepsSpec.FETCH_REPOSITORIES.id]:
       createStepStartState(ServiceUsageName.CLOUD_SOURCE_REPOSITORIES),
     [CloudBuildStepsSpec.BUILD_CLOUD_BUILD_USES_SOURCE_REPOSITORY_RELATIONSHIPS
       .id]: createStepStartState(
-      ServiceUsageName.CLOUD_BUILD,
-      ServiceUsageName.CLOUD_SOURCE_REPOSITORIES,
-    ),
+        ServiceUsageName.CLOUD_BUILD,
+        ServiceUsageName.CLOUD_SOURCE_REPOSITORIES,
+      ),
     [CloudBuildStepsSpec
       .BUILD_CLOUD_BUILD_TRIGGER_USES_GITHUB_REPO_RELATIONSHIPS.id]:
       createStepStartState(ServiceUsageName.CLOUD_BUILD),

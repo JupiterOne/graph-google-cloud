@@ -16,10 +16,14 @@ import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import { FirewallRuleRelationshipTargetProperties } from '../../utils/firewall';
 import { getGoogleCloudConsoleWebLink, getLastUrlPart } from '../../utils/url';
 import {
+  ENTITY_CLASS_AUTOSCALER_POLICY,
+  ENTITY_CLASS_AUTOSCALER_REGION_POLICY,
   ENTITY_CLASS_COMPUTE_ADDRESS,
   ENTITY_CLASS_COMPUTE_BACKEND_BUCKET,
   ENTITY_CLASS_COMPUTE_BACKEND_SERVICE,
   ENTITY_CLASS_COMPUTE_DISK,
+  ENTITY_CLASS_COMPUTE_ENGINE_AUTOSCALERS,
+  ENTITY_CLASS_COMPUTE_ENGINE_REGION_AUTOSCALERS,
   ENTITY_CLASS_COMPUTE_FIREWALL,
   ENTITY_CLASS_COMPUTE_FORWARDING_RULE,
   ENTITY_CLASS_COMPUTE_GLOBAL_ADDRESS,
@@ -38,10 +42,14 @@ import {
   ENTITY_CLASS_COMPUTE_TARGET_HTTPS_PROXY,
   ENTITY_CLASS_COMPUTE_TARGET_HTTP_PROXY,
   ENTITY_CLASS_COMPUTE_TARGET_SSL_PROXY,
+  ENTITY_TYPE_AUTOSCALER_POLICY,
+  ENTITY_TYPE_AUTOSCALER_REGION_POLICY,
   ENTITY_TYPE_COMPUTE_ADDRESS,
   ENTITY_TYPE_COMPUTE_BACKEND_BUCKET,
   ENTITY_TYPE_COMPUTE_BACKEND_SERVICE,
   ENTITY_TYPE_COMPUTE_DISK,
+  ENTITY_TYPE_COMPUTE_ENGINE_AUTOSCALER,
+  ENTITY_TYPE_COMPUTE_ENGINE_REGION_AUTOSCALER,
   ENTITY_TYPE_COMPUTE_FIREWALL,
   ENTITY_TYPE_COMPUTE_FORWARDING_RULE,
   ENTITY_TYPE_COMPUTE_GLOBAL_ADDRESS,
@@ -1399,6 +1407,95 @@ export function createSslPolicyEntity(data: compute_v1.Schema$SslPolicy) {
           'SSL policies give you the ability to control the features of SSL that your Google Cloud SSL proxy load balancer or external HTTP(S) load balancer negotiates with clients.',
         content: '',
         createdOn: parseTimePropertyValue(data.creationTimestamp),
+      },
+    },
+  });
+}
+
+export function createComputeEngineAutoScalerEntity(data: compute_v1.Schema$Autoscaler,
+  projectId) {
+  // Extracting zone name from the URL
+  const zoneName = data.zone ? data.zone.split('/').pop() : '';
+
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_COMPUTE_ENGINE_AUTOSCALERS,
+        _type: ENTITY_TYPE_COMPUTE_ENGINE_AUTOSCALER,
+        _key: data.id as string,
+        id: data.id as string,
+        url: data.selfLink,
+        name: data.name,
+        zone: zoneName,
+        category: ['infrastructure'],
+        function: ['compute'],
+        projectId: projectId,
+        createdOn: parseTimePropertyValue(data.creationTimestamp),
+      },
+    },
+  });
+}
+
+export function createComputeEngineRegionAutoScalerEntity(data: compute_v1.Schema$Autoscaler,
+  projectId) {
+
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_COMPUTE_ENGINE_REGION_AUTOSCALERS,
+        _type: ENTITY_TYPE_COMPUTE_ENGINE_REGION_AUTOSCALER,
+        _key: data.id as string,
+        id: data.id as string,
+        url: data.selfLink,
+        name: data.name,
+        projectId: projectId,
+        status: data.status,
+        description: data.description,
+        target: data.target,
+        kind: data.kind,
+      },
+    },
+  });
+}
+
+export function createAutoScalersPolicyEntity(data: compute_v1.Schema$AutoscalingPolicy,
+  projectId, autoscalerId, autoscalerName) {
+
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_AUTOSCALER_POLICY,
+        _type: ENTITY_TYPE_AUTOSCALER_POLICY,
+        _key: "autoscalerPolicyId_" + autoscalerId as string,
+        name: autoscalerName + "_policy",
+        minNumReplicas: data.minNumReplicas,
+        maxNumReplicas: data.maxNumReplicas,
+        coolDownPeriodSec: data.coolDownPeriodSec,
+        projectId: projectId,
+        mode: data.mode,
+      },
+    },
+  });
+}
+
+export function createAutoScalersRegionPolicyEntity(data: compute_v1.Schema$AutoscalingPolicy,
+  projectId, autoscalerId, autoscalerName) {
+
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_AUTOSCALER_REGION_POLICY,
+        _type: ENTITY_TYPE_AUTOSCALER_REGION_POLICY,
+        _key: "regionAutoscalerPolicyId_" + autoscalerId as string,
+        name: autoscalerName + "_policy",
+        minNumReplicas: data.minNumReplicas,
+        coolDownPeriodSec: data.coolDownPeriodSec,
+        projectId: projectId,
+        mode: data.mode,
       },
     },
   });

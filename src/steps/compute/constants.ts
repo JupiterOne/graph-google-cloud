@@ -1,5 +1,19 @@
 // Steps
+export const STEP_COMPUTE_ENGINE_AUTOSCALERS = 'fetch-compute-engine-autoscalers';
+export const STEP_COMPUTE_ENGINE_REGION_AUTOSCALERS = 'fetch-compute-engine-region-autoscalers';
+export const STEP_AUTOSCALER_POLICY = 'fetch-autoscaler-policy';
+export const STEP_AUTOSCALER_REGION_POLICY = 'fetch-autoscaler-region-policy';
 export const STEP_COMPUTE_INSTANCES = 'fetch-compute-instances';
+
+export const STEP_PROJECT_COMPUTE_ENGINE_AUTOSCALERS_RELATIONSHIPS =
+  'build-project-compute-engine-autoscalers-relationships';
+export const STEP_PROJECT_COMPUTE_ENGINE_REGION_AUTOSCALERS_RELATIONSHIPS =
+  'build-project-compute-engine-region-autoscalers-relationships';
+export const STEP_COMPUTE_ENGINE_AUTOSCALERS_AND_POLICY_RELATIONSHIPS =
+  'build-compute-engine-autoscalers-and-policy-relationships';
+export const STEP_COMPUTE_ENGINE_REGION_AUTOSCALERS_AND_REGION_POLICY_RELATIONSHIPS =
+  'build-compute-engine-region-autoscalers-and-region-policy-relationships';
+
 export const STEP_COMPUTE_INSTANCE_SERVICE_ACCOUNT_RELATIONSHIPS =
   'build-compute-instance-service-account-relationships';
 export const STEP_COMPUTE_DISKS = 'fetch-compute-disks';
@@ -55,6 +69,18 @@ export const STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES =
 export const STEP_COMPUTE_SSL_POLICIES = 'fetch-compute-ssl-policies';
 
 // Entities
+export const ENTITY_CLASS_COMPUTE_ENGINE_AUTOSCALERS = ['Service'];
+export const ENTITY_TYPE_COMPUTE_ENGINE_AUTOSCALER = 'google_cloud_compute_autoscaler';
+
+export const ENTITY_CLASS_COMPUTE_ENGINE_REGION_AUTOSCALERS = ['Configuration'];
+export const ENTITY_TYPE_COMPUTE_ENGINE_REGION_AUTOSCALER = 'google_cloud_compute_region_autoscaler';
+
+export const ENTITY_CLASS_AUTOSCALER_POLICY = ['Configuration'];
+export const ENTITY_TYPE_AUTOSCALER_POLICY = 'google_cloud_autoscaler_policy';
+
+export const ENTITY_CLASS_AUTOSCALER_REGION_POLICY = ['Configuration'];
+export const ENTITY_TYPE_AUTOSCALER_REGION_POLICY = 'google_cloud_region_autoscaler_policy';
+
 export const ENTITY_CLASS_COMPUTE_INSTANCE = ['Host'];
 export const ENTITY_TYPE_COMPUTE_INSTANCE = 'google_compute_instance';
 
@@ -225,6 +251,16 @@ export const RELATIONSHIP_TYPE_TARGET_HTTPS_PROXY_HAS_SSL_POLICY =
 export const RELATIONSHIP_TYPE_TARGET_SSL_PROXY_HAS_SSL_POLICY =
   'google_compute_target_ssl_proxy_has_ssl_policy';
 
+export const RELATIONSHIP_TYPE_PROJECT_HAS_COMPUTE_ENGINE_AUTOSCALERS =
+  'google_cloud_project_has_compute_autoscaler'
+export const RELATIONSHIP_TYPE_PROJECT_HAS_COMPUTE_ENGINE_REGION_AUTOSCALERS =
+  'google_cloud_project_has_compute_region_autoscaler'
+export const RELATIONSHIP_TYPE_COMPUTE_ENGINE_AUTOSCALERS_HAS_POLICY =
+  'google_cloud_compute_autoscaler_has_autoscaler_policy'
+export const RELATIONSHIP_TYPE_COMPUTE_ENGINE_REGION_AUTOSCALERS_HAS_REGION_POLICY =
+  'google_cloud_compute_region_autoscaler_has_region_autoscaler_policy'
+
+
 // Mapped relationships
 export const MAPPED_RELATIONSHIP_FIREWALL_RULE_TYPE =
   'google_cloud_firewall_rule';
@@ -258,6 +294,10 @@ export const IngestionSources = {
   COMPUTE_TARGET_HTTP_PROXIES: 'compute-target-http-proxies',
   COMPUTE_REGION_TARGET_HTTP_PROXIES: 'compute-region-target-http-proxies',
   COMPUTE_SSL_POLICIES: 'compute-ssl-policies',
+  COMPUTE_ENGINE_AUTOSCALERS: 'compute-engine-autoscalers',
+  COMPUTE_AUTOSCALER_POLICY: 'autoscaler-policy',
+  COMPUTE_AUTOSCALER_REGION_POLICY: 'autoscaler-region-policy',
+  COMPUTE_ENGINE_REGION_AUTOSCALERS: 'compute-engine-region-autoscalers',
 };
 
 export const ComputeIngestionConfig = {
@@ -401,6 +441,26 @@ export const ComputeIngestionConfig = {
     description: 'SSL policies for secure network connections.',
     defaultsToDisabled: false,
   },
+  [IngestionSources.COMPUTE_ENGINE_AUTOSCALERS]: {
+    title: 'Google Compute Engine AutoScalers',
+    description: 'Autoscaler resource for Compute Engine',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_ENGINE_REGION_AUTOSCALERS]: {
+    title: 'Google Compute Engine Region AutoScalers',
+    description: 'Region Autoscaler resource for Compute Engine',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_AUTOSCALER_POLICY]: {
+    title: 'Autoscaler Policy',
+    description: 'Policy for Autoscalers',
+    defaultsToDisabled: false,
+  },
+  [IngestionSources.COMPUTE_AUTOSCALER_REGION_POLICY]: {
+    title: 'Region Autoscaler Policy',
+    description: 'Policy for Region Autoscalers',
+    defaultsToDisabled: false,
+  }
 };
 
 export const ComputePermissions = {
@@ -440,4 +500,96 @@ export const ComputePermissions = {
   STEP_COMPUTE_TARGET_SSL_PROXIES: ['compute.targetSslProxies.list'],
   STEP_COMPUTE_IMAGES: ['compute.images.list', 'compute.images.getIamPolicy'],
   STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS: ['compute.images.get'],
+  STEP_COMPUTE_ENGINE_AUTOSCALERS: ['compute.autoscalers.list'],
+  STEP_COMPUTE_ENGINE_REGION_AUTOSCALERS: ['compute.regionAutoscalers.list'],
+  STEP_AUTOSCALER_POLICY: ['autoscalerPolicies.list'],
+  STEP_AUTOSCALER_REGION_POLICY: ['regionAutoscalerPolicies.list'],
 };
+
+// list of all the available zones for compute autoscaler
+export const zones = [
+  "us-east1-b", "us-east1-c", "us-east1-d",
+  "us-east4-c", "us-east4-b", "us-east4-a",
+  "us-central1-c", "us-central1-a", "us-central1-f", "us-central1-b",
+  "us-west1-b", "us-west1-c", "us-west1-a",
+  "europe-west4-a", "europe-west4-b", "europe-west4-c",
+  "europe-west1-b", "europe-west1-d", "europe-west1-c",
+  "europe-west3-c", "europe-west3-a", "europe-west3-b",
+  "europe-west2-c", "europe-west2-b", "europe-west2-a",
+  "asia-east1-b", "asia-east1-a", "asia-east1-c",
+  "asia-southeast1-b", "asia-southeast1-a", "asia-southeast1-c",
+  "asia-northeast1-b", "asia-northeast1-c", "asia-northeast1-a",
+  "asia-south1-c", "asia-south1-b", "asia-south1-a",
+  "australia-southeast1-b", "australia-southeast1-c", "australia-southeast1-a",
+  "southamerica-east1-b", "southamerica-east1-c", "southamerica-east1-a",
+  "africa-south1-a", "africa-south1-b", "africa-south1-c",
+  "asia-east2-a", "asia-east2-b", "asia-east2-c",
+  "asia-northeast2-a", "asia-northeast2-b", "asia-northeast2-c",
+  "asia-northeast3-a", "asia-northeast3-b", "asia-northeast3-c",
+  "asia-south2-a", "asia-south2-b", "asia-south2-c",
+  "asia-southeast2-a", "asia-southeast2-b", "asia-southeast2-c",
+  "australia-southeast2-a", "australia-southeast2-b", "australia-southeast2-c",
+  "europe-central2-a", "europe-central2-b", "europe-central2-c",
+  "europe-north1-a", "europe-north1-b", "europe-north1-c",
+  "europe-southwest1-a", "europe-southwest1-b", "europe-southwest1-c",
+  "europe-west10-a", "europe-west10-b", "europe-west10-c",
+  "europe-west12-a", "europe-west12-b", "europe-west12-c",
+  "europe-west6-a", "europe-west6-b", "europe-west6-c",
+  "europe-west8-a", "europe-west8-b", "europe-west8-c",
+  "europe-west9-a", "europe-west9-b", "europe-west9-c",
+  "me-central1-a", "me-central1-b", "me-central1-c",
+  "me-central2-a", "me-central2-b", "me-central2-c",
+  "me-west1-a", "me-west1-b", "me-west1-c",
+  "northamerica-northeast1-a", "northamerica-northeast1-b", "northamerica-northeast1-c",
+  "northamerica-northeast2-a", "northamerica-northeast2-b", "northamerica-northeast2-c",
+  "southamerica-west1-a", "southamerica-west1-b", "southamerica-west1-c",
+  "us-east5-a", "us-east5-b", "us-east5-c",
+  "us-south1-a", "us-south1-b", "us-south1-c",
+  "us-west2-a", "us-west2-b", "us-west2-c",
+  "us-west3-a", "us-west3-b", "us-west3-c",
+  "us-west4-a", "us-west4-b", "us-west4-c"
+];
+
+// List of all regions for Region Autoscaler 
+export const regions = [
+  "us-east1",
+  "us-east4",
+  "us-central1",
+  "us-west1",
+  "europe-west4",
+  "europe-west1",
+  "europe-west3",
+  "europe-west2",
+  "asia-east1",
+  "asia-southeast1",
+  "asia-northeast1",
+  "asia-south1",
+  "australia-southeast1",
+  "southamerica-east1",
+  "africa-south1",
+  "asia-east2",
+  "asia-northeast2",
+  "asia-northeast3",
+  "asia-south2",
+  "asia-southeast2",
+  "australia-southeast2",
+  "europe-central2",
+  "europe-north1",
+  "europe-southwest1",
+  "europe-west10",
+  "europe-west12",
+  "europe-west6",
+  "europe-west8",
+  "europe-west9",
+  "me-central1",
+  "me-central2",
+  "me-west1",
+  "northamerica-northeast1",
+  "northamerica-northeast2",
+  "southamerica-west1",
+  "us-east5",
+  "us-south1",
+  "us-west2",
+  "us-west3",
+  "us-west4"
+];
