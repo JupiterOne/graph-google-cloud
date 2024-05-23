@@ -1,3 +1,17 @@
+# v3.3.8 (Thu May 23 2024)
+
+#### 🐛 Bug Fix
+
+- Release questions [#691](https://github.com/JupiterOne/graph-google-cloud/pull/691) ([@jzolo22](https://github.com/jzolo22))
+- test question to be deleted [#690](https://github.com/JupiterOne/graph-google-cloud/pull/690) ([@mikiodehartj1](https://github.com/mikiodehartj1))
+
+#### Authors: 2
+
+- [@mikiodehartj1](https://github.com/mikiodehartj1)
+- Julia Zolotarev ([@jzolo22](https://github.com/jzolo22))
+
+---
+
 # v3.3.7 (Mon May 20 2024)
 
 #### 🐛 Bug Fix
