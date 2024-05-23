@@ -47,11 +47,7 @@ export async function buildProjectComputeEngineRegionAutoscalersRelationship(
                             toType: ENTITY_TYPE_AUTOSCALER_POLICY,
                         }),
                     );
-                } else {
-                    console.log("Numeric part not found.");
                 }
-            } else {
-                console.log("Invalid autoscaler policy entity.");
             }
         },
     );
