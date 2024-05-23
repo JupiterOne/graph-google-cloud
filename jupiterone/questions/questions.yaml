@@ -106,11 +106,11 @@ questions:
       - function
   - id: integration-question-google-cloud-bucket-test-question
     title: this is a test question?
-    description: Finds all Google Cloud storage buckets with versioning disabled
+    description: Finds all Google Cloud storage buckets with versioning disabled. this question had both the query and the desc mutated. 
     queries:
       - resultsAre: INFORMATIVE
         query: |
-          FIND google_storage_bucket as a RETURN count(a)
+          FIND google_storage_bucket as a 
     tags:
       - google-cloud
       - test
@@ -119,7 +119,7 @@ questions:
         version: v2.0.0
         requirements:
           - '1.1'
-  - id: integration-question-google-cloud-bucket-test-question-22
+  - id: integration-question-google-cloud-bucket-test-question-2
     title: this is a test question2?
     description: Finds all Google Cloud storage buckets with versioning disabled
     queries:
