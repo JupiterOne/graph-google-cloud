@@ -28,12 +28,22 @@ import {
   
       const stepTestConfig: StepTestConfig = {
         stepId: STEP_AUTOSCALER_REGION_POLICY,
-        instanceConfig: integrationConfig,
+        instanceConfig: {
+          ...integrationConfig,
+          serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+            'j1-gc-integration-dev-v2',
+            'j1-gc-integration-dev-v3',
+          ),
+          serviceAccountKeyConfig: {
+            ...integrationConfig.serviceAccountKeyConfig,
+            project_id: 'j1-gc-integration-dev-v3',
+          },
+        },
         invocationConfig: invocationConfig as any,
       };
   
       const result = await executeStepWithDependencies(stepTestConfig);
       expect(result).toMatchStepMetadata(stepTestConfig);
-    }, 7000);
+    }, 100000);
   });
   

@@ -46,8 +46,6 @@ export async function buildComputeEngineRegionAutoscalerRegionPolicyRelationship
                         toType: ENTITY_TYPE_AUTOSCALER_REGION_POLICY,
                     }),
                 );
-            } else {
-                console.log("Invalid autoscaler region policy entity.");
             }
         },
     );
