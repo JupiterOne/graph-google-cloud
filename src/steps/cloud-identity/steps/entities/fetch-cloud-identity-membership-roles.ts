@@ -29,9 +29,13 @@ export async function fetchCloudIdentityMembershipRoles(
     { _type: ENTITY_TYPE_CLOUD_IDENTITY_GROUPS },
     async (group) => {
       const groupName = group.name as string;
-      await client.iterateCloudIdentityGroups(
+
+      await client.iterateCloudIdentityGroupMembershipRole(
         groupName,
         async (membershipRole) => {
+          if (jobState.hasKey(membershipRole.name as string)) {
+            return;
+          }
           const membershipRoleEntity = createCloudIdentityMembershipRoleEntity(
             membershipRole,
             groupName,

@@ -33,6 +33,9 @@ export async function fetchCloudIdentityDeviceUsers(
       await client.iterateCloudIdentityDeviceUsers(
         deviceName,
         async (deviceUser) => {
+          if(jobState.hasKey(deviceUser.name as string)){
+            return;
+          }
           const deviceUserEntity = createCloudIdentityDeviceUserEntity(
             deviceUser,
             deviceId,

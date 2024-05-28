@@ -46,7 +46,9 @@ export function createCloudIdentityDeviceEntity(
         brand: data.brand,
         kernelVersion: data.kernelVersion,
         category: 'endpoint',
-        lastSeenOn: data.lastSyncTime,
+        lastSeenOn: data.lastSyncTime
+          ? new Date(data.lastSyncTime).getTime()
+          : null,
       },
     },
   });
@@ -114,7 +116,7 @@ export function createCloudIdentityGroupEntity(
         _class: ENTITY_CLASS_CLOUD_IDENTITY_GROUPS,
         _key: data.name as string,
         displayName: data.displayName as string,
-        name: data.name,
+        name: data.name?.split('/')[1],
         ssoProfileName: ssoProfileName,
       },
     },
@@ -141,19 +143,30 @@ export function createCloudIdentityMembershipRoleEntity(
 }
 
 export function createCloudIdentitySSOSamlProviderEntity(
-  data: cloudidentity_v1.Schema$SamlIdpConfig,
+  idpConfig: cloudidentity_v1.Schema$SamlIdpConfig,
+  spConfig: cloudidentity_v1.Schema$SamlSpConfig,
 ) {
+  const { entityId: idpEntityId, ...idpRest } = idpConfig;
+  const { entityId: spEntityId, ...spRest } = spConfig;
+
+  const data = {
+    ...idpRest,
+    ...spRest,
+    samlSpConfigEntityId: spEntityId,
+    idpConfigEntityId: idpEntityId,
+  };
+
   return createGoogleCloudIntegrationEntity(data, {
     entityData: {
       source: data,
       assign: {
         _type: ENTITY_TYPE_CLOUD_IDENTITY_SSO_SAML_PROVIDER,
         _class: ENTITY_CLASS_CLOUD_IDENTITY_SSO_SAML_PROVIDER,
-        _key: data.entityId as string,
-        entityId: data.entityId,
-        logoutRedirectUri: data.logoutRedirectUri,
-        singleSignOnServiceUri: data.singleSignOnServiceUri,
-        changePasswordUri: data.changePasswordUri,
+        _key: data.samlSpConfigEntityId as string,
+        ...data,
+        name: 'Saml Provider',
+        category: ['security'],
+        function: ['IAM']
       },
     },
   });
