@@ -32,12 +32,13 @@ export async function fetchCloudIdentityMembershipRoles(
 
       await client.iterateCloudIdentityGroupMembershipRole(
         groupName,
-        async (membershipRole) => {
+        async (membershipRole, membershipRoleName) => {
           if (jobState.hasKey(membershipRole.name as string)) {
             return;
           }
           const membershipRoleEntity = createCloudIdentityMembershipRoleEntity(
             membershipRole,
+            membershipRoleName,
             groupName,
           );
           await jobState.addEntity(membershipRoleEntity);

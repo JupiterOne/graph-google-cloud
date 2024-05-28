@@ -24,11 +24,10 @@ export async function fetchCloudIdentitySSOSamlProvider(
   );
 
   await client.iterateCloudIdentitySsoProfile(async (ssoProfile) => {
-    const idpConfig = ssoProfile.idpConfig;
-    const spConfig = ssoProfile.spConfig;
+    
 
     const ssoSamlProviderEntity = createCloudIdentitySSOSamlProviderEntity(
-      idpConfig!, spConfig!
+      ssoProfile
     );
     await jobState.addEntity(ssoSamlProviderEntity);
   });

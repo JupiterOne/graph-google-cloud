@@ -5,10 +5,10 @@ import { fetchCloudIdentityGroupsStep } from './steps/entities/fetch-cloud-ident
 import { fetchCloudIdentityMemberShipRolesStep } from './steps/entities/fetch-cloud-identity-membership-roles';
 import { fetchCloudIdentitySSOSamlProviderStep } from './steps/entities/fetch-cloud-identity-saml-provider';
 import { fetchCloudIdentitySSOProfileStep } from './steps/entities/fetch-cloud-identity-sso-profile';
-import { buildCloudIdentityDeviceUserAssignedGroupStep } from './steps/relationships/build-device-user-assigned-group-relationship';
 import { buildDeviceUserIsGoogleUserRelationshipStep } from './steps/relationships/build-device-user-is-google-user';
 import { buildCloudIdentityDeviceUserUsesDeviceStep } from './steps/relationships/build-device-user-uses-device-relationship';
 import { buildCloudIdentityGroupAssignedMembershipRoleStep } from './steps/relationships/build-group-assigned-membership-role';
+import { buildCloudIdentitySamlProviderUsesGroupStep } from './steps/relationships/build-saml-provider-uses-groups';
 import { buildCloudIdentitySsoProfileAssignedGroupRelationshipStep } from './steps/relationships/build-sso-profile-assigned-group-relationship';
 
 export const cloudIdentitySteps: GoogleCloudIntegrationStep[] = [
@@ -18,9 +18,9 @@ export const cloudIdentitySteps: GoogleCloudIntegrationStep[] = [
   fetchCloudIdentityMemberShipRolesStep,
   fetchCloudIdentitySSOProfileStep,
   fetchCloudIdentitySSOSamlProviderStep,
-  buildCloudIdentityDeviceUserAssignedGroupStep,
   buildDeviceUserIsGoogleUserRelationshipStep,
   buildCloudIdentityDeviceUserUsesDeviceStep,
   buildCloudIdentityGroupAssignedMembershipRoleStep,
   buildCloudIdentitySsoProfileAssignedGroupRelationshipStep,
+  buildCloudIdentitySamlProviderUsesGroupStep
 ];

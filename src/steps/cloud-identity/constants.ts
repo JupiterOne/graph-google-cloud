@@ -1,3 +1,7 @@
+// Run Cloud Identity Steps 
+// export CLOUD_IDENTITY_STEPS="fetch-cloud-identity-devices,fetch-cloud-identity-device-users,fetch-cloud-identity-sso-profile,fetch-cloud-identity-groups,fetch-cloud-identity-membership-roles,fetch-cloud-identity-sso-saml-provider,build-cloud-identity-device-user-uses-device-relationship,build-cloud-identity-sso-profile-assigned-group-relationship,build-cloud-identity-group-assigned-membership-role-relationship,build-cloud-identity-device-user-is-google-user,build-cloud-identity-saml-provider-uses-group"
+// yarn start --step $CLOUD_IDENTITY_STEPS --no-cache
+
 // Entity Constants
 // Step Ids
 export const STEP_CLOUD_IDENTITY_DEVICES = 'fetch-cloud-identity-devices';
@@ -42,22 +46,23 @@ export const STEP_CLOUD_IDENTITY_SSO_PROFILE_ASSIGNED_GROUP_RELATIONSHIP =
   'build-cloud-identity-sso-profile-assigned-group-relationship';
 export const STEP_CLOUD_IDENTITY_GROUP_ASSIGNED_MEMBERSHIP_ROLE_RELATIONSHIP =
   'build-cloud-identity-group-assigned-membership-role-relationship';
-export const STEP_CLOUD_IDENTITY_DEVICES_USER_ASSIGNED_GROUP =
-  'build-cloud-identity-device-user-assigned-group-relationship';
 export const STEP_DEVICE_USER_IS_GOOGLE_USER =
   'build-cloud-identity-device-user-is-google-user';
+export const STEP_CLOUD_IDENTITY_SAML_PROVIDER_USES_GROUP =
+  'build-cloud-identity-saml-provider-uses-group';
 
 // Relationship types
 export const RELATIONSHIP_TYPE_CLOUD_IDENTITY_DEVICE_USER_USES_DEVICE =
   'google_cloud_identity_user_uses_device';
 export const RELATIONSHIP_TYPE_CLOUD_IDENTITY_SSO_PROFILE_ASSIGNED_GROUP_RELATIONSHIP =
-  'google_cloud_identity_sso_assigned_group';
+  'google_cloud_sso_assigned_identity_group';
 export const RELATIONSHIP_TYPE_GROUP_ASSIGNED_MEMBERSHIP_ROLE =
   'google_cloud_identity_group_assigned_member_role';
 export const RELATIONSHIP_TYPE_CLOUD_IDENTITY_DEVICES_USER_ASSIGNED_GROUP =
   'google_cloud_identity_user_assigned_group';
 export const RELATIONSHIP_TYPE_DEVICE_USER_IS_GOOGLE_USER =
   'google_cloud_identity_user_is_google_user';
+export const RELATIONSHIP_TYPE_SAML_PROVIDER_USES_GROUP = 'google_cloud_identity_saml_provider_uses_group'
 
 export const IngestionSources = {
   CLOUD_IDENTITY_DEVICES: 'cloud-identity-devices',

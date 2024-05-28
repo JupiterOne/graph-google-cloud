@@ -6,6 +6,7 @@ import {
   STEP_CLOUD_IDENTITY_DEVICE_USERS,
   STEP_CLOUD_IDENTITY_GROUPS,
   STEP_CLOUD_IDENTITY_MEMBERSHIP_ROLES,
+  STEP_CLOUD_IDENTITY_SAML_PROVIDER_USES_GROUP,
   STEP_CLOUD_IDENTITY_SSO_PROFILE,
 } from './constants';
 
@@ -117,7 +118,10 @@ export class CloudIdentityClient extends Client {
 
   async iterateCloudIdentityGroupMembershipRole(
     group,
-    callback: (data: cloudidentity_v1.Schema$MembershipRole) => Promise<void>,
+    callback: (
+      data: cloudidentity_v1.Schema$MembershipRole,
+      membershipRoleName: string,
+    ) => Promise<void>,
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
     await this.iterateApi(
@@ -131,12 +135,37 @@ export class CloudIdentityClient extends Client {
       async (data: cloudidentity_v1.Schema$ListMembershipsResponse) => {
         for (const item of data.memberships || []) {
           for (const role of item.roles || []) {
-            await callback(role);
+            await callback(role, item.name as string);
           }
         }
       },
       STEP_CLOUD_IDENTITY_MEMBERSHIP_ROLES,
       CloudIdentityPermissions.CLOUD_IDENTITY_MEMBERSHIP_ROLES,
+    );
+  }
+
+  async iterateCloudIdentitySsoAssignment(
+    callback: (
+      data: cloudidentity_v1.Schema$InboundSsoAssignment,
+    ) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.inboundSsoAssignments.list({
+          auth,
+          pageToken: nextPageToken,
+        });
+      },
+      async (
+        data: cloudidentity_v1.Schema$ListInboundSsoAssignmentsResponse,
+      ) => {
+        for (const item of data.inboundSsoAssignments || []) {
+          await callback(item);
+        }
+      },
+      STEP_CLOUD_IDENTITY_SAML_PROVIDER_USES_GROUP,
+      [],
     );
   }
 }

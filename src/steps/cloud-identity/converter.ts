@@ -114,7 +114,7 @@ export function createCloudIdentityGroupEntity(
       assign: {
         _type: ENTITY_TYPE_CLOUD_IDENTITY_GROUPS,
         _class: ENTITY_CLASS_CLOUD_IDENTITY_GROUPS,
-        _key: data.name as string,
+        _key: data.name?.split("/")[1] as string,
         displayName: data.displayName as string,
         name: data.name?.split('/')[1],
         ssoProfileName: ssoProfileName,
@@ -125,6 +125,7 @@ export function createCloudIdentityGroupEntity(
 
 export function createCloudIdentityMembershipRoleEntity(
   data: cloudidentity_v1.Schema$MembershipRole,
+  membershipRoleName: string,
   groupName: string,
 ) {
   return createGoogleCloudIntegrationEntity(data, {
@@ -133,7 +134,7 @@ export function createCloudIdentityMembershipRoleEntity(
       assign: {
         _type: ENTITY_TYPE_CLOUD_IDENTITY_MEMBERSHIP_ROLES,
         _class: ENTITY_CLASS_CLOUD_IDENTITY_MEMBERSHIP_ROLES,
-        _key: data.name as string,
+        _key: `${membershipRoleName}:${data.name}`,
         name: data.name,
         expiryTime: data.expiryDetail?.expireTime,
         groupName: groupName,
@@ -143,9 +144,11 @@ export function createCloudIdentityMembershipRoleEntity(
 }
 
 export function createCloudIdentitySSOSamlProviderEntity(
-  idpConfig: cloudidentity_v1.Schema$SamlIdpConfig,
-  spConfig: cloudidentity_v1.Schema$SamlSpConfig,
+  ssoProfile: cloudidentity_v1.Schema$InboundSamlSsoProfile
 ) {
+  const idpConfig: cloudidentity_v1.Schema$SamlIdpConfig = ssoProfile.idpConfig!
+  const spConfig: cloudidentity_v1.Schema$SamlSpConfig = ssoProfile.spConfig!
+
   const { entityId: idpEntityId, ...idpRest } = idpConfig;
   const { entityId: spEntityId, ...spRest } = spConfig;
 
@@ -162,9 +165,10 @@ export function createCloudIdentitySSOSamlProviderEntity(
       assign: {
         _type: ENTITY_TYPE_CLOUD_IDENTITY_SSO_SAML_PROVIDER,
         _class: ENTITY_CLASS_CLOUD_IDENTITY_SSO_SAML_PROVIDER,
-        _key: data.samlSpConfigEntityId as string,
+        _key: `SAML PROVIDER: ${ssoProfile.name?.split("/")[1]}`,
         ...data,
-        name: 'Saml Provider',
+        customer: ssoProfile.customer,
+        name: ssoProfile.name,
         category: ['security'],
         function: ['IAM']
       },
