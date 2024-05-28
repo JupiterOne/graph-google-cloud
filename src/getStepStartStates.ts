@@ -21,6 +21,13 @@ import {
 } from './steps/api-gateway/constants';
 import { appEngineSteps } from './steps/app-engine';
 import {
+  STEP_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY,
+  STEP_POLICY_INTELLIGENCE_ANALYZER,
+  STEP_POLICY_INTELLIGENCE_ANALYZER_HAS_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY,
+  STEP_GOOGLE_CLOUD_PROJECT_HAS_POLICY_INTELLIGENCE_ANALYZER,
+  STEP_GOOGLE_CLOUD_PROJECT_HAS_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY
+} from './steps/policy-intelligence/constants'
+import {
   STEP_APP_ENGINE_APPLICATION,
   STEP_APP_ENGINE_INSTANCES,
   STEP_APP_ENGINE_SERVICES,
@@ -243,9 +250,8 @@ export default async function getStepStartStates(
 
   logger.publishEvent({
     name: 'integration_config',
-    description: `Starting Google Cloud integration with service account (email=${
-      config.serviceAccountKeyConfig.client_email
-    }, configureOrganizationProjects=${!!config.configureOrganizationProjects})`,
+    description: `Starting Google Cloud integration with service account (email=${config.serviceAccountKeyConfig.client_email
+      }, configureOrganizationProjects=${!!config.configureOrganizationProjects})`,
   });
 
   const masterOrgInstance = isMasterOrganizationInstance(config);
@@ -420,6 +426,12 @@ function getDefaultStepStartStates(params: {
       disabled: false,
     },
     [PrivatecaSteps.STEP_PRIVATE_CA_CERTIFICATES.id]: { disabled: false },
+    [STEP_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY]: { disabled: false },
+    [STEP_POLICY_INTELLIGENCE_ANALYZER]: { disabled: false },
+    [STEP_POLICY_INTELLIGENCE_ANALYZER_HAS_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY]: { disabled: false },
+    [STEP_GOOGLE_CLOUD_PROJECT_HAS_POLICY_INTELLIGENCE_ANALYZER]: { disabled: false },
+    [STEP_GOOGLE_CLOUD_PROJECT_HAS_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY]: { disabled: false },
+
     [STEP_DATAPROC_CLUSTERS]: { disabled: false },
     [STEP_DATAPROC_CLUSTER_KMS_RELATIONSHIPS]: { disabled: false },
     [STEP_CREATE_CLUSTER_STORAGE_RELATIONSHIPS]: { disabled: false },
@@ -781,6 +793,21 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [STEP_APP_ENGINE_INSTANCES]: createStepStartState(
       ServiceUsageName.APP_ENGINE,
     ),
+    [STEP_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY]: createStepStartState(
+      ServiceUsageName.POLICY_INTELLIGENCE,
+    ),
+    [STEP_POLICY_INTELLIGENCE_ANALYZER]: createStepStartState(
+      ServiceUsageName.POLICY_INTELLIGENCE,
+    ),
+    [STEP_POLICY_INTELLIGENCE_ANALYZER_HAS_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY]: createStepStartState(
+      ServiceUsageName.POLICY_INTELLIGENCE,
+    ),
+    [STEP_GOOGLE_CLOUD_PROJECT_HAS_POLICY_INTELLIGENCE_ANALYZER]: createStepStartState(
+      ServiceUsageName.POLICY_INTELLIGENCE,
+    ),
+    [STEP_GOOGLE_CLOUD_PROJECT_HAS_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY]: createStepStartState(
+      ServiceUsageName.POLICY_INTELLIGENCE,
+    ),
     [STEP_CLOUD_RUN_SERVICES]: createStepStartState(ServiceUsageName.CLOUD_RUN),
     [STEP_CLOUD_RUN_ROUTES]: createStepStartState(ServiceUsageName.CLOUD_RUN),
     [STEP_CLOUD_RUN_CONFIGURATIONS]: createStepStartState(
@@ -885,16 +912,16 @@ async function getStepStartStatesUsingServiceEnablements(params: {
       .id]: createStepStartState(ServiceUsageName.CLOUD_BUILD),
     [CloudBuildStepsSpec.BUILD_CLOUD_BUILD_USES_STORAGE_BUCKET_RELATIONSHIPS
       .id]: createStepStartState(
-      ServiceUsageName.CLOUD_BUILD,
-      ServiceUsageName.STORAGE,
-    ),
+        ServiceUsageName.CLOUD_BUILD,
+        ServiceUsageName.STORAGE,
+      ),
     [CloudSourceRepositoriesStepsSpec.FETCH_REPOSITORIES.id]:
       createStepStartState(ServiceUsageName.CLOUD_SOURCE_REPOSITORIES),
     [CloudBuildStepsSpec.BUILD_CLOUD_BUILD_USES_SOURCE_REPOSITORY_RELATIONSHIPS
       .id]: createStepStartState(
-      ServiceUsageName.CLOUD_BUILD,
-      ServiceUsageName.CLOUD_SOURCE_REPOSITORIES,
-    ),
+        ServiceUsageName.CLOUD_BUILD,
+        ServiceUsageName.CLOUD_SOURCE_REPOSITORIES,
+      ),
     [CloudBuildStepsSpec
       .BUILD_CLOUD_BUILD_TRIGGER_USES_GITHUB_REPO_RELATIONSHIPS.id]:
       createStepStartState(ServiceUsageName.CLOUD_BUILD),
