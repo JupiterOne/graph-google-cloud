@@ -42,7 +42,10 @@ export async function fetchPolicyAnalyzerActivity(
     const client = new PolicyAnalyzerClient({ config }, logger);
 
     await client.iteratePolicyAnalyzerActivity(async (policyAnalyzerActivity) => {
-        await jobState.addEntity(createPolicyIntelligenceAnalyzerActivityEntity(policyAnalyzerActivity));
+
+        if (!jobState.hasKey(policyAnalyzerActivity.fullResourceName as string)) {
+            await jobState.addEntity(createPolicyIntelligenceAnalyzerActivityEntity(policyAnalyzerActivity));
+          }
     });
 }
 
