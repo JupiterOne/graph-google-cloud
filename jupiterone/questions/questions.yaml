@@ -110,7 +110,7 @@ questions:
     queries:
       - resultsAre: INFORMATIVE
         query: |
-          FIND google_compute instance as a RETURN count(a)
+          FIND google_compute_instance as a RETURN count(a)
     tags:
       - google-cloud
       - test
@@ -120,7 +120,7 @@ questions:
         requirements:
           - '1.1'
   - id: integration-question-google-cloud-bucket-test-question-22
-    title: this is a test question22?
+    title: this is a test question2?
     description: Finds all Google Cloud storage buckets with versioning disabled. this query has the id changed
     queries:
       - resultsAre: INFORMATIVE
