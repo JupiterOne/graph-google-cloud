@@ -1,5 +1,217 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`artifactRegistry#build-project-assigned-artifact-registry-vpcsc-policy-relationship should collect data 1`] = `
+{
+  "collectedEntities": [
+    {
+      "_class": [
+        "CodeRepo",
+        "Repository",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepofordev",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "cleanupPolicyDryRun": true,
+            "createTime": "2024-04-17T19:09:28.444136Z",
+            "format": "PYTHON",
+            "kmsKeyName": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/keyRings/demoKeyRing/cryptoKeys/demoKey1",
+            "mode": "STANDARD_REPOSITORY",
+            "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepofordev",
+            "sizeBytes": "9458",
+            "updateTime": "2024-04-17T20:37:12.582653Z",
+          },
+        },
+      ],
+      "_type": "google_cloud_artifact_registry_repository",
+      "createdOn": undefined,
+      "createdTime": "2024-04-17T19:09:28.444136Z",
+      "displayName": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepofordev",
+      "format": "PYTHON",
+      "kmsKey": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/keyRings/demoKeyRing/cryptoKeys/demoKey1",
+      "mode": "STANDARD_REPOSITORY",
+      "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepofordev",
+      "updatedTime": "2024-04-17T20:37:12.582653Z",
+    },
+    {
+      "_class": [
+        "CodeRepo",
+        "Repository",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepositorynpm",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "cleanupPolicyDryRun": true,
+            "createTime": "2024-04-17T10:11:37.491482Z",
+            "description": "npm package",
+            "format": "NPM",
+            "kmsKeyName": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/keyRings/demoKeyRing/cryptoKeys/demoKey1",
+            "mode": "STANDARD_REPOSITORY",
+            "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepositorynpm",
+            "updateTime": "2024-04-17T10:11:37.491482Z",
+          },
+        },
+      ],
+      "_type": "google_cloud_artifact_registry_repository",
+      "createdOn": undefined,
+      "createdTime": "2024-04-17T10:11:37.491482Z",
+      "description": "npm package",
+      "displayName": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepositorynpm",
+      "format": "NPM",
+      "kmsKey": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/keyRings/demoKeyRing/cryptoKeys/demoKey1",
+      "mode": "STANDARD_REPOSITORY",
+      "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepositorynpm",
+      "updatedTime": "2024-04-17T10:11:37.491482Z",
+    },
+    {
+      "_class": [
+        "CodeRepo",
+        "Repository",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/gcf-artifacts",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "createTime": "2024-05-14T12:23:07.832478Z",
+            "description": "This repository is created and used by Cloud Functions for storing function docker images.",
+            "format": "DOCKER",
+            "labels": {
+              "goog-managed-by": "cloudfunctions",
+            },
+            "mode": "STANDARD_REPOSITORY",
+            "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/gcf-artifacts",
+            "sizeBytes": "479393223",
+            "updateTime": "2024-05-14T13:12:34.521319Z",
+          },
+        },
+      ],
+      "_type": "google_cloud_artifact_registry_repository",
+      "createdOn": undefined,
+      "createdTime": "2024-05-14T12:23:07.832478Z",
+      "description": "This repository is created and used by Cloud Functions for storing function docker images.",
+      "displayName": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/gcf-artifacts",
+      "format": "DOCKER",
+      "kmsKey": undefined,
+      "mode": "STANDARD_REPOSITORY",
+      "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/gcf-artifacts",
+      "tag.goog-managed-by": "cloudfunctions",
+      "updatedTime": "2024-05-14T13:12:34.521319Z",
+    },
+    {
+      "_class": [
+        "CodeRepo",
+        "Repository",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/test-repository",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "createTime": "2024-04-15T04:46:39.615018Z",
+            "description": "testing",
+            "dockerConfig": {},
+            "format": "DOCKER",
+            "mode": "STANDARD_REPOSITORY",
+            "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/test-repository",
+            "updateTime": "2024-04-16T04:59:58.144094Z",
+          },
+        },
+      ],
+      "_type": "google_cloud_artifact_registry_repository",
+      "createdOn": undefined,
+      "createdTime": "2024-04-15T04:46:39.615018Z",
+      "description": "testing",
+      "displayName": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/test-repository",
+      "format": "DOCKER",
+      "kmsKey": undefined,
+      "mode": "STANDARD_REPOSITORY",
+      "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/test-repository",
+      "updatedTime": "2024-04-16T04:59:58.144094Z",
+    },
+    {
+      "_class": [
+        "Account",
+      ],
+      "_key": "projects/167984947943",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "createTime": "2021-05-31T15:15:56.125Z",
+            "displayName": "j1-gc-integration-dev-v3",
+            "etag": "W/"8f56735f6f3d890d"",
+            "labels": {
+              "firebase": "enabled",
+            },
+            "name": "projects/167984947943",
+            "parent": "folders/306329820365",
+            "projectId": "j1-gc-integration-dev-v3",
+            "state": "ACTIVE",
+            "updateTime": "2024-05-15T11:48:40.174923Z",
+          },
+        },
+      ],
+      "_type": "google_cloud_project",
+      "createdOn": 1622474156125,
+      "displayName": "j1-gc-integration-dev-v3",
+      "id": "j1-gc-integration-dev-v3",
+      "lifecycleState": "ACTIVE",
+      "name": "projects/167984947943",
+      "parent": "folders/306329820365",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.firebase": "enabled",
+      "updatedOn": 1715773720174,
+      "webLink": "https://console.cloud.google.com/home/dashboard?project=j1-gc-integration-dev-v3",
+    },
+  ],
+  "collectedRelationships": [
+    {
+      "_class": "HAS",
+      "_fromEntityKey": "projects/167984947943",
+      "_key": "projects/167984947943|has|projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepofordev",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepofordev",
+      "_type": "google_cloud_project_has_artifact_registry_repository",
+      "displayName": "HAS",
+    },
+    {
+      "_class": "HAS",
+      "_fromEntityKey": "projects/167984947943",
+      "_key": "projects/167984947943|has|projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepositorynpm",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/demorepositorynpm",
+      "_type": "google_cloud_project_has_artifact_registry_repository",
+      "displayName": "HAS",
+    },
+    {
+      "_class": "HAS",
+      "_fromEntityKey": "projects/167984947943",
+      "_key": "projects/167984947943|has|projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/gcf-artifacts",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/gcf-artifacts",
+      "_type": "google_cloud_project_has_artifact_registry_repository",
+      "displayName": "HAS",
+    },
+    {
+      "_class": "HAS",
+      "_fromEntityKey": "projects/167984947943",
+      "_key": "projects/167984947943|has|projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/test-repository",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1/repositories/test-repository",
+      "_type": "google_cloud_project_has_artifact_registry_repository",
+      "displayName": "HAS",
+    },
+  ],
+  "encounteredTypes": [
+    "google_cloud_artifact_registry_repository",
+    "google_cloud_project",
+    "google_cloud_project_has_artifact_registry_repository",
+  ],
+  "numCollectedEntities": 5,
+  "numCollectedRelationships": 4,
+}
+`;
+
 exports[`artifactRegistry#fetch-artifact-registry-repository-uses-kms-key should collect data 1`] = `
 {
   "collectedEntities": [

@@ -69,12 +69,10 @@ export async function fetchCloudSql(
 ): Promise<void> {
   const {
     jobState,
-    instance: { config },
-    logger,
+    instance,
   } = context;
 
-  const client = new CloudSqlClient({ config }, logger);
-  await jobState.addEntity(createCloudSqlServiceEntity(client.projectId));
+  await jobState.addEntity(createCloudSqlServiceEntity(instance.id));
 }
 
 export async function fetchCloudSqlInstances(
@@ -253,12 +251,15 @@ export async function buildProjectHasSqlRelationship(
 export async function buildSqlHasSqlInstancesRelationship(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
+  const {
+    jobState,
+    instance,
+  } = context;
 
   await jobState.iterateEntities(
     { _type: ENTITY_TYPE_CLOUD_SQL_INSTANCES },
     async (cloudSqlInstanceEntity) => {
-      const sqlEntityKey = cloudSqlInstanceEntity.projectId as string;
+      const sqlEntityKey = "sql_key:" + instance.id;
 
       if (!sqlEntityKey) {
         throw new IntegrationMissingKeyError(
@@ -463,12 +464,12 @@ export async function buildSqlInstanceAssignedGoogleUserRelationship(
 export async function buildSqlHasSqldatabaseRelationship(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
+  const { jobState, instance } = context;
 
   await jobState.iterateEntities(
     { _type: ENTITY_TYPE_CLOUD_SQL_DATABASE },
     async (sqlDatabseEntity) => {
-      const sqlEntityKey = sqlDatabseEntity.projectId;
+      const sqlEntityKey = "sql_key:" + instance.id;;
 
       if (!sqlEntityKey) {
         throw new IntegrationMissingKeyError(
