@@ -6,6 +6,7 @@ import {
 import {
   STEP_ARTIFACT_REGISTRY,
   STEP_ARTIFACT_REGISTRY_REPOSITORY,
+  STEP_ARTIFACT_REGISTRY_VPCSC,
   STEP_ARTIFACT_REPOSIOTRY_PACKAGE,
 } from './constants';
 import { integrationConfig } from '../../../test/config';
@@ -92,6 +93,36 @@ describe(`artifactRegistry#${STEP_ARTIFACT_REGISTRY}`, () => {
 
       recording = setupGoogleCloudRecording({
         name: STEP_ARTIFACT_REGISTRY,
+        directory: __dirname,
+        options: {
+          matchRequestsBy: getMatchRequestsBy(integrationConfig),
+        },
+      });
+
+      const result = await executeStepWithDependencies(stepTestConfig);
+      expect(result).toMatchStepMetadata(stepTestConfig);
+    },
+    500_000,
+  );
+});
+
+describe(`artifactRegistry#${STEP_ARTIFACT_REGISTRY_VPCSC}`, () => {
+  let recording: Recording;
+  afterEach(async () => {
+    if (recording) await recording.stop();
+  });
+
+  test(
+    STEP_ARTIFACT_REGISTRY_VPCSC,
+    async () => {
+      const stepTestConfig: StepTestConfig = {
+        stepId: STEP_ARTIFACT_REGISTRY_VPCSC,
+        instanceConfig: integrationConfig,
+        invocationConfig: invocationConfig as any,
+      };
+
+      recording = setupGoogleCloudRecording({
+        name: STEP_ARTIFACT_REGISTRY_VPCSC,
         directory: __dirname,
         options: {
           matchRequestsBy: getMatchRequestsBy(integrationConfig),

@@ -1,5 +1,101 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`artifactRegistry#build-project-assigned-artifact-registry-vpcsc-policy-relationship build-project-assigned-artifact-registry-vpcsc-policy-relationship 1`] = `
+{
+  "collectedEntities": [
+    {
+      "_class": [
+        "Account",
+      ],
+      "_key": "projects/167984947943",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "createTime": "2021-05-31T15:15:56.125Z",
+            "displayName": "j1-gc-integration-dev-v3",
+            "etag": "W/"8f56735f6f3d890d"",
+            "labels": {
+              "firebase": "enabled",
+            },
+            "name": "projects/167984947943",
+            "parent": "folders/306329820365",
+            "projectId": "j1-gc-integration-dev-v3",
+            "state": "ACTIVE",
+            "updateTime": "2024-05-15T11:48:40.174923Z",
+          },
+        },
+      ],
+      "_type": "google_cloud_project",
+      "createdOn": 1622474156125,
+      "displayName": "j1-gc-integration-dev-v3",
+      "id": "j1-gc-integration-dev-v3",
+      "lifecycleState": "ACTIVE",
+      "name": "projects/167984947943",
+      "parent": "folders/306329820365",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.firebase": "enabled",
+      "updatedOn": 1715773720174,
+      "webLink": "https://console.cloud.google.com/home/dashboard?project=j1-gc-integration-dev-v3",
+    },
+  ],
+  "collectedRelationships": [],
+  "encounteredTypes": [
+    "google_cloud_project",
+  ],
+  "numCollectedEntities": 1,
+  "numCollectedRelationships": 0,
+}
+`;
+
+exports[`artifactRegistry#build-project-uses-artifact-registry-vpcsc-config-relationship build-project-uses-artifact-registry-vpcsc-config-relationship 1`] = `
+{
+  "collectedEntities": [
+    {
+      "_class": [
+        "Account",
+      ],
+      "_key": "projects/167984947943",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "createTime": "2021-05-31T15:15:56.125Z",
+            "displayName": "j1-gc-integration-dev-v3",
+            "etag": "W/"8f56735f6f3d890d"",
+            "labels": {
+              "firebase": "enabled",
+            },
+            "name": "projects/167984947943",
+            "parent": "folders/306329820365",
+            "projectId": "j1-gc-integration-dev-v3",
+            "state": "ACTIVE",
+            "updateTime": "2024-05-15T11:48:40.174923Z",
+          },
+        },
+      ],
+      "_type": "google_cloud_project",
+      "createdOn": 1622474156125,
+      "displayName": "j1-gc-integration-dev-v3",
+      "id": "j1-gc-integration-dev-v3",
+      "lifecycleState": "ACTIVE",
+      "name": "projects/167984947943",
+      "parent": "folders/306329820365",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.firebase": "enabled",
+      "updatedOn": 1715773720174,
+      "webLink": "https://console.cloud.google.com/home/dashboard?project=j1-gc-integration-dev-v3",
+    },
+  ],
+  "collectedRelationships": [],
+  "encounteredTypes": [
+    "google_cloud_project",
+  ],
+  "numCollectedEntities": 1,
+  "numCollectedRelationships": 0,
+}
+`;
+
 exports[`artifactRegistry#fetch-artifact-registry-repository-uses-kms-key should collect data 1`] = `
 {
   "collectedEntities": [
