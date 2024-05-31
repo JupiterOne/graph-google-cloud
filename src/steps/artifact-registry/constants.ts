@@ -14,8 +14,7 @@ export const STEP_ARTIFACT_REGISTRY = 'fetch-artifact-registry';
 export const ARTIFACT_REGISTRY_CLASS = ['Service'];
 export const ARTIFACT_REGISTRY_TYPE = 'google_cloud_artifact_registry';
 
-export const STEP_ARTIFACT_REGISTRY_VPCSC_CONFIGURATION =
-  'fetch-artifact-registry-vpcsc-configuration';
+export const STEP_ARTIFACT_REGISTRY_VPCSC = 'fetch-artifact-registry-vpcsc';
 export const ARTIFACT_REGISTRY_VPCSC_CONFIGURATION_CLASS = ['Configuration'];
 export const ARTIFACT_REGISTRY_VPCSC_CONFIGURATION_TYPE =
   'google_cloud_artifact_registry_vpcsc_configuration';
@@ -50,6 +49,22 @@ export const STEP_ARTIFACT_REPOSITROY_PACKAGE_IS_NPM_PACKAGE_RELATIONSHIP =
 export const RELATIONSHIP_ARTIFACT_REPOSITORY_PACKAGE_IS_NPM_PACKAGE_TYPE =
   'google_cloud_artifact_registry_package_is_npm_package';
 
+export const ARTIFACT_REGISTRY_VPCSC_POLICY_TYPE =
+  'google_cloud_artifact_registry_vpcsc_policy';
+export const ARTIFACT_REGISTRY_VPCSC_POLICY_CLASS = ['Configuration'];
+
+export const RELATIONSHIP_TYPE_VPCSC_CONFIG_ASSIGNED_POLICY =
+  'google_cloud_artifact_registry_vpcsc_configuration_assigned_policy';
+
+export const STEP_PROJECT_USES_ARTIFACT_REGISTRY_VPCSC_CONFIG_RELATIONSHIP =
+  'build-project-uses-artifact-registry-vpcsc-config-relationship';
+export const RELATIONSHIP_TYPE_PROJECT_USES_ARTIFACT_REGISTRY_VPCSC_CONFIG =
+  'google_cloud_project_uses_artifact_registry_vpcsc_configuration';
+export const STEP_PROJECT_ASSIGNED_ARTIFACT_REGISTRY_VPCSC_POLICY_RELATIONSHIP =
+  'build-project-assigned-artifact-registry-vpcsc-policy-relationship';
+export const RELATIONSHIP_TYPE_PROJECT_ASSIGNED_ARTIFACT_REGISTRY_VPCSC_Policy =
+  'google_cloud_project_assigned_artifact_registry_vpcsc_policy';
+
 export const IngestionSources = {
   ARTIFACT_REGISTRY_REPOSITORY: 'artifact_registry_repositories',
   ARTIFACT_REPOSITORY_PACKAGE: 'artifact_repository_packages',
@@ -68,6 +83,10 @@ export const IngestionSources = {
     'artifact_registry_repository_uses_npm_package_relationship',
   ARTIFACT_REPOSITORY_PACKAGE_IS_NPM_PACKAGE_REALTIONSHIP:
     'artifact_repository_package_is_npm_package_relationship',
+  PROJECT_USES_ARTIFACT_REGISTRY_VPCSC_CONFIG_RELATIONSHIP:
+    'project_uses_artifact_registry_vpcsc_config_relationship',
+  PROJECT_ASSIGNED_ARTIFACT_REGISTRY_VPCSC_POLICY_RELATIONSHIP:
+    'project_assigned_artifact_registry_vpcsc_policy_relationship',
 };
 
 export const MonitoringIngestionConfig = {

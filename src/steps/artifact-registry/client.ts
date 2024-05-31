@@ -3,7 +3,7 @@ import { Client } from '../../google-cloud/client';
 import {
   ARTIFACT_REGISTRY_LOCATIONS,
   STEP_ARTIFACT_REGISTRY_REPOSITORY,
-  STEP_ARTIFACT_REGISTRY_VPCSC_CONFIGURATION,
+  STEP_ARTIFACT_REGISTRY_VPCSC,
   STEP_ARTIFACT_REPOSIOTRY_PACKAGE,
   artifactRegistryPermissions,
 } from './constants';
@@ -82,7 +82,7 @@ export class artifactRegistryClient extends Client {
         async (data: artifactregistry_v1.Schema$VPCSCConfig) => {
           await callback(data);
         },
-        STEP_ARTIFACT_REGISTRY_VPCSC_CONFIGURATION,
+        STEP_ARTIFACT_REGISTRY_VPCSC,
         artifactRegistryPermissions.STEP_ARTIFACT_REGISTRY_VPCSC_CONFIGURATION,
       );
     });

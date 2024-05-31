@@ -19,6 +19,8 @@ import {
   ARTIFACT_REGISTRY_TYPE,
   ARTIFACT_REGISTRY_VPCSC_CONFIGURATION_CLASS,
   ARTIFACT_REGISTRY_VPCSC_CONFIGURATION_TYPE,
+  ARTIFACT_REGISTRY_VPCSC_POLICY_CLASS,
+  ARTIFACT_REGISTRY_VPCSC_POLICY_TYPE,
   ARTIFACT_REPOSITORY_PACKAGE_CLASS,
   ARTIFACT_REPOSITORY_PACKAGE_TYPE,
   IngestionSources,
@@ -28,21 +30,27 @@ import {
   RELATIONSHIP_ARTIFACT_REPOSITORY_PACKAGE_IS_NPM_PACKAGE_TYPE,
   RELATIONSHIP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_TYPE,
   RELATIONSHIP_PROJECT_HAS_ARTIFACT_REGISTRY_TYPE,
+  RELATIONSHIP_TYPE_PROJECT_USES_ARTIFACT_REGISTRY_VPCSC_CONFIG,
+  RELATIONSHIP_TYPE_PROJECT_ASSIGNED_ARTIFACT_REGISTRY_VPCSC_Policy,
+  RELATIONSHIP_TYPE_VPCSC_CONFIG_ASSIGNED_POLICY,
   STEP_ARTIFACT_REGISTRY,
   STEP_ARTIFACT_REGISTRY_REPOSITORY,
   STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP,
   STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_NPM_PACKAGE_RELATIONSHIP,
   STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_PACKAGE_RELATIONSHIP,
-  STEP_ARTIFACT_REGISTRY_VPCSC_CONFIGURATION,
+  STEP_ARTIFACT_REGISTRY_VPCSC,
   STEP_ARTIFACT_REPOSIOTRY_PACKAGE,
   STEP_ARTIFACT_REPOSITROY_PACKAGE_IS_NPM_PACKAGE_RELATIONSHIP,
   STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP,
   STEP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP,
+  STEP_PROJECT_USES_ARTIFACT_REGISTRY_VPCSC_CONFIG_RELATIONSHIP,
+  STEP_PROJECT_ASSIGNED_ARTIFACT_REGISTRY_VPCSC_POLICY_RELATIONSHIP,
   artifactRegistryPermissions,
 } from './constants';
 import {
   createArtifactRegistryEntity,
   createArtifactRegistryRepositoryEntity,
+  createArtifactRegistryVpcPolicyEntity,
   createArtifactRegistryVpcscConfigEntity,
   createArtifactRepositoryPackageEntity,
 } from './converters';
@@ -54,6 +62,10 @@ import { getProjectEntity } from '../../utils/project';
 import { ENTITY_TYPE_KMS_KEY, STEP_CLOUD_KMS_KEYS } from '../kms/constants';
 import { artifactregistry_v1 } from 'googleapis';
 import { getKmsGraphObjectKeyFromKmsKeyName } from '../../utils/kms';
+import {
+  ENTITY_TYPE_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETER,
+  STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS,
+} from '../access-context-manager/constants';
 
 export const ServiceMappedRelationships = {
   ARTIFACT_REPOSITORY_ENTITY_USES_NPM_PACKAGE: {
@@ -147,31 +159,42 @@ export async function fetchArtifactRepositoryPackage(
 export async function fetchArtifactRegistryVPCSCConfiguration(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const {
-    jobState,
-    instance: { config },
-    logger,
-  } = context;
+  const { jobState } = context;
 
-  const client = new artifactRegistryClient({ config }, logger);
+  await jobState.iterateEntities(
+    {
+      _type: ENTITY_TYPE_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETER,
+    },
+    async (perimeter) => {
+      const perimeterData = getRawData<any>(perimeter);
 
-  try {
-    await client.iterateArtifactRegistryVpcscConfig(async (policy) => {
-      await jobState.addEntity(
-        createArtifactRegistryVpcscConfigEntity(policy, client.projectId),
+      // create policy entity
+      const policyEntity = await jobState.addEntity(
+        createArtifactRegistryVpcPolicyEntity(
+          perimeterData,
+          perimeter.projectId as string,
+        ),
       );
-    });
-  } catch (err) {
-    if (err.message?.match && err.message.match(/is not a workspace/i)) {
-      publishUnsupportedConfigEvent({
-        logger,
-        resource: 'Artifact Registry Repository',
-        reason: `${client.projectId} project is not a workspace`,
-      });
-    } else {
-      throw err;
-    }
-  }
+
+      // create config entity
+      const configEntity = await jobState.addEntity(
+        createArtifactRegistryVpcscConfigEntity(
+          perimeterData,
+          perimeter.projectId as string,
+        ),
+      );
+
+      await jobState.addRelationship(
+        createDirectRelationship({
+          _class: RelationshipClass.ASSIGNED,
+          fromKey: configEntity._key as string,
+          fromType: ARTIFACT_REGISTRY_VPCSC_CONFIGURATION_TYPE,
+          toKey: policyEntity._key as string,
+          toType: ARTIFACT_REGISTRY_VPCSC_POLICY_TYPE,
+        }),
+      );
+    },
+  );
 }
 
 export async function fetchArtifactRegistry(
@@ -235,6 +258,56 @@ export async function buildProjectHasArtifactRegistryRelationship(
           fromType: PROJECT_ENTITY_TYPE,
           toKey: registry._key as string,
           toType: ARTIFACT_REGISTRY_TYPE,
+        }),
+      );
+    },
+  );
+}
+
+export async function buildProjectAssignedVpcscPolicyRelationship(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState } = context;
+
+  const projectEntity = await getProjectEntity(jobState);
+
+  if (!projectEntity) return;
+
+  await jobState.iterateEntities(
+    { _type: ARTIFACT_REGISTRY_VPCSC_POLICY_TYPE },
+    async (policy) => {
+      await jobState.addRelationship(
+        createDirectRelationship({
+          _class: RelationshipClass.ASSIGNED,
+          fromKey: projectEntity._key as string,
+          fromType: PROJECT_ENTITY_TYPE,
+          toKey: policy._key as string,
+          toType: ARTIFACT_REGISTRY_VPCSC_POLICY_TYPE,
+        }),
+      );
+    },
+  );
+}
+
+export async function buildProjectUsesVpcscConfigRelationship(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { jobState } = context;
+
+  const projectEntity = await getProjectEntity(jobState);
+
+  if (!projectEntity) return;
+
+  await jobState.iterateEntities(
+    { _type: ARTIFACT_REGISTRY_VPCSC_CONFIGURATION_TYPE },
+    async (config) => {
+      await jobState.addRelationship(
+        createDirectRelationship({
+          _class: RelationshipClass.USES,
+          fromKey: projectEntity._key as string,
+          fromType: PROJECT_ENTITY_TYPE,
+          toKey: config._key as string,
+          toType: ARTIFACT_REGISTRY_VPCSC_CONFIGURATION_TYPE,
         }),
       );
     },
@@ -465,18 +538,30 @@ export const artifactRegistrySteps: GoogleCloudIntegrationStep[] = [
     apis: ['artifactregistry.googleapis.com'],
   },
   {
-    id: STEP_ARTIFACT_REGISTRY_VPCSC_CONFIGURATION,
+    id: STEP_ARTIFACT_REGISTRY_VPCSC,
     ingestionSourceId: IngestionSources.ARTIFACT_REGISTRY_VPCSC_CONFIGURATION,
-    name: 'Artifact Registry VPC SC configuration',
+    name: 'Artifact Registry VPC SC configuration and Policy',
     entities: [
       {
         resourceName: 'Artifact Registry VPCSC configuration',
         _type: ARTIFACT_REGISTRY_VPCSC_CONFIGURATION_TYPE,
         _class: ARTIFACT_REGISTRY_VPCSC_CONFIGURATION_CLASS,
       },
+      {
+        resourceName: 'Artifact Registry VPCSC Policy',
+        _type: ARTIFACT_REGISTRY_VPCSC_POLICY_TYPE,
+        _class: ARTIFACT_REGISTRY_VPCSC_POLICY_CLASS,
+      },
     ],
-    relationships: [],
-    dependsOn: [],
+    relationships: [
+      {
+        _class: RelationshipClass.ASSIGNED,
+        _type: RELATIONSHIP_TYPE_VPCSC_CONFIG_ASSIGNED_POLICY,
+        sourceType: ARTIFACT_REGISTRY_VPCSC_CONFIGURATION_TYPE,
+        targetType: ARTIFACT_REGISTRY_VPCSC_POLICY_TYPE,
+      },
+    ],
+    dependsOn: [STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS],
     executionHandler: fetchArtifactRegistryVPCSCConfiguration,
     permissions:
       artifactRegistryPermissions.STEP_ARTIFACT_REGISTRY_VPCSC_CONFIGURATION,
@@ -503,7 +588,6 @@ export const artifactRegistrySteps: GoogleCloudIntegrationStep[] = [
     executionHandler: buildProjectHasArtifactRegistryRepositoryRelationship,
     apis: ['artifactregistry.googleapis.com'],
   },
-
   {
     id: STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP,
     ingestionSourceId:
@@ -522,7 +606,6 @@ export const artifactRegistrySteps: GoogleCloudIntegrationStep[] = [
     executionHandler: buildProjectHasArtifactRegistryRelationship,
     apis: ['artifactregistry.googleapis.com'],
   },
-
   {
     id: STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP,
     ingestionSourceId:
@@ -543,7 +626,6 @@ export const artifactRegistrySteps: GoogleCloudIntegrationStep[] = [
       artifactRegistryPermissions.STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP,
     apis: ['artifactregistry.googleapis.com', 'cloudkms.googleapis.com'],
   },
-
   {
     id: STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_PACKAGE_RELATIONSHIP,
     ingestionSourceId:
@@ -565,7 +647,6 @@ export const artifactRegistrySteps: GoogleCloudIntegrationStep[] = [
     executionHandler: buildArtifactRegistryRepositoryUsesPackageRelationship,
     apis: ['artifactregistry.googleapis.com'],
   },
-
   {
     id: STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_NPM_PACKAGE_RELATIONSHIP,
     ingestionSourceId:
@@ -580,7 +661,6 @@ export const artifactRegistrySteps: GoogleCloudIntegrationStep[] = [
     executionHandler: buildArtifactRegistryRepositoryUsesNpmPackageRelationship,
     apis: ['artifactregistry.googleapis.com'],
   },
-
   {
     id: STEP_ARTIFACT_REPOSITROY_PACKAGE_IS_NPM_PACKAGE_RELATIONSHIP,
     ingestionSourceId:
@@ -595,4 +675,40 @@ export const artifactRegistrySteps: GoogleCloudIntegrationStep[] = [
     executionHandler: buildArtifactRepositoryPackageIsNpmPackageRelationship,
     apis: ['artifactregistry.googleapis.com'],
   },
+  {
+    id: STEP_PROJECT_USES_ARTIFACT_REGISTRY_VPCSC_CONFIG_RELATIONSHIP,
+    ingestionSourceId:
+      IngestionSources.PROJECT_USES_ARTIFACT_REGISTRY_VPCSC_CONFIG_RELATIONSHIP,
+    name: 'Project Uses Artifact Registry VPCSC Config',
+    entities: [],
+    relationships: [
+      {
+        _class: RelationshipClass.USES,
+        _type: RELATIONSHIP_TYPE_PROJECT_USES_ARTIFACT_REGISTRY_VPCSC_CONFIG,
+        sourceType: PROJECT_ENTITY_TYPE,
+        targetType: ARTIFACT_REGISTRY_VPCSC_CONFIGURATION_TYPE,
+      },
+    ],
+    dependsOn: [STEP_RESOURCE_MANAGER_PROJECT, STEP_ARTIFACT_REGISTRY_VPCSC],
+    executionHandler: buildProjectUsesVpcscConfigRelationship,
+    apis: ['artifactregistry.googleapis.com'],
+  },
+  {
+    id: STEP_PROJECT_ASSIGNED_ARTIFACT_REGISTRY_VPCSC_POLICY_RELATIONSHIP,
+    ingestionSourceId:
+      IngestionSources.PROJECT_ASSIGNED_ARTIFACT_REGISTRY_VPCSC_POLICY_RELATIONSHIP,
+    name: 'Project Assigned Artifact Registry VPCSC Policy',
+    entities: [],
+    relationships: [
+      {
+        _class: RelationshipClass.ASSIGNED,
+        _type: RELATIONSHIP_TYPE_PROJECT_ASSIGNED_ARTIFACT_REGISTRY_VPCSC_Policy,
+        sourceType: PROJECT_ENTITY_TYPE,
+        targetType: ARTIFACT_REGISTRY_VPCSC_POLICY_TYPE,
+      },
+    ],
+    dependsOn: [STEP_RESOURCE_MANAGER_PROJECT, STEP_ARTIFACT_REGISTRY_VPCSC],
+    executionHandler: buildProjectAssignedVpcscPolicyRelationship,
+    apis: ['artifactregistry.googleapis.com'],
+  }
 ];
