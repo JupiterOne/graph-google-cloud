@@ -1032,40 +1032,40 @@ async function getStepStartStatesUsingServiceEnablements(params: {
       ServiceUsageName.WEB_SECURITY_SCANNER,
     ),
     [STEP_CLOUD_SQL]: createStepStartState(ServiceUsageName.COMPUTE),
-    [STEP_CLOUD_SQL_BACKUP]: createStepStartState(ServiceUsageName.CLOUD_SQL),
+    [STEP_CLOUD_SQL_BACKUP]: createStepStartState(ServiceUsageName.SQL_ADMIN),
     [STEP_CLOUD_SQL_CONNECTION]: createStepStartState(
-      ServiceUsageName.CLOUD_SQL,
+      ServiceUsageName.SQL_ADMIN,
     ),
-    [STEP_CLOUD_SQL_DATABASE]: createStepStartState(ServiceUsageName.CLOUD_SQL),
+    [STEP_CLOUD_SQL_DATABASE]: createStepStartState(ServiceUsageName.SQL_ADMIN),
     [STEP_CLOUD_SQL_HAS_CLOUD_SQL_DATABASE]: createStepStartState(
-      ServiceUsageName.CLOUD_SQL,
+      ServiceUsageName.SQL_ADMIN,
     ),
     [STEP_CLOUD_SQL_HAS_CLOUD_SQL_INSTANCES]: createStepStartState(
-      ServiceUsageName.CLOUD_SQL,
+      ServiceUsageName.SQL_ADMIN,
     ),
     [STEP_CLOUD_SQL_INSTANCES]: createStepStartState(
-      ServiceUsageName.CLOUD_SQL,
+      ServiceUsageName.SQL_ADMIN,
     ),
     [STEP_CLOUD_SQL_INSTANCES_ASSIGNED_GOOGLE_USER]: createStepStartState(
-      ServiceUsageName.CLOUD_SQL,
+      ServiceUsageName.SQL_ADMIN,
     ),
     [STEP_CLOUD_SQL_INSTANCES_HAS_CLOUD_SQL_BACKUP]: createStepStartState(
-      ServiceUsageName.CLOUD_SQL,
+      ServiceUsageName.SQL_ADMIN,
     ),
     [STEP_CLOUD_SQL_INSTANCES_HAS_CLOUD_SQL_CONNECTION]: createStepStartState(
-      ServiceUsageName.CLOUD_SQL,
+      ServiceUsageName.SQL_ADMIN,
     ),
     [STEP_CLOUD_SQL_INSTANCES_USES_CLOUD_SQL_DATABASE]: createStepStartState(
-      ServiceUsageName.CLOUD_SQL,
+      ServiceUsageName.SQL_ADMIN,
     ),
     [STEP_CLOUD_SQL_INSTANCES_USES_CLOUD_SQL_SSL_CERTIFICATION]:
-      createStepStartState(ServiceUsageName.CLOUD_SQL),
+      createStepStartState(ServiceUsageName.SQL_ADMIN),
     [STEP_CLOUD_SQL_SSL_CERTIFICATION]: createStepStartState(
-      ServiceUsageName.CLOUD_SQL,
+      ServiceUsageName.SQL_ADMIN,
     ),
     [STEP_CLOUD_USER]: createStepStartState(ServiceUsageName.IAM),
     [STEP_GOOGLE_CLOUD_PROJECT_HAS_CLOUD_SQL]: createStepStartState(
-      ServiceUsageName.CLOUD_SQL,
+      ServiceUsageName.SQL_ADMIN,
     ),
     [STEP_ARTIFACT_REGISTRY_REPOSITORY]: createOrgStepStartState(
       ServiceUsageName.ARTIFACT_REGISTRY,
