@@ -105,7 +105,47 @@ import {
   STEP_COMPUTE_TARGET_HTTP_PROXIES,
   STEP_COMPUTE_TARGET_SSL_PROXIES,
   STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS,
+  STEP_AUTOSCALER_POLICY,
+  STEP_AUTOSCALER_REGION_POLICY,
+  STEP_COMPUTE_ENGINE_AUTOSCALERS,
+  STEP_COMPUTE_ENGINE_AUTOSCALERS_AND_POLICY_RELATIONSHIPS,
+  STEP_COMPUTE_ENGINE_REGION_AUTOSCALERS,
+  STEP_COMPUTE_ENGINE_REGION_AUTOSCALERS_AND_REGION_POLICY_RELATIONSHIPS,
+  STEP_PROJECT_COMPUTE_ENGINE_AUTOSCALERS_RELATIONSHIPS,
+  STEP_PROJECT_COMPUTE_ENGINE_REGION_AUTOSCALERS_RELATIONSHIPS,
 } from './steps/compute';
+import {
+  STEP_CLOUD_SQL,
+  STEP_CLOUD_SQL_BACKUP,
+  STEP_CLOUD_SQL_CONNECTION,
+  STEP_CLOUD_SQL_DATABASE,
+  STEP_CLOUD_SQL_HAS_CLOUD_SQL_DATABASE,
+  STEP_CLOUD_SQL_HAS_CLOUD_SQL_INSTANCES,
+  STEP_CLOUD_SQL_INSTANCES,
+  STEP_CLOUD_SQL_INSTANCES_ASSIGNED_GOOGLE_USER,
+  STEP_CLOUD_SQL_INSTANCES_HAS_CLOUD_SQL_BACKUP,
+  STEP_CLOUD_SQL_INSTANCES_HAS_CLOUD_SQL_CONNECTION,
+  STEP_CLOUD_SQL_INSTANCES_USES_CLOUD_SQL_DATABASE,
+  STEP_CLOUD_SQL_INSTANCES_USES_CLOUD_SQL_SSL_CERTIFICATION,
+  STEP_CLOUD_SQL_SSL_CERTIFICATION,
+  STEP_CLOUD_USER,
+  STEP_GOOGLE_CLOUD_PROJECT_HAS_CLOUD_SQL,
+} from './steps/cloud-sql/constants';
+import {
+  STEP_ARTIFACT_REGISTRY,
+  STEP_ARTIFACT_REGISTRY_REPOSITORY,
+  STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP,
+  STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_NPM_PACKAGE_RELATIONSHIP,
+  STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_PACKAGE_RELATIONSHIP,
+  STEP_ARTIFACT_REGISTRY_VPCSC,
+  STEP_ARTIFACT_REPOSIOTRY_PACKAGE,
+  STEP_ARTIFACT_REPOSITROY_PACKAGE_IS_NPM_PACKAGE_RELATIONSHIP,
+  STEP_PROJECT_ASSIGNED_ARTIFACT_REGISTRY_VPCSC_POLICY_RELATIONSHIP,
+  STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP,
+  STEP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP,
+  STEP_PROJECT_USES_ARTIFACT_REGISTRY_VPCSC_CONFIG_RELATIONSHIP,
+} from './steps/artifact-registry/constants';
+
 import { STEP_CONTAINER_CLUSTERS } from './steps/containers';
 import {
   STEP_CREATE_CLUSTER_IMAGE_RELATIONSHIPS,
@@ -346,6 +386,31 @@ describe('#getStepStartStates success', () => {
           disabled: false,
         },
         [STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_AUTOSCALER_POLICY]: {
+          disabled: false,
+        },
+        [STEP_AUTOSCALER_REGION_POLICY]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_ENGINE_AUTOSCALERS]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_ENGINE_AUTOSCALERS_AND_POLICY_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_ENGINE_REGION_AUTOSCALERS]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_ENGINE_REGION_AUTOSCALERS_AND_REGION_POLICY_RELATIONSHIPS]:
+          {
+            disabled: false,
+          },
+        [STEP_PROJECT_COMPUTE_ENGINE_AUTOSCALERS_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_COMPUTE_ENGINE_REGION_AUTOSCALERS_RELATIONSHIPS]: {
           disabled: false,
         },
         [STEP_COMPUTE_TARGET_SSL_PROXIES]: {
@@ -597,6 +662,87 @@ describe('#getStepStartStates success', () => {
           disabled: false,
         },
         [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_SQL_BACKUP]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_SQL]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_SQL_CONNECTION]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_SQL_DATABASE]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_SQL_HAS_CLOUD_SQL_DATABASE]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_SQL_HAS_CLOUD_SQL_INSTANCES]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_SQL_INSTANCES]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_SQL_INSTANCES_ASSIGNED_GOOGLE_USER]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_SQL_INSTANCES_HAS_CLOUD_SQL_BACKUP]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_SQL_INSTANCES_USES_CLOUD_SQL_DATABASE]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_SQL_INSTANCES_HAS_CLOUD_SQL_CONNECTION]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_SQL_INSTANCES_USES_CLOUD_SQL_SSL_CERTIFICATION]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_SQL_SSL_CERTIFICATION]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_USER]: {
+          disabled: false,
+        },
+        [STEP_GOOGLE_CLOUD_PROJECT_HAS_CLOUD_SQL]: {
+          disabled: false,
+        },
+        [STEP_ARTIFACT_REGISTRY_REPOSITORY]: {
+          disabled: false,
+        },
+        [STEP_ARTIFACT_REPOSIOTRY_PACKAGE]: {
+          disabled: false,
+        },
+        [STEP_ARTIFACT_REGISTRY]: {
+          disabled: false,
+        },
+        [STEP_ARTIFACT_REGISTRY_VPCSC]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_ARTIFACT_REGISTRY_REPOSITORY_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_ARTIFACT_REGISTRY_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_KMS_KEY_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_PACKAGE_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_NPM_PACKAGE_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_ARTIFACT_REPOSITROY_PACKAGE_IS_NPM_PACKAGE_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_ASSIGNED_ARTIFACT_REGISTRY_VPCSC_POLICY_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_USES_ARTIFACT_REGISTRY_VPCSC_CONFIG_RELATIONSHIP]: {
           disabled: false,
         },
       };

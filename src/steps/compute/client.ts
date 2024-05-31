@@ -9,6 +9,7 @@ import {
   STEP_COMPUTE_BACKEND_SERVICES,
   STEP_COMPUTE_DISKS,
   STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS,
+  STEP_COMPUTE_ENGINE_AUTOSCALERS,
   STEP_COMPUTE_FIREWALLS,
   STEP_COMPUTE_FORWARDING_RULES,
   STEP_COMPUTE_GLOBAL_ADDRESSES,
@@ -33,6 +34,8 @@ import {
   STEP_COMPUTE_TARGET_HTTPS_PROXIES,
   STEP_COMPUTE_TARGET_HTTP_PROXIES,
   STEP_COMPUTE_TARGET_SSL_PROXIES,
+  regions,
+  zones,
 } from './constants';
 
 export class ComputeClient extends Client {
@@ -794,5 +797,59 @@ export class ComputeClient extends Client {
       STEP_COMPUTE_SSL_POLICIES,
       ComputePermissions.STEP_COMPUTE_SSL_POLICIES,
     );
+  }
+
+  async iterateComputeAutoscaler(
+    callback: (data: compute_v1.Schema$AutoscalerList) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    // Iterate over each zone
+    for (const zone of zones) {
+      await this.iterateApi(
+        async (nextPageToken) => {
+          return this.client.autoscalers.list({
+            auth,
+            pageToken: nextPageToken,
+            project: this.projectId,
+            zone: zone,
+          });
+        },
+        async (data: compute_v1.Schema$AutoscalerList) => {
+          for (const item of data.items || []) {
+            await callback(item);
+          }
+        },
+        STEP_COMPUTE_ENGINE_AUTOSCALERS,
+        ComputePermissions.STEP_COMPUTE_ENGINE_AUTOSCALERS,
+      );
+    }
+  }
+
+  async iterateComputeRegionAutoscaler(
+    callback: (data: compute_v1.Schema$RegionAutoscalerList) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    // Iterate over each region
+    for (const region of regions) {
+      await this.iterateApi(
+        async (nextPageToken) => {
+          return this.client.regionAutoscalers.list({
+            auth,
+            pageToken: nextPageToken,
+            project: this.projectId,
+            region: region,
+          });
+        },
+        async (data: compute_v1.Schema$RegionAutoscalerList) => {
+          for (const item of data.items || []) {
+            await callback(item);
+          }
+        },
+        STEP_COMPUTE_ENGINE_AUTOSCALERS,
+        ComputePermissions.STEP_COMPUTE_ENGINE_AUTOSCALERS,
+      );
+    }
   }
 }

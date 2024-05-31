@@ -39,4 +39,6 @@ export enum ServiceUsageName {
   CLOUD_SOURCE_REPOSITORIES = 'sourcerepo.googleapis.com',
   WEB_SECURITY_SCANNER = 'websecurityscanner.googleapis.com',
   ORG_POLICY = 'orgpolicy.googleapis.com',
+  ARTIFACT_REGISTRY = 'artifactregistry.googleapis.com',
+  CLOUD_SQL = 'sqladmin.googleapis.com',
 }

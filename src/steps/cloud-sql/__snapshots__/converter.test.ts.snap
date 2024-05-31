@@ -1,0 +1,215 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createCloudSqlBackupEntity should convert to entity 1`] = `
+{
+  "_class": [
+    "Backup",
+  ],
+  "_key": "example_backup_id",
+  "_rawData": [
+    {
+      "name": "default",
+      "rawData": {
+        "backupKind": "SNAPSHOT",
+        "description": "Example backup description",
+        "endTime": "2024-05-15T10:10:00Z",
+        "enqueuedTime": "2024-05-15T10:00:00Z",
+        "id": "example_backup_id",
+        "instance": "example_instance_name",
+        "kind": "SQL#backupRun",
+        "location": "us-central1",
+        "selfLink": "example_self_link",
+        "startTime": "2024-05-15T10:05:00Z",
+        "status": "SUCCESS",
+        "type": "AUTOMATED",
+      },
+    },
+  ],
+  "_type": "google_cloud_sql_backup",
+  "active": undefined,
+  "backupKind": "SNAPSHOT",
+  "createdOn": undefined,
+  "description": "Example backup description",
+  "displayName": "SQL#backupRun",
+  "endTime": "2024-05-15T10:10:00Z",
+  "enqueuedTime": "2024-05-15T10:00:00Z",
+  "id": "example_backup_id",
+  "instanceName": "example_instance_name",
+  "location": "us-central1",
+  "name": "SQL#backupRun",
+  "startTime": "2024-05-15T10:05:00Z",
+  "status": "SUCCESS",
+  "type": "AUTOMATED",
+  "url": "example_self_link",
+}
+`;
+
+exports[`#createCloudSqlConnectionEntity should convert to entity 1`] = `
+{
+  "CIDR": "192.168.0.1",
+  "_class": [
+    "Network",
+  ],
+  "_key": "SqlConnection_example_cert_serial_number",
+  "_rawData": [
+    {
+      "name": "default",
+      "rawData": {
+        "backendType": "example_backend_type",
+        "databaseVersion": "example_database_version",
+        "dnsName": "example_dns_name",
+        "ipAddresses": [
+          {
+            "ipAddress": "192.168.0.1",
+            "timeToRetire": "2024-05-15T12:00:00Z",
+          },
+        ],
+        "kind": "example_kind",
+        "pscEnabled": true,
+        "serverCaCert": {
+          "certSerialNumber": "example_cert_serial_number",
+          "commonName": "example_common_name",
+          "instance": "example_instance_name",
+        },
+      },
+    },
+  ],
+  "_type": "google_cloud_sql_connection",
+  "backendType": "example_backend_type",
+  "createdOn": undefined,
+  "databaseVersion": "example_database_version",
+  "displayName": "example_common_name",
+  "dnsName": "example_dns_name",
+  "instanceName": "example_instance_name",
+  "internal": false,
+  "kind": "example_kind",
+  "name": "example_common_name",
+  "pscEnabled": true,
+  "public": true,
+}
+`;
+
+exports[`#createCloudSqlDatabaseEntity should convert to entity 1`] = `
+{
+  "_class": [
+    "Database",
+  ],
+  "_key": "example_etag",
+  "_rawData": [
+    {
+      "name": "default",
+      "rawData": {
+        "charset": "example_charset",
+        "etag": "example_etag",
+        "instance": "example_instance_name",
+        "kind": "example_kind",
+        "name": "example_database_name",
+        "project": "example_project_id",
+        "selfLink": "example_self_link",
+      },
+    },
+  ],
+  "_type": "google_cloud_sql_database",
+  "charset": "example_charset",
+  "createdOn": undefined,
+  "displayName": "example_database_name",
+  "instanceName": "example_instance_name",
+  "kind": "example_kind",
+  "name": "example_database_name",
+  "projectId": "example_project_id",
+  "url": "example_self_link",
+}
+`;
+
+exports[`#createCloudSqlInstancesEntity should convert to entity 1`] = `
+{
+  "_class": [
+    "Database",
+  ],
+  "_key": "example_instance_name",
+  "_rawData": [
+    {
+      "name": "default",
+      "rawData": {
+        "connectionName": "example_connection_name",
+        "databaseInstalledVersion": "example_installed_version",
+        "etag": "example_etag",
+        "kind": "example_kind",
+        "name": "example_instance_name",
+        "projectId": "example_project_id",
+        "selfLink": "example_self_link",
+      },
+    },
+  ],
+  "_type": "google_cloud_sql_instance",
+  "connectionName": "example_connection_name",
+  "createdOn": undefined,
+  "databaseInstalledVersion": "example_installed_version",
+  "displayName": "example_instance_name",
+  "etag": "example_etag",
+  "kind": "example_kind",
+  "name": "example_instance_name",
+  "projectId": "example_project_id",
+  "url": "example_self_link",
+}
+`;
+
+exports[`#createCloudSslCertificationEntity should convert to entity 1`] = `
+{
+  "_class": [
+    "Certificate",
+  ],
+  "_key": "cert_key:undefined",
+  "_rawData": [
+    {
+      "name": "default",
+      "rawData": {
+        "charset": "example_charset",
+        "etag": "example_etag",
+        "instance": "example_instance_name",
+        "kind": "example_kind",
+        "name": "example_certificate_name",
+        "project": "example_project_id",
+        "selfLink": "example_self_link",
+      },
+    },
+  ],
+  "_type": "google_cloud_sql_ssl_certificate",
+  "cert": undefined,
+  "certSerialNumber": undefined,
+  "createTime": undefined,
+  "createdOn": undefined,
+  "expirationTime": undefined,
+  "instanceName": "example_instance_name",
+  "kind": "example_kind",
+  "name": undefined,
+  "sha1FingerPrint": undefined,
+  "url": "example_self_link",
+}
+`;
+
+exports[`#createCloudUserEntity should convert to entity 1`] = `
+{
+  "_class": [
+    "User",
+  ],
+  "_key": "example_etag",
+  "_rawData": [
+    {
+      "name": "default",
+      "rawData": {
+        "etag": "example_etag",
+        "instance": "example_instance_name",
+        "name": "example_user_name",
+        "project": "example_project_id",
+      },
+    },
+  ],
+  "_type": "google_user",
+  "createdOn": undefined,
+  "displayName": "example_user_name",
+  "instanceName": "example_instance_name",
+  "name": "example_user_name",
+  "projectId": "example_project_id",
+}
+`;

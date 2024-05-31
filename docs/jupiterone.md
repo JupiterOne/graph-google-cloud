@@ -59,6 +59,7 @@ all of the supported data into JupiterOne:
 | [accesscontextmanager](https://console.developers.google.com/apis/library/accesscontextmanager.googleapis.com) | accesscontextmanager.googleapis.com |
 | [apigateway](https://console.developers.google.com/apis/library/apigateway.googleapis.com)                     | apigateway.googleapis.com           |
 | [appengine](https://console.developers.google.com/apis/library/appengine.googleapis.com)                       | appengine.googleapis.com            |
+| [artifactregistry](https://console.developers.google.com/apis/library/artifactregistry.googleapis.com)         | artifactregistry.googleapis.com     |
 | [bigquery](https://console.developers.google.com/apis/library/bigquery.googleapis.com)                         | bigquery.googleapis.com             |
 | [bigtable](https://console.developers.google.com/apis/library/bigtable.googleapis.com)                         | bigtable.googleapis.com             |
 | [binaryauthorization](https://console.developers.google.com/apis/library/binaryauthorization.googleapis.com)   | binaryauthorization.googleapis.com  |
@@ -87,6 +88,7 @@ all of the supported data into JupiterOne:
 | [serviceusage](https://console.developers.google.com/apis/library/serviceusage.googleapis.com)                 | serviceusage.googleapis.com         |
 | [source](https://console.developers.google.com/apis/library/source.googleapis.com)                             | source.googleapis.com               |
 | [spanner](https://console.developers.google.com/apis/library/spanner.googleapis.com)                           | spanner.googleapis.com              |
+| [sqladmin](https://console.developers.google.com/apis/library/sqladmin.googleapis.com)                         | sqladmin.googleapis.com             |
 | [storage](https://console.developers.google.com/apis/library/storage.googleapis.com)                           | storage.googleapis.com              |
 | [websecurityscanner](https://console.developers.google.com/apis/library/websecurityscanner.googleapis.com)     | websecurityscanner.googleapis.com   |
 
@@ -120,6 +122,7 @@ gcloud services enable \
  accesscontextmanager.googleapis.com \
  apigateway.googleapis.com \
  appengine.googleapis.com \
+ artifactregistry.googleapis.com \
  bigquery.googleapis.com \
  bigtable.googleapis.com \
  binaryauthorization.googleapis.com \
@@ -148,6 +151,7 @@ gcloud services enable \
  serviceusage.googleapis.com \
  source.googleapis.com \
  spanner.googleapis.com \
+ sqladmin.googleapis.com \
  storage.googleapis.com \
  websecurityscanner.googleapis.com
 ```
@@ -357,7 +361,14 @@ The following entities are created:
 | AppEngine Instance                                       | `google_app_engine_instance`                                      | `Host`                             |
 | AppEngine Service                                        | `google_app_engine_service`                                       | `Container`                        |
 | AppEngine Version                                        | `google_app_engine_version`                                       | `Service`                          |
+| Artifact Registry                                        | `google_cloud_artifact_registry`                                  | `Service`                          |
+| Artifact Registry Repository                             | `google_cloud_artifact_registry_repository`                       | `CodeRepo`, `Repository`           |
+| Artifact Registry VPCSC Policy                           | `google_cloud_artifact_registry_vpcsc_policy`                     | `Configuration`                    |
+| Artifact Registry VPCSC configuration                    | `google_cloud_artifact_registry_vpcsc_configuration`              | `Configuration`                    |
+| Artifact Repository Package                              | `google_cloud_artifact_registry_package`                          | `CodeModule`                       |
 | Audit Config                                             | `google_cloud_audit_config`                                       | `Configuration`                    |
+| AutoScalers Policy                                       | `google_cloud_autoscaler_policy`                                  | `Configuration`                    |
+| AutoScalers Region Policy                                | `google_cloud_region_autoscaler_policy`                           | `Configuration`                    |
 | Big Query Dataset                                        | `google_bigquery_dataset`                                         | `DataStore`, `Database`            |
 | Big Query Model                                          | `google_bigquery_model`                                           | `Model`                            |
 | Big Query Table                                          | `google_bigquery_table`                                           | `DataCollection`                   |
@@ -380,12 +391,21 @@ The following entities are created:
 | Cloud Run Configuration                                  | `google_cloud_run_configuration`                                  | `Configuration`                    |
 | Cloud Run Route                                          | `google_cloud_run_route`                                          | `Configuration`                    |
 | Cloud Run Service                                        | `google_cloud_run_service`                                        | `Service`                          |
+| Cloud SQL Backup                                         | `google_cloud_sql_backup`                                         | `Backup`                           |
+| Cloud SQL Connection                                     | `google_cloud_sql_connection`                                     | `Network`                          |
+| Cloud SQL Database                                       | `google_cloud_sql_database`                                       | `Database`                         |
+| Cloud SQL Instances                                      | `google_cloud_sql_instance`                                       | `Database`                         |
+| Cloud SQL SSL Certification                              | `google_cloud_sql_ssl_certificate`                                | `Certificate`                      |
+| Cloud SQL Service                                        | `google_cloud_sql`                                                | `Service`                          |
 | Cloud Source Repository                                  | `google_cloud_source_repository`                                  | `CodeRepo`                         |
 | Cloud Storage Bucket                                     | `google_storage_bucket`                                           | `DataStore`                        |
+| Cloud User                                               | `google_user`                                                     | `User`                             |
 | Compute Address                                          | `google_compute_address`                                          | `IpAddress`                        |
 | Compute Backend Bucket                                   | `google_compute_backend_bucket`                                   | `Gateway`                          |
 | Compute Backend Service                                  | `google_compute_backend_service`                                  | `Service`                          |
 | Compute Disk                                             | `google_compute_disk`                                             | `DataStore`, `Disk`                |
+| Compute Engine AutoScalers                               | `google_cloud_compute_autoscaler`                                 | `Service`                          |
+| Compute Engine Region AutoScalers                        | `google_cloud_compute_region_autoscaler`                          | `Configuration`                    |
 | Compute Firewalls                                        | `google_compute_firewall`                                         | `Firewall`                         |
 | Compute Forwarding Rule                                  | `google_compute_forwarding_rule`                                  | `Configuration`                    |
 | Compute Global Address                                   | `google_compute_global_address`                                   | `IpAddress`                        |
@@ -475,6 +495,9 @@ The following relationships are created:
 | `google_cloud_api_service`                                       | **USES**              | `google_cloud_audit_config`                                       |
 | `google_cloud_api_service`                                       | **HAS**               | `google_iam_role`                                                 |
 | `google_cloud_api_service`                                       | **HAS**               | `resource`                                                        |
+| `google_cloud_artifact_registry_repository`                      | **USES**              | `google_cloud_artifact_registry_package`                          |
+| `google_cloud_artifact_registry_repository`                      | **USES**              | `google_kms_crypto_key`                                           |
+| `google_cloud_artifact_registry_vpcsc_configuration`             | **ASSIGNED**          | `google_cloud_artifact_registry_vpcsc_policy`                     |
 | `google_cloud_audit_config`                                      | **ALLOWS**            | `google_domain`                                                   |
 | `google_cloud_audit_config`                                      | **ALLOWS**            | `google_group`                                                    |
 | `google_cloud_audit_config`                                      | **ALLOWS**            | `google_iam_service_account`                                      |
@@ -483,6 +506,8 @@ The following relationships are created:
 | `google_cloud_build`                                             | **USES**              | `google_cloud_source_repository`                                  |
 | `google_cloud_build`                                             | **USES**              | `google_storage_bucket`                                           |
 | `google_cloud_build_trigger`                                     | **TRIGGERS**          | `google_cloud_build`                                              |
+| `google_cloud_compute_autoscaler`                                | **HAS**               | `google_cloud_autoscaler_policy`                                  |
+| `google_cloud_compute_region_autoscaler`                         | **HAS**               | `google_cloud_region_autoscaler_policy`                           |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_folder`                                             |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_project`                                            |
 | `google_cloud_function`                                          | **USES**              | `google_cloud_source_repository`                                  |
@@ -493,9 +518,23 @@ The following relationships are created:
 | `google_cloud_project`                                           | **HAS**               | `google_billing_budget`                                           |
 | `google_cloud_project`                                           | **HAS**               | `google_binary_authorization_policy`                              |
 | `google_cloud_project`                                           | **HAS**               | `google_cloud_api_service`                                        |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_artifact_registry`                                  |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_artifact_registry_repository`                       |
+| `google_cloud_project`                                           | **USES**              | `google_cloud_artifact_registry_vpcsc_configuration`              |
+| `google_cloud_project`                                           | **ASSIGNED**          | `google_cloud_artifact_registry_vpcsc_policy`                     |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_compute_autoscaler`                                 |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_compute_region_autoscaler`                          |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_sql`                                                |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_configuration`                                  |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_route`                                          |
 | `google_cloud_scan_config`                                       | **PERFORMED**         | `google_cloud_scan_run`                                           |
+| `google_cloud_sql`                                               | **HAS**               | `google_cloud_sql_database`                                       |
+| `google_cloud_sql`                                               | **HAS**               | `google_cloud_sql_instance`                                       |
+| `google_cloud_sql_instance`                                      | **HAS**               | `google_cloud_sql_backup`                                         |
+| `google_cloud_sql_instance`                                      | **HAS**               | `google_cloud_sql_connection`                                     |
+| `google_cloud_sql_instance`                                      | **USES**              | `google_cloud_sql_database`                                       |
+| `google_cloud_sql_instance`                                      | **USES**              | `google_cloud_sql_ssl_certificate`                                |
+| `google_cloud_sql_instance`                                      | **ASSIGNED**          | `google_user`                                                     |
 | `google_compute_backend_bucket`                                  | **HAS**               | `google_storage_bucket`                                           |
 | `google_compute_backend_service`                                 | **HAS**               | `google_compute_health_check`                                     |
 | `google_compute_backend_service`                                 | **HAS**               | `google_compute_instance_group`                                   |
@@ -580,9 +619,11 @@ The following relationships are created:
 
 The following mapped relationships are created:
 
-| Source Entity `_type`        | Relationship `_class` | Target Entity `_type` | Direction |
-| ---------------------------- | --------------------- | --------------------- | --------- |
-| `google_cloud_build_trigger` | **USES**              | `*github_repo*`       | FORWARD   |
+| Source Entity `_type`                       | Relationship `_class` | Target Entity `_type` | Direction |
+| ------------------------------------------- | --------------------- | --------------------- | --------- |
+| `google_cloud_artifact_registry_package`    | **IS**                | `*npm_package*`       | FORWARD   |
+| `google_cloud_artifact_registry_repository` | **USES**              | `*npm_package*`       | FORWARD   |
+| `google_cloud_build_trigger`                | **USES**              | `*github_repo*`       | FORWARD   |
 
 <!--
 ********************************************************************************
@@ -600,7 +641,7 @@ permissions can be used to provision only the required ones:
 
 <!-- {J1_PERMISSIONS_DOCUMENTATION_MARKER_START} -->
 
-| Permissions List (112)                                  |
+| Permissions List (119)                                  |
 | ------------------------------------------------------- |
 | `accesscontextmanager.accessLevels.list`                |
 | `accesscontextmanager.accessPolicies.list`              |
@@ -615,6 +656,10 @@ permissions can be used to provision only the required ones:
 | `appengine.instances.list`                              |
 | `appengine.services.list`                               |
 | `appengine.versions.list`                               |
+| `artifactregistry.packages.list`                        |
+| `artifactregistry.repositories.list`                    |
+| `artifactregistry.vpcscconfigs.get`                     |
+| `autoscalerPolicies.list`                               |
 | `bigquery.datasets.get`                                 |
 | `bigquery.models.getData`                               |
 | `bigquery.models.getMetadata`                           |
@@ -647,6 +692,7 @@ permissions can be used to provision only the required ones:
 | `cloudsecurityscanner.scans.list`                       |
 | `cloudsql.instances.list`                               |
 | `compute.addresses.list`                                |
+| `compute.autoscalers.list`                              |
 | `compute.backendBuckets.list`                           |
 | `compute.backendServices.list`                          |
 | `compute.disks.list`                                    |
@@ -662,6 +708,7 @@ permissions can be used to provision only the required ones:
 | `compute.instances.list`                                |
 | `compute.networks.list`                                 |
 | `compute.projects.get`                                  |
+| `compute.regionAutoscalers.list`                        |
 | `compute.regionBackendServices.list`                    |
 | `compute.regionHealthChecks.list`                       |
 | `compute.regionTargetHttpProxies.list`                  |
@@ -696,6 +743,7 @@ permissions can be used to provision only the required ones:
 | `pubsub.topics.getIamPolicy`                            |
 | `pubsub.topics.list`                                    |
 | `redis.instances.list`                                  |
+| `regionAutoscalerPolicies.list`                         |
 | `resourcemanager.folders.list`                          |
 | `resourcemanager.organizations.get`                     |
 | `resourcemanager.projects.get`                          |
