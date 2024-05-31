@@ -1,3 +1,15 @@
+# v3.3.9 (Fri May 31 2024)
+
+#### 🐛 Bug Fix
+
+- Update questions.yaml [#693](https://github.com/JupiterOne/graph-google-cloud/pull/693) ([@mikiodehartj1](https://github.com/mikiodehartj1))
+
+#### Authors: 1
+
+- [@mikiodehartj1](https://github.com/mikiodehartj1)
+
+---
+
 # v3.3.8 (Thu May 23 2024)
 
 #### 🐛 Bug Fix
