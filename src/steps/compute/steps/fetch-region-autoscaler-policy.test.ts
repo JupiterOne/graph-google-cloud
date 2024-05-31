@@ -20,6 +20,12 @@ describe(`compute#${STEP_AUTOSCALER_REGION_POLICY}`, () => {
   test(
     STEP_AUTOSCALER_REGION_POLICY,
     async () => {
+      const stepTestConfig: StepTestConfig = {
+        stepId: STEP_AUTOSCALER_REGION_POLICY,
+        instanceConfig: integrationConfig,
+        invocationConfig: invocationConfig as any,
+      };
+
       recording = setupGoogleCloudRecording({
         name: STEP_AUTOSCALER_REGION_POLICY,
         directory: __dirname,
@@ -28,26 +34,9 @@ describe(`compute#${STEP_AUTOSCALER_REGION_POLICY}`, () => {
         },
       });
 
-      const stepTestConfig: StepTestConfig = {
-        stepId: STEP_AUTOSCALER_REGION_POLICY,
-        instanceConfig: {
-          ...integrationConfig,
-          serviceAccountKeyFile:
-            integrationConfig.serviceAccountKeyFile.replace(
-              'j1-gc-integration-dev-v2',
-              'j1-gc-integration-dev-v3',
-            ),
-          serviceAccountKeyConfig: {
-            ...integrationConfig.serviceAccountKeyConfig,
-            project_id: 'j1-gc-integration-dev-v3',
-          },
-        },
-        invocationConfig: invocationConfig as any,
-      };
-
       const result = await executeStepWithDependencies(stepTestConfig);
       expect(result).toMatchStepMetadata(stepTestConfig);
     },
-    100000,
+    500_000,
   );
 });

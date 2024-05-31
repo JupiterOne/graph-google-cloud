@@ -1,0 +1,248 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Cloud-Sql#fetch-cloud-sql-has-sql-instances fetch-cloud-sql-has-sql-instances 1`] = `
+{
+  "collectedEntities": [
+    {
+      "_class": [
+        "Service",
+      ],
+      "_key": "sql_key:local-integration-instance",
+      "_rawData": [],
+      "_type": "google_cloud_sql",
+      "category": [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "displayName": "Cloud Sql Service",
+      "function": [
+        "database",
+        "storage",
+      ],
+      "name": "Cloud Sql Service",
+    },
+    {
+      "_class": [
+        "Database",
+      ],
+      "_key": "demo-mysql-instance",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "availableMaintenanceVersions": [
+              "MYSQL_8_0_31.R20240207.00_12",
+            ],
+            "backendType": "SECOND_GEN",
+            "connectionName": "j1-gc-integration-dev-v3:us-central1:demo-mysql-instance",
+            "createTime": "2024-05-02T09:58:25.715Z",
+            "databaseInstalledVersion": "MYSQL_8_0_31",
+            "databaseVersion": "MYSQL_8_0_31",
+            "etag": "a22ccb6393879c13350479107dfd8b44f693cc0a7d5a69afc997154b5401a7e8",
+            "gceZone": "us-central1-c",
+            "instanceType": "CLOUD_SQL_INSTANCE",
+            "ipAddresses": [
+              {
+                "ipAddress": "34.71.254.170",
+                "type": "PRIMARY",
+              },
+            ],
+            "kind": "sql#instance",
+            "maintenanceVersion": "MYSQL_8_0_31.R20240207.00_11",
+            "name": "demo-mysql-instance",
+            "project": "j1-gc-integration-dev-v3",
+            "region": "us-central1",
+            "selfLink": "https://www.googleapis.com/v1/projects/j1-gc-integration-dev-v3/instances/demo-mysql-instance",
+            "serverCaCert": {
+              "cert": "-----BEGIN CERTIFICATE-----
+MIIDfzCCAmegAwIBAgIBADANBgkqhkiG9w0BAQsFADB3MS0wKwYDVQQuEyQ4MGU0
+ZTJhMy1iZDAzLTRhYWMtOTc2NS0wM2FhOGJjZTk0NjAxIzAhBgNVBAMTGkdvb2ds
+ZSBDbG91ZCBTUUwgU2VydmVyIENBMRQwEgYDVQQKEwtHb29nbGUsIEluYzELMAkG
+A1UEBhMCVVMwHhcNMjQwNTAyMDk1ODI4WhcNMzQwNDMwMDk1OTI4WjB3MS0wKwYD
+VQQuEyQ4MGU0ZTJhMy1iZDAzLTRhYWMtOTc2NS0wM2FhOGJjZTk0NjAxIzAhBgNV
+BAMTGkdvb2dsZSBDbG91ZCBTUUwgU2VydmVyIENBMRQwEgYDVQQKEwtHb29nbGUs
+IEluYzELMAkGA1UEBhMCVVMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB
+AQCglqAhbWaOwXqIJXuJGv0suGH/UeNVRSgvhFQmq/qJMHgxi9T4YpUNWnTNcrtt
++z/DBEDmlLeCchOV0+jkyhQvJlySbQfQlRTaFAxQnYA5XKIbDOyw52n2/5aniYHR
+Eaws/lIGc1vAqvh0WDQH/L96zvg5aRYhMF0NtvemBWgbxvOOzNRmytPNkvG5O/C1
+pgd76Fb04JRl5AL+dhyHXx20n/mgS3xhbh8HQofyEXwvCjCwHwRbnZLpoiO9X7wc
+Mr793Y0TRl0RuP0VNJuukPWtFnhaFa5AbXpyUr/KvgfPusoc3qeC3HikLNMUE6Eq
+4obZAGRoiuUvDlvKLVUbzt79AgMBAAGjFjAUMBIGA1UdEwEB/wQIMAYBAf8CAQAw
+DQYJKoZIhvcNAQELBQADggEBACgZ3YDPw6hBAB2LdvrUnWwjaaZayMvcZwZn9Km1
+DAvx0HyQM7MSK77bMaCyBRaZ4VnNGuHQvQFazGBFpkr1/4lGIdSmDUie/d2p5cRD
+AJLolsqDcrxMxVN208LLrrLMJjFEsZA1Uec3Bs7v9nBcQGXG0o+Ibym5K7mewEmK
+Xn7qtKr2g4F5uDIZU+mlQqKHfq3eIjlpDWkynMZWdw/ux81w8gWlONoox/hiPbSb
+iNoL8WqCoFEcXBf/MO/J5hR6J5DWiIK23nGYDaH+faB9gqNUHtuZb72g4cxvTvv4
+3fZqAetwJ024AQBDzh0bdvcdB/XIsfcH7cF2lKkGcXP2zzc=
+-----END CERTIFICATE-----",
+              "certSerialNumber": "0",
+              "commonName": "C=US,O=Google\\, Inc,CN=Google Cloud SQL Server CA,dnQualifier=80e4e2a3-bd03-4aac-9765-03aa8bce9460",
+              "createTime": "2024-05-02T09:58:28.266Z",
+              "expirationTime": "2034-04-30T09:59:28.266Z",
+              "instance": "demo-mysql-instance",
+              "kind": "sql#sslCert",
+              "sha1Fingerprint": "04315a24f14bfd8333dc5f943a8eee521549f2a1",
+            },
+            "serviceAccountEmailAddress": "p167984947943-gp0wda@gcp-sa-cloud-sql.iam.gserviceaccount.com",
+            "settings": {
+              "activationPolicy": "ALWAYS",
+              "authorizedGaeApplications": [],
+              "availabilityType": "ZONAL",
+              "backupConfiguration": {
+                "backupRetentionSettings": {
+                  "retainedBackups": 15,
+                  "retentionUnit": "COUNT",
+                },
+                "binaryLogEnabled": true,
+                "enabled": true,
+                "kind": "sql#backupConfiguration",
+                "location": "us",
+                "startTime": "00:00",
+                "transactionLogRetentionDays": 14,
+                "transactionalLogStorageState": "CLOUD_STORAGE",
+              },
+              "connectorEnforcement": "NOT_REQUIRED",
+              "dataCacheConfig": {
+                "dataCacheEnabled": true,
+              },
+              "dataDiskSizeGb": "250",
+              "dataDiskType": "PD_SSD",
+              "deletionProtectionEnabled": true,
+              "edition": "ENTERPRISE_PLUS",
+              "insightsConfig": {},
+              "ipConfiguration": {
+                "authorizedNetworks": [],
+                "ipv4Enabled": true,
+                "requireSsl": false,
+                "sslMode": "ALLOW_UNENCRYPTED_AND_ENCRYPTED",
+              },
+              "kind": "sql#settings",
+              "locationPreference": {
+                "kind": "sql#locationPreference",
+                "zone": "us-central1-b",
+              },
+              "maintenanceWindow": {
+                "day": 0,
+                "hour": 0,
+                "kind": "sql#maintenanceWindow",
+              },
+              "pricingPlan": "PER_USE",
+              "replicationType": "SYNCHRONOUS",
+              "settingsVersion": "8",
+              "storageAutoResize": true,
+              "storageAutoResizeLimit": "0",
+              "tier": "db-perf-optimized-N-4",
+            },
+            "sqlNetworkArchitecture": "NEW_NETWORK_ARCHITECTURE",
+            "state": "RUNNABLE",
+          },
+        },
+      ],
+      "_type": "google_cloud_sql_instance",
+      "connectionName": "j1-gc-integration-dev-v3:us-central1:demo-mysql-instance",
+      "createdOn": undefined,
+      "databaseInstalledVersion": "MYSQL_8_0_31",
+      "displayName": "demo-mysql-instance",
+      "etag": "a22ccb6393879c13350479107dfd8b44f693cc0a7d5a69afc997154b5401a7e8",
+      "kind": "sql#instance",
+      "name": "demo-mysql-instance",
+      "projectId": undefined,
+      "url": "https://www.googleapis.com/v1/projects/j1-gc-integration-dev-v3/instances/demo-mysql-instance",
+    },
+  ],
+  "collectedRelationships": [
+    {
+      "_class": "HAS",
+      "_fromEntityKey": "sql_key:local-integration-instance",
+      "_key": "sql_key:local-integration-instance|has|demo-mysql-instance",
+      "_toEntityKey": "demo-mysql-instance",
+      "_type": "google_cloud_sql_has_instance",
+      "displayName": "HAS",
+    },
+  ],
+  "encounteredTypes": [
+    "google_cloud_sql",
+    "google_cloud_sql_instance",
+    "google_cloud_sql_has_instance",
+  ],
+  "numCollectedEntities": 2,
+  "numCollectedRelationships": 1,
+}
+`;
+
+exports[`Cloud-Sql#fetch-project-has-sql fetch-project-has-sql 1`] = `
+{
+  "collectedEntities": [
+    {
+      "_class": [
+        "Service",
+      ],
+      "_key": "sql_key:local-integration-instance",
+      "_rawData": [],
+      "_type": "google_cloud_sql",
+      "category": [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "displayName": "Cloud Sql Service",
+      "function": [
+        "database",
+        "storage",
+      ],
+      "name": "Cloud Sql Service",
+    },
+    {
+      "_class": [
+        "Account",
+      ],
+      "_key": "projects/167984947943",
+      "_rawData": [
+        {
+          "name": "default",
+          "rawData": {
+            "createTime": "2021-05-31T15:15:56.125Z",
+            "displayName": "j1-gc-integration-dev-v3",
+            "etag": "W/"8f56735f6f3d890d"",
+            "labels": {
+              "firebase": "enabled",
+            },
+            "name": "projects/167984947943",
+            "parent": "folders/306329820365",
+            "projectId": "j1-gc-integration-dev-v3",
+            "state": "ACTIVE",
+            "updateTime": "2024-05-15T11:48:40.174923Z",
+          },
+        },
+      ],
+      "_type": "google_cloud_project",
+      "createdOn": 1622474156125,
+      "displayName": "j1-gc-integration-dev-v3",
+      "id": "j1-gc-integration-dev-v3",
+      "lifecycleState": "ACTIVE",
+      "name": "projects/167984947943",
+      "parent": "folders/306329820365",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.firebase": "enabled",
+      "updatedOn": 1715773720174,
+      "webLink": "https://console.cloud.google.com/home/dashboard?project=j1-gc-integration-dev-v3",
+    },
+  ],
+  "collectedRelationships": [
+    {
+      "_class": "HAS",
+      "_fromEntityKey": "projects/167984947943",
+      "_key": "projects/167984947943|has|sql_key:local-integration-instance",
+      "_toEntityKey": "sql_key:local-integration-instance",
+      "_type": "google_cloud_project_has_sql",
+      "displayName": "HAS",
+    },
+  ],
+  "encounteredTypes": [
+    "google_cloud_sql",
+    "google_cloud_project",
+    "google_cloud_project_has_sql",
+  ],
+  "numCollectedEntities": 2,
+  "numCollectedRelationships": 1,
+}
+`;

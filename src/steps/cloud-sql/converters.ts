@@ -17,14 +17,14 @@ import {
   ENTITY_TYPE_CLOUD_USER,
 } from './constants';
 
-export function createCloudSqlServiceEntity(projectId: string) {
+export function createCloudSqlServiceEntity(instanceId: string) {
   return createIntegrationEntity({
     entityData: {
       source: {},
       assign: {
         _class: ENTITY_CLASS_CLOUD_SQL,
         _type: ENTITY_TYPE_CLOUD_SQL,
-        _key: projectId,
+        _key: "sql_key:" + instanceId,
         name: 'Cloud Sql Service',
         function: ['database', 'storage'],
         category: ['infrastructure'],

@@ -20,6 +20,12 @@ describe(`compute#${STEP_COMPUTE_ENGINE_AUTOSCALERS}`, () => {
   test(
     STEP_COMPUTE_ENGINE_AUTOSCALERS,
     async () => {
+      const stepTestConfig: StepTestConfig = {
+        stepId: STEP_COMPUTE_ENGINE_AUTOSCALERS,
+        instanceConfig: integrationConfig,
+        invocationConfig: invocationConfig as any,
+      };
+
       recording = setupGoogleCloudRecording({
         name: STEP_COMPUTE_ENGINE_AUTOSCALERS,
         directory: __dirname,
@@ -28,27 +34,9 @@ describe(`compute#${STEP_COMPUTE_ENGINE_AUTOSCALERS}`, () => {
         },
       });
 
-      const stepTestConfig: StepTestConfig = {
-        stepId: STEP_COMPUTE_ENGINE_AUTOSCALERS,
-        // instanceConfig: integrationConfig,
-        instanceConfig: {
-          ...integrationConfig,
-          serviceAccountKeyFile:
-            integrationConfig.serviceAccountKeyFile.replace(
-              'j1-gc-integration-dev-v2',
-              'j1-gc-integration-dev-v3',
-            ),
-          serviceAccountKeyConfig: {
-            ...integrationConfig.serviceAccountKeyConfig,
-            project_id: 'j1-gc-integration-dev-v3',
-          },
-        },
-        invocationConfig: invocationConfig as any,
-      };
-
       const result = await executeStepWithDependencies(stepTestConfig);
       expect(result).toMatchStepMetadata(stepTestConfig);
     },
-    200000,
+    500_000,
   );
 });

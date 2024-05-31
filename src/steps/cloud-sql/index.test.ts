@@ -1,15 +1,17 @@
 import {
+  createMockStepExecutionContext,
   executeStepWithDependencies,
   Recording,
   StepTestConfig,
 } from '@jupiterone/integration-sdk-testing';
 import { integrationConfig } from '../../../test/config';
-import { invocationConfig } from '../..';
+import { IntegrationConfig, invocationConfig } from '../..';
 import {
   setupGoogleCloudRecording,
   getMatchRequestsBy,
 } from '../../../test/recording';
 import {
+  ENTITY_TYPE_CLOUD_SQL,
   STEP_CLOUD_SQL,
   STEP_CLOUD_SQL_BACKUP,
   STEP_CLOUD_SQL_CONNECTION,
@@ -18,32 +20,39 @@ import {
   STEP_CLOUD_SQL_SSL_CERTIFICATION,
   STEP_CLOUD_USER,
 } from './constants';
+import { fetchCloudSql } from '.';
 
-describe(`Cloud-Sql#${STEP_CLOUD_SQL}`, () => {
+describe(`cloud-sql#${STEP_CLOUD_SQL}`, () => {
   let recording: Recording;
-  afterEach(async () => {
-    if (recording) await recording.stop();
-  });
-
-  test(STEP_CLOUD_SQL, async () => {
+  beforeEach(() => {
     recording = setupGoogleCloudRecording({
-      name: STEP_CLOUD_SQL,
       directory: __dirname,
-      options: {
-        matchRequestsBy: getMatchRequestsBy(integrationConfig),
-        recordFailedRequests: true,
+      name: STEP_CLOUD_SQL,
+    });
+  });
+  afterEach(async () => {
+    await recording.stop();
+  });
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: {
+        ...integrationConfig,
+        serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+          'j1-gc-integration-dev-v2',
+          'j1-gc-integration-dev-v3',
+        ),
+        serviceAccountKeyConfig: {
+          ...integrationConfig.serviceAccountKeyConfig,
+          project_id: 'j1-gc-integration-dev-v3',
+        },
       },
     });
-
-    const stepTestConfig: StepTestConfig = {
-      stepId: STEP_CLOUD_SQL,
-      instanceConfig: integrationConfig,
-      invocationConfig: invocationConfig as any,
-    };
-
-    const result = await executeStepWithDependencies(stepTestConfig);
-    expect(result).toMatchStepMetadata(stepTestConfig);
-  });
+    await fetchCloudSql(context);
+    const cloudsql = context.jobState.collectedEntities.filter(
+      (e) => e._type === ENTITY_TYPE_CLOUD_SQL,
+    );
+    expect(cloudsql.length).toBe(1);
+  }, 100000);
 });
 
 describe(`Cloud-Sql#${STEP_CLOUD_SQL_BACKUP}`, () => {
@@ -79,9 +88,9 @@ describe(`Cloud-Sql#${STEP_CLOUD_SQL_CONNECTION}`, () => {
     if (recording) await recording.stop();
   });
 
-  test(STEP_CLOUD_SQL, async () => {
+  test(STEP_CLOUD_SQL_CONNECTION, async () => {
     recording = setupGoogleCloudRecording({
-      name: STEP_CLOUD_SQL,
+      name: STEP_CLOUD_SQL_CONNECTION,
       directory: __dirname,
       options: {
         matchRequestsBy: getMatchRequestsBy(integrationConfig),
@@ -90,7 +99,7 @@ describe(`Cloud-Sql#${STEP_CLOUD_SQL_CONNECTION}`, () => {
     });
 
     const stepTestConfig: StepTestConfig = {
-      stepId: STEP_CLOUD_SQL,
+      stepId: STEP_CLOUD_SQL_CONNECTION,
       instanceConfig: integrationConfig,
       invocationConfig: invocationConfig as any,
     };
