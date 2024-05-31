@@ -156,7 +156,7 @@ export async function fetchArtifactRepositoryPackage(
   }
 }
 
-export async function fetchArtifactRegistryVPCSCConfiguration(
+export async function fetchArtifactRegistryVPCSCs(
   context: IntegrationStepContext,
 ): Promise<void> {
   const { jobState } = context;
@@ -564,7 +564,7 @@ export const artifactRegistrySteps: GoogleCloudIntegrationStep[] = [
       },
     ],
     dependsOn: [STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS],
-    executionHandler: fetchArtifactRegistryVPCSCConfiguration,
+    executionHandler: fetchArtifactRegistryVPCSCs,
     permissions:
       artifactRegistryPermissions.STEP_ARTIFACT_REGISTRY_VPCSC_CONFIGURATION,
     apis: ['artifactregistry.googleapis.com'],
