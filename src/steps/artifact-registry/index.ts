@@ -132,12 +132,17 @@ export async function fetchArtifactRepositoryPackage(
       async (repository) => {
         const repositoryName = (repository.name as string).split('/')[5];
         const repositoryLocation = (repository.name as string).split('/')[3];
+        const format = repository.format as string;
         await client.iterateArtifactRepositoryPackage(
           repositoryName,
           repositoryLocation,
           async (packages) => {
             await jobState.addEntity(
-              createArtifactRepositoryPackageEntity(packages, client.projectId),
+              createArtifactRepositoryPackageEntity(
+                packages,
+                client.projectId,
+                format === 'NPM',
+              ),
             );
           },
         );
@@ -420,7 +425,7 @@ export async function buildArtifactRegistryRepositoryUsesNpmPackageRelationship(
   await jobState.iterateEntities(
     { _type: ARTIFACT_REGISTRY_REPOSITORY_TYPE },
     async (repository) => {
-      if (repository.name) {
+      if (repository.name && repository.format === 'NPM') {
         const relationship = createMappedRelationship({
           _key: `${repository._key}|USES|NPM_PACKAGE:${repository.format}`,
           _type:
@@ -456,7 +461,7 @@ export async function buildArtifactRepositoryPackageIsNpmPackageRelationship(
   await jobState.iterateEntities(
     { _type: ARTIFACT_REPOSITORY_PACKAGE_TYPE },
     async (Package) => {
-      if (Package.name) {
+      if (Package.name && Package.isNPMPackage) {
         const relationship = createMappedRelationship({
           _key: `${Package._key as string}|IS|NPM_PACKAGE:${
             (Package.name as string).split('/')[7]

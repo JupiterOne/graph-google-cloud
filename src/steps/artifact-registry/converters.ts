@@ -38,6 +38,7 @@ export function createArtifactRegistryRepositoryEntity(
 export function createArtifactRepositoryPackageEntity(
   data: artifactregistry_v1.Schema$Package,
   projectId: string,
+  isNPMPackage: boolean,
 ) {
   return createGoogleCloudIntegrationEntity(data, {
     entityData: {
@@ -50,6 +51,7 @@ export function createArtifactRepositoryPackageEntity(
         createdTime: data.createTime,
         updatedTime: data.updateTime,
         repositoryName: data.name as string,
+        isNPMPackage: isNPMPackage,
       },
     },
   });
