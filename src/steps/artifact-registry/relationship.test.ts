@@ -475,6 +475,7 @@ describe(`artifactRegistry#${STEP_ARTIFACT_REGISTRY_REPOSITORY_USES_PACKAGE_RELA
           createdTime: { type: 'string' },
           updatedTime: { type: 'string' },
           repositoryName: { type: 'string' },
+          isNPMPackage: { type: 'boolean' },
         },
       },
     });
