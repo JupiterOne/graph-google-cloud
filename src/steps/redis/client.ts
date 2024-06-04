@@ -1,6 +1,10 @@
 import { google, redis_v1 } from 'googleapis';
 import { Client } from '../../google-cloud/client';
-import { RedisPermissions, STEP_REDIS_INSTANCES } from './constants';
+import {
+  RedisPermissions,
+  STEP_MEMORYSTORE_REDIS_LOCATION,
+  STEP_REDIS_INSTANCES,
+} from './constants';
 
 export class RedisClient extends Client {
   private client = google.redis({ version: 'v1', retry: false });
@@ -25,6 +29,29 @@ export class RedisClient extends Client {
       },
       STEP_REDIS_INSTANCES,
       RedisPermissions.STEP_REDIS_INSTANCES,
+    );
+  }
+
+  async iterateMemoryStoreRedisLocation(
+    callback: (data: redis_v1.Schema$Location) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return this.client.projects.locations.list({
+          auth,
+          name: `projects/${this.projectId}`,
+          pageToken: nextPageToken,
+        });
+      },
+      async (data: redis_v1.Schema$ListLocationsResponse) => {
+        for (const location of data.locations || []) {
+          await callback(location);
+        }
+      },
+      STEP_MEMORYSTORE_REDIS_LOCATION,
+      RedisPermissions.STEP_MEMORYSTORE_REDIS_LOCATION,
     );
   }
 }

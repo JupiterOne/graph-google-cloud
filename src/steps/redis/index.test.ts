@@ -1,16 +1,27 @@
-import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-testing';
+import {
+  StepTestConfig,
+  createMockStepExecutionContext,
+  executeStepWithDependencies,
+} from '@jupiterone/integration-sdk-testing';
 import {
   buildRedisInstanceUsesNetworkRelationships,
   fetchRedisInstances,
 } from '.';
 import { integrationConfig } from '../../../test/config';
-import { Recording, setupGoogleCloudRecording } from '../../../test/recording';
+import {
+  Recording,
+  setupGoogleCloudRecording,
+  getMatchRequestsBy,
+} from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
 import { fetchComputeNetworks } from '../compute/steps/fetch-compute-networks';
 import {
   ENTITY_TYPE_REDIS_INSTANCE,
   RELATIONSHIP_TYPE_REDIS_INSTANCE_USES_NETWORK,
+  STEP_MEMORYSTORE_REDIS,
+  STEP_MEMORYSTORE_REDIS_LOCATION,
 } from './constants';
+import { invocationConfig } from '../..';
 
 const tempNewAccountConfig = {
   ...integrationConfig,
@@ -149,5 +160,61 @@ describe('#buildRedisInstanceUsesNetworkRelationships', () => {
         },
       },
     });
+  });
+});
+
+describe(`memoryStoreRedis#${STEP_MEMORYSTORE_REDIS_LOCATION}`, () => {
+  let recording: Recording;
+  afterEach(async () => {
+    if (recording) await recording.stop();
+  });
+
+  jest.setTimeout(45000);
+
+  test(STEP_MEMORYSTORE_REDIS_LOCATION, async () => {
+    recording = setupGoogleCloudRecording({
+      name: STEP_MEMORYSTORE_REDIS_LOCATION,
+      directory: __dirname,
+      options: {
+        matchRequestsBy: getMatchRequestsBy(integrationConfig),
+      },
+    });
+
+    const stepTestConfig: StepTestConfig = {
+      stepId: STEP_MEMORYSTORE_REDIS_LOCATION,
+      instanceConfig: integrationConfig,
+      invocationConfig: invocationConfig as any,
+    };
+
+    const result = await executeStepWithDependencies(stepTestConfig);
+    expect(result).toMatchStepMetadata(stepTestConfig);
+  });
+});
+
+describe(`memoryStoreRedis#${STEP_MEMORYSTORE_REDIS}`, () => {
+  let recording: Recording;
+  afterEach(async () => {
+    if (recording) await recording.stop();
+  });
+
+  jest.setTimeout(45000);
+
+  test(STEP_MEMORYSTORE_REDIS, async () => {
+    recording = setupGoogleCloudRecording({
+      name: STEP_MEMORYSTORE_REDIS,
+      directory: __dirname,
+      options: {
+        matchRequestsBy: getMatchRequestsBy(integrationConfig),
+      },
+    });
+
+    const stepTestConfig: StepTestConfig = {
+      stepId: STEP_MEMORYSTORE_REDIS,
+      instanceConfig: integrationConfig,
+      invocationConfig: invocationConfig as any,
+    };
+
+    const result = await executeStepWithDependencies(stepTestConfig);
+    expect(result).toMatchStepMetadata(stepTestConfig);
   });
 });

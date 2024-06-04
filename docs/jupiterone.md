@@ -59,6 +59,7 @@ all of the supported data into JupiterOne:
 | [accesscontextmanager](https://console.developers.google.com/apis/library/accesscontextmanager.googleapis.com) | accesscontextmanager.googleapis.com |
 | [apigateway](https://console.developers.google.com/apis/library/apigateway.googleapis.com)                     | apigateway.googleapis.com           |
 | [appengine](https://console.developers.google.com/apis/library/appengine.googleapis.com)                       | appengine.googleapis.com            |
+| [beyondcorp](https://console.developers.google.com/apis/library/beyondcorp.googleapis.com)                     | beyondcorp.googleapis.com           |
 | [bigquery](https://console.developers.google.com/apis/library/bigquery.googleapis.com)                         | bigquery.googleapis.com             |
 | [bigtable](https://console.developers.google.com/apis/library/bigtable.googleapis.com)                         | bigtable.googleapis.com             |
 | [binaryauthorization](https://console.developers.google.com/apis/library/binaryauthorization.googleapis.com)   | binaryauthorization.googleapis.com  |
@@ -76,6 +77,7 @@ all of the supported data into JupiterOne:
 | [logging](https://console.developers.google.com/apis/library/logging.googleapis.com)                           | logging.googleapis.com              |
 | [memcache](https://console.developers.google.com/apis/library/memcache.googleapis.com)                         | memcache.googleapis.com             |
 | [monitoring](https://console.developers.google.com/apis/library/monitoring.googleapis.com)                     | monitoring.googleapis.com           |
+| [networkmanagement](https://console.developers.google.com/apis/library/networkmanagement.googleapis.com)       | networkmanagement.googleapis.com    |
 | [orgpolicy](https://console.developers.google.com/apis/library/orgpolicy.googleapis.com)                       | orgpolicy.googleapis.com            |
 | [osconfig](https://console.developers.google.com/apis/library/osconfig.googleapis.com)                         | osconfig.googleapis.com             |
 | [privateca](https://console.developers.google.com/apis/library/privateca.googleapis.com)                       | privateca.googleapis.com            |
@@ -120,6 +122,7 @@ gcloud services enable \
  accesscontextmanager.googleapis.com \
  apigateway.googleapis.com \
  appengine.googleapis.com \
+ beyondcorp.googleapis.com \
  bigquery.googleapis.com \
  bigtable.googleapis.com \
  binaryauthorization.googleapis.com \
@@ -137,6 +140,7 @@ gcloud services enable \
  logging.googleapis.com \
  memcache.googleapis.com \
  monitoring.googleapis.com \
+ networkmanagement.googleapis.com \
  orgpolicy.googleapis.com \
  osconfig.googleapis.com \
  privateca.googleapis.com \
@@ -377,6 +381,8 @@ The following entities are created:
 | Cloud Build Trigger                                      | `google_cloud_build_trigger`                                      | `Rule`                             |
 | Cloud Build Worker Pool                                  | `google_cloud_build_worker_pool`                                  | `Cluster`                          |
 | Cloud Function                                           | `google_cloud_function`                                           | `Function`                         |
+| Cloud Interconnect                                       | `google_cloud_interconnect`                                       | `Network`                          |
+| Cloud Monitoring                                         | `google_cloud_monitoring`                                         | `Service`                          |
 | Cloud Run Configuration                                  | `google_cloud_run_configuration`                                  | `Configuration`                    |
 | Cloud Run Route                                          | `google_cloud_run_route`                                          | `Configuration`                    |
 | Cloud Run Service                                        | `google_cloud_run_service`                                        | `Service`                          |
@@ -414,13 +420,21 @@ The following entities are created:
 | IAM Custom Role                                          | `google_iam_role`                                                 | `AccessRole`                       |
 | IAM Service Account                                      | `google_iam_service_account`                                      | `User`                             |
 | IAM Service Account Key                                  | `google_iam_service_account_key`                                  | `AccessKey`                        |
+| Interconnect Location                                    | `google_cloud_internetconnect_location`                           | `Site`                             |
 | KMS Crypto Key                                           | `google_kms_crypto_key`                                           | `Key`, `CryptoKey`                 |
 | KMS Key Ring                                             | `google_kms_key_ring`                                             | `Vault`                            |
 | Logging Metric                                           | `google_logging_metric`                                           | `Configuration`                    |
 | Logging Project Sink                                     | `google_logging_project_sink`                                     | `Logs`                             |
 | Memcache Instance                                        | `google_memcache_instance`                                        | `Database`, `DataStore`, `Cluster` |
 | Memcache Instance Node                                   | `google_memcache_instance_node`                                   | `Database`, `DataStore`, `Host`    |
+| MemoryStore Redis                                        | `google_cloud_redis`                                              | `Service`                          |
+| MemoryStore Redis Location                               | `google_cloud_redis_location`                                     | `Site`                             |
 | Monitoring Alert Policy                                  | `google_monitoring_alert_policy`                                  | `Policy`                           |
+| Monitoring Channels                                      | `google_cloud_monitoring-channel`                                 | `Channel`                          |
+| Monitoring Groups                                        | `google_cloud_group`                                              | `Group`                            |
+| Network Analyzer VPC                                     | `google_cloud_network_analyzer_vpc`                               | `Network`                          |
+| Network Intelligence Center                              | `google_cloud_network_analyzer_connectivity_test`                 | `Assessment`                       |
+| Network Intelligence Center                              | `google_cloud_network_analyzer`                                   | `Service`                          |
 | Organization                                             | `google_cloud_organization`                                       | `Organization`                     |
 | Private CA Certificate                                   | `google_privateca_certificate`                                    | `Certificate`                      |
 | Private CA Certificate Authority                         | `google_privateca_certificate_authority`                          | `Service`                          |
@@ -439,6 +453,7 @@ The following entities are created:
 | Spanner Instance                                         | `google_spanner_instance`                                         | `Database`, `Cluster`              |
 | Spanner Instance Config                                  | `google_spanner_instance_config`                                  | `Configuration`                    |
 | Spanner Instance Database                                | `google_spanner_database`                                         | `Database`                         |
+| VPN GateWay                                              | `google_cloud_vpn_gateway`                                        | `Gateway`                          |
 
 ### Relationships
 
@@ -488,14 +503,35 @@ The following relationships are created:
 | `google_cloud_function`                                          | **USES**              | `google_cloud_source_repository`                                  |
 | `google_cloud_function`                                          | **USES**              | `google_iam_service_account`                                      |
 | `google_cloud_function`                                          | **USES**              | `google_storage_bucket`                                           |
+| `google_cloud_internetconnect_location`                          | **USES**              | `google_cloud_interconnect`                                       |
+| `google_cloud_monitoring`                                        | **HAS**               | `google_cloud_group`                                              |
+| `google_cloud_monitoring`                                        | **HAS**               | `google_cloud_monitoring-channel`                                 |
+| `google_cloud_monitoring`                                        | **HAS**               | `google_monitoring_alert_policy`                                  |
+| `google_cloud_network_analyzer`                                  | **HAS**               | `google_cloud_network_analyzer_connectivity_test`                 |
+| `google_cloud_network_analyzer_connectivity_test`                | **SCANS**             | `google_app_engine_version`                                       |
+| `google_cloud_network_analyzer_connectivity_test`                | **SCANS**             | `google_cloud_function`                                           |
+| `google_cloud_network_analyzer_connectivity_test`                | **USES**              | `google_cloud_network_analyzer_vpc`                               |
+| `google_cloud_network_analyzer_connectivity_test`                | **SCANS**             | `google_compute_forwarding_rule`                                  |
+| `google_cloud_network_analyzer_connectivity_test`                | **SCANS**             | `google_compute_instance`                                         |
+| `google_cloud_network_analyzer_connectivity_test`                | **SCANS**             | `google_compute_network`                                          |
+| `google_cloud_network_analyzer_connectivity_test`                | **SCANS**             | `google_sql_mysql_instance`                                       |
 | `google_cloud_organization`                                      | **HAS**               | `google_cloud_folder`                                             |
 | `google_cloud_organization`                                      | **HAS**               | `google_cloud_project`                                            |
+| `google_cloud_project`                                           | **USES**              | `fetch-network-analyzer-vpc`                                      |
 | `google_cloud_project`                                           | **HAS**               | `google_billing_budget`                                           |
 | `google_cloud_project`                                           | **HAS**               | `google_binary_authorization_policy`                              |
 | `google_cloud_project`                                           | **HAS**               | `google_cloud_api_service`                                        |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_monitoring`                                         |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_network_analyzer`                                   |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_network_analyzer_connectivity_test`                 |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_redis`                                              |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_redis_location`                                     |
+| `google_cloud_project`                                           | **HAS**               | `google_redis_instance`                                           |
+| `google_cloud_redis_location`                                    | **HAS**               | `google_redis_instance`                                           |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_configuration`                                  |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_route`                                          |
 | `google_cloud_scan_config`                                       | **PERFORMED**         | `google_cloud_scan_run`                                           |
+| `google_cloud_vpn_gateway`                                       | **USES**              | `google_cloud_vpn_tunnel`                                         |
 | `google_compute_backend_bucket`                                  | **HAS**               | `google_storage_bucket`                                           |
 | `google_compute_backend_service`                                 | **HAS**               | `google_compute_health_check`                                     |
 | `google_compute_backend_service`                                 | **HAS**               | `google_compute_instance_group`                                   |
@@ -528,6 +564,8 @@ The following relationships are created:
 | `google_compute_network`                                         | **CONNECTS**          | `google_compute_network`                                          |
 | `google_compute_network`                                         | **CONTAINS**          | `google_compute_subnetwork`                                       |
 | `google_compute_network`                                         | **HAS**               | `google_dns_policy`                                               |
+| `google_compute_project`                                         | **HAS**               | `google_cloud_interconnect`                                       |
+| `google_compute_project`                                         | **HAS**               | `google_cloud_internetconnect_location`                           |
 | `google_compute_project`                                         | **HAS**               | `google_compute_instance`                                         |
 | `google_compute_snapshot`                                        | **CREATED**           | `google_compute_image`                                            |
 | `google_compute_subnetwork`                                      | **HAS**               | `google_compute_address`                                          |
@@ -600,7 +638,7 @@ permissions can be used to provision only the required ones:
 
 <!-- {J1_PERMISSIONS_DOCUMENTATION_MARKER_START} -->
 
-| Permissions List (112)                                  |
+| Permissions List (116)                                  |
 | ------------------------------------------------------- |
 | `accesscontextmanager.accessLevels.list`                |
 | `accesscontextmanager.accessPolicies.list`              |
@@ -674,6 +712,8 @@ permissions can be used to provision only the required ones:
 | `compute.targetHttpsProxies.list`                       |
 | `compute.targetSslProxies.list`                         |
 | `compute.urlMaps.list`                                  |
+| `compute.vpnGateways.list`                              |
+| `compute.vpnTunnels.get`                                |
 | `container.clusters.list`                               |
 | `dataproc.clusters.list`                                |
 | `dns.managedZones.list`                                 |
@@ -685,6 +725,8 @@ permissions can be used to provision only the required ones:
 | `logging.sinks.list`                                    |
 | `memcache.instances.list`                               |
 | `monitoring.alertPolicies.list`                         |
+| `monitoring.notificationChannels.list`                  |
+| `networkmanagement.connectivitytests.list`              |
 | `orgpolicy.policies.list`                               |
 | `orgpolicy.policy.get`                                  |
 | `osconfig.inventories.get`                              |

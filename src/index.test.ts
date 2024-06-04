@@ -69,6 +69,7 @@ import {
 } from './steps/cloud-run/constants';
 import { CloudSourceRepositoriesStepsSpec } from './steps/cloud-source-repositories/constants';
 import {
+  STEP_CLOUD_INTERCONNECT,
   STEP_COMPUTE_ADDRESSES,
   STEP_COMPUTE_BACKEND_BUCKETS,
   STEP_COMPUTE_BACKEND_SERVICES,
@@ -90,6 +91,8 @@ import {
   STEP_COMPUTE_NETWORKS,
   STEP_COMPUTE_NETWORK_PEERING_RELATIONSHIPS,
   STEP_COMPUTE_PROJECT,
+  STEP_COMPUTE_PROJECT_HAS_CLOUD_INTERCONNECT_RELATIONSHIP,
+  STEP_COMPUTE_PROJECT_HAS_INTERCONNECT_LOCATION_RELATIONSHIP,
   STEP_COMPUTE_REGION_BACKEND_SERVICES,
   STEP_COMPUTE_REGION_DISKS,
   STEP_COMPUTE_REGION_HEALTH_CHECKS,
@@ -105,6 +108,8 @@ import {
   STEP_COMPUTE_TARGET_HTTP_PROXIES,
   STEP_COMPUTE_TARGET_SSL_PROXIES,
   STEP_CREATE_COMPUTE_BACKEND_BUCKET_BUCKET_RELATIONSHIPS,
+  STEP_INTERCONNECT_LOCATION,
+  STEP_INTERCONNECT_LOCATION_USES_CLOUD_INTERCONNECT_RELATIONSHIP,
 } from './steps/compute';
 import { STEP_CONTAINER_CLUSTERS } from './steps/containers';
 import {
@@ -133,7 +138,16 @@ import {
   STEP_CREATE_MEMCACHE_INSTANCE_NETWORK_RELATIONSHIPS,
   STEP_MEMCACHE_INSTANCES,
 } from './steps/memcache/constants';
-import { STEP_MONITORING_ALERT_POLICIES } from './steps/monitoring/constants';
+import {
+  STEP_CLOUD_MONITORING,
+  STEP_CLOUD_MONITORING_HAS_MONITORING_ALERT_POLICIES_RELATIONSHIP,
+  STEP_CLOUD_MONITORING_HAS_MONITORING_CHANNELS_RELATIONSHIP,
+  STEP_CLOUD_MONITORING_HAS_MONITORING_GROUPS_RELATIONSHIP,
+  STEP_MONITORING_ALERT_POLICIES,
+  STEP_MONITORING_CHANNELS,
+  STEP_MONITORING_GROUPS,
+  STEP_PROJECT_HAS_CLOUD_MONITORING_RELATIONSHIP,
+} from './steps/monitoring/constants';
 import { PrivatecaSteps } from './steps/privateca/constants';
 import {
   STEP_CREATE_PUBSUB_TOPIC_KMS_RELATIONSHIPS,
@@ -142,6 +156,12 @@ import {
 } from './steps/pub-sub/constants';
 import {
   STEP_CREATE_REDIS_INSTANCE_NETWORK_RELATIONSHIPS,
+  STEP_MEMORYSTORE_REDIS,
+  STEP_MEMORYSTORE_REDIS_LOCATION,
+  STEP_MEMORYSTORE_REDIS_LOCATION_HAS_REDIS_INSTANCE_RELATIONSHIP,
+  STEP_PROJECT_HAS_MEMORYSTORE_REDIS_LOCATION_RELTIONSHIP,
+  STEP_PROJECT_HAS_MEMORYSTORE_REDIS_RELATIONSHIP,
+  STEP_PROJECT_HAS_REDIS_INSTANCE_RELATIONSHIP,
   STEP_REDIS_INSTANCES,
 } from './steps/redis/constants';
 import {
@@ -169,6 +189,25 @@ import {
 } from './steps/functions';
 import { StorageStepsSpec } from './steps/storage/constants';
 import { WebSecurityScannerSteps } from './steps/web-security-scanner/constants';
+import {
+  STEP_CONNECTIVITY_TEST_SCANS_APP_ENGINE_VERSION,
+  STEP_CONNECTIVITY_TEST_SCANS_CLOUD_FUNCTION,
+  STEP_CONNECTIVITY_TEST_SCANS_CLOUD_SQL_INSTANCE,
+  STEP_CONNECTIVITY_TEST_SCANS_COMPUTE_INSTANCE,
+  STEP_CONNECTIVITY_TEST_SCANS_FORWARDING_RULE,
+  STEP_CONNECTIVITY_TEST_SCANS_NETWORK,
+  STEP_CONNECTIVITY_TEST_USES_VPC_RELATIONSHIP,
+  STEP_NETWORK_ANALYZER_CONNECTIVITY_TEST,
+  STEP_NETWORK_ANALYZER_VPC,
+  STEP_NETWORK_INTELLIGENCE_CENTER,
+  STEP_NETWORK_INTELLIGENCE_CENTER_HAS_NETWORK_ANALYZER_CONNECTIVITY_TEST_RELATIONSHIP,
+  STEP_PROJECT_HAS_NETWORK_ANALYZER_CONNECTIVITY_TEST_RELATIONSHIP,
+  STEP_PROJECT_HAS_NETWORK_INTELLIGENCE_CENTER_RELATIONSHIP,
+  STEP_PROJECT_USES_NETWORK_ANALYZER_VPC_RELATIONSHIP,
+  STEP_VPN_GATEWAY,
+  STEP_VPN_GATEWAY_TUNNEL,
+  STEP_VPN_GATEWAY_USES_VPN_GATEWAY_TUNNEL_RELATIONSHIP,
+} from './steps/network-analyzer/constants';
 
 describe('#getStepStartStates success', () => {
   let recording: Recording;
@@ -366,6 +405,21 @@ describe('#getStepStartStates success', () => {
         [STEP_COMPUTE_SSL_POLICIES]: {
           disabled: false,
         },
+        [STEP_CLOUD_INTERCONNECT]: {
+          disabled: false,
+        },
+        [STEP_INTERCONNECT_LOCATION]: {
+          disabled: false,
+        },
+        [STEP_INTERCONNECT_LOCATION_USES_CLOUD_INTERCONNECT_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_PROJECT_HAS_CLOUD_INTERCONNECT_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_COMPUTE_PROJECT_HAS_INTERCONNECT_LOCATION_RELATIONSHIP]: {
+          disabled: false,
+        },
         [STEP_DNS_MANAGED_ZONES]: {
           disabled: false,
         },
@@ -411,6 +465,27 @@ describe('#getStepStartStates success', () => {
         [STEP_MONITORING_ALERT_POLICIES]: {
           disabled: false,
         },
+        [STEP_CLOUD_MONITORING]: {
+          disabled: false,
+        },
+        [STEP_MONITORING_CHANNELS]: {
+          disabled: false,
+        },
+        [STEP_MONITORING_GROUPS]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_CLOUD_MONITORING_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_MONITORING_HAS_MONITORING_GROUPS_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_MONITORING_HAS_MONITORING_CHANNELS_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_MONITORING_HAS_MONITORING_ALERT_POLICIES_RELATIONSHIP]: {
+          disabled: false,
+        },
         [STEP_BINARY_AUTHORIZATION_POLICY]: {
           disabled: false,
         },
@@ -450,7 +525,25 @@ describe('#getStepStartStates success', () => {
         [STEP_REDIS_INSTANCES]: {
           disabled: false,
         },
+        [STEP_MEMORYSTORE_REDIS_LOCATION]: {
+          disabled: false,
+        },
+        [STEP_MEMORYSTORE_REDIS]: {
+          disabled: false,
+        },
         [STEP_CREATE_REDIS_INSTANCE_NETWORK_RELATIONSHIPS]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_MEMORYSTORE_REDIS_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_MEMORYSTORE_REDIS_LOCATION_RELTIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_REDIS_INSTANCE_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_MEMORYSTORE_REDIS_LOCATION_HAS_REDIS_INSTANCE_RELATIONSHIP]: {
           disabled: false,
         },
         [STEP_MEMCACHE_INSTANCES]: {
@@ -597,6 +690,58 @@ describe('#getStepStartStates success', () => {
           disabled: false,
         },
         [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: {
+          disabled: false,
+        },
+        [STEP_NETWORK_INTELLIGENCE_CENTER]: {
+          disabled: false,
+        },
+        [STEP_NETWORK_ANALYZER_CONNECTIVITY_TEST]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_NETWORK_INTELLIGENCE_CENTER_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_NETWORK_ANALYZER_CONNECTIVITY_TEST_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_NETWORK_INTELLIGENCE_CENTER_HAS_NETWORK_ANALYZER_CONNECTIVITY_TEST_RELATIONSHIP]:
+          {
+            disabled: false,
+          },
+        [STEP_VPN_GATEWAY_TUNNEL]: {
+          disabled: false,
+        },
+        [STEP_VPN_GATEWAY]: {
+          disabled: false,
+        },
+        [STEP_VPN_GATEWAY_USES_VPN_GATEWAY_TUNNEL_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_NETWORK_ANALYZER_VPC]: {
+          disabled: false,
+        },
+        [STEP_CONNECTIVITY_TEST_USES_VPC_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_USES_NETWORK_ANALYZER_VPC_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_CONNECTIVITY_TEST_SCANS_COMPUTE_INSTANCE]: {
+          disabled: false,
+        },
+        [STEP_CONNECTIVITY_TEST_SCANS_FORWARDING_RULE]: {
+          disabled: false,
+        },
+        [STEP_CONNECTIVITY_TEST_SCANS_CLOUD_SQL_INSTANCE]: {
+          disabled: false,
+        },
+        [STEP_CONNECTIVITY_TEST_SCANS_CLOUD_FUNCTION]: {
+          disabled: false,
+        },
+        [STEP_CONNECTIVITY_TEST_SCANS_APP_ENGINE_VERSION]: {
+          disabled: false,
+        },
+        [STEP_CONNECTIVITY_TEST_SCANS_NETWORK]: {
           disabled: false,
         },
       };
@@ -854,8 +999,9 @@ expect.extend({
     stepCollection: string[],
   ) {
     for (const stepId of stepCollection) {
-      const stepDependencies = integrationSteps.find((s) => s.id === stepId)
-        ?.dependsOn;
+      const stepDependencies = integrationSteps.find(
+        (s) => s.id === stepId,
+      )?.dependsOn;
 
       const invalidStepDependencies = stepDependencies?.filter(
         (s) => !stepCollection.includes(s),
