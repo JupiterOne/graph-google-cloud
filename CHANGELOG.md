@@ -1,3 +1,16 @@
+# v3.3.10 (Tue Jun 04 2024)
+
+#### 🐛 Bug Fix
+
+- adding raw data field [#695](https://github.com/JupiterOne/graph-google-cloud/pull/695) ([@mikiodehartj1](https://github.com/mikiodehartj1) [@gastonyelmini](https://github.com/gastonyelmini))
+
+#### Authors: 2
+
+- [@mikiodehartj1](https://github.com/mikiodehartj1)
+- Gaston Yelmini ([@gastonyelmini](https://github.com/gastonyelmini))
+
+---
+
 # v3.3.9 (Fri May 31 2024)
 
 #### 🐛 Bug Fix
