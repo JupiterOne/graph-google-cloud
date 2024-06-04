@@ -22,6 +22,12 @@ export function createSecretEntity(data: secretmanager_v1.Schema$Secret) {
         rotationPeriod: data.rotation?.rotationPeriod,
         topicNames: data.topics?.map((t) => t.name!),
         ttl: data.ttl,
+        'replication.automatic.customerManagedEncryption.kmsKeyName':
+          data.replication?.automatic?.customerManagedEncryption?.kmsKeyName,
+        'replication.userManaged.replicas.location':
+          data.replication?.userManaged?.replicas
+            ?.filter((replica) => typeof replica.location === 'string')
+            .map((replica) => replica.location || ''),
       },
     },
   });
