@@ -211,6 +211,7 @@ import {
   STEP_CLOUD_IDENTITY_SSO_PROFILE,
   STEP_CLOUD_IDENTITY_SSO_PROFILE_ASSIGNED_GROUP_RELATIONSHIP,
   STEP_CLOUD_IDENTITY_SSO_SAML_PROVIDER,
+  STEP_CLOUD_IDENTITY_SAML_PROVIDER_USES_GROUP,
   STEP_DEVICE_USER_IS_GOOGLE_USER,
 } from './steps/cloud-identity/constants';
 import { cloudIdentitySteps } from './steps/cloud-identity';
@@ -501,6 +502,7 @@ function getDefaultStepStartStates(params: {
     [STEP_CLOUD_IDENTITY_SSO_PROFILE]: { disabled: false },
     [STEP_CLOUD_IDENTITY_SSO_SAML_PROVIDER]: { disabled: false },
     [STEP_DEVICE_USER_IS_GOOGLE_USER]: { disabled: false },
+    [STEP_CLOUD_IDENTITY_SAML_PROVIDER_USES_GROUP]: { disabled: false },
     [STEP_CLOUD_IDENTITY_DEVICES_USER_USES_DEVICE]: { disabled: false },
     [STEP_CLOUD_IDENTITY_GROUP_ASSIGNED_MEMBERSHIP_ROLE_RELATIONSHIP]: {
       disabled: false,
@@ -950,6 +952,9 @@ async function getStepStartStatesUsingServiceEnablements(params: {
       ServiceUsageName.CLOUD_IDENTITY,
     ),
     [STEP_DEVICE_USER_IS_GOOGLE_USER]: createStepStartState(
+      ServiceUsageName.CLOUD_IDENTITY,
+    ),
+    [STEP_CLOUD_IDENTITY_SAML_PROVIDER_USES_GROUP]: createStepStartState(
       ServiceUsageName.CLOUD_IDENTITY,
     ),
     [STEP_CLOUD_IDENTITY_DEVICES_USER_USES_DEVICE]: createStepStartState(
