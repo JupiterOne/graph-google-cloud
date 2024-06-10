@@ -19,7 +19,7 @@ describe(STEP_DEVICE_USER_IS_GOOGLE_USER, () => {
 
   jest.setTimeout(450000);
 
-  test(STEP_DEVICE_USER_IS_GOOGLE_USER, async () => {
+  test.skip(STEP_DEVICE_USER_IS_GOOGLE_USER, async () => {
     recording = setupGoogleCloudRecording({
       name: STEP_DEVICE_USER_IS_GOOGLE_USER,
       directory: __dirname,

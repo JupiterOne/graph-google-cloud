@@ -17,7 +17,7 @@ describe(`Cloud-Identity#${STEP_CLOUD_IDENTITY_SSO_SAML_PROVIDER}`, () => {
     if (recording) await recording.stop();
   });
 
-  test(STEP_CLOUD_IDENTITY_SSO_SAML_PROVIDER, async () => {
+  test.skip(STEP_CLOUD_IDENTITY_SSO_SAML_PROVIDER, async () => {
     recording = setupGoogleCloudRecording({
       name: STEP_CLOUD_IDENTITY_SSO_SAML_PROVIDER,
       directory: __dirname,

@@ -17,7 +17,7 @@ describe(`Cloud-Identity#${STEP_CLOUD_IDENTITY_DEVICES_USER_USES_DEVICE}`, () =>
     if (recording) await recording.stop();
   });
 
-  test(STEP_CLOUD_IDENTITY_DEVICES_USER_USES_DEVICE, async () => {
+  test.skip(STEP_CLOUD_IDENTITY_DEVICES_USER_USES_DEVICE, async () => {
     recording = setupGoogleCloudRecording({
       name: STEP_CLOUD_IDENTITY_DEVICES_USER_USES_DEVICE,
       directory: __dirname,

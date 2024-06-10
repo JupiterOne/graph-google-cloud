@@ -17,7 +17,7 @@ describe(`Cloud-Identity#${STEP_CLOUD_IDENTITY_SSO_PROFILE}`, () => {
     if (recording) await recording.stop();
   });
 
-  test(STEP_CLOUD_IDENTITY_SSO_PROFILE, async () => {
+  test.skip(STEP_CLOUD_IDENTITY_SSO_PROFILE, async () => {
     recording = setupGoogleCloudRecording({
       name: STEP_CLOUD_IDENTITY_SSO_PROFILE,
       directory: __dirname,

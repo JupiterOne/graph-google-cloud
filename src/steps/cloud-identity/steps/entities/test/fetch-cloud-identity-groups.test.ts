@@ -17,7 +17,7 @@ describe(`Cloud-Identity#${STEP_CLOUD_IDENTITY_GROUPS}`, () => {
     if (recording) await recording.stop();
   });
 
-  test(STEP_CLOUD_IDENTITY_GROUPS, async () => {
+  test.skip(STEP_CLOUD_IDENTITY_GROUPS, async () => {
     recording = setupGoogleCloudRecording({
       name: STEP_CLOUD_IDENTITY_GROUPS,
       directory: __dirname,

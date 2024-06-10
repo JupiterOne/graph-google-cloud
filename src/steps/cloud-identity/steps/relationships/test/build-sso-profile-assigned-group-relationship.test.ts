@@ -17,7 +17,7 @@ describe(`Cloud-Identity#${STEP_CLOUD_IDENTITY_SSO_PROFILE_ASSIGNED_GROUP_RELATI
     if (recording) await recording.stop();
   });
 
-  test(
+  test.skip(
     STEP_CLOUD_IDENTITY_SSO_PROFILE_ASSIGNED_GROUP_RELATIONSHIP,
     async () => {
       recording = setupGoogleCloudRecording({

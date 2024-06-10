@@ -9,17 +9,17 @@ import {
   getMatchRequestsBy,
   setupGoogleCloudRecording,
 } from '../../../../../../test/recording';
-import { STEP_CLOUD_IDENTITY_MEMBERSHIP_ROLES } from '../../../constants';
+import { STEP_CLOUD_IDENTITY_SAML_PROVIDER_USES_GROUP } from '../../../constants';
 
-describe(`Cloud-Identity#${STEP_CLOUD_IDENTITY_MEMBERSHIP_ROLES}`, () => {
+describe(`Cloud-Identity#${STEP_CLOUD_IDENTITY_SAML_PROVIDER_USES_GROUP}`, () => {
   let recording: Recording;
   afterEach(async () => {
     if (recording) await recording.stop();
   });
 
-  test.skip(STEP_CLOUD_IDENTITY_MEMBERSHIP_ROLES, async () => {
+  test.skip(STEP_CLOUD_IDENTITY_SAML_PROVIDER_USES_GROUP, async () => {
     recording = setupGoogleCloudRecording({
-      name: STEP_CLOUD_IDENTITY_MEMBERSHIP_ROLES,
+      name: STEP_CLOUD_IDENTITY_SAML_PROVIDER_USES_GROUP,
       directory: __dirname,
       options: {
         matchRequestsBy: getMatchRequestsBy(integrationConfig),
@@ -28,7 +28,7 @@ describe(`Cloud-Identity#${STEP_CLOUD_IDENTITY_MEMBERSHIP_ROLES}`, () => {
     });
 
     const stepTestConfig: StepTestConfig = {
-      stepId: STEP_CLOUD_IDENTITY_MEMBERSHIP_ROLES,
+      stepId: STEP_CLOUD_IDENTITY_SAML_PROVIDER_USES_GROUP,
       instanceConfig: integrationConfig,
       invocationConfig: invocationConfig as any,
     };
