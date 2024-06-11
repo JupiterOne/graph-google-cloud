@@ -201,6 +201,19 @@ import { WebSecurityScannerSteps } from './steps/web-security-scanner/constants'
 import { IntegrationConfig } from './types';
 import { isMasterOrganizationInstance } from './utils/isMasterOrganizationInstance';
 import { isSingleProjectInstance } from './utils/isSingleProjectInstance';
+import {
+  STEP_GOOGLE_CLOUD_DATAFLOW_JOB,
+  STEP_GOOGLE_CLOUD_DATAFLOW,
+  STEP_GOOGLE_CLOUD_DATAFLOW_DATASTORE,
+  STEP_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT,
+  STEP_GOOGLE_CLOUD_PROJECT_HAS_GOOGLE_CLOUD_DATAFLOW_JOB,
+  STEP_GOOGLE_CLOUD_DATAFLOW_JOB_HAS_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT,
+  STEP_GOOGLE_CLOUD_DATAFLOW_JOB_USES_GOOGLE_CLOUD_DATAFLOW_DATASTORE,
+  // STEP_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_USES_GOOGLE_PUBSUB_TOPIC,
+  STEP_GOOGLE_CLOUD_PROJECT_HAS_GOOGLE_CLOUD_DATAFLOW,
+  STEP_GOOGLE_CLOUD_DATAFLOW_USES_GOOGLE_SPANNER_INSTANCE,
+  STEP_GOOGLE_CLOUD_PROJECT_HAS_GOOGLE_CLOUD_DATAFLOW_DATASTORE
+} from './steps/data-flow/constants';
 
 function makeStepStartStates(
   stepIds: string[],
@@ -243,9 +256,8 @@ export default async function getStepStartStates(
 
   logger.publishEvent({
     name: 'integration_config',
-    description: `Starting Google Cloud integration with service account (email=${
-      config.serviceAccountKeyConfig.client_email
-    }, configureOrganizationProjects=${!!config.configureOrganizationProjects})`,
+    description: `Starting Google Cloud integration with service account (email=${config.serviceAccountKeyConfig.client_email
+      }, configureOrganizationProjects=${!!config.configureOrganizationProjects})`,
   });
 
   const masterOrgInstance = isMasterOrganizationInstance(config);
@@ -333,6 +345,16 @@ function getDefaultStepStartStates(params: {
     [STEP_AUDIT_CONFIG_IAM_POLICY]: {
       disabled: !!config.configureOrganizationProjects,
     },
+    [STEP_GOOGLE_CLOUD_DATAFLOW]: { disabled: false },
+    [STEP_GOOGLE_CLOUD_DATAFLOW_DATASTORE]: { disabled: false },
+    [STEP_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT]: { disabled: false },
+    [STEP_GOOGLE_CLOUD_PROJECT_HAS_GOOGLE_CLOUD_DATAFLOW_JOB]: { disabled: false },
+    [STEP_GOOGLE_CLOUD_DATAFLOW_JOB_HAS_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT]: { disabled: false },
+    [STEP_GOOGLE_CLOUD_DATAFLOW_JOB_USES_GOOGLE_CLOUD_DATAFLOW_DATASTORE]: { disabled: false },
+    // [STEP_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_USES_GOOGLE_PUBSUB_TOPIC]: { disabled: false },
+    [STEP_GOOGLE_CLOUD_PROJECT_HAS_GOOGLE_CLOUD_DATAFLOW]: { disabled: false },
+    [STEP_GOOGLE_CLOUD_PROJECT_HAS_GOOGLE_CLOUD_DATAFLOW_DATASTORE]: { disabled: false },
+    [STEP_GOOGLE_CLOUD_DATAFLOW_USES_GOOGLE_SPANNER_INSTANCE]: { disabled: false },
     [STEP_COMPUTE_DISKS]: { disabled: false },
     [STEP_COMPUTE_REGION_DISKS]: { disabled: false },
     [STEP_COMPUTE_IMAGES]: { disabled: false },
@@ -648,6 +670,17 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [STEP_AUDIT_CONFIG_IAM_POLICY]: config.configureOrganizationProjects
       ? { disabled: true }
       : createStepStartState(ServiceUsageName.RESOURCE_MANAGER),
+    [STEP_GOOGLE_CLOUD_DATAFLOW_JOB]: createStepStartState(ServiceUsageName.DATA_FLOW),
+    [STEP_GOOGLE_CLOUD_DATAFLOW]: createStepStartState(ServiceUsageName.DATA_FLOW),
+    [STEP_GOOGLE_CLOUD_DATAFLOW_DATASTORE]: createStepStartState(ServiceUsageName.DATA_FLOW),
+    [STEP_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT]: createStepStartState(ServiceUsageName.DATA_FLOW),
+    [STEP_GOOGLE_CLOUD_PROJECT_HAS_GOOGLE_CLOUD_DATAFLOW_JOB]: createStepStartState(ServiceUsageName.DATA_FLOW),
+    [STEP_GOOGLE_CLOUD_DATAFLOW_JOB_HAS_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT]: createStepStartState(ServiceUsageName.DATA_FLOW),
+    [STEP_GOOGLE_CLOUD_DATAFLOW_JOB_USES_GOOGLE_CLOUD_DATAFLOW_DATASTORE]: createStepStartState(ServiceUsageName.DATA_FLOW),
+    // [STEP_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_USES_GOOGLE_PUBSUB_TOPIC]: createStepStartState(ServiceUsageName.DATA_FLOW),
+    [STEP_GOOGLE_CLOUD_PROJECT_HAS_GOOGLE_CLOUD_DATAFLOW]: createStepStartState(ServiceUsageName.DATA_FLOW),
+    [STEP_GOOGLE_CLOUD_PROJECT_HAS_GOOGLE_CLOUD_DATAFLOW_DATASTORE]: createStepStartState(ServiceUsageName.DATA_FLOW),
+    [STEP_GOOGLE_CLOUD_DATAFLOW_USES_GOOGLE_SPANNER_INSTANCE]: createStepStartState(ServiceUsageName.DATA_FLOW),
     [STEP_COMPUTE_DISKS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_REGION_DISKS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_IMAGES]: createStepStartState(ServiceUsageName.COMPUTE),
