@@ -35,7 +35,7 @@ export function createGoogleCloudDataFlowJobEntity(
         id: data.id as string,
         name: data.name,
         displayName: data.name as string,
-        description: data.environment as string,
+        description: data.jobMetadata?.pubsubDetails as string[],
         projectId: data.projectId,
         type: data.type,
         stepLocation: data.stepsLocation,
@@ -52,7 +52,8 @@ export function createGoogleCloudDataFlowJobEntity(
         satisfiesPzs: data.satisfiesPzs,
         satisfiesPzi: data.satisfiesPzi,
         maxNumWorkers: data.runtimeUpdatableParams?.maxNumWorkers,
-        minNumWorkers: data.runtimeUpdatableParams?.minNumWorkers
+        minNumWorkers: data.runtimeUpdatableParams?.minNumWorkers,
+        datastoreDetails:data.jobMetadata?.datastoreDetails as string[],
       },
     },
   });
@@ -65,12 +66,13 @@ export function createGoogleCloudDataFlowDataStoreEntity(
     entityData: {
       source: data,
       assign: {
-        _key: data.namespace as string,
+        _key: (data.namespace+"/"+data.projectId) as string,
         _type: GOOGLE_CLOUD_DATAFLOW_DATASTORE_TYPE,
         _class: GOOGLE_CLOUD_DATAFLOW_DATASTORE_CLASS,
         projectId: data.projectId as string,
         name: data.namespace,
         encrypted: false,
+        classification: 'true'
       },
     },
   });

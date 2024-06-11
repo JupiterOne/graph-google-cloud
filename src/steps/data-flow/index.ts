@@ -1,6 +1,5 @@
 import {
   createDirectRelationship,
-  getRawData,
   IntegrationMissingKeyError,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
@@ -32,20 +31,17 @@ import {
   GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_CLASS,
   STEP_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_USES_GOOGLE_PUBSUB_TOPIC,
   RELATIONSHIP_TYPE_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT_USES_GOOGLE_PUBSUB_TOPIC,
-  STEP_GOOGLE_CLOUD_DATAFLOW_JOB_HAS_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT,
-  RELATIONSHIP_TYPE_GOOGLE_CLOUD_DATAFLOW_JOB_HAS_GOOGLE_CLOUD_DATAFLOW_SNAPSHOT,
   STEP_GOOGLE_CLOUD_DATAFLOW_USES_GOOGLE_SPANNER_INSTANCE,
-  RELATIONSHIP_TYPE_GOOGLE_CLOUD_DATAFLOW_USES_GOOGLE_SPANNER_INSTANCE
+  RELATIONSHIP_TYPE_GOOGLE_CLOUD_DATAFLOW_USES_GOOGLE_SPANNER_INSTANCE,
+  GOOGLE_CLOUD_DATAFLOW_JOB_CLASS
 } from './constants';
 import {
   createGoogleCloudDataFlowEntity,
   createGoogleCloudDataFlowDataStoreEntity,
   createGoogleCloudDataFlowJobEntity,
-  createGoogleCloudDataFlowSnapshotEntity,
 } from './converters';
 import { PROJECT_ENTITY_TYPE, STEP_RESOURCE_MANAGER_PROJECT } from '../resource-manager';
 import { getProjectEntity } from '../../utils/project';
-import { dataflow_v1b3 } from 'googleapis';
 import { ENTITY_TYPE_PUBSUB_TOPIC, STEP_PUBSUB_TOPICS } from '../pub-sub/constants';
 import { ENTITY_TYPE_SPANNER_INSTANCE, STEP_SPANNER_INSTANCES } from '../spanner/constants';
 
@@ -58,13 +54,16 @@ export async function fetchGoogleCloudDataFlowDataStore(
 
   await jobState.iterateEntities(
     { _type: GOOGLE_CLOUD_DATAFLOW_JOB_TYPE },
-    async (dataflowEntity) => {
-      const dataflow = getRawData<dataflow_v1b3.Schema$Job>(dataflowEntity);
+    async (dataflowEntity) => { 
 
-      if (dataflow?.jobMetadata?.datastoreDetails) {
-        await jobState.addEntity(createGoogleCloudDataFlowDataStoreEntity(dataflow));
+      const dataflowDataStore = dataflowEntity.datastoreDetails as any;
+      for(const datastore in dataflowDataStore){
+      if (datastore) {
+        const dataflow=dataflowEntity.datastoreDetails[datastore]
+        await jobState.addEntity(createGoogleCloudDataFlowDataStoreEntity(dataflow as any));
       }
-    },
+    }
+  }
   );
 }
 
@@ -101,24 +100,16 @@ export async function fetchGoogleCloudDataFlowSnapshot(
   context: IntegrationStepContext,
 ): Promise<void> {
   const {
-    jobState,
     instance: { config },
     logger,
   } = context;
 
   const client = new dataFlowClient({ config }, logger);
-  await jobState.iterateEntities(
-    { _type: GOOGLE_CLOUD_DATAFLOW_JOB_TYPE },
-    async (dataflowEntity) => {
-      const dataflow = getRawData<dataflow_v1b3.Schema$ListSnapshotsResponse>(dataflowEntity);
-
-      if (dataflow?.snapshots) {
-        for (const snapshot of dataflow.snapshots) {
-          await jobState.addEntity(createGoogleCloudDataFlowSnapshotEntity(snapshot, client.projectId));
-        }
-      }
-    },
-  );
+  console.log(";;;;;;;;")
+  await client.iterateGoogleCloudDataFlowSnapshot(async (snapshot) => {
+    console.log(snapshot+"''''''''")
+  }
+)
 }
 
 
@@ -133,13 +124,16 @@ export async function buildProjectHasDataflowDatastoreRelationship(
 
   await jobState.iterateEntities(
     { _type: GOOGLE_CLOUD_DATAFLOW_DATASTORE_TYPE },
-    async (dataflowJob) => {
+    async (DataStore) => {
+      const projectId=projectEntity.projectId as string
+    
+      if(DataStore.projectId === projectId)
       await jobState.addRelationship(
         createDirectRelationship({
           _class: RelationshipClass.HAS,
           fromKey: projectEntity._key as string,
           fromType: PROJECT_ENTITY_TYPE,
-          toKey: dataflowJob._key as string,
+          toKey: DataStore._key as string,
           toType: GOOGLE_CLOUD_DATAFLOW_DATASTORE_TYPE,
         }),
       );
@@ -203,30 +197,35 @@ export async function buildDataflowUsesDataflowDatastoreRelationship(
   const { jobState } = executionContext;
 
   await jobState.iterateEntities(
-    { _type: GOOGLE_CLOUD_DATAFLOW_DATASTORE_TYPE },
-    async (datastoreEntity) => {
-      const dataflowJobKey = datastoreEntity.jobId as string
+    { _type: GOOGLE_CLOUD_DATAFLOW_JOB_TYPE },
+    async (dataflowEntity) => {
+      const dataflowDataStore = dataflowEntity.datastoreDetails as any;
+      for(const datastore in dataflowDataStore){
 
-      const hasDataflowJobKey = jobState.hasKey(dataflowJobKey);
+        const dataflow=dataflowEntity.datastoreDetails[datastore]
+        const dataStoreKey = (dataflow.namespace+"/"+dataflow.projectId) as string
 
-      if (!hasDataflowJobKey) {
+      const hasDataStoreKey = jobState.hasKey(dataStoreKey);
+
+      if (!hasDataStoreKey) {
         throw new IntegrationMissingKeyError(
           `Cannot build Relationship.
           Error: Missing Key.
-          dataflowJobKey : ${dataflowJobKey}`,
+          dataflowJobKey : ${dataStoreKey}`,
         );
       }
-
+      else{
       await jobState.addRelationship(
         createDirectRelationship({
-          _class: RelationshipClass.HAS,
-          fromKey: dataflowJobKey,
+          _class: RelationshipClass.USES,
+          fromKey: dataflowEntity._key as string,
           fromType: GOOGLE_CLOUD_DATAFLOW_JOB_TYPE,
-          toKey: datastoreEntity._key,
+          toKey: dataStoreKey as string,
           toType: GOOGLE_CLOUD_DATAFLOW_DATASTORE_TYPE,
         }),
       );
-    },
+    }}
+  }
   );
 }
 
@@ -323,7 +322,7 @@ export const dataFlowSteps: GoogleCloudIntegrationStep[] = [
       {
         resourceName: 'Google Cloud Dataflow Job',
         _type: GOOGLE_CLOUD_DATAFLOW_JOB_TYPE,
-        _class: ['Workflow'],
+        _class: GOOGLE_CLOUD_DATAFLOW_JOB_CLASS,
       },
     ],
     relationships: [],
@@ -421,7 +420,7 @@ export const dataFlowSteps: GoogleCloudIntegrationStep[] = [
     entities: [],
     relationships: [
       {
-        _class: RelationshipClass.HAS,
+        _class: RelationshipClass.USES,
         _type: RELATIONSHIP_TYPE_GOOGLE_CLOUD_DATAFLOW_JOB_USES_GOOGLE_CLOUD_DATAFLOW_DATASTORE,
         sourceType: GOOGLE_CLOUD_DATAFLOW_JOB_TYPE,
         targetType: GOOGLE_CLOUD_DATAFLOW_DATASTORE_TYPE,
@@ -447,7 +446,7 @@ export const dataFlowSteps: GoogleCloudIntegrationStep[] = [
       },
     ],
     relationships: [],
-    dependsOn: [STEP_GOOGLE_CLOUD_DATAFLOW_JOB],
+    dependsOn: [],
     executionHandler: fetchGoogleCloudDataFlowSnapshot,
     apis: ['dataflow.googleapis.com'],
   },
