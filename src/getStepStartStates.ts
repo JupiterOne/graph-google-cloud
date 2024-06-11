@@ -202,6 +202,41 @@ import { IntegrationConfig } from './types';
 import { isMasterOrganizationInstance } from './utils/isMasterOrganizationInstance';
 import { isSingleProjectInstance } from './utils/isSingleProjectInstance';
 
+import {
+  STEP_APPLICATION_ENDPOINT_USES_GATEWAY_RELATIONSHIP,
+  STEP_APP_CONNECTION_HAS_APPLICATION_ENDPOINT_RELATIONSHIP,
+  STEP_APP_CONNECTION_HAS_APP_CONNECTOR_RELATIONSHIP,
+  STEP_APP_CONNECTION_HAS_GATEWAY_RELATIONSHIP,
+  STEP_BEYONDCORP_APPLICATION_ENDPOINT,
+  STEP_BEYONDCORP_APP_CONNECTION,
+  STEP_BEYONDCORP_APP_CONNECTOR,
+  STEP_BEYONDCORP_ENTERPRISE,
+  STEP_BEYONDCORP_GATEWAY,
+  STEP_PROJECT_HAS_BEYONDCORP_ENTERPRISE_RELATIONSHIP,
+  STEP_PROJECT_USES_APP_CONNECTION_RELATIONSHIP,
+  STEP_PROJECT_USES_APP_CONNECTOR_RELATIONSHIP,
+} from './steps/beyondcorp/constant';
+import { beyondcorpSteps } from './steps/beyondcorp';
+
+import {
+  STEP_GOOGLE_CLOUD_DATAFLOW_JOB,
+  STEP_GOOGLE_CLOUD_DATAFLOW,
+  STEP_GOOGLE_CLOUD_DATAFLOW_DATASTORE,
+  STEP_GOOGLE_CLOUD_PROJECT_HAS_GOOGLE_CLOUD_DATAFLOW_JOB,
+  STEP_GOOGLE_CLOUD_DATAFLOW_JOB_USES_GOOGLE_CLOUD_DATAFLOW_DATASTORE,
+  STEP_GOOGLE_CLOUD_PROJECT_HAS_GOOGLE_CLOUD_DATAFLOW,
+  STEP_GOOGLE_CLOUD_DATAFLOW_USES_GOOGLE_SPANNER_INSTANCE,
+  STEP_GOOGLE_CLOUD_PROJECT_HAS_GOOGLE_CLOUD_DATAFLOW_DATASTORE,
+} from './steps/data-flow/constants';
+
+import {
+  STEP_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY,
+  STEP_POLICY_INTELLIGENCE_ANALYZER,
+  STEP_POLICY_INTELLIGENCE_ANALYZER_HAS_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY,
+  STEP_GOOGLE_CLOUD_PROJECT_HAS_POLICY_INTELLIGENCE_ANALYZER,
+  STEP_GOOGLE_CLOUD_PROJECT_HAS_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY,
+} from './steps/policy-intelligence/constants';
+
 function makeStepStartStates(
   stepIds: string[],
   stepStartState: StepStartState,
@@ -479,6 +514,76 @@ function getDefaultStepStartStates(params: {
       disabled: false,
     },
     [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: {
+      disabled: false,
+    },
+    [STEP_BEYONDCORP_APPLICATION_ENDPOINT]: {
+      disabled: false,
+    },
+    [STEP_BEYONDCORP_APP_CONNECTION]: {
+      disabled: false,
+    },
+    [STEP_BEYONDCORP_APP_CONNECTOR]: {
+      disabled: false,
+    },
+    [STEP_BEYONDCORP_GATEWAY]: {
+      disabled: false,
+    },
+    [STEP_BEYONDCORP_ENTERPRISE]: {
+      disabled: false,
+    },
+    [STEP_APP_CONNECTION_HAS_APPLICATION_ENDPOINT_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_APP_CONNECTION_HAS_APP_CONNECTOR_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_APP_CONNECTION_HAS_GATEWAY_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_PROJECT_USES_APP_CONNECTION_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_PROJECT_USES_APP_CONNECTOR_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_APPLICATION_ENDPOINT_USES_GATEWAY_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_PROJECT_HAS_BEYONDCORP_ENTERPRISE_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_GOOGLE_CLOUD_DATAFLOW_JOB]: {
+      disabled: false,
+    },
+    [STEP_GOOGLE_CLOUD_DATAFLOW]: {
+      disabled: false,
+    },
+    [STEP_GOOGLE_CLOUD_DATAFLOW_DATASTORE]: {
+      disabled: false,
+    },
+    [STEP_GOOGLE_CLOUD_PROJECT_HAS_GOOGLE_CLOUD_DATAFLOW_JOB]: {
+      disabled: false,
+    },
+    [STEP_GOOGLE_CLOUD_DATAFLOW_JOB_USES_GOOGLE_CLOUD_DATAFLOW_DATASTORE]: {
+      disabled: false,
+    },
+    [STEP_GOOGLE_CLOUD_PROJECT_HAS_GOOGLE_CLOUD_DATAFLOW]: {
+      disabled: false,
+    },
+    [STEP_GOOGLE_CLOUD_DATAFLOW_USES_GOOGLE_SPANNER_INSTANCE]: {
+      disabled: false,
+    },
+    [STEP_GOOGLE_CLOUD_PROJECT_HAS_GOOGLE_CLOUD_DATAFLOW_DATASTORE]: {
+      disabled: false
+    },
+    [STEP_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY]: { disabled: false },
+    [STEP_POLICY_INTELLIGENCE_ANALYZER]: { disabled: false },
+    [STEP_POLICY_INTELLIGENCE_ANALYZER_HAS_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY]:
+      { disabled: false },
+    [STEP_GOOGLE_CLOUD_PROJECT_HAS_POLICY_INTELLIGENCE_ANALYZER]: {
+      disabled: false,
+    },
+    [STEP_GOOGLE_CLOUD_PROJECT_HAS_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY]: {
       disabled: false,
     },
   };
@@ -904,6 +1009,70 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: createStepStartState(
       ServiceUsageName.WEB_SECURITY_SCANNER,
     ),
+    [STEP_BEYONDCORP_APP_CONNECTOR]: createStepStartState(
+      ServiceUsageName.BEYONDCORP,
+    ),
+    [STEP_BEYONDCORP_APP_CONNECTION]: createStepStartState(
+      ServiceUsageName.BEYONDCORP,
+    ),
+    [STEP_BEYONDCORP_GATEWAY]: createOrgStepStartState(
+      ServiceUsageName.BEYONDCORP,
+    ),
+    [STEP_BEYONDCORP_ENTERPRISE]: createOrgStepStartState(
+      ServiceUsageName.BEYONDCORP,
+    ),
+    [STEP_APP_CONNECTION_HAS_APP_CONNECTOR_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.BEYONDCORP),
+    [STEP_APP_CONNECTION_HAS_APPLICATION_ENDPOINT_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.BEYONDCORP),
+    [STEP_APP_CONNECTION_HAS_GATEWAY_RELATIONSHIP]: createOrgStepStartState(
+      ServiceUsageName.BEYONDCORP,
+    ),
+    [STEP_PROJECT_USES_APP_CONNECTOR_RELATIONSHIP]: createOrgStepStartState(
+      ServiceUsageName.BEYONDCORP,
+    ),
+    [STEP_PROJECT_USES_APP_CONNECTION_RELATIONSHIP]: createOrgStepStartState(
+      ServiceUsageName.BEYONDCORP,
+    ),
+    [STEP_PROJECT_HAS_BEYONDCORP_ENTERPRISE_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.BEYONDCORP),
+    [STEP_APPLICATION_ENDPOINT_USES_GATEWAY_RELATIONSHIP]:
+      createOrgStepStartState(ServiceUsageName.BEYONDCORP),
+    [STEP_BEYONDCORP_APPLICATION_ENDPOINT]: createOrgStepStartState(
+      ServiceUsageName.BEYONDCORP,
+    ),
+    [STEP_GOOGLE_CLOUD_DATAFLOW_JOB]: createStepStartState(
+      ServiceUsageName.DATA_FLOW,
+    ),
+    [STEP_GOOGLE_CLOUD_DATAFLOW]: createStepStartState(
+      ServiceUsageName.DATA_FLOW,
+    ),
+    [STEP_GOOGLE_CLOUD_DATAFLOW_DATASTORE]: createStepStartState(
+      ServiceUsageName.DATA_FLOW,
+    ),
+    [STEP_GOOGLE_CLOUD_PROJECT_HAS_GOOGLE_CLOUD_DATAFLOW_JOB]:
+      createStepStartState(ServiceUsageName.DATA_FLOW),
+    [STEP_GOOGLE_CLOUD_DATAFLOW_JOB_USES_GOOGLE_CLOUD_DATAFLOW_DATASTORE]:
+      createStepStartState(ServiceUsageName.DATA_FLOW),
+    [STEP_GOOGLE_CLOUD_PROJECT_HAS_GOOGLE_CLOUD_DATAFLOW]: createStepStartState(
+      ServiceUsageName.DATA_FLOW,
+    ),
+    [STEP_GOOGLE_CLOUD_PROJECT_HAS_GOOGLE_CLOUD_DATAFLOW_DATASTORE]:
+      createStepStartState(ServiceUsageName.DATA_FLOW),
+    [STEP_GOOGLE_CLOUD_DATAFLOW_USES_GOOGLE_SPANNER_INSTANCE]: 
+    createStepStartState(ServiceUsageName.DATA_FLOW), 
+    [STEP_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY]: createStepStartState(
+      ServiceUsageName.POLICY_INTELLIGENCE,
+    ),
+    [STEP_POLICY_INTELLIGENCE_ANALYZER]: createStepStartState(
+      ServiceUsageName.POLICY_INTELLIGENCE,
+    ),
+    [STEP_POLICY_INTELLIGENCE_ANALYZER_HAS_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY]:
+      createStepStartState(ServiceUsageName.POLICY_INTELLIGENCE),
+    [STEP_GOOGLE_CLOUD_PROJECT_HAS_POLICY_INTELLIGENCE_ANALYZER]:
+      createStepStartState(ServiceUsageName.POLICY_INTELLIGENCE),
+    [STEP_GOOGLE_CLOUD_PROJECT_HAS_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY]:
+      createStepStartState(ServiceUsageName.POLICY_INTELLIGENCE),
   };
 
   const apiServiceToStepIdsMap: { [apiService: string]: string[] } = {
@@ -946,6 +1115,7 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [ServiceUsageName.WEB_SECURITY_SCANNER]: webSecurityScannerSteps.map(
       (s) => s.id,
     ),
+    [ServiceUsageName.BEYONDCORP]: beyondcorpSteps.map((s) => s.id),
   };
 
   for (const serviceName of Object.keys(apiServiceToStepIdsMap)) {

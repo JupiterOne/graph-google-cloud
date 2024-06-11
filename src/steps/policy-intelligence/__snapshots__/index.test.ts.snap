@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchPolicyAnalyzer should collect data 1`] = `
+{
+  "collectedEntities": [],
+  "collectedRelationships": [],
+  "encounteredTypes": [],
+  "numCollectedEntities": 0,
+  "numCollectedRelationships": 0,
+}
+`;
