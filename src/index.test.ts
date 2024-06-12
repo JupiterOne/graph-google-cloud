@@ -204,7 +204,6 @@ import {
   STEP_GOOGLE_CLOUD_PROJECT_HAS_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY,
 } from './steps/policy-intelligence/constants';
 
-
 describe('#getStepStartStates success', () => {
   let recording: Recording;
 
@@ -634,6 +633,76 @@ describe('#getStepStartStates success', () => {
         [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: {
           disabled: false,
         },
+        [STEP_BEYONDCORP_APPLICATION_ENDPOINT]: {
+          disabled: false,
+        },
+        [STEP_BEYONDCORP_APP_CONNECTION]: {
+          disabled: false,
+        },
+        [STEP_BEYONDCORP_APP_CONNECTOR]: {
+          disabled: false,
+        },
+        [STEP_BEYONDCORP_GATEWAY]: {
+          disabled: false,
+        },
+        [STEP_BEYONDCORP_ENTERPRISE]: {
+          disabled: false,
+        },
+        [STEP_APP_CONNECTION_HAS_APPLICATION_ENDPOINT_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_APP_CONNECTION_HAS_APP_CONNECTOR_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_APP_CONNECTION_HAS_GATEWAY_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_USES_APP_CONNECTION_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_USES_APP_CONNECTOR_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_APPLICATION_ENDPOINT_USES_GATEWAY_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_BEYONDCORP_ENTERPRISE_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_GOOGLE_CLOUD_DATAFLOW_JOB]: {
+          disabled: false,
+        },
+        [STEP_GOOGLE_CLOUD_DATAFLOW]: {
+          disabled: false,
+        },
+        [STEP_GOOGLE_CLOUD_DATAFLOW_DATASTORE]: {
+          disabled: false,
+        },
+        [STEP_GOOGLE_CLOUD_PROJECT_HAS_GOOGLE_CLOUD_DATAFLOW_JOB]: {
+          disabled: false,
+        },
+        [STEP_GOOGLE_CLOUD_DATAFLOW_JOB_USES_GOOGLE_CLOUD_DATAFLOW_DATASTORE]: {
+          disabled: false,
+        },
+        [STEP_GOOGLE_CLOUD_PROJECT_HAS_GOOGLE_CLOUD_DATAFLOW]: {
+          disabled: false,
+        },
+        [STEP_GOOGLE_CLOUD_DATAFLOW_USES_GOOGLE_SPANNER_INSTANCE]: {
+          disabled: false,
+        },
+        [STEP_GOOGLE_CLOUD_PROJECT_HAS_GOOGLE_CLOUD_DATAFLOW_DATASTORE]: {
+          disabled: false,
+        },
+        [STEP_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY]: { disabled: false },
+        [STEP_POLICY_INTELLIGENCE_ANALYZER]: { disabled: false },
+        [STEP_POLICY_INTELLIGENCE_ANALYZER_HAS_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY]:
+          { disabled: false },
+        [STEP_GOOGLE_CLOUD_PROJECT_HAS_POLICY_INTELLIGENCE_ANALYZER]: {
+          disabled: false,
+        },
+        [STEP_GOOGLE_CLOUD_PROJECT_HAS_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY]: {
+          disabled: false,
+        },
       };
 
       expect(stepStartStates).toEqual(expectedStepStartStates);
@@ -816,76 +885,6 @@ describe('#getStepStartStates success', () => {
       },
       [STEP_BUILD_ADDITIONAL_PROJECT_BUDGET]: {
         disabled: true,
-      },
-      [STEP_BEYONDCORP_APPLICATION_ENDPOINT]: {
-        disabled: false,
-      },
-      [STEP_BEYONDCORP_APP_CONNECTION]: {
-        disabled: false,
-      },
-      [STEP_BEYONDCORP_APP_CONNECTOR]: {
-        disabled: false,
-      },
-      [STEP_BEYONDCORP_GATEWAY]: {
-        disabled: false,
-      },
-      [STEP_BEYONDCORP_ENTERPRISE]: {
-        disabled: false,
-      },
-      [STEP_APP_CONNECTION_HAS_APPLICATION_ENDPOINT_RELATIONSHIP]: {
-        disabled: false,
-      },
-      [STEP_APP_CONNECTION_HAS_APP_CONNECTOR_RELATIONSHIP]: {
-        disabled: false,
-      },
-      [STEP_APP_CONNECTION_HAS_GATEWAY_RELATIONSHIP]: {
-        disabled: false,
-      },
-      [STEP_PROJECT_USES_APP_CONNECTION_RELATIONSHIP]: {
-        disabled: false,
-      },
-      [STEP_PROJECT_USES_APP_CONNECTOR_RELATIONSHIP]: {
-        disabled: false,
-      },
-      [STEP_APPLICATION_ENDPOINT_USES_GATEWAY_RELATIONSHIP]: {
-        disabled: false,
-      },
-      [STEP_PROJECT_HAS_BEYONDCORP_ENTERPRISE_RELATIONSHIP]: {
-        disabled: false,
-      },
-      [STEP_GOOGLE_CLOUD_DATAFLOW_JOB]: {
-        disabled: false,
-      },
-      [STEP_GOOGLE_CLOUD_DATAFLOW]: {
-        disabled: false,
-      },
-      [STEP_GOOGLE_CLOUD_DATAFLOW_DATASTORE]: {
-        disabled: false,
-      },
-      [STEP_GOOGLE_CLOUD_PROJECT_HAS_GOOGLE_CLOUD_DATAFLOW_JOB]: {
-        disabled: false,
-      },
-      [STEP_GOOGLE_CLOUD_DATAFLOW_JOB_USES_GOOGLE_CLOUD_DATAFLOW_DATASTORE]: {
-        disabled: false,
-      },
-      [STEP_GOOGLE_CLOUD_PROJECT_HAS_GOOGLE_CLOUD_DATAFLOW]: {
-        disabled: false,
-      },
-      [STEP_GOOGLE_CLOUD_DATAFLOW_USES_GOOGLE_SPANNER_INSTANCE]: {
-        disabled: false,
-      },
-      [STEP_GOOGLE_CLOUD_PROJECT_HAS_GOOGLE_CLOUD_DATAFLOW_DATASTORE]: {
-        disabled: false
-      },
-      [STEP_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY]: { disabled: false },
-      [STEP_POLICY_INTELLIGENCE_ANALYZER]: { disabled: false },
-      [STEP_POLICY_INTELLIGENCE_ANALYZER_HAS_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY]:
-        { disabled: false },
-      [STEP_GOOGLE_CLOUD_PROJECT_HAS_POLICY_INTELLIGENCE_ANALYZER]: {
-        disabled: false,
-      },
-      [STEP_GOOGLE_CLOUD_PROJECT_HAS_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY]: {
-        disabled: false,
       },
     });
   });

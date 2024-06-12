@@ -574,7 +574,7 @@ function getDefaultStepStartStates(params: {
       disabled: false,
     },
     [STEP_GOOGLE_CLOUD_PROJECT_HAS_GOOGLE_CLOUD_DATAFLOW_DATASTORE]: {
-      disabled: false
+      disabled: false,
     },
     [STEP_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY]: { disabled: false },
     [STEP_POLICY_INTELLIGENCE_ANALYZER]: { disabled: false },
@@ -1059,8 +1059,8 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     ),
     [STEP_GOOGLE_CLOUD_PROJECT_HAS_GOOGLE_CLOUD_DATAFLOW_DATASTORE]:
       createStepStartState(ServiceUsageName.DATA_FLOW),
-    [STEP_GOOGLE_CLOUD_DATAFLOW_USES_GOOGLE_SPANNER_INSTANCE]: 
-    createStepStartState(ServiceUsageName.DATA_FLOW), 
+    [STEP_GOOGLE_CLOUD_DATAFLOW_USES_GOOGLE_SPANNER_INSTANCE]:
+      createStepStartState(ServiceUsageName.DATA_FLOW),
     [STEP_POLICY_INTELLIGENCE_ANALYZER_ACTIVITY]: createStepStartState(
       ServiceUsageName.POLICY_INTELLIGENCE,
     ),
@@ -1116,6 +1116,8 @@ async function getStepStartStatesUsingServiceEnablements(params: {
       (s) => s.id,
     ),
     [ServiceUsageName.BEYONDCORP]: beyondcorpSteps.map((s) => s.id),
+    [ServiceUsageName.DATA_FLOW]: beyondcorpSteps.map((s) => s.id),
+    [ServiceUsageName.POLICY_INTELLIGENCE]: beyondcorpSteps.map((s) => s.id),
   };
 
   for (const serviceName of Object.keys(apiServiceToStepIdsMap)) {

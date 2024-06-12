@@ -59,6 +59,7 @@ all of the supported data into JupiterOne:
 | [accesscontextmanager](https://console.developers.google.com/apis/library/accesscontextmanager.googleapis.com) | accesscontextmanager.googleapis.com |
 | [apigateway](https://console.developers.google.com/apis/library/apigateway.googleapis.com)                     | apigateway.googleapis.com           |
 | [appengine](https://console.developers.google.com/apis/library/appengine.googleapis.com)                       | appengine.googleapis.com            |
+| [beyondcorp](https://console.developers.google.com/apis/library/beyondcorp.googleapis.com)                     | beyondcorp.googleapis.com           |
 | [bigquery](https://console.developers.google.com/apis/library/bigquery.googleapis.com)                         | bigquery.googleapis.com             |
 | [bigtable](https://console.developers.google.com/apis/library/bigtable.googleapis.com)                         | bigtable.googleapis.com             |
 | [binaryauthorization](https://console.developers.google.com/apis/library/binaryauthorization.googleapis.com)   | binaryauthorization.googleapis.com  |
@@ -70,14 +71,17 @@ all of the supported data into JupiterOne:
 | [cloudsql](https://console.developers.google.com/apis/library/cloudsql.googleapis.com)                         | cloudsql.googleapis.com             |
 | [compute](https://console.developers.google.com/apis/library/compute.googleapis.com)                           | compute.googleapis.com              |
 | [container](https://console.developers.google.com/apis/library/container.googleapis.com)                       | container.googleapis.com            |
+| [dataflow](https://console.developers.google.com/apis/library/dataflow.googleapis.com)                         | dataflow.googleapis.com             |
 | [dataproc](https://console.developers.google.com/apis/library/dataproc.googleapis.com)                         | dataproc.googleapis.com             |
 | [dns](https://console.developers.google.com/apis/library/dns.googleapis.com)                                   | dns.googleapis.com                  |
 | [iam](https://console.developers.google.com/apis/library/iam.googleapis.com)                                   | iam.googleapis.com                  |
 | [logging](https://console.developers.google.com/apis/library/logging.googleapis.com)                           | logging.googleapis.com              |
 | [memcache](https://console.developers.google.com/apis/library/memcache.googleapis.com)                         | memcache.googleapis.com             |
 | [monitoring](https://console.developers.google.com/apis/library/monitoring.googleapis.com)                     | monitoring.googleapis.com           |
+| [networkmanagement](https://console.developers.google.com/apis/library/networkmanagement.googleapis.com)       | networkmanagement.googleapis.com    |
 | [orgpolicy](https://console.developers.google.com/apis/library/orgpolicy.googleapis.com)                       | orgpolicy.googleapis.com            |
 | [osconfig](https://console.developers.google.com/apis/library/osconfig.googleapis.com)                         | osconfig.googleapis.com             |
+| [policyanalyzer](https://console.developers.google.com/apis/library/policyanalyzer.googleapis.com)             | policyanalyzer.googleapis.com       |
 | [privateca](https://console.developers.google.com/apis/library/privateca.googleapis.com)                       | privateca.googleapis.com            |
 | [pubsub](https://console.developers.google.com/apis/library/pubsub.googleapis.com)                             | pubsub.googleapis.com               |
 | [redis](https://console.developers.google.com/apis/library/redis.googleapis.com)                               | redis.googleapis.com                |
@@ -120,6 +124,7 @@ gcloud services enable \
  accesscontextmanager.googleapis.com \
  apigateway.googleapis.com \
  appengine.googleapis.com \
+ beyondcorp.googleapis.com \
  bigquery.googleapis.com \
  bigtable.googleapis.com \
  binaryauthorization.googleapis.com \
@@ -131,14 +136,17 @@ gcloud services enable \
  cloudsql.googleapis.com \
  compute.googleapis.com \
  container.googleapis.com \
+ dataflow.googleapis.com \
  dataproc.googleapis.com \
  dns.googleapis.com \
  iam.googleapis.com \
  logging.googleapis.com \
  memcache.googleapis.com \
  monitoring.googleapis.com \
+ networkmanagement.googleapis.com \
  orgpolicy.googleapis.com \
  osconfig.googleapis.com \
+ policyanalyzer.googleapis.com \
  privateca.googleapis.com \
  pubsub.googleapis.com \
  redis.googleapis.com \
@@ -358,6 +366,11 @@ The following entities are created:
 | AppEngine Service                                        | `google_app_engine_service`                                       | `Container`                        |
 | AppEngine Version                                        | `google_app_engine_version`                                       | `Service`                          |
 | Audit Config                                             | `google_cloud_audit_config`                                       | `Configuration`                    |
+| BeyondCrop App connection                                | `google_cloud_beyondcorp_connection`                              | `Network`                          |
+| BeyondCrop App connector                                 | `google_cloud_beyondcorp_connector`                               | `Network`                          |
+| BeyondCrop Application Endpoints                         | `google_cloud_beyondcorp_application_endpoint`                    | `NetworkEndpoint`                  |
+| BeyondCrop Enterprise                                    | `google_cloud_beyondcorp_enterprise`                              | `Service`                          |
+| BeyondCrop gateways                                      | `google_cloud_beyondcorp_gateway`                                 | `Gateway`                          |
 | Big Query Dataset                                        | `google_bigquery_dataset`                                         | `DataStore`, `Database`            |
 | Big Query Model                                          | `google_bigquery_model`                                           | `Model`                            |
 | Big Query Table                                          | `google_bigquery_table`                                           | `DataCollection`                   |
@@ -410,6 +423,9 @@ The following entities are created:
 | DNS Policy                                               | `google_dns_policy`                                               | `Ruleset`                          |
 | Dataproc Cluster                                         | `google_dataproc_cluster`                                         | `Cluster`                          |
 | Folder                                                   | `google_cloud_folder`                                             | `Group`                            |
+| Google Cloud Dataflow                                    | `google_cloud_dataflow`                                           | `Service`                          |
+| Google Cloud Dataflow Datastore                          | `google_cloud_dataflow_datastore`                                 | `Datastore`                        |
+| Google Cloud Dataflow Job                                | `google_cloud_dataflow_job`                                       | `Workflow`                         |
 | IAM Binding                                              | `google_iam_binding`                                              | `AccessPolicy`                     |
 | IAM Custom Role                                          | `google_iam_role`                                                 | `AccessRole`                       |
 | IAM Service Account                                      | `google_iam_service_account`                                      | `User`                             |
@@ -422,6 +438,8 @@ The following entities are created:
 | Memcache Instance Node                                   | `google_memcache_instance_node`                                   | `Database`, `DataStore`, `Host`    |
 | Monitoring Alert Policy                                  | `google_monitoring_alert_policy`                                  | `Policy`                           |
 | Organization                                             | `google_cloud_organization`                                       | `Organization`                     |
+| Policy Intelligence Analyzer                             | `google_cloud_policy_intelligence_analyzer`                       | `Service`                          |
+| Policy Intelligence Analyzer Activity                    | `google_cloud_policy_intelligence_analyzer_activity`              | `Assessment`                       |
 | Private CA Certificate                                   | `google_privateca_certificate`                                    | `Certificate`                      |
 | Private CA Certificate Authority                         | `google_privateca_certificate_authority`                          | `Service`                          |
 | Private CA Pool                                          | `google_privateca_pool`                                           | `Group`                            |
@@ -479,10 +497,16 @@ The following relationships are created:
 | `google_cloud_audit_config`                                      | **ALLOWS**            | `google_group`                                                    |
 | `google_cloud_audit_config`                                      | **ALLOWS**            | `google_iam_service_account`                                      |
 | `google_cloud_audit_config`                                      | **ALLOWS**            | `google_user`                                                     |
+| `google_cloud_beyondcorp_application_endpoint`                   | **USES**              | `google_cloud_beyondcorp_gateway`                                 |
+| `google_cloud_beyondcorp_connection`                             | **HAS**               | `google_cloud_beyondcorp_application_endpoint`                    |
+| `google_cloud_beyondcorp_connection`                             | **HAS**               | `google_cloud_beyondcorp_connector`                               |
+| `google_cloud_beyondcorp_connection`                             | **HAS**               | `google_cloud_beyondcorp_gateway`                                 |
 | `google_cloud_bitbucket_server_config`                           | **HAS**               | `google_cloud_bitbucket_server_repo`                              |
 | `google_cloud_build`                                             | **USES**              | `google_cloud_source_repository`                                  |
 | `google_cloud_build`                                             | **USES**              | `google_storage_bucket`                                           |
 | `google_cloud_build_trigger`                                     | **TRIGGERS**          | `google_cloud_build`                                              |
+| `google_cloud_dataflow`                                          | **USES**              | `google_spanner_instance`                                         |
+| `google_cloud_dataflow_job`                                      | **HAS**               | `google_cloud_dataflow_datastore`                                 |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_folder`                                             |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_project`                                            |
 | `google_cloud_function`                                          | **USES**              | `google_cloud_source_repository`                                  |
@@ -490,9 +514,18 @@ The following relationships are created:
 | `google_cloud_function`                                          | **USES**              | `google_storage_bucket`                                           |
 | `google_cloud_organization`                                      | **HAS**               | `google_cloud_folder`                                             |
 | `google_cloud_organization`                                      | **HAS**               | `google_cloud_project`                                            |
+| `google_cloud_policy_intelligence_analyzer`                      | **HAS**               | `google_cloud_policy_intelligence_analyzer_activity`              |
 | `google_cloud_project`                                           | **HAS**               | `google_billing_budget`                                           |
 | `google_cloud_project`                                           | **HAS**               | `google_binary_authorization_policy`                              |
 | `google_cloud_project`                                           | **HAS**               | `google_cloud_api_service`                                        |
+| `google_cloud_project`                                           | **USES**              | `google_cloud_beyondcorp_connection`                              |
+| `google_cloud_project`                                           | **USES**              | `google_cloud_beyondcorp_connector`                               |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_beyondcorp_enterprise`                              |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_dataflow`                                           |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_dataflow_datastore`                                 |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_dataflow_job`                                       |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_policy_intelligence_analyzer`                       |
+| `google_cloud_project`                                           | **HAS**               | `google_cloud_policy_intelligence_analyzer_activity`              |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_configuration`                                  |
 | `google_cloud_run_service`                                       | **MANAGES**           | `google_cloud_run_route`                                          |
 | `google_cloud_scan_config`                                       | **PERFORMED**         | `google_cloud_scan_run`                                           |
@@ -600,7 +633,7 @@ permissions can be used to provision only the required ones:
 
 <!-- {J1_PERMISSIONS_DOCUMENTATION_MARKER_START} -->
 
-| Permissions List (112)                                  |
+| Permissions List (115)                                  |
 | ------------------------------------------------------- |
 | `accesscontextmanager.accessLevels.list`                |
 | `accesscontextmanager.accessPolicies.list`              |
@@ -615,6 +648,9 @@ permissions can be used to provision only the required ones:
 | `appengine.instances.list`                              |
 | `appengine.services.list`                               |
 | `appengine.versions.list`                               |
+| `beyondcrop.appConnections.list`                        |
+| `beyondcrop.appConnectors.list`                         |
+| `beyondcrop.appGateways.list`                           |
 | `bigquery.datasets.get`                                 |
 | `bigquery.models.getData`                               |
 | `bigquery.models.getMetadata`                           |
