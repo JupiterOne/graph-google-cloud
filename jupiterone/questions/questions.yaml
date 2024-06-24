@@ -717,8 +717,8 @@ questions:
           'DATA_READ' AND 'DATA_WRITE')
       - name: bad
         query:
-          FIND google_cloud_audit_config WITH logTypes != ('ADMIN_READ' AND
-          'DATA_READ' AND 'DATA_WRITE')
+          FIND google_cloud_audit_config WITH logTypes != ('ADMIN_READ' OR
+          'DATA_READ' OR 'DATA_WRITE')
     tags:
       - cloud-audit-logging
       - google-logging
