@@ -1,6 +1,8 @@
 import {
   ExecutionHandlerFunction,
+  IntegrationLogger,
   IntegrationProviderAuthorizationError,
+  IntegrationWarnEventName,
   StepExecutionContext,
 } from '@jupiterone/integration-sdk-core';
 import { createErrorProps } from '../google-cloud/utils/createErrorProps';
@@ -81,13 +83,17 @@ function wrapStepExecutionHandlers(
     return {
       ...step,
       executionHandler: createWrappedStepExecutionHandler(
+        step.name,
         step.executionHandler,
       ),
     };
   });
 }
 
-function handleExecutionHandler(err: any) {
+function handleExecutionHandler(
+  err: any,
+  { stepName, logger }: { stepName: string; logger: IntegrationLogger },
+) {
   // This is a catch all that ensures every API call in this project is
   // properly wrapped. Some API calls in this project are using `iterateApi`,
   // which has a custom error handling wrapper. Some API calls aren't using
@@ -102,17 +108,30 @@ function handleExecutionHandler(err: any) {
     throw e;
   }
 
+  if (
+    err.status === 400 &&
+    err.statusText?.match &&
+    err.statusText.match(/billing/i)
+  ) {
+    logger.publishWarnEvent({
+      name: IntegrationWarnEventName.IncompleteData,
+      description: `Billing not enabled for the project. Skipping "${stepName}" ingestion.`,
+    });
+    return;
+  }
+
   throw err;
 }
 
 function createWrappedStepExecutionHandler<T extends StepExecutionContext>(
+  stepName: string,
   originalExecutionHandler: ExecutionHandlerFunction<T>,
 ): ExecutionHandlerFunction<T> {
   return async (context: T) => {
     try {
       await originalExecutionHandler(context);
     } catch (err) {
-      handleExecutionHandler(err);
+      handleExecutionHandler(err, { stepName, logger: context.logger });
     }
   };
 }

@@ -1,6 +1,5 @@
 import {
   createDirectRelationship,
-  IntegrationWarnEventName,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
 import { CloudKmsClient } from './client';
@@ -29,41 +28,25 @@ export async function fetchKmsKeyRings(
   const { jobState, instance, logger } = context;
   const client = new CloudKmsClient({ config: instance.config }, logger);
 
-  try {
-    await client.iterateKeyRings(
-      async (keyRing) => {
-        await jobState.addEntity(createKmsKeyRingEntity(keyRing));
-      },
-      ({
-        totalRequestsMade,
-        totalResourcesReturned,
-        maximumResourcesPerPage,
-      }) => {
-        logger.info(
-          {
-            totalRequestsMade,
-            totalResourcesReturned,
-            maximumResourcesPerPage,
-          },
-          'KMS Key Rings API Requests summary',
-        );
-      },
-    );
-  } catch (err) {
-    if (
-      err.status === 400 &&
-      err.statusText?.match &&
-      err.statusText.match(/billing/i)
-    ) {
-      logger.publishWarnEvent({
-        name: IntegrationWarnEventName.IncompleteData,
-        description:
-          'Billing not enabled for the project. Skipping KMS Key Rings ingestion.',
-      });
-    } else {
-      throw err;
-    }
-  }
+  await client.iterateKeyRings(
+    async (keyRing) => {
+      await jobState.addEntity(createKmsKeyRingEntity(keyRing));
+    },
+    ({
+      totalRequestsMade,
+      totalResourcesReturned,
+      maximumResourcesPerPage,
+    }) => {
+      logger.info(
+        {
+          totalRequestsMade,
+          totalResourcesReturned,
+          maximumResourcesPerPage,
+        },
+        'KMS Key Rings API Requests summary',
+      );
+    },
+  );
 }
 
 export async function fetchKmsCryptoKeys(
