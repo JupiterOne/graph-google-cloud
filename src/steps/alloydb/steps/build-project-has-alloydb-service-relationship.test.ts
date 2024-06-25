@@ -36,7 +36,7 @@ describe(STEP_PROJECT_HAS_ALLOYDB_SERVICE_RELATIONSHIP, () => {
       name: STEP_PROJECT_HAS_ALLOYDB_SERVICE_RELATIONSHIP,
       directory: __dirname,
       options: {
-        matchRequestsBy: getMatchRequestsBy(integrationConfigNew),
+        matchRequestsBy: getMatchRequestsBy(integrationConfigNew), 
       },
     });
 
