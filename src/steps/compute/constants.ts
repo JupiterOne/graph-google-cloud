@@ -1,3 +1,9 @@
+import {
+  RelationshipClass,
+  StepEntityMetadata,
+  StepRelationshipMetadata,
+} from '@jupiterone/integration-sdk-core';
+
 // Steps
 export const STEP_COMPUTE_INSTANCES = 'fetch-compute-instances';
 export const STEP_COMPUTE_INSTANCE_SERVICE_ACCOUNT_RELATIONSHIPS =
@@ -53,6 +59,9 @@ export const STEP_COMPUTE_TARGET_HTTP_PROXIES =
 export const STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES =
   'fetch-compute-region-target-http-proxies';
 export const STEP_COMPUTE_SSL_POLICIES = 'fetch-compute-ssl-policies';
+export const STEP_COMPUTE_ROUTER = 'fetch-compute-router';
+export const STEP_COMPUTE_NETWORK_ROUTER_RELATIONSHIPS =
+  'build-compute-network-router-relationship';
 
 // Entities
 export const ENTITY_CLASS_COMPUTE_INSTANCE = ['Host'];
@@ -130,6 +139,9 @@ export const ENTITY_CLASS_COMPUTE_TARGET_HTTPS_PROXY = ['Gateway'];
 
 export const ENTITY_TYPE_COMPUTE_SSL_POLICY = 'google_compute_ssl_policy';
 export const ENTITY_CLASS_COMPUTE_SSL_POLICY = 'Policy';
+
+export const ENTITY_TYPE_COMPUTE_ROUTER = 'google_cloud_compute_router';
+export const ENTITY_CLASS_COMPUTE_ROUTER = ['Device'];
 
 // Relationships
 export const RELATIONSHIP_TYPE_GOOGLE_COMPUTE_INSTANCE_TRUSTS_IAM_SERVICE_ACCOUNT =
@@ -224,6 +236,8 @@ export const RELATIONSHIP_TYPE_TARGET_HTTPS_PROXY_HAS_SSL_POLICY =
   'google_compute_target_https_proxy_has_ssl_policy';
 export const RELATIONSHIP_TYPE_TARGET_SSL_PROXY_HAS_SSL_POLICY =
   'google_compute_target_ssl_proxy_has_ssl_policy';
+export const RELATIONSHIP_TYPE_COMPUTE_NETWORK_HAS_ROUTER =
+  'google_compute_network_has_cloud_compute_router';
 
 // Mapped relationships
 export const MAPPED_RELATIONSHIP_FIREWALL_RULE_TYPE =
@@ -258,6 +272,7 @@ export const IngestionSources = {
   COMPUTE_TARGET_HTTP_PROXIES: 'compute-target-http-proxies',
   COMPUTE_REGION_TARGET_HTTP_PROXIES: 'compute-region-target-http-proxies',
   COMPUTE_SSL_POLICIES: 'compute-ssl-policies',
+  COMPUTE_ROUTER: 'compute-router',
 };
 
 export const ComputeIngestionConfig = {
@@ -440,4 +455,33 @@ export const ComputePermissions = {
   STEP_COMPUTE_TARGET_SSL_PROXIES: ['compute.targetSslProxies.list'],
   STEP_COMPUTE_IMAGES: ['compute.images.list', 'compute.images.getIamPolicy'],
   STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS: ['compute.images.get'],
+  STEP_COMPUTE_ROUTER: ['compute.routers.list'],
+};
+
+export const Entities: Record<'COMPUTE_ROUTER', StepEntityMetadata> = {
+  COMPUTE_ROUTER: {
+    resourceName: 'Cloud Compute Router',
+    _type: ENTITY_TYPE_COMPUTE_ROUTER,
+    _class: ENTITY_CLASS_COMPUTE_ROUTER,
+    schema: {
+      properties: {
+        make: { exclude: true },
+        model: { exclude: true },
+        serial: { exclude: true },
+        lastSeenOn: { exclude: true },
+      },
+    },
+  },
+};
+
+export const Relationships: Record<
+  'COMPUTE_NETWORK_HAS_ROUTER',
+  StepRelationshipMetadata
+> = {
+  COMPUTE_NETWORK_HAS_ROUTER: {
+    _class: RelationshipClass.HAS,
+    _type: RELATIONSHIP_TYPE_COMPUTE_NETWORK_HAS_ROUTER,
+    sourceType: ENTITY_TYPE_COMPUTE_NETWORK,
+    targetType: ENTITY_TYPE_COMPUTE_ROUTER,
+  },
 };

@@ -191,4 +191,7 @@ const CLOUD_RESOURCE_IDENTIFIER_TO_KIND_MAP: {
   '//container.googleapis.com/projects/PROJECT_ID/zones/ZONE/clusters/CLUSTER/k8s/namespaces/NAMESPACE/rbac.authorization.k8s.io/rolebindings/ROLEBINDING': 'rbac.authorization.k8s.io/RoleBinding',
   '//container.googleapis.com/projects/PROJECT_ID/zones/ZONE/clusters/CLUSTER/k8s/rbac.authorization.k8s.io/clusterroles/CLUSTER_ROLE': 'rbac.authorization.k8s.io/ClusterRole',
   '//container.googleapis.com/projects/PROJECT_ID/zones/ZONE/clusters/CLUSTER/k8s/rbac.authorization.k8s.io/clusterrolebindings/CLUSTER_ROLE_BINDING': 'rbac.authorization.k8s.io/ClusterRoleBinding',
+  '//alloydb.googleapis.com/projects/PROJECT_ID/locations/LOCATION/backups/BACKUP': 'alloydb.googleapis.com/Backup',
+  '//alloydb.googleapis.com/projects/PROJECT_ID/locations/LOCATION/clusters/CLUSTER': 'alloydb.googleapis.com/Cluster',
+  '//alloydb.googleapis.com/projects/PROJECT_ID/locations/LOCATION/clusters/CLUSTER/instances/INSTANCE': 'alloydb.googleapis.com/Instance'
 }

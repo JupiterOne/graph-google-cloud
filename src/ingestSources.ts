@@ -31,6 +31,8 @@ import { SpannerIngestionConfig } from './steps/spanner/constants';
 import { SQLAdminIngestionConfig } from './steps/sql-admin';
 import { StorageIngestionConfig } from './steps/storage/constants';
 import { WebSecurityScannerIngestionConfig } from './steps/web-security-scanner/constants';
+import { CodeDeployIngestionConfig } from './steps/cloud-deploy/constant';
+import { AlloyDBIngestionConfig } from './steps/alloydb/constants';
 
 export const ingestionConfig: IntegrationIngestionConfigFieldMap = {
   ...AccessContextManagerIngestionConfig,
@@ -66,4 +68,6 @@ export const ingestionConfig: IntegrationIngestionConfigFieldMap = {
   ...SQLAdminIngestionConfig,
   ...StorageIngestionConfig,
   ...WebSecurityScannerIngestionConfig,
+  ...CodeDeployIngestionConfig,
+  ...AlloyDBIngestionConfig,
 };

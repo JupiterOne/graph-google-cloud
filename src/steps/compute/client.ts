@@ -27,6 +27,7 @@ import {
   STEP_COMPUTE_REGION_LOADBALANCERS,
   STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES,
   STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES,
+  STEP_COMPUTE_ROUTER,
   STEP_COMPUTE_SNAPSHOTS,
   STEP_COMPUTE_SSL_POLICIES,
   STEP_COMPUTE_SUBNETWORKS,
@@ -794,5 +795,30 @@ export class ComputeClient extends Client {
       STEP_COMPUTE_SSL_POLICIES,
       ComputePermissions.STEP_COMPUTE_SSL_POLICIES,
     );
+  }
+
+  async iterateComputeRouter(
+    callback: (data: compute_v1.Schema$Router) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+    await iterateRegions(async (region) => {
+      await this.iterateApi(
+        async (nextPageToken) => {
+          return this.client.routers.list({
+            auth,
+            pageToken: nextPageToken,
+            project: this.projectId,
+            region: region,
+          });
+        },
+        async (data: compute_v1.Schema$RouterList) => {
+          for (const item of data.items || []) {
+            await callback(item);
+          }
+        },
+        STEP_COMPUTE_ROUTER,
+        ComputePermissions.STEP_COMPUTE_ROUTER,
+      );
+    });
   }
 }

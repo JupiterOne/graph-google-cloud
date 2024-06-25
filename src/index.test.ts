@@ -89,6 +89,7 @@ import {
   STEP_COMPUTE_LOADBALANCERS,
   STEP_COMPUTE_NETWORKS,
   STEP_COMPUTE_NETWORK_PEERING_RELATIONSHIPS,
+  STEP_COMPUTE_NETWORK_ROUTER_RELATIONSHIPS,
   STEP_COMPUTE_PROJECT,
   STEP_COMPUTE_REGION_BACKEND_SERVICES,
   STEP_COMPUTE_REGION_DISKS,
@@ -97,6 +98,7 @@ import {
   STEP_COMPUTE_REGION_LOADBALANCERS,
   STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES,
   STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES,
+  STEP_COMPUTE_ROUTER,
   STEP_COMPUTE_SNAPSHOTS,
   STEP_COMPUTE_SNAPSHOT_DISK_RELATIONSHIPS,
   STEP_COMPUTE_SSL_POLICIES,
@@ -155,9 +157,17 @@ import {
 import { SecretManagerSteps } from './steps/secret-manager/constants';
 import { ServiceUsageStepIds } from './steps/service-usage/constants';
 import {
+  STEP_CLOUD_SPANNER_SERVICE,
+  STEP_PROJECT_HAS_SPANNER_INSTANCE,
+  STEP_PROJECT_HAS_SPANNER_INSTANCE_CONFIG,
+  STEP_PROJECT_HAS_SPANNER_SERVICE,
+  STEP_SPANNER_BACKUP,
   STEP_SPANNER_INSTANCES,
   STEP_SPANNER_INSTANCE_CONFIGS,
   STEP_SPANNER_INSTANCE_DATABASES,
+  STEP_SPANNER_INSTANCE_DATABASES_ASSIGNED_DATABASE_ROLE,
+  STEP_SPANNER_INSTANCE_DATABASES_ROLE,
+  STEP_SPANNER_INSTANCE_HAS_BACKUP,
 } from './steps/spanner/constants';
 import { SqlAdminSteps, STEP_SQL_ADMIN_INSTANCES } from './steps/sql-admin';
 import { IntegrationConfig } from './types';
@@ -169,6 +179,30 @@ import {
 } from './steps/functions';
 import { StorageStepsSpec } from './steps/storage/constants';
 import { WebSecurityScannerSteps } from './steps/web-security-scanner/constants';
+import {
+  STEP_CLOUD_DEPLOY_AUTOMATION,
+  STEP_CLOUD_DEPLOY_AUTOMATION_TRIGGERS_DELIVERY_PIPELINE_AUTOMATION_RELATIONSHIP,
+  STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE,
+  STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_GITHUB_REPO_RELAIONSHIP,
+  STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_STORAGE_BUCKET_RELATIONSHIP,
+  STEP_CLOUD_DEPLOY_SERVICE,
+  STEP_CLOUD_DEPLOY_SERVICE_HAS_DELIVERY_PIPELINE_RELAIONSHIP,
+  STEP_PROJECT_HAS_CLOUD_DEPLOY_RELATIONSHIP,
+} from './steps/cloud-deploy/constant';
+import {
+  STEP_ALLOYDB_CLUSTER_HAS_BACKUP_RELATIONSHIP,
+  STEP_ALLOYDB_CLUSTER_USES_KMS_KEY_RELATIONSHIP,
+  STEP_ALLOYDB_INSTANCE_HAS_CONNECTION_RELATIONSHIP,
+  STEP_ALLOYDB_INSTANCE_USES_CLUSTER_RELATIONSHIP,
+  STEP_ALLOYDB_POSTGRE_SQL_BACKUP,
+  STEP_ALLOYDB_POSTGRE_SQL_CLUSTER,
+  STEP_ALLOYDB_POSTGRE_SQL_CONNECTION,
+  STEP_ALLOYDB_POSTGRE_SQL_INSTANCE,
+  STEP_ALLOYDB_POSTGRE_SQL_SERVICE,
+  STEP_PROJECT_HAS_ALLOYDB_CLUSTER_RELATIONSHIP,
+  STEP_PROJECT_HAS_ALLOYDB_SERVICE_RELATIONSHIP,
+  STEP_USER_ASSIGNED_ALLOYDB_CLUSTER_RELATIONSHIP,
+} from './steps/alloydb/constants';
 
 describe('#getStepStartStates success', () => {
   let recording: Recording;
@@ -315,6 +349,8 @@ describe('#getStepStartStates success', () => {
         [STEP_COMPUTE_SUBNETWORKS]: {
           disabled: false,
         },
+        [STEP_COMPUTE_ROUTER]: { disabled: false },
+        [STEP_COMPUTE_NETWORK_ROUTER_RELATIONSHIPS]: { disabled: false },
         [STEP_COMPUTE_PROJECT]: {
           disabled: false,
         },
@@ -468,6 +504,16 @@ describe('#getStepStartStates success', () => {
         [STEP_SPANNER_INSTANCE_DATABASES]: {
           disabled: false,
         },
+        [STEP_SPANNER_INSTANCE_DATABASES_ROLE]: { disabled: false },
+        [STEP_SPANNER_INSTANCE_DATABASES_ASSIGNED_DATABASE_ROLE]: {
+          disabled: false,
+        },
+        [STEP_SPANNER_BACKUP]: { disabled: false },
+        [STEP_SPANNER_INSTANCE_HAS_BACKUP]: { disabled: false },
+        [STEP_CLOUD_SPANNER_SERVICE]: { disabled: false },
+        [STEP_PROJECT_HAS_SPANNER_SERVICE]: { disabled: false },
+        [STEP_PROJECT_HAS_SPANNER_INSTANCE]: { disabled: false },
+        [STEP_PROJECT_HAS_SPANNER_INSTANCE_CONFIG]: { disabled: false },
         [STEP_API_GATEWAY_APIS]: {
           disabled: false,
         },
@@ -599,8 +645,69 @@ describe('#getStepStartStates success', () => {
         [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: {
           disabled: false,
         },
+        [STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_DEPLOY_AUTOMATION]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_DEPLOY_SERVICE]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_CLOUD_DEPLOY_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_DEPLOY_SERVICE_HAS_DELIVERY_PIPELINE_RELAIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_DEPLOY_AUTOMATION_TRIGGERS_DELIVERY_PIPELINE_AUTOMATION_RELATIONSHIP]:
+          {
+            disabled: false,
+          },
+        [STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_GITHUB_REPO_RELAIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_STORAGE_BUCKET_RELATIONSHIP]:
+          {
+            disabled: false,
+          },
+        [STEP_ALLOYDB_POSTGRE_SQL_SERVICE]: {
+          disabled: false,
+        },
+        [STEP_ALLOYDB_POSTGRE_SQL_CLUSTER]: {
+          disabled: false,
+        },
+        [STEP_ALLOYDB_POSTGRE_SQL_INSTANCE]: {
+          disabled: false,
+        },
+        [STEP_ALLOYDB_POSTGRE_SQL_CONNECTION]: {
+          disabled: false,
+        },
+        [STEP_ALLOYDB_POSTGRE_SQL_BACKUP]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_ALLOYDB_SERVICE_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_PROJECT_HAS_ALLOYDB_CLUSTER_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_ALLOYDB_INSTANCE_USES_CLUSTER_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_ALLOYDB_CLUSTER_HAS_BACKUP_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_ALLOYDB_INSTANCE_HAS_CONNECTION_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_ALLOYDB_CLUSTER_USES_KMS_KEY_RELATIONSHIP]: {
+          disabled: false,
+        },
+        [STEP_USER_ASSIGNED_ALLOYDB_CLUSTER_RELATIONSHIP]: {
+          disabled: false,
+        },
       };
-
       expect(stepStartStates).toEqual(expectedStepStartStates);
     },
   );

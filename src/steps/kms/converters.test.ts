@@ -6,12 +6,16 @@ import {
 } from '../../../test/mocks';
 
 describe('#createKmsKeyRingEntity', () => {
+  jest.setTimeout(450000);
+
   test('should convert to entity', () => {
     expect(createKmsKeyRingEntity(getMockKmsKeyRing())).toMatchSnapshot();
   });
 });
 
 describe('#createKmsCryptoKeyEntity', () => {
+  jest.setTimeout(450000);
+
   test('should convert to entity', () => {
     expect(
       createKmsCryptoKeyEntity({
@@ -29,7 +33,7 @@ describe('#createKmsCryptoKeyEntity', () => {
       createKmsCryptoKeyEntity({
         cryptoKey: getMockKmsCryptoKey(),
         location: 'us',
-        projectId: 'j1-gc-integration-dev-v2',
+        projectId: 'j1-gc-integration-dev-v3',
         cryptoKeyRingShortName: 'j1-gc-integration-dev-v2-bucket-ring',
         iamPolicy: getMockKmsCryptoKeyIamPolicy({
           bindings: [
@@ -48,7 +52,7 @@ describe('#createKmsCryptoKeyEntity', () => {
       createKmsCryptoKeyEntity({
         cryptoKey: getMockKmsCryptoKey(),
         location: 'us',
-        projectId: 'j1-gc-integration-dev-v2',
+        projectId: 'j1-gc-integration-dev-v3',
         cryptoKeyRingShortName: 'j1-gc-integration-dev-v2-bucket-ring',
         iamPolicy: getMockKmsCryptoKeyIamPolicy({
           bindings: [

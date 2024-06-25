@@ -93,6 +93,7 @@ import {
   STEP_COMPUTE_INSTANCES,
   STEP_COMPUTE_LOADBALANCERS,
   STEP_COMPUTE_NETWORK_PEERING_RELATIONSHIPS,
+  STEP_COMPUTE_NETWORK_ROUTER_RELATIONSHIPS,
   STEP_COMPUTE_NETWORKS,
   STEP_COMPUTE_PROJECT,
   STEP_COMPUTE_REGION_BACKEND_SERVICES,
@@ -102,6 +103,7 @@ import {
   STEP_COMPUTE_REGION_LOADBALANCERS,
   STEP_COMPUTE_REGION_TARGET_HTTP_PROXIES,
   STEP_COMPUTE_REGION_TARGET_HTTPS_PROXIES,
+  STEP_COMPUTE_ROUTER,
   STEP_COMPUTE_SNAPSHOT_DISK_RELATIONSHIPS,
   STEP_COMPUTE_SNAPSHOTS,
   STEP_COMPUTE_SSL_POLICIES,
@@ -185,8 +187,16 @@ import { serviceUsageSteps } from './steps/service-usage';
 import { ServiceUsageStepIds } from './steps/service-usage/constants';
 import { spannerSteps } from './steps/spanner';
 import {
+  STEP_CLOUD_SPANNER_SERVICE,
+  STEP_PROJECT_HAS_SPANNER_INSTANCE,
+  STEP_PROJECT_HAS_SPANNER_INSTANCE_CONFIG,
+  STEP_PROJECT_HAS_SPANNER_SERVICE,
+  STEP_SPANNER_BACKUP,
   STEP_SPANNER_INSTANCE_CONFIGS,
   STEP_SPANNER_INSTANCE_DATABASES,
+  STEP_SPANNER_INSTANCE_DATABASES_ASSIGNED_DATABASE_ROLE,
+  STEP_SPANNER_INSTANCE_DATABASES_ROLE,
+  STEP_SPANNER_INSTANCE_HAS_BACKUP,
   STEP_SPANNER_INSTANCES,
 } from './steps/spanner/constants';
 import {
@@ -201,6 +211,32 @@ import { WebSecurityScannerSteps } from './steps/web-security-scanner/constants'
 import { IntegrationConfig } from './types';
 import { isMasterOrganizationInstance } from './utils/isMasterOrganizationInstance';
 import { isSingleProjectInstance } from './utils/isSingleProjectInstance';
+import {
+  STEP_CLOUD_DEPLOY_AUTOMATION,
+  STEP_CLOUD_DEPLOY_AUTOMATION_TRIGGERS_DELIVERY_PIPELINE_AUTOMATION_RELATIONSHIP,
+  STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE,
+  STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_GITHUB_REPO_RELAIONSHIP,
+  STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_STORAGE_BUCKET_RELATIONSHIP,
+  STEP_CLOUD_DEPLOY_SERVICE,
+  STEP_CLOUD_DEPLOY_SERVICE_HAS_DELIVERY_PIPELINE_RELAIONSHIP,
+  STEP_PROJECT_HAS_CLOUD_DEPLOY_RELATIONSHIP,
+} from './steps/cloud-deploy/constant';
+import { cloudDeploySteps } from './steps/cloud-deploy';
+import {
+  STEP_ALLOYDB_CLUSTER_HAS_BACKUP_RELATIONSHIP,
+  STEP_ALLOYDB_CLUSTER_USES_KMS_KEY_RELATIONSHIP,
+  STEP_ALLOYDB_INSTANCE_HAS_CONNECTION_RELATIONSHIP,
+  STEP_ALLOYDB_INSTANCE_USES_CLUSTER_RELATIONSHIP,
+  STEP_ALLOYDB_POSTGRE_SQL_BACKUP,
+  STEP_ALLOYDB_POSTGRE_SQL_CLUSTER,
+  STEP_ALLOYDB_POSTGRE_SQL_CONNECTION,
+  STEP_ALLOYDB_POSTGRE_SQL_INSTANCE,
+  STEP_ALLOYDB_POSTGRE_SQL_SERVICE,
+  STEP_PROJECT_HAS_ALLOYDB_CLUSTER_RELATIONSHIP,
+  STEP_PROJECT_HAS_ALLOYDB_SERVICE_RELATIONSHIP,
+  STEP_USER_ASSIGNED_ALLOYDB_CLUSTER_RELATIONSHIP,
+} from './steps/alloydb/constants';
+import { alloyDBSteps } from './steps/alloydb';
 
 function makeStepStartStates(
   stepIds: string[],
@@ -350,6 +386,8 @@ function getDefaultStepStartStates(params: {
     [STEP_COMPUTE_GLOBAL_FORWARDING_RULES]: { disabled: false },
     [STEP_COMPUTE_FIREWALLS]: { disabled: false },
     [STEP_COMPUTE_SUBNETWORKS]: { disabled: false },
+    [STEP_COMPUTE_ROUTER]: { disabled: false },
+    [STEP_COMPUTE_NETWORK_ROUTER_RELATIONSHIPS]: { disabled: false },
     [STEP_COMPUTE_PROJECT]: { disabled: false },
     [STEP_COMPUTE_HEALTH_CHECKS]: { disabled: false },
     [STEP_COMPUTE_REGION_HEALTH_CHECKS]: { disabled: false },
@@ -408,6 +446,16 @@ function getDefaultStepStartStates(params: {
     [STEP_SPANNER_INSTANCES]: { disabled: false },
     [STEP_SPANNER_INSTANCE_CONFIGS]: { disabled: false },
     [STEP_SPANNER_INSTANCE_DATABASES]: { disabled: false },
+    [STEP_SPANNER_INSTANCE_DATABASES_ROLE]: { disabled: false },
+    [STEP_SPANNER_INSTANCE_DATABASES_ASSIGNED_DATABASE_ROLE]: {
+      disabled: false,
+    },
+    [STEP_SPANNER_BACKUP]: { disabled: false },
+    [STEP_SPANNER_INSTANCE_HAS_BACKUP]: { disabled: false },
+    [STEP_CLOUD_SPANNER_SERVICE]: { disabled: false },
+    [STEP_PROJECT_HAS_SPANNER_SERVICE]: { disabled: false },
+    [STEP_PROJECT_HAS_SPANNER_INSTANCE]: { disabled: false },
+    [STEP_PROJECT_HAS_SPANNER_INSTANCE_CONFIG]: { disabled: false },
     [STEP_API_GATEWAY_APIS]: { disabled: false },
     [STEP_API_GATEWAY_API_CONFIGS]: { disabled: false },
     [STEP_API_GATEWAY_GATEWAYS]: { disabled: false },
@@ -481,8 +529,68 @@ function getDefaultStepStartStates(params: {
     [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: {
       disabled: false,
     },
+    [STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE]: {
+      disabled: false,
+    },
+    [STEP_CLOUD_DEPLOY_AUTOMATION]: {
+      disabled: false,
+    },
+    [STEP_CLOUD_DEPLOY_SERVICE]: {
+      disabled: false,
+    },
+    [STEP_PROJECT_HAS_CLOUD_DEPLOY_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_CLOUD_DEPLOY_SERVICE_HAS_DELIVERY_PIPELINE_RELAIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_CLOUD_DEPLOY_AUTOMATION_TRIGGERS_DELIVERY_PIPELINE_AUTOMATION_RELATIONSHIP]:
+      {
+        disabled: false,
+      },
+    [STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_GITHUB_REPO_RELAIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_STORAGE_BUCKET_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_ALLOYDB_POSTGRE_SQL_SERVICE]: {
+      disabled: false,
+    },
+    [STEP_ALLOYDB_POSTGRE_SQL_CLUSTER]: {
+      disabled: false,
+    },
+    [STEP_ALLOYDB_POSTGRE_SQL_INSTANCE]: {
+      disabled: false,
+    },
+    [STEP_ALLOYDB_POSTGRE_SQL_CONNECTION]: {
+      disabled: false,
+    },
+    [STEP_ALLOYDB_POSTGRE_SQL_BACKUP]: {
+      disabled: false,
+    },
+    [STEP_PROJECT_HAS_ALLOYDB_SERVICE_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_PROJECT_HAS_ALLOYDB_CLUSTER_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_ALLOYDB_INSTANCE_USES_CLUSTER_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_ALLOYDB_CLUSTER_HAS_BACKUP_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_ALLOYDB_INSTANCE_HAS_CONNECTION_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_ALLOYDB_CLUSTER_USES_KMS_KEY_RELATIONSHIP]: {
+      disabled: false,
+    },
+    [STEP_USER_ASSIGNED_ALLOYDB_CLUSTER_RELATIONSHIP]: {
+      disabled: false,
+    },
   };
-
   logger.info(
     { stepStartStates: JSON.stringify(stepStartStates) },
     'Step start states',
@@ -683,6 +791,10 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     ),
     [STEP_COMPUTE_FIREWALLS]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_SUBNETWORKS]: createStepStartState(ServiceUsageName.COMPUTE),
+    [STEP_COMPUTE_ROUTER]: createStepStartState(ServiceUsageName.COMPUTE),
+    [STEP_COMPUTE_NETWORK_ROUTER_RELATIONSHIPS]: createStepStartState(
+      ServiceUsageName.COMPUTE,
+    ),
     [STEP_COMPUTE_PROJECT]: createStepStartState(ServiceUsageName.COMPUTE),
     [STEP_COMPUTE_HEALTH_CHECKS]: createStepStartState(
       ServiceUsageName.COMPUTE,
@@ -798,6 +910,25 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [STEP_SPANNER_INSTANCE_CONFIGS]: createStepStartState(
       ServiceUsageName.SPANNER,
     ),
+    [STEP_SPANNER_INSTANCE_DATABASES_ROLE]: createStepStartState(
+      ServiceUsageName.SPANNER,
+    ),
+    [STEP_SPANNER_INSTANCE_DATABASES_ASSIGNED_DATABASE_ROLE]:
+      createStepStartState(ServiceUsageName.SPANNER),
+    [STEP_SPANNER_BACKUP]: createStepStartState(ServiceUsageName.SPANNER),
+    [STEP_SPANNER_INSTANCE_HAS_BACKUP]: createStepStartState(
+      ServiceUsageName.SPANNER,
+    ),
+    [STEP_CLOUD_SPANNER_SERVICE]: createStepStartState(
+      ServiceUsageName.SPANNER,
+    ),
+    [STEP_PROJECT_HAS_SPANNER_SERVICE]: createStepStartState(
+      ServiceUsageName.SPANNER,
+    ),
+    [STEP_PROJECT_HAS_SPANNER_INSTANCE]: createStepStartState(
+      ServiceUsageName.SPANNER,
+    ),
+    [STEP_PROJECT_HAS_SPANNER_INSTANCE_CONFIG]: { disabled: false },
     [STEP_SPANNER_INSTANCE_DATABASES]: createStepStartState(
       ServiceUsageName.SPANNER,
     ),
@@ -904,6 +1035,62 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [WebSecurityScannerSteps.FETCH_SCAN_RUNS.id]: createStepStartState(
       ServiceUsageName.WEB_SECURITY_SCANNER,
     ),
+    [STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE]: createStepStartState(
+      ServiceUsageName.CLOUD_DEPLOY,
+    ),
+    [STEP_CLOUD_DEPLOY_AUTOMATION]: createStepStartState(
+      ServiceUsageName.CLOUD_DEPLOY,
+    ),
+    [STEP_CLOUD_DEPLOY_SERVICE]: createStepStartState(
+      ServiceUsageName.CLOUD_DEPLOY,
+    ),
+    [STEP_PROJECT_HAS_CLOUD_DEPLOY_RELATIONSHIP]: createStepStartState(
+      ServiceUsageName.CLOUD_DEPLOY,
+    ),
+    [STEP_CLOUD_DEPLOY_SERVICE_HAS_DELIVERY_PIPELINE_RELAIONSHIP]:
+      createStepStartState(ServiceUsageName.CLOUD_DEPLOY),
+    [STEP_CLOUD_DEPLOY_AUTOMATION_TRIGGERS_DELIVERY_PIPELINE_AUTOMATION_RELATIONSHIP]:
+      createStepStartState(ServiceUsageName.CLOUD_DEPLOY),
+    [STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_GITHUB_REPO_RELAIONSHIP]:
+      createStepStartState(ServiceUsageName.CLOUD_DEPLOY),
+    [STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_STORAGE_BUCKET_RELATIONSHIP]:
+      createStepStartState(ServiceUsageName.CLOUD_DEPLOY),
+    [STEP_ALLOYDB_POSTGRE_SQL_SERVICE]: createStepStartState(
+      ServiceUsageName.ALLOYDB,
+    ),
+    [STEP_ALLOYDB_POSTGRE_SQL_CLUSTER]: createStepStartState(
+      ServiceUsageName.ALLOYDB,
+    ),
+    [STEP_ALLOYDB_POSTGRE_SQL_INSTANCE]: createStepStartState(
+      ServiceUsageName.ALLOYDB,
+    ),
+    [STEP_ALLOYDB_POSTGRE_SQL_CONNECTION]: createStepStartState(
+      ServiceUsageName.ALLOYDB,
+    ),
+    [STEP_ALLOYDB_POSTGRE_SQL_BACKUP]: createStepStartState(
+      ServiceUsageName.ALLOYDB,
+    ),
+    [STEP_PROJECT_HAS_ALLOYDB_SERVICE_RELATIONSHIP]: createStepStartState(
+      ServiceUsageName.ALLOYDB,
+    ),
+    [STEP_PROJECT_HAS_ALLOYDB_CLUSTER_RELATIONSHIP]: createStepStartState(
+      ServiceUsageName.ALLOYDB,
+    ),
+    [STEP_ALLOYDB_INSTANCE_USES_CLUSTER_RELATIONSHIP]: createStepStartState(
+      ServiceUsageName.ALLOYDB,
+    ),
+    [STEP_ALLOYDB_CLUSTER_HAS_BACKUP_RELATIONSHIP]: createStepStartState(
+      ServiceUsageName.ALLOYDB,
+    ),
+    [STEP_ALLOYDB_INSTANCE_HAS_CONNECTION_RELATIONSHIP]: createStepStartState(
+      ServiceUsageName.ALLOYDB,
+    ),
+    [STEP_ALLOYDB_CLUSTER_USES_KMS_KEY_RELATIONSHIP]: createStepStartState(
+      ServiceUsageName.ALLOYDB,
+    ),
+    [STEP_USER_ASSIGNED_ALLOYDB_CLUSTER_RELATIONSHIP]: createStepStartState(
+      ServiceUsageName.ALLOYDB,
+    ),
   };
 
   const apiServiceToStepIdsMap: { [apiService: string]: string[] } = {
@@ -946,6 +1133,8 @@ async function getStepStartStatesUsingServiceEnablements(params: {
     [ServiceUsageName.WEB_SECURITY_SCANNER]: webSecurityScannerSteps.map(
       (s) => s.id,
     ),
+    [ServiceUsageName.CLOUD_DEPLOY]: cloudDeploySteps.map((s) => s.id),
+    [ServiceUsageName.ALLOYDB]: alloyDBSteps.map((s) => s.id),
   };
 
   for (const serviceName of Object.keys(apiServiceToStepIdsMap)) {

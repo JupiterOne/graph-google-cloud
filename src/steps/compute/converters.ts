@@ -32,6 +32,7 @@ import {
   ENTITY_CLASS_COMPUTE_LOAD_BALANCER,
   ENTITY_CLASS_COMPUTE_NETWORK,
   ENTITY_CLASS_COMPUTE_PROJECT,
+  ENTITY_CLASS_COMPUTE_ROUTER,
   ENTITY_CLASS_COMPUTE_SNAPSHOT,
   ENTITY_CLASS_COMPUTE_SSL_POLICY,
   ENTITY_CLASS_COMPUTE_SUBNETWORK,
@@ -54,6 +55,7 @@ import {
   ENTITY_TYPE_COMPUTE_LOAD_BALANCER,
   ENTITY_TYPE_COMPUTE_NETWORK,
   ENTITY_TYPE_COMPUTE_PROJECT,
+  ENTITY_TYPE_COMPUTE_ROUTER,
   ENTITY_TYPE_COMPUTE_SNAPSHOT,
   ENTITY_TYPE_COMPUTE_SSL_POLICY,
   ENTITY_TYPE_COMPUTE_SUBNETWORK,
@@ -1439,6 +1441,37 @@ export function createSslPolicyEntity(data: compute_v1.Schema$SslPolicy) {
           'SSL policies give you the ability to control the features of SSL that your Google Cloud SSL proxy load balancer or external HTTP(S) load balancer negotiates with clients.',
         content: '',
         createdOn: parseTimePropertyValue(data.creationTimestamp),
+      },
+    },
+  });
+}
+
+export function createComputeRouterEntity(
+  data: compute_v1.Schema$Router,
+  projectId: string,
+) {
+  const regionName = parseRegionNameFromRegionUrl(data.region as string);
+
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_COMPUTE_ROUTER,
+        _type: ENTITY_TYPE_COMPUTE_ROUTER,
+        _key: data.selfLink as string,
+        deviceId: data.id as string,
+        displayName: data.name as string,
+        description: data.description,
+        name: data.name,
+        createdOn: getTime(data.creationTimestamp),
+        public: false,
+        internal: true,
+        webLink: getGoogleCloudConsoleWebLink(
+          `/hybrid/routers/details/${regionName}/${data.name}?project=${projectId}`,
+        ),
+        category: 'network',
+        network: data.network,
+        subnets: data.interfaces ? data.interfaces[0]?.subnetwork : undefined,
       },
     },
   });

@@ -100,7 +100,7 @@ exports[`#createKmsCryptoKeyEntity should convert to entity with public=true if 
   "public": true,
   "purpose": "ENCRYPT_DECRYPT",
   "rotationPeriod": 86401,
-  "webLink": "https://console.cloud.google.com/security/kms/key/manage/us/j1-gc-integration-dev-v2-bucket-ring/projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key?project=j1-gc-integration-dev-v2",
+  "webLink": "https://console.cloud.google.com/security/kms/key/manage/us/j1-gc-integration-dev-v2-bucket-ring/projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key?project=j1-gc-integration-dev-v3",
 }
 `;
 
@@ -152,7 +152,7 @@ exports[`#createKmsCryptoKeyEntity should convert to entity with public=true if 
   "public": true,
   "purpose": "ENCRYPT_DECRYPT",
   "rotationPeriod": 86401,
-  "webLink": "https://console.cloud.google.com/security/kms/key/manage/us/j1-gc-integration-dev-v2-bucket-ring/projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key?project=j1-gc-integration-dev-v2",
+  "webLink": "https://console.cloud.google.com/security/kms/key/manage/us/j1-gc-integration-dev-v2-bucket-ring/projects/j1-gc-integration-dev-v2/locations/us/keyRings/j1-gc-integration-dev-v2-bucket-ring/cryptoKeys/j1-gc-integration-dev-v2-bucket-key?project=j1-gc-integration-dev-v3",
 }
 `;
 

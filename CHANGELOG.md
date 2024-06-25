@@ -87,9 +87,12 @@
 
 # v3.3.3 (Tue Apr 09 2024)
 
+
 #### 🐛 Bug Fix
 
-- INT-10621: add error logger [#647](https://github.com/JupiterOne/graph-google-cloud/pull/647) ([@gastonyelmini](https://github.com/gastonyelmini))
+- INT-10621: add error logger
+  [#647](https://github.com/JupiterOne/graph-google-cloud/pull/647)
+  ([@gastonyelmini](https://github.com/gastonyelmini))
 
 #### Authors: 1
 
@@ -101,7 +104,9 @@
 
 #### 🐛 Bug Fix
 
-- INT-10621: update error handling logic [#646](https://github.com/JupiterOne/graph-google-cloud/pull/646) ([@gastonyelmini](https://github.com/gastonyelmini))
+- INT-10621: update error handling logic
+  [#646](https://github.com/JupiterOne/graph-google-cloud/pull/646)
+  ([@gastonyelmini](https://github.com/gastonyelmini))
 
 #### Authors: 1
 
@@ -113,7 +118,9 @@
 
 #### 🐛 Bug Fix
 
-- INT-10621: expose PermissionErrorHandlingOptions to iterateApi [#645](https://github.com/JupiterOne/graph-google-cloud/pull/645) ([@gastonyelmini](https://github.com/gastonyelmini))
+- INT-10621: expose PermissionErrorHandlingOptions to iterateApi
+  [#645](https://github.com/JupiterOne/graph-google-cloud/pull/645)
+  ([@gastonyelmini](https://github.com/gastonyelmini))
 
 #### Authors: 1
 
@@ -125,7 +132,9 @@
 
 #### 🚀 Enhancement
 
-- INT-10621: improve GCP Authorization errors handling [#644](https://github.com/JupiterOne/graph-google-cloud/pull/644) ([@gastonyelmini](https://github.com/gastonyelmini))
+- INT-10621: improve GCP Authorization errors handling
+  [#644](https://github.com/JupiterOne/graph-google-cloud/pull/644)
+  ([@gastonyelmini](https://github.com/gastonyelmini))
 
 #### Authors: 1
 
@@ -137,7 +146,9 @@
 
 #### 🐛 Bug Fix
 
-- INT-10459: redact assertion [#643](https://github.com/JupiterOne/graph-google-cloud/pull/643) ([@gastonyelmini](https://github.com/gastonyelmini))
+- INT-10459: redact assertion
+  [#643](https://github.com/JupiterOne/graph-google-cloud/pull/643)
+  ([@gastonyelmini](https://github.com/gastonyelmini))
 
 #### Authors: 1
 
@@ -149,7 +160,9 @@
 
 #### 🐛 Bug Fix
 
-- NT-10459: add retry to client get function calls [#642](https://github.com/JupiterOne/graph-google-cloud/pull/642) ([@gastonyelmini](https://github.com/gastonyelmini))
+- NT-10459: add retry to client get function calls
+  [#642](https://github.com/JupiterOne/graph-google-cloud/pull/642)
+  ([@gastonyelmini](https://github.com/gastonyelmini))
 
 #### Authors: 1
 
@@ -161,7 +174,9 @@
 
 #### 🐛 Bug Fix
 
-- Redact tokens [#641](https://github.com/JupiterOne/graph-google-cloud/pull/641) ([@gastonyelmini](https://github.com/gastonyelmini))
+- Redact tokens
+  [#641](https://github.com/JupiterOne/graph-google-cloud/pull/641)
+  ([@gastonyelmini](https://github.com/gastonyelmini))
 
 #### Authors: 1
 
@@ -173,7 +188,9 @@
 
 #### 🐛 Bug Fix
 
-- INT-10459: logs clean up [#640](https://github.com/JupiterOne/graph-google-cloud/pull/640) ([@gastonyelmini](https://github.com/gastonyelmini))
+- INT-10459: logs clean up
+  [#640](https://github.com/JupiterOne/graph-google-cloud/pull/640)
+  ([@gastonyelmini](https://github.com/gastonyelmini))
 
 #### Authors: 1
 
@@ -185,8 +202,12 @@
 
 #### 🐛 Bug Fix
 
-- INT-9865: check target project ID in validate invocation [#639](https://github.com/JupiterOne/graph-google-cloud/pull/639) ([@gastonyelmini](https://github.com/gastonyelmini))
-- INT-8998: refactor compute service [#638](https://github.com/JupiterOne/graph-google-cloud/pull/638) ([@gastonyelmini](https://github.com/gastonyelmini))
+- INT-9865: check target project ID in validate invocation
+  [#639](https://github.com/JupiterOne/graph-google-cloud/pull/639)
+  ([@gastonyelmini](https://github.com/gastonyelmini))
+- INT-8998: refactor compute service
+  [#638](https://github.com/JupiterOne/graph-google-cloud/pull/638)
+  ([@gastonyelmini](https://github.com/gastonyelmini))
 
 #### Authors: 1
 
@@ -198,7 +219,9 @@
 
 #### 🐛 Bug Fix
 
-- INT-9937: add null check [#637](https://github.com/JupiterOne/graph-google-cloud/pull/637) ([@gastonyelmini](https://github.com/gastonyelmini))
+- INT-9937: add null check
+  [#637](https://github.com/JupiterOne/graph-google-cloud/pull/637)
+  ([@gastonyelmini](https://github.com/gastonyelmini))
 
 #### Authors: 1
 
@@ -210,7 +233,9 @@
 
 #### 🐛 Bug Fix
 
-- INT-9937: add ingest skipped projects ingestion [#636](https://github.com/JupiterOne/graph-google-cloud/pull/636) ([@gastonyelmini](https://github.com/gastonyelmini))
+- INT-9937: add ingest skipped projects ingestion
+  [#636](https://github.com/JupiterOne/graph-google-cloud/pull/636)
+  ([@gastonyelmini](https://github.com/gastonyelmini))
 
 #### Authors: 1
 
@@ -222,7 +247,9 @@
 
 #### 🐛 Bug Fix
 
-- APP-14216 - Remove duplicate question [#635](https://github.com/JupiterOne/graph-google-cloud/pull/635) ([@jzolo22](https://github.com/jzolo22))
+- APP-14216 - Remove duplicate question
+  [#635](https://github.com/JupiterOne/graph-google-cloud/pull/635)
+  ([@jzolo22](https://github.com/jzolo22))
 
 #### Authors: 1
 
@@ -234,16 +261,32 @@
 
 #### 🐛 Bug Fix
 
-- Bump package version [#634](https://github.com/JupiterOne/graph-google-cloud/pull/634) ([@jzolo22](https://github.com/jzolo22))
-- Combined compliance question mapping updates [#633](https://github.com/JupiterOne/graph-google-cloud/pull/633) ([@mikiodehartj1](https://github.com/mikiodehartj1) [@jzolo22](https://github.com/jzolo22))
-- updated section 3 [#595](https://github.com/JupiterOne/graph-google-cloud/pull/595) ([@mikiodehartj1](https://github.com/mikiodehartj1))
-- Updated GCP Questions v1.3 and v2.0 [#586](https://github.com/JupiterOne/graph-google-cloud/pull/586) ([@mikiodehartj1](https://github.com/mikiodehartj1) [@jzolo22](https://github.com/jzolo22))
-- Add mappings 1.1-3.4 [#585](https://github.com/JupiterOne/graph-google-cloud/pull/585) ([@mikiodehartj1](https://github.com/mikiodehartj1))
-- GCP 1.1-1.3 Change [#578](https://github.com/JupiterOne/graph-google-cloud/pull/578) ([@mikiodehartj1](https://github.com/mikiodehartj1) [@jzolo22](https://github.com/jzolo22))
+- Bump package version
+  [#634](https://github.com/JupiterOne/graph-google-cloud/pull/634)
+  ([@jzolo22](https://github.com/jzolo22))
+- Combined compliance question mapping updates
+  [#633](https://github.com/JupiterOne/graph-google-cloud/pull/633)
+  ([@mikiodehartj1](https://github.com/mikiodehartj1)
+  [@jzolo22](https://github.com/jzolo22))
+- updated section 3
+  [#595](https://github.com/JupiterOne/graph-google-cloud/pull/595)
+  ([@mikiodehartj1](https://github.com/mikiodehartj1))
+- Updated GCP Questions v1.3 and v2.0
+  [#586](https://github.com/JupiterOne/graph-google-cloud/pull/586)
+  ([@mikiodehartj1](https://github.com/mikiodehartj1)
+  [@jzolo22](https://github.com/jzolo22))
+- Add mappings 1.1-3.4
+  [#585](https://github.com/JupiterOne/graph-google-cloud/pull/585)
+  ([@mikiodehartj1](https://github.com/mikiodehartj1))
+- GCP 1.1-1.3 Change
+  [#578](https://github.com/JupiterOne/graph-google-cloud/pull/578)
+  ([@mikiodehartj1](https://github.com/mikiodehartj1)
+  [@jzolo22](https://github.com/jzolo22))
 
 #### ⚠️ Pushed to `main`
 
-- Apply remove-codeql with multi-gitter [ci skip] ([@electricgull](https://github.com/electricgull))
+- Apply remove-codeql with multi-gitter [ci skip]
+  ([@electricgull](https://github.com/electricgull))
 
 #### Authors: 3
 
@@ -257,7 +300,9 @@
 
 #### 🐛 Bug Fix
 
-- NO-TICKET: update log level [#632](https://github.com/JupiterOne/graph-google-cloud/pull/632) ([@gastonyelmini](https://github.com/gastonyelmini))
+- NO-TICKET: update log level
+  [#632](https://github.com/JupiterOne/graph-google-cloud/pull/632)
+  ([@gastonyelmini](https://github.com/gastonyelmini))
 
 #### Authors: 1
 
@@ -269,11 +314,14 @@
 
 #### 🐛 Bug Fix
 
-- INT-8952: update SDK packages [#631](https://github.com/JupiterOne/graph-google-cloud/pull/631) ([@gastonyelmini](https://github.com/gastonyelmini))
+- INT-8952: update SDK packages
+  [#631](https://github.com/JupiterOne/graph-google-cloud/pull/631)
+  ([@gastonyelmini](https://github.com/gastonyelmini))
 
 #### ⚠️ Pushed to `main`
 
-- Fix x-cortex-service-groups where tier-4 was set incorrectly ([@jablonnc](https://github.com/jablonnc))
+- Fix x-cortex-service-groups where tier-4 was set incorrectly
+  ([@jablonnc](https://github.com/jablonnc))
 
 #### Authors: 2
 
@@ -286,7 +334,9 @@
 
 #### 🐛 Bug Fix
 
-- INT-9927: propagate run service metadata to entity [#630](https://github.com/JupiterOne/graph-google-cloud/pull/630) ([@gastonyelmini](https://github.com/gastonyelmini))
+- INT-9927: propagate run service metadata to entity
+  [#630](https://github.com/JupiterOne/graph-google-cloud/pull/630)
+  ([@gastonyelmini](https://github.com/gastonyelmini))
 
 #### Authors: 1
 
@@ -298,7 +348,9 @@
 
 #### 🐛 Bug Fix
 
-- INT-10036: increase timeout [#629](https://github.com/JupiterOne/graph-google-cloud/pull/629) ([@gastonyelmini](https://github.com/gastonyelmini))
+- INT-10036: increase timeout
+  [#629](https://github.com/JupiterOne/graph-google-cloud/pull/629)
+  ([@gastonyelmini](https://github.com/gastonyelmini))
 
 #### Authors: 1
 
@@ -310,7 +362,9 @@
 
 #### 🐛 Bug Fix
 
-- INT-9871: add missing import [#627](https://github.com/JupiterOne/graph-google-cloud/pull/627) ([@gastonyelmini](https://github.com/gastonyelmini))
+- INT-9871: add missing import
+  [#627](https://github.com/JupiterOne/graph-google-cloud/pull/627)
+  ([@gastonyelmini](https://github.com/gastonyelmini))
 
 #### Authors: 1
 
@@ -322,11 +376,14 @@
 
 #### 🚀 Enhancement
 
-- INT-9871: add ingest sources [#626](https://github.com/JupiterOne/graph-google-cloud/pull/626) ([@gastonyelmini](https://github.com/gastonyelmini))
+- INT-9871: add ingest sources
+  [#626](https://github.com/JupiterOne/graph-google-cloud/pull/626)
+  ([@gastonyelmini](https://github.com/gastonyelmini))
 
 #### ⚠️ Pushed to `main`
 
-- Populate CODEOWENRS, baseline package.json and baseline cortex.yaml ([@jablonnc](https://github.com/jablonnc))
+- Populate CODEOWENRS, baseline package.json and baseline cortex.yaml
+  ([@jablonnc](https://github.com/jablonnc))
 
 #### Authors: 2
 
@@ -339,7 +396,9 @@
 
 #### 🐛 Bug Fix
 
-- INT-9750: update 403 log event [#625](https://github.com/JupiterOne/graph-google-cloud/pull/625) ([@gastonyelmini](https://github.com/gastonyelmini))
+- INT-9750: update 403 log event
+  [#625](https://github.com/JupiterOne/graph-google-cloud/pull/625)
+  ([@gastonyelmini](https://github.com/gastonyelmini))
 
 #### Authors: 1
 
@@ -351,7 +410,9 @@
 
 #### 🐛 Bug Fix
 
-- INT-9705: add throwMissingPermissionError flag for edge cases [#624](https://github.com/JupiterOne/graph-google-cloud/pull/624) ([@gastonyelmini](https://github.com/gastonyelmini))
+- INT-9705: add throwMissingPermissionError flag for edge cases
+  [#624](https://github.com/JupiterOne/graph-google-cloud/pull/624)
+  ([@gastonyelmini](https://github.com/gastonyelmini))
 
 #### Authors: 1
 
@@ -363,9 +424,15 @@
 
 #### 🐛 Bug Fix
 
-- INT-9642 Bump public sdk version [#621](https://github.com/JupiterOne/graph-google-cloud/pull/621) ([@JakeFerrero](https://github.com/JakeFerrero))
-- Fix questions command [#623](https://github.com/JupiterOne/graph-google-cloud/pull/623) ([@i5o](https://github.com/i5o))
-- Set right parameter for questions test [#622](https://github.com/JupiterOne/graph-google-cloud/pull/622) ([@i5o](https://github.com/i5o))
+- INT-9642 Bump public sdk version
+  [#621](https://github.com/JupiterOne/graph-google-cloud/pull/621)
+  ([@JakeFerrero](https://github.com/JakeFerrero))
+- Fix questions command
+  [#623](https://github.com/JupiterOne/graph-google-cloud/pull/623)
+  ([@i5o](https://github.com/i5o))
+- Set right parameter for questions test
+  [#622](https://github.com/JupiterOne/graph-google-cloud/pull/622)
+  ([@i5o](https://github.com/i5o))
 
 #### Authors: 2
 
@@ -378,7 +445,9 @@
 
 #### 🚀 Enhancement
 
-- INT-9750: change permission errors to warnings [#620](https://github.com/JupiterOne/graph-google-cloud/pull/620) ([@gastonyelmini](https://github.com/gastonyelmini))
+- INT-9750: change permission errors to warnings
+  [#620](https://github.com/JupiterOne/graph-google-cloud/pull/620)
+  ([@gastonyelmini](https://github.com/gastonyelmini))
 
 #### Authors: 1
 
@@ -390,7 +459,9 @@
 
 #### 💥 Breaking Change
 
-- Upgrade to SDK v10 [#619](https://github.com/JupiterOne/graph-google-cloud/pull/619) ([@austinkelleher](https://github.com/austinkelleher))
+- Upgrade to SDK v10
+  [#619](https://github.com/JupiterOne/graph-google-cloud/pull/619)
+  ([@austinkelleher](https://github.com/austinkelleher))
 
 #### Authors: 1
 
@@ -402,7 +473,9 @@
 
 #### 🐛 Bug Fix
 
-- INT-8705: avoid extra inventory calls if api is disabled [#618](https://github.com/JupiterOne/graph-google-cloud/pull/618) ([@gastonyelmini](https://github.com/gastonyelmini))
+- INT-8705: avoid extra inventory calls if api is disabled
+  [#618](https://github.com/JupiterOne/graph-google-cloud/pull/618)
+  ([@gastonyelmini](https://github.com/gastonyelmini))
 
 #### Authors: 1
 
@@ -414,7 +487,9 @@
 
 #### 🐛 Bug Fix
 
-- INT-8173: change cloud logging status type [#617](https://github.com/JupiterOne/graph-google-cloud/pull/617) ([@mishelashala](https://github.com/mishelashala))
+- INT-8173: change cloud logging status type
+  [#617](https://github.com/JupiterOne/graph-google-cloud/pull/617)
+  ([@mishelashala](https://github.com/mishelashala))
 
 #### Authors: 1
 
@@ -426,13 +501,25 @@
 
 #### 🐛 Bug Fix
 
-- chore: bump version [#616](https://github.com/JupiterOne/graph-google-cloud/pull/616) ([@mishelashala](https://github.com/mishelashala))
-- INT-8174: add mysql instance parser [#615](https://github.com/JupiterOne/graph-google-cloud/pull/615) ([@mishelashala](https://github.com/mishelashala))
-- INT-8173: expose cloudLoggingStatus [#614](https://github.com/JupiterOne/graph-google-cloud/pull/614) ([@mishelashala](https://github.com/mishelashala))
-- Section 6 [#603](https://github.com/JupiterOne/graph-google-cloud/pull/603) ([@mikiodehartj1](https://github.com/mikiodehartj1))
-- postgresql [#605](https://github.com/JupiterOne/graph-google-cloud/pull/605) ([@mikiodehartj1](https://github.com/mikiodehartj1))
-- changes to section 4 [#602](https://github.com/JupiterOne/graph-google-cloud/pull/602) ([@mikiodehartj1](https://github.com/mikiodehartj1))
-- changes to section 3 [#601](https://github.com/JupiterOne/graph-google-cloud/pull/601) ([@mikiodehartj1](https://github.com/mikiodehartj1))
+- chore: bump version
+  [#616](https://github.com/JupiterOne/graph-google-cloud/pull/616)
+  ([@mishelashala](https://github.com/mishelashala))
+- INT-8174: add mysql instance parser
+  [#615](https://github.com/JupiterOne/graph-google-cloud/pull/615)
+  ([@mishelashala](https://github.com/mishelashala))
+- INT-8173: expose cloudLoggingStatus
+  [#614](https://github.com/JupiterOne/graph-google-cloud/pull/614)
+  ([@mishelashala](https://github.com/mishelashala))
+- Section 6 [#603](https://github.com/JupiterOne/graph-google-cloud/pull/603)
+  ([@mikiodehartj1](https://github.com/mikiodehartj1))
+- postgresql [#605](https://github.com/JupiterOne/graph-google-cloud/pull/605)
+  ([@mikiodehartj1](https://github.com/mikiodehartj1))
+- changes to section 4
+  [#602](https://github.com/JupiterOne/graph-google-cloud/pull/602)
+  ([@mikiodehartj1](https://github.com/mikiodehartj1))
+- changes to section 3
+  [#601](https://github.com/JupiterOne/graph-google-cloud/pull/601)
+  ([@mikiodehartj1](https://github.com/mikiodehartj1))
 
 #### Authors: 2
 
@@ -445,7 +532,9 @@
 
 #### 🚀 Enhancement
 
-- [INT-7879]: bump googleapis version [#610](https://github.com/JupiterOne/graph-google-cloud/pull/610) ([@mishelashala](https://github.com/mishelashala))
+- [INT-7879]: bump googleapis version
+  [#610](https://github.com/JupiterOne/graph-google-cloud/pull/610)
+  ([@mishelashala](https://github.com/mishelashala))
 
 #### Authors: 1
 
@@ -457,7 +546,9 @@
 
 #### 🚀 Enhancement
 
-- INT-8141: ingest compute instance Inventory data [#613](https://github.com/JupiterOne/graph-google-cloud/pull/613) ([@gastonyelmini](https://github.com/gastonyelmini))
+- INT-8141: ingest compute instance Inventory data
+  [#613](https://github.com/JupiterOne/graph-google-cloud/pull/613)
+  ([@gastonyelmini](https://github.com/gastonyelmini))
 
 #### Authors: 1
 
@@ -469,13 +560,21 @@
 
 #### 🚀 Enhancement
 
-- bumping README.md [#612](https://github.com/JupiterOne/graph-google-cloud/pull/612) ([@mishelashala](https://github.com/mishelashala))
+- bumping README.md
+  [#612](https://github.com/JupiterOne/graph-google-cloud/pull/612)
+  ([@mishelashala](https://github.com/mishelashala))
 
 #### 🐛 Bug Fix
 
-- [INT-8175]: expose enable confidencial compute [#609](https://github.com/JupiterOne/graph-google-cloud/pull/609) ([@mishelashala](https://github.com/mishelashala))
-- [INT-8174]: add hasRootPassword to google_sql_mysql_instance [#608](https://github.com/JupiterOne/graph-google-cloud/pull/608) ([@mishelashala](https://github.com/mishelashala))
-- [INT-8173]: add cloud logging enabled prop [#607](https://github.com/JupiterOne/graph-google-cloud/pull/607) ([@mishelashala](https://github.com/mishelashala))
+- [INT-8175]: expose enable confidencial compute
+  [#609](https://github.com/JupiterOne/graph-google-cloud/pull/609)
+  ([@mishelashala](https://github.com/mishelashala))
+- [INT-8174]: add hasRootPassword to google_sql_mysql_instance
+  [#608](https://github.com/JupiterOne/graph-google-cloud/pull/608)
+  ([@mishelashala](https://github.com/mishelashala))
+- [INT-8173]: add cloud logging enabled prop
+  [#607](https://github.com/JupiterOne/graph-google-cloud/pull/607)
+  ([@mishelashala](https://github.com/mishelashala))
 
 #### Authors: 1
 
@@ -487,7 +586,9 @@
 
 #### 🐛 Bug Fix
 
-- INT-8299: adding integration project support for `auto` [#599](https://github.com/JupiterOne/graph-google-cloud/pull/599) ([@sl45082](https://github.com/sl45082))
+- INT-8299: adding integration project support for `auto`
+  [#599](https://github.com/JupiterOne/graph-google-cloud/pull/599)
+  ([@sl45082](https://github.com/sl45082))
 
 #### Authors: 1
 
@@ -499,7 +600,9 @@
 
 #### 🚀 Enhancement
 
-- refactor(INT-7898): refactor Google Cloud Storage Bucket public property [#596](https://github.com/JupiterOne/graph-google-cloud/pull/596) ([@gastonyelmini](https://github.com/gastonyelmini))
+- refactor(INT-7898): refactor Google Cloud Storage Bucket public property
+  [#596](https://github.com/JupiterOne/graph-google-cloud/pull/596)
+  ([@gastonyelmini](https://github.com/gastonyelmini))
 
 #### Authors: 1
 
@@ -511,11 +614,15 @@
 
 #### 🚀 Enhancement
 
-- Bump SDK Version [#594](https://github.com/JupiterOne/graph-google-cloud/pull/594) ([@Nick-NCSU](https://github.com/Nick-NCSU))
+- Bump SDK Version
+  [#594](https://github.com/JupiterOne/graph-google-cloud/pull/594)
+  ([@Nick-NCSU](https://github.com/Nick-NCSU))
 
 #### 🐛 Bug Fix
 
-- changes to questions [#590](https://github.com/JupiterOne/graph-google-cloud/pull/590) ([@mikiodehartj1](https://github.com/mikiodehartj1))
+- changes to questions
+  [#590](https://github.com/JupiterOne/graph-google-cloud/pull/590)
+  ([@mikiodehartj1](https://github.com/mikiodehartj1))
 
 #### Authors: 2
 
@@ -528,7 +635,9 @@
 
 #### 🚀 Enhancement
 
-- Consolidate event log names for better user experience [#583](https://github.com/JupiterOne/graph-google-cloud/pull/583) ([@VDubber](https://github.com/VDubber))
+- Consolidate event log names for better user experience
+  [#583](https://github.com/JupiterOne/graph-google-cloud/pull/583)
+  ([@VDubber](https://github.com/VDubber))
 
 #### Authors: 1
 
@@ -540,7 +649,9 @@
 
 #### 🚀 Enhancement
 
-- INT-7913: fix Audit Config log type additional property [#589](https://github.com/JupiterOne/graph-google-cloud/pull/589) ([@gastonyelmini](https://github.com/gastonyelmini))
+- INT-7913: fix Audit Config log type additional property
+  [#589](https://github.com/JupiterOne/graph-google-cloud/pull/589)
+  ([@gastonyelmini](https://github.com/gastonyelmini))
 
 #### Authors: 1
 
@@ -552,11 +663,14 @@
 
 #### 🐛 Bug Fix
 
-- FIX(int-7914) Added error handling in case dataset/tables returns 404 [#588](https://github.com/JupiterOne/graph-google-cloud/pull/588) (gonzaloavalosribas@Gonzalos-MacBook-Pro.local)
+- FIX(int-7914) Added error handling in case dataset/tables returns 404
+  [#588](https://github.com/JupiterOne/graph-google-cloud/pull/588)
+  (gonzaloavalosribas@Gonzalos-MacBook-Pro.local)
 
 #### Authors: 1
 
-- Gonzalo Avalos Ribas ([@Gonzalo-Avalos-Ribas](https://github.com/Gonzalo-Avalos-Ribas))
+- Gonzalo Avalos Ribas
+  ([@Gonzalo-Avalos-Ribas](https://github.com/Gonzalo-Avalos-Ribas))
 
 ---
 
@@ -564,7 +678,9 @@
 
 #### 🚀 Enhancement
 
-- INT-7797: refactor private ca [#587](https://github.com/JupiterOne/graph-google-cloud/pull/587) ([@gastonyelmini](https://github.com/gastonyelmini))
+- INT-7797: refactor private ca
+  [#587](https://github.com/JupiterOne/graph-google-cloud/pull/587)
+  ([@gastonyelmini](https://github.com/gastonyelmini))
 
 #### Authors: 1
 
@@ -576,11 +692,15 @@
 
 #### 🚀 Enhancement
 
-- INT-7798: fix org steps running with undefined project id [#582](https://github.com/JupiterOne/graph-google-cloud/pull/582) ([@gastonyelmini](https://github.com/gastonyelmini))
+- INT-7798: fix org steps running with undefined project id
+  [#582](https://github.com/JupiterOne/graph-google-cloud/pull/582)
+  ([@gastonyelmini](https://github.com/gastonyelmini))
 
 #### 🐛 Bug Fix
 
-- INT-6970: document Google apis automatically [#581](https://github.com/JupiterOne/graph-google-cloud/pull/581) ([@gastonyelmini](https://github.com/gastonyelmini))
+- INT-6970: document Google apis automatically
+  [#581](https://github.com/JupiterOne/graph-google-cloud/pull/581)
+  ([@gastonyelmini](https://github.com/gastonyelmini))
 
 #### Authors: 1
 
@@ -592,7 +712,10 @@
 
 #### 🐛 Bug Fix
 
-- INT-7619: fix duplicated Audit Config IAM Policy relationship key [#579](https://github.com/JupiterOne/graph-google-cloud/pull/579) ([@gastonyelmini](https://github.com/gastonyelmini) [@ndowmon](https://github.com/ndowmon))
+- INT-7619: fix duplicated Audit Config IAM Policy relationship key
+  [#579](https://github.com/JupiterOne/graph-google-cloud/pull/579)
+  ([@gastonyelmini](https://github.com/gastonyelmini)
+  [@ndowmon](https://github.com/ndowmon))
 
 #### Authors: 2
 
@@ -605,17 +728,33 @@
 
 #### 🚀 Enhancement
 
-- Speed up buckets and tables [#580](https://github.com/JupiterOne/graph-google-cloud/pull/580) ([@ndowmon](https://github.com/ndowmon))
-- feat(web-security-scanner): ingest Google Web Security Scanner service [#567](https://github.com/JupiterOne/graph-google-cloud/pull/567) (gastonyelmini@MacBook-Pro-de-Gaston.local)
+- Speed up buckets and tables
+  [#580](https://github.com/JupiterOne/graph-google-cloud/pull/580)
+  ([@ndowmon](https://github.com/ndowmon))
+- feat(web-security-scanner): ingest Google Web Security Scanner service
+  [#567](https://github.com/JupiterOne/graph-google-cloud/pull/567)
+  (gastonyelmini@MacBook-Pro-de-Gaston.local)
 
 #### 🐛 Bug Fix
 
-- fix(INT-6744): add debug log if timeout error [#576](https://github.com/JupiterOne/graph-google-cloud/pull/576) (gastonyelmini@MacBook-Pro-de-Gaston.local)
-- fix(INT-6706): check service account key in validateInvocationConfig [#571](https://github.com/JupiterOne/graph-google-cloud/pull/571) (gastonyelmini@MacBook-Pro-de-Gaston.local)
-- feat(INT-5712): log disabled steps by API Service [#574](https://github.com/JupiterOne/graph-google-cloud/pull/574) (gastonyelmini@MacBook-Pro-de-Gaston.local)
-- fix(INT-7041): fix broken validate questions action [#575](https://github.com/JupiterOne/graph-google-cloud/pull/575) (gastonyelmini@MacBook-Pro-de-Gaston.local)
-- feat(INT-6665): review GCP permissions [#570](https://github.com/JupiterOne/graph-google-cloud/pull/570) (gastonyelmini@MacBook-Pro-de-Gaston.local)
-- feat(INT-6599): create document permissions script [#568](https://github.com/JupiterOne/graph-google-cloud/pull/568) (gastonyelmini@MacBook-Pro-de-Gaston.local)
+- fix(INT-6744): add debug log if timeout error
+  [#576](https://github.com/JupiterOne/graph-google-cloud/pull/576)
+  (gastonyelmini@MacBook-Pro-de-Gaston.local)
+- fix(INT-6706): check service account key in validateInvocationConfig
+  [#571](https://github.com/JupiterOne/graph-google-cloud/pull/571)
+  (gastonyelmini@MacBook-Pro-de-Gaston.local)
+- feat(INT-5712): log disabled steps by API Service
+  [#574](https://github.com/JupiterOne/graph-google-cloud/pull/574)
+  (gastonyelmini@MacBook-Pro-de-Gaston.local)
+- fix(INT-7041): fix broken validate questions action
+  [#575](https://github.com/JupiterOne/graph-google-cloud/pull/575)
+  (gastonyelmini@MacBook-Pro-de-Gaston.local)
+- feat(INT-6665): review GCP permissions
+  [#570](https://github.com/JupiterOne/graph-google-cloud/pull/570)
+  (gastonyelmini@MacBook-Pro-de-Gaston.local)
+- feat(INT-6599): create document permissions script
+  [#568](https://github.com/JupiterOne/graph-google-cloud/pull/568)
+  (gastonyelmini@MacBook-Pro-de-Gaston.local)
 
 #### Authors: 2
 
@@ -628,7 +767,9 @@
 
 #### 🐛 Bug Fix
 
-- feat(INT-4506): add publicIpAddress field to compute entity [#572](https://github.com/JupiterOne/graph-google-cloud/pull/572) ([@gastonyelmini](https://github.com/gastonyelmini))
+- feat(INT-4506): add publicIpAddress field to compute entity
+  [#572](https://github.com/JupiterOne/graph-google-cloud/pull/572)
+  ([@gastonyelmini](https://github.com/gastonyelmini))
 
 #### Authors: 1
 
@@ -640,12 +781,24 @@
 
 #### 🐛 Bug Fix
 
-- fix(INT-6619): fix GH action issue [#569](https://github.com/JupiterOne/graph-google-cloud/pull/569) (gastonyelmini@MacBook-Pro-de-Gaston.local)
-- feat(INT-6165): change permissions logs to warnings [#566](https://github.com/JupiterOne/graph-google-cloud/pull/566) (gastonyelmini@MacBook-Pro-de-Gaston.local)
-- INT-5629 - Cache packages in `actions/setup-node` [#565](https://github.com/JupiterOne/graph-google-cloud/pull/565) ([@austinkelleher](https://github.com/austinkelleher))
-- Create data model for Web Security Scanner [#559](https://github.com/JupiterOne/graph-google-cloud/pull/559) ([@Nick-NCSU](https://github.com/Nick-NCSU))
-- Merging CodeQL [#564](https://github.com/JupiterOne/graph-google-cloud/pull/564) ([@electricgull](https://github.com/electricgull))
-- INT-5687 Limit when we print missing_permission job log for org policy [#563](https://github.com/JupiterOne/graph-google-cloud/pull/563) ([@JakeFerrero](https://github.com/JakeFerrero))
+- fix(INT-6619): fix GH action issue
+  [#569](https://github.com/JupiterOne/graph-google-cloud/pull/569)
+  (gastonyelmini@MacBook-Pro-de-Gaston.local)
+- feat(INT-6165): change permissions logs to warnings
+  [#566](https://github.com/JupiterOne/graph-google-cloud/pull/566)
+  (gastonyelmini@MacBook-Pro-de-Gaston.local)
+- INT-5629 - Cache packages in `actions/setup-node`
+  [#565](https://github.com/JupiterOne/graph-google-cloud/pull/565)
+  ([@austinkelleher](https://github.com/austinkelleher))
+- Create data model for Web Security Scanner
+  [#559](https://github.com/JupiterOne/graph-google-cloud/pull/559)
+  ([@Nick-NCSU](https://github.com/Nick-NCSU))
+- Merging CodeQL
+  [#564](https://github.com/JupiterOne/graph-google-cloud/pull/564)
+  ([@electricgull](https://github.com/electricgull))
+- INT-5687 Limit when we print missing_permission job log for org policy
+  [#563](https://github.com/JupiterOne/graph-google-cloud/pull/563)
+  ([@JakeFerrero](https://github.com/JakeFerrero))
 
 #### Authors: 5
 
@@ -661,9 +814,15 @@
 
 #### 🐛 Bug Fix
 
-- INT-5867 Log fetch org public access prevention policy errors [#561](https://github.com/JupiterOne/graph-google-cloud/pull/561) ([@JakeFerrero](https://github.com/JakeFerrero))
-- feat(INT-5754): modernize fetch cloud functions test [#557](https://github.com/JupiterOne/graph-google-cloud/pull/557) (gastonyelmini@MBP-de-Gaston.fibertel.com.ar)
-- Refactor storage bucket constants [#556](https://github.com/JupiterOne/graph-google-cloud/pull/556) (gastonyelmini@MBP-de-Gaston.fibertel.com.ar)
+- INT-5867 Log fetch org public access prevention policy errors
+  [#561](https://github.com/JupiterOne/graph-google-cloud/pull/561)
+  ([@JakeFerrero](https://github.com/JakeFerrero))
+- feat(INT-5754): modernize fetch cloud functions test
+  [#557](https://github.com/JupiterOne/graph-google-cloud/pull/557)
+  (gastonyelmini@MBP-de-Gaston.fibertel.com.ar)
+- Refactor storage bucket constants
+  [#556](https://github.com/JupiterOne/graph-google-cloud/pull/556)
+  (gastonyelmini@MBP-de-Gaston.fibertel.com.ar)
 
 #### Authors: 2
 
@@ -676,11 +835,15 @@
 
 #### 🚀 Enhancement
 
-- feat(INT-5917): add cloud function storage bucket relationship [#554](https://github.com/JupiterOne/graph-google-cloud/pull/554) (gastonyelmini@MBP-de-Gaston.fibertel.com.ar)
+- feat(INT-5917): add cloud function storage bucket relationship
+  [#554](https://github.com/JupiterOne/graph-google-cloud/pull/554)
+  (gastonyelmini@MBP-de-Gaston.fibertel.com.ar)
 
 #### 🐛 Bug Fix
 
-- Update fetch-depth for Auto [#555](https://github.com/JupiterOne/graph-google-cloud/pull/555) ([@Nick-NCSU](https://github.com/Nick-NCSU))
+- Update fetch-depth for Auto
+  [#555](https://github.com/JupiterOne/graph-google-cloud/pull/555)
+  ([@Nick-NCSU](https://github.com/Nick-NCSU))
 
 #### Authors: 2
 
@@ -693,11 +856,15 @@
 
 #### 🚀 Enhancement
 
-- feat(INT-5918): add cloud function source repo relationship [#553](https://github.com/JupiterOne/graph-google-cloud/pull/553) (gastonyelmini@MBP-de-Gaston.fibertel.com.ar)
+- feat(INT-5918): add cloud function source repo relationship
+  [#553](https://github.com/JupiterOne/graph-google-cloud/pull/553)
+  (gastonyelmini@MBP-de-Gaston.fibertel.com.ar)
 
 #### 🐛 Bug Fix
 
-- Int 5632 replace toCreateValidRelationshipsToEntities [#550](https://github.com/JupiterOne/graph-google-cloud/pull/550) ([@edreyer1](https://github.com/edreyer1))
+- Int 5632 replace toCreateValidRelationshipsToEntities
+  [#550](https://github.com/JupiterOne/graph-google-cloud/pull/550)
+  ([@edreyer1](https://github.com/edreyer1))
 
 #### Authors: 2
 
@@ -710,8 +877,13 @@
 
 #### 🐛 Bug Fix
 
-- Account for non-deterministic basic role permissions [#551](https://github.com/JupiterOne/graph-google-cloud/pull/551) ([@ndowmon](https://github.com/ndowmon) [@philidem](https://github.com/philidem))
-- Int 5556 dev tools 8.24.1 [#548](https://github.com/JupiterOne/graph-google-cloud/pull/548) ([@edreyer1](https://github.com/edreyer1))
+- Account for non-deterministic basic role permissions
+  [#551](https://github.com/JupiterOne/graph-google-cloud/pull/551)
+  ([@ndowmon](https://github.com/ndowmon)
+  [@philidem](https://github.com/philidem))
+- Int 5556 dev tools 8.24.1
+  [#548](https://github.com/JupiterOne/graph-google-cloud/pull/548)
+  ([@edreyer1](https://github.com/edreyer1))
 
 #### Authors: 3
 
@@ -725,8 +897,12 @@
 
 #### 🐛 Bug Fix
 
-- INT-5579 Decouple `iterateApi` into `forEachPage` and `withErrorHandling` [#546](https://github.com/JupiterOne/graph-google-cloud/pull/546) ([@i5o](https://github.com/i5o))
-- Fix build spec properties [#549](https://github.com/JupiterOne/graph-google-cloud/pull/549) ([@ndowmon](https://github.com/ndowmon))
+- INT-5579 Decouple `iterateApi` into `forEachPage` and `withErrorHandling`
+  [#546](https://github.com/JupiterOne/graph-google-cloud/pull/546)
+  ([@i5o](https://github.com/i5o))
+- Fix build spec properties
+  [#549](https://github.com/JupiterOne/graph-google-cloud/pull/549)
+  ([@ndowmon](https://github.com/ndowmon))
 
 #### Authors: 2
 
@@ -739,7 +915,9 @@
 
 #### 🚀 Enhancement
 
-- Remove checkout code from old versioning method [#543](https://github.com/JupiterOne/graph-google-cloud/pull/543) ([@Nick-NCSU](https://github.com/Nick-NCSU))
+- Remove checkout code from old versioning method
+  [#543](https://github.com/JupiterOne/graph-google-cloud/pull/543)
+  ([@Nick-NCSU](https://github.com/Nick-NCSU))
 
 #### Authors: 1
 
@@ -751,8 +929,12 @@
 
 #### 🐛 Bug Fix
 
-- Add step: build-cloud-build-trigger-uses-github-repo-relationships [#542](https://github.com/JupiterOne/graph-google-cloud/pull/542) ([@i5o](https://github.com/i5o))
-- INT-5289 step: build-cloud-build-uses-source-repo-relationships [#541](https://github.com/JupiterOne/graph-google-cloud/pull/541) ([@i5o](https://github.com/i5o))
+- Add step: build-cloud-build-trigger-uses-github-repo-relationships
+  [#542](https://github.com/JupiterOne/graph-google-cloud/pull/542)
+  ([@i5o](https://github.com/i5o))
+- INT-5289 step: build-cloud-build-uses-source-repo-relationships
+  [#541](https://github.com/JupiterOne/graph-google-cloud/pull/541)
+  ([@i5o](https://github.com/i5o))
 
 #### Authors: 1
 
@@ -764,8 +946,12 @@
 
 #### 🐛 Bug Fix
 
-- Add auto versioning [#529](https://github.com/JupiterOne/graph-google-cloud/pull/529) ([@Nick-NCSU](https://github.com/Nick-NCSU))
-- INT-4507 - Add `users` property to compute address entities [#535](https://github.com/JupiterOne/graph-google-cloud/pull/535) ([@austinkelleher](https://github.com/austinkelleher))
+- Add auto versioning
+  [#529](https://github.com/JupiterOne/graph-google-cloud/pull/529)
+  ([@Nick-NCSU](https://github.com/Nick-NCSU))
+- INT-4507 - Add `users` property to compute address entities
+  [#535](https://github.com/JupiterOne/graph-google-cloud/pull/535)
+  ([@austinkelleher](https://github.com/austinkelleher))
 
 #### Authors: 2
 

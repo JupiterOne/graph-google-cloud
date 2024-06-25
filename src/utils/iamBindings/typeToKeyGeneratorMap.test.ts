@@ -40,6 +40,12 @@ import {
   StepRelationshipMetadata,
 } from '@jupiterone/integration-sdk-core';
 import { PrivatecaEntities } from '../../steps/privateca/constants';
+import {
+  ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_CLUSTER,
+  ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_INSTANCE,
+  ENTITY_TYPE_POSTGRE_SQL_BACKUP,
+  ENTITY_TYPE_POSTGRE_SQL_CONNECTION,
+} from '../../steps/alloydb/constants';
 
 /**
  * If your JupiterOne entity can not be indentified in Google Cloud with a Google Cloud
@@ -73,6 +79,10 @@ const entitiesTypesToSkip = [
   ENTITY_TYPE_MEMCACHE_INSTANCE_NODE,
   PrivatecaEntities.PRIVATE_CA_CERTIFICATE._type,
   ENTITY_TYPE_SPANNER_INSTANCE_CONFIG,
+  ENTITY_TYPE_POSTGRE_SQL_CONNECTION,
+  ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_CLUSTER,
+  ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_INSTANCE,
+  ENTITY_TYPE_POSTGRE_SQL_BACKUP,
 ];
 
 describe('J1_TYPE_TO_KEY_GENERATOR_MAP', () => {

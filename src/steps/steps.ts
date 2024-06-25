@@ -37,6 +37,8 @@ import { spannerSteps } from './spanner';
 import { sqlAdminSteps } from './sql-admin';
 import { storageSteps } from './storage';
 import { webSecurityScannerSteps } from './web-security-scanner';
+import { cloudDeploySteps } from './cloud-deploy';
+import { alloyDBSteps } from './alloydb';
 
 const steps: GoogleCloudIntegrationStep[] = wrapStepExecutionHandlers([
   ...functionsSteps,
@@ -71,6 +73,8 @@ const steps: GoogleCloudIntegrationStep[] = wrapStepExecutionHandlers([
   ...cloudBuildSteps,
   ...cloudSourceRepositoriesSteps,
   ...webSecurityScannerSteps,
+  ...cloudDeploySteps,
+  ...alloyDBSteps,
 ]);
 
 function wrapStepExecutionHandlers(

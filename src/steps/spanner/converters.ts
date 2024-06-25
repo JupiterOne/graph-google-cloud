@@ -3,12 +3,18 @@ import { spanner_v1 } from 'googleapis';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import { getGoogleCloudConsoleWebLink } from '../../utils/url';
 import {
+  ENTITY_CLASS_SPANNER_BACKUP,
   ENTITY_CLASS_SPANNER_INSTANCE,
   ENTITY_CLASS_SPANNER_INSTANCE_CONFIG,
   ENTITY_CLASS_SPANNER_INSTANCE_DATABASE,
+  ENTITY_CLASS_SPANNER_INSTANCE_DATABASE_ROLE,
+  ENTITY_CLASS_SPANNER_SERVICE,
+  ENTITY_TYPE_SPANNER_BACKUP,
   ENTITY_TYPE_SPANNER_INSTANCE,
   ENTITY_TYPE_SPANNER_INSTANCE_CONFIG,
   ENTITY_TYPE_SPANNER_INSTANCE_DATABASE,
+  ENTITY_TYPE_SPANNER_INSTANCE_DATABASE_ROLE,
+  ENTITY_TYPE_SPANNER_SERVICE,
 } from './constants';
 
 export function createSpannerInstanceEntity({
@@ -98,6 +104,56 @@ export function createSpannerInstanceConfiguration(
         _key: data.name as string,
         name: data.name,
         displayName: data.name as string,
+      },
+    },
+  });
+}
+
+export function createDatabaseRoleEntity(data: spanner_v1.Schema$DatabaseRole) {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_SPANNER_INSTANCE_DATABASE_ROLE,
+        _type: ENTITY_TYPE_SPANNER_INSTANCE_DATABASE_ROLE,
+        _key: data.name as string,
+        name: data.name,
+        displayName: data.name as string,
+      },
+    },
+  });
+}
+
+export function createBackupEntity(data: spanner_v1.Schema$Backup) {
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: data,
+      assign: {
+        _class: ENTITY_CLASS_SPANNER_BACKUP,
+        _type: ENTITY_TYPE_SPANNER_BACKUP,
+        _key: data.name as string,
+        name: data.name,
+        displayName: data.name as string,
+      },
+    },
+  });
+}
+
+export function getCloudSpannerEntity(serviceObj) {
+  const data = {
+    ...serviceObj, // organizationId, projectId, instanceId
+    name: 'Cloud Spanner',
+  };
+  return createGoogleCloudIntegrationEntity(data, {
+    entityData: {
+      source: {},
+      assign: {
+        _class: ENTITY_CLASS_SPANNER_SERVICE,
+        _type: ENTITY_TYPE_SPANNER_SERVICE,
+        _key: `${ENTITY_TYPE_SPANNER_SERVICE}:${data.instanceId}`,
+        function: ['application'],
+        category: ['database'],
+        ...data,
       },
     },
   });
