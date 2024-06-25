@@ -32,7 +32,7 @@ export async function buildAlloyDBInstanceHasConnectionRelationship(
 
       if (!jobState.hasKey(connectionKey)) {
         logger.warn(`
-          Step Name: Build AlloyDb Instance Has Connecction Relationship
+          Step Name: Build AlloyDb Instance Has Connection Relationship
           Entity Name: AlloyDB Connection,
           Key: ${connectionKey} 
           `);
