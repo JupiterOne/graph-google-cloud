@@ -21,7 +21,7 @@ describe('#createKmsCryptoKeyEntity', () => {
       createKmsCryptoKeyEntity({
         cryptoKey: getMockKmsCryptoKey(),
         location: 'us',
-        projectId: 'j1-gc-integration-dev-v3',
+        projectId: 'j1-gc-integration-dev-v2',
         cryptoKeyRingShortName: 'j1-gc-integration-dev-v2-bucket-ring',
         iamPolicy: getMockKmsCryptoKeyIamPolicy(),
       }),
