@@ -1,3 +1,7 @@
+import { RelationshipClass, StepEntityMetadata, StepRelationshipMetadata } from '@jupiterone/integration-sdk-core';
+import { ENTITY_TYPE_KMS_KEY } from '../kms';
+import { PROJECT_ENTITY_TYPE } from '../resource-manager';
+
 export const STEP_SPANNER_INSTANCES = 'fetch-spanner-instances';
 export const STEP_SPANNER_INSTANCE_DATABASES =
   'fetch-spanner-instance-databases';
@@ -111,4 +115,108 @@ export const SpannerPermissions = {
   STEP_SPANNER_INSTANCE_DATABASES: ['spanner.databases.list'],
   STEP_SPANNER_INSTANCE_DATABASES_ROLE: ['spanner.databasesRoles.list'],
   STEP_SPANNER_INSTANCE_BACKUP: ['spanner.backups.get'],
+};
+
+// Entities
+export const Entities: Record<
+  | 'SPANNER_INSTANCES'
+  | 'SPANNER_INSTANCE_CONFIGS'
+  | 'SPANNER_INSTANCE_DATABASES'
+  | 'SPANNER_INSTANCE_DATABASES_ROLE'
+  | 'SPANNER_BACKUP'
+  | 'SPANNER_SERVICE',
+  StepEntityMetadata
+> = {
+  SPANNER_INSTANCE_CONFIGS: {
+    resourceName: 'Spanner Instance Config',
+    _type: ENTITY_TYPE_SPANNER_INSTANCE_CONFIG,
+    _class: ENTITY_CLASS_SPANNER_INSTANCE_CONFIG,
+  },
+  SPANNER_INSTANCES: {
+    resourceName: 'Spanner Instance',
+    _type: ENTITY_TYPE_SPANNER_INSTANCE,
+    _class: ENTITY_CLASS_SPANNER_INSTANCE,
+  },
+  SPANNER_INSTANCE_DATABASES: {
+    resourceName: 'Spanner Instance Database',
+    _type: ENTITY_TYPE_SPANNER_INSTANCE_DATABASE,
+    _class: ENTITY_CLASS_SPANNER_INSTANCE_DATABASE,
+  },
+  SPANNER_INSTANCE_DATABASES_ROLE: {
+    resourceName: 'Spanner Instance Database Role',
+    _type: ENTITY_TYPE_SPANNER_INSTANCE_DATABASE_ROLE,
+    _class: ENTITY_CLASS_SPANNER_INSTANCE_DATABASE_ROLE,
+  },
+  SPANNER_BACKUP: {
+    resourceName: 'Cloud Spanner Backups',
+    _type: ENTITY_TYPE_SPANNER_BACKUP,
+    _class: ENTITY_CLASS_SPANNER_BACKUP,
+  },
+  SPANNER_SERVICE: {
+    resourceName: 'Cloud Spanner',
+    _type: ENTITY_TYPE_SPANNER_SERVICE,
+    _class: ENTITY_CLASS_SPANNER_SERVICE,
+  },
+};
+
+// Relationships 
+export const Relationships: Record<
+  | 'SPANNER_INSTANCE_USES_CONFIG'
+  | 'SPANNER_INSTANCE_HAS_DATABASE'
+  | 'SPANNER_INSTANCE_DATABASE_USES_KMS_KEY'
+  | 'SPANNER_INSTANCE_DATABASES_ASSIGNED_DATABASE_ROLE'
+  | 'SPANNER_INSTANCE_HAS_BACKUP'
+  | 'PROJECT_HAS_SPANNER_INSTANCE'
+  | 'PROJECT_HAS_SPANNER_INSTANCE_CONFIG'
+  | 'PROJECT_HAS_SPANNER_SERVICE',
+  StepRelationshipMetadata
+> = {
+  SPANNER_INSTANCE_USES_CONFIG: {
+    _class: RelationshipClass.USES,
+    _type: RELATIONSHIP_TYPE_SPANNER_INSTANCE_USES_CONFIG,
+    sourceType: ENTITY_TYPE_SPANNER_INSTANCE,
+    targetType: ENTITY_TYPE_SPANNER_INSTANCE_CONFIG,
+  },
+  SPANNER_INSTANCE_HAS_DATABASE: {
+    _class: RelationshipClass.HAS,
+    _type: RELATIONSHIP_TYPE_SPANNER_INSTANCE_HAS_DATABASE,
+    sourceType: ENTITY_TYPE_SPANNER_INSTANCE,
+    targetType: ENTITY_TYPE_SPANNER_INSTANCE_DATABASE,
+  },
+  SPANNER_INSTANCE_DATABASE_USES_KMS_KEY: {
+    _class: RelationshipClass.USES,
+    _type: RELATIONSHIP_TYPE_SPANNER_INSTANCE_DATABASE_USES_KMS_KEY,
+    sourceType: ENTITY_TYPE_SPANNER_INSTANCE_DATABASE,
+    targetType: ENTITY_TYPE_KMS_KEY,
+  },
+  SPANNER_INSTANCE_DATABASES_ASSIGNED_DATABASE_ROLE: {
+    _class: RelationshipClass.ASSIGNED,
+    _type: RELATIONSHIP_TYPE_SPANNER_INSTANCE_DATABASES_ASSIGNED_DATABASE_ROLE,
+    sourceType: ENTITY_TYPE_SPANNER_INSTANCE_DATABASE,
+    targetType: ENTITY_TYPE_SPANNER_INSTANCE_DATABASE_ROLE,
+  },
+  SPANNER_INSTANCE_HAS_BACKUP: {
+    _class: RelationshipClass.HAS,
+    _type: RELATIONSHIP_TYPE_SPANNER_INSTANCE_HAS_BACKUP,
+    sourceType: ENTITY_TYPE_SPANNER_INSTANCE,
+    targetType: ENTITY_TYPE_SPANNER_BACKUP,
+  },
+  PROJECT_HAS_SPANNER_INSTANCE: {
+    _class: RelationshipClass.HAS,
+    _type: RELATIONSHIP_TYPE_PROJECT_HAS_SPANNER_INSTANCE,
+    sourceType: PROJECT_ENTITY_TYPE,
+    targetType: ENTITY_TYPE_SPANNER_INSTANCE,
+  },
+  PROJECT_HAS_SPANNER_INSTANCE_CONFIG: {
+    _class: RelationshipClass.HAS,
+    _type: RELATIONSHIP_TYPE_PROJECT_HAS_SPANNER_INSTANCE_CONFIG,
+    sourceType: PROJECT_ENTITY_TYPE,
+    targetType: ENTITY_TYPE_SPANNER_INSTANCE_CONFIG,
+  },
+  PROJECT_HAS_SPANNER_SERVICE: {
+    _class: RelationshipClass.HAS,
+    _type: RELATIONSHIP_TYPE_PROJECT_HAS_SPANNER_SERVICE,
+    sourceType: PROJECT_ENTITY_TYPE,
+    targetType: ENTITY_TYPE_SPANNER_SERVICE,
+  },
 };

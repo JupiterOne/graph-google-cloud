@@ -1,3 +1,13 @@
+import {
+  RelationshipClass,
+  RelationshipDirection,
+  StepEntityMetadata,
+  StepMappedRelationshipMetadata,
+  StepRelationshipMetadata,
+} from '@jupiterone/integration-sdk-core';
+import { PROJECT_ENTITY_TYPE } from '../resource-manager';
+import { StorageEntitiesSpec } from '../storage/constants';
+
 // Steps
 export const STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE =
   'fetch-cloud-deploy-delivery-pipeline';
@@ -105,4 +115,76 @@ export const CodeDeployIngestionConfig = {
 export const CloudDeployPermissions = {
   STEP_CLOUD_DEPLOY_DELIVERY_PIPELINES: ['clouddeploy.deliveryPipelines.list'],
   STEP_CLOUD_DEPLOY_AUTOMATION: ['clouddeploy.automations.list'],
+};
+
+// Entities
+export const Entities: Record<
+  | 'CLOUD_DEPLOY_SERVICE'
+  | 'CLOUD_DEPLOY_AUTOMATION'
+  | 'CLOUD_DEPLOY_DELIVERY_PIPELINE',
+  StepEntityMetadata
+> = {
+  CLOUD_DEPLOY_SERVICE: {
+    resourceName: 'Cloud Deploy Service',
+    _type: ENTITY_TYPE_CLOUD_DEPLOY_SERVICE,
+    _class: ENTITY_CLASS_CLOUD_DEPLOY_SERVICE,
+  },
+  CLOUD_DEPLOY_AUTOMATION: {
+    resourceName: 'Cloud Deploy Automation',
+    _type: ENTITY_TYPE_CLOUD_DEPLOY_AUTOMATION,
+    _class: ENTITY_CLASS_CLOUD_DEPLOY_AUTOMATION,
+  },
+  CLOUD_DEPLOY_DELIVERY_PIPELINE: {
+    resourceName: 'Cloud Deploy Delivery Pipeline',
+    _type: ENTITY_TYPE_CLOUD_DEPLOY_DELIVERY_PIPELINE,
+    _class: ENTITY_CLASS_CLOUD_DEPLOY_DELIVERY_PIPELINE,
+  },
+};
+
+// Relationships
+export const Relationships: Record<
+  | 'CLOUD_DEPLOY_AUTOMATION_TRIGGERS_DELIVERY_PIPELINE'
+  | 'CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_STORAGE_BUCKET'
+  | 'PROJECT_HAS_CLOUD_DEPLOY'
+  | 'CLOUD_DEPLOY_SERVICE_HAS_DELIVERY_PIPELINE',
+  StepRelationshipMetadata
+> = {
+  CLOUD_DEPLOY_AUTOMATION_TRIGGERS_DELIVERY_PIPELINE: {
+    _type: RELATIONSHIP_TYPE_CLOUD_DEPLOY_AUTOMATION_TRIGGERS_DELIVERY_PIPELINE,
+    sourceType: ENTITY_TYPE_CLOUD_DEPLOY_AUTOMATION,
+    _class: RelationshipClass.TRIGGERS,
+    targetType: ENTITY_TYPE_CLOUD_DEPLOY_DELIVERY_PIPELINE,
+  },
+  CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_STORAGE_BUCKET: {
+    _type: RELATIONSHIP_TYPE_CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_STORAGE_BUCKET,
+    sourceType: ENTITY_TYPE_CLOUD_DEPLOY_DELIVERY_PIPELINE,
+    _class: RelationshipClass.USES,
+    targetType: StorageEntitiesSpec.STORAGE_BUCKET._type,
+  },
+  PROJECT_HAS_CLOUD_DEPLOY: {
+    _type: RELATIONSHIP_TYPE_PROJECT_HAS_CLOUD_DEPLOY,
+    sourceType: PROJECT_ENTITY_TYPE,
+    _class: RelationshipClass.HAS,
+    targetType: ENTITY_TYPE_CLOUD_DEPLOY_SERVICE,
+  },
+  CLOUD_DEPLOY_SERVICE_HAS_DELIVERY_PIPELINE: {
+    _type: RELATIONSHIP_TYPE_CLOUD_DEPLOY_SERVICE_HAS_DELIVERY_PIPELINE,
+    sourceType: ENTITY_TYPE_CLOUD_DEPLOY_SERVICE,
+    _class: RelationshipClass.HAS,
+    targetType: ENTITY_TYPE_CLOUD_DEPLOY_DELIVERY_PIPELINE,
+  },
+};
+
+export const MappedRelationships: Record<
+  'CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_GITHUB_REPO',
+  StepMappedRelationshipMetadata
+> = {
+  CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_GITHUB_REPO: {
+    _type:
+      MAPPED_RELATIONSHIP_TYPE_CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_GITHUB_REPO,
+    sourceType: ENTITY_TYPE_CLOUD_DEPLOY_DELIVERY_PIPELINE,
+    _class: RelationshipClass.USES,
+    targetType: 'github_repo',
+    direction: RelationshipDirection.FORWARD,
+  },
 };

@@ -7,8 +7,7 @@ import {
   IngestionSources,
   ComputePermissions,
   STEP_COMPUTE_ROUTER,
-  ENTITY_TYPE_COMPUTE_ROUTER,
-  ENTITY_CLASS_COMPUTE_ROUTER,
+  Entities,
 } from '../constants';
 import { createComputeRouterEntity } from '../converters';
 
@@ -35,19 +34,7 @@ export const fetchComputeRouterStepsMap: GoogleCloudIntegrationStep = {
   ingestionSourceId: IngestionSources.COMPUTE_ROUTER,
   name: 'Compute Router',
   entities: [
-    {
-      resourceName: 'Cloud Compute Router',
-      _type: ENTITY_TYPE_COMPUTE_ROUTER,
-      _class: ENTITY_CLASS_COMPUTE_ROUTER,
-      schema: {
-        properties: {
-          make: { exclude: true },
-          model: { exclude: true },
-          serial: { exclude: true },
-          lastSeenOn: { exclude: true },
-        },
-      },
-    },
+    Entities.COMPUTE_ROUTER
   ],
   relationships: [],
   dependsOn: [],

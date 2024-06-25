@@ -5,8 +5,7 @@ import {
 import { AlloyDBClient } from '../client';
 import {
   AlloyDBPermissions,
-  ENTITY_CLASS_POSTGRE_SQL_BACKUP,
-  ENTITY_TYPE_POSTGRE_SQL_BACKUP,
+  Entities,
   IngestionSources,
   STEP_ALLOYDB_POSTGRE_SQL_BACKUP,
 } from '../constants';
@@ -33,11 +32,7 @@ export const alloyDBPostgreSQLBackupStep: GoogleCloudIntegrationStep = {
   ingestionSourceId: IngestionSources.ALLOYDB_POSTGRE_SQL_BACKUP,
   name: 'fetch-alloydb-postgre-sql-backup',
   entities: [
-    {
-      resourceName: 'AlloyDB for PostgreSQL Backup',
-      _type: ENTITY_TYPE_POSTGRE_SQL_BACKUP,
-      _class: ENTITY_CLASS_POSTGRE_SQL_BACKUP,
-    },
+    Entities.ALLOYDB_POSTGRE_SQL_BACKUP
   ],
   relationships: [],
   dependsOn: [],

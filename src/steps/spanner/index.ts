@@ -1,7 +1,6 @@
 import {
   createDirectRelationship,
   createMappedRelationship,
-  IntegrationMissingKeyError,
   RelationshipClass,
   RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
@@ -20,35 +19,23 @@ import {
   STEP_SPANNER_INSTANCE_DATABASES,
   STEP_SPANNER_INSTANCE_CONFIGS,
   ENTITY_TYPE_SPANNER_INSTANCE,
-  ENTITY_CLASS_SPANNER_INSTANCE,
   ENTITY_TYPE_SPANNER_INSTANCE_DATABASE,
-  ENTITY_CLASS_SPANNER_INSTANCE_DATABASE,
   ENTITY_TYPE_SPANNER_INSTANCE_CONFIG,
-  ENTITY_CLASS_SPANNER_INSTANCE_CONFIG,
-  RELATIONSHIP_TYPE_SPANNER_INSTANCE_HAS_DATABASE,
-  RELATIONSHIP_TYPE_SPANNER_INSTANCE_USES_CONFIG,
-  RELATIONSHIP_TYPE_SPANNER_INSTANCE_DATABASE_USES_KMS_KEY,
   IngestionSources,
   SpannerPermissions,
   STEP_SPANNER_INSTANCE_DATABASES_ROLE,
   ENTITY_TYPE_SPANNER_INSTANCE_DATABASE_ROLE,
-  ENTITY_CLASS_SPANNER_INSTANCE_DATABASE_ROLE,
   STEP_SPANNER_INSTANCE_DATABASES_ASSIGNED_DATABASE_ROLE,
-  RELATIONSHIP_TYPE_SPANNER_INSTANCE_DATABASES_ASSIGNED_DATABASE_ROLE,
   STEP_SPANNER_BACKUP,
   ENTITY_TYPE_SPANNER_BACKUP,
-  ENTITY_CLASS_SPANNER_BACKUP,
   STEP_CLOUD_SPANNER_SERVICE,
   ENTITY_TYPE_SPANNER_SERVICE,
-  ENTITY_CLASS_SPANNER_SERVICE,
   STEP_SPANNER_INSTANCE_HAS_BACKUP,
-  RELATIONSHIP_TYPE_SPANNER_INSTANCE_HAS_BACKUP,
   STEP_PROJECT_HAS_SPANNER_INSTANCE,
-  RELATIONSHIP_TYPE_PROJECT_HAS_SPANNER_INSTANCE,
   STEP_PROJECT_HAS_SPANNER_INSTANCE_CONFIG,
-  RELATIONSHIP_TYPE_PROJECT_HAS_SPANNER_INSTANCE_CONFIG,
   STEP_PROJECT_HAS_SPANNER_SERVICE,
-  RELATIONSHIP_TYPE_PROJECT_HAS_SPANNER_SERVICE,
+  Entities,
+  Relationships,
 } from './constants';
 import {
   createBackupEntity,
@@ -251,7 +238,7 @@ export async function fetchSpannerInstanceDatabasesRole(
 export async function buildSpannerInstanceDatabasesAssignedDatabaseRole(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
+  const { jobState, logger } = context;
 
   await jobState.iterateEntities(
     {
@@ -263,20 +250,18 @@ export async function buildSpannerInstanceDatabasesAssignedDatabaseRole(
         databaseRole._key.indexOf('/databaseRoles'),
       );
       if (!jobState.hasKey(databaseKey)) {
-        throw new IntegrationMissingKeyError(
-          `Database Key Missing. Key: ${databaseKey}`,
+        logger.warn(`Database Key Missing. Key: ${databaseKey}`);
+      } else {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.ASSIGNED,
+            fromKey: databaseKey,
+            fromType: ENTITY_TYPE_SPANNER_INSTANCE_DATABASE,
+            toKey: databaseRole._key,
+            toType: ENTITY_TYPE_SPANNER_INSTANCE_DATABASE_ROLE,
+          }),
         );
       }
-
-      await jobState.addRelationship(
-        createDirectRelationship({
-          _class: RelationshipClass.ASSIGNED,
-          fromKey: databaseKey,
-          fromType: ENTITY_TYPE_SPANNER_INSTANCE_DATABASE,
-          toKey: databaseRole._key,
-          toType: ENTITY_TYPE_SPANNER_INSTANCE_DATABASE_ROLE,
-        }),
-      );
     },
   );
 }
@@ -327,7 +312,7 @@ export async function fetchSpannerService(
 export async function buildSpannerInstanceBackupRelationship(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
+  const { jobState, logger } = context;
 
   await jobState.iterateEntities(
     {
@@ -339,20 +324,18 @@ export async function buildSpannerInstanceBackupRelationship(
         .substring(0, backupEntity.name?.toString().indexOf('/backups'));
 
       if (!jobState.hasKey(instanceKey)) {
-        throw new IntegrationMissingKeyError(
-          `Instance Key Missing: ${instanceKey}`,
+        logger.warn(`Instance Key Missing: ${instanceKey}`);
+      } else {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.HAS,
+            fromKey: instanceKey as string,
+            fromType: ENTITY_TYPE_SPANNER_INSTANCE,
+            toKey: backupEntity._key,
+            toType: ENTITY_TYPE_SPANNER_BACKUP,
+          }),
         );
       }
-
-      await jobState.addRelationship(
-        createDirectRelationship({
-          _class: RelationshipClass.HAS,
-          fromKey: instanceKey as string,
-          fromType: ENTITY_TYPE_SPANNER_INSTANCE,
-          toKey: backupEntity._key,
-          toType: ENTITY_TYPE_SPANNER_BACKUP,
-        }),
-      );
     },
   );
 }
@@ -360,97 +343,97 @@ export async function buildSpannerInstanceBackupRelationship(
 export async function buildProjectInstanceRelationship(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
+  const { jobState, logger } = context;
 
   const projectEntity = await getProjectEntity(jobState);
 
   if (!projectEntity) return;
 
   if (!jobState.hasKey(projectEntity._key)) {
-    throw new IntegrationMissingKeyError(`
+    logger.warn(`
     Step Name: Build Project Has Spanner Instance Relationship
     Project Key: ${projectEntity._key}
     `);
+  } else {
+    await jobState.iterateEntities(
+      { _type: ENTITY_TYPE_SPANNER_INSTANCE },
+      async (spannerInstance) => {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.HAS,
+            fromKey: projectEntity._key as string,
+            fromType: PROJECT_ENTITY_TYPE,
+            toKey: spannerInstance._key as string,
+            toType: ENTITY_TYPE_SPANNER_INSTANCE,
+          }),
+        );
+      },
+    );
   }
-
-  await jobState.iterateEntities(
-    { _type: ENTITY_TYPE_SPANNER_INSTANCE },
-    async (spannerInstance) => {
-      await jobState.addRelationship(
-        createDirectRelationship({
-          _class: RelationshipClass.HAS,
-          fromKey: projectEntity._key as string,
-          fromType: PROJECT_ENTITY_TYPE,
-          toKey: spannerInstance._key as string,
-          toType: ENTITY_TYPE_SPANNER_INSTANCE,
-        }),
-      );
-    },
-  );
 }
 
 export async function buildProjectSpannerConfigurationRelationship(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
+  const { jobState, logger } = context;
 
   const projectEntity = await getProjectEntity(jobState);
 
   if (!projectEntity) return;
 
   if (!jobState.hasKey(projectEntity._key)) {
-    throw new IntegrationMissingKeyError(`
+    logger.warn(`
     Step Name: Build Project Has Spanner Instance Configuration Relationship
     Project Key: ${projectEntity._key}
     `);
+  } else {
+    await jobState.iterateEntities(
+      { _type: ENTITY_TYPE_SPANNER_INSTANCE_CONFIG },
+      async (spannerInstanceConfig) => {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.HAS,
+            fromKey: projectEntity._key as string,
+            fromType: PROJECT_ENTITY_TYPE,
+            toKey: spannerInstanceConfig._key as string,
+            toType: ENTITY_TYPE_SPANNER_INSTANCE_CONFIG,
+          }),
+        );
+      },
+    );
   }
-
-  await jobState.iterateEntities(
-    { _type: ENTITY_TYPE_SPANNER_INSTANCE_CONFIG },
-    async (spannerInstanceConfig) => {
-      await jobState.addRelationship(
-        createDirectRelationship({
-          _class: RelationshipClass.HAS,
-          fromKey: projectEntity._key as string,
-          fromType: PROJECT_ENTITY_TYPE,
-          toKey: spannerInstanceConfig._key as string,
-          toType: ENTITY_TYPE_SPANNER_INSTANCE_CONFIG,
-        }),
-      );
-    },
-  );
 }
 
 export async function buildProjectSpannerServiceRelationship(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
+  const { jobState, logger } = context;
 
   const projectEntity = await getProjectEntity(jobState);
 
   if (!projectEntity) return;
 
   if (!jobState.hasKey(projectEntity._key)) {
-    throw new IntegrationMissingKeyError(`
+    logger.warn(`
     Step Name: Build Project Has Spanner Service Relationship
     Project Key: ${projectEntity._key}
     `);
+  } else {
+    await jobState.iterateEntities(
+      { _type: ENTITY_TYPE_SPANNER_SERVICE },
+      async (spannerService) => {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.HAS,
+            fromKey: projectEntity._key as string,
+            fromType: PROJECT_ENTITY_TYPE,
+            toKey: spannerService._key as string,
+            toType: ENTITY_TYPE_SPANNER_SERVICE,
+          }),
+        );
+      },
+    );
   }
-
-  await jobState.iterateEntities(
-    { _type: ENTITY_TYPE_SPANNER_SERVICE },
-    async (spannerService) => {
-      await jobState.addRelationship(
-        createDirectRelationship({
-          _class: RelationshipClass.HAS,
-          fromKey: projectEntity._key as string,
-          fromType: PROJECT_ENTITY_TYPE,
-          toKey: spannerService._key as string,
-          toType: ENTITY_TYPE_SPANNER_SERVICE,
-        }),
-      );
-    },
-  );
 }
 
 export const spannerSteps: GoogleCloudIntegrationStep[] = [
@@ -458,13 +441,7 @@ export const spannerSteps: GoogleCloudIntegrationStep[] = [
     id: STEP_SPANNER_INSTANCE_CONFIGS,
     ingestionSourceId: IngestionSources.SPANNER_INSTANCE_CONFIGS,
     name: 'Spanner Instance Configs',
-    entities: [
-      {
-        resourceName: 'Spanner Instance Config',
-        _type: ENTITY_TYPE_SPANNER_INSTANCE_CONFIG,
-        _class: ENTITY_CLASS_SPANNER_INSTANCE_CONFIG,
-      },
-    ],
+    entities: [Entities.SPANNER_INSTANCE_CONFIGS],
     relationships: [],
     dependsOn: [],
     executionHandler: fetchSpannerInstanceConfigs,
@@ -475,21 +452,8 @@ export const spannerSteps: GoogleCloudIntegrationStep[] = [
     id: STEP_SPANNER_INSTANCES,
     ingestionSourceId: IngestionSources.SPANNER_INSTANCES,
     name: 'Spanner Instances',
-    entities: [
-      {
-        resourceName: 'Spanner Instance',
-        _type: ENTITY_TYPE_SPANNER_INSTANCE,
-        _class: ENTITY_CLASS_SPANNER_INSTANCE,
-      },
-    ],
-    relationships: [
-      {
-        _class: RelationshipClass.USES,
-        _type: RELATIONSHIP_TYPE_SPANNER_INSTANCE_USES_CONFIG,
-        sourceType: ENTITY_TYPE_SPANNER_INSTANCE,
-        targetType: ENTITY_TYPE_SPANNER_INSTANCE_CONFIG,
-      },
-    ],
+    entities: [Entities.SPANNER_INSTANCES],
+    relationships: [Relationships.SPANNER_INSTANCE_USES_CONFIG],
     dependsOn: [STEP_SPANNER_INSTANCE_CONFIGS],
     executionHandler: fetchSpannerInstances,
     permissions: SpannerPermissions.STEP_SPANNER_INSTANCES,
@@ -499,26 +463,10 @@ export const spannerSteps: GoogleCloudIntegrationStep[] = [
     id: STEP_SPANNER_INSTANCE_DATABASES,
     ingestionSourceId: IngestionSources.SPANNER_INSTANCE_DATABASES,
     name: 'Spanner Instance Databases',
-    entities: [
-      {
-        resourceName: 'Spanner Instance Database',
-        _type: ENTITY_TYPE_SPANNER_INSTANCE_DATABASE,
-        _class: ENTITY_CLASS_SPANNER_INSTANCE_DATABASE,
-      },
-    ],
+    entities: [Entities.SPANNER_INSTANCE_DATABASES],
     relationships: [
-      {
-        _class: RelationshipClass.HAS,
-        _type: RELATIONSHIP_TYPE_SPANNER_INSTANCE_HAS_DATABASE,
-        sourceType: ENTITY_TYPE_SPANNER_INSTANCE,
-        targetType: ENTITY_TYPE_SPANNER_INSTANCE_DATABASE,
-      },
-      {
-        _class: RelationshipClass.USES,
-        _type: RELATIONSHIP_TYPE_SPANNER_INSTANCE_DATABASE_USES_KMS_KEY,
-        sourceType: ENTITY_TYPE_SPANNER_INSTANCE_DATABASE,
-        targetType: ENTITY_TYPE_KMS_KEY,
-      },
+      Relationships.SPANNER_INSTANCE_HAS_DATABASE,
+      Relationships.SPANNER_INSTANCE_DATABASE_USES_KMS_KEY,
     ],
     dependsOn: [STEP_SPANNER_INSTANCES, STEP_CLOUD_KMS_KEYS],
     executionHandler: fetchSpannerInstanceDatabases,
@@ -529,13 +477,7 @@ export const spannerSteps: GoogleCloudIntegrationStep[] = [
     id: STEP_SPANNER_INSTANCE_DATABASES_ROLE,
     ingestionSourceId: IngestionSources.SPANNER_INSTANCE_DATABASES_ROLE,
     name: 'Spanner Instance Databases Role',
-    entities: [
-      {
-        resourceName: 'Spanner Instance Database Role',
-        _type: ENTITY_TYPE_SPANNER_INSTANCE_DATABASE_ROLE,
-        _class: ENTITY_CLASS_SPANNER_INSTANCE_DATABASE_ROLE,
-      },
-    ],
+    entities: [Entities.SPANNER_INSTANCE_DATABASES_ROLE],
     relationships: [],
     dependsOn: [STEP_SPANNER_INSTANCE_DATABASES],
     executionHandler: fetchSpannerInstanceDatabasesRole,
@@ -544,18 +486,10 @@ export const spannerSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_SPANNER_INSTANCE_DATABASES_ASSIGNED_DATABASE_ROLE,
-    ingestionSourceId:
-      IngestionSources.SPANNER_INSTANCE_DATABASES_ASSIGNED_DATABASE_ROLE,
     name: 'Build Spanner Instance Databases Assigned Database Role',
     entities: [],
     relationships: [
-      {
-        _class: RelationshipClass.ASSIGNED,
-        _type:
-          RELATIONSHIP_TYPE_SPANNER_INSTANCE_DATABASES_ASSIGNED_DATABASE_ROLE,
-        sourceType: ENTITY_TYPE_SPANNER_INSTANCE_DATABASE,
-        targetType: ENTITY_TYPE_SPANNER_INSTANCE_DATABASE_ROLE,
-      },
+      Relationships.SPANNER_INSTANCE_DATABASES_ASSIGNED_DATABASE_ROLE,
     ],
     dependsOn: [
       STEP_SPANNER_INSTANCE_DATABASES_ROLE,
@@ -567,13 +501,7 @@ export const spannerSteps: GoogleCloudIntegrationStep[] = [
     id: STEP_SPANNER_BACKUP,
     ingestionSourceId: IngestionSources.SPANNER_BACKUP,
     name: 'Cloud Spanner Backups',
-    entities: [
-      {
-        resourceName: 'Cloud Spanner Backups',
-        _type: ENTITY_TYPE_SPANNER_BACKUP,
-        _class: ENTITY_CLASS_SPANNER_BACKUP,
-      },
-    ],
+    entities: [Entities.SPANNER_BACKUP],
     relationships: [],
     dependsOn: [STEP_SPANNER_INSTANCES],
     executionHandler: fetchSpannerbackup,
@@ -584,13 +512,7 @@ export const spannerSteps: GoogleCloudIntegrationStep[] = [
     id: STEP_CLOUD_SPANNER_SERVICE,
     ingestionSourceId: IngestionSources.SPANNER_SERVICE,
     name: 'Cloud Spanner Service',
-    entities: [
-      {
-        resourceName: 'Cloud Spanner',
-        _type: ENTITY_TYPE_SPANNER_SERVICE,
-        _class: ENTITY_CLASS_SPANNER_SERVICE,
-      },
-    ],
+    entities: [Entities.SPANNER_SERVICE],
     relationships: [],
     dependsOn: [],
     executionHandler: fetchSpannerService,
@@ -598,66 +520,34 @@ export const spannerSteps: GoogleCloudIntegrationStep[] = [
   },
   {
     id: STEP_SPANNER_INSTANCE_HAS_BACKUP,
-    ingestionSourceId: IngestionSources.SPANNER_INSTANCE_HAS_BACKUP,
     name: 'Build Spanner Instance has Backup',
     entities: [],
-    relationships: [
-      {
-        _class: RelationshipClass.HAS,
-        _type: RELATIONSHIP_TYPE_SPANNER_INSTANCE_HAS_BACKUP,
-        sourceType: ENTITY_TYPE_SPANNER_INSTANCE,
-        targetType: ENTITY_TYPE_SPANNER_BACKUP,
-      },
-    ],
+    relationships: [Relationships.SPANNER_INSTANCE_HAS_BACKUP],
     dependsOn: [STEP_SPANNER_BACKUP, STEP_SPANNER_INSTANCES],
     executionHandler: buildSpannerInstanceBackupRelationship,
   },
 
   {
     id: STEP_PROJECT_HAS_SPANNER_INSTANCE,
-    ingestionSourceId: IngestionSources.PROJECT_HAS_SPANNER_INSTANCE,
     name: 'Build Spanner Project Has Instance',
     entities: [],
-    relationships: [
-      {
-        _class: RelationshipClass.HAS,
-        _type: RELATIONSHIP_TYPE_PROJECT_HAS_SPANNER_INSTANCE,
-        sourceType: PROJECT_ENTITY_TYPE,
-        targetType: ENTITY_TYPE_SPANNER_INSTANCE,
-      },
-    ],
+    relationships: [Relationships.PROJECT_HAS_SPANNER_INSTANCE],
     dependsOn: [STEP_RESOURCE_MANAGER_PROJECT, STEP_SPANNER_INSTANCES],
     executionHandler: buildProjectInstanceRelationship,
   },
   {
     id: STEP_PROJECT_HAS_SPANNER_INSTANCE_CONFIG,
-    ingestionSourceId: IngestionSources.PROJECT_HAS_SPANNER_INSTANCE_CONFIG,
     name: 'Build Spanner Project Has Instance Config',
     entities: [],
-    relationships: [
-      {
-        _class: RelationshipClass.HAS,
-        _type: RELATIONSHIP_TYPE_PROJECT_HAS_SPANNER_INSTANCE_CONFIG,
-        sourceType: PROJECT_ENTITY_TYPE,
-        targetType: ENTITY_TYPE_SPANNER_INSTANCE_CONFIG,
-      },
-    ],
+    relationships: [Relationships.PROJECT_HAS_SPANNER_INSTANCE_CONFIG],
     dependsOn: [STEP_RESOURCE_MANAGER_PROJECT, STEP_SPANNER_INSTANCE_CONFIGS],
     executionHandler: buildProjectSpannerConfigurationRelationship,
   },
   {
     id: STEP_PROJECT_HAS_SPANNER_SERVICE,
-    ingestionSourceId: IngestionSources.PROJECT_HAS_SPANNER_SERVICE,
     name: 'Build Spanner Project Has Spanner Service',
     entities: [],
-    relationships: [
-      {
-        _class: RelationshipClass.HAS,
-        _type: RELATIONSHIP_TYPE_PROJECT_HAS_SPANNER_SERVICE,
-        sourceType: PROJECT_ENTITY_TYPE,
-        targetType: ENTITY_TYPE_SPANNER_SERVICE,
-      },
-    ],
+    relationships: [Relationships.PROJECT_HAS_SPANNER_SERVICE],
     dependsOn: [STEP_RESOURCE_MANAGER_PROJECT, STEP_CLOUD_SPANNER_SERVICE],
     executionHandler: buildProjectSpannerServiceRelationship,
   },

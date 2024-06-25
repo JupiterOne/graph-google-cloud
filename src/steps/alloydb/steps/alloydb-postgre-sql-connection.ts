@@ -5,12 +5,11 @@ import {
 import { AlloyDBClient } from '../client';
 import {
   AlloyDBPermissions,
-  ENTITY_CLASS_POSTGRE_SQL_CONNECTION,
-  ENTITY_TYPE_POSTGRE_SQL_CONNECTION,
   ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_INSTANCE,
   IngestionSources,
   STEP_ALLOYDB_POSTGRE_SQL_CONNECTION,
   STEP_ALLOYDB_POSTGRE_SQL_INSTANCE,
+  Entities,
 } from '../constants';
 import { createConnectionEntity } from '../converter';
 
@@ -49,11 +48,7 @@ export const alloyDBPostgreSQLConnectionStep: GoogleCloudIntegrationStep = {
   ingestionSourceId: IngestionSources.ALLOYDB_POSTGRE_SQL_CONNECTION,
   name: 'fetch-alloydb-postgre-sql-connection',
   entities: [
-    {
-      resourceName: 'AlloyDB for PostgreSQL Connection',
-      _type: ENTITY_TYPE_POSTGRE_SQL_CONNECTION,
-      _class: ENTITY_CLASS_POSTGRE_SQL_CONNECTION,
-    },
+    Entities.ALLOYDB_POSTGRE_SQL_CONNECTION
   ],
   relationships: [],
   dependsOn: [STEP_ALLOYDB_POSTGRE_SQL_INSTANCE],

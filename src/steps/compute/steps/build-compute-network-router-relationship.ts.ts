@@ -9,11 +9,11 @@ import {
 } from '../../../types';
 import {
   STEP_COMPUTE_NETWORK_ROUTER_RELATIONSHIPS,
-  RELATIONSHIP_TYPE_COMPUTE_NETWORK_HAS_ROUTER,
   ENTITY_TYPE_COMPUTE_NETWORK,
   ENTITY_TYPE_COMPUTE_ROUTER,
   STEP_COMPUTE_ROUTER,
   STEP_COMPUTE_NETWORKS,
+  Relationships,
 } from '../constants';
 
 export async function buildComputeNetoworkRouterRelationships(
@@ -54,14 +54,7 @@ export const buildComputeNetworkRouterRelationshipsMap: GoogleCloudIntegrationSt
     id: STEP_COMPUTE_NETWORK_ROUTER_RELATIONSHIPS,
     name: 'Compute Network Router Relationships',
     entities: [],
-    relationships: [
-      {
-        _class: RelationshipClass.HAS,
-        _type: RELATIONSHIP_TYPE_COMPUTE_NETWORK_HAS_ROUTER,
-        sourceType: ENTITY_TYPE_COMPUTE_NETWORK,
-        targetType: ENTITY_TYPE_COMPUTE_ROUTER,
-      },
-    ],
+    relationships: [Relationships.COMPUTE_NETWORK_HAS_ROUTER],
     executionHandler: buildComputeNetoworkRouterRelationships,
     dependsOn: [STEP_COMPUTE_ROUTER, STEP_COMPUTE_NETWORKS],
   };

@@ -1,3 +1,12 @@
+import {
+  RelationshipClass,
+  StepEntityMetadata,
+  StepRelationshipMetadata,
+} from '@jupiterone/integration-sdk-core';
+import { ENTITY_TYPE_KMS_KEY } from '../kms';
+import { PROJECT_ENTITY_TYPE } from '../resource-manager';
+import { GOOGLE_USER_ENTITY_TYPE } from '../iam';
+
 export const STEP_ALLOYDB_POSTGRE_SQL_SERVICE = 'create-postgre-sql-service';
 export const STEP_ALLOYDB_POSTGRE_SQL_CLUSTER =
   'fetch-alloydb-postgre-sql-cluster';
@@ -80,20 +89,6 @@ export const IngestionSources = {
   ALLOYDB_POSTGRE_SQL_INSTANCE: 'alloydb-postgre-sql-instance',
   ALLOYDB_POSTGRE_SQL_CONNECTION: 'alloydb-postgre-sql-connection',
   ALLOYDB_POSTGRE_SQL_BACKUP: 'alloydb-postgre-sql-backup',
-  PROJECT_HAS_ALLOYDB_SERVICE_RELATIONSHIP:
-    'project-has-alloydb-service-relationship',
-  PROJECT_HAS_ALLOYDB_CLUSTER_RELATIONSHIP:
-    'project-has-alloydb-cluster-relationship',
-  ALLOYDB_INSTANCE_USES_CLUSTER_RELATIONSHIP:
-    'alloydb-instance-uses-cluster-relationship',
-  ALLOYDB_CLUSTER_HAS_BACKUP_RELATIONSHIP:
-    'alloydb-cluster-has-backup-relationship',
-  ALLOYDB_INSTANCE_HAS_CONNECTION_RELATIONSHIP:
-    'alloydb-instance-has-connection-relationship',
-  ALLOYDB_CLUSTER_USES_KMS_KEY_RELATIONSHIP:
-    'alloydb-cluster-uses-kms-key-relationship',
-  USER_ASSIGNED_ALLOYDB_CLUSTER_RELATIONSHIP:
-    'google-user-assigned-alloydb-cluster-relationship',
 };
 
 // IngestionSources Configs
@@ -118,39 +113,9 @@ export const AlloyDBIngestionConfig = {
     description: 'AlloyDB for Postgre SQL Connection.',
     defaultsToDisabled: false,
   },
-  [IngestionSources.PROJECT_HAS_ALLOYDB_SERVICE_RELATIONSHIP]: {
-    title: 'Project AlloyDB Service Has Relationship',
-    description: 'Build Project AlloyDB Service Has Relationship.',
-    defaultsToDisabled: false,
-  },
-  [IngestionSources.PROJECT_HAS_ALLOYDB_CLUSTER_RELATIONSHIP]: {
-    title: 'Project AlloyDB Cluster Has Relationship',
-    description: 'Build Project AlloyDB Cluster Has Relationship.',
-    defaultsToDisabled: false,
-  },
-  [IngestionSources.ALLOYDB_INSTANCE_USES_CLUSTER_RELATIONSHIP]: {
-    title: 'AlloyDB Instance Cluster Uses Relationship',
-    description: 'Build AlloyDB Instance Cluster Uses Relationship.',
-    defaultsToDisabled: false,
-  },
-  [IngestionSources.ALLOYDB_CLUSTER_HAS_BACKUP_RELATIONSHIP]: {
-    title: 'AlloyDB Instance Backup Has Relationship',
-    description: 'Build AlloyDB Backup Cluster Has  Relationship.',
-    defaultsToDisabled: false,
-  },
-  [IngestionSources.ALLOYDB_INSTANCE_HAS_CONNECTION_RELATIONSHIP]: {
-    title: 'AlloyDB Instance Connection Has  Relationship',
-    description: 'Build AlloyDB Instance Connection Has Relationship.',
-    defaultsToDisabled: false,
-  },
-  [IngestionSources.ALLOYDB_CLUSTER_USES_KMS_KEY_RELATIONSHIP]: {
-    title: 'AlloyDB Cluster Kms Key Uses Relationship',
-    description: 'Build AlloyDB Cluster Kms Key Has Relationship.',
-    defaultsToDisabled: false,
-  },
-  [IngestionSources.USER_ASSIGNED_ALLOYDB_CLUSTER_RELATIONSHIP]: {
-    title: 'Google User Assigned AlloyDB Cluster Relationship',
-    description: 'Build Google User Assigned AlloyDB Cluster Relationship.',
+  [IngestionSources.ALLOYDB_POSTGRE_SQL_BACKUP]: {
+    title: 'AlloyDB for Postgre SQL Backup',
+    description: 'AlloyDB for Postgre SQL Backup.',
     defaultsToDisabled: false,
   },
 };
@@ -162,4 +127,96 @@ export const AlloyDBPermissions = {
   STEP_ALLOYDB_POSTGRE_SQL_CONNECTION: ['alloydb.instances.connect'],
   STEP_ALLOYDB_POSTGRE_SQL_BACKUP: ['alloydb.backups.get'],
   STEP_USER_ASSIGNED_ALLOYDB_CLUSTER_RELATIONSHIP: ['alloydb.users.list'], // to fetch alloydb cluster users
+};
+
+// Entities
+
+export const Entities: Record<
+  | 'ALLOYDB_POSTGRE_SQL_BACKUP'
+  | 'ALLOYDB_POSTGRE_SQL_CLUSTER'
+  | 'ALLOYDB_POSTGRE_SQL_CONNECTION'
+  | 'ALLOYDB_POSTGRE_SQL_ALLOYDB_INSTANCE'
+  | 'ALLOYDB_POSTGRE_SQL_SERVICE',
+  StepEntityMetadata
+> = {
+  ALLOYDB_POSTGRE_SQL_BACKUP: {
+    resourceName: 'AlloyDB for PostgreSQL Backup',
+    _type: ENTITY_TYPE_POSTGRE_SQL_BACKUP,
+    _class: ENTITY_CLASS_POSTGRE_SQL_BACKUP,
+  },
+  ALLOYDB_POSTGRE_SQL_CLUSTER: {
+    resourceName: ' AlloyDB for PostgreSQL Cluster',
+    _type: ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_CLUSTER,
+    _class: ENTITY_CLASS_POSTGRE_SQL_CLUSTER,
+  },
+  ALLOYDB_POSTGRE_SQL_CONNECTION: {
+    resourceName: 'AlloyDB for PostgreSQL Connection',
+    _type: ENTITY_TYPE_POSTGRE_SQL_CONNECTION,
+    _class: ENTITY_CLASS_POSTGRE_SQL_CONNECTION,
+  },
+  ALLOYDB_POSTGRE_SQL_ALLOYDB_INSTANCE: {
+    resourceName: 'AlloyDB for PostgreSQL Instances',
+    _type: ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_INSTANCE,
+    _class: ENTITY_CLASS_POSTGRE_SQL_INSTANCE,
+  },
+  ALLOYDB_POSTGRE_SQL_SERVICE: {
+    resourceName: 'AlloyDB for PostgreSQL',
+    _type: ENTITY_TYPE_ALLOYDB_POSTGRE_SQL_SERVICE,
+    _class: ENTITY_CLASS_ALLOYDB_POSTGRE_SQL_SERVICE,
+  },
+};
+
+// Relationships
+export const Relationships: Record<
+  | 'ALLOYDB_CLUSTER_HAS_BACKUP'
+  | 'ALLOYDB_CLUSTER_USES_KMS_KEY'
+  | 'ALLOYDB_INSTANCE_HAS_CONNECTION_BACKUP'
+  | 'ALLOYDB_INSTANCE_USES_CLUSTER'
+  | 'PROJECT_HAS_ALLOYDB_SERVICE'
+  | 'PROJECT_HAS_ALLOYDB_CLUSTER'
+  | 'USER_ASSIGNED_ALLOYDB_CLUSTER',
+  StepRelationshipMetadata
+> = {
+  ALLOYDB_CLUSTER_HAS_BACKUP: {
+    _type: RELATIONSHIP_TYPE_ALLOYDB_CLUSTER_HAS_BACKUP,
+    sourceType: ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_CLUSTER,
+    _class: RelationshipClass.HAS,
+    targetType: ENTITY_TYPE_POSTGRE_SQL_BACKUP,
+  },
+  ALLOYDB_CLUSTER_USES_KMS_KEY: {
+    _type: RELATIONSHIP_TYPE_ALLOYDB_CLUSTER_USES_KMS_KEY,
+    sourceType: ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_CLUSTER,
+    _class: RelationshipClass.USES,
+    targetType: ENTITY_TYPE_KMS_KEY,
+  },
+  ALLOYDB_INSTANCE_HAS_CONNECTION_BACKUP: {
+    _type: RELATIONSHIP_TYPE_STEP_ALLOYDB_INSTANCE_HAS_CONNECTION_BACKUP,
+    sourceType: ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_INSTANCE,
+    _class: RelationshipClass.HAS,
+    targetType: ENTITY_TYPE_POSTGRE_SQL_CONNECTION,
+  },
+  ALLOYDB_INSTANCE_USES_CLUSTER: {
+    _type: RELATIONSHIP_TYPE_ALLOYDB_INSTANCE_USES_CLUSTER,
+    sourceType: ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_INSTANCE,
+    _class: RelationshipClass.USES,
+    targetType: ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_CLUSTER,
+  },
+  PROJECT_HAS_ALLOYDB_SERVICE: {
+    _type: RELATIONSHIP_TYPE_PROJECT_HAS_ALLOYDB_SERVICE,
+    sourceType: PROJECT_ENTITY_TYPE,
+    _class: RelationshipClass.HAS,
+    targetType: ENTITY_TYPE_ALLOYDB_POSTGRE_SQL_SERVICE,
+  },
+  PROJECT_HAS_ALLOYDB_CLUSTER: {
+    _type: RELATIONSHIP_TYPE_PROJECT_HAS_ALLOYDB_CLUSTER,
+    sourceType: PROJECT_ENTITY_TYPE,
+    _class: RelationshipClass.HAS,
+    targetType: ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_CLUSTER,
+  },
+  USER_ASSIGNED_ALLOYDB_CLUSTER: {
+    _type: RELATIONSHIP_TYPE_USER_ASSIGNED_ALLOYDB_CLUSTER,
+    sourceType: GOOGLE_USER_ENTITY_TYPE,
+    _class: RelationshipClass.ASSIGNED,
+    targetType: ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_CLUSTER,
+  },
 };

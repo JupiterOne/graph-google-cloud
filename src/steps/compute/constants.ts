@@ -1,3 +1,9 @@
+import {
+  RelationshipClass,
+  StepEntityMetadata,
+  StepRelationshipMetadata,
+} from '@jupiterone/integration-sdk-core';
+
 // Steps
 export const STEP_COMPUTE_INSTANCES = 'fetch-compute-instances';
 export const STEP_COMPUTE_INSTANCE_SERVICE_ACCOUNT_RELATIONSHIPS =
@@ -450,4 +456,32 @@ export const ComputePermissions = {
   STEP_COMPUTE_IMAGES: ['compute.images.list', 'compute.images.getIamPolicy'],
   STEP_COMPUTE_DISK_IMAGE_RELATIONSHIPS: ['compute.images.get'],
   STEP_COMPUTE_ROUTER: ['compute.routers.list'],
+};
+
+export const Entities: Record<'COMPUTE_ROUTER', StepEntityMetadata> = {
+  COMPUTE_ROUTER: {
+    resourceName: 'Cloud Compute Router',
+    _type: ENTITY_TYPE_COMPUTE_ROUTER,
+    _class: ENTITY_CLASS_COMPUTE_ROUTER,
+    schema: {
+      properties: {
+        make: { exclude: true },
+        model: { exclude: true },
+        serial: { exclude: true },
+        lastSeenOn: { exclude: true },
+      },
+    },
+  },
+};
+
+export const Relationships: Record<
+  'COMPUTE_NETWORK_HAS_ROUTER',
+  StepRelationshipMetadata
+> = {
+  COMPUTE_NETWORK_HAS_ROUTER: {
+    _class: RelationshipClass.HAS,
+    _type: RELATIONSHIP_TYPE_COMPUTE_NETWORK_HAS_ROUTER,
+    sourceType: ENTITY_TYPE_COMPUTE_NETWORK,
+    targetType: ENTITY_TYPE_COMPUTE_ROUTER,
+  },
 };

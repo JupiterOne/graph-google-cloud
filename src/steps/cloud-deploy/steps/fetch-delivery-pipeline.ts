@@ -4,8 +4,7 @@ import {
 } from '../../../types';
 import { CloudDeployClient } from '../client';
 import {
-  ENTITY_CLASS_CLOUD_DEPLOY_DELIVERY_PIPELINE,
-  ENTITY_TYPE_CLOUD_DEPLOY_DELIVERY_PIPELINE,
+  Entities,
   STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE,
 } from '../constant';
 import { IngestionSources, CloudDeployPermissions } from '../constant';
@@ -40,13 +39,7 @@ export const fetchCloudDeployDeliveryPipelinesStep: GoogleCloudIntegrationStep =
     id: STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE,
     ingestionSourceId: IngestionSources.CLOUD_DEPLOY_DELIVERY_PIPELINES,
     name: 'Cloud Deploy Delivery Pipeline',
-    entities: [
-      {
-        resourceName: 'Cloud Deploy Delivery Pipeline',
-        _type: ENTITY_TYPE_CLOUD_DEPLOY_DELIVERY_PIPELINE,
-        _class: ENTITY_CLASS_CLOUD_DEPLOY_DELIVERY_PIPELINE,
-      },
-    ],
+    entities: [Entities.CLOUD_DEPLOY_DELIVERY_PIPELINE],
     relationships: [],
     dependsOn: [],
     executionHandler: fetchCloudDeployDeliveryPipeline,

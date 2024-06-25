@@ -9,8 +9,8 @@ import {
 } from '../../../types';
 import {
   ENTITY_TYPE_CLOUD_DEPLOY_DELIVERY_PIPELINE,
-  IngestionSources,
   MAPPED_RELATIONSHIP_TYPE_CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_GITHUB_REPO,
+  MappedRelationships,
   STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE,
   STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_GITHUB_REPO_RELAIONSHIP,
 } from '../constant';
@@ -47,20 +47,11 @@ export const buildCloudDeployPipelinesUsesGithubRepositoryStep: GoogleCloudInteg
   {
     id: STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_GITHUB_REPO_RELAIONSHIP,
     name: 'Cloud Deploy Delivery Pipeline Uses Github Repo Relationship',
-    ingestionSourceId:
-      IngestionSources.CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_GITHUB_REPO_RELATIONSHIP,
     entities: [],
     dependsOn: [STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE],
     relationships: [],
     mappedRelationships: [
-      {
-        _type:
-          MAPPED_RELATIONSHIP_TYPE_CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_GITHUB_REPO,
-        sourceType: ENTITY_TYPE_CLOUD_DEPLOY_DELIVERY_PIPELINE,
-        _class: RelationshipClass.USES,
-        targetType: 'github_repo',
-        direction: RelationshipDirection.FORWARD,
-      },
+      MappedRelationships.CLOUD_DEPLOY_DELIVERY_PIPELINE_USES_GITHUB_REPO,
     ],
     executionHandler: buildCloudDeployDeliveryPipelineGithubRepoRelationship,
   };

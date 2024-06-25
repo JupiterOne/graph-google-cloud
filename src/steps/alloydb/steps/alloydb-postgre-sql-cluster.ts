@@ -5,8 +5,7 @@ import {
 import { AlloyDBClient } from '../client';
 import {
   AlloyDBPermissions,
-  ENTITY_CLASS_POSTGRE_SQL_CLUSTER,
-  ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_CLUSTER,
+  Entities,
   IngestionSources,
   STEP_ALLOYDB_POSTGRE_SQL_CLUSTER,
 } from '../constants';
@@ -33,11 +32,7 @@ export const alloyDBPostgreSQLClusterStep: GoogleCloudIntegrationStep = {
   ingestionSourceId: IngestionSources.ALLOYDB_POSTGRE_SQL_CLUSTER,
   name: 'fetch-alloydb-postgre-sql-cluster',
   entities: [
-    {
-      resourceName: ' AlloyDB for PostgreSQL Cluster',
-      _type: ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_CLUSTER,
-      _class: ENTITY_CLASS_POSTGRE_SQL_CLUSTER,
-    },
+    Entities.ALLOYDB_POSTGRE_SQL_CLUSTER
   ],
   relationships: [],
   dependsOn: [],

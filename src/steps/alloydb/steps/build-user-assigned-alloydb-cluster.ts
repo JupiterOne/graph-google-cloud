@@ -12,12 +12,11 @@ import {
   AlloyDBPermissions,
   ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_CLUSTER,
   RELATIONSHIP_TYPE_USER_ASSIGNED_ALLOYDB_CLUSTER,
+  Relationships,
   STEP_ALLOYDB_POSTGRE_SQL_CLUSTER,
   STEP_USER_ASSIGNED_ALLOYDB_CLUSTER_RELATIONSHIP,
 } from '../constants';
 
-import { IngestionSources } from '../constants';
-import { GOOGLE_USER_ENTITY_TYPE } from '../../iam';
 import { AlloyDBClient } from '../client';
 import { parseIamMember } from '../../../utils/iam';
 import { CREATE_IAM_ENTITY_MAP } from '../../resource-manager/createIamEntities';
@@ -85,17 +84,10 @@ export async function buildUserAssignedAlloyDbClusterRelationship(
 export const buildUserAssignedAlloyDbClusterRelationshipStep: GoogleCloudIntegrationStep =
   {
     id: STEP_USER_ASSIGNED_ALLOYDB_CLUSTER_RELATIONSHIP,
-    ingestionSourceId:
-      IngestionSources.USER_ASSIGNED_ALLOYDB_CLUSTER_RELATIONSHIP,
     name: 'Build User Assigned AlloyDb Cluster Relationship',
     entities: [],
     relationships: [
-      {
-        _type: RELATIONSHIP_TYPE_USER_ASSIGNED_ALLOYDB_CLUSTER,
-        sourceType: GOOGLE_USER_ENTITY_TYPE,
-        _class: RelationshipClass.ASSIGNED,
-        targetType: ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_CLUSTER,
-      },
+      Relationships.USER_ASSIGNED_ALLOYDB_CLUSTER
     ],
     dependsOn: [STEP_ALLOYDB_POSTGRE_SQL_CLUSTER],
     executionHandler: buildUserAssignedAlloyDbClusterRelationship,

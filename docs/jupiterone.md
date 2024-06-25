@@ -91,7 +91,6 @@ all of the supported data into JupiterOne:
 | [spanner](https://console.developers.google.com/apis/library/spanner.googleapis.com)                           | spanner.googleapis.com              |
 | [storage](https://console.developers.google.com/apis/library/storage.googleapis.com)                           | storage.googleapis.com              |
 | [websecurityscanner](https://console.developers.google.com/apis/library/websecurityscanner.googleapis.com)     | websecurityscanner.googleapis.com   |
-
 <!-- {J1_APIS_DOCUMENTATION_LINKS_MARKER_END} -->
 
 Google Cloud service APIs can be enabled using one of the following methods:
@@ -116,7 +115,7 @@ integration supports:
 **NOTE**: You can only enable 20 services at a time.
 
 <!-- {J1_APIS_DOCUMENTATION_MARKER_START} -->
-
+    
 ```
 gcloud services enable \
  accesscontextmanager.googleapis.com \
@@ -154,8 +153,7 @@ gcloud services enable \
  spanner.googleapis.com \
  storage.googleapis.com \
  websecurityscanner.googleapis.com
-```
-
+  ```
 <!-- {J1_APIS_DOCUMENTATION_MARKER_END} -->
 
 #### Creating Google Cloud project service account
@@ -758,5 +756,4 @@ permissions can be used to provision only the required ones:
 | `spanner.instances.list`                                |
 | `storage.buckets.getIamPolicy`                          |
 | `storage.buckets.list`                                  |
-
 <!-- {J1_PERMISSIONS_DOCUMENTATION_MARKER_END} -->

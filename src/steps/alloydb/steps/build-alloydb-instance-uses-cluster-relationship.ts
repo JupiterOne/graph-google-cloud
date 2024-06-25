@@ -1,5 +1,4 @@
 import {
-  IntegrationMissingKeyError,
   RelationshipClass,
   createDirectRelationship,
 } from '@jupiterone/integration-sdk-core';
@@ -10,19 +9,18 @@ import {
 import {
   ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_CLUSTER,
   ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_INSTANCE,
-  RELATIONSHIP_TYPE_ALLOYDB_INSTANCE_USES_CLUSTER,
+  Relationships,
   STEP_ALLOYDB_INSTANCE_USES_CLUSTER_RELATIONSHIP,
   STEP_ALLOYDB_POSTGRE_SQL_CLUSTER,
   STEP_ALLOYDB_POSTGRE_SQL_INSTANCE,
 } from '../constants';
 
-import { IngestionSources } from '../constants';
 import { getKey } from '../converter';
 
 export async function buildAlloyDBInstanceUsesClusterRelationship(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
+  const { jobState, logger } = context;
 
   await jobState.iterateEntities(
     { _type: ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_INSTANCE },
@@ -39,20 +37,21 @@ export async function buildAlloyDBInstanceUsesClusterRelationship(
       );
 
       if (!jobState.hasKey(clusterKey)) {
-        throw new IntegrationMissingKeyError(`
+        logger.warn(`
         Step Name: Build Alloydb Instance Uses Cluster Relationship
         Cluster Key: ${clusterKey}
         `);
+      } else {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.USES,
+            fromKey: instance._key as string,
+            fromType: ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_INSTANCE,
+            toKey: clusterKey,
+            toType: ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_CLUSTER,
+          }),
+        );
       }
-      await jobState.addRelationship(
-        createDirectRelationship({
-          _class: RelationshipClass.USES,
-          fromKey: instance._key as string,
-          fromType: ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_INSTANCE,
-          toKey: clusterKey,
-          toType: ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_CLUSTER,
-        }),
-      );
     },
   );
 }
@@ -60,18 +59,9 @@ export async function buildAlloyDBInstanceUsesClusterRelationship(
 export const buildInstanceClusterRelationshipStep: GoogleCloudIntegrationStep =
   {
     id: STEP_ALLOYDB_INSTANCE_USES_CLUSTER_RELATIONSHIP,
-    ingestionSourceId:
-      IngestionSources.ALLOYDB_INSTANCE_USES_CLUSTER_RELATIONSHIP,
     name: 'Build Alloydb Instance Uses Cluster Relationship',
     entities: [],
-    relationships: [
-      {
-        _type: RELATIONSHIP_TYPE_ALLOYDB_INSTANCE_USES_CLUSTER,
-        sourceType: ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_INSTANCE,
-        _class: RelationshipClass.USES,
-        targetType: ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_CLUSTER,
-      },
-    ],
+    relationships: [Relationships.ALLOYDB_INSTANCE_USES_CLUSTER],
     dependsOn: [
       STEP_ALLOYDB_POSTGRE_SQL_INSTANCE,
       STEP_ALLOYDB_POSTGRE_SQL_CLUSTER,

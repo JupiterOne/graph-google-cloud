@@ -3,8 +3,7 @@ import {
   IntegrationStepContext,
 } from '../../../types';
 import {
-  ENTITY_CLASS_CLOUD_DEPLOY_SERVICE,
-  ENTITY_TYPE_CLOUD_DEPLOY_SERVICE,
+  Entities,
   STEP_CLOUD_DEPLOY_SERVICE,
 } from '../constant';
 import { IngestionSources } from '../constant';
@@ -29,11 +28,7 @@ export const fetchCloudDeployServiceStep: GoogleCloudIntegrationStep = {
   ingestionSourceId: IngestionSources.CLOUD_DEPLOY_SERVICE,
   name: 'Cloud Deploy Service',
   entities: [
-    {
-      resourceName: 'Cloud Deploy Service',
-      _type: ENTITY_TYPE_CLOUD_DEPLOY_SERVICE,
-      _class: ENTITY_CLASS_CLOUD_DEPLOY_SERVICE,
-    },
+    Entities.CLOUD_DEPLOY_SERVICE
   ],
   relationships: [],
   dependsOn: [],

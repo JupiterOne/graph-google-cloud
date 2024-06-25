@@ -1,5 +1,4 @@
 import {
-  IntegrationMissingKeyError,
   RelationshipClass,
   createDirectRelationship,
 } from '@jupiterone/integration-sdk-core';
@@ -10,19 +9,18 @@ import {
 import {
   ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_INSTANCE,
   ENTITY_TYPE_POSTGRE_SQL_CONNECTION,
-  RELATIONSHIP_TYPE_STEP_ALLOYDB_INSTANCE_HAS_CONNECTION_BACKUP,
+  Relationships,
   STEP_ALLOYDB_INSTANCE_HAS_CONNECTION_RELATIONSHIP,
   STEP_ALLOYDB_POSTGRE_SQL_CONNECTION,
   STEP_ALLOYDB_POSTGRE_SQL_INSTANCE,
 } from '../constants';
 
 import { getKey } from '../converter';
-import { IngestionSources } from '../constants';
 
 export async function buildAlloyDBInstanceHasConnectionRelationship(
   context: IntegrationStepContext,
 ): Promise<void> {
-  const { jobState } = context;
+  const { jobState, logger } = context;
 
   await jobState.iterateEntities(
     { _type: ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_INSTANCE },
@@ -33,22 +31,22 @@ export async function buildAlloyDBInstanceHasConnectionRelationship(
       );
 
       if (!jobState.hasKey(connectionKey)) {
-        throw new IntegrationMissingKeyError(`
+        logger.warn(`
           Step Name: Build AlloyDb Instance Has Connecction Relationship
           Entity Name: AlloyDB Connection,
           Key: ${connectionKey} 
           `);
+      } else {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.HAS,
+            fromKey: instance._key,
+            fromType: ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_INSTANCE,
+            toKey: connectionKey,
+            toType: ENTITY_TYPE_POSTGRE_SQL_CONNECTION,
+          }),
+        );
       }
-
-      await jobState.addRelationship(
-        createDirectRelationship({
-          _class: RelationshipClass.HAS,
-          fromKey: instance._key,
-          fromType: ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_INSTANCE,
-          toKey: connectionKey,
-          toType: ENTITY_TYPE_POSTGRE_SQL_CONNECTION,
-        }),
-      );
     },
   );
 }
@@ -56,18 +54,9 @@ export async function buildAlloyDBInstanceHasConnectionRelationship(
 export const buildAlloyDBInstanceHasConnectionRelationshipStep: GoogleCloudIntegrationStep =
   {
     id: STEP_ALLOYDB_INSTANCE_HAS_CONNECTION_RELATIONSHIP,
-    ingestionSourceId:
-      IngestionSources.ALLOYDB_INSTANCE_HAS_CONNECTION_RELATIONSHIP,
     name: 'Build AlloyDb Instance Has Connecction Relationship',
     entities: [],
-    relationships: [
-      {
-        _type: RELATIONSHIP_TYPE_STEP_ALLOYDB_INSTANCE_HAS_CONNECTION_BACKUP,
-        sourceType: ENTITY_TYPE_POSTGRE_SQL_ALLOYDB_INSTANCE,
-        _class: RelationshipClass.HAS,
-        targetType: ENTITY_TYPE_POSTGRE_SQL_CONNECTION,
-      },
-    ],
+    relationships: [Relationships.ALLOYDB_INSTANCE_HAS_CONNECTION_BACKUP],
     dependsOn: [
       STEP_ALLOYDB_POSTGRE_SQL_INSTANCE,
       STEP_ALLOYDB_POSTGRE_SQL_CONNECTION,

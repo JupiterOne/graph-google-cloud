@@ -27,7 +27,7 @@ export function getAlloyDBforPostgreSQLServiceEntity(serviceObj) {
   };
   return createGoogleCloudIntegrationEntity(data, {
     entityData: {
-      source: {},
+      source: data,
       assign: {
         _class: ENTITY_CLASS_ALLOYDB_POSTGRE_SQL_SERVICE,
         _type: ENTITY_TYPE_ALLOYDB_POSTGRE_SQL_SERVICE,

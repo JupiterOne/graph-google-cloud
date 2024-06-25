@@ -4,9 +4,8 @@ import {
 } from '../../../types';
 import { CloudDeployClient } from '../client';
 import {
-  ENTITY_CLASS_CLOUD_DEPLOY_AUTOMATION,
-  ENTITY_TYPE_CLOUD_DEPLOY_AUTOMATION,
   ENTITY_TYPE_CLOUD_DEPLOY_DELIVERY_PIPELINE,
+  Entities,
   STEP_CLOUD_DEPLOY_AUTOMATION,
   STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE,
 } from '../constant';
@@ -55,11 +54,7 @@ export const fetchCloudDeployAutomationsStep: GoogleCloudIntegrationStep = {
   ingestionSourceId: IngestionSources.CLOUD_DEPLOY_AUTOMATION,
   name: 'Cloud Deploy Automation',
   entities: [
-    {
-      resourceName: 'Cloud Deploy Automation',
-      _type: ENTITY_TYPE_CLOUD_DEPLOY_AUTOMATION,
-      _class: ENTITY_CLASS_CLOUD_DEPLOY_AUTOMATION,
-    },
+   Entities.CLOUD_DEPLOY_AUTOMATION
   ],
   relationships: [],
   dependsOn: [STEP_CLOUD_DEPLOY_DELIVERY_PIPELINE],

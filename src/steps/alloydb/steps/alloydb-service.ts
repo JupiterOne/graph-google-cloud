@@ -3,8 +3,7 @@ import {
   IntegrationStepContext,
 } from '../../../types';
 import {
-  ENTITY_CLASS_ALLOYDB_POSTGRE_SQL_SERVICE,
-  ENTITY_TYPE_ALLOYDB_POSTGRE_SQL_SERVICE,
+  Entities,
   IngestionSources,
   STEP_ALLOYDB_POSTGRE_SQL_SERVICE,
 } from '../constants';
@@ -33,11 +32,7 @@ export const alloyDBPostgreSQLServiceStep: GoogleCloudIntegrationStep = {
   ingestionSourceId: IngestionSources.ALLOYDB_POSTGRE_SQL_SERVICE,
   name: 'AlloyDB Postgre SQL',
   entities: [
-    {
-      resourceName: 'AlloyDB for PostgreSQL',
-      _type: ENTITY_TYPE_ALLOYDB_POSTGRE_SQL_SERVICE,
-      _class: ENTITY_CLASS_ALLOYDB_POSTGRE_SQL_SERVICE,
-    },
+    Entities.ALLOYDB_POSTGRE_SQL_SERVICE
   ],
   relationships: [],
   dependsOn: [],
